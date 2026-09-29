@@ -166,7 +166,7 @@ def remap_user_progress_to_canonical(connection: Connection) -> int:
 
     Строки без группы (нет перевода на этот язык) не трогаются.
     """
-    merged = connection.execute(
+    connection.execute(
         sa.text(
             """
             CREATE TEMPORARY TABLE uw_canonical AS

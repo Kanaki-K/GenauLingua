@@ -141,7 +141,7 @@ async def main():
     logger.info("   ✅ admin.py")
 
     scheduler = setup_scheduler(bot)
-    logger.info("⏰ Notification scheduler started")
+    logger.info("⏰ Планировщик запущен, работ: %d", len(scheduler.get_jobs()))
 
     await dp.start_polling(bot)
 

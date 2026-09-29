@@ -1,0 +1,117 @@
+name: CI
+
+on:
+  push:
+    branches: [main, "feature/**", "fix/**"]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  # Новый пуш в ту же ветку отменяет предыдущий прогон
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_pass
+          POSTGRES_DB: genaulingua_test
+        ports:
+          - 5433:5432
+        # Без healthcheck шаги начнутся раньше, чем база примет соединения
+        options: >-
+          --health-cmd "pg_isready -U test_user -d genaulingua_test"
+          --health-interval 3s
+          --health-timeout 3s
+          --health-retries 20
+
+    env:
+      # Настройки берутся из окружения: .env в репозиторий не коммитится
+      DATABASE_URL: postgresql+asyncpg://test_user:test_pass@localhost:5433/genaulingua_test
+      DATABASE_URL_SYNC: postgresql+psycopg2://test_user:test_pass@localhost:5433/genaulingua_test
+      TEST_DATABASE_URL: postgresql://test_user:test_pass@localhost:5433/genaulingua_test
+      BOT_TOKEN: "0:ci"
+      ADMIN_USER: "1"
+      ENV: ci
+      PYTHONIOENCODING: utf-8
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+
+      - name: Установить зависимости
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
+      - name: Миграции применяются с нуля
+        # Ловит поломки вида «ALTER TYPE ADD VALUE в той же транзакции»,
+        # которые на давно живущей базе не воспроизводятся
+        run: alembic upgrade head
+
+      - name: Миграции обратимы
+        run: |
+          alembic downgrade e8f9a0b1c2d3
+          alembic downgrade d7e8f9a0b1c2
+          alembic upgrade head
+
+      - name: Тесты
+        run: pytest -q
+
+      - name: Проверить, что модели совпадают со схемой
+        # Пустой автогенерируемый diff означает, что models.py и миграции
+        # не разъехались. Расхождение ловится тут, а не на проде.
+        run: |
+          alembic revision --autogenerate -m "ci drift check" --rev-id ci_drift
+          python - <<'PY'
+          import pathlib, re, sys
+          path = next(pathlib.Path("alembic/versions").glob("ci_drift_*.py"))
+          body = path.read_text(encoding="utf-8")
+          upgrade = body.split("def upgrade()")[1].split("def downgrade()")[0]
+          operations = [
+              line.strip() for line in upgrade.splitlines()
+              if line.strip().startswith("op.")
+          ]
+          path.unlink()
+          if operations:
+              print("Модели разошлись со схемой. Автогенерация предлагает:")
+              for op in operations:
+                  print("   ", op)
+              sys.exit(1)
+          print("Расхождений нет.")
+          PY
+
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Установить ruff
+        run: pip install ruff==0.9.4
+
+      - name: Ошибки, которые ломают рантайм
+        # Узкий набор правил осознанно: цель — ловить настоящие поломки
+        # (неопределённые имена, недостижимый код, ошибки f-строк),
+        # а не переформатировать существующий код.
+        run: |
+          ruff check app tests --select F,E9,B002,B006,B008 --ignore F401,F403,F405
+
+      - name: Синтаксис компилируется
+        run: python -m compileall -q app tests

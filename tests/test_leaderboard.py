@@ -25,7 +25,6 @@ from app.services.word_stats import (
 
 
 async def _season(session):
-    today = date.today()
     return await get_or_create_current_season(session)
 
 
@@ -78,7 +77,7 @@ class TestReverseBonus:
     """
 
     async def test_reverse_quiz_counted(self, session, user):
-        season = await _season(session)
+        await _season(session)
 
         quiz = _completed_quiz(user.id, reverse=True)
         session.add(quiz)

@@ -230,6 +230,9 @@ class Word(Base):
 
 class QuizSession(Base):
     __tablename__ = "quiz_sessions"
+    __table_args__ = (
+        Index("ix_quiz_sessions_user_completed", "user_id", "completed_at"),
+    )
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     user_id: Mapped[int] = mapped_column(
@@ -362,6 +365,9 @@ class MonthlyStats(Base):
     __table_args__ = (
         UniqueConstraint("user_id", "season_id", "learning_lang",
                          name="uq_monthly_stats_user_season_lang"),
+        Index("ix_monthly_stats_user_id", "user_id"),
+        Index("ix_monthly_stats_season_id", "season_id"),
+        Index("ix_monthly_stats_score", "monthly_score"),
     )
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
@@ -424,9 +430,16 @@ class MonthlyStats(Base):
 class MonthlyQuizEvent(Base):
     """Таблица для идемпотентности - какие викторины уже учтены"""
     __tablename__ = "monthly_quiz_events"
+    __table_args__ = (
+        UniqueConstraint("quiz_session_id", name="uq_quiz_event_session"),
+        Index("ix_monthly_quiz_events_user_id", "user_id"),
+        Index("ix_monthly_quiz_events_season_id", "season_id"),
+    )
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    quiz_session_id: Mapped[int] = mapped_column(Integer, unique=True, nullable=False, index=True)
+    # Уникальность и индекс объявлены в __table_args__ выше; дублировать
+    # их на колонке нельзя — получается лишний индекс
+    quiz_session_id: Mapped[int] = mapped_column(Integer, nullable=False)
     user_id: Mapped[int] = mapped_column(BigInteger, nullable=False)
     season_id: Mapped[int] = mapped_column(Integer, nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
@@ -435,6 +448,9 @@ class MonthlyQuizEvent(Base):
 class WinStreak(Base):
     """Серия побед пользователя (win streak)"""
     __tablename__ = "win_streaks"
+    __table_args__ = (
+        UniqueConstraint("user_id", name="uq_win_streak_user"),
+    )
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     user_id: Mapped[int] = mapped_column(BigInteger, ForeignKey("users.id", ondelete="CASCADE"), unique=True,
@@ -479,6 +495,10 @@ class WinStreak(Base):
 class MonthlyAward(Base):
     """Награды за месячные достижения"""
     __tablename__ = "monthly_awards"
+    __table_args__ = (
+        Index("ix_monthly_awards_user_id", "user_id"),
+        Index("ix_monthly_awards_season_id", "season_id"),
+    )
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     user_id: Mapped[int] = mapped_column(BigInteger, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
@@ -504,6 +524,7 @@ class TranslationReport(Base):
     __tablename__ = "translation_reports"
     __table_args__ = (
         UniqueConstraint("user_id", "word_id", name="uq_translation_reports_user_word"),
+        Index("ix_translation_reports_status", "status"),
     )
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)

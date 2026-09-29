@@ -391,7 +391,6 @@ async def show_next_question(callback: CallbackQuery, state: FSMContext, session
     data = await state.get_data()
     current_question = data["current_question"] + 1
     total_questions = data["total_questions"]
-    errors = data.get("errors", [])
     used_word_ids = data.get("used_word_ids", [])
 
     is_error_repeat = data.get("is_error_repeat", False)

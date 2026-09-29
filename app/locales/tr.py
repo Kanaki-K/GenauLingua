@@ -284,7 +284,7 @@ TEXTS = {
     "stats_streak": "└─ Seri: <b>{days}</b> gün üst üste",
 
     "stats_recent_title": "<b>Son testler:</b>",
-    "stats_learned_explanation": "💡 <b>Öğrenildi</b> — bir kelimeye üst üste 3 doğru cevap",
+    "stats_learned_explanation": "💡 <b>Öğrenildi</b> — üst üste 3 doğru cevap, ve kelimeyle tanıştığın gün değil",
 
     # ============================================================================
     # YARDIM
@@ -299,8 +299,10 @@ TEXTS = {
     "help_btn_about": "ℹ️ Hakkında",
 
     "help_how_to_use_title": "📖 <b>Botu nasıl kullanırsın</b>",
-    "help_how_to_use_text": """1️⃣ <b>Seviye ve modu ayarla</b>
-🦾 Ayarlar → A1–C2 seviye, çeviri modu ve arayüz dili seç.
+    "help_how_to_use_text": """1️⃣ <b>Hangi dili öğreneceğini seç</b>
+🦾 Ayarlar → 🎯 Hangi dili öğrenmek: Almanca, İngilizce, Rusça, Ukraynaca veya Türkçe.
+Aynı ekranda: A1–C2 seviyesi, çeviri yönü ve arayüz dili.
+İlerleme her dil için ayrı tutulur, iki dili birlikte öğrenebilirsin.
 
 2️⃣ <b>Test modunu seç</b>
 🦾 Ayarlar → 📝 Test modu:
@@ -371,7 +373,8 @@ Topluluk ne kadar aktif olursa — bot o kadar iyi olur. Çekinme! 🙌""",
 • 20 tematik kategori
 • 4 test modu: seviyeye göre, kategoriye göre, top 10K, zor kelimeler
 • Akıllı kelime seçimi — SRS algoritması
-• 4 dil: DE↔RU, DE↔UA, DE↔EN, DE↔TR
+• Seçilebilecek 5 dil: Almanca, İngilizce, Rusça, Ukraynaca, Türkçe —
+  herhangi bir çiftte ve iki yönde
 • Testten sonra hataları tekrarla
 • Çeviri hatasını doğrudan testten bildir
 • İstatistik, seri ve ilerleme çubuğu

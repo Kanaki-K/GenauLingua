@@ -527,7 +527,6 @@ async def set_translation_direction(callback: CallbackQuery, session: AsyncSessi
     reverse = callback.data.removeprefix("set_dir_") == "reverse"
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
 
     user.reverse_mode = reverse
     _sync_legacy_mode(user)

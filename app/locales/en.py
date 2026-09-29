@@ -284,7 +284,7 @@ TEXTS = {
     "stats_streak": "└─ Streak: <b>{days}</b> days in a row",
 
     "stats_recent_title": "<b>Recent quizzes:</b>",
-    "stats_learned_explanation": "💡 <b>Learned</b> — 3 correct answers in a row for a word",
+    "stats_learned_explanation": "💡 <b>Learned</b> — 3 correct answers in a row, and not on the day you first met the word",
 
     # ============================================================================
     # HELP
@@ -299,8 +299,10 @@ TEXTS = {
     "help_btn_about": "ℹ️ About",
 
     "help_how_to_use_title": "📖 <b>How to use the bot</b>",
-    "help_how_to_use_text": """1️⃣ <b>Set your level and mode</b>
-🦾 Settings → choose level A1–C2, translation mode and interface language.
+    "help_how_to_use_text": """1️⃣ <b>Pick the language you want to learn</b>
+🦾 Settings → 🎯 Language to learn: German, English, Russian, Ukrainian or Turkish.
+Same screen: level A1–C2, translation direction and interface language.
+Progress is tracked separately per language, so you can learn two at once.
 
 2️⃣ <b>Choose quiz mode</b>
 🦾 Settings → 📝 Quiz mode:
@@ -371,7 +373,8 @@ The more active the community — the better the bot gets. Don't be shy! 🙌"""
 • 20 thematic categories
 • 4 quiz modes: by level, by category, top 10K, difficult words
 • Smart word selection — SRS algorithm
-• 4 languages: DE↔RU, DE↔UA, DE↔EN, DE↔TR
+• 5 languages to choose from: German, English, Russian, Ukrainian, Turkish —
+  any pair, both directions
 • Repeat mistakes after quiz
 • Report translation errors directly from quiz
 • Statistics, streak and progress bar

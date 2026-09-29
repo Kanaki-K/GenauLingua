@@ -171,9 +171,6 @@ async def admin_analytics(callback: CallbackQuery, session: AsyncSession):
 
     await callback.answer()
 
-    total_users_result = await session.execute(select(func.count()).select_from(User))
-    total_users = total_users_result.scalar() or 1
-
     # Retention считается по когортам: «вернулся на следующий календарный день
     # после регистрации», а не «играл когда-нибудь позже дня регистрации».
     # Прежний запрос считал второе и завышал D1 примерно втрое: 31% вместо 11%.
@@ -282,11 +279,11 @@ async def admin_analytics(callback: CallbackQuery, session: AsyncSession):
 
     text += "🔥 <b>Retention (удержание):</b>\n"
     text += f"├─ Day 1: <b>{day1_retention:.1f}%</b> ({day1_returned}/{d1_cohort})\n"
-    text += f"│  └─ <i>вернулись именно на следующий день</i>\n"
+    text += "│  └─ <i>вернулись именно на следующий день</i>\n"
     text += f"├─ Day 7: <b>{day7_retention:.1f}%</b> ({day7_returned}/{d7_cohort})\n"
-    text += f"│  └─ <i>вернулись на 7–14-й день</i>\n"
+    text += "│  └─ <i>вернулись на 7–14-й день</i>\n"
     text += f"└─ Активны за неделю: <b>{active_week}</b>\n"
-    text += f"   └─ <i>уникальных игроков за 7 дней (не retention)</i>\n\n"
+    text += "   └─ <i>уникальных игроков за 7 дней (не retention)</i>\n\n"
 
     if sources:
         text += "📊 <b>Откуда начинают викторины:</b>\n"
@@ -556,7 +553,7 @@ async def admin_churn(callback: CallbackQuery, session: AsyncSession):
     text = "⚠️ <b>ОТТОК ПОЛЬЗОВАТЕЛЕЙ</b>\n\n"
 
     text += f"🔴 <b>Высокий риск: {high_risk_count}</b>\n"
-    text += f"<i>Играли, но не заходили 7+ дней</i>\n"
+    text += "<i>Играли, но не заходили 7+ дней</i>\n"
     if high_risk:
         for first_name, username, last_quiz in high_risk[:5]:
             days_ago = (today - last_quiz).days if last_quiz else 999
@@ -567,20 +564,20 @@ async def admin_churn(callback: CallbackQuery, session: AsyncSession):
     text += "\n"
 
     text += f"🟡 <b>Средний риск: {medium_risk_count}</b>\n"
-    text += f"<i>Не заходили 3-7 дней</i>\n\n"
+    text += "<i>Не заходили 3-7 дней</i>\n\n"
 
     text += f"📊 <b>Churn rate (30 дней): {churn_rate:.1f}%</b>\n"
-    text += f"<i>Из игравших 30+ дней назад — сколько не вернулись</i>\n"
+    text += "<i>Из игравших 30+ дней назад — сколько не вернулись</i>\n"
     if players_month_ago > 0:
         text += f"└─ Ушло: {churned} из {players_month_ago}\n\n"
     else:
-        text += f"└─ Нет данных (нет игроков старше 30 дней)\n\n"
+        text += "└─ Нет данных (нет игроков старше 30 дней)\n\n"
 
     text += f"👻 <b>Ни одной викторины: {never_started}</b>\n"
-    text += f"<i>Зарегистрировались и не начали ни разу</i>\n\n"
+    text += "<i>Зарегистрировались и не начали ни разу</i>\n\n"
 
     text += f"🚪 <b>Начали, но не дошли до конца: {started_never_finished}</b>\n"
-    text += f"<i>Хотя бы одна викторина начата, ни одна не завершена</i>"
+    text += "<i>Хотя бы одна викторина начата, ни одна не завершена</i>"
 
     back_btn = InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="◀️ Назад", callback_data="admin:back")]
@@ -902,13 +899,13 @@ async def _build_reports_text_and_keyboard(session: AsyncSession) -> tuple:
                     callback_data=f"admin:report_approve_{wid}"
                 ),
                 InlineKeyboardButton(
-                    text=f"❌",
+                    text="❌",
                     callback_data=f"admin:report_reject_{wid}"
                 )
             ])
 
         text += f"💡 <i>✅ = подтвердить (юзеры получат +{REPORT_REWARD_POINTS} балл)\n"
-        text += f"❌ = отклонить (баллы не начисляются)</i>\n"
+        text += "❌ = отклонить (баллы не начисляются)</i>\n"
     else:
         text += "✅ Нет pending репортов\n"
 

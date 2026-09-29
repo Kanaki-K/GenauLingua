@@ -16,9 +16,12 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass
-from typing import Iterable, Optional
+from typing import TYPE_CHECKING, Iterable, Optional
 
 from sqlalchemy.orm import InstrumentedAttribute
+
+if TYPE_CHECKING:  # только для аннотаций: в рантайме импорт был бы циклическим
+    from app.database.enums import TranslationMode
 
 
 @dataclass(frozen=True)
