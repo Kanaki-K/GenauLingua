@@ -11,8 +11,11 @@ from aiogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKe
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func, and_, distinct, case, desc, or_
 from datetime import datetime, timedelta, date
+from app.core.clock import utcnow
 from app.database.models import User, QuizSession, QuizQuestion, UserWord, Word, TranslationReport
-from app.services.quiz_service import get_user_progress_stats, get_user_progress_stats_all_levels
+from app.services.quiz_service import get_user_progress_stats
+from app.services.language_service import pair_from_user, pair_label
+from app.services.word_stats import MIN_SHOWS_FOR_DIFFICULTY, difficulty_rank_sql
 from app.config import settings
 
 import logging
@@ -92,7 +95,7 @@ async def _get_main_stats(session: AsyncSession) -> str:
     )
     total_quizzes = total_quizzes_result.scalar()
 
-    day_ago = datetime.utcnow() - timedelta(hours=24)
+    day_ago = utcnow() - timedelta(hours=24)
     quizzes_24h_result = await session.execute(
         select(func.count())
         .select_from(QuizSession)
@@ -146,7 +149,7 @@ async def admin_panel(message: Message, session: AsyncSession):
 
     try:
         await message.delete()
-    except:
+    except Exception:
         pass
 
     text = await _get_main_stats(session)
@@ -651,7 +654,7 @@ async def admin_export_quizzes(callback: CallbackQuery, session: AsyncSession):
     ])
 
     for quiz, username, first_name in quizzes:
-        score = (quiz.correct_answers / quiz.total_questions * 100) if quiz.total_questions > 0 else 0
+        score = quiz.accuracy_percent
         name = first_name or username or ''
         writer.writerow([
             quiz.id,
@@ -660,7 +663,7 @@ async def admin_export_quizzes(callback: CallbackQuery, session: AsyncSession):
             quiz.started_at.strftime('%Y-%m-%d %H:%M:%S'),
             quiz.completed_at.strftime('%Y-%m-%d %H:%M:%S') if quiz.completed_at else '',
             quiz.level.value if quiz.level else '',
-            quiz.total_questions,
+            quiz.answered_questions,
             quiz.correct_answers,
             f"{score:.1f}",
             quiz.start_source or '',
@@ -733,11 +736,16 @@ async def admin_detailed_callback(callback: CallbackQuery, session: AsyncSession
 
     await callback.answer()
 
+    # Сортировка по нижней границе Вильсона, а не по сырой доле верных:
+    # при пороге «больше 5 показов» список был почти целиком статистическим
+    # шумом — 3/8 это обычный разброс для слова, которое знают на 70%.
+    difficulty = difficulty_rank_sql(Word.times_correct, Word.times_shown)
+
     difficult_words_result = await session.execute(
         select(Word.word_de, Word.article, Word.translation_ru, Word.times_shown, Word.times_correct)
         .select_from(Word)
-        .where(Word.times_shown > 5)
-        .order_by((Word.times_correct * 1.0 / Word.times_shown).asc())
+        .where(Word.times_shown >= MIN_SHOWS_FOR_DIFFICULTY)
+        .order_by(difficulty.asc())
         .limit(10)
     )
     difficult_words = difficult_words_result.all()
@@ -753,11 +761,11 @@ async def admin_detailed_callback(callback: CallbackQuery, session: AsyncSession
     text = "📊 <b>ДЕТАЛЬНАЯ СТАТИСТИКА</b>\n\n"
 
     text += "❌ <b>Самые сложные слова:</b>\n"
-    text += "<i>Минимум 5 показов, сортировка по % ошибок</i>\n"
+    text += f"<i>Минимум {MIN_SHOWS_FOR_DIFFICULTY} показов, верхняя граница Вильсона</i>\n"
     for i, (word_de, article, trans_ru, shown, correct) in enumerate(difficult_words, 1):
         success_rate = (correct / shown * 100) if shown > 0 else 0
         full_word = f"{article} {word_de}" if article and article != "-" else word_de
-        text += f"{i}. <b>{full_word}</b> — {trans_ru} ({success_rate:.0f}%)\n"
+        text += f"{i}. <b>{full_word}</b> — {trans_ru} ({success_rate:.0f}%, n={shown})\n"
 
     text += "\n📈 <b>Самые популярные слова:</b>\n"
     text += "<i>Чаще всего попадаются в викторинах</i>\n"
@@ -1042,7 +1050,7 @@ async def admin_users(message: Message, session: AsyncSession):
 
     try:
         await message.delete()
-    except:
+    except Exception:
         pass
 
     result = await session.execute(
@@ -1076,14 +1084,14 @@ async def admin_detailed_stats(message: Message, session: AsyncSession):
 
     try:
         await message.delete()
-    except:
+    except Exception:
         pass
 
     difficult_words_result = await session.execute(
         select(Word.word_de, Word.article, Word.translation_ru, Word.times_shown, Word.times_correct)
         .select_from(Word)
-        .where(Word.times_shown > 5)
-        .order_by((Word.times_correct * 1.0 / Word.times_shown).asc())
+        .where(Word.times_shown >= MIN_SHOWS_FOR_DIFFICULTY)
+        .order_by(difficulty_rank_sql(Word.times_correct, Word.times_shown).asc())
         .limit(10)
     )
     difficult_words = difficult_words_result.all()
@@ -1120,7 +1128,7 @@ async def admin_user_details(message: Message, session: AsyncSession):
 
     try:
         await message.delete()
-    except:
+    except Exception:
         pass
 
     parts = (message.text or "").split(maxsplit=1)
@@ -1148,8 +1156,9 @@ async def admin_user_details(message: Message, session: AsyncSession):
         await message.answer("❌ Пользователь не найден.")
         return
 
-    overall_progress = await get_user_progress_stats_all_levels(user.id, session)
-    level_progress = await get_user_progress_stats(user.id, user.level, session)
+    pair = pair_from_user(user)
+    overall_progress = await get_user_progress_stats(user.id, session, pair)
+    level_progress = await get_user_progress_stats(user.id, session, pair, level=user.level)
 
     completed_sessions_result = await session.execute(
         select(QuizSession)
@@ -1162,12 +1171,12 @@ async def admin_user_details(message: Message, session: AsyncSession):
     completed_sessions = completed_sessions_result.scalars().all()
 
     total_quizzes = len(completed_sessions)
-    total_questions = sum(s.total_questions for s in completed_sessions)
+    # По фактически отвеченным, а не по плановым: брошенные сессии иначе
+    # выглядят как сплошные ошибки и занижают точность на ~27 п.п.
+    total_answered = sum(s.answered_questions for s in completed_sessions)
     total_correct = sum(s.correct_answers for s in completed_sessions)
-    avg_score = (total_correct / total_questions * 100) if total_questions > 0 else 0
-    best_score = max(
-        (s.correct_answers / s.total_questions * 100) for s in completed_sessions
-    ) if completed_sessions else 0
+    avg_score = (total_correct / total_answered * 100) if total_answered > 0 else 0
+    best_score = max((s.accuracy_percent for s in completed_sessions), default=0)
 
     last_sessions = completed_sessions[:5]
 
@@ -1201,7 +1210,8 @@ async def admin_user_details(message: Message, session: AsyncSession):
 
         "⚙️ <b>Настройки:</b>\n"
         f"├─ Уровень: <b>{user.level.value if user.level else '—'}</b>\n"
-        f"├─ Режим: <b>{user.translation_mode.value if user.translation_mode else '—'}</b>\n"
+        f"├─ Учит: <b>{pair.learning}</b>\n"
+        f"├─ Режим: <b>{pair_label(pair)}</b>\n"
         f"├─ Язык: <b>{user.interface_language or '—'}</b>\n"
         f"└─ Timezone: <b>{user.timezone or 'Europe/Berlin'}</b>\n\n"
 
@@ -1243,11 +1253,11 @@ async def admin_user_details(message: Message, session: AsyncSession):
     sessions_block = "🕓 <b>Последние 5 сессий:</b>\n"
     if last_sessions:
         for s in last_sessions:
-            percent = (s.correct_answers / s.total_questions * 100) if s.total_questions else 0
+            percent = s.accuracy_percent
             date_str = s.started_at.strftime("%d.%m %H:%M")
             sessions_block += (
-                f"• {date_str} | {s.level.value} | "
-                f"{s.correct_answers}/{s.total_questions} ({percent:.0f}%)\n"
+                f"• {date_str} | {s.learning_lang} {s.level.value} | "
+                f"{s.correct_answers}/{s.answered_questions} ({percent:.0f}%)\n"
             )
     else:
         sessions_block += "— Нет сессий.\n"

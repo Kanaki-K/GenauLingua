@@ -12,20 +12,19 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+from app.bot.buttons import BTN_STATS, pressed
 from app.bot.utils import delete_messages_fast, ensure_anchor
 from app.database.models import User, QuizSession, Word, UserWord
 from app.database.enums import QuizMode
 from app.locales import get_text
-from app.services.quiz_service import STRUGGLING_THRESHOLD
+from app.services.language_service import pair_flags, pair_from_user
+from app.services.quiz_service import (
+    STRUGGLING_THRESHOLD,
+    get_overall_progress,
+    get_user_progress_stats,
+)
 
 router = Router()
-
-MODE_DICT = {
-    "DE_TO_RU": "🇩🇪 → 🏴", "RU_TO_DE": "🏴 → 🇩🇪",
-    "DE_TO_UK": "🇩🇪 → 🇺🇦", "UK_TO_DE": "🇺🇦 → 🇩🇪",
-    "DE_TO_EN": "🇩🇪 → 🇬🇧", "EN_TO_DE": "🇬🇧 → 🇩🇪",
-    "DE_TO_TR": "🇩🇪 → 🇹🇷", "TR_TO_DE": "🇹🇷 → 🇩🇪",
-}
 
 
 def get_stats_keyboard(lang: str = "ru") -> InlineKeyboardMarkup:
@@ -61,153 +60,37 @@ def get_achievement_emoji(percentage: float) -> str:
 # ============================================================================
 
 async def get_mode_progress(user: User, session: AsyncSession) -> dict:
-    """Получить прогресс по текущему режиму викторины"""
+    """
+    Прогресс по текущему режиму викторины.
 
-    if user.quiz_mode == QuizMode.LEVEL:
-        return await _progress_by_level(user, session)
-    elif user.quiz_mode == QuizMode.CATEGORY:
-        return await _progress_by_category(user, session)
-    elif user.quiz_mode == QuizMode.ALL_WORDS:
-        return await _progress_all_words(user, session)
-    elif user.quiz_mode == QuizMode.DIFFICULT:
+    Считается по изучаемому языку и только по словам, доступным на текущей
+    языковой паре: прогресс по немецкому не влияет на английский, а слово без
+    перевода на язык значения в базу доступного не входит.
+    """
+    pair = pair_from_user(user)
+
+    if user.quiz_mode == QuizMode.CATEGORY and user.quiz_category:
+        return await get_user_progress_stats(user.id, session, pair, category=user.quiz_category)
+
+    if user.quiz_mode == QuizMode.ALL_WORDS:
+        return await get_user_progress_stats(user.id, session, pair)
+
+    if user.quiz_mode == QuizMode.DIFFICULT:
         return await _progress_difficult(user, session)
 
-    return await _progress_by_level(user, session)
-
-
-async def _progress_by_level(user: User, session: AsyncSession) -> dict:
-    """Прогресс по уровню"""
-    level = user.level
-
-    total_result = await session.execute(
-        select(func.count(Word.id)).where(Word.level == level)
-    )
-    total_words = total_result.scalar() or 0
-
-    seen_result = await session.execute(
-        select(func.count(UserWord.word_id))
-        .join(Word, Word.id == UserWord.word_id)
-        .where(UserWord.user_id == user.id, Word.level == level)
-    )
-    seen_words = seen_result.scalar() or 0
-
-    learned_result = await session.execute(
-        select(func.count(UserWord.word_id))
-        .join(Word, Word.id == UserWord.word_id)
-        .where(UserWord.user_id == user.id, UserWord.learned == True, Word.level == level)
-    )
-    learned_words = learned_result.scalar() or 0
-
-    struggling_result = await session.execute(
-        select(func.count(Word.id))
-        .join(UserWord, and_(UserWord.word_id == Word.id, UserWord.user_id == user.id))
-        .where(
-            Word.level == level,
-            UserWord.learned == False,
-            UserWord.times_shown > 0,
-            (UserWord.times_correct * 100.0 / UserWord.times_shown) < STRUGGLING_THRESHOLD
-        )
-    )
-    struggling_words = struggling_result.scalar() or 0
-
-    return {
-        'total_words': total_words,
-        'seen_words': seen_words,
-        'learned_words': learned_words,
-        'struggling_words': struggling_words,
-        'new_words': total_words - seen_words,
-    }
-
-
-async def _progress_by_category(user: User, session: AsyncSession) -> dict:
-    """Прогресс по категории"""
-    category = user.quiz_category
-    if not category:
-        return await _progress_by_level(user, session)
-
-    total_result = await session.execute(
-        select(func.count(Word.id)).where(Word.category == category)
-    )
-    total_words = total_result.scalar() or 0
-
-    seen_result = await session.execute(
-        select(func.count(UserWord.word_id))
-        .join(Word, Word.id == UserWord.word_id)
-        .where(UserWord.user_id == user.id, Word.category == category)
-    )
-    seen_words = seen_result.scalar() or 0
-
-    learned_result = await session.execute(
-        select(func.count(UserWord.word_id))
-        .join(Word, Word.id == UserWord.word_id)
-        .where(UserWord.user_id == user.id, UserWord.learned == True, Word.category == category)
-    )
-    learned_words = learned_result.scalar() or 0
-
-    struggling_result = await session.execute(
-        select(func.count(Word.id))
-        .join(UserWord, and_(UserWord.word_id == Word.id, UserWord.user_id == user.id))
-        .where(
-            Word.category == category,
-            UserWord.learned == False,
-            UserWord.times_shown > 0,
-            (UserWord.times_correct * 100.0 / UserWord.times_shown) < STRUGGLING_THRESHOLD
-        )
-    )
-    struggling_words = struggling_result.scalar() or 0
-
-    return {
-        'total_words': total_words,
-        'seen_words': seen_words,
-        'learned_words': learned_words,
-        'struggling_words': struggling_words,
-        'new_words': total_words - seen_words,
-    }
-
-
-async def _progress_all_words(user: User, session: AsyncSession) -> dict:
-    """Прогресс по всей базе"""
-    total_result = await session.execute(select(func.count(Word.id)))
-    total_words = total_result.scalar() or 0
-
-    seen_result = await session.execute(
-        select(func.count(UserWord.word_id))
-        .where(UserWord.user_id == user.id)
-    )
-    seen_words = seen_result.scalar() or 0
-
-    learned_result = await session.execute(
-        select(func.count(UserWord.word_id))
-        .where(UserWord.user_id == user.id, UserWord.learned == True)
-    )
-    learned_words = learned_result.scalar() or 0
-
-    struggling_result = await session.execute(
-        select(func.count(Word.id))
-        .join(UserWord, and_(UserWord.word_id == Word.id, UserWord.user_id == user.id))
-        .where(
-            UserWord.learned == False,
-            UserWord.times_shown > 0,
-            (UserWord.times_correct * 100.0 / UserWord.times_shown) < STRUGGLING_THRESHOLD
-        )
-    )
-    struggling_words = struggling_result.scalar() or 0
-
-    return {
-        'total_words': total_words,
-        'seen_words': seen_words,
-        'learned_words': learned_words,
-        'struggling_words': struggling_words,
-        'new_words': total_words - seen_words,
-    }
+    return await get_user_progress_stats(user.id, session, pair, level=user.level)
 
 
 async def _progress_difficult(user: User, session: AsyncSession) -> dict:
-    """Прогресс по сложным словам"""
+    """Прогресс по сложным словам — в рамках изучаемого языка"""
+    learning_lang = pair_from_user(user).learning
+
     struggling_result = await session.execute(
-        select(func.count(Word.id))
-        .join(UserWord, and_(UserWord.word_id == Word.id, UserWord.user_id == user.id))
+        select(func.count())
+        .select_from(UserWord)
         .where(
+            UserWord.user_id == user.id,
+            UserWord.learning_lang == learning_lang,
             UserWord.learned == False,
             UserWord.times_shown >= 2,
             (UserWord.times_correct * 100.0 / UserWord.times_shown) < STRUGGLING_THRESHOLD
@@ -217,9 +100,11 @@ async def _progress_difficult(user: User, session: AsyncSession) -> dict:
 
     # Сколько бывших сложных теперь выучены
     recovered_result = await session.execute(
-        select(func.count(UserWord.word_id))
+        select(func.count())
+        .select_from(UserWord)
         .where(
             UserWord.user_id == user.id,
+            UserWord.learning_lang == learning_lang,
             UserWord.learned == True,
             UserWord.times_shown >= 3
         )
@@ -256,40 +141,19 @@ def _get_mode_title(user: User, lang: str) -> str:
 
 
 # ============================================================================
-# ОБЩИЙ ПРОГРЕСС (всегда по всей базе)
-# ============================================================================
-
-async def get_overall_progress(user_id: int, session: AsyncSession) -> dict:
-    """Общий прогресс по всей базе — показывается всегда внизу"""
-    total_result = await session.execute(select(func.count(Word.id)))
-    total_words = total_result.scalar() or 0
-
-    learned_result = await session.execute(
-        select(func.count(UserWord.word_id))
-        .where(UserWord.user_id == user_id, UserWord.learned == True)
-    )
-    learned_words = learned_result.scalar() or 0
-
-    return {
-        'total_words': total_words,
-        'learned_words': learned_words,
-    }
-
-
-# ============================================================================
 # ОСНОВНОЙ ХЕНДЛЕР
 # ============================================================================
 
 @router.message(Command("stats"))
-@router.message(F.text.in_(["📊 Статистика", "📊 Статистика", "📊 Statistics", "📊 İstatistik"]))
+@router.message(pressed(BTN_STATS))
 async def show_statistics(message: Message, session: AsyncSession):
     user_id = message.from_user.id
     user = await session.get(User, user_id)
 
     try:
         await message.delete()
-    except:
-        pass
+    except Exception:
+        logger.debug("Не удалось удалить сообщение пользователя", exc_info=True)
 
     if not user or not user.level:
         lang = user.interface_language if user else "ru"
@@ -297,13 +161,15 @@ async def show_statistics(message: Message, session: AsyncSession):
         return
 
     lang = user.interface_language or "ru"
+    pair = pair_from_user(user)
 
     # Прогресс по текущему режиму
     progress = await get_mode_progress(user, session)
-    overall = await get_overall_progress(user_id, session)
+    # Общий прогресс — по всей базе, доступной на текущей языковой паре
+    overall = await get_overall_progress(user_id, session, pair)
 
     mode_title = _get_mode_title(user, lang)
-    mode_arrow = MODE_DICT.get(user.translation_mode.value, "🇩🇪 → 🏴") if user.translation_mode else ""
+    mode_arrow = pair_flags(pair)
 
     total = progress['total_words']
     learned = progress['learned_words']
@@ -313,10 +179,11 @@ async def show_statistics(message: Message, session: AsyncSession):
     overall_learned = overall['learned_words']
     overall_total = overall['total_words']
 
-    # Викторины по текущему режиму
+    # Викторины по текущему режиму и изучаемому языку
     quiz_query = select(QuizSession).where(
         QuizSession.user_id == user_id,
-        QuizSession.completed_at.isnot(None)
+        QuizSession.completed_at.isnot(None),
+        QuizSession.learning_lang == pair.learning,
     )
 
     if user.quiz_mode == QuizMode.LEVEL:
@@ -357,13 +224,17 @@ async def show_statistics(message: Message, session: AsyncSession):
     text += get_text("stats_words_count", lang, count=overall_learned) + "\n"
     text += get_text("stats_streak_line", lang, days=user.streak_days) + "\n\n"
 
-    # Викторины по режиму
+    # Викторины по режиму.
+    # Точность считается по фактически отвеченным вопросам: плановое
+    # total_questions превращало брошенные викторины в сплошные ошибки
+    # и занижало точность примерно на 27 процентных пунктов.
     if mode_sessions:
         total_quizzes = len(mode_sessions)
-        total_questions = sum(s.total_questions for s in mode_sessions)
+        total_answered = sum(s.answered_questions for s in mode_sessions)
         total_correct = sum(s.correct_answers for s in mode_sessions)
-        avg_percent = (total_correct / total_questions * 100) if total_questions > 0 else 0
-        best_result = max((s.correct_answers / s.total_questions * 100) for s in mode_sessions)
+        avg_percent = (total_correct / total_answered * 100) if total_answered > 0 else 0
+        # max по пустой последовательности падает, а answered может быть нулём
+        best_result = max((s.accuracy_percent for s in mode_sessions), default=0)
 
         q_emoji = get_achievement_emoji(avg_percent)
         text += f"{q_emoji} {get_text('stats_quizzes_header', lang, level=mode_title)}\n"
@@ -378,10 +249,10 @@ async def show_statistics(message: Message, session: AsyncSession):
     if mode_sessions:
         text += get_text("stats_recent_header", lang) + "\n"
         for s in mode_sessions[:3]:
-            pct = (s.correct_answers / s.total_questions * 100) if s.total_questions > 0 else 0
+            pct = s.accuracy_percent
             date_str = s.started_at.strftime("%d.%m")
             e = get_achievement_emoji(pct)
-            text += f"{e} {date_str} — {s.correct_answers}/{s.total_questions} ({pct:.0f}%)\n"
+            text += f"{e} {date_str} — {s.correct_answers}/{s.answered_questions} ({pct:.0f}%)\n"
         text += "\n"
 
     # Общий прогресс

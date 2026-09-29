@@ -233,7 +233,7 @@ async def set_notification_time(callback: CallbackQuery, session: AsyncSession):
             if not (0 <= hour <= 23 and 0 <= minute <= 59):
                 raise ValueError("Неверное время")
             time_str = f"{hour:02d}:{minute:02d}"  # Форматируем 09:05 вместо 9:5
-        except:
+        except Exception:
             time_str = "20:00"  # Fallback на дефолт
     else:
         time_str = "20:00"  # Странный формат → дефолт

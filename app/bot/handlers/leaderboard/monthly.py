@@ -23,6 +23,7 @@ from app.bot.handlers.leaderboard.utils import (
     get_leaderboard_keyboard_text
 )
 from app.locales import get_text
+from app.services.language_service import pair_from_user
 
 router = Router()
 
@@ -94,7 +95,8 @@ async def show_my_rating_callback(callback: CallbackQuery, session: AsyncSession
         await callback.message.edit_text(get_text("rating_not_active", lang))
         return
 
-    user_rank = await get_user_monthly_rank(user.id, session, season_id=season.id)
+    user_rank = await get_user_monthly_rank(user.id, session, season_id=season.id,
+                                          learning_lang=pair_from_user(user).learning)
     text = build_monthly_card(user, user_rank, season, lang)
 
     try:
@@ -109,7 +111,7 @@ async def show_leaderboard(message: Message, session: AsyncSession):
     user = await session.get(User, message.from_user.id)
     try:
         await message.delete()
-    except:
+    except Exception:
         pass
 
     lang = user.interface_language if user else "ru"
@@ -119,7 +121,8 @@ async def show_leaderboard(message: Message, session: AsyncSession):
         await message.answer(get_text("rating_not_active", lang))
         return
 
-    user_rank = await get_user_monthly_rank(user.id, session, season_id=season.id)
+    user_rank = await get_user_monthly_rank(user.id, session, season_id=season.id,
+                                          learning_lang=pair_from_user(user).learning)
     text = build_monthly_card(user, user_rank, season, lang)
 
     old_anchor_id, new_anchor_id = await ensure_anchor(message, session, user, emoji="🏆")
@@ -140,6 +143,7 @@ async def switch_to_monthly(callback: CallbackQuery, session: AsyncSession):
         await callback.message.edit_text(get_text("rating_not_active", lang))
         return
 
-    user_rank = await get_user_monthly_rank(user.id, session, season_id=season.id)
+    user_rank = await get_user_monthly_rank(user.id, session, season_id=season.id,
+                                          learning_lang=pair_from_user(user).learning)
     text = build_monthly_card(user, user_rank, season, lang)
     await callback.message.edit_text(text, reply_markup=get_rating_keyboard(lang, "monthly"))

@@ -24,12 +24,11 @@ def get_text(key: str, lang: Optional[str] = None, **kwargs) -> str:
     if lang not in LOCALES:
         lang = DEFAULT_LOCALE
 
-    texts = LOCALES[lang]
-    text = texts.get(key)
+    text = LOCALES[lang].get(key)
 
     if text is None:
-        # Fallback to Russian if key missing in current locale
-        text = LOCALES["uk"].get(key)
+        # Ключ отсутствует в запрошенной локали — берём из локали по умолчанию
+        text = LOCALES[DEFAULT_LOCALE].get(key)
     if text is None:
         return f"[MISSING: {key}]"
 
@@ -41,19 +40,6 @@ def get_text(key: str, lang: Optional[str] = None, **kwargs) -> str:
 
 def get_available_languages() -> list[str]:
     return list(LOCALES.keys())
-
-
-def pluralize(number: int, forms: tuple, lang: str = "ru") -> str:
-    n = abs(number)
-    n %= 100
-    if n >= 5 and n <= 20:
-        return forms[2]
-    n %= 10
-    if n == 1:
-        return forms[0]
-    if n >= 2 and n <= 4:
-        return forms[1]
-    return forms[2]
 
 
 def is_language_supported(lang: str) -> bool:

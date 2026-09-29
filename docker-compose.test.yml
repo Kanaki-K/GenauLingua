@@ -1,0 +1,24 @@
+#  Изолированная БД для тестов и проверки миграций.
+#  Порт 5433, чтобы не конфликтовать с рабочим postgres на 5432.
+#  Данные в tmpfs — контейнер можно убивать без следов.
+#
+#  docker compose -f docker-compose.test.yml up -d
+#  docker compose -f docker-compose.test.yml down -v
+
+services:
+  postgres_test:
+    image: postgres:16
+    container_name: genaulingua_db_test
+    environment:
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_pass
+      POSTGRES_DB: genaulingua_test
+    ports:
+      - "5433:5432"
+    tmpfs:
+      - /var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U test_user -d genaulingua_test"]
+      interval: 2s
+      timeout: 3s
+      retries: 30

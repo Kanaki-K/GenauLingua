@@ -1,10 +1,12 @@
 from datetime import datetime, date
+from app.core.clock import utcnow
 from sqlalchemy import Date
 from typing import List, Optional
 
 from sqlalchemy import (
     BigInteger, String, Boolean, DateTime, Integer,
-    ForeignKey, Text, Enum as SQLEnum, Float
+    ForeignKey, Text, Enum as SQLEnum, Float,
+    UniqueConstraint, Index
 )
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import ARRAY
@@ -32,10 +34,21 @@ class User(Base):
 
     # Уровень и настройки
     level: Mapped[CEFRLevel] = mapped_column(SQLEnum(CEFRLevel), default=CEFRLevel.A1)
+    interface_language: Mapped[Optional[str]] = mapped_column(String(2), default=None, nullable=True)
+
+    # === ЯЗЫКОВАЯ ПАРА ===
+    # learning_lang — что изучаем, native_lang — на каком языке даётся значение,
+    # reverse_mode — спрашивать в обратную сторону (производство вместо узнавания).
+    learning_lang: Mapped[str] = mapped_column(String(2), default="de", nullable=False)
+    native_lang: Mapped[str] = mapped_column(String(2), default="ru", nullable=False)
+    reverse_mode: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+
+    # Устаревшее поле: пара языков теперь в learning_lang/native_lang/reverse_mode.
+    # Оставлено заполняемым для пар с немецким — чтобы прежняя аналитика
+    # и откат на предыдущую версию продолжали работать.
     translation_mode: Mapped[Optional[TranslationMode]] = mapped_column(SQLEnum(TranslationMode),
                                                                         default=None, nullable=True)
-    interface_language: Mapped[Optional[str]] = mapped_column(String(2), default=None, nullable=True)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
     anchor_message_id: Mapped[Optional[int]] = mapped_column(BigInteger, nullable=True)
 
     # === РЕЖИМ ВИКТОРИНЫ (НОВОЕ) ===
@@ -112,6 +125,10 @@ class UserWord(Base):
     user_id = mapped_column(ForeignKey("users.id"), primary_key=True)
     word_id = mapped_column(ForeignKey("words.id"), primary_key=True)
 
+    # Прогресс считается отдельно по каждому изучаемому языку: выученное
+    # «das Haus» не делает выученным «house». Часть первичного ключа.
+    learning_lang = mapped_column(String(2), primary_key=True, nullable=False, server_default="de")
+
     # прогресс по слову
     correct_streak = mapped_column(Integer, default=0, nullable=False)
     times_shown = mapped_column(Integer, default=0, nullable=False)
@@ -121,8 +138,8 @@ class UserWord(Base):
     # считается "выучено", когда достигнут порог streak
     learned = mapped_column(Boolean, default=False, nullable=False)
 
-    created_at = mapped_column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_at = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=True)
+    created_at = mapped_column(DateTime, default=utcnow, nullable=False)
+    updated_at = mapped_column(DateTime, default=utcnow, onupdate=utcnow, nullable=True)
 
     user = relationship("User", backref="learned_items")
     word = relationship("Word", backref="learned_by")
@@ -130,6 +147,9 @@ class UserWord(Base):
 
 class Word(Base):
     __tablename__ = "words"
+    __table_args__ = (
+        UniqueConstraint("word_de", "level", name="uq_words_word_de_level"),
+    )
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
 
@@ -172,7 +192,7 @@ class Word(Base):
 
     created_at: Mapped[datetime] = mapped_column(
         DateTime,
-        default=datetime.utcnow
+        default=utcnow
     )
 
     # Relationships
@@ -195,23 +215,17 @@ class Word(Base):
             return f"{self.article} {self.word_de}"
         return self.word_de
 
-    def get_translation(self, language: str) -> Optional[str]:
-        """Получить перевод на указанный язык"""
-        if language == "ru":
-            return self.translation_ru
-        elif language == "uk":
-            return self.translation_uk
-        return None
+    def get_translation(self, language: str) -> str:
+        """Слово на указанном языке (для немецкого — с артиклем)"""
+        from app.services.language_service import word_text
 
-    def get_example(self, language: str) -> Optional[str]:
-        """Получить пример на указанном языке"""
-        if language == "de":
-            return self.example_de
-        elif language == "ru":
-            return self.example_ru
-        elif language == "uk":
-            return self.example_uk
-        return None
+        return word_text(self, language)
+
+    def get_example(self, language: str) -> str:
+        """Пример на указанном языке"""
+        from app.services.language_service import example_text
+
+        return example_text(self, language)
 
 
 class QuizSession(Base):
@@ -225,19 +239,39 @@ class QuizSession(Base):
     )
 
     level: Mapped[CEFRLevel] = mapped_column(SQLEnum(CEFRLevel))
-    translation_mode: Mapped[TranslationMode] = mapped_column(
-        SQLEnum(TranslationMode)
+
+    # === ЯЗЫКОВАЯ ПАРА СЕССИИ ===
+    learning_lang: Mapped[str] = mapped_column(String(2), default="de", nullable=False)
+    native_lang: Mapped[str] = mapped_column(String(2), default="ru", nullable=False)
+    is_reverse: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+
+    # Устаревшее поле — см. User.translation_mode. Стало nullable: пары без
+    # немецкого (например ru→en) в старом enum не выражаются.
+    translation_mode: Mapped[Optional[TranslationMode]] = mapped_column(
+        SQLEnum(TranslationMode), nullable=True
     )
 
     # Режим викторины (НОВОЕ)
     quiz_mode: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
     quiz_category: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
 
-    # Статистика сессии
+    # Статистика сессии.
+    # total_questions — СКОЛЬКО ПЛАНИРОВАЛОСЬ (обычно 25).
+    # answered_questions — сколько реально отвечено; считать точность нужно
+    # по нему, иначе брошенная сессия выглядит как сплошные ошибки.
+    # Пишется инкрементально, поэтому у брошенной сессии показывает точку выхода.
     total_questions: Mapped[int] = mapped_column(Integer, default=0)
+    answered_questions: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     correct_answers: Mapped[int] = mapped_column(Integer, default=0)
 
     is_completed: Mapped[bool] = mapped_column(Boolean, default=False)
+
+    @property
+    def accuracy_percent(self) -> float:
+        """Точность по фактически отвеченным вопросам."""
+        if not self.answered_questions:
+            return 0.0
+        return (self.correct_answers / self.answered_questions) * 100
 
     # Аналитика
     start_source: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
@@ -246,7 +280,7 @@ class QuizSession(Base):
 
     started_at: Mapped[datetime] = mapped_column(
         DateTime,
-        default=datetime.utcnow
+        default=utcnow
     )
     completed_at: Mapped[Optional[datetime]] = mapped_column(DateTime)
 
@@ -290,7 +324,7 @@ class QuizQuestion(Base):
 
     created_at: Mapped[datetime] = mapped_column(
         DateTime,
-        default=datetime.utcnow
+        default=utcnow
     )
 
     # Relationships
@@ -315,7 +349,7 @@ class MonthlySeason(Base):
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     winners_finalized: Mapped[bool] = mapped_column(Boolean, default=False)
 
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
 
     # Relationships
     stats: Mapped[List["MonthlyStats"]] = relationship(back_populates="season", cascade="all, delete-orphan")
@@ -323,12 +357,20 @@ class MonthlySeason(Base):
 
 
 class MonthlyStats(Base):
-    """Статистика пользователя за месяц"""
+    """Статистика пользователя за месяц (отдельно по каждому изучаемому языку)"""
     __tablename__ = "monthly_stats"
+    __table_args__ = (
+        UniqueConstraint("user_id", "season_id", "learning_lang",
+                         name="uq_monthly_stats_user_season_lang"),
+    )
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     user_id: Mapped[int] = mapped_column(BigInteger, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     season_id: Mapped[int] = mapped_column(ForeignKey("monthly_seasons.id", ondelete="CASCADE"), nullable=False)
+
+    # Рейтинг считается отдельно по языкам: учащие английский соревнуются
+    # с учащими английский, а не с учащими немецкий.
+    learning_lang: Mapped[str] = mapped_column(String(2), default="de", nullable=False)
 
     # Основные метрики
     monthly_score: Mapped[int] = mapped_column(Integer, default=0)
@@ -350,8 +392,8 @@ class MonthlyStats(Base):
 
     # Служебные
     last_quiz_date: Mapped[Optional[date]] = mapped_column(Date, nullable=True)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
-    updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
+    updated_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow, onupdate=utcnow)
 
     # Relationships
     user: Mapped["User"] = relationship(backref="monthly_stats")
@@ -387,7 +429,7 @@ class MonthlyQuizEvent(Base):
     quiz_session_id: Mapped[int] = mapped_column(Integer, unique=True, nullable=False, index=True)
     user_id: Mapped[int] = mapped_column(BigInteger, nullable=False)
     season_id: Mapped[int] = mapped_column(Integer, nullable=False)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
 
 
 class WinStreak(Base):
@@ -403,8 +445,8 @@ class WinStreak(Base):
     total_wins: Mapped[int] = mapped_column(Integer, default=0)
     last_win_season: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
 
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
-    updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
+    updated_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow, onupdate=utcnow)
 
     # Relationship
     user: Mapped["User"] = relationship(backref="win_streak")
@@ -446,7 +488,7 @@ class MonthlyAward(Base):
     award_type: Mapped[str] = mapped_column(String(50), nullable=False)  # "gold", "silver", "bronze", "top10"
     lifetime_bonus: Mapped[int] = mapped_column(Integer, default=0)
 
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
 
     # Relationships
     user: Mapped["User"] = relationship(backref="monthly_awards")
@@ -460,6 +502,9 @@ class MonthlyAward(Base):
 class TranslationReport(Base):
     """Репорт ошибки перевода от пользователя"""
     __tablename__ = "translation_reports"
+    __table_args__ = (
+        UniqueConstraint("user_id", "word_id", name="uq_translation_reports_user_word"),
+    )
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     user_id: Mapped[int] = mapped_column(
@@ -474,8 +519,49 @@ class TranslationReport(Base):
     status: Mapped[str] = mapped_column(
         String(20), nullable=False, default="pending"
     )  # pending / reviewed / fixed / rejected
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
 
     # Relationships
     user: Mapped["User"] = relationship(backref="translation_reports")
     word: Mapped["Word"] = relationship(backref="translation_reports")
+
+
+# ============================================================================
+# ГРУППЫ СЛОВ ПО ЯЗЫКАМ (схлопывание дублей)
+# ============================================================================
+
+class WordLangGroup(Base):
+    """
+    Схлопывание строк, которые на конкретном языке дают одно и то же слово.
+
+    Зачем: база немецко-центричная, и Meeting / Sitzung / Treff / Versammlung
+    все переводятся на английский как «meeting». Без группировки учащий
+    английский получил бы четыре карточки на одно слово, а прогресс по нему
+    размазался бы на четыре записи. Дубли есть и в немецком — 131 слово
+    повторяется на разных уровнях (wirklich, einfach, genau).
+
+    В викторине участвуют только строки с is_canonical = True; прогресс
+    и репорты пишутся на canonical_id.
+
+    Таблица целиком производная от words — пересобирается скриптом
+    app/scripts/rebuild_word_groups.py.
+    """
+    __tablename__ = "word_lang_groups"
+    __table_args__ = (
+        Index("ix_wlg_lang_canonical", "lang", "canonical_id"),
+        Index("ix_wlg_canonical_lookup", "lang", "is_canonical"),
+        Index("ix_wlg_lang_norm_key", "lang", "norm_key"),
+    )
+
+    lang: Mapped[str] = mapped_column(String(2), primary_key=True)
+    word_id: Mapped[int] = mapped_column(
+        ForeignKey("words.id", ondelete="CASCADE"), primary_key=True
+    )
+    canonical_id: Mapped[int] = mapped_column(
+        ForeignKey("words.id", ondelete="CASCADE"), nullable=False
+    )
+    is_canonical: Mapped[bool] = mapped_column(Boolean, nullable=False)
+
+    # Нормализованный headword — ключ группировки. Хранится для отладки
+    # и для показа синонимов.
+    norm_key: Mapped[str] = mapped_column(String(255), nullable=False)

@@ -450,3 +450,22 @@ Topluluk ne kadar aktif olursa — bot o kadar iyi olur. Çekinme! 🙌""",
     "stats_explanation": "—————————————————————\nÖğrenildi = üst üste 3 doğru cevap",
     "stats_btn_rating": "🏆 Sıralamam",
 }
+
+# ============================================================================
+# ÇOK DİLLİLİK: öğrenilen dil, anlam dili ve yön
+# ============================================================================
+TEXTS.update({
+    "langname_de": "🇩🇪 Almanca",
+    "langname_en": "🇬🇧 İngilizce",
+    "langname_ru": "🏴 Rusça",
+    "langname_uk": "🇺🇦 Ukraynaca",
+    "langname_tr": "🇹🇷 Türkçe",
+
+    "settings_learning_lang_line": "🎯 Öğrenilen: <b>{language}</b>",
+
+    "settings_btn_learning_lang": "🎯 Hangi dili öğrenmek",
+
+    "learning_lang_title": "🎯 <b>Hangi dili öğrenmek</b>",
+    "learning_lang_description": "Kelimelerini öğrenmek istediğin dili seç.\nHer dil için ilerleme ayrı tutulur.",
+    "learning_lang_set": "✅ Öğreniyoruz: {language}",
+})

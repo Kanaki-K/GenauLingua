@@ -15,6 +15,7 @@ Flow:
 
 import logging
 from datetime import datetime
+from app.core.clock import utcnow
 
 from aiogram import Router, F
 from aiogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
@@ -24,6 +25,7 @@ from sqlalchemy import select, func
 
 from app.database.models import User, Word, TranslationReport
 from app.locales import get_text
+from app.services.language_service import LanguagePair, display_text, pair_from_user
 
 logger = logging.getLogger(__name__)
 
@@ -37,26 +39,9 @@ DAILY_REPORT_LIMIT = 20
 # ХЕЛПЕРЫ
 # ============================================================================
 
-def _get_word_label(word: Word, mode_val: str) -> str:
+def _get_word_label(word: Word, pair: LanguagePair) -> str:
     """Сформировать label для слова: der Tisch — Стіл"""
-    if word.article and word.article != '-':
-        de_part = f"{word.article} {word.word_de}"
-    else:
-        de_part = word.word_de
-
-    mapping = {
-        "de_to_ru": word.translation_ru,
-        "ru_to_de": word.translation_ru,
-        "de_to_uk": word.translation_uk,
-        "uk_to_de": word.translation_uk,
-        "de_to_en": getattr(word, 'translation_en', None),
-        "en_to_de": getattr(word, 'translation_en', None),
-        "de_to_tr": getattr(word, 'translation_tr', None),
-        "tr_to_de": getattr(word, 'translation_tr', None),
-    }
-    trans = mapping.get(mode_val.lower()) or word.translation_ru or ""
-
-    return f"{de_part} — {trans.capitalize()}"
+    return f"{display_text(word, pair.learning)} — {display_text(word, pair.native)}"
 
 
 async def _get_already_reported_ids(user_id: int, session: AsyncSession) -> set[int]:
@@ -70,7 +55,7 @@ async def _get_already_reported_ids(user_id: int, session: AsyncSession) -> set[
 
 async def _get_today_report_count(user_id: int, session: AsyncSession) -> int:
     """Количество репортов юзера за сегодня"""
-    today_start = datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0)
+    today_start = utcnow().replace(hour=0, minute=0, second=0, microsecond=0)
     result = await session.execute(
         select(func.count())
         .select_from(TranslationReport)
@@ -197,7 +182,7 @@ async def report_start(callback: CallbackQuery, state: FSMContext, session: Asyn
 
     user = await session.get(User, callback.from_user.id)
     lang = user.interface_language or "ru"
-    mode_val = user.translation_mode.value.lower() if user.translation_mode else "de_to_ru"
+    pair = pair_from_user(user)
 
     if not report_word_ids:
         await callback.answer(get_text("report_no_words", lang), show_alert=True)
@@ -229,7 +214,7 @@ async def report_start(callback: CallbackQuery, state: FSMContext, session: Asyn
     word_labels = {}
     for wid in report_word_ids:
         if wid in words_by_id:
-            word_labels[wid] = _get_word_label(words_by_id[wid], mode_val)
+            word_labels[wid] = _get_word_label(words_by_id[wid], pair)
 
     if not word_labels:
         await callback.answer(get_text("report_no_words", lang), show_alert=True)

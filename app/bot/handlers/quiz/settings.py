@@ -1,22 +1,42 @@
 """
 Настройки викторины с поддержкой локализации
-Режим викторины, уровень, режим перевода, язык интерфейса
-"""
+Режим викторины, изучаемый язык, режим перевода, язык интерфейса
 
-from aiogram import Router, F
-from aiogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
-from aiogram.filters import Command
-from sqlalchemy.ext.asyncio import AsyncSession
+Относительно прежней версии добавлен ровно один экран — выбор изучаемого языка.
+Остальное на месте: экран «Режим перевода» по-прежнему переключает направление,
+а язык значения следует за языком интерфейса, как и раньше.
+
+Клавиатуры собираются из реестра языков вместо четырёх почти одинаковых
+ветвей if lang == ...: пять языков дают двадцать упорядоченных пар, руками
+их не выписать.
+"""
 
 import logging
 
-logger = logging.getLogger(__name__)
+from aiogram import F, Router
+from aiogram.filters import Command
+from aiogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup, Message
+from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.database.models import User
-from app.database.enums import CEFRLevel, TranslationMode, QuizMode, WordCategory
-from app.bot.utils import delete_messages_fast, ensure_anchor
+from app.bot.buttons import BTN_SETTINGS, pressed
 from app.bot.keyboards import get_main_menu_keyboard
+from app.bot.utils import delete_messages_fast, ensure_anchor
+from app.database.enums import CEFRLevel, QuizMode, WordCategory
+from app.database.models import User
 from app.locales import get_text
+from app.services.language_service import (
+    INTERFACE_LANGS,
+    LEARNABLE_LANGS,
+    LanguagePair,
+    fallback_native_for,
+    is_learnable,
+    language_name_key,
+    legacy_mode_name,
+    pair_from_user,
+    pair_label,
+)
+
+logger = logging.getLogger(__name__)
 
 router = Router()
 
@@ -62,9 +82,28 @@ def get_category_display(cat_value: str, lang: str) -> str:
     return result
 
 
+def language_name(code: str, lang: str) -> str:
+    return get_text(language_name_key(code), lang)
+
+
+def _back_row(lang: str, callback_data: str = "back_to_settings") -> list[InlineKeyboardButton]:
+    return [InlineKeyboardButton(text=get_text("btn_back", lang), callback_data=callback_data)]
+
+
+def _grid(buttons: list[InlineKeyboardButton], per_row: int = 2) -> list[list[InlineKeyboardButton]]:
+    return [buttons[i:i + per_row] for i in range(0, len(buttons), per_row)]
+
+
+def _sync_legacy_mode(user: User) -> None:
+    """
+    Поддержать устаревшее translation_mode в согласии с парой языков.
+    Для пар без немецкого значения нет — остаётся NULL.
+    """
+    user.translation_mode = legacy_mode_name(pair_from_user(user))
+
 
 # ============================================================================
-# ГЛАВНОЕ МЕНЮ НАСТРОЕК (4 кнопки вертикально)
+# ГЛАВНОЕ МЕНЮ НАСТРОЕК
 # ============================================================================
 
 def get_settings_keyboard(lang: str) -> InlineKeyboardMarkup:
@@ -73,6 +112,10 @@ def get_settings_keyboard(lang: str) -> InlineKeyboardMarkup:
             [InlineKeyboardButton(
                 text=get_text("settings_btn_quiz_mode", lang),
                 callback_data="settings_quiz_mode"
+            )],
+            [InlineKeyboardButton(
+                text=get_text("settings_btn_learning_lang", lang),
+                callback_data="settings_learning"
             )],
             [InlineKeyboardButton(
                 text=get_text("settings_btn_change_mode", lang),
@@ -105,63 +148,110 @@ def _quiz_mode_display(user: User, lang: str) -> str:
     return "—"
 
 
-@router.message(Command("settings"))
-@router.message(F.text.in_(["🦾 Настройки", "🦾 Налаштування", "🦾 Settings", "🦾 Ayarlar"]))
-async def show_settings(message: Message, session: AsyncSession):
-    """Показ меню настроек"""
-    user = await session.get(User, message.from_user.id)
-
-    if not user:
-        lang = "ru"
-        await message.answer(get_text("user_not_found", lang))
-        return
-
-    lang = user.interface_language or "ru"
-
-    mode_display = get_text(f"mode_{user.translation_mode.value.lower()}", lang) if user.translation_mode else "—"
+def _settings_text(user: User, lang: str) -> str:
+    pair = pair_from_user(user)
+    mode_display = pair_label(pair)
     lang_display = get_text(f"lang_{user.interface_language}", lang) if user.interface_language else "—"
-    quiz_mode_text = _quiz_mode_display(user, lang)
 
-    settings_text = (
+    return (
         f"{get_text('settings_title', lang)}\n\n"
-        f"{get_text('settings_quiz_mode_line', lang, mode=quiz_mode_text)}\n"
+        f"{get_text('settings_quiz_mode_line', lang, mode=_quiz_mode_display(user, lang))}\n"
+        f"{get_text('settings_learning_lang_line', lang, language=language_name(pair.learning, lang))}\n"
         f"{get_text('settings_mode', lang, mode=mode_display)}\n"
         f"{get_text('settings_language', lang, language=lang_display)}\n\n"
         f"{get_text('settings_choose', lang)}"
     )
 
+
+@router.message(Command("settings"))
+@router.message(pressed(BTN_SETTINGS))
+async def show_settings(message: Message, session: AsyncSession):
+    """Показ меню настроек"""
+    user = await session.get(User, message.from_user.id)
+
+    if not user:
+        await message.answer(get_text("user_not_found", "ru"))
+        return
+
+    lang = user.interface_language or "ru"
+
     try:
         await message.delete()
-    except:
-        pass
+    except Exception:
+        logger.debug("Не удалось удалить сообщение пользователя", exc_info=True)
 
-    old_anchor_id, new_anchor_id = await ensure_anchor(message, session, user, emoji="🦾")
-
+    old_anchor_id, _ = await ensure_anchor(message, session, user, emoji="🦾")
     if old_anchor_id:
-        current_msg_id = message.message_id
-        await delete_messages_fast(message.bot, message.chat.id, old_anchor_id, current_msg_id)
+        await delete_messages_fast(message.bot, message.chat.id, old_anchor_id, message.message_id)
 
-    await message.answer(settings_text, reply_markup=get_settings_keyboard(lang))
+    await message.answer(_settings_text(user, lang), reply_markup=get_settings_keyboard(lang))
 
 
 async def show_settings_callback(callback: CallbackQuery, session: AsyncSession):
     """Показ настроек после изменения (для callback)"""
     user = await session.get(User, callback.from_user.id)
     lang = user.interface_language or "ru"
-
-    mode_display = get_text(f"mode_{user.translation_mode.value.lower()}", lang) if user.translation_mode else "—"
-    lang_display = get_text(f"lang_{user.interface_language}", lang) if user.interface_language else "—"
-    quiz_mode_text = _quiz_mode_display(user, lang)
-
-    settings_text = (
-        f"{get_text('settings_title', lang)}\n\n"
-        f"{get_text('settings_quiz_mode_line', lang, mode=quiz_mode_text)}\n"
-        f"{get_text('settings_mode', lang, mode=mode_display)}\n"
-        f"{get_text('settings_language', lang, language=lang_display)}\n\n"
-        f"{get_text('settings_choose', lang)}"
+    await callback.message.edit_text(
+        _settings_text(user, lang), reply_markup=get_settings_keyboard(lang)
     )
 
-    await callback.message.edit_text(settings_text, reply_markup=get_settings_keyboard(lang))
+
+# ============================================================================
+# ИЗУЧАЕМЫЙ ЯЗЫК
+# ============================================================================
+
+@router.callback_query(F.data == "settings_learning")
+async def show_learning_lang(callback: CallbackQuery, session: AsyncSession):
+    """Показать выбор изучаемого языка"""
+    await callback.answer()
+
+    user = await session.get(User, callback.from_user.id)
+    lang = user.interface_language or "ru"
+    pair = pair_from_user(user)
+
+    buttons = [
+        InlineKeyboardButton(
+            text=("✅ " if code == pair.learning else "") + language_name(code, lang),
+            callback_data=f"set_learning_{code}",
+        )
+        for code in LEARNABLE_LANGS
+    ]
+
+    text = (
+        f"{get_text('learning_lang_title', lang)}\n\n"
+        f"{get_text('learning_lang_description', lang)}"
+    )
+
+    await callback.message.edit_text(
+        text, reply_markup=InlineKeyboardMarkup(inline_keyboard=_grid(buttons) + [_back_row(lang)])
+    )
+
+
+@router.callback_query(F.data.startswith("set_learning_"))
+async def set_learning_lang(callback: CallbackQuery, session: AsyncSession):
+    """Установить изучаемый язык"""
+    code = callback.data.removeprefix("set_learning_")
+
+    if not is_learnable(code):
+        await callback.answer("❌ Error", show_alert=True)
+        return
+
+    user = await session.get(User, callback.from_user.id)
+    lang = user.interface_language or "ru"
+
+    user.learning_lang = code
+    # Язык значения не может совпадать с изучаемым, иначе вопрос выродится
+    # в «слово = слово»
+    if user.native_lang == code:
+        user.native_lang = fallback_native_for(code, preferred=user.interface_language)
+    _sync_legacy_mode(user)
+    await session.commit()
+
+    await callback.answer(
+        get_text("learning_lang_set", lang, language=language_name(code, lang)),
+        show_alert=True
+    )
+    await show_settings_callback(callback, session)
 
 
 # ============================================================================
@@ -191,10 +281,7 @@ def get_quiz_mode_keyboard(lang: str) -> InlineKeyboardMarkup:
                     callback_data="qmode_difficult"
                 ),
             ],
-            [InlineKeyboardButton(
-                text=get_text("btn_back", lang),
-                callback_data="back_to_settings"
-            )]
+            _back_row(lang)
         ]
     )
 
@@ -207,11 +294,9 @@ async def show_quiz_mode(callback: CallbackQuery, session: AsyncSession):
     user = await session.get(User, callback.from_user.id)
     lang = user.interface_language or "ru"
 
-    current_mode = _quiz_mode_display(user, lang)
-
     text = (
         f"{get_text('qmode_title', lang)}\n\n"
-        f"{get_text('qmode_current', lang, mode=current_mode)}\n\n"
+        f"{get_text('qmode_current', lang, mode=_quiz_mode_display(user, lang))}\n\n"
         f"{get_text('qmode_choose', lang)}"
     )
 
@@ -235,23 +320,12 @@ async def show_level_selection(callback: CallbackQuery, session: AsyncSession):
         f"{get_text('qmode_level_desc', lang)}"
     )
 
+    levels = [
+        InlineKeyboardButton(text=level.value, callback_data=f"qmode_set_level_{level.value}")
+        for level in CEFRLevel
+    ]
     keyboard = InlineKeyboardMarkup(
-        inline_keyboard=[
-            [
-                InlineKeyboardButton(text="A1", callback_data="qmode_set_level_A1"),
-                InlineKeyboardButton(text="A2", callback_data="qmode_set_level_A2"),
-                InlineKeyboardButton(text="B1", callback_data="qmode_set_level_B1"),
-            ],
-            [
-                InlineKeyboardButton(text="B2", callback_data="qmode_set_level_B2"),
-                InlineKeyboardButton(text="C1", callback_data="qmode_set_level_C1"),
-                InlineKeyboardButton(text="C2", callback_data="qmode_set_level_C2"),
-            ],
-            [InlineKeyboardButton(
-                text=get_text("btn_back", lang),
-                callback_data="settings_quiz_mode"
-            )]
-        ]
+        inline_keyboard=_grid(levels, per_row=3) + [_back_row(lang, "settings_quiz_mode")]
     )
 
     await callback.message.edit_text(text, reply_markup=keyboard)
@@ -260,32 +334,24 @@ async def show_level_selection(callback: CallbackQuery, session: AsyncSession):
 @router.callback_query(F.data.startswith("qmode_set_level_"))
 async def set_quiz_mode_level(callback: CallbackQuery, session: AsyncSession):
     """Установить режим 'По уровню' с конкретным уровнем"""
-    level_str = callback.data.replace("qmode_set_level_", "")
+    level_str = callback.data.removeprefix("qmode_set_level_")
 
     user = await session.get(User, callback.from_user.id)
     lang = user.interface_language or "ru"
 
-    new_level = CEFRLevel(level_str)
-    user.level = new_level
+    try:
+        user.level = CEFRLevel(level_str)
+    except ValueError:
+        await callback.answer("❌ Error", show_alert=True)
+        return
+
     user.quiz_mode = QuizMode.LEVEL
     user.quiz_category = None
     await session.commit()
 
-    await callback.answer(
-        get_text("qmode_level_set", lang, level=level_str),
-        show_alert=True
-    )
+    await callback.answer(get_text("qmode_level_set", lang, level=level_str), show_alert=True)
 
-    # Обновляем клавиатуру меню
-    try:
-        await callback.bot.edit_message_reply_markup(
-            chat_id=callback.message.chat.id,
-            message_id=user.anchor_message_id,
-            reply_markup=get_main_menu_keyboard(lang)
-        )
-    except:
-        pass
-
+    await _refresh_anchor_keyboard(callback, user, lang)
     await show_settings_callback(callback, session)
 
 
@@ -298,17 +364,14 @@ def get_category_keyboard(page: int, lang: str) -> InlineKeyboardMarkup:
     categories = CATEGORIES_PAGE_1 if page == 1 else CATEGORIES_PAGE_2
     total_pages = 2
 
-    buttons = []
-    # 2 колонки × 5 рядов
-    for i in range(0, len(categories), 2):
-        row = []
-        for cat in categories[i:i + 2]:
-            display_name = get_category_display(cat.value, lang)
-            row.append(InlineKeyboardButton(
-                text=display_name,
-                callback_data=f"qmode_set_cat_{cat.name}"
-            ))
-        buttons.append(row)
+    buttons = [
+        InlineKeyboardButton(
+            text=get_category_display(cat.value, lang),
+            callback_data=f"qmode_set_cat_{cat.name}",
+        )
+        for cat in categories
+    ]
+    rows = _grid(buttons)
 
     # Пагинация
     nav_row = []
@@ -317,15 +380,11 @@ def get_category_keyboard(page: int, lang: str) -> InlineKeyboardMarkup:
     nav_row.append(InlineKeyboardButton(text=f"{page} / {total_pages}", callback_data="noop"))
     if page < total_pages:
         nav_row.append(InlineKeyboardButton(text="▶", callback_data=f"qmode_category_page_{page + 1}"))
-    buttons.append(nav_row)
+    rows.append(nav_row)
 
-    # Назад
-    buttons.append([InlineKeyboardButton(
-        text=get_text("btn_back", lang),
-        callback_data="settings_quiz_mode"
-    )])
+    rows.append(_back_row(lang, "settings_quiz_mode"))
 
-    return InlineKeyboardMarkup(inline_keyboard=buttons)
+    return InlineKeyboardMarkup(inline_keyboard=rows)
 
 
 @router.callback_query(F.data.startswith("qmode_category_page_"))
@@ -333,7 +392,7 @@ async def show_category_page(callback: CallbackQuery, session: AsyncSession):
     """Показать страницу категорий"""
     await callback.answer()
 
-    page = int(callback.data.replace("qmode_category_page_", ""))
+    page = int(callback.data.removeprefix("qmode_category_page_"))
     user = await session.get(User, callback.from_user.id)
     lang = user.interface_language or "ru"
 
@@ -348,7 +407,7 @@ async def show_category_page(callback: CallbackQuery, session: AsyncSession):
 @router.callback_query(F.data.startswith("qmode_set_cat_"))
 async def set_quiz_mode_category(callback: CallbackQuery, session: AsyncSession):
     """Установить режим 'По категории'"""
-    cat_name = callback.data.replace("qmode_set_cat_", "")
+    cat_name = callback.data.removeprefix("qmode_set_cat_")
 
     user = await session.get(User, callback.from_user.id)
     lang = user.interface_language or "ru"
@@ -386,11 +445,7 @@ async def set_quiz_mode_all(callback: CallbackQuery, session: AsyncSession):
     user.quiz_category = None
     await session.commit()
 
-    await callback.answer(
-        get_text("qmode_all_set", lang),
-        show_alert=True
-    )
-
+    await callback.answer(get_text("qmode_all_set", lang), show_alert=True)
     await show_settings_callback(callback, session)
 
 
@@ -408,11 +463,7 @@ async def set_quiz_mode_difficult(callback: CallbackQuery, session: AsyncSession
     user.quiz_category = None
     await session.commit()
 
-    await callback.answer(
-        get_text("qmode_difficult_set", lang),
-        show_alert=True
-    )
-
+    await callback.answer(get_text("qmode_difficult_set", lang), show_alert=True)
     await show_settings_callback(callback, session)
 
 
@@ -426,7 +477,7 @@ async def noop_handler(callback: CallbackQuery):
 
 
 # ============================================================================
-# ИЗМЕНЕНИЕ РЕЖИМА ПЕРЕВОДА
+# ИЗМЕНЕНИЕ РЕЖИМА ПЕРЕВОДА (направление вопроса)
 # ============================================================================
 
 @router.callback_query(F.data == "settings_mode")
@@ -435,16 +486,18 @@ async def change_translation_mode(callback: CallbackQuery, session: AsyncSession
 
     user = await session.get(User, callback.from_user.id)
     lang = user.interface_language or "ru"
+    pair = pair_from_user(user)
 
+    forward = LanguagePair(learning=pair.learning, native=pair.native, reverse=False)
+    reverse = LanguagePair(learning=pair.learning, native=pair.native, reverse=True)
+
+    # Подсказки заведены только для пар с немецким; для остальных опускаем
     hints = ""
-    if lang == "ru":
-        hints = f"\n{get_text('settings_mode_hint_de_ru', lang)}\n{get_text('settings_mode_hint_ru_de', lang)}"
-    elif lang == "uk":
-        hints = f"\n{get_text('settings_mode_hint_de_uk', lang)}\n{get_text('settings_mode_hint_uk_de', lang)}"
-    elif lang == "en":
-        hints = f"\n{get_text('settings_mode_hint_de_en', lang)}\n{get_text('settings_mode_hint_en_de', lang)}"
-    elif lang == "tr":
-        hints = f"\n{get_text('settings_mode_hint_de_tr', lang)}\n{get_text('settings_mode_hint_tr_de', lang)}"
+    for candidate in (forward, reverse):
+        key = f"settings_mode_hint_{candidate.prompt_lang}_{candidate.answer_lang}"
+        hint = get_text(key, lang)
+        if not hint.startswith("[MISSING:"):
+            hints += f"\n{hint}"
 
     text = (
         f"{get_text('settings_mode_title', lang)}\n\n"
@@ -452,56 +505,35 @@ async def change_translation_mode(callback: CallbackQuery, session: AsyncSession
         f"{hints}"
     )
 
-    if lang == "uk":
-        keyboard = InlineKeyboardMarkup(
-            inline_keyboard=[
-                [InlineKeyboardButton(text=get_text("mode_de_to_uk", lang), callback_data="mode_DE_TO_UK")],
-                [InlineKeyboardButton(text=get_text("mode_uk_to_de", lang), callback_data="mode_UK_TO_DE")],
-                [InlineKeyboardButton(text=get_text("btn_back", lang), callback_data="back_to_settings")]
-            ]
-        )
-    elif lang == "en":
-        keyboard = InlineKeyboardMarkup(
-            inline_keyboard=[
-                [InlineKeyboardButton(text=get_text("mode_de_to_en", lang), callback_data="mode_DE_TO_EN")],
-                [InlineKeyboardButton(text=get_text("mode_en_to_de", lang), callback_data="mode_EN_TO_DE")],
-                [InlineKeyboardButton(text=get_text("btn_back", lang), callback_data="back_to_settings")]
-            ]
-        )
-    elif lang == "tr":
-        keyboard = InlineKeyboardMarkup(
-            inline_keyboard=[
-                [InlineKeyboardButton(text=get_text("mode_de_to_tr", lang), callback_data="mode_DE_TO_TR")],
-                [InlineKeyboardButton(text=get_text("mode_tr_to_de", lang), callback_data="mode_TR_TO_DE")],
-                [InlineKeyboardButton(text=get_text("btn_back", lang), callback_data="back_to_settings")]
-            ]
-        )
-    else:  # ru
-        keyboard = InlineKeyboardMarkup(
-            inline_keyboard=[
-                [InlineKeyboardButton(text=get_text("mode_de_to_ru", lang), callback_data="mode_DE_TO_RU")],
-                [InlineKeyboardButton(text=get_text("mode_ru_to_de", lang), callback_data="mode_RU_TO_DE")],
-                [InlineKeyboardButton(text=get_text("btn_back", lang), callback_data="back_to_settings")]
-            ]
-        )
+    keyboard = InlineKeyboardMarkup(
+        inline_keyboard=[
+            [InlineKeyboardButton(
+                text=("✅ " if not pair.reverse else "") + pair_label(forward),
+                callback_data="set_dir_forward"
+            )],
+            [InlineKeyboardButton(
+                text=("✅ " if pair.reverse else "") + pair_label(reverse),
+                callback_data="set_dir_reverse"
+            )],
+            _back_row(lang)
+        ]
+    )
 
     await callback.message.edit_text(text, reply_markup=keyboard)
 
 
-@router.callback_query(F.data.startswith("mode_"))
-async def set_translation_mode(callback: CallbackQuery, session: AsyncSession):
-    mode_str = callback.data.replace("mode_", "")
-    new_mode = TranslationMode(mode_str)
+@router.callback_query(F.data.startswith("set_dir_"))
+async def set_translation_direction(callback: CallbackQuery, session: AsyncSession):
+    reverse = callback.data.removeprefix("set_dir_") == "reverse"
 
     user = await session.get(User, callback.from_user.id)
     lang = user.interface_language or "ru"
 
-    user.translation_mode = new_mode
+    user.reverse_mode = reverse
+    _sync_legacy_mode(user)
     await session.commit()
 
-    mode_display = get_text(f"mode_{mode_str.lower()}", lang)
-
-    await callback.answer(f"✅ {mode_display}", show_alert=True)
+    await callback.answer(f"✅ {pair_label(pair_from_user(user))}", show_alert=True)
     await show_settings_callback(callback, session)
 
 
@@ -521,53 +553,39 @@ async def change_interface_language(callback: CallbackQuery, session: AsyncSessi
         f"{get_text('settings_language_description', lang)}"
     )
 
-    keyboard = InlineKeyboardMarkup(
-        inline_keyboard=[
-            [
-                InlineKeyboardButton(text=get_text("lang_uk", lang), callback_data="lang_uk"),
-                InlineKeyboardButton(text=get_text("lang_ru", lang), callback_data="lang_ru"),
-            ],
-            [
-                InlineKeyboardButton(text=get_text("lang_en", lang), callback_data="lang_en"),
-                InlineKeyboardButton(text=get_text("lang_tr", lang), callback_data="lang_tr"),
-            ],
-            [InlineKeyboardButton(
-                text=get_text("btn_back", lang),
-                callback_data="back_to_settings"
-            )]
-        ]
-    )
+    buttons = [
+        InlineKeyboardButton(
+            text=get_text(f"lang_{code}", lang),
+            callback_data=f"iface_lang_{code}",
+        )
+        for code in INTERFACE_LANGS
+    ]
+    keyboard = InlineKeyboardMarkup(inline_keyboard=_grid(buttons) + [_back_row(lang)])
 
     await callback.message.edit_text(text, reply_markup=keyboard)
 
 
-@router.callback_query(F.data.startswith("lang_"))
+@router.callback_query(F.data.startswith("iface_lang_"))
 async def set_interface_language(callback: CallbackQuery, session: AsyncSession):
-    new_lang = callback.data.split("_")[1]
+    new_lang = callback.data.removeprefix("iface_lang_")
+
+    if new_lang not in INTERFACE_LANGS:
+        await callback.answer("❌ Error", show_alert=True)
+        return
 
     user = await session.get(User, callback.from_user.id)
 
-    lang_to_mode = {
-        "ru": TranslationMode.DE_TO_RU,
-        "uk": TranslationMode.DE_TO_UK,
-        "en": TranslationMode.DE_TO_EN,
-        "tr": TranslationMode.DE_TO_TR,
-    }
-
     user.interface_language = new_lang
-    user.translation_mode = lang_to_mode.get(new_lang, TranslationMode.DE_TO_RU)
+    # Язык значения следует за интерфейсом, как и в прежней версии.
+    # Исключение — если он совпал бы с изучаемым языком.
+    if new_lang != user.learning_lang:
+        user.native_lang = new_lang
+    _sync_legacy_mode(user)
     await session.commit()
 
     lang_display = get_text(f"lang_{new_lang}", new_lang)
 
-    try:
-        await callback.bot.edit_message_reply_markup(
-            chat_id=callback.message.chat.id,
-            message_id=user.anchor_message_id,
-            reply_markup=get_main_menu_keyboard(new_lang)
-        )
-    except:
-        pass
+    await _refresh_anchor_keyboard(callback, user, new_lang)
 
     await callback.answer(
         get_text("language_changed", new_lang, language=lang_display),
@@ -581,6 +599,20 @@ async def set_interface_language(callback: CallbackQuery, session: AsyncSession)
 # НАВИГАЦИЯ
 # ============================================================================
 
+async def _refresh_anchor_keyboard(callback: CallbackQuery, user: User, lang: str) -> None:
+    """Обновить главное меню в якорном сообщении под новый язык"""
+    if not user.anchor_message_id:
+        return
+    try:
+        await callback.bot.edit_message_reply_markup(
+            chat_id=callback.message.chat.id,
+            message_id=user.anchor_message_id,
+            reply_markup=get_main_menu_keyboard(lang)
+        )
+    except Exception:
+        logger.debug("Не удалось обновить якорную клавиатуру", exc_info=True)
+
+
 @router.callback_query(F.data == "back_to_settings")
 async def back_to_settings(callback: CallbackQuery, session: AsyncSession):
     await callback.answer()
@@ -592,5 +624,5 @@ async def back_to_main_menu(callback: CallbackQuery):
     await callback.answer()
     try:
         await callback.message.delete()
-    except:
-        pass
+    except Exception:
+        logger.debug("Не удалось удалить сообщение", exc_info=True)

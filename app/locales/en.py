@@ -450,3 +450,22 @@ The more active the community — the better the bot gets. Don't be shy! 🙌"""
     "stats_explanation": "—————————————————————\nWord learned = 3 correct answers in a row",
     "stats_btn_rating": "🏆 My rating",
 }
+
+# ============================================================================
+# MULTILINGUAL: learning language, meaning language and direction
+# ============================================================================
+TEXTS.update({
+    "langname_de": "🇩🇪 German",
+    "langname_en": "🇬🇧 English",
+    "langname_ru": "🏴 Russian",
+    "langname_uk": "🇺🇦 Ukrainian",
+    "langname_tr": "🇹🇷 Turkish",
+
+    "settings_learning_lang_line": "🎯 Learning: <b>{language}</b>",
+
+    "settings_btn_learning_lang": "🎯 Language to learn",
+
+    "learning_lang_title": "🎯 <b>Language to learn</b>",
+    "learning_lang_description": "Pick the language whose words you want to learn.\nProgress is tracked separately for each language.",
+    "learning_lang_set": "✅ Learning: {language}",
+})

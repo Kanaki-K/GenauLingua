@@ -19,6 +19,7 @@ from app.bot.handlers.leaderboard.utils import (
     get_leaderboard_keyboard_text
 )
 from app.locales import get_text
+from app.services.language_service import pair_from_user
 
 router = Router()
 
@@ -168,8 +169,10 @@ async def show_table_monthly(callback: CallbackQuery, session: AsyncSession):
         await callback.message.edit_text(get_text("rating_not_active", lang))
         return
 
-    leaderboard = await get_monthly_leaderboard(session, season_id=season.id, limit=10)
-    user_rank = await get_user_monthly_rank(user.id, session, season_id=season.id)
+    leaderboard = await get_monthly_leaderboard(session, season_id=season.id, limit=10,
+                                         learning_lang=pair_from_user(user).learning)
+    user_rank = await get_user_monthly_rank(user.id, session, season_id=season.id,
+                                          learning_lang=pair_from_user(user).learning)
     text = build_monthly_table(leaderboard, user_rank, season, user.id, lang)
     await callback.message.edit_text(text, reply_markup=get_table_keyboard(lang, "monthly"))
 
@@ -196,8 +199,10 @@ async def switch_table_to_monthly(callback: CallbackQuery, session: AsyncSession
         await callback.message.edit_text(get_text("rating_not_active", lang))
         return
 
-    leaderboard = await get_monthly_leaderboard(session, season_id=season.id, limit=10)
-    user_rank = await get_user_monthly_rank(user.id, session, season_id=season.id)
+    leaderboard = await get_monthly_leaderboard(session, season_id=season.id, limit=10,
+                                         learning_lang=pair_from_user(user).learning)
+    user_rank = await get_user_monthly_rank(user.id, session, season_id=season.id,
+                                          learning_lang=pair_from_user(user).learning)
     text = build_monthly_table(leaderboard, user_rank, season, user.id, lang)
     await callback.message.edit_text(text, reply_markup=get_table_keyboard(lang, "monthly"))
 

@@ -102,6 +102,10 @@ app/scripts/*.xlsx
 app/scripts/*
 !app/scripts/README.md
 !app/scripts/rebuild_words_from_excel.py
+# Эксплуатационные скрипты: нужны на сервере, а не разовые утилиты.
+# rebuild_word_groups обязателен после любого изменения словарной базы.
+!app/scripts/rebuild_word_groups.py
+!app/scripts/audit_wordbase.py
 
 # One-time scripts
 send_active.py

@@ -3,6 +3,7 @@
 """
 import logging
 from datetime import datetime
+from app.core.clock import utcnow
 from zoneinfo import ZoneInfo
 from typing import List
 import random
@@ -77,7 +78,7 @@ async def check_and_send_notifications(bot: Bot):
     """
     from app.database.session import AsyncSessionLocal
 
-    now_utc = datetime.utcnow()
+    now_utc = utcnow()
     sent_count = 0
 
     async with AsyncSessionLocal() as session:

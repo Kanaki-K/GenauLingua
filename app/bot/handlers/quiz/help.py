@@ -59,7 +59,7 @@ async def show_help(message: Message, session: AsyncSession):
 
     try:
         await message.delete()
-    except:
+    except Exception:
         pass
 
     if user:
@@ -200,5 +200,5 @@ async def back_to_main_menu(callback: CallbackQuery):
     await callback.answer()
     try:
         await callback.message.delete()
-    except:
+    except Exception:
         pass

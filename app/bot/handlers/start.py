@@ -17,19 +17,15 @@ from app.bot.utils import delete_messages_fast, ensure_anchor
 from app.database.enums import CEFRLevel, QuizMode
 from app.database.models import User
 from app.locales import get_text
+from app.services.language_service import (
+    fallback_native_for,
+    legacy_mode_name,
+    pair_from_user,
+    pair_label,
+)
 
 router = Router()
 
-MODE_DICT = {
-    "DE_TO_RU": "🇩🇪 DE → 🏴 RU",
-    "RU_TO_DE": "🏴 RU → 🇩🇪 DE",
-    "DE_TO_UK": "🇩🇪 DE → 🇺🇦 UK",
-    "UK_TO_DE": "🇺🇦 UK → 🇩🇪 DE",
-    "DE_TO_EN": "🇩🇪 DE → 🇬🇧 EN",
-    "EN_TO_DE": "🇬🇧 EN → 🇩🇪 DE",
-    "DE_TO_TR": "🇩🇪 DE → 🇹🇷 TR",
-    "TR_TO_DE": "🇹🇷 TR → 🇩🇪 DE",
-}
 
 def get_language_selection_keyboard() -> InlineKeyboardMarkup:
     """Клавиатура выбора языка при первом старте"""
@@ -74,7 +70,7 @@ async def cmd_start(message: Message, state: FSMContext, session: AsyncSession):
 
     try:
         await message.delete()
-    except:
+    except Exception:
         pass
 
     user = await session.get(User, user_id)
@@ -126,7 +122,7 @@ async def cmd_start(message: Message, state: FSMContext, session: AsyncSession):
     )
 
     if user.level:
-        mode = MODE_DICT.get(user.translation_mode.value, user.translation_mode.value) if user.translation_mode else ""
+        mode = pair_label(pair_from_user(user))
         welcome_text += get_text('welcome_your_level', lang, level=user.level.value, mode=mode) + "\n\n"
         welcome_text += get_text('welcome_call_to_action', lang)
 
@@ -155,20 +151,17 @@ async def cmd_start(message: Message, state: FSMContext, session: AsyncSession):
 @router.callback_query(F.data.startswith("select_lang_"))
 async def select_language(callback: CallbackQuery, state: FSMContext, session: AsyncSession):
     """Обработчик выбора языка"""
-    lang = callback.data.split("_")[2]  # ru или uk
+    lang = callback.data.split("_")[2]  # ru, uk, en или tr
 
     user = await session.get(User, callback.from_user.id)
     user.interface_language = lang
 
-    # Автоматически ставим режим викторины по языку
-    from app.database.enums import TranslationMode
-    lang_to_mode = {
-        "ru": TranslationMode.DE_TO_RU,
-        "uk": TranslationMode.DE_TO_UK,
-        "en": TranslationMode.DE_TO_EN,
-        "tr": TranslationMode.DE_TO_TR,
-    }
-    user.translation_mode = lang_to_mode.get(lang, TranslationMode.DE_TO_RU)
+    # Новый пользователь начинает с немецкого — как и раньше. Изучаемый язык
+    # меняется в настройках. Значение слов показываем на языке интерфейса.
+    user.learning_lang = "de"
+    user.native_lang = lang if lang != "de" else fallback_native_for("de", preferred=lang)
+    user.reverse_mode = False
+    user.translation_mode = legacy_mode_name(pair_from_user(user))
 
     await session.commit()
 
