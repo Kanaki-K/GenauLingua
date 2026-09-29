@@ -113,8 +113,11 @@ app/scripts/*
 !app/scripts/verify_quiz_chain.py
 !app/scripts/verify_all_flows.py
 !app/scripts/tts_samples.py
+!app/scripts/tts_probe_telegram.py
+!app/scripts/tts_benchmark.py
+!app/scripts/tts_demo_card.py
 
-# Образцы озвучки: аудио в репозитории не нужно
+# Образцы и кэш озвучки: аудио в репозитории не нужно
 tts_samples/
 
 # One-time scripts
