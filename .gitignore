@@ -116,6 +116,7 @@ app/scripts/*
 !app/scripts/tts_probe_telegram.py
 !app/scripts/tts_benchmark.py
 !app/scripts/tts_demo_card.py
+!app/scripts/tts_preflight.py
 
 # Образцы и кэш озвучки: аудио в репозитории не нужно
 tts_samples/
