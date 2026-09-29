@@ -1,0 +1,31 @@
+#  База для локальной разработки: запуск бота из PyCharm без Docker.
+#
+#  Отдельная от всего остального:
+#    5432 — боевой профиль docker-compose.yml (и постгрес другого проекта)
+#    5433 — docker-compose.test.yml, его таблицы чистит pytest
+#    5434 — эта, с постоянным томом: залитые слова не пропадают
+#
+#  docker compose -f docker-compose.dev.yml up -d
+#  docker compose -f docker-compose.dev.yml down        # данные остаются
+#  docker compose -f docker-compose.dev.yml down -v     # снести вместе с данными
+
+services:
+  postgres_dev:
+    image: postgres:16
+    container_name: genaulingua_db_dev
+    environment:
+      POSTGRES_USER: dev_user
+      POSTGRES_PASSWORD: dev_pass
+      POSTGRES_DB: genaulingua_dev
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dev_user -d genaulingua_dev"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+volumes:
+  postgres_dev_data:

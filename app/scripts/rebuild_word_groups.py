@@ -22,9 +22,13 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
+import os
+
 from dotenv import load_dotenv
 
-load_dotenv()
+# Тот же файл, что читает app.config — иначе локальный запуск
+# подхватит боевые строки подключения из .env.
+load_dotenv(os.environ.get("ENV_FILE", ".env"))
 
 from sqlalchemy import create_engine
 

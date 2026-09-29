@@ -108,6 +108,8 @@ app/scripts/*
 !app/scripts/audit_wordbase.py
 !app/scripts/retranslate_wordbase.py
 !app/scripts/smoke_quiz.py
+!app/scripts/audit_admin.py
+!app/scripts/load_prod_copy.py
 
 # One-time scripts
 send_active.py

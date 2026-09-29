@@ -1,6 +1,13 @@
+import os
 from typing import Optional
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+# Какой файл настроек читать. По умолчанию .env (прод и docker-compose).
+# Для локального запуска ставится ENV_FILE=.env.local — так боевой .env
+# не приходится подменять, и нельзя случайно запустить тестовый бот
+# на боевой базе.
+ENV_FILE = os.environ.get("ENV_FILE", ".env")
 
 
 class Settings(BaseSettings):
@@ -24,7 +31,7 @@ class Settings(BaseSettings):
     POSTGRES_DB: Optional[str] = None
 
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=ENV_FILE,
         env_file_encoding="utf-8",
         case_sensitive=True,
         extra="ignore",  # <-- ключевое: игнорим лишние переменные в .env

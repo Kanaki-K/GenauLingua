@@ -3,13 +3,16 @@
 Команды доступны только для администратора
 """
 
+import asyncio
 import csv
 import io
 from aiogram import Router, F
 from aiogram.filters import Command
 from aiogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton, BufferedInputFile
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, func, and_, distinct, case, desc, or_
+# text импортируется под псевдонимом: в этом модуле `text` — локальная
+# переменная, в которой собираются сообщения, и импорт её бы затенял
+from sqlalchemy import select, func, and_, distinct, case, desc, or_, text as sql_text
 from datetime import datetime, timedelta, date
 from app.core.clock import utcnow
 from app.database.models import User, QuizSession, QuizQuestion, UserWord, Word, TranslationReport
@@ -171,48 +174,60 @@ async def admin_analytics(callback: CallbackQuery, session: AsyncSession):
     total_users_result = await session.execute(select(func.count()).select_from(User))
     total_users = total_users_result.scalar() or 1
 
-    # Day 1 retention: юзеры зарегались до вчера И вернулись на следующий день
+    # Retention считается по когортам: «вернулся на следующий календарный день
+    # после регистрации», а не «играл когда-нибудь позже дня регистрации».
+    # Прежний запрос считал второе и завышал D1 примерно втрое: 31% вместо 11%.
     yesterday = date.today() - timedelta(days=1)
-    users_before_yesterday_result = await session.execute(
-        select(func.count()).select_from(User)
-        .where(User.created_at <= datetime.combine(yesterday, datetime.min.time()))
-    )
-    users_before_yesterday = users_before_yesterday_result.scalar() or 1
+    week_ago = date.today() - timedelta(days=7)
 
-    day1_retention_result = await session.execute(
+    # D1: знаменатель — те, у кого этот следующий день уже наступил
+    d1_cohort_result = await session.execute(
+        select(func.count()).select_from(User)
+        .where(func.date(User.created_at) <= yesterday)
+    )
+    d1_cohort = d1_cohort_result.scalar() or 0
+
+    d1_returned_result = await session.execute(
         select(func.count(distinct(User.id)))
         .select_from(User)
         .join(QuizSession, User.id == QuizSession.user_id)
         .where(
-            User.created_at <= datetime.combine(yesterday, datetime.min.time()),
-            func.date(QuizSession.completed_at) > func.date(User.created_at)
+            func.date(User.created_at) <= yesterday,
+            func.date(QuizSession.started_at) == func.date(User.created_at) + 1,
         )
     )
-    day1_returned = day1_retention_result.scalar() or 0
-    day1_retention = (day1_returned / users_before_yesterday * 100) if users_before_yesterday > 0 else 0
+    day1_returned = d1_returned_result.scalar() or 0
+    day1_retention = (day1_returned / d1_cohort * 100) if d1_cohort else 0
 
-    week_ago = date.today() - timedelta(days=7)
-    users_week_ago_result = await session.execute(
-        select(func.count()).select_from(User).where(User.created_at <= datetime.combine(week_ago, datetime.min.time()))
+    # D7: вернулся на 7-й день или позже, но в пределах двух недель —
+    # иначе метрика сливается с «когда-нибудь возвращался»
+    d7_cohort_result = await session.execute(
+        select(func.count()).select_from(User)
+        .where(func.date(User.created_at) <= week_ago)
     )
-    users_week_ago = users_week_ago_result.scalar() or 1
+    d7_cohort = d7_cohort_result.scalar() or 0
 
-    day7_active_result = await session.execute(
+    d7_returned_result = await session.execute(
         select(func.count(distinct(User.id)))
         .select_from(User)
+        .join(QuizSession, User.id == QuizSession.user_id)
         .where(
-            User.created_at <= datetime.combine(week_ago, datetime.min.time()),
-            or_(
-                User.last_quiz_date >= week_ago,
-                User.id.in_(
-                    select(distinct(QuizSession.user_id))
-                    .where(QuizSession.completed_at >= datetime.combine(week_ago, datetime.min.time()))
-                )
-            )
+            func.date(User.created_at) <= week_ago,
+            func.date(QuizSession.started_at) >= func.date(User.created_at) + 7,
+            func.date(QuizSession.started_at) <= func.date(User.created_at) + 14,
         )
     )
-    day7_active = day7_active_result.scalar() or 0
-    day7_retention = (day7_active / users_week_ago * 100) if users_week_ago > 0 else 0
+    day7_returned = d7_returned_result.scalar() or 0
+    day7_retention = (day7_returned / d7_cohort * 100) if d7_cohort else 0
+
+    # Отдельная метрика: сколько «старичков» вообще заходило за последнюю неделю.
+    # Это не retention когорты — это текущая живость базы.
+    active_week_result = await session.execute(
+        select(func.count(distinct(QuizSession.user_id)))
+        .select_from(QuizSession)
+        .where(QuizSession.started_at >= datetime.combine(week_ago, datetime.min.time()))
+    )
+    active_week = active_week_result.scalar() or 0
 
     sources_result = await session.execute(
         select(QuizSession.start_source, func.count())
@@ -266,10 +281,12 @@ async def admin_analytics(callback: CallbackQuery, session: AsyncSession):
     text = "📈 <b>АНАЛИТИКА</b>\n\n"
 
     text += "🔥 <b>Retention (удержание):</b>\n"
-    text += f"├─ Day 1: <b>{day1_retention:.1f}%</b> ({day1_returned}/{total_users})\n"
-    text += f"│  └─ <i>вернулись на следующий день</i>\n"
-    text += f"├─ Day 7: <b>{day7_retention:.1f}%</b> ({day7_active}/{users_week_ago})\n"
-    text += f"│  └─ <i>активны через неделю после регистрации</i>\n\n"
+    text += f"├─ Day 1: <b>{day1_retention:.1f}%</b> ({day1_returned}/{d1_cohort})\n"
+    text += f"│  └─ <i>вернулись именно на следующий день</i>\n"
+    text += f"├─ Day 7: <b>{day7_retention:.1f}%</b> ({day7_returned}/{d7_cohort})\n"
+    text += f"│  └─ <i>вернулись на 7–14-й день</i>\n"
+    text += f"└─ Активны за неделю: <b>{active_week}</b>\n"
+    text += f"   └─ <i>уникальных игроков за 7 дней (не retention)</i>\n\n"
 
     if sources:
         text += "📊 <b>Откуда начинают викторины:</b>\n"
@@ -282,12 +299,20 @@ async def admin_analytics(callback: CallbackQuery, session: AsyncSession):
     else:
         text += "📊 <b>Источники викторин:</b> нет данных\n\n"
 
+    # Ниже три секции зависят от полей, которые долгое время не записывались:
+    # response_time_seconds и exit_at_question были пустыми на всей истории.
+    # Раньше такие секции молча исчезали, и панель выглядела наполовину пустой
+    # без объяснения. Теперь пустота проговаривается.
+    NO_DATA_HINT = "<i>данные собираются только с последнего обновления бота</i>"
+
     if total_answers > 0:
         text += "⏱️ <b>Скорость ответа:</b>\n"
         text += f"├─ 0-2 сек: <b>{speed_dist[0]/total_answers*100:.0f}%</b> (знает)\n"
         text += f"├─ 3-5 сек: <b>{speed_dist[1]/total_answers*100:.0f}%</b> (думает)\n"
         text += f"├─ 6-10 сек: <b>{speed_dist[2]/total_answers*100:.0f}%</b> (сложно)\n"
         text += f"└─ 10+ сек: <b>{speed_dist[3]/total_answers*100:.0f}%</b> (угадывает)\n\n"
+    else:
+        text += f"⏱️ <b>Скорость ответа:</b> нет замеров\n   └─ {NO_DATA_HINT}\n\n"
 
     if exit_points and any(exit_points):
         text += "🚪 <b>Где бросают викторину:</b>\n"
@@ -295,12 +320,16 @@ async def admin_analytics(callback: CallbackQuery, session: AsyncSession):
         text += f"├─ Вопросы 6-10: <b>{exit_points[1]}</b>\n"
         text += f"├─ Вопросы 11-15: <b>{exit_points[2]}</b>\n"
         text += f"└─ Вопросы 16-20: <b>{exit_points[3]}</b>\n\n"
+    else:
+        text += f"🚪 <b>Где бросают викторину:</b> нет данных\n   └─ {NO_DATA_HINT}\n\n"
 
     if difficult_words:
         text += "🎯 <b>Самые сложные слова (по времени):</b>\n"
         for i, (word_de, article, avg_time) in enumerate(difficult_words, 1):
             full_word = f"{article} {word_de}" if article and article != "-" else word_de
             text += f"{i}. <b>{full_word}</b> — ср. {avg_time:.1f} сек\n"
+    else:
+        text += f"🎯 <b>Сложные слова по времени:</b> нет замеров\n   └─ {NO_DATA_HINT}"
 
     back_btn = InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="◀️ Назад", callback_data="admin:back")]
@@ -321,56 +350,38 @@ async def admin_cohorts(callback: CallbackQuery, session: AsyncSession):
 
     await callback.answer()
 
-    current_month = date.today().replace(day=1)
-    prev_month = (current_month - timedelta(days=1)).replace(day=1)
-
-    current_month_users_result = await session.execute(
-        select(func.count()).select_from(User).where(User.created_at >= datetime.combine(current_month, datetime.min.time()))
-    )
-    current_month_users = current_month_users_result.scalar() or 0
-
-    current_month_active_result = await session.execute(
-        select(func.count(distinct(User.id)))
-        .select_from(User)
-        .where(
-            User.created_at >= datetime.combine(current_month, datetime.min.time()),
-            or_(
-                User.last_quiz_date.isnot(None),
-                User.id.in_(
-                    select(distinct(QuizSession.user_id))
-                    .where(QuizSession.completed_at.isnot(None))
-                )
+    # Все месяцы, а не только текущий и предыдущий: раньше заголовок обещал
+    # «по месяцам регистрации», а показывались два последних — и когорта
+    # запуска, единственная с заметным удержанием, была не видна вообще.
+    #
+    # «Играли» и «дошли до привычки» считаются в пределах своей когорты:
+    # прежний запрос спрашивал «завершал ли когда-нибудь хоть одну викторину»
+    # без привязки к месяцу регистрации.
+    cohort_result = await session.execute(
+        sql_text(
+            """
+            WITH per_user AS (
+                SELECT u.id,
+                       to_char(u.created_at, 'YYYY-MM') AS cohort,
+                       COUNT(DISTINCT date(q.started_at)) AS active_days
+                FROM users u
+                LEFT JOIN quiz_sessions q ON q.user_id = u.id
+                GROUP BY u.id, to_char(u.created_at, 'YYYY-MM')
             )
+            SELECT cohort,
+                   COUNT(*) AS registered,
+                   COUNT(*) FILTER (WHERE active_days > 0) AS played,
+                   COUNT(*) FILTER (WHERE active_days >= 5) AS retained
+            FROM per_user
+            GROUP BY cohort
+            ORDER BY cohort
+            """
         )
     )
-    current_month_active = current_month_active_result.scalar() or 0
-
-    prev_month_users_result = await session.execute(
-        select(func.count())
-        .select_from(User)
-        .where(
-            User.created_at >= datetime.combine(prev_month, datetime.min.time()),
-            User.created_at < datetime.combine(current_month, datetime.min.time())
-        )
-    )
-    prev_month_users = prev_month_users_result.scalar() or 0
-
-    prev_month_active_result = await session.execute(
-        select(func.count(distinct(User.id)))
-        .select_from(User)
-        .where(
-            User.created_at >= datetime.combine(prev_month, datetime.min.time()),
-            User.created_at < datetime.combine(current_month, datetime.min.time()),
-            or_(
-                User.last_quiz_date.isnot(None),
-                User.id.in_(
-                    select(distinct(QuizSession.user_id))
-                    .where(QuizSession.completed_at.isnot(None))
-                )
-            )
-        )
-    )
-    prev_month_active = prev_month_active_result.scalar() or 0
+    monthly_cohorts = [
+        (row.cohort, row.registered, row.played, row.retained)
+        for row in cohort_result
+    ]
 
     levels_stats_result = await session.execute(
         select(
@@ -403,13 +414,19 @@ async def admin_cohorts(callback: CallbackQuery, session: AsyncSession):
     text = "👥 <b>КОГОРТЫ ПОЛЬЗОВАТЕЛЕЙ</b>\n\n"
 
     text += "📅 <b>По месяцам регистрации:</b>\n"
-    text += f"├─ {prev_month.strftime('%B %Y')}: <b>{prev_month_users}</b> зарег.\n"
-    if prev_month_users > 0:
-        text += f"│  └─ Играли: {prev_month_active} ({prev_month_active/prev_month_users*100:.0f}%)\n"
-    text += f"└─ {current_month.strftime('%B %Y')}: <b>{current_month_users}</b> зарег.\n"
-    if current_month_users > 0:
-        text += f"   └─ Играли: {current_month_active} ({current_month_active/current_month_users*100:.0f}%)\n"
-    text += "\n"
+    if not monthly_cohorts:
+        text += "└─ нет данных\n"
+    for i, (month, registered, played, retained) in enumerate(monthly_cohorts):
+        last = i == len(monthly_cohorts) - 1
+        branch, indent = ("└─", "   ") if last else ("├─", "│  ")
+        played_pct = played / registered * 100 if registered else 0
+        retained_pct = retained / registered * 100 if registered else 0
+        text += f"{branch} {month}: <b>{registered}</b> зарег.\n"
+        text += (
+            f"{indent}└─ играли: {played} ({played_pct:.0f}%) | "
+            f"дошли до привычки: {retained} ({retained_pct:.0f}%)\n"
+        )
+    text += "<i>привычка = 5+ дней с викторинами</i>\n\n"
 
     text += "📚 <b>По уровням:</b>\n"
     for level, users, avg_quizzes in levels_stats:
@@ -511,18 +528,30 @@ async def admin_churn(callback: CallbackQuery, session: AsyncSession):
     churned = churned_result.scalar() or 0
     churn_rate = (churned / players_month_ago * 100) if players_month_ago > 0 else 0
 
-    # "Никогда не играли" — юзеры без единой завершённой викторины
-    never_played_result = await session.execute(
+    # Два разных счётчика, которые раньше были свалены в один.
+    # Прежний запрос считал «нет ЗАВЕРШЁННЫХ викторин», а подпись говорила
+    # «ни разу не начали». Разница большая: в старых данных completed_at
+    # часть времени не записывался, и счётчик был завышен вчетверо —
+    # 104 вместо реальных 23.
+    never_started_result = await session.execute(
+        select(func.count())
+        .select_from(User)
+        .where(~User.id.in_(select(distinct(QuizSession.user_id))))
+    )
+    never_started = never_started_result.scalar() or 0
+
+    started_never_finished_result = await session.execute(
         select(func.count())
         .select_from(User)
         .where(
+            User.id.in_(select(distinct(QuizSession.user_id))),
             ~User.id.in_(
                 select(distinct(QuizSession.user_id))
                 .where(QuizSession.completed_at.isnot(None))
-            )
+            ),
         )
     )
-    never_played = never_played_result.scalar() or 0
+    started_never_finished = started_never_finished_result.scalar() or 0
 
     text = "⚠️ <b>ОТТОК ПОЛЬЗОВАТЕЛЕЙ</b>\n\n"
 
@@ -547,8 +576,11 @@ async def admin_churn(callback: CallbackQuery, session: AsyncSession):
     else:
         text += f"└─ Нет данных (нет игроков старше 30 дней)\n\n"
 
-    text += f"👻 <b>Никогда не играли: {never_played}</b>\n"
-    text += f"<i>Зарегистрировались, но ни разу не начали викторину</i>"
+    text += f"👻 <b>Ни одной викторины: {never_started}</b>\n"
+    text += f"<i>Зарегистрировались и не начали ни разу</i>\n\n"
+
+    text += f"🚪 <b>Начали, но не дошли до конца: {started_never_finished}</b>\n"
+    text += f"<i>Хотя бы одна викторина начата, ни одна не завершена</i>"
 
     back_btn = InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="◀️ Назад", callback_data="admin:back")]
@@ -1280,22 +1312,105 @@ async def broadcast_message(message: Message, session: AsyncSession):
 
     broadcast_text = parts[1]
 
-    result = await session.execute(select(User))
-    users = result.scalars().all()
+    # Бот отправляет всё с parse_mode=HTML. Любой символ < в тексте рассылки
+    # Telegram считает началом тега и отклоняет сообщение — для КАЖДОГО
+    # получателя. Раньше это означало «Ошибок: 232» без объяснения причины.
+    # Поэтому разметку проверяем заранее: предпросмотр уходит самому админу
+    # ровно тем же вызовом, каким пойдёт рассылка.
+    try:
+        await message.bot.send_message(message.from_user.id, broadcast_text)
+    except Exception as exc:
+        if "parse entities" in str(exc):
+            await message.answer(
+                "❌ <b>Текст не проходит разметку HTML</b>\n\n"
+                f"<code>{str(exc)[:200]}</code>\n\n"
+                "Такое сообщение не дойдёт ни до кого. Символы &lt; и &gt; нужно "
+                "писать как <code>&amp;lt;</code> и <code>&amp;gt;</code>, "
+                "а теги — закрывать."
+            )
+        else:
+            await message.answer(f"❌ Не удалось отправить предпросмотр: {exc}")
+        return
 
-    success = 0
-    failed = 0
+    count_result = await session.execute(select(func.count()).select_from(User))
+    recipients = count_result.scalar() or 0
 
-    for user in users:
-        try:
-            await message.bot.send_message(user.id, broadcast_text)
-            success += 1
-        except Exception as e:
-            logger.error(f"Ошибка отправки пользователю {user.id}: {e}")
-            failed += 1
+    _PENDING_BROADCASTS[message.from_user.id] = broadcast_text
+
+    confirm = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text=f"📢 Отправить {recipients} юзерам",
+                              callback_data="admin:broadcast_confirm")],
+        [InlineKeyboardButton(text="✖️ Отмена", callback_data="admin:broadcast_cancel")],
+    ])
 
     await message.answer(
+        f"📢 <b>Предпросмотр выше — это ровно то, что получат люди.</b>\n"
+        f"Получателей: <b>{recipients}</b>\n\n"
+        f"Разметка проверена, доставка подтверждена.",
+        reply_markup=confirm,
+    )
+
+
+# Текст ждёт подтверждения. В памяти процесса: рассылка — операция на минуты,
+# переживать рестарт ей не нужно, а неотправленный черновик после рестарта
+# лучше потерять, чем отправить неожиданно.
+_PENDING_BROADCASTS: dict[int, str] = {}
+
+# Telegram ограничивает бота примерно 30 сообщениями в секунду.
+BROADCAST_CHUNK = 25
+BROADCAST_PAUSE = 1.0
+
+
+@router.callback_query(F.data == "admin:broadcast_cancel")
+async def broadcast_cancel(callback: CallbackQuery):
+    if not is_admin(callback.from_user.id):
+        await callback.answer("❌ Доступ запрещён")
+        return
+
+    _PENDING_BROADCASTS.pop(callback.from_user.id, None)
+    await callback.answer("Отменено")
+    await callback.message.edit_text("✖️ Рассылка отменена.")
+
+
+@router.callback_query(F.data == "admin:broadcast_confirm")
+async def broadcast_confirm(callback: CallbackQuery, session: AsyncSession):
+    if not is_admin(callback.from_user.id):
+        await callback.answer("❌ Доступ запрещён")
+        return
+
+    broadcast_text = _PENDING_BROADCASTS.pop(callback.from_user.id, None)
+    if not broadcast_text:
+        await callback.answer("Текст не найден — отправь /broadcast заново", show_alert=True)
+        return
+
+    await callback.answer()
+    await callback.message.edit_text("📢 Рассылка запущена…")
+
+    result = await session.execute(select(User.id))
+    user_ids = [row[0] for row in result.all()]
+
+    success = 0
+    blocked = 0
+    failed = 0
+
+    for index, user_id in enumerate(user_ids):
+        try:
+            await callback.bot.send_message(user_id, broadcast_text)
+            success += 1
+        except Exception as exc:
+            # Заблокировавшие бота — это норма, а не сбой рассылки
+            if "blocked" in str(exc).lower() or "deactivated" in str(exc).lower():
+                blocked += 1
+            else:
+                failed += 1
+                logger.warning("Рассылка: не доставлено %s: %s", user_id, exc)
+
+        if (index + 1) % BROADCAST_CHUNK == 0:
+            await asyncio.sleep(BROADCAST_PAUSE)
+
+    await callback.message.edit_text(
         f"📢 <b>Рассылка завершена</b>\n\n"
-        f"✅ Отправлено: {success}\n"
-        f"❌ Ошибок: {failed}"
+        f"✅ Доставлено: {success}\n"
+        f"🚫 Заблокировали бота: {blocked}\n"
+        f"❌ Прочие ошибки: {failed}"
     )
