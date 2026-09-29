@@ -43,11 +43,49 @@ from app.schedulers import setup_scheduler
 logger = logging.getLogger(__name__)
 
 
+async def check_database() -> None:
+    """
+    Убедиться, что база достижима, ДО начала опроса Telegram.
+
+    Иначе бот стартует нормально, а первое же нажатие кнопки падает
+    стострочной трассировкой внутри обработчика. Самая частая причина —
+    запуск с .env, где DATABASE_URL указывает на хост `postgres` из
+    docker-сети: с машины разработчика это имя не резолвится.
+    """
+    from sqlalchemy import text
+
+    from app.config import ENV_FILE
+    from app.database.session import engine
+
+    # Показываем хост, но не логин с паролем
+    dsn = settings.DATABASE_URL
+    location = dsn.split("@")[-1] if "@" in dsn else dsn
+
+    try:
+        async with engine.connect() as conn:
+            await conn.execute(text("SELECT 1"))
+    except Exception as exc:
+        logger.error("❌ Нет подключения к базе: %s", location)
+        logger.error("   настройки читались из: %s", ENV_FILE)
+        logger.error("   причина: %s", exc)
+        if "getaddrinfo" in str(exc) or "could not translate host name" in str(exc):
+            logger.error(
+                "   Имя хоста не резолвится. Для запуска не в докере нужен "
+                "ENV_FILE=.env.local (база на localhost:5434), "
+                "а не .env (там хост postgres из docker-сети)."
+            )
+        raise SystemExit(1)
+
+    logger.info("🗄️  База на связи: %s (настройки из %s)", location, ENV_FILE)
+
+
 async def main():
     setup_logging()
     setup_sentry()
 
     logger.info("🚀 Starting GenauLingua Bot...")
+
+    await check_database()
 
     bot = Bot(
         token=settings.BOT_TOKEN,

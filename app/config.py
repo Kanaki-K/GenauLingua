@@ -1,13 +1,34 @@
 import os
+from pathlib import Path
 from typing import Optional
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-# Какой файл настроек читать. По умолчанию .env (прод и docker-compose).
-# Для локального запуска ставится ENV_FILE=.env.local — так боевой .env
-# не приходится подменять, и нельзя случайно запустить тестовый бот
-# на боевой базе.
-ENV_FILE = os.environ.get("ENV_FILE", ".env")
+_PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
+
+def _pick_env_file() -> str:
+    """
+    Какой файл настроек читать.
+
+    Порядок: явный ENV_FILE → .env.local, если он есть → .env.
+
+    .env.local лежит только на машине разработчика (он в gitignore и не
+    попадает ни в образ, ни на сервер), поэтому автоподхват безопасен:
+    в проде файла нет и читается обычный .env. Зато локальный запуск
+    больше не требует настраивать переменные окружения в PyCharm —
+    иначе берётся .env с хостом `postgres` из docker-сети, который
+    с ноутбука не резолвится.
+    """
+    explicit = os.environ.get("ENV_FILE")
+    if explicit:
+        return explicit
+    if (_PROJECT_ROOT / ".env.local").exists():
+        return ".env.local"
+    return ".env"
+
+
+ENV_FILE = _pick_env_file()
 
 
 class Settings(BaseSettings):
