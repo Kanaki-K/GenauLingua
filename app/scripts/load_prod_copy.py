@@ -60,6 +60,38 @@ def sql_scalar_table(query: str) -> str:
     return "\n".join(out)
 
 
+def reset_sequences() -> None:
+    """
+    Сдвинуть счётчики последовательностей после импорта.
+
+    COPY вставляет строки с явными id и НЕ двигает sequence — он остаётся на
+    единице. Первая же новая запись пытается занять id=1, который уже занят,
+    и падает на duplicate key. Снаружи это выглядит так, будто сломался бот:
+    «Учить слова» не запускается, хотя дело только в счётчике.
+    """
+    statement = """
+    DO $$
+    DECLARE r record; m bigint;
+    BEGIN
+      FOR r IN
+        SELECT c.table_name, c.column_name,
+               pg_get_serial_sequence(c.table_name, c.column_name) AS seq
+        FROM information_schema.columns c
+        WHERE c.table_schema = 'public'
+          AND pg_get_serial_sequence(c.table_name, c.column_name) IS NOT NULL
+      LOOP
+        EXECUTE format('SELECT COALESCE(MAX(%I), 0) FROM %I', r.column_name, r.table_name) INTO m;
+        PERFORM setval(r.seq, GREATEST(m, 1));
+      END LOOP;
+    END $$;
+    """
+    with _conn() as conn:
+        conn.autocommit = True
+        with conn.cursor() as cur:
+            cur.execute(statement)
+    print("  счётчики последовательностей сдвинуты")
+
+
 def reset_schema() -> None:
     with _conn() as conn:
         conn.autocommit = True
@@ -148,7 +180,10 @@ def main() -> None:
             total += import_table(conn, table)
     print(f"  всего строк: {total}")
 
-    print("4. прогоняю миграции на этих данных")
+    print("4. счётчики последовательностей")
+    reset_sequences()
+
+    print("5. прогоняю миграции на этих данных")
     alembic("head")
 
     print("5. пересборка групп слов")

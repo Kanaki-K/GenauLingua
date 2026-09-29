@@ -110,6 +110,7 @@ app/scripts/*
 !app/scripts/smoke_quiz.py
 !app/scripts/audit_admin.py
 !app/scripts/load_prod_copy.py
+!app/scripts/verify_quiz_chain.py
 
 # One-time scripts
 send_active.py
