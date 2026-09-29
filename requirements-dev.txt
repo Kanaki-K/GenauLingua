@@ -2,3 +2,7 @@
 
 pytest==8.3.4
 pytest-asyncio==0.25.0
+
+# Для app/scripts/retranslate_wordbase.py — пересборка переводов через Claude API.
+# Боту в рантайме не нужен.
+anthropic>=0.69.0
