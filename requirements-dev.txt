@@ -6,3 +6,6 @@ pytest-asyncio==0.25.0
 # Для app/scripts/retranslate_wordbase.py — пересборка переводов через Claude API.
 # Боту в рантайме не нужен.
 anthropic>=0.69.0
+
+# Для app/scripts/tts_samples.py — образцы озвучки голосами носителей.
+edge-tts>=7.0.0

@@ -111,6 +111,11 @@ app/scripts/*
 !app/scripts/audit_admin.py
 !app/scripts/load_prod_copy.py
 !app/scripts/verify_quiz_chain.py
+!app/scripts/verify_all_flows.py
+!app/scripts/tts_samples.py
+
+# Образцы озвучки: аудио в репозитории не нужно
+tts_samples/
 
 # One-time scripts
 send_active.py
