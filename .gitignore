@@ -140,6 +140,9 @@ app/scripts/*
 !app/scripts/tts_prune_orphans.py
 # Исполняет последовательность из DEPLOY.md, чтобы документ и дело не разошлись
 !app/scripts/finish_translation_round.py
+# Проверяет предложения ДО применения и бесплатно: инструкции в запросе
+# недостаточно, про турецкую İ там было сказано и всё равно вышло 429 строк
+!app/scripts/validate_translations.py
 !app/scripts/tts_trim_store.py
 !app/scripts/tts_audit_clips.py
 
