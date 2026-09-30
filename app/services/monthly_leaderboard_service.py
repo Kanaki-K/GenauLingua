@@ -13,7 +13,7 @@ from app.database.models import (
 from app.services.language_service import DEFAULT_LEARNING_LANG, pair_from_user
 from typing import List, Dict, Optional
 from datetime import datetime, date, timedelta
-from app.core.clock import utcnow
+from app.core.clock import utcnow, utctoday
 import calendar
 
 import logging
@@ -80,7 +80,7 @@ async def get_or_create_current_season(session: AsyncSession) -> MonthlySeason:
     """Получить текущий сезон или создать если нет"""
     season = await get_current_season(session)
     if not season:
-        today = date.today()
+        today = utctoday()
         season = await create_new_season(today.year, today.month, session)
     return season
 
@@ -295,7 +295,7 @@ async def calculate_monthly_streak(
     if not days_with_quizzes:
         return 0
 
-    current_date = min(date.today(), season.end_date)
+    current_date = min(utctoday(), season.end_date)
     streak = 0
 
     while current_date >= season.start_date:

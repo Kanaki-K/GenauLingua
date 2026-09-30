@@ -29,7 +29,7 @@ from app.services.audio_service import (
     clip_for_user,
     clip_kind_for_question,
 )
-from app.core.clock import utcnow
+from app.core.clock import utcnow, utctoday
 from app.database.enums import QuizMode
 from app.database.models import QuizQuestion, QuizSession, User, UserWord, Word
 from app.locales import get_text
@@ -193,7 +193,7 @@ def get_results_keyboard(has_errors: bool, lang: str = "ru") -> InlineKeyboardMa
 async def update_user_activity(session: AsyncSession, user_id: int) -> None:
     """Стрик активных дней — обновляется при завершении викторины."""
     user = await session.get(User, user_id)
-    today = date.today()
+    today = utctoday()
 
     if user.last_active_date == today:
         return
@@ -534,7 +534,7 @@ async def _finish_quiz(
 
     if not is_error_repeat:
         user.quizzes_passed = (user.quizzes_passed or 0) + 1
-        user.last_quiz_date = date.today()
+        user.last_quiz_date = utctoday()
         if user.first_quiz_at is None:
             user.first_quiz_at = utcnow()
 

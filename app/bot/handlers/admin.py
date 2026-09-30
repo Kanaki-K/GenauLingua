@@ -14,7 +14,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 # переменная, в которой собираются сообщения, и импорт её бы затенял
 from sqlalchemy import select, func, and_, distinct, case, desc, or_, text as sql_text
 from datetime import datetime, timedelta, date
-from app.core.clock import utcnow
+from app.core.clock import utcnow, utctoday
 from app.database.models import User, QuizSession, QuizQuestion, UserWord, Word, TranslationReport
 from app.services.quiz_service import get_user_progress_stats
 from app.services.language_service import pair_from_user, pair_label
@@ -74,13 +74,13 @@ async def _get_main_stats(session: AsyncSession) -> str:
         select(func.count(distinct(User.id)))
         .select_from(User)
         .where(or_(
-            User.last_active_date >= date.today(),
-            User.last_quiz_date >= date.today()
+            User.last_active_date >= utctoday(),
+            User.last_quiz_date >= utctoday()
         ))
     )
     active_24h = active_24h_result.scalar()
 
-    week_ago = date.today() - timedelta(days=7)
+    week_ago = utctoday() - timedelta(days=7)
     active_7d_result = await session.execute(
         select(func.count(distinct(User.id)))
         .select_from(User)
@@ -174,8 +174,8 @@ async def admin_analytics(callback: CallbackQuery, session: AsyncSession):
     # Retention считается по когортам: «вернулся на следующий календарный день
     # после регистрации», а не «играл когда-нибудь позже дня регистрации».
     # Прежний запрос считал второе и завышал D1 примерно втрое: 31% вместо 11%.
-    yesterday = date.today() - timedelta(days=1)
-    week_ago = date.today() - timedelta(days=7)
+    yesterday = utctoday() - timedelta(days=1)
+    week_ago = utctoday() - timedelta(days=7)
 
     # D1: знаменатель — те, у кого этот следующий день уже наступил
     d1_cohort_result = await session.execute(
@@ -457,7 +457,7 @@ async def admin_churn(callback: CallbackQuery, session: AsyncSession):
 
     await callback.answer()
 
-    today = date.today()
+    today = utctoday()
     week_ago = today - timedelta(days=7)
     three_days_ago = today - timedelta(days=3)
     month_ago = today - timedelta(days=30)
@@ -651,7 +651,7 @@ async def admin_export_users(callback: CallbackQuery, session: AsyncSession):
     output.seek(0)
     csv_bytes = output.getvalue().encode('utf-8-sig')
 
-    file = BufferedInputFile(csv_bytes, filename=f"users_{date.today()}.csv")
+    file = BufferedInputFile(csv_bytes, filename=f"users_{utctoday()}.csv")
     await callback.message.answer_document(file, caption="📊 Экспорт пользователей")
     await callback.message.delete()
 
@@ -703,7 +703,7 @@ async def admin_export_quizzes(callback: CallbackQuery, session: AsyncSession):
     output.seek(0)
     csv_bytes = output.getvalue().encode('utf-8-sig')
 
-    file = BufferedInputFile(csv_bytes, filename=f"quizzes_{date.today()}.csv")
+    file = BufferedInputFile(csv_bytes, filename=f"quizzes_{utctoday()}.csv")
     await callback.message.answer_document(file, caption="🏆 Экспорт викторин")
     await callback.message.delete()
 

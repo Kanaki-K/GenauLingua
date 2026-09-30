@@ -13,6 +13,8 @@
 import logging
 from datetime import date
 
+from app.core.clock import utctoday
+
 from app.database.session import AsyncSessionLocal
 from app.services.monthly_leaderboard_service import (
     get_current_season,
@@ -28,7 +30,7 @@ async def finalize_and_create_new_season():
     Завершить старый сезон + создать новый.
     Вызывается 1 числа каждого месяца.
     """
-    today = date.today()
+    today = utctoday()
     logger.info(f"🔄 Проверка смены сезона: {today}")
 
     async with AsyncSessionLocal() as session:
@@ -74,7 +76,7 @@ async def hourly_season_check():
     Страховочная проверка каждый час.
     Если бот был выключен 1 числа — подхватит смену сезона.
     """
-    today = date.today()
+    today = utctoday()
 
     async with AsyncSessionLocal() as session:
         current_season = await get_current_season(session)
