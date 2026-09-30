@@ -472,4 +472,26 @@ TEXTS.update({
     "learning_lang_title": "🎯 <b>Language to learn</b>",
     "learning_lang_description": "Pick the language whose words you want to learn.\nProgress is tracked separately for each language.",
     "learning_lang_set": "✅ Learning: {language}",
+    # Settings line and the audio screen
+    "settings_audio_line": "🔊 Audio: <b>{state}</b>",
+    "settings_btn_audio": "🔊 Audio",
+    "audio_state_on": "on",
+    "audio_state_off": "off",
+
+    "audio_title": "🔊 <b>Audio</b>",
+    "audio_description": "Words are spoken by a native voice. The question plays the word alone, the answer plays it with the example.",
+    "audio_current_voice": "🎙 Voice: <b>{voice}</b>",
+    "audio_btn_turn_on": "🔊 Turn audio on",
+    "audio_btn_turn_off": "🔇 Turn audio off",
+    "audio_btn_choose_voice": "🎙 Choose a voice",
+    "audio_turned_on": "✅ Audio is on",
+    "audio_turned_off": "🔇 Audio is off",
+
+    "voice_title": "🎙 <b>Choose a voice</b>",
+    "voice_description": "Tap a voice to hear it. The checkmark shows the current one.",
+    "voice_male": "Male",
+    "voice_female": "Female",
+    "voice_set": "✅ Voice: {voice}",
+    "voice_only_one": "For this language the engine has one male and one female voice — no more exist.",
+    "voice_preview_failed": "Could not get a sample, try again",
 })

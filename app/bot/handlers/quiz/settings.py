@@ -15,7 +15,13 @@ import logging
 
 from aiogram import F, Router
 from aiogram.filters import Command
-from aiogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup, Message
+from aiogram.types import (
+    BufferedInputFile,
+    CallbackQuery,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    Message,
+)
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.bot.buttons import BTN_SETTINGS, pressed
@@ -24,6 +30,12 @@ from app.bot.utils import delete_messages_fast, ensure_anchor
 from app.database.enums import CEFRLevel, QuizMode, WordCategory
 from app.database.models import User
 from app.locales import get_text
+from app.services.audio_service import (
+    set_voice_for_user,
+    synthesize_preview,
+    voice_for_user,
+)
+from app.services.tts_voices import by_gender, is_valid_voice, voices_for
 from app.services.language_service import (
     INTERFACE_LANGS,
     LEARNABLE_LANGS,
@@ -118,6 +130,10 @@ def get_settings_keyboard(lang: str) -> InlineKeyboardMarkup:
                 callback_data="settings_learning"
             )],
             [InlineKeyboardButton(
+                text=get_text("settings_btn_audio", lang),
+                callback_data="settings_audio"
+            )],
+            [InlineKeyboardButton(
                 text=get_text("settings_btn_change_mode", lang),
                 callback_data="settings_mode"
             )],
@@ -152,11 +168,13 @@ def _settings_text(user: User, lang: str) -> str:
     pair = pair_from_user(user)
     mode_display = pair_label(pair)
     lang_display = get_text(f"lang_{user.interface_language}", lang) if user.interface_language else "—"
+    audio_state_key = "audio_state_on" if user.audio_enabled else "audio_state_off"
 
     return (
         f"{get_text('settings_title', lang)}\n\n"
         f"{get_text('settings_quiz_mode_line', lang, mode=_quiz_mode_display(user, lang))}\n"
         f"{get_text('settings_learning_lang_line', lang, language=language_name(pair.learning, lang))}\n"
+        f"{get_text('settings_audio_line', lang, state=get_text(audio_state_key, lang))}\n"
         f"{get_text('settings_mode', lang, mode=mode_display)}\n"
         f"{get_text('settings_language', lang, language=lang_display)}\n\n"
         f"{get_text('settings_choose', lang)}"
@@ -610,6 +628,169 @@ async def _refresh_anchor_keyboard(callback: CallbackQuery, user: User, lang: st
         )
     except Exception:
         logger.debug("Не удалось обновить якорную клавиатуру", exc_info=True)
+
+
+# ============================================================================
+# ОЗВУЧКА: выключатель и выбор голоса с прослушиванием
+# ============================================================================
+
+def _audio_text(user: User, lang: str, voice_name: str) -> str:
+    state_key = "audio_state_on" if user.audio_enabled else "audio_state_off"
+    lines = [
+        get_text("audio_title", lang),
+        "",
+        get_text("audio_description", lang),
+        "",
+        get_text("settings_audio_line", lang, state=get_text(state_key, lang)),
+    ]
+    # Голос показываем только когда озвучка включена: иначе это мёртвая строка
+    if user.audio_enabled:
+        lines.append(get_text("audio_current_voice", lang, voice=voice_name))
+    return "\n".join(lines)
+
+
+def _voice_label(code: str, voice_name: str) -> str:
+    """Подпись голоса: имя и пол. Реестр — единственный источник имён."""
+    for voice in voices_for(code):
+        if voice.name == voice_name:
+            return voice.label
+    return voice_name
+
+
+@router.callback_query(F.data == "settings_audio")
+async def settings_audio(callback: CallbackQuery, session: AsyncSession):
+    await callback.answer()
+    user = await session.get(User, callback.from_user.id)
+    lang = user.interface_language or "ru"
+    pair = pair_from_user(user)
+
+    chosen = await voice_for_user(session, user.id, pair.learning)
+
+    buttons = [
+        InlineKeyboardButton(
+            text=get_text(
+                "audio_btn_turn_off" if user.audio_enabled else "audio_btn_turn_on", lang
+            ),
+            callback_data="audio_toggle",
+        )
+    ]
+    if user.audio_enabled:
+        buttons.append(
+            InlineKeyboardButton(
+                text=get_text("audio_btn_choose_voice", lang),
+                callback_data="audio_voices",
+            )
+        )
+
+    await callback.message.edit_text(
+        _audio_text(user, lang, _voice_label(pair.learning, chosen)),
+        reply_markup=InlineKeyboardMarkup(
+            inline_keyboard=[[b] for b in buttons] + [_back_row(lang)]
+        ),
+    )
+
+
+@router.callback_query(F.data == "audio_toggle")
+async def audio_toggle(callback: CallbackQuery, session: AsyncSession):
+    user = await session.get(User, callback.from_user.id)
+    lang = user.interface_language or "ru"
+
+    user.audio_enabled = not user.audio_enabled
+    await session.commit()
+
+    await callback.answer(
+        get_text("audio_turned_on" if user.audio_enabled else "audio_turned_off", lang)
+    )
+    await settings_audio(callback, session)
+
+
+@router.callback_query(F.data == "audio_voices")
+async def audio_voices(callback: CallbackQuery, session: AsyncSession):
+    """
+    Список голосов изучаемого языка, отдельно мужские и женские.
+
+    Голоса берутся из реестра, а не выписываются: их число на язык разное —
+    для немецкого шесть, для польского и остальных два, потому что больше
+    у синтезатора не существует.
+    """
+    await callback.answer()
+    user = await session.get(User, callback.from_user.id)
+    lang = user.interface_language or "ru"
+    pair = pair_from_user(user)
+
+    chosen = await voice_for_user(session, user.id, pair.learning)
+
+    rows: list[list[InlineKeyboardButton]] = []
+    for gender, header_key in (("female", "voice_female"), ("male", "voice_male")):
+        group = by_gender(pair.learning, gender)
+        if not group:
+            continue
+        rows.append([InlineKeyboardButton(
+            text=f"— {get_text(header_key, lang)} —", callback_data="noop"
+        )])
+        rows.extend(_grid(
+            [
+                InlineKeyboardButton(
+                    text=("✅ " if v.name == chosen else "") + v.label,
+                    callback_data=f"audio_voice_{v.name}",
+                )
+                for v in group
+            ],
+            per_row=3,
+        ))
+
+    text = (
+        f"{get_text('voice_title', lang)}\n\n"
+        f"{get_text('voice_description', lang)}"
+    )
+    # Там, где выбора почти нет, честнее это сказать, чем делать вид,
+    # что голосов много
+    if len(voices_for(pair.learning)) <= 2:
+        text += f"\n\n<i>{get_text('voice_only_one', lang)}</i>"
+
+    await callback.message.edit_text(
+        text,
+        reply_markup=InlineKeyboardMarkup(
+            inline_keyboard=rows + [_back_row(lang, "settings_audio")]
+        ),
+    )
+
+
+@router.callback_query(F.data.startswith("audio_voice_"))
+async def audio_voice_chosen(callback: CallbackQuery, session: AsyncSession):
+    """
+    Выбор голоса. Он же и прослушивание: нажатие сразу присылает образец,
+    чтобы услышать голос, а не угадывать его по имени.
+    """
+    voice_name = callback.data.removeprefix("audio_voice_")
+
+    user = await session.get(User, callback.from_user.id)
+    lang = user.interface_language or "ru"
+    pair = pair_from_user(user)
+
+    if not is_valid_voice(voice_name, pair.learning):
+        await callback.answer(get_text("voice_preview_failed", lang), show_alert=True)
+        return
+
+    await set_voice_for_user(session, user.id, pair.learning, voice_name)
+    await session.commit()
+
+    label = _voice_label(pair.learning, voice_name)
+    await callback.answer(get_text("voice_set", lang, voice=label))
+
+    # Образец — отдельным сообщением: карточка настроек остаётся на месте,
+    # и её не приходится превращать в медийную ради прослушивания
+    sample = await synthesize_preview(pair.learning, voice_name)
+    if sample is None:
+        await callback.message.answer(get_text("voice_preview_failed", lang))
+    else:
+        await callback.bot.send_audio(
+            callback.message.chat.id,
+            BufferedInputFile(sample, filename=f"{label}.mp3"),
+            title=label,
+        )
+
+    await audio_voices(callback, session)
 
 
 @router.callback_query(F.data == "back_to_settings")

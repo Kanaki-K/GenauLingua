@@ -472,4 +472,26 @@ TEXTS.update({
     "learning_lang_title": "🎯 <b>Hangi dili öğrenmek</b>",
     "learning_lang_description": "Kelimelerini öğrenmek istediğin dili seç.\nHer dil için ilerleme ayrı tutulur.",
     "learning_lang_set": "✅ Öğreniyoruz: {language}",
+    # Ayarlar satiri ve seslendirme ekrani
+    "settings_audio_line": "🔊 Seslendirme: <b>{state}</b>",
+    "settings_btn_audio": "🔊 Seslendirme",
+    "audio_state_on": "açık",
+    "audio_state_off": "kapalı",
+
+    "audio_title": "🔊 <b>Seslendirme</b>",
+    "audio_description": "Kelimeler ana dili konuşan bir sesle okunur. Soruda kelimenin kendisi, cevaptan sonra örnekle birlikte duyulur.",
+    "audio_current_voice": "🎙 Ses: <b>{voice}</b>",
+    "audio_btn_turn_on": "🔊 Seslendirmeyi aç",
+    "audio_btn_turn_off": "🔇 Seslendirmeyi kapat",
+    "audio_btn_choose_voice": "🎙 Ses seç",
+    "audio_turned_on": "✅ Seslendirme açık",
+    "audio_turned_off": "🔇 Seslendirme kapalı",
+
+    "voice_title": "🎙 <b>Ses seçimi</b>",
+    "voice_description": "Dinlemek için bir sese dokun. İşaretli olan seçili sestir.",
+    "voice_male": "Erkek",
+    "voice_female": "Kadın",
+    "voice_set": "✅ Ses: {voice}",
+    "voice_only_one": "Bu dil için motorda bir erkek ve bir kadın sesi var — daha fazlası yok.",
+    "voice_preview_failed": "Örnek alınamadı, tekrar dene",
 })

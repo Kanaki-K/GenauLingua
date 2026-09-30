@@ -472,4 +472,26 @@ TEXTS.update({
     "learning_lang_title": "🎯 <b>Яку мову вивчати</b>",
     "learning_lang_description": "Обери мову, слова якої вивчатимеш.\nПрогрес з кожної мови рахується окремо.",
     "learning_lang_set": "✅ Вивчаємо: {language}",
+    # Рядок у меню налаштувань і екран «Озвучення»
+    "settings_audio_line": "🔊 Озвучення: <b>{state}</b>",
+    "settings_btn_audio": "🔊 Озвучення",
+    "audio_state_on": "увімкнено",
+    "audio_state_off": "вимкнено",
+
+    "audio_title": "🔊 <b>Озвучення</b>",
+    "audio_description": "Слово звучить голосом носія. У питанні — саме слово, після відповіді — слово разом із прикладом.",
+    "audio_current_voice": "🎙 Голос: <b>{voice}</b>",
+    "audio_btn_turn_on": "🔊 Увімкнути озвучення",
+    "audio_btn_turn_off": "🔇 Вимкнути озвучення",
+    "audio_btn_choose_voice": "🎙 Вибрати голос",
+    "audio_turned_on": "✅ Озвучення увімкнено",
+    "audio_turned_off": "🔇 Озвучення вимкнено",
+
+    "voice_title": "🎙 <b>Вибір голосу</b>",
+    "voice_description": "Натисни на голос, щоб послухати. Галочкою позначено вибраний.",
+    "voice_male": "Чоловічі",
+    "voice_female": "Жіночі",
+    "voice_set": "✅ Голос: {voice}",
+    "voice_only_one": "Для цієї мови в синтезатора один чоловічий і один жіночий голос — більше не існує.",
+    "voice_preview_failed": "Не вдалося отримати зразок, спробуй ще раз",
 })

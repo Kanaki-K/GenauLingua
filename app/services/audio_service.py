@@ -121,6 +121,19 @@ def spoken_for(word: Word, lang: Optional[str], kind: str) -> str:
     return word_clip_text(raw_word, lang)
 
 
+async def synthesize_preview(lang: str, voice: str) -> Optional[bytes]:
+    """
+    Образец голоса для настроек: одна фраза на языке этого голоса.
+
+    Не кэшируется в word_audio — это не слово из базы. Голосов на все языки
+    девятнадцать, образец короткий, так что синтезировать его на месте дешевле,
+    чем заводить под это отдельное хранилище.
+    """
+    from app.services.tts_voices import preview_text
+
+    return await _synthesize(preview_text(lang), resolve_voice(voice, lang))
+
+
 async def voice_for_user(
     session: AsyncSession, user_id: int, lang: str
 ) -> str:

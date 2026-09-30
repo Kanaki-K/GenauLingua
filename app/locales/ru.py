@@ -480,4 +480,26 @@ TEXTS.update({
     "learning_lang_title": "🎯 <b>Какой язык учить</b>",
     "learning_lang_description": "Выбери язык, слова которого будешь изучать.\nПрогресс по каждому языку считается отдельно.",
     "learning_lang_set": "✅ Учим: {language}",
+    # Строка в меню настроек и экран «Озвучка»
+    "settings_audio_line": "🔊 Озвучка: <b>{state}</b>",
+    "settings_btn_audio": "🔊 Озвучка",
+    "audio_state_on": "включена",
+    "audio_state_off": "выключена",
+
+    "audio_title": "🔊 <b>Озвучка</b>",
+    "audio_description": "Слово звучит голосом носителя. В вопросе — само слово, после ответа — слово вместе с примером.",
+    "audio_current_voice": "🎙 Голос: <b>{voice}</b>",
+    "audio_btn_turn_on": "🔊 Включить озвучку",
+    "audio_btn_turn_off": "🔇 Выключить озвучку",
+    "audio_btn_choose_voice": "🎙 Выбрать голос",
+    "audio_turned_on": "✅ Озвучка включена",
+    "audio_turned_off": "🔇 Озвучка выключена",
+
+    "voice_title": "🎙 <b>Выбор голоса</b>",
+    "voice_description": "Нажми на голос, чтобы послушать. Галочкой отмечен выбранный.",
+    "voice_male": "Мужские",
+    "voice_female": "Женские",
+    "voice_set": "✅ Голос: {voice}",
+    "voice_only_one": "Для этого языка у синтезатора один мужской и один женский голос — больше не существует.",
+    "voice_preview_failed": "Не удалось получить образец, попробуй ещё раз",
 })
