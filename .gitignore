@@ -138,6 +138,8 @@ app/scripts/*
 # Перед переносом озвучки на прод: правка текста оставляет прежний клип на
 # диске, и сироты поехали бы по сети впустую
 !app/scripts/tts_prune_orphans.py
+# Исполняет последовательность из DEPLOY.md, чтобы документ и дело не разошлись
+!app/scripts/finish_translation_round.py
 !app/scripts/tts_trim_store.py
 !app/scripts/tts_audit_clips.py
 
