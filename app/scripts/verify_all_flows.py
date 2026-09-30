@@ -41,18 +41,51 @@ PROBE_ID = -9001
 # ЗАГЛУШКИ AIOGRAM
 # ============================================================================
 
+class StubAudio:
+    """Аудио в ответе Telegram: из него берётся file_id для кэша озвучки."""
+
+    def __init__(self, index: int):
+        self.file_id = f"stub-file-id-{index}"
+        self.duration = 2
+        self.file_size = 20000
+
+
 class StubBot:
     def __init__(self):
         self.sent = []
+        self.audio_sent = []
 
     async def send_message(self, chat_id=None, text=None, **kw):
         self.sent.append(text or kw.get("text", ""))
         return StubMessage(self)
 
+    async def send_audio(self, chat_id=None, audio=None, caption=None, **kw):
+        """
+        Карточка с озвучкой: звук, подпись и кнопки одним сообщением.
+
+        Подпись попадает в общий список отправленного — проверки текста
+        карточки должны видеть её независимо от того, со звуком карточка
+        или без.
+        """
+        self.audio_sent.append(caption or "")
+        self.sent.append(caption or "")
+        message = StubMessage(self, text=caption or "")
+        message.audio = StubAudio(len(self.audio_sent))
+        return message
+
+    async def send_voice(self, chat_id=None, voice=None, caption=None, **kw):
+        return await self.send_audio(chat_id=chat_id, audio=voice, caption=caption, **kw)
+
     async def edit_message_reply_markup(self, **kw):
         pass
 
     async def edit_message_text(self, **kw):
+        pass
+
+    async def edit_message_caption(self, **kw):
+        pass
+
+    async def edit_message_media(self, **kw):
         pass
 
     async def delete_message(self, **kw):
@@ -81,6 +114,8 @@ class StubMessage:
         self.text = text
         self.sent = []
         self.markups = []
+        # Карточка со звуком: заполняется только там, где отправлено аудио
+        self.audio = None
 
     async def answer(self, text=None, reply_markup=None, **kw):
         self.sent.append(text or "")
@@ -96,6 +131,26 @@ class StubMessage:
         return self
 
     async def edit_reply_markup(self, reply_markup=None, **kw):
+        self.markups.append(reply_markup)
+        return self
+
+    async def edit_media(self, media=None, reply_markup=None, **kw):
+        """
+        Правка медийной карточки: так вопрос превращается в разбор.
+
+        Подпись из media уходит в тот же список, что и текст обычной
+        правки, — проверки не должны зависеть от того, медийная карточка
+        или нет.
+        """
+        caption = getattr(media, "caption", None)
+        self.sent.append(caption or "")
+        self.markups.append(reply_markup)
+        self.bot.sent.append(caption or "")
+        self.audio = StubAudio(0)
+        return self
+
+    async def edit_caption(self, caption=None, reply_markup=None, **kw):
+        self.sent.append(caption or "")
         self.markups.append(reply_markup)
         return self
 
@@ -360,15 +415,65 @@ async def flow_report(rep, s, state):
     await rep.step("Репорт: назад к списку",
                    lambda: _cb_state(report.report_back_to_select, s, state, "report_back_to_select"),
                    expect_text=False)
-    await rep.step("Репорт: отправить",
-                   lambda: _cb_state(report.report_send, s, state, "report_send"),
+    # Жалоба на перевод и на произношение — разные пути и разные записи в базе
+    await rep.step("Репорт: отправить как ошибку перевода",
+                   lambda: _cb_state(report.report_send_text, s, state, "report_send_text"),
                    expect_text=False)
+
+    # То же слово, но жалоба на озвучку: тройная уникальность должна это
+    # разрешить, иначе новый вид репорта был бы недостижим
+    second_word = state.data["report_word_ids"][1] if len(
+        state.data.get("report_word_ids", [])) > 1 else word_id
+    await rep.step("Репорт: отметить слово для озвучки",
+                   lambda: _cb_state(report.report_toggle_word, s, state,
+                                     f"report_toggle_{second_word}"),
+                   expect_text=False)
+    await rep.step("Репорт: отправить как ошибку произношения",
+                   lambda: _cb_state(report.report_send_audio, s, state, "report_send_audio"),
+                   expect_text=False)
+
+    await rep.step("Репорт: два вида на одно слово различаются",
+                   lambda: _check_report_kinds(s, word_id, second_word),
+                   expect_text=False)
+
     await rep.step("Репорт: повторный клик по отправленному",
                    lambda: _cb(report.report_already_reported, s, f"report_already_{word_id}"),
                    expect_text=False)
     await rep.step("Репорт: отмена",
                    lambda: _cb_state(report.report_cancel, s, state, "report_cancel"),
                    expect_text=False)
+
+
+async def _check_report_kinds(s, text_word_id: int, audio_word_id: int) -> str:
+    """
+    Проверить, что виды репорта действительно различаются в базе.
+
+    Без этого проверка отправки ничего не значила бы: обработчик мог бы
+    молча записывать всё как ошибку перевода.
+    """
+    from sqlalchemy import select
+
+    from app.database.models import TranslationReport
+
+    rows = (await s.execute(
+        select(TranslationReport.word_id, TranslationReport.kind,
+               TranslationReport.voice)
+        .where(TranslationReport.user_id == PROBE_ID)
+    )).all()
+
+    kinds = {(word_id, kind) for word_id, kind, _ in rows}
+    if (text_word_id, "text") not in kinds:
+        raise AssertionError(f"нет жалобы на перевод слова {text_word_id}: {kinds}")
+    if not any(kind == "audio" for _, kind in kinds):
+        raise AssertionError(f"нет жалобы на произношение: {kinds}")
+
+    # У жалобы на произношение должен быть записан голос, иначе её нечем
+    # проверить
+    audio_rows = [r for r in rows if r[1] == "audio"]
+    if not all(r[2] for r in audio_rows):
+        raise AssertionError(f"у жалобы на произношение не записан голос: {audio_rows}")
+
+    return f"{len(rows)} записей, виды: {sorted({k for _, k in kinds})}"
 
 
 async def flow_stats_help(rep, s):
