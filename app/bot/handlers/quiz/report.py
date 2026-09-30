@@ -25,6 +25,7 @@ from sqlalchemy import select, func
 
 from app.database.models import User, Word, TranslationReport
 from app.locales import get_text
+from app.services.audio_service import voice_for_user
 from app.services.language_service import LanguagePair, display_text, pair_from_user
 
 logger = logging.getLogger(__name__)
@@ -44,13 +45,34 @@ def _get_word_label(word: Word, pair: LanguagePair) -> str:
     return f"{display_text(word, pair.learning)} — {display_text(word, pair.native)}"
 
 
-async def _get_already_reported_ids(user_id: int, session: AsyncSession) -> set[int]:
-    """Получить word_id которые юзер уже репортил"""
+async def _get_already_reported_ids(
+    user_id: int, session: AsyncSession, *, audio_enabled: bool = False
+) -> set[int]:
+    """
+    Слова, по которым человеку больше нечего сказать.
+
+    Видов жалобы два — на перевод и на произношение, — и закрытым слово
+    становится, когда исчерпаны оба. Иначе, пожаловавшись на текст, человек
+    потерял бы возможность пожаловаться на озвучку того же слова: оно
+    показывалось бы галочкой и не нажималось.
+
+    Когда озвучка выключена, второго вида для человека не существует, и
+    хватает жалобы на текст.
+    """
     result = await session.execute(
-        select(TranslationReport.word_id)
+        select(TranslationReport.word_id, TranslationReport.kind)
         .where(TranslationReport.user_id == user_id)
     )
-    return {row[0] for row in result.all()}
+
+    kinds_by_word: dict[int, set[str]] = {}
+    for word_id, kind in result.all():
+        kinds_by_word.setdefault(word_id, set()).add(kind or "text")
+
+    needed = {"text", "audio"} if audio_enabled else {"text"}
+    return {
+        word_id for word_id, kinds in kinds_by_word.items()
+        if needed <= kinds
+    }
 
 
 async def _get_today_report_count(user_id: int, session: AsyncSession) -> int:
@@ -133,12 +155,39 @@ def _build_word_list_keyboard(
     return InlineKeyboardMarkup(inline_keyboard=buttons)
 
 
-def _build_confirm_keyboard(lang: str) -> InlineKeyboardMarkup:
-    """Клавиатура подтверждения: Відправити + Назад"""
+def _build_confirm_keyboard(lang: str, *, audio_available: bool) -> InlineKeyboardMarkup:
+    """
+    Что именно не так: текст или озвучка.
+
+    С появлением озвучки жалоба перестала быть однозначной — перевод может
+    быть верным, а произношение нет. Разделение не формальное: живые люди
+    ловят ровно то, чего не ловит машинная проверка озвучки, — ударение и
+    слова с двумя чтениями.
+
+    Когда озвучка выключена или её на слове нет, выбор не показывается:
+    спрашивать про звук, которого человек не слышал, бессмысленно. Тогда
+    экран остаётся прежним — «Отправить» и «Назад».
+    """
+    if not audio_available:
+        return InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(
+                text=get_text("report_btn_send", lang),
+                callback_data="report_send"
+            )],
+            [InlineKeyboardButton(
+                text=get_text("btn_back", lang),
+                callback_data="report_back_to_select"
+            )]
+        ])
+
     return InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(
-            text=get_text("report_btn_send", lang),
-            callback_data="report_send"
+            text=get_text("report_btn_kind_text", lang),
+            callback_data="report_send_text"
+        )],
+        [InlineKeyboardButton(
+            text=get_text("report_btn_kind_audio", lang),
+            callback_data="report_send_audio"
         )],
         [InlineKeyboardButton(
             text=get_text("btn_back", lang),
@@ -195,7 +244,10 @@ async def report_start(callback: CallbackQuery, state: FSMContext, session: Asyn
         return
 
     # Получаем уже зарепорченные
-    already_reported = await _get_already_reported_ids(callback.from_user.id, session)
+    already_reported = await _get_already_reported_ids(
+        callback.from_user.id, session,
+        audio_enabled=bool(getattr(user, "audio_enabled", False)),
+    )
 
     # Проверяем есть ли хоть одно новое слово для репорта
     new_available = [wid for wid in report_word_ids if wid not in already_reported]
@@ -335,7 +387,9 @@ async def report_confirm(callback: CallbackQuery, state: FSMContext, session: As
         await callback.answer(get_text("report_none_selected", lang), show_alert=True)
         return
 
-    keyboard = _build_confirm_keyboard(lang)
+    keyboard = _build_confirm_keyboard(
+        lang, audio_available=bool(getattr(user, "audio_enabled", False))
+    )
 
     try:
         await callback.message.edit_reply_markup(reply_markup=keyboard)
@@ -377,8 +431,30 @@ async def report_back_to_select(callback: CallbackQuery, state: FSMContext, sess
 # ОТПРАВКА РЕПОРТА
 # ============================================================================
 
+@router.callback_query(F.data == "report_send_text")
+async def report_send_text(callback: CallbackQuery, state: FSMContext, session: AsyncSession):
+    """Жалоба на перевод."""
+    await report_send(callback, state, session, kind="text")
+
+
+@router.callback_query(F.data == "report_send_audio")
+async def report_send_audio(callback: CallbackQuery, state: FSMContext, session: AsyncSession):
+    """
+    Жалоба на произношение.
+
+    Записывается вместе с голосом, которым человек слышал слово: без этого
+    проверить жалобу нечем — голосов на язык до шести, и звучат они по-разному.
+    """
+    await report_send(callback, state, session, kind="audio")
+
+
 @router.callback_query(F.data == "report_send")
-async def report_send(callback: CallbackQuery, state: FSMContext, session: AsyncSession):
+async def report_send(
+    callback: CallbackQuery,
+    state: FSMContext,
+    session: AsyncSession,
+    kind: str = "text",
+):
     """Сохранить репорты в БД и вернуть исходные кнопки"""
     data = await state.get_data()
     selected = data.get("report_selected", [])
@@ -402,6 +478,12 @@ async def report_send(callback: CallbackQuery, state: FSMContext, session: Async
     # Ограничиваем количество если лимит близко
     words_to_report = selected[:remaining]
 
+    # Голос нужен только для жалобы на произношение: по тексту он ни при чём
+    voice = None
+    if kind == "audio":
+        pair = pair_from_user(user)
+        voice = await voice_for_user(session, user.id, pair.learning)
+
     # Создаём записи (пропускаем дубликаты)
     saved_count = 0
     for word_id in words_to_report:
@@ -409,7 +491,8 @@ async def report_send(callback: CallbackQuery, state: FSMContext, session: Async
             select(TranslationReport)
             .where(
                 TranslationReport.user_id == callback.from_user.id,
-                TranslationReport.word_id == word_id
+                TranslationReport.word_id == word_id,
+                TranslationReport.kind == kind,
             )
         )
         if existing.scalar_one_or_none():
@@ -419,6 +502,8 @@ async def report_send(callback: CallbackQuery, state: FSMContext, session: Async
             user_id=callback.from_user.id,
             word_id=word_id,
             quiz_session_id=report_session_id,
+            kind=kind,
+            voice=voice,
             status="pending",
         )
         session.add(report)
@@ -427,14 +512,17 @@ async def report_send(callback: CallbackQuery, state: FSMContext, session: Async
     await session.commit()
 
     logger.info(
-        f"User {callback.from_user.id} reported {saved_count} words "
-        f"(selected={len(selected)}, session={report_session_id})"
+        f"User {callback.from_user.id} reported {saved_count} words as {kind} "
+        f"(selected={len(selected)}, session={report_session_id}, voice={voice})"
     )
 
     # Показываем alert
     if saved_count > 0:
         await callback.answer(
-            get_text("report_sent", lang, count=saved_count),
+            get_text(
+                "report_sent_audio" if kind == "audio" else "report_sent",
+                lang, count=saved_count,
+            ),
             show_alert=True
         )
     else:

@@ -230,6 +230,10 @@ TEXTS = {
     "report_daily_limit": "⚠️ Daily report limit reached (max 20)",
     "report_all_reported": "✅ All words from this quiz already reported",
     "report_already_sent": "✔️ Already reported",
+    "report_kind_title": "What exactly is wrong?",
+    "report_btn_kind_text": "📝 Wrong translation",
+    "report_btn_kind_audio": "🔊 Wrong pronunciation",
+    "report_sent_audio": "✅ Sent {count} — thank you!\nPronunciation reports are especially valuable: the automated check cannot hear stress",
 
     # ============================================================================
     # QUIZ

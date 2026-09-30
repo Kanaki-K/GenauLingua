@@ -230,6 +230,10 @@ TEXTS = {
     "report_daily_limit": "⚠️ Bugünkü rapor limiti doldu (maks. 20)",
     "report_all_reported": "✅ Bu testdeki tüm kelimeler zaten raporlandı",
     "report_already_sent": "✔️ Zaten raporlandı",
+    "report_kind_title": "Tam olarak ne yanlış?",
+    "report_btn_kind_text": "📝 Hatalı çeviri",
+    "report_btn_kind_audio": "🔊 Hatalı telaffuz",
+    "report_sent_audio": "✅ {count} gönderildi — teşekkürler!\nTelaffuz bildirimleri özellikle değerli: otomatik kontrol vurguyu duymaz",
 
     # ============================================================================
     # TEST

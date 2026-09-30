@@ -531,11 +531,25 @@ class MonthlyAward(Base):
 # ============================================================================
 
 class TranslationReport(Base):
-    """Репорт ошибки перевода от пользователя"""
+    """
+    Репорт от пользователя: что со словом не так.
+
+    С появлением озвучки жалоба перестала быть однозначной: перевод может быть
+    верным, а произношение нет. Поэтому у репорта есть вид — 'text' или
+    'audio'. Это не формальность: живые люди ловят именно то, чего не ловит
+    машинная проверка озвучки — ударение и гетеронимы, которые распознавание
+    речи пропускает.
+
+    Уникальность стала тройной: одно слово можно зарепортить и по тексту,
+    и по озвучке, но каждое по одному разу.
+    """
     __tablename__ = "translation_reports"
     __table_args__ = (
-        UniqueConstraint("user_id", "word_id", name="uq_translation_reports_user_word"),
+        UniqueConstraint(
+            "user_id", "word_id", "kind", name="uq_translation_reports_user_word_kind"
+        ),
         Index("ix_translation_reports_status", "status"),
+        Index("ix_translation_reports_kind", "kind"),
     )
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
@@ -548,6 +562,14 @@ class TranslationReport(Base):
     quiz_session_id: Mapped[Optional[int]] = mapped_column(
         Integer, ForeignKey("quiz_sessions.id", ondelete="SET NULL"), nullable=True
     )
+    # 'text' — неверный перевод, 'audio' — неверное произношение.
+    # Прежние репорты все про текст: озвучки тогда не было.
+    kind: Mapped[str] = mapped_column(
+        String(8), nullable=False, default="text", server_default="text"
+    )
+    # Каким голосом человек слышал слово. Без этого жалобу на произношение
+    # нечем проверить: голосов на язык до шести, и звучат они по-разному.
+    voice: Mapped[Optional[str]] = mapped_column(String(64), nullable=True)
     status: Mapped[str] = mapped_column(
         String(20), nullable=False, default="pending"
     )  # pending / reviewed / fixed / rejected

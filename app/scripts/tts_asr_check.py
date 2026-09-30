@@ -49,7 +49,7 @@ from sqlalchemy import text
 from app.database.session import AsyncSessionLocal
 from app.services.audio_service import KIND_FULL, KIND_WORD, _synthesize
 from app.services.language_service import LANGUAGES, SUPPORTED_LANGS
-from app.services.tts_text import full_clip_text, word_clip_text
+from app.services.tts_text import expand_numbers, full_clip_text, word_clip_text
 from app.services.tts_voices import default_voice
 
 logging.basicConfig(level=logging.WARNING, format="%(levelname)s %(message)s")
@@ -81,11 +81,21 @@ def normalize(s: str) -> str:
     return _WS.sub(" ", s).strip()
 
 
-def similarity(a: str, b: str) -> float:
-    """Доля совпадения по словам — грубо, но для отбора хватает."""
+def similarity(a: str, b: str, lang: str | None = None) -> float:
+    """
+    Доля совпадения — грубо, но для отбора хватает.
+
+    Расшифровка приходит с цифрами: «Ich habe sechs Äpfel» распознаватель
+    записывает как «Ich habe 6 Äpfel». Звук при этом верный, поэтому цифры
+    в расшифровке разворачиваются теми же правилами, что и при синтезе, —
+    иначе каждое число давало бы ложное расхождение.
+    """
     from difflib import SequenceMatcher
 
-    return SequenceMatcher(None, normalize(a), normalize(b)).ratio()
+    left, right = normalize(a), normalize(b)
+    if lang:
+        right = normalize(expand_numbers(right, lang))
+    return SequenceMatcher(None, left, right).ratio()
 
 
 # Частота, которую ждёт распознаватель
@@ -225,7 +235,7 @@ async def check_one(row: dict, lang: str, kind: str, voice: str,
         result["heard"] = f"{type(exc).__name__}: {exc}"
         return result
 
-    ratio = similarity(spoken, heard)
+    ratio = similarity(spoken, heard, lang)
     result["heard"] = heard
     result["ratio"] = round(ratio, 3)
     result["verdict"] = "совпало" if ratio >= threshold else "расхождение"
@@ -341,4 +351,7 @@ def main() -> int:
     return asyncio.run(run(ap.parse_args()))
 
 
-sys.exit(main())
+if __name__ == "__main__":
+    # Под защитой, чтобы similarity и normalize можно было импортировать
+    # в тесты, не запуская прогон
+    sys.exit(main())
