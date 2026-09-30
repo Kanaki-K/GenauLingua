@@ -645,6 +645,41 @@ class UserTtsVoice(Base):
     )
 
 
+class WordLemmaOverride(Base):
+    """
+    Ручное указание: эта строка — форма слова, а лемма вот эта.
+
+    Зачем. В базе есть 99 пар, где форма и лемма лежат как два отдельных слова
+    на одном уровне: «komm» при существующем «kommen», «tu» при «tun», «gibt»
+    при «geben». Человек учит их как разные слова, хотя это одно.
+
+    Исправить переименованием нельзя: уникальность (word_de, level) не даст
+    двум строкам совпасть. Удалить форму тоже нельзя — у quiz_questions
+    каскадное удаление, и вместе со словом исчезли бы 326 исторических ответов,
+    а точность в завершённых сессиях стала бы неверной.
+
+    Поэтому форма остаётся строкой, но при сборке групп слов принудительно
+    попадает в группу леммы. Дальше работает уже проверенный механизм: в
+    викторине участвует только каноническое слово, а прогресс с формы
+    сливается на лемму тем же кодом, что переносил его при переходе на
+    многоязычность.
+
+    Откат — удаление строки отсюда и пересборка групп.
+    """
+    __tablename__ = "word_lemma_overrides"
+
+    word_id: Mapped[int] = mapped_column(
+        ForeignKey("words.id", ondelete="CASCADE"), primary_key=True
+    )
+    lemma_word_id: Mapped[int] = mapped_column(
+        ForeignKey("words.id", ondelete="CASCADE"), nullable=False, index=True
+    )
+    # Почему указание поставлено: чтобы через полгода было понятно
+    reason: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
+
+
 class WordAudio(Base):
     """
     Кэш озвучки: file_id уже загруженного в Telegram клипа.

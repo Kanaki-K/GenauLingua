@@ -59,20 +59,56 @@ def _group_key(
     return (norm, pos)
 
 
-def _representative(rows: list[dict]) -> dict:
+def _representative(rows: list[dict], prefer: Optional[set[int]] = None) -> dict:
     """
     Представитель группы: самое частотное слово, при равенстве — меньший id.
     Строки без frequency_rank уходят в конец, чтобы не побеждать по случайности.
     Выбор детерминирован — от него зависят прогресс и тесты.
+
+    prefer — слова, которые обязаны победить, если они в группе. Это леммы из
+    ручных указаний: форма может оказаться частотнее своей леммы, и тогда без
+    этого канонической стала бы именно форма — ровно то, от чего указание и
+    должно было избавить.
     """
+    preferred = [r for r in rows if prefer and r["id"] in prefer]
+    candidates = preferred or rows
+
     return min(
-        rows,
+        candidates,
         key=lambda r: (
             r["frequency_rank"] is None,
             r["frequency_rank"] if r["frequency_rank"] is not None else 0,
             r["id"],
         ),
     )
+
+
+def _load_overrides(connection: Connection) -> dict[int, int]:
+    """
+    Ручные указания «эта строка — форма, а лемма вот эта».
+
+    Нужны для 99 пар, где форма и лемма лежат в базе как два отдельных слова:
+    «komm» при существующем «kommen». Переименовать нельзя из-за уникальности
+    (word_de, level), удалить нельзя из-за каскада на quiz_questions. Поэтому
+    форма принудительно попадает в группу леммы.
+
+    Отсутствие таблицы проверяется явно, а не через перехват любой ошибки.
+    Прежде здесь стоял широкий except, и он спрятал настоящую причину, когда
+    указания не применялись: пришлось искать её отладкой вместо чтения лога.
+    Теперь «таблицы нет» — это одно, а любая другая ошибка выходит наружу.
+    """
+    if not sa.inspect(connection).has_table("word_lemma_overrides"):
+        logger.debug("таблицы указаний лемм нет — схема старее нужной")
+        return {}
+
+    rows = connection.execute(
+        sa.text("SELECT word_id, lemma_word_id FROM word_lemma_overrides")
+    ).all()
+
+    overrides = {word_id: lemma_id for word_id, lemma_id in rows if word_id != lemma_id}
+    if overrides:
+        logger.info("ручных указаний леммы: %d", len(overrides))
+    return overrides
 
 
 def build_groups(
@@ -86,6 +122,7 @@ def build_groups(
     получилось, сколько строк схлопнулось.
     """
     langs = tuple(langs or SUPPORTED_LANGS)
+    overrides = _load_overrides(connection)
 
     word_attrs = sorted({LANGUAGES[c].word_attr for c in langs if c in LANGUAGES})
     if not word_attrs:
@@ -104,19 +141,38 @@ def build_groups(
         attr = LANGUAGES[lang].word_attr
         groups: dict[tuple, list[dict]] = {}
 
+        # Ключ группы по слову: нужен, чтобы форма могла присоединиться к
+        # группе своей леммы, а не образовать свою
+        key_of: dict[int, tuple] = {}
+
         for row in words:
             norm = normalize_headword(row[attr], lang)
             if not norm:
                 # Нет слова на этом языке — строка для него непригодна
                 continue
-            key = _group_key(norm, row["pos"], row["article"], lang)
+            key_of[row["id"]] = _group_key(norm, row["pos"], row["article"], lang)
+
+        for row in words:
+            key = key_of.get(row["id"])
+            if key is None:
+                continue
+
+            # Форма присоединяется к группе леммы, если на неё есть указание
+            # и лемма пригодна для этого языка
+            lemma_id = overrides.get(row["id"])
+            if lemma_id is not None and lemma_id in key_of:
+                key = key_of[lemma_id]
+
             groups.setdefault(key, []).append(
                 {"id": row["id"], "frequency_rank": row["frequency_rank"]}
             )
 
+        # Леммы из указаний обязаны быть каноническими в своих группах
+        lemma_ids = set(overrides.values())
+
         payload: list[dict] = []
         for key, members in groups.items():
-            canonical = _representative(members)
+            canonical = _representative(members, lemma_ids)
             norm_key = key[0]
             for m in members:
                 payload.append(

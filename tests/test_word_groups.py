@@ -9,6 +9,20 @@ from tests.conftest import build_groups as rebuild, make_word
 
 
 async def _groups(session, lang):
+    """
+    Прочитать группы заново.
+
+    Очистка кэша сессии обязательна: build_groups пишет прямым SQL в обход
+    ORM, а сессия создана с expire_on_commit=False. Без этого второе чтение
+    в одном тесте вернуло бы объекты со значениями до пересборки. На этом я
+    уже потерял время, разыскивая несуществующую ошибку в коде.
+
+    expunge_all, а не expire_all: второй помечает объекты устаревшими, и
+    следующее обращение к их полям пытается сходить в базу вне асинхронного
+    контекста — получается MissingGreenlet. Первый просто убирает объекты из
+    кэша, и запрос загружает их заново.
+    """
+    session.expunge_all()
     rows = (await session.execute(
         select(WordLangGroup).where(WordLangGroup.lang == lang)
     )).scalars().all()
@@ -127,6 +141,136 @@ class TestGrouping:
         first = len(await _groups(session, "de"))
         await rebuild(session)
         assert len(await _groups(session, "de")) == first
+
+
+class TestLemmaOverrides:
+    """
+    Ручное указание «эта строка — форма, а лемма вот эта».
+
+    Нужно для 99 пар, где форма и лемма лежат в базе как два отдельных слова
+    на одном уровне: «komm» при существующем «kommen». Переименовать нельзя
+    из-за уникальности (word_de, level), удалить нельзя из-за каскада на
+    quiz_questions — вместе со словом исчезли бы исторические ответы.
+    """
+
+    async def _override(self, session, form_id: int, lemma_id: int) -> None:
+        from app.database.models import WordLemmaOverride
+
+        session.add(WordLemmaOverride(
+            word_id=form_id, lemma_word_id=lemma_id, reason="тест",
+        ))
+        await session.flush()
+
+    async def test_form_joins_the_lemma_group(self, session):
+        # Переводы взяты русские и заведомо разные: английские «come» и
+        # «to come» схлопнулись бы и без указания, потому что нормализация
+        # снимает частицу «to» — и тест ничего бы не проверял
+        form = make_word("komm", ru="приходи", frequency_rank=5)
+        lemma = make_word("kommen", ru="приходить", frequency_rank=50)
+        session.add_all([form, lemma])
+        await session.flush()
+
+        await rebuild(session, ["ru"])
+        groups = await _groups(session, "ru")
+        assert groups[form.id].canonical_id != groups[lemma.id].canonical_id, (
+            "без указания это два разных слова"
+        )
+
+        await self._override(session, form.id, lemma.id)
+        await rebuild(session, ["ru"])
+
+        groups = await _groups(session, "ru")
+        assert groups[form.id].canonical_id == lemma.id
+        assert groups[form.id].is_canonical is False
+        assert groups[lemma.id].is_canonical is True
+
+    async def test_lemma_wins_even_when_form_is_more_frequent(self, session):
+        """
+        Представителя обычно выбирает частотность, и форма может оказаться
+        частотнее своей леммы. Без принудительного предпочтения канонической
+        стала бы форма — ровно то, от чего указание должно избавить.
+        """
+        form = make_word("komm", en="come", frequency_rank=1)
+        lemma = make_word("kommen", en="to come", frequency_rank=9999)
+        session.add_all([form, lemma])
+        await session.flush()
+        await self._override(session, form.id, lemma.id)
+
+        await rebuild(session, ["en"])
+
+        groups = await _groups(session, "en")
+        assert groups[form.id].canonical_id == lemma.id, (
+            "лемма обязана победить, несмотря на частотность формы"
+        )
+
+    async def test_override_applies_to_every_language(self, session):
+        form = make_word("komm", ru="приходи", en="come")
+        lemma = make_word("kommen", ru="приходить", en="to come")
+        session.add_all([form, lemma])
+        await session.flush()
+        await self._override(session, form.id, lemma.id)
+
+        await rebuild(session, ["ru", "en"])
+
+        for lang in ("ru", "en"):
+            groups = await _groups(session, lang)
+            assert groups[form.id].canonical_id == lemma.id, lang
+
+    async def test_progress_from_form_merges_into_lemma(self, session, user):
+        form = make_word("komm", en="come")
+        lemma = make_word("kommen", en="to come")
+        session.add_all([form, lemma])
+        await session.flush()
+        await self._override(session, form.id, lemma.id)
+
+        session.add_all([
+            UserWord(user_id=user.id, word_id=form.id, learning_lang="en",
+                     times_shown=4, times_correct=3, correct_streak=1),
+            UserWord(user_id=user.id, word_id=lemma.id, learning_lang="en",
+                     times_shown=10, times_correct=8, correct_streak=3),
+        ])
+        await session.flush()
+
+        await rebuild(session, ["en"])
+        await session.run_sync(
+            lambda sync: remap_user_progress_to_canonical(sync.connection())
+        )
+
+        rows = (await session.execute(
+            select(UserWord).where(UserWord.user_id == user.id)
+        )).scalars().all()
+
+        # Ни один ответ не потерян: счётчики суммируются
+        assert len(rows) == 1
+        assert rows[0].word_id == lemma.id
+        assert rows[0].times_shown == 14
+        assert rows[0].times_correct == 11
+        assert rows[0].correct_streak == 3
+
+    async def test_override_to_itself_is_ignored(self, session):
+        word = make_word("kommen", en="to come")
+        session.add(word)
+        await session.flush()
+        await self._override(session, word.id, word.id)
+
+        await rebuild(session, ["en"])
+
+        groups = await _groups(session, "en")
+        assert groups[word.id].is_canonical is True
+
+    async def test_words_without_overrides_are_unaffected(self, session):
+        form = make_word("komm", en="come")
+        lemma = make_word("kommen", en="to come")
+        other = make_word("Haus", en="house")
+        session.add_all([form, lemma, other])
+        await session.flush()
+        await self._override(session, form.id, lemma.id)
+
+        await rebuild(session, ["en"])
+
+        groups = await _groups(session, "en")
+        assert groups[other.id].is_canonical is True
+        assert groups[other.id].canonical_id == other.id
 
 
 class TestProgressRemap:
