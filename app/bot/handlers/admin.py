@@ -816,11 +816,30 @@ async def admin_detailed_callback(callback: CallbackQuery, session: AsyncSession
 REPORT_REWARD_POINTS = 1  # баллов за подтверждённый репорт
 
 
+def _voice_short_name(voice: str) -> str:
+    """
+    Понятная подпись голоса вместо «de-DE-KatjaNeural».
+
+    Имена берутся из реестра озвучки, а не выписываются здесь: иначе они
+    разъехались бы с тем, что видит пользователь в настройках.
+    """
+    from app.services.tts_voices import VOICES
+
+    for lang, voices in VOICES.items():
+        for item in voices:
+            if item.name == voice:
+                gender = "м" if item.gender == "male" else "ж"
+                return f"{lang} {item.label} ({gender})"
+    return voice
+
+
 async def _build_reports_text_and_keyboard(session: AsyncSession) -> tuple:
     """Собрать текст и клавиатуру для страницы репортов"""
     from app.database.models import MonthlyStats
 
-    # Топ-10 слов по количеству pending репортов
+    # Топ-10 слов по количеству pending репортов.
+    # Жалобы на текст и на озвучку считаются отдельно: это разные починки,
+    # и по одному числу непонятно, что править — перевод или произношение.
     reports_result = await session.execute(
         select(
             Word.id,
@@ -829,7 +848,10 @@ async def _build_reports_text_and_keyboard(session: AsyncSession) -> tuple:
             Word.level,
             Word.translation_ru,
             Word.translation_uk,
-            func.count(TranslationReport.id).label('report_count')
+            func.count(TranslationReport.id).label('report_count'),
+            func.count(
+                case((TranslationReport.kind == 'audio', 1))
+            ).label('audio_count'),
         )
         .join(TranslationReport, Word.id == TranslationReport.word_id)
         .where(TranslationReport.status == 'pending')
@@ -872,25 +894,67 @@ async def _build_reports_text_and_keyboard(session: AsyncSession) -> tuple:
     )
     fixed_count = fixed_count_result.scalar() or 0
 
-    text = "📝 <b>РЕПОРТЫ ПЕРЕВОДОВ</b>\n\n"
+    # Разбивка по виду жалобы: перевод правится в базе, произношение —
+    # пересборкой клипа, это разная работа
+    by_kind_result = await session.execute(
+        select(TranslationReport.kind, func.count())
+        .where(TranslationReport.status == 'pending')
+        .group_by(TranslationReport.kind)
+    )
+    by_kind = {kind or 'text': count for kind, count in by_kind_result.all()}
+
+    # По каким голосам жалуются на произношение: если жалобы сошлись на одном
+    # голосе, дело в голосе, а не в слове
+    voices_result = await session.execute(
+        select(TranslationReport.voice, func.count())
+        .where(
+            TranslationReport.status == 'pending',
+            TranslationReport.kind == 'audio',
+            TranslationReport.voice.isnot(None),
+        )
+        .group_by(TranslationReport.voice)
+        .order_by(desc(func.count()))
+        .limit(5)
+    )
+    top_voices = voices_result.all()
+
+    text = "📝 <b>РЕПОРТЫ</b>\n\n"
 
     text += "📊 <b>Статистика:</b>\n"
     text += f"├─ Всего репортов: <b>{total_reports}</b>\n"
     text += f"├─ Ожидают проверки: <b>{pending}</b>\n"
+    text += f"│  ├─ 📝 перевод: <b>{by_kind.get('text', 0)}</b>\n"
+    text += f"│  └─ 🔊 произношение: <b>{by_kind.get('audio', 0)}</b>\n"
     text += f"├─ Уникальных слов: <b>{unique_words}</b>\n"
     text += f"├─ Юзеров отправили: <b>{unique_users}</b>\n"
     text += f"└─ Подтверждено (fixed): <b>{fixed_count}</b>\n\n"
+
+    if top_voices:
+        text += "🎙 <b>Жалобы на произношение по голосам:</b>\n"
+        for voice, count in top_voices:
+            label = _voice_short_name(voice)
+            text += f"├─ {label}: <b>{count}</b>\n"
+        text += "<i>Если жалобы сошлись на одном голосе — дело в голосе, "
+        text += "а не в словах</i>\n\n"
 
     buttons = []
 
     if top_words:
         text += "🔥 <b>Pending — по жалобам:</b>\n\n"
-        for i, (wid, word_de, article, level, trans_ru, trans_uk, count) in enumerate(top_words, 1):
+        for i, row in enumerate(top_words, 1):
+            (wid, word_de, article, level, trans_ru, trans_uk,
+             count, audio_count) = row
             full_word = f"{article} {word_de}" if article and article != "-" else word_de
             trans = trans_ru or trans_uk or "—"
             emoji = "🔴" if count >= 5 else "🟡" if count >= 3 else "⚪"
+            # Видно, что именно править: перевод в базе или клип озвучки
+            kinds = []
+            if count - audio_count:
+                kinds.append(f"📝 {count - audio_count}")
+            if audio_count:
+                kinds.append(f"🔊 {audio_count}")
             text += f"{emoji} <b>{full_word}</b> ({level.value})\n"
-            text += f"   {trans} | {count} жалоб\n\n"
+            text += f"   {trans} | {' · '.join(kinds)}\n\n"
 
             # Кнопки ✅ / ❌ для каждого слова
             buttons.append([
@@ -985,6 +1049,18 @@ async def admin_report_approve(callback: CallbackQuery, session: AsyncSession):
 
         rewarded_users += 1
 
+    # Подтверждённая жалоба на произношение означает, что клип негодный.
+    # Без сброса кэша он остался бы в Telegram навсегда: file_id живёт вечно,
+    # и пересобрать озвучку было бы нечем.
+    audio_kinds = {r.kind for r in reports}
+    dropped_clips = 0
+    if 'audio' in audio_kinds:
+        dropped = await session.execute(
+            sql_text("DELETE FROM word_audio WHERE word_id = :wid"),
+            {"wid": word_id},
+        )
+        dropped_clips = dropped.rowcount or 0
+
     await session.commit()
 
     # Получаем слово для лога
@@ -993,8 +1069,17 @@ async def admin_report_approve(callback: CallbackQuery, session: AsyncSession):
 
     logger.info(f"Admin approved report for word '{word_display}' (id={word_id}), rewarded {rewarded_users} users with +{REPORT_REWARD_POINTS}")
 
+    if dropped_clips:
+        logger.info(
+            "Сброшено клипов озвучки для слова %s: %d — пересоберутся при "
+            "следующем показе", word_id, dropped_clips,
+        )
+
     await callback.answer(
-        f"✅ {word_display} — подтверждено\n{rewarded_users} юзеров получили +{REPORT_REWARD_POINTS} балл",
+        f"✅ {word_display} — подтверждено\n"
+        f"{rewarded_users} юзеров получили +{REPORT_REWARD_POINTS} балл"
+        + (f"\n🔊 Озвучка сброшена ({dropped_clips} клипов), пересоберётся"
+           if dropped_clips else ""),
         show_alert=True
     )
 
