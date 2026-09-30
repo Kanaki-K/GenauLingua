@@ -119,6 +119,33 @@ class TestSpokenText:
         assert spoken_for(word, "ru", KIND_WORD) == "к"
 
 
+class TestBotOwnership:
+    """
+    file_id принадлежит конкретному боту и другому боту не передаётся.
+    Клип чужого бота Telegram отклонит, поэтому он должен считаться промахом
+    кэша, а не использоваться.
+    """
+
+    @pytest.mark.parametrize("token,expected", [
+        ("8570632034:AAGwAPnmTCTDABmvfhR3gwpOcZhCgvm-140", 8570632034),
+        ("123:abc", 123),
+        ("мусор", None),
+        ("", None),
+        (None, None),
+        (":нет-цифр", None),
+    ])
+    def test_bot_id_from_token(self, token, expected):
+        from app.services.audio_service import _bot_id_from_token
+
+        assert _bot_id_from_token(token) == expected
+
+    def test_id_taken_from_token_without_network(self):
+        # Запрос к Telegram для этого не нужен: id стоит перед двоеточием
+        from app.services.audio_service import current_bot_id
+
+        assert isinstance(current_bot_id(), (int, type(None)))
+
+
 class TestSynthesisRetry:
     """
     Озвучка должна быть у каждого слова, поэтому одна сетевая заминка не

@@ -241,6 +241,25 @@ async def _synthesize(text: str, voice: str) -> Optional[bytes]:
     return None
 
 
+def _bot_id_from_token(token: Optional[str]) -> Optional[int]:
+    """
+    Числовой id бота из токена: он стоит перед двоеточием.
+
+    Нужен, чтобы отличать свои клипы от чужих. Запрос к Telegram для этого
+    делать незачем — id есть в самом токене.
+    """
+    if not token or ":" not in token:
+        return None
+    head = token.split(":", 1)[0]
+    return int(head) if head.isdigit() else None
+
+
+def current_bot_id() -> Optional[int]:
+    from app.config import settings
+
+    return _bot_id_from_token(getattr(settings, "BOT_TOKEN", None))
+
+
 async def get_clip(
     session: AsyncSession,
     word: Word,
@@ -270,8 +289,17 @@ async def get_clip(
             WordAudio.voice == voice,
         )
     )
-    # Кэш устаревает при правке перевода: текст изменился — клип не тот
-    if cached and cached.spoken_text == spoken:
+    bot_id = current_bot_id()
+
+    # Запись годна, только если совпали и текст, и бот:
+    #   текст — перевод могли исправить, тогда клип озвучивает не то слово;
+    #   бот   — file_id принадлежит конкретному боту, чужой Telegram отклонит.
+    usable = (
+        cached is not None
+        and cached.spoken_text == spoken
+        and cached.bot_id == bot_id
+    )
+    if usable:
         return AudioClip(
             kind=kind, voice=voice, spoken_text=spoken, title=title,
             filename=audio_filename(title), file_id=cached.file_id,
@@ -282,7 +310,13 @@ async def get_clip(
         return None
 
     if cached:
-        # Текст изменился — старый file_id больше не соответствует слову
+        # Либо текст изменился, либо клип чужого бота — в обоих случаях
+        # старый file_id к делу не относится
+        if cached.bot_id != bot_id:
+            logger.info(
+                "клип слова %s сделан другим ботом (%s вместо %s) — переделываю",
+                word.id, cached.bot_id, bot_id,
+            )
         await session.delete(cached)
         await session.flush()
 
@@ -310,7 +344,7 @@ async def remember(
         WordAudio(
             word_id=word_id, lang=lang, kind=clip.kind, voice=clip.voice,
             file_id=file_id, file_kind="audio", spoken_text=clip.spoken_text,
-            duration_seconds=duration_seconds,
+            duration_seconds=duration_seconds, bot_id=current_bot_id(),
         )
     )
     try:
