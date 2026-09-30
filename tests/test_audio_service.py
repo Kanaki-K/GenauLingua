@@ -119,6 +119,58 @@ class TestSpokenText:
         assert spoken_for(word, "ru", KIND_WORD) == "к"
 
 
+class TestSynthesisRetry:
+    """
+    Озвучка должна быть у каждого слова, поэтому одна сетевая заминка не
+    должна оставлять карточку беззвучной.
+    """
+
+    async def test_second_attempt_saves_the_clip(self, monkeypatch):
+        from app.services import audio_service as svc
+
+        attempts = {"n": 0}
+
+        async def flaky(text, voice):
+            attempts["n"] += 1
+            return None if attempts["n"] == 1 else b"x" * 2000
+
+        monkeypatch.setattr(svc, "_synthesize_once", flaky)
+        monkeypatch.setattr(svc, "RETRY_PAUSE", 0)
+
+        data = await svc._synthesize("die Fahrkarte", "de-DE-KatjaNeural")
+        assert data is not None
+        assert attempts["n"] == 2
+
+    async def test_gives_up_after_the_limit(self, monkeypatch):
+        from app.services import audio_service as svc
+
+        attempts = {"n": 0}
+
+        async def always_fails(text, voice):
+            attempts["n"] += 1
+            return None
+
+        monkeypatch.setattr(svc, "_synthesize_once", always_fails)
+        monkeypatch.setattr(svc, "RETRY_PAUSE", 0)
+
+        # Отказ честный: карточка выйдет текстовой, а не повиснет
+        assert await svc._synthesize("x", "de-DE-KatjaNeural") is None
+        assert attempts["n"] == svc.SYNTH_ATTEMPTS
+
+    async def test_first_success_does_not_retry(self, monkeypatch):
+        from app.services import audio_service as svc
+
+        attempts = {"n": 0}
+
+        async def fine(text, voice):
+            attempts["n"] += 1
+            return b"x" * 2000
+
+        monkeypatch.setattr(svc, "_synthesize_once", fine)
+        assert await svc._synthesize("x", "de-DE-KatjaNeural") is not None
+        assert attempts["n"] == 1
+
+
 class TestVoices:
     def test_every_language_has_at_least_two_voices(self):
         for lang, voices in VOICES.items():

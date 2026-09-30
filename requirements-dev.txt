@@ -9,3 +9,9 @@ anthropic>=0.69.0
 
 # Для app/scripts/tts_samples.py — образцы озвучки голосами носителей.
 edge-tts>=7.0.0
+
+# Замкнутая проверка озвучки: распознать сгенерированное и сверить с текстом.
+# Только для app/scripts/tts_asr_check.py — боту не нужно.
+# av 19 несовместим с decode_audio из faster-whisper, поэтому mp3
+# раскодируется в скрипте напрямую (см. там decode_mp3).
+faster-whisper>=1.2.1

@@ -52,6 +52,13 @@ TITLE_EXAMPLE_WORDS = 3
 # нескольких секунд нельзя: человек смотрит на карточку.
 SYNTH_TIMEOUT = 8.0
 
+# Сколько раз пробовать. Одна сетевая заминка не должна лишать слово звука:
+# без повтора карточка выходила бы текстовой из-за моргнувшего соединения.
+# Попыток две, а не больше: третья заметна на глаз, а озвучка не настолько
+# важна, чтобы держать человека перед пустой карточкой.
+SYNTH_ATTEMPTS = 2
+RETRY_PAUSE = 0.4
+
 
 @dataclass
 class AudioClip:
@@ -183,8 +190,8 @@ async def clip_for_user(
     return await get_clip(session, word, lang, kind, voice)
 
 
-async def _synthesize(text: str, voice: str) -> Optional[bytes]:
-    """Синтез в память. None, если движок не ответил или отдал пустоту."""
+async def _synthesize_once(text: str, voice: str) -> Optional[bytes]:
+    """Одна попытка синтеза. None, если движок не ответил или отдал пустоту."""
     async def run() -> bytes:
         data = b""
         stream = edge_tts.Communicate(text, voice, rate=DEFAULT_RATE).stream()
@@ -198,8 +205,8 @@ async def _synthesize(text: str, voice: str) -> Optional[bytes]:
     except asyncio.TimeoutError:
         logger.warning("синтез не успел за %.0f с: %r", SYNTH_TIMEOUT, text[:40])
         return None
-    except Exception:
-        logger.exception("синтез не удался: %r", text[:40])
+    except Exception as exc:
+        logger.warning("синтез не удался (%s): %r", type(exc).__name__, text[:40])
         return None
 
     # Пустой или подозрительно короткий ответ — это не звук
@@ -207,6 +214,31 @@ async def _synthesize(text: str, voice: str) -> Optional[bytes]:
         logger.warning("синтез вернул %d байт для %r — слишком мало", len(data), text[:40])
         return None
     return data
+
+
+async def _synthesize(text: str, voice: str) -> Optional[bytes]:
+    """
+    Синтез с повтором.
+
+    Озвучка должна быть у каждого слова, поэтому одна сетевая заминка не должна
+    оставлять карточку без звука. Повтор дешевле, чем потерянный клип: после
+    успеха file_id сохраняется навсегда, а после отказа слово осталось бы
+    беззвучным до следующего показа.
+    """
+    for attempt in range(1, SYNTH_ATTEMPTS + 1):
+        data = await _synthesize_once(text, voice)
+        if data is not None:
+            if attempt > 1:
+                logger.info("синтез удался со второй попытки: %r", text[:40])
+            return data
+        if attempt < SYNTH_ATTEMPTS:
+            await asyncio.sleep(RETRY_PAUSE)
+
+    logger.warning(
+        "озвучка недоступна после %d попыток, карточка будет текстовой: %r",
+        SYNTH_ATTEMPTS, text[:40],
+    )
+    return None
 
 
 async def get_clip(
