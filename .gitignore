@@ -128,6 +128,13 @@ app/scripts/*
 !app/scripts/fix_lemmas.py
 !app/scripts/apply_lemma_overrides.py
 !app/scripts/fix_levels.py
+# Повторяются после каждого прогона переводов, а не разово:
+# турецкую İ прогон ломает систематически, а дефекты примеров приходят из
+# двух источников, пересечение которых мало
+!app/scripts/fix_turkish_i.py
+!app/scripts/merge_defects.py
+# Нужен всякий раз, когда пакет прерван: отменённый пакет не значит пустой
+!app/scripts/collect_batch.py
 !app/scripts/tts_trim_store.py
 !app/scripts/tts_audit_clips.py
 
