@@ -47,7 +47,7 @@ os.environ.setdefault("ENV_FILE", ".env.local")
 from sqlalchemy import text
 
 from app.database.session import AsyncSessionLocal
-from app.services.audio_service import KIND_FULL, KIND_WORD, _synthesize
+from app.services.audio_service import KIND_FULL, KIND_WORD, obtain_audio
 from app.services.language_service import LANGUAGES, SUPPORTED_LANGS
 from app.services.tts_text import expand_numbers, full_clip_text, word_clip_text
 from app.services.tts_voices import default_voice
@@ -219,7 +219,9 @@ async def check_one(row: dict, lang: str, kind: str, voice: str,
         result["verdict"] = "не проверяется"
         return result
 
-    data = await _synthesize(spoken, voice)
+    # С диска, если клип там уже есть: после прогона синтеза проверка
+    # становится чисто вычислительной и идёт заметно быстрее
+    data = await obtain_audio(spoken, lang, kind, voice)
     if data is None:
         result["verdict"] = "синтез не удался"
         return result

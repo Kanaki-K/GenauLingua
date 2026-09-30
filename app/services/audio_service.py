@@ -1,14 +1,24 @@
 """
-Озвучка слова: синтез, загрузка в Telegram один раз, дальше по file_id.
+Озвучка слова: клип с диска, загрузка в Telegram один раз, дальше по file_id.
 
-Как это работает. Клип нужен в двух видах: «слово» для вопроса и «слово с
-примером» для разбора. При первом обращении клип синтезируется и уходит в
-Telegram вместе с самой карточкой — отдельной загрузки нет, карточку всё
-равно отправлять. Из ответа берётся file_id и кладётся в кэш; все следующие
-показы этого слова идут по file_id: без синтеза, без загрузки, мгновенно.
+Три уровня, и разделены они по цене.
 
-Поэтому пустой кэш — рабочее состояние. Предгенерация базы ускоряет первый
-показ, но ничего не блокирует: бот работает и с нуля.
+  1. Файл на диске. Синтез — дорогая и невосполнимая часть: часы работы через
+     недокументированный endpoint, который Microsoft может закрыть в любой
+     день. Поэтому клип сохраняется файлом и больше не зависит ни от движка,
+     ни от того, каким ботом его отправят. См. app/services/audio_store.py.
+  2. file_id в базе. Загрузка дешёвая, но file_id принадлежит конкретному
+     боту и другому не передаётся. Кэшируется отдельно на каждого бота, и
+     чужая запись считается промахом.
+  3. Синтез. Последняя линия: только если на диске клипа нет.
+
+Клип нужен в двух видах: «слово» для вопроса и «слово с примером» для разбора.
+Загрузка совмещена с показом карточки — отдельного шага нет, карточку всё
+равно отправлять. Из ответа берётся file_id, и все следующие показы идут по
+нему: мгновенно и бесплатно.
+
+Поэтому пустые и диск, и кэш — рабочее состояние. Предгенерация ускоряет
+первый показ, но ничего не блокирует: бот работает с нуля.
 
 Отправляется обычным аудио, а не голосовым сообщением. Голосовые может
 запретить сам получатель настройкой приватности Telegram Premium
@@ -34,6 +44,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database.models import User, UserTtsVoice, Word, WordAudio
+from app.services import audio_store
 from app.services.language_service import example_text, word_text
 from app.services.tts_text import full_clip_text, needs_context, word_clip_text
 from app.services.tts_voices import DEFAULT_RATE, resolve_voice
@@ -241,6 +252,30 @@ async def _synthesize(text: str, voice: str) -> Optional[bytes]:
     return None
 
 
+async def obtain_audio(
+    spoken: str, lang: str, kind: str, voice: str
+) -> Optional[bytes]:
+    """
+    Клип: с диска, а если там нет — синтезом, и тогда сразу на диск.
+
+    Порядок именно такой, потому что синтез — дорогая и невосполнимая часть.
+    Один раз синтезированный клип живёт файлом и больше не зависит ни от
+    работоспособности движка, ни от того, каким ботом его потом отправят.
+    """
+    stored = audio_store.read(lang, voice, kind, spoken)
+    if stored is not None:
+        return stored
+
+    data = await _synthesize(spoken, voice)
+    if data is None:
+        return None
+
+    # Запись на диск не критична: не получилось — клип всё равно отдаём,
+    # просто в следующий раз он синтезируется снова
+    audio_store.write(lang, voice, kind, spoken, data)
+    return data
+
+
 def _bot_id_from_token(token: Optional[str]) -> Optional[int]:
     """
     Числовой id бота из токена: он стоит перед двоеточием.
@@ -305,7 +340,7 @@ async def get_clip(
             filename=audio_filename(title), file_id=cached.file_id,
         )
 
-    data = await _synthesize(spoken, voice)
+    data = await obtain_audio(spoken, lang, kind, voice)
     if data is None:
         return None
 

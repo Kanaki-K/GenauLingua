@@ -121,9 +121,13 @@ app/scripts/*
 !app/scripts/tts_asr_check.py
 !app/scripts/example_quality.py
 !app/scripts/tts_pregenerate.py
+!app/scripts/tts_synthesize.py
 
-# Образцы и кэш озвучки: аудио в репозитории не нужно
+# Образцы и хранилище озвучки: аудио в репозитории не нужно.
+# tts/ — это гигабайты синтезированных клипов, переносятся
+# копированием каталога, а не через git.
 tts_samples/
+tts/
 
 # One-time scripts
 send_active.py

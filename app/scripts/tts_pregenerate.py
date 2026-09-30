@@ -52,6 +52,7 @@ from app.database.session import AsyncSessionLocal
 from app.services.audio_service import (
     KIND_FULL,
     KIND_WORD,
+    current_bot_id,
     audio_filename,
     audio_title,
     get_clip,
@@ -100,13 +101,22 @@ class RateLimiter:
 
 
 async def pending_words(lang: str, voice: str, kinds: list[str],
-                        limit: int | None) -> list[tuple[int, str]]:
+                        limit: int | None,
+                        levels: list[str] | None = None) -> list[tuple[int, str]]:
     """
     Что осталось озвучить: пары (id слова, вид клипа) без записи в кэше.
 
     Порядок по частотности: то, что люди увидят раньше, делается первым.
+    Уровнями удобнее, чем количеством: A1 и A2 — это то, что видит
+    большинство, и озвучить их целиком осмысленнее, чем первые N слов.
     """
     cfg = LANGUAGES[lang]
+    params: dict = {"lang": lang}
+    level_filter = ""
+    if levels:
+        level_filter = "AND w.level::text = ANY(:levels)"
+        params["levels"] = [lv.upper() for lv in levels]
+
     async with AsyncSessionLocal() as s:
         rows = (await s.execute(text(f"""
             SELECT w.id
@@ -115,14 +125,18 @@ async def pending_words(lang: str, voice: str, kinds: list[str],
               ON g.word_id = w.id AND g.lang = :lang AND g.is_canonical
             WHERE w.{cfg.word_attr} IS NOT NULL
               AND btrim(w.{cfg.word_attr}) <> ''
+              {level_filter}
             ORDER BY w.frequency_rank NULLS LAST, w.id
-        """), {"lang": lang})).scalars().all()
+        """), params)).scalars().all()
 
+        # Чужой бот считается промахом: его file_id Telegram отклонит
         already = set(
             (row.word_id, row.kind)
             for row in (await s.execute(
                 select(WordAudio.word_id, WordAudio.kind).where(
-                    WordAudio.lang == lang, WordAudio.voice == voice
+                    WordAudio.lang == lang,
+                    WordAudio.voice == voice,
+                    WordAudio.bot_id == current_bot_id(),
                 )
             )).all()
         )
@@ -199,12 +213,18 @@ async def run(args) -> int:
         print("Нужен либо --chat-id канала-хранилища, либо --delete-after.")
         return 1
 
-    todo = await pending_words(lang, voice, kinds, None if args.all else args.limit)
+    todo = await pending_words(
+        lang, voice, kinds,
+        None if (args.all or args.levels) else args.limit,
+        args.levels,
+    )
     if not todo:
         print(f"для {lang} голосом {voice} всё уже озвучено")
         return 0
 
-    print(f"язык {lang}, голос {voice}, виды клипов {kinds}")
+    print(f"язык {lang}, голос {voice}, виды клипов {kinds}, бот {current_bot_id()}")
+    if args.levels:
+        print(f"уровни: {' '.join(lv.upper() for lv in args.levels)}")
     print(f"осталось озвучить: {len(todo)}")
     print(f"отправка в {chat_id}" + (", с удалением" if delete_after else ""))
     print()
@@ -270,6 +290,8 @@ def main() -> int:
     ap.add_argument("--lang", default="de", choices=list(SUPPORTED_LANGS))
     ap.add_argument("--limit", type=int, default=100)
     ap.add_argument("--all", action="store_true", help="весь язык целиком")
+    ap.add_argument("--levels", nargs="+", metavar="LEVEL",
+                    help="только эти уровни CEFR целиком, например: --levels A1 A2")
     ap.add_argument("--only", choices=[KIND_WORD, KIND_FULL],
                     help="только один вид клипа")
     ap.add_argument("--voice", help="голос (по умолчанию основной для языка)")
