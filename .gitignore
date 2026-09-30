@@ -135,6 +135,9 @@ app/scripts/*
 !app/scripts/merge_defects.py
 # Нужен всякий раз, когда пакет прерван: отменённый пакет не значит пустой
 !app/scripts/collect_batch.py
+# Перед переносом озвучки на прод: правка текста оставляет прежний клип на
+# диске, и сироты поехали бы по сети впустую
+!app/scripts/tts_prune_orphans.py
 !app/scripts/tts_trim_store.py
 !app/scripts/tts_audit_clips.py
 

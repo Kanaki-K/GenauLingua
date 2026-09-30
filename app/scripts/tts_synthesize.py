@@ -59,12 +59,18 @@ WORKERS = 16
 BACKOFF = 2.0
 
 
-async def clips_to_make(lang: str, voice: str, limit: int | None) -> list[tuple[str, str]]:
+async def expected_clips(lang: str) -> list[tuple[str, str]]:
     """
-    Что осталось синтезировать: пары (вид клипа, произносимый текст).
+    Все клипы, которые языку положены: пары (вид клипа, произносимый текст).
 
-    Ключ хранилища — произносимый текст, поэтому проверять наличие можно
-    прямо по диску, без обращения к базе file_id.
+    Наличие на диске здесь не проверяется — это полный ожидаемый состав.
+
+    Вынесено отдельно, потому что этим списком пользуется не только синтез:
+    tts_prune_orphans по нему решает, на какие клипы больше никто не
+    ссылается. Считать состав дважды нельзя — разойдётся. Так и вышло в
+    первой версии поиска сирот: она не знала ни про отбор канонических слов,
+    ни про артикль перед немецким существительным, и объявила сиротами 14 924
+    живых немецких клипа.
     """
     cfg = LANGUAGES[lang]
     async with AsyncSessionLocal() as s:
@@ -101,10 +107,23 @@ async def clips_to_make(lang: str, voice: str, limit: int | None) -> list[tuple[
             if key in seen:
                 continue
             seen.add(key)
-            if audio_store.exists(lang, voice, kind, spoken):
-                continue
             todo.append(key)
 
+    return todo
+
+
+async def clips_to_make(lang: str, voice: str, limit: int | None) -> list[tuple[str, str]]:
+    """
+    Что осталось синтезировать.
+
+    Ключ хранилища — произносимый текст, поэтому проверять наличие можно
+    прямо по диску, без обращения к базе file_id.
+    """
+    todo = [
+        (kind, spoken)
+        for kind, spoken in await expected_clips(lang)
+        if not audio_store.exists(lang, voice, kind, spoken)
+    ]
     return todo[:limit] if limit else todo
 
 
