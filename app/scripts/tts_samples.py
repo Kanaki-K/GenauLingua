@@ -81,7 +81,7 @@ async def main() -> None:
     with_example = sum(p.stat().st_size for p in made if "_2_" in p.name) / 5
     print(f"\nсредний размер: слово {words_only / 1024:.1f} КБ, "
           f"слово+пример {with_example / 1024:.1f} КБ")
-    print(f"на 12 902 слова одного языка:")
+    print("на 12 902 слова одного языка:")
     print(f"  только слова:     {words_only * 12902 / 1024 / 1024:.0f} МБ")
     print(f"  слово и пример:   {with_example * 12902 / 1024 / 1024:.0f} МБ")
     print(f"\nПослушать: {OUT.resolve()}")

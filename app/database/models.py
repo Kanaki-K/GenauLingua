@@ -6,7 +6,7 @@ from typing import List, Optional
 from sqlalchemy import (
     BigInteger, String, Boolean, DateTime, Integer,
     ForeignKey, Text, Enum as SQLEnum, Float,
-    UniqueConstraint, Index
+    UniqueConstraint, Index, true as sa_true
 )
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import ARRAY
@@ -78,6 +78,15 @@ class User(Base):
 
     # === НАСТРОЙКИ ВИКТОРИНЫ ===
     quiz_word_count: Mapped[int] = mapped_column(Integer, default=25)
+
+    # === ОЗВУЧКА ===
+    # Включена по умолчанию: озвучку просили в отзывах, и это главное, за чем
+    # человек сюда придёт. Кому мешает — выключает в настройках.
+    # Выбранный голос лежит отдельно, в user_tts_voices: он свой на каждый
+    # изучаемый язык.
+    audio_enabled: Mapped[bool] = mapped_column(
+        Boolean, nullable=False, default=True, server_default=sa_true()
+    )
 
     # === МЕСЯЧНАЯ СИСТЕМА РЕЙТИНГА ===
     lifetime_score: Mapped[int] = mapped_column(Integer, default=0)
@@ -588,3 +597,80 @@ class WordLangGroup(Base):
     # Нормализованный headword — ключ группировки. Хранится для отладки
     # и для показа синонимов.
     norm_key: Mapped[str] = mapped_column(String(255), nullable=False)
+
+
+class UserTtsVoice(Base):
+    """
+    Выбранный голос — на каждый изучаемый язык свой.
+
+    Отдельной таблицей, а не колонкой: голос осмыслен только в паре с языком,
+    и при переключении изучаемого языка должен подтягиваться свой. Колонкой
+    это было бы шесть полей, которые надо держать в согласии с реестром.
+
+    Нет записи — используется голос по умолчанию для языка. Так что
+    незаполненная таблица это норма, а не незавершённая настройка.
+    """
+    __tablename__ = "user_tts_voices"
+
+    user_id: Mapped[int] = mapped_column(
+        BigInteger, ForeignKey("users.id", ondelete="CASCADE"), primary_key=True
+    )
+    lang: Mapped[str] = mapped_column(String(2), primary_key=True)
+    voice: Mapped[str] = mapped_column(String(64), nullable=False)
+
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime, default=utcnow, onupdate=utcnow
+    )
+
+
+class WordAudio(Base):
+    """
+    Кэш озвучки: file_id уже загруженного в Telegram клипа.
+
+    Почему file_id, а не файлы. Полная озвучка базы — 106 380 клипов, это
+    2,2 ГБ на диске. Но Telegram отдаёт загруженный однажды файл по строке
+    в 80 символов бесконечно и бесплатно, так что на диске держать нечего:
+    вся озвучка весит в базе около 10 МБ.
+
+    Заполняется лениво, при первом показе слова: первый ученик ждёт лишнюю
+    секунду, все следующие получают звук мгновенно. Поэтому пустой кэш —
+    рабочее состояние, а не поломка, и предгенерация ничего не блокирует.
+
+    Ключ включает голос: если ученик выбрал другой голос, это другой клип.
+    Отсюда же цена выбора голоса — база озвучки множится на число голосов,
+    поэтому предгенерируется только голос по умолчанию.
+    """
+    __tablename__ = "word_audio"
+    __table_args__ = (
+        # Уникальный, а не просто индекс: при ленивом заполнении два
+        # одновременных показа одного слова иначе создали бы две записи
+        UniqueConstraint(
+            "word_id", "lang", "kind", "voice", name="uq_word_audio_key"
+        ),
+        Index("ix_word_audio_lookup", "word_id", "lang", "kind", "voice"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+
+    word_id: Mapped[int] = mapped_column(
+        ForeignKey("words.id", ondelete="CASCADE"), nullable=False
+    )
+    # Язык озвучки — изучаемый язык, на котором слово произносится
+    lang: Mapped[str] = mapped_column(String(2), nullable=False)
+    # 'word' — только слово (для вопроса), 'full' — слово и пример (для разбора)
+    kind: Mapped[str] = mapped_column(String(8), nullable=False)
+    voice: Mapped[str] = mapped_column(String(64), nullable=False)
+
+    file_id: Mapped[str] = mapped_column(String(255), nullable=False)
+    # 'voice' — голосовое сообщение, 'audio' — обычный аудиофайл. file_id
+    # привязан к типу отправки, переиспользовать его между ними нельзя.
+    file_kind: Mapped[str] = mapped_column(String(8), nullable=False)
+
+    # Что именно произнесено: текст после разворота сокращений и чисел.
+    # Нужен для проверки распознаванием и чтобы понять, устарел ли клип
+    # после правки перевода.
+    spoken_text: Mapped[str] = mapped_column(Text, nullable=False)
+
+    duration_seconds: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
+
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)

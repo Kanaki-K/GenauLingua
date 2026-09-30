@@ -22,7 +22,13 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.bot.buttons import BTN_LEARN_WORDS, pressed
 from app.bot.keyboards import get_answer_keyboard
 from app.bot.states import QuizStates
+from app.bot.handlers.quiz.card import show_card
 from app.bot.utils import delete_messages_fast, ensure_anchor
+from app.services.audio_service import (
+    KIND_FULL,
+    clip_for_user,
+    clip_kind_for_question,
+)
 from app.core.clock import utcnow
 from app.database.enums import QuizMode
 from app.database.models import QuizQuestion, QuizSession, User, UserWord, Word
@@ -58,6 +64,25 @@ QUESTION_ATTEMPTS = 10
 # ============================================================================
 # ОТОБРАЖЕНИЕ ВОПРОСА И ОТВЕТА
 # ============================================================================
+
+async def _question_clip(session, user: User, word: Word, pair: LanguagePair):
+    """
+    Озвучка для вопроса.
+
+    В обратном направлении звука нет: вопрос задан на языке значения, а
+    произнести изучаемое слово означало бы назвать ответ.
+
+    В прямом направлении звучит слово. Исключение — гетероним: произнесённый
+    отдельно, он читается наугад («modern», «umfahren» имеют по два чтения),
+    и управлять этим нельзя, SSML движку недоступен. Такому слову ставится
+    клип с примером, где контекст задаёт чтение однозначно.
+    """
+    if pair.reverse:
+        return None
+    return await clip_for_user(
+        session, user, word, pair.learning, clip_kind_for_question(word, pair.learning)
+    )
+
 
 def _question_text(
     word: Word,
@@ -291,9 +316,12 @@ async def start_quiz(message: Message, state: FSMContext, session: AsyncSession)
     if old_anchor_id:
         await delete_messages_fast(message.bot, message.chat.id, old_anchor_id, message.message_id)
 
-    await message.answer(
-        _question_text(word, pair, lang, 1, quiz_total),
-        reply_markup=get_answer_keyboard(question["options"]),
+    await show_card(
+        message.bot, message.chat.id, state, session,
+        text=_question_text(word, pair, lang, 1, quiz_total),
+        keyboard=get_answer_keyboard(question["options"]),
+        clip=await _question_clip(session, user, word, pair),
+        word_id=word.id, lang=pair.learning,
     )
     await state.set_state(QuizStates.answering)
 
@@ -373,9 +401,16 @@ async def process_answer(callback: CallbackQuery, state: FSMContext, session: As
 
     await state.update_data(correct_answers=correct_answers, errors=errors)
 
-    await callback.message.edit_text(
-        _answer_text(correct_word, pair, lang, is_correct),
-        reply_markup=get_next_question_keyboard(lang),
+    # На разборе звучит слово с примером: значение уже известно, и теперь
+    # слышно, как слово живёт в живой речи. В вопросе примера в звуке нет —
+    # там его было бы не разобрать.
+    await show_card(
+        callback.bot, callback.message.chat.id, state, session,
+        text=_answer_text(correct_word, pair, lang, is_correct),
+        keyboard=get_next_question_keyboard(lang),
+        clip=await clip_for_user(session, user, correct_word, pair.learning, KIND_FULL),
+        word_id=correct_word.id, lang=pair.learning,
+        message=callback.message,
     )
     await callback.answer()
 
@@ -460,11 +495,15 @@ async def show_next_question(callback: CallbackQuery, state: FSMContext, session
             asked_at=utcnow().timestamp(),
         )
 
-    await callback.message.edit_text(
-        _question_text(
+    await show_card(
+        callback.bot, callback.message.chat.id, state, session,
+        text=_question_text(
             word, pair, lang, current_question, total_questions, is_repeat=is_error_repeat
         ),
-        reply_markup=get_answer_keyboard(options),
+        keyboard=get_answer_keyboard(options),
+        clip=await _question_clip(session, user, word, pair),
+        word_id=word.id, lang=pair.learning,
+        message=callback.message,
     )
 
 
@@ -653,10 +692,14 @@ async def repeat_errors(callback: CallbackQuery, state: FSMContext, session: Asy
     except Exception:
         logger.debug("Не удалось удалить сообщение с итогами", exc_info=True)
 
-    await callback.bot.send_message(
-        chat_id=callback.message.chat.id,
+    # Карточка с итогами уже удалена, поэтому message не передаём:
+    # повтор ошибок начинается с новой карточки
+    await show_card(
+        callback.bot, callback.message.chat.id, state, session,
         text=_question_text(first_word, pair, lang, 1, len(errors), is_repeat=True),
-        reply_markup=get_answer_keyboard(options),
+        keyboard=get_answer_keyboard(options),
+        clip=await _question_clip(session, user, first_word, pair),
+        word_id=first_word.id, lang=pair.learning,
     )
 
     await state.set_state(QuizStates.answering)

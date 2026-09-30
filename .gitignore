@@ -117,6 +117,7 @@ app/scripts/*
 !app/scripts/tts_benchmark.py
 !app/scripts/tts_demo_card.py
 !app/scripts/tts_preflight.py
+!app/scripts/tts_verify_card.py
 
 # Образцы и кэш озвучки: аудио в репозитории не нужно
 tts_samples/
