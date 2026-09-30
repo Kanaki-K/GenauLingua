@@ -33,7 +33,7 @@ load_dotenv(os.environ.get("ENV_FILE", ".env"))
 from sqlalchemy import create_engine
 
 from app.config import settings
-from app.services.language_service import LEARNABLE_LANGS
+from app.services.language_service import SUPPORTED_LANGS
 from app.services.word_groups import build_groups, remap_user_progress_to_canonical
 
 
@@ -42,8 +42,8 @@ def main() -> None:
     parser.add_argument(
         "--langs",
         nargs="*",
-        default=list(LEARNABLE_LANGS),
-        help=f"Языки для пересборки (по умолчанию все: {' '.join(LEARNABLE_LANGS)})",
+        default=list(SUPPORTED_LANGS),
+        help=f"Языки для пересборки (по умолчанию все: {' '.join(SUPPORTED_LANGS)})",
     )
     parser.add_argument(
         "--no-remap",

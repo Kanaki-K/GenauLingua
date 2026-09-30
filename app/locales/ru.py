@@ -469,6 +469,7 @@ TEXTS.update({
     "langname_ru": "🏴 Русский",
     "langname_uk": "🇺🇦 Украинский",
     "langname_tr": "🇹🇷 Турецкий",
+    "langname_pl": "🇵🇱 Польский",
 
     # Строки в меню настроек
     "settings_learning_lang_line": "🎯 Учу: <b>{language}</b>",

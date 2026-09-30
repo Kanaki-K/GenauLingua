@@ -25,7 +25,7 @@ from sqlalchemy.engine import Connection
 
 from app.services.language_service import (
     LANGUAGES,
-    LEARNABLE_LANGS,
+    SUPPORTED_LANGS,
     get_language,
     normalize_headword,
 )
@@ -85,7 +85,7 @@ def build_groups(
     Возвращает статистику по языкам: сколько строк учтено, сколько групп
     получилось, сколько строк схлопнулось.
     """
-    langs = tuple(langs or LEARNABLE_LANGS)
+    langs = tuple(langs or SUPPORTED_LANGS)
 
     word_attrs = sorted({LANGUAGES[c].word_attr for c in langs if c in LANGUAGES})
     if not word_attrs:

@@ -124,3 +124,7 @@ tts_samples/
 # One-time scripts
 send_active.py
 db_dump.sql
+# Рабочие файлы прогона переводов: предложения и id пакетов
+*.jsonl
+*.batch
+scratch_*

@@ -136,10 +136,15 @@ def make_word(
     uk: str | None = None,
     en: str | None = None,
     tr: str | None = None,
+    pl: str | None = None,
+    translation_pl: str | None = None,
+    example_pl: str | None = None,
     frequency_rank: int | None = None,
     category: str | None = None,
 ) -> Word:
     """Слово с переводами на все языки — по умолчанию производные от word_de."""
+    # translation_pl как псевдоним pl: в тестах читаемее указывать колонку
+    polish = translation_pl if translation_pl is not None else pl
     return Word(
         word_de=word_de,
         article=article,
@@ -151,9 +156,11 @@ def make_word(
         translation_uk=uk if uk is not None else f"{word_de}_uk",
         translation_en=en if en is not None else f"{word_de}_en",
         translation_tr=tr if tr is not None else f"{word_de}_tr",
+        translation_pl=polish if polish is not None else f"{word_de}_pl",
         example_de=f"Beispiel {word_de}",
         example_ru=f"пример {word_de}",
         example_uk=f"приклад {word_de}",
         example_en=f"example {word_de}",
         example_tr=f"ornek {word_de}",
+        example_pl=example_pl if example_pl is not None else f"przyklad {word_de}",
     )

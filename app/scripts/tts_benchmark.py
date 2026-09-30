@@ -18,7 +18,7 @@ import edge_tts
 from sqlalchemy import text
 
 from app.database.session import AsyncSessionLocal
-from app.services.language_service import LANGUAGES, LEARNABLE_LANGS
+from app.services.language_service import LANGUAGES, SUPPORTED_LANGS
 
 VOICES = {
     "de": "de-DE-KatjaNeural",
@@ -33,7 +33,7 @@ async def volume():
     """Сколько клипов нужно: канонические слова и сколько из них с примером."""
     rows = {}
     async with AsyncSessionLocal() as s:
-        for lang in LEARNABLE_LANGS:
+        for lang in SUPPORTED_LANGS:
             cfg = LANGUAGES[lang]
             q = text(f"""
                 SELECT

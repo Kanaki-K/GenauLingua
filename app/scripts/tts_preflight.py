@@ -27,7 +27,7 @@ os.environ.setdefault("ENV_FILE", ".env.local")
 from sqlalchemy import text
 
 from app.database.session import AsyncSessionLocal
-from app.services.language_service import LANGUAGES, LEARNABLE_LANGS
+from app.services.language_service import LANGUAGES, SUPPORTED_LANGS
 
 # Английские гетеронимы: одно написание, разное чтение по смыслу. Без
 # контекста движок выбирает одно из чтений, и в половине случаев не то.
@@ -60,16 +60,19 @@ DIGITS = re.compile(r"\d")
 
 # Ожидаемые письменности: текст не на своей письменности озвучится мусором
 SCRIPTS = {
-    "de": "LATIN", "en": "LATIN", "tr": "LATIN",
+    "de": "LATIN", "en": "LATIN", "tr": "LATIN", "pl": "LATIN",
     "ru": "CYRILLIC", "uk": "CYRILLIC",
 }
+
+# Польский в HETERONYMS отсутствует намеренно: орфография регулярная,
+# чтение выводится из написания, и гетеронимов практически нет.
 
 MAX_EXAMPLE_CHARS = 120   # длиннее — клип затягивается, на разборе утомляет
 
 # Порядок работы по языкам. Сначала доводится до качества немецкий: он
 # основной по спросу, и на нём отрабатывается схема, которая потом
 # переносится на остальные без переизобретения.
-ORDER = ("de", "en", "uk", "ru", "tr")
+ORDER = ("de", "en", "uk", "ru", "tr", "pl")
 
 
 def wrong_script(value: str, expected: str) -> bool:
@@ -176,7 +179,7 @@ async def audit(lang: str) -> dict:
 
 async def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--lang", choices=list(LEARNABLE_LANGS))
+    ap.add_argument("--lang", choices=list(SUPPORTED_LANGS))
     ap.add_argument("--show", type=int, default=0,
                     help="сколько примеров печатать по каждой категории")
     args = ap.parse_args()

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Пересборка переводов словарной базы через Claude API.
+Пересборка переводов словарной базы через Claude API + польский с нуля.
 
 Зачем нужна модель, а не скрипт с правилами: «естественный разговорный
 перевод» — языковое суждение. Правилами проверяются только формальные вещи
@@ -15,6 +15,10 @@ app/scripts/audit_wordbase.py. Всё остальное приходится г
   * латиница в русской/украинской колонке (Schlüpfer → «Slip») исправляется;
   * потерянные турецкие диакритики (Iyi → İyi) восстанавливаются;
   * «to» у английских глаголов приводится к единому виду;
+  * польские перевод и пример создаются с нуля — колонок в базе не было;
+  * примеры на пяти языках проверяются на то, что они вообще содержат
+    само слово («подсобить» → «нужно помочь удаче» — негодный пример);
+    негодные собираются в отдельный файл для переписывания;
   * неверная лемма и подозрительный уровень CEFR помечаются на ручной разбор.
 
 РАБОТА В ДВА ЭТАПА — в боевую базу напрямую скрипт не пишет:
@@ -61,8 +65,10 @@ MODEL = "claude-opus-5"
 # промпта, но выше риск, что модель собьётся с нумерации на длинном списке.
 WORDS_PER_REQUEST = 20
 
-# Хватает на 20 слов × (4 перевода + значения + пометки) с запасом
-MAX_TOKENS = 8000
+# Хватает на порцию слов × (6 переводов со значениями + польский пример +
+# оценки примеров + пометки) с запасом. Это потолок, а не расход:
+# платится фактический выход.
+MAX_TOKENS = 14000
 
 
 # ============================================================================
@@ -80,9 +86,14 @@ WORD_SCHEMA: dict[str, Any] = {
                 "type": "object",
                 "properties": {
                     "id": {"type": "integer", "description": "id слова из запроса"},
+                    # Через anyOf, а не "type": ["string","null"] с enum:
+                    # структурированный вывод отклоняет союзный тип вместе с enum
+                    # («Enum value 'der' does not match declared type»).
                     "article": {
-                        "type": ["string", "null"],
-                        "enum": ["der", "die", "das", None],
+                        "anyOf": [
+                            {"type": "string", "enum": ["der", "die", "das"]},
+                            {"type": "null"},
+                        ],
                         "description": "Артикль для существительных, иначе null",
                     },
                     "lemma_ok": {
@@ -94,13 +105,24 @@ WORD_SCHEMA: dict[str, Any] = {
                         "description": "Уровень CEFR правдоподобен для этого слова",
                     },
                     "suggested_level": {
-                        "type": ["string", "null"],
-                        "enum": ["A1", "A2", "B1", "B2", "C1", "C2", None],
+                        "anyOf": [
+                            {"type": "string", "enum": ["A1", "A2", "B1", "B2", "C1", "C2"]},
+                            {"type": "null"},
+                        ],
                     },
                     "ru": {"$ref": "#/$defs/translation"},
                     "uk": {"$ref": "#/$defs/translation"},
                     "en": {"$ref": "#/$defs/translation"},
                     "tr": {"$ref": "#/$defs/translation"},
+                    "pl": {"$ref": "#/$defs/translation"},
+                    "example_pl": {
+                        "type": "string",
+                        "description": (
+                            "Короткая бытовая фраза по-польски, содержащая это слово "
+                            "и раскрывающая его основное значение"
+                        ),
+                    },
+                    "examples_ok": {"$ref": "#/$defs/examples_ok"},
                     "note": {
                         "type": ["string", "null"],
                         "description": "Короткое пояснение, если со словом что-то не так",
@@ -108,7 +130,7 @@ WORD_SCHEMA: dict[str, Any] = {
                 },
                 "required": [
                     "id", "article", "lemma_ok", "level_ok", "suggested_level",
-                    "ru", "uk", "en", "tr", "note",
+                    "ru", "uk", "en", "tr", "pl", "example_pl", "examples_ok", "note",
                 ],
                 "additionalProperties": False,
             },
@@ -135,7 +157,27 @@ WORD_SCHEMA: dict[str, Any] = {
             },
             "required": ["primary", "meanings"],
             "additionalProperties": False,
-        }
+        },
+        # Проверка примеров логическими полями, а не переписыванием: переписать
+        # все примеры на пяти языках стоило бы вдвое дороже, а испорчена малая
+        # часть. Помеченные переписываются отдельным дешёвым прогоном.
+        "examples_ok": {
+            "type": "object",
+            "properties": {
+                "de": {"type": "boolean"},
+                "ru": {"type": "boolean"},
+                "uk": {"type": "boolean"},
+                "en": {"type": "boolean"},
+                "tr": {"type": "boolean"},
+            },
+            "required": ["de", "ru", "uk", "en", "tr"],
+            "additionalProperties": False,
+            "description": (
+                "По каждому языку: содержит ли существующий пример само это слово "
+                "(в любой форме) и раскрывает ли его значение. false, если пример "
+                "про другое слово, пустой или бессмысленный."
+            ),
+        },
     },
 }
 
@@ -144,8 +186,8 @@ SYSTEM_PROMPT = """\
 Ты — лексикограф словаря для приложения, которое учит словам через тест \
 с четырьмя вариантами ответа. Твои переводы люди увидят как варианты выбора.
 
-Для каждого немецкого слова дай переводы на русский, украинский, английский \
-и турецкий.
+Для каждого немецкого слова дай переводы на русский, украинский, английский, \
+турецкий и польский.
 
 ГЛАВНОЕ ТРЕБОВАНИЕ — ЕСТЕСТВЕННОСТЬ.
 Пиши то слово, которым носитель пользуется в живой речи, а не словарный \
@@ -160,6 +202,28 @@ SYSTEM_PROMPT = """\
 местоимение, а не «можно». Если в meanings окажется одно значение там, где \
 их несколько, ученик будет угадывать, какое значение выбрал словарь, вместо \
 того чтобы знать язык. В primary ставь самое частотное значение.
+
+ПОЛЬСКИЙ ЗАПОЛНЯЕТСЯ С НУЛЯ — его в базе ещё нет.
+Требования те же, что к остальным языкам, плюс:
+- диакритика обязательна: «książka», «żółty», «ćwiczyć». Написание без \
+хвостиков и точек («ksiazka») недопустимо.
+- глагол давай инфинитивом без частиц: «robić», не «do robić».
+- существительное — именительный падеж единственного числа, без артикля.
+- слово этот язык озвучивает синтезатор, поэтому в переводе не должно быть \
+пояснений в скобках, помет вроде «разг.» и косых черт — только сами значения.
+
+ПОЛЬСКИЙ ПРИМЕР (example_pl) — тоже с нуля.
+Короткая бытовая фраза из 3–8 слов, в которой это слово стоит живьём и по \
+которой видно, что оно значит. Фраза должна звучать как из разговора, а не \
+как из учебника грамматики. Само слово обязано в ней присутствовать, пусть \
+и в другой грамматической форме. Точку в конце не ставь.
+
+ПРОВЕРКА СУЩЕСТВУЮЩИХ ПРИМЕРОВ (examples_ok).
+По каждому из пяти языков ответь, годен ли уже имеющийся пример. Ставь false, \
+если пример про другое слово (для «подсобить» дан «Иногда нужно помочь удаче» \
+— там нет исходного слова), если он пустой, бессмысленный или не раскрывает \
+значение. Иная грамматическая форма слова — это нормально, «рыба» → «люблю \
+рыбу» годится, тут true. Если примера на этом языке нет вообще — false.
 
 ОСТАЛЬНЫЕ ПРАВИЛА
 - Английские глаголы — всегда с «to»: «to run», не «run».
@@ -190,7 +254,7 @@ SYSTEM_PROMPT = """\
 # ============================================================================
 
 def load_words_from_db(
-    level: Optional[str],
+    levels: Optional[list[str]],
     ids: Optional[list[int]],
     limit: Optional[int],
     only_flagged: bool,
@@ -202,9 +266,11 @@ def load_words_from_db(
     conditions = []
     params: dict[str, Any] = {}
 
-    if level:
-        conditions.append("level::text = :level")
-        params["level"] = level.upper()
+    if levels:
+        # Уровнями целиком, а не частями: наполовину пересобранный уровень
+        # дал бы ученику смесь проверенных и непроверенных слов
+        conditions.append("level::text = ANY(:levels)")
+        params["levels"] = [lv.upper() for lv in levels]
     if ids:
         conditions.append("id = ANY(:ids)")
         params["ids"] = ids
@@ -224,7 +290,8 @@ def load_words_from_db(
         SELECT id, word_de, article, pos::text AS pos, level::text AS level,
                category, frequency_rank,
                translation_ru, translation_uk, translation_en, translation_tr,
-               example_de
+               translation_pl,
+               example_de, example_ru, example_uk, example_en, example_tr
         FROM words
         {where}
         ORDER BY frequency_rank NULLS LAST, id
@@ -253,11 +320,14 @@ def build_user_message(words: list[dict]) -> str:
             lines.append(f"  текущий артикль: {w['article']}")
         if w.get("frequency_rank"):
             lines.append(f"  частотный ранг: {w['frequency_rank']}")
-        if w.get("example_de"):
-            lines.append(f"  пример: {w['example_de']}")
         lines.append("  текущие переводы (могут быть неточными):")
         for code in ("ru", "uk", "en", "tr"):
             lines.append(f"    {code}: {w.get(f'translation_{code}') or '—'}")
+        # Примеры нужны и как контекст для перевода, и как предмет проверки
+        # examples_ok — поэтому передаются все пять, а не только немецкий
+        lines.append("  текущие примеры (их нужно оценить в examples_ok):")
+        for code in ("de", "ru", "uk", "en", "tr"):
+            lines.append(f"    {code}: {w.get(f'example_{code}') or '—'}")
         lines.append("")
     return "\n".join(lines)
 
@@ -409,7 +479,7 @@ def propose_batch(client, batches: list[list[dict]], out_path: Path) -> None:
 def cmd_propose(args: argparse.Namespace) -> None:
     import anthropic
 
-    words = load_words_from_db(args.level, args.ids, args.limit, args.flagged)
+    words = load_words_from_db(args.levels, args.ids, args.limit, args.flagged)
     if not words:
         logger.error("под указанные условия не попало ни одного слова")
         return
@@ -451,22 +521,39 @@ def cmd_propose(args: argparse.Namespace) -> None:
 
 
 def _print_estimate(request_count: int, use_batch: bool) -> None:
-    """Прикидка стоимости. Цены Opus 5: $5 за млн входных, $25 за млн выходных."""
-    input_per_request = 2000
-    output_per_request = 1400
+    """
+    Прикидка стоимости. Цены Opus 5: $5 за млн входных, $25 за млн выходных.
+
+    Числа ниже — из замера на пробной партии, а не из головы: в запрос теперь
+    уходят пять примеров на слово, а в ответ шесть языков и польский пример.
+    """
+    # Замерено на партии из 100 слов (5 запросов по 20): вход 3829,
+    # чтение кеша 3842, выход 8292 на запрос. Выход и есть основная статья
+    # расхода — шесть языков со всеми значениями плюс польский пример.
+    input_per_request = 3829
+    cache_read_per_request = 3842
+    output_per_request = 8292
 
     input_tokens = request_count * input_per_request
+    cache_tokens = request_count * cache_read_per_request
     output_tokens = request_count * output_per_request
 
-    cost = input_tokens / 1e6 * 5 + output_tokens / 1e6 * 25
+    # Чтение кеша стоит 10% от входа
+    cost = (
+        input_tokens / 1e6 * 5
+        + cache_tokens / 1e6 * 0.5
+        + output_tokens / 1e6 * 25
+    )
     if use_batch:
         cost /= 2
 
-    print(f"\nзапросов: {request_count}")
-    print(f"входных токенов (оценка):  ~{input_tokens:,}")
-    print(f"выходных токенов (оценка): ~{output_tokens:,}")
-    print(f"стоимость (оценка):        ~${cost:.2f}" + (" (со скидкой Batches)" if use_batch else ""))
-    print("\nОценка грубая: системный промпт кешируется, так что реальный вход будет меньше.\n")
+    print(f"\nзапросов: {request_count}  (слов ~{request_count * WORDS_PER_REQUEST})")
+    print(f"входных токенов:  ~{input_tokens:,}")
+    print(f"чтений кеша:      ~{cache_tokens:,}")
+    print(f"выходных токенов: ~{output_tokens:,}")
+    print(f"стоимость:        ~${cost:.2f}" + (" (со скидкой Batches)" if use_batch else ""))
+    print("\nОценка из замера, а не из головы. Фактический расход смотреть\n"
+          "в консоли Anthropic после прогона.\n")
 
 
 # ============================================================================
@@ -509,6 +596,7 @@ def cmd_apply(args: argparse.Namespace) -> None:
 
     needs_review: list[dict] = []
     updates: list[dict] = []
+    bad_examples: list[dict] = []
 
     for p in proposals:
         # Слова с сомнительной леммой или уровнем не применяем автоматически —
@@ -525,7 +613,16 @@ def cmd_apply(args: argparse.Namespace) -> None:
             "uk": _join_meanings(p["uk"]),
             "en": _join_meanings(p["en"]),
             "tr": _join_meanings(p["tr"]),
+            "pl": _join_meanings(p["pl"]),
+            # Пустую строку не пишем: лучше отсутствующий пример, чем пустой
+            "example_pl": (p.get("example_pl") or "").strip() or None,
         })
+
+        # Негодные примеры не переписываем здесь — собираем список для
+        # отдельного прогона, иначе один проход отвечал бы за слишком многое
+        bad = [code for code, ok in (p.get("examples_ok") or {}).items() if ok is False]
+        if bad:
+            bad_examples.append({"id": p["id"], "word_de": p.get("word_de"), "langs": bad})
 
     if needs_review:
         review_path = path.with_name(path.stem + "_needs_review.jsonl")
@@ -539,10 +636,27 @@ def cmd_apply(args: argparse.Namespace) -> None:
         if not args.include_flagged:
             logger.warning("они НЕ будут применены; для применения — флаг --include-flagged")
 
+    if bad_examples:
+        bad_path = path.with_name(path.stem + "_bad_examples.jsonl")
+        with bad_path.open("w", encoding="utf-8") as out:
+            for b in bad_examples:
+                out.write(json.dumps(b, ensure_ascii=False) + "\n")
+        by_lang: dict[str, int] = {}
+        for b in bad_examples:
+            for code in b["langs"]:
+                by_lang[code] = by_lang.get(code, 0) + 1
+        logger.warning(
+            "примеры не показывают слово: %d слов (%s) → %s",
+            len(bad_examples),
+            ", ".join(f"{c}: {n}" for c, n in sorted(by_lang.items())),
+            bad_path,
+        )
+
     if args.dry_run:
         print(f"\n--dry-run: применилось бы {len(updates)} слов\n")
         for u in updates[:15]:
-            print(f"  id={u['id']:6} article={u['article'] or '—':4} ru={u['ru']}")
+            print(f"  id={u['id']:6} article={u['article'] or '—':4} "
+                  f"ru={u['ru']}  |  pl={u['pl']}  |  {u['example_pl']}")
         if len(updates) > 15:
             print(f"  ... ещё {len(updates) - 15}")
         print()
@@ -559,7 +673,9 @@ def cmd_apply(args: argparse.Namespace) -> None:
             translation_ru = :ru,
             translation_uk = :uk,
             translation_en = :en,
-            translation_tr = :tr
+            translation_tr = :tr,
+            translation_pl = :pl,
+            example_pl = COALESCE(:example_pl, example_pl)
         WHERE id = :id
         """
     )
@@ -586,7 +702,8 @@ def main() -> None:
 
     p = sub.add_parser("propose", help="собрать предложения в файл")
     p.add_argument("--out", default="proposals.jsonl", help="файл с предложениями")
-    p.add_argument("--level", help="только один уровень CEFR (A1..C2)")
+    p.add_argument("--levels", nargs="+", metavar="LEVEL",
+                   help="уровни CEFR целиком, например: --levels A1 A2 B1")
     p.add_argument("--ids", type=int, nargs="*", help="только указанные id")
     p.add_argument("--limit", type=int, help="ограничить количество слов")
     p.add_argument("--all", action="store_true", help="вся база (равнозначно отсутствию фильтров)")

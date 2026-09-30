@@ -5,7 +5,9 @@ import pytest
 from app.database.enums import CEFRLevel, PartOfSpeech
 from app.services.language_service import (
     INTERFACE_LANGS,
+    LANGUAGES,
     LEARNABLE_LANGS,
+    SUPPORTED_LANGS,
     LanguagePair,
     display_text,
     example_text,
@@ -226,3 +228,64 @@ def test_german_is_learnable_but_has_no_interface():
     # Немецкой локали нет, но учить немецкий можно
     assert "de" in LEARNABLE_LANGS
     assert "de" not in INTERFACE_LANGS
+
+
+class TestPolish:
+    """
+    Польский описан в реестре, но ещё не открыт для изучения: колонки в базе
+    заполняются отдельным прогоном. Тесты держат это состояние явным, чтобы
+    язык не открылся по невнимательности с пустой базой — тогда викторина не
+    нашла бы ни одного слова.
+    """
+
+    def test_described_in_registry(self):
+        assert "pl" in LANGUAGES
+        cfg = LANGUAGES["pl"]
+        assert cfg.word_attr == "translation_pl"
+        assert cfg.example_attr == "example_pl"
+        assert cfg.uses_article is False
+
+    def test_columns_exist_on_model(self):
+        from app.database.models import Word
+
+        assert hasattr(Word, "translation_pl")
+        assert hasattr(Word, "example_pl")
+
+    def test_included_in_supported_but_not_learnable_yet(self):
+        assert "pl" in SUPPORTED_LANGS
+        assert "pl" not in LEARNABLE_LANGS
+
+    def test_every_learnable_lang_is_supported(self):
+        # Обратное включение: открыть язык, не описав его, невозможно
+        assert set(LEARNABLE_LANGS) <= set(SUPPORTED_LANGS)
+        assert set(SUPPORTED_LANGS) <= set(LANGUAGES)
+
+    def test_has_name_in_every_locale(self):
+        from app.locales import LOCALES
+
+        for code, texts in LOCALES.items():
+            assert "langname_pl" in texts, f"нет langname_pl в локали {code}"
+
+    def test_word_and_example_read_from_polish_columns(self):
+        word = make_word(
+            word_de="Buch",
+            translation_pl="książka",
+            example_pl="Czytam ciekawą książkę",
+        )
+        assert word_text(word, "pl") == "książka"
+        # Как и для других неартиклевых языков, показ с заглавной
+        assert display_text(word, "pl") == "Książka"
+        assert example_text(word, "pl") == "Czytam ciekawą książkę"
+
+    def test_diacritics_survive_normalization(self):
+        # Ключ схлопывания не должен терять хвостики: иначе «żółty» и «zolty»
+        # склеились бы в одно слово
+        assert normalize_headword("Książka", "pl") == "książka"
+        assert normalize_headword("żółty", "pl") != "zolty"
+
+    def test_no_leading_particles_stripped(self):
+        # В польском нет ни артикля, ни частицы инфинитива — снимать нечего
+        assert normalize_headword("do domu", "pl") == "do domu"
+
+    def test_flag(self):
+        assert flag("pl") == "🇵🇱"

@@ -463,6 +463,7 @@ TEXTS.update({
     "langname_ru": "🏴 Russian",
     "langname_uk": "🇺🇦 Ukrainian",
     "langname_tr": "🇹🇷 Turkish",
+    "langname_pl": "🇵🇱 Polish",
 
     "settings_learning_lang_line": "🎯 Learning: <b>{language}</b>",
 
