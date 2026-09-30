@@ -89,7 +89,10 @@ def formal_notes(row: dict, langs: list[str]) -> list[str]:
         example = (row.get(cfg.example_attr) or "").strip()
 
         if not word:
-            notes.append(f"{lang}: перевода нет")
+            # Отсутствие перевода — вопрос покрытия, а не качества, и оно
+            # считается отдельно в заголовке. Иначе частично заполненный язык
+            # затопляет отчёт: польский есть только на A1 и A2, и «перевода
+            # нет» давало 78% замечаний на выборке по всем уровням.
             continue
         if not example:
             notes.append(f"{lang}: примера нет")
@@ -266,8 +269,17 @@ async def main() -> int:
         for row in sample:
             by_level[row["level"]] = by_level.get(row["level"], 0) + 1
 
+        coverage = {}
+        for lang in langs:
+            cfg = LANGUAGES[lang]
+            have = sum(1 for r in sample if (r.get(cfg.word_attr) or "").strip())
+            coverage[lang] = have
+
         print("=" * 72)
         print(f"ВЫБОРКА {number}: {len(sample)} рядов, зерно {seed}")
+        print("  покрытие: " + ", ".join(
+            f"{lang} {coverage[lang]}" for lang in langs
+        ) + "  (это покрытие, не качество)")
         print("  по уровням: " + ", ".join(f"{lv} {by_level.get(lv, 0)}" for lv in LEVELS))
         print(f"  с формальными замечаниями: {len(flagged)} "
               f"({len(flagged) / len(sample) * 100:.0f}%)")
