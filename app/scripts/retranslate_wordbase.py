@@ -817,11 +817,27 @@ def cmd_apply(args: argparse.Namespace) -> None:
             for p in needs_review:
                 out.write(json.dumps(p, ensure_ascii=False) + "\n")
         logger.warning(
-            "на ручной разбор: %d слов (неверная лемма, уровень или пометка) → %s",
+            "в базе не лемма — переводить нечего, пока не решено: %d слов → %s",
             len(needs_review), review_path,
         )
         if not args.include_flagged:
             logger.warning("они НЕ будут применены; для применения — флаг --include-flagged")
+
+    # Помеченное применяется, но выписывается: уровень CEFR и пояснения — это
+    # отдельная работа, и без файла о них попросту забываешь. Прежде список
+    # собирался в памяти и никуда не писался, то есть 553 слова с сомнительным
+    # уровнем существовали только в логе одной строкой.
+    if marked:
+        marked_path = path.with_name(path.stem + "_marked.jsonl")
+        with marked_path.open("w", encoding="utf-8") as out:
+            for p in marked:
+                out.write(json.dumps(p, ensure_ascii=False) + "\n")
+        levels = sum(1 for p in marked if not p.get("level_ok", True))
+        logger.info(
+            "применено, но помечено на разбор: %d слов (уровень %d, пояснения "
+            "%d) → %s. Уровень и пометки перевод не блокируют.",
+            len(marked), levels, len(marked) - levels, marked_path,
+        )
 
     if bad_examples:
         bad_path = path.with_name(path.stem + "_bad_examples.jsonl")
