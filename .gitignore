@@ -123,6 +123,7 @@ app/scripts/*
 !app/scripts/tts_pregenerate.py
 !app/scripts/tts_synthesize.py
 !app/scripts/wordbase_sample_review.py
+!app/scripts/fix_examples.py
 
 # Образцы и хранилище озвучки: аудио в репозитории не нужно.
 # tts/ — это гигабайты синтезированных клипов, переносятся

@@ -15,6 +15,17 @@
 Это не морфологический разбор, а отсев: он снимает словоизменение, чтобы
 остаток можно было отдать на суждение модели или глазам, не утонув в шуме.
 
+ЧЕГО ОТСЕВ НЕ ВИДИТ, и это надо знать, читая его числа. Чередование в корне
+ему недоступно: «wollen» и «willst», «geben» и «gibst», «verschwinden» и
+«verschwunden», «erliegen» и «erlegen» — всё это правильные формы одного
+слова, а начало у них расходится. В немецком сильном спряжении таких форм
+много, поэтому число дефектов по немецкому завышено.
+
+Отсюда важное следствие: вердикт отсева не является основанием отвергать
+чужую работу. Модель, которой велено вставить слово в пример, разбирается
+в морфологии лучше поиска по началу слова. Несогласие отсева — повод
+посмотреть, а не повод выбросить.
+
     python -m app.scripts.example_quality                  # сводка
     python -m app.scripts.example_quality --lang ru --show 30
     python -m app.scripts.example_quality --lang ru --out bad_ru.jsonl
@@ -98,7 +109,13 @@ SEPARABLE_PREFIXES = (
     "wieder", "weiter", "zurecht", "empor",
     "nach", "über", "unter", "durch", "gegen",
     "auf", "aus", "ein", "mit", "vor", "weg", "hin", "her", "los", "zu",
-    "ab", "an", "bei", "um", "fest", "frei", "statt", "teil",
+    "ab", "an", "bei", "um",
+    # Отделяемые части, которые приставками не выглядят, но ведут себя как они.
+    # Их отсутствие в списке зря браковало годные примеры: «fernsehen» →
+    # «Abends sehe ich gern fern», «wohlfühlen» → «Hier fühle ich mich wohl».
+    "fern", "rein", "raus", "runter", "rauf", "rüber", "wohl", "heim",
+    "fest", "frei", "statt", "teil", "wahr", "acht", "preis", "stand",
+    "gleich", "voll", "leer", "fehl", "kund", "wett", "bereit",
 )
 
 
