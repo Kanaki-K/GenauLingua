@@ -143,6 +143,9 @@ db_dump.sql
 *.batch.cancelled
 scratch_*
 
+# Разовые обёртки прогонов
+run_asr_all.py
+
 # Логи прогонов озвучки
 trim_*.log
 asr_*.jsonl
