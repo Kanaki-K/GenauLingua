@@ -43,8 +43,10 @@ import argparse
 import json
 import logging
 import os
+import re
 import sys
 import time
+import unicodedata
 from pathlib import Path
 from typing import Any, Iterable, Iterator, Optional
 
@@ -65,10 +67,24 @@ MODEL = "claude-opus-5"
 # промпта, но выше риск, что модель собьётся с нумерации на длинном списке.
 WORDS_PER_REQUEST = 20
 
-# Хватает на порцию слов × (6 переводов со значениями + польский пример +
-# оценки примеров + пометки) с запасом. Это потолок, а не расход:
-# платится фактический выход.
-MAX_TOKENS = 14000
+# Потолок на ответ, а не расход: платится фактический выход. Замер на живом
+# прогоне — 8292 токена на запрос из 20 слов, так что 11 000 даёт треть запаса.
+#
+# Прежде стояло 14 000. Уменьшено не потому, что 14 000 мешало: пакет из 162
+# таких запросов отработал полностью и отдал 3197 слов из 3237. Просто запас
+# втрое от замеренного значения ничего не давал, а резерв пакета из max_tokens
+# считается, и без нужды приближаться к квоте аккаунта незачем.
+MAX_TOKENS = 11000
+
+# Выходная квота аккаунта из anthropic-ratelimit-output-tokens-limit.
+#
+# Проверка перед отправкой добавлена как страховка, а НЕ как исправление
+# известной поломки: пакет с резервом 2 268 000 при этой квоте отработал
+# нормально, просто медленно — около трёх часов. Гипотеза, что превышение
+# резерва блокирует пакет, не подтвердилась, и предупреждение здесь
+# консервативное: оно советует разбить работу, но не утверждает, что иначе
+# ничего не выйдет.
+OUTPUT_TOKEN_QUOTA = 2_000_000
 
 
 # ============================================================================
@@ -415,6 +431,32 @@ def propose_sync(client, batches: list[list[dict]], out_path: Path) -> None:
             )
 
 
+def _check_output_budget(request_count: int) -> None:
+    """
+    Предупредить, если резерв пакета превышает выходную квоту аккаунта.
+
+    Только предупреждение, не отказ. Пакет с резервом 2 268 000 при квоте
+    2 000 000 отработал нормально, просто медленно — около трёх часов. Так что
+    превышение не означает поломки; оно означает, что прогресса придётся ждать
+    долго и лучше разбить работу на части, чтобы видеть результат раньше.
+    """
+    reserved = request_count * MAX_TOKENS
+    if reserved <= OUTPUT_TOKEN_QUOTA:
+        logger.info("резерв пакета %d токенов из квоты %d",
+                    reserved, OUTPUT_TOKEN_QUOTA)
+        return
+
+    fits = OUTPUT_TOKEN_QUOTA // MAX_TOKENS
+    logger.warning(
+        "резерв пакета %d токенов больше квоты аккаунта %d. Пакет отработает, "
+        "но медленно: замеренный случай шёл около трёх часов при нулевом "
+        "видимом прогрессе почти до самого конца. Чтобы видеть результат "
+        "раньше, разбейте работу на части не больше %d запросов — например, "
+        "по одному уровню CEFR.",
+        reserved, OUTPUT_TOKEN_QUOTA, fits,
+    )
+
+
 def propose_batch(client, batches: list[list[dict]], out_path: Path) -> None:
     """
     Batches API: вдвое дешевле, результат в течение часа.
@@ -434,6 +476,8 @@ def propose_batch(client, batches: list[list[dict]], out_path: Path) -> None:
                 params=MessageCreateParamsNonStreaming(**_request_params(words)),
             )
         )
+
+    _check_output_budget(len(requests))
 
     batch = client.messages.batches.create(requests=requests)
     logger.info("пакет создан: %s (%d запросов)", batch.id, len(requests))
@@ -511,6 +555,8 @@ def cmd_propose(args: argparse.Namespace) -> None:
 
     if args.estimate_only:
         _print_estimate(len(batches), args.batch)
+        if args.batch:
+            _check_output_budget(len(batches))
         return
 
     client = anthropic.Anthropic()
@@ -560,15 +606,92 @@ def _print_estimate(request_count: int, use_batch: bool) -> None:
 # APPLY
 # ============================================================================
 
-def _join_meanings(translation: dict) -> str:
+# Похожие по виду буквы: латинская «a» и кириллическая «а» выглядят одинаково,
+# но это разные символы. Модель их иногда путает, и на глаз это не видно:
+# «удaритися» с латинской «a» выглядит как обычное украинское слово, а для
+# базы, поиска и озвучки это другое слово.
+#
+# Найдено 8 таких случаев на 3237 предложений: «нареченa», «дорíжка»,
+# «виставa», польское «babа» с кириллической «а».
+_LATIN_TO_CYRILLIC = {
+    "a": "а", "A": "А", "e": "е", "E": "Е", "o": "о", "O": "О",
+    "c": "с", "C": "С", "p": "р", "P": "Р", "x": "х", "X": "Х",
+    "y": "у", "Y": "У", "i": "і", "I": "І", "í": "і",
+    "H": "Н", "K": "К", "M": "М", "T": "Т", "B": "В",
+}
+_CYRILLIC_TO_LATIN = {
+    "а": "a", "А": "A", "е": "e", "Е": "E", "о": "o", "О": "O",
+    "с": "c", "С": "C", "р": "p", "Р": "P", "х": "x", "Х": "X",
+    "у": "y", "У": "Y", "і": "i", "І": "I",
+    "Н": "H", "К": "K", "М": "M", "Т": "T", "В": "B",
+}
+
+CYRILLIC_LANGS = {"ru", "uk"}
+LATIN_LANGS = {"en", "tr", "pl"}
+
+
+_LETTER_RUN = re.compile(r"[^\W\d_]+", re.UNICODE)
+
+
+def _fix_homoglyphs(value: str, lang: str) -> str:
+    """
+    Привести похожие буквы к письменности языка.
+
+    Правится только буквенный отрезок, в котором смешаны обе письменности:
+    такое написание всегда ошибка. Отрезок целиком из чужих букв не трогается —
+    «ID-карта» и «HR-менеджер» законны, латиница там намеренная.
+
+    Разбор идёт по буквенным отрезкам, а не по словам через пробел: «ID-карта»
+    это одно слово из двух отрезков, и первая версия этой функции честно
+    превращала его в «ІD-карта» с кириллической І.
+    """
+    table = _LATIN_TO_CYRILLIC if lang in CYRILLIC_LANGS else _CYRILLIC_TO_LATIN
+    if not table:
+        return value
+
+    own = "CYRILLIC" if lang in CYRILLIC_LANGS else "LATIN"
+
+    def fix_run(match: re.Match) -> str:
+        run = match.group(0)
+        kinds = {_script_of(ch) for ch in run if ch.isalpha()} - {""}
+        # Смешаны обе письменности — значит чужие буквы внутри своего слова
+        if kinds == {"LATIN", "CYRILLIC"}:
+            return "".join(
+                ch if _script_of(ch) == own else table.get(ch, ch) for ch in run
+            )
+        return run
+
+    return _LETTER_RUN.sub(fix_run, value)
+
+
+def _script_of(ch: str) -> str:
+    try:
+        name = unicodedata.name(ch)
+    except ValueError:
+        return ""
+    if "LATIN" in name:
+        return "LATIN"
+    if "CYRILLIC" in name:
+        return "CYRILLIC"
+    return ""
+
+
+def _join_meanings(translation: dict, lang: str = "") -> str:
     """
     Собрать значения в одну строку. Разделитель — запятая: движок викторины
     разбирает по ней многозначные переводы (см. meaning_variants).
+
+    Похожие буквы приводятся к письменности языка ДО снятия дублей: иначе
+    «нареченa» с латинской «a» и «наречена» остаются двумя разными значениями
+    и оба попадают в перевод.
     """
     meanings = translation.get("meanings") or []
     primary = translation.get("primary") or ""
 
     ordered = [primary] + [m for m in meanings if m != primary]
+    if lang:
+        ordered = [_fix_homoglyphs(m or "", lang) for m in ordered]
+
     seen, result = set(), []
     for meaning in ordered:
         key = (meaning or "").strip().lower()
@@ -609,11 +732,11 @@ def cmd_apply(args: argparse.Namespace) -> None:
         updates.append({
             "id": p["id"],
             "article": p.get("article"),
-            "ru": _join_meanings(p["ru"]),
-            "uk": _join_meanings(p["uk"]),
-            "en": _join_meanings(p["en"]),
-            "tr": _join_meanings(p["tr"]),
-            "pl": _join_meanings(p["pl"]),
+            "ru": _join_meanings(p["ru"], "ru"),
+            "uk": _join_meanings(p["uk"], "uk"),
+            "en": _join_meanings(p["en"], "en"),
+            "tr": _join_meanings(p["tr"], "tr"),
+            "pl": _join_meanings(p["pl"], "pl"),
             # Пустую строку не пишем: лучше отсутствующий пример, чем пустой
             "example_pl": (p.get("example_pl") or "").strip() or None,
         })

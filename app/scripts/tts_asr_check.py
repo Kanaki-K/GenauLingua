@@ -49,7 +49,12 @@ from sqlalchemy import text
 from app.database.session import AsyncSessionLocal
 from app.services.audio_service import KIND_FULL, KIND_WORD, obtain_audio
 from app.services.language_service import LANGUAGES, SUPPORTED_LANGS
-from app.services.tts_text import expand_numbers, full_clip_text, word_clip_text
+from app.services.tts_text import (
+    PAUSE,
+    expand_numbers,
+    full_clip_text,
+    word_clip_text,
+)
 from app.services.tts_voices import default_voice
 
 logging.basicConfig(level=logging.WARNING, format="%(levelname)s %(message)s")
@@ -240,8 +245,42 @@ async def check_one(row: dict, lang: str, kind: str, voice: str,
     ratio = similarity(spoken, heard, lang)
     result["heard"] = heard
     result["ratio"] = round(ratio, 3)
-    result["verdict"] = "совпало" if ratio >= threshold else "расхождение"
+
+    if ratio >= threshold:
+        result["verdict"] = "совпало"
+    elif _repetition_collapsed(spoken, heard, lang):
+        # Артефакт нашего же формата клипа, а не ошибка синтеза
+        result["verdict"] = "повтор сжат"
+    else:
+        result["verdict"] = "расхождение"
     return result
+
+
+def _repetition_collapsed(spoken: str, heard: str, lang: str) -> bool:
+    """
+    Распознаватель выбросил фразу, оставив одно слово.
+
+    Клип устроен как «слово … то же слово внутри фразы», и на таком повторе
+    распознаватель часто оставляет только первое вхождение:
+    «die Lokomotive … Die Lokomotive zog den Zug» слышится как
+    «die Lokomotive». Слово при этом распознано верно, то есть синтез в
+    порядке — это артефакт формата, и считать его ошибкой нельзя.
+
+    Обнаружено на прогоне по немецкому: из 66 расхождений таких было около
+    сорока пяти, и все на длинных составных существительных.
+    """
+    if PAUSE.strip() not in spoken:
+        return False
+
+    word_part = normalize(expand_numbers(spoken.split(PAUSE.strip())[0], lang))
+    heard_norm = normalize(expand_numbers(heard, lang))
+    if not word_part or not heard_norm:
+        return False
+
+    # Услышано ровно слово, без фразы — либо оно же с небольшим хвостом
+    from difflib import SequenceMatcher
+
+    return SequenceMatcher(None, word_part, heard_norm).ratio() >= 0.85
 
 
 async def run(args) -> int:
@@ -294,7 +333,7 @@ async def run(args) -> int:
             print(f"в {out_path} уже есть {len(done)} проверок — пропускаю их")
 
     sem = asyncio.Semaphore(args.workers)
-    stats = {"совпало": 0, "расхождение": 0, "не проверяется": 0,
+    stats = {"совпало": 0, "повтор сжат": 0, "расхождение": 0, "не проверяется": 0,
              "синтез не удался": 0, "распознавание не удалось": 0, "пусто": 0}
     lock = asyncio.Lock()
     processed = 0
