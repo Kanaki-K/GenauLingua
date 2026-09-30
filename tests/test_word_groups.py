@@ -70,6 +70,53 @@ class TestGrouping:
         groups = await _groups(session, "en")
         assert all(g.canonical_id == mit.id for g in groups.values())
 
+    async def test_same_word_twice_is_shown_at_lower_level(self, session):
+        """
+        Одно и то же немецкое слово лежит в базе на двух уровнях.
+
+        Так устроено у 209 слов: «Taxifahrer» есть и на A1, и на B2. Уровень
+        при этом произволен, а частотный ранг достался при импорте только
+        одной строке из двух — и раньше побеждала именно она. Выходило, что
+        слово есть на A1, но видят его только на B2.
+        """
+        session.add_all([
+            make_word("Taxifahrer", level=CEFRLevel.A1, en="taxi driver",
+                      frequency_rank=None),
+            make_word("Taxifahrer", level=CEFRLevel.B2, en="taxi driver",
+                      frequency_rank=7934),
+        ])
+        await rebuild(session, ["en"])
+
+        a1 = (await session.execute(
+            select(Word).where(Word.word_de == "Taxifahrer",
+                               Word.level == CEFRLevel.A1)
+        )).scalar_one()
+
+        groups = await _groups(session, "en")
+        assert all(g.canonical_id == a1.id for g in groups.values()), (
+            "младший уровень должен победить, несмотря на отсутствие ранга"
+        )
+
+    async def test_lower_level_rule_does_not_touch_synonyms(self, session):
+        """
+        У синонимов заголовки разные — там по-прежнему решает частота.
+
+        Иначе правило про младший уровень сделало бы представителем редкое
+        слово только потому, что оно стоит на A1.
+        """
+        session.add_all([
+            make_word("Taxi", level=CEFRLevel.A1, en="cab", frequency_rank=9000),
+            make_word("Taxe", level=CEFRLevel.C2, en="cab", frequency_rank=100),
+        ])
+        await rebuild(session, ["en"])
+
+        frequent = (await session.execute(
+            select(Word).where(Word.word_de == "Taxe")
+        )).scalar_one()
+
+        groups = await _groups(session, "en")
+        assert all(g.canonical_id == frequent.id for g in groups.values())
+
     async def test_choice_is_deterministic(self, session):
         """От выбора представителя зависит прогресс — он обязан быть стабильным."""
         session.add_all([

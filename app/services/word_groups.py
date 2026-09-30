@@ -59,6 +59,12 @@ def _group_key(
     return (norm, pos)
 
 
+# Порядок уровней для выбора младшего. Держится здесь, а не берётся из
+# перечисления: порядок по возрастанию сложности — часть правила, а не
+# случайный порядок объявления
+_LEVEL_ORDER = {"A1": 0, "A2": 1, "B1": 2, "B2": 3, "C1": 4, "C2": 5}
+
+
 def _representative(rows: list[dict], prefer: Optional[set[int]] = None) -> dict:
     """
     Представитель группы: самое частотное слово, при равенстве — меньший id.
@@ -69,11 +75,23 @@ def _representative(rows: list[dict], prefer: Optional[set[int]] = None) -> dict
     ручных указаний: форма может оказаться частотнее своей леммы, и тогда без
     этого канонической стала бы именно форма — ровно то, от чего указание и
     должно было избавить.
+
+    Одно и то же немецкое слово встречается в базе дважды на разных уровнях —
+    209 слов, 216 лишних строк. Уровень при этом произволен: «Taxifahrer»
+    лежит и на A1, и на B2. Побеждала старшая запись, потому что частотный
+    ранг достался при импорте именно ей, а у младшей его нет — и ключ
+    «ранга нет» отправлял её в конец. Получалось, что слово есть на A1, а
+    видят его только на B2: у 14 слов ровно так и было.
+
+    Поэтому после выбора победителя берётся самый младший уровень среди строк
+    С ТЕМ ЖЕ немецким заголовком. Группы синонимов это не задевает: у
+    «gucken/schauen/zuschauen» заголовки разные, и представителем остаётся
+    самое частотное слово.
     """
     preferred = [r for r in rows if prefer and r["id"] in prefer]
     candidates = preferred or rows
 
-    return min(
+    winner = min(
         candidates,
         key=lambda r: (
             r["frequency_rank"] is None,
@@ -81,6 +99,21 @@ def _representative(rows: list[dict], prefer: Optional[set[int]] = None) -> dict
             r["id"],
         ),
     )
+
+    # Тот же заголовок на более младшем уровне — это та же единица, а не
+    # другое слово. Частотный ранг тут ничего не говорит: он просто есть у
+    # одной строки из двух
+    same_word = [
+        r for r in candidates
+        if (r.get("word_de") or "").strip().lower()
+        == (winner.get("word_de") or "").strip().lower()
+    ]
+    if len(same_word) > 1:
+        return min(
+            same_word,
+            key=lambda r: (_LEVEL_ORDER.get(r.get("level"), len(_LEVEL_ORDER)), r["id"]),
+        )
+    return winner
 
 
 def _load_overrides(connection: Connection) -> dict[int, int]:
@@ -128,7 +161,12 @@ def build_groups(
     if not word_attrs:
         return {}
 
-    select_list = ", ".join(["id", "pos::text AS pos", "article", "frequency_rank", *word_attrs])
+    # word_de и level нужны выбору представителя: одно и то же немецкое слово
+    # лежит в базе на двух уровнях, и показывать его надо на младшем
+    select_list = ", ".join(dict.fromkeys([
+        "id", "pos::text AS pos", "article", "frequency_rank",
+        "word_de", "level::text AS level", *word_attrs,
+    ]))
     words = connection.execute(sa.text(f"SELECT {select_list} FROM words")).mappings().all()
 
     stats: dict[str, dict[str, int]] = {}
@@ -163,9 +201,14 @@ def build_groups(
             if lemma_id is not None and lemma_id in key_of:
                 key = key_of[lemma_id]
 
-            groups.setdefault(key, []).append(
-                {"id": row["id"], "frequency_rank": row["frequency_rank"]}
-            )
+            groups.setdefault(key, []).append({
+                "id": row["id"],
+                "frequency_rank": row["frequency_rank"],
+                # Заголовок и уровень нужны выбору представителя: одно и то же
+                # немецкое слово лежит на двух уровнях, показывать надо младший
+                "word_de": row["word_de"],
+                "level": row["level"],
+            })
 
         # Леммы из указаний обязаны быть каноническими в своих группах
         lemma_ids = set(overrides.values())
