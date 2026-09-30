@@ -74,11 +74,28 @@ CONJUGATED = {
     "pl": re.compile(r"(am|asz|a|amy|acie|ają|em|esz|ę|ł|ła|li)$", re.IGNORECASE),
 }
 
-# Немецкий внутри перевода. Требуем связку из служебного слова и следующего
-# за ним, иначе английское «an» и турецкое «an» дадут ложные срабатывания
+# Немецкий внутри перевода. Требуем связку из служебного слова и следующего за
+# ним, иначе английское «an» и турецкое «an» дадут ложные срабатывания.
+#
+# Дефис перед словом исключён намеренно: турецкий аблатив пишется «-den», и
+# «-den itibaren», «-den beri», «-den oluşmak» — безупречный турецкий, а не
+# немецкий артикль. Семь замечаний из 21 были именно такими.
+#
+# «die» тоже убрано из связок: по-английски это глагол, и «to die out», «to die
+# of hunger» — правильный английский. Немецкий артикль «die» ловится вместе с
+# существительным с заглавной буквы, чего в английском тексте не бывает.
 GERMAN = re.compile(
-    r"\b(es kommt|sich \w+|der \w+|die \w+|das \w+|dem \w+|den \w+|"
-    r"einen \w+|einem \w+|zu \w+en|jemandem|jemanden|jmdm|jmdn|etw\.)\b",
+    r"(?<![-\w])(es kommt|sich \w+|der [A-ZÄÖÜ]\w+|die [A-ZÄÖÜ]\w+|"
+    r"das [A-ZÄÖÜ]\w+|dem [A-ZÄÖÜ]\w+|den [A-ZÄÖÜ]\w+|"
+    r"einen \w+|einem \w+|zu \w+en|jemandem|jemanden|jmdm|jmdn|etw\.)\b"
+)
+
+# Латинские сокращения, которые по-русски и по-украински так и пишутся.
+# Проверка «латиница в кириллице» на них срабатывать не должна: «IBAN» и
+# «HR-директор» это норма, а не поломка
+LATIN_OK = re.compile(
+    r"^(DVD|CD|USB|IBAN|BIC|SWIFT|HR|ID|IT|PIN|SMS|GPS|WiFi|Wi-Fi|"
+    r"SUV|TV|PR|VIP|SPA|LED|USB-C)([-\s].*)?$",
     re.IGNORECASE,
 )
 
@@ -248,8 +265,12 @@ def check_entry(word_de: str, pos: str, row: dict) -> list[str]:
             for value in values:
                 if set(value) & UKRAINIAN_ONLY:
                     problems.append(f"ru: украинские буквы — {value!r}")
-        if lang in ("ru", "uk") and any("LATIN" in script_of(v) for v in values):
-            problems.append(f"{lang}: латиница в переводе — {values!r}")
+        if lang in ("ru", "uk"):
+            # Латинские сокращения пропускаем: они так и пишутся по-русски
+            foreign = [v for v in values
+                       if "LATIN" in script_of(v) and not LATIN_OK.match(v.strip())]
+            if foreign:
+                problems.append(f"{lang}: латиница в переводе — {foreign!r}")
         if lang in ("en", "tr", "pl") and any("CYRILLIC" in script_of(v) for v in values):
             problems.append(f"{lang}: кириллица в переводе — {values!r}")
 
