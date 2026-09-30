@@ -106,6 +106,41 @@ def frame_index(data: bytes) -> list[tuple[int, int, float]]:
     return frames
 
 
+# Частота, к которой приводится звук для поиска границ речи. Точность здесь
+# не нужна: ищется не содержание, а где начинается и заканчивается громкое.
+DECODE_SAMPLE_RATE = 16000
+
+
+def decode(data: bytes):
+    """
+    mp3 в массив отсчётов, приведённый к моно и 16 кГц.
+
+    Живёт здесь, а не в скриптах, потому что обрезка нужна и боевому коду:
+    клип, синтезированный на ходу, должен звучать так же, как взятый из
+    хранилища. Зависимость от av и numpy подключается внутри функции — если
+    их нет, обрезка просто не сработает, и это не повод терять озвучку.
+    """
+    import io
+
+    import av
+    import numpy as np
+    from av.audio.resampler import AudioResampler
+
+    resampler = AudioResampler(format="s16", layout="mono", rate=DECODE_SAMPLE_RATE)
+    chunks: list = []
+
+    with av.open(io.BytesIO(data), mode="r") as container:
+        for frame in container.decode(audio=0):
+            for resampled in resampler.resample(frame):
+                chunks.append(resampled.to_ndarray().reshape(-1))
+
+    if not chunks:
+        return np.zeros(0, dtype=np.float32)
+
+    # Целые со знаком в диапазон [-1, 1]
+    return np.concatenate(chunks).astype(np.float32) / 32768.0
+
+
 def speech_bounds(samples, sample_rate: int) -> Optional[tuple[float, float]]:
     """
     Где начинается и заканчивается речь, в секундах.

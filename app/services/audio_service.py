@@ -139,17 +139,27 @@ def spoken_for(word: Word, lang: Optional[str], kind: str) -> str:
     return word_clip_text(raw_word, lang)
 
 
+# Вид клипа для образца голоса. Отдельный от слов, чтобы образцы не мешались
+# с озвучкой базы и не попадали в её проверки.
+KIND_PREVIEW = "preview"
+
+
 async def synthesize_preview(lang: str, voice: str) -> Optional[bytes]:
     """
     Образец голоса для настроек: одна фраза на языке этого голоса.
 
-    Не кэшируется в word_audio — это не слово из базы. Голосов на все языки
-    девятнадцать, образец короткий, так что синтезировать его на месте дешевле,
-    чем заводить под это отдельное хранилище.
+    Идёт через то же хранилище, что и слова, по двум причинам. Образец
+    обрезается от тишины — в настройках человек слушает несколько голосов
+    подряд, и полторы секунды пустоты после каждого заметны сильнее всего.
+    И второй раз он уже не синтезируется: голосов на все языки девятнадцать,
+    файлов выходит девятнадцать.
+
+    В word_audio не кэшируется: это не слово из базы, и file_id ему незачем.
     """
     from app.services.tts_voices import preview_text
 
-    return await _synthesize(preview_text(lang), resolve_voice(voice, lang))
+    resolved = resolve_voice(voice, lang)
+    return await obtain_audio(preview_text(lang), lang, KIND_PREVIEW, resolved)
 
 
 async def voice_for_user(
@@ -252,6 +262,32 @@ async def _synthesize(text: str, voice: str) -> Optional[bytes]:
     return None
 
 
+def _trimmed(data: bytes) -> bytes:
+    """
+    Убрать тишину вокруг речи.
+
+    Обязательно здесь, а не только в пакетном прогоне: движок добавляет около
+    полутора секунд тишины, и клип, синтезированный на ходу, звучал бы иначе,
+    чем взятый из хранилища. Человек слышал бы часть слов с пустотой в конце,
+    а часть без — и это было бы виднее всего при смене голоса, где на ходу
+    синтезируется каждое слово.
+
+    Обрезка не критична: не получилось — отдаём как есть, со звуком всё
+    в порядке, просто длиннее.
+    """
+    from app.services import mp3_trim
+
+    try:
+        out = mp3_trim.trim(data, mp3_trim.decode)
+    except Exception:
+        # Декодер тянет av и numpy: если их на сервере нет, обрезки не будет,
+        # и это не повод терять озвучку
+        logger.debug("обрезка не удалась", exc_info=True)
+        return data
+
+    return out if out is not None else data
+
+
 async def obtain_audio(
     spoken: str, lang: str, kind: str, voice: str
 ) -> Optional[bytes]:
@@ -261,6 +297,9 @@ async def obtain_audio(
     Порядок именно такой, потому что синтез — дорогая и невосполнимая часть.
     Один раз синтезированный клип живёт файлом и больше не зависит ни от
     работоспособности движка, ни от того, каким ботом его потом отправят.
+
+    Синтезированное здесь же обрезается: в хранилище клипы уже без тишины, и
+    новый клип должен звучать так же.
     """
     stored = audio_store.read(lang, voice, kind, spoken)
     if stored is not None:
@@ -269,6 +308,8 @@ async def obtain_audio(
     data = await _synthesize(spoken, voice)
     if data is None:
         return None
+
+    data = _trimmed(data)
 
     # Запись на диск не критична: не получилось — клип всё равно отдаём,
     # просто в следующий раз он синтезируется снова

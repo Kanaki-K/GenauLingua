@@ -103,40 +103,10 @@ def similarity(a: str, b: str, lang: str | None = None) -> float:
     return SequenceMatcher(None, left, right).ratio()
 
 
-# Частота, которую ждёт распознаватель
-ASR_SAMPLE_RATE = 16000
-
-
-def decode_mp3(data: bytes):
-    """
-    mp3 в массив для распознавателя.
-
-    Декодируем сами, а не через faster-whisper: его decode_audio вызывает
-    av.open с параметром metadata_errors, которого в av 19 больше нет, а
-    ставить старый av под Python 3.13 нельзя — нет готовых сборок, а
-    компиляция требует инструментов. Передать массив напрямую проще, чем
-    удерживать совместимость версий.
-    """
-    import io
-
-    import av
-    import numpy as np
-    from av.audio.resampler import AudioResampler
-
-    resampler = AudioResampler(format="s16", layout="mono", rate=ASR_SAMPLE_RATE)
-    chunks: list = []
-
-    with av.open(io.BytesIO(data), mode="r") as container:
-        for frame in container.decode(audio=0):
-            for resampled in resampler.resample(frame):
-                chunks.append(resampled.to_ndarray().reshape(-1))
-
-    if not chunks:
-        return np.zeros(0, dtype=np.float32)
-
-    samples = np.concatenate(chunks).astype(np.float32)
-    # Целые со знаком в диапазон [-1, 1], как ждёт модель
-    return samples / 32768.0
+# Декодер живёт в app/services/mp3_trim.py: он нужен и боевому коду, потому
+# что клип, синтезированный на ходу, тоже обрезается. Держать вторую копию
+# значило бы расходиться в частоте дискретизации и в приведении к моно.
+from app.services.mp3_trim import decode as decode_mp3
 
 
 class Recognizer:

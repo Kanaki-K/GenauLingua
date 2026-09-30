@@ -184,3 +184,62 @@ class TestObtainAudio:
 
         assert await audio_service.obtain_audio("das Haus", "de", "word", "v") is None
         assert not audio_store.exists("de", "v", "word", "das Haus", root)
+
+    async def test_fresh_clip_is_trimmed(self, root, monkeypatch):
+        """
+        Клип, синтезированный на ходу, должен звучать так же, как взятый из
+        хранилища. Иначе человек слышал бы часть слов с пустотой в конце, а
+        часть без — заметнее всего при смене голоса, где на ходу синтезируется
+        каждое слово.
+        """
+        from app.services import audio_service
+
+        monkeypatch.setattr(audio_store, "DEFAULT_ROOT", root)
+
+        async def fake(text, voice):
+            return b"x" * 4000
+
+        trimmed = {"called": False}
+
+        def fake_trim(data):
+            trimmed["called"] = True
+            return b"x" * 2000
+
+        monkeypatch.setattr(audio_service, "_synthesize", fake)
+        monkeypatch.setattr(audio_service, "_trimmed", fake_trim)
+
+        data = await audio_service.obtain_audio("das Haus", "de", "word", "v")
+        assert trimmed["called"], "новый клип не прошёл обрезку"
+        assert data == b"x" * 2000
+        # На диск попадает обрезанное, а не исходное
+        assert audio_store.read("de", "v", "word", "das Haus", root) == b"x" * 2000
+
+    async def test_stored_clip_is_not_trimmed_again(self, root, monkeypatch):
+        from app.services import audio_service
+
+        monkeypatch.setattr(audio_store, "DEFAULT_ROOT", root)
+        audio_store.write("de", "v", "word", "das Haus", b"y" * 3000, root)
+
+        def must_not_run(data):
+            raise AssertionError("клип с диска обрезали повторно")
+
+        monkeypatch.setattr(audio_service, "_trimmed", must_not_run)
+
+        assert await audio_service.obtain_audio("das Haus", "de", "word", "v") == b"y" * 3000
+
+    async def test_trim_failure_keeps_the_clip(self, root, monkeypatch):
+        """Обрезка не критична: со звуком всё в порядке, просто длиннее."""
+        from app.services import audio_service, mp3_trim
+
+        monkeypatch.setattr(audio_store, "DEFAULT_ROOT", root)
+
+        async def fake(text, voice):
+            return b"x" * 4000
+
+        def broken(data, decode):
+            raise RuntimeError("декодер недоступен")
+
+        monkeypatch.setattr(audio_service, "_synthesize", fake)
+        monkeypatch.setattr(mp3_trim, "trim", broken)
+
+        assert await audio_service.obtain_audio("das Haus", "de", "word", "v") == b"x" * 4000
