@@ -58,11 +58,25 @@ MIN_STEM = {
 # из четырёх букв — «рыба» в примере стоит как «рыбу».
 SHORT_WORD = {"de": 4, "en": 4, "ru": 3, "uk": 3, "pl": 3, "tr": 3}
 
-# Какую долю слова должна составить совпавшая основа. Половина: окончание
-# в славянских языках съедает до половины короткого слова («нуждаться» →
-# «нужна» даёт четыре буквы из девяти), а требовать больше значило бы
-# записывать словоизменение в дефекты.
-STEM_RATIO = 0.5
+# Сколько букв заголовочного слова может остаться непокрытыми.
+#
+# Это оказалось правильной мерой вместо доли слова. Доля путала разные вещи:
+# на половине «Fräulein» совпадало с «Frau» (четыре общих буквы из восьми, а
+# это разные слова), а при восьмидесяти процентах ломалось спряжение —
+# «kommen» не совпадало с «kommst».
+#
+# Непокрытый хвост различает их сразу: у спряжения это два символа («kommen»
+# против «kommst»), у разных слов четыре («Fräulein» против «Frau»).
+#
+# Случай с Fräulein пойман проверкой озвучки распознаванием: клип
+# «das Fräulein … Entschuldigung, Frau» был опознан как не содержащий слова,
+# и оказался прав — пример действительно про другое.
+MAX_UNMATCHED_TAIL = {
+    "de": 3, "en": 3,          # меняется только окончание
+    "ru": 5, "uk": 5, "pl": 5, # падежи и роды срезают больше
+    "tr": 5,                   # агглютинация наращивает, но и основа плывёт
+}
+DEFAULT_MAX_TAIL = 4
 
 # Служебные приставки и частицы, которые в примере могут отделяться от слова
 LEADING = {
@@ -114,6 +128,12 @@ def fold(s: str) -> str:
     return "".join(c for c in decomposed if not unicodedata.combining(c))
 
 
+# Приставки в свёрнутом виде: сравнение идёт со свёрнутым словом
+_FOLDED_PREFIXES = tuple(sorted(
+    {fold(p) for p in SEPARABLE_PREFIXES}, key=len, reverse=True
+))
+
+
 def common_prefix(a: str, b: str) -> int:
     n = 0
     for x, y in zip(a, b):
@@ -152,10 +172,12 @@ def word_in_example(word: str, example: str, lang: str) -> tuple[bool, str]:
     # только самая длинная, и «Консервная банка» → «Банка пустая» считалось
     # дефектом, хотя пример слово показывает.
     candidates = list(head_tokens)
-    # Отделяемая приставка ушла в конец предложения: ищем и корень без неё
+    # Отделяемая приставка ушла в конец предложения: ищем и корень без неё.
+    # Приставки сворачиваются так же, как слово: иначе «zurück» никогда не
+    # совпало бы с «zuruckgeben», и целый класс глаголов оставался неучтённым.
     if lang == "de":
         for token in head_tokens:
-            for prefix in SEPARABLE_PREFIXES:
+            for prefix in _FOLDED_PREFIXES:
                 if token.startswith(prefix) and len(token) - len(prefix) >= 3:
                     candidates.append(token[len(prefix):])
                     break
@@ -184,23 +206,30 @@ def _single_token_in(head: str, example_tokens: list[str],
                 return True, token
         return False, ""
 
-    need = max(MIN_STEM.get(lang, 4), round(len(head) * STEM_RATIO))
-    need = min(need, len(head))
-    stem = head[:need]
+    need = min(MIN_STEM.get(lang, 4), len(head))
+    max_tail = MAX_UNMATCHED_TAIL.get(lang, DEFAULT_MAX_TAIL)
+
+    # Для поиска подстрокой нужна почти вся основа, а не минимум: назначение
+    # у этой проверки узкое — найти корень внутри составного слова («gehe» в
+    # «weggehen»). С коротким куском она ловила «вел» в «Величие» и объявляла
+    # годным пример про другое слово.
+    substring_stem = head[:max(need, len(head) - max_tail)]
 
     best, best_token = 0, ""
     for token in example_tokens:
         score = common_prefix(head, token)
         if score > best:
             best, best_token = score, token
-        if score >= need:
+        # Годится, если совпало достаточно и от слова осталось немного:
+        # два непокрытых символа — это окончание, четыре — другое слово
+        if score >= need and len(head) - score <= max_tail:
             return True, token
 
     # Основа может быть спрятана за приставкой или внутри составного слова:
     # «gehen» в «weggehen», «Fahrkarte» в «Fahrkartenautomat»
-    if stem in example_joined:
+    if substring_stem in example_joined:
         return True, next(
-            (t for t in example_tokens if stem in t), stem
+            (t for t in example_tokens if substring_stem in t), substring_stem
         )
 
     return False, best_token

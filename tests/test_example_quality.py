@@ -108,6 +108,20 @@ class TestRealDefects:
     def test_flagged(self, word, example, lang):
         assert not found(word, example, lang)
 
+    def test_different_word_with_shared_start_is_a_defect(self):
+        """
+        «Fräulein» и «Frau» — разные слова с общими четырьмя буквами.
+
+        На доле основы в половину слова это совпадало, и пример проходил как
+        годный. Поймано проверкой озвучки распознаванием: клип
+        «das Fräulein … Entschuldigung, Frau» был опознан как не содержащий
+        слова — и оказался прав. Отсюда доля основы стала своей на язык: в
+        немецком и английском слово почти не меняется, и половины мало.
+        """
+        assert not found("Fräulein", "Entschuldigung, Frau", "de")
+        # При этом само «Frau» в том же примере находиться должно
+        assert found("Frau", "Entschuldigung, Frau", "de")
+
     def test_empty_example_is_a_defect(self):
         assert not found("Рыба", "", "ru")
 
