@@ -676,30 +676,84 @@ def _script_of(ch: str) -> str:
     return ""
 
 
+_MEANING_SPLIT = re.compile(r"\s*[,;/]\s*")
+
+
+def _diacritic_key(value: str) -> str:
+    """
+    Ключ сравнения без диакритики: «salatka» и «sałatka» должны считаться
+    одним значением, иначе оба попадают в перевод.
+    """
+    lowered = value.strip().lower().replace("ß", "ss")
+    for source, target in _STROKE_LETTERS.items():
+        if source in lowered:
+            lowered = lowered.replace(source, target)
+    decomposed = unicodedata.normalize("NFD", lowered)
+    return "".join(c for c in decomposed if not unicodedata.combining(c))
+
+
+def _diacritic_count(value: str) -> int:
+    """
+    Сколько в строке знаков, которые свёртка меняет.
+
+    Считаются именно такие символы, а не комбинирующие знаки: ß не
+    комбинирующий и не перечёркнутый, но «Fuß» должно вытеснять «Fuss».
+    Перебор по символу единообразно покрывает ß, ł, ä и İ.
+    """
+    return sum(1 for ch in value if _diacritic_key(ch) != ch.lower())
+
+
+# Буквы с перечёркиванием: NFD их не разбирает, а для польского ł это частая
+# буква, и без её учёта «salatka» и «sałatka» остаются разными значениями
+_STROKE_LETTERS = {
+    "ł": "l", "Ł": "l", "đ": "d", "Đ": "d",
+    "ø": "o", "Ø": "o", "ħ": "h", "ŧ": "t",
+}
+
+
 def _join_meanings(translation: dict, lang: str = "") -> str:
     """
     Собрать значения в одну строку. Разделитель — запятая: движок викторины
     разбирает по ней многозначные переводы (см. meaning_variants).
 
-    Похожие буквы приводятся к письменности языка ДО снятия дублей: иначе
-    «нареченa» с латинской «a» и «наречена» остаются двумя разными значениями
-    и оба попадают в перевод.
+    Три вещи делаются до склейки, и каждая появилась из настоящего дефекта.
+
+    Похожие буквы приводятся к письменности языка: «нареченa» с латинской «a»
+    и «наречена» иначе остаются двумя разными значениями.
+
+    Элементы разбиваются по запятой: модель иногда кладёт несколько значений
+    в один элемент, и «ремень» рядом с «ремень, пояс» давало в переводе
+    «ремень, ремень, пояс».
+
+    Дубли снимаются по ключу без диакритики, и остаётся вариант С ней:
+    модель выдала primary «salatka» без польской ł при значении «sałatka»,
+    и без этого в перевод попадали оба.
     """
     meanings = translation.get("meanings") or []
     primary = translation.get("primary") or ""
 
-    ordered = [primary] + [m for m in meanings if m != primary]
-    if lang:
-        ordered = [_fix_homoglyphs(m or "", lang) for m in ordered]
+    atoms: list[str] = []
+    for source in [primary, *meanings]:
+        text_value = _fix_homoglyphs(source or "", lang) if lang else (source or "")
+        for part in _MEANING_SPLIT.split(text_value):
+            part = part.strip()
+            if part:
+                atoms.append(part)
 
-    seen, result = set(), []
-    for meaning in ordered:
-        key = (meaning or "").strip().lower()
-        if key and key not in seen:
-            seen.add(key)
-            result.append(meaning.strip())
+    best: dict[str, str] = {}
+    order: list[str] = []
+    for atom in atoms:
+        key = _diacritic_key(atom)
+        if not key:
+            continue
+        if key not in best:
+            best[key] = atom
+            order.append(key)
+        elif _diacritic_count(atom) > _diacritic_count(best[key]):
+            # Вариант с диакритикой вытесняет вариант без неё
+            best[key] = atom
 
-    return ", ".join(result)
+    return ", ".join(best[key] for key in order)
 
 
 def cmd_apply(args: argparse.Namespace) -> None:
@@ -718,16 +772,26 @@ def cmd_apply(args: argparse.Namespace) -> None:
     engine = create_engine(settings.DATABASE_URL_SYNC)
 
     needs_review: list[dict] = []
+    marked: list[dict] = []
     updates: list[dict] = []
     bad_examples: list[dict] = []
 
     for p in proposals:
-        # Слова с сомнительной леммой или уровнем не применяем автоматически —
-        # это разметка, а не перевод, и решать должен человек
-        if not p.get("lemma_ok", True) or not p.get("level_ok", True) or p.get("note"):
+        # Откладывается только слово, которое само негодно: если в базе стоит
+        # не лемма («tu» вместо «tun»), переводить нечего, пока это не решено.
+        #
+        # Уровень и пометка НЕ откладывают перевод, хотя прежде откладывали.
+        # Это было ошибкой: сомнительный уровень не делает перевод плохим, а
+        # пометка чаще всего пояснение вроде «слово многозначно». Прежнее
+        # правило держало 1139 слов из 3237 и тем самым не пускало в базу
+        # ровно то, что чинилось — исправленную многозначность. Уровень и
+        # пометки собираются в файл на разбор отдельно от применения.
+        if not p.get("lemma_ok", True):
             needs_review.append(p)
             if not args.include_flagged:
                 continue
+        if not p.get("level_ok", True) or p.get("note"):
+            marked.append(p)
 
         updates.append({
             "id": p["id"],
