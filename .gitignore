@@ -125,6 +125,8 @@ app/scripts/*
 !app/scripts/wordbase_sample_review.py
 !app/scripts/fix_examples.py
 !app/scripts/review_proposals.py
+!app/scripts/tts_trim_store.py
+!app/scripts/tts_audit_clips.py
 
 # Образцы и хранилище озвучки: аудио в репозитории не нужно.
 # tts/ — это гигабайты синтезированных клипов, переносятся
@@ -138,4 +140,9 @@ db_dump.sql
 # Рабочие файлы прогона переводов: предложения и id пакетов
 *.jsonl
 *.batch
+*.batch.cancelled
 scratch_*
+
+# Логи прогонов озвучки
+trim_*.log
+asr_*.jsonl
