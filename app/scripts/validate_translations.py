@@ -123,6 +123,37 @@ def strip_reflexive(value: str, lang: str) -> str:
     return pattern.sub("", value) if pattern else value
 
 
+def looks_infinitive(primary: str, lang: str) -> bool:
+    """
+    Есть ли в переводе инфинитив.
+
+    Место инфинитива в составном переводе не закреплено, и на этом проверка
+    ошибалась дважды. Сначала она смотрела конец всей строки и браковала
+    «сжечь дотла» — инфинитив там первый. Потом стала смотреть первое слово и
+    забраковала турецкие «teslim etmek» и «yatırım yapmak» — там инфинитив
+    последний, а первым стоит существительное.
+
+    Поэтому проверяется любое слово: достаточно одного инфинитива, чтобы
+    перевод считался словарной формой.
+    """
+    value = strip_reflexive(primary.strip(), lang)
+    if not value:
+        return True
+    if lang == "en":
+        # В английском признак — «to» перед глаголом, он относится ко всей фразе
+        return bool(INFINITIVE[lang].search(value))
+    return any(INFINITIVE[lang].search(token) for token in value.split())
+
+
+def looks_conjugated(primary: str, lang: str) -> bool:
+    value = strip_reflexive(primary.strip(), lang)
+    if not value:
+        return False
+    if lang == "en":
+        return bool(CONJUGATED[lang].search(value))
+    return any(CONJUGATED[lang].search(token) for token in value.split())
+
+
 def has_german(value: str) -> bool:
     return bool(GERMAN.search(value))
 
@@ -237,8 +268,7 @@ def check_entry(word_de: str, pos: str, row: dict) -> list[str]:
 
         # Словарная форма: только для глаголов, и только по primary
         if pos == "VERB" and primary:
-            head = strip_reflexive(primary.strip(), lang)
-            if not INFINITIVE[lang].search(head) and CONJUGATED[lang].search(head):
+            if not looks_infinitive(primary, lang) and looks_conjugated(primary, lang):
                 problems.append(f"{lang}: не инфинитив — {primary!r}")
 
     return problems
