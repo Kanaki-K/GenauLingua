@@ -332,10 +332,15 @@ Testten sonra hatalı kelimeleri hemen tekrarlayabilirsin.
 7️⃣ <b>Hatırlatıcıları ayarla</b>
 🦾 Ayarlar → 🔔 Hatırlatıcılar → saat, gün ve zaman dilimi seç.
 
+🔊 <b>Seslendirme</b>
+Kelime ana dili konuşan bir sesle okunur: soruda kelimenin kendisi, cevaptan sonra örnekle birlikte. Böylece hem telaffuzu hem de kelimenin gerçek konuşmadaki halini duyarsın.
+🦾 Ayarlar → 🔊 Seslendirme: kapatabilir ya da ses seçebilirsin. Almanca için üç erkek ve üç kadın sesi var, dokununca hemen çalar.
+Ters yönde ses cevaptan sonra gelir: aksi halde okunan kelime cevabın kendisi olurdu.
+
 ━━━━━━━━━━━━━━━━━
 💡 Kelime <b>öğrenildi</b> sayılır — üst üste 3 doğru cevap verilince.
 🔥 <b>Seri</b> günde en az 1 test çözersen artar.
-📝 Çeviri hatası buldun? Testten sonra butona bas.
+📝 Hata mı buldun? Testten sonra butona bas ve neyin yanlış olduğunu belirt — çeviri mi telaffuz mu. Telaffuz bildirimleri en çok gerekli olan: makine vurguyu duymaz.
 
 Sorular? → t.me/genaulingua_chat""",
 

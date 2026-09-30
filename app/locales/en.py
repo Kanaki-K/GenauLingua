@@ -332,10 +332,15 @@ After the quiz you can immediately repeat the words you got wrong.
 7️⃣ <b>Set up reminders</b>
 🦾 Settings → 🔔 Notifications → choose time, days and timezone.
 
+🔊 <b>Audio</b>
+Words are spoken by a native voice: the question plays the word alone, the answer plays it together with the example. You hear both the pronunciation and how the word sits in real speech.
+🦾 Settings → 🔊 Audio: turn it off or pick a voice. German has three male and three female voices, and tapping one plays it right away.
+In the reverse direction the sound comes after your answer — otherwise the spoken word would be the answer.
+
 ━━━━━━━━━━━━━━━━━
 💡 A word is <b>learned</b> when you answer correctly 3 times in a row.
 🔥 <b>Streak</b> grows if you complete at least 1 quiz per day.
-📝 Found a translation error? Tap the button after the quiz.
+📝 Found a mistake? Tap the button after the quiz and say what is wrong — the translation or the pronunciation. Pronunciation reports matter most: a machine cannot hear stress.
 
 Questions? → t.me/genaulingua_chat""",
 
