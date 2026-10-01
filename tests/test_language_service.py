@@ -123,7 +123,17 @@ class TestLanguagePair:
         assert pair_label(LanguagePair("de", "ru", False)) == f"{flag('de')} DE → {flag('ru')} RU"
         assert pair_label(LanguagePair("de", "ru", True)) == f"{flag('ru')} RU → {flag('de')} DE"
 
-    def test_all_twenty_pairs_are_expressible(self):
+    def test_every_pair_is_expressible(self):
+        """
+        Подпись есть у каждой пары языков в каждом направлении.
+
+        Число пар считается от LEARNABLE_LANGS, а не записано цифрой: прежде
+        здесь стояло «== 40», и этот тест падал бы от добавления шестого языка,
+        хотя проверяет он не количество, а выразимость. Тест, который ломается
+        от расширения списка, заставляет править себя вместо того, чтобы
+        поймать настоящую поломку.
+        """
+        count = len(LEARNABLE_LANGS)
         pairs = [
             LanguagePair(a, b, rev)
             for a in LEARNABLE_LANGS
@@ -131,7 +141,8 @@ class TestLanguagePair:
             for rev in (False, True)
             if a != b
         ]
-        assert len(pairs) == 40  # 20 упорядоченных пар × 2 направления
+        # Упорядоченные пары без совпадений × два направления
+        assert len(pairs) == count * (count - 1) * 2
         assert all(pair_label(p) for p in pairs)
 
 
@@ -252,6 +263,16 @@ class TestPolish:
         assert hasattr(Word, "example_pl")
 
     def test_included_in_supported_but_not_learnable_yet(self):
+        """
+        Польский описан, но ещё не открыт ученикам.
+
+        Это намеренный замок, а не недоделка: открывать язык можно только когда
+        его колонки заполнены на всех уровнях, иначе ученик уровня B1 получит
+        пустую викторину. Когда переводы заполнятся, этот тест меняется на
+        «"pl" in LEARNABLE_LANGS» вместе с одной строкой в language_service —
+        и больше ничего менять не нужно, остальные тесты от числа языков не
+        зависят.
+        """
         assert "pl" in SUPPORTED_LANGS
         assert "pl" not in LEARNABLE_LANGS
 
