@@ -1,5 +1,6 @@
 """
-Польский пример должен быть переводом немецкого, а не отдельной фразой.
+Пример на языке перевода должен переводить немецкий пример, а не быть
+отдельной фразой.
 
 ЗАЧЕМ ЭТОТ ПРОГОН. Карточка после ответа показывает примеры стопкой, друг под
 другом с флагами (app/bot/handlers/quiz/game.py). Человек читает их как пару:
@@ -23,9 +24,9 @@
 
 РАБОТА В ДВА ЭТАПА, в базу напрямую скрипт не пишет:
 
-    python -m app.scripts.fix_polish_examples propose --batch
-    python -m app.scripts.fix_polish_examples apply --file polish_examples.jsonl --dry-run
-    python -m app.scripts.fix_polish_examples apply --file polish_examples.jsonl
+    python -m app.scripts.fix_parallel_examples propose --batch
+    python -m app.scripts.fix_parallel_examples apply --file polish_examples.jsonl --dry-run
+    python -m app.scripts.fix_parallel_examples apply --file polish_examples.jsonl
 """
 
 from __future__ import annotations
@@ -45,7 +46,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from app.config import settings  # noqa: E402
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
-logger = logging.getLogger("pl_examples")
+logger = logging.getLogger("parallel_examples")
 
 MODEL = "claude-opus-5"
 
@@ -57,6 +58,26 @@ WORDS_PER_REQUEST = 40
 MAX_TOKENS = 4000
 
 PL_DIACRITICS = set("ąćęłńóśźżĄĆĘŁŃÓŚŹŻ")
+
+# Прогон начинался польским, но проверка качества показала то же самое в
+# русском, украинском и турецком: пример на языке перевода оказывается
+# самостоятельной фразой, а не переводом немецкой. На 36 случайных словах
+# таких нашлось 11, и только четыре из них польские. Поэтому язык — параметр.
+LANG_NAMES = {
+    "ru": ("русский", "русском"),
+    "uk": ("украинский", "украинском"),
+    "en": ("английский", "английском"),
+    "tr": ("турецкий", "турецком"),
+    "pl": ("польский", "польском"),
+}
+
+DIACRITICS = {
+    "pl": "ą ć ę ł ń ó ś ź ż",
+    "tr": "ç ğ ı ö ş ü",
+    "uk": "і ї є ґ",
+    "ru": "ё",
+    "en": "",
+}
 
 
 def api_key() -> str:
@@ -89,9 +110,9 @@ SCHEMA: dict[str, Any] = {
                 "type": "object",
                 "properties": {
                     "id": {"type": "integer", "description": "id слова из запроса"},
-                    "example_pl": {
+                    "example": {
                         "type": "string",
-                        "description": "Польский перевод немецкого примера",
+                        "description": "Перевод немецкого примера на целевой язык",
                     },
                     "changed": {
                         "type": "boolean",
@@ -102,7 +123,7 @@ SCHEMA: dict[str, Any] = {
                         ),
                     },
                 },
-                "required": ["id", "example_pl", "changed"],
+                "required": ["id", "example", "changed"],
                 "additionalProperties": False,
             },
         }
@@ -112,52 +133,60 @@ SCHEMA: dict[str, Any] = {
 }
 
 
-SYSTEM_PROMPT = """\
-Ты переводишь на польский примеры употребления слов для словаря приложения, \
-которое учит языкам.
+PROMPT_TEMPLATE = """\
+Ты переводишь на {lang_acc} язык примеры употребления слов для словаря \
+приложения, которое учит языкам.
 
-Человек видит после ответа немецкую фразу и польскую одну под другой, с \
-флагами. Он читает их как перевод друг друга. Поэтому польская фраза обязана \
-говорить ровно о том же, о чём немецкая.
+Человек видит после ответа немецкую фразу и {lang_prep} одну под другой, с \
+флагами. Он читает их как перевод друг друга. Поэтому {lang_prep} фраза \
+обязана говорить ровно о том же, о чём немецкая.
 
 ГЛАВНОЕ ТРЕБОВАНИЕ
-Переведи немецкий пример на польский. Те же действующие лица, тот же предмет, \
-то же время, то же число. Не сочиняй свою фразу про это слово — именно переведи \
-присланную.
+Переведи немецкий пример. Те же действующие лица, тот же предмет, то же время, \
+то же число. Не сочиняй свою фразу про это слово — именно переведи присланную.
 
-Нельзя:
-  de «Seine Gedanken waren erhaben»  →  pl «Jego słowa były wzniosłe»
-      (в немецком мысли, в польском слова — это разные предложения)
-  de «Er diktierte seiner Sekretärin den Brief»  →  pl «Nauczyciel dyktował nam słówka»
-      (секретарша и письмо превратились в учителя и слова)
-  de «Der Kran hebt die schwere Last»  →  pl «Dźwig podnosi płyty na dach»
-      (груз превратился в плиты на крыше)
+Нельзя (примеры настоящие, из этой базы):
+  de «Seine Gedanken waren erhaben»  →  «Jego słowa były wzniosłe»
+      (в немецком мысли, в переводе слова — это разные предложения)
+  de «Der Konflikt eskaliert»  →  «Восени в неї загострюється алергія»
+      (конфликт превратился в осеннюю аллергию)
+  de «Ich muss den Termin absagen»  →  «Я мушу скасувати поїздку через дощ»
+      (встреча превратилась в поездку из-за дождя)
 
 Нужно:
-  de «Seine Gedanken waren erhaben und tiefgründig»  →  pl «Jego myśli były wzniosłe i głębokie»
-  de «Der Hund jault nachts»  →  pl «Pies wyje w nocy»
+  de «Seine Gedanken waren erhaben und tiefgründig»  →  «Jego myśli były wzniosłe i głębokie»
+  de «Der Hund jault nachts»  →  «Pies wyje w nocy»
 
 ПЕРЕВОД ЖИВОЙ, А НЕ ДОСЛОВНЫЙ
-Польская фраза должна звучать естественно, как сказал бы поляк. Порядок слов, \
-предлоги и устойчивые обороты бери польские. Менять можно форму, но не \
+Фраза должна звучать естественно, как сказал бы носитель. Порядок слов, \
+предлоги и устойчивые обороты бери {lang_prep}. Менять можно форму, но не \
 содержание.
 
-ПОЛЬСКОЕ СЛОВО ОБЯЗАНО ПРИСУТСТВОВАТЬ
-В переводе должно стоять то самое польское слово, которое прислано в поле \
-«слово» — пусть и в другой грамматической форме. Если точный перевод немецкой \
-фразы его не содержит, подбери такой вариант перевода, который содержит.
+САМО СЛОВО ОБЯЗАНО ПРИСУТСТВОВАТЬ
+В переводе должно стоять то самое слово, которое прислано в поле «слово» — \
+пусть и в другой грамматической форме. Если точный перевод немецкой фразы его \
+не содержит, подбери такой вариант перевода, который содержит.
 
 ОСТАЛЬНОЕ
 - Точку в конце не ставь. Вопросительный и восклицательный знак ставь, если \
 фраза этого требует.
-- Диакритика обязательна: ą ć ę ł ń ó ś ź ż. «zolty» вместо «żółty» — ошибка.
-- Пиши только по-польски.
-- Если присланный польский пример УЖЕ верно переводит немецкий, верни его без \
-изменений и поставь changed = false. Не переписывай исправное.
+- Диакритика обязательна: {diacritics}
+- Пиши только на {lang_prep} языке, ни на каком другом.
+- Если присланный пример УЖЕ верно переводит немецкий, верни его без изменений \
+и поставь changed = false. Не переписывай исправное.
 
 Отвечай строго по схеме, по одному объекту на каждый присланный случай, с тем \
 же id.
 """
+
+
+def system_prompt(lang: str) -> str:
+    acc, prep = LANG_NAMES[lang]
+    dia = DIACRITICS[lang]
+    return PROMPT_TEMPLATE.format(
+        lang_acc=acc, lang_prep=prep,
+        diacritics=dia if dia else "в этом языке особой диакритики нет",
+    )
 
 
 def chunked(items: list, size: int) -> Iterator[list]:
@@ -165,13 +194,14 @@ def chunked(items: list, size: int) -> Iterator[list]:
         yield items[start:start + size]
 
 
-def load_rows(limit: int | None, only_ids: list[int] | None) -> list[dict]:
-    """Слова, у которых есть и немецкий пример, и польское слово."""
-    sql = """
-        SELECT id, word_de, level, translation_pl, example_de, example_pl
+def load_rows(lang: str, limit: int | None, only_ids: list[int] | None) -> list[dict]:
+    """Слова, у которых есть и немецкий пример, и перевод на целевой язык."""
+    sql = f"""
+        SELECT id, word_de, level,
+               translation_{lang} AS word, example_de, example_{lang} AS example
         FROM words
         WHERE COALESCE(btrim(example_de), '') <> ''
-          AND COALESCE(btrim(translation_pl), '') <> ''
+          AND COALESCE(btrim(translation_{lang}), '') <> ''
     """
     params: dict[str, Any] = {}
     if only_ids:
@@ -185,27 +215,28 @@ def load_rows(limit: int | None, only_ids: list[int] | None) -> list[dict]:
         return [dict(r) for r in conn.execute(text(sql), params).mappings()]
 
 
-def build_user_message(items: list[dict]) -> str:
-    lines = ["Переведи немецкие примеры на польский:", ""]
+def build_user_message(items: list[dict], lang: str) -> str:
+    acc, prep = LANG_NAMES[lang]
+    lines = [f"Переведи немецкие примеры на {acc}:", ""]
     for it in items:
         lines.append(f"id: {it['id']}")
-        lines.append(f"  слово (pl): {it['translation_pl']}")
+        lines.append(f"  слово ({lang}): {it['word']}")
         lines.append(f"  немецкий пример: {it['example_de']}")
-        lines.append(f"  нынешний польский пример: {it.get('example_pl') or '—'}")
+        lines.append(f"  нынешний пример: {it.get('example') or '—'}")
         lines.append("")
     return "\n".join(lines)
 
 
-def _request_params(items: list[dict]) -> dict:
+def _request_params(items: list[dict], lang: str) -> dict:
     return {
         "model": MODEL,
         "max_tokens": MAX_TOKENS,
         "system": [
-            {"type": "text", "text": SYSTEM_PROMPT,
+            {"type": "text", "text": system_prompt(lang),
              "cache_control": {"type": "ephemeral"}}
         ],
         "output_config": {"format": {"type": "json_schema", "schema": SCHEMA}},
-        "messages": [{"role": "user", "content": build_user_message(items)}],
+        "messages": [{"role": "user", "content": build_user_message(items, lang)}],
     }
 
 
@@ -238,7 +269,7 @@ def cmd_propose(args: argparse.Namespace) -> None:
     ids = None
     if args.ids_file:
         ids = [int(x) for x in Path(args.ids_file).read_text().split()]
-    rows = load_rows(args.limit, ids)
+    rows = load_rows(args.lang, args.limit, ids)
     batches = list(chunked(rows, args.chunk))
     logger.info("слов %d, запросов %d, режим %s",
                 len(rows), len(batches), "пакетный" if args.batch else "синхронный")
@@ -256,7 +287,7 @@ def cmd_propose(args: argparse.Namespace) -> None:
     if not args.batch:
         with out.open("a", encoding="utf-8") as fh:
             for items in batches:
-                msg = client.messages.create(**_request_params(items))
+                msg = client.messages.create(**_request_params(items, args.lang))
                 proposals, problems = _parse(msg, {i["id"] for i in items})
                 for p in problems:
                     logger.warning("%s", p)
@@ -274,7 +305,7 @@ def cmd_propose(args: argparse.Namespace) -> None:
         cid = f"chunk-{index:05d}"
         id_map[cid] = {i["id"] for i in items}
         requests.append(Request(custom_id=cid,
-                                params=MessageCreateParamsNonStreaming(**_request_params(items))))
+                                params=MessageCreateParamsNonStreaming(**_request_params(items, args.lang))))
 
     batch = client.messages.batches.create(requests=requests)
     logger.info("пакет создан: %s (%d запросов)", batch.id, len(requests))
@@ -316,7 +347,7 @@ def cmd_apply(args: argparse.Namespace) -> None:
         current = {
             r[0]: (r[1], r[2], r[3])
             for r in conn.execute(
-                text("SELECT id, word_de, example_de, example_pl FROM words WHERE id = ANY(:i)"),
+                text(f"SELECT id, word_de, example_de, example_{args.lang} FROM words WHERE id = ANY(:i)"),
                 {"i": [r["id"] for r in rows]},
             )
         }
@@ -325,7 +356,7 @@ def cmd_apply(args: argparse.Namespace) -> None:
                             "нет диакритики там, где она нужна": 0, "точка в конце": 0}
     for r in rows:
         wid = r["id"]
-        new = (r.get("example_pl") or "").strip()
+        new = (r.get("example") or "").strip()
         if wid not in current:
             skipped["нет в базе"] += 1
             continue
@@ -355,7 +386,7 @@ def cmd_apply(args: argparse.Namespace) -> None:
 
     with engine.begin() as conn:
         for wid, new in updates:
-            conn.execute(text("UPDATE words SET example_pl = :v WHERE id = :i"),
+            conn.execute(text(f"UPDATE words SET example_{args.lang} = :v WHERE id = :i"),
                          {"v": new, "i": wid})
     logger.info("применено: %d", len(updates))
     logger.warning("ОБЯЗАТЕЛЬНО после этого:\n"
@@ -369,6 +400,7 @@ def main() -> None:
     sub = ap.add_subparsers(dest="cmd", required=True)
 
     p = sub.add_parser("propose", help="перевести немецкие примеры на польский")
+    p.add_argument("--lang", choices=sorted(LANG_NAMES), default="pl")
     p.add_argument("--out", default="polish_examples.jsonl")
     p.add_argument("--limit", type=int)
     p.add_argument("--ids-file", help="файл с id через пробел")
@@ -378,6 +410,7 @@ def main() -> None:
     p.set_defaults(func=cmd_propose)
 
     a = sub.add_parser("apply", help="применить переводы")
+    a.add_argument("--lang", choices=sorted(LANG_NAMES), default="pl")
     a.add_argument("--file", required=True)
     a.add_argument("--dry-run", action="store_true")
     a.set_defaults(func=cmd_apply)

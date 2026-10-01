@@ -126,7 +126,7 @@ app/scripts/*
 !app/scripts/fix_examples.py
 !app/scripts/review_proposals.py
 !app/scripts/fix_lemmas.py
-!app/scripts/fix_polish_examples.py
+!app/scripts/fix_parallel_examples.py
 !app/scripts/apply_lemma_overrides.py
 !app/scripts/fix_levels.py
 # Повторяются после каждого прогона переводов, а не разово:
@@ -184,3 +184,4 @@ asr_*.jsonl
 # Журналы фоновых прогонов: синтез, обрезка, сторож пакетов
 *.log
 *.err
+!app/scripts/quality_review.py
