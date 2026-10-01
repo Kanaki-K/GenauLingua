@@ -166,6 +166,52 @@ def display_text(word, code: Optional[str]) -> str:
     return text[:1].upper() + text[1:]
 
 
+# Сколько символов отводится подписи варианта ответа.
+#
+# Кнопка в Telegram показывает примерно 30–35 символов в строке на телефоне.
+# После того как многозначные слова получили все значения вместо одного,
+# переводы выросли: у русского 379 значений длиннее 60 символов, самое длинное
+# 133 — «записывать, записывать на плёнку или видео, принимать, брать к себе,
+# начинать, приступать, поднимать, подбирать, впитывать, усваивать». Четыре
+# таких кнопки превращают карточку в простыню.
+#
+# Сами значения при этом нужны: они и есть исправление главной проблемы
+# качества. Поэтому полный набор остаётся в разборе после ответа, а на кнопке
+# стоит столько, сколько влезает.
+OPTION_LABEL_BUDGET = 42
+
+
+def option_label(word, code: Optional[str]) -> str:
+    """
+    Подпись варианта ответа: значения, сколько уместится, дальше многоточие.
+
+    Первое значение показывается всегда, даже если оно длиннее бюджета:
+    обрезать слово посередине хуже, чем выйти за бюджет.
+
+    На подбор дистракторов это не влияет: там сравниваются все значения через
+    meaning_variants, а не подпись. Иначе вариант, совпадающий с правильным по
+    скрытому значению, прошёл бы в карточку.
+    """
+    full = display_text(word, code)
+    if not full or len(full) <= OPTION_LABEL_BUDGET:
+        return full
+
+    parts = [p.strip() for p in _VARIANT_SPLIT_RE.split(full) if p.strip()]
+    if not parts:
+        return full
+
+    shown = [parts[0]]
+    length = len(parts[0])
+    for part in parts[1:]:
+        if length + 2 + len(part) > OPTION_LABEL_BUDGET:
+            break
+        shown.append(part)
+        length += 2 + len(part)
+
+    label = ", ".join(shown)
+    return label if len(shown) == len(parts) else f"{label}…"
+
+
 def example_text(word, code: Optional[str]) -> str:
     lang = get_language(code)
     return (getattr(word, lang.example_attr, None) or "").strip()

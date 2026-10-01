@@ -20,6 +20,7 @@ from app.services.language_service import (
     LanguagePair,
     display_text,
     meaning_variants,
+    option_label,
     pair_from_user,
     word_column,
     word_text,
@@ -417,9 +418,12 @@ def build_options(
     """
     answer_lang = pair.answer_lang
 
-    options = [(correct_word.id, display_text(correct_word, answer_lang))]
+    # На кнопке — подпись с бюджетом по длине, а не весь перевод: после
+    # правки многозначности он доходит до 133 символов и разносит карточку.
+    # Полный набор значений виден в разборе сразу после ответа.
+    options = [(correct_word.id, option_label(correct_word, answer_lang))]
     for d in distractors:
-        options.append((d.id, display_text(d, answer_lang)))
+        options.append((d.id, option_label(d, answer_lang)))
 
     random.shuffle(options)
     correct_index = next(i for i, (wid, _) in enumerate(options) if wid == correct_word.id)
