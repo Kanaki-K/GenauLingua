@@ -13,11 +13,12 @@ from sqlalchemy.ext.asyncio import AsyncSession
 # text импортируется под псевдонимом: в этом модуле `text` — локальная
 # переменная, в которой собираются сообщения, и импорт её бы затенял
 from sqlalchemy import select, func, and_, distinct, case, desc, or_, text as sql_text
+from typing import Optional
 from datetime import datetime, timedelta, date
 from app.core.clock import utcnow, utctoday
 from app.database.models import User, QuizSession, QuizQuestion, UserWord, Word, TranslationReport
 from app.services.quiz_service import get_user_progress_stats
-from app.services.language_service import pair_from_user, pair_label
+from app.services.language_service import LANGUAGES, flag, pair_from_user, pair_label
 from app.services.word_stats import MIN_SHOWS_FOR_DIFFICULTY, difficulty_rank_sql
 from app.config import settings
 
@@ -400,13 +401,40 @@ async def admin_cohorts(callback: CallbackQuery, session: AsyncSession):
     langs = langs_result.all()
     total_lang_users = sum(count for _, count in langs)
 
-    lang_names = {
-        'ru': '🏴 Русский',
-        'uk': '🇺🇦 Українська',
-        'en': '🇬🇧 English',
-        'tr': '🇹🇷 Türkçe',
-        None: '❓ Не выбран'
-    }
+    # Разбивка по изучаемому и родному языку. Прежде этого экрана не было
+    # вовсе: показывался только язык интерфейса, а какой язык люди изучают —
+    # не видно. Пока языков было два, это ещё читалось из общей картины, при
+    # шести уже нет.
+    learning_result = await session.execute(
+        select(User.learning_lang, func.count())
+        .select_from(User)
+        .group_by(User.learning_lang)
+        .order_by(func.count().desc())
+    )
+    learning_stats = learning_result.all()
+
+    native_result = await session.execute(
+        select(User.native_lang, func.count())
+        .select_from(User)
+        .group_by(User.native_lang)
+        .order_by(func.count().desc())
+    )
+    native_stats = native_result.all()
+
+    def lang_label(code: Optional[str]) -> str:
+        """
+        Подпись языка из реестра, а не из списка в этом файле.
+
+        Прежде здесь лежал словарь с четырьмя языками, прописанными руками. Он
+        был полон для интерфейса, но при добавлении языка молча показал бы
+        «❓ pl»: о реестре он не знал. Теперь подпись берётся оттуда, где язык
+        описан один раз.
+        """
+        if not code:
+            return "❓ Не выбран"
+        if code not in LANGUAGES:
+            return f"❓ {code}"
+        return f"{flag(code)} {code.upper()}"
 
     text = "👥 <b>КОГОРТЫ ПОЛЬЗОВАТЕЛЕЙ</b>\n\n"
 
@@ -432,11 +460,21 @@ async def admin_cohorts(callback: CallbackQuery, session: AsyncSession):
             text += f"├─ {level.value}: <b>{users}</b> юзеров | Ср. {avg_quiz_val:.1f} викторин\n"
     text += "\n"
 
-    text += "🌍 <b>По языкам интерфейса:</b>\n"
-    for lang, count in langs:
-        lang_name = lang_names.get(lang, f"❓ {lang}")
-        percentage = (count / total_lang_users * 100) if total_lang_users > 0 else 0
-        text += f"├─ {lang_name}: <b>{count}</b> ({percentage:.0f}%)\n"
+    def lang_block(title: str, rows: list, total: int) -> str:
+        out = f"{title}\n"
+        if not rows:
+            return out + "└─ нет данных\n\n"
+        for index, (code, count) in enumerate(rows):
+            last = index == len(rows) - 1
+            branch = "└─" if last else "├─"
+            share = (count / total * 100) if total else 0
+            out += f"{branch} {lang_label(code)}: <b>{count}</b> ({share:.0f}%)\n"
+        return out + "\n"
+
+    total_users = sum(count for _, count in learning_stats) or 1
+    text += lang_block("📖 <b>Что изучают:</b>", learning_stats, total_users)
+    text += lang_block("🗣 <b>Язык значений:</b>", native_stats, total_users)
+    text += lang_block("🌍 <b>Язык интерфейса:</b>", langs, total_lang_users)
 
     back_btn = InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="◀️ Назад", callback_data="admin:back")]

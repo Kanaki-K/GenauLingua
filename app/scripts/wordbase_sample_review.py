@@ -27,6 +27,7 @@ import asyncio
 import os
 import pathlib
 import random
+import re
 import sys
 import unicodedata
 
@@ -74,6 +75,31 @@ def script_of(value: str) -> set[str]:
     return kinds
 
 
+# Латинские сокращения, которые по-русски и по-украински так и пишутся.
+# Проверка «латиница в кириллице» на них срабатывать не должна: на выборке из
+# 10 000 рядов шесть замечаний из семнадцати были именно про «DVD-диск, DVD».
+# Тот же список знает app/scripts/validate_translations.py — там он появился
+# раньше, а здесь проверка была своя и об этом не знала.
+LATIN_OK = re.compile(
+    r"^(DVD|CD|USB|IBAN|BIC|SWIFT|HR|ID|IT|PIN|SMS|GPS|WiFi|Wi-Fi|"
+    r"SUV|TV|PR|VIP|SPA|LED)([-\s,].*)?$",
+    re.IGNORECASE,
+)
+
+# Запись вида «Anfänger/in» покрывает оба рода сразу, и артикля у неё быть не
+# может: «der» или «die» исказили бы смысл. Из семнадцати замечаний на 10 000
+# рядов четырнадцать были про такие формы.
+BOTH_GENDERS = re.compile(r"/\s*(in|In)\b|/\s*\w+in\b")
+
+
+def latin_is_ok(value: str) -> bool:
+    return bool(LATIN_OK.match(value.strip()))
+
+
+def covers_both_genders(word_de: str) -> bool:
+    return bool(BOTH_GENDERS.search(word_de))
+
+
 def formal_notes(row: dict, langs: list[str]) -> list[str]:
     """
     Что видно без языкового суждения.
@@ -100,7 +126,7 @@ def formal_notes(row: dict, langs: list[str]) -> list[str]:
         kinds = script_of(word)
         if lang in LATIN_LANGS and "CYRILLIC" in kinds:
             notes.append(f"{lang}: кириллица в переводе — {word!r}")
-        if lang in CYRILLIC_LANGS and "LATIN" in kinds:
+        if lang in CYRILLIC_LANGS and "LATIN" in kinds and not latin_is_ok(word):
             notes.append(f"{lang}: латиница в переводе — {word!r}")
 
         # Пометки в скобках и косые черты мешают и озвучке, и вариантам ответа
@@ -112,7 +138,8 @@ def formal_notes(row: dict, langs: list[str]) -> list[str]:
 
     # Артикль осмыслен только у существительных
     article = (row.get("article") or "").strip()
-    if row["pos"] == "NOUN" and article in ("", "-"):
+    word_de_raw = (row.get("word_de") or "").strip()
+    if row["pos"] == "NOUN" and article in ("", "-") and not covers_both_genders(word_de_raw):
         notes.append("существительное без артикля")
     if row["pos"] != "NOUN" and article not in ("", "-"):
         notes.append(f"артикль у не-существительного: {article}")
