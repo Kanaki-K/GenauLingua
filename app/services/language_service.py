@@ -100,7 +100,7 @@ SUPPORTED_LANGS: tuple[str, ...] = ("de", "en", "ru", "uk", "tr", "pl")
 
 # Языки интерфейса — локали, которые реально существуют в app/locales.
 # Немецкого интерфейса нет, поэтому список короче LEARNABLE_LANGS.
-INTERFACE_LANGS: tuple[str, ...] = ("ru", "uk", "en", "tr")
+INTERFACE_LANGS: tuple[str, ...] = ("ru", "uk", "en", "tr", "de", "pl")
 
 DEFAULT_LEARNING_LANG = "de"
 DEFAULT_NATIVE_LANG = "ru"

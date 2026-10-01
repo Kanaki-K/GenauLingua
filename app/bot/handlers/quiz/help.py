@@ -14,6 +14,7 @@ logger = logging.getLogger(__name__)
 from app.database.models import User
 from app.bot.utils import delete_messages_fast, ensure_anchor
 from app.bot.buttons import BTN_HELP, pressed
+from app.services.language_service import learnable_count, learnable_names
 from app.locales import get_text
 
 router = Router()
@@ -85,9 +86,14 @@ async def show_how_to_use(callback: CallbackQuery, session: AsyncSession):
     user = await session.get(User, callback.from_user.id)
     lang = user.interface_language if user else "ru"
 
+    # Значение считается заранее, а не внутри вызова: tests/test_locales.py
+    # сверяет подстановки в тексте с переданными параметрами, разбирая вызов
+    # регулярным выражением, и на скобках внутри аргумента разбор обрывается
+    languages = learnable_names(lang)
+
     text = (
         f"{get_text('help_how_to_use_title', lang)}\n\n"
-        f"{get_text('help_how_to_use_text', lang)}"
+        f"{get_text('help_how_to_use_text', lang, languages=languages)}"
     )
 
     keyboard = InlineKeyboardMarkup(
@@ -163,9 +169,12 @@ async def show_about(callback: CallbackQuery, session: AsyncSession):
     user = await session.get(User, callback.from_user.id)
     lang = user.interface_language if user else "ru"
 
+    languages = learnable_names(lang)
+    language_count = learnable_count()
+
     text = (
         f"{get_text('help_about_title', lang)}\n\n"
-        f"{get_text('help_about_text', lang)}"
+        f"{get_text('help_about_text', lang, languages=languages, language_count=language_count)}"
     )
 
     keyboard = InlineKeyboardMarkup(

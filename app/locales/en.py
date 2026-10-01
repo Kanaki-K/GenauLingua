@@ -148,6 +148,8 @@ TEXTS = {
     "lang_uk": "🇺🇦 Українська",
     "lang_en": "🇬🇧 English",
     "lang_tr": "🇹🇷 Türkçe",
+    "lang_de": "🇩🇪 Deutsch",
+    "lang_pl": "🇵🇱 Polski",
 
     "mode_de_to_ru": "🇩🇪 DE → 🏴 RU",
     "mode_ru_to_de": "🏴 RU → 🇩🇪 DE",
@@ -304,7 +306,7 @@ TEXTS = {
 
     "help_how_to_use_title": "📖 <b>How to use the bot</b>",
     "help_how_to_use_text": """1️⃣ <b>Pick the language you want to learn</b>
-🦾 Settings → 🎯 Language to learn: German, English, Russian, Ukrainian or Turkish.
+🦾 Settings → 🎯 Language to learn: {languages}.
 Same screen: level A1–C2, translation direction and interface language.
 Progress is tracked separately per language, so you can learn two at once.
 
@@ -382,7 +384,7 @@ The more active the community — the better the bot gets. Don't be shy! 🙌"""
 • 20 thematic categories
 • 4 quiz modes: by level, by category, top 10K, difficult words
 • Smart word selection — SRS algorithm
-• 5 languages to choose from: German, English, Russian, Ukrainian, Turkish —
+• {language_count} languages to choose from: {languages} —
   any pair, both directions
 • Repeat mistakes after quiz
 • Report translation errors directly from quiz

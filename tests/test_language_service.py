@@ -235,10 +235,22 @@ def test_interface_langs_have_locales():
     assert set(INTERFACE_LANGS) == set(LOCALES)
 
 
-def test_german_is_learnable_but_has_no_interface():
-    # Немецкой локали нет, но учить немецкий можно
-    assert "de" in LEARNABLE_LANGS
-    assert "de" not in INTERFACE_LANGS
+def test_every_learnable_language_has_an_interface():
+    """
+    На каждом изучаемом языке можно и читать бота.
+
+    Прежде здесь стояло обратное: «немецкой локали нет, но учить немецкий
+    можно». Это держалось, пока бот учил только немецкому — читать интерфейс
+    по-немецки было некому. Когда доступной стала любая пара из шести языков,
+    такой перекос потерял смысл: человек, который учит английский, может быть
+    немцем.
+
+    Польский в LEARNABLE_LANGS появится после заполнения колонок, а локаль у
+    него уже есть — поэтому проверка идёт в одну сторону: интерфейс обязан
+    существовать для всего, что открыто для изучения, но не наоборот.
+    """
+    missing = [code for code in LEARNABLE_LANGS if code not in INTERFACE_LANGS]
+    assert not missing, f"изучаемые языки без локали: {missing}"
 
 
 class TestPolish:

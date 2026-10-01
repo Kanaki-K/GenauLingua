@@ -148,6 +148,8 @@ TEXTS = {
     "lang_uk": "🇺🇦 Українська",
     "lang_en": "🇬🇧 English",
     "lang_tr": "🇹🇷 Türkçe",
+    "lang_de": "🇩🇪 Deutsch",
+    "lang_pl": "🇵🇱 Polski",
 
     "mode_de_to_ru": "🇩🇪 DE → 🏴 RU",
     "mode_ru_to_de": "🏴 RU → 🇩🇪 DE",
@@ -304,7 +306,7 @@ TEXTS = {
 
     "help_how_to_use_title": "📖 <b>Botu nasıl kullanırsın</b>",
     "help_how_to_use_text": """1️⃣ <b>Hangi dili öğreneceğini seç</b>
-🦾 Ayarlar → 🎯 Hangi dili öğrenmek: Almanca, İngilizce, Rusça, Ukraynaca veya Türkçe.
+🦾 Ayarlar → 🎯 Hangi dili öğrenmek: {languages}.
 Aynı ekranda: A1–C2 seviyesi, çeviri yönü ve arayüz dili.
 İlerleme her dil için ayrı tutulur, iki dili birlikte öğrenebilirsin.
 
@@ -382,7 +384,7 @@ Topluluk ne kadar aktif olursa — bot o kadar iyi olur. Çekinme! 🙌""",
 • 20 tematik kategori
 • 4 test modu: seviyeye göre, kategoriye göre, top 10K, zor kelimeler
 • Akıllı kelime seçimi — SRS algoritması
-• Seçilebilecek 5 dil: Almanca, İngilizce, Rusça, Ukraynaca, Türkçe —
+• Seçilebilecek {language_count} dil: {languages} —
   herhangi bir çiftte ve iki yönde
 • Testten sonra hataları tekrarla
 • Çeviri hatasını doğrudan testten bildir
