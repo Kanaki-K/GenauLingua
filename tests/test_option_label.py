@@ -1,20 +1,18 @@
 # -*- coding: utf-8 -*-
 """
-Подпись варианта ответа на кнопке.
+Подпись варианта ответа на кнопке: одно слово.
 
-Зачем она понадобилась. Многозначные слова получили все значения вместо
-одного — это было исправлением главной проблемы качества, из-за которой
-точность на таких словах была 71% против 80%. Но переводы от этого выросли: у
-русского 379 значений длиннее 60 символов, самое длинное 133. Кнопка в Telegram
-показывает около 30–35 символов в строке, и четыре таких варианта превращают
-карточку в простыню.
+Так было до правки многозначности, и так решено оставить. Многозначные слова
+получили в базе все значения вместо одного — от этого точность на них выросла
+с 71% до 80%, — но на кнопку шёл весь перевод целиком и дорастал до 133
+символов. Четыре таких кнопки превращали карточку в простыню, а вид карточки
+согласован был раньше.
 
-Значения при этом нужны. Поэтому полный набор остаётся в разборе сразу после
-ответа, а на кнопке стоит столько, сколько уместится.
+Значения не потеряны: полный набор показывается в разборе сразу после ответа.
 """
 import pytest
 
-from app.services.language_service import OPTION_LABEL_BUDGET, display_text, option_label
+from app.services.language_service import display_text, option_label
 
 
 class FakeWord:
@@ -27,47 +25,44 @@ def ru(text: str) -> FakeWord:
     return FakeWord(translation_ru=text)
 
 
-def test_short_translation_is_untouched():
+def test_single_meaning_is_shown_as_is():
     assert option_label(ru("ещё"), "ru") == "Ещё"
 
 
-def test_long_translation_is_cut_with_ellipsis():
+def test_only_first_meaning_of_many():
     word = ru("записывать, записывать на плёнку или видео, принимать, "
               "брать к себе, начинать, приступать, поднимать, подбирать")
-    label = option_label(word, "ru")
-    assert label.endswith("…")
-    assert len(label) <= OPTION_LABEL_BUDGET + 1
-    # Первое значение обязано сохраниться целиком
-    assert label.startswith("Записывать")
+    assert option_label(word, "ru") == "Записывать"
 
 
-def test_cut_happens_on_meaning_boundary():
-    """Значение не рвётся посередине: обрезка только по разделителю."""
+def test_no_ellipsis():
+    """
+    Многоточия быть не должно.
+
+    Подпись — не обрезанный перевод, а главное значение. Многоточие читалось бы
+    как «тут что-то потерялось», хотя потеряно ничего: остальное в разборе.
+    """
     word = ru("брать, взять, принимать, садиться на транспорт")
-    label = option_label(word, "ru").rstrip("…")
-    for part in label.split(", "):
-        assert part.strip(), "пустое значение после обрезки"
-    assert "садитьс" not in label, "значение обрезано посередине"
+    assert "…" not in option_label(word, "ru")
+    assert "..." not in option_label(word, "ru")
 
 
-def test_single_long_meaning_stays_whole():
+@pytest.mark.parametrize("separator", [",", ";", "/"])
+def test_every_separator_is_understood(separator):
+    """Значения в базе разделены запятой, точкой с запятой или косой чертой."""
+    word = ru(f"первое{separator} второе{separator} третье")
+    assert option_label(word, "ru") == "Первое"
+
+
+def test_long_single_meaning_stays_whole():
     """
     Одно длинное значение без разделителей не обрезается.
 
-    Обрезать слово посередине хуже, чем выйти за бюджет: «удостоверение лично…»
-    читается как ошибка, а не как сокращение.
+    «Удостоверение лично…» читалось бы как ошибка. Если значение одно и оно
+    длинное — пусть будет длинным, это честнее обрезка.
     """
-    text = "очень длинное одиночное значение без всяких разделителей вообще"
-    label = option_label(ru(text), "ru")
-    assert label.lower() == text.lower()
-    assert "…" not in label
-
-
-def test_first_meaning_kept_even_if_over_budget():
-    long_first = "а" * (OPTION_LABEL_BUDGET + 10)
-    word = ru(f"{long_first}, второе")
-    label = option_label(word, "ru")
-    assert label.lower().startswith(long_first)
+    text = "удостоверение личности государственного образца"
+    assert option_label(ru(text), "ru").lower() == text
 
 
 def test_empty_translation_gives_empty_label():
@@ -75,21 +70,25 @@ def test_empty_translation_gives_empty_label():
     assert option_label(FakeWord(), "ru") == ""
 
 
-def test_label_never_longer_than_full_text():
-    """Подпись не может оказаться длиннее того, что сокращает."""
-    for text in ("ещё", "брать, взять, принимать",
-                 "a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p"):
+def test_label_is_never_longer_than_full_text():
+    for text in ("ещё", "брать, взять, принимать", "a, b, c, d, e"):
         word = ru(text)
-        assert len(option_label(word, "ru")) <= len(display_text(word, "ru")) + 1
+        assert len(option_label(word, "ru")) <= len(display_text(word, "ru"))
 
 
-@pytest.mark.parametrize("lang,text,expected_start", [
-    ("ru", "брать, взять, принимать, садиться на транспорт", "Брать"),
-    ("en", "to wiretap, to bug, to listen in on, to listen to a chest", "To wiretap"),
-])
-def test_works_for_every_language(lang, text, expected_start):
-    word = FakeWord(translation_ru=text, translation_en=text)
-    assert option_label(word, lang).startswith(expected_start)
+def test_works_for_every_language():
+    word = FakeWord(
+        translation_ru="брать, взять, принимать",
+        translation_en="to take, to accept, to receive",
+        translation_tr="almak, kabul etmek",
+        translation_pl="brać, przyjmować",
+        translation_uk="брати, взяти, приймати",
+    )
+    assert option_label(word, "ru") == "Брать"
+    assert option_label(word, "en") == "To take"
+    assert option_label(word, "tr") == "Almak"
+    assert option_label(word, "pl") == "Brać"
+    assert option_label(word, "uk") == "Брати"
 
 
 def test_german_keeps_its_case():
@@ -97,7 +96,12 @@ def test_german_keeps_its_case():
     Регистр немецкого слова значим и подписью не меняется.
 
     Существительные пишутся с заглавной, остальное со строчной — display_text
-    это уже учитывает, и option_label не должен ломать.
+    это учитывает, и option_label не должен ломать.
     """
-    word = FakeWord(word_de="gehen")
-    assert option_label(word, "de") == "gehen"
+    assert option_label(FakeWord(word_de="gehen"), "de") == "gehen"
+    assert option_label(FakeWord(word_de="Haus"), "de") == "Haus"
+
+
+def test_keeps_whole_phrase_with_internal_space():
+    """Значение из нескольких слов — это одно значение, а не два."""
+    assert option_label(ru("садиться на транспорт, брать"), "ru") == "Садиться на транспорт"
