@@ -146,6 +146,9 @@ app/scripts/*
 # Апостроф повторится при каждом прогоне украинских переводов: правило
 # зависит от твёрдости согласного, и модель его теряет
 !app/scripts/fix_uk_apostrophe.py
+# Пример-перевод не соответствует немецкому примеру. Отсев по слову это
+# пропускает: слово в примере есть, а предложение другое
+!app/scripts/example_person_mismatch.py
 !app/scripts/tts_trim_store.py
 !app/scripts/tts_audit_clips.py
 
