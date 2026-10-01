@@ -149,6 +149,9 @@ app/scripts/*
 # Пример-перевод не соответствует немецкому примеру. Отсев по слову это
 # пропускает: слово в примере есть, а предложение другое
 !app/scripts/example_person_mismatch.py
+# Число в примере и переводе расходится — прямая порча знаний: «um 19 Uhr»
+# против «o siódmej» учит неверному времени
+!app/scripts/example_number_mismatch.py
 !app/scripts/tts_trim_store.py
 !app/scripts/tts_audit_clips.py
 
