@@ -39,7 +39,7 @@ from sqlalchemy import text
 
 from app.database.session import AsyncSessionLocal
 from app.services import audio_store
-from app.services.audio_service import KIND_FULL, KIND_WORD, _synthesize
+from app.services.audio_service import KIND_FULL, KIND_WORD, _synthesize, _trimmed
 from app.services.language_service import LANGUAGES, SUPPORTED_LANGS
 from app.services.tts_text import full_clip_text, word_clip_text
 from app.services.tts_voices import default_voice
@@ -160,6 +160,20 @@ async def synthesize_language(lang: str, voice: str, limit: int | None,
                 await asyncio.sleep(BACKOFF)
                 queue.put_nowait((kind, spoken))
                 continue
+
+            # Тишину вокруг речи снимаем здесь же, а не отдельным прогоном.
+            #
+            # Прежде обрезка стояла только в живом пути obtain_audio, а этот
+            # скрипт писал клип как есть. Первая волна была обрезана отдельным
+            # запуском tts_trim_store, и всё выглядело правильно — но каждый
+            # следующий пересинтез возвращал тишину, а запустить обрезку я
+            # забывал. Замер показал: у немецкого, который с тех пор почти не
+            # менялся, хвост 0,17 с, а у пересинтезированных языков 0,38–0,71 с
+            # и необрезанное начало у половины клипов.
+            #
+            # Два пути не должны расходиться, поэтому обрезка теперь часть
+            # записи.
+            data = _trimmed(data)
 
             audio_store.write(lang, voice, kind, spoken, data)
 

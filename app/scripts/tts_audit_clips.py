@@ -57,6 +57,20 @@ TOLERANCE_HIGH = 2.2
 # длительность определяется не длиной, а произношением
 MIN_CHARS_FOR_DURATION = 8
 
+# Ниже этой длительности верхний порог не применяется вовсе.
+#
+# У одиночного слова есть постоянная добавка, а не только пропорциональная:
+# движок произносит его тщательно и медленно, и к этому прибавляется нижний
+# порог обрезки тишины. «abortion» — восемь символов, по пропорции 0,5 секунды,
+# а на деле 1,9. Без этого порога проверка сообщала о 1712 исправных клипах,
+# из них 1077 по английскому: английские слова короче, и пропорция врёт сильнее.
+WORD_FLOOR_SECONDS = 2.6
+
+# Цифра произносится как слово, а не как знак: «DE75512108001234567890» это
+# двадцать два символа и около двадцати слов вслух. Поэтому цифра в оценке
+# весит как несколько букв
+DIGIT_WEIGHT = 5
+
 
 def mp3_duration(data: bytes) -> float | None:
     """
@@ -201,10 +215,16 @@ def audit_language(lang: str, voice: str, clips: list[tuple[str, str]],
     for kind, spoken, duration, size in measured:
         if len(spoken) < MIN_CHARS_FOR_DURATION:
             continue
-        expected = len(spoken) * per_char
+        # Цифры произносятся словами, поэтому весят больше букв
+        digits = sum(1 for ch in spoken if ch.isdigit())
+        weighted = len(spoken) + digits * (DIGIT_WEIGHT - 1)
+        expected = weighted * per_char
         if duration < expected * TOLERANCE_LOW:
             too_short.append((kind, spoken, duration, expected))
-        elif duration > expected * TOLERANCE_HIGH:
+        elif (duration > expected * TOLERANCE_HIGH
+              and duration > WORD_FLOOR_SECONDS):
+            # Постоянная добавка одиночного слова верхнему порогу не подлежит:
+            # см. пояснение у WORD_FLOOR_SECONDS
             too_long.append((kind, spoken, duration, expected))
 
     broken = empty + [(k, s) for k, s in unreadable]
