@@ -14,7 +14,11 @@ logger = logging.getLogger(__name__)
 from app.database.models import User
 from app.bot.utils import delete_messages_fast, ensure_anchor
 from app.bot.buttons import BTN_HELP, pressed
-from app.services.language_service import learnable_count, learnable_names
+from app.services.language_service import (
+    interface_names,
+    learnable_count,
+    learnable_names,
+)
 from app.locales import get_text
 
 router = Router()
@@ -171,10 +175,11 @@ async def show_about(callback: CallbackQuery, session: AsyncSession):
 
     languages = learnable_names(lang)
     language_count = learnable_count()
+    interface_languages = interface_names(lang)
 
     text = (
         f"{get_text('help_about_title', lang)}\n\n"
-        f"{get_text('help_about_text', lang, languages=languages, language_count=language_count)}"
+        f"{get_text('help_about_text', lang, languages=languages, language_count=language_count, interface_languages=interface_languages)}"
     )
 
     keyboard = InlineKeyboardMarkup(

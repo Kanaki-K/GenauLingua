@@ -88,11 +88,10 @@ LANGUAGES: dict[str, Language] = {
 
 # Языки, которые можно изучать.
 #
-# Польский намеренно отсутствует, хотя описан в LANGUAGES: его колонки в базе
-# ещё не заполнены. Всё вспомогательное (группы слов, озвучка, нормализация)
-# работает по LANGUAGES и к польскому готово; открывать его ученикам можно
-# только после заполнения переводов, иначе викторина не найдёт ни одного слова.
-LEARNABLE_LANGS: tuple[str, ...] = ("de", "en", "ru", "uk", "tr")
+# Польский открыт 2026-10-01, когда его колонки заполнились: 12 747 слов из
+# 12 902. Оставшиеся 155 в викторину не попадают сами — отбор идёт через
+# word_lang_groups, а туда слово без перевода на изучаемый язык не заносится.
+LEARNABLE_LANGS: tuple[str, ...] = ("de", "en", "ru", "uk", "tr", "pl")
 
 # Языки, для которых база слов может быть заполнена — включая ещё не
 # открытые. По этому списку строятся группы слов и озвучка.
@@ -372,6 +371,30 @@ def learnable_names(interface_lang: str, *, with_flags: bool = False) -> str:
     Флаги по умолчанию сняты: внутри фразы они дробят строку, а в списке
     настроек они уместны и там берутся отдельно.
     """
+    return _names_of(LEARNABLE_LANGS, interface_lang, with_flags=with_flags)
+
+
+def interface_names(interface_lang: str, *, with_flags: bool = False) -> str:
+    """
+    Перечисление языков интерфейса: «русский, украинский, английский…».
+
+    Заведено по той же причине, что и learnable_names, и на том же ожоге.
+    В текстах «О боте» список интерфейсных языков был вписан руками сразу в
+    трёх локалях: «Інтерфейс російською, українською, англійською та
+    турецькою». К моменту, когда локалей стало шесть, эти три строки врали —
+    немецкого и польского в них не было. Теперь список берётся из
+    INTERFACE_LANGS и расходиться с действительностью не может.
+    """
+    return _names_of(INTERFACE_LANGS, interface_lang, with_flags=with_flags)
+
+
+def interface_count() -> int:
+    """Сколько языков у интерфейса. Для фразы «интерфейс на шести языках»."""
+    return len(INTERFACE_LANGS)
+
+
+def _names_of(codes: tuple[str, ...], interface_lang: str, *,
+              with_flags: bool = False) -> str:
     from app.locales import get_text
 
     # Приводить к строчным можно не везде. По-английски и по-турецки названия
@@ -382,7 +405,7 @@ def learnable_names(interface_lang: str, *, with_flags: bool = False) -> str:
     LOWERCASE_IN_TEXT = {"ru", "uk", "pl"}
 
     names = []
-    for code in LEARNABLE_LANGS:
+    for code in codes:
         name = get_text(language_name_key(code), interface_lang)
         if not with_flags:
             # Название приходит с флагом впереди — отрезаем его вместе с пробелом

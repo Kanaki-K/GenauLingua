@@ -61,9 +61,22 @@ client = anthropic.Anthropic(api_key=key)
 
 
 def already_collected(name: str) -> bool:
-    """Забран ли пакет — по непустому файлу результатов под каноническим именем."""
+    """
+    Забран ли пакет — по файлу результатов НОВЕЕ файла состояния.
+
+    Проверять просто наличие непустого файла нельзя. Имена результатов
+    повторяются от прогона к прогону: `example_fixes.jsonl` остаётся на диске
+    с прошлого раза, и сторож счёл бы свежий пакет уже забранным, а он бы
+    тихо истёк вместе с оплатой. Файл состояния пишется в момент отправки,
+    поэтому «результат старше состояния» в точности значит «ещё не забран».
+    """
     out = ROOT / f"{name}.jsonl"
-    return out.exists() and out.stat().st_size > 0
+    state = ROOT / f"{name}.batch"
+    if not out.exists() or out.stat().st_size == 0:
+        return False
+    if not state.exists():
+        return True
+    return out.stat().st_mtime >= state.stat().st_mtime
 
 
 def _is_json(line: str) -> bool:
@@ -74,12 +87,24 @@ def _is_json(line: str) -> bool:
         return False
 
 
+def kind_of(name: str) -> str:
+    """
+    Чем разбирать результат — зависит от того, кто пакет отправил.
+
+    Раньше сторож забирал всё как «words», потому что других пакетов не было.
+    Теперь их два вида, и разобрать правки примеров разборщиком переводов
+    нельзя: он молча не найдёт ожидаемых полей. Вид определяется по имени
+    файла состояния, то есть по тому же источнику, из которого берётся id.
+    """
+    return "words" if name.startswith("final_") else "examples"
+
+
 def collect(name: str, batch_id: str, expected: int) -> bool:
     out = f"{name}.jsonl"
     print(f"{name}: завершён, забираю в {out}", flush=True)
     result = subprocess.run(
         [sys.executable, "-u", "-m", "app.scripts.collect_batch",
-         batch_id, "--kind", "words", "--out", out],
+         batch_id, "--kind", kind_of(name), "--out", out],
         capture_output=True, text=True, encoding="utf-8", errors="replace",
         cwd=str(ROOT),
     )
@@ -104,7 +129,9 @@ def collect(name: str, batch_id: str, expected: int) -> bool:
 
 
 targets: dict[str, str] = {}
-for state in sorted(ROOT.glob("final_*.batch")):
+# Берём все файлы состояния, а не только final_*: правки примеров и лемм
+# отправляются своими пакетами и истекают так же через сутки
+for state in sorted(ROOT.glob("*.batch")):
     batch_id = state.read_text(encoding="utf-8").strip()
     if not batch_id:
         continue

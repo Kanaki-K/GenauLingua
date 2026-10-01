@@ -22,7 +22,7 @@ TEXTS = {
     # POWITANIE I START
     # ============================================================================
     "welcome_title": "👋 <b>Cześć, {name}!</b>",
-    "welcome_description": "🇩🇪 <b>GenauLingua</b> — ucz się słówek przez grę\n12 000+ słów · 20 tematów · 6 poziomów\n\nBot dobiera słowa pod ciebie — im więcej\ngrasz, tym trafniejszy dobór",
+    "welcome_description": "🌍 <b>GenauLingua</b> — ucz się języka przez grę\nJęzyki do wyboru: {languages}\n12 000+ słów · 20 tematów · 6 poziomów\n\nBot dobiera słowa pod ciebie — im więcej\ngrasz, tym trafniejszy dobór",
     "welcome_separator": "──────────────────",
 
     "welcome_learn_words_title": "📚 <b>Ucz się słów</b>",
@@ -399,6 +399,7 @@ Im aktywniejsza społeczność, tym lepszy bot. Nie krępuj się! 🙌""",
 • Statystyki, seria i pasek postępu
 • Ranking miesięczny i tabela liderów — osobno dla każdego języka
 • Przypomnienia z elastycznym harmonogramem
+• Interfejs: {interface_languages}
 
 💬 Śledź nowości: t.me/genaulingua_chat""",
 

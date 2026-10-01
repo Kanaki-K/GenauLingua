@@ -22,7 +22,7 @@ TEXTS = {
     # BEGRÜSSUNG UND START
     # ============================================================================
     "welcome_title": "👋 <b>Hallo, {name}!</b>",
-    "welcome_description": "🇩🇪 <b>GenauLingua</b> — Wortschatz spielerisch lernen\n12 000+ Wörter · 20 Themen · 6 Niveaus\n\nDer Bot wählt die Wörter für dich aus — je mehr\ndu spielst, desto treffsicherer die Auswahl",
+    "welcome_description": "🌍 <b>GenauLingua</b> — Wortschatz spielerisch lernen\nSprachen zur Auswahl: {languages}\n12 000+ Wörter · 20 Themen · 6 Niveaus\n\nDer Bot wählt die Wörter für dich aus — je mehr\ndu spielst, desto treffsicherer die Auswahl",
     "welcome_separator": "──────────────────",
 
     "welcome_learn_words_title": "📚 <b>Wörter lernen</b>",
@@ -399,6 +399,7 @@ Je lebendiger die Community, desto besser wird der Bot. Nur keine Scheu! 🙌"""
 • Statistik, Serie und Fortschrittsbalken
 • Monatsrangliste und Tabelle — getrennt pro Sprache
 • Erinnerungen mit freiem Zeitplan
+• Oberfläche: {interface_languages}
 
 💬 Verfolge die Neuerungen: t.me/genaulingua_chat""",
 

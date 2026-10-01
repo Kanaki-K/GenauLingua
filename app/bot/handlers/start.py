@@ -19,6 +19,7 @@ from app.database.models import User
 from app.locales import get_text
 from app.services.language_service import (
     fallback_native_for,
+    learnable_names,
     legacy_mode_name,
     pair_from_user,
     pair_label,
@@ -105,10 +106,13 @@ async def cmd_start(message: Message, state: FSMContext, session: AsyncSession):
     # Язык уже выбран — продолжаем обычный flow
     lang = user.interface_language
     first_name = message.from_user.first_name or "друг"
+    # Считаем ДО вызова: test_format_parameters_match разбирает get_text
+    # регулярным выражением, и скобки внутри аргумента обрывают разбор
+    languages = learnable_names(lang)
 
     welcome_text = (
         f"{get_text('welcome_title', lang, name=first_name)}\n\n"
-        f"{get_text('welcome_description', lang)}\n\n"
+        f"{get_text('welcome_description', lang, languages=languages)}\n\n"
         f"{get_text('welcome_separator', lang)}\n"
         f"{get_text('welcome_learn_words_title', lang)}\n"
         f"{get_text('welcome_learn_words_desc', lang)}\n\n"
@@ -169,10 +173,11 @@ async def select_language(callback: CallbackQuery, state: FSMContext, session: A
 
     # Показываем приветствие на выбранном языке
     first_name = callback.from_user.first_name or ("друг" if lang == "ru" else "друже")
+    languages = learnable_names(lang)
 
     welcome_text = (
         f"{get_text('welcome_title', lang, name=first_name)}\n\n"
-        f"{get_text('welcome_description', lang)}\n\n"
+        f"{get_text('welcome_description', lang, languages=languages)}\n\n"
         f"{get_text('welcome_separator', lang)}\n"
         f"{get_text('welcome_learn_words_title', lang)}\n"
         f"{get_text('welcome_learn_words_desc', lang)}\n\n"

@@ -17,7 +17,7 @@ TEXTS = {
     # KARŞILAMA VE BAŞLANGIÇ
     # ============================================================================
     "welcome_title": "👋 <b>Merhaba, {name}!</b>",
-    "welcome_description": "🇩🇪 <b>GenauLingua</b> — oyunla Almanca öğren\n12 000+ kelime · 20 konu · 6 seviye\n\nBot sana özel kelimeler seçer — ne kadar çok\noynarsan, seçim o kadar akıllı olur",
+    "welcome_description": "🌍 <b>GenauLingua</b> — oyunla dil öğren\nSeçebileceğin diller: {languages}\n12 000+ kelime · 20 konu · 6 seviye\n\nBot sana özel kelimeler seçer — ne kadar çok\noynarsan, seçim o kadar akıllı olur",
     "welcome_separator": "──────────────────",
 
     "welcome_learn_words_title": "📚 <b>Kelime öğren</b>",
@@ -377,7 +377,7 @@ Sohbette:
 Topluluk ne kadar aktif olursa — bot o kadar iyi olur. Çekinme! 🙌""",
 
     "help_about_title": "ℹ️ <b>Bot hakkında</b>",
-    "help_about_text": """🤖 <b>GenauLingua</b> — kişisel Almanca öğrenme asistanın.
+    "help_about_text": """🤖 <b>GenauLingua</b> — kişisel dil öğrenme asistanın.
 
 ✨ <b>Özellikleri:</b>
 • A1–C2 kelime tabanı (12 000+ kelime)
@@ -386,14 +386,13 @@ Topluluk ne kadar aktif olursa — bot o kadar iyi olur. Çekinme! 🙌""",
 • Akıllı kelime seçimi — SRS algoritması
 • Seçilebilecek {language_count} dil: {languages} —
   herhangi bir çiftte ve iki yönde
+• Ana dili konuşanın sesiyle seslendirme — hem kelime hem örnek
 • Testten sonra hataları tekrarla
 • Çeviri hatasını doğrudan testten bildir
 • İstatistik, seri ve ilerleme çubuğu
 • Aylık sıralama ve liderlik tablosu
 • Esnek hatırlatıcı bildirimleri
-• Türkçe, İngilizce, Rusça, Ukraynaca arayüz
-
-📅 <b>Güncellendi:</b> Nisan 2026
+• Arayüz: {interface_languages}
 
 💬 Güncellemeleri takip et: t.me/genaulingua_chat""",
 

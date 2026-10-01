@@ -17,7 +17,7 @@ TEXTS = {
     # WELCOME & START
     # ============================================================================
     "welcome_title": "👋 <b>Hello, {name}!</b>",
-    "welcome_description": "🇩🇪 <b>GenauLingua</b> — learn German through play\n12 000+ words · 20 topics · 6 levels\n\nThe bot picks words just for you — the more\nyou play, the smarter the selection",
+    "welcome_description": "🌍 <b>GenauLingua</b> — learn a language through play\nLanguages to choose from: {languages}\n12 000+ words · 20 topics · 6 levels\n\nThe bot picks words just for you — the more\nyou play, the smarter the selection",
     "welcome_separator": "──────────────────",
 
     "welcome_learn_words_title": "📚 <b>Learn words</b>",
@@ -377,7 +377,7 @@ In the chat:
 The more active the community — the better the bot gets. Don't be shy! 🙌""",
 
     "help_about_title": "ℹ️ <b>About the bot</b>",
-    "help_about_text": """🤖 <b>GenauLingua</b> — your personal German learning assistant.
+    "help_about_text": """🤖 <b>GenauLingua</b> — your personal language learning assistant.
 
 ✨ <b>Features:</b>
 • Word base A1–C2 (12,000+ words)
@@ -386,14 +386,13 @@ The more active the community — the better the bot gets. Don't be shy! 🙌"""
 • Smart word selection — SRS algorithm
 • {language_count} languages to choose from: {languages} —
   any pair, both directions
+• Native-speaker audio — both the word and the example
 • Repeat mistakes after quiz
 • Report translation errors directly from quiz
 • Statistics, streak and progress bar
 • Monthly rating and leaderboard
 • Flexible notification reminders
-• Interface in English, Russian, Ukrainian, Turkish
-
-📅 <b>Updated:</b> April 2026
+• Interface: {interface_languages}
 
 💬 Follow updates: t.me/genaulingua_chat""",
 
