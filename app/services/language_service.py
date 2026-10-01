@@ -360,6 +360,47 @@ def native_options(learning: str) -> list[str]:
     return [code for code in LEARNABLE_LANGS if code != learning]
 
 
+def learnable_names(interface_lang: str, *, with_flags: bool = False) -> str:
+    """
+    Перечисление изучаемых языков на языке интерфейса: «немецкий, английский…».
+
+    Нужно текстам помощи и приветствия. Прежде список был вписан в них руками,
+    и в четырёх локалях сразу — при добавлении языка его надо было не забыть в
+    каждом месте. Теперь он собирается из LEARNABLE_LANGS, и включение языка
+    обновляет тексты само.
+
+    Флаги по умолчанию сняты: внутри фразы они дробят строку, а в списке
+    настроек они уместны и там берутся отдельно.
+    """
+    from app.locales import get_text
+
+    # Приводить к строчным можно не везде. По-английски и по-турецки названия
+    # языков пишутся с заглавной, а турецкое «İngilizce» при str.lower() даёт
+    # «i̇ngilizce» — «i» с отдельной точкой сверху: заглавная «İ» разбирается на
+    # две кодовые позиции. Это та же турецкая буква, на которой я уже
+    # спотыкался в словарной базе.
+    LOWERCASE_IN_TEXT = {"ru", "uk", "pl"}
+
+    names = []
+    for code in LEARNABLE_LANGS:
+        name = get_text(language_name_key(code), interface_lang)
+        if not with_flags:
+            # Название приходит с флагом впереди — отрезаем его вместе с пробелом
+            parts = name.split(" ", 1)
+            name = parts[1] if len(parts) == 2 else name
+            if interface_lang in LOWERCASE_IN_TEXT:
+                name = name.lower()
+        names.append(name)
+    if len(names) < 2:
+        return "".join(names)
+    return ", ".join(names[:-1]) + f" {get_text('and_word', interface_lang)} " + names[-1]
+
+
+def learnable_count() -> int:
+    """Сколько языков открыто для изучения. Для фразы «шесть языков на выбор»."""
+    return len(LEARNABLE_LANGS)
+
+
 def language_name_key(code: str) -> str:
     """Ключ локализации с названием языка: 'en' → 'langname_en'."""
     return f"langname_{code}"

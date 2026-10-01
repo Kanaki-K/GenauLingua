@@ -106,7 +106,10 @@ async def show_my_rating_callback(callback: CallbackQuery, session: AsyncSession
 
 
 @router.message(Command("leaderboard"))
-@router.message(F.text.in_(["🏆 Рейтинг", "🏆 Рейтинг"]))
+# Фильтр по тексту «🏆 Рейтинг» убран: такой reply-кнопки в боте нет. Главное
+# меню состоит из четырёх кнопок, а рейтинг открывается командой и встроенной
+# кнопкой «🏆 Мой рейтинг». В фильтре к тому же дважды стояла одна и та же
+# русская строка, то есть на других языках он не сработал бы и при живой кнопке.
 async def show_leaderboard(message: Message, session: AsyncSession):
     user = await session.get(User, message.from_user.id)
     try:

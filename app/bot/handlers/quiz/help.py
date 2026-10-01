@@ -13,6 +13,7 @@ logger = logging.getLogger(__name__)
 
 from app.database.models import User
 from app.bot.utils import delete_messages_fast, ensure_anchor
+from app.bot.buttons import BTN_HELP, pressed
 from app.locales import get_text
 
 router = Router()
@@ -45,7 +46,9 @@ def get_help_keyboard(lang: str) -> InlineKeyboardMarkup:
 # ============================================================================
 
 @router.message(Command("help"))
-@router.message(F.text.in_(["❓ Помощь", "❓ Допомога", "❓ Help", "❓ Yardım"]))
+# Надписи берутся из локалей, а не вписываются руками: при добавлении языка
+# интерфейса список рос бы молча неполным, и кнопка на новом языке не работала
+@router.message(pressed(BTN_HELP))
 async def show_help(message: Message, session: AsyncSession):
     """Показ меню помощи"""
     user = await session.get(User, message.from_user.id)

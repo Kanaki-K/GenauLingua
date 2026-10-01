@@ -479,6 +479,8 @@ TEXTS.update({
     "langname_uk": "🇺🇦 Украинский",
     "langname_tr": "🇹🇷 Турецкий",
     "langname_pl": "🇵🇱 Польский",
+    # Союз для перечисления языков в текстах помощи и приветствия
+    "and_word": "и",
 
     # Строки в меню настроек
     "settings_learning_lang_line": "🎯 Учу: <b>{language}</b>",
