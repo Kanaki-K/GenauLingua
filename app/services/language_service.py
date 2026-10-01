@@ -202,14 +202,23 @@ def option_label(word, code: Optional[str]) -> str:
 
     shown = [parts[0]]
     length = len(parts[0])
+    skipped = False
     for part in parts[1:]:
+        # Значение, начинающееся с уже показанного, только уточняет его и место
+        # тратит впустую: «записывать, записывать на плёнку или видео» занимает
+        # всю подпись, не добавляя ничего. Полное перечисление остаётся в
+        # разборе после ответа
+        if any(part.lower().startswith(seen.lower()) for seen in shown):
+            skipped = True
+            continue
         if length + 2 + len(part) > OPTION_LABEL_BUDGET:
+            skipped = True
             break
         shown.append(part)
         length += 2 + len(part)
 
     label = ", ".join(shown)
-    return label if len(shown) == len(parts) else f"{label}…"
+    return f"{label}…" if skipped or len(shown) != len(parts) else label
 
 
 def example_text(word, code: Optional[str]) -> str:
