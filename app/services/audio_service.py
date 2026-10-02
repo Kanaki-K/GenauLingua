@@ -45,7 +45,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database.models import User, UserTtsVoice, Word, WordAudio
 from app.services import audio_store
-from app.services.language_service import example_text, word_text
+from app.services.language_service import example_text, main_meaning, word_text
 from app.services.tts_text import full_clip_text, needs_context, word_clip_text
 from app.services.tts_voices import DEFAULT_RATE, resolve_voice
 
@@ -132,8 +132,16 @@ def clip_kind_for_question(word: Word, lang: Optional[str]) -> str:
 
 
 def spoken_for(word: Word, lang: Optional[str], kind: str) -> str:
-    """Текст, который произносится: после разворота сокращений и чисел."""
-    raw_word = word_text(word, lang)
+    """
+    Текст, который произносится: после разворота сокращений и чисел.
+
+    Берётся не вся ячейка перевода, а одно значение — то, которое стоит в
+    примере и показано на карточке. Прежде сюда шла вся ячейка, а
+    word_clip_text отрезал первое значение: для «Swot, overachiever, nerd»
+    голос говорил «Swot», тогда как пример был про «overachiever». Теперь
+    показанное, произнесённое и то, что в примере, — одно и то же слово.
+    """
+    raw_word = main_meaning(word, lang)
     if kind == KIND_FULL:
         return full_clip_text(raw_word, example_text(word, lang), lang)
     return word_clip_text(raw_word, lang)
@@ -353,7 +361,10 @@ async def get_clip(
     if not spoken:
         return None
 
-    raw_word = word_text(word, lang)
+    # Название клипа — ровно то, что в нём звучит. Прежде сюда шла вся
+    # ячейка перевода, и в заголовке стояло «Swot, overachiever, nerd», тогда
+    # как голос произносил одно слово.
+    raw_word = main_meaning(word, lang)
     example = example_text(word, lang) if kind == KIND_FULL else None
     title = audio_title(raw_word, example)
 

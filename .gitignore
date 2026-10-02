@@ -185,3 +185,5 @@ asr_*.jsonl
 *.log
 *.err
 !app/scripts/quality_review.py
+!app/scripts/fix_manual_review.py
+!app/scripts/fix_manual_examples.py

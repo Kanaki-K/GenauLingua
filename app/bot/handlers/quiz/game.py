@@ -36,6 +36,7 @@ from app.locales import get_text
 from app.services.language_service import (
     LanguagePair,
     display_text,
+    option_label,
     example_text,
     flag,
     legacy_mode_name,
@@ -98,8 +99,19 @@ def _question_text(
 
     При прямом направлении спрашиваем значение изучаемого слова, при
     обратном — само слово по значению.
+
+    В прямом направлении в заголовке стоит ОДНО значение, а не весь перевод:
+    ровно то, что произносит голос. Клип «только слово» озвучивает первое
+    значение (word_clip_text, first_only=True), а в заголовке стоял весь
+    список — выходило «Zakłócenia, interferencja» на экране и одно слово в
+    звуке. Человек слышит не то, что видит, и не понимает, что учит.
+
+    В обратном направлении заголовок остаётся полным: звука там нет, зато по
+    одному значению слово не опознать — «Происхождение» подходит сразу
+    нескольким немецким словам. Полный набор значений в обоих случаях виден
+    в разборе после ответа.
     """
-    prompt = display_text(word, pair.prompt_lang)
+    prompt = (display_text if pair.reverse else option_label)(word, pair.prompt_lang)
     example = example_text(word, pair.prompt_lang)
 
     prefix = f"{get_text('quiz_repeat_title', lang)}\n" if is_repeat else ""
@@ -136,8 +148,12 @@ def _answer_text(word: Word, pair: LanguagePair, lang: str, is_correct: bool) ->
     lines = [
         header,
         "\n\n",
-        f"{flag(prompt_lang)} <b>{display_text(word, prompt_lang)}</b>"
-        f" = {flag(answer_lang)} <b>{display_text(word, answer_lang)}</b>",
+        # Одно значение, а не весь список: ровно то, что показано в вопросе,
+        # произнесено голосом и стоит в примере. Полный перечень значений
+        # владелец просил убрать — «Cywilizowany, kulturalny» рядом с примером
+        # про одно из них читается как ошибка
+        f"{flag(prompt_lang)} <b>{option_label(word, prompt_lang)}</b>"
+        f" = {flag(answer_lang)} <b>{option_label(word, answer_lang)}</b>",
     ]
 
     # Примеры всегда в порядке «изучаемый язык, затем язык значения»
@@ -146,7 +162,9 @@ def _answer_text(word: Word, pair: LanguagePair, lang: str, is_correct: bool) ->
     if learning_example:
         lines.append(f"\n\n{flag(pair.learning)} {learning_example}")
     if native_example:
-        lines.append(f"\n{flag(pair.native)} {native_example}")
+        # Пустая строка между примерами, а не перенос: вплотную они читаются
+        # как одна фраза в две строки, особенно когда перевод длинный
+        lines.append(f"\n\n{flag(pair.native)} {native_example}")
 
     return "".join(lines)
 
@@ -586,7 +604,7 @@ async def _finish_quiz(
     for item, word in items:
         icon = "✅" if item.is_correct else "❌"
         details.append(
-            f"{icon} {display_text(word, pair.learning)} — {display_text(word, pair.native)}"
+            f"{icon} {option_label(word, pair.learning)} — {option_label(word, pair.native)}"
         )
 
     percentage = (correct_answers / answered * 100) if answered else 0.0

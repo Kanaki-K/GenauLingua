@@ -15,6 +15,7 @@
 from __future__ import annotations
 
 import re
+import unicodedata
 from dataclasses import dataclass
 from typing import TYPE_CHECKING, Iterable, Optional
 
@@ -191,13 +192,24 @@ def option_label(word, code: Optional[str]) -> str:
     meaning_variants, а не подпись. Иначе вариант, совпадающий с правильным по
     скрытому значению, прошёл бы в карточку — и выбрать правильный было бы
     невозможно.
+
+    Какое именно значение берётся — решает main_meaning: то, что стоит в
+    примере. Прежде бралось просто первое, и карточка показывала «Swot», звук
+    произносил «Swot», а пример был про «overachiever» — три разных слова в
+    одной карточке.
     """
     full = display_text(word, code)
     if not full:
         return full
 
-    parts = [p.strip() for p in _VARIANT_SPLIT_RE.split(full) if p.strip()]
-    return parts[0] if parts else full
+    chosen = main_meaning(word, code)
+    if not chosen:
+        parts = [p.strip() for p in _VARIANT_SPLIT_RE.split(full) if p.strip()]
+        return parts[0] if parts else full
+    # display_text поднимает первую букву — повторяем для выбранного значения
+    if get_language(code).uses_article:
+        return chosen
+    return chosen[:1].upper() + chosen[1:]
 
 
 def example_text(word, code: Optional[str]) -> str:
@@ -225,6 +237,80 @@ _WS_RE = re.compile(r"\s+")
 _VARIANT_RE = re.compile(r"\s*[/;,].*$")
 _VARIANT_SPLIT_RE = re.compile(r"[/;,]")
 _PUNCT_RE = re.compile(r"[!?.…]+$")
+
+# Сколько букв основы должно совпасть, чтобы счесть слово тем же. Четыре —
+# компромисс: короче начинает склеивать разные слова («вел» и «величие»),
+# длиннее теряет словоизменение с чередованием.
+_STEM_MIN = 4
+_TOKEN_RE = re.compile(r"\w+", re.UNICODE)
+
+
+def _fold(s: str) -> str:
+    """Снять регистр и диакритику: Haus и Häuser должны сойтись."""
+    s = s.lower().replace("ß", "ss").replace("ł", "l").replace("Ł", "l")
+    decomposed = unicodedata.normalize("NFD", s)
+    return "".join(c for c in decomposed if not unicodedata.combining(c))
+
+
+def _stem_in(needle: str, haystack_tokens: list[str]) -> bool:
+    """Есть ли слово `needle` в словах примера, пусть и в другой форме."""
+    head = _fold(needle)
+    if not head:
+        return False
+    need = min(_STEM_MIN, len(head))
+    for token in haystack_tokens:
+        common = 0
+        for a, b in zip(head, token):
+            if a != b:
+                break
+            common += 1
+        # Совпала основа и от слова осталось немного — это словоизменение
+        if common >= need and len(head) - common <= 3:
+            return True
+        # Основа может прятаться внутри составного слова: «gehen» в «weggehen»
+        if len(head) >= _STEM_MIN and head[:max(need, len(head) - 2)] in token:
+            return True
+    return False
+
+
+def main_meaning(word, code: Optional[str]) -> str:
+    """
+    Одно значение из перевода — то самое, которое стоит в примере.
+
+    Зачем не просто первое. В ячейке «Swot, overachiever, nerd» первое
+    значение «Swot», а пример написан про «overachiever». Раньше на карточке
+    показывалось первое, голос произносил первое, а пример приводил третье —
+    человек видел одно слово, слышал его же и читал фразу про другое. Три
+    разных слова в одной карточке.
+
+    Поэтому значение выбирается по примеру: берётся первое из тех, что в
+    примере действительно встречаются, пусть и в другой грамматической форме.
+    Если ни одно не встретилось — остаётся первое, как было: пример в таком
+    случае всё равно не про это слово, и выбирать не из чего.
+
+    Сравнение по основе, а не по точному совпадению: «рыба» и «рыбу» — одно
+    слово, «Haus» и «Häuser» тоже.
+    """
+    full = word_text(word, code)
+    if not full:
+        return full
+
+    parts = [p.strip() for p in _VARIANT_SPLIT_RE.split(full) if p.strip()]
+    if len(parts) < 2:
+        return full
+
+    example = example_text(word, code)
+    if not example:
+        return parts[0]
+
+    tokens = [_fold(t) for t in _TOKEN_RE.findall(example)]
+    for part in parts:
+        # У многословного значения проверяем самое длинное слово: в «leczenie
+        # sanatoryjne» опознавать надо по «sanatoryjne», а не по «leczenie»
+        words = sorted(_TOKEN_RE.findall(part), key=len, reverse=True)
+        if words and _stem_in(words[0], tokens):
+            return part
+    return parts[0]
 
 
 def meaning_variants(text: Optional[str], code: Optional[str]) -> frozenset[str]:
