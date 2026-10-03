@@ -112,8 +112,14 @@ def audio_title(word: str, example: Optional[str] = None) -> str:
 
 
 def audio_filename(title: str) -> str:
-    """Имя файла из названия: его видно там, где плеер не читает теги."""
-    safe = "".join(c if (c.isalnum() or c in " -_—…") else "" for c in title).strip()
+    """
+    Имя файла из названия: его видно там, где плеер не читает теги.
+
+    Апостроф оставлен в разрешённых: без него «That's a good option» давало
+    имя «Thats a good…», и человек видел слово с опечаткой. В именах файлов
+    апостроф допустим и Telegram его принимает.
+    """
+    safe = "".join(c if (c.isalnum() or c in " -_—…'") else "" for c in title).strip()
     return f"{safe or 'audio'}.mp3"
 
 
