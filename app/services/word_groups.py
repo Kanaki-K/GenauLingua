@@ -157,6 +157,30 @@ def build_groups(
     langs = tuple(langs or SUPPORTED_LANGS)
     overrides = _load_overrides(connection)
 
+    # Берём только те языковые колонки, которые в базе действительно есть.
+    #
+    # Эту функцию вызывает миграция d7e8f9a0b1c2 — живым кодом, чтобы правило
+    # нормализации не разошлось с ним. Цена такой связи: когда в приложении
+    # появился польский, миграция стала выбирать translation_pl, которого на
+    # её шаге цепочки ещё нет — польский добавляется тремя ревизиями позже. На
+    # пустой базе `alembic upgrade head` падал, и новое окружение было не
+    # собрать. Пересечение с фактическими колонками снимает это навсегда: язык,
+    # которого в схеме пока нет, просто пропускается.
+    present = {
+        row[0] for row in connection.execute(sa.text(
+            "SELECT column_name FROM information_schema.columns "
+            "WHERE table_name = 'words'"
+        ))
+    }
+    missing = [c for c in langs
+               if c in LANGUAGES and LANGUAGES[c].word_attr not in present]
+    if missing:
+        logger.warning(
+            "В таблице words ещё нет колонок для языков %s — пропущены",
+            " ".join(missing),
+        )
+    langs = tuple(c for c in langs if c not in set(missing))
+
     word_attrs = sorted({LANGUAGES[c].word_attr for c in langs if c in LANGUAGES})
     if not word_attrs:
         return {}
