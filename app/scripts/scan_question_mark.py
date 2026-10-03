@@ -130,6 +130,10 @@ def main() -> None:
                     help="с какой пары начать (для разбора партиями)")
     ap.add_argument("--count", type=int, default=60,
                     help="сколько пар напечатать")
+    ap.add_argument("--bucket", default="в немецком знак есть, в переводе нет",
+                    choices=["в немецком знак есть, в переводе нет",
+                             "в переводе знак есть, в немецком нет"],
+                    help="какой из двух списков разбирать парами")
     args = ap.parse_args()
 
     selfcheck()
@@ -165,7 +169,7 @@ def main() -> None:
                     (r["id"], r["word_de"], lang, ex))
 
     if args.pairs:
-        items = found["в немецком знак есть, в переводе нет"]
+        items = found[args.bucket]
         # Порядок устойчивый: партии не перемешиваются между запусками
         items.sort(key=lambda t: (t[0], t[2]))
         block = items[args.start - 1: args.start - 1 + args.count]
