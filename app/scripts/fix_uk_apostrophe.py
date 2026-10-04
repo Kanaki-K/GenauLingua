@@ -1,210 +1,108 @@
 """
-Пропущенный украинский апостроф: «мясо» вместо «м'ясо».
+Класс: в украинской колонке апостроф U+02BC вместо обычного U+0027.
 
-Апостроф там не украшение. Он показывает, что согласный твёрдый, а «я/ю/є/ї»
-читаются как [ja], [ju], [je], [ji]: «мясо» и «м'ясо» — разное чтение, и
-синтезатор произносит их по-разному. Нашлось через проверку распознаванием:
-в примере стояло «вязниці», и распознаватель услышал «в'язнайте».
+«компʼютер», «курʼєр», «інʼєкція», «мʼякий» — выглядят правильно, и
+глазами их не отличить от «комп'ютер», «кур'єр». Но это другой символ:
+U+02BC MODIFIER LETTER APOSTROPHE вместо U+0027 APOSTROPHE. В базе 781
+украинская ячейка с обычным апострофом и 26 — с этим. Разнобой бьёт по
+двум местам: поиск по слову не находит вторую форму, а синтез озвучки
+читает её иначе, потому что это буква, а не знак препинания.
 
-Правилом по буквам это не берётся. Апостроф зависит от твёрдости согласного,
-а не от написания: «бюджет», «купюра», «буряк», «ряд», «бязь», «морквяний»
-пишутся БЕЗ апострофа, хотя буквы те же. Поэтому правка идёт по перечню
-корней, каждый из которых проверен глазами.
+Нашлось при вычитке блока 21: у `vorfahren` в значениях стоял «підʼїхати»
+с U+02BC, а в примере «підїхати» вообще без апострофа. Сплошной поиск по
+символу показал 26 ячеек, все в значениях, в примерах ни одной.
 
-«бю» в перечень не входит намеренно: 32 совпадения по нему — «бюджет» и
-«бюрократія», и все верны.
+ПОЧЕМУ ЗДЕСЬ НЕТ ЛИТЕРАЛА «было». Во всех прочих скриптах правок «было»
+записано строкой и сверяется посимвольно — это защита от правки по чужой
+строке. Здесь так нельзя: «компʼютер» и «комп'ютер» в исходнике выглядят
+одинаково, и ошибку в литерале не увидел бы ни я, ни тот, кто будет
+читать. Поэтому сверка другая, но не слабее: id перечислены поимённо,
+ячейка обязана содержать U+02BC, замена механическая — только этот
+символ на U+0027, остальной текст не трогается. Если в ячейке уже всё
+исправлено, она пропускается.
 
-    python -m app.scripts.fix_uk_apostrophe
-    python -m app.scripts.fix_uk_apostrophe --apply
+    python -m app.scripts.fix_uk_apostrophe            # показать
+    python -m app.scripts.fix_uk_apostrophe --apply    # применить
 """
 
-import os
-import pathlib
-import re
-import sys
+from __future__ import annotations
 
-sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2]))
-os.environ.setdefault("ENV_FILE", ".env.local")
+import sys
+from pathlib import Path
 
 from sqlalchemy import create_engine, text
 
-from app.config import settings
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
-# Корень без апострофа → с апострофом. Регистр сохраняется отдельно.
-ROOTS = [
-    ("вязн", "в'язн"),        # в'язні, ув'язнених, в'язниця
-    ("вязк", "в'язк"),        # в'язка
-    ("вязан", "в'язан"),
-    ("повязк", "пов'язк"),
-    ("запяст", "зап'яст"),
-    ("розвяз", "розв'яз"),
-    ("звяз", "зв'яз"),
-    ("мяс", "м'яс"),          # м'ясо, м'ясник
-    ("мяк", "м'як"),          # м'яко, м'якої
-    ("мяч", "м'яч"),
-    ("пят", "п'ят"),          # п'ять, п'ятірка
-    ("пють", "п'ють"),
-    ("пє", "п'є"),
-    ("імя", "ім'я"),
-    ("імям", "ім'ям"),
-    ("сімя", "сім'я"),
-    ("сімям", "сім'ям"),
-    ("сімями", "сім'ями"),
-    ("здоровя", "здоров'я"),
-    ("подвіря", "подвір'я"),
-    ("компютер", "комп'ютер"),
-    ("інтервю", "інтерв'ю"),
-    ("кровю", "кров'ю"),
-    ("любовю", "любов'ю"),
-    ("матірю", "матір'ю"),
-    ("карєр", "кар'єр"),
-    ("обєдн", "об'єдн"),
-    ("обєкт", "об'єкт"),
-    ("обєм", "об'єм"),
-    ("девять", "дев'ять"),
-    ("девяно", "дев'яно"),
-    ("зїв", "з'їв"),
-    ("зїст", "з'їст"),
-    ("вїзд", "в'їзд"),
-    ("вїхав", "в'їхав"),
-    ("підїзд", "під'їзд"),
-    ("полумя", "полум'я"),
-    ("премєр", "прем'єр"),
-    ("пєс", "п'єс"),
+from app.config import settings  # noqa: E402
+
+MODIFIER = "ʼ"   # ʼ — буква-модификатор, попала по ошибке
+PLAIN = "'"           # ' — обычный апостроф, им ведётся вся база
+
+# id ячеек, найденных сплошным поиском по U+02BC (все — translation_uk)
+IDS = [
+    1565, 2080, 2705, 2706, 2714, 2715, 6848, 7739, 7888, 8401, 8661,
+    8686, 8911, 8931, 9136, 10816, 11186, 11391, 11725, 12555, 12836,
+    12928, 13019, 13944, 14124, 17106,
 ]
 
-# Слова, внутри которых корень встречается законно и апостроф не нужен
-KEEP = ("купюр", "бюджет", "бюрократ", "бюро", "пюре", "пюпітр")
+# В ячейке 11725 замечена ещё и опечатка «брискати» вместо «бризкати».
+# Она правится в fix_block_0021, а не здесь: этот скрипт меняет ровно один
+# символ и ничего больше, иначе «было» перестанет быть проверяемым.
 
 
-# Второй набор, найденный разбором ВСЕХ слов-кандидатов, а не корней. Первый
-# список искал подстроки вроде «вязн», и «вязень» мимо него прошло: между «з»
-# и «н» там стоит «е». Поэтому проверка теперь идёт по целым словам.
-#
-# Правило по буквам (губной или р перед я/ю/є/ї после гласного) даёт 272
-# кандидата, из которых апострофа требуют 42. Остальные 230 — «буря», «вірю»,
-# «порядок», «рятувати», «уряд», «створювати», «бюджет», «купюра», «мюнхен»,
-# «рюкзак», «знаряддя», «гарячий» — пишутся без него: там согласный мягкий или
-# это запозичення. Поэтому список именной, а не вычисляемый.
-WHOLE_WORDS = {
-    "вязати": "в'язати", "вязень": "в'язень", "девята": "дев'ята",
-    "девятій": "дев'ятій", "деревяний": "дерев'яний", "деревяну": "дерев'яну",
-    "деревяні": "дерев'яні", "завязала": "зав'язала", "запамятай": "запам'ятай",
-    "запамятовуючим": "запам'ятовуючим", "запамятовується": "запам'ятовується",
-    "здоровю": "здоров'ю", "зобовязувати": "зобов'язувати",
-    "зобовязує": "зобов'язує", "кавярнею": "кав'ярнею", "кровяна": "кров'яна",
-    "кровяний": "кров'яний", "кровяні": "кров'яні", "любязна": "люб'язна",
-    "любязно": "люб'язно", "любязні": "люб'язні", "мяз": "м'яз", "мязи": "м'язи",
-    "навязувати": "нав'язувати", "напамять": "напам'ять",
-    "обявитися": "об'явитися", "памятаємо": "пам'ятаємо",
-    "памятник": "пам'ятник", "память": "пам'ять", "памяті": "пам'яті",
-    "перемиря": "перемир'я", "племя": "плем'я", "подвірю": "подвір'ю",
-    "привязувати": "прив'язувати", "привязуй": "прив'язуй",
-    "прислівя": "прислів'я", "пю": "п'ю", "пявка": "п'явка",
-    "пяний": "п'яний", "пяниця": "п'яниця", "пяниці": "п'яниці",
-    "скамянілості": "скам'янілості", "соломяний": "солом'яний",
-    "соромязлива": "сором'язлива", "соромязливе": "сором'язливе",
-    "сімю": "сім'ю", "сімї": "сім'ї",
-}
+def main() -> None:
+    apply_mode = "--apply" in sys.argv
+    engine = create_engine(settings.DATABASE_URL_SYNC)
 
-WORD_TOKEN = re.compile(r"[А-Яа-яЄєІіЇїҐґ]+")
-
-
-def fix_whole_words(value: str) -> str:
-    def replace(match):
-        token = match.group(0)
-        good = WHOLE_WORDS.get(token.lower())
-        if not good:
-            return token
-        return good[0].upper() + good[1:] if token[0].isupper() else good
-
-    return WORD_TOKEN.sub(replace, value or "")
-
-
-apply_changes = "--apply" in sys.argv
-
-
-def fix(value: str) -> str:
-    if not value:
-        return value
-    result = value
-    for bad, good in ROOTS:
-        if bad not in result.lower():
-            continue
-        # Идём по вхождениям, сохраняя регистр первой буквы
-        out = []
-        index = 0
-        low = result.lower()
-        while True:
-            found = low.find(bad, index)
-            if found < 0:
-                out.append(result[index:])
-                break
-            # Слово целиком — чтобы проверить исключения
-            start = found
-            while start > 0 and result[start - 1].isalpha():
-                start -= 1
-            end = found + len(bad)
-            while end < len(result) and result[end].isalpha():
-                end += 1
-            word = result[start:end].lower()
-            if any(k in word for k in KEEP):
-                out.append(result[index:found + len(bad)])
-                index = found + len(bad)
+    plan, skipped = [], []
+    with engine.connect() as conn:
+        for wid in IDS:
+            cur = conn.execute(
+                text("SELECT translation_uk FROM words WHERE id = :i"),
+                {"i": wid},
+            ).scalar()
+            if not cur or MODIFIER not in cur:
+                skipped.append((wid, cur))
                 continue
-            replacement = good
-            if result[found].isupper():
-                replacement = good[0].upper() + good[1:]
-            out.append(result[index:found])
-            out.append(replacement)
-            index = found + len(bad)
-        result = "".join(out)
-        low = result.lower()
-    return result
+            plan.append((wid, cur, cur.replace(MODIFIER, PLAIN)))
+
+    print(f"=== ячеек {len(IDS)}, с U+02BC {len(plan)}, пропущено {len(skipped)} ===\n")
+    for wid, was, now in plan:
+        print(f"  {wid} translation_uk — апостроф U+02BC → обычный")
+        print(f"      было:  {was!r}")
+        print(f"      стало: {now!r}")
+    for wid, cur in skipped:
+        print(f"  ПРОПУЩЕНО {wid}: {cur!r}")
+
+    if not apply_mode:
+        print("\nэто показ. Для применения — флаг --apply")
+        return
+
+    with engine.begin() as conn:
+        for wid, _, now in plan:
+            conn.execute(
+                text("UPDATE words SET translation_uk = :v WHERE id = :i"),
+                {"v": now, "i": wid},
+            )
+    print(f"\nприменено: {len(plan)}")
+
+    with engine.connect() as conn:
+        bad = 0
+        for wid, _, now in plan:
+            cur = conn.execute(
+                text("SELECT translation_uk FROM words WHERE id = :i"),
+                {"i": wid},
+            ).scalar()
+            if cur != now or MODIFIER in (cur or ""):
+                print(f"  ТРЕВОГА: {wid} не записалось")
+                bad += 1
+        left = conn.execute(text(
+            "SELECT count(*) FROM words WHERE translation_uk LIKE :p "
+            "OR example_uk LIKE :p"
+        ), {"p": f"%{MODIFIER}%"}).scalar()
+        print(f"самопроверка: не записалось {bad}, осталось в базе {left}")
 
 
-engine = create_engine(settings.DATABASE_URL_SYNC)
-with engine.connect() as conn:
-    rows = conn.execute(text(
-        "SELECT id, word_de, translation_uk, example_uk FROM words"
-    )).mappings().all()
-
-updates_word: list[dict] = []
-updates_example: list[dict] = []
-samples: list[str] = []
-
-for row in rows:
-    for column, store in (("translation_uk", updates_word),
-                          ("example_uk", updates_example)):
-        value = (row[column] or "").strip()
-        if not value:
-            continue
-        fixed = fix_whole_words(fix(value))
-        if fixed != value:
-            store.append({"id": row["id"], "v": fixed})
-            if len(samples) < 14:
-                samples.append(f"    {row['word_de']!r:<18} {value[:52]!r}\n"
-                               f"    {'':<18} → {fixed[:52]!r}")
-
-total = len(updates_word) + len(updates_example)
-print(f"значений с пропущенным апострофом: {total} "
-      f"(переводов {len(updates_word)}, примеров {len(updates_example)})")
-print()
-print("\n".join(samples))
-
-if not apply_changes:
-    print()
-    print("  (пробный прогон, для применения --apply)")
-    sys.exit(0)
-
-with engine.begin() as conn:
-    if updates_word:
-        conn.execute(text("UPDATE words SET translation_uk = :v WHERE id = :id"),
-                     updates_word)
-    if updates_example:
-        conn.execute(text("UPDATE words SET example_uk = :v WHERE id = :id"),
-                     updates_example)
-print()
-print(f"применено: {total}")
-print("Украинский текст изменился — нужен пересинтез: "
-      "python -m app.scripts.tts_synthesize --lang uk")
+if __name__ == "__main__":
+    main()
