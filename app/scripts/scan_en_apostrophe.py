@@ -62,6 +62,13 @@ LETS = re.compile(r"(?:^|[.!?]\s+)Lets\b")
 # «I'll rather» вместо «I'd rather».
 RATHER = re.compile(r"\b(I|we|you|he|she|they)'ll rather\b", re.IGNORECASE)
 
+# Названия праздников с притяжательным: `Valentines Day` вместо
+# `Valentine's Day`. Добавлено после блока 30 — там примета это
+# пропустила, потому что искала только общие слова.
+HOLIDAY = re.compile(
+    r"\b(Valentines|Mothers|Fathers|Teachers|Childrens|Womens|Veterans|"
+    r"Presidents|Saints|April Fools|New Years)\s+(Day|Eve)\b")
+
 GOOD = [
     # притяжательное `its` — настоящее слово
     "The bird's feather is beautiful and its colour is white",
@@ -84,7 +91,9 @@ GOOD = [
     "He has a scholarship",
     # «shell» — настоящее слово (ракушка), а не «she'll».
     # Первая версия приметы на нём ложно сработала.
-    "The shell lay on the beach",
+    "The shell lay on the beach",
+    "On Valentine's Day people give flowers",
+    "We celebrate New Year's Eve at home",
 ]
 BAD = [
     "The air conditioner is broken, its so hot here",
@@ -96,13 +105,16 @@ BAD = [
     "I dont know the answer",
     "Thats a good idea",
     "Youre very kind",
-    "Theres no time left",
+    "Theres no time left",
+    "On Valentines Day people give flowers",
+    "We celebrate New Years Eve at home",
 ]
 
 
 def hit(s: str) -> bool:
     return bool(NO_SUCH_WORD.search(s) or ITS_IS.search(s)
-                or LETS.search(s) or RATHER.search(s))
+                or LETS.search(s) or RATHER.search(s)
+                or HOLIDAY.search(s))
 
 
 def selfcheck() -> None:
