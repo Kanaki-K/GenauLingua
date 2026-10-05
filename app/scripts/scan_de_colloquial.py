@@ -21,6 +21,9 @@
    расширено после блока 43 на повелительное с заглавной буквы
    (`Versuchs mal`) — и на основы `versuch`, `probier`, `guck`, `schau`.
 
+5. Приставочные основы: `Ich widerruf meine Aussage` (блок 45). Общего
+   шаблона у них нет, каждую приходится вносить поимённо.
+
 Что примета принципиально не ловит: усечение при опущенном подлежащем —
 `Ich gehe mal zu ihr hin und frag sie`. Голая основа после `und` это
 ещё и законное повелительное (`Komm und hol es`), различить нельзя.
@@ -63,7 +66,11 @@ STEMS = (
     "pack|reis|schau|zieh|dreh|stell|steck|werf|schick|erzähl|versteh|"
     "verlier|verkauf|bezahl|probier|bestell|wink|kümmer|unterschreib|"
     # добавлено после блока 40: «Ich check mal mein Bankkonto»
-    "check"
+    "check|"
+    # добавлено после блока 45: «Ich widerruf meine Aussage». Приставочные
+    # основы приходится вносить поимённо: `widerrufe`, `erkläre`,
+    # `entschuldige` — у каждой своё начало, общего шаблона нет.
+    "widerruf|erklär|entschuldig|überleg|verspät|beschwer|erinner"
 )
 # Строчное «ich» посреди фразы тоже считается: блок 33 показал
 # «Lass mich, ich zieh mir gerade einen Film rein» — первая версия
@@ -126,6 +133,11 @@ GOOD = [
     "Er kaufte zwei Packs Bier",
     "Die Drehs für den Film dauerten drei Wochen",
     "Versuch es mal mit einem anderen Ansatz",
+    # приставочные основы: правильные формы ловить нельзя
+    "Ich widerrufe meine Aussage",
+    "Ich erkläre dir den Weg",
+    "Der Zug ist verspätet angekommen",
+    "Ich erinnere mich an den Tag",
 ]
 BAD = [
     "Ich bring dich zum Bahnhof hin",
@@ -152,6 +164,10 @@ BAD = [
     # добавлено после блока 43: повелительное с приклеенным «es»
     "Versuchs mal mit einem anderen Ansatz",
     "Probiers doch einfach aus",
+    # добавлено после блока 45
+    "Ich widerruf meine Aussage",
+    "Ich erklär dir den Weg",
+    "Ich erinner mich an den Tag",
 ]
 
 
