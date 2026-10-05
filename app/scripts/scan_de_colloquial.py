@@ -96,6 +96,13 @@ CONTRACTION = re.compile(
     r"|[Gg]uck|[Ss]chau)s\b"
 )
 
+# Усечение вспомогательного «ist» до «is» и личного окончания «-en»
+# до «-n». Найдено в блоке 52: `Morgen is der Todestag ... deshalb gehn
+# wir zum Friedhof` — два усечения в одной строке, и ни одно прежняя
+# примета не видела. Формы перечислены поимённо: «gehn» это усечение,
+# а «sehn» и «stehn» в поэзии законны, поэтому их здесь нет.
+SHORT_AUX = re.compile(r"\b([Ii]s|[Gg]ehn|[Ww]olln|[Ss]olln|[Hh]abn|[Mm]achn)\b")
+
 # Слова базы, для которых усечение — это и есть предмет ряда.
 LEGIT_HEADWORDS = {"ne"}
 
@@ -138,6 +145,10 @@ GOOD = [
     "Ich erkläre dir den Weg",
     "Der Zug ist verspätet angekommen",
     "Ich erinnere mich an den Tag",
+    # «is» только отдельным словом: внутри слов его быть не должно
+    "Das ist mein Haus",
+    "Wir gehen morgen zum Friedhof",
+    "Er wird das Eis essen",
 ]
 BAD = [
     "Ich bring dich zum Bahnhof hin",
@@ -168,12 +179,16 @@ BAD = [
     "Ich widerruf meine Aussage",
     "Ich erklär dir den Weg",
     "Ich erinner mich an den Tag",
+    # добавлено после блока 52
+    "Morgen is der Todestag von meinem Großvater",
+    "Deshalb gehn wir zum Friedhof",
 ]
 
 
 def hit(s: str) -> bool:
     return bool(VERB.search(s) or INVERTED.search(s)
-                or ARTICLE.search(s) or CONTRACTION.search(s))
+                or ARTICLE.search(s) or CONTRACTION.search(s)
+                or SHORT_AUX.search(s))
 
 
 def selfcheck() -> None:
@@ -209,6 +224,8 @@ def main() -> None:
             mark = "глагол"
         elif CONTRACTION.search(e):
             mark = "«es»"
+        elif SHORT_AUX.search(e):
+            mark = "«is»/«-n»"
         else:
             mark = "артикль"
         print(f"  {i:>6}  {w:<22} [{mark}]  {e}")
