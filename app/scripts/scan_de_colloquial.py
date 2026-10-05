@@ -17,7 +17,9 @@
    `eine`, `einen`, `einem`, `so ein`.
 
 4. Проглоченное `es`, приклеенное к глаголу: `ich mags` вместо
-   `ich mag es`. Добавлено после блока 40 вместе с основой `check`.
+   `ich mag es`. Добавлено после блока 40 вместе с основой `check`,
+   расширено после блока 43 на повелительное с заглавной буквы
+   (`Versuchs mal`) — и на основы `versuch`, `probier`, `guck`, `schau`.
 
 Что примета принципиально не ловит: усечение при опущенном подлежащем —
 `Ich gehe mal zu ihr hin und frag sie`. Голая основа после `und` это
@@ -77,8 +79,14 @@ INVERTED = re.compile(rf"\b({STEMS}) ich\b")
 ARTICLE = re.compile(r"\b(ne|nen|nem)\b|\bso'n\b|'ne\b")
 # Проглоченное «es», приклеенное к глаголу: «ich mags» вместо «ich mag
 # es», «machs» вместо «mach es». Добавлено после блока 40.
+# Заглавная буква нужна: в блоке 43 попалось `Versuchs mal mit einem
+# anderen Ansatz` — повелительное в начале фразы. Основы, у которых
+# «основа+s» это настоящее немецкое слово (`Pack` → `Packs`,
+# `Dreh` → `Drehs`), в список не входят.
 CONTRACTION = re.compile(
-    r"\b(mag|hab|hat|will|kann|mach|nehm|geb|find|seh|sag|hol|gib)s\b"
+    r"\b([Mm]ag|[Hh]ab|[Hh]at|[Ww]ill|[Kk]ann|[Mm]ach|[Nn]ehm|[Gg]eb"
+    r"|[Ff]ind|[Ss]eh|[Ss]ag|[Hh]ol|[Gg]ib|[Vv]ersuch|[Pp]robier"
+    r"|[Gg]uck|[Ss]chau)s\b"
 )
 
 # Слова базы, для которых усечение — это и есть предмет ряда.
@@ -114,6 +122,10 @@ GOOD = [
     "Ich mag es sehr",
     "Er hat es gesagt",
     "Ich checke mal mein Bankkonto",
+    # «основа+s» как настоящее слово: эти строки ловить нельзя
+    "Er kaufte zwei Packs Bier",
+    "Die Drehs für den Film dauerten drei Wochen",
+    "Versuch es mal mit einem anderen Ansatz",
 ]
 BAD = [
     "Ich bring dich zum Bahnhof hin",
@@ -137,6 +149,9 @@ BAD = [
     "Ich check mal mein Bankkonto",
     "Das ist ja eine abgedrehte Idee, aber ich mags",
     "Ich machs später",
+    # добавлено после блока 43: повелительное с приклеенным «es»
+    "Versuchs mal mit einem anderen Ansatz",
+    "Probiers doch einfach aus",
 ]
 
 
