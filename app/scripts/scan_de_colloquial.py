@@ -47,7 +47,11 @@ STEMS = (
     "bring|häng|hang|schüttel|brauch|hab|mach|komm|geh|seh|steh|nehm|"
     "geb|sag|frag|leg|setz|hol|kauf|zeig|such|spiel|lern|arbeit|wohn|"
     "denk|glaub|find|lauf|trag|fahr|ruf|schreib|les|trink|ess|schlaf|"
-    "freu|wart|bleib|hör|red|zahl|hoff|wasch|koch|putz|räum|öffn"
+    "freu|wart|bleib|hör|red|zahl|hoff|wasch|koch|putz|räum|öffn|"
+    # добавлено после блока 29: там нашлись «Morgen reis ich ab» и
+    # «Ich pack meine Sachen» — основ в списке не было
+    "pack|reis|schau|zieh|dreh|stell|steck|werf|schick|erzähl|versteh|"
+    "verlier|verkauf|bezahl|probier|bestell|wink|kümmer|unterschreib"
 )
 VERB = re.compile(rf"\bIch ({STEMS})\b")
 # Та же основа при инверсии: «Morgen fahr ich weg», «brauch ich».
@@ -103,6 +107,9 @@ BAD = [
     "Das war echt ne miese Tour von dir",
     "Nach der Arbeit brauch ich eine Erfrischung",
     "Der Ladendiebstahl ist 'ne Straftat",
+    "Morgen reis ich ab",
+    "Ich pack meine Sachen für den Urlaub ein",
+    "Wo stell ich das hin",
 ]
 
 
