@@ -53,7 +53,10 @@ STEMS = (
     "pack|reis|schau|zieh|dreh|stell|steck|werf|schick|erzähl|versteh|"
     "verlier|verkauf|bezahl|probier|bestell|wink|kümmer|unterschreib"
 )
-VERB = re.compile(rf"\bIch ({STEMS})\b")
+# Строчное «ich» посреди фразы тоже считается: блок 33 показал
+# «Lass mich, ich zieh mir gerade einen Film rein» — первая версия
+# искала только «Ich» с заглавной.
+VERB = re.compile(rf"\b[Ii]ch ({STEMS})\b")
 # Та же основа при инверсии: «Morgen fahr ich weg», «brauch ich».
 # Модальные и `bin`/`war`/`weiß` в список основ не входят, поэтому
 # «kann ich», «muss ich», «bin ich» сюда не попадают.
@@ -109,7 +112,8 @@ BAD = [
     "Der Ladendiebstahl ist 'ne Straftat",
     "Morgen reis ich ab",
     "Ich pack meine Sachen für den Urlaub ein",
-    "Wo stell ich das hin",
+    "Wo stell ich das hin",
+    "Lass mich, ich zieh mir gerade einen Film rein",
 ]
 
 
