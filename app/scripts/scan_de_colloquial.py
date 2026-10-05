@@ -12,8 +12,14 @@
 1. `Ich <stem>` без конечного `-e` у слабого глагола. Модальные
    (`kann`, `will`, `muss`, `soll`, `darf`, `mag`), `bin`, `war`,
    `weiß`, `werde` так и пишутся — они в список не входят.
-2. Усечённый артикль: `ne`, `nen`, `nem`, `so'n` вместо
+2. Та же основа при инверсии: `Morgen fahr ich weg`.
+3. Усечённый артикль: `ne`, `nen`, `nem`, `'ne`, `so'n` вместо
    `eine`, `einen`, `einem`, `so ein`.
+
+Пункты 2 и 3 добавлены после блока 28: первая версия приметы ловила
+только `Ich <основа>` и `ne` перед заглавной буквой, и пропустила
+`Morgen fahr ich weg`, `Auf der Autobahn fahr ich` и
+`echt ne miese Tour`.
 
 Самопроверка: на заведомо правильных строках срабатывать не должно, на
 заведомо испорченных — должно. Если хоть одна не сошлась, скрипт падает
@@ -44,7 +50,17 @@ STEMS = (
     "freu|wart|bleib|hör|red|zahl|hoff|wasch|koch|putz|räum|öffn"
 )
 VERB = re.compile(rf"\bIch ({STEMS})\b")
-ARTICLE = re.compile(r"\b(ne|nen|nem)\s+[A-ZÄÖÜ]|\bso'n\b")
+# Та же основа при инверсии: «Morgen fahr ich weg», «brauch ich».
+# Модальные и `bin`/`war`/`weiß` в список основ не входят, поэтому
+# «kann ich», «muss ich», «bin ich» сюда не попадают.
+INVERTED = re.compile(rf"\b({STEMS}) ich\b")
+# Усечённый артикль. Отдельных слов «ne», «nen», «nem» в немецком нет —
+# это всегда проглоченные `eine`, `einen`, `einem`, поэтому хватает
+# границ слова, а буква после них может быть любой.
+ARTICLE = re.compile(r"\b(ne|nen|nem)\b|\bso'n\b|'ne\b")
+
+# Слова базы, для которых усечение — это и есть предмет ряда.
+LEGIT_HEADWORDS = {"ne"}
 
 GOOD = [
     "Ich kann das nicht machen",
@@ -68,6 +84,10 @@ GOOD = [
     "Die Sonne scheint heute warm",
     "Er hat eine Idee",
     "Ich nehme eine Kapsel Vitamin C jeden Morgen",
+    "Morgen fahre ich weg",
+    "Kann ich dir helfen",
+    "Heute muss ich arbeiten",
+    "Gestern war ich zu Hause",
 ]
 BAD = [
     "Ich bring dich zum Bahnhof hin",
@@ -78,11 +98,16 @@ BAD = [
     "Ich mach das später",
     "Gib mir mal nen Stift",
     "Das ist so'n Problem",
+    "Morgen fahr ich weg",
+    "Auf der Autobahn fahr ich schneller als auf normalen Straßen",
+    "Das war echt ne miese Tour von dir",
+    "Nach der Arbeit brauch ich eine Erfrischung",
+    "Der Ladendiebstahl ist 'ne Straftat",
 ]
 
 
 def hit(s: str) -> bool:
-    return bool(VERB.search(s) or ARTICLE.search(s))
+    return bool(VERB.search(s) or INVERTED.search(s) or ARTICLE.search(s))
 
 
 def selfcheck() -> None:
@@ -107,11 +132,17 @@ def main() -> None:
             "WHERE example_de IS NOT NULL ORDER BY id"
         )).all()
 
-    found = [(i, w, e) for i, w, e in rows if hit(e)]
+    # Ряд, который сам про усечение: слово базы — «ne», и пример
+    # «Das ist gut, ne?» это и есть то, чему он учит. Чинить нельзя.
+    found = [(i, w, e) for i, w, e in rows
+             if hit(e) and w.lower() not in LEGIT_HEADWORDS]
     print(f"прочитано немецких примеров: {len(rows)}")
     print(f"с разговорным усечением: {len(found)}\n")
     for i, w, e in found:
-        mark = "глагол" if VERB.search(e) else "артикль"
+        if VERB.search(e) or INVERTED.search(e):
+            mark = "глагол"
+        else:
+            mark = "артикль"
         print(f"  {i:>6}  {w:<22} [{mark}]  {e}")
 
 
