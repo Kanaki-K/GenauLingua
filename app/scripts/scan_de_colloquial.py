@@ -16,6 +16,14 @@
 3. Усечённый артикль: `ne`, `nen`, `nem`, `'ne`, `so'n` вместо
    `eine`, `einen`, `einem`, `so ein`.
 
+4. Проглоченное `es`, приклеенное к глаголу: `ich mags` вместо
+   `ich mag es`. Добавлено после блока 40 вместе с основой `check`.
+
+Что примета принципиально не ловит: усечение при опущенном подлежащем —
+`Ich gehe mal zu ihr hin und frag sie`. Голая основа после `und` это
+ещё и законное повелительное (`Komm und hol es`), различить нельзя.
+Такие случаи только глазами.
+
 Пункты 2 и 3 добавлены после блока 28: первая версия приметы ловила
 только `Ich <основа>` и `ne` перед заглавной буквой, и пропустила
 `Morgen fahr ich weg`, `Auf der Autobahn fahr ich` и
@@ -51,7 +59,9 @@ STEMS = (
     # добавлено после блока 29: там нашлись «Morgen reis ich ab» и
     # «Ich pack meine Sachen» — основ в списке не было
     "pack|reis|schau|zieh|dreh|stell|steck|werf|schick|erzähl|versteh|"
-    "verlier|verkauf|bezahl|probier|bestell|wink|kümmer|unterschreib"
+    "verlier|verkauf|bezahl|probier|bestell|wink|kümmer|unterschreib|"
+    # добавлено после блока 40: «Ich check mal mein Bankkonto»
+    "check"
 )
 # Строчное «ich» посреди фразы тоже считается: блок 33 показал
 # «Lass mich, ich zieh mir gerade einen Film rein» — первая версия
@@ -65,6 +75,11 @@ INVERTED = re.compile(rf"\b({STEMS}) ich\b")
 # это всегда проглоченные `eine`, `einen`, `einem`, поэтому хватает
 # границ слова, а буква после них может быть любой.
 ARTICLE = re.compile(r"\b(ne|nen|nem)\b|\bso'n\b|'ne\b")
+# Проглоченное «es», приклеенное к глаголу: «ich mags» вместо «ich mag
+# es», «machs» вместо «mach es». Добавлено после блока 40.
+CONTRACTION = re.compile(
+    r"\b(mag|hab|hat|will|kann|mach|nehm|geb|find|seh|sag|hol|gib)s\b"
+)
 
 # Слова базы, для которых усечение — это и есть предмет ряда.
 LEGIT_HEADWORDS = {"ne"}
@@ -95,6 +110,10 @@ GOOD = [
     "Kann ich dir helfen",
     "Heute muss ich arbeiten",
     "Gestern war ich zu Hause",
+    # приклеенное «s» — только к глаголу, не к существительному
+    "Ich mag es sehr",
+    "Er hat es gesagt",
+    "Ich checke mal mein Bankkonto",
 ]
 BAD = [
     "Ich bring dich zum Bahnhof hin",
@@ -112,13 +131,18 @@ BAD = [
     "Der Ladendiebstahl ist 'ne Straftat",
     "Morgen reis ich ab",
     "Ich pack meine Sachen für den Urlaub ein",
-    "Wo stell ich das hin",
+    "Wo stell ich das hin",
     "Lass mich, ich zieh mir gerade einen Film rein",
+    # добавлено после блока 40
+    "Ich check mal mein Bankkonto",
+    "Das ist ja eine abgedrehte Idee, aber ich mags",
+    "Ich machs später",
 ]
 
 
 def hit(s: str) -> bool:
-    return bool(VERB.search(s) or INVERTED.search(s) or ARTICLE.search(s))
+    return bool(VERB.search(s) or INVERTED.search(s)
+                or ARTICLE.search(s) or CONTRACTION.search(s))
 
 
 def selfcheck() -> None:
@@ -152,6 +176,8 @@ def main() -> None:
     for i, w, e in found:
         if VERB.search(e) or INVERTED.search(e):
             mark = "глагол"
+        elif CONTRACTION.search(e):
+            mark = "«es»"
         else:
             mark = "артикль"
         print(f"  {i:>6}  {w:<22} [{mark}]  {e}")
