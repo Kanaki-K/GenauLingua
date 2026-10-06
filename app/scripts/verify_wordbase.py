@@ -38,6 +38,7 @@ import argparse
 import os
 import pathlib
 import random
+import re
 import sys
 from collections import Counter
 from types import SimpleNamespace
@@ -51,6 +52,7 @@ from app.config import settings
 from app.services.audio_service import KIND_FULL, KIND_WORD, spoken_for
 from app.services.audio_store import DEFAULT_ROOT, clip_path
 from app.services.language_service import LANGUAGES
+from app.services.tts_text import ABBREVIATIONS
 from app.services.tts_voices import default_voice
 
 # Предикаты примет. Своих копий здесь нет и быть не должно.
@@ -65,6 +67,16 @@ from app.scripts import (  # noqa: E402
 
 LANGS = ("de", "en", "ru", "uk", "tr", "pl")
 SEED = 20261006
+
+# Римское число от двух знаков. Одиночные I, V, X, L, C, D, M не берутся:
+# это слишком часто просто буквы — «I» по-английски, «C» как оценка.
+ROMAN = re.compile(
+    r"\b(?=[IVXLCDM]{2,}\b)M*(C[MD]|D?C{0,3})(X[CL]|L?X{0,3})(I[XV]|V?I{0,3})\b"
+)
+# Сокращения, которые выглядят как римское число, но числом не являются
+# и по буквам читаются правильно: CV это резюме, IV — капельница.
+# Таких в базе 12 ячеек из 41 найденной.
+ROMAN_LEGIT = {"CV", "IV", "MM", "CD", "ID", "MD", "DI"}
 
 # Столбцы, которые читаются у каждого ряда
 COLS = ["id", "article", "word_de", "example_de"]
@@ -122,9 +134,14 @@ def checks(row, audio: bool, canonical: set[tuple[int, str]] | None = None) -> l
         if scan_tr_number_suffix.GLUED.search(val):
             bad.append(f"{col}: аффикс после цифры без апострофа")
 
-    # 5. Разговорное усечение в немецком эталоне
-    if scan_de_colloquial.hit(row.get("example_de") or ""):
-        bad.append("example_de: разговорное усечение")
+    # 5. Разговорное усечение в немецком эталоне.
+    # Белый список приметы обязателен: ряд `ne` сам ПРО усечение, и
+    # «Das ist gut, ne?» это то, чему он учит. Первая версия этой
+    # приёмки взяла предикат `hit()` без списка и объявила дефектом
+    # собственный предмет ряда.
+    if (row.get("word_de") or "").lower() not in scan_de_colloquial.LEGIT_HEADWORDS:
+        if scan_de_colloquial.hit(row.get("example_de") or ""):
+            bad.append("example_de: разговорное усечение")
 
     # 6. Обращение расходится с эталоном
     if scan_formality_vs_de.flagged(
@@ -147,13 +164,32 @@ def checks(row, audio: bool, canonical: set[tuple[int, str]] | None = None) -> l
                     bad.append(f"{col}: вариант через косую черту")
                     break
 
-    # 9. Точка в конце слова или примера — правило владельца
+    # 9. Точка в конце слова или примера — правило владельца.
+    # Кроме сокращений: в «смотри, см.» и «дивись, див.» точка это часть
+    # слова, а не конец фразы. Список сокращений берётся из рабочего
+    # кода озвучки (`tts_text.ABBREVIATIONS`), а не пишется здесь свой.
     for lang in LANGS:
         cfg = LANGUAGES[lang]
+        abbrevs = tuple(ABBREVIATIONS.get(lang, {}))
         for col in (cfg.word_attr, cfg.example_attr):
             val = (row.get(col) or "").strip()
-            if val.endswith(".") and not val.endswith(".."):
-                bad.append(f"{col}: точка в конце")
+            if not val.endswith(".") or val.endswith(".."):
+                continue
+            if abbrevs and val.endswith(abbrevs):
+                continue
+            bad.append(f"{col}: точка в конце")
+
+    # 11. Римское число в примере: движок читает его по буквам —
+    # «XXI век» звучало «икс икс и век». Нашлось не глазами, а
+    # длительностью клипа (`tts_audit_clips`): 3,3 секунды вместо 1,4.
+    # Сокращения, которые и должны читаться по буквам, в белом списке.
+    for lang in LANGS:
+        col = LANGUAGES[lang].example_attr
+        val = row.get(col) or ""
+        for m in ROMAN.finditer(val):
+            if m.group(0) and m.group(0) not in ROMAN_LEGIT:
+                bad.append(f"{col}: римское число {m.group(0)}")
+                break
 
     if not audio:
         return bad
@@ -194,6 +230,38 @@ def selfcheck() -> None:
     }
     assert not checks(base, audio=False), f"чистый ряд дал {checks(base, False)}"
 
+    # Законные исключения: они обязаны проходить чисто. Без этих двух
+    # случаев белый список можно расширить до бесполезности, и проверка
+    # молча перестанет срабатывать. Оба нашлись полным проходом по базе
+    # и оба сначала были объявлены дефектом по ошибке.
+    legit = {
+        "ряд «ne» сам про усечение": {
+            "word_de": "ne", "example_de": "Das ist gut, ne?",
+            "translation_ru": "да?, правда?, не так ли?",
+            "example_ru": "Это хорошо, да?",
+        },
+        "сокращение с точкой": {
+            "word_de": "siehe", "example_de": "Siehe oben auf Seite 5",
+            "translation_ru": "смотри, см.", "translation_uk": "дивись, див.",
+            "example_ru": "Смотри выше на странице 5",
+            "example_uk": "Дивись вище на сторінці 5",
+        },
+        "CV — не римское число": {
+            "word_de": "Lebenslauf", "example_de": "Schick mir deinen Lebenslauf",
+            "translation_en": "CV, résumé", "example_en": "Send me your CV",
+        },
+    }
+    wrong = []
+    for name, patch in legit.items():
+        found = checks(dict(base) | patch, audio=False)
+        if found:
+            wrong.append((name, found))
+    if wrong:
+        print("САМОПРОВЕРКА НЕ ПРОШЛА: законное объявлено дефектом —")
+        for name, found in wrong:
+            print(f"  {name}: {found}")
+        sys.exit(1)
+
     cases = {
         "пустой пример": {"example_ru": ""},
         "чужая буква": {"example_pl": "To jest piosenečka"},
@@ -206,6 +274,7 @@ def selfcheck() -> None:
         "связка є": {"example_uk": "Це є домом"},
         "косая черта": {"example_tr": "Bu ev/bina"},
         "точка в конце": {"example_pl": "To jest dom."},
+        "римское число": {"example_ru": "Это было в XIX веке"},
     }
     broken = []
     for name, patch in cases.items():
@@ -217,8 +286,8 @@ def selfcheck() -> None:
         for name in broken:
             print(f"  {name}")
         sys.exit(1)
-    print(f"самопроверка: чистый ряд чист, {len(cases)} видов порчи "
-          f"пойманы все\n")
+    print(f"самопроверка: чистый ряд чист, {len(legit)} законных исключения "
+          f"прошли, {len(cases)} видов порчи пойманы все\n")
 
 
 def main() -> None:
