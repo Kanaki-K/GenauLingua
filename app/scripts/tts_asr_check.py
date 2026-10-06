@@ -40,6 +40,7 @@ import pathlib
 import re
 import sys
 import unicodedata
+from types import SimpleNamespace
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2]))
 os.environ.setdefault("ENV_FILE", ".env.local")
@@ -47,14 +48,14 @@ os.environ.setdefault("ENV_FILE", ".env.local")
 from sqlalchemy import text
 
 from app.database.session import AsyncSessionLocal
-from app.services.audio_service import KIND_FULL, KIND_WORD, obtain_audio
-from app.services.language_service import LANGUAGES, SUPPORTED_LANGS
-from app.services.tts_text import (
-    PAUSE,
-    expand_numbers,
-    full_clip_text,
-    word_clip_text,
+from app.services.audio_service import (
+    KIND_FULL,
+    KIND_WORD,
+    obtain_audio,
+    spoken_for,
 )
+from app.services.language_service import LANGUAGES, SUPPORTED_LANGS
+from app.services.tts_text import PAUSE, expand_numbers
 from app.services.tts_voices import default_voice
 
 logging.basicConfig(level=logging.WARNING, format="%(levelname)s %(message)s")
@@ -139,10 +140,13 @@ async def load_words(lang: str, limit: int | None, ids: list[int] | None) -> lis
         where.append("w.id = ANY(:ids)")
         params["ids"] = ids
 
+    # Столбцы берутся под СВОИМИ именами, без псевдонимов word/example:
+    # ожидаемый текст считает `spoken_for`, а она идёт через
+    # `main_meaning` → `word_text` → getattr по имени столбца.
     sql = text(f"""
         SELECT w.id,
-               w.{cfg.word_attr}    AS word,
-               w.{cfg.example_attr} AS example,
+               w.{cfg.word_attr},
+               w.{cfg.example_attr},
                w.article,
                w.level::text        AS level
         FROM words w
@@ -157,15 +161,24 @@ async def load_words(lang: str, limit: int | None, ids: list[int] | None) -> lis
 
 
 def spoken_text_for(row: dict, lang: str, kind: str) -> str:
-    cfg = LANGUAGES[lang]
-    word = (row["word"] or "").strip()
-    if cfg.uses_article:
-        article = (row.get("article") or "").strip()
-        if article and article != "-":
-            word = f"{article} {word}"
-    if kind == KIND_FULL:
-        return full_clip_text(word, row.get("example"), lang)
-    return word_clip_text(word, lang)
+    """
+    Что в клипе должно звучать. Считает `spoken_for` — та же функция,
+    которой озвучивает карточка.
+
+    Здесь была СВОЯ копия расчёта: вся ячейка перевода плюс
+    `word_clip_text(first_only=True)`, то есть первое значение. А клип
+    синтезируется из того, которое стоит в примере (`main_meaning`,
+    HANDOVER §8). Для «представление, понятие, догадка» при примере
+    «Я понятия не имею» клип говорит «понятие», а сверялся бы он с
+    «представление» — и распознавание объявило бы расхождением верный
+    клип. На 5561 карточке из 77 412.
+
+    Это была ЧЕТВЁРТАЯ копия одного расчёта в проекте: synthesize,
+    audit, prune_orphans и эта. Три из четырёх разошлись с оригиналом.
+    Правило: состав и текст клипа считаются в одном месте.
+    """
+    word = SimpleNamespace(**row)
+    return spoken_for(word, lang, kind)
 
 
 # Короче этого изолированное слово распознаванием не проверяется: модели
