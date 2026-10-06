@@ -75,7 +75,12 @@ STEMS = (
     # на -ier (латинские заимствования) в списке не было вовсе, а их
     # в базе много: spezialisieren, organisieren, reparieren, telefonieren
     "spezialisier|organisier|reparier|telefonier|informier|interessier|"
-    "diskutier|reagier|funktionier|kontrollier|reservier"
+    "diskutier|reagier|funktionier|kontrollier|reservier|"
+    # добавлено во ВТОРОМ проходе, блок 3: «Ich sitz auf dem Stuhl».
+    # Основы `sitz` в списке не было, хотя `setz` была — то есть список
+    # собирали по найденным примерам, и соседние по смыслу глаголы в
+    # него не попали. Это четвёртая такая дыра.
+    "sitz|lieg|steig|heb|leih|folg"
 )
 # Строчное «ich» посреди фразы тоже считается: блок 33 показал
 # «Lass mich, ich zieh mir gerade einen Film rein» — первая версия
@@ -201,6 +206,14 @@ BAD = [
     # добавлено после блока 72: основы на -ier
     "Ich spezialisier mich auf IT",
     "Ich organisier das Fest",
+    # добавлено во втором проходе, блок 3. Усечённого повелительного
+    # «Folg mir bitte» здесь нет намеренно: эта примета ловит только
+    # формы с «ich», а повелительное — предмет scan_de_imperative.
+    # Та примета перечисляет основы, у которых «-e» ОБЯЗАТЕЛЬНО
+    # (öffne, arbeite, beruhige), а у «folge» оно необязательно по
+    # Дудену, и вносить такие основы туда значило бы ловить законное.
+    # Ряд 1433 исправлен руками.
+    "Ich sitz auf dem Stuhl",
     "Deshalb gehn wir zum Friedhof",
 ]
 
