@@ -70,7 +70,12 @@ STEMS = (
     # добавлено после блока 45: «Ich widerruf meine Aussage». Приставочные
     # основы приходится вносить поимённо: `widerrufe`, `erkläre`,
     # `entschuldige` — у каждой своё начало, общего шаблона нет.
-    "widerruf|erklär|entschuldig|überleg|verspät|beschwer|erinner"
+    "widerruf|erklär|entschuldig|überleg|verspät|beschwer|erinner|"
+    # добавлено после блока 72: «Ich spezialisier mich auf IT». Основы
+    # на -ier (латинские заимствования) в списке не было вовсе, а их
+    # в базе много: spezialisieren, organisieren, reparieren, telefonieren
+    "spezialisier|organisier|reparier|telefonier|informier|interessier|"
+    "diskutier|reagier|funktionier|kontrollier|reservier"
 )
 # Строчное «ich» посреди фразы тоже считается: блок 33 показал
 # «Lass mich, ich zieh mir gerade einen Film rein» — первая версия
@@ -193,6 +198,9 @@ BAD = [
     # добавлено после блока 69: усечённый артикль в начале фразы
     "Ne Currywurst mit Pommes, bitte",
     "Nen Kaffee, bitte",
+    # добавлено после блока 72: основы на -ier
+    "Ich spezialisier mich auf IT",
+    "Ich organisier das Fest",
     "Deshalb gehn wir zum Friedhof",
 ]
 
