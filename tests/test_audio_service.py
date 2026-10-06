@@ -118,6 +118,65 @@ class TestSpokenText:
         word = make_word("zu", ru="к, в, на, слишком")
         assert spoken_for(word, "ru", KIND_WORD) == "к"
 
+    def test_polysemous_takes_meaning_from_example(self):
+        """
+        Из нескольких значений озвучивается то, которое стоит в примере, —
+        решение владельца (HANDOVER §8). Не первое по списку.
+        """
+        word = make_word("Ahnung", ru="представление, понятие, догадка")
+        word.example_ru = "Я понятия не имею"
+        assert spoken_for(word, "ru", KIND_WORD) == "понятие"
+        assert spoken_for(word, "ru", KIND_FULL).startswith("понятие")
+
+
+class TestClipCompositionHasOneSource:
+    """
+    Состав клипов считается в ОДНОМ месте и той же функцией, которой
+    озвучивает карточка.
+
+    Зачем тест. Это расходилось дважды. Во второй раз
+    `tts_synthesize.expected_clips` брал всю ячейку перевода и резал
+    первое значение, тогда как карточка давно шла через `main_meaning` —
+    5561 карточка из 77 412 получила пакетно клип, которого никогда не
+    запросит. И `tts_prune_orphans`, считающий сирот по тому же составу,
+    удалил бы ПРАВИЛЬНЫЕ клипы, оставив неправильные.
+
+    Поймать это тестом на длительность или на наличие файлов нельзя:
+    оба пути работают, просто про разные тексты. Ловится только
+    сравнением источников.
+    """
+
+    def test_audit_and_synthesize_share_the_function(self):
+        from app.scripts import tts_audit_clips, tts_synthesize
+
+        assert tts_audit_clips.expected_clips is tts_synthesize.expected_clips
+
+    def test_prune_orphans_uses_the_same_function(self):
+        from app.scripts import tts_prune_orphans, tts_synthesize
+
+        assert tts_prune_orphans.expected_clips is tts_synthesize.expected_clips
+
+    def test_composition_goes_through_spoken_for(self):
+        """
+        `expected_clips` не должен сам решать, что произносится: ровно эта
+        самодеятельность и разошлась с карточкой.
+        """
+        import inspect
+
+        from app.scripts import tts_synthesize
+
+        # Без docstring: в нём описан прежний сломанный код, и искать
+        # запрещённый вызов надо в теле, а не в объяснении. Отрезаем по
+        # закрывающим кавычкам, а не вычитанием `__doc__`: в файле CRLF,
+        # и дословное вычитание не сходится
+        src = inspect.getsource(tts_synthesize.expected_clips)
+        body = src.split('"""')[-1]
+
+        assert "spoken_for(" in body, "состав обязан идти через spoken_for"
+        assert "word_clip_text(" not in body, (
+            "своё вычисление произносимого текста: именно так расходилось"
+        )
+
 
 class TestBotOwnership:
     """

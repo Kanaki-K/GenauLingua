@@ -140,35 +140,18 @@ def mp3_duration(data: bytes) -> float | None:
     return total if frames else None
 
 
-async def expected_clips(lang: str) -> list[tuple[str, str]]:
-    """Что должно быть в хранилище: пары (вид клипа, произносимый текст)."""
-    cfg = LANGUAGES[lang]
-    async with AsyncSessionLocal() as s:
-        rows = (await s.execute(text(f"""
-            SELECT w.{cfg.word_attr}    AS word,
-                   w.{cfg.example_attr} AS example,
-                   w.article
-            FROM words w
-            JOIN word_lang_groups g
-              ON g.word_id = w.id AND g.lang = :lang AND g.is_canonical
-            WHERE w.{cfg.word_attr} IS NOT NULL
-              AND btrim(w.{cfg.word_attr}) <> ''
-        """), {"lang": lang})).mappings().all()
-
-    seen: set[tuple[str, str]] = set()
-    for row in rows:
-        word = (row["word"] or "").strip()
-        if cfg.uses_article:
-            article = (row["article"] or "").strip()
-            if article and article != "-":
-                word = f"{article} {word}"
-        for kind, spoken in (
-            (KIND_WORD, word_clip_text(word, lang)),
-            (KIND_FULL, full_clip_text(word, row["example"], lang)),
-        ):
-            if spoken:
-                seen.add((kind, spoken))
-    return sorted(seen)
+# Состав клипов берётся из tts_synthesize, а не считается здесь заново.
+#
+# Здесь стояла СВОЯ копия этого расчёта, и она повторяла ту же ошибку, что
+# и оригинал: брала всю ячейку перевода и резала первое значение, тогда как
+# карточка озвучивает выбранное по примеру (`main_meaning`, HANDOVER §8).
+# Проверка в итоге сверяла длительность не тех клипов — то есть молчала
+# о настоящих и ругалась на несуществующие.
+#
+# Это третья копия одного расчёта в проекте и второй раз, когда копия
+# разошлась с оригиналом. Правило простое и оплачено дважды:
+# СОСТАВ КЛИПОВ СЧИТАЕТСЯ В ОДНОМ МЕСТЕ — в tts_synthesize.expected_clips.
+from app.scripts.tts_synthesize import expected_clips  # noqa: E402
 
 
 def audit_language(lang: str, voice: str, clips: list[tuple[str, str]],

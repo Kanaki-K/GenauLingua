@@ -31,6 +31,7 @@ import os
 import pathlib
 import sys
 import time
+from types import SimpleNamespace
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2]))
 os.environ.setdefault("ENV_FILE", ".env.local")
@@ -39,9 +40,14 @@ from sqlalchemy import text
 
 from app.database.session import AsyncSessionLocal
 from app.services import audio_store
-from app.services.audio_service import KIND_FULL, KIND_WORD, _synthesize, _trimmed
+from app.services.audio_service import (
+    KIND_FULL,
+    KIND_WORD,
+    _synthesize,
+    _trimmed,
+    spoken_for,
+)
 from app.services.language_service import LANGUAGES, SUPPORTED_LANGS
-from app.services.tts_text import full_clip_text, word_clip_text
 from app.services.tts_voices import default_voice
 
 logging.basicConfig(level=logging.WARNING, format="%(levelname)s %(message)s")
@@ -67,17 +73,36 @@ async def expected_clips(lang: str) -> list[tuple[str, str]]:
 
     Вынесено отдельно, потому что этим списком пользуется не только синтез:
     tts_prune_orphans по нему решает, на какие клипы больше никто не
-    ссылается. Считать состав дважды нельзя — разойдётся. Так и вышло в
-    первой версии поиска сирот: она не знала ни про отбор канонических слов,
-    ни про артикль перед немецким существительным, и объявила сиротами 14 924
-    живых немецких клипа.
+    ссылается, а tts_audit_clips — что проверять. Считать состав дважды
+    нельзя — разойдётся. Так и вышло в первой версии поиска сирот: она не
+    знала ни про отбор канонических слов, ни про артикль перед немецким
+    существительным, и объявила сиротами 14 924 живых немецких клипа.
+
+    И РАЗОШЛОСЬ ВТОРОЙ РАЗ, ровно так же. Здесь стояло:
+
+        word = row["word"]                    # вся ячейка перевода
+        word_clip_text(word, lang)            # first_only=True режет первое
+
+    То есть состав считался по ПЕРВОМУ значению из ячейки, тогда как
+    карточка давно берёт то, которое стоит в примере — `main_meaning()`,
+    решение владельца, HANDOVER §8. Для «представление, понятие, догадка»
+    при примере «Я понятия не имею» карточка просит «понятие», а здесь
+    синтезировалось «представление».
+
+    Цена: 5561 карточка из 77 412 (7,2%). Клип, синтезированный пакетно,
+    карточка не запрашивала никогда — у него другой хеш. Хуже:
+    `tts_prune_orphans --delete` счёл бы ПРАВИЛЬНЫЕ клипы сиротами и удалил
+    их, оставив неправильные.
+
+    Поэтому теперь состав считает `spoken_for` — та самая функция, которой
+    озвучивает живая карточка. Никакого своего пересчёта здесь больше нет,
+    и артикль подклеивать руками не нужно: `main_meaning` → `word_text`
+    делает это сам.
     """
     cfg = LANGUAGES[lang]
     async with AsyncSessionLocal() as s:
         rows = (await s.execute(text(f"""
-            SELECT w.{cfg.word_attr}    AS word,
-                   w.{cfg.example_attr} AS example,
-                   w.article
+            SELECT w.{cfg.word_attr}, w.{cfg.example_attr}, w.article
             FROM words w
             JOIN word_lang_groups g
               ON g.word_id = w.id AND g.lang = :lang AND g.is_canonical
@@ -90,16 +115,12 @@ async def expected_clips(lang: str) -> list[tuple[str, str]]:
     seen: set[tuple[str, str]] = set()
 
     for row in rows:
-        word = (row["word"] or "").strip()
-        if cfg.uses_article:
-            article = (row["article"] or "").strip()
-            if article and article != "-":
-                word = f"{article} {word}"
+        # `spoken_for` ждёт объект со столбцами слова, а не словарь:
+        # внутри он идёт через main_meaning → word_text → getattr
+        word = SimpleNamespace(**row)
 
-        for kind, spoken in (
-            (KIND_WORD, word_clip_text(word, lang)),
-            (KIND_FULL, full_clip_text(word, row["example"], lang)),
-        ):
+        for kind in (KIND_WORD, KIND_FULL):
+            spoken = spoken_for(word, lang, kind)
             if not spoken:
                 continue
             key = (kind, spoken)
