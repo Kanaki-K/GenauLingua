@@ -57,11 +57,22 @@ MODALS = {
 }
 
 # Приставки, с которыми `zu` вставляется внутрь слова.
+#
+# Про последнюю, «zu». Её тут не было, и из-за этого примета четыре
+# блока не видела целого случая: в ряду 8525 стоял `Ich kann nicht
+# zuzulassen, dass …`, то есть лишнее `zu` у глагола `zulassen`, чья
+# приставка сама «zu». Форма получается `zu` + `zu` + `lassen`, а
+# список приставок такой не покрывал — и примета на чистом нуле
+# проходила мимо. Найдено глазами в блоке 63.
+#
+# Это ровно тот род дыры, который «примета показала 0» не покажет
+# никогда: ноль был честным для того, что примета умела видеть.
 PREFIXES = (
     "zurück", "zusammen", "gegenüber", "entgegen", "herunter", "hinunter",
     "herein", "hinein", "heraus", "hinaus", "vorbei", "voraus", "weiter",
     "wieder", "runter", "rein", "raus", "auf", "aus", "ein", "mit",
     "nach", "vor", "ab", "an", "bei", "her", "hin", "los", "weg", "fest",
+    "zu",
 )
 
 
@@ -102,7 +113,7 @@ def hit(example: str, verbs: set[str]) -> list[str]:
     return out
 
 
-FAKE = {"schlagen", "werfen", "fangen", "essen", "wählen"}
+FAKE = {"schlagen", "werfen", "fangen", "essen", "wählen", "lassen"}
 GOOD = [
     # после модального инфинитив без `zu` — так и надо
     ("Wir sollten ihn einschlagen", FAKE),
@@ -119,6 +130,8 @@ BAD = [
     ("Der Kurs ist gut und wir sollten ihn einzuschlagen", FAKE),
     ("Man kann ihm nicht viel vorzuwerfen", FAKE),
     ("Du musst heute anzufangen", FAKE),
+    # приставка сама «zu»: четыре блока примета этого не видела
+    ("Ich kann nicht zuzulassen, dass sie allein bleibt", FAKE),
 ]
 
 
