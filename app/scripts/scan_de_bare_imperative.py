@@ -84,6 +84,28 @@ SEPARABLE = (
 )
 
 
+def syllabic_el_er(stem: str) -> bool:
+    """Кончается ли основа слоговым «-el»/«-er».
+
+    У таких основ (`änder`, `handel`, `sammel`) немецкий законно
+    сокращает двумя способами — `ändere`/`ändre`, — и голая основа от
+    них на письме неотличима от выбора стиля.
+
+    НО отбрасывать по одному виду букв нельзя: у всех глаголов на
+    `-ieren` основа тоже кончается на «er» (`kontrollier`,
+    `reparier`, `telefonier`, `organisier`), а там никакого слогового
+    «-er» нет — это корень. Первая версия приметы выбрасывала их все,
+    и замер «99 против 41» был занижен: `Bitte kontrollier die
+    Rechnung` в счёт не попал.
+
+    Различает их буква перед «el»/«er»: у слогового окончания там
+    согласная (`änd-er`), у корня — гласная (`kontroll-i-er`).
+    """
+    if not stem.endswith(("el", "er")):
+        return False
+    return len(stem) > 2 and stem[-3] not in "aeiouäöü"
+
+
 def is_obligatory_e(infinitive: str) -> bool:
     """Обязательно ли «-e» в повелительном.
 
@@ -145,8 +167,7 @@ def stems_from_base(conn, skip: set[str]) -> dict[str, str]:
             if is_strong(inf):
                 continue
             stem = inf[:-2]
-            # основы на -el/-er сокращаются законно и двояко
-            if stem.endswith(("el", "er")):
+            if syllabic_el_er(stem):
                 continue
             if len(stem) < 3 or stem.lower() in skip:
                 continue
@@ -157,7 +178,7 @@ def stems_from_base(conn, skip: set[str]) -> dict[str, str]:
                     rest = inf[len(pref):]
                     if rest.endswith("en") and not is_strong(rest):
                         bare = rest[:-2]
-                        if len(bare) >= 3 and not bare.endswith(("el", "er")) \
+                        if len(bare) >= 3 and not syllabic_el_er(bare) \
                                 and bare.lower() not in skip:
                             out.setdefault(bare.lower(), rest)
     return out
@@ -213,6 +234,15 @@ def selfcheck(stems: dict[str, str]) -> None:
     for inf in ("zeigen", "neigen", "zahlen", "machen", "folgen", "stecken"):
         if is_obligatory_e(inf):
             print(f"САМОПРОВЕРКА НЕ ПРОШЛА: у {inf} «-e» необязательно, а разбор говорит да")
+            sys.exit(1)
+    # слоговое «-el»/«-er» против корневого «-ier»
+    for stem in ("änder", "handel", "sammel", "wander"):
+        if not syllabic_el_er(stem):
+            print(f"САМОПРОВЕРКА НЕ ПРОШЛА: у {stem} слоговое окончание, а разбор говорит нет")
+            sys.exit(1)
+    for stem in ("kontrollier", "reparier", "telefonier", "organisier"):
+        if syllabic_el_er(stem):
+            print(f"САМОПРОВЕРКА НЕ ПРОШЛА: у {stem} «-er» корневое, а разбор говорит слоговое")
             sys.exit(1)
 
     errs = []
