@@ -123,10 +123,38 @@ def is_obligatory_e(infinitive: str) -> bool:
     return stem.endswith("ig") and len(stem) > 2 and stem[-3] not in "aeiouäöü"
 
 
+#: Приставки немецкого глагола. Нужны, чтобы сверка «кончается на сильный
+#: глагол» работала по ГРАНИЦЕ МОРФЕМЫ. Без этого `trennen` признавался
+#: сильным, потому что кончается на `rennen`, и основа `trenn` выпадала
+#: из разбора целиком — ошибка нашлась на ряде 1451 во втором проходе.
+PREFIXES = (
+    "ab", "an", "auf", "aus", "be", "bei", "da", "dar", "durch", "ein",
+    "empor", "ent", "entgegen", "er", "fest", "fort", "ge", "her", "herauf",
+    "heraus", "herein", "herum", "herunter", "hervor", "hin", "hinauf",
+    "hinaus", "hinein", "hinter", "hinunter", "los", "miss", "mit", "nach",
+    "nieder", "über", "um", "unter", "ver", "voll", "vor", "voran", "vorbei",
+    "weg", "weiter", "wider", "wieder", "zer", "zu", "zurecht", "zurück",
+    "zusammen",
+)
+
+
 def is_strong(infinitive: str) -> bool:
-    """Сильный ли глагол: сверка по концу инфинитива, чтобы ловить приставочные."""
+    """Сильный ли глагол.
+
+    Сверка по концу инфинитива — чтобы ловить приставочные
+    (`anfangen` → `fangen`), — но только по ГРАНИЦЕ МОРФЕМЫ: то, что
+    стоит перед сильным глаголом, должно быть немецкой приставкой.
+    Иначе `trennen` «кончается на rennen» и объявляется сильным.
+    """
     low = infinitive.lower()
-    return any(low == s or low.endswith(s) for s in STRONG)
+    for s in STRONG:
+        if low == s:
+            return True
+        if low.endswith(s):
+            head = low[: -len(s)]
+            if head in PREFIXES or any(head == p1 + p2 for p1 in PREFIXES for p2 in PREFIXES):
+                return True
+    return False
 
 
 def function_words(conn) -> set[str]:
@@ -230,6 +258,15 @@ def selfcheck(stems: dict[str, str]) -> None:
     for inf in ("warten", "arbeiten", "beruhigen", "öffnen", "betätigen", "atmen"):
         if not is_obligatory_e(inf):
             print(f"САМОПРОВЕРКА НЕ ПРОШЛА: у {inf} «-e» обязательно, а разбор говорит нет")
+            sys.exit(1)
+    # сильный/слабый: сверка только по границе морфемы
+    for inf in ("geben", "nehmen", "anfangen", "verstehen", "bekommen"):
+        if not is_strong(inf):
+            print(f"САМОПРОВЕРКА НЕ ПРОШЛА: {inf} сильный, а разбор говорит нет")
+            sys.exit(1)
+    for inf in ("trennen", "machen", "zahlen", "folgen"):
+        if is_strong(inf):
+            print(f"САМОПРОВЕРКА НЕ ПРОШЛА: {inf} слабый, а разбор говорит сильный")
             sys.exit(1)
     for inf in ("zeigen", "neigen", "zahlen", "machen", "folgen", "stecken"):
         if is_obligatory_e(inf):
