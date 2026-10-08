@@ -1,0 +1,168 @@
+"""
+Примета: эталон просит «bitte», перевод велит голым приказом.
+
+ЗАЧЕМ. Класс всплывал по одному ряду в блоках 13 и 16 (`Anweisung`
+1150: немецкое «Bitte folge den Anweisungen», английское «Follow the
+instructions»). Разница не в стиле: учебная фраза «Klick bitte den Link
+an» учит просить, а «Kliknij na ten link» учит командовать. Это разные
+фразы.
+
+ПОЧЕМУ ЭТОТ ПРИЗНАК ЗАМКНУТ, А ОБЩИЙ — НЕТ. Сначала я замерил
+«усиление вообще»: sehr/echt/wirklich/ganz/total/einfach против их
+соответствий в пяти языках. Вышло 209 потерь и 461 добавка, и почти всё
+это — дыры моего же списка: польское «całkiem» и «po-настоящему» ничем
+не хуже «ganz» и «wirklich», а турецкое «çok» ставится свободнее
+немецкого «sehr». Перечисление по шести языкам не работает, и это
+ровно тот урок, что записан в журнале пять раз.
+
+А у «bitte» список ЗАМКНУТ: в каждом языке ровно одно-два слова
+(please / пожалуйста / будь ласка / lütfen / proszę), и больше их не
+бывает. Поэтому замер по «bitte» имеет смысл, а по «sehr» — нет.
+
+ДВА ВИДА ЛОЖНЫХ, И ОБА ОТСЕКАЮТСЯ ПРАВИЛОМ, А НЕ СПИСКОМ:
+
+  • «bitte» — ещё и форма глагола `bitten` (просить): «Ich bitte dich
+    um Hilfe», «Ich bitte um Gnade». Там перевод «Я прошу тебя о
+    помощи» верен, а примета считала его потерей. Отсекается разбором:
+    перед «bitte» стоит «ich», или после идёт «um»/«dich»/«euch».
+
+  • Вежливость может держаться НЕ на частице, а на вопросе: русское
+    «Можешь передать соль?» и польское «Czy możesz to przeczytać?»
+    вежливы сами по себе, частица там не нужна. Отсекается наличием
+    вопросительного знака в переводе.
+
+Замер до отсечения: 108 эталонов с «bitte», 37 переводов без
+вежливости, настоящих 14. После отсечения ложные падают с 23 до 3, и
+доля настоящих — около четырёх пятых. Гейтом примета всё равно не
+является: остаётся «bitte schön» (14035), где английское «there you
+go» и турецкое «buyrun» — правильная передача идиомы, а не потеря.
+
+    python -m app.scripts.scan_bitte_dropped
+"""
+
+from __future__ import annotations
+
+import re
+import sys
+from collections import Counter
+from pathlib import Path
+
+from sqlalchemy import create_engine, text
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
+from app.config import settings  # noqa: E402
+
+BITTE = re.compile(r"\bbitte\b", re.IGNORECASE)
+
+# «bitte» как форма глагола `bitten`, а не вежливая частица.
+VERB_BITTEN = re.compile(
+    r"\bich\s+bitte\b|\bbitte\s+(?:um|dich|euch|Sie\s+um)\b", re.IGNORECASE)
+
+# Вежливость в переводе. Список замкнут: других слов для этого в языках нет.
+# В турецком вежливость несёт ещё и вопросительная частица «-misin», и она
+# здесь нужна: «Bunu tekrar eder misin?» вежливо без «lütfen».
+POLITE = {
+    "en": r"\b(please)\b",
+    "ru": r"\b(пожалуйста|будьте\s+добры|будь\s+добр)\b",
+    "uk": r"\b(ласка|будьте\s+добрі)\b",
+    "tr": r"\b(lütfen|rica\s+ederim|m[iıuü]s[iıuü]n(?:iz)?|m[iıuü]s[iıuü]n[iı]z)\b",
+    "pl": r"\b(proszę|poproszę)\b",
+}
+POLITE = {k: re.compile(v, re.IGNORECASE) for k, v in POLITE.items()}
+LANGS = tuple(POLITE)
+
+
+def de_asks(sentence: str) -> bool:
+    """Стоит ли в эталоне «bitte» именно как вежливая частица."""
+    s = sentence or ""
+    if not BITTE.search(s):
+        return False
+    return not VERB_BITTEN.search(s)
+
+
+def dropped(lang: str, sentence: str) -> bool:
+    """Потеряна ли вежливость: нет ни частицы, ни вопроса."""
+    s = sentence or ""
+    if not s:
+        return False
+    if "?" in s:
+        return False
+    return not POLITE[lang].search(s)
+
+
+def selfcheck() -> None:
+    errs = []
+    # Глагол `bitten` просьбой НЕ считается.
+    for s in ("Ich bitte dich um Hilfe", "Ich bitte um Gnade"):
+        if de_asks(s):
+            errs.append(f"de: глагол `bitten` принят за частицу: {s!r}")
+    # А частица — считается, и в начале фразы тоже.
+    for s in ("Klick bitte den Link an", "Bitte folge den Anweisungen",
+              "Schließ bitte die Tür ab"):
+        if not de_asks(s):
+            errs.append(f"de: вежливое «bitte» не распознано: {s!r}")
+    # Потеря вежливости — голый приказ.
+    if not dropped("pl", "Kliknij na ten link"):
+        errs.append("pl: голый приказ не признан потерей")
+    if not dropped("en", "Follow the instructions"):
+        errs.append("en: голый приказ не признан потерей")
+    if not dropped("uk", "Закрути кришку"):
+        errs.append("uk: голый приказ не признан потерей")
+    # Вежливость на месте — ни частицей, ни вопросом трогать нельзя.
+    if dropped("pl", "Kliknij proszę na ten link"):
+        errs.append("pl: «proszę» не распознано")
+    if dropped("pl", "Poproszę szklankę wody"):
+        errs.append("pl: «Poproszę» не распознано")
+    if dropped("ru", "Можешь мне передать соль?"):
+        errs.append("ru: вежливость через вопрос не распознана")
+    if dropped("tr", "Bunu tekrar eder misin?"):
+        errs.append("tr: вежливость через «misin» не распознана")
+    if dropped("tr", "Lütfen kapıyı kilitle"):
+        errs.append("tr: «Lütfen» не распознано")
+    if errs:
+        print("САМОПРОВЕРКА НЕ ПРОШЛА:")
+        for e in errs:
+            print("   ", e)
+        sys.exit(1)
+    print("самопроверка: глагол `bitten` отделён от частицы, "
+          "вежливость через вопрос не считается потерей")
+
+
+def main() -> None:
+    selfcheck()
+    engine = create_engine(settings.DATABASE_URL_SYNC)
+    cols = ", ".join(f"example_{l}" for l in LANGS)
+    with engine.connect() as conn:
+        rows = conn.execute(
+            text(
+                f"SELECT id, word_de, example_de, {cols} FROM words "
+                "WHERE example_de IS NOT NULL ORDER BY id"
+            )
+        ).mappings().all()
+
+    asks = 0
+    hits: list[tuple[int, str, str, str, str]] = []
+    for r in rows:
+        de = r["example_de"] or ""
+        if not de_asks(de):
+            continue
+        asks += 1
+        for l in LANGS:
+            s = r[f"example_{l}"]
+            if s and dropped(l, s):
+                hits.append((r["id"], r["word_de"], l, de, s))
+
+    print(f"\nпрочитано рядов: {len(rows)}")
+    print(f"эталонов с вежливым «bitte»: {asks}")
+    print(f"переводов без вежливости: {len(hits)}  (нужны глаза)")
+    print("по языкам:", dict(Counter(h[2] for h in hits).most_common()))
+    print()
+    for wid, word, lang, de, other in hits:
+        print(f"  {wid:>6}  {word:<18} {lang}")
+        print(f"          de: {de}")
+        print(f"          ->  {other}")
+
+
+if __name__ == "__main__":
+    main()
