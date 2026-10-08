@@ -80,6 +80,49 @@ FEM_FORM = re.compile(
 )
 
 
+# ТРЕТЬЯ ПОЛОВИНА КЛАССА, найденная в блоке 12: ПОЛЬСКИЙ. Он тоже
+# показывает род в прошедшем, а примета смотрела только ru и uk.
+# `jahrelang` (2588) писал «CzekaŁAM na niego latami» при русском
+# «Я ждал». По базе: 19 женских форм против 307 мужских — мужской род
+# здесь такой же умолчание, как в русском.
+#
+# Признак у польского ЧИЩЕ русского: первое лицо прошедшего — «-łem»
+# мужское, «-łam» женское, без исключений. Мешает только то, что на
+# «-łam» кончается и настоящее время глаголов на «-łać» (wysyłam,
+# przesyłam, odsyłam, działam, wołam) — это 9 из 19 попаданий.
+#
+# Отделяются они НЕ списком, а проверкой по самой базе: если из слова
+# получается инфинитив на «-łać», который в польских переводах базы
+# есть, значит это настоящее время. Так «wysyłam» → «wysyłać» ✓
+# отбрасывается, а «czekałam» → «czekałać» ✗ остаётся.
+PL_FEM_PAST = re.compile(r"\b(\w+łam)\b", re.IGNORECASE)
+
+
+def pl_infinitives(conn) -> set[str]:
+    """Польские инфинитивы из переводов базы. Нужны, чтобы отличить
+    настоящее время глаголов на «-łać» от прошедшего женского рода."""
+    rows = conn.execute(
+        text("SELECT translation_pl FROM words WHERE translation_pl IS NOT NULL")
+    ).scalars()
+    out: set[str] = set()
+    for raw in rows:
+        for part in str(raw).split(","):
+            w = part.strip().lower()
+            if w.endswith("ć") and " " not in w:
+                out.add(w)
+    return out
+
+
+def pl_hit(sentence: str | None, infinitives: set[str]) -> str | None:
+    for m in PL_FEM_PAST.finditer(sentence or ""):
+        word = m.group(1)
+        # «wysyłam» → «wysyłać»: настоящее время, не род
+        if word[:-1].lower() + "ć" in infinitives:
+            continue
+        return word
+    return None
+
+
 def hit(sentence: str | None) -> str | None:
     m = FEM_PAST.search(sentence or "")
     return m.group(1) if m else None
@@ -146,10 +189,26 @@ def main() -> None:
             if (form := soft_hit(r[f"example_{lg}"])):
                 soft.append((r["id"], r["word_de"], lg, form, r[f"example_{lg}"]))
 
+    with engine.connect() as conn:
+        pl_inf = pl_infinitives(conn)
+        pl_rows = conn.execute(
+            text("SELECT id, word_de, example_pl FROM words "
+                 "WHERE example_pl IS NOT NULL ORDER BY id")
+        ).mappings().all()
+    pl_found = [
+        (r["id"], r["word_de"], form, r["example_pl"])
+        for r in pl_rows
+        if (form := pl_hit(r["example_pl"], pl_inf))
+    ]
+
     print(f"\nпрочитано рядов: {len(rows)}")
-    print(f"ячеек, где рассказчик — женщина: {len(found)}")
+    print(f"ячеек, где рассказчик — женщина (ru, uk): {len(found)}")
     for wid, word, lg, form, ex in found:
         print(f"  {wid:>6}  {word:<18} {lg}  «{form}»  {ex}")
+
+    print(f"\nПОЛЬСКИЙ, прошедшее женского рода: {len(pl_found)}")
+    for wid, word, form, ex in pl_found:
+        print(f"  {wid:>6}  {word:<18} «{form}»  {ex}")
 
     print(f"\nкраткая форма или существительное: {len(soft)}  (нужны глаза,"
           f" наречия на «-а» тут ложные)")
