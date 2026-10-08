@@ -97,6 +97,27 @@ FEM_FORM = re.compile(
 # отбрасывается, а «czekałam» → «czekałać» ✗ остаётся.
 PL_FEM_PAST = re.compile(r"\b(\w+łam)\b", re.IGNORECASE)
 
+# ДЫРА, НАЙДЕННАЯ В БЛОКЕ 17. Половина выше смотрит только ГЛАГОЛ, а род
+# рассказчика виден и по ПРИЛАГАТЕЛЬНОМУ: `schockiert` (10431) писал
+# «Jestem zszokowanA» при русском «Я потрясён» и украинском
+# «Я шокований». Класс был объявлен сметённым дважды, и дважды — только
+# по глагольному признаку.
+#
+# Замер: «jestem/czuję się/byłam» плюс женское прилагательное даёт 4
+# попадания против 114 мужских — мужской род здесь такое же умолчание.
+# Из четырёх два ложных по устройству признака (родительный падеж
+# существительного «Jestem z BerlinA», глагол «pociąg zaraz odjeżdżA»),
+# и поэтому эта половина — МЯГКАЯ, глаза нужны.
+#
+# И один трогать НЕЛЬЗЯ: `geborgen` (10862) — «W jego ramionach czuję
+# się otoczona» при немецком «in seinen Armen», где эталон сам ставит
+# рассказчицу женщиной, а русский и украинский согласованно женские. Тот
+# же случай, что `Vegetarierin` выше.
+PL_FEM_ADJ = re.compile(
+    r"\b(?:jestem|czuję\s+się|czuje\s+się|byłam)\b[^.!?]*?"
+    r"\b(\w{4,}(?:na|ta|ła|sza|cza|ża|ra|la|ka|ga|da|ba|wa|ma|pa))\b",
+    re.IGNORECASE)
+
 
 def pl_infinitives(conn) -> set[str]:
     """Польские инфинитивы из переводов базы. Нужны, чтобы отличить
@@ -111,6 +132,12 @@ def pl_infinitives(conn) -> set[str]:
             if w.endswith("ć") and " " not in w:
                 out.add(w)
     return out
+
+
+def pl_adj_hit(sentence: str | None) -> str | None:
+    """Женское прилагательное при «jestem/czuję się». Мягкий признак."""
+    m = PL_FEM_ADJ.search(sentence or "")
+    return m.group(1) if m else None
 
 
 def pl_hit(sentence: str | None, infinitives: set[str]) -> str | None:
@@ -158,6 +185,17 @@ def selfcheck() -> None:
     ]
     errs = [f"пропущено: {s!r}" for s in bad if not hit(s)]
     errs += [f"ложная тревога: {s!r} → {hit(s)}" for s in good if hit(s)]
+
+    # Польское прилагательное: то, что половина на «-łam» не видела.
+    if not pl_adj_hit("Jestem zszokowana jego słowami"):
+        errs.append("pl: женское прилагательное «zszokowana» не найдено")
+    if not pl_adj_hit("Czuję się zmęczona"):
+        errs.append("pl: женское прилагательное «zmęczona» не найдено")
+    if pl_adj_hit("Jestem zszokowany jego słowami"):
+        errs.append("pl: мужское «zszokowany» объявлено женским")
+    if pl_adj_hit("Jestem bardzo zmęczony"):
+        errs.append("pl: мужское «zmęczony» объявлено женским")
+
     if errs:
         print("САМОПРОВЕРКА НЕ ПРОШЛА:")
         for e in errs:
@@ -208,6 +246,16 @@ def main() -> None:
 
     print(f"\nПОЛЬСКИЙ, прошедшее женского рода: {len(pl_found)}")
     for wid, word, form, ex in pl_found:
+        print(f"  {wid:>6}  {word:<18} «{form}»  {ex}")
+
+    pl_adj = [
+        (r["id"], r["word_de"], form, r["example_pl"])
+        for r in pl_rows
+        if (form := pl_adj_hit(r["example_pl"]))
+    ]
+    print(f"\nПОЛЬСКИЙ, женское прилагательное: {len(pl_adj)}  (нужны глаза,"
+          f" родительный падеж и глаголы тут ложные)")
+    for wid, word, form, ex in pl_adj:
         print(f"  {wid:>6}  {word:<18} «{form}»  {ex}")
 
     print(f"\nкраткая форма или существительное: {len(soft)}  (нужны глаза,"
