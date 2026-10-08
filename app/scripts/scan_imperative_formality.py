@@ -57,11 +57,21 @@ FORMAL_DE = re.compile(r"\b(Sie|Ihnen|Ihre?[mnrs]?)\b")
 # турецкое вежливое: -iniz/-ınız/-unuz/-ünüz либо местоимение siz
 TR_FORMAL_SURE = re.compile(r"\b\w+[ıiuü]n[ıiuü]z\b|\bsiz(in|e|i)?\b", re.IGNORECASE)
 TR_INFORMAL = re.compile(r"\bsen(in|i|e|inle)?\b", re.IGNORECASE)
-# турецкое вежливое повелительное: -in/-ın/-un/-ün на конце слова
-TR_FORMAL_MAYBE = re.compile(r"\b\w{4,}[ıiuü]n\b")
+# турецкое вежливое повелительное: -in/-ın/-un/-ün на конце слова.
+#
+# ПОРОГ ДЛИНЫ: было `\w{4,}`, то есть четыре буквы ПЕРЕД окончанием, и
+# короткие формы проваливались — «gidin» (git+in) это пять букв всего.
+# Ряд `geradeaus` (329) нашёлся глазами в блоке 13 именно так. Порог
+# снижен до двух букв.
+TR_FORMAL_MAYBE = re.compile(r"\b\w{2,}[ıiuü]n\b")
 
-# украинское повелительное множественного/вежливого
-UK_FORMAL = re.compile(r"\b\w{4,}(?:йте|іть|ьте|ете|мте)\b", re.IGNORECASE)
+# Украинское повелительное множественного/вежливого. Та же ошибка порога:
+# «йдіть» — пять букв, под `\w{4,}` + «іть» не подходило.
+#
+# Окончание «ете» выброшено: в украинском это ещё и обычное настоящее
+# время второго лица множественного («читаєте»), и отличить одно от
+# другого без словаря нельзя.
+UK_FORMAL = re.compile(r"\b\w{2,}(?:йте|іть|ьте|мте)\b", re.IGNORECASE)
 UK_INFORMAL = re.compile(r"\b(ти|тебе|тобі|тобою|твій|твоя|твоє|твої)\b", re.IGNORECASE)
 
 
@@ -109,10 +119,14 @@ def selfcheck(stems: set[str]) -> None:
     # вежливость в переводах
     if not UK_FORMAL.search("Сортуйте сміття"):
         errs.append("uk: «Сортуйте» не распознано как вежливое")
+    if not UK_FORMAL.search("Будь ласка, йдіть прямо"):
+        errs.append("uk: короткое «йдіть» не распознано — порог длины")
     if UK_FORMAL.search("Сортуй сміття"):
         errs.append("uk: «Сортуй» ложно распознано как вежливое")
     if not TR_FORMAL_MAYBE.search("Çöpleri ayırın"):
         errs.append("tr: «ayırın» не распознано как возможно вежливое")
+    if not TR_FORMAL_MAYBE.search("Lütfen dümdüz gidin"):
+        errs.append("tr: короткое «gidin» не распознано — порог длины")
     if TR_FORMAL_MAYBE.search("Çöpleri ayır"):
         errs.append("tr: «ayır» ложно распознано")
     if not TR_FORMAL_SURE.search("Lütfen bekleyiniz"):
