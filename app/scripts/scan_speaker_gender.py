@@ -134,6 +134,28 @@ def pl_infinitives(conn) -> set[str]:
     return out
 
 
+# ЕЩЁ ОДНА ПОЛОВИНА, добавленная в блоке 21. Род рассказчика виден не
+# только по глаголу и прилагательному, но и по МЕСТОИМЕНИЮ: `nähen`
+# (1719) писал «Я шью себе одежду САМА» при немецком «Ich nähe meine
+# Kleidung selbst», где рода нет.
+#
+# Замер: ru 1 женское против 4 мужских, uk 1 против 7 — мужской род
+# здесь такое же умолчание базы, как везде. Нашёлся ровно один ряд, и
+# он же был найден глазами.
+#
+# ПОЛЬСКИЙ СЮДА НЕ ВХОДИТ, и причина в самом языке: «sama» значит и
+# «сама», и «та же». Замер дал 9 попаданий, из них восемь законные —
+# «ta SAMA kobieta» (та же женщина), «została sama» (она осталась
+# одна), «rozmawia sama ze sobą» (ОНА говорит сама с собой), «sama
+# waży» (муравей сам весит). Отличить без разбора подлежащего нельзя.
+SELF_FEM = re.compile(r"(?<![^\W\d_])я\b[^.!?]*?\bсама\b", re.IGNORECASE)
+
+
+def self_pronoun_hit(sentence: str | None) -> str | None:
+    """«я … сама» — рассказчица женщина. Только ru и uk."""
+    return "сама" if SELF_FEM.search(sentence or "") else None
+
+
 def pl_adj_hit(sentence: str | None) -> str | None:
     """Женское прилагательное при «jestem/czuję się». Мягкий признак."""
     m = PL_FEM_ADJ.search(sentence or "")
@@ -196,6 +218,16 @@ def selfcheck() -> None:
     if pl_adj_hit("Jestem bardzo zmęczony"):
         errs.append("pl: мужское «zmęczony» объявлено женским")
 
+    # Местоимение «сама» при «я».
+    if not self_pronoun_hit("Я шью себе одежду сама"):
+        errs.append("ru: «я … сама» не распознано")
+    if not self_pronoun_hit("Я сама шию собі одяг"):
+        errs.append("uk: «я сама» не распознано")
+    if self_pronoun_hit("Я шью себе одежду сам"):
+        errs.append("ru: мужское «сам» объявлено женским")
+    if self_pronoun_hit("Вона розмовляє сама з собою"):
+        errs.append("подлежащее «вона» принято за рассказчика")
+
     if errs:
         print("САМОПРОВЕРКА НЕ ПРОШЛА:")
         for e in errs:
@@ -257,6 +289,15 @@ def main() -> None:
           f" родительный падеж и глаголы тут ложные)")
     for wid, word, form, ex in pl_adj:
         print(f"  {wid:>6}  {word:<18} «{form}»  {ex}")
+
+    pron = [
+        (r["id"], r["word_de"], lg, r[f"example_{lg}"])
+        for r in rows for lg in ("ru", "uk")
+        if self_pronoun_hit(r[f"example_{lg}"])
+    ]
+    print(f"\n«я … сама» (ru, uk): {len(pron)}")
+    for wid, word, lg, ex in pron:
+        print(f"  {wid:>6}  {word:<18} {lg}  {ex}")
 
     print(f"\nкраткая форма или существительное: {len(soft)}  (нужны глаза,"
           f" наречия на «-а» тут ложные)")

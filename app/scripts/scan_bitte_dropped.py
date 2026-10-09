@@ -55,6 +55,17 @@ from app.config import settings  # noqa: E402
 
 BITTE = re.compile(r"\bbitte\b", re.IGNORECASE)
 
+# ОБРАТНОЕ НАПРАВЛЕНИЕ, добавленное в блоке 21: в эталоне просьбы нет, а
+# перевод вежлив. Первая версия замера дала 24 попадания, из них 19
+# польских — и все законные, потому что **польский формальный императив
+# ТАК И ОБРАЗУЕТСЯ**: «Proszę skręcić w lewo», «Proszę zadzwonić».
+# Другого способа сказать «Biegen Sie links ab» по-польски нет.
+#
+# Отсекается правилом: если немецкий эталон сам в вежливой форме
+# («Sie»/«Ihnen»/«Ihre»), польское «Proszę» — это перевод этой формы, а
+# не добавка. После отсечения 8 попаданий, настоящих 2–4.
+FORMAL_DE = re.compile(r"\b(Sie|Ihnen|Ihre?[mnrs]?)\b")
+
 # «bitte» как форма глагола `bitten`, а не вежливая частица.
 VERB_BITTEN = re.compile(
     r"\bich\s+bitte\b|\bbitte\s+(?:um|dich|euch|Sie\s+um)\b", re.IGNORECASE)
@@ -91,6 +102,17 @@ def dropped(lang: str, sentence: str) -> bool:
     return not POLITE[lang].search(s)
 
 
+def added(lang: str, de: str, sentence: str) -> str | None:
+    """Вежливость в переводе там, где эталон о ней не просит."""
+    s = sentence or ""
+    if not s or "?" in s:
+        return None
+    if BITTE.search(de or "") or FORMAL_DE.search(de or ""):
+        return None
+    m = POLITE[lang].search(s)
+    return m.group(0) if m else None
+
+
 def selfcheck() -> None:
     errs = []
     # Глагол `bitten` просьбой НЕ считается.
@@ -120,6 +142,17 @@ def selfcheck() -> None:
         errs.append("tr: вежливость через «misin» не распознана")
     if dropped("tr", "Lütfen kapıyı kilitle"):
         errs.append("tr: «Lütfen» не распознано")
+
+    # Обратное направление. Главное — не трогать польский формальный
+    # императив: он ТАК И ОБРАЗУЕТСЯ через «Proszę + инфинитив».
+    if added("pl", "Biegen Sie links ab", "Proszę skręcić w lewo"):
+        errs.append("pl: формальный императив принят за добавку вежливости")
+    if added("pl", "Rufen Sie die Hausverwaltung an",
+             "Proszę zadzwonić do administracji budynku"):
+        errs.append("pl: то же")
+    if not added("pl", "Mach die Tür zu", "Zamknij drzwi, proszę"):
+        errs.append("pl: добавленное «proszę» при неформальном эталоне не найдено")
+
     if errs:
         print("САМОПРОВЕРКА НЕ ПРОШЛА:")
         for e in errs:
@@ -160,6 +193,21 @@ def main() -> None:
     print()
     for wid, word, lang, de, other in hits:
         print(f"  {wid:>6}  {word:<18} {lang}")
+        print(f"          de: {de}")
+        print(f"          ->  {other}")
+
+    extra: list[tuple[int, str, str, str, str, str]] = []
+    for r in rows:
+        de = r["example_de"] or ""
+        for l in LANGS:
+            if (frag := added(l, de, r[f"example_{l}"])):
+                extra.append((r["id"], r["word_de"], l, frag, de, r[f"example_{l}"]))
+
+    print(f"\nвежливость ДОБАВЛЕНА, эталон о ней не просит: {len(extra)}"
+          f"  (нужны глаза)")
+    print("по языкам:", dict(Counter(h[2] for h in extra).most_common()))
+    for wid, word, lang, frag, de, other in extra:
+        print(f"  {wid:>6}  {word:<18} {lang} «{frag}»")
         print(f"          de: {de}")
         print(f"          ->  {other}")
 
