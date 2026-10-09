@@ -97,6 +97,21 @@ FEM_FORM = re.compile(
 # отбрасывается, а «czekałam» → «czekałać» ✗ остаётся.
 PL_FEM_PAST = re.compile(r"\b(\w+łam)\b", re.IGNORECASE)
 
+# ЧЕТВЁРТАЯ ПОЛОВИНА, добавленная в блоке 31: польское УСЛОВНОЕ.
+# `verwöhnen` (10831) писал «CHCIAŁABYM się porządnie rozpieścić» при
+# немецком «Ich möchte mich mal richtig verwöhnen», где рода нет, и при
+# нейтральных русском и украинском («Я хочу себя побаловать»).
+#
+# Половина на «-łam» этого не видела: условное кончается на «-łabym», а
+# не на «-łam». Замер: 1 женская форма против 20 мужских («Chciałbym
+# wypłacić sto euro», «Chciałbym zarezerwować stolik») — мужской род
+# здесь такое же умолчание базы, как во всех прочих половинах.
+#
+# Признак ЧИЩЕ, чем «-łam», и фильтр по инфинитивам ему не нужен: ни
+# одно польское настоящее первого лица на «-łabym» не кончается, так
+# что неоднозначности «wysyłam/kupiłam» здесь не возникает.
+PL_FEM_COND = re.compile(r"\b(\w+łabym)\b", re.IGNORECASE)
+
 # ДЫРА, НАЙДЕННАЯ В БЛОКЕ 17. Половина выше смотрит только ГЛАГОЛ, а род
 # рассказчика виден и по ПРИЛАГАТЕЛЬНОМУ: `schockiert` (10431) писал
 # «Jestem zszokowanA» при русском «Я потрясён» и украинском
@@ -163,6 +178,10 @@ def pl_adj_hit(sentence: str | None) -> str | None:
 
 
 def pl_hit(sentence: str | None, infinitives: set[str]) -> str | None:
+    # Условное «-łabym» однозначно, и фильтр инфинитивов ему не нужен
+    m = PL_FEM_COND.search(sentence or "")
+    if m:
+        return m.group(1)
     for m in PL_FEM_PAST.finditer(sentence or ""):
         word = m.group(1)
         # «wysyłam» → «wysyłać»: настоящее время, не род
@@ -217,6 +236,15 @@ def selfcheck() -> None:
         errs.append("pl: мужское «zszokowany» объявлено женским")
     if pl_adj_hit("Jestem bardzo zmęczony"):
         errs.append("pl: мужское «zmęczony» объявлено женским")
+
+    # Польское условное: «-łabym» женское, «-łbym» мужское.
+    if not PL_FEM_COND.search("Chciałabym pójść do spa"):
+        errs.append("pl: условное «Chciałabym» не найдено")
+    if PL_FEM_COND.search("Chciałbym zarezerwować stolik"):
+        errs.append("pl: мужское «Chciałbym» объявлено женским")
+    # И оно не должно путаться с нейтральным настоящим на «-łam»
+    if PL_FEM_COND.search("Wysyłam ci maila"):
+        errs.append("pl: настоящее «wysyłam» принято за условное")
 
     # Местоимение «сама» при «я».
     if not self_pronoun_hit("Я шью себе одежду сама"):
