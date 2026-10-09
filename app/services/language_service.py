@@ -273,6 +273,50 @@ def _stem_in(needle: str, haystack_tokens: list[str]) -> bool:
     return False
 
 
+def _stem_in_loose(needle: str, haystack_tokens: list[str]) -> bool:
+    """
+    То же, но с поблажкой на одну букву — для коротких слов.
+
+    Зачем. Четырёх букв основы хватает почти везде, но ровно у
+    четырёхбуквенного слова падежное окончание съедает нужную четвёртую
+    букву: «вода» и «воду» совпадают только на трёх, «шина» и «шину» тоже.
+    Строгое правило объявляло их разными словами, и карточка показывала не
+    то значение, что стоит в примере: ряд `Schiene` показывал «рельс», хотя
+    пример был про шину на руке, а `Messe` показывал «виставка», хотя пример
+    про мессу в церкви.
+
+    Поблажка узкая, и каждое её условие отрезает замеренный ложный случай:
+
+    · только сравнение с начала слова. Поиск основы внутри слова с тремя
+      буквами находит «ес» внутри «ресторане» — ветвь составного слова
+      поблажки не получает;
+    · не меньше трёх общих букв и слово не короче четырёх. Иначе «они» и
+      «она» становятся одним словом;
+    · слово примера должно быть длиннее основы. Иначе «then» цепляется за
+      «the», а «что?» за «что».
+
+    Решать поблажке позволено только при однозначности: если под неё
+    подходит больше одного значения из ячейки, выбор остаётся за строгим
+    правилом. На трёх буквах разные формы одного слова («живий» и «живе»,
+    «один в одного» и «одне в одне») неразличимы, и угадывать тут нечего.
+    """
+    head = _fold(needle)
+    if len(head) < _STEM_MIN:
+        return False
+    need = max(3, min(_STEM_MIN, len(head) - 1))
+    for token in haystack_tokens:
+        if len(token) <= need:
+            continue
+        common = 0
+        for a, b in zip(head, token):
+            if a != b:
+                break
+            common += 1
+        if common >= need and len(head) - common <= 3:
+            return True
+    return False
+
+
 def main_meaning(word, code: Optional[str]) -> str:
     """
     Одно значение из перевода — то самое, которое стоит в примере.
@@ -289,7 +333,9 @@ def main_meaning(word, code: Optional[str]) -> str:
     случае всё равно не про это слово, и выбирать не из чего.
 
     Сравнение по основе, а не по точному совпадению: «рыба» и «рыбу» — одно
-    слово, «Haus» и «Häuser» тоже.
+    слово, «Haus» и «Häuser» тоже. Если строгое сравнение не нашло ничего,
+    пробуется поблажка на одну букву — см. `_stem_in_loose`, там же почему
+    она применяется только при однозначном попадании.
     """
     full = word_text(word, code)
     if not full:
@@ -304,12 +350,23 @@ def main_meaning(word, code: Optional[str]) -> str:
         return parts[0]
 
     tokens = [_fold(t) for t in _TOKEN_RE.findall(example)]
-    for part in parts:
+
+    def head_of(part: str) -> str:
         # У многословного значения проверяем самое длинное слово: в «leczenie
         # sanatoryjne» опознавать надо по «sanatoryjne», а не по «leczenie»
         words = sorted(_TOKEN_RE.findall(part), key=len, reverse=True)
-        if words and _stem_in(words[0], tokens):
+        return words[0] if words else ""
+
+    for part in parts:
+        head = head_of(part)
+        if head and _stem_in(head, tokens):
             return part
+
+    # Строгое сравнение не нашло ничего. Поблажка решает только тогда, когда
+    # под неё подходит ровно одно значение: иначе выбирать не из чего.
+    loose = [p for p in parts if head_of(p) and _stem_in_loose(head_of(p), tokens)]
+    if len(loose) == 1:
+        return loose[0]
     return parts[0]
 
 

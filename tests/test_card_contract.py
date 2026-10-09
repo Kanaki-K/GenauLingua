@@ -75,6 +75,35 @@ class TestCardHead:
         word.example_en = "He is a real overachiever at school"
         assert main_meaning(word, "en") == "overachiever"
 
+    def test_short_word_is_recognised_through_its_case_ending(self):
+        """
+        У четырёхбуквенного слова падежное окончание съедает четвёртую букву.
+
+        Ряд `Schiene` показывал «рельс», а пример был про шину на руке:
+        «шина» и «шину» совпадают только на трёх буквах, и строгое правило
+        считало их разными словами.
+        """
+        word = make_word("Schiene", article="die", ru="рельс, шина")
+        word.example_ru = "После аварии он носил шину на руке"
+        assert main_meaning(word, "ru") == "шина"
+
+    def test_poblazhka_does_not_decide_between_forms_of_one_word(self):
+        """
+        На трёх буквах «они» и «она» неразличимы — выбирать нельзя.
+
+        Поблажке позволено решать только при однозначном попадании. Иначе
+        карточка ряда `sie` показала бы «она» там, где пример говорит «они».
+        """
+        word = make_word("sie", ru="они, она")
+        word.example_ru = "Они завтра зайдут"
+        assert main_meaning(word, "ru") == "они"
+
+    def test_short_example_word_is_not_a_judge(self):
+        """«then» не должно цепляться за «the» — слово примера короче основы."""
+        word = make_word("öfters", en="quite often, now and then")
+        word.example_en = "I go to the cinema often"
+        assert main_meaning(word, "en") == "quite often"
+
 
 class TestQuestionClip:
     """В вопросе звучит слово, и название клипа — ровно оно."""
