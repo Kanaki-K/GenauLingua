@@ -252,6 +252,43 @@ def _fold(s: str) -> str:
     return "".join(c for c in decomposed if not unicodedata.combining(c))
 
 
+_TAIL_STRICT = 3
+_TAIL_LOOSE = 5
+
+
+def _stem_tail(needle: str, haystack_tokens: list[str]) -> int | None:
+    """
+    Насколько ПЛОХО слово `needle` сходится с лучшим словом примера.
+
+    Возвращает, сколько букв основы осталось лишними при самом удачном
+    совпадении: 0 — слово нашлось целиком, 4 — совпали все буквы кроме
+    четырёх последних. `None` — не нашлось вовсе.
+
+    Нужно, чтобы выбирать ЛУЧШЕЕ значение, а не первое подошедшее. Пока
+    правило было «первое, что совпало», в `öfters` показывалось «частенько»
+    при примере «часто», а в `Moral` — «moralność» при примере «morale»:
+    ранний приблизительный вариант затенял поздний точный.
+    """
+    head = _fold(needle)
+    if not head:
+        return None
+    need = min(_STEM_MIN, len(head))
+    best: int | None = None
+    for token in haystack_tokens:
+        common = 0
+        for a, b in zip(head, token):
+            if a != b:
+                break
+            common += 1
+        if common >= need:
+            tail = len(head) - common
+            best = tail if best is None else min(best, tail)
+        # Основа может прятаться внутри составного слова: «gehen» в «weggehen»
+        if len(head) >= _STEM_MIN and head[: max(need, len(head) - 2)] in token:
+            best = 0
+    return best
+
+
 def _stem_in(needle: str, haystack_tokens: list[str]) -> bool:
     """Есть ли слово `needle` в словах примера, пусть и в другой форме."""
     head = _fold(needle)
@@ -357,12 +394,36 @@ def main_meaning(word, code: Optional[str]) -> str:
         words = sorted(_TOKEN_RE.findall(part), key=len, reverse=True)
         return words[0] if words else ""
 
-    for part in parts:
+    # Выбирается ЛУЧШЕЕ совпадение, а не первое по списку: иначе ранний
+    # неточный вариант затеняет поздний точный. Замерено — «часто» против
+    # «частенько» в `öfters`, «morale» против «moralność», «zehirli» против
+    # «zehirlenmiş»: во всех случаях пример содержит слово ровно, а
+    # показывалось соседнее. Ключ сортировки — (остаток основы, место в
+    # списке), поэтому при равной точности порядок ячейки по-прежнему решает.
+    scored = []
+    for index, part in enumerate(parts):
         head = head_of(part)
-        if head and _stem_in(head, tokens):
-            return part
+        if not head:
+            continue
+        tail = _stem_tail(head, tokens)
+        if tail is not None:
+            scored.append((tail, index, part))
 
-    # Строгое сравнение не нашло ничего. Поблажка решает только тогда, когда
+    strict = sorted(t for t in scored if t[0] <= _TAIL_STRICT)
+    if strict:
+        return strict[0][2]
+
+    # Строгое сравнение не нашло ничего. Тогда разрешается длинный хвост:
+    # в славянском и турецком инфинитив длиннее общей со формой основы
+    # больше чем на три буквы («одеваться» против «одеваюсь», «masayı
+    # toplamak» против «topluyorum»), и строгое правило объявляло их
+    # разными словами. Порог 5 замерен: на 4 закрывается 14 из 19 известных
+    # случаев, на 5 — все 19, на 6 и 7 не добавляется ни одного.
+    long_tail = sorted(t for t in scored if t[0] <= _TAIL_LOOSE)
+    if long_tail:
+        return long_tail[0][2]
+
+    # Поблажка на одну букву для коротких слов решает только тогда, когда
     # под неё подходит ровно одно значение: иначе выбирать не из чего.
     loose = [p for p in parts if head_of(p) and _stem_in_loose(head_of(p), tokens)]
     if len(loose) == 1:

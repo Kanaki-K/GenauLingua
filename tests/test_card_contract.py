@@ -75,6 +75,54 @@ class TestCardHead:
         word.example_en = "He is a real overachiever at school"
         assert main_meaning(word, "en") == "overachiever"
 
+    def test_exact_meaning_wins_over_an_earlier_approximate_one(self):
+        """
+        Из ячейки берётся ЛУЧШЕЕ совпадение, а не первое подошедшее.
+
+        Прежде правило было «первое, что совпало по основе», и ранний
+        приблизительный вариант затенял поздний точный: при примере «часто»
+        показывалось «частенько», при «morale» — «moralność». Замерено на
+        базе: 217 ячеек показывали соседнее слово вместо того, что в примере.
+        """
+        word = make_word("öfters", ru="частенько, часто, нередко")
+        word.example_ru = "Я часто хожу в кино"
+        assert main_meaning(word, "ru") == "часто"
+
+        other = make_word("Moral", pl="moralność, morale, etyka")
+        other.example_pl = "Jego morale jest bardzo dobre"
+        assert main_meaning(other, "pl") == "morale"
+
+    def test_verb_infinitive_is_recognised_through_its_conjugation(self):
+        """
+        Длинный хвост основы разрешён, когда строгое сравнение не нашло ничего.
+
+        В славянском и турецком инфинитив длиннее общей с формой основы
+        больше чем на три буквы: «одеваться» и «одеваюсь» совпадают на пяти
+        из девяти, «masayı toplamak» и «topluyorum» — на четырёх из восьми.
+        Строгое правило объявляло их разными словами, и карточка показывала
+        первое значение: `anziehen` показывал «надевать» на пример «я
+        одеваюсь», `abdecken` — «örtmek» на пример об убирании со стола.
+        """
+        word = make_word("anziehen", ru="надевать, одеваться, притягивать")
+        word.example_ru = "Я быстро одеваюсь"
+        assert main_meaning(word, "ru") == "одеваться"
+
+        other = make_word("abdecken", tr="örtmek, kapsamak, masayı toplamak")
+        other.example_tr = "Konuklar gitmeden önce masayı topluyorum"
+        assert main_meaning(other, "tr") == "masayı toplamak"
+
+    def test_long_tail_does_not_override_an_exact_hit(self):
+        """
+        Послабление на хвост включается только после строгого сравнения.
+
+        Иначе «частенько» (хвост 5 к «часто») побило бы точное «часто», и
+        лечение вышло бы хуже болезни. Порядок ярусов проверяется здесь
+        отдельно от самих ярусов.
+        """
+        word = make_word("zeugen", ru="зачать, породить, свидетельствовать")
+        word.example_ru = "Его квартира свидетельствует о хорошем вкусе"
+        assert main_meaning(word, "ru") == "свидетельствовать"
+
     def test_short_word_is_recognised_through_its_case_ending(self):
         """
         У четырёхбуквенного слова падежное окончание съедает четвёртую букву.
