@@ -107,6 +107,23 @@ def gender_clash(word: str, article: str, example: str) -> str | None:
     art = (article or "").strip().lower()
     if art not in ("der", "die", "das"):
         return None
+
+    # Эта проверка идёт ДО отсечки по окончаниям нарочно: отсечка нужна
+    # из-за чтения «die X» как множественного, а для «der X» в НАЧАЛЕ
+    # фразы множественного чтения нет вовсе. `Karnickel` на -el иначе
+    # проваливался бы сквозь отсечку — это нашла самопроверка.
+    if art == "das":
+        start = re.compile(
+            r"(?:^|(?<=[.!?–—]\s))\s*der\s+" + re.escape(word) + r"\b",
+            re.IGNORECASE,
+        )
+        match = start.search(example or "")
+        if match:
+            return (
+                f"{match.group(0).strip()!r} при артикле 'das': "
+                "«der» в начале фразы не может быть генитивом"
+            )
+
     if word.endswith(PLURAL_LIKE_ENDINGS):
         return None
     pattern = _ART_RE_CACHE.get(word)
@@ -169,11 +186,16 @@ def selfcheck() -> int:
         ("Tasche", "die", "Die Tasche ist schwer"),
         ("Haus", "das", "Das Haus ist alt"),
         ("Tisch", "der", "Ich stelle das Glas auf den Tisch"),
+        # «der X» при женском артикле — датив, законно и встречается 137 раз
+        ("Garage", "die", "Das Auto steht in der Garage"),
+        # «der X» при среднем, но НЕ в начале фразы — генитив множественного
+        ("Arbeitslager", "das", "Die Geschichte der Arbeitslager ist dunkel"),
     ]
     bad_gender = [
         ("Sellerie", "der", "Ich schneide die Sellerie klein"),
         ("Tasche", "die", "Ich nehme den Tasche mit"),
         ("Tisch", "der", "Das Tisch ist neu"),
+        ("Karnickel", "das", "Der Karnickel sitzt in seinem Käfig"),
     ]
     good_decl = [
         "Der Abgeordnete sprach im Parlament",
