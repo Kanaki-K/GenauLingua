@@ -22,6 +22,7 @@ from aiogram.types import (
     InlineKeyboardMarkup,
     Message,
 )
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.bot.buttons import BTN_SETTINGS, pressed
@@ -35,6 +36,7 @@ from app.services.audio_service import (
     synthesize_preview,
     voice_for_user,
 )
+from app.services.audio_store import voice_is_ready
 from app.services.tts_voices import by_gender, is_valid_voice, voices_for
 from app.services.language_service import (
     INTERFACE_LANGS,
@@ -711,6 +713,60 @@ async def audio_toggle(callback: CallbackQuery, session: AsyncSession):
     await settings_audio(callback, session)
 
 
+async def _voice_probes(session: AsyncSession, learning: str) -> list[tuple[str, str]]:
+    """
+    Несколько частотных слов языка — по ним судим, готов ли голос.
+
+    БЕРУТСЯ ТОЛЬКО КАНОНИЧЕСКИЕ РЯДЫ, и это не формальность. Клип нужен не
+    каждому ряду, а каждому каноническому в своём языке: ряды, дающие на
+    этом языке одно и то же слово, схлопнуты в группу и делят один клип.
+    Синтез обходил именно канонические.
+
+    Первая редакция брала просто четыре самых частотных ряда — и два из
+    четырёх («sie», «ist») оказались неканоническими для немецкого, клипов
+    у них нет ни у одного голоса. Основная Катя с её двадцатью четырьмя
+    тысячами клипов получала отметку «синтез на лету».
+
+    Это уже второй раз, когда забытая каноничность даёт ложный ответ:
+    первый был в `state_report`, где счёт по всем рядам показал
+    семнадцать тысяч несуществующих пропаж.
+
+    ПРОБЫ БЕРУТСЯ С ДВУХ КОНЦОВ ЧАСТОТНОГО СПИСКА. Синтез идёт от частотных
+    к редким, поэтому у начатого, но не доведённого голоса частотные слова
+    уже есть, а редких нет. Пробуй только частотные — и русский Дмитрий с
+    2 704 клипами из 19 689 получит отметку «мгновенно», хотя не хватает
+    восьмидесяти шести процентов.
+
+    Редкое слово отвечает на вопрос «досинтезирован ли голос ДО КОНЦА», и
+    только такой ответ честен перед учеником.
+    """
+    from app.database.models import Word, WordLangGroup
+
+    from app.services.audio_service import KIND_WORD, spoken_for
+
+    def query(order):
+        return (
+            select(Word)
+            .join(
+                WordLangGroup,
+                (WordLangGroup.word_id == Word.id)
+                & (WordLangGroup.lang == learning)
+                & (WordLangGroup.is_canonical.is_(True)),
+            )
+            .order_by(order)
+            .limit(2)
+        )
+
+    probes: list[tuple[str, str]] = []
+    for order in (Word.frequency_rank, Word.frequency_rank.desc()):
+        rows = await session.execute(query(order))
+        for word in rows.scalars():
+            spoken = spoken_for(word, learning, KIND_WORD)
+            if spoken:
+                probes.append((KIND_WORD, spoken))
+    return probes
+
+
 @router.callback_query(F.data == "audio_voices")
 async def audio_voices(callback: CallbackQuery, session: AsyncSession):
     """
@@ -726,6 +782,7 @@ async def audio_voices(callback: CallbackQuery, session: AsyncSession):
     pair = pair_from_user(user)
 
     chosen = await voice_for_user(session, user.id, pair.learning)
+    probes = await _voice_probes(session, pair.learning)
 
     rows: list[list[InlineKeyboardButton]] = []
     for gender, header_key in (("female", "voice_female"), ("male", "voice_male")):
@@ -738,7 +795,14 @@ async def audio_voices(callback: CallbackQuery, session: AsyncSession):
         rows.extend(_grid(
             [
                 InlineKeyboardButton(
-                    text=("✅ " if v.name == chosen else "") + v.label,
+                    # ⚡ у голосов с готовыми клипами. Предсинтезированы не
+                    # все: это гигабайты и часы на каждый, а у остальных
+                    # слово синтезируется на лету и примерно в одном случае
+                    # из пяти приходит без звука. Пока все голоса выглядели
+                    # одинаково, узнать причину немоты было неоткуда
+                    text=("✅ " if v.name == chosen else "")
+                         + v.label
+                         + ("" if voice_is_ready(pair.learning, v.name, probes) else " ·"),
                     callback_data=f"audio_voice_{v.name}",
                 )
                 for v in group
