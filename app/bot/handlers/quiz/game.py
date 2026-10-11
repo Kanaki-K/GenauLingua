@@ -97,6 +97,50 @@ async def _question_clip(
     )
 
 
+async def _clip_or_text(
+    session, user: User, word: Word, pair: LanguagePair, channel: QuizChannel,
+    options: list,
+):
+    """
+    Клип для вопроса, а если его нет — ПЕРЕСОБРАТЬ вопрос текстом.
+
+    Вопрос на слух держится на звуке: самого слова на экране нет, его
+    заменяет клип. Если клип не пришёл, на экране остаётся «Послушай и
+    выбери» и четыре варианта — вопрос без вопроса, на который можно только
+    ткнуть наугад.
+
+    Клип не приходит по трём причинам, и все три настоящие: ученик выключил
+    озвучку (это уже отсекается составом занятия), клипа нет на диске для
+    выбранного голоса, синтез не ответил. Последние две предсказать нельзя:
+    на неосновных голосах синтез срывается примерно в одном случае из
+    десяти, а голос ученик выбирает сам.
+
+    Поэтому решение принимается ЗДЕСЬ, после попытки получить звук, а не
+    при сборке вопроса: только здесь известно, есть он или нет.
+
+    Возвращает (клип, канал, варианты). Канал в ответе может отличаться от
+    запрошенного — тогда и засчитан ответ будет текстовым, что верно: на
+    слух ученик его не давал.
+    """
+    clip = await _question_clip(session, user, word, pair, channel)
+    if channel is not QuizChannel.AUDIO or clip is not None:
+        return clip, channel, options
+
+    logger.info(
+        "клип для вопроса на слух не получен (ряд %s, %s) — спрашиваю текстом",
+        word.id, pair.learning,
+    )
+    distractors = await get_distractors(word, session, pair, user=user)
+    if len(distractors) < OPTIONS_TOTAL - 1:
+        # Текстом тоже не собрать — отдаём как есть, звука не будет.
+        # Случай крайний: четырёх различимых вариантов не нашлось ни так, ни так
+        return clip, channel, options
+
+    text_options, _ = build_options(word, distractors, pair)
+    fallback_clip = await _question_clip(session, user, word, pair, QuizChannel.TEXT)
+    return fallback_clip, QuizChannel.TEXT, text_options
+
+
 def _question_text(
     word: Word,
     pair: LanguagePair,
@@ -361,6 +405,9 @@ async def start_quiz(message: Message, state: FSMContext, session: AsyncSession)
 
     word = question["correct_word"]
     channel = question["channel"]
+    clip, channel, question["options"] = await _clip_or_text(
+        session, user, word, pair, channel, question["options"]
+    )
 
     await state.update_data(
         session_id=quiz_session.id,
@@ -389,7 +436,7 @@ async def start_quiz(message: Message, state: FSMContext, session: AsyncSession)
         message.bot, message.chat.id, state, session,
         text=_question_text(word, pair, lang, 1, quiz_total, channel=channel),
         keyboard=get_answer_keyboard(question["options"]),
-        clip=await _question_clip(session, user, word, pair, channel),
+        clip=clip,
         word_id=word.id, lang=pair.learning,
     )
     await state.set_state(QuizStates.answering)
@@ -551,6 +598,12 @@ async def show_next_question(callback: CallbackQuery, state: FSMContext, session
         # трудности в одной попытке
         channel = QuizChannel.TEXT
         options, _ = build_options(word, distractors, pair)
+        # Клип считается и здесь: без него ветка повтора ошибок падала бы на
+        # `clip=clip` ниже с NameError — переменная задавалась только во
+        # второй ветке. Ошибка такого рода не видна ни тестам на функции, ни
+        # приёмке генератора: она живёт в потоке обработчика, а повтор ошибок
+        # начинается лишь после круга, в котором ошибки были.
+        clip = await _question_clip(session, user, word, pair, channel)
         await state.update_data(
             current_question=current_question,
             correct_word_id=word.id,
@@ -580,6 +633,9 @@ async def show_next_question(callback: CallbackQuery, state: FSMContext, session
         word = question["correct_word"]
         options = question["options"]
         channel = question["channel"]
+        clip, channel, options = await _clip_or_text(
+            session, user, word, pair, channel, options
+        )
         used_word_ids.append(word.id)
 
         # Хвост истории каналов: нужен только чтобы не ставить три
@@ -602,7 +658,7 @@ async def show_next_question(callback: CallbackQuery, state: FSMContext, session
             is_repeat=is_error_repeat, channel=channel,
         ),
         keyboard=get_answer_keyboard(options),
-        clip=await _question_clip(session, user, word, pair, channel),
+        clip=clip,
         word_id=word.id, lang=pair.learning,
         message=callback.message,
     )
