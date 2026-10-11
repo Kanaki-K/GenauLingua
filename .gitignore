@@ -470,3 +470,5 @@ asr_check.jsonl
 batch_cancel_*.json
 lemma_intra_collisions.json
 !app/scripts/state_report.py
+!app/scripts/fix_long_digit_example.py
+!app/scripts/tts_scan_duration.py
