@@ -217,14 +217,26 @@ def _question_text(
     return "".join(parts)
 
 
-def _answer_text(word: Word, pair: LanguagePair, lang: str, is_correct: bool) -> str:
+def _answer_text(
+    word: Word, pair: LanguagePair, lang: str, is_correct: bool,
+    channel: QuizChannel = QuizChannel.TEXT,
+) -> str:
     """
     Разбор ответа: пара «вопрос = ответ» и примеры на оба языка.
 
     Порядок сторон совпадает с направлением вопроса — сначала то, что
     спрашивали, потом ответ.
+
+    У ВОПРОСА НА СЛУХ СВОЙ ПОРЯДОК. Там спрашивал не язык значения, а ЗВУК
+    на изучаемом языке, и варианты стояли на нём же. Показать разбор как
+    «Опыт = die Erfahrung» значило бы начать с того, чего ученик вообще не
+    видел. Поэтому для слуха порядок всегда «изучаемый → значение»,
+    независимо от направления занятия.
     """
-    prompt_lang, answer_lang = pair.prompt_lang, pair.answer_lang
+    if channel is QuizChannel.AUDIO:
+        prompt_lang, answer_lang = pair.learning, pair.native
+    else:
+        prompt_lang, answer_lang = pair.prompt_lang, pair.answer_lang
 
     header = (
         get_text("quiz_correct", lang)
@@ -482,8 +494,20 @@ async def process_answer(callback: CallbackQuery, state: FSMContext, session: As
 
     # Что именно выбрал пользователь — по этому видно, какие неверные варианты
     # притягивают. Прежде колонка не заполнялась, и разбирать ошибки было нечем.
+    #
+    # ЗАПИСЫВАЕТСЯ НАДПИСЬ С КНОПКИ, А НЕ ЯЧЕЙКА, и на языке ТЕХ САМЫХ
+    # вариантов. Прежде бралось `word_text(..., pair.answer_lang)`, и после
+    # вопроса на слух выходило вот что: ученик нажал «die Erfrischung», а в
+    # базу шло «прохладительный напиток, освежение, освежающая закуска» —
+    # другой язык и вся ячейка вместо одного значения. Разбирать по такой
+    # записи, какие варианты притягивают, нельзя: там не то, что видели.
+    # Поле к тому же обрезано до 255 знаков, и длинные ячейки усекались.
+    #
+    # Язык вариантов задаёт канал: на слух они на ИЗУЧАЕМОМ языке, иначе —
+    # на языке ответа.
+    options_lang = pair.learning if channel is QuizChannel.AUDIO else pair.answer_lang
     selected_word = correct_word if is_correct else await session.get(Word, selected_word_id)
-    selected_text = word_text(selected_word, pair.answer_lang) if selected_word else None
+    selected_text = option_label(selected_word, options_lang) if selected_word else None
 
     asked_at = data.get("asked_at")
     response_seconds = None
@@ -539,7 +563,7 @@ async def process_answer(callback: CallbackQuery, state: FSMContext, session: As
     # там его было бы не разобрать.
     await show_card(
         callback.bot, callback.message.chat.id, state, session,
-        text=_answer_text(correct_word, pair, lang, is_correct),
+        text=_answer_text(correct_word, pair, lang, is_correct, channel),
         keyboard=get_next_question_keyboard(lang),
         clip=await clip_for_user(session, user, correct_word, pair.learning, KIND_FULL),
         word_id=correct_word.id, lang=pair.learning,
