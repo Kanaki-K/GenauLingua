@@ -37,11 +37,25 @@ from sqlalchemy.orm import Session  # noqa: E402
 
 from app.config import settings  # noqa: E402
 
-# Эталон целостности: эти числа не должны меняться от правок текста.
-# Любое расхождение означает, что тронули не ту таблицу.
+# Эталон целостности.
+#
+# Рядов должно быть РОВНО столько: правка текста не создаёт и не удаляет
+# ряды, и любое расхождение здесь означает, что тронули не ту таблицу.
 EXPECTED_ROWS = 12902
-EXPECTED_SHOWN = 29742
-EXPECTED_CORRECT = 26133
+
+# А вот показы и верные ответы — НЕ РОВНО, а НЕ МЕНЬШЕ.
+#
+# Сперва здесь стояло точное равенство, и это было верно ровно до того дня,
+# когда владелец сел играть в тестового бота сам: счётчики выросли на
+# одиннадцать показов, и отчёт закричал «СБОЙ целостности» при совершенно
+# целой базе. Ложная тревога такого рода хуже отсутствия проверки — новая
+# сессия увидела бы СБОЙ и пошла искать несуществующую порчу.
+#
+# Смысл проверки при этом сохраняется полностью: счётчики могут только
+# РАСТИ. Если они упали — значит кто-то переписал или потерял user_words, а
+# это ровно та беда, от которой гейт и поставлен.
+BASELINE_SHOWN = 29742
+BASELINE_CORRECT = 26133
 
 OK = "ОК  "
 BAD = "СБОЙ"
@@ -58,14 +72,25 @@ def check_base(engine) -> bool:
             text("SELECT SUM(times_shown), SUM(times_correct) FROM user_words")
         ).first()
 
-    good = (rows == EXPECTED_ROWS and shown == EXPECTED_SHOWN
-            and correct == EXPECTED_CORRECT)
+    shown = shown or 0
+    correct = correct or 0
+    good = (rows == EXPECTED_ROWS
+            and shown >= BASELINE_SHOWN
+            and correct >= BASELINE_CORRECT)
+
+    played = shown - BASELINE_SHOWN
+    tail = f", наиграно с эталона +{played}" if played else ""
     line(OK if good else BAD, "целостность базы",
-         f"рядов {rows}, показов {shown}, верных {correct}")
-    if not good:
-        line(BAD, "   ожидалось",
-             f"рядов {EXPECTED_ROWS}, показов {EXPECTED_SHOWN}, "
-             f"верных {EXPECTED_CORRECT}")
+         f"рядов {rows}, показов {shown}, верных {correct}{tail}")
+
+    if rows != EXPECTED_ROWS:
+        line(BAD, "   рядов не столько",
+             f"{rows} против {EXPECTED_ROWS} — тронули не ту таблицу")
+    if shown < BASELINE_SHOWN or correct < BASELINE_CORRECT:
+        line(BAD, "   счётчики УПАЛИ",
+             f"показов {shown} (было не меньше {BASELINE_SHOWN}), "
+             f"верных {correct} (не меньше {BASELINE_CORRECT}) — "
+             f"user_words переписан или потерян")
     return good
 
 
