@@ -45,7 +45,12 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database.models import User, UserTtsVoice, Word, WordAudio
 from app.services import audio_store
-from app.services.language_service import example_text, main_meaning, word_text
+from app.services.language_service import (
+    example_text,
+    main_meaning,
+    option_label,
+    word_text,
+)
 from app.services.tts_text import full_clip_text, needs_context, word_clip_text
 from app.services.tts_voices import DEFAULT_RATE, resolve_voice
 
@@ -371,12 +376,21 @@ async def get_clip(
     if not spoken:
         return None
 
-    # Название клипа — ровно то, что в нём звучит. Прежде сюда шла вся
-    # ячейка перевода, и в заголовке стояло «Swot, overachiever, nerd», тогда
-    # как голос произносил одно слово.
-    raw_word = main_meaning(word, lang)
+    # Название клипа — ровно то, что в нём звучит, и в той же записи, что
+    # на карточке. Прежде сюда шла вся ячейка перевода, и в заголовке
+    # стояло «Swot, overachiever, nerd», тогда как голос произносил одно
+    # слово; это было исправлено на `main_meaning`.
+    #
+    # Теперь берётся `option_label` — то же значение, но с заглавной по
+    # правилам языка. Разница видна на русском: карточка показывала
+    # «Автобус», а название клипа было «автобус». Владелец попросил, чтобы
+    # совпадало буква в букву: «если написано der Bus, то и на аудиофайле
+    # der Bus». По-немецки регистр и так не трогается — там он значим.
+    #
+    # На имя файла в хранилище это не влияет: ключ там хеш ПРОИЗНОСИМОГО
+    # текста, а не названия, поэтому переименование ничего не осиротило.
     example = example_text(word, lang) if kind == KIND_FULL else None
-    title = audio_title(raw_word, example)
+    title = audio_title(option_label(word, lang), example)
 
     cached = await session.scalar(
         select(WordAudio).where(

@@ -469,3 +469,4 @@ asr_check.jsonl
 *.batch.done
 batch_cancel_*.json
 lemma_intra_collisions.json
+!app/scripts/state_report.py
