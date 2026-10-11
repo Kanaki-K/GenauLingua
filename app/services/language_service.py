@@ -274,11 +274,33 @@ _STEM_MIN = 4
 _TOKEN_RE = re.compile(r"\w+", re.UNICODE)
 
 
-def _fold(s: str) -> str:
-    """Снять регистр и диакритику: Haus и Häuser должны сойтись."""
+def fold(s: str) -> str:
+    """
+    Привести текст к виду, пригодному для СРАВНЕНИЯ: без регистра и диакритики.
+
+    ЭТИМ, А НЕ `.lower()`. Питоновский `.lower()` на турецкой «İ» даёт «i» с
+    ОТДЕЛЬНОЙ комбинирующей точкой (U+0307), и сравнение с обычным «i»
+    расходится. Ловушка срабатывала уже четырежды: дважды в проверках
+    озвучки, один раз в гейте названий клипов и один раз в приёмке трёх
+    игр — каждый раз давая десятки ложных тревог при полностью верных
+    данных.
+
+    Здесь после `.lower()` строка раскладывается в NFD и комбинирующие
+    знаки выбрасываются, поэтому «İstisna» и «istisna» сходятся, как и
+    «Häuser» с «hauser».
+
+    Если где-то в коде появится сравнение текста через `.lower()` — это
+    почти наверняка пятый случай той же ошибки.
+    """
     s = s.lower().replace("ß", "ss").replace("ł", "l").replace("Ł", "l")
     decomposed = unicodedata.normalize("NFD", s)
-    return "".join(c for c in decomposed if not unicodedata.combining(c))
+    bare = "".join(c for c in decomposed if not unicodedata.combining(c))
+    # Турецкая БЕСТОЧЕЧНАЯ «ı» — вторая половина той же ловушки. Снятие
+    # комбинирующих знаков приводит к общему виду пару «İ»/«i», но не пару
+    # «I»/«ı»: Python переводит «I» в «i», тогда как по-турецки — в «ı»,
+    # и «Islık» со «ıslık» расходятся на первой же букве. Сводим обе к «i»
+    # — ровно так же, как уже сводим немецкие умляуты к голым гласным.
+    return bare.replace("ı", "i")
 
 
 _TAIL_STRICT = 3
@@ -298,7 +320,7 @@ def _stem_tail(needle: str, haystack_tokens: list[str]) -> int | None:
     при примере «часто», а в `Moral` — «moralność» при примере «morale»:
     ранний приблизительный вариант затенял поздний точный.
     """
-    head = _fold(needle)
+    head = fold(needle)
     if not head:
         return None
     need = min(_STEM_MIN, len(head))
@@ -320,7 +342,7 @@ def _stem_tail(needle: str, haystack_tokens: list[str]) -> int | None:
 
 def _stem_in(needle: str, haystack_tokens: list[str]) -> bool:
     """Есть ли слово `needle` в словах примера, пусть и в другой форме."""
-    head = _fold(needle)
+    head = fold(needle)
     if not head:
         return False
     need = min(_STEM_MIN, len(head))
@@ -366,7 +388,7 @@ def _stem_in_loose(needle: str, haystack_tokens: list[str]) -> bool:
     правилом. На трёх буквах разные формы одного слова («живий» и «живе»,
     «один в одного» и «одне в одне») неразличимы, и угадывать тут нечего.
     """
-    head = _fold(needle)
+    head = fold(needle)
     if len(head) < _STEM_MIN:
         return False
     need = max(3, min(_STEM_MIN, len(head) - 1))
@@ -415,7 +437,7 @@ def main_meaning(word, code: Optional[str]) -> str:
     if not example:
         return parts[0]
 
-    tokens = [_fold(t) for t in _TOKEN_RE.findall(example)]
+    tokens = [fold(t) for t in _TOKEN_RE.findall(example)]
 
     def head_of(part: str) -> str:
         # У многословного значения проверяем самое длинное слово: в «leczenie

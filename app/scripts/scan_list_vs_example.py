@@ -65,7 +65,7 @@ from app.config import settings
 from app.services.language_service import (
     _TOKEN_RE,
     _VARIANT_SPLIT_RE,
-    _fold,
+    fold,
     _stem_in,
     _stem_in_loose,
 )
@@ -79,7 +79,7 @@ def misses(translation: str | None, example: str | None) -> bool:
     if not translation or not example:
         return False
     parts = [p.strip() for p in _VARIANT_SPLIT_RE.split(translation) if p.strip()]
-    tokens = [_fold(t) for t in _TOKEN_RE.findall(example)]
+    tokens = [fold(t) for t in _TOKEN_RE.findall(example)]
     for part in parts:
         words = sorted(_TOKEN_RE.findall(part), key=len, reverse=True)
         if not words:

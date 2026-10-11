@@ -46,7 +46,6 @@ from app.services.monthly_leaderboard_service import update_monthly_stats
 from app.services.quiz_service import (
     OPTIONS_TOTAL,
     build_options,
-    channel_for_question,
     count_difficult_words,
     generate_question,
     get_distractors,
@@ -57,7 +56,7 @@ logger = logging.getLogger(__name__)
 
 router = Router()
 
-DEFAULT_QUIZ_LENGTH = 25
+DEFAULT_QUIZ_LENGTH = 15
 # Сколько раз пытаться подобрать слово, прежде чем признать, что подходящих нет
 QUESTION_ATTEMPTS = 10
 
@@ -338,14 +337,12 @@ async def start_quiz(message: Message, state: FSMContext, session: AsyncSession)
             return
         quiz_total = min(difficult, quiz_total)
 
-    # Канал первого вопроса. `channel_for_question` возвращает для него
-    # текстовый всегда: начинать занятие с того, что непонятно без звука —
-    # плохой способ его начать, особенно если звук не загрузился.
-    channel = channel_for_question(user, 1)
-
     try:
+        # Канал выбирает сам generate_question — после того, как SRS отдал
+        # слово: правило допуска к слуху смотрит на прогресс по КОНКРЕТНОМУ
+        # слову, и до выбора слова решать нечего.
         question = await generate_question(
-            session, user, exclude_ids=[], pair=pair, channel=channel
+            session, user, exclude_ids=[], pair=pair, recent_channels=[]
         )
     except Exception:
         logger.exception("Ошибка генерации первого вопроса (user=%s)", user.id)
@@ -363,6 +360,7 @@ async def start_quiz(message: Message, state: FSMContext, session: AsyncSession)
     await session.commit()
 
     word = question["correct_word"]
+    channel = question["channel"]
 
     await state.update_data(
         session_id=quiz_session.id,
@@ -375,6 +373,7 @@ async def start_quiz(message: Message, state: FSMContext, session: AsyncSession)
         is_error_repeat=False,
         asked_at=utcnow().timestamp(),
         channel=channel.value,
+        recent_channels=[channel.value],
     )
 
     try:
@@ -510,6 +509,7 @@ async def show_next_question(callback: CallbackQuery, state: FSMContext, session
     current_question = data["current_question"] + 1
     total_questions = data["total_questions"]
     used_word_ids = data.get("used_word_ids", [])
+    recent_channels = data.get("recent_channels", [])
 
     is_error_repeat = data.get("is_error_repeat", False)
     error_words = data.get("error_words", [])
@@ -555,13 +555,12 @@ async def show_next_question(callback: CallbackQuery, state: FSMContext, session
             channel=channel.value,
         )
     else:
-        channel = channel_for_question(user, current_question)
         question = None
         for _ in range(QUESTION_ATTEMPTS):
             try:
                 question = await generate_question(
                     session, user, exclude_ids=used_word_ids, pair=pair,
-                    channel=channel,
+                    recent_channels=recent_channels,
                 )
             except Exception:
                 logger.exception("Ошибка генерации вопроса (user=%s)", user.id)
@@ -576,7 +575,12 @@ async def show_next_question(callback: CallbackQuery, state: FSMContext, session
 
         word = question["correct_word"]
         options = question["options"]
+        channel = question["channel"]
         used_word_ids.append(word.id)
+
+        # Хвост истории каналов: нужен только чтобы не ставить три
+        # одинаковых подряд, поэтому двух последних достаточно
+        recent_channels = (recent_channels + [channel.value])[-2:]
 
         await state.update_data(
             current_question=current_question,
@@ -584,6 +588,7 @@ async def show_next_question(callback: CallbackQuery, state: FSMContext, session
             used_word_ids=used_word_ids,
             asked_at=utcnow().timestamp(),
             channel=channel.value,
+            recent_channels=recent_channels,
         )
 
     await show_card(

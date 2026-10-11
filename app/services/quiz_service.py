@@ -18,6 +18,7 @@ from app.database.enums import CEFRLevel, QuizChannel, QuizMode
 from app.database.models import PartOfSpeech, User, UserWord, Word, WordLangGroup
 from app.services.language_service import (
     LanguagePair,
+    fold,
     display_text,
     main_meaning,
     meaning_variants,
@@ -436,14 +437,26 @@ async def generate_question(
     user: User,
     exclude_ids: Optional[list[int]] = None,
     pair: Optional[LanguagePair] = None,
-    channel: QuizChannel = QuizChannel.TEXT,
+    recent_channels: Optional[list[str]] = None,
+    channel: Optional[QuizChannel] = None,
 ) -> Optional[dict]:
     """
     Вопрос викторины: слово, варианты ответа, индекс правильного, канал.
 
-    Канал приходит снаружи, а не выбирается здесь: его определяет номер
-    вопроса в занятии (`channel_for_question`), и подбор слова от канала не
-    зависит — одно и то же слово годится и на глаз, и на слух.
+    КАНАЛ ВЫБИРАЕТСЯ ЗДЕСЬ, ПОСЛЕ СЛОВА, а не снаружи до него. Иначе и быть
+    не может: правило допуска к слуху смотрит на прогресс по КОНКРЕТНОМУ
+    слову, а какое слово выпадет, решает SRS.
+
+    `recent_channels` — чем задавались предыдущие вопросы занятия; нужно
+    только чтобы не ставить три одинаковых подряд.
+
+    `channel` НАВЯЗЫВАЕТ канал, минуя правило допуска. Два применения:
+    прямой вход «только слух» с домашнего экрана и приёмка
+    `verify_quiz_channels`, которой иначе нечего было бы проверять — у
+    подопытного пользователя нет прогресса, и обычное правило всегда
+    давало бы текст. Первая редакция приёмки на этом и попалась: она
+    отрапортовала «все игры собираются верно», не собрав НИ ОДНОГО вопроса
+    на слух.
 
     Возвращает None, если подходящих слов не осталось.
     """
@@ -464,6 +477,11 @@ async def generate_question(
     if not correct_word:
         return None
 
+    if channel is None:
+        channel = await pick_channel(
+            session, user, correct_word, pair.learning, recent=recent_channels
+        )
+
     # Канал решает и ЧТО подставить в варианты, и НА КАКОМ они языке.
     #
     # На слух варианты обязаны быть созвучны: смысл не звучит, звучит форма.
@@ -478,9 +496,19 @@ async def generate_question(
         distractors = await get_distractors(correct_word, session, pair, user=user)
         builder = build_options
 
-    # Меньше четырёх различимых вариантов — вопрос был бы некорректным
+    # Меньше четырёх различимых вариантов — вопрос был бы некорректным.
+    #
+    # На слух это случается чаще: созвучных соседей у редкого слова может не
+    # найтись. Вместо того чтобы терять слово целиком, откатываемся на
+    # текстовый вопрос — он корректен всегда.
     if len(distractors) < OPTIONS_TOTAL - 1:
-        return None
+        if channel is not QuizChannel.AUDIO:
+            return None
+        channel = QuizChannel.TEXT
+        distractors = await get_distractors(correct_word, session, pair, user=user)
+        builder = build_options
+        if len(distractors) < OPTIONS_TOTAL - 1:
+            return None
 
     options, correct_index = builder(correct_word, distractors, pair)
 
@@ -806,9 +834,19 @@ async def get_soundalike_distractors(
     германских и славянских языках общее начало почти всегда означает общее
     звучание начала.
 
-    Если созвучных не набралось (редкое слово, короткий язык), добор идёт
-    обычными дистракторами: лучше более лёгкий вопрос, чем вопрос без
-    вариантов.
+    СКОЛЬКО СОЗВУЧНЫХ НУЖНО, ЧТОБЫ ВОПРОС СОСТОЯЛСЯ. Хотя бы один. Если не
+    нашлось ни одного — возвращается пустой список, и вызывающий код задаёт
+    вопрос текстом.
+
+    Это не придирчивость, а замер: приёмка `verify_quiz_channels` на 360
+    вопросах нашла 35 (≈10%), где созвучных не было вовсе и варианты
+    добирались обычными. Выходило, например, «лебедь · багажная лента ·
+    халат · выход» — различить можно по длине, не вслушиваясь. Такой вопрос
+    не сломан, но и слухом не является.
+
+    Добор обычными дистракторами при этом остался: если созвучный ОДИН,
+    два других берутся как придётся — одной настоящей путаницы достаточно,
+    чтобы прослушать пришлось целиком.
     """
     learning_col = word_column(pair.learning)
 
@@ -856,7 +894,7 @@ async def get_soundalike_distractors(
             label = _bare_meaning(candidate, pair.learning)
             # Сверяем ЗВУЧАЩЕЕ значение, а не ячейку: созвучие должно быть у
             # того, что ученик услышит и увидит на кнопке
-            if not label.lower().startswith(head.lower()):
+            if not fold(label).startswith(fold(head)):
                 continue
             # Близкие по длине: разница больше трети делает ответ различимым
             # без вслушивания
@@ -870,6 +908,10 @@ async def get_soundalike_distractors(
             excluded_ids.append(candidate.id)
             if len(picked) >= count:
                 break
+
+    # Ни одного созвучного — вопроса на слух не выйдет
+    if not picked:
+        return []
 
     if len(picked) < count:
         # Добор обычными: вопрос станет легче, но останется вопросом
@@ -921,6 +963,12 @@ def build_audio_options(
 # СОСТАВ ЗАНЯТИЯ: каким каналом задать очередной вопрос
 # ============================================================================
 
+# Сколько верных ответов ГЛАЗАМИ открывают слово для вопроса на слух.
+# Один: показа мало (можно было ткнуть мимо), а трёх много — к тому
+# времени ученик перерос текстовый вопрос, и слух придёт слишком поздно.
+AUDIO_UNLOCK_CORRECT = 1
+
+
 def enabled_channels(user: Optional[User]) -> list[QuizChannel]:
     """
     Какие каналы включены у человека, в постоянном порядке.
@@ -937,24 +985,69 @@ def enabled_channels(user: Optional[User]) -> list[QuizChannel]:
     return picked or [QuizChannel.TEXT]
 
 
-def channel_for_question(user: Optional[User], index: int) -> QuizChannel:
+async def pick_channel(
+    session: AsyncSession,
+    user: Optional[User],
+    word: Word,
+    learning_lang: str,
+    recent: Optional[list[str]] = None,
+) -> QuizChannel:
     """
-    Канал очередного вопроса: чередование, а не жребий.
+    Каким каналом задать вопрос ПРО ЭТО СЛОВО.
 
-    ПОЧЕМУ НЕ СЛУЧАЙНО. Случайный выбор на двадцати пяти вопросах регулярно
-    даёт перекос — пять аудио подряд или ни одного за занятие, — и человек
-    видит в этом не разнообразие, а поломку. Чередование даёт ровно тот
-    состав, который обещан в настройках.
+    Канал следует за словом, а не за номером вопроса. Первая версия просто
+    чередовала «текст, слух, текст, слух» по счётчику, и это было неверно
+    по сути: **нельзя узнать на слух то, чего ни разу не видел.** Новое
+    слово, пришедшее сразу звуком, — не упражнение, а загадка: ученик жмёт
+    наугад, промахивается и запоминает неверный вариант.
 
-    ПОЧЕМУ ВООБЩЕ ЧЕРЕДОВАТЬ, А НЕ ДЕЛИТЬ НА ИГРЫ. Когда слово приходит то
-    глазами, то на слух, оно закрепляется прочнее, чем после двадцати пяти
-    однотипных повторов. Это и есть довод против трёх отдельных кнопок в
-    меню: чередование — не оформление, а способ учить лучше.
+    ПРАВИЛО ДОПУСКА К СЛУХУ: слово хотя бы раз отвечено ВЕРНО.
 
-    Первый вопрос всегда текстовый: начинать занятие с того, что непонятно
-    без звука, — плохой способ его начать, особенно если звук не загрузился.
+    Не «показано» и не «выучено», а именно один верный ответ. Показано —
+    мало: можно было ткнуть мимо. Выучено (три подряд) — много: ученик к
+    тому времени уже перерос текстовый вопрос, и слух пришёл бы слишком
+    поздно, когда интерес к слову иссяк. Один успех глазами — ровно та
+    точка, где «узнаю написанное» уже есть, а «узнаю на слух» ещё нет.
+
+    ПОЧЕМУ ПОРЯДОК ВЫХОДИТ НЕРОВНЫМ, И ЭТО ХОРОШО. Жёсткое чередование
+    T A T A предсказуемо и оттого скучно. Здесь ритм ломается сам, потому
+    что ломается материал: подбор по SRS даёт вперемешку новые слова,
+    трудные и знакомые, — и получается что-то вроде
+
+        T A T T A T A A T T A T A T A
+
+    Это не случайность (её тут нет вовсе), а отражение того, насколько
+    человек знает каждое следующее слово. Занятие само становится легче
+    или труднее вслед за ним.
+
+    НЕ БОЛЬШЕ ДВУХ ОДИНАКОВЫХ ПОДРЯД. Единственное ограничение сверху:
+    у продвинутого ученика почти всё допущено к слуху, и занятие
+    выродилось бы в сплошное аудирование. Третий вопрос того же канала
+    заменяется другим.
     """
     channels = enabled_channels(user)
-    if len(channels) == 1 or index <= 1:
-        return channels[0]
-    return channels[(index - 1) % len(channels)]
+    if QuizChannel.AUDIO not in channels:
+        return QuizChannel.TEXT
+
+    # Не три одинаковых подряд
+    recent = recent or []
+    if len(recent) >= 2 and recent[-1] == recent[-2] == QuizChannel.AUDIO.value:
+        return QuizChannel.TEXT
+
+    progress = await session.execute(
+        select(UserWord.times_correct).where(
+            UserWord.user_id == (user.id if user else 0),
+            UserWord.word_id == word.id,
+            UserWord.learning_lang == learning_lang,
+        )
+    )
+    times_correct = progress.scalar() or 0
+
+    # Слово ещё не давалось верно глазами — на слух рано
+    if times_correct < AUDIO_UNLOCK_CORRECT:
+        return QuizChannel.TEXT
+
+    # Знакомое слово: спрашиваем тем каналом, где навыка ещё нет
+    if recent and recent[-1] == QuizChannel.AUDIO.value:
+        return QuizChannel.TEXT
+    return QuizChannel.AUDIO

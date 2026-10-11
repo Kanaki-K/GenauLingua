@@ -77,7 +77,10 @@ class User(Base):
     last_notification_sent: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
 
     # === НАСТРОЙКИ ВИКТОРИНЫ ===
-    quiz_word_count: Mapped[int] = mapped_column(Integer, default=25)
+    # Круг из 15, а не 25: вопросы на слух дольше текстовых, и длинный круг
+    # начинают бросать на середине. Короткий чаще ДОВОДЯТ до конца, а
+    # законченное занятие — это и отметка в стрике, и строка в рейтинге.
+    quiz_word_count: Mapped[int] = mapped_column(Integer, default=15)
 
     # === ОЗВУЧКА ===
     # Включена по умолчанию: озвучку просили в отзывах, и это главное, за чем

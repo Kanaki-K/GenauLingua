@@ -62,13 +62,13 @@ from itertools import combinations
 from sqlalchemy import create_engine, text
 
 from app.config import settings
-from app.services.language_service import _VARIANT_SPLIT_RE, _fold
+from app.services.language_service import _VARIANT_SPLIT_RE, fold
 
 
 def variants(cell: str | None) -> set[str]:
     """Значения из ячейки перевода, со снятым регистром и диакритикой."""
     return {
-        _fold(p.strip())
+        fold(p.strip())
         for p in _VARIANT_SPLIT_RE.split(cell or "")
         if p.strip()
     }

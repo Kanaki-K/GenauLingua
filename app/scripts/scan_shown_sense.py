@@ -100,7 +100,7 @@ from app.services.language_service import (
     _TAIL_STRICT,
     _TOKEN_RE,
     _VARIANT_SPLIT_RE,
-    _fold,
+    fold,
     _stem_in_loose,
     _stem_tail,
 )
@@ -117,7 +117,7 @@ def head_of(part: str) -> str:
 
 def chosen_index(parts: list[str], example: str) -> int | None:
     """Какой по счёту вариант выберет `main_meaning`, или None — не нашёл."""
-    tokens = [_fold(t) for t in _TOKEN_RE.findall(example)]
+    tokens = [fold(t) for t in _TOKEN_RE.findall(example)]
     scored = []
     for index, part in enumerate(parts):
         head = head_of(part)

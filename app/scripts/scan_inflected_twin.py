@@ -128,7 +128,7 @@ from itertools import combinations
 from sqlalchemy import create_engine, text
 
 from app.config import settings
-from app.services.language_service import _VARIANT_SPLIT_RE, _fold
+from app.services.language_service import _VARIANT_SPLIT_RE, fold
 
 # Немецкие словоизменительные окончания. Список намеренно короткий: он
 # отсекает деривацию (`Abfall` → `abfallen`), оставляя словоизменение.
@@ -185,7 +185,7 @@ def stem_tails(a: str, b: str) -> tuple[str, str] | None:
 
 def variants(cell: str | None) -> set[str]:
     return {
-        _fold(p.strip())
+        fold(p.strip())
         for p in _VARIANT_SPLIT_RE.split(cell or "")
         if p.strip()
     }
