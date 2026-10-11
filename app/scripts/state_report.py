@@ -156,6 +156,44 @@ def check_audio(engine) -> bool:
     return not missing
 
 
+def check_pairs(engine) -> bool:
+    """
+    Языковые пары: на каждой ли есть чем играть.
+
+    Пар тридцать — шесть изучаемых языков на пять языков значения. Если в
+    какой-то паре рядов мало, викторина по ней выйдет куцей, и заметить это
+    иначе как счётом нельзя.
+    """
+    from app.services.language_service import LANGUAGES, LEARNABLE_LANGS
+
+    worst = None
+    with engine.connect() as conn:
+        for learn in LEARNABLE_LANGS:
+            la = LANGUAGES[learn]
+            for native in LEARNABLE_LANGS:
+                if learn == native:
+                    continue
+                na = LANGUAGES[native]
+                n = conn.execute(text(f"""
+                    SELECT COUNT(*) FROM words w
+                    JOIN word_lang_groups g
+                      ON g.word_id = w.id AND g.lang = :l AND g.is_canonical
+                    WHERE w.{la.word_attr} IS NOT NULL
+                      AND btrim(w.{la.word_attr}) <> ''
+                      AND w.{na.word_attr} IS NOT NULL
+                      AND btrim(w.{na.word_attr}) <> ''
+                      AND w.{la.example_attr} IS NOT NULL
+                      AND w.{na.example_attr} IS NOT NULL
+                """), {"l": learn}).scalar()
+                if worst is None or n < worst[0]:
+                    worst = (n, f"{learn}->{native}")
+
+    good = worst is not None and worst[0] >= 5000
+    line(OK if good else BAD, "языковые пары",
+         f"все 30 покрыты, самая бедная {worst[1]} — {worst[0]} рядов")
+    return good
+
+
 def check_asr() -> None:
     """Проверка слухом — если её запускали, показать результат."""
     files = sorted(glob.glob("asr_check*.jsonl"))
@@ -176,7 +214,8 @@ def check_asr() -> None:
 def main() -> int:
     engine = create_engine(settings.DATABASE_URL_SYNC)
     print("\n=== СОСТОЯНИЕ ===\n")
-    results = [check_base(engine), check_card(engine), check_audio(engine)]
+    results = [check_base(engine), check_pairs(engine),
+               check_card(engine), check_audio(engine)]
     check_asr()
     print()
     if all(results):
