@@ -451,3 +451,21 @@ asr_*.jsonl
 !app/scripts/fix_pass3_block_12.py
 !app/scripts/fix_pass3_block_13.py
 !app/scripts/fix_pass3_block_14.py
+
+# Рабочие выгрузки вычитки: все воспроизводимы скриптами, в истории не нужны.
+# Блоки — wordbase_review_block, выгрузки примет — сами приметы,
+# verify_* — verify_wordbase, asr_check.jsonl — tts_asr_check.
+block_*.txt
+pass2_block_*.txt
+pass3_block_*.txt
+ex_*.txt
+scan_*.txt
+verify_*.txt
+sample*.txt
+need_pl*.txt
+pl_half*.txt
+pl_rest.txt
+asr_check.jsonl
+*.batch.done
+batch_cancel_*.json
+lemma_intra_collisions.json
