@@ -138,11 +138,37 @@ class UserWord(Base):
     # «das Haus» не делает выученным «house». Часть первичного ключа.
     learning_lang = mapped_column(String(2), primary_key=True, nullable=False, server_default="de")
 
-    # прогресс по слову
+    # прогресс по слову — ОБЩИЙ итог по всем каналам
     correct_streak = mapped_column(Integer, default=0, nullable=False)
     times_shown = mapped_column(Integer, default=0, nullable=False)
     times_correct = mapped_column(Integer, default=0, nullable=False)
     last_seen_at = mapped_column(DateTime, nullable=True)
+
+    # Из общего итога выделены два канала: слух и речь. Третий, текстовый,
+    # НЕ хранится — он выводится вычитанием и потому не может разойтись с
+    # итогом. Отдельной колонкой его рано или поздно обновили бы не вместе с
+    # остальными, и это вопрос времени, а не аккуратности.
+    #
+    # Итог читают все: подбор по SRS, отметка «выучено», рейтинг, статистика
+    # и гейт целостности. Поэтому он и остался итогом — ни один существующий
+    # запрос трогать не пришлось.
+    #
+    # Зачем вообще делить: узнать слово глазами, узнать на слух и произнести
+    # вслух — три разных навыка. Смешаешь в одном счётчике — потеряешь
+    # видимый разрыв между ними, а он и мотивирует сильнее всего.
+    shown_audio = mapped_column(Integer, default=0, nullable=False, server_default="0")
+    correct_audio = mapped_column(Integer, default=0, nullable=False, server_default="0")
+    shown_speech = mapped_column(Integer, default=0, nullable=False, server_default="0")
+    correct_speech = mapped_column(Integer, default=0, nullable=False, server_default="0")
+
+    @property
+    def shown_text(self) -> int:
+        """Текстовых показов: всё, что не слух и не речь."""
+        return self.times_shown - self.shown_audio - self.shown_speech
+
+    @property
+    def correct_text(self) -> int:
+        return self.times_correct - self.correct_audio - self.correct_speech
 
     # считается "выучено", когда достигнут порог streak
     learned = mapped_column(Boolean, default=False, nullable=False)
