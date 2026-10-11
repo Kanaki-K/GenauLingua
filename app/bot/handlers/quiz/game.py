@@ -26,6 +26,7 @@ from app.bot.handlers.quiz.card import show_card
 from app.bot.utils import delete_messages_fast, ensure_anchor
 from app.services.audio_service import (
     KIND_FULL,
+    KIND_WORD,
     clip_for_user,
     clip_kind_for_question,
 )
@@ -86,10 +87,19 @@ async def _question_clip(
     клип с примером, где контекст задаёт чтение однозначно.
     """
     if channel is QuizChannel.AUDIO:
-        return await clip_for_user(
-            session, user, word, pair.learning,
-            clip_kind_for_question(word, pair.learning),
-        )
+        # ВСЕГДА ОДНО СЛОВО, даже для гетеронима.
+        #
+        # Карточке клип с примером нужен: там слово видно, и прочитанное
+        # наугад («live» как /lɪv/ или /laɪv/) учило бы неверному
+        # произношению. На слух этой беды нет — оба чтения ПИШУТСЯ
+        # одинаково, а спрашивают тут именно написание.
+        #
+        # Зато вред от примера настоящий: 109 рядов проигрывали бы целое
+        # предложение — «to live … We like living in this city» — при
+        # вариантах из одного слова. Это другая задача, заметно более
+        # лёгкая, и соседние вопросы круга оказывались бы разной трудности
+        # без всякой причины.
+        return await clip_for_user(session, user, word, pair.learning, KIND_WORD)
     if pair.reverse:
         return None
     return await clip_for_user(
@@ -764,8 +774,16 @@ async def _finish_quiz(
     items = result_items.all()
 
     details = []
+    by_ear = 0
     for item, word in items:
         icon = "✅" if item.is_correct else "❌"
+        # Вопросы на слух помечены в разборе: иначе новая игра растворяется
+        # в списке и человек не замечает, что уже узнаёт слова ушами.
+        # Отметка ставится у ВОПРОСА, а не у слова: одно и то же слово в
+        # разных кругах приходит разными каналами.
+        if item.channel == QuizChannel.AUDIO.value:
+            by_ear += 1
+            icon += " 🎧"
         details.append(
             f"{icon} {option_label(word, pair.learning)} — {option_label(word, pair.native)}"
         )

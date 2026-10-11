@@ -556,3 +556,15 @@ TEXTS.update({
 TEXTS.update({
     "voice_not_ready_hint": "<i>· neben einer Stimme heißt: noch nicht vollständig aufgenommen — das Wort wird live erzeugt, manchmal verzögert oder ohne Ton</i>",
 })
+
+
+# ============================================================================
+# ИТОГ КРУГА: сколько вопросов было на слух
+#
+# Иначе новая игра растворяется в общем списке, и человек не замечает, что
+# уже узнаёт слова ушами. Строка показывается, только если такие вопросы
+# были.
+# ============================================================================
+TEXTS.update({
+    "quiz_result_by_ear": "🎧 Nach Gehör: {count}",
+})

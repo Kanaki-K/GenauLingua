@@ -543,3 +543,15 @@ TEXTS.update({
 TEXTS.update({
     "voice_not_ready_hint": "<i>· next to a voice means it is not fully recorded yet: words are synthesized on the fly, sometimes with a delay or no sound</i>",
 })
+
+
+# ============================================================================
+# ИТОГ КРУГА: сколько вопросов было на слух
+#
+# Иначе новая игра растворяется в общем списке, и человек не замечает, что
+# уже узнаёт слова ушами. Строка показывается, только если такие вопросы
+# были.
+# ============================================================================
+TEXTS.update({
+    "quiz_result_by_ear": "🎧 By ear: {count}",
+})
