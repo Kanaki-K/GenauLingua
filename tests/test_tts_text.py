@@ -211,10 +211,15 @@ class TestFullClip:
         assert full_clip_text("das Haus", "", "de") == "das Haus"
 
     def test_rules_apply_inside_full_clip(self):
+        """
+        Сокращения разворачиваются и внутри полного клипа.
+
+        Числа — нет: с 2026-10-11 их читает сам движок, и читает лучше
+        (см. TestNumbersAreNotExpandedForSpeech).
+        """
         result = full_clip_text("Beispiel", "z.B. 3 Hunde", "de")
         assert "zum Beispiel" in result
-        assert "drei" in result
-        assert not any(ch.isdigit() for ch in result)
+        assert "3 Hunde" in result
 
 
 class TestAbbreviationBoundaries:
@@ -245,3 +250,40 @@ class TestAbbreviationBoundaries:
         assert expand_abbreviations("np. koty", "pl") == "na przykład koty"
         assert expand_abbreviations("z.B. Hunde", "de") == "zum Beispiel Hunde"
         assert expand_abbreviations("и т.д.", "ru") == "и так далее"
+
+
+class TestNumbersAreNotExpandedForSpeech:
+    """
+    Речевой путь числа НЕ разворачивает — это делает движок, и делает лучше.
+
+    Замер, на котором решение принималось (синтез обоих вариантов плюс
+    распознавание):
+
+        «Ich bin in der 5. Klasse»
+            цифрами      → «in der FÜNFTEN Klasse», верный порядковый
+            наш разворот → «in der fünf. Klasse», клип на секунду длиннее
+        «Тонна весит 1000 килограммов»
+            цифрами      → «весит ТЫСЯЧУ килограммов», винительный
+            наш разворот → «тысяча килограммов», именительный
+
+    Сама функция `expand_numbers` осталась: её зовёт проверка слухом, чтобы
+    сравнить произнесённое с расшифровкой, где распознаватель пишет цифрами.
+    """
+
+    def test_speakable_keeps_digits(self):
+        assert speakable("Das kostet 20 Euro", "de") == "Das kostet 20 Euro"
+        assert speakable("Ich bin in der 5. Klasse", "de") == "Ich bin in der 5. Klasse"
+        assert speakable("Тонна весит 1000 килограммов", "ru") == "Тонна весит 1000 килограммов"
+
+    def test_year_is_left_to_the_engine(self):
+        said = speakable("Берлинская стена пала в 1989 году", "ru")
+        assert "1989" in said
+        assert "тысяча" not in said
+
+    def test_abbreviations_still_expand(self):
+        """Сокращения разворачиваются по-прежнему — убраны только числа."""
+        assert speakable("np. koty", "pl") == "na przykład koty"
+
+    def test_expand_numbers_itself_still_works(self):
+        """Функция жива: её зовёт проверка слухом для сверки с расшифровкой."""
+        assert expand_numbers("20", "de") == "zwanzig"
