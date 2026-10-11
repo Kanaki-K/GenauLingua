@@ -22,6 +22,30 @@
 нормальный текст. И не судит о том, вопрос ли фраза по смыслу: только по
 знаку и по вопросительному слову в начале.
 
+ДЫРА, ЗАКРЫТАЯ В ТРЕТЬЕМ ПРОХОДЕ (блок 1). Вопросительное слово искалось
+строго в НАЧАЛЕ фразы, и МЕЖДОМЕТИЕ С ЗАПЯТОЙ его прятало:
+
+    Na  (13810, A1) «Na, wie geht's dir denn»     ← вопрос, знака нет
+    Tja (13835, A1) «Tja, was soll ich sagen»     ← вопрос, знака нет
+
+Оба ряда прожили два полных прохода. Близнецы в базе знак имеют —
+`Moin` (14207) «Moin, wie geht's dir denn?», `hallo` (370), `wie` (1035),
+то есть норма была задана, а эти два из неё выпадали в ШЕСТИ языках
+каждый.
+
+Замер перед правкой: «W-слово в начале фразы, можно после междометия, и
+знака вопроса нет нигде» даёт по базе 5 попаданий. Три законные, и обе
+отсечки для них в примете УЖЕ БЫЛИ — восклицание («Was für ein Zufall!»,
+`Zufall` 6464, `Schweinerei` 10744) и оборот «что касается» («Was die
+Bezahlung anbelangt», `anbelangen` 8250). Значит дыра была ровно одна:
+якорь `^`. Теперь перед проверкой снимается ведущее междометие.
+
+ПОЧЕМУ ТЕПЕРЬ ГЕЙТ. После правки этих двух рядов примета чиста по ВСЕМ
+ТРЁМ ведрам по всей базе — ноль, ноль и ноль. Правило формальное и от
+языка не зависит (знак препинания), законного остатка нет. Поэтому она
+возвращает код 1 при любом попадании, как остальные девять гейтов: ноль,
+доставшийся дорого, надо запирать, иначе он утечёт.
+
     python -m app.scripts.scan_question_mark
     python -m app.scripts.scan_question_mark --show 40
 """
@@ -66,6 +90,22 @@ NOT_A_QUESTION = re.compile(
 )
 
 
+# Ведущее междометие прячет вопросительное слово от якоря `^`: «Na, wie
+# geht's dir denn» — вопрос, а шаблон его не видел. Список ЗАКРЫТЫЙ и
+# только из междометий: расширять его словами вроде «sag mal» нельзя, иначе
+# снимется и начало настоящего утверждения.
+LEAD_INTERJECTION = re.compile(
+    r"^(?:na|ach|tja|nun|also|hey|hallo|moin|oh|ah|hm+|puh|mensch|mann)\b"
+    r"\s*[,!]\s*",
+    re.IGNORECASE,
+)
+
+
+def strip_interjection(s: str) -> str:
+    """Снимает ведущее междометие с запятой, если оно есть."""
+    return LEAD_INTERJECTION.sub("", s, count=1).strip()
+
+
 def looks_like_question(s: str) -> bool:
     s = s.strip()
     if s.endswith("!"):
@@ -74,9 +114,13 @@ def looks_like_question(s: str) -> bool:
     # finden» — фраза из двух предложений, и она в порядке
     if "?" in s:
         return False
-    if NOT_A_QUESTION.match(s):
+    core = strip_interjection(s)
+    # Отсечки считаются по ядру: «Na, was für ein Zufall» — тоже не вопрос
+    if core.endswith("!"):
         return False
-    return bool(GERMAN_QUESTION_START.match(s))
+    if NOT_A_QUESTION.match(core):
+        return False
+    return bool(GERMAN_QUESTION_START.match(core))
 
 
 # Самопроверка до работы: шаблон, который врёт, опаснее отсутствия проверки
@@ -87,6 +131,11 @@ MUST_BE_QUESTION = [
     "Darf ich hier rauchen",
     "Hast du genug Geld",
     "Welches ist dein Sternzeichen",
+    # Междометие перед вопросительным словом — дыра, закрытая в третьем
+    # проходе. Оба примера настоящие, из базы.
+    "Na, wie geht's dir denn",
+    "Tja, was soll ich sagen",
+    "Ach, warum hast du das nicht gesagt",
 ]
 MUST_NOT_BE_QUESTION = [
     "Ich bin Student",
@@ -101,6 +150,13 @@ MUST_NOT_BE_QUESTION = [
     # Два предложения, знак стоит внутри — здесь всё в порядке
     "Wo ist der Feuerlöscher? Ich kann ihn nicht finden",
     "Hast du ein Taschentuch? Ich muss mir die Nase putzen",
+    # Снятие междометия не должно превращать утверждение в вопрос
+    "Also, wir gehen um drei Uhr",
+    "Na, das ist eine schöne Überraschung",
+    "Ach Gott, habe ich das vergessen",
+    # Отсечки работают и после снятия междометия
+    "Na, was für ein Zufall!",
+    "Tja, was die Bezahlung anbelangt, haben wir keine Einigung",
 ]
 
 
@@ -120,7 +176,7 @@ def selfcheck() -> None:
     print("  шаблон отличает вопрос от утверждения\n")
 
 
-def main() -> None:
+def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--show", type=int, default=12, help="сколько примеров печатать")
     ap.add_argument("--pairs", action="store_true",
@@ -181,20 +237,26 @@ def main() -> None:
             print(f"     de  {de_by_id[wid]}")
             print(f"     {lang}  {val}")
         print(f"\nследующая партия: --from {args.start + len(block)}")
-        return
+        # Разбор партиями — это чтение, а не проверка: кода 1 здесь не место
+        return 0
 
     print(f"=== проверено слов: {len(rows)} ===\n")
+    total = 0
     for name in sorted(found, key=lambda k: -len(found[k])):
         items = found[name]
+        total += len(items)
         print(f"{name}: {len(items)}")
         for wid, de, lang, val in items[: args.show]:
             print(f"    {wid:>6} {de:<18} {lang}: {val!r}")
         if len(items) > args.show:
             print(f"    ... ещё {len(items) - args.show}")
         print()
-    if not found:
-        print("ничего не найдено")
+    if not total:
+        print("ЧИСТО")
+        return 0
+    print("ГЕЙТ: знак вопроса — правило формальное, законного остатка нет")
+    return 1
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
