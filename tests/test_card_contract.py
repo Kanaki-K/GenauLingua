@@ -259,3 +259,38 @@ def test_question_header_is_one_meaning_in_both_directions():
     pair = LanguagePair(learning="de", native="ru", reverse=True)
     head = _question_text(word, pair, "ru", 1, 25).split("<b>")[1].split("</b>")[0]
     assert head == "Записывать"
+
+
+def test_heteronym_gets_context_clip_even_in_a_multi_meaning_row():
+    """
+    Гетероним получает клип С ПРИМЕРОМ, даже когда в ячейке несколько значений.
+
+    Прежде проверка шла по ВСЕЙ ячейке: «to live, to reside, to be alive» в
+    списке гетеронимов не находится, и ряд получал изолированный клип. А
+    произносится в нём одно значение — «to live», то есть ровно гетероним,
+    отданный движку без контекста: /lɪv/ или /laɪv/ движок выбирает сам.
+
+    Замер на момент правки: клип с примером получали 25 рядов вместо 109.
+    Восемьдесят четыре гетеронима читались наугад.
+    """
+    from app.services.audio_service import clip_kind_for_question
+
+    word = make_word(
+        "leben",
+        pos=PartOfSpeech.VERB,
+        ru="жить, проживать",
+        uk="жити",
+        en="to live, to reside, to be alive",
+        tr="yaşamak",
+        pl="żyć",
+    )
+    word.example_en = "I live in Berlin"
+
+    assert clip_kind_for_question(word, "en") == KIND_FULL, (
+        "гетероним в многозначной ячейке должен озвучиваться с примером"
+    )
+
+    plain = make_word("Haus", article="das", pos=PartOfSpeech.NOUN,
+                      ru="дом", uk="дім", en="house, building", tr="ev", pl="dom")
+    plain.example_de = "Das Haus ist gross"
+    assert clip_kind_for_question(plain, "de") == KIND_WORD
