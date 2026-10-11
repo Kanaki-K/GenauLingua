@@ -29,7 +29,7 @@ from app.bot.keyboards import get_main_menu_keyboard
 from app.bot.utils import delete_messages_fast, ensure_anchor
 from app.database.enums import CEFRLevel, QuizMode, WordCategory
 from app.database.models import User
-from app.locales import get_text
+from app.locales import DEFAULT_LOCALE, get_text
 from app.services.audio_service import (
     set_voice_for_user,
     synthesize_preview,
@@ -188,10 +188,11 @@ async def show_settings(message: Message, session: AsyncSession):
     user = await session.get(User, message.from_user.id)
 
     if not user:
-        await message.answer(get_text("user_not_found", "ru"))
+        # Язык неизвестен — пользователя в базе нет совсем, спросить не у кого
+        await message.answer(get_text("user_not_found", DEFAULT_LOCALE))
         return
 
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     try:
         await message.delete()
@@ -208,7 +209,7 @@ async def show_settings(message: Message, session: AsyncSession):
 async def show_settings_callback(callback: CallbackQuery, session: AsyncSession):
     """Показ настроек после изменения (для callback)"""
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
     await callback.message.edit_text(
         _settings_text(user, lang), reply_markup=get_settings_keyboard(lang)
     )
@@ -224,7 +225,7 @@ async def show_learning_lang(callback: CallbackQuery, session: AsyncSession):
     await callback.answer()
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
     pair = pair_from_user(user)
 
     buttons = [
@@ -255,7 +256,7 @@ async def set_learning_lang(callback: CallbackQuery, session: AsyncSession):
         return
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     user.learning_lang = code
     # Язык значения не может совпадать с изучаемым, иначе вопрос выродится
@@ -310,7 +311,7 @@ async def show_quiz_mode(callback: CallbackQuery, session: AsyncSession):
     await callback.answer()
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     text = (
         f"{get_text('qmode_title', lang)}\n\n"
@@ -331,7 +332,7 @@ async def show_level_selection(callback: CallbackQuery, session: AsyncSession):
     await callback.answer()
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     text = (
         f"{get_text('qmode_level_title', lang)}\n\n"
@@ -355,7 +356,7 @@ async def set_quiz_mode_level(callback: CallbackQuery, session: AsyncSession):
     level_str = callback.data.removeprefix("qmode_set_level_")
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     try:
         user.level = CEFRLevel(level_str)
@@ -412,7 +413,7 @@ async def show_category_page(callback: CallbackQuery, session: AsyncSession):
 
     page = int(callback.data.removeprefix("qmode_category_page_"))
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     text = (
         f"{get_text('qmode_category_title', lang)}\n\n"
@@ -428,7 +429,7 @@ async def set_quiz_mode_category(callback: CallbackQuery, session: AsyncSession)
     cat_name = callback.data.removeprefix("qmode_set_cat_")
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     try:
         cat = WordCategory[cat_name]
@@ -457,7 +458,7 @@ async def set_quiz_mode_category(callback: CallbackQuery, session: AsyncSession)
 async def set_quiz_mode_all(callback: CallbackQuery, session: AsyncSession):
     """Установить режим 'Все слова'"""
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     user.quiz_mode = QuizMode.ALL_WORDS
     user.quiz_category = None
@@ -475,7 +476,7 @@ async def set_quiz_mode_all(callback: CallbackQuery, session: AsyncSession):
 async def set_quiz_mode_difficult(callback: CallbackQuery, session: AsyncSession):
     """Установить режим 'Сложные слова'"""
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     user.quiz_mode = QuizMode.DIFFICULT
     user.quiz_category = None
@@ -503,24 +504,30 @@ async def change_translation_mode(callback: CallbackQuery, session: AsyncSession
     await callback.answer()
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
     pair = pair_from_user(user)
 
     forward = LanguagePair(learning=pair.learning, native=pair.native, reverse=False)
     reverse = LanguagePair(learning=pair.learning, native=pair.native, reverse=True)
 
-    # Подсказки заведены только для пар с немецким; для остальных опускаем
-    hints = ""
-    for candidate in (forward, reverse):
-        key = f"settings_mode_hint_{candidate.prompt_lang}_{candidate.answer_lang}"
-        hint = get_text(key, lang)
-        if not hint.startswith("[MISSING:"):
-            hints += f"\n{hint}"
+    # Подсказки работают на все ТРИДЦАТЬ пар, а не на восемь.
+    #
+    # Прежде ключ собирался из кодов языков — `settings_mode_hint_de_ru` и
+    # ещё семь, — то есть подсказки были только у пар с немецким. Для
+    # польского их не было вовсе, а в русской локали часть этих ключей была
+    # написана по-турецки и по-английски: копипаста расползлась незаметно,
+    # потому что до появления шести языков эти строки никто не видел.
+    #
+    # Теперь подсказок ДВЕ, а названия языков подставляются. Смысл от пары не
+    # зависит: узнавание всегда легче воспроизведения.
+    learning_name = get_text(f"langname_{pair.learning}", lang)
+    native_name = get_text(f"langname_{pair.native}", lang)
 
     text = (
         f"{get_text('settings_mode_title', lang)}\n\n"
-        f"{get_text('settings_mode_description', lang)}"
-        f"{hints}"
+        f"{get_text('settings_mode_description', lang)}\n"
+        f"{get_text('mode_hint_forward', lang, learning=learning_name, native=native_name)}\n"
+        f"{get_text('mode_hint_reverse', lang, learning=learning_name, native=native_name)}"
     )
 
     keyboard = InlineKeyboardMarkup(
@@ -563,7 +570,7 @@ async def change_interface_language(callback: CallbackQuery, session: AsyncSessi
     await callback.answer()
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     text = (
         f"{get_text('settings_language_title', lang)}\n\n"
@@ -661,7 +668,7 @@ def _voice_label(code: str, voice_name: str) -> str:
 async def settings_audio(callback: CallbackQuery, session: AsyncSession):
     await callback.answer()
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
     pair = pair_from_user(user)
 
     chosen = await voice_for_user(session, user.id, pair.learning)
@@ -693,7 +700,7 @@ async def settings_audio(callback: CallbackQuery, session: AsyncSession):
 @router.callback_query(F.data == "audio_toggle")
 async def audio_toggle(callback: CallbackQuery, session: AsyncSession):
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     user.audio_enabled = not user.audio_enabled
     await session.commit()
@@ -715,7 +722,7 @@ async def audio_voices(callback: CallbackQuery, session: AsyncSession):
     """
     await callback.answer()
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
     pair = pair_from_user(user)
 
     chosen = await voice_for_user(session, user.id, pair.learning)
@@ -765,7 +772,7 @@ async def audio_voice_chosen(callback: CallbackQuery, session: AsyncSession):
     voice_name = callback.data.removeprefix("audio_voice_")
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
     pair = pair_from_user(user)
 
     if not is_valid_voice(voice_name, pair.learning):

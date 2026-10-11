@@ -3,7 +3,7 @@
 """
 
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup, KeyboardButton
-from app.locales import get_text
+from app.locales import DEFAULT_LOCALE, get_text
 
 
 def get_answer_keyboard(options: list[tuple[int, str]]) -> InlineKeyboardMarkup:
@@ -15,15 +15,26 @@ def get_answer_keyboard(options: list[tuple[int, str]]) -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(inline_keyboard=buttons)
 
 
-def get_main_menu_keyboard(lang: str = "ru") -> ReplyKeyboardMarkup:
-    """Главное меню (4 кнопки) с локализацией"""
+def get_main_menu_keyboard(lang: str = DEFAULT_LOCALE) -> ReplyKeyboardMarkup:
+    """
+    Главное меню (5 кнопок) с локализацией.
+
+    Рейтинг вынесен отдельной кнопкой. Прежде путь к нему был
+    «Статистика → Мой рейтинг → Таблица лидеров» — третий уровень вложенности
+    за экраном с чужим названием. Соревнование — главный повод вернуться
+    завтра, и прятать его за словом «Статистика» значит лишать себя этого
+    повода: из 233 пользователей таблицу лидеров видели единицы.
+    """
     buttons = [
         [
             KeyboardButton(text=get_text("btn_learn_words", lang)),
             KeyboardButton(text=get_text("btn_stats", lang))
         ],
         [
-            KeyboardButton(text=get_text("btn_settings", lang)),
+            KeyboardButton(text=get_text("btn_rating", lang)),
+            KeyboardButton(text=get_text("btn_settings", lang))
+        ],
+        [
             KeyboardButton(text=get_text("btn_help", lang))
         ]
     ]

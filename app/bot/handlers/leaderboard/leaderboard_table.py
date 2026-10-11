@@ -18,7 +18,7 @@ from app.bot.handlers.leaderboard.utils import (
     get_user_title,
     get_leaderboard_keyboard_text
 )
-from app.locales import get_text
+from app.locales import DEFAULT_LOCALE, get_text
 from app.services.language_service import pair_from_user
 
 router = Router()
@@ -162,7 +162,7 @@ def build_alltime_table(leaderboard: list, user: User, lang: str) -> str:
 async def show_table_monthly(callback: CallbackQuery, session: AsyncSession):
     await callback.answer()
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language if user else "ru"
+    lang = user.interface_language if user else DEFAULT_LOCALE
     season = await get_current_season(session)
 
     if not season:
@@ -181,7 +181,7 @@ async def show_table_monthly(callback: CallbackQuery, session: AsyncSession):
 async def show_table_alltime(callback: CallbackQuery, session: AsyncSession):
     await callback.answer()
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language if user else "ru"
+    lang = user.interface_language if user else DEFAULT_LOCALE
 
     leaderboard = await get_lifetime_leaderboard(session, limit=10)
     text = build_alltime_table(leaderboard, user, lang)
@@ -192,7 +192,7 @@ async def show_table_alltime(callback: CallbackQuery, session: AsyncSession):
 async def switch_table_to_monthly(callback: CallbackQuery, session: AsyncSession):
     await callback.answer()
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language if user else "ru"
+    lang = user.interface_language if user else DEFAULT_LOCALE
     season = await get_current_season(session)
 
     if not season:
@@ -211,7 +211,7 @@ async def switch_table_to_monthly(callback: CallbackQuery, session: AsyncSession
 async def switch_table_to_alltime(callback: CallbackQuery, session: AsyncSession):
     await callback.answer()
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language if user else "ru"
+    lang = user.interface_language if user else DEFAULT_LOCALE
 
     leaderboard = await get_lifetime_leaderboard(session, limit=10)
     text = build_alltime_table(leaderboard, user, lang)

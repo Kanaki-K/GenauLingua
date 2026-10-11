@@ -32,7 +32,7 @@ from app.services.audio_service import (
 from app.core.clock import utcnow, utctoday
 from app.database.enums import QuizMode
 from app.database.models import QuizQuestion, QuizSession, User, UserWord, Word
-from app.locales import get_text
+from app.locales import DEFAULT_LOCALE, get_text
 from app.services.language_service import (
     LanguagePair,
     option_label,
@@ -287,11 +287,11 @@ async def start_quiz(message: Message, state: FSMContext, session: AsyncSession)
     user = await session.get(User, message.from_user.id)
 
     if not user or not user.level:
-        lang = user.interface_language if user else "ru"
+        lang = user.interface_language if user else DEFAULT_LOCALE
         await message.answer(get_text("quiz_no_level", lang))
         return
 
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
     pair = pair_from_user(user)
 
     await _close_abandoned_sessions(session, user.id)
@@ -380,7 +380,7 @@ async def process_answer(callback: CallbackQuery, state: FSMContext, session: As
         await state.clear()
         return
 
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
     pair = pair_from_user(user)
     is_correct = selected_word_id == correct_word_id
 
@@ -465,7 +465,7 @@ async def show_next_question(callback: CallbackQuery, state: FSMContext, session
     current_error_index = data.get("current_error_index", 0)
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
     pair = pair_from_user(user)
 
     if current_question > total_questions:
@@ -677,7 +677,7 @@ async def repeat_errors(callback: CallbackQuery, state: FSMContext, session: Asy
     errors = data.get("saved_errors", [])
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
     pair = pair_from_user(user)
 
     if not errors:

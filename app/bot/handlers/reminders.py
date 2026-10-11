@@ -16,7 +16,7 @@ from app.bot.keyboards.notifications import (
 )
 
 from app.utils.timezones import get_timezone, get_utc_offset, get_city_name
-from app.locales import get_text
+from app.locales import DEFAULT_LOCALE, get_text
 
 router = Router()
 
@@ -31,7 +31,7 @@ async def show_notifications_settings(callback: CallbackQuery, session: AsyncSes
     await callback.answer()
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     # Формируем текст с текущими настройками
     status = get_text("notif_status_on", lang) if user.notifications_enabled else get_text("notif_status_off", lang)
@@ -78,7 +78,7 @@ async def show_notifications_settings(callback: CallbackQuery, session: AsyncSes
 async def toggle_notifications(callback: CallbackQuery, session: AsyncSession):
     """Включить/выключить напоминания"""
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     if user.notifications_enabled:
         # Выключаем напоминания
@@ -114,7 +114,7 @@ async def change_timezone_start(callback: CallbackQuery, session: AsyncSession):
     await callback.answer()
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     text = (
         f"{get_text('notif_timezone_title', lang)}\n\n"
@@ -132,7 +132,7 @@ async def show_extended_cities(callback: CallbackQuery, session: AsyncSession):
     await callback.answer()
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     text = get_text('notif_timezone_title', lang)
 
@@ -146,7 +146,7 @@ async def back_to_main_timezones(callback: CallbackQuery, session: AsyncSession)
     await callback.answer()
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     text = f"{get_text('notif_timezone_title', lang)}\n\n{get_text('notif_timezone_prompt', lang)}"
 
@@ -165,7 +165,7 @@ async def set_timezone(callback: CallbackQuery, session: AsyncSession):
         return
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     # Получаем данные о городе
     city_name = get_city_name(city_code, lang)
@@ -198,7 +198,7 @@ async def change_notification_time(callback: CallbackQuery, session: AsyncSessio
     await callback.answer()
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     time_display = user.notification_time if len(user.notification_time) == 5 else user.notification_time[:5]
 
@@ -219,7 +219,7 @@ async def set_notification_time(callback: CallbackQuery, session: AsyncSession):
     time_str = callback.data.split(":", 1)[1]  # "14:00" или "14"
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     # Нормализация формата времени
     if len(time_str) <= 2:  # только часы ("14")
@@ -256,7 +256,7 @@ async def change_notification_days(callback: CallbackQuery, session: AsyncSessio
     await callback.answer()
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     text = get_text("notif_days_title", lang) + "\n\n" + get_text("notif_days_hint", lang)
 
@@ -274,7 +274,7 @@ async def toggle_notification_day(callback: CallbackQuery, session: AsyncSession
     day_param = callback.data.split(":")[1]
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
     current_days = list(user.notification_days) if user.notification_days else []
 
     if day_param == "all":
@@ -324,7 +324,7 @@ async def toggle_notification_day(callback: CallbackQuery, session: AsyncSession
 async def save_notification_days(callback: CallbackQuery, session: AsyncSession):
     """Сохранить выбранные дни и вернуться"""
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     # Проверяем что выбран хотя бы 1 день
     if not user.notification_days or len(user.notification_days) == 0:

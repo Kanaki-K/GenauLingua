@@ -35,7 +35,7 @@ TEXTS = {
     "welcome_your_level": "Your level: <b>{level}</b>\nMode: <b>{mode}</b>",
     "welcome_call_to_action": "Tap 📚 Learn words — let's go!",
 
-    "welcome_choose_level": "🎯 <b>Where do we start?</b>\n\nChoose your German level\n\n• A1–A2 — basic vocabulary\n• B1–B2 — confident communication\n• C1–C2 — near-native fluency",
+    "welcome_choose_level": "🎯 <b>Where do we start?</b>\n\nYour level — {language}\n\n• A1–A2 — basic vocabulary\n• B1–B2 — confident communication\n• C1–C2 — near-native fluency",
     "choose_level_prompt": "Choose your level:",
 
     "level_selected": "✅ Level <b>{level}</b> selected.\n\nTap 📚 Learn words — let's go!",
@@ -113,7 +113,7 @@ TEXTS = {
 
     "notif_motivation_1": "Step by step you're reaching your goal!",
     "notif_motivation_2": "Your streak is growing — keep it up!",
-    "notif_motivation_3": "Today is another step toward fluent German!",
+    "notif_motivation_3": "Today is another step toward fluency!",
     "notif_motivation_4": "Small efforts every day = big results!",
     "notif_motivation_5": "You're on the right path! Don't stop!",
     "notif_motivation_6": "Each quiz brings you closer to your goal!",
@@ -160,14 +160,6 @@ TEXTS = {
     "mode_de_to_tr": "🇩🇪 DE → 🇹🇷 TR",
     "mode_tr_to_de": "🇹🇷 TR → 🇩🇪 DE",
 
-    "settings_mode_hint_de_en": "💡 DE→EN easier — you can guess from context",
-    "settings_mode_hint_en_de": "💡 EN→DE harder — better memorization",
-    "settings_mode_hint_de_ru": "💡 DE→RU easier — you can guess from context",
-    "settings_mode_hint_ru_de": "💡 RU→DE harder — better memorization",
-    "settings_mode_hint_de_uk": "💡 DE→UK easier — you can guess from context",
-    "settings_mode_hint_uk_de": "💡 UK→DE harder — better memorization",
-    "settings_mode_hint_de_tr": "💡 DE→TR easier — you can guess from context",
-    "settings_mode_hint_tr_de": "💡 TR→DE harder — better memorization",
 
     # ============================================================================
     # QUIZ MODE (NEW)
@@ -300,9 +292,7 @@ TEXTS = {
     "help_choose": "Choose a section:",
 
     "help_btn_how_to_use": "📖 How to use",
-    "help_btn_roadmap": "🚀 Coming soon",
     "help_btn_community": "💬 Community",
-    "help_btn_about": "ℹ️ About",
 
     "help_how_to_use_title": "📖 <b>How to use the bot</b>",
     "help_how_to_use_text": """1️⃣ <b>Pick the language you want to learn</b>
@@ -346,22 +336,6 @@ In the reverse direction the sound comes after your answer — otherwise the spo
 
 Questions? → t.me/genaulingua_chat""",
 
-    "help_roadmap_title": "🚀 <b>Coming soon to GenauLingua</b>",
-    "help_roadmap_text": """🏆 <b>Achievements</b>
-Badges for progress — first quiz, 7 days in a row, 100 words learned, 100% quiz and more.
-
-🎓 <b>Exam preparation</b>
-Preparation modes for Goethe/ÖSD exams A2–B2. Practice vocabulary that appears on exams.
-
-📖 <b>Reading practice</b>
-Read and analyze German texts with translations, new words and exercises.
-
-📝 <b>Grammar</b>
-Interactive grammar exercises — articles, cases, tenses, word order.
-
-━━━━━━━━━━━━━━━━━
-💬 Ideas and suggestions — write in chat:
-t.me/genaulingua_chat""",
 
     "help_community_title": "💬 <b>GenauLingua Community</b>",
     "help_community_text": """👉 <b>t.me/genaulingua_chat</b>
@@ -376,25 +350,6 @@ In the chat:
 ━━━━━━━━━━━━━━━━━
 The more active the community — the better the bot gets. Don't be shy! 🙌""",
 
-    "help_about_title": "ℹ️ <b>About the bot</b>",
-    "help_about_text": """🤖 <b>GenauLingua</b> — your personal language learning assistant.
-
-✨ <b>Features:</b>
-• Word base A1–C2 (12,000+ words)
-• 20 thematic categories
-• 4 quiz modes: by level, by category, top 10K, difficult words
-• Smart word selection — SRS algorithm
-• {language_count} languages to choose from: {languages} —
-  any pair, both directions
-• Native-speaker audio — both the word and the example
-• Repeat mistakes after quiz
-• Report translation errors directly from quiz
-• Statistics, streak and progress bar
-• Monthly rating and leaderboard
-• Flexible notification reminders
-• Interface: {interface_languages}
-
-💬 Follow updates: t.me/genaulingua_chat""",
 
     # ============================================================================
     # RATING
@@ -506,4 +461,36 @@ TEXTS.update({
     "voice_set": "✅ Voice: {voice}",
     "voice_only_one": "For this language the engine has one male and one female voice — no more exist.",
     "voice_preview_failed": "Could not get a sample, try again",
+})
+
+
+# ============================================================================
+# АПГРЕЙД ПОД ШЕСТЬ ЯЗЫКОВ
+#
+# Добавлено, когда бот перестал быть «ботом для немецкого»: при первом запуске
+# человек теперь выбирает не только язык интерфейса, но и какой язык учить, а
+# подсказки направления стали работать на все тридцать пар вместо восьми.
+# ============================================================================
+TEXTS.update({
+    "btn_rating": "🏆 Rating",
+    "friend_fallback": "friend",
+    "onboarding_learning_title": "🎯 <b>Which language will you learn?</b>",
+    "onboarding_learning_desc": "Meanings will be shown in {native}\nYou can change the language and direction in settings at any time.",
+    "mode_hint_forward": "💡 {learning} → {native} is easier: context gives it away",
+    "mode_hint_reverse": "💡 {native} → {learning} is harder: it fixes words in memory",
+})
+
+
+# ============================================================================
+# ПОМОЩЬ ПОСЛЕ СОКРАЩЕНИЯ: было четыре экрана, стало два
+#
+# Убран экран «Скоро в боте» — он обещал Goethe/ÖSD и тексты на немецком,
+# то есть врал всем, кто учит не немецкий. «О боте» слит с «Сообществом».
+# Инструкция сокращена: из неё выброшено всё, что человек и так видит на
+# экране, и оставлено то, чего из интерфейса не видно.
+# ============================================================================
+TEXTS.update({
+    "help_how_to_use_text": "🎮 <b>Quiz</b>\n25 words, four options. The bot remembers your mistakes and brings hard words back more often. After a quiz you can replay the ones you missed.\n\n🔊 <b>Audio</b>\nThe question plays the word; after your answer you hear the word with its example. Pick a male or female voice in settings.\n\n🌍 <b>Languages</b>\n{languages} — in any pair, both directions. Progress and rating are tracked separately for each language.\n\n━━━━━━━━━━━━━━━━━\n💡 A word counts as <b>learned</b> after three correct answers in a row, on different days.\n🔥 Your <b>streak</b> grows with any quiz that day.\n📝 Wrong translation or pronunciation — use the button under the quiz.",
+    "help_community_title": "💬 <b>About the bot and the community</b>",
+    "help_community_text": "🤖 <b>GenauLingua</b> — {language_count} languages in any pair: {languages}\n12,900 words A1–C2, each with an example and native audio.\nInterface: {interface_languages}\n\n💬 <b>t.me/genaulingua_chat</b>\nBugs, translation errors, ideas — we read everything. Reports about pronunciation are especially welcome: a machine cannot hear stress.",
 })

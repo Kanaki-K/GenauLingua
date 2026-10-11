@@ -16,7 +16,7 @@ from app.bot.buttons import BTN_STATS, pressed
 from app.bot.utils import delete_messages_fast, ensure_anchor
 from app.database.models import User, QuizSession, Word, UserWord
 from app.database.enums import QuizMode
-from app.locales import get_text
+from app.locales import DEFAULT_LOCALE, get_text
 from app.services.language_service import pair_flags, pair_from_user
 from app.services.quiz_service import (
     STRUGGLING_THRESHOLD,
@@ -156,11 +156,11 @@ async def show_statistics(message: Message, session: AsyncSession):
         logger.debug("Не удалось удалить сообщение пользователя", exc_info=True)
 
     if not user or not user.level:
-        lang = user.interface_language if user else "ru"
+        lang = user.interface_language if user else DEFAULT_LOCALE
         await message.answer(get_text("stats_no_level", lang))
         return
 
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
     pair = pair_from_user(user)
 
     # Прогресс по текущему режиму

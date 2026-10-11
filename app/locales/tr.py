@@ -35,7 +35,7 @@ TEXTS = {
     "welcome_your_level": "Seviyeniz: <b>{level}</b>\nMod: <b>{mode}</b>",
     "welcome_call_to_action": "📚 Kelime öğren'e bas — başlayalım!",
 
-    "welcome_choose_level": "🎯 <b>Nereden başlayalım?</b>\n\nAlmanca seviyeni seç\n\n• A1–A2 — temel kelimeler\n• B1–B2 — güvenli iletişim\n• C1–C2 — ana dil seviyesi",
+    "welcome_choose_level": "🎯 <b>Nereden başlayalım?</b>\n\nSeviyen — {language}\n\n• A1–A2 — temel kelimeler\n• B1–B2 — güvenli iletişim\n• C1–C2 — ana dil seviyesi",
     "choose_level_prompt": "Seviye seç:",
 
     "level_selected": "✅ <b>{level}</b> seviyesi seçildi.\n\n📚 Kelime öğren'e bas — başlayalım!",
@@ -113,7 +113,7 @@ TEXTS = {
 
     "notif_motivation_1": "Adım adım hedefinize ulaşıyorsunuz!",
     "notif_motivation_2": "Seriniz büyüyor — devam edin!",
-    "notif_motivation_3": "Bugün akıcı Almanca'ya doğru bir adım daha!",
+    "notif_motivation_3": "Bugün akıcı konuşmaya doğru bir adım daha!",
     "notif_motivation_4": "Her gün küçük çabalar = büyük sonuçlar!",
     "notif_motivation_5": "Doğru yoldasınız! Durmayın!",
     "notif_motivation_6": "Her test sizi hedefinize yaklaştırıyor!",
@@ -160,14 +160,6 @@ TEXTS = {
     "mode_de_to_tr": "🇩🇪 DE → 🇹🇷 TR",
     "mode_tr_to_de": "🇹🇷 TR → 🇩🇪 DE",
 
-    "settings_mode_hint_de_tr": "💡 DE→TR daha kolay — mantıkla tahmin edebilirsiniz",
-    "settings_mode_hint_tr_de": "💡 TR→DE daha zor — kelimeleri daha iyi pekiştirir",
-    "settings_mode_hint_de_ru": "💡 DE→RU daha kolay — mantıkla tahmin edebilirsiniz",
-    "settings_mode_hint_ru_de": "💡 RU→DE daha zor — kelimeleri daha iyi pekiştirir",
-    "settings_mode_hint_de_uk": "💡 DE→UK daha kolay — mantıkla tahmin edebilirsiniz",
-    "settings_mode_hint_uk_de": "💡 UK→DE daha zor — kelimeleri daha iyi pekiştirir",
-    "settings_mode_hint_de_en": "💡 DE→EN daha kolay — mantıkla tahmin edebilirsiniz",
-    "settings_mode_hint_en_de": "💡 EN→DE daha zor — kelimeleri daha iyi pekiştirir",
 
     # ============================================================================
     # TEST MODU (YENİ)
@@ -300,9 +292,7 @@ TEXTS = {
     "help_choose": "Bölüm seç:",
 
     "help_btn_how_to_use": "📖 Nasıl kullanılır",
-    "help_btn_roadmap": "🚀 Yakında",
     "help_btn_community": "💬 Topluluk",
-    "help_btn_about": "ℹ️ Hakkında",
 
     "help_how_to_use_title": "📖 <b>Botu nasıl kullanırsın</b>",
     "help_how_to_use_text": """1️⃣ <b>Hangi dili öğreneceğini seç</b>
@@ -346,22 +336,6 @@ Ters yönde ses cevaptan sonra gelir: aksi halde okunan kelime cevabın kendisi 
 
 Sorular? → t.me/genaulingua_chat""",
 
-    "help_roadmap_title": "🚀 <b>GenauLingua'da yakında</b>",
-    "help_roadmap_text": """🏆 <b>Başarılar</b>
-İlerleme rozetleri — ilk test, 7 gün üst üste, 100 kelime öğrenildi ve daha fazlası.
-
-🎓 <b>Sınav hazırlığı</b>
-Goethe/ÖSD sınavları A2–B2 için hazırlık modları. Sınavlarda çıkan kelimeleri çalış.
-
-📖 <b>Metin çalışması</b>
-Almanca metinleri oku ve çözümle — çeviriler, yeni kelimeler ve alıştırmalar.
-
-📝 <b>Dilbilgisi</b>
-İnteraktif dilbilgisi alıştırmaları — artikeller, haller, zamanlar, kelime sırası.
-
-━━━━━━━━━━━━━━━━━
-💬 Fikir ve öneriler — sohbete yaz:
-t.me/genaulingua_chat""",
 
     "help_community_title": "💬 <b>GenauLingua Topluluğu</b>",
     "help_community_text": """👉 <b>t.me/genaulingua_chat</b>
@@ -376,25 +350,6 @@ Sohbette:
 ━━━━━━━━━━━━━━━━━
 Topluluk ne kadar aktif olursa — bot o kadar iyi olur. Çekinme! 🙌""",
 
-    "help_about_title": "ℹ️ <b>Bot hakkında</b>",
-    "help_about_text": """🤖 <b>GenauLingua</b> — kişisel dil öğrenme asistanın.
-
-✨ <b>Özellikleri:</b>
-• A1–C2 kelime tabanı (12 000+ kelime)
-• 20 tematik kategori
-• 4 test modu: seviyeye göre, kategoriye göre, top 10K, zor kelimeler
-• Akıllı kelime seçimi — SRS algoritması
-• Seçilebilecek {language_count} dil: {languages} —
-  herhangi bir çiftte ve iki yönde
-• Ana dili konuşanın sesiyle seslendirme — hem kelime hem örnek
-• Testten sonra hataları tekrarla
-• Çeviri hatasını doğrudan testten bildir
-• İstatistik, seri ve ilerleme çubuğu
-• Aylık sıralama ve liderlik tablosu
-• Esnek hatırlatıcı bildirimleri
-• Arayüz: {interface_languages}
-
-💬 Güncellemeleri takip et: t.me/genaulingua_chat""",
 
     # ============================================================================
     # SIRALAMAM
@@ -506,4 +461,36 @@ TEXTS.update({
     "voice_set": "✅ Ses: {voice}",
     "voice_only_one": "Bu dil için motorda bir erkek ve bir kadın sesi var — daha fazlası yok.",
     "voice_preview_failed": "Örnek alınamadı, tekrar dene",
+})
+
+
+# ============================================================================
+# АПГРЕЙД ПОД ШЕСТЬ ЯЗЫКОВ
+#
+# Добавлено, когда бот перестал быть «ботом для немецкого»: при первом запуске
+# человек теперь выбирает не только язык интерфейса, но и какой язык учить, а
+# подсказки направления стали работать на все тридцать пар вместо восьми.
+# ============================================================================
+TEXTS.update({
+    "btn_rating": "🏆 Sıralama",
+    "friend_fallback": "dostum",
+    "onboarding_learning_title": "🎯 <b>Hangi dili öğreneceksin?</b>",
+    "onboarding_learning_desc": "Kelimelerin anlamı şu dilde gösterilecek: {native}\nDili ve yönü ayarlardan istediğin zaman değiştirebilirsin.",
+    "mode_hint_forward": "💡 {learning} → {native} daha kolay: anlamı mantıkla bulursun",
+    "mode_hint_reverse": "💡 {native} → {learning} daha zor: kelimeleri daha iyi pekiştirir",
+})
+
+
+# ============================================================================
+# ПОМОЩЬ ПОСЛЕ СОКРАЩЕНИЯ: было четыре экрана, стало два
+#
+# Убран экран «Скоро в боте» — он обещал Goethe/ÖSD и тексты на немецком,
+# то есть врал всем, кто учит не немецкий. «О боте» слит с «Сообществом».
+# Инструкция сокращена: из неё выброшено всё, что человек и так видит на
+# экране, и оставлено то, чего из интерфейса не видно.
+# ============================================================================
+TEXTS.update({
+    "help_how_to_use_text": "🎮 <b>Test</b>\n25 kelime, dört seçenek. Bot hatalarını hatırlar ve zor kelimeleri daha sık getirir. Testten sonra yanlışları hemen tekrarlayabilirsin.\n\n🔊 <b>Seslendirme</b>\nSoruda kelime duyulur, cevaptan sonra kelime örnekle birlikte gelir. Ayarlardan erkek veya kadın sesi seçebilirsin.\n\n🌍 <b>Diller</b>\n{languages} — her çiftte ve iki yönde. İlerleme ve sıralama her dil için ayrı tutulur.\n\n━━━━━━━━━━━━━━━━━\n💡 Kelime, farklı günlerde üst üste üç doğru cevaptan sonra <b>öğrenilmiş</b> sayılır.\n🔥 <b>Seri</b> o gün yapılan herhangi bir testle büyür.\n📝 Çeviri veya telaffuz hatası — testin altındaki düğme.",
+    "help_community_title": "💬 <b>Bot ve topluluk hakkında</b>",
+    "help_community_text": "🤖 <b>GenauLingua</b> — her çiftte {language_count} dil: {languages}\nA1–C2 arası 12 900 kelime, her birinde örnek ve ana dili konuşanın sesi.\nArayüz: {interface_languages}\n\n💬 <b>t.me/genaulingua_chat</b>\nHatalar, çeviri yanlışları, fikirler — hepsini okuyoruz. Telaffuzla ilgili bildirimler özellikle değerli: makine vurguyu duymaz.",
 })

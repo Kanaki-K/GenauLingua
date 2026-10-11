@@ -10,7 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.database.models import User
 from app.services.monthly_leaderboard_service import get_lifetime_leaderboard
 from app.bot.handlers.leaderboard.monthly import get_rating_keyboard
-from app.locales import get_text
+from app.locales import DEFAULT_LOCALE, get_text
 
 router = Router()
 
@@ -63,7 +63,7 @@ def build_alltime_card(user: User, leaderboard: list, lang: str) -> str:
 async def switch_to_alltime(callback: CallbackQuery, session: AsyncSession):
     await callback.answer()
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language if user else "ru"
+    lang = user.interface_language if user else DEFAULT_LOCALE
 
     leaderboard = await get_lifetime_leaderboard(session, limit=10)
     text = build_alltime_card(user, leaderboard, lang)

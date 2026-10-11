@@ -22,7 +22,8 @@ from app.bot.handlers.leaderboard.utils import (
     format_month_name,
     get_leaderboard_keyboard_text
 )
-from app.locales import get_text
+from app.bot.buttons import BTN_RATING, pressed
+from app.locales import DEFAULT_LOCALE, get_text
 from app.services.language_service import pair_from_user
 
 router = Router()
@@ -88,7 +89,7 @@ def build_monthly_card(user: User, user_rank: dict, season, lang: str) -> str:
 async def show_my_rating_callback(callback: CallbackQuery, session: AsyncSession):
     await callback.answer()
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language if user else "ru"
+    lang = user.interface_language if user else DEFAULT_LOCALE
     season = await get_current_season(session)
 
     if not season:
@@ -106,10 +107,12 @@ async def show_my_rating_callback(callback: CallbackQuery, session: AsyncSession
 
 
 @router.message(Command("leaderboard"))
-# Фильтр по тексту «🏆 Рейтинг» убран: такой reply-кнопки в боте нет. Главное
-# меню состоит из четырёх кнопок, а рейтинг открывается командой и встроенной
-# кнопкой «🏆 Мой рейтинг». В фильтре к тому же дважды стояла одна и та же
-# русская строка, то есть на других языках он не сработал бы и при живой кнопке.
+# Кнопка «🏆 Рейтинг» вернулась в главное меню, и фильтр к ней — через
+# pressed(): надписи берутся из самих локалей, поэтому кнопка работает на всех
+# шести языках сразу. Прежняя попытка это сделать провалилась ровно потому, что
+# в фильтр дважды вписали одну и ту же РУССКУЮ строку руками, и на остальных
+# языках нажатие не ловилось. Это та же ошибка «список вместо правила».
+@router.message(pressed(BTN_RATING))
 async def show_leaderboard(message: Message, session: AsyncSession):
     user = await session.get(User, message.from_user.id)
     try:
@@ -117,7 +120,7 @@ async def show_leaderboard(message: Message, session: AsyncSession):
     except Exception:
         pass
 
-    lang = user.interface_language if user else "ru"
+    lang = user.interface_language if user else DEFAULT_LOCALE
     season = await get_current_season(session)
 
     if not season:
@@ -139,7 +142,7 @@ async def show_leaderboard(message: Message, session: AsyncSession):
 async def switch_to_monthly(callback: CallbackQuery, session: AsyncSession):
     await callback.answer()
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language if user else "ru"
+    lang = user.interface_language if user else DEFAULT_LOCALE
     season = await get_current_season(session)
 
     if not season:

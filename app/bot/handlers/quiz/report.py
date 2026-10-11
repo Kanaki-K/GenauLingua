@@ -24,7 +24,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func
 
 from app.database.models import User, Word, TranslationReport
-from app.locales import get_text
+from app.locales import DEFAULT_LOCALE, get_text
 from app.services.audio_service import voice_for_user
 from app.services.language_service import LanguagePair, display_text, pair_from_user
 
@@ -230,7 +230,7 @@ async def report_start(callback: CallbackQuery, state: FSMContext, session: Asyn
     report_word_ids = data.get("report_word_ids", [])
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
     pair = pair_from_user(user)
 
     if not report_word_ids:
@@ -298,7 +298,7 @@ async def report_start(callback: CallbackQuery, state: FSMContext, session: Asyn
 async def report_already_reported(callback: CallbackQuery, session: AsyncSession):
     """Клик по слову которое уже зарепорчено — показать alert"""
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
     await callback.answer(get_text("report_already_sent", lang), show_alert=False)
 
 
@@ -327,7 +327,7 @@ async def report_toggle_word(callback: CallbackQuery, state: FSMContext, session
     await state.update_data(report_selected=selected)
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     keyboard = _build_word_list_keyboard(word_labels, selected, already_reported, page, lang)
 
@@ -358,7 +358,7 @@ async def report_change_page(callback: CallbackQuery, state: FSMContext, session
     await state.update_data(report_page=page)
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     keyboard = _build_word_list_keyboard(word_labels, selected, already_reported, page, lang)
 
@@ -381,7 +381,7 @@ async def report_confirm(callback: CallbackQuery, state: FSMContext, session: As
     selected = data.get("report_selected", [])
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     if not selected:
         await callback.answer(get_text("report_none_selected", lang), show_alert=True)
@@ -415,7 +415,7 @@ async def report_back_to_select(callback: CallbackQuery, state: FSMContext, sess
     word_labels = {int(k): v for k, v in word_labels.items()}
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     keyboard = _build_word_list_keyboard(word_labels, selected, already_reported, page, lang)
 
@@ -462,7 +462,7 @@ async def report_send(
     saved_errors = data.get("saved_errors", [])
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     if not selected:
         await callback.answer(get_text("report_none_selected", lang), show_alert=True)
@@ -552,7 +552,7 @@ async def report_cancel(callback: CallbackQuery, state: FSMContext, session: Asy
     saved_errors = data.get("saved_errors", [])
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     has_errors = bool(saved_errors)
     keyboard = _get_results_keyboard_lazy(has_errors, lang)

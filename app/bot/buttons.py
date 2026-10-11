@@ -16,6 +16,7 @@ from app.locales import LOCALES, get_text
 
 BTN_LEARN_WORDS = "btn_learn_words"
 BTN_STATS = "btn_stats"
+BTN_RATING = "btn_rating"
 BTN_SETTINGS = "btn_settings"
 BTN_HELP = "btn_help"
 

@@ -19,11 +19,22 @@ from app.services.language_service import (
     learnable_count,
     learnable_names,
 )
-from app.locales import get_text
+from app.locales import DEFAULT_LOCALE, get_text
 
 router = Router()
 
 def get_help_keyboard(lang: str) -> InlineKeyboardMarkup:
+    """
+    Два экрана вместо четырёх.
+
+    Убран «🚀 Скоро в боте»: он обещал подготовку к Goethe/ÖSD, тексты на
+    немецком и грамматику с падежами — то есть врал всем, кто учит не
+    немецкий, а таких теперь пять языков из шести. Обещания стареют, и
+    держать их в интерфейсе дороже, чем в чате сообщества.
+
+    «ℹ️ О боте» слит с «💬 Сообществом»: оба экрана кончались одной и той же
+    ссылкой на чат.
+    """
     return InlineKeyboardMarkup(
         inline_keyboard=[
             [InlineKeyboardButton(
@@ -31,16 +42,8 @@ def get_help_keyboard(lang: str) -> InlineKeyboardMarkup:
                 callback_data="help_how_to_use"
             )],
             [InlineKeyboardButton(
-                text=get_text("help_btn_roadmap", lang),
-                callback_data="help_roadmap"
-            )],
-            [InlineKeyboardButton(
                 text=get_text("help_btn_community", lang),
                 callback_data="help_community"
-            )],
-            [InlineKeyboardButton(
-                text=get_text("help_btn_about", lang),
-                callback_data="help_about"
             )],
         ]
     )
@@ -57,7 +60,7 @@ def get_help_keyboard(lang: str) -> InlineKeyboardMarkup:
 async def show_help(message: Message, session: AsyncSession):
     """Показ меню помощи"""
     user = await session.get(User, message.from_user.id)
-    lang = user.interface_language if user else "ru"
+    lang = user.interface_language if user else DEFAULT_LOCALE
 
     help_text = (
         f"{get_text('help_title', lang)}\n\n"
@@ -88,7 +91,7 @@ async def show_how_to_use(callback: CallbackQuery, session: AsyncSession):
     await callback.answer()
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language if user else "ru"
+    lang = user.interface_language if user else DEFAULT_LOCALE
 
     # Значение считается заранее, а не внутри вызова: tests/test_locales.py
     # сверяет подстановки в тексте с переданными параметрами, разбирая вызов
@@ -111,33 +114,7 @@ async def show_how_to_use(callback: CallbackQuery, session: AsyncSession):
 
 
 # ============================================================================
-# СКОРО В БОТЕ
-# ============================================================================
-
-@router.callback_query(F.data == "help_roadmap")
-async def show_roadmap(callback: CallbackQuery, session: AsyncSession):
-    await callback.answer()
-
-    user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language if user else "ru"
-
-    text = (
-        f"{get_text('help_roadmap_title', lang)}\n\n"
-        f"{get_text('help_roadmap_text', lang)}"
-    )
-
-    keyboard = InlineKeyboardMarkup(
-        inline_keyboard=[[InlineKeyboardButton(
-            text=get_text("btn_back", lang),
-            callback_data="help_back"
-        )]]
-    )
-
-    await callback.message.edit_text(text, reply_markup=keyboard)
-
-
-# ============================================================================
-# СООБЩЕСТВО
+# О БОТЕ И СООБЩЕСТВО — один экран вместо двух
 # ============================================================================
 
 @router.callback_query(F.data == "help_community")
@@ -145,41 +122,18 @@ async def show_community(callback: CallbackQuery, session: AsyncSession):
     await callback.answer()
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language if user else "ru"
+    lang = user.interface_language if user else DEFAULT_LOCALE
 
-    text = (
-        f"{get_text('help_community_title', lang)}\n\n"
-        f"{get_text('help_community_text', lang)}"
-    )
-
-    keyboard = InlineKeyboardMarkup(
-        inline_keyboard=[[InlineKeyboardButton(
-            text=get_text("btn_back", lang),
-            callback_data="help_back"
-        )]]
-    )
-
-    await callback.message.edit_text(text, reply_markup=keyboard)
-
-
-# ============================================================================
-# О БОТЕ
-# ============================================================================
-
-@router.callback_query(F.data == "help_about")
-async def show_about(callback: CallbackQuery, session: AsyncSession):
-    await callback.answer()
-
-    user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language if user else "ru"
-
+    # Значения считаются заранее, а не внутри вызова: tests/test_locales.py
+    # сверяет подстановки с переданными параметрами, разбирая вызов
+    # регулярным выражением, и на скобках внутри аргумента разбор обрывается
     languages = learnable_names(lang)
     language_count = learnable_count()
     interface_languages = interface_names(lang)
 
     text = (
-        f"{get_text('help_about_title', lang)}\n\n"
-        f"{get_text('help_about_text', lang, languages=languages, language_count=language_count, interface_languages=interface_languages)}"
+        f"{get_text('help_community_title', lang)}\n\n"
+        f"{get_text('help_community_text', lang, languages=languages, language_count=language_count, interface_languages=interface_languages)}"
     )
 
     keyboard = InlineKeyboardMarkup(
@@ -201,7 +155,7 @@ async def back_to_help(callback: CallbackQuery, session: AsyncSession):
     await callback.answer()
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language if user else "ru"
+    lang = user.interface_language if user else DEFAULT_LOCALE
 
     help_text = (
         f"{get_text('help_title', lang)}\n\n"
@@ -211,11 +165,9 @@ async def back_to_help(callback: CallbackQuery, session: AsyncSession):
 
     await callback.message.edit_text(help_text, reply_markup=get_help_keyboard(lang))
 
-
-@router.callback_query(F.data == "back_to_menu")
-async def back_to_main_menu(callback: CallbackQuery):
-    await callback.answer()
-    try:
-        await callback.message.delete()
-    except Exception:
-        pass
+# Обработчик `back_to_menu` отсюда убран. Он был зарегистрирован ДВАЖДЫ — и
+# здесь, и в settings.py — при том, что кнопки, которая шлёт такой callback,
+# в боте нет ни одной. Двойная регистрация безвредна только пока callback не
+# приходит; стоит кому-то добавить кнопку, и сработает тот роутер, который
+# подключён раньше, то есть поведение определялось бы порядком в main.py.
+# Живой обработчик остался один, в settings.py.

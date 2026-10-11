@@ -40,7 +40,7 @@ TEXTS = {
     "welcome_your_level": "Dein Niveau: <b>{level}</b>\nModus: <b>{mode}</b>",
     "welcome_call_to_action": "Tippe auf 📚 Wörter lernen — und los!",
 
-    "welcome_choose_level": "🎯 <b>Womit fangen wir an?</b>\n\nWähle dein Niveau\n\n• A1–A2 — Grundwortschatz\n• B1–B2 — sicheres Sprechen\n• C1–C2 — freie Beherrschung",
+    "welcome_choose_level": "🎯 <b>Womit fangen wir an?</b>\n\nDein Niveau — {language}\n\n• A1–A2 — Grundwortschatz\n• B1–B2 — sicheres Sprechen\n• C1–C2 — freie Beherrschung",
     "choose_level_prompt": "Wähle ein Niveau:",
 
     "level_selected": "✅ Niveau <b>{level}</b> ausgewählt.\n\nTippe auf 📚 Wörter lernen — und los!",
@@ -141,14 +141,6 @@ TEXTS = {
 
     "settings_mode_title": "🔄 <b>Übersetzungsrichtung</b>",
     "settings_mode_description": "Wähle die Richtung der Übersetzung:",
-    "settings_mode_hint_de_ru": "💡 DE→RU легче — можно угадать по логике",
-    "settings_mode_hint_ru_de": "💡 RU→DE сложнее — лучше закрепляет слова",
-    "settings_mode_hint_de_uk": "💡 DE→UK легше — можна вгадати за логікою",
-    "settings_mode_hint_uk_de": "💡 UK→DE складніше — краще закріплює слова",
-    "settings_mode_hint_de_en": "💡 DE→EN easier — you can guess from context",
-    "settings_mode_hint_en_de": "💡 EN→DE harder — better memorization",
-    "settings_mode_hint_de_tr": "💡 DE→TR daha kolay — mantıkla tahmin edebilirsiniz",
-    "settings_mode_hint_tr_de": "💡 TR→DE daha zor — kelimeleri daha iyi pekiştirir",
 
     "settings_language_title": "🌍 <b>Oberflächensprache</b>",
     "settings_language_description": "Wähle die Sprache der Bot-Oberfläche:",
@@ -306,9 +298,7 @@ TEXTS = {
     "help_choose": "Wähle einen Bereich:",
 
     "help_btn_how_to_use": "📖 So funktioniert es",
-    "help_btn_roadmap": "🚀 Bald im Bot",
     "help_btn_community": "💬 Community",
-    "help_btn_about": "ℹ️ Über den Bot",
 
     "help_how_to_use_title": "📖 <b>So benutzt du den Bot</b>",
     "help_how_to_use_text": """1️⃣ <b>Wähle, welche Sprache du lernst</b>
@@ -353,22 +343,6 @@ In der umgekehrten Richtung kommt der Ton nach der Antwort: sonst wäre das gesp
 
 Fragen? → t.me/genaulingua_chat""",
 
-    "help_roadmap_title": "🚀 <b>Bald in GenauLingua</b>",
-    "help_roadmap_text": """🏆 <b>Erfolge</b>
-Abzeichen für Fortschritt — erstes Quiz, 7 Tage in Folge, 100 Wörter gelernt, Quiz mit 100% und weitere.
-
-🎓 <b>Prüfungsvorbereitung</b>
-Modi zur Vorbereitung auf Goethe/ÖSD-Prüfungen A2–B2. Training des Wortschatzes, der in Prüfungen vorkommt.
-
-📖 <b>Arbeit mit Texten</b>
-Lesen und Durchgehen deutscher Texte mit Übersetzung, neuen Wörtern und Aufgaben.
-
-📝 <b>Grammatik</b>
-Interaktive Übungen zur Grammatik — Artikel, Fälle, Zeiten, Wortstellung.
-
-━━━━━━━━━━━━━━━━━
-💬 Ideen und Wünsche — schreib in den Chat:
-t.me/genaulingua_chat""",
 
     "help_community_title": "💬 <b>GenauLingua Community</b>",
     "help_community_text": """👉 <b>t.me/genaulingua_chat</b>
@@ -383,25 +357,6 @@ Im Chat:
 ━━━━━━━━━━━━━━━━━
 Je lebendiger die Community, desto besser wird der Bot. Nur keine Scheu! 🙌""",
 
-    "help_about_title": "ℹ️ <b>Über den Bot</b>",
-    "help_about_text": """🤖 <b>GenauLingua</b> — dein persönlicher Helfer beim Wortschatzlernen.
-
-✨ <b>Was er kann:</b>
-• Wortbasis A1–C2 (12 000+ Wörter pro Sprache)
-• 20 thematische Kategorien
-• 4 Quiz-Modi: nach Niveau, nach Kategorie, Top 10K, schwierige Wörter
-• Treffsichere Auswahl — SRS-Algorithmus
-• {language_count} Sprachen zur Wahl: {languages} —
-  in jedem Paar und in beide Richtungen
-• Aussprache aller Wörter und Beispiele durch Muttersprachler-Stimmen
-• Wiederholung der Fehler nach dem Quiz
-• Fehler in der Übersetzung direkt aus dem Quiz melden
-• Statistik, Serie und Fortschrittsbalken
-• Monatsrangliste und Tabelle — getrennt pro Sprache
-• Erinnerungen mit freiem Zeitplan
-• Oberfläche: {interface_languages}
-
-💬 Verfolge die Neuerungen: t.me/genaulingua_chat""",
 
     # ============================================================================
     # PLATZIERUNG
@@ -519,4 +474,36 @@ TEXTS.update({
     "voice_set": "✅ Stimme: {voice}",
     "voice_only_one": "Für diese Sprache hat der Synthesizer eine männliche und eine weibliche Stimme — mehr gibt es nicht.",
     "voice_preview_failed": "Die Probe konnte nicht geladen werden, versuche es noch einmal",
+})
+
+
+# ============================================================================
+# АПГРЕЙД ПОД ШЕСТЬ ЯЗЫКОВ
+#
+# Добавлено, когда бот перестал быть «ботом для немецкого»: при первом запуске
+# человек теперь выбирает не только язык интерфейса, но и какой язык учить, а
+# подсказки направления стали работать на все тридцать пар вместо восьми.
+# ============================================================================
+TEXTS.update({
+    "btn_rating": "🏆 Rangliste",
+    "friend_fallback": "Freund",
+    "onboarding_learning_title": "🎯 <b>Welche Sprache lernst du?</b>",
+    "onboarding_learning_desc": "Die Bedeutungen erscheinen auf {native}\nSprache und Richtung kannst du jederzeit in den Einstellungen ändern.",
+    "mode_hint_forward": "💡 {learning} → {native} ist leichter: die Bedeutung lässt sich erraten",
+    "mode_hint_reverse": "💡 {native} → {learning} ist schwerer: prägt die Wörter besser ein",
+})
+
+
+# ============================================================================
+# ПОМОЩЬ ПОСЛЕ СОКРАЩЕНИЯ: было четыре экрана, стало два
+#
+# Убран экран «Скоро в боте» — он обещал Goethe/ÖSD и тексты на немецком,
+# то есть врал всем, кто учит не немецкий. «О боте» слит с «Сообществом».
+# Инструкция сокращена: из неё выброшено всё, что человек и так видит на
+# экране, и оставлено то, чего из интерфейса не видно.
+# ============================================================================
+TEXTS.update({
+    "help_how_to_use_text": "🎮 <b>Quiz</b>\n25 Wörter, vier Antworten. Der Bot merkt sich deine Fehler und zeigt Schweres öfter. Nach dem Quiz kannst du die Fehler sofort wiederholen.\n\n🔊 <b>Aussprache</b>\nIn der Frage klingt das Wort, nach der Antwort das Wort mit seinem Beispiel. Die Stimme wählst du in den Einstellungen — männlich oder weiblich.\n\n🌍 <b>Sprachen</b>\n{languages} — in jedem Paar und in beide Richtungen. Fortschritt und Platzierung zählen pro Sprache getrennt.\n\n━━━━━━━━━━━━━━━━━\n💡 Ein Wort gilt als <b>gelernt</b> nach drei richtigen Antworten hintereinander, und zwar an verschiedenen Tagen.\n🔥 Die <b>Serie</b> wächst mit jedem Quiz an diesem Tag.\n📝 Fehler in Übersetzung oder Aussprache — der Knopf unter dem Quiz.",
+    "help_community_title": "💬 <b>Über den Bot und die Gemeinschaft</b>",
+    "help_community_text": "🤖 <b>GenauLingua</b> — {language_count} Sprachen in jedem Paar: {languages}\n12 900 Wörter A1–C2, jedes mit Beispiel und Muttersprachler-Aussprache.\nOberfläche: {interface_languages}\n\n💬 <b>t.me/genaulingua_chat</b>\nFehler, falsche Übersetzungen, Ideen — wir lesen alles. Hinweise zur Aussprache sind besonders willkommen: eine Maschine hört die Betonung nicht.",
 })

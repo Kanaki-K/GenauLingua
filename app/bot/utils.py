@@ -49,7 +49,7 @@ async def delete_messages_fast(bot, chat_id: int, start_id: int, end_id: int):
 async def ensure_anchor(message: Message, session: AsyncSession, user: User, emoji: str = "🏠"):
     """Создать новое якорное сообщение с главным меню"""
     old_anchor_id = user.anchor_message_id
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
     try:
         sent = await message.answer(emoji, reply_markup=get_main_menu_keyboard(lang))
         new_anchor_id = sent.message_id
