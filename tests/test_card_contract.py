@@ -213,3 +213,49 @@ class TestAnswerClip:
             assert len(words) <= 3, (lang, title)
             # Троеточие ровно тогда, когда пример длиннее трёх слов
             assert ("…" in title) == (len(example.split()) > 3), (lang, title)
+
+
+# ============================================================================
+# ЗАГОЛОВОК ВОПРОСА: ОДНО ЗНАЧЕНИЕ В ОБОИХ НАПРАВЛЕНИЯХ
+# ============================================================================
+
+def test_question_header_is_one_meaning_in_both_directions():
+    """
+    В заголовке вопроса стоит ОДНО значение, а не весь список, — и в прямом
+    направлении, и в обратном.
+
+    В обратном направлении раньше стоял полный список, и довод был такой:
+    звука там нет, а по одному значению слово не опознать. Владелец довод
+    отклонил, увидев живую карточку:
+
+        🏴 Записывать, принимать, брать к себе, начинать, поднимать,
+           подбирать, впитывать, усваивать
+        📝 Ты можешь записать разговор?
+
+    Восемь значений в заголовке при одном в примере. Неопознаваемость
+    снимается самим примером — он стоит строкой ниже.
+    """
+    from app.bot.handlers.quiz.game import _question_text
+    from app.services.language_service import LanguagePair
+
+    word = make_word(
+        "aufnehmen",
+        pos=PartOfSpeech.VERB,
+        ru="записывать, принимать, брать к себе, начинать",
+        uk="записувати, приймати",
+        en="to record, to take in",
+        tr="kaydetmek, kabul etmek",
+        pl="nagrywać, przyjmować",
+    )
+    word.example_de = "Kannst du das Gespräch aufnehmen?"
+    word.example_ru = "Ты можешь записать разговор?"
+
+    for reverse in (False, True):
+        pair = LanguagePair(learning="de", native="ru", reverse=reverse)
+        text = _question_text(word, pair, "ru", 1, 25)
+        head = text.split("<b>")[1].split("</b>")[0]
+        assert "," not in head, f"в заголовке список, reverse={reverse}: {head!r}"
+
+    pair = LanguagePair(learning="de", native="ru", reverse=True)
+    head = _question_text(word, pair, "ru", 1, 25).split("<b>")[1].split("</b>")[0]
+    assert head == "Записывать"

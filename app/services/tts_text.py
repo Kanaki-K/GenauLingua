@@ -19,6 +19,7 @@
 from __future__ import annotations
 
 import re
+from functools import lru_cache
 from typing import Optional
 
 from app.services.language_service import get_language
@@ -376,6 +377,27 @@ _PARENTHETICAL = re.compile(r"\s*\([^)]*\)")
 _WS = re.compile(r"\s+")
 
 
+@lru_cache(maxsize=256)
+def _abbrev_pattern(short: str) -> re.Pattern:
+    """
+    Сокращение только как отдельное слово, а не кусок другого слова.
+
+    ЗАЧЕМ ЭТО ЕСТЬ. Прежде замена шла простым `str.replace`, и польское «dr»
+    подменялось ВНУТРИ слов: «adres» звучало как «adoktores», «drzewo» — как
+    «doktorzewo», «zdrowie» — «zdoktorowie». Замер по базе: **694 испорченных
+    клипа в 497 рядах**, и все польские. Опасны ровно те сокращения, что
+    записаны без точки, — в таблицах это «nr», «dr», «mln».
+
+    Слева граница нужна всегда: иначе «подpucz» поймает «dr» в середине.
+    Справа — только если сокращение кончается буквой: у «np.» справа уже
+    стоит точка, и требовать после неё не-букву значило бы не находить
+    «np.» перед пробелом вовсе.
+    """
+    left = r"(?<!\w)"
+    right = r"(?!\w)" if short[-1:].isalnum() else ""
+    return re.compile(left + re.escape(short) + right)
+
+
 def expand_abbreviations(text: str, lang: Optional[str]) -> str:
     table = ABBREVIATIONS.get(lang or "", {})
     if not table:
@@ -383,7 +405,7 @@ def expand_abbreviations(text: str, lang: Optional[str]) -> str:
     # Длинные сокращения первыми: «и т.д.» должно сработать раньше «т.д.»
     for short in sorted(table, key=len, reverse=True):
         if short in text:
-            text = text.replace(short, table[short])
+            text = _abbrev_pattern(short).sub(table[short], text)
     return text
 
 

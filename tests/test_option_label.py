@@ -105,3 +105,28 @@ def test_german_keeps_its_case():
 def test_keeps_whole_phrase_with_internal_space():
     """Значение из нескольких слов — это одно значение, а не два."""
     assert option_label(ru("садиться на транспорт, брать"), "ru") == "Садиться на транспорт"
+
+
+def test_turkish_dotted_and_dotless_i():
+    """
+    Турецкая заглавная: «i» → «İ», «ı» → «I». Это разные буквы.
+
+    Питоновский `.upper()` обе превращает в «I», и карточка показывала «Iş»
+    вместо «İş». В базе это починено скриптом `fix_turkish_i`, но показ ломал
+    данные заново. Замер на момент правки: 531 турецкое слово из 561
+    показывалось с чужой буквой.
+
+    «Işık» (свет) пишется через дотless ı, и заглавная I у него правильная —
+    тест держит обе стороны, иначе починка одной сломает другую.
+    """
+    assert option_label(FakeWord(translation_tr="iş"), "tr") == "İş"
+    assert option_label(FakeWord(translation_tr="ilan, duyuru"), "tr") == "İlan"
+    assert option_label(FakeWord(translation_tr="ışık"), "tr") == "Işık"
+    assert option_label(FakeWord(translation_tr="ıslak"), "tr") == "Islak"
+
+
+def test_other_languages_keep_python_rule():
+    """Турецкое правило не должно протечь в остальные пять языков."""
+    assert option_label(ru("игра"), "ru") == "Игра"
+    assert option_label(FakeWord(translation_en="idea"), "en") == "Idea"
+    assert option_label(FakeWord(translation_pl="igła"), "pl") == "Igła"

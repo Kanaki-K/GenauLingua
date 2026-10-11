@@ -215,3 +215,33 @@ class TestFullClip:
         assert "zum Beispiel" in result
         assert "drei" in result
         assert not any(ch.isdigit() for ch in result)
+
+
+class TestAbbreviationBoundaries:
+    """
+    Сокращение разворачивается только как отдельное слово.
+
+    Прежде замена шла простым `str.replace`, и польское «dr» подменялось
+    внутри слов: «adres» звучал как «adoktores», «drzewo» — «doktorzewo»,
+    «zdrowie» — «zdoktorowie». Замер по базе: 694 испорченных клипа в 497
+    рядах, все польские.
+
+    Опасны ровно те сокращения, что записаны без точки: «nr», «dr», «mln».
+    У сокращений с точкой правая граница не нужна — точка её уже задаёт.
+    """
+
+    def test_abbreviation_inside_word_is_left_alone(self):
+        assert expand_abbreviations("adres", "pl") == "adres"
+        assert expand_abbreviations("drzewo", "pl") == "drzewo"
+        assert expand_abbreviations("zdrowie", "pl") == "zdrowie"
+        assert expand_abbreviations("inną drogą", "pl") == "inną drogą"
+
+    def test_standalone_abbreviation_still_expands(self):
+        assert expand_abbreviations("dr Kowalski", "pl") == "doktor Kowalski"
+        assert expand_abbreviations("nr 5", "pl") == "numer 5"
+        assert expand_abbreviations("mln ludzi", "pl") == "milionów ludzi"
+
+    def test_dotted_abbreviations_unaffected(self):
+        assert expand_abbreviations("np. koty", "pl") == "na przykład koty"
+        assert expand_abbreviations("z.B. Hunde", "de") == "zum Beispiel Hunde"
+        assert expand_abbreviations("и т.д.", "ru") == "и так далее"

@@ -152,6 +152,33 @@ def word_text(word, code: Optional[str], *, with_article: bool = True) -> str:
     return raw
 
 
+def upper_first(text: str, code: Optional[str]) -> str:
+    """
+    Первая буква заглавной — по правилам ЯЗЫКА, а не питоновского `.upper()`.
+
+    ЗАЧЕМ ЭТО ЕСТЬ. В турецком две разные буквы «i»: с точкой и без, и
+    заглавные у них тоже разные — «i» → «İ», «ı» → «I». Питоновский
+    `.upper()` обе превращает в «I», и карточка показывала «Iş» вместо
+    «İş», «Ilan» вместо «İlan». Для турка это не опечатка, а другая буква:
+    «ışık» (свет) и «işik» — разные слова.
+
+    В базе это давно починено скриптом `fix_turkish_i` и закреплено тестом
+    `test_turkish_i.py`, но показ ломал данные заново: `display_text` и
+    `option_label` поднимали регистр на лету. Замер по базе: **531 турецкое
+    слово из 561 показывалось с чужой буквой.**
+
+    Остальные пять языков питоновское правило устраивает.
+    """
+    if not text:
+        return text
+    if (code or "") == "tr":
+        if text[0] == "i":
+            return "İ" + text[1:]
+        if text[0] == "ı":
+            return "I" + text[1:]
+    return text[:1].upper() + text[1:]
+
+
 def display_text(word, code: Optional[str]) -> str:
     """
     Текст слова для показа пользователю.
@@ -163,7 +190,7 @@ def display_text(word, code: Optional[str]) -> str:
     text = word_text(word, code)
     if not text or get_language(code).uses_article:
         return text
-    return text[:1].upper() + text[1:]
+    return upper_first(text, code)
 
 
 def option_label(word, code: Optional[str]) -> str:
@@ -209,7 +236,7 @@ def option_label(word, code: Optional[str]) -> str:
     # display_text поднимает первую букву — повторяем для выбранного значения
     if get_language(code).uses_article:
         return chosen
-    return chosen[:1].upper() + chosen[1:]
+    return upper_first(chosen, code)
 
 
 def example_text(word, code: Optional[str]) -> str:
