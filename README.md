@@ -17,11 +17,11 @@ spaced-repetition engine, gamification, multi-language UI, and an admin analytic
 
 GenauLingua is a fully deployed, real-world Telegram bot that teaches German vocabulary
 using a personalized spaced-repetition system (SRS). It has been running in production,
-serving real users, with a curated database of **12,805 words** across CEFR levels A1–C2.
+serving real users, with a curated database of **12,902 words** across CEFR levels A1–C2.
 
 The project is a complete, end-to-end product: data pipeline, async backend, database
 design and migrations, gamification systems, background schedulers, full internationalization,
-an admin analytics dashboard, and containerized deployment.
+text-to-speech pronunciation, an admin analytics dashboard, and containerized deployment.
 
 ### Results in production
 
@@ -30,12 +30,24 @@ an admin analytics dashboard, and containerized deployment.
 | Registered users | 204 |
 | Users who completed ≥1 quiz | 116 (57%) |
 | Total quizzes completed | 1,570 |
-| Word database | 12,805 words (A1–C2) |
-| Interface languages | 🇷🇺 RU · 🇺🇦 UK · 🇬🇧 EN · 🇹🇷 TR |
 | Uptime | Deployed on Hetzner (EU) via Docker |
 
-> **Status:** MVP complete. The bot is live, free, and open to everyone. Active feature
-> development is paused; the project is maintained in its current state.
+### The current release, prepared and pending deployment
+
+| Metric | Value |
+|---|---|
+| Word database | **12,902 words** (A1–C2) |
+| Languages | 🇩🇪 DE · 🇬🇧 EN · 🇷🇺 RU · 🇺🇦 UK · 🇹🇷 TR · 🇵🇱 PL |
+| Cells of content | **77,412** (12,902 rows × 6 languages) |
+| Language pairs playable | **30**, the thinnest covered by 9,171 rows |
+| Pronunciation clips | **121,269** synthesized, 0 missing |
+| Editorial passes over the base | 3 — **14,875 corrections** |
+| Automated base checks | 50 scans, 10 of them hard gates |
+| Test suite | 457 tests |
+
+> **Status:** The live bot runs the previous release (4 languages, no audio). The release
+> above — two more languages and full pronunciation — is built and verified on a dev
+> copy, awaiting the owner's deployment window.
 
 ---
 
@@ -45,17 +57,22 @@ an admin analytics dashboard, and containerized deployment.
 user. Weak and frequently-missed words resurface more often; mastered words fade out. Difficulty
 adapts continuously to performance.
 
-**Curated word database.** 12,805 words across A1–C2, organized into 21 thematic categories.
-Every word ships with a translation and an example sentence in 4 languages (RU/UK/EN/TR), plus
-part of speech, article, and frequency rank.
+**Curated word database.** 12,902 words across A1–C2, organized into 21 thematic categories.
+Every word ships with a translation and an example sentence in 6 languages (DE/EN/RU/UK/TR/PL),
+plus part of speech, article, and frequency rank. The base has been read end-to-end three times
+and corrected 14,875 times; 50 automated checks guard it against regression.
+
+**Pronunciation.** Every word and every example sentence is voiced — 121,269 clips. A card
+plays the single meaning it shows, never the whole translation cell, and heteronyms
+(`live` as /lɪv/ or /laɪv/) are voiced inside their example so the reading is unambiguous.
+Clips are cached as Telegram `file_id`s, so playback is instant and costs the server nothing.
 
 **Smart quizzes.** 25-word sessions with 4 answer options and instant feedback (correct answer +
 example sentence). Distractors are chosen intelligently (same part of speech, different article).
 Mistake-repetition mode replays missed words after each session.
 
-**Multi-language & multi-mode.** 4 interface languages, 4 translation directions
-(DE↔RU, DE↔UK, DE↔EN, DE↔TR), and a reverse mode for advanced learners. Every UI string is
-fully localized.
+**Multi-language & multi-mode.** 6 languages in 30 playable pairs, plus a reverse mode for
+advanced learners. Every UI string is fully localized.
 
 **Gamification.** Monthly and all-time leaderboards, top-10 rankings, automatic season resets,
 win streaks, achievements, and a transparent scoring system (quizzes, reverse mode, words learned,
@@ -138,6 +155,21 @@ Database migrations run automatically on container startup. See
 [`app/scripts/README.md`](app/scripts/README.md) for rebuilding the word database from an
 Excel dataset.
 
+### Checking the state of the content
+
+One command answers "is everything in order" — base integrity, language-pair coverage,
+card contract, audio store, and the latest speech-recognition results:
+
+```bash
+ENV_FILE=.env.local python -m app.scripts.state_report
+```
+
+The working notes live in the repository root and are written in Russian, the owner's
+language: [`STATE.md`](STATE.md) (where we are) · [`HANDOVER.md`](HANDOVER.md) (full state
+and open decisions) · [`WORDBASE_REVIEW.md`](WORDBASE_REVIEW.md) (how the base is proofread)
+· [`AUDIO_STORAGE.md`](AUDIO_STORAGE.md) (where audio lives and what it costs)
+· [`DEPLOY.md`](DEPLOY.md) (release procedure).
+
 ### Configuration
 
 All secrets (bot token, database credentials, admin ID) are supplied via environment variables
@@ -155,8 +187,15 @@ For anyone evaluating this as a portfolio piece, GenauLingua shows end-to-end de
 - **Relational data modeling** — 12-table PostgreSQL schema with a real migration history.
 - **Algorithm design** — a working spaced-repetition engine and weighted word/distractor selection.
 - **Product systems** — gamification (seasons, streaks, leaderboards), scheduled jobs, and reminders.
-- **Internationalization** — a 4-language product with fully localized content and UI.
-- **Data engineering** — an ingestion pipeline that builds a 12k-word multilingual dataset from Excel.
+- **Internationalization** — a 6-language product with fully localized content and UI, including
+  language-specific correctness most pipelines get wrong (Turkish dotted/dotless `İ`/`I` is cased
+  by Turkish rules, not Python's `.upper()`).
+- **Data engineering** — an ingestion pipeline that builds a 12.9k-word, 6-language dataset, plus
+  a text-to-speech pipeline producing and verifying 121,269 audio clips.
+- **Quality engineering at scale** — 50 automated content checks, each with a *documented*
+  expected residual so it fails when the residual **changes**, not merely when it is non-zero;
+  content correctness closed the loop machine-to-machine by running every generated clip back
+  through speech recognition (2,536 checked, 99.76% exact).
 - **DevOps** — containerized, environment-driven deployment running in production.
 
 ---
