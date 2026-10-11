@@ -737,6 +737,21 @@ class WordAudio(Base):
     # после правки перевода.
     spoken_text: Mapped[str] = mapped_column(Text, nullable=False)
 
+    # Название, с которым клип ЗАГРУЖЕН в Telegram. Не то же, что
+    # spoken_text: произносится одно слово, а в названии клипа с примером
+    # стоит «слово — начало примера».
+    #
+    # Хранится потому, что при отправке по file_id Telegram параметр title
+    # ИГНОРИРУЕТ и показывает метаданные первой загрузки. Без этой колонки
+    # правка правила названия не сбрасывала кэш: spoken_text не менялся,
+    # запись считалась годной, и карточка молча показывала старое название
+    # (владелец поймал это на снимке: «Zapomnienie» на карточке против
+    # «zapomnienie, niepamięć» в заголовке клипа).
+    #
+    # nullable: у записей до миграции b1c2d3e4f5a6 название неизвестно —
+    # они негодны и переделываются, как и записи без bot_id.
+    title: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+
     duration_seconds: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
 
     created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)

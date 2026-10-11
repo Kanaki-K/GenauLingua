@@ -24,7 +24,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import BufferedInputFile, InlineKeyboardMarkup, InputMediaAudio, Message
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.services.audio_service import AudioClip, remember
+from app.services.audio_service import AUDIO_PERFORMER, AudioClip, remember
 
 logger = logging.getLogger(__name__)
 
@@ -49,6 +49,7 @@ async def _send_new(
     )
     return await bot.send_audio(
         chat_id, media, caption=text, reply_markup=keyboard, title=clip.title,
+        performer=AUDIO_PERFORMER,
     )
 
 
@@ -61,6 +62,7 @@ async def _edit_media(message: Message, text: str, keyboard: InlineKeyboardMarku
     return await message.edit_media(
         InputMediaAudio(
             media=media, caption=text, parse_mode=ParseMode.HTML, title=clip.title,
+            performer=AUDIO_PERFORMER,
         ),
         reply_markup=keyboard,
     )

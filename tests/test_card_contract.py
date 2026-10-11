@@ -294,3 +294,52 @@ def test_heteronym_gets_context_clip_even_in_a_multi_meaning_row():
                       ru="дом", uk="дім", en="house, building", tr="ev", pl="dom")
     plain.example_de = "Das Haus ist gross"
     assert clip_kind_for_question(plain, "de") == KIND_WORD
+
+
+def test_cached_clip_is_invalid_when_its_title_changed():
+    """
+    Клип из кэша негоден, если название с тех пор поменялось.
+
+    Название впечатывается в клип при ЗАГРУЗКЕ в Telegram. При отправке по
+    file_id параметр `title` игнорируется — показываются метаданные первой
+    загрузки. Значит правка правила названия обязана сбрасывать кэш, иначе
+    карточка покажет старый заголовок при верном звуке.
+
+    Так и случилось: владелец прислал снимок, где на карточке «Zapomnienie»,
+    а в заголовке клипа «zapomnienie, niepamięć» — вся ячейка перевода.
+    Проверка годности сверяла произносимый текст и бота; при правке правила
+    названия произносимый текст НЕ МЕНЯЕТСЯ, и кэш считал себя годным.
+
+    Тест держит именно это: совпадения текста и бота НЕДОСТАТОЧНО.
+    """
+    from app.database.models import WordAudio
+
+    def usable(cached, spoken, title, bot_id):
+        # условие из app/services/audio_service.py:get_clip
+        return (
+            cached is not None
+            and cached.spoken_text == spoken
+            and cached.title == title
+            and cached.bot_id == bot_id
+        )
+
+    cached = WordAudio(
+        word_id=1, lang="pl", kind=KIND_WORD, voice="pl-PL-ZofiaNeural",
+        file_id="x", file_kind="audio", spoken_text="zapomnienie",
+        title="zapomnienie, niepamięć",   # старое правило: вся ячейка
+        bot_id=1,
+    )
+
+    assert not usable(cached, "zapomnienie", "Zapomnienie", 1), (
+        "клип со старым названием обязан считаться негодным"
+    )
+
+    cached.title = "Zapomnienie"
+    assert usable(cached, "zapomnienie", "Zapomnienie", 1), (
+        "клип с верным названием обязан переиспользоваться"
+    )
+
+    cached.title = None   # загружен до миграции 7d2e9fa4c61b
+    assert not usable(cached, "zapomnienie", "Zapomnienie", 1), (
+        "клип без сохранённого названия обязан считаться негодным"
+    )
