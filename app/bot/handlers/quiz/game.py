@@ -30,7 +30,7 @@ from app.services.audio_service import (
     clip_kind_for_question,
 )
 from app.core.clock import utcnow, utctoday
-from app.database.enums import QuizMode
+from app.database.enums import QuizChannel, QuizMode
 from app.database.models import QuizQuestion, QuizSession, User, UserWord, Word
 from app.locales import DEFAULT_LOCALE, get_text
 from app.services.language_service import (
@@ -46,6 +46,7 @@ from app.services.monthly_leaderboard_service import update_monthly_stats
 from app.services.quiz_service import (
     OPTIONS_TOTAL,
     build_options,
+    channel_for_question,
     count_difficult_words,
     generate_question,
     get_distractors,
@@ -65,18 +66,31 @@ QUESTION_ATTEMPTS = 10
 # ОТОБРАЖЕНИЕ ВОПРОСА И ОТВЕТА
 # ============================================================================
 
-async def _question_clip(session, user: User, word: Word, pair: LanguagePair):
+async def _question_clip(
+    session, user: User, word: Word, pair: LanguagePair,
+    channel: QuizChannel = QuizChannel.TEXT,
+):
     """
     Озвучка для вопроса.
 
-    В обратном направлении звука нет: вопрос задан на языке значения, а
-    произнести изучаемое слово означало бы назвать ответ.
+    НА СЛУХ КЛИП — ЭТО И ЕСТЬ ВОПРОС, и направление на него не влияет.
+    Обратного порядка у слушания не существует: звучит изучаемый язык, из
+    него и выбирают. Поэтому ветка `pair.reverse` сюда не распространяется —
+    без клипа такой вопрос попросту пуст.
+
+    В текстовом вопросе в обратном направлении звука нет: вопрос задан на
+    языке значения, а произнести изучаемое слово означало бы назвать ответ.
 
     В прямом направлении звучит слово. Исключение — гетероним: произнесённый
     отдельно, он читается наугад («modern», «umfahren» имеют по два чтения),
     и управлять этим нельзя, SSML движку недоступен. Такому слову ставится
     клип с примером, где контекст задаёт чтение однозначно.
     """
+    if channel is QuizChannel.AUDIO:
+        return await clip_for_user(
+            session, user, word, pair.learning,
+            clip_kind_for_question(word, pair.learning),
+        )
     if pair.reverse:
         return None
     return await clip_for_user(
@@ -92,6 +106,7 @@ def _question_text(
     total: int,
     *,
     is_repeat: bool = False,
+    channel: QuizChannel = QuizChannel.TEXT,
 ) -> str:
     """
     Вопрос: слово на языке вопроса + пример на том же языке.
@@ -125,15 +140,30 @@ def _question_text(
     Какое именно значение берётся — решает `main_meaning`: то, что стоит в
     примере. Полный набор значений виден на экране «Помилка перекладу».
     """
+    prefix = f"{get_text('quiz_repeat_title', lang)}\n" if is_repeat else ""
+    number = get_text("quiz_question_number", lang, current=current, total=total)
+
+    # ВОПРОС НА СЛУХ: самого слова на экране НЕТ, иначе слушать незачем.
+    #
+    # Это и отличает его от карточки с озвучкой, которая была всегда: там
+    # звук идёт ПРИ слове и лишь подсказывает произношение. Здесь звук —
+    # единственный источник вопроса, а варианты стоят на изучаемом языке,
+    # потому что спрашивают «что услышал», а не «что это значит».
+    #
+    # Примера тоже нет: он содержит само слово и выдал бы ответ.
+    if channel is QuizChannel.AUDIO:
+        return (
+            f"{prefix}{number} · 🎧\n\n"
+            f"{get_text('quiz_question_listen', lang)}"
+        )
+
     prompt = option_label(word, pair.prompt_lang)
     example = example_text(word, pair.prompt_lang)
-
-    prefix = f"{get_text('quiz_repeat_title', lang)}\n" if is_repeat else ""
     task_key = "quiz_question_choose_word" if pair.reverse else "quiz_question_choose_translation"
 
     parts = [
         prefix,
-        get_text("quiz_question_number", lang, current=current, total=total),
+        number,
         "\n\n",
         f"{pair.prompt_flag} <b>{prompt}</b>\n\n",
     ]
@@ -308,8 +338,15 @@ async def start_quiz(message: Message, state: FSMContext, session: AsyncSession)
             return
         quiz_total = min(difficult, quiz_total)
 
+    # Канал первого вопроса. `channel_for_question` возвращает для него
+    # текстовый всегда: начинать занятие с того, что непонятно без звука —
+    # плохой способ его начать, особенно если звук не загрузился.
+    channel = channel_for_question(user, 1)
+
     try:
-        question = await generate_question(session, user, exclude_ids=[], pair=pair)
+        question = await generate_question(
+            session, user, exclude_ids=[], pair=pair, channel=channel
+        )
     except Exception:
         logger.exception("Ошибка генерации первого вопроса (user=%s)", user.id)
         await message.answer(get_text("quiz_error_generation", lang))
@@ -337,6 +374,7 @@ async def start_quiz(message: Message, state: FSMContext, session: AsyncSession)
         used_word_ids=[word.id],
         is_error_repeat=False,
         asked_at=utcnow().timestamp(),
+        channel=channel.value,
     )
 
     try:
@@ -350,9 +388,9 @@ async def start_quiz(message: Message, state: FSMContext, session: AsyncSession)
 
     await show_card(
         message.bot, message.chat.id, state, session,
-        text=_question_text(word, pair, lang, 1, quiz_total),
+        text=_question_text(word, pair, lang, 1, quiz_total, channel=channel),
         keyboard=get_answer_keyboard(question["options"]),
-        clip=await _question_clip(session, user, word, pair),
+        clip=await _question_clip(session, user, word, pair, channel),
         word_id=word.id, lang=pair.learning,
     )
     await state.set_state(QuizStates.answering)
@@ -383,6 +421,18 @@ async def process_answer(callback: CallbackQuery, state: FSMContext, session: As
     lang = user.interface_language or DEFAULT_LOCALE
     pair = pair_from_user(user)
     is_correct = selected_word_id == correct_word_id
+
+    # Канал берётся из состояния, а не вычисляется заново по номеру вопроса.
+    # Пересчёт дал бы неверный ответ в двух случаях: при повторе ошибок (там
+    # канал всегда текстовый независимо от номера) и если человек поменяет
+    # состав занятия, не ответив на уже заданный вопрос.
+    #
+    # Значение по умолчанию TEXT нужно для занятий, начатых до этой правки:
+    # у них в состоянии канала нет, а все их вопросы были текстовыми.
+    try:
+        channel = QuizChannel(data.get("channel") or QuizChannel.TEXT.value)
+    except ValueError:
+        channel = QuizChannel.TEXT
 
     # Что именно выбрал пользователь — по этому видно, какие неверные варианты
     # притягивают. Прежде колонка не заполнялась, и разбирать ошибки было нечем.
@@ -422,6 +472,7 @@ async def process_answer(callback: CallbackQuery, state: FSMContext, session: As
             is_correct=is_correct,
             session=session,
             learning_lang=pair.learning,
+            channel=channel,
         )
     except Exception:
         logger.exception("Ошибка обновления прогресса (user=%s word=%s)", user.id, correct_word_id)
@@ -491,19 +542,26 @@ async def show_next_question(callback: CallbackQuery, state: FSMContext, session
             await state.clear()
             return
 
+        # Повтор ошибок идёт текстом: человек уже не справился с этими
+        # словами, и добавлять к разбору ещё и слух значит мешать две
+        # трудности в одной попытке
+        channel = QuizChannel.TEXT
         options, _ = build_options(word, distractors, pair)
         await state.update_data(
             current_question=current_question,
             correct_word_id=word.id,
             current_error_index=current_error_index,
             asked_at=utcnow().timestamp(),
+            channel=channel.value,
         )
     else:
+        channel = channel_for_question(user, current_question)
         question = None
         for _ in range(QUESTION_ATTEMPTS):
             try:
                 question = await generate_question(
-                    session, user, exclude_ids=used_word_ids, pair=pair
+                    session, user, exclude_ids=used_word_ids, pair=pair,
+                    channel=channel,
                 )
             except Exception:
                 logger.exception("Ошибка генерации вопроса (user=%s)", user.id)
@@ -525,15 +583,17 @@ async def show_next_question(callback: CallbackQuery, state: FSMContext, session
             correct_word_id=word.id,
             used_word_ids=used_word_ids,
             asked_at=utcnow().timestamp(),
+            channel=channel.value,
         )
 
     await show_card(
         callback.bot, callback.message.chat.id, state, session,
         text=_question_text(
-            word, pair, lang, current_question, total_questions, is_repeat=is_error_repeat
+            word, pair, lang, current_question, total_questions,
+            is_repeat=is_error_repeat, channel=channel,
         ),
         keyboard=get_answer_keyboard(options),
-        clip=await _question_clip(session, user, word, pair),
+        clip=await _question_clip(session, user, word, pair, channel),
         word_id=word.id, lang=pair.learning,
         message=callback.message,
     )
@@ -730,7 +790,7 @@ async def repeat_errors(callback: CallbackQuery, state: FSMContext, session: Asy
         callback.bot, callback.message.chat.id, state, session,
         text=_question_text(first_word, pair, lang, 1, len(errors), is_repeat=True),
         keyboard=get_answer_keyboard(options),
-        clip=await _question_clip(session, user, first_word, pair),
+        clip=await _question_clip(session, user, first_word, pair, QuizChannel.TEXT),
         word_id=first_word.id, lang=pair.learning,
     )
 

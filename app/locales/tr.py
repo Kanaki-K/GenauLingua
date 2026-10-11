@@ -494,3 +494,14 @@ TEXTS.update({
     "help_community_title": "💬 <b>Bot ve topluluk hakkında</b>",
     "help_community_text": "🤖 <b>GenauLingua</b> — her çiftte {language_count} dil: {languages}\nA1–C2 arası 12 900 kelime, her birinde örnek ve ana dili konuşanın sesi.\nArayüz: {interface_languages}\n\n💬 <b>t.me/genaulingua_chat</b>\nHatalar, çeviri yanlışları, fikirler — hepsini okuyoruz. Telaffuzla ilgili bildirimler özellikle değerli: makine vurguyu duymaz.",
 })
+
+
+# ============================================================================
+# ВОПРОС НА СЛУХ
+#
+# Самого слова на экране нет — иначе слушать незачем. Варианты стоят на
+# ИЗУЧАЕМОМ языке: спрашивают «что услышал», а не «что это значит».
+# ============================================================================
+TEXTS.update({
+    "quiz_question_listen": "🔊 Dinle ve duyduğunu seç:",
+})

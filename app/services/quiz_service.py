@@ -436,9 +436,14 @@ async def generate_question(
     user: User,
     exclude_ids: Optional[list[int]] = None,
     pair: Optional[LanguagePair] = None,
+    channel: QuizChannel = QuizChannel.TEXT,
 ) -> Optional[dict]:
     """
-    Вопрос викторины: слово, варианты ответа, индекс правильного.
+    Вопрос викторины: слово, варианты ответа, индекс правильного, канал.
+
+    Канал приходит снаружи, а не выбирается здесь: его определяет номер
+    вопроса в занятии (`channel_for_question`), и подбор слова от канала не
+    зависит — одно и то же слово годится и на глаз, и на слух.
 
     Возвращает None, если подходящих слов не осталось.
     """
@@ -459,19 +464,32 @@ async def generate_question(
     if not correct_word:
         return None
 
-    distractors = await get_distractors(correct_word, session, pair, user=user)
+    # Канал решает и ЧТО подставить в варианты, и НА КАКОМ они языке.
+    #
+    # На слух варианты обязаны быть созвучны: смысл не звучит, звучит форма.
+    # Поставь рядом с «Verspätung» слова «Haus», «gehen» и «blau» — и
+    # слушать не придётся, ответ виден по одной длине.
+    if channel is QuizChannel.AUDIO:
+        distractors = await get_soundalike_distractors(
+            correct_word, session, pair, user=user
+        )
+        builder = build_audio_options
+    else:
+        distractors = await get_distractors(correct_word, session, pair, user=user)
+        builder = build_options
 
     # Меньше четырёх различимых вариантов — вопрос был бы некорректным
     if len(distractors) < OPTIONS_TOTAL - 1:
         return None
 
-    options, correct_index = build_options(correct_word, distractors, pair)
+    options, correct_index = builder(correct_word, distractors, pair)
 
     return {
         "correct_word": correct_word,
         "options": options,
         "correct_answer_index": correct_index,
         "pair": pair,
+        "channel": channel,
     }
 
 
@@ -897,3 +915,46 @@ def build_audio_options(
     random.shuffle(options)
     correct_index = next(i for i, (wid, _) in enumerate(options) if wid == correct_word.id)
     return options, correct_index
+
+
+# ============================================================================
+# СОСТАВ ЗАНЯТИЯ: каким каналом задать очередной вопрос
+# ============================================================================
+
+def enabled_channels(user: Optional[User]) -> list[QuizChannel]:
+    """
+    Какие каналы включены у человека, в постоянном порядке.
+
+    Порядок задаётся перечислением, а не строкой в базе: от перестановки букв
+    в настройке состав занятия меняться не должен.
+
+    Текст возвращается всегда, даже если его выключили. Занятие без единого
+    канала — это не занятие, а пустой экран, и пустым экраном настройка
+    кончаться не имеет права.
+    """
+    raw = (getattr(user, "quiz_channels", None) or "t").lower()
+    picked = [c for c in QuizChannel if c.value in raw]
+    return picked or [QuizChannel.TEXT]
+
+
+def channel_for_question(user: Optional[User], index: int) -> QuizChannel:
+    """
+    Канал очередного вопроса: чередование, а не жребий.
+
+    ПОЧЕМУ НЕ СЛУЧАЙНО. Случайный выбор на двадцати пяти вопросах регулярно
+    даёт перекос — пять аудио подряд или ни одного за занятие, — и человек
+    видит в этом не разнообразие, а поломку. Чередование даёт ровно тот
+    состав, который обещан в настройках.
+
+    ПОЧЕМУ ВООБЩЕ ЧЕРЕДОВАТЬ, А НЕ ДЕЛИТЬ НА ИГРЫ. Когда слово приходит то
+    глазами, то на слух, оно закрепляется прочнее, чем после двадцати пяти
+    однотипных повторов. Это и есть довод против трёх отдельных кнопок в
+    меню: чередование — не оформление, а способ учить лучше.
+
+    Первый вопрос всегда текстовый: начинать занятие с того, что непонятно
+    без звука, — плохой способ его начать, особенно если звук не загрузился.
+    """
+    channels = enabled_channels(user)
+    if len(channels) == 1 or index <= 1:
+        return channels[0]
+    return channels[(index - 1) % len(channels)]
