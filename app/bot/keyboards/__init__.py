@@ -17,26 +17,31 @@ def get_answer_keyboard(options: list[tuple[int, str]]) -> InlineKeyboardMarkup:
 
 def get_main_menu_keyboard(lang: str = DEFAULT_LOCALE) -> ReplyKeyboardMarkup:
     """
-    Главное меню (5 кнопок) с локализацией.
+    Главное меню: ЧЕТЫРЕ кнопки, сетка два на два.
 
     Рейтинг вынесен отдельной кнопкой. Прежде путь к нему был
     «Статистика → Мой рейтинг → Таблица лидеров» — третий уровень вложенности
     за экраном с чужим названием. Соревнование — главный повод вернуться
     завтра, и прятать его за словом «Статистика» значит лишать себя этого
-    повода: из 233 пользователей таблицу лидеров видели единицы.
+    повода.
+
+    ПОМОЩЬ ИЗ ГЛАВНОГО МЕНЮ УБРАНА. Владелец о ней дословно: «там вообще
+    бесполезная информация... можно сократить, ни на что не влияет».
+    Экрану, который сам назван неактуальным, не место среди четырёх
+    главных кнопок; остаются команда /help и строка внизу настроек.
+
+    Пять кнопок дали бы ряд «два, два, один» — висящую одиночку, которая
+    выглядит как недоделка. Четыре ложатся ровным квадратом.
     """
     buttons = [
         [
             KeyboardButton(text=get_text("btn_learn_words", lang)),
-            KeyboardButton(text=get_text("btn_stats", lang))
+            KeyboardButton(text=get_text("btn_rating", lang))
         ],
         [
-            KeyboardButton(text=get_text("btn_rating", lang)),
+            KeyboardButton(text=get_text("btn_stats", lang)),
             KeyboardButton(text=get_text("btn_settings", lang))
         ],
-        [
-            KeyboardButton(text=get_text("btn_help", lang))
-        ]
     ]
     return ReplyKeyboardMarkup(
         keyboard=buttons,

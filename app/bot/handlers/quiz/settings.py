@@ -146,7 +146,14 @@ def get_settings_keyboard(lang: str) -> InlineKeyboardMarkup:
             [InlineKeyboardButton(
                 text=get_text("settings_btn_notifications", lang),
                 callback_data="settings:notifications"
-            )]
+            )],
+            # Помощь ушла из главного меню — владелец назвал её
+            # неактуальной, — но исчезнуть совсем не должна: человек,
+            # которому нужны правила игры, ищет их в настройках
+            [InlineKeyboardButton(
+                text=get_text("btn_help", lang),
+                callback_data="settings_help"
+            )],
         ]
     )
 

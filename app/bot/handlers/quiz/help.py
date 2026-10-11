@@ -53,9 +53,26 @@ def get_help_keyboard(lang: str) -> InlineKeyboardMarkup:
 # ГЛАВНОЕ МЕНЮ ПОМОЩИ
 # ============================================================================
 
+@router.callback_query(F.data == "settings_help")
+async def show_help_from_settings(callback: CallbackQuery, session: AsyncSession):
+    """Помощь из настроек — её единственный вход, кроме команды /help."""
+    await callback.answer()
+    user = await session.get(User, callback.from_user.id)
+    lang = user.interface_language if user else DEFAULT_LOCALE
+
+    help_text = (
+        f"{get_text('help_title', lang)}\n\n"
+        f"{get_text('help_description', lang)}\n\n"
+        f"{get_text('help_choose', lang)}"
+    )
+    await callback.message.edit_text(help_text, reply_markup=get_help_keyboard(lang))
+
+
 @router.message(Command("help"))
-# Надписи берутся из локалей, а не вписываются руками: при добавлении языка
-# интерфейса список рос бы молча неполным, и кнопка на новом языке не работала
+# Кнопки «❓ Помощь» в главном меню больше нет — она уехала в настройки.
+# Фильтр по её надписи оставлен: у людей, не перезапускавших бота, старая
+# клавиатура живёт в клиенте Telegram и шлёт прежний текст. Убери фильтр —
+# и у них кнопка молча перестанет работать.
 @router.message(pressed(BTN_HELP))
 async def show_help(message: Message, session: AsyncSession):
     """Показ меню помощи"""

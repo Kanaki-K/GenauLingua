@@ -27,15 +27,19 @@ from app.services.quiz_service import (
 router = Router()
 
 
-def get_stats_keyboard(lang: str = "ru") -> InlineKeyboardMarkup:
-    return InlineKeyboardMarkup(
-        inline_keyboard=[
-            [InlineKeyboardButton(
-                text=get_text("stats_btn_rating", lang),
-                callback_data="show_my_rating"
-            )]
-        ]
-    )
+def get_stats_keyboard(lang: str = DEFAULT_LOCALE) -> InlineKeyboardMarkup:
+    """
+    У экрана статистики своих кнопок нет.
+
+    Кнопка «🏆 Мой рейтинг» отсюда убрана: рейтинг теперь отдельным пунктом
+    ГЛАВНОГО меню, и второй вход в том же боте только путает. Владелец,
+    увидев оба сразу: «зачем-то рейтинг отдельная кнопка и в статистике
+    тоже — бред».
+
+    Возвращается пустая разметка, а не None: вызывающий код не ветвится,
+    Telegram пустую клавиатуру принимает.
+    """
+    return InlineKeyboardMarkup(inline_keyboard=[])
 
 
 def create_progress_bar(current: int, total: int, length: int = 10) -> str:
