@@ -451,6 +451,10 @@ async def process_answer(callback: CallbackQuery, state: FSMContext, session: As
             is_correct=is_correct,
             answered_at=utcnow(),
             response_time_seconds=response_seconds,
+            # Канал хранится у ВОПРОСА: круг смешанный, и у занятия канала
+            # нет — есть состав. Отсюда же считаются баллы: верный ответ на
+            # слух стоит дороже прочитанного.
+            channel=channel.value,
         )
     )
 

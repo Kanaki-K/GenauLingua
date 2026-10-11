@@ -75,6 +75,10 @@ def build_monthly_card(user: User, user_rank: dict, season, lang: str) -> str:
 
     text += "\n━━━━━━━━━━━━━━━━━\n"
     text += get_text("rating_scoring_title", lang) + "\n"
+    # Строка про ответы стоит ПЕРВОЙ: это единственное начисление, которое
+    # происходит на каждом вопросе, и единственное, которое зависит от того,
+    # насколько человек себя напряг
+    text += get_text("rating_scoring_answer", lang) + "\n"
     text += get_text("rating_scoring_quiz", lang) + "\n"
     text += get_text("rating_scoring_reverse", lang) + "\n"
     text += get_text("rating_scoring_word", lang) + "\n"

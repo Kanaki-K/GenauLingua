@@ -377,6 +377,16 @@ class QuizQuestion(Base):
     user_answer: Mapped[Optional[str]] = mapped_column(String(255))
     is_correct: Mapped[Optional[bool]] = mapped_column(Boolean)
 
+    # Каким каналом задан ЭТОТ вопрос: «t» текст, «a» слух, «s» речь.
+    #
+    # Хранится у вопроса, а не у занятия: круг смешанный, и у занятия канала
+    # просто НЕТ — есть состав. Единственное место, где канал определён
+    # однозначно, — отдельный заданный вопрос.
+    #
+    # nullable: вопросы, заданные до появления каналов, были текстовыми,
+    # других в боте не было. Пустое значение читается как «текст».
+    channel: Mapped[Optional[str]] = mapped_column(String(1), nullable=True)
+
     # Время ответа
     answered_at: Mapped[Optional[datetime]] = mapped_column(DateTime)
 
@@ -447,6 +457,12 @@ class MonthlyStats(Base):
     total_correct: Mapped[int] = mapped_column(Integer, default=0)
     total_questions: Mapped[int] = mapped_column(Integer, default=0)
 
+    # Верных ответов по каналам. Текстовый не хранится — выводится как
+    # total_correct минус эти два, ровно как в user_words: отдельной колонкой
+    # его рано или поздно обновили бы не вместе с остальными.
+    correct_audio: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
+    correct_speech: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
+
     # Бонус за подтверждённые репорты
     report_bonus: Mapped[int] = mapped_column(Integer, default=0)
 
@@ -462,26 +478,88 @@ class MonthlyStats(Base):
     user: Mapped["User"] = relationship(backref="monthly_stats")
     season: Mapped["MonthlySeason"] = relationship(back_populates="stats")
 
+    # Цена верного ответа по каналам. Отношение 1 : 2 : 3 — не круглые
+    # числа ради красоты, а порядок трудности:
+    #   текст  узнать написанное, подсказывает и форма слова, и длина
+    #   слух   формы нет вовсе, различать приходится на звук
+    #   речь   не узнавание, а ПРОИЗВОДСТВО, самый дорогой навык
+    # Если платить за все три одинаково, рациональный ученик останется на
+    # самом лёгком, и соревнование будет награждать выбор кнопки, а не
+    # усилие.
+    POINTS_TEXT = 1
+    POINTS_AUDIO = 2
+    POINTS_SPEECH = 3
+
+    POINTS_PER_ROUND = 10        # за ДОВЕДЁННЫЙ до конца круг
+    POINTS_PER_REVERSE = 5       # обратное направление труднее прямого
+    POINTS_PER_WORD = 3          # слово перешло в «выучено»
+
+    # Точность начисляется ПЛАВНО, от порога 60%: раньше стоял обрыв
+    # (90% → +50, 89% → +30), и человек с 89% видел, что двадцать баллов
+    # пропали из-за одного вопроса. Обрыв воспринимается как
+    # несправедливость, даже когда он описан в правилах.
+    ACCURACY_FLOOR = 60
+
+    # Серия РАСТЁТ в цене: десятый день подряд дороже первого. Это главный
+    # рычаг возврата — и он же делает пропуск ощутимой потерей. Потолок,
+    # чтобы один марафонец не оторвался от поля навсегда.
+    STREAK_DAILY_CAP = 10
+
     def calculate_monthly_score(self) -> int:
-        """Рассчитать месячный балл по формуле"""
-        score = 0
-        score += self.monthly_quizzes * 10
-        score += self.monthly_reverse * 5
-        score += self.monthly_words * 2
-        score += self.monthly_streak * 3
+        """
+        Месячный балл.
 
-        # Бонус за средний процент
-        if self.monthly_avg_percent >= 90:
-            score += 50
-        elif self.monthly_avg_percent >= 80:
-            score += 30
-        elif self.monthly_avg_percent >= 70:
-            score += 15
+        ПРИНЦИП: платим за УСИЛИЕ, а не за нажатия. Отсюда три отличия от
+        прежней формулы.
 
-        # Бонус за подтверждённые репорты
-        score += self.report_bonus
+        1. Верный ответ стоит по-разному в зависимости от канала (1/2/3).
+           Прежде все стоили одинаково, и после появления аудирования это
+           стало прямо вредным советом: «не напрягайся».
+        2. Точность начисляется плавно, без обрыва на 90%.
+        3. Серия дней растёт в цене, а не даёт фиксированные три балла.
 
-        return score
+        Текстовые ответы считаются ВЫЧИТАНИЕМ из общего числа верных —
+        своей колонки у них нет, и разойтись с итогом они не могут.
+        """
+        correct_audio = self.correct_audio or 0
+        correct_speech = self.correct_speech or 0
+        correct_text = max(0, (self.total_correct or 0) - correct_audio - correct_speech)
+
+        score = (
+            correct_text * self.POINTS_TEXT
+            + correct_audio * self.POINTS_AUDIO
+            + correct_speech * self.POINTS_SPEECH
+        )
+
+        score += self.monthly_quizzes * self.POINTS_PER_ROUND
+        score += self.monthly_reverse * self.POINTS_PER_REVERSE
+        score += self.monthly_words * self.POINTS_PER_WORD
+        score += self.streak_points(self.monthly_streak or 0)
+
+        over = max(0, (self.monthly_avg_percent or 0) - self.ACCURACY_FLOOR)
+        score += round((self.total_questions or 0) * over / 100)
+
+        score += self.report_bonus or 0
+        return int(score)
+
+    @classmethod
+    def streak_points(cls, days: int) -> int:
+        """
+        Баллы за серию: каждый следующий день дороже предыдущего, до потолка.
+
+        День 1 даёт 1, день 5 — 5, день 10 и все дальнейшие — по 10. За
+        тридцать дней подряд набегает 255, за три дня — 6. Разрыв между
+        «хожу каждый день» и «захожу иногда» виден в таблице, и это ровно
+        то, ради чего серия в рейтинге и нужна.
+
+        Прежняя формула давала ровно три балла за день, и тридцатый день
+        стоил столько же, сколько первый, — то есть терять серию было почти
+        не жалко.
+        """
+        days = max(0, int(days))
+        full = min(days, cls.STREAK_DAILY_CAP)
+        rest = max(0, days - cls.STREAK_DAILY_CAP)
+        return full * (full + 1) // 2 + rest * cls.STREAK_DAILY_CAP
 
 
 class MonthlyQuizEvent(Base):

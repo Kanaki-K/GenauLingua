@@ -6,9 +6,10 @@
 
 from sqlalchemy import select, func, and_, or_
 from sqlalchemy.ext.asyncio import AsyncSession
+from app.database.enums import QuizChannel
 from app.database.models import (
     User, MonthlySeason, MonthlyStats, MonthlyQuizEvent, MonthlyAward, WinStreak,
-    QuizSession, UserWord
+    QuizQuestion, QuizSession, UserWord
 )
 from app.services.language_service import DEFAULT_LEARNING_LANG, pair_from_user
 from typing import List, Dict, Optional
@@ -139,6 +140,14 @@ async def _recalc_monthly_stats_full(
     monthly_stat.total_questions = total_questions
     monthly_stat.monthly_avg_percent = int((total_correct / total_questions * 100) if total_questions > 0 else 0)
 
+    # Верные ответы по каналам: за слух и речь платят больше, чем за текст.
+    # Текстовый канал не считается — он выводится вычитанием из total_correct.
+    by_channel = await _correct_by_channel(
+        session, [q.id for q in month_quizzes]
+    )
+    monthly_stat.correct_audio = by_channel.get(QuizChannel.AUDIO.value, 0)
+    monthly_stat.correct_speech = by_channel.get(QuizChannel.SPEECH.value, 0)
+
     user_words_result = await session.execute(
         select(func.count()).select_from(UserWord).where(
             UserWord.user_id == user_id,
@@ -168,6 +177,36 @@ async def _user_learning_lang(user_id: int, session: AsyncSession) -> str:
     """Изучаемый язык пользователя — измерение месячного рейтинга."""
     user = await session.get(User, user_id)
     return pair_from_user(user).learning if user else DEFAULT_LEARNING_LANG
+
+
+async def _correct_by_channel(
+    session: AsyncSession, quiz_session_ids: list[int]
+) -> dict[str, int]:
+    """
+    Сколько верных ответов дано каждым каналом в этих занятиях.
+
+    Считается в базе, а не перебором в Python: у активного пользователя за
+    месяц набирается несколько сотен вопросов, и тянуть их строками ради
+    двух чисел незачем.
+
+    Текстовый канал здесь НЕ возвращается, и это не упущение: у вопросов,
+    заданных до появления каналов, колонка пуста, и считать их отдельно
+    значило бы потерять. Текст выводится вычитанием из total_correct —
+    тогда и пустые, и явные «t» попадают в него одинаково верно.
+    """
+    if not quiz_session_ids:
+        return {}
+
+    rows = await session.execute(
+        select(QuizQuestion.channel, func.count())
+        .where(
+            QuizQuestion.session_id.in_(quiz_session_ids),
+            QuizQuestion.is_correct.is_(True),
+            QuizQuestion.channel.isnot(None),
+        )
+        .group_by(QuizQuestion.channel)
+    )
+    return {channel: count for channel, count in rows.all()}
 
 
 async def update_monthly_stats(
@@ -247,6 +286,14 @@ async def update_monthly_stats(
         monthly_stat.monthly_avg_percent = int((monthly_stat.total_correct / monthly_stat.total_questions) * 100)
     else:
         monthly_stat.monthly_avg_percent = 0
+
+    by_channel = await _correct_by_channel(session, [quiz.id])
+    monthly_stat.correct_audio = (monthly_stat.correct_audio or 0) + by_channel.get(
+        QuizChannel.AUDIO.value, 0
+    )
+    monthly_stat.correct_speech = (monthly_stat.correct_speech or 0) + by_channel.get(
+        QuizChannel.SPEECH.value, 0
+    )
 
     last_date = monthly_stat.last_quiz_date
     if last_date == quiz_date:

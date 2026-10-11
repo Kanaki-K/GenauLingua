@@ -145,7 +145,18 @@ class TestAccuracyAccounting:
         assert stat.total_questions == 4, "учитываться должны отвеченные, не плановые"
         assert stat.monthly_avg_percent == 100
 
-    async def test_accuracy_bonus_thresholds_apply(self, session, user):
+    async def test_accuracy_adds_to_the_score_without_a_cliff(self, session, user):
+        """
+        Прибавка за точность начисляется ПЛАВНО, от порога 60%.
+
+        Прежде здесь проверялся обрыв: «100% ≥ 90 → бонус 50», и тест
+        требовал `monthly_score >= 50`. Обрыв убран — человек с 89% видел,
+        что двадцать баллов пропали из-за одного вопроса, и это читалось
+        как несправедливость, даже будучи описанным в правилах.
+
+        Теперь проверяется то, ради чего прибавка и существует: она есть,
+        она растёт вместе с точностью и не прыгает скачком.
+        """
         await _season(session)
 
         quiz = _completed_quiz(user.id, planned=25, answered=10, correct=10)
@@ -153,9 +164,21 @@ class TestAccuracyAccounting:
         await session.commit()
 
         stat = await update_monthly_stats(user.id, session, quiz_session_id=quiz.id)
-        # 100% >= 90 -> бонус 50
         assert stat.monthly_avg_percent == 100
-        assert stat.monthly_score >= 50
+
+        perfect = stat.calculate_monthly_score()
+
+        # тот же объём, но точность на пороге — прибавки быть не должно
+        stat.monthly_avg_percent = MonthlyStats.ACCURACY_FLOOR
+        at_floor = stat.calculate_monthly_score()
+        assert perfect > at_floor, "за точность не начислено ничего"
+
+        # и соседние проценты отличаются чуть-чуть, а не скачком
+        stat.monthly_avg_percent = 89
+        just_below = stat.calculate_monthly_score()
+        stat.monthly_avg_percent = 90
+        just_above = stat.calculate_monthly_score()
+        assert 0 <= just_above - just_below <= 2, "обрыв на 90% вернулся"
 
     async def test_session_accuracy_property(self, session, user):
         quiz = _completed_quiz(user.id, planned=25, answered=8, correct=6)
