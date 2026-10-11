@@ -40,6 +40,26 @@
 Bezahlung anbelangt», `anbelangen` 8250). Значит дыра была ровно одна:
 якорь `^`. Теперь перед проверкой снимается ведущее междометие.
 
+ВТОРАЯ ДЫРА, ЗАКРЫТАЯ В БЛОКЕ 7 ТРЕТЬЕГО ПРОХОДА, И ЗАКРЫТА ОНА
+ГРАММАТИКОЙ, А НЕ СПИСКОМ. Список междометий из блока 1 поймал `Na` и
+`Tja`, но пропустил ЗВАТЕЛЬНЫЕ ОБОРОТЫ, которых в списке нет и быть не
+может — их бесконечно много:
+
+    Herrgott      (13894, B2) «Herrgott, was ist denn hier passiert»
+    Menschenskind (15311, B2) «Menschenskind, was hast du denn getan»
+    Sau           (15459, B1) «Du dumme Sau, was machst du denn da»
+
+Обобщать «что угодно + запятая + W-слово» НЕЛЬЗЯ: замер дал 45
+попаданий, и 42 из них — подчинённые клаузы («Es ist unklar, WARUM er
+nicht kam», «Das ist das Maximum, WAS ich dir leihen kann»). Ровно
+поэтому `scan_de_tail_question` W-слова и не берёт.
+
+Отделяет вопрос от подчинённой клаузы НЕМЕЦКАЯ ВОПРОСИТЕЛЬНАЯ ЧАСТИЦА.
+«denn», «bloß», «eigentlich» при W-слове стоят только в настоящем
+вопросе — в подчинённой клаузе их там не бывает. Замер: 20 рядов с
+таким сочетанием, 17 со знаком «?» и ровно 3 без, и все три были
+вопросами без знака. **Ни одного ложного попадания.**
+
 ПОЧЕМУ ТЕПЕРЬ ГЕЙТ. После правки этих двух рядов примета чиста по ВСЕМ
 ТРЁМ ведрам по всей базе — ноль, ноль и ноль. Правило формальное и от
 языка не зависит (знак препинания), законного остатка нет. Поэтому она
@@ -106,6 +126,28 @@ def strip_interjection(s: str) -> str:
     return LEAD_INTERJECTION.sub("", s, count=1).strip()
 
 
+# ВТОРАЯ ПРОВЕРКА, добавленная в блоке 7 третьего прохода, и она сильнее
+# первой, потому что опирается на ГРАММАТИКУ, а не на список слов.
+#
+# Список междометий закрыл `Na` и `Tja`, но пропустил `Herrgott`,
+# `Menschenskind` и `Du dumme Sau` — звательные обороты, которых в списке
+# нет и быть не может: их бесконечно много.
+#
+# Признак другой. Немецкая ВОПРОСИТЕЛЬНАЯ ЧАСТИЦА («denn», «bloß»,
+# «eigentlich») в клаузе с W-словом стоит только в НАСТОЯЩЕМ вопросе: в
+# подчинённой клаузе («Es ist unklar, warum er nicht kam») её там не
+# бывает. Поэтому «W-слово + частица» отделяет вопрос от подчинённой
+# клаузы без разбора структуры предложения.
+#
+# Замер по базе: 20 рядов, 17 со знаком «?» и ровно 3 без — и все три
+# были настоящими вопросами без знака. Ни одного ложного попадания.
+QUESTION_PARTICLE = re.compile(
+    r"\b(?:wer|wen|wem|wessen|was|wo|wohin|woher|wann|wie|warum|wieso|"
+    r"weshalb|welche[rsnm]?)\b[^,.!?]{0,40}?\b(?:denn|bloß|eigentlich)\b",
+    re.IGNORECASE,
+)
+
+
 def looks_like_question(s: str) -> bool:
     s = s.strip()
     if s.endswith("!"):
@@ -120,7 +162,10 @@ def looks_like_question(s: str) -> bool:
         return False
     if NOT_A_QUESTION.match(core):
         return False
-    return bool(GERMAN_QUESTION_START.match(core))
+    if GERMAN_QUESTION_START.match(core):
+        return True
+    # Вопросительная частица при W-слове — вопрос где угодно во фразе
+    return bool(QUESTION_PARTICLE.search(s))
 
 
 # Самопроверка до работы: шаблон, который врёт, опаснее отсутствия проверки
@@ -136,6 +181,10 @@ MUST_BE_QUESTION = [
     "Na, wie geht's dir denn",
     "Tja, was soll ich sagen",
     "Ach, warum hast du das nicht gesagt",
+    # Вопросительная частица при W-слове — вопрос при любом зачине
+    "Herrgott, was ist denn hier passiert",
+    "Menschenskind, was hast du denn getan",
+    "Du dumme Sau, was machst du denn da",
 ]
 MUST_NOT_BE_QUESTION = [
     "Ich bin Student",
@@ -157,6 +206,11 @@ MUST_NOT_BE_QUESTION = [
     # Отсечки работают и после снятия междометия
     "Na, was für ein Zufall!",
     "Tja, was die Bezahlung anbelangt, haben wir keine Einigung",
+    # Подчинённые клаузы с W-словом — НЕ вопросы, и частицы в них нет
+    "Es ist unklar, warum er nicht zur Party gekommen ist",
+    "Das ist das Maximum, was ich dir leihen kann",
+    "Ich bin gespannt, wie das Konzert wird",
+    "Wir rätseln noch immer, wo er hingegangen ist",
 ]
 
 
