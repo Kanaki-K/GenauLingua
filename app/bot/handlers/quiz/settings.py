@@ -312,13 +312,15 @@ def _channel_available(channel: QuizChannel, user: User) -> bool:
     """
     Можно ли вообще включить этот канал.
 
-    Речь выключена не потому, что так решили, а потому что её ещё нет.
     Слух требует включённой озвучки: без звука вопрос на слух неотвечаем —
     слова на экране нет, его заменяет клип.
+
+    Речь тоже требует озвучки, но по другой причине: сам вопрос без звука
+    обойдётся (слово показано), а вот эталон послушать будет нечем, и
+    сравнить себя станет не с чем. Упражнение превратится в «скажи что-то, я
+    угадаю», а в этом половина пользы теряется.
     """
-    if channel is QuizChannel.SPEECH:
-        return False
-    if channel is QuizChannel.AUDIO:
+    if channel in (QuizChannel.AUDIO, QuizChannel.SPEECH):
         return bool(user.audio_enabled)
     return True
 
@@ -357,7 +359,6 @@ async def show_channels(callback: CallbackQuery, session: AsyncSession):
     notes = [get_text("channels_text_always", lang)]
     if not user.audio_enabled:
         notes.append(get_text("channels_audio_blocked", lang))
-    notes.append(get_text("channels_speech_soon", lang))
 
     text = (
         f"{get_text('channels_title', lang)}\n\n"
@@ -387,9 +388,12 @@ async def toggle_channel(callback: CallbackQuery, session: AsyncSession):
         await callback.answer(get_text("channels_text_always", lang), show_alert=True)
         return
     if not _channel_available(channel, user):
-        key = ("channels_audio_blocked" if channel is QuizChannel.AUDIO
-               else "channels_speech_soon")
-        await callback.answer(get_text(key, lang), show_alert=True)
+        # Причина теперь одна на оба канала — выключенная озвучка. Пока речи
+        # не существовало, у неё была своя («скоро»); эта ветка осталась бы
+        # врать, если её не свести к настоящей причине.
+        await callback.answer(
+            get_text("channels_audio_blocked", lang), show_alert=True
+        )
         return
 
     # Хранится строка из букв, а не набор флагов: порядок в ней не значим,

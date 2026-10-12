@@ -577,3 +577,23 @@ TEXTS.update({
     "channels_speech_soon": "🎤 Konuşma yakında geliyor.",
     "channels_need_one": "En az bir kanal açık kalmalı",
 })
+
+
+# ============================================================================
+# ВОПРОС ВСЛУХ
+#
+# Ответ приходит голосовым сообщением, а не нажатием. Распознаватель отвечает
+# на вопрос «то ли слово сказано», и только на него: качество произношения он
+# судить не умеет — он обучен ПОНИМАТЬ акцент, а не замечать его.
+# ============================================================================
+TEXTS.update({
+    "quiz_question_speak": "🎤 Bu kelimeyi yüksek sesle söyle — sesli mesaj kaydet",
+    "speech_btn_reference": "🔊 Dinle",
+    "speech_btn_skip": "⏭ Atla",
+    "speech_listening": "🎧 Dinliyorum…",
+    "speech_heard": "Duydum: <i>{heard}</i>",
+    "speech_not_understood": "🤔 Anlayamadım. Tekrar kaydet — mikrofona yakın ve biraz daha yüksek sesle.",
+    "speech_send_voice": "🎤 Bu soru sesli mesajla cevaplanır. Mikrofon düğmesine basılı tut.",
+    "speech_skipped": "⏭ Atlandı",
+    "quiz_result_spoken": "🎤 Sesli: {count}",
+})

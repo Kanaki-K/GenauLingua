@@ -15,21 +15,28 @@ from datetime import date, timedelta
 from aiogram import F, Router
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
-from aiogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup, Message
+from aiogram.types import (
+    BufferedInputFile, CallbackQuery, InlineKeyboardButton,
+    InlineKeyboardMarkup, Message,
+)
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.bot.buttons import BTN_LEARN_WORDS, pressed
 from app.bot.keyboards import get_answer_keyboard
 from app.bot.states import QuizStates
-from app.bot.handlers.quiz.card import show_card
+from app.bot.handlers.quiz.card import STATE_CARD_HAS_AUDIO, STATE_CARD_ID, show_card
 from app.bot.utils import delete_messages_fast, ensure_anchor
 from app.services.audio_service import (
+    AUDIO_PERFORMER,
     KIND_FULL,
     KIND_WORD,
     clip_for_user,
     clip_kind_for_question,
+    remember,
+    spoken_for,
 )
+from app.services.speech_check import check_pronunciation
 from app.core.clock import utcnow, utctoday
 from app.database.enums import QuizChannel, QuizMode
 from app.database.models import QuizQuestion, QuizSession, User, UserWord, Word
@@ -210,6 +217,26 @@ def _question_text(
             f"{get_text('quiz_question_listen', lang)}"
         )
 
+    # ВОПРОС ВСЛУХ: слово показано, но вариантов нет — ответ приходит
+    # голосовым сообщением.
+    #
+    # Слово ОБЯЗАНО быть на экране: произнести можно только то, что видишь.
+    # Этим вопрос вслух противоположен вопросу на слух, где слово спрятано.
+    #
+    # Пример не показывается: задание — одно слово, и предложение рядом
+    # подталкивало бы прочитать его целиком.
+    #
+    # Звук в вопросе НЕ играет. Эталон есть, но по кнопке: услышав слово
+    # перед ответом, человек его просто повторит, а это проверяет слух и
+    # подражание, тогда как спрашивают умение произнести по написанному.
+    if channel is QuizChannel.SPEECH:
+        word_shown = option_label(word, pair.learning)
+        return (
+            f"{prefix}{number} · 🎤\n\n"
+            f"{flag(pair.learning)} <b>{word_shown}</b>\n\n"
+            f"{get_text('quiz_question_speak', lang)}"
+        )
+
     prompt = option_label(word, pair.prompt_lang)
     example = example_text(word, pair.prompt_lang)
     task_key = "quiz_question_choose_word" if pair.reverse else "quiz_question_choose_translation"
@@ -278,7 +305,33 @@ def _answer_text(
     return "".join(lines)
 
 
-def get_next_question_keyboard(lang: str = "ru") -> InlineKeyboardMarkup:
+def _question_keyboard(channel: QuizChannel, options, lang: str) -> InlineKeyboardMarkup:
+    """
+    Клавиатура вопроса. У вопроса вслух она другая: вариантов нет.
+
+    Ответ там приходит голосовым сообщением, поэтому кнопок всего две —
+    послушать эталон и пропустить.
+
+    ПРОПУСК ОБЯЗАТЕЛЕН, и это не поблажка. Человек бывает в транспорте, в
+    библиотеке, рядом со спящим ребёнком. Без пропуска он бросит круг
+    целиком, и мы потеряем не один вопрос, а всё занятие.
+    """
+    if channel is not QuizChannel.SPEECH:
+        return get_answer_keyboard(options)
+
+    return InlineKeyboardMarkup(inline_keyboard=[[
+        InlineKeyboardButton(
+            text=get_text("speech_btn_reference", lang),
+            callback_data="speech_reference",
+        ),
+        InlineKeyboardButton(
+            text=get_text("speech_btn_skip", lang),
+            callback_data="speech_skip",
+        ),
+    ]])
+
+
+def get_next_question_keyboard(lang: str = DEFAULT_LOCALE) -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(
         inline_keyboard=[
             [InlineKeyboardButton(text=get_text("quiz_btn_next", lang), callback_data="next_question")]
@@ -457,7 +510,7 @@ async def start_quiz(message: Message, state: FSMContext, session: AsyncSession)
     await show_card(
         message.bot, message.chat.id, state, session,
         text=_question_text(word, pair, lang, 1, quiz_total, channel=channel),
-        keyboard=get_answer_keyboard(question["options"]),
+        keyboard=_question_keyboard(channel, question["options"], lang),
         clip=clip,
         word_id=word.id, lang=pair.learning,
     )
@@ -524,11 +577,43 @@ async def process_answer(callback: CallbackQuery, state: FSMContext, session: As
     if asked_at:
         response_seconds = max(0, int(utcnow().timestamp() - float(asked_at)))
 
+    await _record_answer(
+        bot=callback.bot, chat_id=callback.message.chat.id, state=state,
+        session=session, user=user, pair=pair, lang=lang,
+        correct_word=correct_word, is_correct=is_correct, channel=channel,
+        answer_text=selected_text, card_message=callback.message,
+        session_id=session_id, correct_answers=correct_answers, errors=errors,
+        response_seconds=response_seconds,
+    )
+    await callback.answer()
+
+
+async def _record_answer(
+    *, bot, chat_id, state, session, user, pair, lang,
+    correct_word, is_correct, channel, answer_text,
+    session_id, correct_answers, errors, response_seconds,
+    card_message=None, card_message_id=None,
+) -> None:
+    """
+    Общая часть любого ответа: запись, прогресс, показ разбора.
+
+    Вынесена потому, что ответов теперь ДВА ВИДА: нажатие на вариант и
+    голосовое сообщение. Держать для них две копии этой тридцатистрочной
+    последовательности значило бы гарантировать расхождение — одну поправят,
+    вторую забудут.
+
+    `card_message` — сообщение карточки, если оно под рукой (так при
+    нажатии). При голосовом ответе карточка остаётся выше в переписке, и
+    у обработчика есть только её `card_message_id`: прежняя карточка
+    удаляется по нему, а разбор приходит новым сообщением.
+    """
+    correct_word_id = correct_word.id
+
     session.add(
         QuizQuestion(
             session_id=session_id,
             word_id=correct_word_id,
-            user_answer=(selected_text or "")[:255] or None,
+            user_answer=(answer_text or "")[:255] or None,
             is_correct=is_correct,
             answered_at=utcnow(),
             response_time_seconds=response_seconds,
@@ -568,18 +653,198 @@ async def process_answer(callback: CallbackQuery, state: FSMContext, session: As
 
     await state.update_data(correct_answers=correct_answers, errors=errors)
 
+    # Голосовой ответ пришёл отдельным сообщением, и карточка вопроса
+    # осталась выше в переписке. Править её на месте нельзя — между ней и
+    # низом чата уже стоит запись ученика, — поэтому удаляем по id, а разбор
+    # приходит новым сообщением под голосовым.
+    if card_message is None and card_message_id:
+        try:
+            await bot.delete_message(chat_id, card_message_id)
+        except Exception:
+            logger.debug("карточка вопроса не удалилась", exc_info=True)
+        await state.update_data(**{STATE_CARD_HAS_AUDIO: False})
+
     # На разборе звучит слово с примером: значение уже известно, и теперь
     # слышно, как слово живёт в живой речи. В вопросе примера в звуке нет —
     # там его было бы не разобрать.
     await show_card(
-        callback.bot, callback.message.chat.id, state, session,
+        bot, chat_id, state, session,
         text=_answer_text(correct_word, pair, lang, is_correct, channel),
+        keyboard=get_next_question_keyboard(lang),
+        clip=await clip_for_user(session, user, correct_word, pair.learning, KIND_FULL),
+        word_id=correct_word.id, lang=pair.learning,
+        message=card_message,
+    )
+
+
+# ============================================================================
+# ОТВЕТ ГОЛОСОМ
+# ============================================================================
+
+async def _speech_context(message_or_cb, state, session):
+    """Общая подготовка для голосового ответа, эталона и пропуска."""
+    data = await state.get_data()
+    user = await session.get(User, message_or_cb.from_user.id)
+    correct_word = await session.get(Word, data.get("correct_word_id"))
+    if not user or not correct_word:
+        return None
+    try:
+        channel = QuizChannel(data.get("channel") or QuizChannel.TEXT.value)
+    except ValueError:
+        channel = QuizChannel.TEXT
+    return data, user, correct_word, channel
+
+
+@router.message(QuizStates.answering, F.voice)
+async def process_voice_answer(message: Message, state: FSMContext, session: AsyncSession):
+    """
+    Ответ голосом: услышал ли бот нужное слово.
+
+    ОЦЕНКИ ПРОИЗНОШЕНИЯ ЗДЕСЬ НЕТ, и это осознанно. Распознаватель обучен
+    ПОНИМАТЬ акцент, а не судить его: сильный акцент он расшифрует верно, и
+    любой процент, выведенный из его ответа, был бы выдумкой. Ученику
+    показывается то, что бот действительно услышал, и эталон для сравнения —
+    этого хватает, чтобы услышать разницу самому.
+    """
+    ctx = await _speech_context(message, state, session)
+    if ctx is None:
+        return
+    data, user, correct_word, channel = ctx
+
+    if channel is not QuizChannel.SPEECH:
+        # Голосовое пришло не на тот вопрос — молча пропускаем: человек мог
+        # записать его случайно, и ругаться тут не за что
+        return
+
+    lang = user.interface_language or DEFAULT_LOCALE
+    pair = pair_from_user(user)
+    target = spoken_for(correct_word, pair.learning, KIND_WORD) or option_label(
+        correct_word, pair.learning
+    )
+
+    # Распознавание занимает несколько секунд — человек должен видеть, что
+    # его услышали, а не гадать, дошло ли сообщение
+    thinking = await message.answer(get_text("speech_listening", lang))
+
+    verdict = None
+    try:
+        audio = await message.bot.download(message.voice.file_id)
+        verdict = await check_pronunciation(audio.read(), target, pair.learning)
+    except Exception:
+        logger.exception("не удалось обработать голосовой ответ")
+
+    try:
+        await thinking.delete()
+    except Exception:
+        logger.debug("сообщение «слушаю» не удалилось", exc_info=True)
+
+    # НЕ РАЗОБРАЛ — НЕ ОШИБКА УЧЕНИКА. Тишина, шум, чужой микрофон:
+    # засчитывать это промахом значит наказывать за чужую беду, и человек
+    # бросит игру. Предлагаем записать ещё раз, вопрос остаётся прежним.
+    if verdict is None or verdict.failed or verdict.empty:
+        await message.answer(get_text("speech_not_understood", lang))
+        return
+
+    asked_at = data.get("asked_at")
+    response_seconds = (
+        max(0, int(utcnow().timestamp() - float(asked_at))) if asked_at else None
+    )
+
+    await _record_answer(
+        bot=message.bot, chat_id=message.chat.id, state=state, session=session,
+        user=user, pair=pair, lang=lang, correct_word=correct_word,
+        is_correct=verdict.matched, channel=channel,
+        answer_text=verdict.heard,
+        session_id=data["session_id"], correct_answers=data["correct_answers"],
+        errors=data["errors"], response_seconds=response_seconds,
+        card_message_id=data.get(STATE_CARD_ID),
+    )
+
+
+@router.callback_query(F.data == "speech_reference", QuizStates.answering)
+async def play_reference(callback: CallbackQuery, state: FSMContext, session: AsyncSession):
+    """
+    Эталон по кнопке: услышать, как это звучит у носителя.
+
+    Приходит ОТДЕЛЬНЫМ сообщением, а не заменяет карточку: задание должно
+    остаться на экране, иначе человек забудет, что произносить.
+    """
+    await callback.answer()
+    ctx = await _speech_context(callback, state, session)
+    if ctx is None:
+        return
+    _, user, correct_word, _ = ctx
+    lang = user.interface_language or DEFAULT_LOCALE
+    pair = pair_from_user(user)
+
+    clip = await clip_for_user(session, user, correct_word, pair.learning, KIND_WORD)
+    if clip is None:
+        await callback.answer(get_text("speech_not_understood", lang), show_alert=True)
+        return
+
+    media = clip.file_id or BufferedInputFile(clip.data, filename=clip.filename)
+    sent = await callback.bot.send_audio(
+        callback.message.chat.id, media, title=clip.title,
+        performer=AUDIO_PERFORMER,
+    )
+    if clip.needs_remembering and getattr(sent, "audio", None):
+        await remember(
+            session, correct_word.id, pair.learning, clip,
+            sent.audio.file_id, getattr(sent.audio, "duration", None),
+        )
+        await session.commit()
+
+
+@router.callback_query(F.data == "speech_skip", QuizStates.answering)
+async def skip_speech(callback: CallbackQuery, state: FSMContext, session: AsyncSession):
+    """
+    Пропустить вопрос вслух.
+
+    Пропуск НЕ засчитывается ошибкой: человек мог оказаться в транспорте или
+    рядом со спящим ребёнком, и наказывать за это значит потерять не вопрос,
+    а всё занятие. Верным он тоже не считается — показ просто не учитывается
+    нигде, ни в прогрессе, ни в точности.
+    """
+    await callback.answer()
+    ctx = await _speech_context(callback, state, session)
+    if ctx is None:
+        return
+    data, user, correct_word, channel = ctx
+    if channel is not QuizChannel.SPEECH:
+        return
+
+    lang = user.interface_language or DEFAULT_LOCALE
+    pair = pair_from_user(user)
+    skipped = get_text("speech_skipped", lang)
+    breakdown = _answer_text(correct_word, pair, lang, True, channel)
+
+    await show_card(
+        callback.bot, callback.message.chat.id, state, session,
+        text=f"{skipped}\n\n{breakdown}",
         keyboard=get_next_question_keyboard(lang),
         clip=await clip_for_user(session, user, correct_word, pair.learning, KIND_FULL),
         word_id=correct_word.id, lang=pair.learning,
         message=callback.message,
     )
-    await callback.answer()
+
+
+@router.message(QuizStates.answering, F.text)
+async def hint_to_speak(message: Message, state: FSMContext, session: AsyncSession):
+    """
+    Написал текстом там, где ждут голос — подсказать, а не промолчать.
+
+    Обработчик стоит ПОСЛЕДНИМ среди текстовых и срабатывает только в
+    состоянии ответа на вопрос вслух, поэтому кнопки главного меню до него
+    не доходят: их роутеры подключены раньше в main.py.
+    """
+    ctx = await _speech_context(message, state, session)
+    if ctx is None:
+        return
+    _, user, _, channel = ctx
+    if channel is not QuizChannel.SPEECH:
+        return
+    lang = user.interface_language or DEFAULT_LOCALE
+    await message.answer(get_text("speech_send_voice", lang))
 
 
 # ============================================================================
@@ -691,7 +956,7 @@ async def show_next_question(callback: CallbackQuery, state: FSMContext, session
             word, pair, lang, current_question, total_questions,
             is_repeat=is_error_repeat, channel=channel,
         ),
-        keyboard=get_answer_keyboard(options),
+        keyboard=_question_keyboard(channel, options, lang),
         clip=clip,
         word_id=word.id, lang=pair.learning,
         message=callback.message,

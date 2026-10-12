@@ -609,14 +609,22 @@ def _count_channel(user_word: UserWord, channel: QuizChannel, is_correct: bool) 
     появится ветка для TEXT — значит кто-то завёл ему колонку, и вместе с
     ней завёл возможность расхождения с итогом.
     """
+    # Везде `or 0`, и это не перестраховка. У ТОЛЬКО ЧТО созданного объекта
+    # значения по умолчанию ещё не применены — они ставятся при вставке, а
+    # сюда объект приходит до неё. Первый же ответ по новому слову падал с
+    # «unsupported operand type(s) for +=: NoneType and int».
+    #
+    # Нашла это приёмка круга на первом же прогоне с включённой речью:
+    # текстовые и слуховые ответы по новым словам в неё не попадали, потому
+    # что новое слово на слух не спрашивают, а тексту счётчиков нет.
     if channel is QuizChannel.AUDIO:
-        user_word.shown_audio += 1
+        user_word.shown_audio = (user_word.shown_audio or 0) + 1
         if is_correct:
-            user_word.correct_audio += 1
+            user_word.correct_audio = (user_word.correct_audio or 0) + 1
     elif channel is QuizChannel.SPEECH:
-        user_word.shown_speech += 1
+        user_word.shown_speech = (user_word.shown_speech or 0) + 1
         if is_correct:
-            user_word.correct_speech += 1
+            user_word.correct_speech = (user_word.correct_speech or 0) + 1
 
 
 def _is_learned(user_word: UserWord, now: datetime) -> bool:
@@ -968,6 +976,19 @@ def build_audio_options(
 # времени ученик перерос текстовый вопрос, и слух придёт слишком поздно.
 AUDIO_UNLOCK_CORRECT = 1
 
+# Сколько верных ответов открывают слово для каждого канала.
+#
+# Порог растёт вместе с трудностью: прочитать можно сразу; узнать на слух —
+# после одного успеха глазами, иначе человек угадывает звук слова, которого
+# ни разу не видел; произнести — после двух, потому что производство
+# труднее узнавания, и требовать его от едва знакомого слова значит
+# гарантировать промах.
+CHANNEL_UNLOCK = {
+    QuizChannel.TEXT: 0,
+    QuizChannel.AUDIO: AUDIO_UNLOCK_CORRECT,
+    QuizChannel.SPEECH: 2,
+}
+
 
 def enabled_channels(user: Optional[User]) -> list[QuizChannel]:
     """
@@ -1036,13 +1057,8 @@ async def pick_channel(
     заменяется другим.
     """
     channels = enabled_channels(user)
-    if QuizChannel.AUDIO not in channels:
-        return QuizChannel.TEXT
-
-    # Не три одинаковых подряд
-    recent = recent or []
-    if len(recent) >= 2 and recent[-1] == recent[-2] == QuizChannel.AUDIO.value:
-        return QuizChannel.TEXT
+    if len(channels) == 1:
+        return channels[0]
 
     progress = await session.execute(
         select(UserWord.times_correct).where(
@@ -1053,11 +1069,31 @@ async def pick_channel(
     )
     times_correct = progress.scalar() or 0
 
-    # Слово ещё не давалось верно глазами — на слух рано
-    if times_correct < AUDIO_UNLOCK_CORRECT:
-        return QuizChannel.TEXT
+    # Какие каналы открыты ДЛЯ ЭТОГО СЛОВА. Порог растёт вместе с
+    # трудностью канала: узнать написанное можно сразу, узнать на слух —
+    # после одного успеха глазами, произнести — после двух.
+    unlocked = [
+        c for c in channels
+        if times_correct >= CHANNEL_UNLOCK.get(c, 0)
+    ] or [QuizChannel.TEXT]
 
-    # Знакомое слово: спрашиваем тем каналом, где навыка ещё нет
-    if recent and recent[-1] == QuizChannel.AUDIO.value:
-        return QuizChannel.TEXT
-    return QuizChannel.AUDIO
+    if len(unlocked) == 1:
+        return unlocked[0]
+
+    recent = recent or []
+    values = [c.value for c in unlocked]
+
+    # Не три одинаковых подряд: у продвинутого ученика открыто почти всё, и
+    # занятие выродилось бы в один канал
+    if len(recent) >= 2 and recent[-1] == recent[-2] and recent[-1] in values:
+        rest = [c for c in unlocked if c.value != recent[-1]]
+        if rest:
+            unlocked, values = rest, [c.value for c in rest]
+
+    # Дальше по кругу от последнего: T -> A -> S -> T. Ритм всё равно
+    # выходит неровным, потому что у разных слов открыты разные каналы, —
+    # и это не случайность, а отражение того, насколько человек знает
+    # каждое следующее слово.
+    if recent and recent[-1] in values:
+        return unlocked[(values.index(recent[-1]) + 1) % len(unlocked)]
+    return unlocked[0]

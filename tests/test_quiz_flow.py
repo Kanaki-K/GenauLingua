@@ -124,7 +124,14 @@ async def test_word_answered_right_once_becomes_eligible_for_ear(session, user):
         session=session, learning_lang="de", channel=QuizChannel.TEXT,
     )
 
-    channel = await pick_channel(session, user, words[0], "de", recent=[])
+    # История передаётся непустой НАРОЧНО. При пустой выбор начинается с
+    # первого канала по кругу, то есть с текста, — и это верно: первый
+    # вопрос занятия всегда текстовый, начинать с того, что непонятно без
+    # звука, плохо. Допуск проверяется на СЛЕДУЮЩЕМ вопросе.
+    assert await pick_channel(session, user, words[0], "de", recent=[]) \
+        is QuizChannel.TEXT, "первый вопрос круга обязан быть текстовым"
+
+    channel = await pick_channel(session, user, words[0], "de", recent=["t"])
     assert channel is QuizChannel.AUDIO
 
 
@@ -302,3 +309,92 @@ def test_both_branches_of_the_next_question_assign_everything_the_tail_uses():
         f"ветка обычного вопроса не задаёт {missing_in_else}, "
         f"а показ карточки это читает — будет NameError"
     )
+
+
+# ============================================================================
+# ТРЕТИЙ КАНАЛ: РЕЧЬ
+# ============================================================================
+
+async def test_speech_unlocks_later_than_listening(session, user):
+    """
+    Порог растёт вместе с трудностью канала.
+
+    Прочитать можно сразу; узнать на слух — после одного успеха глазами,
+    иначе человек угадывает звук слова, которого ни разу не видел;
+    произнести — после двух, потому что производство труднее узнавания, и
+    требовать его от едва знакомого слова значит гарантировать промах.
+    """
+    from app.services.quiz_service import CHANNEL_UNLOCK
+
+    assert CHANNEL_UNLOCK[QuizChannel.TEXT] == 0
+    assert (CHANNEL_UNLOCK[QuizChannel.TEXT]
+            < CHANNEL_UNLOCK[QuizChannel.AUDIO]
+            < CHANNEL_UNLOCK[QuizChannel.SPEECH])
+
+
+async def test_speech_is_not_asked_for_a_barely_known_word(session, user):
+    from app.services.quiz_service import update_word_progress
+
+    words = await _seed(session)
+    user.quiz_channels = "ts"
+    user.audio_enabled = True
+    await session.commit()
+
+    # один верный ответ — для речи ещё рано
+    await update_word_progress(
+        user_id=user.id, word_id=words[0].id, is_correct=True,
+        session=session, learning_lang="de", channel=QuizChannel.TEXT,
+    )
+    assert await pick_channel(session, user, words[0], "de", recent=["t"]) \
+        is QuizChannel.TEXT
+
+    # второй — теперь можно просить вслух
+    await update_word_progress(
+        user_id=user.id, word_id=words[0].id, is_correct=True,
+        session=session, learning_lang="de", channel=QuizChannel.TEXT,
+    )
+    assert await pick_channel(session, user, words[0], "de", recent=["t"]) \
+        is QuizChannel.SPEECH
+
+
+async def test_speech_question_shows_the_word_and_has_no_options(session, user):
+    """
+    Вопрос вслух — зеркало вопроса на слух.
+
+    Там слово спрятано и его заменяет звук; здесь слово ПОКАЗАНО, потому что
+    произнести можно только то, что видишь, а вариантов нет вовсе: ответ
+    приходит голосовым сообщением.
+    """
+    from app.bot.handlers.quiz.game import _question_keyboard, _question_text
+
+    words = await _seed(session)
+    pair = LanguagePair(learning="de", native="ru", reverse=False)
+    shown = option_label(words[0], pair.learning)
+
+    text = _question_text(words[0], pair, "ru", 1, 15, channel=QuizChannel.SPEECH)
+    assert shown in text, "слово обязано быть на экране: его надо произнести"
+    assert "📝" not in text, "пример подталкивал бы прочитать предложение целиком"
+
+    keyboard = _question_keyboard(QuizChannel.SPEECH, [], "ru")
+    buttons = [b for row in keyboard.inline_keyboard for b in row]
+    assert len(buttons) == 2, "послушать эталон и пропустить — больше нечего"
+    assert {b.callback_data for b in buttons} == {"speech_reference", "speech_skip"}
+
+
+async def test_counters_survive_a_fresh_row(session, user):
+    """
+    У только что созданной записи счётчики ещё None: значения по умолчанию
+    ставятся при вставке, а учёт идёт до неё. Первый же ответ вслух по
+    новому слову падал с «NoneType + int».
+    """
+    from app.services.quiz_service import _count_channel
+    from app.database.models import UserWord
+
+    fresh = UserWord(user_id=user.id, word_id=1, learning_lang="de",
+                     correct_streak=0, times_shown=0, times_correct=0,
+                     learned=False)
+    assert fresh.shown_speech is None, "иначе этот тест ничего не проверяет"
+
+    _count_channel(fresh, QuizChannel.SPEECH, is_correct=True)
+    assert fresh.shown_speech == 1
+    assert fresh.correct_speech == 1

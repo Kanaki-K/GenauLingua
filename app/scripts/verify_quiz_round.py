@@ -142,7 +142,9 @@ async def _cleanup(session) -> None:
 async def play_round(session, user: User, pair: LanguagePair, length: int,
                      problems: list[str], seen: collections.Counter) -> None:
     """Один круг целиком, теми же функциями, что и в обработчике."""
-    from app.bot.handlers.quiz.game import _clip_or_text, _question_text
+    from app.bot.handlers.quiz.game import (
+        _clip_or_text, _question_keyboard, _question_text,
+    )
 
     used: list[int] = []
     recent: list[str] = []
@@ -170,12 +172,34 @@ async def play_round(session, user: User, pair: LanguagePair, length: int,
         seen[channel.name] += 1
 
         # ГЛАВНОЕ УСЛОВИЕ: есть либо слово на экране, либо звук
-        shown = option_label(word, pair.prompt_lang)
+        # У вопроса ВСЛУХ слово показано на ИЗУЧАЕМОМ языке, а не на языке
+        # вопроса: произнести можно только то, что видишь, и произносят его
+        # на изучаемом. У остальных — на языке вопроса.
+        shown_lang = pair.learning if channel is QuizChannel.SPEECH else pair.prompt_lang
+        shown = option_label(word, shown_lang)
         word_on_screen = bool(shown) and shown in text
         if not word_on_screen and clip is None:
             problems.append(
                 f"{pair.learning}->{pair.native} вопрос {number} ({channel.name}): "
                 f"ни слова на экране, ни звука — ответить можно только наугад"
+            )
+
+        # У вопроса вслух клавиатура ДРУГАЯ: вариантов нет, ответ приходит
+        # голосовым. Проверяется отдельно, потому что 
+        # однажды уже оказалась вызываемой, но не определённой — модуль при
+        # этом импортировался, а падало бы на первом же вопросе.
+        keyboard = _question_keyboard(channel, options, "ru")
+        buttons = [b for row in keyboard.inline_keyboard for b in row]
+        if channel is QuizChannel.SPEECH:
+            if len(buttons) != 2:
+                problems.append(
+                    f"{pair.learning}->{pair.native} вопрос {number}: "
+                    f"у вопроса вслух {len(buttons)} кнопок вместо двух"
+                )
+        elif len(buttons) != 4:
+            problems.append(
+                f"{pair.learning}->{pair.native} вопрос {number}: "
+                f"{len(buttons)} кнопок вместо четырёх"
             )
 
         # Канал, которым вопрос ПОКАЗАН, и которым он будет засчитан, —
@@ -199,6 +223,9 @@ async def run(rounds: int, length: int) -> int:
     # Случаи подобраны так, чтобы каждый ловил свою беду
     cases = [
         ("de", "ru", False, True, "ta", "обычный: текст и слух"),
+        ("de", "ru", False, True, "tas", "ВСЕ ТРИ канала вместе"),
+        ("de", "ru", False, True, "s", "только речь"),
+        ("de", "ru", False, True, "a", "только слух"),
         ("de", "ru", True, True, "ta", "обратное направление"),
         ("de", "ru", False, False, "ta", "ОЗВУЧКА ВЫКЛЮЧЕНА при составе «ta»"),
         ("pl", "uk", False, True, "ta", "пара без немецкого"),
@@ -228,12 +255,20 @@ async def run(rounds: int, length: int) -> int:
     print(f"\nкругов сыграно: {rounds * len(cases)}, вопросов: {total}")
     print("  по каналам: " + ", ".join(f"{k} {v}" for k, v in sorted(seen.items())))
 
-    # Ещё один ложный зелёный: если вопросов на слух не было вовсе, значит
-    # проверять было нечего, и «ок» ничего не значит
-    expected_audio = any(c[3] and "a" in c[4] for c in cases)
-    if expected_audio and not seen.get(QuizChannel.AUDIO.name):
-        print("\nПРОВЕРКА ПРОШЛА ВХОЛОСТУЮ: ни одного вопроса на слух не задано")
-        return 1
+    # Ложный зелёный: если вопросов какого-то канала не было ВОВСЕ, значит
+    # проверять было нечего, и «ок» про него ничего не значит.
+    #
+    # Проверка нужна на КАЖДЫЙ канал, а не только на слух: добавив речь, я
+    # первым же прогоном получил «ок» на случаях «только речь» и «все три
+    # вместе», не задав НИ ОДНОГО вопроса вслух — `pick_channel` про третий
+    # канал ещё не знал и молча отдавал текст.
+    for channel, letter in ((QuizChannel.AUDIO, "a"), (QuizChannel.SPEECH, "s")):
+        expected = any(audio_on and letter in channels
+                       for _, _, _, audio_on, channels, _ in cases)
+        if expected and not seen.get(channel.name):
+            print(f"\nПРОВЕРКА ПРОШЛА ВХОЛОСТУЮ: ни одного вопроса канала "
+                  f"{channel.name} не задано")
+            return 1
 
     if problems:
         print(f"\nНАРУШЕНИЙ: {len(problems)}")

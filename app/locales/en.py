@@ -577,3 +577,23 @@ TEXTS.update({
     "channels_speech_soon": "🎤 Speaking is coming soon.",
     "channels_need_one": "At least one channel must stay on",
 })
+
+
+# ============================================================================
+# ВОПРОС ВСЛУХ
+#
+# Ответ приходит голосовым сообщением, а не нажатием. Распознаватель отвечает
+# на вопрос «то ли слово сказано», и только на него: качество произношения он
+# судить не умеет — он обучен ПОНИМАТЬ акцент, а не замечать его.
+# ============================================================================
+TEXTS.update({
+    "quiz_question_speak": "🎤 Say this word out loud — record a voice message",
+    "speech_btn_reference": "🔊 Listen",
+    "speech_btn_skip": "⏭ Skip",
+    "speech_listening": "🎧 Listening…",
+    "speech_heard": "Heard: <i>{heard}</i>",
+    "speech_not_understood": "🤔 Could not make it out. Record again — closer to the mic and a bit louder.",
+    "speech_send_voice": "🎤 This question is answered with a voice message. Press and hold the microphone button.",
+    "speech_skipped": "⏭ Skipped",
+    "quiz_result_spoken": "🎤 Spoken: {count}",
+})
