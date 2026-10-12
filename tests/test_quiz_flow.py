@@ -398,3 +398,83 @@ async def test_counters_survive_a_fresh_row(session, user):
     _count_channel(fresh, QuizChannel.SPEECH, is_correct=True)
     assert fresh.shown_speech == 1
     assert fresh.correct_speech == 1
+
+
+# ============================================================================
+# ИТОГ КРУГА: КАКИМ КАНАЛОМ ЧТО ПРИШЛО
+#
+# Строки «🎧 На слух: N» и «🎤 Вслух: N» существовали в шести локалях и не
+# печатались ни разу: счётчик слуха считался и не использовался, речь не
+# считалась вовсе. Три канала затевались ради видимого разрыва между
+# навыками — а в итоге круга он был не виден.
+# ============================================================================
+
+class _Asked:
+    """Вопрос круга только с теми полями, что читает разбор."""
+
+    def __init__(self, channel: str | None, is_correct: bool = True) -> None:
+        self.channel = channel
+        self.is_correct = is_correct
+
+
+def _pair() -> LanguagePair:
+    return LanguagePair(learning="de", native="ru", reverse=False)
+
+
+def _round(*channels: str | None):
+    from app.bot.handlers.quiz.game import _round_breakdown
+
+    word = make_word("Haus", ru="дом")
+    items = [(_Asked(c), word) for c in channels]
+    return _round_breakdown(items, _pair(), "ru")
+
+
+def test_speech_questions_are_marked_in_the_round_summary():
+    """Речь помечена и сосчитана — прежде её не было ни там, ни там."""
+    details, lines = _round(
+        QuizChannel.TEXT.value, QuizChannel.SPEECH.value, QuizChannel.SPEECH.value
+    )
+
+    assert sum("🎤" in d for d in details) == 2, "речь не помечена в разборе"
+    assert any("2" in line and "🎤" in line for line in lines), \
+        f"нет строки про речь: {lines}"
+
+
+def test_listening_and_speech_are_counted_apart():
+    details, lines = _round(
+        QuizChannel.AUDIO.value, QuizChannel.SPEECH.value, QuizChannel.TEXT.value
+    )
+
+    assert len(lines) == 2, f"ожидались две строки каналов, вышло {lines}"
+    assert "🎧" in lines[0] and "🎤" in lines[1], f"порядок строк сбит: {lines}"
+
+
+def test_channel_line_is_absent_when_the_channel_was_not_used():
+    """
+    «🎤 Вслух: 0» напоминало бы о неудаче там, где её нет: человек просто не
+    включал этот канал.
+    """
+    _, lines = _round(QuizChannel.TEXT.value, QuizChannel.TEXT.value)
+
+    assert lines == [], f"у круга из одного текста появились строки: {lines}"
+
+
+def test_text_questions_carry_no_channel_mark():
+    """
+    Текст не помечается нарочно: он основной, и значок у каждой строки
+    зарябил бы весь список ради того, что видно по отсутствию остальных.
+    """
+    details, _ = _round(QuizChannel.TEXT.value)
+
+    assert "🎧" not in details[0] and "🎤" not in details[0]
+
+
+def test_rounds_played_before_channels_existed_do_not_break_the_summary():
+    """
+    У вопросов, заданных до появления каналов, колонка пуста. Разбор обязан
+    счесть их текстом, а не упасть на поиске значка по None.
+    """
+    details, lines = _round(None, None)
+
+    assert len(details) == 2
+    assert lines == []

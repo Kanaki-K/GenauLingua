@@ -1028,6 +1028,57 @@ async def show_next_question(callback: CallbackQuery, state: FSMContext, session
     )
 
 
+# Значок канала у вопроса в разборе круга. Текста в этом словаре нет
+# нарочно: текстовый вопрос основной, и помечать его значило бы зарябить
+# весь список ради того, что и так видно по отсутствию остальных значков.
+_CHANNEL_MARKS = {
+    QuizChannel.AUDIO.value: "🎧",
+    QuizChannel.SPEECH.value: "🎤",
+}
+
+
+def _round_breakdown(
+    items: list, pair: LanguagePair, lang: str
+) -> tuple[list[str], list[str]]:
+    """
+    Разбор круга по словам и строки «сколько пришло каждым каналом».
+
+    Канал берётся у ВОПРОСА, а не у слова: одно и то же слово в разных
+    кругах приходит разными каналами, и отметка у слова врала бы про круг.
+
+    Строка канала показывается ТОЛЬКО если такие вопросы были. «🎤 Вслух: 0»
+    у человека с выключенной речью напоминало бы о неудаче там, где её нет.
+
+    Прежде обе строки существовали в шести локалях и не печатались ни разу:
+    счётчик слуха считался и НЕ ИСПОЛЬЗОВАЛСЯ, а речь не считалась вовсе.
+    Новая игра растворялась в списке, и человек не замечал, что уже узнаёт
+    слова ушами и произносит их, — то есть ровно того, за чем и затевались
+    три канала.
+    """
+    details: list[str] = []
+    counts = {QuizChannel.AUDIO.value: 0, QuizChannel.SPEECH.value: 0}
+
+    for item, word in items:
+        icon = "✅" if item.is_correct else "❌"
+        mark = _CHANNEL_MARKS.get(item.channel)
+        if mark:
+            counts[item.channel] += 1
+            icon += f" {mark}"
+        details.append(
+            f"{icon} {option_label(word, pair.learning)} — {option_label(word, pair.native)}"
+        )
+
+    channel_lines: list[str] = []
+    for value, key in (
+        (QuizChannel.AUDIO.value, "quiz_result_by_ear"),
+        (QuizChannel.SPEECH.value, "quiz_result_spoken"),
+    ):
+        if counts[value]:
+            channel_lines.append(get_text(key, lang, count=counts[value]))
+
+    return details, channel_lines
+
+
 async def _finish_quiz(
     callback: CallbackQuery,
     state: FSMContext,
@@ -1103,20 +1154,7 @@ async def _finish_quiz(
     )
     items = result_items.all()
 
-    details = []
-    by_ear = 0
-    for item, word in items:
-        icon = "✅" if item.is_correct else "❌"
-        # Вопросы на слух помечены в разборе: иначе новая игра растворяется
-        # в списке и человек не замечает, что уже узнаёт слова ушами.
-        # Отметка ставится у ВОПРОСА, а не у слова: одно и то же слово в
-        # разных кругах приходит разными каналами.
-        if item.channel == QuizChannel.AUDIO.value:
-            by_ear += 1
-            icon += " 🎧"
-        details.append(
-            f"{icon} {option_label(word, pair.learning)} — {option_label(word, pair.native)}"
-        )
+    details, channel_lines = _round_breakdown(items, pair, lang)
 
     percentage = (correct_answers / answered * 100) if answered else 0.0
 
@@ -1125,6 +1163,10 @@ async def _finish_quiz(
         f"{prefix}{get_text('quiz_completed', lang)}\n\n"
         f"{get_text('quiz_result_correct', lang, correct=correct_answers, total=answered)}\n"
         f"{get_text('quiz_result_percentage', lang, percentage=f'{percentage:.1f}')}\n\n"
+    )
+    if channel_lines:
+        result_text += "\n".join(channel_lines) + "\n\n"
+    result_text += (
         f"{get_text('quiz_result_details', lang)}\n" + "\n".join(details)
     )
 
