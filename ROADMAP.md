@@ -474,6 +474,15 @@ ENV_FILE=.env.local .venv/Scripts/python.exe -m app.scripts.state_report
 # приёмка домашнего экрана: живые люди + все шесть локалей
 ... -m app.scripts.verify_home
 
+# приёмка озвучки по КАЖДОМУ голосу (state_report смотрит только основной)
+... -m app.scripts.verify_voices
+
+# приёмка меню: ни одна кнопка не ведёт в пустоту
+... -m app.scripts.verify_buttons
+
+# проверка слухом мужского голоса (женские проверены, мужские — выборкой)
+... -m app.scripts.tts_asr_check --lang de --voice de-DE-ConradNeural --limit 200
+
 # приёмка словарной базы
 ... -m app.scripts.verify_wordbase --rounds 1 --size 12902
 
