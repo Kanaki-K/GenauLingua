@@ -718,3 +718,13 @@ TEXTS.update({
     "match_not_ready": "🧩 Noch zu früh: eine Tafel braucht {need} bekannte Wörter, du hast {have}. Übe mit Karten — sie schalten sie frei.",
     "home_btn_match": "🧩 Finde die Paare",
 })
+
+TEXTS["match_back_to_round"] = "Zurück zur Runde."
+
+TEXTS.update({
+    "settings_btn_match": "🧩 Tafel in der Runde",
+    "settings_match_title": "🧩 <b>Tafel in der Runde</b>",
+    "settings_match_description": "Jede zweite Übung bringt in der Mitte der Runde statt fünf Fragen eine Tafel: fünf Wörter und fünf Bedeutungen, die zu paaren sind. Nur bekannte Wörter.",
+    "match_state_on": "Tafel ist an: sie kommt in der Rundenmitte.",
+    "match_state_off": "Tafel ist aus: die Runde besteht nur aus Fragen.",
+})

@@ -106,8 +106,10 @@ async def pick_words(
     данных, а честный ответ «ещё рано».
     """
     from app.services.quiz_service import _apply_quiz_mode_filter
-    learning_col = word_column(pair.learning)
-    native_col = word_column(pair.native)
+    # Колонки берутся по НАПРАВЛЕНИЮ: в обратном режиме вопрос задаётся
+    # на языке значения, и пустая ячейка там так же непригодна
+    prompt_col = word_column(pair.prompt_lang)
+    answer_col = word_column(pair.answer_lang)
 
     query = (
         select(Word)
@@ -129,10 +131,10 @@ async def pick_words(
         )
         .where(
             UserWord.times_correct >= UNLOCK_CORRECT,
-            learning_col.isnot(None),
-            func.btrim(learning_col) != "",
-            native_col.isnot(None),
-            func.btrim(native_col) != "",
+            prompt_col.isnot(None),
+            func.btrim(prompt_col) != "",
+            answer_col.isnot(None),
+            func.btrim(answer_col) != "",
         )
     )
 
@@ -147,8 +149,8 @@ async def pick_words(
     picked: list[Word] = []
     seen_labels: set[tuple[str, str]] = set()
     for word in candidates:
-        left = option_label(word, pair.learning)
-        right = option_label(word, pair.native)
+        left = option_label(word, pair.prompt_lang)
+        right = option_label(word, pair.answer_lang)
         if not left or not right:
             continue
         if len(left) > LABEL_LIMIT or len(right) > LABEL_LIMIT:
@@ -168,6 +170,57 @@ async def pick_words(
             break
 
     return picked
+
+
+# Самый короткий круг, в который доску ещё можно вставить. Десять — потому
+# что доска занимает пять слотов: в круге из десяти это половина, и меньше
+# уже не круг с разминкой, а разминка с довеском.
+MIN_ROUND_FOR_BOARD = 10
+
+
+def board_slots(round_length: int, size: int = BOARD_SIZE) -> tuple[int, int]:
+    """
+    С какого по какой вопрос круга занимает доска. Нумерация с единицы.
+
+    СЕРЕДИНА, и это выбрано по замеру, а не на вкус.
+
+    Не начало: 9.5% кругов закрываются, не ответив НИ НА ОДИН вопрос, и
+    встречать человека незнакомым экраном — худшее, что можно сделать с
+    этой цифрой. К тому же правило проекта гласит, что первый вопрос круга
+    всегда текстовый.
+
+    Не конец: круг кончается итогом, и доска со своим итогом вклинилась бы
+    между последним вопросом и результатом.
+
+    Для круга из пятнадцати выходит с шестого по десятый.
+    """
+    start = (round_length - size) // 2 + 1
+    return start, start + size - 1
+
+
+def should_insert_board(user: User, round_length: int, eligible: int) -> bool:
+    """
+    Вставлять ли доску в этот круг.
+
+    Три условия, и каждое по делу:
+
+    * человек её не выключил;
+    * круг достаточно длинный — иначе доска съест половину;
+    * годных слов ВДВОЕ больше доски. Ровно пяти мало: доски пошли бы
+      одним и тем же набором, и упражнение превратилось бы в заучивание
+      расположения кнопок;
+    * ЧЕРЕЗ КРУГ, по чётности числа пройденных. Каждый круг — треть
+      занятия всегда одно и то же; «раз в N» потребовало бы счётчика,
+      который негде хранить и который разъедется. Чётность бесплатна,
+      детерминированна и объяснима.
+    """
+    if not getattr(user, "match_in_round", True):
+        return False
+    if round_length < MIN_ROUND_FOR_BOARD:
+        return False
+    if eligible < BOARD_SIZE * 2:
+        return False
+    return (user.quizzes_passed or 0) % 2 == 0
 
 
 def deranged_order(size: int, rng: Optional[random.Random] = None) -> list[int]:

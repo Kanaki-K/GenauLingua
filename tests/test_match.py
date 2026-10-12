@@ -369,3 +369,87 @@ async def test_board_without_limits_in_all_words_mode(session, user):
     assert len(levels) > 1, (
         f"режим «все слова» ограничился одним уровнем: {levels}"
     )
+
+
+# ============================================================================
+# КОГДА ДОСКА ПОПАДАЕТСЯ В КРУГЕ
+# ============================================================================
+
+def test_board_stands_in_the_middle_of_the_round():
+    """
+    Не в начале и не в конце. В начале — потому что 9.5% кругов
+    закрываются без единого ответа, и встречать человека незнакомым
+    экраном нельзя. В конце — там итог.
+    """
+    from app.services.match_service import board_slots
+
+    start, end = board_slots(15)
+
+    assert (start, end) == (6, 10)
+    assert start > 1, "доска встала первым вопросом"
+    assert end < 15, "доска встала последним вопросом"
+
+
+def test_board_takes_exactly_five_slots():
+    """
+    Пять, а не один. Считай её одним вопросом — и круг из пятнадцати молча
+    покроет девятнадцать слов, а счётчик соврёт.
+    """
+    from app.services.match_service import BOARD_SIZE, board_slots
+
+    start, end = board_slots(15)
+
+    assert end - start + 1 == BOARD_SIZE
+
+
+def _person(**kwargs):
+    from app.database.models import User as U
+
+    person = U(id=1, interface_language="ru", learning_lang="de",
+               native_lang="ru", reverse_mode=False, level=CEFRLevel.A1)
+    person.match_in_round = kwargs.get("match_in_round", True)
+    person.quizzes_passed = kwargs.get("quizzes_passed", 0)
+    return person
+
+
+def test_board_is_offered_every_other_round():
+    """
+    Каждый круг — треть занятия всегда одно и то же. Чётность числа
+    пройденных кругов даёт «через раз» бесплатно и детерминированно.
+    """
+    from app.services.match_service import BOARD_SIZE, should_insert_board
+
+    plenty = BOARD_SIZE * 2
+    assert should_insert_board(_person(quizzes_passed=0), 15, plenty)
+    assert not should_insert_board(_person(quizzes_passed=1), 15, plenty)
+    assert should_insert_board(_person(quizzes_passed=2), 15, plenty)
+
+
+def test_board_needs_twice_its_size_in_words():
+    """
+    Ровно пяти годных слов мало: доски пошли бы одним набором, и человек
+    заучил бы расположение кнопок вместо слов.
+    """
+    from app.services.match_service import BOARD_SIZE, should_insert_board
+
+    assert not should_insert_board(_person(), 15, BOARD_SIZE)
+    assert should_insert_board(_person(), 15, BOARD_SIZE * 2)
+
+
+def test_board_stays_out_of_short_rounds():
+    """В круге короче десяти доска съела бы половину."""
+    from app.services.match_service import (
+        BOARD_SIZE, MIN_ROUND_FOR_BOARD, should_insert_board,
+    )
+
+    plenty = BOARD_SIZE * 2
+    assert not should_insert_board(_person(), MIN_ROUND_FOR_BOARD - 1, plenty)
+    assert should_insert_board(_person(), MIN_ROUND_FOR_BOARD, plenty)
+
+
+def test_switched_off_means_off():
+    from app.services.match_service import BOARD_SIZE, should_insert_board
+
+    assert not should_insert_board(
+        _person(match_in_round=False), 15, BOARD_SIZE * 2
+    )

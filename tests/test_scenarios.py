@@ -670,3 +670,192 @@ async def test_board_refuses_when_there_are_too_few_familiar_words(session, user
     expected = get_text("match_not_ready", "ru", need=BOARD_SIZE, have=2)
     everything = "\n".join(recorder.sent_texts())
     assert expected in everything, f"нет честного отказа: {everything[:120]!r}"
+
+
+# ============================================================================
+# 🧩 ДОСКА ВНУТРИ КРУГА
+#
+# Доска занимает ПЯТЬ слотов. Считай её одним вопросом — и круг из
+# пятнадцати молча покроет девятнадцать слов, а счётчик «вопрос 7 из 15»
+# соврёт. Это и есть главное, что здесь проверяется.
+# ============================================================================
+
+async def _long_round_ready(session, user) -> None:
+    """Круг из 15 и запас знакомых коротких слов — доске есть где встать."""
+    from app.database.models import UserWord
+    from sqlalchemy import select
+
+    for i in range(60):
+        session.add(make_word(f"Haus{i:02d}", level=CEFRLevel.A1, ru=f"дом{i:02d}"))
+    await build_groups(session, ["de"])
+
+    user.level = CEFRLevel.A1
+    user.quiz_mode = QuizMode.LEVEL
+    user.quiz_word_count = 15
+    user.audio_enabled = False
+    user.quiz_channels = "t"
+    user.match_in_round = True
+    user.quizzes_passed = 0          # чётное — доска положена
+    await session.commit()
+
+    # Знакомыми делаем ПОЛОВИНУ: доске нужны отвеченные верно, а кругу —
+    # ещё и новые, иначе он упрётся в исчерпание
+    words = (await session.execute(select(Word).order_by(Word.id))).scalars().all()
+    for word in words[:30]:
+        session.add(UserWord(
+            user_id=user.id, word_id=word.id, learning_lang="de",
+            correct_streak=1, times_shown=2, times_correct=2, learned=False,
+        ))
+    await session.commit()
+
+
+async def test_board_appears_in_the_middle_of_the_round(session, user, stage):
+    from app.locales import get_text
+    from app.services.match_service import board_slots
+
+    dp, bot, recorder = stage
+    await _long_round_ready(session, user)
+    start, _ = board_slots(15)
+
+    await _feed(dp, bot, text_update(user.id, get_text("btn_learn_words", "ru")))
+
+    # Идём до слота доски обычными вопросами
+    for _ in range(start - 1):
+        options = [b for b in recorder.buttons() if b.startswith("answer_")]
+        assert options, "вопрос не показан до доски"
+        await _feed(dp, bot, press(user.id, options[0]))
+        recorder.clear()
+        await _feed(dp, bot, press(user.id, "next_question"))
+
+    cells = [b for b in recorder.buttons() if b.startswith("mt:")]
+    assert len(cells) == 10, (
+        f"на вопросе {start} доски нет: {recorder.buttons()}"
+    )
+
+
+async def test_board_inside_a_round_does_not_break_the_counter(session, user, stage):
+    """
+    После доски счётчик перепрыгивает ПЯТЬ слотов, а не один. Иначе круг
+    из пятнадцати покроет девятнадцать слов, и «вопрос 7 из 15» — ложь.
+    """
+    from app.locales import get_text
+    from app.services.match_service import BOARD_SIZE, board_slots
+
+    dp, bot, recorder = stage
+    await _long_round_ready(session, user)
+    start, _ = board_slots(15)
+
+    await _feed(dp, bot, text_update(user.id, get_text("btn_learn_words", "ru")))
+    for _ in range(start - 1):
+        options = [b for b in recorder.buttons() if b.startswith("answer_")]
+        await _feed(dp, bot, press(user.id, options[0]))
+        await _feed(dp, bot, press(user.id, "next_question"))
+
+    context = dp.fsm.get_context(bot, chat_id=user.id, user_id=user.id)
+    assert (await context.get_data()).get("match_round_at") == start, (
+        "доска не запомнила, куда возвращать круг"
+    )
+
+    # Решаем доску целиком
+    for _ in range(BOARD_SIZE):
+        data = await context.get_data()
+        order, matched = data["match_right"], data["match_matched"]
+        left_row = next(i for i in range(BOARD_SIZE) if i not in matched)
+        right_row = order.index(left_row)
+        await _feed(dp, bot, press(user.id, f"mt:l:{left_row}:{data['match_version']}"))
+        data = await context.get_data()
+        await _feed(dp, bot, press(user.id, f"mt:r:{right_row}:{data['match_version']}"))
+
+    data = await context.get_data()
+    assert data["current_question"] == start + BOARD_SIZE - 1, (
+        f"счётчик после доски {data['current_question']}, "
+        f"а должен {start + BOARD_SIZE - 1}"
+    )
+    assert not data.get("match_round_at"), "отметка возврата не снята"
+
+    # И круг доигрывается до итога
+    recorder.clear()
+    await _feed(dp, bot, press(user.id, "next_question"))
+    for _ in range(15):
+        options = [b for b in recorder.buttons() if b.startswith("answer_")]
+        if not options:
+            break
+        await _feed(dp, bot, press(user.id, options[0]))
+        if "next_question" not in recorder.buttons():
+            break
+        await _feed(dp, bot, press(user.id, "next_question"))
+
+    everything = "\n".join(recorder.sent_texts())
+    assert get_text("quiz_completed", "ru").strip("🎉<b/> ") in everything, (
+        f"круг с доской не доигрался: {recorder.last_text()[:90]!r}"
+    )
+
+
+async def test_only_one_board_per_round(session, user, stage):
+    """
+    Вторая доска превратила бы занятие в сопоставление с довеском из
+    вопросов. Отметка в состоянии держит одну на круг.
+    """
+    from app.locales import get_text
+    from app.services.match_service import BOARD_SIZE, board_slots
+
+    dp, bot, recorder = stage
+    await _long_round_ready(session, user)
+    start, _ = board_slots(15)
+
+    await _feed(dp, bot, text_update(user.id, get_text("btn_learn_words", "ru")))
+    for _ in range(start - 1):
+        options = [b for b in recorder.buttons() if b.startswith("answer_")]
+        await _feed(dp, bot, press(user.id, options[0]))
+        await _feed(dp, bot, press(user.id, "next_question"))
+
+    context = dp.fsm.get_context(bot, chat_id=user.id, user_id=user.id)
+    for _ in range(BOARD_SIZE):
+        data = await context.get_data()
+        order, matched = data["match_right"], data["match_matched"]
+        left_row = next(i for i in range(BOARD_SIZE) if i not in matched)
+        await _feed(dp, bot, press(user.id, f"mt:l:{left_row}:{data['match_version']}"))
+        data = await context.get_data()
+        await _feed(dp, bot, press(user.id, f"mt:r:{order.index(left_row)}:{data['match_version']}"))
+
+    boards = 0
+    await _feed(dp, bot, press(user.id, "next_question"))
+    for _ in range(15):
+        if [b for b in recorder.buttons() if b.startswith("mt:")]:
+            boards += 1
+            break
+        options = [b for b in recorder.buttons() if b.startswith("answer_")]
+        if not options:
+            break
+        await _feed(dp, bot, press(user.id, options[0]))
+        if "next_question" not in recorder.buttons():
+            break
+        recorder.clear()
+        await _feed(dp, bot, press(user.id, "next_question"))
+
+    assert boards == 0, "в одном круге показались две доски"
+
+
+async def test_board_is_skipped_when_switched_off(session, user, stage):
+    from app.locales import get_text
+    from app.services.match_service import board_slots
+
+    dp, bot, recorder = stage
+    await _long_round_ready(session, user)
+    user.match_in_round = False
+    await session.commit()
+    start, _ = board_slots(15)
+
+    await _feed(dp, bot, text_update(user.id, get_text("btn_learn_words", "ru")))
+    for _ in range(start - 1):
+        options = [b for b in recorder.buttons() if b.startswith("answer_")]
+        await _feed(dp, bot, press(user.id, options[0]))
+        recorder.clear()
+        await _feed(dp, bot, press(user.id, "next_question"))
+
+    assert not [b for b in recorder.buttons() if b.startswith("mt:")], (
+        "доска показалась, хотя выключена"
+    )
+    assert [b for b in recorder.buttons() if b.startswith("answer_")], (
+        "вместо доски не пришёл обычный вопрос"
+    )

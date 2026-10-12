@@ -71,6 +71,11 @@ S_ERRORS = "match_errors"        # промахов всего
 S_MISSED = "match_missed"        # индексы, по которым промахивались
 S_VERSION = "match_version"      # защита от устаревших нажатий
 
+# Номер вопроса круга, на котором доска встала. Пусто — доска открыта сама
+# по себе, с домашнего экрана или командой. По нему же доска и возвращает
+# круг: занимает она ПЯТЬ слотов, и следующий вопрос идёт за ними.
+S_ROUND_AT = "match_round_at"
+
 MARK_PICKED = "▸ "
 MARK_DONE = "✓ "
 
@@ -164,8 +169,14 @@ async def start_board(
         )
         return False
 
-    left = [option_label(w, pair.learning) for w in words]
-    right_labels = [option_label(w, pair.native) for w in words]
+    # НАПРАВЛЕНИЕ СОБЛЮДАЕТСЯ: слева язык ВОПРОСА, справа язык ОТВЕТА.
+    #
+    # Первая редакция ставила изучаемый язык слева жёстко, и в обратном
+    # режиме доска выглядела ровно так же, как в прямом, — то есть
+    # направление не соблюдалось вовсе. Беда тихая: доска собиралась,
+    # решалась и ничем не выдавала, что человек просил обратный порядок.
+    left = [option_label(w, pair.prompt_lang) for w in words]
+    right_labels = [option_label(w, pair.answer_lang) for w in words]
     order = deranged_order(len(words), random)
 
     await state.update_data(**{
@@ -267,8 +278,8 @@ async def tap(callback: CallbackQuery, state: FSMContext, session: AsyncSession)
     lang = user.interface_language or DEFAULT_LOCALE
     pair = pair_from_user(user)
     words = [await session.get(Word, wid) for wid in word_ids]
-    left = [option_label(w, pair.learning) for w in words]
-    right_labels = [option_label(w, pair.native) for w in words]
+    left = [option_label(w, pair.prompt_lang) for w in words]
+    right_labels = [option_label(w, pair.answer_lang) for w in words]
 
     order: list[int] = list(data.get(S_RIGHT) or [])
     matched: list[int] = list(data.get(S_MATCHED) or [])
@@ -377,6 +388,32 @@ async def _finish(
     )
     if errors:
         text += "\n" + get_text("match_errors", lang, count=errors)
+
+    # ДОСКА ВНУТРИ КРУГА ВОЗВРАЩАЕТ КРУГ, а не предлагает себя снова.
+    #
+    # Номер вопроса перепрыгивает доску целиком: она заняла пять слотов, и
+    # следующий вопрос идёт за ними. `show_next_question` сам прибавит
+    # единицу, поэтому ставим последний занятый номер.
+    data = await state.get_data()
+    round_at = data.get(S_ROUND_AT)
+    if round_at:
+        from app.services.match_service import BOARD_SIZE as SLOTS
+
+        await state.update_data(**{
+            "current_question": int(round_at) + SLOTS - 1,
+            S_ROUND_AT: None,
+        })
+        text += "\n\n" + get_text("match_back_to_round", lang)
+        keyboard = InlineKeyboardMarkup(inline_keyboard=[[
+            InlineKeyboardButton(
+                text=get_text("quiz_btn_next", lang), callback_data="next_question"
+            )
+        ]])
+        try:
+            await callback.message.edit_text(text, reply_markup=keyboard)
+        except Exception:
+            await callback.message.answer(text, reply_markup=keyboard)
+        return
 
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(

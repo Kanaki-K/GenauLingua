@@ -928,6 +928,74 @@ async def hint_to_speak(message: Message, state: FSMContext, session: AsyncSessi
 
 
 # ============================================================================
+# 🧩 ДОСКА ВНУТРИ КРУГА
+# ============================================================================
+
+# Ключ состояния: доска в этом круге уже была. Один круг — одна доска:
+# вторая превратила бы занятие в сопоставление с довеском из вопросов.
+S_BOARD_DONE = "board_shown"
+
+
+async def _board_due(
+    state: FSMContext, session: AsyncSession, user: User, pair: LanguagePair,
+    current_question: int, total_questions: int,
+) -> bool:
+    """
+    Пора ли показать доску на этом вопросе.
+
+    Проверки идут от дешёвых к дорогим: сперва состояние и номер вопроса,
+    и только потом запрос к базе за годными словами. Обратный порядок
+    стоил бы запроса на КАЖДОМ вопросе круга.
+    """
+    from app.services.match_service import (
+        BOARD_SIZE, board_slots, pick_words, should_insert_board,
+    )
+
+    data = await state.get_data()
+    if data.get(S_BOARD_DONE):
+        return False
+
+    start, _ = board_slots(total_questions)
+    if current_question != start:
+        return False
+
+    # Годных слов берём с запасом: `should_insert_board` требует вдвое
+    # больше доски, иначе доски пошли бы одним набором
+    eligible = await pick_words(user, session, pair, size=BOARD_SIZE * 2)
+    return should_insert_board(user, total_questions, len(eligible))
+
+
+async def _show_board_in_round(
+    callback: CallbackQuery, state: FSMContext, session: AsyncSession,
+    user: User, current_question: int,
+) -> None:
+    """
+    Показать доску вместо вопроса и запомнить, куда вернуться.
+
+    Прежняя карточка удаляется: доска — отдельное сообщение со своей
+    клавиатурой, и правкой карточку в неё не превратить.
+    """
+    from app.bot.handlers.quiz.match import S_ROUND_AT, start_board
+
+    await state.update_data(**{S_BOARD_DONE: True})
+    try:
+        await callback.message.delete()
+    except Exception:
+        logger.debug("карточка перед доской не удалилась", exc_info=True)
+
+    shown = await start_board(callback.message, state, session, user)
+    if shown:
+        # Номер вопроса, на котором доска встала: по нему она и вернёт круг
+        await state.update_data(**{S_ROUND_AT: current_question})
+        return
+
+    # Доска не собралась — круг не должен встать. Отдаём обычный вопрос с
+    # того же номера, как будто доски и не было
+    logger.info("доска в круге не собралась (user=%s), продолжаю вопросами", user.id)
+    await show_next_question(callback, state, session)
+
+
+# ============================================================================
 # СЛЕДУЮЩИЙ ВОПРОС / ЗАВЕРШЕНИЕ
 # ============================================================================
 
@@ -961,6 +1029,23 @@ async def show_next_question(callback: CallbackQuery, state: FSMContext, session
 
     if current_question > total_questions:
         await _finish_quiz(callback, state, session, user, pair, lang, data)
+        return
+
+    # 🧩 ДОСКА СОПОСТАВЛЕНИЯ ЗАНИМАЕТ ПЯТЬ СЛОТОВ КРУГА.
+    #
+    # Пять, а не один: на доске пять слов, и считай её одним вопросом —
+    # круг из пятнадцати молча покрыл бы девятнадцать, а счётчик «вопрос 7
+    # из 15» соврал бы. Поэтому `current_question` после доски
+    # перепрыгивает её целиком, и это делает сама доска, возвращаясь.
+    #
+    # В повтор ошибок доска НЕ вставляется: там человек разбирает то, с чем
+    # не справился, и подмешивать упражнение другого рода значит мешать две
+    # трудности в одной попытке. То же правило, по которому повтор идёт
+    # только текстом.
+    if not is_error_repeat and await _board_due(
+        state, session, user, pair, current_question, total_questions
+    ):
+        await _show_board_in_round(callback, state, session, user, current_question)
         return
 
     if is_error_repeat:

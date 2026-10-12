@@ -718,3 +718,13 @@ TEXTS.update({
     "match_not_ready": "🧩 Jeszcze za wcześnie: plansza potrzebuje {need} znanych słów, a masz {have}. Poucz się kartami — one ją otworzą.",
     "home_btn_match": "🧩 Znajdź pary",
 })
+
+TEXTS["match_back_to_round"] = "Wracamy do rundy."
+
+TEXTS.update({
+    "settings_btn_match": "🧩 Plansza w rundzie",
+    "settings_match_title": "🧩 <b>Plansza w rundzie</b>",
+    "settings_match_description": "Co drugą naukę w środku rundy zamiast pięciu pytań przychodzi plansza: pięć słów i pięć znaczeń, trzeba znaleźć pary. Brane są tylko znane słowa.",
+    "match_state_on": "Plansza włączona: przyjdzie w środku rundy.",
+    "match_state_off": "Plansza wyłączona: runda to same pytania.",
+})

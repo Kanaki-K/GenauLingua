@@ -705,3 +705,13 @@ TEXTS.update({
     "match_not_ready": "🧩 Henüz erken: tahta için {need} bildik kelime gerek, sende {have} var. Kartlarla çalış — tahtayı onlar açıyor.",
     "home_btn_match": "🧩 Eşleri bul",
 })
+
+TEXTS["match_back_to_round"] = "Tura dönüyoruz."
+
+TEXTS.update({
+    "settings_btn_match": "🧩 Turda tahta",
+    "settings_match_title": "🧩 <b>Turda tahta</b>",
+    "settings_match_description": "Her iki dersten birinde turun ortasında beş soru yerine bir tahta gelir: beş kelime ve beş anlam, eşleri bulmak gerekir. Yalnızca bildik kelimeler alınır.",
+    "match_state_on": "Tahta açık: turun ortasında gelecek.",
+    "match_state_off": "Tahta kapalı: tur yalnızca sorulardan oluşur.",
+})

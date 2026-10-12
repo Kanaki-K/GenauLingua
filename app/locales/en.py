@@ -705,3 +705,13 @@ TEXTS.update({
     "match_not_ready": "🧩 Not yet: a board needs {need} familiar words and you have {have}. Practise with cards — they unlock it.",
     "home_btn_match": "🧩 Find the pairs",
 })
+
+TEXTS["match_back_to_round"] = "Back to the round."
+
+TEXTS.update({
+    "settings_btn_match": "🧩 Board in the round",
+    "settings_match_title": "🧩 <b>Board in the round</b>",
+    "settings_match_description": "Every other lesson, the middle of the round brings a board instead of five questions: five words and five meanings to pair up. Only familiar words are used.",
+    "match_state_on": "Board is on: it will come mid-round.",
+    "match_state_off": "Board is off: the round is questions only.",
+})

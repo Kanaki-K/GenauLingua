@@ -145,6 +145,7 @@ _GROUPS: dict[str, tuple[str, str, tuple[tuple[str, str], ...]]] = {
     )),
     "how": ("settings_group_how", "settings_group_how_title", (
         ("settings_btn_channels", "settings_channels"),
+        ("settings_btn_match", "settings_match"),
         ("settings_btn_audio", "settings_audio"),
     )),
     # Помощь ушла из главного меню — владелец назвал её неактуальной, — но
@@ -551,6 +552,49 @@ async def toggle_channel(callback: CallbackQuery, session: AsyncSession):
     await session.commit()
 
     await show_channels(callback, session)
+
+
+# ============================================================================
+# 🧩 ДОСКА В КРУГЕ — ВЫКЛЮЧАТЕЛЬ
+#
+# Доска не канал: каналы задают вопрос про ОДНО слово, а она берёт пять
+# сразу. Поэтому у неё своя колонка и свой экран, а не буква в составе
+# занятия. По умолчанию включена — спрячь за переключателем, и не увидит
+# никто, это в проекте измерено.
+# ============================================================================
+
+@router.callback_query(F.data == "settings_match")
+async def show_match_setting(callback: CallbackQuery, session: AsyncSession):
+    await callback.answer()
+    user = await session.get(User, callback.from_user.id)
+    lang = user.interface_language or DEFAULT_LOCALE
+
+    state_key = "match_state_on" if user.match_in_round else "match_state_off"
+    rows = [[InlineKeyboardButton(
+        text=("✅ " if user.match_in_round else "☐ ")
+        + get_text("settings_btn_match", lang),
+        callback_data="match_toggle",
+    )]]
+
+    text = (
+        f"{get_text('settings_match_title', lang)}\n\n"
+        f"{get_text('settings_match_description', lang)}\n\n"
+        f"<i>{get_text(state_key, lang)}</i>"
+    )
+    await callback.message.edit_text(
+        text,
+        reply_markup=InlineKeyboardMarkup(
+            inline_keyboard=rows + [_back_row(lang, _PARENT_GROUP["settings_match"])]
+        ),
+    )
+
+
+@router.callback_query(F.data == "match_toggle")
+async def toggle_match(callback: CallbackQuery, session: AsyncSession):
+    user = await session.get(User, callback.from_user.id)
+    user.match_in_round = not user.match_in_round
+    await session.commit()
+    await show_match_setting(callback, session)
 
 
 # ============================================================================
