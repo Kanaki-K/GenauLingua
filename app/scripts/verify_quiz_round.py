@@ -216,7 +216,7 @@ async def play_round(session, user: User, pair: LanguagePair, length: int,
         )
 
 
-async def run(rounds: int, length: int) -> int:
+async def run(rounds: int, length: int, full: bool) -> int:
     problems: list[str] = []
     seen: collections.Counter = collections.Counter()
 
@@ -232,6 +232,27 @@ async def run(rounds: int, length: int) -> int:
         ("en", "tr", True, True, "ta", "обратное, пара без немецкого"),
         ("tr", "pl", False, True, "t", "только текст"),
     ]
+
+    # И СВЕРХ НИХ — ВСЕ 30 ПАР В ОБА НАПРАВЛЕНИЯ, ВСЕМИ ТРЕМЯ КАНАЛАМИ.
+    #
+    # Девяти подобранных случаев мало, и это стало видно от прямого
+    # вопроса владельца: «все игры должны работать во всех направлениях».
+    # Полный круг прогонялся на четырёх парах из тридцати, а остальные
+    # держались приёмкой СБОРКИ — а она проверяет отдельный вопрос, не
+    # проход круга целиком: ни чередования каналов, ни правила «не больше
+    # двух подряд», ни того, что у каждого вопроса есть слово или звук.
+    #
+    # Шестьдесят сочетаний дороже девяти, зато «во всех направлениях»
+    # перестаёт быть обещанием.
+    if full:
+        cases += [
+            (learning, native, reverse, True, "tas",
+             f"{learning}{'←' if reverse else '→'}{native} все каналы")
+            for learning in LEARNABLE_LANGS
+            for native in LEARNABLE_LANGS
+            if learning != native
+            for reverse in (False, True)
+        ]
 
     async with AsyncSessionLocal() as session:
         try:
@@ -286,8 +307,10 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--rounds", type=int, default=5)
     parser.add_argument("--length", type=int, default=15)
+    parser.add_argument("--full", action="store_true",
+                        help="все 30 пар в оба направления всеми каналами")
     args = parser.parse_args()
-    return asyncio.run(run(args.rounds, args.length))
+    return asyncio.run(run(args.rounds, args.length, args.full))
 
 
 if __name__ == "__main__":

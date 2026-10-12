@@ -134,6 +134,21 @@ def _check(question: dict, pair: LanguagePair, text: str) -> list[str]:
         others = [t for i, t in enumerate(labels) if i != idx]
         if head and not any(head in fold(t) for t in others):
             problems.append(f"на слух нет ни одного созвучного варианта к {bare!r}")
+    elif channel is QuizChannel.SPEECH:
+        # ВСЛУХ СЛОВО ПОКАЗАНО, И ВСЕГДА НА ИЗУЧАЕМОМ ЯЗЫКЕ — в обоих
+        # направлениях. Произнести можно только то, что видишь, а
+        # произносят здесь изучаемый язык; обратного порядка у речи не
+        # существует, как и у слушания.
+        #
+        # Отсюда и отличие от текстового вопроса: там слово стоит на языке
+        # ВОПРОСА (`prompt_lang`), и при обратном направлении это язык
+        # значения. Сверь речь тем же полем — и в обратном направлении
+        # получишь ложное нарушение на совершенно верных данных.
+        shown = option_label(word, pair.learning)
+        if shown and shown not in text:
+            problems.append("вслух слова на экране нет — произносить нечего")
+        if "📝" in text:
+            problems.append("вслух показан пример — он подталкивает прочесть фразу")
     else:
         prompt = option_label(word, pair.prompt_lang)
         if prompt and prompt not in text:
@@ -142,13 +157,59 @@ def _check(question: dict, pair: LanguagePair, text: str) -> list[str]:
     return problems
 
 
-async def _clip_missing(word, lang: str) -> bool:
-    """Нет ли клипа на диске. Через хранилище, а НЕ через clip_for_user."""
+def _voices_in_use(lang: str) -> list[str]:
+    """
+    Все голоса, которыми база РЕАЛЬНО озвучена, а не весь список движка.
+
+    У движка их по шесть на немецкий, и пять из них базе неизвестны. Голос
+    считается рабочим по доле покрытия — тем же способом, что в
+    `verify_voices`, и по той же причине: у неиспользуемого голоса бывает
+    горстка случайных клипов, и проверка «есть ли хоть один» их не отличает.
+    """
+    from app.services.tts_voices import voices_for
+
+    root = pathlib.Path("tts") / lang
+    if not root.exists():
+        return [default_voice(lang)]
+
+    counted = []
+    for voice in voices_for(lang):
+        folder = root / voice.name
+        if folder.exists():
+            counted.append((voice.name, sum(1 for _ in folder.rglob("*.mp3"))))
+    if not counted:
+        return [default_voice(lang)]
+
+    biggest = max(n for _, n in counted)
+    # Половина от самого полного — с запасом в обе стороны: озвученные
+    # голоса идут наравне, случайные пробы отстают на порядки
+    return [name for name, n in counted if n >= biggest * 0.5] or [default_voice(lang)]
+
+
+async def _clips_missing(word, lang: str) -> list[str]:
+    """
+    Голоса, у которых НЕТ клипа для этого вопроса.
+
+    Проверяется КАЖДЫЙ рабочий голос, а не только основной. Прежде здесь
+    стоял `default_voice`, то есть вопрос «есть ли чем озвучить» задавался
+    про женский голос — а человек выбирает голос сам, и мужские
+    синтезировались отдельным прогоном. Полнота по ним проверена
+    (`verify_voices`), но здесь важно другое: что клип найдётся по тому же
+    пути, которым его ищет вопрос, — вид клипа и произносимый текст зависят
+    от слова, а не от голоса, и ошибка в них ударила бы по всем голосам
+    сразу.
+
+    Через хранилище, а НЕ через `clip_for_user`: тот при отсутствии клипа
+    идёт синтезировать по сети и замаскировал бы ровно ту дыру, которую ищем.
+    """
     kind = clip_kind_for_question(word, lang)
     spoken = spoken_for(word, lang, kind)
     if not spoken:
-        return True
-    return audio_store.read(lang, default_voice(lang), kind, spoken) is None
+        return _voices_in_use(lang)
+    return [
+        voice for voice in _voices_in_use(lang)
+        if audio_store.read(lang, voice, kind, spoken) is None
+    ]
 
 
 async def run(per_case: int) -> int:
@@ -173,7 +234,13 @@ async def run(per_case: int) -> int:
             arrow = "←" if reverse else "→"
             case = f"{learning}{arrow}{native}"
 
-            for want in (QuizChannel.TEXT, QuizChannel.AUDIO):
+            # ВСЕ ТРИ КАНАЛА, а не два.
+            #
+            # Прежде речи здесь не было вовсе: она появилась позже и в
+            # перечисление не попала. Выходило, что третья игра на 30 парах
+            # и в обоих направлениях не проверялась НИКОГДА — её держала
+            # только приёмка круга, а та идёт по девяти подобранным случаям.
+            for want in (QuizChannel.TEXT, QuizChannel.AUDIO, QuizChannel.SPEECH):
                 # Канал НАВЯЗЫВАЕТСЯ параметром, а не составом занятия.
                 #
                 # Первая редакция навязывала составом — и проверка прошла
@@ -210,12 +277,28 @@ async def run(per_case: int) -> int:
                     for problem in _check(question, pair, text):
                         failures.append(f"{case} {got.name} ряд {word.id}: {problem}")
 
-                    if got is QuizChannel.AUDIO and await _clip_missing(word, learning):
-                        no_clip.append(f"{case} ряд {word.id}")
+                    # ЗВУК НУЖЕН ДВУМ КАНАЛАМ ИЗ ТРЁХ, и по разным причинам.
+                    #
+                    # На слух клип — это и есть вопрос: слова на экране нет.
+                    # Вслух слово показано, но клип нужен не меньше — им
+                    # человек слушает ЭТАЛОН, чтобы сравнить себя. Без
+                    # эталона упражнение превращается в «скажи что-то, я
+                    # угадаю», и половина пользы теряется.
+                    if got in (QuizChannel.AUDIO, QuizChannel.SPEECH):
+                        missing_voices = await _clips_missing(word, learning)
+                        for voice in missing_voices:
+                            no_clip.append(f"{case} {got.name} ряд {word.id} — {voice}")
 
     asked = sum(totals.values())
+    by_channel = collections.Counter()
+    for (_, channel_name), count in totals.items():
+        by_channel[channel_name] += count
+
     print(f"\nсочетаний проверено: {len(cases)} (пар 30 × 2 направления)")
     print(f"вопросов сгенерировано: {asked}")
+    print("  по каналам: " + ", ".join(
+        f"{name} {count}" for name, count in sorted(by_channel.items())
+    ))
     print(f"откатов со слуха на текст: {sum(fell_back.values())} "
           f"({100 * sum(fell_back.values()) / max(asked, 1):.1f}%)")
 
@@ -223,6 +306,20 @@ async def run(per_case: int) -> int:
         worst = fell_back.most_common(5)
         print("  чаще всего откатывается: " +
               ", ".join(f"{c} ({n})" for c, n in worst))
+
+    # ЛОЖНЫЙ ЗЕЛЁНЫЙ: канала не было вовсе, и «ок» про него ничего не значит.
+    #
+    # Проверка нужна на каждый канал, и дважды уже была нужна: первая
+    # редакция этой приёмки отрапортовала «все игры собираются верно», не
+    # собрав НИ ОДНОГО вопроса на слух (канал навязывался составом, а не
+    # параметром). Речь добавлена в перечисление позже, и ровно та же
+    # ловушка ждала её.
+    empty = [c.name for c in (QuizChannel.TEXT, QuizChannel.AUDIO, QuizChannel.SPEECH)
+             if not by_channel.get(c.name)]
+    if empty:
+        print(f"\nКАНАЛОВ БЕЗ ЕДИНОГО ВОПРОСА: {', '.join(empty)} — "
+              f"проверять было нечего, это неудача")
+        return 1
 
     if no_clip:
         print(f"\nНЕТ КЛИПА НА ДИСКЕ: {len(no_clip)}")

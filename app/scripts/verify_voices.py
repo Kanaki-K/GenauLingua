@@ -55,6 +55,11 @@ CANONICAL_SQL = text("""
 """)
 
 
+# Подопытный для проверки выбора голоса: id заведомо не занят живыми
+# людьми. Нужен настоящей строкой в `users` — выбор голоса ссылается на
+# неё, и без пользователя запись не ляжет.
+PROBE_USER_ID = -997
+
 # Какую долю базы должен покрывать голос, чтобы счесть его используемым.
 # Половина — с большим запасом в обе стороны: озвученные голоса покрывают
 # 100%, случайные пробы — доли процента, и промежутка между ними нет.
@@ -108,6 +113,42 @@ async def run(only_lang: str | None) -> int:
                 failures += 1 if missing else 0
                 rows.append((lang, voice.name, voice.gender, len(wanted), missing))
 
+    # ВТОРАЯ ПОЛОВИНА ПРОВЕРКИ: НАХОДИТ ЛИ БОТ ВЫБРАННЫЙ ГОЛОС.
+    #
+    # Выше проверено, что файлы есть. Этого мало: выбор голоса идёт через
+    # `UserTtsVoice` и `resolve_voice`, и если там голос молча подменяется
+    # на основной, человек слушает не то, что выбрал, — а файлы при этом на
+    # месте, и первая половина проверки говорит «всё хорошо».
+    #
+    # Проверяется тот же путь, которым идёт вопрос: записали выбор, прочли
+    # обратно, нашли клип ИМЕННО ЭТИМ голосом.
+    swapped: list[str] = []
+    async with AsyncSessionLocal() as session:
+        from sqlalchemy import delete
+
+        from app.database.models import User, UserTtsVoice
+        from app.services.audio_service import set_voice_for_user, voice_for_user
+
+        probe = await session.get(User, PROBE_USER_ID)
+        if probe is None:
+            probe = User(id=PROBE_USER_ID, first_name="приёмка голосов")
+            session.add(probe)
+            await session.commit()
+
+        try:
+            for lang, name, _, _, _ in rows:
+                await set_voice_for_user(session, PROBE_USER_ID, lang, name)
+                got = await voice_for_user(session, PROBE_USER_ID, lang)
+                if got != name:
+                    swapped.append(f"{lang}: выбран {name}, отдаётся {got}")
+        finally:
+            # Следов за собой не оставляем: и выбор голоса, и сам подопытный
+            await session.execute(
+                delete(UserTtsVoice).where(UserTtsVoice.user_id == PROBE_USER_ID)
+            )
+            await session.execute(delete(User).where(User.id == PROBE_USER_ID))
+            await session.commit()
+
     print(f"\n{'язык':<5}{'голос':<32}{'пол':<8}{'нужно':>8}{'не хватает':>12}")
     for lang, name, gender, need, missing in rows:
         mark = "" if not missing else "   <<<"
@@ -123,14 +164,22 @@ async def run(only_lang: str | None) -> int:
         print(f"голосов движка не в работе: {len(unused)} "
               f"(" + ", ".join(f"{lang}/{name}: {n}" for lang, name, n in unused) + ")")
 
+    print(f"выбор голоса проверен: {len(rows)} голосов — записан и прочитан обратно")
+
     if checked == 0:
         print("ПРОВЕРЯТЬ БЫЛО НЕЧЕГО — это неудача, а не успех")
         return 1
     if failures:
         print(f"\nГОЛОСОВ С НЕДОСТАЧЕЙ: {failures}")
         return 1
+    if swapped:
+        print(f"\nГОЛОС ПОДМЕНЯЕТСЯ ПРИ ВЫБОРЕ: {len(swapped)}")
+        for line in swapped:
+            print(f"   {line}")
+        return 1
 
-    print("\nозвучка полна по каждому использованному голосу")
+    print("\nозвучка полна по каждому использованному голосу, "
+          "и выбранный голос отдаётся тот же")
     return 0
 
 
