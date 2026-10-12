@@ -22,23 +22,11 @@ TEXTS = {
     # POWITANIE I START
     # ============================================================================
     "welcome_title": "👋 <b>Cześć, {name}!</b>",
-    "welcome_description": "🌍 <b>GenauLingua</b> — ucz się języka przez grę\nJęzyki do wyboru: {languages}\n12 000+ słów · 20 tematów · 6 poziomów\n\nBot dobiera słowa pod ciebie — im więcej\ngrasz, tym trafniejszy dobór",
-    "welcome_separator": "──────────────────",
 
-    "welcome_learn_words_title": "📚 <b>Ucz się słów</b>",
-    "welcome_learn_words_desc": "Start quizu",
 
-    "welcome_stats_title": "📊 <b>Statystyki</b>",
-    "welcome_stats_desc": "Twoje postępy",
 
-    "welcome_settings_title": "🦾 <b>Ustawienia</b>",
-    "welcome_settings_desc": "Tryb, język, tematy",
 
-    "welcome_help_title": "❓ <b>Pomoc</b>",
-    "welcome_help_desc": "Instrukcja i kontakt",
 
-    "welcome_your_level": "Twój poziom: <b>{level}</b>\nTryb: <b>{mode}</b>",
-    "welcome_call_to_action": "Naciśnij 📚 Ucz się słów — i zaczynamy!",
 
     "welcome_choose_level": "🎯 <b>Od czego zaczniemy?</b>\n\nTwój poziom — {language}\n\n• A1–A2 — podstawowe słownictwo\n• B1–B2 — swobodna rozmowa\n• C1–C2 — biegła znajomość",
     "choose_level_prompt": "Wybierz poziom:",
@@ -91,11 +79,6 @@ TEXTS = {
     "notif_toggle_on": "🔔 Przypomnienia włączone!",
     "notif_toggle_off": "🔕 Przypomnienia wyłączone",
 
-    "notif_message_title": "{emoji} <b>Czas na naukę!</b>",
-    "notif_message_streak": "🔥 Seria: {days} dni z rzędu",
-    "notif_message_words": "📊 Nauczone słowa: {count}",
-    "notif_message_cta": "💪 Nie przerywaj swojej serii!",
-    "notif_message_btn_start": "📚 Zacznij quiz",
     "notif_message_btn_disable": "🔕 Wyłącz przypomnienia",
 
     "day_mon": "Pn",
@@ -110,11 +93,6 @@ TEXTS = {
 
     "notif_default_name": "przyjacielu",
     "notif_message_greeting": "🔥 <b>Czas na naukę, {name}!</b>",
-    "notif_message_progress_title": "📊 <b>Twoje postępy:</b>",
-    "notif_progress_streak": "├ Seria: {days} dni 🎯",
-    "notif_progress_quizzes": "├ Ukończone quizy: {count}",
-    "notif_progress_words": "├ Nauczone słowa: {count}",
-    "notif_progress_accuracy": "└ Celność: {percent}%",
 
     "notif_motivation_1": "Krok po kroku dojdziesz do celu!",
     "notif_motivation_2": "Twoja seria rośnie — tak dalej!",
@@ -681,4 +659,39 @@ TEXTS.update({
     "goal_living": "🏠 Do życia za granicą",
     "goal_study": "🎓 Do nauki",
     "goal_any": "📚 Po prostu uczyć się słów",
+})
+
+
+# ============================================================================
+# ВСТУПИТЕЛЬНЫЙ БЛОК /start
+#
+# Сюда возвращаются, только набрав команду руками, — то есть затем,
+# чтобы понять, что это за бот и что он умеет. Прежний текст вместо
+# этого перечислял кнопки, которые человек видит перед собой, и обещал
+# «Помощь» среди них, откуда она уехала в настройки.
+# ============================================================================
+TEXTS.update({
+    "intro_title": "🌍 <b>GenauLingua</b>",
+    "intro_three_games": "Słowo to trzy różne umiejętności, nie jedna:\n🔤 rozpoznać zapisane\n🎧 rozpoznać ze słuchu\n🎤 wypowiedzieć na głos\n\nW nauce zmieniają się same — zależnie od tego, jak dobrze znasz każde słowo.",
+    "intro_numbers": "12 902 słowa · 20 tematów · 6 poziomów\nSześć języków w dowolnej parze: ucz się polskiego przez angielski, jeśli chcesz.",
+    "intro_where_you_are": "Teraz: <b>{language}</b> · {mode}",
+    "intro_btn_progress": "📊 Postępy",
+    "settings_title_short": "🦾 Ustawienia",
+})
+
+
+# ============================================================================
+# ЗАЧЕМ УЧУ — ЭКРАН НАСТРОЙКИ
+#
+# Без него цель осталась бы пустой навсегда у всех 233 нынешних
+# пользователей: онбординг у них давно позади. Та же дыра, что была у
+# состава занятия — колонка есть, экрана нет.
+# ============================================================================
+TEXTS.update({
+    "settings_btn_goal": "🧭 Po co się uczę",
+    "settings_goal_title": "🧭 <b>Po co się uczę</b>",
+    "settings_goal_description": "Słowa z twojego tematu będą przychodzić pierwsze. Trudność nadal zależy od poziomu, a to, czego się nauczyłeś, wraca do powtórek.",
+    "settings_goal_set": "Cel zapisany",
+    "settings_goal_line": "🧭 Cel: <b>{goal}</b>",
+    "settings_goal_none": "nie wybrano",
 })

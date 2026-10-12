@@ -244,3 +244,108 @@ async def test_measured_hour_is_translated_into_the_persons_timezone(session, us
 
     assert local != "06:00", "час не переведён в часовой пояс человека"
     assert local in ("08:00", "09:00"), f"перевод дал неправдоподобный час: {local}"
+
+
+# ============================================================================
+# НАПОМИНАНИЕ СО ШКАЛАМИ
+#
+# Прежде там висели четыре счётчика: «Викторин пройдено: 12 · Слов изучено:
+# 47 · Точность: 88%». Ни одно из этих чисел не говорит, ЧЕГО человеку не
+# хватает. Три шкалы говорят.
+# ============================================================================
+
+@pytest.mark.asyncio
+async def test_reminder_shows_the_scales_when_there_is_progress(session, user):
+    from app.database.enums import QuizMode
+    from app.schedulers.reminder_scheduler import build_reminder_text
+    from tests.test_home import _progress, _seed
+
+    user.level = CEFRLevel.A1
+    user.quiz_mode = QuizMode.LEVEL
+    user.streak_days = 3
+    await _seed(session, user, words_a1=3, words_b1=0)
+
+    from sqlalchemy import select
+    from app.database.models import Word
+
+    word = (await session.execute(select(Word))).scalars().first()
+    session.add(_progress(user.id, word.id, times_shown=5, times_correct=3))
+    await session.commit()
+
+    text = await build_reminder_text(user, session)
+
+    assert "<code>" in text, "шкал в напоминании нет"
+    assert "▓" in text, "ни одна полоса не закрашена"
+
+
+@pytest.mark.asyncio
+async def test_reminder_without_progress_shows_no_empty_bars(session, user):
+    """
+    У новичка все три полосы пусты, и показывать их — значит встретить его
+    тремя нулями. Напоминание пришло звать заниматься, а не отчитываться.
+    """
+    from app.database.enums import QuizMode
+    from app.schedulers.reminder_scheduler import build_reminder_text
+    from tests.test_home import _seed
+
+    user.level = CEFRLevel.A1
+    user.quiz_mode = QuizMode.LEVEL
+    await _seed(session, user, words_a1=2, words_b1=0)
+    await session.commit()
+
+    text = await build_reminder_text(user, session)
+
+    assert "░" not in text, "новичку показали пустые полосы"
+    assert "<code>" not in text
+    assert len(text.strip()) > 20, "осталось пустое сообщение"
+
+
+# ============================================================================
+# ВСТУПИТЕЛЬНЫЙ БЛОК НЕ ПЕРЕСКАЗЫВАЕТ МЕНЮ
+# ============================================================================
+
+@pytest.mark.parametrize("lang", sorted(LOCALES))
+def test_intro_does_not_promise_a_button_that_is_not_in_the_menu(lang):
+    """
+    Прежнее вступление обещало «❓ Помощь» среди кнопок меню, а она уехала
+    в настройки ещё накануне. Текст про интерфейс живёт отдельно от самого
+    интерфейса и расходится с ним молча — поэтому проверка сверяет их.
+    """
+    from app.bot.buttons import BTN_HELP, menu_texts
+    from app.locales import get_text
+
+    help_label = get_text(BTN_HELP, lang)
+    assert help_label not in menu_texts_of_keyboard(lang), (
+        "«Помощь» вернулась в меню — проверку надо переписать"
+    )
+
+    intro = " ".join(
+        get_text(key, lang)
+        for key in ("intro_title", "intro_three_games", "intro_numbers")
+    )
+    # Сверяется не слово «помощь», а ИМЕННО надпись кнопки: слово само по
+    # себе в тексте появиться может и ничего не обещает
+    assert help_label not in intro, f"{lang}: вступление обещает {help_label!r}"
+    assert menu_texts, "надписи меню не читаются — проверка вхолостую"
+
+
+def menu_texts_of_keyboard(lang: str) -> set[str]:
+    """Надписи кнопок, которые ДЕЙСТВИТЕЛЬНО стоят в главном меню."""
+    from app.bot.keyboards import get_main_menu_keyboard
+
+    keyboard = get_main_menu_keyboard(lang)
+    return {button.text for row in keyboard.keyboard for button in row}
+
+
+@pytest.mark.parametrize("lang", sorted(LOCALES))
+def test_intro_keyboard_offers_learning_first(lang):
+    from app.bot.handlers.start import _intro_keyboard
+    from app.database.enums import CEFRLevel as L
+    from app.database.models import User as U
+
+    person = U(id=1, interface_language=lang, learning_lang="de",
+               native_lang="ru", reverse_mode=False, level=L.B1)
+    person.quiz_word_count = 15
+
+    data = _data(_intro_keyboard(person, lang))
+    assert data[0] == "learn_now", f"{lang}: вступление не зовёт заниматься: {data}"

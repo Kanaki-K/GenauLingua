@@ -17,23 +17,11 @@ TEXTS = {
     # KARŞILAMA VE BAŞLANGIÇ
     # ============================================================================
     "welcome_title": "👋 <b>Merhaba, {name}!</b>",
-    "welcome_description": "🌍 <b>GenauLingua</b> — oyunla dil öğren\nSeçebileceğin diller: {languages}\n12 000+ kelime · 20 konu · 6 seviye\n\nBot sana özel kelimeler seçer — ne kadar çok\noynarsan, seçim o kadar akıllı olur",
-    "welcome_separator": "──────────────────",
 
-    "welcome_learn_words_title": "📚 <b>Kelime öğren</b>",
-    "welcome_learn_words_desc": "Test başlat",
 
-    "welcome_stats_title": "📊 <b>İstatistik</b>",
-    "welcome_stats_desc": "İlerlemen",
 
-    "welcome_settings_title": "🦾 <b>Ayarlar</b>",
-    "welcome_settings_desc": "Mod, dil, konular",
 
-    "welcome_help_title": "❓ <b>Yardım</b>",
-    "welcome_help_desc": "İpuçları ve geri bildirim",
 
-    "welcome_your_level": "Seviyeniz: <b>{level}</b>\nMod: <b>{mode}</b>",
-    "welcome_call_to_action": "📚 Kelime öğren'e bas — başlayalım!",
 
     "welcome_choose_level": "🎯 <b>Nereden başlayalım?</b>\n\nSeviyen — {language}\n\n• A1–A2 — temel kelimeler\n• B1–B2 — güvenli iletişim\n• C1–C2 — ana dil seviyesi",
     "choose_level_prompt": "Seviye seç:",
@@ -86,11 +74,6 @@ TEXTS = {
     "notif_toggle_on": "🔔 Hatırlatıcılar açıldı!",
     "notif_toggle_off": "🔕 Hatırlatıcılar kapatıldı",
 
-    "notif_message_title": "{emoji} <b>Çalışma zamanı!</b>",
-    "notif_message_streak": "🔥 Seri: {days} gün",
-    "notif_message_words": "📊 Öğrenilen kelimeler: {count}",
-    "notif_message_cta": "💪 Serini kırma!",
-    "notif_message_btn_start": "📚 Quiz başlat",
     "notif_message_btn_disable": "🔕 Hatırlatıcıları kapat",
 
     "day_mon": "Pzt",
@@ -105,11 +88,6 @@ TEXTS = {
 
     "notif_default_name": "arkadaş",
     "notif_message_greeting": "🔥 <b>Çalışma zamanı, {name}!</b>",
-    "notif_message_progress_title": "📊 <b>İlerlemeniz:</b>",
-    "notif_progress_streak": "├ Seri: {days} gün 🎯",
-    "notif_progress_quizzes": "├ Testler geçildi: {count}",
-    "notif_progress_words": "├ Kelimeler öğrenildi: {count}",
-    "notif_progress_accuracy": "└ Doğruluk: {percent}%",
 
     "notif_motivation_1": "Adım adım hedefinize ulaşıyorsunuz!",
     "notif_motivation_2": "Seriniz büyüyor — devam edin!",
@@ -668,4 +646,39 @@ TEXTS.update({
     "goal_living": "🏠 Yurt dışında yaşamak için",
     "goal_study": "🎓 Okumak için",
     "goal_any": "📚 Sadece kelime öğrenmek",
+})
+
+
+# ============================================================================
+# ВСТУПИТЕЛЬНЫЙ БЛОК /start
+#
+# Сюда возвращаются, только набрав команду руками, — то есть затем,
+# чтобы понять, что это за бот и что он умеет. Прежний текст вместо
+# этого перечислял кнопки, которые человек видит перед собой, и обещал
+# «Помощь» среди них, откуда она уехала в настройки.
+# ============================================================================
+TEXTS.update({
+    "intro_title": "🌍 <b>GenauLingua</b>",
+    "intro_three_games": "Bir kelime tek değil, üç ayrı beceridir:\n🔤 yazılı hâlini tanımak\n🎧 duyarak tanımak\n🎤 yüksek sesle söylemek\n\nDerste kendiliğinden dönüşümlü gelirler — her kelimeyi ne kadar bildiğine göre.",
+    "intro_numbers": "12 902 kelime · 20 konu · 6 seviye\nAltı dil, istediğin eşleşmede: dilersen Lehçeyi İngilizce üzerinden öğren.",
+    "intro_where_you_are": "Şu anda: <b>{language}</b> · {mode}",
+    "intro_btn_progress": "📊 İlerleme",
+    "settings_title_short": "🦾 Ayarlar",
+})
+
+
+# ============================================================================
+# ЗАЧЕМ УЧУ — ЭКРАН НАСТРОЙКИ
+#
+# Без него цель осталась бы пустой навсегда у всех 233 нынешних
+# пользователей: онбординг у них давно позади. Та же дыра, что была у
+# состава занятия — колонка есть, экрана нет.
+# ============================================================================
+TEXTS.update({
+    "settings_btn_goal": "🧭 Ne için öğreniyorum",
+    "settings_goal_title": "🧭 <b>Ne için öğreniyorum</b>",
+    "settings_goal_description": "Konunun kelimeleri önce gelir. Zorluk yine seviyene göre belirlenir, öğrendiklerin de tekrara dönmeye devam eder.",
+    "settings_goal_set": "Hedef kaydedildi",
+    "settings_goal_line": "🧭 Hedef: <b>{goal}</b>",
+    "settings_goal_none": "seçilmedi",
 })

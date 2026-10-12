@@ -139,6 +139,7 @@ _GROUPS: dict[str, tuple[str, str, tuple[tuple[str, str], ...]]] = {
     # ключ группы: (ключ надписи кнопки, ключ заголовка экрана, пункты)
     "what": ("settings_group_what", "settings_group_what_title", (
         ("settings_btn_learning_lang", "settings_learning"),
+        ("settings_btn_goal", "settings_goal"),
         ("settings_btn_quiz_mode", "settings_quiz_mode"),
         ("settings_btn_change_mode", "settings_mode"),
     )),
@@ -281,10 +282,22 @@ def _line_interface(user: User, lang: str) -> str:
     return get_text("settings_language", lang, language=display)
 
 
+def _line_goal(user: User, lang: str) -> str:
+    goal = (
+        get_text(f"goal_{user.learning_goal}", lang)
+        if user.learning_goal else get_text("settings_goal_none", lang)
+    )
+    return get_text("settings_goal_line", lang, goal=goal)
+
+
 _STATE_LINES = {
     "settings_quiz_mode": _line_quiz_mode,
     "settings_channels": _line_channels,
     "settings_learning": _line_learning,
+    # Цель встаёт СРАЗУ ЗА изучаемым языком, а не первой строкой: порядок
+    # остальных сохранён ровно тем, каким был, — люди запомнили этот экран,
+    # и перетряхивать его ради новой строки не за что.
+    "settings_goal": _line_goal,
     "settings_audio": _line_audio,
     "settings_mode": _line_direction,
     "settings_language": _line_interface,
@@ -343,6 +356,20 @@ async def show_settings_callback(callback: CallbackQuery, session: AsyncSession)
     await callback.message.edit_text(
         _settings_text(user, lang), reply_markup=get_settings_keyboard(lang)
     )
+
+
+@router.callback_query(F.data == "settings_open")
+async def open_settings(callback: CallbackQuery, session: AsyncSession):
+    """
+    Открыть настройки с чужого экрана — например со вступительного блока.
+
+    Отдельно от `back_to_settings`: тот означает «вернуться туда, откуда
+    пришёл», и привязан к возврату из подменю. Смысл разный, и сводить их в
+    одно нажатие значило бы связать навигацию настроек с экранами, которые
+    к ней отношения не имеют.
+    """
+    await callback.answer()
+    await show_settings_callback(callback, session)
 
 
 # ============================================================================
@@ -524,6 +551,70 @@ async def toggle_channel(callback: CallbackQuery, session: AsyncSession):
     await session.commit()
 
     await show_channels(callback, session)
+
+
+# ============================================================================
+# ЗАЧЕМ УЧУ — ЭКРАН, БЕЗ КОТОРОГО ЦЕЛЬ БЫЛА БЫ НЕДОСТИЖИМА
+#
+# Опрос «зачем учишь» задаётся в онбординге, и этого МАЛО: у всех 233
+# нынешних пользователей онбординг давно позади, и цель осталась бы у них
+# пустой навсегда — а менять свою они не смогли бы вовсе. Ровно та же
+# дыра, что была у состава занятия: колонка есть, экрана нет.
+# ============================================================================
+
+@router.callback_query(F.data == "settings_goal")
+async def show_goal(callback: CallbackQuery, session: AsyncSession):
+    """Выбор цели. Отмеченная галочкой — текущая."""
+    from app.services.goal_service import GOAL_ORDER
+
+    await callback.answer()
+    user = await session.get(User, callback.from_user.id)
+    lang = user.interface_language or DEFAULT_LOCALE
+
+    rows = [
+        [InlineKeyboardButton(
+            text=("✅ " if code == user.learning_goal else "")
+            + get_text(f"goal_{code}", lang),
+            callback_data=f"set_goal_{code}",
+        )]
+        for code in GOAL_ORDER
+    ]
+
+    text = (
+        f"{get_text('settings_goal_title', lang)}\n\n"
+        f"{get_text('settings_goal_description', lang)}"
+    )
+    await callback.message.edit_text(
+        text,
+        reply_markup=InlineKeyboardMarkup(
+            inline_keyboard=rows + [_back_row(lang, _PARENT_GROUP["settings_goal"])]
+        ),
+    )
+
+
+@router.callback_query(F.data.startswith("set_goal_"))
+async def set_goal(callback: CallbackQuery, session: AsyncSession):
+    """
+    Сменить цель.
+
+    Прежний прогресс НЕ ТРОГАЕТСЯ: цель влияет только на то, какие слова
+    придут НОВЫМИ. Выученное в прошлой теме продолжит возвращаться на
+    повторение — иначе смена цели выглядела бы как потеря сделанного.
+    """
+    from app.services.goal_service import is_goal
+
+    code = callback.data.removeprefix("set_goal_")
+    if not is_goal(code):
+        await callback.answer("❌ Error", show_alert=True)
+        return
+
+    user = await session.get(User, callback.from_user.id)
+    lang = user.interface_language or DEFAULT_LOCALE
+    user.learning_goal = code
+    await session.commit()
+
+    await callback.answer(get_text("settings_goal_set", lang), show_alert=False)
+    await show_goal(callback, session)
 
 
 # ============================================================================

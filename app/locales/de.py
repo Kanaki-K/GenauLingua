@@ -22,23 +22,11 @@ TEXTS = {
     # BEGRÜSSUNG UND START
     # ============================================================================
     "welcome_title": "👋 <b>Hallo, {name}!</b>",
-    "welcome_description": "🌍 <b>GenauLingua</b> — Wortschatz spielerisch lernen\nSprachen zur Auswahl: {languages}\n12 000+ Wörter · 20 Themen · 6 Niveaus\n\nDer Bot wählt die Wörter für dich aus — je mehr\ndu spielst, desto treffsicherer die Auswahl",
-    "welcome_separator": "──────────────────",
 
-    "welcome_learn_words_title": "📚 <b>Wörter lernen</b>",
-    "welcome_learn_words_desc": "Quiz starten",
 
-    "welcome_stats_title": "📊 <b>Statistik</b>",
-    "welcome_stats_desc": "Dein Fortschritt",
 
-    "welcome_settings_title": "🦾 <b>Einstellungen</b>",
-    "welcome_settings_desc": "Modus, Sprache, Themen",
 
-    "welcome_help_title": "❓ <b>Hilfe</b>",
-    "welcome_help_desc": "Anleitung und Rückmeldung",
 
-    "welcome_your_level": "Dein Niveau: <b>{level}</b>\nModus: <b>{mode}</b>",
-    "welcome_call_to_action": "Tippe auf 📚 Wörter lernen — und los!",
 
     "welcome_choose_level": "🎯 <b>Womit fangen wir an?</b>\n\nDein Niveau — {language}\n\n• A1–A2 — Grundwortschatz\n• B1–B2 — sicheres Sprechen\n• C1–C2 — freie Beherrschung",
     "choose_level_prompt": "Wähle ein Niveau:",
@@ -91,11 +79,6 @@ TEXTS = {
     "notif_toggle_on": "🔔 Erinnerungen eingeschaltet!",
     "notif_toggle_off": "🔕 Erinnerungen ausgeschaltet",
 
-    "notif_message_title": "{emoji} <b>Zeit zu üben!</b>",
-    "notif_message_streak": "🔥 Serie: {days} Tage in Folge",
-    "notif_message_words": "📊 Gelernte Wörter: {count}",
-    "notif_message_cta": "💪 Lass deine Serie nicht reißen!",
-    "notif_message_btn_start": "📚 Quiz starten",
     "notif_message_btn_disable": "🔕 Erinnerungen abschalten",
 
     "day_mon": "Mo",
@@ -110,11 +93,6 @@ TEXTS = {
 
     "notif_default_name": "Freund",
     "notif_message_greeting": "🔥 <b>Zeit zu üben, {name}!</b>",
-    "notif_message_progress_title": "📊 <b>Dein Fortschritt:</b>",
-    "notif_progress_streak": "├ Serie: {days} Tage 🎯",
-    "notif_progress_quizzes": "├ Quizze absolviert: {count}",
-    "notif_progress_words": "├ Wörter gelernt: {count}",
-    "notif_progress_accuracy": "└ Treffsicherheit: {percent}%",
 
     "notif_motivation_1": "Schritt für Schritt kommst du ans Ziel!",
     "notif_motivation_2": "Deine Serie wächst — bleib dabei!",
@@ -681,4 +659,39 @@ TEXTS.update({
     "goal_living": "🏠 Fürs Leben im Ausland",
     "goal_study": "🎓 Fürs Studium",
     "goal_any": "📚 Einfach Wörter lernen",
+})
+
+
+# ============================================================================
+# ВСТУПИТЕЛЬНЫЙ БЛОК /start
+#
+# Сюда возвращаются, только набрав команду руками, — то есть затем,
+# чтобы понять, что это за бот и что он умеет. Прежний текст вместо
+# этого перечислял кнопки, которые человек видит перед собой, и обещал
+# «Помощь» среди них, откуда она уехала в настройки.
+# ============================================================================
+TEXTS.update({
+    "intro_title": "🌍 <b>GenauLingua</b>",
+    "intro_three_games": "Ein Wort sind drei verschiedene Fähigkeiten, nicht eine:\n🔤 geschrieben erkennen\n🎧 gehört erkennen\n🎤 laut aussprechen\n\nIn der Übung wechseln sie von selbst — danach, wie gut du jedes Wort kennst.",
+    "intro_numbers": "12 902 Wörter · 20 Themen · 6 Niveaus\nSechs Sprachen in jedem Paar: lerne Polnisch über Englisch, wenn du magst.",
+    "intro_where_you_are": "Gerade: <b>{language}</b> · {mode}",
+    "intro_btn_progress": "📊 Fortschritt",
+    "settings_title_short": "🦾 Einstellungen",
+})
+
+
+# ============================================================================
+# ЗАЧЕМ УЧУ — ЭКРАН НАСТРОЙКИ
+#
+# Без него цель осталась бы пустой навсегда у всех 233 нынешних
+# пользователей: онбординг у них давно позади. Та же дыра, что была у
+# состава занятия — колонка есть, экрана нет.
+# ============================================================================
+TEXTS.update({
+    "settings_btn_goal": "🧭 Wofür ich lerne",
+    "settings_goal_title": "🧭 <b>Wofür ich lerne</b>",
+    "settings_goal_description": "Wörter deines Themas kommen zuerst. Die Schwierigkeit richtet sich weiter nach dem Niveau, und Gelerntes kommt zur Wiederholung zurück.",
+    "settings_goal_set": "Ziel gespeichert",
+    "settings_goal_line": "🧭 Ziel: <b>{goal}</b>",
+    "settings_goal_none": "nicht gewählt",
 })

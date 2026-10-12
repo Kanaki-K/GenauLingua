@@ -8,7 +8,7 @@ from app.utils.timezones import TIMEZONE_CITIES, get_main_cities, get_extended_c
 from app.locales import get_text
 
 
-def get_reminder_keyboard(lang: str = "ru") -> InlineKeyboardMarkup:
+def get_reminder_keyboard(lang: str = "ru", count: int = 15) -> InlineKeyboardMarkup:
     """
     Клавиатура САМОГО НАПОМИНАНИЯ. Прежде её не было вовсе.
 
@@ -25,8 +25,13 @@ def get_reminder_keyboard(lang: str = "ru") -> InlineKeyboardMarkup:
     сохраняет пользователя, которого иначе теряем навсегда.
     """
     builder = InlineKeyboardBuilder()
+    # Надпись ТА ЖЕ, что на домашнем экране и в итоге круга. Прежде здесь
+    # стояло «📚 Начать викторину», а на домашнем «▶️ Заниматься · 15» —
+    # одно и то же действие под двумя именами. Для подписей шкал это уже
+    # решено так же: одна вещь зовётся одинаково везде, иначе человек
+    # считает их разными.
     builder.row(InlineKeyboardButton(
-        text=get_text("notif_message_btn_start", lang),
+        text=get_text("home_btn_learn", lang, count=count),
         callback_data="learn_now",
     ))
     builder.row(InlineKeyboardButton(

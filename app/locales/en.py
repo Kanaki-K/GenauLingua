@@ -17,23 +17,11 @@ TEXTS = {
     # WELCOME & START
     # ============================================================================
     "welcome_title": "👋 <b>Hello, {name}!</b>",
-    "welcome_description": "🌍 <b>GenauLingua</b> — learn a language through play\nLanguages to choose from: {languages}\n12 000+ words · 20 topics · 6 levels\n\nThe bot picks words just for you — the more\nyou play, the smarter the selection",
-    "welcome_separator": "──────────────────",
 
-    "welcome_learn_words_title": "📚 <b>Learn words</b>",
-    "welcome_learn_words_desc": "Start a quiz",
 
-    "welcome_stats_title": "📊 <b>Statistics</b>",
-    "welcome_stats_desc": "Your progress",
 
-    "welcome_settings_title": "🦾 <b>Settings</b>",
-    "welcome_settings_desc": "Mode, language, topics",
 
-    "welcome_help_title": "❓ <b>Help</b>",
-    "welcome_help_desc": "Tips and feedback",
 
-    "welcome_your_level": "Your level: <b>{level}</b>\nMode: <b>{mode}</b>",
-    "welcome_call_to_action": "Tap 📚 Learn words — let's go!",
 
     "welcome_choose_level": "🎯 <b>Where do we start?</b>\n\nYour level — {language}\n\n• A1–A2 — basic vocabulary\n• B1–B2 — confident communication\n• C1–C2 — near-native fluency",
     "choose_level_prompt": "Choose your level:",
@@ -86,11 +74,6 @@ TEXTS = {
     "notif_toggle_on": "🔔 Notifications enabled!",
     "notif_toggle_off": "🔕 Notifications disabled",
 
-    "notif_message_title": "{emoji} <b>Time to practice!</b>",
-    "notif_message_streak": "🔥 Streak: {days} days",
-    "notif_message_words": "📊 Words learned: {count}",
-    "notif_message_cta": "💪 Keep your streak going!",
-    "notif_message_btn_start": "📚 Start quiz",
     "notif_message_btn_disable": "🔕 Disable notifications",
 
     "day_mon": "Mon",
@@ -105,11 +88,6 @@ TEXTS = {
 
     "notif_default_name": "friend",
     "notif_message_greeting": "🔥 <b>Time to practice, {name}!</b>",
-    "notif_message_progress_title": "📊 <b>Your progress:</b>",
-    "notif_progress_streak": "├ Streak: {days} days 🎯",
-    "notif_progress_quizzes": "├ Quizzes passed: {count}",
-    "notif_progress_words": "├ Words learned: {count}",
-    "notif_progress_accuracy": "└ Accuracy: {percent}%",
 
     "notif_motivation_1": "Step by step you're reaching your goal!",
     "notif_motivation_2": "Your streak is growing — keep it up!",
@@ -668,4 +646,39 @@ TEXTS.update({
     "goal_living": "🏠 For living abroad",
     "goal_study": "🎓 For studying",
     "goal_any": "📚 Just learn words",
+})
+
+
+# ============================================================================
+# ВСТУПИТЕЛЬНЫЙ БЛОК /start
+#
+# Сюда возвращаются, только набрав команду руками, — то есть затем,
+# чтобы понять, что это за бот и что он умеет. Прежний текст вместо
+# этого перечислял кнопки, которые человек видит перед собой, и обещал
+# «Помощь» среди них, откуда она уехала в настройки.
+# ============================================================================
+TEXTS.update({
+    "intro_title": "🌍 <b>GenauLingua</b>",
+    "intro_three_games": "A word is three different skills, not one:\n🔤 recognise it written\n🎧 recognise it by ear\n🎤 say it out loud\n\nThey alternate on their own during a lesson — according to how well you know each word.",
+    "intro_numbers": "12,902 words · 20 topics · 6 levels\nSix languages in any pair: learn Polish through English if you like.",
+    "intro_where_you_are": "Right now: <b>{language}</b> · {mode}",
+    "intro_btn_progress": "📊 Progress",
+    "settings_title_short": "🦾 Settings",
+})
+
+
+# ============================================================================
+# ЗАЧЕМ УЧУ — ЭКРАН НАСТРОЙКИ
+#
+# Без него цель осталась бы пустой навсегда у всех 233 нынешних
+# пользователей: онбординг у них давно позади. Та же дыра, что была у
+# состава занятия — колонка есть, экрана нет.
+# ============================================================================
+TEXTS.update({
+    "settings_btn_goal": "🧭 What I need it for",
+    "settings_goal_title": "🧭 <b>What I need it for</b>",
+    "settings_goal_description": "Words from your topic will come first. Difficulty still follows your level, and what you have learnt keeps coming back for review.",
+    "settings_goal_set": "Goal saved",
+    "settings_goal_line": "🧭 Goal: <b>{goal}</b>",
+    "settings_goal_none": "not chosen",
 })

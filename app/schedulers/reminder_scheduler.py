@@ -30,35 +30,78 @@ MOTIVATION_KEYS = [
 ]
 
 
-async def send_notification_to_user(bot: Bot, user: User) -> bool:
+async def build_reminder_text(user: User, session) -> str:
     """
-    Отправить напоминание конкретному пользователю
+    Текст напоминания: ТРИ ШКАЛЫ, а не четыре строки счётчиков.
+
+    Прежде здесь висело «Викторин пройдено: 12 · Слов изучено: 47 ·
+    Точность: 88%» — четыре числа, из которых ни одно не говорит, ЧЕГО
+    человеку не хватает. Три шкалы говорят: «написанное 107, на слух 12,
+    вслух 0» — и разрыв между ними виден с первого взгляда.
+
+    Блок собирается той же функцией, что и на домашнем экране. Будь он
+    написан здесь отдельно, два экрана об одном разошлись бы при первой
+    правке, и разошёлся бы этот: напоминание человек видит, но не
+    открывает, и расхождение заметили бы последним.
+
+    ШКАЛЫ ИЛИ ПОДБАДРИВАНИЕ, НО НЕ ОБА. У новичка все три полосы пусты, и
+    показывать их — значит встретить его тремя нулями; ему идёт общая
+    фраза. У того, у кого есть что показать, общая фраза рядом с настоящими
+    числами выглядит пустой вежливостью.
     """
+    from app.bot.handlers.quiz.home import _scope, scales_block
+    from app.services.language_service import pair_from_user
+    from app.services.monthly_leaderboard_service import get_user_monthly_rank
+    from app.services.quiz_service import get_channel_progress
+
     lang = user.interface_language or "ru"
     name = user.first_name or get_text("notif_default_name", lang)
-    motivation_key = random.choice(MOTIVATION_KEYS)
-    motivation = get_text(motivation_key, lang)
+    pair = pair_from_user(user)
+    level, category = _scope(user)
 
-    progress_lines = []
-    if user.streak_days > 0:
-        progress_lines.append(
-            get_text("notif_progress_streak", lang, days=user.streak_days)
-        )
-    progress_lines.append(
-        get_text("notif_progress_quizzes", lang, count=user.quizzes_passed)
-    )
-    progress_lines.append(
-        get_text("notif_progress_words", lang, count=user.words_learned)
-    )
-    progress_lines.append(
-        get_text("notif_progress_accuracy", lang, percent=user.success_rate)
+    channels = await get_channel_progress(
+        user.id, session, pair, level=level, category=category
     )
 
     text = get_text("notif_message_greeting", lang, name=name) + "\n\n"
-    text += get_text("notif_message_progress_title", lang) + "\n"
-    text += "\n".join(progress_lines) + "\n\n"
-    text += f"💡 {motivation}\n\n"
-    text += get_text("notif_message_cta", lang)
+
+    block = scales_block(channels, lang)
+    if block:
+        text += block + "\n\n"
+    else:
+        text += f"💡 {get_text(random.choice(MOTIVATION_KEYS), lang)}\n\n"
+
+    # Серия и место — два повода вернуться, и оба показываются только когда
+    # есть что показать: «🔥 0 дней» гасит, а не подгоняет
+    footer = []
+    if user.streak_days:
+        footer.append(get_text("home_streak", lang, days=user.streak_days))
+    rank = await get_user_monthly_rank(user.id, session, learning_lang=pair.learning)
+    if rank:
+        footer.append(get_text("home_rank", lang, rank=rank["rank"]))
+    if footer:
+        text += " · ".join(footer)
+
+    # ТЕКСТОВОГО ПРИЗЫВА БОЛЬШЕ НЕТ: им стала кнопка.
+    #
+    # Прежде последней строкой стояло «💪 Не прерывай свою серию!» — и
+    # приходило оно в том числе людям, у которых серии нет ни одного дня.
+    # Призывать не прерывать то, чего не было, — мелкая ложь, но ровно та
+    # же по форме, что и прочие: текст говорит об одном поле, а смотреть
+    # надо было в соседнее. Кнопка «▶️ Заниматься» зовёт честнее и не
+    # зависит от состояния.
+    return text.rstrip()
+
+
+async def send_notification_to_user(bot: Bot, user: User, session) -> bool:
+    """Отправить напоминание конкретному пользователю."""
+    lang = user.interface_language or "ru"
+
+    try:
+        text = await build_reminder_text(user, session)
+    except Exception:
+        logger.exception("не удалось собрать текст напоминания (user=%s)", user.id)
+        return False
 
     try:
         await bot.send_message(
@@ -68,7 +111,7 @@ async def send_notification_to_user(bot: Bot, user: User) -> bool:
             # БЕЗ КЛАВИАТУРЫ ЭТО СООБЩЕНИЕ БЫЛО ТУПИКОМ. Текст звал
             # заниматься, нажать было нечего, и человек должен был сам
             # вспомнить про реплай-клавиатуру. См. get_reminder_keyboard.
-            reply_markup=get_reminder_keyboard(lang),
+            reply_markup=get_reminder_keyboard(lang, count=user.quiz_word_count or 15),
         )
         logger.info(f"✅ Напоминание отправлено пользователю {user.id} ({user.username})")
         return True
@@ -141,7 +184,7 @@ async def check_and_send_notifications(bot: Bot):
 
                 logger.info(f"⏰ Отправляю напоминание пользователю {user.id}")
 
-                success = await send_notification_to_user(bot, user)
+                success = await send_notification_to_user(bot, user, session)
 
                 if success:
                     user.last_notification_sent = now_utc

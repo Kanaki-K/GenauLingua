@@ -186,3 +186,57 @@ async def test_without_a_goal_nothing_changes(session, user):
     assert picked == {WORK.value, FAR.value}, (
         f"без цели отбор перестал брать все слова уровня: {picked}"
     )
+
+
+# ============================================================================
+# ЦЕЛЬ ДОСТИЖИМА ИЗ НАСТРОЕК
+#
+# Опрос задаётся в онбординге, и этого МАЛО: у всех 233 нынешних
+# пользователей он давно позади, и цель осталась бы у них пустой навсегда,
+# а сменить свою они не смогли бы вовсе. Та же дыра, что была у состава
+# занятия: колонка есть, экрана нет.
+# ============================================================================
+
+def test_goal_has_a_screen_in_settings():
+    from app.bot.handlers.quiz.settings import _GROUPS, _PARENT_GROUP
+
+    items = {data for _, _, group in _GROUPS.values() for _, data in group}
+    assert "settings_goal" in items, "цель недостижима из настроек"
+    assert _PARENT_GROUP["settings_goal"] == "settings_group_what", (
+        "цель лежит не в группе «что учу»"
+    )
+
+
+def test_goal_line_shows_up_in_the_settings_state():
+    from app.bot.handlers.quiz.settings import _STATE_LINES, _settings_state
+    from app.database.enums import CEFRLevel, QuizMode
+    from app.database.models import User as U
+
+    person = U(id=1, interface_language="ru", learning_lang="de",
+               native_lang="ru", reverse_mode=False,
+               level=CEFRLevel.A1, quiz_mode=QuizMode.LEVEL)
+    person.audio_enabled = True
+    person.quiz_channels = "ta"
+
+    assert "settings_goal" in _STATE_LINES
+
+    person.learning_goal = None
+    without = _settings_state(person, "ru", only=("settings_goal",))
+    person.learning_goal = "work"
+    with_goal = _settings_state(person, "ru", only=("settings_goal",))
+
+    assert without != with_goal, "строка цели не меняется от самой цели"
+    assert "[MISSING:" not in without and "[MISSING:" not in with_goal
+
+
+@pytest.mark.parametrize("code", list(GOAL_ORDER))
+def test_every_goal_is_nameable_in_every_language(code):
+    """
+    Экран настройки печатает названия целей; пропущенный ключ уехал бы
+    человеку как «[MISSING: goal_work]».
+    """
+    from app.locales import LOCALES, get_text
+
+    for lang in LOCALES:
+        label = get_text(f"goal_{code}", lang)
+        assert "[MISSING:" not in label, f"{lang}: нет названия цели {code}"

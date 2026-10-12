@@ -104,15 +104,25 @@ def _scope(user: User) -> tuple[CEFRLevel | None, str | None]:
     return user.level, None
 
 
-async def build_home(user: User, session: AsyncSession) -> tuple[str, InlineKeyboardMarkup]:
-    """Собрать текст и клавиатуру домашнего экрана."""
-    lang = user.interface_language or DEFAULT_LOCALE
-    pair = pair_from_user(user)
-    level, category = _scope(user)
+def scales_block(
+    channels: dict[str, int], lang: str, *, always: bool = False
+) -> str:
+    """
+    Три шкалы одним блоком — он же в напоминании.
 
-    channels = await get_channel_progress(
-        user.id, session, pair, level=level, category=category
-    )
+    Вынесен нарочно: напоминание показывает те же три шкалы, и будь блок
+    собран там отдельно, два экрана об одном разошлись бы при первой же
+    правке. Разошёлся бы тот, который реже открывают, — а открывают реже
+    как раз напоминание.
+
+    `always` разводит два случая, и разводит по делу. На ДОМАШНЕМ экране
+    полосы нужны всегда: человек пришёл смотреть на прогресс, и «пока
+    ничего» — честный ответ на его вопрос. В НАПОМИНАНИИ три пустые полосы
+    не говорят ничего и гасят: это сообщение пришло звать заниматься, а не
+    отчитываться. Поэтому там при пустом счёте блок опускается целиком.
+    """
+    if not always and not any(channels[field] for _, _, field in _SCALES):
+        return ""
 
     # ЗНАМЕНАТЕЛЬ — СЛОВА, КОТОРЫЕ ЧЕЛОВЕК УЖЕ ВСТРЕЧАЛ, а не весь уровень.
     #
@@ -142,6 +152,18 @@ async def build_home(user: User, session: AsyncSession) -> tuple[str, InlineKeyb
         f"{labels[key]:<{width}}  {_bar(channels[field], total)}  {channels[field]:>4}"
         for _, key, field in _SCALES
     )
+    return f"<code>{rows}</code>"
+
+
+async def build_home(user: User, session: AsyncSession) -> tuple[str, InlineKeyboardMarkup]:
+    """Собрать текст и клавиатуру домашнего экрана."""
+    lang = user.interface_language or DEFAULT_LOCALE
+    pair = pair_from_user(user)
+    level, category = _scope(user)
+
+    channels = await get_channel_progress(
+        user.id, session, pair, level=level, category=category
+    )
 
     # Флага перед названием НЕТ нарочно: `langname_*` уже содержит его, и
     # первая редакция печатала «🇩🇪 🇩🇪 Немецкий». Замечено не чтением кода, а
@@ -152,7 +174,7 @@ async def build_home(user: User, session: AsyncSession) -> tuple[str, InlineKeyb
         f" · {_mode_label(user, lang)}"
     )
 
-    lines = [header, "", f"<code>{rows}</code>", ""]
+    lines = [header, "", scales_block(channels, lang, always=True), ""]
 
     # Серия и место — два повода вернуться завтра, и оба показываются только
     # когда есть что показать: «🔥 0 дней» гасит, а не подгоняет.

@@ -23,7 +23,6 @@ from app.services.language_service import (
     LEARNABLE_LANGS,
     fallback_native_for,
     is_learnable,
-    learnable_names,
     legacy_mode_name,
     pair_from_user,
 )
@@ -153,56 +152,37 @@ async def cmd_start(message: Message, state: FSMContext, session: AsyncSession):
     # Запасное обращение берётся из локали. Прежде здесь стояло русское «друг»
     # для всех: турок без имени в профиле получал русское слово.
     first_name = message.from_user.first_name or get_text("friend_fallback", lang)
-    # Считаем ДО вызова: test_format_parameters_match разбирает get_text
-    # регулярным выражением, и скобки внутри аргумента обрывают разбор
-    languages = learnable_names(lang)
-
-    welcome_text = (
-        f"{get_text('welcome_title', lang, name=first_name)}\n\n"
-        f"{get_text('welcome_description', lang, languages=languages)}\n\n"
-        f"{get_text('welcome_separator', lang)}\n"
-        f"{get_text('welcome_learn_words_title', lang)}\n"
-        f"{get_text('welcome_learn_words_desc', lang)}\n\n"
-        f"{get_text('welcome_stats_title', lang)}\n"
-        f"{get_text('welcome_stats_desc', lang)}\n\n"
-        f"{get_text('welcome_settings_title', lang)}\n"
-        f"{get_text('welcome_settings_desc', lang)}\n\n"
-        f"{get_text('welcome_help_title', lang)}\n"
-        f"{get_text('welcome_help_desc', lang)}\n"
-        f"{get_text('welcome_separator', lang)}\n\n"
-    )
 
     if user.level:
-        # ВЕРНУВШЕМУСЯ ЧЕЛОВЕКУ — ДОМАШНИЙ ЭКРАН, А НЕ ПЕРЕСКАЗ МЕНЮ.
+        # `/START` — ЭТО ВСТУПИТЕЛЬНЫЙ БЛОК, И БОЛЬШЕ НИЧЕГО.
         #
-        # Здесь стояла простыня из восьми строк: «Учить слова — проверь себя»,
-        # «Статистика — следи за прогрессом» и так далее. Польза от неё
-        # кончается на первом прочтении, а показывалась она при каждом
-        # `/start`, то есть пересказывала кнопки, которые человек и так видит
-        # перед собой на клавиатуре.
+        # Замечание владельца: сюда возвращаются только набрав команду
+        # руками, то есть осознанно, — и обычно затем, чтобы понять, что это
+        # за бот и что он теперь умеет. Значит здесь не место ни шкалам (они
+        # на кнопке «Прогресс», куда приходят постоянно), ни пересказу меню.
         #
-        # Новый человек этой ветки не видит вовсе: до неё нужен уровень, а
-        # уровень ставится в конце онбординга, который сам всё и рассказывает.
-        # Значит ветка целиком про тех, кто вернулся, — и им нужнее всего
-        # ответ на вопрос «где я сейчас». Его и дают три шкалы.
-        from app.bot.handlers.quiz.home import show_home
-
-        old_anchor_id, new_anchor_id = await ensure_anchor(message, session, user, emoji="🤖")
-
-        if old_anchor_id:
-            current_msg_id = message.message_id
-            await delete_messages_fast(message.bot, message.chat.id, old_anchor_id, current_msg_id)
-
-        await show_home(message, session, user)
+        # Пересказ как раз и стоял здесь прежде: восемь строк «📚 Учить
+        # слова — запуск викторины», «📊 Статистика — твой прогресс» и так
+        # далее. Две беды сразу. Первая: он описывал кнопки, которые человек
+        # видит перед собой на клавиатуре. Вторая хуже — он ВРАЛ, обещая
+        # «❓ Помощь» среди кнопок меню, откуда она давно уехала в настройки.
+        #
+        # Что здесь нужно вместо этого: чем бот стал (три навыка, а не один),
+        # сколько в нём всего, где человек сейчас — и кнопка.
+        await _show_intro(message, session, user, lang)
     else:
         # Уровень называет язык, к которому относится: A1 немецкого и A1
         # английского — разные словари, и без названия вопрос неполон
         learning_name = get_text(f"langname_{pair_from_user(user).learning}", lang)
-        welcome_text += get_text('welcome_choose_level', lang, language=learning_name)
 
+        # Текст тот же, что и на втором шаге онбординга: человек попал сюда,
+        # не досидев до выбора уровня, и рассказать ему надо ровно то же
         await message.answer(
-            welcome_text,
-            reply_markup=get_level_keyboard(lang)
+            f"{get_text('welcome_title', lang, name=first_name)}\n\n"
+            f"{get_text('intro_three_games', lang)}\n\n"
+            f"{get_text('intro_numbers', lang)}\n\n"
+            f"{get_text('welcome_choose_level', lang, language=learning_name)}",
+            reply_markup=get_level_keyboard(lang),
         )
 
         await state.set_state(QuizStates.choosing_level)
@@ -271,24 +251,24 @@ async def onboard_learning_language(callback: CallbackQuery, state: FSMContext,
     await session.commit()
 
     first_name = callback.from_user.first_name or get_text("friend_fallback", lang)
-    languages = learnable_names(lang)
     # Считаем ДО вызова: test_format_parameters_match разбирает get_text
     # регулярным выражением, и вложенный вызов внутри аргумента рвёт разбор
     learning_name = get_text(f"langname_{code}", lang)
 
+    # ТОТ ЖЕ ТЕКСТ, ЧТО И ВО ВСТУПИТЕЛЬНОМ БЛОКЕ, а не пересказ меню.
+    #
+    # Здесь стояли те же восемь строк про кнопки — и с той же ложью:
+    # «❓ Помощь» обещалась среди пунктов меню, откуда она уехала в
+    # настройки. Новому человеку тем более нельзя обещать кнопку, которой
+    # он не найдёт: это первое, что он о боте узнает.
+    #
+    # А рассказать ему надо ровно то же, что и вернувшемуся: что слово —
+    # это три навыка, и сколько тут всего. Один текст на два места,
+    # разойтись им теперь нечем.
     welcome_text = (
         f"{get_text('welcome_title', lang, name=first_name)}\n\n"
-        f"{get_text('welcome_description', lang, languages=languages)}\n\n"
-        f"{get_text('welcome_separator', lang)}\n"
-        f"{get_text('welcome_learn_words_title', lang)}\n"
-        f"{get_text('welcome_learn_words_desc', lang)}\n\n"
-        f"{get_text('welcome_stats_title', lang)}\n"
-        f"{get_text('welcome_stats_desc', lang)}\n\n"
-        f"{get_text('welcome_settings_title', lang)}\n"
-        f"{get_text('welcome_settings_desc', lang)}\n\n"
-        f"{get_text('welcome_help_title', lang)}\n"
-        f"{get_text('welcome_help_desc', lang)}\n"
-        f"{get_text('welcome_separator', lang)}\n\n"
+        f"{get_text('intro_three_games', lang)}\n\n"
+        f"{get_text('intro_numbers', lang)}\n\n"
         f"{get_text('welcome_choose_level', lang, language=learning_name)}"
     )
 
@@ -353,6 +333,77 @@ async def select_level(callback: CallbackQuery, state: FSMContext, session: Asyn
 
     await state.clear()
     await callback.answer()
+
+
+async def _show_intro(
+    message: Message, session: AsyncSession, user: User, lang: str
+) -> None:
+    """
+    Вступительный блок: что это за бот, где человек сейчас, и кнопка.
+
+    Три игры названы ПЕРВЫМИ и не случайно: это главное, что в боте
+    изменилось, и единственное, чего о нём нельзя догадаться по кнопкам.
+    «Шесть языков в любой паре» — второе такое же: человек, пришедший за
+    немецким, не знает, что может учить польский на английском.
+    """
+    pair = pair_from_user(user)
+    learning_name = get_text(f"langname_{pair.learning}", lang)
+    # Считаем ДО вызова: test_format_parameters_match разбирает get_text
+    # регулярным выражением, и вложенный вызов внутри аргумента рвёт разбор
+    mode = _mode_title(user, lang)
+
+    text = (
+        f"{get_text('intro_title', lang)}\n\n"
+        f"{get_text('intro_three_games', lang)}\n\n"
+        f"{get_text('intro_numbers', lang)}\n\n"
+        f"{get_text('intro_where_you_are', lang, language=learning_name, mode=mode)}"
+    )
+
+    old_anchor_id, _ = await ensure_anchor(message, session, user, emoji="🤖")
+    if old_anchor_id:
+        await delete_messages_fast(
+            message.bot, message.chat.id, old_anchor_id, message.message_id
+        )
+
+    await message.answer(text, reply_markup=_intro_keyboard(user, lang))
+
+
+def _mode_title(user: User, lang: str) -> str:
+    """Название режима — то же, что на домашнем экране и в настройках."""
+    from app.bot.handlers.quiz.stats import _get_mode_title
+
+    return _get_mode_title(user, lang)
+
+
+def _intro_keyboard(user: User, lang: str) -> InlineKeyboardMarkup:
+    """
+    Занятие, прогресс, настройки — и всё.
+
+    Три кнопки вместо пересказа четырёх: заниматься человек пойдёт отсюда,
+    а остальное у него на клавиатуре. Рейтинг не дублируется нарочно — он
+    кнопкой меню, и вторая дверь в том же боте только путает (решение
+    владельца дословно: «зачем-то рейтинг отдельная кнопка и в статистике
+    тоже — бред»).
+    """
+    from app.bot.handlers.quiz.game import DEFAULT_QUIZ_LENGTH
+
+    count = user.quiz_word_count or DEFAULT_QUIZ_LENGTH
+    rows = [
+        [InlineKeyboardButton(
+            text=get_text("home_btn_learn", lang, count=count),
+            callback_data="learn_now",
+        )],
+        [
+            InlineKeyboardButton(
+                text=get_text("intro_btn_progress", lang), callback_data="home_back"
+            ),
+            InlineKeyboardButton(
+                text=get_text("settings_title_short", lang),
+                callback_data="settings_open",
+            ),
+        ],
+    ]
+    return InlineKeyboardMarkup(inline_keyboard=rows)
 
 
 def get_goal_keyboard(lang: str) -> InlineKeyboardMarkup:
