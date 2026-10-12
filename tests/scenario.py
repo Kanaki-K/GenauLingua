@@ -217,26 +217,13 @@ def make_dispatcher(db_session=None) -> Dispatcher:
     if _DISPATCHER is not None:
         return _DISPATCHER
 
-    from app.bot.handlers.admin import router as admin_router
-    from app.bot.handlers.leaderboard.alltime import router as alltime_router
-    from app.bot.handlers.leaderboard.leaderboard_table import router as table_router
-    from app.bot.handlers.leaderboard.monthly import router as monthly_router
-    from app.bot.handlers.quiz.game import router as game_router
-    from app.bot.handlers.quiz.help import router as help_router
-    from app.bot.handlers.quiz.home import router as home_router
-    from app.bot.handlers.quiz.report import router as report_router
-    from app.bot.handlers.quiz.settings import router as settings_router
-    from app.bot.handlers.quiz.stats import router as stats_router
-    from app.bot.handlers.reminders import router as reminders_router
-    from app.bot.handlers.start import router as start_router
+    # Набор и порядок берутся из `app.bot.routers` — того же места, откуда
+    # их берёт боевой `app.main`. Своя копия списка здесь однажды уже
+    # отстала, и сценарии проверяли бот без четвёртой игры, ничего об этом
+    # не сообщая.
+    from app.bot.routers import attach_routers
 
-    dp = Dispatcher(storage=MemoryStorage())
-    for router in (
-        monthly_router, alltime_router, table_router, report_router,
-        start_router, home_router, game_router, settings_router,
-        stats_router, help_router, reminders_router, admin_router,
-    ):
-        dp.include_router(router)
+    dp = attach_routers(Dispatcher(storage=MemoryStorage()))
 
     @dp.update.middleware()
     async def inject_session(handler, event, data):

@@ -18,23 +18,8 @@ from aiogram.enums import ParseMode
 from aiogram.types import ErrorEvent
 from aiogram.fsm.storage.memory import MemoryStorage
 
+from app.bot.routers import all_routers, attach_routers
 from app.config import settings
-from app.bot.handlers.start import router as start_router
-from app.bot.handlers.admin import router as admin_router
-from app.bot.handlers.reminders import router as reminders_router
-
-# РЕЙТИНГИ
-from app.bot.handlers.leaderboard.monthly import router as monthly_router
-from app.bot.handlers.leaderboard.alltime import router as alltime_router
-from app.bot.handlers.leaderboard.leaderboard_table import router as table_router
-
-# КВИЗЫ ПО ОТДЕЛЬНОСТИ (НЕ ЧЕРЕЗ quiz_router!)
-from app.bot.handlers.quiz.game import router as game_router
-from app.bot.handlers.quiz.home import router as home_router
-from app.bot.handlers.quiz.settings import router as settings_router
-from app.bot.handlers.quiz.stats import router as stats_router
-from app.bot.handlers.quiz.help import router as help_router
-from app.bot.handlers.quiz.report import router as report_router
 
 from app.database.session import AsyncSessionLocal
 from app.core.logging import setup_logging
@@ -100,27 +85,13 @@ async def main():
         logger.exception("Unhandled error: %s", event.exception)
         return True
 
-    # ВАЖНО: ПОРЯДОК РЕГИСТРАЦИИ!
-    # Рейтинги ПЕРВЫМИ (чтобы перехватить show_my_rating)
-    dp.include_router(monthly_router)
-    dp.include_router(alltime_router)
-    dp.include_router(table_router)
-
-    # Репорт ПЕРЕД game (чтобы перехватить report_translation_error)
-    dp.include_router(report_router)
-
-    # Потом всё остальное.
-    # Домашний экран ПЕРЕД game: у него свои callback'и (home_learn*), и
-    # роутер игры их не трогает, но порядок держим явным — перехватывать
-    # нажатия домашнего экрана не должен никто.
-    dp.include_router(start_router)
-    dp.include_router(home_router)
-    dp.include_router(game_router)
-    dp.include_router(settings_router)
-    dp.include_router(stats_router)
-    dp.include_router(help_router)
-    dp.include_router(reminders_router)
-    dp.include_router(admin_router)
+    # ПОРЯДОК РЕГИСТРАЦИИ ЖИВЁТ В ОДНОМ МЕСТЕ — `app.bot.routers`.
+    #
+    # Прежде он был выписан здесь, в приёмке меню и в сценарных
+    # тестах, то есть трижды. Три списка об одном расходятся всегда, и
+    # разошлись: четвёртая игра попала только сюда, а приёмка объявила
+    # её кнопку мёртвой — обработчик есть, просто не в её копии списка.
+    attach_routers(dp)
 
     @dp.update.middleware()
     async def db_session_middleware(handler, event, data):
@@ -132,18 +103,12 @@ async def main():
                 await session.rollback()
                 raise
 
-    logger.info("📦 Routers loaded:")
-    logger.info("   ✅ leaderboard/monthly.py")
-    logger.info("   ✅ leaderboard/alltime.py")
-    logger.info("   ✅ leaderboard/leaderboard_table.py")
-    logger.info("   ✅ quiz/report.py")
-    logger.info("   ✅ start.py")
-    logger.info("   ✅ quiz/game.py")
-    logger.info("   ✅ quiz/settings.py")
-    logger.info("   ✅ quiz/stats.py")
-    logger.info("   ✅ quiz/help.py")
-    logger.info("   ✅ reminders.py")
-    logger.info("   ✅ admin.py")
+    # Список в логе ТОЖЕ собирается из источника, а не выписан рядом.
+    # Выписанный отставал: в нём не было ни домашнего экрана, ни
+    # доски — четвёртый список об одном и том же.
+    logger.info("📦 Роутеров подключено: %d", len(all_routers()))
+    for router in all_routers():
+        logger.info("   ✅ %s", router.name or type(router).__name__)
 
     scheduler = setup_scheduler(bot)
     logger.info("⏰ Планировщик запущен, работ: %d", len(scheduler.get_jobs()))

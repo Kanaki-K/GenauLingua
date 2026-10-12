@@ -64,28 +64,20 @@ class _Probe:
 
 
 def build_dispatcher() -> Dispatcher:
-    """Тот же набор роутеров и в том же порядке, что в боевом `app.main`."""
-    from app.bot.handlers.admin import router as admin_router
-    from app.bot.handlers.leaderboard.alltime import router as alltime_router
-    from app.bot.handlers.leaderboard.leaderboard_table import router as table_router
-    from app.bot.handlers.leaderboard.monthly import router as monthly_router
-    from app.bot.handlers.quiz.game import router as game_router
-    from app.bot.handlers.quiz.help import router as help_router
-    from app.bot.handlers.quiz.home import router as home_router
-    from app.bot.handlers.quiz.report import router as report_router
-    from app.bot.handlers.quiz.settings import router as settings_router
-    from app.bot.handlers.quiz.stats import router as stats_router
-    from app.bot.handlers.reminders import router as reminders_router
-    from app.bot.handlers.start import router as start_router
+    """
+    Тот же набор роутеров и в том же порядке, что в боевом `app.main`.
 
-    dp = Dispatcher()
-    for router in (
-        monthly_router, alltime_router, table_router, report_router,
-        start_router, home_router, game_router, settings_router,
-        stats_router, help_router, reminders_router, admin_router,
-    ):
-        dp.include_router(router)
-    return dp
+    Берётся из `app.bot.routers`, а НЕ переписывается здесь. Прежде список
+    был выписан своей копией — и копия отстала: четвёртая игра попала
+    только в `app.main`, а эта приёмка объявила её кнопку мёртвой.
+    Обработчик был на месте, его просто не было в списке проверки.
+
+    Тот же случай, что и у девяти дефектов проекта: проверка смотрела не на
+    то поле — на свою копию вместо источника.
+    """
+    from app.bot.routers import attach_routers
+
+    return attach_routers(Dispatcher())
 
 
 def _callback_handlers(dp: Dispatcher) -> list:
