@@ -439,6 +439,7 @@ async def generate_question(
     pair: Optional[LanguagePair] = None,
     recent_channels: Optional[list[str]] = None,
     channel: Optional[QuizChannel] = None,
+    prefer_channel: Optional[QuizChannel] = None,
 ) -> Optional[dict]:
     """
     Вопрос викторины: слово, варианты ответа, индекс правильного, канал.
@@ -457,6 +458,12 @@ async def generate_question(
     давало бы текст. Первая редакция приёмки на этом и попалась: она
     отрапортовала «все игры собираются верно», не собрав НИ ОДНОГО вопроса
     на слух.
+
+    `prefer_channel` — то же желание, но БЕЗ обхода порога: слово, до канала
+    не доросшее, придёт текстом. Этим и пользуется домашний экран, где
+    кнопки 🔤 🎧 🎤 запускают занятие одним каналом. Жёсткий `channel`
+    домашнему экрану не годится: новичок, ткнувший в «🎧», получил бы
+    пятнадцать вопросов о словах, которых ни разу не видел.
 
     Возвращает None, если подходящих слов не осталось.
     """
@@ -479,7 +486,8 @@ async def generate_question(
 
     if channel is None:
         channel = await pick_channel(
-            session, user, correct_word, pair.learning, recent=recent_channels
+            session, user, correct_word, pair.learning, recent=recent_channels,
+            prefer=prefer_channel,
         )
 
     # Канал решает и ЧТО подставить в варианты, и НА КАКОМ они языке.
@@ -726,7 +734,11 @@ CHANNEL_MASTERY = 3
 
 
 async def get_channel_progress(
-    user_id: int, session: AsyncSession, learning_lang: str
+    user_id: int,
+    session: AsyncSession,
+    pair: LanguagePair,
+    level: Optional[CEFRLevel] = None,
+    category: Optional[str] = None,
 ) -> dict[str, int]:
     """
     Сколько слов человек узнаёт глазами, на слух и произносит.
@@ -738,28 +750,66 @@ async def get_channel_progress(
 
     Текстовая шкала считается вычитанием, ровно как в модели: отдельной
     колонки у неё нет, и разойтись с итогом она не может.
+
+    СЧИТАЕТСЯ ПО ТОМУ ЖЕ НАБОРУ СЛОВ, ЧТО И ЗНАМЕНАТЕЛЬ ШКАЛЫ — отсюда и
+    `pair` с фильтрами уровня и категории, те же, что у
+    `get_user_progress_stats`. Первая редакция брала все ряды `UserWord` по
+    изучаемому языку, а полоса рисовалась от числа слов текущего РЕЖИМА — и
+    у всякого, кто сменил уровень или пару, числитель приходил из одного
+    набора, а знаменатель из другого: 342 из 300, полоса за край. Это та же
+    форма, что и семь прежних дефектов (`ROADMAP.md` §6): проверка смотрит
+    на одно поле, а меняется соседнее.
     """
     text_correct = (
         UserWord.times_correct - UserWord.correct_audio - UserWord.correct_speech
     )
 
+    def scoped(query):
+        if level is not None:
+            query = query.where(Word.level == level)
+        if category is not None:
+            query = query.where(Word.category == category)
+        return query
+
+    # Признаки освоения считаются во вложенном запросе, а итоги — снаружи:
+    # соединение с `UserWord` даёт по ряду на слово, и агрегировать поверх
+    # него надо отдельным уровнем, иначе фильтры счётчиков легли бы на
+    # условия соединения.
+    inner = (
+        _progress_join(scoped(_usable_words(pair)), user_id, pair)
+        .with_only_columns(
+            (text_correct >= CHANNEL_MASTERY).label("by_text"),
+            (UserWord.correct_audio >= CHANNEL_MASTERY).label("by_audio"),
+            (UserWord.correct_speech >= CHANNEL_MASTERY).label("by_speech"),
+            # Допуск — не то же, что освоение, и порог у него другой: слуху
+            # довольно одного верного ответа, речи двух, а освоением канала
+            # считаются три ЕГО собственных. Нужно для домашнего экрана: он
+            # обязан ответить, есть ли вообще что слушать, прежде чем
+            # запускать занятие одним каналом.
+            (UserWord.times_correct >= CHANNEL_UNLOCK[QuizChannel.AUDIO]).label("ready_audio"),
+            (UserWord.times_correct >= CHANNEL_UNLOCK[QuizChannel.SPEECH]).label("ready_speech"),
+        )
+        .subquery()
+    )
+
     row = await session.execute(
         select(
-            func.count().filter(text_correct >= CHANNEL_MASTERY),
-            func.count().filter(UserWord.correct_audio >= CHANNEL_MASTERY),
-            func.count().filter(UserWord.correct_speech >= CHANNEL_MASTERY),
+            func.count().filter(inner.c.by_text),
+            func.count().filter(inner.c.by_audio),
+            func.count().filter(inner.c.by_speech),
+            func.count().filter(inner.c.ready_audio),
+            func.count().filter(inner.c.ready_speech),
             func.count(),
-        ).where(
-            UserWord.user_id == user_id,
-            UserWord.learning_lang == learning_lang,
-        )
+        ).select_from(inner)
     )
-    by_text, by_audio, by_speech, touched = row.one()
+    by_text, by_audio, by_speech, ready_audio, ready_speech, touched = row.one()
 
     return {
         "text": by_text or 0,
         "audio": by_audio or 0,
         "speech": by_speech or 0,
+        "ready_audio": ready_audio or 0,
+        "ready_speech": ready_speech or 0,
         "touched": touched or 0,
     }
 
@@ -1022,6 +1072,7 @@ async def pick_channel(
     word: Word,
     learning_lang: str,
     recent: Optional[list[str]] = None,
+    prefer: Optional[QuizChannel] = None,
 ) -> QuizChannel:
     """
     Каким каналом задать вопрос ПРО ЭТО СЛОВО.
@@ -1055,9 +1106,13 @@ async def pick_channel(
     у продвинутого ученика почти всё допущено к слуху, и занятие
     выродилось бы в сплошное аудирование. Третий вопрос того же канала
     заменяется другим.
+
+    `prefer` — прямой вход одним каналом с домашнего экрана. Порог допуска
+    при этом НЕ обходится, в отличие от `generate_question(channel=...)`;
+    разница разобрана ниже по ходу кода.
     """
     channels = enabled_channels(user)
-    if len(channels) == 1:
+    if prefer is None and len(channels) == 1:
         return channels[0]
 
     progress = await session.execute(
@@ -1068,6 +1123,21 @@ async def pick_channel(
         )
     )
     times_correct = progress.scalar() or 0
+
+    # ПРЯМОЙ ВХОД ОДНИМ КАНАЛОМ — с домашнего экрана. Состав занятия тут не
+    # спрашивается: человек только что ткнул в «🎧», это и есть его выбор на
+    # сейчас. Но ПОРОГ ДОПУСКА остаётся в силе, и это главное отличие от
+    # параметра `channel`, который порог обходит. Обойти его здесь значило бы
+    # выдать новичку пятнадцать загадок подряд: слова он ни разу не видел,
+    # узнать их на слух не может, и остаётся жать наугад — ровно то, против
+    # чего и написано правило допуска. Слово, до канала не доросшее, придёт
+    # текстом, и это честный ответ, а не поломка.
+    if prefer is not None:
+        if prefer is not QuizChannel.TEXT and not getattr(user, "audio_enabled", True):
+            return QuizChannel.TEXT
+        if times_correct >= CHANNEL_UNLOCK.get(prefer, 0):
+            return prefer
+        return QuizChannel.TEXT
 
     # Какие каналы открыты ДЛЯ ЭТОГО СЛОВА. Порог растёт вместе с
     # трудностью канала: узнать написанное можно сразу, узнать на слух —

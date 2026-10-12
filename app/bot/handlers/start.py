@@ -25,7 +25,6 @@ from app.services.language_service import (
     learnable_names,
     legacy_mode_name,
     pair_from_user,
-    pair_label,
 )
 
 router = Router()
@@ -173,9 +172,19 @@ async def cmd_start(message: Message, state: FSMContext, session: AsyncSession):
     )
 
     if user.level:
-        mode = pair_label(pair_from_user(user))
-        welcome_text += get_text('welcome_your_level', lang, level=user.level.value, mode=mode) + "\n\n"
-        welcome_text += get_text('welcome_call_to_action', lang)
+        # ВЕРНУВШЕМУСЯ ЧЕЛОВЕКУ — ДОМАШНИЙ ЭКРАН, А НЕ ПЕРЕСКАЗ МЕНЮ.
+        #
+        # Здесь стояла простыня из восьми строк: «Учить слова — проверь себя»,
+        # «Статистика — следи за прогрессом» и так далее. Польза от неё
+        # кончается на первом прочтении, а показывалась она при каждом
+        # `/start`, то есть пересказывала кнопки, которые человек и так видит
+        # перед собой на клавиатуре.
+        #
+        # Новый человек этой ветки не видит вовсе: до неё нужен уровень, а
+        # уровень ставится в конце онбординга, который сам всё и рассказывает.
+        # Значит ветка целиком про тех, кто вернулся, — и им нужнее всего
+        # ответ на вопрос «где я сейчас». Его и дают три шкалы.
+        from app.bot.handlers.quiz.home import show_home
 
         old_anchor_id, new_anchor_id = await ensure_anchor(message, session, user, emoji="🤖")
 
@@ -183,7 +192,7 @@ async def cmd_start(message: Message, state: FSMContext, session: AsyncSession):
             current_msg_id = message.message_id
             await delete_messages_fast(message.bot, message.chat.id, old_anchor_id, current_msg_id)
 
-        await message.answer(welcome_text)
+        await show_home(message, session, user)
     else:
         # Уровень называет язык, к которому относится: A1 немецкого и A1
         # английского — разные словари, и без названия вопрос неполон

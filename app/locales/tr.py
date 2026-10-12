@@ -597,3 +597,18 @@ TEXTS.update({
     "speech_skipped": "⏭ Atlandı",
     "quiz_result_spoken": "🎤 Sesli: {count}",
 })
+
+
+# ============================================================================
+# ДОМАШНИЙ ЭКРАН: ТРИ ШКАЛЫ
+# ============================================================================
+TEXTS.update({
+    "home_scale_text": "Yazılı",
+    "home_scale_audio": "Duyarak",
+    "home_scale_speech": "Sesli",
+    "home_btn_learn": "▶️ Çalış · {count}",
+    "home_streak": "🔥 seri: {days}",
+    "home_rank": "🏆 sıra: {rank}",
+    "home_hint": "Çubuk, daha önce karşılaştığın kelimelerin payıdır: bir kanaldan üç doğru cevap ve kelime o kanalın hanesine yazılır. Ölçekler arasındaki fark, neyin eksik olduğunu gösterir.",
+    "home_channel_not_ready": "{channel}: henüz erken. Hazır kelime sayısı {ready}, en az {minimum} gerekiyor. Kartlarla çalış — diğer kanalları onlar açıyor.",
+})

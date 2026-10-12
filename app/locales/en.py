@@ -597,3 +597,18 @@ TEXTS.update({
     "speech_skipped": "⏭ Skipped",
     "quiz_result_spoken": "🎤 Spoken: {count}",
 })
+
+
+# ============================================================================
+# ДОМАШНИЙ ЭКРАН: ТРИ ШКАЛЫ
+# ============================================================================
+TEXTS.update({
+    "home_scale_text": "Written",
+    "home_scale_audio": "By ear",
+    "home_scale_speech": "Spoken",
+    "home_btn_learn": "▶️ Practise · {count}",
+    "home_streak": "🔥 streak: {days}",
+    "home_rank": "🏆 rank: {rank}",
+    "home_hint": "The bar is the share of words you have already met: three correct answers through a channel and the word counts towards it. The gap between the scales shows what is missing.",
+    "home_channel_not_ready": "{channel}: not yet. Only {ready} words are ready, at least {minimum} are needed. Practise with cards — they unlock the other channels.",
+})

@@ -610,3 +610,18 @@ TEXTS.update({
     "speech_skipped": "⏭ Übersprungen",
     "quiz_result_spoken": "🎤 Gesprochen: {count}",
 })
+
+
+# ============================================================================
+# ДОМАШНИЙ ЭКРАН: ТРИ ШКАЛЫ
+# ============================================================================
+TEXTS.update({
+    "home_scale_text": "Geschrieben",
+    "home_scale_audio": "Gehört",
+    "home_scale_speech": "Gesprochen",
+    "home_btn_learn": "▶️ Üben · {count}",
+    "home_streak": "🔥 Serie: {days}",
+    "home_rank": "🏆 Platz: {rank}",
+    "home_hint": "Der Balken ist der Anteil der Wörter, die du schon getroffen hast: drei richtige Antworten über einen Kanal, und das Wort zählt für ihn. Der Abstand zwischen den Skalen zeigt, was fehlt.",
+    "home_channel_not_ready": "{channel}: noch zu früh. Bereit sind {ready} Wörter, nötig sind mindestens {minimum}. Übe mit Karten — sie schalten die anderen Kanäle frei.",
+})

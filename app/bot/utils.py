@@ -10,6 +10,12 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.bot.keyboards import get_main_menu_keyboard
 from app.database.models import User
+# DEFAULT_LOCALE ниже читается в ensure_anchor, а импорта не было: строка
+# `user.interface_language or DEFAULT_LOCALE` стоит ВНЕ try, поэтому у
+# человека с пустым языком интерфейса якорь падал бы NameError, а не терялся
+# тихо. Выживало это лишь потому, что язык ставится раньше уровня и `or`
+# почти всегда замыкается на первом операнде.
+from app.locales import DEFAULT_LOCALE
 
 logger = logging.getLogger(__name__)
 

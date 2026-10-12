@@ -11,6 +11,7 @@
 
 import logging
 from datetime import date, timedelta
+from typing import Optional
 
 from aiogram import F, Router
 from aiogram.filters import Command
@@ -432,7 +433,39 @@ def _new_quiz_session(user: User, pair: LanguagePair, total: int, quiz_mode: str
 @router.message(Command("quiz"))
 @router.message(pressed(BTN_LEARN_WORDS))
 async def start_quiz(message: Message, state: FSMContext, session: AsyncSession):
-    user = await session.get(User, message.from_user.id)
+    """
+    Кнопка «📚 Учить» и команда `/quiz` — занятие начинается СРАЗУ.
+
+    Домашний экран между ними не встаёт, хотя три шкалы живут именно на нём.
+    Поставить его здесь значило бы добавить нажатие перед каждым занятием —
+    тем самым 96%, которые ни разу не меняли ни одной настройки. Своя дверь
+    у домашнего экрана есть: `/start` и `/home`.
+    """
+    await start_lesson(message, state, session)
+
+
+async def start_lesson(
+    message: Message,
+    state: FSMContext,
+    session: AsyncSession,
+    *,
+    prefer_channel: Optional[QuizChannel] = None,
+) -> None:
+    """
+    Начать занятие. Отсюда два входа, и оба нужны.
+
+    Обычный — кнопка «📚 Учить» и команда `/quiz`: каналы смешиваются внутри
+    круга по правилу допуска.
+
+    Прямой одним каналом — кнопки 🔤 🎧 🎤 домашнего экрана. Желание
+    передаётся как `prefer_channel`, то есть порог допуска НЕ обходится:
+    слово, до канала не доросшее, придёт текстом.
+
+    `message` — то, на что отвечать и что убрать с экрана. От кнопки меню это
+    сообщение человека, с домашнего экрана — сам домашний экран: занятие
+    встаёт на его место, и лишнего сообщения в переписке не остаётся.
+    """
+    user = await session.get(User, message.chat.id)
 
     if not user or not user.level:
         lang = user.interface_language if user else DEFAULT_LOCALE
@@ -461,7 +494,8 @@ async def start_quiz(message: Message, state: FSMContext, session: AsyncSession)
         # слово: правило допуска к слуху смотрит на прогресс по КОНКРЕТНОМУ
         # слову, и до выбора слова решать нечего.
         question = await generate_question(
-            session, user, exclude_ids=[], pair=pair, recent_channels=[]
+            session, user, exclude_ids=[], pair=pair, recent_channels=[],
+            prefer_channel=prefer_channel,
         )
     except Exception:
         logger.exception("Ошибка генерации первого вопроса (user=%s)", user.id)
@@ -496,6 +530,9 @@ async def start_quiz(message: Message, state: FSMContext, session: AsyncSession)
         asked_at=utcnow().timestamp(),
         channel=channel.value,
         recent_channels=[channel.value],
+        # Желание держится весь круг, а не один вопрос: вход «только слух»,
+        # сменившийся на втором вопросе общим правилом, выглядел бы поломкой
+        prefer_channel=prefer_channel.value if prefer_channel else None,
     )
 
     try:
@@ -878,6 +915,16 @@ async def show_next_question(callback: CallbackQuery, state: FSMContext, session
     used_word_ids = data.get("used_word_ids", [])
     recent_channels = data.get("recent_channels", [])
 
+    # Прямой вход одним каналом держится весь круг. Значение берётся из
+    # состояния, а не вычисляется заново: занятия, начатые до этой правки,
+    # ключа не имеют, и у них желания нет — как и было.
+    try:
+        prefer_channel = (
+            QuizChannel(data["prefer_channel"]) if data.get("prefer_channel") else None
+        )
+    except ValueError:
+        prefer_channel = None
+
     is_error_repeat = data.get("is_error_repeat", False)
     error_words = data.get("error_words", [])
     current_error_index = data.get("current_error_index", 0)
@@ -934,6 +981,7 @@ async def show_next_question(callback: CallbackQuery, state: FSMContext, session
                 question = await generate_question(
                     session, user, exclude_ids=used_word_ids, pair=pair,
                     recent_channels=recent_channels,
+                    prefer_channel=prefer_channel,
                 )
             except Exception:
                 logger.exception("Ошибка генерации вопроса (user=%s)", user.id)

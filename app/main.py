@@ -30,6 +30,7 @@ from app.bot.handlers.leaderboard.leaderboard_table import router as table_route
 
 # КВИЗЫ ПО ОТДЕЛЬНОСТИ (НЕ ЧЕРЕЗ quiz_router!)
 from app.bot.handlers.quiz.game import router as game_router
+from app.bot.handlers.quiz.home import router as home_router
 from app.bot.handlers.quiz.settings import router as settings_router
 from app.bot.handlers.quiz.stats import router as stats_router
 from app.bot.handlers.quiz.help import router as help_router
@@ -108,8 +109,12 @@ async def main():
     # Репорт ПЕРЕД game (чтобы перехватить report_translation_error)
     dp.include_router(report_router)
 
-    # Потом всё остальное
+    # Потом всё остальное.
+    # Домашний экран ПЕРЕД game: у него свои callback'и (home_learn*), и
+    # роутер игры их не трогает, но порядок держим явным — перехватывать
+    # нажатия домашнего экрана не должен никто.
     dp.include_router(start_router)
+    dp.include_router(home_router)
     dp.include_router(game_router)
     dp.include_router(settings_router)
     dp.include_router(stats_router)

@@ -610,3 +610,18 @@ TEXTS.update({
     "speech_skipped": "⏭ Pominięto",
     "quiz_result_spoken": "🎤 Na głos: {count}",
 })
+
+
+# ============================================================================
+# ДОМАШНИЙ ЭКРАН: ТРИ ШКАЛЫ
+# ============================================================================
+TEXTS.update({
+    "home_scale_text": "Napisane",
+    "home_scale_audio": "Na słuch",
+    "home_scale_speech": "Na głos",
+    "home_btn_learn": "▶️ Ucz się · {count}",
+    "home_streak": "🔥 seria: {days}",
+    "home_rank": "🏆 miejsce: {rank}",
+    "home_hint": "Pasek to udział słów, które już spotkałeś: trzy poprawne odpowiedzi danym kanałem i słowo liczy się na jego konto. Różnica między skalami pokazuje, czego brakuje.",
+    "home_channel_not_ready": "{channel}: jeszcze za wcześnie. Gotowych słów jest {ready}, potrzeba co najmniej {minimum}. Poucz się kartami — otwierają pozostałe kanały.",
+})
