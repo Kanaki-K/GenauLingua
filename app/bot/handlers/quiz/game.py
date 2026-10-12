@@ -22,7 +22,7 @@ from aiogram.types import (
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.bot.buttons import BTN_LEARN_WORDS, pressed
+from app.bot.buttons import BTN_LEARN_WORDS, menu_texts, pressed
 from app.bot.keyboards import get_answer_keyboard
 from app.bot.states import QuizStates
 from app.bot.handlers.quiz.card import STATE_CARD_HAS_AUDIO, STATE_CARD_ID, show_card
@@ -828,14 +828,31 @@ async def skip_speech(callback: CallbackQuery, state: FSMContext, session: Async
     )
 
 
-@router.message(QuizStates.answering, F.text)
+@router.message(
+    QuizStates.answering,
+    F.text,
+    ~F.text.startswith("/"),
+    # Отсев стоит В ФИЛЬТРЕ, а не в теле обработчика, и это существенно:
+    # совпавший обработчик ГАСИТ событие, даже если ничего не сделал.
+    # Проверка внутри тела не вернула бы нажатие следующим роутерам —
+    # «Настройки» и «Статистика» так и остались бы мёртвыми во время вопроса.
+    ~F.text.in_(menu_texts()),
+)
 async def hint_to_speak(message: Message, state: FSMContext, session: AsyncSession):
     """
     Написал текстом там, где ждут голос — подсказать, а не промолчать.
 
-    Обработчик стоит ПОСЛЕДНИМ среди текстовых и срабатывает только в
-    состоянии ответа на вопрос вслух, поэтому кнопки главного меню до него
-    не доходят: их роутеры подключены раньше в main.py.
+    НАЖАТИЯ ГЛАВНОГО МЕНЮ И КОМАНДЫ СЮДА НЕ ДОЛЖНЫ ПОПАДАТЬ, и это не
+    предосторожность, а исправление внесённой регрессии. Роутер игры
+    подключён в main.py РАНЬШЕ настроек и статистики, а подписка на
+     ловит любое сообщение. В состоянии ответа кнопки «🦾
+    Настройки» и «📊 Статистика» переставали работать молча: обработчик
+    срабатывал, ничего не делал и гасил событие.
+
+    Отсюда два отсева — команды по ведущей косой черте и надписи кнопок
+    меню на ВСЕХ языках интерфейса. Второй берётся из локалей, а не
+    выписывается руками: иначе добавление языка молча вернуло бы ту же
+    беду, но только для его пользователей.
     """
     ctx = await _speech_context(message, state, session)
     if ctx is None:
