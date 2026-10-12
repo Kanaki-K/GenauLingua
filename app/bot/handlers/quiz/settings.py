@@ -28,7 +28,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.bot.buttons import BTN_SETTINGS, pressed
 from app.bot.keyboards import get_main_menu_keyboard
 from app.bot.utils import delete_messages_fast, ensure_anchor
-from app.database.enums import CEFRLevel, QuizMode, WordCategory
+from app.database.enums import CEFRLevel, QuizChannel, QuizMode, WordCategory
 from app.database.models import User
 from app.locales import DEFAULT_LOCALE, get_text
 from app.services.audio_service import (
@@ -37,6 +37,7 @@ from app.services.audio_service import (
     voice_for_user,
 )
 from app.services.audio_store import voice_is_ready
+from app.services.quiz_service import enabled_channels
 from app.services.tts_voices import by_gender, is_valid_voice, voices_for
 from app.services.language_service import (
     INTERFACE_LANGS,
@@ -128,6 +129,10 @@ def get_settings_keyboard(lang: str) -> InlineKeyboardMarkup:
                 callback_data="settings_quiz_mode"
             )],
             [InlineKeyboardButton(
+                text=get_text("settings_btn_channels", lang),
+                callback_data="settings_channels"
+            )],
+            [InlineKeyboardButton(
                 text=get_text("settings_btn_learning_lang", lang),
                 callback_data="settings_learning"
             )],
@@ -182,6 +187,7 @@ def _settings_text(user: User, lang: str) -> str:
     return (
         f"{get_text('settings_title', lang)}\n\n"
         f"{get_text('settings_quiz_mode_line', lang, mode=_quiz_mode_display(user, lang))}\n"
+        f"{get_text('settings_channels_line', lang, channels=_channels_display(user, lang))}\n"
         f"{get_text('settings_learning_lang_line', lang, language=language_name(pair.learning, lang))}\n"
         f"{get_text('settings_audio_line', lang, state=get_text(audio_state_key, lang))}\n"
         f"{get_text('settings_mode', lang, mode=mode_display)}\n"
@@ -280,6 +286,125 @@ async def set_learning_lang(callback: CallbackQuery, session: AsyncSession):
         show_alert=True
     )
     await show_settings_callback(callback, session)
+
+
+# ============================================================================
+# СОСТАВ ЗАНЯТИЯ: какими каналами задавать вопросы
+# ============================================================================
+
+# Порядок показа и ключ названия. Берётся из QuizChannel, чтобы четвёртый
+# канал не пришлось вписывать в трёх местах.
+_CHANNEL_NAMES = {
+    QuizChannel.TEXT: "channel_text",
+    QuizChannel.AUDIO: "channel_audio",
+    QuizChannel.SPEECH: "channel_speech",
+}
+
+
+def _channels_display(user: User, lang: str) -> str:
+    """Строка состояния для меню настроек: какие каналы включены."""
+    return " · ".join(
+        get_text(_CHANNEL_NAMES[c], lang) for c in enabled_channels(user)
+    )
+
+
+def _channel_available(channel: QuizChannel, user: User) -> bool:
+    """
+    Можно ли вообще включить этот канал.
+
+    Речь выключена не потому, что так решили, а потому что её ещё нет.
+    Слух требует включённой озвучки: без звука вопрос на слух неотвечаем —
+    слова на экране нет, его заменяет клип.
+    """
+    if channel is QuizChannel.SPEECH:
+        return False
+    if channel is QuizChannel.AUDIO:
+        return bool(user.audio_enabled)
+    return True
+
+
+@router.callback_query(F.data == "settings_channels")
+async def show_channels(callback: CallbackQuery, session: AsyncSession):
+    """
+    Экран состава занятия.
+
+    До него колонка `quiz_channels` была НЕДОСТИЖИМА из бота: выключить
+    вопросы на слух можно было только выключив озвучку целиком, то есть
+    заодно лишившись звука в карточках.
+
+    Текст не выключается никогда — занятие без единого канала это пустой
+    экран, и настройка не имеет права им кончаться.
+    """
+    await callback.answer()
+    user = await session.get(User, callback.from_user.id)
+    lang = user.interface_language or DEFAULT_LOCALE
+    on = set(enabled_channels(user))
+
+    rows = []
+    for channel, name_key in _CHANNEL_NAMES.items():
+        available = _channel_available(channel, user)
+        if channel is QuizChannel.TEXT:
+            mark = "✅ "          # всегда включён, нажатие ничего не меняет
+        elif not available:
+            mark = "🚫 "
+        else:
+            mark = "✅ " if channel in on else "☐ "
+        rows.append([InlineKeyboardButton(
+            text=mark + get_text(name_key, lang),
+            callback_data=f"channel_toggle_{channel.value}",
+        )])
+
+    notes = [get_text("channels_text_always", lang)]
+    if not user.audio_enabled:
+        notes.append(get_text("channels_audio_blocked", lang))
+    notes.append(get_text("channels_speech_soon", lang))
+
+    text = (
+        f"{get_text('channels_title', lang)}\n\n"
+        f"{get_text('channels_description', lang)}\n\n"
+        + "\n".join(f"<i>{n}</i>" for n in notes)
+    )
+
+    await callback.message.edit_text(
+        text, reply_markup=InlineKeyboardMarkup(inline_keyboard=rows + [_back_row(lang)])
+    )
+
+
+@router.callback_query(F.data.startswith("channel_toggle_"))
+async def toggle_channel(callback: CallbackQuery, session: AsyncSession):
+    """Включить или выключить канал."""
+    code = callback.data.removeprefix("channel_toggle_")
+    try:
+        channel = QuizChannel(code)
+    except ValueError:
+        await callback.answer("❌ Error", show_alert=True)
+        return
+
+    user = await session.get(User, callback.from_user.id)
+    lang = user.interface_language or DEFAULT_LOCALE
+
+    if channel is QuizChannel.TEXT:
+        await callback.answer(get_text("channels_text_always", lang), show_alert=True)
+        return
+    if not _channel_available(channel, user):
+        key = ("channels_audio_blocked" if channel is QuizChannel.AUDIO
+               else "channels_speech_soon")
+        await callback.answer(get_text(key, lang), show_alert=True)
+        return
+
+    # Хранится строка из букв, а не набор флагов: порядок в ней не значим,
+    # но держим его тем же, что в перечислении, — так значение читаемо
+    current = {c.value for c in enabled_channels(user)}
+    if channel.value in current:
+        current.discard(channel.value)
+    else:
+        current.add(channel.value)
+    current.add(QuizChannel.TEXT.value)
+
+    user.quiz_channels = "".join(c.value for c in QuizChannel if c.value in current)
+    await session.commit()
+
+    await show_channels(callback, session)
 
 
 # ============================================================================

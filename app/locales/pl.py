@@ -568,3 +568,25 @@ TEXTS.update({
 TEXTS.update({
     "quiz_result_by_ear": "🎧 Ze słuchu: {count}",
 })
+
+
+# ============================================================================
+# СОСТАВ ЗАНЯТИЯ
+#
+# Три канала — три РАЗНЫХ навыка, а не три оформления одного. Экран нужен,
+# потому что до него колонка quiz_channels была недостижима: выключить
+# вопросы на слух можно было только выключив озвучку целиком.
+# ============================================================================
+TEXTS.update({
+    "settings_btn_channels": "🎮 Skład zajęć",
+    "settings_channels_line": "🎮 Zajęcia: <b>{channels}</b>",
+    "channels_title": "🎮 <b>Skład zajęć</b>",
+    "channels_description": "Jakie pytania zadawać. Im więcej kanałów, tym trwalej zapada słowo: rozpoznać je wzrokiem, ze słuchu i wypowiedzieć to trzy różne umiejętności.",
+    "channel_text": "🔤 Karta",
+    "channel_audio": "🎧 Ze słuchu",
+    "channel_speech": "🎤 Mowa",
+    "channels_text_always": "🔤 Karty się nie wyłączają: zajęcia bez żadnego kanału to pusty ekran.",
+    "channels_audio_blocked": "🎧 Ze słuchu niedostępne: wymowa jest wyłączona.",
+    "channels_speech_soon": "🎤 Mowa pojawi się wkrótce.",
+    "channels_need_one": "Musi zostać co najmniej jeden kanał",
+})

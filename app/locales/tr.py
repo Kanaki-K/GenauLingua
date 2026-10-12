@@ -555,3 +555,25 @@ TEXTS.update({
 TEXTS.update({
     "quiz_result_by_ear": "🎧 Kulakla: {count}",
 })
+
+
+# ============================================================================
+# СОСТАВ ЗАНЯТИЯ
+#
+# Три канала — три РАЗНЫХ навыка, а не три оформления одного. Экран нужен,
+# потому что до него колонка quiz_channels была недостижима: выключить
+# вопросы на слух можно было только выключив озвучку целиком.
+# ============================================================================
+TEXTS.update({
+    "settings_btn_channels": "🎮 Ders karışımı",
+    "settings_channels_line": "🎮 Ders: <b>{channels}</b>",
+    "channels_title": "🎮 <b>Ders karışımı</b>",
+    "channels_description": "Hangi sorular sorulsun. Kanal ne kadar çoksa kelime o kadar iyi yerleşir: gözle tanımak, kulakla tanımak ve söylemek üç ayrı beceridir.",
+    "channel_text": "🔤 Kart",
+    "channel_audio": "🎧 Kulakla",
+    "channel_speech": "🎤 Konuşma",
+    "channels_text_always": "🔤 Kart kapatılamaz: tek kanalı olmayan ders boş ekran demektir.",
+    "channels_audio_blocked": "🎧 Kulakla kullanılamıyor: seslendirme kapalı.",
+    "channels_speech_soon": "🎤 Konuşma yakında geliyor.",
+    "channels_need_one": "En az bir kanal açık kalmalı",
+})

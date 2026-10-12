@@ -555,3 +555,25 @@ TEXTS.update({
 TEXTS.update({
     "quiz_result_by_ear": "🎧 By ear: {count}",
 })
+
+
+# ============================================================================
+# СОСТАВ ЗАНЯТИЯ
+#
+# Три канала — три РАЗНЫХ навыка, а не три оформления одного. Экран нужен,
+# потому что до него колонка quiz_channels была недостижима: выключить
+# вопросы на слух можно было только выключив озвучку целиком.
+# ============================================================================
+TEXTS.update({
+    "settings_btn_channels": "🎮 Lesson mix",
+    "settings_channels_line": "🎮 Lesson: <b>{channels}</b>",
+    "channels_title": "🎮 <b>Lesson mix</b>",
+    "channels_description": "Which questions to ask. The more channels, the better a word sticks: recognising it by sight, by ear and saying it are three different skills.",
+    "channel_text": "🔤 Card",
+    "channel_audio": "🎧 By ear",
+    "channel_speech": "🎤 Speaking",
+    "channels_text_always": "🔤 Cards cannot be switched off: a lesson with no channel is an empty screen.",
+    "channels_audio_blocked": "🎧 By ear is unavailable: audio is switched off.",
+    "channels_speech_soon": "🎤 Speaking is coming soon.",
+    "channels_need_one": "At least one channel must stay on",
+})

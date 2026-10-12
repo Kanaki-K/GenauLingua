@@ -568,3 +568,25 @@ TEXTS.update({
 TEXTS.update({
     "quiz_result_by_ear": "🎧 Nach Gehör: {count}",
 })
+
+
+# ============================================================================
+# СОСТАВ ЗАНЯТИЯ
+#
+# Три канала — три РАЗНЫХ навыка, а не три оформления одного. Экран нужен,
+# потому что до него колонка quiz_channels была недостижима: выключить
+# вопросы на слух можно было только выключив озвучку целиком.
+# ============================================================================
+TEXTS.update({
+    "settings_btn_channels": "🎮 Aufbau der Übung",
+    "settings_channels_line": "🎮 Übung: <b>{channels}</b>",
+    "channels_title": "🎮 <b>Aufbau der Übung</b>",
+    "channels_description": "Welche Fragen gestellt werden. Je mehr Kanäle, desto fester sitzt ein Wort: es mit den Augen erkennen, nach Gehör erkennen und aussprechen sind drei verschiedene Fähigkeiten.",
+    "channel_text": "🔤 Karte",
+    "channel_audio": "🎧 Nach Gehör",
+    "channel_speech": "🎤 Sprechen",
+    "channels_text_always": "🔤 Karten lassen sich nicht abschalten: eine Übung ohne Kanal ist ein leerer Bildschirm.",
+    "channels_audio_blocked": "🎧 Nach Gehör nicht verfügbar: die Aussprache ist aus.",
+    "channels_speech_soon": "🎤 Sprechen kommt bald.",
+    "channels_need_one": "Mindestens ein Kanal muss bleiben",
+})
