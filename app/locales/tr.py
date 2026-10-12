@@ -38,7 +38,7 @@ TEXTS = {
     "welcome_choose_level": "🎯 <b>Nereden başlayalım?</b>\n\nSeviyen — {language}\n\n• A1–A2 — temel kelimeler\n• B1–B2 — güvenli iletişim\n• C1–C2 — ana dil seviyesi",
     "choose_level_prompt": "Seviye seç:",
 
-    "level_selected": "✅ <b>{level}</b> seviyesi seçildi.\n\n📚 Kelime öğren'e bas — başlayalım!",
+    "level_selected": "✅ <b>{level}</b> seviyesi seçildi.\n\n12 902 kelime, altı dil. Haydi on beşle başlayalım.",
     "level_locked": "🔒 Bu seviye yakında geliyor",
 
     # ============================================================================
@@ -628,4 +628,24 @@ TEXTS.update({
     "settings_group_how_title": "<b>🎮 Nasıl öğreniyorum</b>",
     "settings_group_bot": "🔧 Bot",
     "settings_group_bot_title": "<b>🔧 Bot</b>",
+})
+
+
+# ============================================================================
+# ПЕТЛЯ ВОЗВРАТА
+#
+# Замер на 233 людях: 79% тех, кто вообще играл, ни разу не занимались два
+# дня подряд. У каждого экрана, которым кончается действие, должна быть
+# кнопка следующего — иначе человек уходит там, где был готов продолжить.
+# Разбор — MENU_CONCEPT.md.
+# ============================================================================
+TEXTS.update({
+    "quiz_btn_one_more": "▶️ Bir tur daha",
+    "level_btn_start": "▶️ İlk turu başlat",
+    "home_btn_stats": "📊 Ayrıntılar",
+    "notif_off_how_to_return": "Geri açmak için: ⚙️ Ayarlar → 🔧 Bot → 🔔 Hatırlatıcılar",
+    "reminder_offer": "🔔 Günde bir kez hatırlatayım mı? Öğrendiklerini kaybetmemek böyle daha kolay — seri de kopmaz.",
+    "reminder_offer_yes": "🔔 Evet, hatırlat",
+    "reminder_offer_no": "Gerek yok",
+    "reminder_offer_done": "🔔 Tamam. Saati ve günleri ayarlardan değiştirebilirsin.",
 })

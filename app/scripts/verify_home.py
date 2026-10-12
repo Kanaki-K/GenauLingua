@@ -131,8 +131,16 @@ def _check(text: str, keyboard, progress: dict, total: int) -> list[str]:
                 problems.append(f"полосы начинаются в разных столбцах: {starts}")
 
     rows = keyboard.inline_keyboard
-    if len(rows) != 2 or len(rows[0]) != 1 or len(rows[1]) != 3:
-        problems.append("клавиатура не «кнопка занятия + три канала»")
+    shape = [len(row) for row in rows]
+    if shape != [1, 3, 1]:
+        problems.append(
+            f"клавиатура не «занятие · три канала · подробнее»: ряды {shape}"
+        )
+    elif rows[0][0].callback_data != "learn_now":
+        problems.append(
+            "первая кнопка домашнего экрана не ведёт к занятию: "
+            f"{rows[0][0].callback_data}"
+        )
 
     return problems
 

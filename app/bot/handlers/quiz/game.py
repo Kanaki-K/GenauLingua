@@ -51,7 +51,9 @@ from app.services.language_service import (
     pair_from_user,
     word_text,
 )
+from app.bot.handlers.reminders import get_reminder_offer_keyboard
 from app.services.monthly_leaderboard_service import update_monthly_stats
+from app.services.reminder_service import mark_reminders_offered, should_offer_reminders
 from app.services.quiz_service import (
     OPTIONS_TOTAL,
     build_options,
@@ -341,7 +343,29 @@ def get_next_question_keyboard(lang: str = DEFAULT_LOCALE) -> InlineKeyboardMark
 
 
 def get_results_keyboard(has_errors: bool, lang: str = "ru") -> InlineKeyboardMarkup:
-    buttons = []
+    """
+    Итог круга. ПЕРВАЯ КНОПКА — «ещё круг», и это главное в этом экране.
+
+    Прежде её не было вовсе. В самый высокий момент мотивации за день —
+    человек только что закончил круг и видит результат — бот предлагал
+    «изменить режим викторины» (экран настроек) и «сообщить об ошибке»
+    (форму жалобы). Чтобы сыграть второй раз, надо было уйти из сообщения
+    и найти клавиатуру внизу.
+
+    Замер объясняет, чего это стоило: 79% тех, кто вообще играл, ни разу не
+    занимались два дня подряд. Экран, которым кончается действие, обязан
+    предлагать следующее действие первой кнопкой — а не настройки.
+
+    Порядок дальше: сперва ошибки (они про только что пройденное), потом
+    режим, и жалоба последней. Жалоба нужна редко и не должна стоять выше
+    того, зачем человек здесь.
+    """
+    buttons = [[
+        InlineKeyboardButton(
+            text=get_text("quiz_btn_one_more", lang),
+            callback_data="learn_now",
+        )
+    ]]
 
     if has_errors:
         buttons.append([
@@ -1183,6 +1207,32 @@ async def _finish_quiz(
         text=result_text,
         reply_markup=get_results_keyboard(has_errors=bool(errors), lang=lang),
     )
+
+    # ПРЕДЛОЖИТЬ НАПОМИНАНИЯ — ЗДЕСЬ И БОЛЬШЕ НИГДЕ.
+    #
+    # Момент выбран не случайно: человек только что ЗАКОНЧИЛ круг, то есть
+    # у нас есть доказательство, что бот ему годится, и это единственная
+    # точка, где предложение не выглядит выпрашиванием. В онбординге
+    # спрашивать нельзя — там он ещё не знает, нужны ли мы ему, и ответит
+    # «нет», а второго раза правило не даёт.
+    #
+    # Отдельным сообщением, а не строкой в итоге: итог человек читает, а
+    # предложение требует ответа, и смешивать их значит потерять либо
+    # внимание к разбору, либо ответ.
+    #
+    # Отказ предложения не ломает ничего: круг уже засчитан и показан.
+    if not is_error_repeat and should_offer_reminders(user):
+        try:
+            await callback.bot.send_message(
+                chat_id=callback.message.chat.id,
+                text=get_text("reminder_offer", lang),
+                reply_markup=get_reminder_offer_keyboard(lang),
+            )
+            await mark_reminders_offered(user, session)
+        except Exception:
+            # Не предложили — не беда, предложим в следующий раз: отметку
+            # ставим только после удачной отправки
+            logger.warning("не удалось предложить напоминания", exc_info=True)
 
     # Данные для повтора ошибок и репорта. После повтора ошибок сохраняем
     # список слов ОСНОВНОЙ викторины — репортить нужно её содержимое.

@@ -12,6 +12,7 @@ from aiogram import Bot
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from sqlalchemy import select
 
+from app.bot.keyboards.notifications import get_reminder_keyboard
 from app.database.models import User
 from app.locales import get_text
 
@@ -63,7 +64,11 @@ async def send_notification_to_user(bot: Bot, user: User) -> bool:
         await bot.send_message(
             chat_id=user.id,
             text=text,
-            parse_mode="HTML"
+            parse_mode="HTML",
+            # БЕЗ КЛАВИАТУРЫ ЭТО СООБЩЕНИЕ БЫЛО ТУПИКОМ. Текст звал
+            # заниматься, нажать было нечего, и человек должен был сам
+            # вспомнить про реплай-клавиатуру. См. get_reminder_keyboard.
+            reply_markup=get_reminder_keyboard(lang),
         )
         logger.info(f"✅ Напоминание отправлено пользователю {user.id} ({user.username})")
         return True

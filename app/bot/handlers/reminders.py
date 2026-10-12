@@ -3,10 +3,12 @@
 """
 
 from aiogram import Router, F
-from aiogram.types import CallbackQuery
+from aiogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
+from aiogram.utils.keyboard import InlineKeyboardBuilder
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database.models import User
+from app.services.reminder_service import enable_reminders, mark_reminders_offered
 from app.bot.keyboards.notifications import (
     get_timezone_main_keyboard,
     get_timezone_extended_keyboard,
@@ -73,6 +75,100 @@ async def show_notifications_settings(callback: CallbackQuery, session: AsyncSes
 # ============================================================================
 # ВКЛЮЧИТЬ/ВЫКЛЮЧИТЬ НАПОМИНАНИЯ
 # ============================================================================
+
+def get_reminder_offer_keyboard(lang: str) -> InlineKeyboardMarkup:
+    """
+    Предложение напоминаний после первого круга: два ответа, оба одним тапом.
+
+    «Не надо» стоит рядом с «да» нарочно и не спрятано. Предложение, от
+    которого нельзя отказаться одним нажатием, читается как навязывание — а
+    спросить второй раз правило всё равно не позволит, так что честный
+    отказ здесь ничего не стоит.
+    """
+    builder = InlineKeyboardBuilder()
+    builder.row(InlineKeyboardButton(
+        text=get_text("reminder_offer_yes", lang),
+        callback_data="reminder_offer_yes",
+    ))
+    builder.row(InlineKeyboardButton(
+        text=get_text("reminder_offer_no", lang),
+        callback_data="reminder_offer_no",
+    ))
+    return builder.as_markup()
+
+
+@router.callback_query(F.data == "reminder_offer_yes")
+async def accept_reminder_offer(callback: CallbackQuery, session: AsyncSession):
+    """Включить напоминания и назвать поставленный час."""
+    user = await session.get(User, callback.from_user.id)
+    lang = (user.interface_language if user else None) or DEFAULT_LOCALE
+
+    if not user:
+        await callback.answer("❌ Error", show_alert=True)
+        return
+
+    await enable_reminders(user, session)
+    await callback.answer()
+    try:
+        await callback.message.edit_text(
+            get_text("reminder_offer_done", lang), parse_mode="HTML"
+        )
+    except Exception:
+        pass
+
+
+@router.callback_query(F.data == "reminder_offer_no")
+async def decline_reminder_offer(callback: CallbackQuery, session: AsyncSession):
+    """
+    Отказ. Запоминаем, что спрашивали, и убираем сообщение целиком.
+
+    Не оставляем ни строчки вроде «ладно, не буду»: человек сказал «нет»,
+    и последнее слово должно остаться за ним, а не за ботом.
+    """
+    user = await session.get(User, callback.from_user.id)
+    if user:
+        await mark_reminders_offered(user, session)
+
+    await callback.answer()
+    try:
+        await callback.message.delete()
+    except Exception:
+        pass
+
+
+@router.callback_query(F.data == "notif_off")
+async def disable_from_reminder(callback: CallbackQuery, session: AsyncSession):
+    """
+    «Не напоминать» прямо из напоминания — отдельно от общего переключателя.
+
+    Общий `notif_toggle` после себя перерисовывает сообщение в экран
+    настроек, и из напоминания это выглядело бы подменой: человек нажал
+    «хватит», а ему открыли меню. Здесь — короткое подтверждение и всё.
+
+    Зачем кнопка вообще. Прежде выключить напоминания можно было только
+    найдя их в настройках, а человек, которому они надоели, в настройки не
+    идёт — он блокирует бота. Выключенное напоминание оставляет
+    пользователя, блокировка забирает его насовсем.
+    """
+    user = await session.get(User, callback.from_user.id)
+    lang = (user.interface_language if user else None) or DEFAULT_LOCALE
+
+    if user:
+        user.notifications_enabled = False
+        await session.commit()
+
+    await callback.answer(get_text("notif_toggle_off", lang), show_alert=False)
+    try:
+        await callback.message.edit_text(
+            f"{get_text('notif_toggle_off', lang)}\n\n"
+            f"<i>{get_text('notif_off_how_to_return', lang)}</i>",
+            parse_mode="HTML",
+        )
+    except Exception:
+        # Сообщение могло быть уже удалено или слишком старое для правки —
+        # напоминания при этом всё равно выключены, и это главное
+        pass
+
 
 @router.callback_query(F.data == "notif_toggle")
 async def toggle_notifications(callback: CallbackQuery, session: AsyncSession):

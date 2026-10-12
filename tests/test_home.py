@@ -389,7 +389,7 @@ async def test_every_button_has_a_handler_that_answers_it(session, user):
 
     _, keyboard = await build_home(user, session)
     data = [b.callback_data for row in keyboard.inline_keyboard for b in row]
-    assert len(data) == 4, f"кнопок стало {len(data)}, проверка устарела"
+    assert len(data) == 5, f"кнопок стало {len(data)}, проверка устарела"
 
     # Фильтры aiogram — вызываемые объекты над объектом события. Полноценный
     # CallbackQuery тут не нужен: все фильтры экрана смотрят только на .data

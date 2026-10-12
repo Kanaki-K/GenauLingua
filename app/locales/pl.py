@@ -43,7 +43,7 @@ TEXTS = {
     "welcome_choose_level": "🎯 <b>Od czego zaczniemy?</b>\n\nTwój poziom — {language}\n\n• A1–A2 — podstawowe słownictwo\n• B1–B2 — swobodna rozmowa\n• C1–C2 — biegła znajomość",
     "choose_level_prompt": "Wybierz poziom:",
 
-    "level_selected": "✅ Poziom <b>{level}</b> wybrany.\n\nNaciśnij 📚 Ucz się słów — i zaczynamy!",
+    "level_selected": "✅ Poziom <b>{level}</b> wybrany.\n\n12 902 słowa, sześć języków. Zacznijmy od piętnastu.",
     "level_locked": "🔒 Ten poziom jest jeszcze w przygotowaniu",
 
     # ============================================================================
@@ -641,4 +641,24 @@ TEXTS.update({
     "settings_group_how_title": "<b>🎮 Jak się uczę</b>",
     "settings_group_bot": "🔧 Bot",
     "settings_group_bot_title": "<b>🔧 Bot</b>",
+})
+
+
+# ============================================================================
+# ПЕТЛЯ ВОЗВРАТА
+#
+# Замер на 233 людях: 79% тех, кто вообще играл, ни разу не занимались два
+# дня подряд. У каждого экрана, которым кончается действие, должна быть
+# кнопка следующего — иначе человек уходит там, где был готов продолжить.
+# Разбор — MENU_CONCEPT.md.
+# ============================================================================
+TEXTS.update({
+    "quiz_btn_one_more": "▶️ Jeszcze jedna runda",
+    "level_btn_start": "▶️ Zacznij pierwszą rundę",
+    "home_btn_stats": "📊 Szczegóły",
+    "notif_off_how_to_return": "Włączyć ponownie: ⚙️ Ustawienia → 🔧 Bot → 🔔 Przypomnienia",
+    "reminder_offer": "🔔 Przypominać raz na dzień? Łatwiej nie zgubić tego, czego się nauczyłeś — i seria się nie urywa.",
+    "reminder_offer_yes": "🔔 Tak, przypominaj",
+    "reminder_offer_no": "Nie trzeba",
+    "reminder_offer_done": "🔔 Gotowe. Godzinę i dni zmienisz w ustawieniach.",
 })

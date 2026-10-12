@@ -323,9 +323,26 @@ async def select_level(callback: CallbackQuery, state: FSMContext, session: Asyn
         current_msg_id = callback.message.message_id
         await delete_messages_fast(callback.bot, callback.message.chat.id, old_anchor_id, current_msg_id)
 
+    # КНОПКА, А НЕ ТЕКСТ «НАЖМИ КНОПКУ».
+    #
+    # Здесь кончается онбординг, и прежде он кончался тупиком: бот писал
+    # «✅ Уровень B1 выбран. 📚 Нажми «Учить слова» — и начнём!» и не давал
+    # ничего нажать. Текст ОБЪЯСНЯЛ, что сделать, вместо того чтобы дать
+    # сделать — а это самый дорогой экран во всём боте: дальше либо первый
+    # круг, либо уход навсегда.
+    #
+    # Замер говорит, чего это стоило: 24 человека из 233 прошли онбординг и
+    # не начали НИ ОДНОГО круга, а ещё 220 кругов закрыты без единого
+    # ответа. Разбор — MENU_CONCEPT.md §3.4.
     await callback.bot.send_message(
         chat_id=callback.message.chat.id,
-        text=get_text("level_selected", lang, level=level_str)
+        text=get_text("level_selected", lang, level=level_str),
+        reply_markup=InlineKeyboardMarkup(inline_keyboard=[[
+            InlineKeyboardButton(
+                text=get_text("level_btn_start", lang),
+                callback_data="learn_now",
+            )
+        ]]),
     )
 
     await state.clear()

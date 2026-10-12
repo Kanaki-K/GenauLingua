@@ -8,6 +8,34 @@ from app.utils.timezones import TIMEZONE_CITIES, get_main_cities, get_extended_c
 from app.locales import get_text
 
 
+def get_reminder_keyboard(lang: str = "ru") -> InlineKeyboardMarkup:
+    """
+    Клавиатура САМОГО НАПОМИНАНИЯ. Прежде её не было вовсе.
+
+    Напоминание — единственный замеренный рычаг возврата: у тех, кто его
+    включил, 6.85 дней занятий против 1.59 у остальных, то есть в 4.3 раза.
+    И при этом сообщение приходило БЕЗ ЕДИНОЙ КНОПКИ: в тексте стояло «не
+    прерывай свою серию», а нажать было нечего — человек должен был сам
+    вспомнить про клавиатуру внизу и найти её. Ключи этих двух кнопок
+    лежали в шести локалях и не использовались ни разу.
+
+    ВТОРАЯ КНОПКА НЕ МЕНЕЕ ВАЖНА ПЕРВОЙ. Выключить напоминания можно было
+    только найдя их в настройках — а человек, которому они надоели, в
+    настройки не идёт, он блокирует бота. Один тап «не напоминать»
+    сохраняет пользователя, которого иначе теряем навсегда.
+    """
+    builder = InlineKeyboardBuilder()
+    builder.row(InlineKeyboardButton(
+        text=get_text("notif_message_btn_start", lang),
+        callback_data="learn_now",
+    ))
+    builder.row(InlineKeyboardButton(
+        text=get_text("notif_message_btn_disable", lang),
+        callback_data="notif_off",
+    ))
+    return builder.as_markup()
+
+
 def get_timezone_main_keyboard(lang: str = "ru") -> InlineKeyboardMarkup:
     """
     Основные 4 города для выбора часового пояса

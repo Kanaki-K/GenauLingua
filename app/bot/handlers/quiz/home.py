@@ -194,7 +194,7 @@ def _home_keyboard(
     count = user.quiz_word_count or DEFAULT_QUIZ_LENGTH
     rows = [[InlineKeyboardButton(
         text=get_text("home_btn_learn", lang, count=count),
-        callback_data="home_learn",
+        callback_data="learn_now",
     )]]
 
     shortcuts = [
@@ -205,6 +205,14 @@ def _home_keyboard(
         for channel, _, _ in _SCALES
     ]
     rows.append(shortcuts)
+
+    # Подробная статистика — ТРЕТЬИМ рядом, не первым. Этот экран отвечает
+    # на «где я сейчас» и даёт заниматься; простыня на сорок строк отвечает
+    # на то же, но дольше, и кончается объяснением, а не действием.
+    rows.append([InlineKeyboardButton(
+        text=get_text("home_btn_stats", lang),
+        callback_data="stats_full",
+    )])
     return InlineKeyboardMarkup(inline_keyboard=rows)
 
 
@@ -238,8 +246,16 @@ async def cmd_home(message: Message, session: AsyncSession):
 # ЗАПУСК ЗАНЯТИЯ С ДОМАШНЕГО ЭКРАНА
 # ============================================================================
 
-@router.callback_query(F.data == "home_learn")
-async def home_learn(callback: CallbackQuery, state: FSMContext, session: AsyncSession):
+# «Начать занятие сейчас» — одно нажатие на несколько мест: домашний экран,
+# напоминание, предложение после круга. Обработчик один нарочно: разойдись
+# они, и занятие с напоминания стало бы вести себя иначе, чем с экрана.
+#
+# `home_learn` оставлен ради сообщений, УЖЕ ОТПРАВЛЕННЫХ людям: у них в
+# переписке живёт прежняя кнопка, и убери фильтр — она молча перестанет
+# работать. Та же причина, по которой в help.py остался фильтр на надпись
+# исчезнувшей кнопки «Помощь».
+@router.callback_query(F.data.in_({"learn_now", "home_learn"}))
+async def learn_now(callback: CallbackQuery, state: FSMContext, session: AsyncSession):
     """Обычное занятие: каналы смешиваются по правилу допуска."""
     from app.bot.handlers.quiz.game import start_lesson
 
@@ -316,3 +332,51 @@ def _channel_name_key(channel: QuizChannel) -> str:
     from app.bot.handlers.quiz.settings import _CHANNEL_NAMES
 
     return _CHANNEL_NAMES[channel]
+
+
+# ============================================================================
+# ПОДРОБНАЯ СТАТИСТИКА — ОДНИМ ТАПОМ ГЛУБЖЕ
+# ============================================================================
+
+@router.callback_query(F.data == "stats_full")
+async def show_full_stats(callback: CallbackQuery, session: AsyncSession):
+    """
+    Простыня статистики под кнопкой домашнего экрана.
+
+    Обработчик стоит ЗДЕСЬ, а не в `stats.py`, нарочно: это кнопка
+    домашнего экрана, и все его кнопки должны ловиться одним роутером —
+    тогда проверка «у каждой кнопки есть обработчик» видит их все сразу.
+    Текст при этом собирает `stats.py`, который за статистику и отвечает.
+    """
+    from app.bot.handlers.quiz.stats import build_stats_text
+
+    await callback.answer()
+    user = await session.get(User, callback.from_user.id)
+    if not user or not user.level:
+        lang = (user.interface_language if user else None) or DEFAULT_LOCALE
+        await callback.answer(get_text("stats_no_level", lang), show_alert=True)
+        return
+
+    lang = user.interface_language or DEFAULT_LOCALE
+    text = await build_stats_text(user, session)
+
+    await callback.message.edit_text(
+        text,
+        reply_markup=InlineKeyboardMarkup(inline_keyboard=[[
+            InlineKeyboardButton(
+                text=get_text("btn_back", lang), callback_data="home_back"
+            )
+        ]]),
+    )
+
+
+@router.callback_query(F.data == "home_back")
+async def home_back(callback: CallbackQuery, session: AsyncSession):
+    """Вернуться с подробной статистики на домашний экран."""
+    await callback.answer()
+    user = await session.get(User, callback.from_user.id)
+    if not user:
+        return
+
+    text, keyboard = await build_home(user, session)
+    await callback.message.edit_text(text, reply_markup=keyboard)

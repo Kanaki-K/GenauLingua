@@ -38,7 +38,7 @@ TEXTS = {
     "welcome_choose_level": "🎯 <b>Where do we start?</b>\n\nYour level — {language}\n\n• A1–A2 — basic vocabulary\n• B1–B2 — confident communication\n• C1–C2 — near-native fluency",
     "choose_level_prompt": "Choose your level:",
 
-    "level_selected": "✅ Level <b>{level}</b> selected.\n\nTap 📚 Learn words — let's go!",
+    "level_selected": "✅ Level <b>{level}</b> selected.\n\n12,902 words, six languages. Let's start with fifteen.",
     "level_locked": "🔒 This level is coming soon",
 
     # ============================================================================
@@ -628,4 +628,24 @@ TEXTS.update({
     "settings_group_how_title": "<b>🎮 How I learn</b>",
     "settings_group_bot": "🔧 Bot",
     "settings_group_bot_title": "<b>🔧 Bot</b>",
+})
+
+
+# ============================================================================
+# ПЕТЛЯ ВОЗВРАТА
+#
+# Замер на 233 людях: 79% тех, кто вообще играл, ни разу не занимались два
+# дня подряд. У каждого экрана, которым кончается действие, должна быть
+# кнопка следующего — иначе человек уходит там, где был готов продолжить.
+# Разбор — MENU_CONCEPT.md.
+# ============================================================================
+TEXTS.update({
+    "quiz_btn_one_more": "▶️ One more round",
+    "level_btn_start": "▶️ Start the first round",
+    "home_btn_stats": "📊 More details",
+    "notif_off_how_to_return": "To turn it back on: ⚙️ Settings → 🔧 Bot → 🔔 Reminders",
+    "reminder_offer": "🔔 Remind you once a day? It is easier not to lose what you have learnt — and the streak holds.",
+    "reminder_offer_yes": "🔔 Yes, remind me",
+    "reminder_offer_no": "No thanks",
+    "reminder_offer_done": "🔔 Done. Time and days can be changed in settings.",
 })

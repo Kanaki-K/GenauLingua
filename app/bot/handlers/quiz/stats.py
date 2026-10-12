@@ -151,8 +151,24 @@ def _get_mode_title(user: User, lang: str) -> str:
 @router.message(Command("stats"))
 @router.message(pressed(BTN_STATS))
 async def show_statistics(message: Message, session: AsyncSession):
-    user_id = message.from_user.id
-    user = await session.get(User, user_id)
+    """
+    Кнопка «📊 Статистика» открывает ДОМАШНИЙ ЭКРАН, а не эту простыню.
+
+    Три шкалы отвечают на вопрос, с которым человек сюда и приходит, —
+    «где я сейчас», — и дают кнопку заниматься. Простыня на сорок строк
+    отвечает на него же, но дольше, и кончается не действием, а объяснением.
+
+    И главное: прежде три шкалы жили только за `/start`, который набирают
+    один раз в жизни. Замечание владельца дословно: «меню старт по факту
+    юзер видит 1 раз, пока не введёт команду сам». Экран надо ставить туда,
+    куда приходят, а приходят сюда.
+
+    Сама статистика никуда не делась — она под кнопкой «📊 Подробнее»
+    на домашнем экране.
+    """
+    from app.bot.handlers.quiz.home import show_home
+
+    user = await session.get(User, message.from_user.id)
 
     try:
         await message.delete()
@@ -160,10 +176,25 @@ async def show_statistics(message: Message, session: AsyncSession):
         logger.debug("Не удалось удалить сообщение пользователя", exc_info=True)
 
     if not user or not user.level:
-        lang = user.interface_language if user else DEFAULT_LOCALE
+        lang = (user.interface_language if user else None) or DEFAULT_LOCALE
         await message.answer(get_text("stats_no_level", lang))
         return
 
+    old_anchor_id, _ = await ensure_anchor(message, session, user, emoji="📊")
+    if old_anchor_id:
+        await delete_messages_fast(message.bot, message.chat.id, old_anchor_id, message.message_id)
+
+    await show_home(message, session, user)
+
+
+async def build_stats_text(user: User, session: AsyncSession) -> str:
+    """
+    Подробная статистика одним текстом.
+
+    Вынесена из обработчика, чтобы её можно было показать и с кнопки
+    домашнего экрана, и проверить тестом, не поднимая аиограмовского обвеса.
+    """
+    user_id = user.id
     lang = user.interface_language or DEFAULT_LOCALE
     pair = pair_from_user(user)
 
@@ -279,9 +310,4 @@ async def show_statistics(message: Message, session: AsyncSession):
     text += "\n\n"
     text += get_text("stats_explanation", lang)
 
-    # Якорь + отправка
-    old_anchor_id, new_anchor_id = await ensure_anchor(message, session, user, emoji="📊")
-    if old_anchor_id:
-        await delete_messages_fast(message.bot, message.chat.id, old_anchor_id, message.message_id)
-
-    await message.answer(text, reply_markup=get_stats_keyboard(lang))
+    return text
