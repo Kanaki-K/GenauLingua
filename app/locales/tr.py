@@ -682,3 +682,26 @@ TEXTS.update({
     "settings_goal_line": "🧭 Hedef: <b>{goal}</b>",
     "settings_goal_none": "seçilmedi",
 })
+
+
+# ============================================================================
+# ДОСКА СОПОСТАВЛЕНИЯ — ЧЕТВЁРТАЯ ИГРА
+#
+# Пять слов слева, их значения справа, стоят не напротив друг друга.
+# Это НЕ четвёртый навык: сопоставление проверяет узнавание
+# написанного, то есть то же, что карточка, только задачу делает легче
+# — последняя пара достаётся бесплатно. Поэтому в прогресс идут лишь
+# пары, сошедшиеся с первой попытки, и никогда последняя.
+# ============================================================================
+TEXTS.update({
+    "match_title": "🧩 <b>Eşleri bul</b>",
+    "match_progress": "Eşleşen: {matched} / {total}",
+    "match_errors": "❌ ıskalama: {count}",
+    "match_hint": "Bir kelimeye herhangi bir taraftan dokun, sonra eşine öbür taraftan.",
+    "match_wrong": "❌ Eş değil",
+    "match_done": "🧩 <b>Tahta tamamlandı!</b>",
+    "match_done_counted": "İlerlemeye sayılan: {total} içinden {counted} — yalnızca ilk denemede eşleşenler, son eşleşme ise hiç sayılmaz: orada seçenek kalmıyor.",
+    "match_btn_again": "🧩 Bir tahta daha",
+    "match_not_ready": "🧩 Henüz erken: tahta için {need} bildik kelime gerek, sende {have} var. Kartlarla çalış — tahtayı onlar açıyor.",
+    "home_btn_match": "🧩 Eşleri bul",
+})

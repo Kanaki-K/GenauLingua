@@ -380,7 +380,9 @@ async def test_every_button_has_a_handler_that_answers_it(session, user):
     клавиатуры должно пройти фильтры хотя бы одного зарегистрированного
     обработчика.
     """
-    from app.bot.handlers.quiz.home import build_home, router
+    from app.bot.handlers.quiz.home import build_home
+    from app.scripts.verify_buttons import _callback_handlers, _matches
+    from tests.scenario import make_dispatcher
 
     await _seed(session, user, words_a1=2, words_b1=0)
     user.level = CEFRLevel.A1
@@ -389,21 +391,21 @@ async def test_every_button_has_a_handler_that_answers_it(session, user):
 
     _, keyboard = await build_home(user, session)
     data = [b.callback_data for row in keyboard.inline_keyboard for b in row]
-    assert len(data) == 5, f"кнопок стало {len(data)}, проверка устарела"
+    assert len(data) == 6, f"кнопок стало {len(data)}, проверка устарела"
 
-    # Фильтры aiogram — вызываемые объекты над объектом события. Полноценный
-    # CallbackQuery тут не нужен: все фильтры экрана смотрят только на .data
-    class _Probe:
-        def __init__(self, value: str) -> None:
-            self.data = value
-
-    handlers = router.callback_query.handlers
-    assert handlers, "у экрана нет ни одного обработчика нажатий"
+    # Обработчики берутся из ВСЕГО набора роутеров, а не из одного.
+    #
+    # Прежде проверялся только роутер домашнего экрана, и это сломалось на
+    # первой же кнопке, которую ловит другой роутер: доску сопоставления
+    # обрабатывает `quiz/match`. Важно не кто поймал, а что поймал
+    # кто-нибудь — иначе кнопка ведёт в пустоту.
+    #
+    # Диспетчер берётся УЖЕ СОБРАННЫЙ: роутеры — модульные одиночки, и
+    # второй диспетчер их не примет («Router is already attached»).
+    handlers = _callback_handlers(make_dispatcher(session))
+    assert handlers, "у бота нет ни одного обработчика нажатий"
 
     for value in data:
-        probe = _Probe(value)
-        matched = any(
-            all(f.callback(probe) for f in handler.filters)
-            for handler in handlers
+        assert _matches(handlers, value), (
+            f"нажатие {value!r} не ловит ни один обработчик"
         )
-        assert matched, f"нажатие {value!r} не ловит ни один обработчик"

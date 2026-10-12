@@ -484,3 +484,189 @@ async def test_start_for_a_returning_person_is_the_intro_block(session, user, st
     assert get_text("btn_help", "ru") not in everything, (
         "вступление снова обещает «Помощь» среди кнопок меню"
     )
+
+
+# ============================================================================
+# ДОСКА СОПОСТАВЛЕНИЯ — ЧЕТВЁРТАЯ ИГРА
+#
+# У доски своё состояние и свои нажатия, и проверять её надо так же, как
+# круг: не «собралась ли», а ПРОХОДИТСЯ ли до конца. Проверка клавиатуры
+# скажет, что кнопки на месте; только проход покажет, что нажатия доходят,
+# пары сходятся, а доска доигрывается до итога.
+# ============================================================================
+
+async def _board_ready(session, user, *, words: int = 12) -> None:
+    """Человек со знакомыми короткими словами — доске есть из чего собраться."""
+    from app.database.models import UserWord
+    from sqlalchemy import select
+
+    for i in range(words):
+        session.add(make_word(f"Haus{i:02d}", level=CEFRLevel.A1, ru=f"дом{i:02d}"))
+    await build_groups(session, ["de"])
+
+    user.level = CEFRLevel.A1
+    user.quiz_mode = QuizMode.LEVEL
+    user.audio_enabled = False
+    await session.commit()
+
+    for word in (await session.execute(select(Word))).scalars().all():
+        session.add(UserWord(
+            user_id=user.id, word_id=word.id, learning_lang="de",
+            correct_streak=1, times_shown=2, times_correct=2, learned=False,
+        ))
+    await session.commit()
+
+
+def _cells(recorder) -> list[str]:
+    return [b for b in recorder.buttons() if b.startswith("mt:")]
+
+
+async def test_board_opens_from_the_home_screen(session, user, stage):
+    from app.locales import get_text
+
+    dp, bot, recorder = stage
+    await _board_ready(session, user)
+
+    await _feed(dp, bot, text_update(user.id, get_text("btn_stats", "ru")))
+    assert "match_start" in recorder.all_buttons(), "доски нет на домашнем экране"
+
+    recorder.clear()
+    await _feed(dp, bot, press(user.id, "match_start"))
+
+    cells = _cells(recorder)
+    assert len(cells) == 10, f"доска не 5×2: {cells}"
+    assert sum(1 for c in cells if c.startswith("mt:l:")) == 5
+    assert sum(1 for c in cells if c.startswith("mt:r:")) == 5
+
+
+async def test_board_is_playable_to_the_end(session, user, stage):
+    """
+    Главный сценарий доски: все пять пар сходятся, доска доигрывается.
+
+    Верная пара ищется через состояние: правая колонка — перестановка, и
+    угадывать её снаружи значило бы проверять случай, а не игру.
+    """
+    dp, bot, recorder = stage
+    await _board_ready(session, user)
+    await _feed(dp, bot, press(user.id, "match_start"))
+
+    context = dp.fsm.get_context(bot, chat_id=user.id, user_id=user.id)
+
+    for step in range(5):
+        data = await context.get_data()
+        order = data["match_right"]
+        matched = data["match_matched"]
+        version = data["match_version"]
+
+        left_row = next(i for i in range(5) if i not in matched)
+        right_row = order.index(left_row)
+
+        await _feed(dp, bot, press(user.id, f"mt:l:{left_row}:{version}"))
+        data = await context.get_data()
+        await _feed(dp, bot, press(user.id, f"mt:r:{right_row}:{data['match_version']}"))
+
+        data = await context.get_data()
+        assert left_row in data["match_matched"], (
+            f"шаг {step + 1}: верная пара не сошлась"
+        )
+        assert data["match_errors"] == 0, f"шаг {step + 1}: промах на верной паре"
+
+    from app.locales import get_text
+
+    everything = "\n".join(recorder.sent_texts())
+    assert get_text("match_done", "ru").strip("🧩<b/>! ") in everything, (
+        f"доска не кончилась итогом: {recorder.last_text()[:80]!r}"
+    )
+    assert "match_start" in recorder.all_buttons(), "из итога не начать новую доску"
+
+
+async def test_wrong_pair_is_counted_and_board_goes_on(session, user, stage):
+    dp, bot, recorder = stage
+    await _board_ready(session, user)
+    await _feed(dp, bot, press(user.id, "match_start"))
+
+    context = dp.fsm.get_context(bot, chat_id=user.id, user_id=user.id)
+    data = await context.get_data()
+    order = data["match_right"]
+    version = data["match_version"]
+
+    # Берём ряд справа, который НЕ является парой к левому ряду 0
+    wrong_row = next(row for row in range(5) if order[row] != 0)
+
+    await _feed(dp, bot, press(user.id, f"mt:l:0:{version}"))
+    data = await context.get_data()
+    await _feed(dp, bot, press(user.id, f"mt:r:{wrong_row}:{data['match_version']}"))
+
+    data = await context.get_data()
+    assert data["match_errors"] == 1, "промах не сосчитан"
+    assert data["match_matched"] == [], "неверная пара сошлась"
+    assert 0 in data["match_missed"], "промах не отмечен на левом слове"
+    assert order[wrong_row] in data["match_missed"], "промах не отмечен на правом"
+    assert data["match_selected"] == "", "выбор не снят после промаха"
+
+
+async def test_tapping_the_same_side_moves_the_choice(session, user, stage):
+    """
+    Требование владельца: тыкать можно с любой стороны. Повторное нажатие
+    по той же стороне — передумал, а не ошибся: промахом это считать нельзя.
+    """
+    dp, bot, recorder = stage
+    await _board_ready(session, user)
+    await _feed(dp, bot, press(user.id, "match_start"))
+
+    context = dp.fsm.get_context(bot, chat_id=user.id, user_id=user.id)
+    data = await context.get_data()
+
+    await _feed(dp, bot, press(user.id, f"mt:l:0:{data['match_version']}"))
+    data = await context.get_data()
+    await _feed(dp, bot, press(user.id, f"mt:l:3:{data['match_version']}"))
+
+    data = await context.get_data()
+    assert data["match_selected"] == "l:3", "выбор не перенёсся"
+    assert data["match_errors"] == 0, "перенос выбора сосчитан промахом"
+
+
+async def test_stale_tap_is_ignored(session, user, stage):
+    """
+    Нажатие с устаревшей версией отбрасывается. Человек может тыкнуть
+    быстрее, чем придёт ответ, и тогда второе нажатие обработало бы уже
+    изменившуюся доску — выглядело бы как «кнопка сработала сама».
+    """
+    dp, bot, recorder = stage
+    await _board_ready(session, user)
+    await _feed(dp, bot, press(user.id, "match_start"))
+
+    context = dp.fsm.get_context(bot, chat_id=user.id, user_id=user.id)
+    await _feed(dp, bot, press(user.id, "mt:l:0:0"))
+    after_first = await context.get_data()
+    assert after_first["match_selected"] == "l:0"
+
+    # Та же версия, что была до первого нажатия, — уже устарела
+    await _feed(dp, bot, press(user.id, "mt:l:2:0"))
+
+    data = await context.get_data()
+    assert data["match_selected"] == "l:0", "устаревшее нажатие изменило доску"
+
+
+async def test_board_refuses_when_there_are_too_few_familiar_words(session, user, stage):
+    """
+    Новичку доска отказывает, а не собирается из двух пар: там обе
+    бесплатны, и упражнение превращается в бессмыслицу.
+    """
+    from app.locales import get_text
+
+    dp, bot, recorder = stage
+    await _board_ready(session, user, words=2)
+
+    await _feed(dp, bot, press(user.id, "match_start"))
+
+    assert not _cells(recorder), "доска собралась из двух пар"
+
+    # Аргументы передаются: у строки есть {need} и {have}, и без них
+    # get_text честно вернёт «[ERROR: …]» — на этом первая редакция теста и
+    # упала, объявив сбоем совершенно верное сообщение бота
+    from app.services.match_service import BOARD_SIZE
+
+    expected = get_text("match_not_ready", "ru", need=BOARD_SIZE, have=2)
+    everything = "\n".join(recorder.sent_texts())
+    assert expected in everything, f"нет честного отказа: {everything[:120]!r}"

@@ -695,3 +695,26 @@ TEXTS.update({
     "settings_goal_line": "🧭 Ziel: <b>{goal}</b>",
     "settings_goal_none": "nicht gewählt",
 })
+
+
+# ============================================================================
+# ДОСКА СОПОСТАВЛЕНИЯ — ЧЕТВЁРТАЯ ИГРА
+#
+# Пять слов слева, их значения справа, стоят не напротив друг друга.
+# Это НЕ четвёртый навык: сопоставление проверяет узнавание
+# написанного, то есть то же, что карточка, только задачу делает легче
+# — последняя пара достаётся бесплатно. Поэтому в прогресс идут лишь
+# пары, сошедшиеся с первой попытки, и никогда последняя.
+# ============================================================================
+TEXTS.update({
+    "match_title": "🧩 <b>Finde die Paare</b>",
+    "match_progress": "Gefunden: {matched} von {total}",
+    "match_errors": "❌ Fehlgriffe: {count}",
+    "match_hint": "Tippe ein Wort auf einer Seite an, dann sein Paar auf der anderen.",
+    "match_wrong": "❌ Kein Paar",
+    "match_done": "🧩 <b>Tafel geschafft!</b>",
+    "match_done_counted": "Für den Fortschritt gezählt: {counted} von {total} — nur Paare, die beim ersten Versuch zusammenfanden, und niemals das letzte, bei dem keine Wahl mehr bleibt.",
+    "match_btn_again": "🧩 Noch eine Tafel",
+    "match_not_ready": "🧩 Noch zu früh: eine Tafel braucht {need} bekannte Wörter, du hast {have}. Übe mit Karten — sie schalten sie frei.",
+    "home_btn_match": "🧩 Finde die Paare",
+})
