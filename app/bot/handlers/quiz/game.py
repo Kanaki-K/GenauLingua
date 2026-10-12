@@ -51,7 +51,9 @@ from app.services.language_service import (
     pair_from_user,
     word_text,
 )
+from app.bot.handlers.quiz.settings import get_level_offer_keyboard
 from app.bot.handlers.reminders import get_reminder_offer_keyboard
+from app.services.level_service import should_offer_next_level
 from app.services.monthly_leaderboard_service import update_monthly_stats
 from app.services.reminder_service import mark_reminders_offered, should_offer_reminders
 from app.services.quiz_service import (
@@ -1103,6 +1105,52 @@ def _round_breakdown(
     return details, channel_lines
 
 
+async def _offer_what_fits(
+    callback: CallbackQuery, session: AsyncSession, user: User, lang: str
+) -> None:
+    """
+    Предложить человеку одно — и не больше одного за круг.
+
+    После круга у бота бывает что сказать сверх результата: включить
+    напоминания, поднять уровень. Два предложения подряд превращают конец
+    круга в допрос, и человек отмахивается от обоих — поэтому здесь
+    очередь, а не список.
+
+    ПОРЯДОК НЕ ПРОИЗВОЛЕН. Напоминания идут первыми, потому что это
+    единственный замеренный рычаг возврата (6.85 дней против 1.59) и
+    предлагаются они ровно один раз в жизни — упустив этот круг, второго
+    случая не будет. Уровень подождёт: признак, по которому он предлагается,
+    никуда не денется и к следующему кругу будет тот же.
+    """
+    if should_offer_reminders(user):
+        try:
+            await callback.bot.send_message(
+                chat_id=callback.message.chat.id,
+                text=get_text("reminder_offer", lang),
+                reply_markup=get_reminder_offer_keyboard(lang),
+            )
+            # Отметка ТОЛЬКО после удачной отправки: не дошло — предложим в
+            # следующий раз, а не потеряем единственную попытку
+            await mark_reminders_offered(user, session)
+        except Exception:
+            logger.warning("не удалось предложить напоминания", exc_info=True)
+        return
+
+    following = await should_offer_next_level(user, session)
+    if following is not None:
+        try:
+            await callback.bot.send_message(
+                chat_id=callback.message.chat.id,
+                text=get_text(
+                    "level_offer", lang,
+                    current=user.level.value, following=following.value,
+                ),
+                reply_markup=get_level_offer_keyboard(following, lang),
+            )
+        except Exception:
+            logger.warning("не удалось предложить уровень", exc_info=True)
+
+
 async def _finish_quiz(
     callback: CallbackQuery,
     state: FSMContext,
@@ -1221,18 +1269,8 @@ async def _finish_quiz(
     # внимание к разбору, либо ответ.
     #
     # Отказ предложения не ломает ничего: круг уже засчитан и показан.
-    if not is_error_repeat and should_offer_reminders(user):
-        try:
-            await callback.bot.send_message(
-                chat_id=callback.message.chat.id,
-                text=get_text("reminder_offer", lang),
-                reply_markup=get_reminder_offer_keyboard(lang),
-            )
-            await mark_reminders_offered(user, session)
-        except Exception:
-            # Не предложили — не беда, предложим в следующий раз: отметку
-            # ставим только после удачной отправки
-            logger.warning("не удалось предложить напоминания", exc_info=True)
+    if not is_error_repeat:
+        await _offer_what_fits(callback, session, user, lang)
 
     # Данные для повтора ошибок и репорта. После повтора ошибок сохраняем
     # список слов ОСНОВНОЙ викторины — репортить нужно её содержимое.

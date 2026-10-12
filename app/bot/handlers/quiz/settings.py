@@ -527,6 +527,77 @@ async def toggle_channel(callback: CallbackQuery, session: AsyncSession):
 
 
 # ============================================================================
+# ПРЕДЛОЖЕНИЕ ПОДНЯТЬ УРОВЕНЬ
+#
+# Бот замечает, что нынешний уровень стал лёгким, и СПРАШИВАЕТ. Молча
+# менять то, что человек выставил руками, нельзя: это читается как
+# поломка, а не как забота (`ROADMAP.md` §3.5 дословно: «Не переключать
+# молча, а СПРОСИТЬ»).
+#
+# Признак — не охват уровня, а точность последних ответов. Почему пришлось
+# поменять — разобрано в `level_service`: прежнее правило «90% слов уровня
+# освоены» не сработало бы ни разу, лучший человек базы на 9.5%.
+# ============================================================================
+
+def get_level_offer_keyboard(following: CEFRLevel, lang: str) -> InlineKeyboardMarkup:
+    """Согласие и отказ, оба одним нажатием."""
+    return InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(
+            text=get_text("level_offer_yes", lang, following=following.value),
+            callback_data=f"level_up_{following.value}",
+        )],
+        [InlineKeyboardButton(
+            text=get_text("level_offer_no", lang),
+            callback_data="level_up_no",
+        )],
+    ])
+
+
+@router.callback_query(F.data.startswith("level_up_"))
+async def answer_level_offer(callback: CallbackQuery, session: AsyncSession):
+    """
+    Ответ на предложение. Отказ запоминается, согласие поднимает уровень.
+
+    Отказ относится к КОНКРЕТНОМУ уровню, а не к предложениям вообще: не
+    запомни его — и оно вернулось бы после следующего же круга, и так
+    после каждого, пока человек не уйдёт.
+    """
+    from app.services.level_service import decline_level, raise_level
+
+    user = await session.get(User, callback.from_user.id)
+    lang = (user.interface_language if user else None) or DEFAULT_LOCALE
+    if not user:
+        await callback.answer("❌ Error", show_alert=True)
+        return
+
+    code = callback.data.removeprefix("level_up_")
+
+    if code == "no":
+        await decline_level(user, session)
+        await callback.answer()
+        try:
+            await callback.message.delete()
+        except Exception:
+            pass
+        return
+
+    try:
+        following = CEFRLevel(code)
+    except ValueError:
+        await callback.answer("❌ Error", show_alert=True)
+        return
+
+    await raise_level(user, session, following)
+    await callback.answer()
+    try:
+        await callback.message.edit_text(
+            get_text("level_offer_done", lang, following=following.value)
+        )
+    except Exception:
+        pass
+
+
+# ============================================================================
 # РЕЖИМ ВИКТОРИНЫ — главное подменю (4 кнопки 2x2)
 # ============================================================================
 

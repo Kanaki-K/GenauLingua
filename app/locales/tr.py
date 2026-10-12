@@ -648,4 +648,8 @@ TEXTS.update({
     "reminder_offer_yes": "🔔 Evet, hatırlat",
     "reminder_offer_no": "Gerek yok",
     "reminder_offer_done": "🔔 Tamam. Saati ve günleri ayarlardan değiştirebilirsin.",
+    "level_offer": "📈 <b>{current}</b> seviyesinde neredeyse hiç hata yapmıyorsun. <b>{following}</b> seviyesine geçelim mi? Öğrendiklerin sende kalır.",
+    "level_offer_yes": "📈 Evet, {following} seviyesine geç",
+    "level_offer_no": "Burada kalayım",
+    "level_offer_done": "📈 Seviye <b>{following}</b>. Kelimeler artık daha zor olacak.",
 })

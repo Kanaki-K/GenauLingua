@@ -648,4 +648,8 @@ TEXTS.update({
     "reminder_offer_yes": "🔔 Так, нагадувати",
     "reminder_offer_no": "Не треба",
     "reminder_offer_done": "🔔 Готово. Час і дні можна змінити в налаштуваннях.",
+    "level_offer": "📈 Ти майже не помиляєшся на рівні <b>{current}</b>. Перейти на <b>{following}</b>? Вивчене залишиться з тобою.",
+    "level_offer_yes": "📈 Так, перейти на {following}",
+    "level_offer_no": "Залишитися",
+    "level_offer_done": "📈 Рівень <b>{following}</b>. Слова будуть складніші.",
 })

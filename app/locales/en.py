@@ -648,4 +648,8 @@ TEXTS.update({
     "reminder_offer_yes": "🔔 Yes, remind me",
     "reminder_offer_no": "No thanks",
     "reminder_offer_done": "🔔 Done. Time and days can be changed in settings.",
+    "level_offer": "📈 You hardly ever get <b>{current}</b> wrong. Move up to <b>{following}</b>? Everything you have learnt stays with you.",
+    "level_offer_yes": "📈 Yes, move to {following}",
+    "level_offer_no": "Stay here",
+    "level_offer_done": "📈 Level <b>{following}</b>. The words will be harder now.",
 })
