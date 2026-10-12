@@ -329,6 +329,44 @@ async def test_home_labels_are_padded_to_one_width(session, user):
     assert len(set(starts)) == 1, f"полосы начинаются в разных местах: {starts}"
 
 
+def test_lesson_identifies_the_person_by_chat_not_by_sender():
+    """
+    Проверка ФОРМЫ, и она тут уместна.
+
+    С кнопки меню занятие начинает сообщение ЧЕЛОВЕКА, с домашнего экрана —
+    сообщение БОТА (`callback.message`). У второго `from_user` — это сам
+    бот, и `session.get(User, message.from_user.id)` вернул бы None: бота в
+    таблице людей нет. Человек увидел бы «сначала выбери уровень» вместо
+    занятия, причём ТОЛЬКО с домашнего экрана, а с кнопки меню всё работало
+    бы — отсюда и трудность поиска.
+
+    В личной переписке `chat.id` равен id человека всегда, поэтому
+    `start_lesson` смотрит на чат. Поведенческим тестом это стоило бы всего
+    аиограмовского обвеса, разбором кода — дёшево и надёжно.
+    """
+    import ast
+    import inspect
+
+    from app.bot.handlers.quiz import game
+
+    tree = ast.parse(inspect.getsource(game))
+    func = next(
+        node for node in ast.walk(tree)
+        if isinstance(node, ast.AsyncFunctionDef) and node.name == "start_lesson"
+    )
+
+    lookups = [
+        ast.unparse(node) for node in ast.walk(func)
+        if isinstance(node, ast.Call) and ast.unparse(node).startswith("session.get(User")
+    ]
+    assert lookups, "start_lesson больше не ищет человека — проверку надо переписать"
+    for call in lookups:
+        assert "message.chat.id" in call, (
+            f"человек ищется не по чату: {call!r}. С домашнего экрана отправитель — "
+            f"сам бот, и занятие не начнётся"
+        )
+
+
 @pytest.mark.asyncio
 async def test_every_button_has_a_handler_that_answers_it(session, user):
     """
