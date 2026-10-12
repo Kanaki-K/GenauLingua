@@ -121,45 +121,97 @@ def _sync_legacy_mode(user: User) -> None:
 # ГЛАВНОЕ МЕНЮ НАСТРОЕК
 # ============================================================================
 
+# ТРИ ГРУППЫ ВМЕСТО ВОСЬМИ РАВНЫХ ПУНКТОВ.
+#
+# Восемь кнопок в одном списке перемешивали вещи разной природы: «что я
+# учу» человек меняет часто, «как мне удобно» ставит один раз и забывает, а
+# лежали они вперемешку и выглядели равно важными. Первым пунктом стоял
+# режим викторины, которым не пользуются 96% (223 из 233 не меняли его ни
+# разу) — то есть самое заметное место занимал самый невостребованный
+# экран.
+#
+# Состав описан ТАБЛИЦЕЙ, а не тремя клавиатурами руками: девятый пункт
+# иначе пришлось бы вписывать и в группу, и в её обработчик, и в возврат.
+#
+# Длины круга в списке нет нарочно: колонка `quiz_word_count` есть, а
+# экрана к ней не существует, и обещать кнопку, которой нет, нельзя.
+_GROUPS: dict[str, tuple[str, str, tuple[tuple[str, str], ...]]] = {
+    # ключ группы: (ключ надписи кнопки, ключ заголовка экрана, пункты)
+    "what": ("settings_group_what", "settings_group_what_title", (
+        ("settings_btn_learning_lang", "settings_learning"),
+        ("settings_btn_quiz_mode", "settings_quiz_mode"),
+        ("settings_btn_change_mode", "settings_mode"),
+    )),
+    "how": ("settings_group_how", "settings_group_how_title", (
+        ("settings_btn_channels", "settings_channels"),
+        ("settings_btn_audio", "settings_audio"),
+    )),
+    # Помощь ушла из главного меню — владелец назвал её неактуальной, — но
+    # исчезнуть совсем не должна: человек, которому нужны правила игры,
+    # ищет их в настройках
+    "bot": ("settings_group_bot", "settings_group_bot_title", (
+        ("settings_btn_change_language", "settings_language"),
+        ("settings_btn_notifications", "settings:notifications"),
+        ("btn_help", "settings_help"),
+    )),
+}
+
+# Куда возвращает «Назад» с каждого экрана. Собирается из той же таблицы,
+# чтобы возврат не мог разойтись с составом групп.
+_PARENT_GROUP = {
+    data: f"settings_group_{key}"
+    for key, (_, _, items) in _GROUPS.items()
+    for _, data in items
+}
+
+
 def get_settings_keyboard(lang: str) -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(
         inline_keyboard=[
             [InlineKeyboardButton(
-                text=get_text("settings_btn_quiz_mode", lang),
-                callback_data="settings_quiz_mode"
-            )],
-            [InlineKeyboardButton(
-                text=get_text("settings_btn_channels", lang),
-                callback_data="settings_channels"
-            )],
-            [InlineKeyboardButton(
-                text=get_text("settings_btn_learning_lang", lang),
-                callback_data="settings_learning"
-            )],
-            [InlineKeyboardButton(
-                text=get_text("settings_btn_audio", lang),
-                callback_data="settings_audio"
-            )],
-            [InlineKeyboardButton(
-                text=get_text("settings_btn_change_mode", lang),
-                callback_data="settings_mode"
-            )],
-            [InlineKeyboardButton(
-                text=get_text("settings_btn_change_language", lang),
-                callback_data="settings_language"
-            )],
-            [InlineKeyboardButton(
-                text=get_text("settings_btn_notifications", lang),
-                callback_data="settings:notifications"
-            )],
-            # Помощь ушла из главного меню — владелец назвал её
-            # неактуальной, — но исчезнуть совсем не должна: человек,
-            # которому нужны правила игры, ищет их в настройках
-            [InlineKeyboardButton(
-                text=get_text("btn_help", lang),
-                callback_data="settings_help"
-            )],
+                text=get_text(btn_key, lang),
+                callback_data=f"settings_group_{key}",
+            )]
+            for key, (btn_key, _, _) in _GROUPS.items()
         ]
+    )
+
+
+def _group_keyboard(key: str, lang: str) -> InlineKeyboardMarkup:
+    _, _, items = _GROUPS[key]
+    rows = [
+        [InlineKeyboardButton(text=get_text(name, lang), callback_data=data)]
+        for name, data in items
+    ]
+    return InlineKeyboardMarkup(inline_keyboard=rows + [_back_row(lang)])
+
+
+@router.callback_query(F.data.startswith("settings_group_"))
+async def show_settings_group(callback: CallbackQuery, session: AsyncSession):
+    """Экран одной группы настроек."""
+    key = callback.data.removeprefix("settings_group_")
+    if key not in _GROUPS:
+        await callback.answer("❌ Error", show_alert=True)
+        return
+
+    await callback.answer()
+    user = await session.get(User, callback.from_user.id)
+    lang = user.interface_language or DEFAULT_LOCALE
+    _, title_key, items = _GROUPS[key]
+
+    # Состояние остаётся на виду, но ТОЛЬКО своё: человек, зашедший менять
+    # уровень, должен видеть текущий, не возвращаясь назад, — а напоминания
+    # и язык бота ему тут ни к чему.
+    #
+    # У группы «🔧 Бот» своя строка одна, и это нормально: часть её пунктов
+    # состояния не имеет вовсе.
+    state = _settings_state(user, lang, only=tuple(d for _, d in items))
+    text = get_text(title_key, lang)
+    if state:
+        text += f"\n\n{state}"
+
+    await callback.message.edit_text(
+        text, reply_markup=_group_keyboard(key, lang)
     )
 
 
@@ -178,20 +230,83 @@ def _quiz_mode_display(user: User, lang: str) -> str:
     return "—"
 
 
-def _settings_text(user: User, lang: str) -> str:
-    pair = pair_from_user(user)
-    mode_display = pair_label(pair)
-    lang_display = get_text(f"lang_{user.interface_language}", lang) if user.interface_language else "—"
-    audio_state_key = "audio_state_on" if user.audio_enabled else "audio_state_off"
+# ============================================================================
+# СТРОКА СОСТОЯНИЯ ПРИНАДЛЕЖИТ СВОЕМУ ПУНКТУ
+#
+# Первая редакция групп печатала внутри каждой все шесть строк, и в группе
+# «🔧 Бот» висело «📝 Режим: Уровень B1» с «🎮 Занятие: Карточка · На слух» —
+# то есть та же простыня, трижды. Группировка затевалась ровно против этого.
+#
+# Поэтому строка привязана к ПУНКТУ, а не к экрану: группа печатает строки
+# своих пунктов, главный экран — все по порядку. Девятый пункт добавляется
+# в одном месте, и его строка приезжает в свою группу сама.
+#
+# У напоминаний и помощи строки нет: показывать там нечего, и ставить
+# заглушку значило бы занять строку ничем.
+# ============================================================================
 
+def _line_quiz_mode(user: User, lang: str) -> str:
+    return get_text(
+        "settings_quiz_mode_line", lang, mode=_quiz_mode_display(user, lang)
+    )
+
+
+def _line_channels(user: User, lang: str) -> str:
+    return get_text(
+        "settings_channels_line", lang, channels=_channels_display(user, lang)
+    )
+
+
+def _line_learning(user: User, lang: str) -> str:
+    name = language_name(pair_from_user(user).learning, lang)
+    return get_text("settings_learning_lang_line", lang, language=name)
+
+
+def _line_audio(user: User, lang: str) -> str:
+    state = get_text(
+        "audio_state_on" if user.audio_enabled else "audio_state_off", lang
+    )
+    return get_text("settings_audio_line", lang, state=state)
+
+
+def _line_direction(user: User, lang: str) -> str:
+    return get_text("settings_mode", lang, mode=pair_label(pair_from_user(user)))
+
+
+def _line_interface(user: User, lang: str) -> str:
+    display = (
+        get_text(f"lang_{user.interface_language}", lang)
+        if user.interface_language else "—"
+    )
+    return get_text("settings_language", lang, language=display)
+
+
+_STATE_LINES = {
+    "settings_quiz_mode": _line_quiz_mode,
+    "settings_channels": _line_channels,
+    "settings_learning": _line_learning,
+    "settings_audio": _line_audio,
+    "settings_mode": _line_direction,
+    "settings_language": _line_interface,
+}
+
+
+def _settings_state(user: User, lang: str, only: tuple[str, ...] | None = None) -> str:
+    """
+    Что сейчас выставлено. `only` — ограничить пунктами одной группы.
+
+    Порядок на главном экране остаётся прежним: он задан порядком
+    `_STATE_LINES`, а не порядком групп, — люди запомнили этот экран, и
+    перетряхивать строки без нужды не за что.
+    """
+    keys = [k for k in _STATE_LINES if only is None or k in only]
+    return "\n".join(_STATE_LINES[k](user, lang) for k in keys)
+
+
+def _settings_text(user: User, lang: str) -> str:
     return (
         f"{get_text('settings_title', lang)}\n\n"
-        f"{get_text('settings_quiz_mode_line', lang, mode=_quiz_mode_display(user, lang))}\n"
-        f"{get_text('settings_channels_line', lang, channels=_channels_display(user, lang))}\n"
-        f"{get_text('settings_learning_lang_line', lang, language=language_name(pair.learning, lang))}\n"
-        f"{get_text('settings_audio_line', lang, state=get_text(audio_state_key, lang))}\n"
-        f"{get_text('settings_mode', lang, mode=mode_display)}\n"
-        f"{get_text('settings_language', lang, language=lang_display)}\n\n"
+        f"{_settings_state(user, lang)}\n\n"
         f"{get_text('settings_choose', lang)}"
     )
 
@@ -257,7 +372,7 @@ async def show_learning_lang(callback: CallbackQuery, session: AsyncSession):
     )
 
     await callback.message.edit_text(
-        text, reply_markup=InlineKeyboardMarkup(inline_keyboard=_grid(buttons) + [_back_row(lang)])
+        text, reply_markup=InlineKeyboardMarkup(inline_keyboard=_grid(buttons) + [_back_row(lang, _PARENT_GROUP["settings_learning"])])
     )
 
 
@@ -367,7 +482,7 @@ async def show_channels(callback: CallbackQuery, session: AsyncSession):
     )
 
     await callback.message.edit_text(
-        text, reply_markup=InlineKeyboardMarkup(inline_keyboard=rows + [_back_row(lang)])
+        text, reply_markup=InlineKeyboardMarkup(inline_keyboard=rows + [_back_row(lang, _PARENT_GROUP["settings_channels"])])
     )
 
 
@@ -438,7 +553,7 @@ def get_quiz_mode_keyboard(lang: str) -> InlineKeyboardMarkup:
                     callback_data="qmode_difficult"
                 ),
             ],
-            _back_row(lang)
+            _back_row(lang, _PARENT_GROUP["settings_quiz_mode"])
         ]
     )
 
@@ -678,7 +793,7 @@ async def change_translation_mode(callback: CallbackQuery, session: AsyncSession
                 text=("✅ " if pair.reverse else "") + pair_label(reverse),
                 callback_data="set_dir_reverse"
             )],
-            _back_row(lang)
+            _back_row(lang, _PARENT_GROUP["settings_mode"])
         ]
     )
 
@@ -722,7 +837,7 @@ async def change_interface_language(callback: CallbackQuery, session: AsyncSessi
         )
         for code in INTERFACE_LANGS
     ]
-    keyboard = InlineKeyboardMarkup(inline_keyboard=_grid(buttons) + [_back_row(lang)])
+    keyboard = InlineKeyboardMarkup(inline_keyboard=_grid(buttons) + [_back_row(lang, _PARENT_GROUP["settings_language"])])
 
     await callback.message.edit_text(text, reply_markup=keyboard)
 
@@ -830,7 +945,7 @@ async def settings_audio(callback: CallbackQuery, session: AsyncSession):
     await callback.message.edit_text(
         _audio_text(user, lang, _voice_label(pair.learning, chosen)),
         reply_markup=InlineKeyboardMarkup(
-            inline_keyboard=[[b] for b in buttons] + [_back_row(lang)]
+            inline_keyboard=[[b] for b in buttons] + [_back_row(lang, _PARENT_GROUP["settings_audio"])]
         ),
     )
 

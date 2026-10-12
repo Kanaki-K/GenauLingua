@@ -625,3 +625,20 @@ TEXTS.update({
     "home_hint": "Der Balken ist der Anteil der Wörter, die du schon getroffen hast: drei richtige Antworten über einen Kanal, und das Wort zählt für ihn. Der Abstand zwischen den Skalen zeigt, was fehlt.",
     "home_channel_not_ready": "{channel}: noch zu früh. Bereit sind {ready} Wörter, nötig sind mindestens {minimum}. Übe mit Karten — sie schalten die anderen Kanäle frei.",
 })
+
+
+# ============================================================================
+# НАСТРОЙКИ: ТРИ ГРУППЫ
+#
+# «Что учу» человек меняет часто, «как мне удобно» ставит один раз. Восемь
+# равных пунктов перемешивали то и другое, и первым в списке стоял режим
+# викторины, которым не пользуются 96%.
+# ============================================================================
+TEXTS.update({
+    "settings_group_what": "🎯 Was ich lerne",
+    "settings_group_what_title": "<b>🎯 Was ich lerne</b>",
+    "settings_group_how": "🎮 Wie ich lerne",
+    "settings_group_how_title": "<b>🎮 Wie ich lerne</b>",
+    "settings_group_bot": "🔧 Bot",
+    "settings_group_bot_title": "<b>🔧 Bot</b>",
+})

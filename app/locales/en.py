@@ -612,3 +612,20 @@ TEXTS.update({
     "home_hint": "The bar is the share of words you have already met: three correct answers through a channel and the word counts towards it. The gap between the scales shows what is missing.",
     "home_channel_not_ready": "{channel}: not yet. Only {ready} words are ready, at least {minimum} are needed. Practise with cards — they unlock the other channels.",
 })
+
+
+# ============================================================================
+# НАСТРОЙКИ: ТРИ ГРУППЫ
+#
+# «Что учу» человек меняет часто, «как мне удобно» ставит один раз. Восемь
+# равных пунктов перемешивали то и другое, и первым в списке стоял режим
+# викторины, которым не пользуются 96%.
+# ============================================================================
+TEXTS.update({
+    "settings_group_what": "🎯 What I learn",
+    "settings_group_what_title": "<b>🎯 What I learn</b>",
+    "settings_group_how": "🎮 How I learn",
+    "settings_group_how_title": "<b>🎮 How I learn</b>",
+    "settings_group_bot": "🔧 Bot",
+    "settings_group_bot_title": "<b>🔧 Bot</b>",
+})

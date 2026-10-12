@@ -612,3 +612,20 @@ TEXTS.update({
     "home_hint": "Çubuk, daha önce karşılaştığın kelimelerin payıdır: bir kanaldan üç doğru cevap ve kelime o kanalın hanesine yazılır. Ölçekler arasındaki fark, neyin eksik olduğunu gösterir.",
     "home_channel_not_ready": "{channel}: henüz erken. Hazır kelime sayısı {ready}, en az {minimum} gerekiyor. Kartlarla çalış — diğer kanalları onlar açıyor.",
 })
+
+
+# ============================================================================
+# НАСТРОЙКИ: ТРИ ГРУППЫ
+#
+# «Что учу» человек меняет часто, «как мне удобно» ставит один раз. Восемь
+# равных пунктов перемешивали то и другое, и первым в списке стоял режим
+# викторины, которым не пользуются 96%.
+# ============================================================================
+TEXTS.update({
+    "settings_group_what": "🎯 Ne öğreniyorum",
+    "settings_group_what_title": "<b>🎯 Ne öğreniyorum</b>",
+    "settings_group_how": "🎮 Nasıl öğreniyorum",
+    "settings_group_how_title": "<b>🎮 Nasıl öğreniyorum</b>",
+    "settings_group_bot": "🔧 Bot",
+    "settings_group_bot_title": "<b>🔧 Bot</b>",
+})

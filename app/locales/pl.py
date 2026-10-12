@@ -625,3 +625,20 @@ TEXTS.update({
     "home_hint": "Pasek to udział słów, które już spotkałeś: trzy poprawne odpowiedzi danym kanałem i słowo liczy się na jego konto. Różnica między skalami pokazuje, czego brakuje.",
     "home_channel_not_ready": "{channel}: jeszcze za wcześnie. Gotowych słów jest {ready}, potrzeba co najmniej {minimum}. Poucz się kartami — otwierają pozostałe kanały.",
 })
+
+
+# ============================================================================
+# НАСТРОЙКИ: ТРИ ГРУППЫ
+#
+# «Что учу» человек меняет часто, «как мне удобно» ставит один раз. Восемь
+# равных пунктов перемешивали то и другое, и первым в списке стоял режим
+# викторины, которым не пользуются 96%.
+# ============================================================================
+TEXTS.update({
+    "settings_group_what": "🎯 Czego się uczę",
+    "settings_group_what_title": "<b>🎯 Czego się uczę</b>",
+    "settings_group_how": "🎮 Jak się uczę",
+    "settings_group_how_title": "<b>🎮 Jak się uczę</b>",
+    "settings_group_bot": "🔧 Bot",
+    "settings_group_bot_title": "<b>🔧 Bot</b>",
+})
