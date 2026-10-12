@@ -54,6 +54,7 @@ from app.services.language_service import (
 from app.bot.handlers.quiz.settings import get_level_offer_keyboard
 from app.bot.handlers.reminders import get_reminder_offer_keyboard
 from app.services.level_service import should_offer_next_level
+from app.services.match_service import BOARD_CHANNEL
 from app.services.monthly_leaderboard_service import update_monthly_stats
 from app.services.reminder_service import mark_reminders_offered, should_offer_reminders
 from app.services.quiz_service import (
@@ -936,6 +937,92 @@ async def hint_to_speak(message: Message, state: FSMContext, session: AsyncSessi
 S_BOARD_DONE = "board_shown"
 
 
+async def record_board_answers(
+    state: FSMContext, session: AsyncSession, user: User, pair: LanguagePair,
+    words: list[Word], matched: list[int], counted: set[int],
+) -> bool:
+    """
+    Записать подвопросы доски как ОБЫЧНЫЕ ответы круга.
+
+    ЗАЧЕМ ЭТО ОТДЕЛЬНОЙ ФУНКЦИЕЙ И ПОЧЕМУ ОНА ВАЖНА. Первая редакция доски
+    звала только `update_word_progress` — то есть двигала прогресс по
+    словам (три шкалы) и НИЧЕГО больше. Следствий было четыре, и все
+    тихие:
+
+        баллов НЕТ        счёт берётся из `quiz_questions`, а строк там
+                          не появлялось
+        точности НЕТ      `answered_questions` не росло
+        репорта НЕТ       жаловаться на перевод не на что: репорт ищет
+                          слова круга по тем же строкам
+        повтора ошибок НЕТ промахи не попадали в список ошибок круга
+
+    Человек решал доску, видел «зачтено 4 из 5» и не получал за это ни
+    балла. Снаружи это выглядело бы как обман.
+
+    Теперь каждая пара пишется ровно как ответ на вопрос: своя строка
+    `QuizQuestion`, свой инкремент счётчиков, своя запись в прогресс. Канал
+    — `BOARD_CHANNEL`, и один балл за верный подвопрос получается сам,
+    вычитанием в месячном счёте.
+
+    Возвращает False, если доска открыта САМА ПО СЕБЕ, а не в круге: тогда
+    записывать некуда, и прогресс по словам двигает уже вызывающий.
+    """
+    from app.services.match_service import BOARD_CHANNEL
+
+    data = await state.get_data()
+    session_id = data.get("session_id")
+    if not session_id:
+        return False
+
+    quiz_session = await session.get(QuizSession, session_id)
+    correct_answers = data.get("correct_answers", 0)
+    errors = list(data.get("errors", []))
+
+    for index in matched:
+        word = words[index]
+        is_correct = index in counted
+
+        session.add(QuizQuestion(
+            session_id=session_id,
+            word_id=word.id,
+            # Что человек выбрал, в доске совпадает с верным ответом: пара
+            # сходится только тогда, когда он нажал правильную половину.
+            # Неверные нажатия это промахи, и они не создают строк — иначе
+            # одна пара дала бы их столько, сколько человек перебирал
+            user_answer=option_label(word, pair.answer_lang)[:255] or None,
+            is_correct=is_correct,
+            answered_at=utcnow(),
+            channel=BOARD_CHANNEL,
+        ))
+
+        if quiz_session:
+            quiz_session.answered_questions = (quiz_session.answered_questions or 0) + 1
+            if is_correct:
+                quiz_session.correct_answers = (quiz_session.correct_answers or 0) + 1
+
+        if is_correct:
+            correct_answers += 1
+        else:
+            # Промах идёт в ошибки круга — значит «повторить ошибки» его
+            # разберёт, и разберёт ТЕКСТОМ, как все прочие ошибки
+            errors.append(word.id)
+
+        try:
+            await update_word_progress(
+                user_id=user.id, word_id=word.id, is_correct=is_correct,
+                session=session, learning_lang=pair.learning,
+                channel=QuizChannel.TEXT,
+            )
+        except Exception:
+            logger.exception(
+                "ошибка прогресса на доске (user=%s word=%s)", user.id, word.id
+            )
+
+    await session.commit()
+    await state.update_data(correct_answers=correct_answers, errors=errors)
+    return True
+
+
 async def _board_due(
     state: FSMContext, session: AsyncSession, user: User, pair: LanguagePair,
     current_question: int, total_questions: int,
@@ -948,15 +1035,14 @@ async def _board_due(
     стоил бы запроса на КАЖДОМ вопросе круга.
     """
     from app.services.match_service import (
-        BOARD_SIZE, board_slots, pick_words, should_insert_board,
+        BOARD_SIZE, board_slot, pick_words, should_insert_board,
     )
 
     data = await state.get_data()
     if data.get(S_BOARD_DONE):
         return False
 
-    start, _ = board_slots(total_questions)
-    if current_question != start:
+    if current_question != board_slot(total_questions):
         return False
 
     # Годных слов берём с запасом: `should_insert_board` требует вдвое
@@ -1031,12 +1117,13 @@ async def show_next_question(callback: CallbackQuery, state: FSMContext, session
         await _finish_quiz(callback, state, session, user, pair, lang, data)
         return
 
-    # 🧩 ДОСКА СОПОСТАВЛЕНИЯ ЗАНИМАЕТ ПЯТЬ СЛОТОВ КРУГА.
+    # 🧩 ДОСКА — ЭТО ОДИН ВОПРОС КРУГА, внутри которого пять подвопросов.
     #
-    # Пять, а не один: на доске пять слов, и считай её одним вопросом —
-    # круг из пятнадцати молча покрыл бы девятнадцать, а счётчик «вопрос 7
-    # из 15» соврал бы. Поэтому `current_question` после доски
-    # перепрыгивает её целиком, и это делает сама доска, возвращаясь.
+    # Один, а не пять, и это поправка владельца к моей ошибке. Первая
+    # редакция отдавала доске пять слотов — ради правила «15 вопросов = 15
+    # слов». Владелец: «Зачем ломать юзеру порядок 6 7 8?» Счёт
+    # перескакивал с пятого на одиннадцатый, то есть ломалось то, что
+    # человек ВИДИТ, ради правила, которого ему никто не обещал.
     #
     # В повтор ошибок доска НЕ вставляется: там человек разбирает то, с чем
     # не справился, и подмешивать упражнение другого рода значит мешать две
@@ -1145,6 +1232,10 @@ async def show_next_question(callback: CallbackQuery, state: FSMContext, session
 _CHANNEL_MARKS = {
     QuizChannel.AUDIO.value: "🎧",
     QuizChannel.SPEECH.value: "🎤",
+    # Доска — не канал, но в разборе круга её подвопросы надо отличать:
+    # иначе пять строк подряд выглядят как пять обычных карточек.
+    # Буква берётся из источника, а не вписана рядом второй копией
+    BOARD_CHANNEL: "🧩",
 }
 
 
@@ -1173,8 +1264,14 @@ def _round_breakdown(
         icon = "✅" if item.is_correct else "❌"
         mark = _CHANNEL_MARKS.get(item.channel)
         if mark:
-            counts[item.channel] += 1
             icon += f" {mark}"
+        # Значок есть у трёх каналов, а СЧЁТЧИК только у двух: доска значком
+        # помечается, но своей строки «сколько пришло» не имеет — она не
+        # навык. Прибавлять по значку, а не по наличию ключа, значило бы
+        # KeyError на первом же круге с доской, то есть падение ИТОГА, когда
+        # круг уже пройден и записан. Хуже места для падения нет
+        if item.channel in counts:
+            counts[item.channel] += 1
         details.append(
             f"{icon} {option_label(word, pair.learning)} — {option_label(word, pair.native)}"
         )

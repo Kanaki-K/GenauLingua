@@ -374,3 +374,82 @@ class TestWilson:
 
     def test_threshold_is_meaningful(self):
         assert MIN_SHOWS_FOR_DIFFICULTY >= 15
+
+
+class TestRepeatRoundDoesNotPay:
+    """
+    КРУГ-ПОВТОР ОШИБОК В МЕСЯЧНЫЙ ЗАЧЁТ НЕ ИДЁТ.
+
+    Платить ему нельзя по сути: тогда выгодно ошибаться нарочно — провалил
+    круг, повторил, получил ещё десять баллов за круг плюс ответы.
+
+    Правило было записано в ОДНОМ месте — в обработчике, который повтор
+    просто не передавал в учёт. А считается балл ДВУМЯ путями: обычно
+    инкрементом по занятию, при сбое — полным пересчётом за месяц. Пересчёт
+    брал все завершённые занятия без отбора, и повторы в нём платили.
+    Замер по рабочей копии: 314 завершённых повторов у 25 человек на 986
+    верных ответов — около четырёх тысяч баллов из ничего, причём
+    выстрелило бы само, а не по команде: пересчёт включается, когда круг
+    закрылся на границе месяца или занятие не нашлось.
+    """
+
+    async def test_incremental_path_ignores_a_repeat_round(self, session, user):
+        await _season(session)
+
+        quiz = _completed_quiz(user.id, answered=5, correct=5)
+        quiz.quiz_mode = "error_repeat"
+        session.add(quiz)
+        await session.commit()
+
+        stat = await update_monthly_stats(
+            user_id=user.id, session=session, quiz_session_id=quiz.id
+        )
+
+        assert stat.monthly_quizzes == 0, "повтор засчитан как круг"
+        assert stat.total_correct == 0, "ответы повтора попали в зачёт"
+
+    async def test_full_recalc_ignores_a_repeat_round(self, session, user):
+        """
+        Тот же круг, другой путь — и прежде он платил.
+        """
+        await _season(session)
+
+        honest = _completed_quiz(user.id, answered=10, correct=8)
+        repeat = _completed_quiz(user.id, answered=5, correct=5)
+        repeat.quiz_mode = "error_repeat"
+        session.add_all([honest, repeat])
+        await session.commit()
+
+        stat = await update_monthly_stats(
+            user_id=user.id, session=session, force_full_recalc=True
+        )
+
+        assert stat.monthly_quizzes == 1, (
+            f"пересчёт засчитал {stat.monthly_quizzes} круга вместо одного"
+        )
+        assert stat.total_correct == 8, (
+            f"в зачёт попало {stat.total_correct} верных вместо восьми"
+        )
+
+    async def test_an_old_round_without_a_mode_still_counts(self, session, user):
+        """
+        ЛОВУШКА ПУСТОГО ЗНАЧЕНИЯ, и она не умозрительная: в рабочей копии
+        1 069 занятий со старым пустым `quiz_mode` на 14 930 верных ответов.
+
+        Короткое условие `quiz_mode != "error_repeat"` выглядит верным, но в
+        SQL сравнение с NULL даёт NULL, а не истину, — и все эти занятия
+        вылетели бы из пересчёта МОЛЧА. Та же беда с другим знаком.
+        """
+        await _season(session)
+
+        legacy = _completed_quiz(user.id, answered=10, correct=7)
+        legacy.quiz_mode = None
+        session.add(legacy)
+        await session.commit()
+
+        stat = await update_monthly_stats(
+            user_id=user.id, session=session, force_full_recalc=True
+        )
+
+        assert stat.monthly_quizzes == 1, "занятие с пустым режимом потерялось"
+        assert stat.total_correct == 7

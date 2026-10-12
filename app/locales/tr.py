@@ -198,14 +198,16 @@ TEXTS = {
     "report_btn_send": "📨 Gönder",
     "report_no_words": "Raporlanacak kelime yok",
     "report_none_selected": "En az bir kelime seç",
-    "report_sent": "✅ {count} rapor gönderildi — teşekkürler!\nOnaylanırsa — +1 puan kazanırsın",
+    "report_sent": "✅ {count} rapor gönderildi — teşekkürler!\nOnaylanırsa — +{points} puan kazanırsın",
     "report_daily_limit": "⚠️ Bugünkü rapor limiti doldu (maks. 20)",
     "report_all_reported": "✅ Bu testdeki tüm kelimeler zaten raporlandı",
     "report_already_sent": "✔️ Zaten raporlandı",
     "report_kind_title": "Tam olarak ne yanlış?",
     "report_btn_kind_text": "📝 Hatalı çeviri",
     "report_btn_kind_audio": "🔊 Hatalı telaffuz",
-    "report_sent_audio": "✅ {count} gönderildi — teşekkürler!\nTelaffuz bildirimleri özellikle değerli: otomatik kontrol vurguyu duymaz",
+    "report_sent_audio": "✅ {count} gönderildi — teşekkürler!\nTelaffuz bildirimleri özellikle değerli: otomatik kontrol vurguyu duymaz\nOnaylanırsa — +{points} puan",
+    "report_approved": "✅ Bildirimin kabul edildi: <b>{word}</b> düzeltildi.\nAylık puanına +{points} puan — teşekkürler, sözlük herkes için daha iyi oldu.",
+    "report_approved_audio": "✅ Telaffuz bildirimin kabul edildi: <b>{word}</b>.\nSes kaydı yeniden alınacak. Aylık puanına +{points} puan — teşekkürler.",
 
     # ============================================================================
     # TEST

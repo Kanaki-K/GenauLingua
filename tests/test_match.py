@@ -92,15 +92,19 @@ def test_a_single_item_board_is_left_alone():
 # УЧЁТ: ЧТО ИДЁТ В ПРОГРЕСС
 # ============================================================================
 
-def test_last_matched_pair_is_never_counted():
+def test_every_pair_matched_on_the_first_try_is_counted():
     """
-    Последняя пара достаётся без выбора: нажать больше не во что.
-    Засчитать её значило бы платить за отсутствие выбора.
+    Доска — пять ПОДВОПРОСОВ, и каждый считается как обычный вопрос:
+    решение владельца «за вопрос 7 можно 5 баллов получить».
+
+    Прежняя редакция вычитала ещё и последнюю сошедшуюся пару — она
+    достаётся без выбора. Довод верен, но перевешен: промах теперь СТОИТ
+    балла, и перебирать невыгодно, а своё правило у доски значило бы ещё
+    одно число, которое разъедется.
     """
     counted = scored_pairs(first_try={0, 1, 2, 3, 4}, matched_order=[2, 0, 3, 1, 4])
 
-    assert 4 not in counted, "последняя сошедшаяся пара зачтена"
-    assert counted == {0, 1, 2, 3}
+    assert counted == {0, 1, 2, 3, 4}, "безошибочная доска даёт все пять"
 
 
 def test_pair_found_after_a_miss_is_not_counted():
@@ -111,18 +115,21 @@ def test_pair_found_after_a_miss_is_not_counted():
     assert 1 not in counted and 3 not in counted
 
 
-def test_board_of_one_pair_counts_nothing():
-    assert scored_pairs(first_try={0}, matched_order=[0]) == set()
+def test_nothing_is_counted_when_nothing_matched():
+    """Пустая доска — пустой зачёт, а не ошибка."""
+    assert scored_pairs(first_try=set(), matched_order=[]) == set()
+    assert scored_pairs(first_try={0, 1}, matched_order=[]) == set()
 
 
-def test_full_board_without_misses_counts_all_but_one():
+def test_a_miss_costs_the_point():
     """
-    Безошибочная доска из пяти даёт четыре зачёта, а не пять. Это и есть
-    цена лёгкости упражнения, названная числом.
+    Пара, найденная после промаха, в зачёт не идёт — и это именно то, что
+    делает доску небесплатной. Перебирать наугад становится невыгодно.
     """
-    counted = scored_pairs(first_try=set(range(5)), matched_order=list(range(5)))
+    counted = scored_pairs(first_try={0, 2, 4}, matched_order=[0, 1, 2, 3, 4])
 
-    assert len(counted) == 4
+    assert counted == {0, 2, 4}
+    assert 1 not in counted and 3 not in counted
 
 
 # ============================================================================
@@ -377,29 +384,30 @@ async def test_board_without_limits_in_all_words_mode(session, user):
 
 def test_board_stands_in_the_middle_of_the_round():
     """
-    Не в начале и не в конце. В начале — потому что 9.5% кругов
-    закрываются без единого ответа, и встречать человека незнакомым
-    экраном нельзя. В конце — там итог.
+    Не первым и не последним. Первым — потому что 9.5% кругов закрываются
+    без единого ответа, и встречать человека незнакомым экраном нельзя, да
+    и правило проекта требует первый вопрос текстовым. Последним — за ним
+    идёт итог.
     """
-    from app.services.match_service import board_slots
+    from app.services.match_service import board_slot
 
-    start, end = board_slots(15)
-
-    assert (start, end) == (6, 10)
-    assert start > 1, "доска встала первым вопросом"
-    assert end < 15, "доска встала последним вопросом"
+    for length in (5, 10, 15, 20, 25):
+        slot = board_slot(length)
+        assert 1 < slot < length, f"круг {length}: доска встала на {slot}"
 
 
-def test_board_takes_exactly_five_slots():
+def test_board_is_one_question_not_five():
     """
-    Пять, а не один. Считай её одним вопросом — и круг из пятнадцати молча
-    покроет девятнадцать слов, а счётчик соврёт.
+    Поправка владельца к моей ошибке. Первая редакция отдавала доске пять
+    слотов ради правила «15 вопросов = 15 слов» — и счёт перескакивал с
+    пятого вопроса на одиннадцатый. «Зачем ломать юзеру порядок 6 7 8?»
+
+    Обещано пятнадцать ВОПРОСОВ. Доска — вопрос номер семь, внутри него
+    пять подвопросов, и счёт остаётся непрерывным.
     """
-    from app.services.match_service import BOARD_SIZE, board_slots
+    from app.services.match_service import board_slot
 
-    start, end = board_slots(15)
-
-    assert end - start + 1 == BOARD_SIZE
+    assert board_slot(15) == 8
 
 
 def _person(**kwargs):

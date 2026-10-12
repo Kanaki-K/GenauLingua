@@ -204,14 +204,16 @@ TEXTS = {
     "report_btn_send": "📨 Wyślij",
     "report_no_words": "Brak słów do zgłoszenia",
     "report_none_selected": "Wybierz przynajmniej jedno słowo",
-    "report_sent": "✅ Wysłano {count} zgłoszeń — dziękujemy!\nJeśli błąd się potwierdzi, dostaniesz +1 punkt",
+    "report_sent": "✅ Wysłano {count} zgłoszeń — dziękujemy!\nJeśli błąd się potwierdzi, dostaniesz +{points} punktów",
     "report_daily_limit": "⚠️ Dzienny limit zgłoszeń wyczerpany (maks. 20)",
     "report_all_reported": "✅ Wszystkie słowa z tego quizu są już zgłoszone",
     "report_already_sent": "✔️ Już wysłane wcześniej",
     "report_kind_title": "Co konkretnie jest nie tak?",
     "report_btn_kind_text": "📝 Błędne tłumaczenie",
     "report_btn_kind_audio": "🔊 Błędna wymowa",
-    "report_sent_audio": "✅ Wysłano {count} — dziękujemy!\nZgłoszenia wymowy są szczególnie cenne: sprawdzanie maszynowe nie słyszy akcentu",
+    "report_sent_audio": "✅ Wysłano {count} — dziękujemy!\nZgłoszenia wymowy są szczególnie cenne: sprawdzanie maszynowe nie słyszy akcentu\nJeśli się potwierdzi — +{points} punktów",
+    "report_approved": "✅ Twoje zgłoszenie przyjęte: <b>{word}</b> poprawiono.\n+{points} punktów do wyniku miesiąca — dzięki, słownik stał się lepszy dla wszystkich.",
+    "report_approved_audio": "✅ Zgłoszenie wymowy przyjęte: <b>{word}</b>.\nNagranie powstanie na nowo. +{points} punktów do wyniku miesiąca — dzięki.",
 
     # ============================================================================
     # QUIZ

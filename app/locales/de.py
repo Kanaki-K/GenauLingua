@@ -204,14 +204,16 @@ TEXTS = {
     "report_btn_send": "📨 Senden",
     "report_no_words": "Keine Wörter zum Melden",
     "report_none_selected": "Wähle mindestens ein Wort",
-    "report_sent": "✅ {count} Meldungen gesendet — danke!\nWenn der Fehler bestätigt wird, bekommst du +1 Punkt",
+    "report_sent": "✅ {count} Meldungen gesendet — danke!\nWenn der Fehler bestätigt wird, bekommst du +{points} Punkte",
     "report_daily_limit": "⚠️ Tageslimit für Meldungen erreicht (max. 20)",
     "report_all_reported": "✅ Alle Wörter aus diesem Quiz sind schon gemeldet",
     "report_already_sent": "✔️ Schon früher gesendet",
     "report_kind_title": "Was genau stimmt nicht?",
     "report_btn_kind_text": "📝 Falsche Übersetzung",
     "report_btn_kind_audio": "🔊 Falsche Aussprache",
-    "report_sent_audio": "✅ {count} gesendet — danke!\nMeldungen zur Aussprache sind besonders wertvoll: die maschinelle Prüfung hört die Betonung nicht",
+    "report_sent_audio": "✅ {count} gesendet — danke!\nMeldungen zur Aussprache sind besonders wertvoll: die maschinelle Prüfung hört die Betonung nicht\nWenn bestätigt — +{points} Punkte",
+    "report_approved": "✅ Deine Meldung wurde angenommen: <b>{word}</b> ist korrigiert.\n+{points} Punkte für die Monatswertung — danke, das Wörterbuch ist jetzt besser für alle.",
+    "report_approved_audio": "✅ Deine Aussprache-Meldung wurde angenommen: <b>{word}</b>.\nDie Aufnahme wird neu erstellt. +{points} Punkte für die Monatswertung — danke.",
 
     # ============================================================================
     # QUIZ

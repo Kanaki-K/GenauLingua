@@ -73,7 +73,7 @@ S_VERSION = "match_version"      # защита от устаревших наж
 
 # Номер вопроса круга, на котором доска встала. Пусто — доска открыта сама
 # по себе, с домашнего экрана или командой. По нему же доска и возвращает
-# круг: занимает она ПЯТЬ слотов, и следующий вопрос идёт за ними.
+# круг: занимает она РОВНО ОДИН вопрос, и счётчик остаётся на нём.
 S_ROUND_AT = "match_round_at"
 
 MARK_PICKED = "▸ "
@@ -368,13 +368,31 @@ async def _finish(
     first_try = {i for i in matched if i not in missed}
     counted = scored_pairs(first_try, matched)
 
-    for index in counted:
-        await update_word_progress(
-            user_id=user.id, word_id=words[index].id, is_correct=True,
-            session=session, learning_lang=pair.learning,
-            channel=QuizChannel.TEXT,
-        )
-    await session.commit()
+    # КАЖДАЯ ПАРА — ПОДВОПРОС, И ЗАПИСЫВАЕТСЯ КАК ОБЫЧНЫЙ ОТВЕТ КРУГА.
+    #
+    # Сошлась с первой попытки — верный, после промаха — неверный. Ровно
+    # так же считается карточка, и это не прихоть симметрии: промах должен
+    # СТОИТЬ балла, иначе доску выгодно перебирать наугад, а перебор
+    # ничему не учит.
+    #
+    # Внутри круга запись идёт через `record_board_answers`: там и строки
+    # `quiz_questions` (от них зависят баллы, точность, разбор и репорт), и
+    # ошибки круга для «повторить ошибки». Открытая сама по себе доска
+    # круга не имеет, и тогда двигается только прогресс по словам.
+    from app.bot.handlers.quiz.game import record_board_answers
+
+    in_round = await record_board_answers(
+        state, session, user, pair, words, matched, counted
+    )
+    if not in_round:
+        for index in matched:
+            await update_word_progress(
+                user_id=user.id, word_id=words[index].id,
+                is_correct=index in counted,
+                session=session, learning_lang=pair.learning,
+                channel=QuizChannel.TEXT,
+            )
+        await session.commit()
 
     # Числа считаются ДО вызова: test_format_parameters_match разбирает
     # get_text регулярным выражением, и вложенный вызов внутри аргумента
@@ -390,17 +408,15 @@ async def _finish(
         text += "\n" + get_text("match_errors", lang, count=errors)
 
     # ДОСКА ВНУТРИ КРУГА ВОЗВРАЩАЕТ КРУГ, а не предлагает себя снова.
-    #
-    # Номер вопроса перепрыгивает доску целиком: она заняла пять слотов, и
-    # следующий вопрос идёт за ними. `show_next_question` сам прибавит
-    # единицу, поэтому ставим последний занятый номер.
     data = await state.get_data()
     round_at = data.get(S_ROUND_AT)
     if round_at:
-        from app.services.match_service import BOARD_SIZE as SLOTS
-
+        # Доска заняла РОВНО ОДИН вопрос, и счётчик остаётся на нём:
+        # `show_next_question` сам прибавит единицу и даст следующий по
+        # порядку. Прежняя редакция перепрыгивала пять, и человек видел
+        # счёт 5 → 11.
         await state.update_data(**{
-            "current_question": int(round_at) + SLOTS - 1,
+            "current_question": int(round_at),
             S_ROUND_AT: None,
         })
         text += "\n\n" + get_text("match_back_to_round", lang)

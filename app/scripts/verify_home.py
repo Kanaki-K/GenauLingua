@@ -130,16 +130,40 @@ def _check(text: str, keyboard, progress: dict, total: int) -> list[str]:
             if len(starts) != 1:
                 problems.append(f"полосы начинаются в разных столбцах: {starts}")
 
+    # КЛАВИАТУРА ПРОВЕРЯЕТСЯ ПО СМЫСЛУ, А НЕ ПО ФОРМЕ РЯДОВ.
+    #
+    # Прежде здесь стояло `shape != [1, 3, 1]`, и домашний экран, получив
+    # четвёртый ряд с доской, дал 242 ложных нарушения — шестой случай
+    # «проверка врёт чаще кода». Беда не в самом числе, а в том, что оно
+    # отвечало на вопрос «так ли разложено», когда спросить надо было «всё
+    # ли отсюда достижимо». Теперь добавление пятого упражнения проверку не
+    # ломает, а пропажа входа — ломает, и сообщение называет пропавший.
     rows = keyboard.inline_keyboard
-    shape = [len(row) for row in rows]
-    if shape != [1, 3, 1]:
+    present = {
+        button.callback_data
+        for row in rows for button in row if button.callback_data
+    }
+    required = {
+        "learn_now": "занятие",
+        "home_learn_t": "прямой вход карточкой",
+        "home_learn_a": "прямой вход на слух",
+        "home_learn_s": "прямой вход вслух",
+        "match_start": "доска",
+        "stats_full": "подробная статистика",
+    }
+    missing = [name for data, name in required.items() if data not in present]
+    if missing:
         problems.append(
-            f"клавиатура не «занятие · три канала · подробнее»: ряды {shape}"
+            f"с домашнего экрана недостижимо: {', '.join(missing)}"
         )
-    elif rows[0][0].callback_data != "learn_now":
+
+    # Занятие — ПЕРВОЙ кнопкой. Это единственное, что здесь по-прежнему
+    # держится за порядок, и держится по делу: домашний экран обязан
+    # кончаться действием, а не выбором
+    if not rows or not rows[0] or rows[0][0].callback_data != "learn_now":
+        first = rows[0][0].callback_data if rows and rows[0] else "пусто"
         problems.append(
-            "первая кнопка домашнего экрана не ведёт к занятию: "
-            f"{rows[0][0].callback_data}"
+            f"первая кнопка домашнего экрана не ведёт к занятию: {first}"
         )
 
     return problems

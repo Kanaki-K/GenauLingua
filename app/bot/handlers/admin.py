@@ -16,7 +16,9 @@ from sqlalchemy import select, func, and_, distinct, case, desc, or_, text as sq
 from typing import Optional
 from datetime import datetime, timedelta, date
 from app.core.clock import utcnow, utctoday
-from app.database.models import User, QuizSession, QuizQuestion, UserWord, Word, TranslationReport
+from app.database.models import (
+    MonthlyStats, QuizQuestion, QuizSession, TranslationReport, User, UserWord, Word,
+)
 from app.services.quiz_service import get_user_progress_stats
 from app.services.language_service import LANGUAGES, flag, pair_from_user, pair_label
 from app.services.word_stats import MIN_SHOWS_FOR_DIFFICULTY, difficulty_rank_sql
@@ -851,7 +853,11 @@ async def admin_detailed_callback(callback: CallbackQuery, session: AsyncSession
 # РЕПОРТЫ ПЕРЕВОДОВ
 # ============================================================================
 
-REPORT_REWARD_POINTS = 1  # баллов за подтверждённый репорт
+# Баллов за подтверждённую жалобу. Число живёт в `MonthlyStats` рядом с
+# остальными ценами, а здесь только читается: прежде оно было вписано сюда
+# числом, а в шести локалях — ещё и словами («получишь +1 балл»), то есть в
+# семи местах. Поправь одно — остальные соврут человеку в лицо.
+REPORT_REWARD_POINTS = MonthlyStats.POINTS_PER_REPORT
 
 
 def _voice_short_name(voice: str) -> str:
@@ -1030,16 +1036,72 @@ async def admin_reports(callback: CallbackQuery, session: AsyncSession):
     await callback.message.edit_text(text, reply_markup=keyboard)
 
 
+async def _reporter_lang(report: TranslationReport, session: AsyncSession) -> str:
+    """
+    КАКОЙ ЯЗЫК учил человек, когда жаловался.
+
+    Нужно потому, что `monthly_stats` ведётся ОТДЕЛЬНО ПО ЯЗЫКАМ (тройная
+    уникальность user + сезон + язык): учащие английский соревнуются с
+    учащими английский. Балл, положенный не в тот ряд, в рейтинге человека
+    не появится вовсе.
+
+    Сперва спрашиваем занятие, из которого пришла жалоба: это язык, на
+    котором ошибка и была замечена. Если занятие не сохранилось — берём
+    текущий язык человека, тем же способом, которым его берёт сам рейтинг.
+    """
+    if report.quiz_session_id:
+        quiz = await session.get(QuizSession, report.quiz_session_id)
+        if quiz and quiz.learning_lang:
+            return quiz.learning_lang
+
+    user = await session.get(User, report.user_id)
+    return pair_from_user(user).learning if user else "de"
+
+
+async def _tell_reporter(
+    callback: CallbackQuery, session: AsyncSession, report: TranslationReport,
+    word_display: str,
+) -> bool:
+    """
+    Сказать автору жалобы, что её приняли и балл начислен.
+
+    БЕЗ ЭТОГО НАГРАДЫ НЕТ, сколько бы её ни начисляли. Бот обещает прямо в
+    сообщении об отправке: «если ошибка подтвердится — получишь баллы», — а
+    подтверждение проходило молча, и балл растворялся в общем счёте. То
+    есть обещание выполнялось технически и не выполнялось по существу.
+
+    Ошибка доставки не должна валить подтверждение: человек мог закрыть
+    бота, и жалоба от этого хуже не стала.
+    """
+    from app.locales import DEFAULT_LOCALE, get_text
+
+    user = await session.get(User, report.user_id)
+    lang = (user.interface_language if user else None) or DEFAULT_LOCALE
+    key = "report_approved_audio" if report.kind == "audio" else "report_approved"
+
+    try:
+        await callback.bot.send_message(
+            report.user_id,
+            get_text(key, lang, word=word_display, points=REPORT_REWARD_POINTS),
+        )
+        return True
+    except Exception:
+        logger.info(
+            "не удалось известить автора жалобы (user=%s)", report.user_id,
+            exc_info=True,
+        )
+        return False
+
+
 @router.callback_query(F.data.startswith("admin:report_approve_"))
 async def admin_report_approve(callback: CallbackQuery, session: AsyncSession):
-    """Подтвердить репорт → статус fixed, +1 балл каждому юзеру"""
+    """Подтвердить жалобу → статус fixed, баллы автору, извещение автору."""
     if not is_admin(callback.from_user.id):
         await callback.answer("❌ Доступ запрещён")
         return
 
     word_id = int(callback.data.replace("admin:report_approve_", ""))
 
-    from app.database.models import MonthlyStats
     from app.services.monthly_leaderboard_service import get_or_create_current_season
 
     # Находим всех юзеров с pending репортами на это слово
@@ -1063,25 +1125,41 @@ async def admin_report_approve(callback: CallbackQuery, session: AsyncSession):
     for report in reports:
         report.status = 'fixed'
 
-        # Начисляем баллы в monthly_stats
+        # ЯЗЫК ОБЯЗАТЕЛЕН, И ЭТО НЕ ПРИДИРКА.
+        #
+        # `monthly_stats` ведётся отдельно по языкам — тройная уникальность
+        # user + сезон + язык. Прежний запрос спрашивал только user и сезон,
+        # и давал две беды сразу: у двуязычного `scalar_one_or_none()`
+        # ПАДАЛ с MultipleResultsFound прямо под рукой админа (жалобы
+        # остались бы висеть), а при создании ряда язык брался из значения
+        # по умолчанию — «de», — и балл за польскую ошибку ложился в
+        # немецкий ряд, где человека в рейтинге нет.
+        #
+        # Сейчас у двух языков в одном сезоне ноль человек, то есть не
+        # выстрелило ещё ни разу. Но язык в боте уже шесть, и ряд с «en»
+        # в базе есть.
+        learning_lang = await _reporter_lang(report, session)
+
         stat_result = await session.execute(
             select(MonthlyStats).where(
                 MonthlyStats.user_id == report.user_id,
-                MonthlyStats.season_id == season.id
+                MonthlyStats.season_id == season.id,
+                MonthlyStats.learning_lang == learning_lang,
             )
         )
         stat = stat_result.scalar_one_or_none()
 
         if stat:
-            stat.report_bonus += REPORT_REWARD_POINTS
+            stat.report_bonus = (stat.report_bonus or 0) + REPORT_REWARD_POINTS
             stat.monthly_score = stat.calculate_monthly_score()
         else:
-            # Создаём запись если её нет (юзер репортил но не играл в этом месяце)
+            # Ряда нет — человек жаловался, но в этом месяце не играл
             stat = MonthlyStats(
                 user_id=report.user_id,
                 season_id=season.id,
+                learning_lang=learning_lang,
                 report_bonus=REPORT_REWARD_POINTS,
-                monthly_score=REPORT_REWARD_POINTS
+                monthly_score=REPORT_REWARD_POINTS,
             )
             session.add(stat)
 
@@ -1113,9 +1191,17 @@ async def admin_report_approve(callback: CallbackQuery, session: AsyncSession):
             "следующем показе", word_id, dropped_clips,
         )
 
+    # ИЗВЕСТИТЬ АВТОРОВ — после коммита, чтобы ничего не обещать прежде,
+    # чем начислено. Шлётся каждому пожаловавшемуся на своём языке
+    told = 0
+    for report in reports:
+        if await _tell_reporter(callback, session, report, word_display):
+            told += 1
+
     await callback.answer(
         f"✅ {word_display} — подтверждено\n"
-        f"{rewarded_users} юзеров получили +{REPORT_REWARD_POINTS} балл"
+        f"{rewarded_users} юзеров получили +{REPORT_REWARD_POINTS}, "
+        f"извещено {told}"
         + (f"\n🔊 Озвучка сброшена ({dropped_clips} клипов), пересоберётся"
            if dropped_clips else ""),
         show_alert=True

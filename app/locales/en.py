@@ -198,14 +198,16 @@ TEXTS = {
     "report_btn_send": "📨 Send",
     "report_no_words": "No words to report",
     "report_none_selected": "Select at least one word",
-    "report_sent": "✅ Sent {count} reports — thank you!\nIf confirmed — you'll get +1 point",
+    "report_sent": "✅ Sent {count} reports — thank you!\nIf confirmed — you'll get +{points} points",
     "report_daily_limit": "⚠️ Daily report limit reached (max 20)",
     "report_all_reported": "✅ All words from this quiz already reported",
     "report_already_sent": "✔️ Already reported",
     "report_kind_title": "What exactly is wrong?",
     "report_btn_kind_text": "📝 Wrong translation",
     "report_btn_kind_audio": "🔊 Wrong pronunciation",
-    "report_sent_audio": "✅ Sent {count} — thank you!\nPronunciation reports are especially valuable: the automated check cannot hear stress",
+    "report_sent_audio": "✅ Sent {count} — thank you!\nPronunciation reports are especially valuable: the automated check cannot hear stress\nIf confirmed — +{points} points",
+    "report_approved": "✅ Your report was accepted: <b>{word}</b> is fixed.\n+{points} points to your monthly score — thanks, the dictionary got better for everyone.",
+    "report_approved_audio": "✅ Your pronunciation report was accepted: <b>{word}</b>.\nThe audio will be re-recorded. +{points} points to your monthly score — thank you.",
 
     # ============================================================================
     # QUIZ

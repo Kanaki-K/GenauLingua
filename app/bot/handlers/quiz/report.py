@@ -23,7 +23,7 @@ from aiogram.fsm.context import FSMContext
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func
 
-from app.database.models import User, Word, TranslationReport
+from app.database.models import MonthlyStats, User, Word, TranslationReport
 from app.locales import DEFAULT_LOCALE, get_text
 from app.services.audio_service import voice_for_user
 from app.services.language_service import LanguagePair, display_text, pair_from_user
@@ -34,6 +34,11 @@ router = Router()
 
 WORDS_PER_PAGE = 10
 DAILY_REPORT_LIMIT = 20
+
+# Сколько баллов ОБЕЩАТЬ за подтверждённую жалобу. Читается из того же
+# места, откуда их начисляет админ-панель, — иначе обещание и начисление
+# разойдутся, а врёт в этой паре всегда обещание.
+REPORT_REWARD_POINTS = MonthlyStats.POINTS_PER_REPORT
 
 
 # ============================================================================
@@ -518,11 +523,13 @@ async def report_send(
 
     # Показываем alert
     if saved_count > 0:
+        # Обещанное число баллов берётся ОТТУДА ЖЕ, откуда его начисляет
+        # подтверждение. Прежде в шести локалях стояло «+1 балл» словами, то
+        # есть обещание жило отдельно от начисления и соврало бы при первой
+        # же правке цены
+        key = "report_sent_audio" if kind == "audio" else "report_sent"
         await callback.answer(
-            get_text(
-                "report_sent_audio" if kind == "audio" else "report_sent",
-                lang, count=saved_count,
-            ),
+            get_text(key, lang, count=saved_count, points=REPORT_REWARD_POINTS),
             show_alert=True
         )
     else:

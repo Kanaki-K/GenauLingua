@@ -675,9 +675,14 @@ async def test_board_refuses_when_there_are_too_few_familiar_words(session, user
 # ============================================================================
 # 🧩 ДОСКА ВНУТРИ КРУГА
 #
-# Доска занимает ПЯТЬ слотов. Считай её одним вопросом — и круг из
-# пятнадцати молча покроет девятнадцать слов, а счётчик «вопрос 7 из 15»
-# соврёт. Это и есть главное, что здесь проверяется.
+# Доска занимает РОВНО ОДИН вопрос, внутри которого пять подвопросов, —
+# поправка владельца к моей первой редакции на пять слотов: «Зачем ломать
+# юзеру порядок 6 7 8?» Здесь и проверяется, что счёт идёт подряд и доска
+# возвращает круг на том же номере.
+#
+# Что доска при этом ПИШЕТСЯ в круг — баллы, точность, ошибки, жалоба —
+# держит отдельный файл `tests/test_board_in_round.py`: это другой вопрос,
+# и приёмка сборки доски была чиста, пока он отвечался «никак».
 # ============================================================================
 
 async def _long_round_ready(session, user) -> None:
@@ -711,11 +716,11 @@ async def _long_round_ready(session, user) -> None:
 
 async def test_board_appears_in_the_middle_of_the_round(session, user, stage):
     from app.locales import get_text
-    from app.services.match_service import board_slots
+    from app.services.match_service import board_slot
 
     dp, bot, recorder = stage
     await _long_round_ready(session, user)
-    start, _ = board_slots(15)
+    start = board_slot(15)
 
     await _feed(dp, bot, text_update(user.id, get_text("btn_learn_words", "ru")))
 
@@ -735,15 +740,18 @@ async def test_board_appears_in_the_middle_of_the_round(session, user, stage):
 
 async def test_board_inside_a_round_does_not_break_the_counter(session, user, stage):
     """
-    После доски счётчик перепрыгивает ПЯТЬ слотов, а не один. Иначе круг
-    из пятнадцати покроет девятнадцать слов, и «вопрос 7 из 15» — ложь.
+    Доска — ОДИН вопрос, и счёт после неё идёт следующим по порядку.
+
+    Поправка владельца к моей ошибке: первая редакция отдавала доске пять
+    слотов, и счёт перескакивал с 5 на 11. «Зачем ломать юзеру порядок
+    6 7 8?» — сломано было ровно то, что человек видит.
     """
     from app.locales import get_text
-    from app.services.match_service import BOARD_SIZE, board_slots
+    from app.services.match_service import BOARD_SIZE, board_slot
 
     dp, bot, recorder = stage
     await _long_round_ready(session, user)
-    start, _ = board_slots(15)
+    start = board_slot(15)
 
     await _feed(dp, bot, text_update(user.id, get_text("btn_learn_words", "ru")))
     for _ in range(start - 1):
@@ -766,10 +774,11 @@ async def test_board_inside_a_round_does_not_break_the_counter(session, user, st
         data = await context.get_data()
         await _feed(dp, bot, press(user.id, f"mt:r:{right_row}:{data['match_version']}"))
 
+    # Доска заняла ОДИН вопрос: счётчик стоит на нём, а не перескочил
+    # пять. Порядок для человека остаётся непрерывным — 6, 7, 8
     data = await context.get_data()
-    assert data["current_question"] == start + BOARD_SIZE - 1, (
-        f"счётчик после доски {data['current_question']}, "
-        f"а должен {start + BOARD_SIZE - 1}"
+    assert data["current_question"] == start, (
+        f"счётчик после доски {data['current_question']}, а должен {start}"
     )
     assert not data.get("match_round_at"), "отметка возврата не снята"
 
@@ -797,11 +806,11 @@ async def test_only_one_board_per_round(session, user, stage):
     вопросов. Отметка в состоянии держит одну на круг.
     """
     from app.locales import get_text
-    from app.services.match_service import BOARD_SIZE, board_slots
+    from app.services.match_service import BOARD_SIZE, board_slot
 
     dp, bot, recorder = stage
     await _long_round_ready(session, user)
-    start, _ = board_slots(15)
+    start = board_slot(15)
 
     await _feed(dp, bot, text_update(user.id, get_text("btn_learn_words", "ru")))
     for _ in range(start - 1):
@@ -838,13 +847,13 @@ async def test_only_one_board_per_round(session, user, stage):
 
 async def test_board_is_skipped_when_switched_off(session, user, stage):
     from app.locales import get_text
-    from app.services.match_service import board_slots
+    from app.services.match_service import board_slot
 
     dp, bot, recorder = stage
     await _long_round_ready(session, user)
     user.match_in_round = False
     await session.commit()
-    start, _ = board_slots(15)
+    start = board_slot(15)
 
     await _feed(dp, bot, text_update(user.id, get_text("btn_learn_words", "ru")))
     for _ in range(start - 1):
