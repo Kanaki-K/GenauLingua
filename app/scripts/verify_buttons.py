@@ -89,12 +89,27 @@ def build_dispatcher() -> Dispatcher:
 
 
 def _callback_handlers(dp: Dispatcher) -> list:
-    """Все обработчики нажатий из всех роутеров дерева."""
+    """
+    Все обработчики нажатий дерева роутеров — КАЖДЫЙ ПО ОДНОМУ РАЗУ.
+
+    Первая редакция обходила `dp.sub_routers + [dp]`, а внутри ещё и
+    `router.sub_routers` — и считала каждый обработчик дважды. Само
+    «ловится или нет» от этого не менялось, зато число в отчёте врало
+    вдвое (178 вместо 89), а список «кто ловит» двоился и прятал
+    настоящую находку: нажатие, которое ловят ДВА РАЗНЫХ обработчика.
+    """
     found = []
-    for router in dp.sub_routers + [dp]:
+    seen: set[int] = set()
+
+    def walk(router) -> None:
+        if id(router) in seen:
+            return
+        seen.add(id(router))
         found.extend(router.callback_query.handlers)
         for nested in router.sub_routers:
-            found.extend(nested.callback_query.handlers)
+            walk(nested)
+
+    walk(dp)
     return found
 
 
@@ -121,6 +136,30 @@ def _is_state_filter(check) -> bool:
     return isinstance(target, (State, StateFilter)) or (
         isinstance(target, type) and issubclass(target, StatesGroup)
     )
+
+
+def _catchers(handlers: list, data: str) -> list[str]:
+    """Имена всех обработчиков, которые поймают это нажатие, по порядку."""
+    probe = _Probe(data)
+    names = []
+    for handler in handlers:
+        passed_data_filter = False
+        rejected = False
+        for check in handler.filters:
+            if _is_state_filter(check):
+                continue
+            try:
+                verdict = check.callback(probe)
+            except Exception:
+                continue
+            if verdict:
+                passed_data_filter = True
+            else:
+                rejected = True
+                break
+        if passed_data_filter and not rejected:
+            names.append(getattr(handler.callback, "__name__", "?"))
+    return names
 
 
 def _matches(handlers: list, data: str) -> bool:
@@ -181,15 +220,35 @@ def main() -> int:
     buttons = collect_buttons()
 
     dead: list[str] = []
+    shared: list[tuple[str, list[str]]] = []
     total = 0
     for path, values in sorted(buttons.items()):
         for data in sorted(values):
             total += 1
-            if not _matches(handlers, data):
+            catchers = _catchers(handlers, data)
+            if not catchers:
                 dead.append(f"{path}: {data!r}")
+            elif len(catchers) > 1:
+                shared.append((data, catchers))
 
     print(f"\nобработчиков нажатий: {len(handlers)}")
     print(f"кнопок проверено: {total} в {len(buttons)} файлах")
+
+    # ГДЕ РЕШАЕТ ПОРЯДОК — печатается, а не замалчивается.
+    #
+    # Нажатие, которое подходит двум обработчикам, достаётся тому, кто
+    # зарегистрирован раньше. Это не дефект сам по себе: общий фильтр
+    # `tz:` нарочно стоит ПОСЛЕ точных `tz:more_cities` и
+    # `tz:back_to_main`, да ещё и сам отбрасывает служебные коды. Но
+    # именно так случился разобранный дефект «подсказка про голос гасила
+    # кнопки меню»: обработчик перехватывал событие и ничего не делал.
+    #
+    # Проверка не берётся судить, верен ли порядок — она показывает, где
+    # он вообще значим, чтобы следующая правка роутеров это увидела.
+    if shared:
+        print(f"\nнажатий, где решает порядок роутеров: {len(shared)}")
+        for data, catchers in shared:
+            print(f"   {data!r} → {' → '.join(catchers)}  (ловит первый)")
 
     # Реплай-кнопки ловятся по НАДПИСИ, и надпись у каждого языка своя
     from app.bot.buttons import (
