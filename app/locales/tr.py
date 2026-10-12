@@ -641,7 +641,6 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "quiz_btn_one_more": "▶️ Bir tur daha",
-    "level_btn_start": "▶️ İlk turu başlat",
     "home_btn_stats": "📊 Ayrıntılar",
     "notif_off_how_to_return": "Geri açmak için: ⚙️ Ayarlar → 🔧 Bot → 🔔 Hatırlatıcılar",
     "reminder_offer": "🔔 Günde bir kez hatırlatayım mı? Öğrendiklerini kaybetmemek böyle daha kolay — seri de kopmaz.",
@@ -652,4 +651,21 @@ TEXTS.update({
     "level_offer_yes": "📈 Evet, {following} seviyesine geç",
     "level_offer_no": "Burada kalayım",
     "level_offer_done": "📈 Seviye <b>{following}</b>. Kelimeler artık daha zor olacak.",
+})
+
+
+# ============================================================================
+# ЗАЧЕМ УЧИШЬ — ОПРОС, ВСТРОЕННЫЙ В ПЕРВОЕ НАЖАТИЕ
+#
+# Режим «по категории» работает, и им пользуются ТРИ человека из 233:
+# он спрятан третьим уровнем настроек. Каждая кнопка здесь И отвечает
+# на вопрос, И начинает первый круг — шага не прибавилось.
+# ============================================================================
+TEXTS.update({
+    "goal_question": "Dili ne için öğreniyorsun? Kelimeleri ona göre seçeriz.",
+    "goal_work": "💼 İş için",
+    "goal_travel": "✈️ Seyahat için",
+    "goal_living": "🏠 Yurt dışında yaşamak için",
+    "goal_study": "🎓 Okumak için",
+    "goal_any": "📚 Sadece kelime öğrenmek",
 })

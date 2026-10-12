@@ -654,7 +654,6 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "quiz_btn_one_more": "▶️ Jeszcze jedna runda",
-    "level_btn_start": "▶️ Zacznij pierwszą rundę",
     "home_btn_stats": "📊 Szczegóły",
     "notif_off_how_to_return": "Włączyć ponownie: ⚙️ Ustawienia → 🔧 Bot → 🔔 Przypomnienia",
     "reminder_offer": "🔔 Przypominać raz na dzień? Łatwiej nie zgubić tego, czego się nauczyłeś — i seria się nie urywa.",
@@ -665,4 +664,21 @@ TEXTS.update({
     "level_offer_yes": "📈 Tak, przejdź na {following}",
     "level_offer_no": "Zostaję",
     "level_offer_done": "📈 Poziom <b>{following}</b>. Słowa będą trudniejsze.",
+})
+
+
+# ============================================================================
+# ЗАЧЕМ УЧИШЬ — ОПРОС, ВСТРОЕННЫЙ В ПЕРВОЕ НАЖАТИЕ
+#
+# Режим «по категории» работает, и им пользуются ТРИ человека из 233:
+# он спрятан третьим уровнем настроек. Каждая кнопка здесь И отвечает
+# на вопрос, И начинает первый круг — шага не прибавилось.
+# ============================================================================
+TEXTS.update({
+    "goal_question": "Do czego potrzebujesz języka? Dobierzemy słowa pod odpowiedź.",
+    "goal_work": "💼 Do pracy",
+    "goal_travel": "✈️ Na podróże",
+    "goal_living": "🏠 Do życia za granicą",
+    "goal_study": "🎓 Do nauki",
+    "goal_any": "📚 Po prostu uczyć się słów",
 })

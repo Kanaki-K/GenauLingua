@@ -16,6 +16,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database.enums import CEFRLevel, QuizChannel, QuizMode
 from app.database.models import PartOfSpeech, User, UserWord, Word, WordLangGroup
+from app.services.goal_service import categories_for
 from app.services.language_service import (
     LanguagePair,
     fold,
@@ -240,8 +241,27 @@ async def get_new_words(
         )
         .exists()
     )
-    query = _usable_words(pair).where(~seen)
-    return await _pick_one(session, _exclude(_scoped(query, user, level), exclude_ids))
+    query = _exclude(_scoped(_usable_words(pair).where(~seen), user, level), exclude_ids)
+
+    # СЛОВА ТЕМЫ ВПЕРЁД, ЕСЛИ ЧЕЛОВЕК НАЗВАЛ ЦЕЛЬ.
+    #
+    # Подмешивается только в НОВЫЕ слова, и это важно: повторение и трудные
+    # слова темой не ограничиваются — иначе выученное в стороне от темы
+    # перестало бы возвращаться и забылось.
+    #
+    # Тема не отменяет уровень, а стоит поверх него. Переключить режим на
+    # «по категории» было бы дешевле, но тот не смотрит на уровень вовсе, и
+    # новичок получал бы C1 вперемешку с A1.
+    #
+    # Кончились слова темы — берём любые. Пустой круг хуже нетематического,
+    # и запас этот не теоретический: в «Wirtschaft» слов уровня A1 всего два.
+    categories = categories_for(getattr(user, "learning_goal", None))
+    if categories:
+        themed = await _pick_one(session, query.where(Word.category.in_(categories)))
+        if themed is not None:
+            return themed
+
+    return await _pick_one(session, query)
 
 
 async def get_review_words(

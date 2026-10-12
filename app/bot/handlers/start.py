@@ -17,6 +17,7 @@ from app.bot.utils import delete_messages_fast, ensure_anchor
 from app.database.enums import CEFRLevel, QuizMode
 from app.database.models import User
 from app.locales import DEFAULT_LOCALE, LOCALES, get_text
+from app.services.goal_service import GOAL_ORDER, is_goal
 from app.services.language_service import (
     INTERFACE_LANGS,
     LEARNABLE_LANGS,
@@ -323,7 +324,7 @@ async def select_level(callback: CallbackQuery, state: FSMContext, session: Asyn
         current_msg_id = callback.message.message_id
         await delete_messages_fast(callback.bot, callback.message.chat.id, old_anchor_id, current_msg_id)
 
-    # КНОПКА, А НЕ ТЕКСТ «НАЖМИ КНОПКУ».
+    # КНОПКИ, А НЕ ТЕКСТ «НАЖМИ КНОПКУ».
     #
     # Здесь кончается онбординг, и прежде он кончался тупиком: бот писал
     # «✅ Уровень B1 выбран. 📚 Нажми «Учить слова» — и начнём!» и не давал
@@ -334,16 +335,60 @@ async def select_level(callback: CallbackQuery, state: FSMContext, session: Asyn
     # Замер говорит, чего это стоило: 24 человека из 233 прошли онбординг и
     # не начали НИ ОДНОГО круга, а ещё 220 кругов закрыты без единого
     # ответа. Разбор — MENU_CONCEPT.md §3.4.
+    #
+    # ВОПРОС «ЗАЧЕМ УЧИШЬ» ВСТРОЕН В ЭТО ЖЕ НАЖАТИЕ, А НЕ ДОБАВЛЕН ШАГОМ.
+    # Каждая из пяти кнопок И отвечает на вопрос, И начинает первый круг —
+    # то есть онбординг не стал длиннее ни на одно действие. Отдельным
+    # экраном спрашивать было нельзя: лишний шаг здесь стоит людей, а
+    # замеренная цена выбора в этом проекте известна — 223 человека из 233
+    # не меняли ни одной настройки.
     await callback.bot.send_message(
         chat_id=callback.message.chat.id,
-        text=get_text("level_selected", lang, level=level_str),
-        reply_markup=InlineKeyboardMarkup(inline_keyboard=[[
-            InlineKeyboardButton(
-                text=get_text("level_btn_start", lang),
-                callback_data="learn_now",
-            )
-        ]]),
+        text=(
+            f"{get_text('level_selected', lang, level=level_str)}\n\n"
+            f"{get_text('goal_question', lang)}"
+        ),
+        reply_markup=get_goal_keyboard(lang),
     )
 
     await state.clear()
     await callback.answer()
+
+
+def get_goal_keyboard(lang: str) -> InlineKeyboardMarkup:
+    """Пять целей, и каждая сразу начинает круг."""
+    return InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(
+            text=get_text(f"goal_{code}", lang), callback_data=f"goal_{code}"
+        )]
+        for code in GOAL_ORDER
+    ])
+
+
+@router.callback_query(F.data.startswith("goal_"))
+async def choose_goal(callback: CallbackQuery, state: FSMContext, session: AsyncSession):
+    """
+    Запомнить цель и сразу начать занятие.
+
+    Цель не переключает режим викторины — она подмешивает свои категории в
+    НОВЫЕ слова, оставляя трудность за уровнем. Почему именно так, разобрано
+    в `goal_service`: режим «по категории» не смотрит на уровень вовсе, и
+    новичок получал бы C1 вперемешку с A1.
+    """
+    from app.bot.handlers.quiz.game import start_lesson
+
+    code = callback.data.removeprefix("goal_")
+    if not is_goal(code):
+        await callback.answer("❌ Error", show_alert=True)
+        return
+
+    user = await session.get(User, callback.from_user.id)
+    if not user:
+        await callback.answer("❌ Error", show_alert=True)
+        return
+
+    user.learning_goal = code
+    await session.commit()
+
+    await callback.answer()
+    await start_lesson(callback.message, state, session)
