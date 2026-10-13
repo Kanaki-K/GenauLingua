@@ -5,9 +5,10 @@ WORKDIR /app
 # ffmpeg нужен PyAV, а PyAV — декодеру голосовых. Без него игра вслух
 # возвращает «не разобрал» на каждую запись, и выглядит это как шум в
 # микрофоне, а не как отсутствие библиотеки.
+# build-essential и libpq-dev НЕ НУЖНЫ: psycopg2-binary приходит колесом
+# и несёт libpq в себе, остальные зависимости тоже колёсные. Проверено
+# сборкой — без них образ собирается и речевой путь внутри работает.
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    libpq-dev \
     ffmpeg \
     && rm -rf /var/lib/apt/lists/*
 
