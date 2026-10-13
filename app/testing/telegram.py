@@ -131,6 +131,35 @@ class RecordingSession(BaseSession):
         assert texts, "бот не отправил ни одного сообщения"
         return texts[-1]
 
+    def alerts(self) -> list[str]:
+        """
+        Ответы на нажатие — то, что Telegram показывает всплывающим окном.
+
+        Отдельно от `sent_texts`, потому что это не сообщение в переписке:
+        им отвечают «нечего решать» или «отправь заново», и проверять такое
+        надо именно здесь.
+        """
+        return [
+            payload.get("text") or ""
+            for name, payload in self.calls
+            if name == "AnswerCallbackQuery"
+        ]
+
+    def sent_to(self) -> list[int]:
+        """
+        Кому бот ОТПРАВИЛ сообщение — по порядку, с повторами.
+
+        Нужно рассылке: у неё главный вопрос не «что написано», а «кому
+        ушло». Правки (`EditMessageText`) сюда не идут: они меняют уже
+        показанное, а не доставляют новое.
+        """
+        return [
+            int(payload["chat_id"])
+            for name, payload in self.calls
+            if name in ("SendMessage", "SendAudio", "SendDocument")
+            and payload.get("chat_id") is not None
+        ]
+
     def buttons(self) -> list[str]:
         """`callback_data` последней показанной клавиатуры."""
         for name, payload in reversed(self.calls):

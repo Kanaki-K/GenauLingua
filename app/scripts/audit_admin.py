@@ -169,6 +169,14 @@ DANGEROUS = {
 # начисляет баллы и шлёт извещения. Приёмка только читает.
 MUTATING_PREFIXES = ("admin:report_approve_", "admin:report_reject_")
 
+# ЧЕМ ЖЕ ТОГДА ПРОВЕРЕНО ИСКЛЮЧЁННОЕ. Молчать об этом нельзя: пропуск без
+# объяснения читается как «проверено всё».
+COVERED_ELSEWHERE = {
+    "admin:report_approve_": "tests/test_report_reward.py — 9 проверок",
+    "admin:report_reject_": "tests/test_admin_actions.py — 7 проверок",
+    "admin:broadcast_confirm": "tests/test_admin_actions.py — 8 проверок",
+}
+
 
 def _discover_callbacks() -> list:
     """
@@ -207,6 +215,8 @@ def _discover_callbacks() -> list:
 
     print(f"разделов найдено в коде: {len(found)}")
     print(f"не вызываются, меняют данные: {', '.join(MUTATING_PREFIXES)}")
+    for name, where in sorted(COVERED_ELSEWHERE.items()):
+        print(f"    {name} проверено: {where}")
     return found
 
 
