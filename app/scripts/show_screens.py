@@ -396,17 +396,91 @@ async def flow_sweep(dp, bot, rec, raw: bool, session) -> None:
 # ПРОГОН
 # ============================================================================
 
+async def flow_scales(dp, bot, rec, raw: bool, session) -> None:
+    """
+    ОДНИ И ТЕ ЖЕ ЭКРАНЫ У ТРЁХ РАЗНЫХ ЛЮДЕЙ.
+
+    Экран ломается не в середине, а на краях: у новичка делить нечего (ноль
+    слов, ноль кругов, нет места в рейтинге), у заигравшего числа
+    четырёхзначные и подписи длинные. Показывать только середину — значит
+    не увидеть ни того, ни другого.
+
+        пусто    ни одного слова, ни одного круга, ни серии
+        обычный  40 знакомых слов, серия семь дней
+        много    2 400 слов, 312 кругов, серия 180 дней
+    """
+    from app.services.monthly_leaderboard_service import get_or_create_current_season
+    from app.database.models import MonthlyStats
+
+    scales = (
+        ("ПУСТО", dict(words=0, streak=0, rounds=0, learned=0, rank=False)),
+        ("ОБЫЧНЫЙ", dict(words=40, streak=7, rounds=42, learned=118, rank=True)),
+        ("МНОГО", dict(words=240, streak=180, rounds=312, learned=2417, rank=True)),
+    )
+
+    for title, cfg in scales:
+        print()
+        print("=" * (WIDTH + 2))
+        print(f"  {title}: прогресс {cfg['learned']} слов, серия {cfg['streak']}, "
+              f"кругов {cfg['rounds']}")
+        print("=" * (WIDTH + 2))
+
+        await reset_state(dp)
+        user = await _probe(session, words=cfg["words"])
+        user.streak_days = cfg["streak"]
+        user.quizzes_passed = cfg["rounds"]
+        user.words_learned = cfg["learned"]
+        await session.commit()
+
+        if cfg["rank"]:
+            season = await get_or_create_current_season(session)
+            stat = MonthlyStats(
+                user_id=user.id, season_id=season.id, learning_lang="de",
+                monthly_quizzes=cfg["rounds"], monthly_reverse=3,
+                monthly_words=cfg["learned"] // 10,
+                monthly_streak=min(cfg["streak"], 31),
+                monthly_avg_percent=84,
+                total_correct=cfg["rounds"] * 12,
+                total_questions=cfg["rounds"] * 15,
+                correct_audio=cfg["rounds"] * 3, correct_speech=cfg["rounds"],
+            )
+            stat.monthly_score = stat.calculate_monthly_score()
+            session.add(stat)
+            await session.commit()
+
+        rec.clear()
+        await dp.feed_update(bot, text_update(user.id, "/home"))
+        _dump(rec, raw, f"{title} · прогресс")
+
+        await dp.feed_update(bot, press(user.id, "stats_full"))
+        _dump(rec, raw, f"{title} · подробная статистика")
+
+        await dp.feed_update(bot, text_update(user.id, get_text("btn_rating", "ru")))
+        _dump(rec, raw, f"{title} · рейтинг")
+
+        from app.bot.keyboards.notifications import get_reminder_keyboard
+        from app.schedulers.reminder_scheduler import build_reminder_text
+        async with AsyncSessionLocal() as fresh:
+            person = await fresh.get(User, user.id)
+            text = await build_reminder_text(person, fresh)
+        _frame(f"{title} · напоминание")
+        _screen(text, [[b.text for b in row]
+                       for row in get_reminder_keyboard("ru", count=15).inline_keyboard],
+                raw)
+
+
 FLOWS = {
     "new": flow_new,
     "old": flow_old,
     "round": flow_round,
     "sweep": flow_sweep,
+    "scales": flow_scales,
 }
 
 
 async def run(who: str, raw: bool) -> int:
     chosen = (
-        ["new", "old", "round", "sweep"] if who == "all"
+        ["new", "old", "round", "scales", "sweep"] if who == "all"
         else ["new", "old", "round"] if who == "both"
         else [who]
     )
@@ -425,7 +499,7 @@ async def run(who: str, raw: bool) -> int:
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--who", default="both",
-                    choices=("new", "old", "round", "sweep", "both", "all"))
+                    choices=("new", "old", "round", "sweep", "scales", "both", "all"))
     ap.add_argument("--raw", action="store_true")
     args = ap.parse_args()
     return asyncio.run(run(args.who, args.raw))
