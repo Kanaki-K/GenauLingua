@@ -211,7 +211,7 @@ def get_notification_days_keyboard(selected_days: list[int], lang: str = "ru") -
 
     # Первый ряд: Пн-Чт
     for day_num, day_name in days[:4]:
-        emoji = "✅" if day_num in selected_days else "❌"
+        emoji = "✓" if day_num in selected_days else "✗"
         builder.add(InlineKeyboardButton(
             text=f"{emoji} {day_name}",
             callback_data=f"notif_day:{day_num}"
@@ -220,7 +220,7 @@ def get_notification_days_keyboard(selected_days: list[int], lang: str = "ru") -
 
     # Второй ряд: Пт-Вс
     for day_num, day_name in days[4:]:
-        emoji = "✅" if day_num in selected_days else "❌"
+        emoji = "✓" if day_num in selected_days else "✗"
         builder.add(InlineKeyboardButton(
             text=f"{emoji} {day_name}",
             callback_data=f"notif_day:{day_num}"

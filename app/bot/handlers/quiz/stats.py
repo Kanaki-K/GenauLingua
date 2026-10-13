@@ -173,7 +173,7 @@ async def show_statistics(message: Message, session: AsyncSession):
         await message.answer(get_text("stats_no_level", lang))
         return
 
-    old_anchor_id, _ = await ensure_anchor(message, session, user, emoji="📊")
+    old_anchor_id, _ = await ensure_anchor(message, session, user, emoji="")
     if old_anchor_id:
         await delete_messages_fast(message.bot, message.chat.id, old_anchor_id, message.message_id)
 

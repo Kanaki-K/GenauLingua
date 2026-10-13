@@ -6,9 +6,9 @@ TEXTS = {
     # ============================================================================
     # ANA MENÜ BUTONLARI
     # ============================================================================
-    "btn_learn_words": "📚 Kelime öğren",
-    "btn_stats": "📊 İstatistik",
-    "btn_settings": "🦾 Ayarlar",
+    "btn_learn_words": "Kelime öğren",
+    "btn_stats": "İstatistik",
+    "btn_settings": "Ayarlar",
     "btn_help": "Yardım",
     "btn_back": "Geri",
     "menu_placeholder": "Bir eylem seç...",
@@ -202,7 +202,7 @@ TEXTS = {
     "qmode_difficult_few": "Henüz sadece {count} zor kelimeniz var — en az 4 gerekli\nBirkaç test daha çöz!",
     "qmode_difficult_empty": "Henüz zor kelimelerin yok.\nÖnce birkaç test çöz!",
 
-    "quiz_btn_change_mode": "Test modu",
+    "quiz_btn_change_mode": "Seviye ve konular",
     "quiz_btn_report_error": "Çeviri hatası",
     "report_btn_confirm": "✓ Onayla ({count})",
     "report_btn_send": "Gönder",
@@ -237,11 +237,11 @@ TEXTS = {
     "quiz_btn_next": "İleri →",
     "quiz_btn_repeat_errors": "Hataları tekrarla",
 
-    "quiz_completed": "<b>Test tamamlandı!</b>",
-    "quiz_result_correct": "✓ Doğru: <b>{correct}/{total}</b>",
+    "quiz_completed": "<b>Tur tamamlandı</b>",
+    "quiz_result_correct": "Doğru: <b>{correct}/{total}</b>",
     "quiz_result_percentage": "Sonuç: <b>{percentage}%</b>",
     "quiz_result_details": "<b>Detaylar:</b>",
-    "quiz_result_errors": "✗ Hata: {count}",
+    "quiz_result_errors": "Hata: {count}",
 
     # TUR SONUNDA ÖVGÜ — yalnızca gerçekten olan için
     "praise_first_round": "İlk tur tamam. Bundan sonra kelimeler geri dönmeye başlar — böyle akılda kalırlar.",
@@ -367,6 +367,10 @@ Topluluk ne kadar aktif olursa — bot o kadar iyi olur. Çekinme! """,
     "rating_start_quiz": "İlk testini çöz!",
     "rating_position": "Pozisyon: <b>#{rank}</b> / {total}",
     "rating_points": "Puan: <b>{score}</b>",
+    "rating_title_polyglot": "poliglot",
+    "rating_title_professor": "profesör",
+    "rating_title_expert": "uzman",
+    "rating_title_student": "öğrenci",
     "rating_your_month": "<b>{month} ayın:</b>",
     "rating_quizzes": "Testler: {count}",
     "rating_words_learned": "Öğrenilen kelimeler: {count}",
@@ -482,7 +486,7 @@ TEXTS.update({
 # подсказки направления стали работать на все тридцать пар вместо восьми.
 # ============================================================================
 TEXTS.update({
-    "btn_rating": "🏆 Sıralama",
+    "btn_rating": "Sıralama",
     "friend_fallback": "dostum",
     "onboarding_learning_title": "<b>Hangi dili öğreneceksin?</b>",
     "onboarding_learning_desc": "Kelimelerin anlamı şu dilde gösterilecek: {native}\nDili ve yönü ayarlardan istediğin zaman değiştirebilirsin.",

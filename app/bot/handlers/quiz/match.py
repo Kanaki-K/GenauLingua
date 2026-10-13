@@ -285,7 +285,7 @@ async def tap(callback: CallbackQuery, state: FSMContext, session: AsyncSession)
 
     user = await session.get(User, callback.from_user.id)
     if not user:
-        await callback.answer("❌ Error", show_alert=True)
+        await callback.answer("Error", show_alert=True)
         return
 
     lang = user.interface_language or DEFAULT_LOCALE

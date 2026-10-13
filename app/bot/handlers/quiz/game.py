@@ -720,7 +720,7 @@ async def start_lesson(
     except Exception:
         logger.debug("Не удалось удалить сообщение пользователя", exc_info=True)
 
-    old_anchor_id, _ = await ensure_anchor(message, session, user, emoji="📚")
+    old_anchor_id, _ = await ensure_anchor(message, session, user, emoji="")
     if old_anchor_id:
         await delete_messages_fast(message.bot, message.chat.id, old_anchor_id, message.message_id)
 
@@ -759,7 +759,7 @@ async def process_answer(callback: CallbackQuery, state: FSMContext, session: As
     user = await session.get(User, callback.from_user.id)
 
     if not correct_word or not user:
-        await callback.answer("❌ Error", show_alert=True)
+        await callback.answer("Error", show_alert=True)
         await state.clear()
         return
 
@@ -1420,8 +1420,13 @@ _CHANNEL_MARKS = {
     QuizChannel.SPEECH.value: "🎤",
     # Доска — не канал, но в разборе круга её подвопросы надо отличать:
     # иначе пять строк подряд выглядят как пять обычных карточек.
-    # Буква берётся из источника, а не вписана рядом второй копией
-    BOARD_CHANNEL: "🧩",
+    #
+    # Знака доски в разрешённом наборе нет (устав внешности §3), и `🧩` из
+    # заголовка ушёл — название сказано словами. Зато у доски есть СВОЙ
+    # знак: `▸` помечает в ней выбранную ячейку, и он же в наборе
+    # типографики. Разбор перенимает её собственный язык, а не вводит
+    # восьмой значок.
+    BOARD_CHANNEL: "▸",
 }
 
 
@@ -1447,7 +1452,7 @@ def _round_breakdown(
     counts = {QuizChannel.AUDIO.value: 0, QuizChannel.SPEECH.value: 0}
 
     for item, word in items:
-        icon = "✅" if item.is_correct else "❌"
+        icon = "✓" if item.is_correct else "✗"
         mark = _CHANNEL_MARKS.get(item.channel)
         if mark:
             icon += f" {mark}"
@@ -1749,11 +1754,13 @@ async def _finish_quiz(
 
     percentage = (correct_answers / answered * 100) if answered else 0.0
 
-    prefix = "🔄 " if is_error_repeat else ""
+    prefix = "" if is_error_repeat else ""
     result_text = (
         f"{prefix}{get_text('quiz_completed', lang)}\n\n"
         f"{get_text('quiz_result_correct', lang, correct=correct_answers, total=answered)}\n"
-        f"{get_text('quiz_result_percentage', lang, percentage=f'{percentage:.1f}')}\n\n"
+        # Без десятой доли: «25.0%» обещает точность, которой в четырёх
+        # вопросах нет
+        f"{get_text('quiz_result_percentage', lang, percentage=round(percentage))}\n\n"
     )
     if channel_lines:
         result_text += "\n".join(channel_lines) + "\n\n"

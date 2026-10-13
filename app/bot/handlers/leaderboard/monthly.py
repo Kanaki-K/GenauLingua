@@ -73,7 +73,7 @@ def build_monthly_card(user: User, user_rank: dict, season, lang: str) -> str:
     text += get_text("rating_streak", lang, count=streak) + "\n"
     text += get_text("rating_avg_result", lang, percent=avg_pct) + "\n"
 
-    text += "\n━━━━━━━━━━━━━━━━━\n"
+    text += "\n"
     text += get_text("rating_scoring_title", lang) + "\n"
     # Строка про ответы стоит ПЕРВОЙ: это единственное начисление, которое
     # происходит на каждом вопросе, и единственное, которое зависит от того,
@@ -135,7 +135,7 @@ async def show_leaderboard(message: Message, session: AsyncSession):
                                           learning_lang=pair_from_user(user).learning)
     text = build_monthly_card(user, user_rank, season, lang)
 
-    old_anchor_id, new_anchor_id = await ensure_anchor(message, session, user, emoji="🏆")
+    old_anchor_id, new_anchor_id = await ensure_anchor(message, session, user, emoji="")
     if old_anchor_id:
         await delete_messages_fast(message.bot, message.chat.id, old_anchor_id, message.message_id)
 

@@ -91,7 +91,7 @@ async def show_help(message: Message, session: AsyncSession):
         pass
 
     if user:
-        old_anchor_id, new_anchor_id = await ensure_anchor(message, session, user, emoji="❓")
+        old_anchor_id, new_anchor_id = await ensure_anchor(message, session, user, emoji="")
         if old_anchor_id:
             current_msg_id = message.message_id
             await delete_messages_fast(message.bot, message.chat.id, old_anchor_id, current_msg_id)

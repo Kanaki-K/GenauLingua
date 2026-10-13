@@ -11,9 +11,9 @@ TEXTS = {
     # ============================================================================
     # MENU GŁÓWNE
     # ============================================================================
-    "btn_learn_words": "📚 Ucz się słów",
-    "btn_stats": "📊 Statystyki",
-    "btn_settings": "🦾 Ustawienia",
+    "btn_learn_words": "Ucz się słów",
+    "btn_stats": "Statystyki",
+    "btn_settings": "Ustawienia",
     "btn_help": "Pomoc",
     "btn_back": "Wróć",
     "menu_placeholder": "Wybierz działanie...",
@@ -208,7 +208,7 @@ TEXTS = {
     "qmode_difficult_few": "Masz na razie tylko {count} trudnych słów — potrzeba przynajmniej 4\nZrób jeszcze kilka quizów!",
     "qmode_difficult_empty": "Nie masz na razie trudnych słów.\nZrób kilka quizów!",
 
-    "quiz_btn_change_mode": "Tryb quizu",
+    "quiz_btn_change_mode": "Poziom i tematy",
     "quiz_btn_report_error": "Zgłoś błąd",
     "report_btn_confirm": "✓ Potwierdź ({count})",
     "report_btn_send": "Wyślij",
@@ -243,11 +243,11 @@ TEXTS = {
     "quiz_btn_next": "Dalej →",
     "quiz_btn_repeat_errors": "Powtórz błędy",
 
-    "quiz_completed": "<b>Quiz ukończony!</b>",
-    "quiz_result_correct": "✓ Dobrze: <b>{correct}/{total}</b>",
+    "quiz_completed": "<b>Runda ukończona</b>",
+    "quiz_result_correct": "Poprawnie: <b>{correct}/{total}</b>",
     "quiz_result_percentage": "Wynik: <b>{percentage}%</b>",
     "quiz_result_details": "<b>Szczegóły:</b>",
-    "quiz_result_errors": "✗ Błędów: {count}",
+    "quiz_result_errors": "Błędów: {count}",
 
     # POCHWAŁA NA KONIEC RUNDY — tylko za to, co się stało
     "praise_first_round": "Pierwsza runda za tobą. Dalej słowa zaczną wracać — tak się je pamięta.",
@@ -374,6 +374,10 @@ Im aktywniejsza społeczność, tym lepszy bot. Nie krępuj się! """,
     "rating_start_quiz": "Zrób pierwszy quiz!",
     "rating_position": "Pozycja: <b>#{rank}</b> z {total}",
     "rating_points": "Punkty: <b>{score}</b>",
+    "rating_title_polyglot": "poliglota",
+    "rating_title_professor": "profesor",
+    "rating_title_expert": "ekspert",
+    "rating_title_student": "uczeń",
     "rating_your_month": "<b>Twój {month}:</b>",
     "rating_quizzes": "Quizy: {count}",
     "rating_words_learned": "Nauczone słowa: {count}",
@@ -495,7 +499,7 @@ TEXTS.update({
 # подсказки направления стали работать на все тридцать пар вместо восьми.
 # ============================================================================
 TEXTS.update({
-    "btn_rating": "🏆 Ranking",
+    "btn_rating": "Ranking",
     "friend_fallback": "przyjacielu",
     "onboarding_learning_title": "<b>Jakiego języka będziesz się uczyć?</b>",
     "onboarding_learning_desc": "Znaczenia będą pokazywane w języku: {native}\nJęzyk i kierunek zmienisz w ustawieniach w każdej chwili.",

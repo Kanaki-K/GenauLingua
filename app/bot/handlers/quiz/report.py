@@ -10,7 +10,7 @@ Flow:
 Защита:
 - UNIQUE(user_id, word_id) — одно слово репортится один раз
 - Лимит 20 репортов в сутки
-- Уже зарепорченные слова показываются с ✔️ (некликабельные)
+- Уже зарепорченные слова показываются с ✓ (некликабельные)
 """
 
 import logging
@@ -116,7 +116,7 @@ def _build_word_list_keyboard(
 
         if wid in already_reported:
             # Уже отправлено — показываем ✔️, клик → alert
-            display = f"✔️ {label}"
+            display = f"✓ {label}"
             if len(display) > 50:
                 display = display[:47] + "…"
             buttons.append([InlineKeyboardButton(
@@ -125,7 +125,7 @@ def _build_word_list_keyboard(
             )])
         else:
             # Можно выбрать
-            check = "✅ " if wid in selected else ""
+            check = "✓ " if wid in selected else ""
             display = f"{check}{label}"
             if len(display) > 50:
                 display = display[:47] + "…"
@@ -138,10 +138,10 @@ def _build_word_list_keyboard(
     if total_pages > 1:
         nav_row = []
         if page > 0:
-            nav_row.append(InlineKeyboardButton(text="◀", callback_data=f"report_page_{page - 1}"))
+            nav_row.append(InlineKeyboardButton(text="<", callback_data=f"report_page_{page - 1}"))
         nav_row.append(InlineKeyboardButton(text=f"{page + 1}/{total_pages}", callback_data="noop"))
         if page < total_pages - 1:
-            nav_row.append(InlineKeyboardButton(text="▶", callback_data=f"report_page_{page + 1}"))
+            nav_row.append(InlineKeyboardButton(text=">", callback_data=f"report_page_{page + 1}"))
         buttons.append(nav_row)
 
     # Кнопка подтверждения (если выбрано ≥1)

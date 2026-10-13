@@ -52,7 +52,7 @@ def build_alltime_card(user: User, leaderboard: list, lang: str) -> str:
         text += "\n" + get_text("rating_motivation_champion", lang) + "\n"
 
     # Пояснение
-    text += "\n━━━━━━━━━━━━━━━━━\n"
+    text += "\n"
     text += get_text("rating_lifetime_title", lang) + "\n"
     text += get_text("rating_lifetime_desc", lang) + "\n"
 

@@ -358,17 +358,31 @@ async def test_a_report_on_a_board_word_goes_through(session, user, stage):
 
 async def test_board_is_marked_in_the_round_breakdown(session, user, stage):
     """
-    В разборе круга подвопросы доски помечены своим значком: иначе пять
-    строк подряд выглядят как пять обычных карточек.
+    В разборе круга подвопросы доски помечены: иначе пять строк подряд
+    выглядят как пять обычных карточек.
+
+    ПОМЕТКА СМЕНИЛАСЬ ВМЕСТЕ С УСТАВОМ ВНЕШНОСТИ. Было `🧩`; в разрешённом
+    наборе знака доски нет, а сам `🧩` ушёл и из её заголовка — название
+    сказано словами. Взят `▸`: это СОБСТВЕННЫЙ знак доски, которым она
+    помечает выбранную ячейку, и он же в наборе типографики. Разбор
+    перенимает её язык, а не вводит восьмой значок.
+
+    Проверка берёт пометку из кода, а не вписывает её второй копией: иначе
+    следующая смена знака прошла бы молча.
     """
+    from app.bot.handlers.quiz.game import _CHANNEL_MARKS
+
     dp, bot, recorder = stage
     await _ready(session, user)
     context = await _play_to_board(dp, bot, recorder, user)
     await _solve_board(dp, bot, context, user)
     await _finish_round(dp, bot, recorder, user)
 
+    mark = _CHANNEL_MARKS[BOARD_CHANNEL]
+    assert mark, "у доски нет пометки — её строки не отличить от карточек"
+
     everything = "\n".join(recorder.sent_texts())
-    assert everything.count("🧩") >= BOARD_SIZE, (
-        f"в разборе круга доска не помечена: 🧩 встречается "
-        f"{everything.count('🧩')} раз"
+    assert everything.count(mark) >= BOARD_SIZE, (
+        f"в разборе круга доска не помечена: {mark!r} встречается "
+        f"{everything.count(mark)} раз"
     )

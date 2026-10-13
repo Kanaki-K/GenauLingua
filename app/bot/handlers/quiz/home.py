@@ -351,7 +351,7 @@ async def home_learn_channel(
     try:
         channel = QuizChannel(code)
     except ValueError:
-        await callback.answer("❌ Error", show_alert=True)
+        await callback.answer("Error", show_alert=True)
         return
 
     user = await session.get(User, callback.from_user.id)

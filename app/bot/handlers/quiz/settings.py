@@ -193,7 +193,7 @@ async def show_settings_group(callback: CallbackQuery, session: AsyncSession):
     """Экран одной группы настроек."""
     key = callback.data.removeprefix("settings_group_")
     if key not in _GROUPS:
-        await callback.answer("❌ Error", show_alert=True)
+        await callback.answer("Error", show_alert=True)
         return
 
     await callback.answer()
@@ -450,7 +450,7 @@ async def show_settings(message: Message, session: AsyncSession):
     except Exception:
         logger.debug("Не удалось удалить сообщение пользователя", exc_info=True)
 
-    old_anchor_id, _ = await ensure_anchor(message, session, user, emoji="🦾")
+    old_anchor_id, _ = await ensure_anchor(message, session, user, emoji="")
     if old_anchor_id:
         await delete_messages_fast(message.bot, message.chat.id, old_anchor_id, message.message_id)
 
@@ -495,7 +495,7 @@ async def show_learning_lang(callback: CallbackQuery, session: AsyncSession):
 
     buttons = [
         InlineKeyboardButton(
-            text=("✅ " if code == pair.learning else "") + language_name(code, lang),
+            text=("✓ " if code == pair.learning else "") + language_name(code, lang),
             callback_data=f"set_learning_{code}",
         )
         for code in LEARNABLE_LANGS
@@ -517,7 +517,7 @@ async def set_learning_lang(callback: CallbackQuery, session: AsyncSession):
     code = callback.data.removeprefix("set_learning_")
 
     if not is_learnable(code):
-        await callback.answer("❌ Error", show_alert=True)
+        await callback.answer("Error", show_alert=True)
         return
 
     user = await session.get(User, callback.from_user.id)
@@ -596,11 +596,11 @@ async def show_channels(callback: CallbackQuery, session: AsyncSession):
     for channel, name_key in _CHANNEL_NAMES.items():
         available = _channel_available(channel, user)
         if channel is QuizChannel.TEXT:
-            mark = "✅ "          # всегда включён, нажатие ничего не меняет
+            mark = "✓ "          # всегда включён, нажатие ничего не меняет
         elif not available:
-            mark = "🚫 "
+            mark = "✗ "
         else:
-            mark = "✅ " if channel in on else "☐ "
+            mark = "✓ " if channel in on else ""
         rows.append([InlineKeyboardButton(
             text=mark + get_text(name_key, lang),
             callback_data=f"channel_toggle_{channel.value}",
@@ -628,7 +628,7 @@ async def toggle_channel(callback: CallbackQuery, session: AsyncSession):
     try:
         channel = QuizChannel(code)
     except ValueError:
-        await callback.answer("❌ Error", show_alert=True)
+        await callback.answer("Error", show_alert=True)
         return
 
     user = await session.get(User, callback.from_user.id)
@@ -678,7 +678,7 @@ async def show_match_setting(callback: CallbackQuery, session: AsyncSession):
 
     state_key = "match_state_on" if user.match_in_round else "match_state_off"
     rows = [[InlineKeyboardButton(
-        text=("✅ " if user.match_in_round else "☐ ")
+        text=("✓ " if user.match_in_round else "")
         + get_text("settings_btn_match", lang),
         callback_data="match_toggle",
     )]]
@@ -724,7 +724,7 @@ async def show_goal(callback: CallbackQuery, session: AsyncSession):
 
     rows = [
         [InlineKeyboardButton(
-            text=("✅ " if code == user.learning_goal else "")
+            text=("✓ " if code == user.learning_goal else "")
             + get_text(f"goal_{code}", lang),
             callback_data=f"set_goal_{code}",
         )]
@@ -756,7 +756,7 @@ async def set_goal(callback: CallbackQuery, session: AsyncSession):
 
     code = callback.data.removeprefix("set_goal_")
     if not is_goal(code):
-        await callback.answer("❌ Error", show_alert=True)
+        await callback.answer("Error", show_alert=True)
         return
 
     user = await session.get(User, callback.from_user.id)
@@ -809,7 +809,7 @@ async def answer_level_offer(callback: CallbackQuery, session: AsyncSession):
     user = await session.get(User, callback.from_user.id)
     lang = (user.interface_language if user else None) or DEFAULT_LOCALE
     if not user:
-        await callback.answer("❌ Error", show_alert=True)
+        await callback.answer("Error", show_alert=True)
         return
 
     code = callback.data.removeprefix("level_up_")
@@ -826,7 +826,7 @@ async def answer_level_offer(callback: CallbackQuery, session: AsyncSession):
     try:
         following = CEFRLevel(code)
     except ValueError:
-        await callback.answer("❌ Error", show_alert=True)
+        await callback.answer("Error", show_alert=True)
         return
 
     await raise_level(user, session, following)
@@ -927,7 +927,7 @@ async def set_quiz_mode_level(callback: CallbackQuery, session: AsyncSession):
     try:
         user.level = CEFRLevel(level_str)
     except ValueError:
-        await callback.answer("❌ Error", show_alert=True)
+        await callback.answer("Error", show_alert=True)
         return
 
     user.quiz_mode = QuizMode.LEVEL
@@ -961,10 +961,10 @@ def get_category_keyboard(page: int, lang: str) -> InlineKeyboardMarkup:
     # Пагинация
     nav_row = []
     if page > 1:
-        nav_row.append(InlineKeyboardButton(text="◀", callback_data=f"qmode_category_page_{page - 1}"))
+        nav_row.append(InlineKeyboardButton(text="<", callback_data=f"qmode_category_page_{page - 1}"))
     nav_row.append(InlineKeyboardButton(text=f"{page} / {total_pages}", callback_data="noop"))
     if page < total_pages:
-        nav_row.append(InlineKeyboardButton(text="▶", callback_data=f"qmode_category_page_{page + 1}"))
+        nav_row.append(InlineKeyboardButton(text=">", callback_data=f"qmode_category_page_{page + 1}"))
     rows.append(nav_row)
 
     rows.append(_back_row(lang, "settings_quiz_mode"))
@@ -1000,7 +1000,7 @@ async def set_quiz_mode_category(callback: CallbackQuery, session: AsyncSession)
     try:
         cat = WordCategory[cat_name]
     except KeyError:
-        await callback.answer("❌ Error", show_alert=True)
+        await callback.answer("Error", show_alert=True)
         return
 
     user.quiz_mode = QuizMode.CATEGORY
@@ -1161,7 +1161,7 @@ async def set_interface_language(callback: CallbackQuery, session: AsyncSession)
     new_lang = callback.data.removeprefix("iface_lang_")
 
     if new_lang not in INTERFACE_LANGS:
-        await callback.answer("❌ Error", show_alert=True)
+        await callback.answer("Error", show_alert=True)
         return
 
     user = await session.get(User, callback.from_user.id)
@@ -1365,7 +1365,7 @@ async def audio_voices(callback: CallbackQuery, session: AsyncSession):
                     # слово синтезируется на лету и примерно в одном случае
                     # из пяти приходит без звука. Пока все голоса выглядели
                     # одинаково, узнать причину немоты было неоткуда
-                    text=("✅ " if v.name == chosen else "")
+                    text=("✓ " if v.name == chosen else "")
                          + v.label
                          + ("" if voice_is_ready(pair.learning, v.name, probes) else " ·"),
                     callback_data=f"audio_voice_{v.name}",

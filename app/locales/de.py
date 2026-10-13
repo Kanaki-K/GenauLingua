@@ -11,9 +11,9 @@ TEXTS = {
     # ============================================================================
     # HAUPTMENÜ
     # ============================================================================
-    "btn_learn_words": "📚 Wörter lernen",
-    "btn_stats": "📊 Statistik",
-    "btn_settings": "🦾 Einstellungen",
+    "btn_learn_words": "Wörter lernen",
+    "btn_stats": "Statistik",
+    "btn_settings": "Einstellungen",
     "btn_help": "Hilfe",
     "btn_back": "Zurück",
     "menu_placeholder": "Wähle eine Aktion...",
@@ -208,7 +208,7 @@ TEXTS = {
     "qmode_difficult_few": "Du hast bisher nur {count} schwierige Wörter — es braucht mindestens 4\nMach noch ein paar Quizze!",
     "qmode_difficult_empty": "Du hast bisher keine schwierigen Wörter.\nMach ein paar Quizze!",
 
-    "quiz_btn_change_mode": "Quiz-Modus",
+    "quiz_btn_change_mode": "Niveau und Themen",
     "quiz_btn_report_error": "Fehler melden",
     "report_btn_confirm": "✓ Bestätigen ({count})",
     "report_btn_send": "Senden",
@@ -243,11 +243,11 @@ TEXTS = {
     "quiz_btn_next": "Weiter →",
     "quiz_btn_repeat_errors": "Fehler wiederholen",
 
-    "quiz_completed": "<b>Quiz beendet!</b>",
-    "quiz_result_correct": "✓ Richtig: <b>{correct}/{total}</b>",
+    "quiz_completed": "<b>Runde geschafft</b>",
+    "quiz_result_correct": "Richtig: <b>{correct}/{total}</b>",
     "quiz_result_percentage": "Ergebnis: <b>{percentage}%</b>",
     "quiz_result_details": "<b>Einzelheiten:</b>",
-    "quiz_result_errors": "✗ Fehler: {count}",
+    "quiz_result_errors": "Fehler: {count}",
 
     # LOB AM RUNDENENDE — nur für das, was wirklich geschah
     "praise_first_round": "Erste Runde geschafft. Ab jetzt kommen Wörter zurück — so bleiben sie hängen.",
@@ -374,6 +374,10 @@ Je lebendiger die Community, desto besser wird der Bot. Nur keine Scheu! """,
     "rating_start_quiz": "Mach dein erstes Quiz!",
     "rating_position": "Platz: <b>#{rank}</b> von {total}",
     "rating_points": "Punkte: <b>{score}</b>",
+    "rating_title_polyglot": "Polyglott",
+    "rating_title_professor": "Professor",
+    "rating_title_expert": "Experte",
+    "rating_title_student": "Schüler",
     "rating_your_month": "<b>Dein {month}:</b>",
     "rating_quizzes": "Quizze: {count}",
     "rating_words_learned": "Wörter gelernt: {count}",
@@ -495,7 +499,7 @@ TEXTS.update({
 # подсказки направления стали работать на все тридцать пар вместо восьми.
 # ============================================================================
 TEXTS.update({
-    "btn_rating": "🏆 Rangliste",
+    "btn_rating": "Rangliste",
     "friend_fallback": "Freund",
     "onboarding_learning_title": "<b>Welche Sprache lernst du?</b>",
     "onboarding_learning_desc": "Die Bedeutungen erscheinen auf {native}\nSprache und Richtung kannst du jederzeit in den Einstellungen ändern.",

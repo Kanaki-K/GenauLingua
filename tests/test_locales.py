@@ -112,6 +112,29 @@ def test_reply_button_texts_are_unique_per_language():
 
 
 def test_button_texts_cover_all_interface_languages():
-    from app.bot.buttons import BTN_LEARN_WORDS, button_texts
+    """
+    Фильтр знает подпись на каждом языке — и нынешнюю, и прежнюю.
 
-    assert len(button_texts(BTN_LEARN_WORDS)) == len(LOCALES)
+    Прежде здесь стояло `len(button_texts(...)) == len(LOCALES)`, то есть
+    «ровно по одной подписи на язык». Решение изменилось: подписи нижних
+    кнопок потеряли значки, а реплай-клавиатура живёт НА СООБЩЕНИИ и у
+    человека в чате остаётся прежняя. Фильтр обязан принимать обе, иначе
+    кнопка молча перестаёт работать — и выбраться можно только командой.
+
+    Поэтому проверяется не ЧИСЛО подписей, а покрытие: каждый язык и
+    каждая прежняя подпись на месте. Полнее об этом —
+    `tests/test_legacy_buttons.py`.
+    """
+    from app.bot.buttons import BTN_LEARN_WORDS, LEGACY_TEXTS, button_texts
+
+    caught = button_texts(BTN_LEARN_WORDS)
+
+    for lang in LOCALES:
+        assert get_text(BTN_LEARN_WORDS, lang) in caught, lang
+    for old in LEGACY_TEXTS[BTN_LEARN_WORDS]:
+        assert old in caught, old
+
+    # Лишнего в фильтре нет: только нынешние и перечисленные прежние
+    expected = {get_text(BTN_LEARN_WORDS, lang) for lang in LOCALES}
+    expected |= set(LEGACY_TEXTS[BTN_LEARN_WORDS])
+    assert caught == expected

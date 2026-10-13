@@ -43,9 +43,14 @@ def get_table_keyboard(lang: str, current_tab: str = "monthly") -> InlineKeyboar
 
 
 def _rank_emoji(rank: int) -> str:
-    if rank == 1: return "🥇"
-    elif rank == 2: return "🥈"
-    elif rank == 3: return "🥉"
+    """
+    Место — числом, у всех одинаково.
+
+    Медали за первые три места были тремя разными знаками на одном экране,
+    а четвёртое и далее отмечалось точкой после номера. Числа читаются
+    сразу и сравниваются между собой; медаль говорит «ты молодец», чего
+    таблица и не обещает.
+    """
     return f"{rank}."
 
 
@@ -77,7 +82,8 @@ def build_monthly_table(leaderboard: list, user_rank: dict, season, user_id: int
 
         title = ""
         if rank > 3:
-            t = get_user_title(entry.get("win_streak"), entry.get("monthly_words", 0))
+            t = get_user_title(entry.get("win_streak"),
+                               entry.get("monthly_words", 0), lang)
             if t: title = f" {t}"
 
         is_me = entry["user_id"] == user_id
@@ -87,7 +93,7 @@ def build_monthly_table(leaderboard: list, user_rank: dict, season, user_id: int
         else:
             text += f"{emoji} {name}{title} — {score} {pts}\n"
 
-    text += "\n" + "━" * 17 + "\n"
+    text += "\n" + "·" * 17 + "\n"
 
     if user_rank:
         rank = user_rank['rank']
@@ -123,7 +129,8 @@ def build_alltime_table(leaderboard: list, user: User, lang: str) -> str:
 
         title = ""
         if rank > 3:
-            t = get_user_title(entry.get("win_streak"), entry.get("words_learned", 0))
+            t = get_user_title(entry.get("win_streak"),
+                               entry.get("words_learned", 0), lang)
             if t: title = f" {t}"
 
         is_me = entry["user_id"] == user_id
@@ -133,7 +140,7 @@ def build_alltime_table(leaderboard: list, user: User, lang: str) -> str:
         else:
             text += f"{emoji} {name}{title} — {score} {pts}\n"
 
-    text += "\n" + "━" * 17 + "\n"
+    text += "\n" + "·" * 17 + "\n"
 
     user_rank_num = None
     for entry in leaderboard:

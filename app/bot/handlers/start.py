@@ -219,7 +219,7 @@ async def select_language(callback: CallbackQuery, state: FSMContext, session: A
     """
     lang = callback.data.removeprefix("select_lang_")
     if lang not in INTERFACE_LANGS:
-        await callback.answer("❌ Error", show_alert=True)
+        await callback.answer("Error", show_alert=True)
         return
 
     user = await session.get(User, callback.from_user.id)
@@ -250,7 +250,7 @@ async def onboard_learning_language(callback: CallbackQuery, state: FSMContext,
     lang = user.interface_language or DEFAULT_LOCALE
 
     if not is_learnable(code) or code == user.native_lang:
-        await callback.answer("❌ Error", show_alert=True)
+        await callback.answer("Error", show_alert=True)
         return
 
     user.learning_lang = code
@@ -310,7 +310,7 @@ async def select_level(callback: CallbackQuery, state: FSMContext, session: Asyn
 
     await callback.message.delete()
 
-    old_anchor_id, new_anchor_id = await ensure_anchor(callback.message, session, user, emoji="🤖")
+    old_anchor_id, new_anchor_id = await ensure_anchor(callback.message, session, user, emoji="")
 
     if old_anchor_id:
         current_msg_id = callback.message.message_id
@@ -371,7 +371,7 @@ async def _show_intro(
         f"{get_text('intro_where_you_are', lang, language=learning_name, mode=mode)}"
     )
 
-    old_anchor_id, _ = await ensure_anchor(message, session, user, emoji="🤖")
+    old_anchor_id, _ = await ensure_anchor(message, session, user, emoji="")
     if old_anchor_id:
         await delete_messages_fast(
             message.bot, message.chat.id, old_anchor_id, message.message_id
@@ -443,12 +443,12 @@ async def choose_goal(callback: CallbackQuery, state: FSMContext, session: Async
 
     code = callback.data.removeprefix("goal_")
     if not is_goal(code):
-        await callback.answer("❌ Error", show_alert=True)
+        await callback.answer("Error", show_alert=True)
         return
 
     user = await session.get(User, callback.from_user.id)
     if not user:
-        await callback.answer("❌ Error", show_alert=True)
+        await callback.answer("Error", show_alert=True)
         return
 
     user.learning_goal = code

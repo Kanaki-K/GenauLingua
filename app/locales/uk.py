@@ -6,9 +6,9 @@ TEXTS = {
     # ============================================================================
     # КНОПКИ ГОЛОВНОГО МЕНЮ
     # ============================================================================
-    "btn_learn_words": "📚 Вчити слова",
-    "btn_stats": "📊 Статистика",
-    "btn_settings": "🦾 Налаштування",
+    "btn_learn_words": "Вчити слова",
+    "btn_stats": "Статистика",
+    "btn_settings": "Налаштування",
     "btn_help": "Допомога",
     "btn_back": "Назад",
     "menu_placeholder": "Обери дію...",
@@ -201,7 +201,7 @@ TEXTS = {
     "qmode_difficult_few": "У тебе поки тільки {count} складних слів — потрібно мінімум 4\nПройди ще кілька вікторин!",
     "qmode_difficult_empty": "У тебе поки немає складних слів.\nПройди кілька вікторин!",
 
-    "quiz_btn_change_mode": "Режим вікторини",
+    "quiz_btn_change_mode": "Рівень і теми",
     "quiz_btn_report_error": "Помилка перекладу",
     "report_btn_confirm": "✓ Підтвердити ({count})",
     "report_btn_send": "Відправити",
@@ -236,11 +236,11 @@ TEXTS = {
     "quiz_btn_next": "Далі →",
     "quiz_btn_repeat_errors": "Повторити помилки",
 
-    "quiz_completed": "<b>Вікторину завершено!</b>",
-    "quiz_result_correct": "✓ Правильно: <b>{correct}/{total}</b>",
+    "quiz_completed": "<b>Коло пройдено</b>",
+    "quiz_result_correct": "Правильно: <b>{correct}/{total}</b>",
     "quiz_result_percentage": "Результат: <b>{percentage}%</b>",
     "quiz_result_details": "<b>Деталі:</b>",
-    "quiz_result_errors": "✗ Помилок: {count}",
+    "quiz_result_errors": "Помилок: {count}",
 
     # ПОХВАЛА В КІНЦІ КОЛА — хвалимо лише за те, що сталося
     "praise_first_round": "Перше коло пройдено. Далі слова почнуть повертатися — так вони й запам'ятовуються.",
@@ -366,6 +366,10 @@ TEXTS = {
     "rating_start_quiz": "Пройди першу вікторину!",
     "rating_position": "Позиція: <b>#{rank}</b> з {total}",
     "rating_points": "Бали: <b>{score}</b>",
+    "rating_title_polyglot": "поліглот",
+    "rating_title_professor": "професор",
+    "rating_title_expert": "експерт",
+    "rating_title_student": "учень",
     "rating_your_month": "<b>Твій {month}:</b>",
     "rating_quizzes": "Вікторин: {count}",
     "rating_words_learned": "Вивчено слів: {count}",
@@ -482,7 +486,7 @@ TEXTS.update({
 # подсказки направления стали работать на все тридцать пар вместо восьми.
 # ============================================================================
 TEXTS.update({
-    "btn_rating": "🏆 Рейтинг",
+    "btn_rating": "Рейтинг",
     "friend_fallback": "друже",
     "onboarding_learning_title": "<b>Яку мову вивчатимеш?</b>",
     "onboarding_learning_desc": "Значення слів показуватимуться цією мовою: {native}\nЗмінити мову й напрямок можна в налаштуваннях будь-коли.",

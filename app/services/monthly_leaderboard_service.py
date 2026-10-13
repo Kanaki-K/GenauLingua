@@ -422,12 +422,12 @@ async def calculate_monthly_streak(
 def _award_type_to_emoji(award_type: str) -> str:
     """Конвертировать тип награды в эмодзи"""
     mapping = {
-        "gold": "🥇",
-        "silver": "🥈",
-        "bronze": "🥉",
-        "top10": "🏅",
+        "gold": "",
+        "silver": "",
+        "bronze": "",
+        "top10": "",
     }
-    return mapping.get(award_type, "🏅")
+    return mapping.get(award_type, "")
 
 
 # ============================================================================

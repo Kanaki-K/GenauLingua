@@ -6,9 +6,9 @@ TEXTS = {
     # ============================================================================
     # КНОПКИ ГЛАВНОГО МЕНЮ
     # ============================================================================
-    "btn_learn_words": "📚 Учить слова",
-    "btn_stats": "📊 Статистика",
-    "btn_settings": "🦾 Настройки",
+    "btn_learn_words": "Учить слова",
+    "btn_stats": "Статистика",
+    "btn_settings": "Настройки",
     "btn_help": "Помощь",
     "btn_back": "Назад",
     "menu_placeholder": "Выбери действие...",
@@ -206,7 +206,7 @@ TEXTS = {
     "qmode_difficult_few": "У тебя пока только {count} сложных слов — нужно минимум 4\nПройди ещё несколько викторин!",
     "qmode_difficult_empty": "У тебя пока нет сложных слов.\nПройди несколько викторин!",
 
-    "quiz_btn_change_mode": "Режим викторины",
+    "quiz_btn_change_mode": "Уровень и темы",
     "quiz_btn_report_error": "Ошибка перевода",
     "report_btn_confirm": "✓ Подтвердить ({count})",
     "report_btn_send": "Отправить",
@@ -241,11 +241,11 @@ TEXTS = {
     "quiz_btn_next": "Дальше →",
     "quiz_btn_repeat_errors": "Повторить ошибки",
 
-    "quiz_completed": "<b>Викторина завершена!</b>",
-    "quiz_result_correct": "✓ Правильно: <b>{correct}/{total}</b>",
+    "quiz_completed": "<b>Круг пройден</b>",
+    "quiz_result_correct": "Верно: <b>{correct}/{total}</b>",
     "quiz_result_percentage": "Результат: <b>{percentage}%</b>",
     "quiz_result_details": "<b>Детали:</b>",
-    "quiz_result_errors": "✗ Ошибок: {count}",
+    "quiz_result_errors": "Ошибок: {count}",
 
     # ПООЩРЕНИЕ В КОНЦЕ КРУГА — хвалим только за то, что случилось
     "praise_first_round": "Первый круг пройден. Дальше слова начнут возвращаться — так они и запоминаются.",
@@ -372,6 +372,10 @@ TEXTS = {
     "rating_start_quiz": "Пройди первую викторину!",
     "rating_position": "Позиция: <b>#{rank}</b> из {total}",
     "rating_points": "Баллы: <b>{score}</b>",
+    "rating_title_polyglot": "полиглот",
+    "rating_title_professor": "профессор",
+    "rating_title_expert": "эксперт",
+    "rating_title_student": "ученик",
     "rating_your_month": "<b>Твой {month}:</b>",
     "rating_quizzes": "Викторин: {count}",
     "rating_words_learned": "Выучено слов: {count}",
@@ -493,7 +497,7 @@ TEXTS.update({
 # подсказки направления стали работать на все тридцать пар вместо восьми.
 # ============================================================================
 TEXTS.update({
-    "btn_rating": "🏆 Рейтинг",
+    "btn_rating": "Рейтинг",
     "friend_fallback": "друг",
     "onboarding_learning_title": "<b>Какой язык будешь учить?</b>",
     "onboarding_learning_desc": "Значения слов будут показываться на этом языке: {native}\nСменить язык и направление можно в настройках в любой момент.",

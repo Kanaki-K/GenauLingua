@@ -104,7 +104,7 @@ async def accept_reminder_offer(callback: CallbackQuery, session: AsyncSession):
     lang = (user.interface_language if user else None) or DEFAULT_LOCALE
 
     if not user:
-        await callback.answer("❌ Error", show_alert=True)
+        await callback.answer("Error", show_alert=True)
         return
 
     await enable_reminders(user, session)
