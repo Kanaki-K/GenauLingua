@@ -234,7 +234,7 @@ async def _walk_old(dp, bot, recorder, user, raw: bool) -> None:
     await dp.feed_update(bot, text_update(user.id, get_text("btn_stats", "ru")))
     _dump(recorder, raw, "10. статистика")
 
-    await dp.feed_update(bot, text_update(user.id, get_text("btn_leaderboard", "ru")))
+    await dp.feed_update(bot, text_update(user.id, get_text("btn_rating", "ru")))
     _dump(recorder, raw, "11. рейтинг")
 
     await dp.feed_update(bot, press(user.id, "match_start"))
