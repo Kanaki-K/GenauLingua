@@ -535,6 +535,29 @@ KNOWN_SOURCES = frozenset({
     SOURCE_AGAIN, SOURCE_START, SOURCE_BOARD, SOURCE_REPEAT,
 })
 
+# Подписи дверей для админки живут ЗДЕСЬ, рядом с самими пометками. Прежде
+# они были выписаны в трёх местах по-разному: в «Играх» со значками, в
+# «Аналитике» — там искалось значение 'notification', которого не пишет
+# никто, а остальные двери выводились сырым тегом, в карточке человека —
+# тоже сырым. Подпись рядом с пометкой разъехаться не может.
+SOURCE_LABELS: dict[str, str] = {
+    SOURCE_MENU: "кнопка «Учить»",
+    SOURCE_HOME: "домашний экран",
+    SOURCE_CHANNEL: "прямой вход",
+    SOURCE_REMINDER: "напоминание",
+    SOURCE_AGAIN: "ещё круг",
+    SOURCE_START: "вступление",
+    SOURCE_BOARD: "итог доски",
+    SOURCE_REPEAT: "повтор ошибок",
+}
+
+
+def source_label(source: Optional[str]) -> str:
+    """Подпись двери. Незнакомая пометка показывается как есть, а не прячется."""
+    if not source:
+        return "без пометки (история)"
+    return SOURCE_LABELS.get(source, source)
+
 
 def source_from_callback(data: str, default: str = SOURCE_HOME) -> str:
     """

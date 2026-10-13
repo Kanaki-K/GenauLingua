@@ -10,6 +10,7 @@
 import asyncio
 import os
 import sys
+import logging
 import traceback
 from pathlib import Path
 
@@ -21,6 +22,9 @@ from app.config import settings
 from app.database.session import AsyncSessionLocal
 
 ADMIN_ID = settings.ADMIN_USER
+
+# Эхо SQL забивает отчёт: семнадцать разделов дают сотни запросов
+logging.disable(logging.ERROR)
 
 
 # ---------------------------------------------------------------- заглушки
@@ -122,8 +126,13 @@ def find_empty_sections(text: str) -> list[str]:
 
 async def run_callback(session, name, handler, data):
     cb = StubCallback(data)
+    # Сессия передаётся, только если обработчик её просит: отмена рассылки
+    # берёт один аргумент, и приёмка валилась на TypeError — то есть врала,
+    # будто раздел сломан
+    import inspect
+    takes_session = len(inspect.signature(handler).parameters) > 1
     try:
-        await handler(cb, session)
+        await (handler(cb, session) if takes_session else handler(cb))
     except Exception as exc:
         return name, "ПАДАЕТ", f"{type(exc).__name__}: {exc}", traceback.format_exc()
 
@@ -149,42 +158,98 @@ async def run_command(session, name, handler, text=""):
     return name, "ок", detail, body
 
 
+# ---------------------------------------------------------------- разделы
+# Вызывать НЕЛЬЗЯ, и для каждого исключения — причина.
+DANGEROUS = {
+    # Рассылает текст всем 233 людям без подтверждения
+    "admin:broadcast_confirm",
+}
+
+# Требуют номер слова в адресе и МЕНЯЮТ данные: подтверждение жалобы
+# начисляет баллы и шлёт извещения. Приёмка только читает.
+MUTATING_PREFIXES = ("admin:report_approve_", "admin:report_reject_")
+
+
+def _discover_callbacks() -> list:
+    """
+    Все обработчики разделов — из разбора `admin.py`, а не из списка.
+
+    Подпись берётся из первой строки описания обработчика; нет описания —
+    берётся имя функции. Так новый раздел попадает в приёмку сам, с
+    осмысленной подписью, и забыть его нельзя.
+    """
+    import ast
+
+    source = Path(admin.__file__).read_text(encoding="utf-8")
+    tree = ast.parse(source)
+
+    found = []
+    for node in tree.body:
+        if not isinstance(node, (ast.AsyncFunctionDef, ast.FunctionDef)):
+            continue
+        for decorator in node.decorator_list:
+            if not isinstance(decorator, ast.Call) or not decorator.args:
+                continue
+            target = decorator.args[0]
+            # F.data == "admin:…"
+            if not (isinstance(target, ast.Compare)
+                    and len(target.comparators) == 1
+                    and isinstance(target.comparators[0], ast.Constant)
+                    and isinstance(target.comparators[0].value, str)):
+                continue
+            data = target.comparators[0].value
+            if not data.startswith("admin:"):
+                continue
+            doc = ast.get_docstring(node)
+            label = (doc.strip().split("\n")[0].rstrip(".")
+                     if doc else node.name)
+            found.append((label[:24], getattr(admin, node.name), data))
+
+    print(f"разделов найдено в коде: {len(found)}")
+    print(f"не вызываются, меняют данные: {', '.join(MUTATING_PREFIXES)}")
+    return found
+
+
 async def main():
     results = []
     bodies = {}
 
-    callbacks = [
-        ("📈 Аналитика", admin.admin_analytics, "admin:analytics"),
-        ("🎮 Игры", admin.admin_games, "admin:games"),
-        ("👥 Когорты", admin.admin_cohorts, "admin:cohorts"),
-        ("⚠️ Churn", admin.admin_churn, "admin:churn"),
-        ("📤 Экспорт (меню)", admin.admin_export_menu, "admin:export"),
-        ("📤 Экспорт юзеров", admin.admin_export_users, "admin:export_users"),
-        ("📤 Экспорт викторин", admin.admin_export_quizzes, "admin:export_quizzes"),
-        ("👤 Топ юзеры", admin.admin_top_users_callback, "admin:top_users"),
-        ("📊 Детали", admin.admin_detailed_callback, "admin:detailed"),
-        ("📝 Репорты", admin.admin_reports, "admin:reports"),
-        ("◀️ Назад", admin.admin_back, "admin:back"),
-    ]
-
-    # СТОРОЖ: НИ ОДИН РАЗДЕЛ НЕ ОСТАЁТСЯ НЕПРОВЕРЕННЫМ.
+    # ОТКУДА БЕРЁТСЯ СПИСОК РАЗДЕЛОВ.
     #
-    # Список выше вшит руками — он даёт понятные подписи, — и ровно поэтому
-    # новый раздел админки оказался бы здесь неназванным и необойдённым.
-    # Так уже вышло с `admin:games`: раздела не было вовсе, а когда появился,
-    # приёмка о нём не узнала бы. Сверяем список с кнопками, которые админка
-    # САМА рисует на своей клавиатуре.
+    # Прежде он был выписан здесь руками, с подписями, — и ровно поэтому
+    # новый раздел оказался бы необойдённым: так уже вышло с `admin:games`.
+    # Сторож тогда сверял список с кнопками ГЛАВНОЙ клавиатуры, но стоило
+    # разделам уйти на второй уровень («Приход» и «Отток» внутри «Людей»),
+    # как на главной их не стало — и сторож перестал бы их видеть.
+    #
+    # Теперь обработчики вынимаются из самого кода: каждый
+    # `@router.callback_query(F.data == "admin:…")` в `admin.py`. Список
+    # устареть не может — он и есть код.
+    callbacks = _discover_callbacks()
+
+    # Исключение обязано указывать на СУЩЕСТВУЮЩИЙ раздел: иначе оно
+    # осталось от снятого кода и молча прикрывает что-то другое
+    all_found = {data for _, _, data in callbacks}
+    stale = sorted(DANGEROUS - all_found)
+    if stale:
+        print("СТОРОЖ: в опасных названы разделы, которых больше нет: "
+              + ", ".join(stale))
+
+    callbacks = [item for item in callbacks if item[2] not in DANGEROUS]
+    for name in sorted(DANGEROUS & all_found):
+        print(f"не вызывается нарочно: {name} — шлёт всем без спроса")
+    print()
+
     drawn = {
         button.callback_data
         for row in admin.get_admin_keyboard().inline_keyboard
         for button in row
         if button.callback_data
     }
-    missing = sorted(drawn - {data for _, _, data in callbacks})
-    if missing:
-        print("СТОРОЖ: в приёмке не вызываются разделы админки: "
-              + ", ".join(missing))
-        print("        допиши их в `callbacks` — иначе они не проверены ничем\n")
+    orphan = sorted(drawn - {data for _, _, data in callbacks})
+    if orphan:
+        print("СТОРОЖ: кнопка на главной ведёт в пустоту: "
+              + ", ".join(orphan) + "\n")
 
     commands = [
         ("/admin", admin.admin_panel, ""),
