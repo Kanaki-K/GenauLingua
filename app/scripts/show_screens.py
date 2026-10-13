@@ -2,22 +2,23 @@
 ПОКАЗАТЬ ВСЕ ЭКРАНЫ так, как их видит человек.
 
 ЗАЧЕМ. В проекте есть правило, выведенное болью: «экран надо ПОКАЗАТЬ, а
-не вычитать». Приёмка на 262 экранах не увидела трёх дефектов вида —
-потому что проверяла числа в блоках, а не то, как блок выглядит целиком.
-Разговор о внешности без самих экранов на столе — разговор о домыслах.
+не вычитать». Приёмка на 262 экранах не увидела трёх дефектов вида — она
+проверяла числа в блоках, а не то, как блок выглядит целиком.
 
-Скрипт прогоняет настоящие обработчики через настоящий диспетчер и
-печатает каждый экран: текст как есть (с разметкой или без) и клавиатуру
-рядами. Плюс считает эмодзи — замер показал 75 РАЗНЫХ значков на 386
-строк интерфейса, то есть системы нет, есть украшение.
-
-ДВА ЧЕЛОВЕКА, и это главное в скрипте. Новый видит не то же, что
-играющий: у новичка нет ни прогресса, ни серии, ни места в рейтинге, и
-половина экранов у него выглядит иначе. Сравнивать их надо рядом.
+СПИСОК ЭКРАНОВ НЕ ПИШЕТСЯ РУКАМИ, и это главное в скрипте. Первая его
+редакция перечисляла экраны вручную — и пропустила ровно то, что потом
+спросил владелец: жалобу на перевод, подробную статистику, рейтинг.
+Поэтому кнопки берутся ИЗ КОДА (тем же сборщиком, что у `verify_buttons`),
+а в конце печатается, какие из них не дали экрана. Пропустить молча больше
+нельзя.
 
     ENV_FILE=.env.local .venv/Scripts/python.exe -m app.scripts.show_screens
-    ... -m app.scripts.show_screens --who new
-    ... -m app.scripts.show_screens --raw      # не убирать html-разметку
+    ... --who new      путь нового человека
+    ... --who old      экраны играющего
+    ... --who round    круг целиком и жалоба на перевод
+    ... --who sweep    обход ВСЕХ кнопок из кода + отчёт о покрытии
+    ... --who all      всё подряд
+    ... --raw          не убирать html-разметку
 """
 
 from __future__ import annotations
@@ -38,16 +39,18 @@ from app.testing import make_bot, make_dispatcher, press, reset_state, text_upda
 
 logging.disable(logging.ERROR)
 
-PROBE_NEW = 980_000_101
-PROBE_OLD = 980_000_102
+PROBE = 980_000_101
 
 EMOJI = re.compile(
     "[\U0001F300-\U0001FAFF\U00002600-\U000027BF\U0001F000-\U0001F2FF"
     "\U00002190-\U000021FF\U00002B00-\U00002BFF️⃣]"
 )
 TAGS = re.compile(r"</?[a-zA-Z][^>]*>")
-
 WIDTH = 78
+
+# Что в обходе не нажимаем: админка проверяется своим `audit_admin`,
+# рассылка уходит живым людям, «noop» — заглушка.
+SKIP = ("admin:", "broadcast", "noop")
 
 
 def _plain(text: str, raw: bool) -> str:
@@ -59,6 +62,14 @@ def _frame(title: str) -> None:
     print("┌" + "─" * WIDTH + "┐")
     print("│ " + title.ljust(WIDTH - 1) + "│")
     print("└" + "─" * WIDTH + "┘")
+
+
+def _keyboard_rows(payload: dict) -> list[list[str]]:
+    markup = payload.get("reply_markup")
+    if not isinstance(markup, dict):
+        return []
+    rows = markup.get("inline_keyboard") or markup.get("keyboard") or []
+    return [[str(b.get("text", "")) for b in row] for row in rows]
 
 
 def _screen(text: str, rows: list[list[str]], raw: bool) -> None:
@@ -77,22 +88,22 @@ def _screen(text: str, rows: list[list[str]], raw: bool) -> None:
         print(f"   ·· значков: {len(marks)} — {' '.join(dict.fromkeys(marks))}")
 
 
-def _keyboard_rows(payload: dict) -> list[list[str]]:
-    markup = payload.get("reply_markup")
-    if not isinstance(markup, dict):
-        return []
-    rows = markup.get("inline_keyboard") or markup.get("keyboard") or []
-    out = []
-    for row in rows:
-        out.append([str(b.get("text", "")) for b in row])
-    return out
-
-
-def _dump(recorder, raw: bool, title: str) -> None:
-    """Напечатать всё, что бот показал с прошлого сброса."""
+def _dump(recorder, raw: bool, title: str) -> bool:
+    """Напечатать всё, что бот показал. False — если ничего."""
     _frame(title)
     shown = False
     for name, payload in recorder.calls:
+        # EditMessageReplyMarkup — правка ОДНОЙ клавиатуры, без текста. Так
+        # сделан весь путь жалобы на перевод: список слов подменяет кнопки
+        # под итогом круга. Первая редакция такие вызовы пропускала, и
+        # жалоба выглядела как «бот ничего не показал»
+        if name == "EditMessageReplyMarkup":
+            if shown:
+                print("   " + "·" * (WIDTH - 4))
+            _screen("(текста нет — меняются только кнопки)",
+                    _keyboard_rows(payload), raw)
+            shown = True
+            continue
         if name not in ("SendMessage", "EditMessageText", "SendAudio",
                         "EditMessageCaption", "EditMessageMedia"):
             continue
@@ -108,180 +119,314 @@ def _dump(recorder, raw: bool, title: str) -> None:
     if not shown:
         print("   (бот ничего не показал)")
     recorder.clear()
+    return shown
 
 
 # ============================================================================
-# ПОДОПЫТНЫЕ
+# ПОДОПЫТНЫЙ
 # ============================================================================
 
-async def _drop(session, user_id: int) -> None:
+async def _drop(session) -> None:
     await session.rollback()
-    await session.execute(delete(User).where(User.id == user_id))
+    await session.execute(delete(User).where(User.id == PROBE))
     await session.commit()
     session.expunge_all()
 
 
-async def _new_person(session) -> User:
-    """Человек, который только что нашёл бота: ни уровня, ни прогресса."""
-    await _drop(session, PROBE_NEW)
-    # ВСЁ ПУСТОЕ, как у настоящего новичка: ни языка бота, ни изучаемого,
-    # ни уровня. Первая редакция подопытного уже имела «ru» и «de» — и
-    # выбор языка проскочил, то есть скрипт показывал не тот путь.
-    user = User(
-        id=PROBE_NEW, first_name="Новый", interface_language=None,
-        learning_lang=None, native_lang=None, reverse_mode=False,
-        level=None,
-    )
-    session.add(user)
-    await session.commit()
-    return user
+async def _probe(session, *, fresh: bool = False, channels: str = "tas",
+                 count: int = 15, words: int = 60) -> User:
+    """
+    Подопытный. `fresh=True` — настоящий новичок: ни языка, ни уровня.
 
+    Точность знакомых слов 60% (3 из 5), а не 100%, и это не мелочь: подбор
+    берёт слова корзинами, где освоенным достаётся 1%, и у безупречно
+    знакомых круг пошёл бы одним текстом. Та же ловушка уже сработала в
+    приёмке круга.
+    """
+    await _drop(session)
 
-async def _old_person(session) -> User:
-    """Человек, который играет давно: серия, прогресс по трём каналам."""
-    await _drop(session, PROBE_OLD)
+    if fresh:
+        user = User(
+            id=PROBE, first_name="Новый", interface_language=None,
+            learning_lang=None, native_lang=None, reverse_mode=False,
+            level=None,
+        )
+        session.add(user)
+        await session.commit()
+        return user
+
     user = User(
-        id=PROBE_OLD, first_name="Играющий", interface_language="ru",
+        id=PROBE, first_name="Играющий", interface_language="ru",
         learning_lang="de", native_lang="ru", reverse_mode=False,
-        level=CEFRLevel.B1, quiz_mode=QuizMode.LEVEL, quiz_word_count=15,
-        quiz_channels="tas", audio_enabled=True, match_in_round=True,
-        streak_days=7, quizzes_passed=42, words_learned=118, success_rate=84,
+        level=CEFRLevel.B1, quiz_mode=QuizMode.LEVEL, quiz_word_count=count,
+        quiz_channels=channels,
+        audio_enabled=("a" in channels or "s" in channels),
+        match_in_round=True, streak_days=7, quizzes_passed=42,
+        words_learned=118, success_rate=84,
     )
     session.add(user)
     await session.commit()
 
-    words = (await session.execute(
+    rows = (await session.execute(
         select(Word)
         .join(WordLangGroup, (WordLangGroup.word_id == Word.id)
               & (WordLangGroup.lang == "de")
               & (WordLangGroup.is_canonical.is_(True)))
         .where(Word.level == CEFRLevel.B1)
-        .order_by(func.random()).limit(60)
+        .order_by(func.random()).limit(words)
     )).scalars().all()
-    for index, word in enumerate(words):
+    for index, word in enumerate(rows):
         session.add(UserWord(
             user_id=user.id, word_id=word.id, learning_lang="de",
-            times_shown=5, times_correct=3 if index % 3 else 2,
-            correct_streak=1, learned=index % 7 == 0, last_seen_at=None,
+            times_shown=5, times_correct=3, correct_streak=1,
+            learned=index % 7 == 0, last_seen_at=None,
         ))
     await session.commit()
     return user
 
 
 # ============================================================================
-# ПРОГОН
+# ПУТЬ НОВОГО ЧЕЛОВЕКА
 # ============================================================================
 
-async def _walk_new(dp, bot, recorder, user, raw: bool) -> None:
+async def flow_new(dp, bot, rec, raw: bool, session) -> None:
     print("\n\n" + "=" * (WIDTH + 2))
     print("  НОВЫЙ ЧЕЛОВЕК: что он видит по порядку")
     print("=" * (WIDTH + 2))
 
-    recorder.clear()
+    await reset_state(dp)
+    user = await _probe(session, fresh=True)
+    rec.clear()
+
     await dp.feed_update(bot, text_update(user.id, "/start"))
-    _dump(recorder, raw, "1. /start — первое, что видит человек")
+    _dump(rec, raw, "1. /start — первое, что видит человек")
 
     for data, title in (
-        ("select_lang_ru", "2. выбрал язык бота"),
+        ("select_lang_uk", "2. выбрал язык бота"),
         ("onboard_learn_de", "3. выбрал, что учит"),
         ("start_level_A1", "4. выбрал уровень"),
         ("goal_travel", "5. выбрал, зачем учит"),
     ):
         await dp.feed_update(bot, press(user.id, data))
-        _dump(recorder, raw, title)
+        _dump(rec, raw, title)
 
 
-async def _walk_old(dp, bot, recorder, user, raw: bool) -> None:
+# ============================================================================
+# КРУГ ЦЕЛИКОМ И ЖАЛОБА НА ПЕРЕВОД
+# ============================================================================
+
+async def flow_round(dp, bot, rec, raw: bool, session) -> None:
+    """
+    Короткий круг — и вся жалоба на перевод за ним.
+
+    Состав нарочно «t», только карточка: у вопроса ВСЛУХ кнопок ответа нет,
+    отвечают голосовым, и обход вставал бы там. Первая редакция скрипта так
+    и встала — жалоба, которую владелец потом спросил отдельно, в показ не
+    попадала.
+    """
     print("\n\n" + "=" * (WIDTH + 2))
-    print("  ИГРАЮЩИЙ ЧЕЛОВЕК: все экраны, куда он может попасть")
+    print("  КРУГ ЦЕЛИКОМ И ЖАЛОБА НА ПЕРЕВОД")
     print("=" * (WIDTH + 2))
 
-    recorder.clear()
-    await dp.feed_update(bot, text_update(user.id, "/start"))
-    _dump(recorder, raw, "1. /start — вступительный блок")
-
-    await dp.feed_update(bot, text_update(user.id, "/home"))
-    _dump(recorder, raw, "2. /home — домашний экран")
-
-    # Главное меню — реплай-клавиатура
-    from app.bot.keyboards import get_main_menu_keyboard
-    _frame("3. главное меню (кнопки внизу экрана)")
-    kb = get_main_menu_keyboard("ru")
-    rows = [[b.text for b in row] for row in kb.keyboard]
-    _screen("(реплай-клавиатура, видна всегда)", rows, raw)
+    await reset_state(dp)
+    user = await _probe(session, channels="t", count=4)
+    context = dp.fsm.get_context(bot, chat_id=user.id, user_id=user.id)
+    rec.clear()
 
     await dp.feed_update(bot, text_update(user.id, get_text("btn_learn_words", "ru")))
-    _dump(recorder, raw, "4. вопрос карточкой")
+    _dump(rec, raw, "1. вопрос карточкой")
 
-    options = [b for b in recorder.buttons() if b.startswith("answer_")] \
-        if recorder.calls else []
-    # Ответ на первый вопрос: карточку надо показать после ответа
-    context = dp.fsm.get_context(bot, chat_id=user.id, user_id=user.id)
     data = await context.get_data()
     if data.get("correct_word_id"):
         await dp.feed_update(bot, press(user.id, f"answer_{data['correct_word_id']}"))
-        _dump(recorder, raw, "5. разбор после верного ответа")
+        _dump(rec, raw, "2. разбор после ВЕРНОГО ответа")
+        await dp.feed_update(bot, press(user.id, "next_question"))
 
-    for data_cb, title in (
-        ("settings_open", "6. настройки — верхний уровень"),
-        ("settings_group_what", "7. настройки → что учу"),
-        ("settings_group_how", "8. настройки → как учу"),
-        ("settings_group_bot", "9. настройки → бот"),
-    ):
-        await dp.feed_update(bot, press(user.id, data_cb))
-        _dump(recorder, raw, title)
+    data = await context.get_data()
+    options = [b for b in rec.buttons() if b.startswith("answer_")]
+    wrong = next((o for o in options
+                  if o != f"answer_{data.get('correct_word_id')}"), None)
+    rec.clear()
+    if wrong:
+        await dp.feed_update(bot, press(user.id, wrong))
+        _dump(rec, raw, "3. разбор после НЕВЕРНОГО ответа")
+        await dp.feed_update(bot, press(user.id, "next_question"))
 
-    await dp.feed_update(bot, text_update(user.id, get_text("btn_stats", "ru")))
-    _dump(recorder, raw, "10. статистика")
+    for _ in range(10):
+        options = [b for b in rec.buttons() if b.startswith("answer_")]
+        if not options:
+            break
+        rec.clear()
+        await dp.feed_update(bot, press(user.id, options[0]))
+        if "next_question" not in rec.buttons():
+            break
+        await dp.feed_update(bot, press(user.id, "next_question"))
+    _dump(rec, raw, "4. итог круга")
 
-    await dp.feed_update(bot, text_update(user.id, get_text("btn_rating", "ru")))
-    _dump(recorder, raw, "11. рейтинг")
+    await dp.feed_update(bot, press(user.id, "report_translation_error"))
+    shown = _dump(rec, raw, "5. жалоба: список слов круга")
 
-    await dp.feed_update(bot, press(user.id, "match_start"))
-    _dump(recorder, raw, "12. доска сопоставления")
+    toggles = [b for b in rec.all_buttons() if b.startswith("report_toggle_")]
+    if not shown or not toggles:
+        await dp.feed_update(bot, press(user.id, "report_translation_error"))
+        toggles = [b for b in rec.all_buttons() if b.startswith("report_toggle_")]
+        rec.clear()
 
-    # Напоминание — единственный экран вне бота
-    from app.schedulers.reminder_scheduler import build_reminder_text
+    if toggles:
+        await dp.feed_update(bot, press(user.id, toggles[0]))
+        _dump(rec, raw, "6. жалоба: слово выбрано")
+        await dp.feed_update(bot, press(user.id, "report_confirm"))
+        _dump(rec, raw, "7. жалоба: что именно не так")
+        await dp.feed_update(bot, press(user.id, "report_send_text"))
+        _dump(rec, raw, "8. жалоба: отправлена")
+    else:
+        print("\n   жалоба не открылась: у круга нет слов для показа")
+
+    await dp.feed_update(bot, press(user.id, "repeat_errors"))
+    _dump(rec, raw, "9. повтор ошибок")
+
+
+# ============================================================================
+# ЭКРАНЫ ИГРАЮЩЕГО
+# ============================================================================
+
+async def flow_old(dp, bot, rec, raw: bool, session) -> None:
+    print("\n\n" + "=" * (WIDTH + 2))
+    print("  ЭКРАНЫ ИГРАЮЩЕГО ЧЕЛОВЕКА")
+    print("=" * (WIDTH + 2))
+
+    await reset_state(dp)
+    user = await _probe(session)
+    rec.clear()
+
+    await dp.feed_update(bot, text_update(user.id, "/start"))
+    _dump(rec, raw, "1. /start — вступительный блок")
+
+    await dp.feed_update(bot, text_update(user.id, "/home"))
+    _dump(rec, raw, "2. /home — прогресс")
+
+    from app.bot.keyboards import get_main_menu_keyboard
+    _frame("3. нижнее меню (видно всегда, живёт на якоре)")
+    _screen("(реплай-клавиатура)",
+            [[b.text for b in row]
+             for row in get_main_menu_keyboard("ru").keyboard], raw)
+
+    steps = [
+        (text_update(user.id, get_text("btn_rating", "ru")), "4. рейтинг"),
+        (text_update(user.id, get_text("btn_stats", "ru")), "5. прогресс по кнопке «Статистика»"),
+        (press(user.id, "stats_full"), "6. подробная статистика"),
+        (press(user.id, "settings_open"), "7. настройки — верх"),
+        (press(user.id, "settings_group_what"), "8. настройки → что учу"),
+        (press(user.id, "settings_group_how"), "9. настройки → как учу"),
+        (press(user.id, "settings_group_bot"), "10. настройки → бот"),
+        (press(user.id, "match_start"), "11. найди пары"),
+    ]
+    for update, title in steps:
+        await dp.feed_update(bot, update)
+        _dump(rec, raw, title)
+
     from app.bot.keyboards.notifications import get_reminder_keyboard
+    from app.schedulers.reminder_scheduler import build_reminder_text
     async with AsyncSessionLocal() as fresh:
         person = await fresh.get(User, user.id)
         text = await build_reminder_text(person, fresh)
-    _frame("13. напоминание — единственный экран вне бота")
-    kb = get_reminder_keyboard("ru", count=15)
-    _screen(text, [[b.text for b in row] for row in kb.inline_keyboard], raw)
+    _frame("12. напоминание — единственный экран вне бота")
+    _screen(text, [[b.text for b in row]
+                   for row in get_reminder_keyboard("ru", count=15).inline_keyboard],
+            raw)
+
+
+# ============================================================================
+# ОБХОД ВСЕХ КНОПОК ИЗ КОДА
+# ============================================================================
+
+async def flow_sweep(dp, bot, rec, raw: bool, session) -> None:
+    """
+    Нажать КАЖДУЮ кнопку, которую бот рисует, и доложить о непокрытых.
+
+    Список берётся сборщиком из `verify_buttons` — тем же, что проверяет,
+    нет ли кнопок в пустоту. Руками список экранов писать нельзя: первая
+    редакция этого скрипта так и пропустила жалобу, статистику и рейтинг.
+    """
+    from app.scripts.verify_buttons import collect_buttons
+
+    everything: set[str] = set()
+    for values in collect_buttons().values():
+        everything |= values
+
+    plain = sorted(
+        data for data in everything
+        if "<" not in data and not data.startswith(SKIP)
+    )
+
+    print("\n\n" + "=" * (WIDTH + 2))
+    print(f"  ОБХОД ВСЕХ КНОПОК ИЗ КОДА: {len(plain)} из {len(everything)}")
+    print("=" * (WIDTH + 2))
+
+    await reset_state(dp)
+    user = await _probe(session)
+
+    empty: list[str] = []
+    for data in plain:
+        rec.clear()
+        try:
+            await dp.feed_update(bot, press(user.id, data))
+        except Exception as exc:
+            print(f"\n   {data}: СБОЙ — {type(exc).__name__}: {exc}")
+            empty.append(f"{data} — сбой")
+            continue
+        if not _dump(rec, raw, f"кнопка · {data}"):
+            empty.append(data)
+
+    print("\n" + "=" * (WIDTH + 2))
+    print("  ПОКРЫТИЕ")
+    print("=" * (WIDTH + 2))
+    print(f"  кнопок в коде:   {len(everything)}")
+    print(f"  нажато:          {len(plain)}")
+    print(f"  дали экран:      {len(plain) - len(empty)}")
+    if empty:
+        print(f"\n  НЕ ДАЛИ ЭКРАНА: {len(empty)}")
+        print("  (ожидаемо для тех, кому нужно состояние: ответ в круге,")
+        print("   выбранное слово в жалобе, ячейка доски)")
+        for data in empty:
+            print(f"     {data}")
+
+
+# ============================================================================
+# ПРОГОН
+# ============================================================================
+
+FLOWS = {
+    "new": flow_new,
+    "old": flow_old,
+    "round": flow_round,
+    "sweep": flow_sweep,
+}
 
 
 async def run(who: str, raw: bool) -> int:
-    bot, recorder = make_bot()
-
+    chosen = (
+        ["new", "old", "round", "sweep"] if who == "all"
+        else ["new", "old", "round"] if who == "both"
+        else [who]
+    )
+    bot, rec = make_bot()
     async with AsyncSessionLocal() as session:
         dp = make_dispatcher(session)
-
-        if who in ("new", "both"):
-            await reset_state(dp)
-            user = await _new_person(session)
-            try:
-                await _walk_new(dp, bot, recorder, user, raw)
-            finally:
-                await _drop(session, PROBE_NEW)
-
-        if who in ("old", "both"):
-            await reset_state(dp)
-            user = await _old_person(session)
-            try:
-                await _walk_old(dp, bot, recorder, user, raw)
-            finally:
-                await _drop(session, PROBE_OLD)
-
+        try:
+            for name in chosen:
+                await FLOWS[name](dp, bot, rec, raw, session)
+        finally:
+            await _drop(session)
     print()
     return 0
 
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--who", choices=("new", "old", "both"), default="both")
-    ap.add_argument("--raw", action="store_true",
-                    help="не убирать html-разметку")
+    ap.add_argument("--who", default="both",
+                    choices=("new", "old", "round", "sweep", "both", "all"))
+    ap.add_argument("--raw", action="store_true")
     args = ap.parse_args()
     return asyncio.run(run(args.who, args.raw))
 
