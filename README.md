@@ -91,27 +91,33 @@ localized broadcast messaging, and per-user detailed statistics.
 
 ## Architecture
 
-A clean, layered async architecture (~12k lines of Python):
+A clean, layered async architecture — ~20k lines of application code,
+backed by ~22k lines of verification tooling:
 
 ```
 app/
 ├── bot/
 │   ├── handlers/        # Telegram update handlers (quiz, leaderboard, reminders, admin, start)
 │   ├── keyboards/       # Inline keyboard builders
+│   ├── routers.py       # The router set and its ORDER — one source for bot and tests
 │   ├── states.py        # FSM states
 │   └── utils.py
-├── services/            # Business logic (quiz engine, SRS, leaderboards) — DB-aware, handler-agnostic
+├── services/            # Business logic (quiz engine, SRS, scoring, leaderboards, TTS, matching)
 ├── database/
-│   ├── models.py        # SQLAlchemy 2.0 ORM models (12 tables)
-│   ├── enums.py         # CEFR levels, POS, quiz modes, translation modes
+│   ├── models.py        # SQLAlchemy 2.0 ORM models
+│   ├── enums.py         # CEFR levels, POS, quiz modes, answer channels
 │   └── session.py       # Async engine / session factory
 ├── schedulers/          # APScheduler jobs (reminders, monthly season rollover)
-├── locales/             # ru / uk / en / tr translation dictionaries
-├── core/                # Logging, Sentry integration
+├── locales/             # de / en / pl / ru / tr / uk — six interface languages
+├── testing/             # Fake Telegram + real dispatcher; used by BOTH tests and tooling
+├── scripts/             # 100 live tools: acceptance suites, TTS pipeline, wordbase probes
+├── core/                # Logging, Sentry, clock
 ├── config.py            # Pydantic settings (env-driven, no secrets in code)
 └── main.py              # Composition root / bot bootstrap
 
 alembic/                 # Versioned database migrations
+archive/                 # Applied one-off wordbase patches — provenance, not code
+tests/                   # 667 tests, including 23 end-to-end dispatcher scenarios
 ```
 
 **Design highlights:**
@@ -122,6 +128,16 @@ alembic/                 # Versioned database migrations
 - **Schema-versioned** with Alembic; migrations apply automatically on container startup.
 - **Config via environment only** — Pydantic `BaseSettings`, no secrets committed to the repo.
 - **Observability** — structured logging and optional Sentry error tracking.
+- **One source per decision.** The router set and its order live in `bot/routers.py`;
+  the scoring formula lives in `MonthlyStats.calculate_monthly_score()`; the
+  "which words does this learner study" filter lives in one query builder. Each of
+  these was once duplicated, and each duplicate drifted.
+- **Acceptance beyond unit tests.** `app/scripts/audit_round.py` plays a whole
+  lesson through the real dispatcher on the real wordbase and asserts the
+  invariants that must hold *between* parts — numbering, no repeated word,
+  session counters vs answer rows, error list, reportable words, channel
+  thresholds, points, and answer idempotence. Checking the parts in isolation had
+  passed cleanly while two of those invariants were broken.
 
 ---
 
