@@ -28,7 +28,6 @@ venv.bak/
 .env.*
 !.env.example
 
-
 # ---- Tools / caches ----
 .tox/
 .nox/
@@ -98,66 +97,35 @@ app/scripts/*.xlsx
 !diagnostics/README.md
 !diagnostics/.gitkeep
 
-# Scripts (diagnostics, broadcasts, one-time utilities)
-app/scripts/*
-!app/scripts/README.md
-!app/scripts/rebuild_words_from_excel.py
-# Эксплуатационные скрипты: нужны на сервере, а не разовые утилиты.
-# rebuild_word_groups обязателен после любого изменения словарной базы.
-!app/scripts/rebuild_word_groups.py
-!app/scripts/audit_wordbase.py
-!app/scripts/retranslate_wordbase.py
-!app/scripts/smoke_quiz.py
-!app/scripts/audit_admin.py
-!app/scripts/load_prod_copy.py
-!app/scripts/verify_quiz_chain.py
-!app/scripts/verify_all_flows.py
-!app/scripts/tts_samples.py
-!app/scripts/tts_probe_telegram.py
-!app/scripts/tts_benchmark.py
-!app/scripts/tts_demo_card.py
-!app/scripts/tts_preflight.py
-!app/scripts/tts_verify_card.py
-!app/scripts/tts_asr_check.py
-!app/scripts/example_quality.py
-!app/scripts/tts_pregenerate.py
-!app/scripts/tts_synthesize.py
-!app/scripts/wordbase_sample_review.py
-!app/scripts/fix_examples.py
-!app/scripts/review_proposals.py
-!app/scripts/fix_lemmas.py
-!app/scripts/fix_parallel_examples.py
-!app/scripts/apply_lemma_overrides.py
-!app/scripts/fix_levels.py
-# Повторяются после каждого прогона переводов, а не разово:
-# турецкую İ прогон ломает систематически, а дефекты примеров приходят из
-# двух источников, пересечение которых мало
-!app/scripts/fix_turkish_i.py
-!app/scripts/merge_defects.py
-# Нужен всякий раз, когда пакет прерван: отменённый пакет не значит пустой
-!app/scripts/collect_batch.py
-# Сторож пакетов: опрашивает и забирает сам. Жил в временной папке, которую
-# система может вычистить — тогда пакеты истекли бы вместе с оплатой
-!app/scripts/watch_batches.py
-# Перед переносом озвучки на прод: правка текста оставляет прежний клип на
-# диске, и сироты поехали бы по сети впустую
-!app/scripts/tts_prune_orphans.py
-# Исполняет последовательность из DEPLOY.md, чтобы документ и дело не разошлись
-!app/scripts/finish_translation_round.py
-# Проверяет предложения ДО применения и бесплатно: инструкции в запросе
-# недостаточно, про турецкую İ там было сказано и всё равно вышло 429 строк
-!app/scripts/validate_translations.py
-# Апостроф повторится при каждом прогоне украинских переводов: правило
-# зависит от твёрдости согласного, и модель его теряет
-!app/scripts/fix_uk_apostrophe.py
-# Пример-перевод не соответствует немецкому примеру. Отсев по слову это
-# пропускает: слово в примере есть, а предложение другое
-!app/scripts/example_person_mismatch.py
-# Число в примере и переводе расходится — прямая порча знаний: «um 19 Uhr»
-# против «o siódmej» учит неверному времени
-!app/scripts/example_number_mismatch.py
-!app/scripts/tts_trim_store.py
-!app/scripts/tts_audit_clips.py
+# ============================================================================
+# app/scripts — ЖИВОЙ ИНСТРУМЕНТАРИЙ, ОТСЛЕЖИВАЕТСЯ ЦЕЛИКОМ
+# ============================================================================
+#
+# Прежде здесь стояло ровно наоборот: `app/scripts/*` игнорировался, а
+# нужное перечислялось исключениями — и таких строк накопилось 318 при
+# 483 строках во всём файле. То есть код отслеживался СПИСКОМ, а не
+# правилом, и у этого было два следствия.
+#
+# Первое: каждый новый инструмент исчезал молча. Забыл дописать строку —
+# и приёмка, которую ты только что написал и прогнал, в коммит не попала.
+# За один час работы это случилось дважды (`audit_round`,
+# `repair_accounting`), и ровно так же когда-то пропал `audit_admin`:
+# приёмка админ-панели лежала в репозитории, не упомянутая ни в одном
+# документе и не включённая ни в один порядок прогона.
+#
+# Второе: список перестал нести смысл. В нём оказались ВСЕ 248 скриптов,
+# включая применённые однажды правки словаря, — то есть он отвечал на
+# вопрос «что когда-либо коммитили», а не «что рабочее».
+#
+# Теперь правило простое: КОД отслеживается, ДАННЫЕ игнорируются.
+# Применённые однажды правки словаря переехали в `archive/`, где и
+# должны лежать: они след правок, а не инструмент.
+app/scripts/*.xlsx
+app/scripts/*.jsonl
+app/scripts/*.csv
+app/scripts/*.log
+app/scripts/*.txt
+app/scripts/out/
 
 # Образцы и хранилище озвучки: аудио в репозитории не нужно.
 # tts/ — это гигабайты синтезированных клипов, переносятся
@@ -184,273 +152,6 @@ asr_*.jsonl
 # Журналы фоновых прогонов: синтез, обрезка, сторож пакетов
 *.log
 *.err
-!app/scripts/quality_review.py
-!app/scripts/fix_manual_review.py
-!app/scripts/fix_manual_examples.py
-!app/scripts/fix_manual_round2.py
-!app/scripts/fix_manual_round2b.py
-!app/scripts/fix_slash_examples.py
-!app/scripts/fix_paren_examples.py
-!app/scripts/fix_manual_round3.py
-!app/scripts/fix_manual_round3b.py
-!app/scripts/fix_verb_participles.py
-!app/scripts/scan_artifacts.py
-!app/scripts/scan_pos.py
-!app/scripts/fix_manual_round3c.py
-!app/scripts/fix_manual_round3d.py
-!app/scripts/wordbase_review_block.py
-!app/scripts/fix_block_0001.py
-!app/scripts/fix_block_0002.py
-!app/scripts/fix_block_0003.py
-!app/scripts/scan_question_mark.py
-!app/scripts/fix_question_marks_de.py
-!app/scripts/fix_question_marks_translations.py
-!app/scripts/fix_questions_manual_01.py
-!app/scripts/fix_questions_manual_02.py
-!app/scripts/fix_questions_manual_03.py
-!app/scripts/fix_questions_manual_04.py
-!app/scripts/fix_questions_manual_05.py
-!app/scripts/fix_questions_manual_06.py
-!app/scripts/fix_questions_manual_07.py
-!app/scripts/fix_questions_reverse_01.py
-!app/scripts/fix_questions_reverse_02.py
-!app/scripts/fix_questions_cascade.py
-!app/scripts/scan_formality.py
-!app/scripts/fix_formality.py
-!app/scripts/fix_apostrophes.py
-!app/scripts/fix_block_0004.py
-!app/scripts/fix_block_0005.py
-!app/scripts/fix_block_0006.py
-!app/scripts/fix_block_0007.py
-!app/scripts/fix_dashes.py
-!app/scripts/fix_block_0008.py
-!app/scripts/fix_block_0010.py
-!app/scripts/fix_plain_language.py
-!app/scripts/fix_block_0012.py
-!app/scripts/fix_block_0014.py
-!app/scripts/fix_block_0016.py
-!app/scripts/fix_block_0017.py
-!app/scripts/fix_block_0018.py
-!app/scripts/fix_dash_glue.py
-!app/scripts/scan_mojibake.py
-!app/scripts/fix_block_0019.py
-!app/scripts/scan_yo.py
-!app/scripts/fix_yo.py
-!app/scripts/fix_turkish_hala.py
-!app/scripts/fix_block_0020.py
-!app/scripts/fix_apostrophe_s.py
-!app/scripts/fix_late_batch.py
-!app/scripts/fix_block_0021.py
-!app/scripts/fix_uk_apostrophe.py
-!app/scripts/fix_uk_apostrophe_char.py
-!app/scripts/fix_block_0022.py
-!app/scripts/fix_en_contractions.py
-!app/scripts/scan_word_in_example.py
-!app/scripts/fix_word_in_example.py
-!app/scripts/fix_block_0023.py
-!app/scripts/fix_cjk_leak.py
-!app/scripts/fix_homoglyph.py
-!app/scripts/fix_block_0024.py
-!app/scripts/fix_block_0025.py
-!app/scripts/fix_block_0026.py
-!app/scripts/fix_block_0027.py
-!app/scripts/scan_de_colloquial.py
-!app/scripts/fix_de_colloquial.py
-!app/scripts/fix_block_0028.py
-!app/scripts/fix_de_colloquial_2.py
-!app/scripts/scan_en_apostrophe.py
-!app/scripts/fix_en_apostrophe.py
-!app/scripts/fix_block_0029.py
-!app/scripts/fix_de_colloquial_3.py
-!app/scripts/fix_block_0030.py
-!app/scripts/fix_en_apostrophe_2.py
-!app/scripts/fix_block_0031.py
-!app/scripts/fix_block_0032.py
-!app/scripts/fix_block_0033.py
-!app/scripts/fix_de_colloquial_4.py
-!app/scripts/fix_block_0034.py
-!app/scripts/fix_block_0035.py
-!app/scripts/fix_block_0036.py
-!app/scripts/fix_block_0037.py
-!app/scripts/fix_block_0038.py
-!app/scripts/fix_block_0039.py
-!app/scripts/fix_block_0040.py
-!app/scripts/fix_block_0041.py
-!app/scripts/fix_block_0042.py
-!app/scripts/fix_block_0043.py
-!app/scripts/fix_block_0044.py
-!app/scripts/fix_de_colloquial_5.py
-!app/scripts/fix_block_0045.py
-!app/scripts/fix_de_colloquial_6.py
-!app/scripts/fix_block_0046.py
-!app/scripts/scan_lang_leak.py
-!app/scripts/fix_lang_leak.py
-!app/scripts/fix_block_0047.py
-!app/scripts/fix_block_0048.py
-!app/scripts/fix_block_0049.py
-!app/scripts/fix_block_0050.py
-!app/scripts/fix_lang_leak_2.py
-!app/scripts/fix_block_0051.py
-!app/scripts/fix_lang_leak_3.py
-!app/scripts/fix_block_0052.py
-!app/scripts/fix_de_colloquial_7.py
-!app/scripts/fix_block_0053.py
-!app/scripts/scan_de_imperative.py
-!app/scripts/fix_de_imperative.py
-!app/scripts/fix_block_0054.py
-!app/scripts/scan_plural_gloss.py
-!app/scripts/fix_plural_gloss.py
-!app/scripts/fix_block_0055.py
-!app/scripts/scan_de_lowercase_noun.py
-!app/scripts/fix_block_0056.py
-!app/scripts/scan_de_separable.py
-!app/scripts/fix_block_0057.py
-!app/scripts/scan_de_typo.py
-!app/scripts/fix_block_0058.py
-!app/scripts/scan_false_friend.py
-!app/scripts/fix_false_friend.py
-!app/scripts/fix_block_0059.py
-!app/scripts/scan_de_zu_infinitive.py
-!app/scripts/fix_de_zu_infinitive.py
-!app/scripts/fix_block_0060.py
-!app/scripts/scan_uk_active_participle.py
-!app/scripts/fix_uk_active_participle.py
-!app/scripts/fix_block_0061.py
-!app/scripts/scan_tr_separate_idi.py
-!app/scripts/fix_tr_separate_idi.py
-!app/scripts/fix_block_0062.py
-!app/scripts/scan_ru_in_uk.py
-!app/scripts/fix_ru_in_uk.py
-!app/scripts/fix_block_0063.py
-!app/scripts/scan_alien_letter.py
-!app/scripts/fix_block_0064.py
-!app/scripts/scan_de_headword_swap.py
-!app/scripts/fix_block_0065.py
-!app/scripts/scan_number_mismatch.py
-!app/scripts/fix_block_0066.py
-!app/scripts/scan_de_verb_prefix.py
-!app/scripts/fix_block_0067.py
-!app/scripts/scan_tr_apostrophe.py
-!app/scripts/fix_block_0068.py
-!app/scripts/scan_tr_number_suffix.py
-!app/scripts/fix_tr_number_suffix.py
-!app/scripts/fix_block_0069.py
-!app/scripts/fix_block_0070.py
-!app/scripts/scan_formality_vs_de.py
-!app/scripts/fix_formality_vs_de.py
-!app/scripts/fix_block_0071.py
-!app/scripts/scan_uk_copula_je.py
-!app/scripts/fix_uk_copula_je.py
-!app/scripts/fix_ru_in_uk_4.py
-!app/scripts/fix_block_0072.py
-!app/scripts/fix_early_probe.py
-!app/scripts/verify_wordbase.py
-!app/scripts/fix_roman_centuries.py
-!app/scripts/fix_person_mismatch_after.py
-!app/scripts/fix_pass2_block_01.py
-!app/scripts/fix_pass2_block_02.py
-!app/scripts/fix_pass2_block_03.py
-!app/scripts/fix_pass2_block_04.py
-!app/scripts/scan_de_bare_imperative.py
-!app/scripts/fix_pass2_block_05.py
-!app/scripts/scan_terminal_punct.py
-!app/scripts/fix_terminal_punct.py
-!app/scripts/fix_pass2_block_06.py
-!app/scripts/fix_pass2_block_07.py
-!app/scripts/scan_de_first_person_e.py
-!app/scripts/fix_pass2_block_08.py
-!app/scripts/scan_imperative_formality.py
-!app/scripts/scan_speaker_gender.py
-!app/scripts/fix_pass2_block_09.py
-!app/scripts/fix_pass2_block_10.py
-!app/scripts/fix_pass2_block_11.py
-!app/scripts/fix_pass2_block_12.py
-!app/scripts/fix_pass2_block_13.py
-!app/scripts/fix_pass2_block_14.py
-!app/scripts/fix_pass2_block_15.py
-!app/scripts/scan_length_outlier.py
-!app/scripts/fix_pass2_block_16.py
-!app/scripts/scan_bitte_dropped.py
-!app/scripts/fix_pass2_block_17.py
-!app/scripts/scan_soft_sign.py
-!app/scripts/fix_pass2_block_18.py
-!app/scripts/fix_pass2_block_19.py
-!app/scripts/fix_pass2_block_20.py
-!app/scripts/fix_pass2_block_21.py
-!app/scripts/fix_pass2_block_22.py
-!app/scripts/fix_pass2_block_23.py
-!app/scripts/fix_clock_time.py
-!app/scripts/fix_pass2_block_24.py
-!app/scripts/fix_pass2_block_25.py
-!app/scripts/scan_list_vs_example.py
-!app/scripts/fix_pass2_block_26.py
-!app/scripts/fix_pass2_block_27.py
-!app/scripts/fix_pass2_block_28.py
-!app/scripts/fix_pass2_block_29.py
-!app/scripts/fix_pass2_block_30.py
-!app/scripts/fix_pass2_block_31.py
-!app/scripts/fix_pass2_block_32.py
-!app/scripts/fix_pass2_block_33.py
-!app/scripts/fix_pass2_block_34.py
-!app/scripts/fix_pass2_block_35.py
-!app/scripts/fix_pass2_block_36.py
-!app/scripts/fix_pass2_block_37.py
-!app/scripts/fix_pass2_block_38.py
-!app/scripts/fix_pass2_block_39.py
-!app/scripts/fix_pass2_block_40.py
-!app/scripts/fix_pass2_block_41.py
-!app/scripts/fix_pass2_block_42.py
-!app/scripts/fix_pass2_block_43.py
-!app/scripts/fix_pass2_block_44.py
-!app/scripts/fix_pass2_block_45.py
-!app/scripts/fix_pass2_block_46.py
-!app/scripts/fix_pass2_block_47.py
-!app/scripts/fix_pass2_block_48.py
-!app/scripts/fix_pass2_block_49.py
-!app/scripts/fix_pass2_block_50.py
-!app/scripts/fix_pass2_block_51.py
-!app/scripts/fix_pass2_block_52.py
-!app/scripts/fix_pass2_block_53.py
-!app/scripts/fix_pass2_block_54.py
-!app/scripts/fix_pass2_block_55.py
-!app/scripts/fix_pass2_block_56.py
-!app/scripts/fix_pass2_block_57.py
-!app/scripts/fix_pass2_block_58.py
-!app/scripts/fix_pass2_block_59.py
-!app/scripts/fix_pass2_block_60.py
-!app/scripts/fix_pass2_block_61.py
-!app/scripts/fix_pass2_block_62.py
-!app/scripts/fix_pass2_block_63.py
-!app/scripts/fix_pass2_block_64.py
-!app/scripts/fix_pass2_block_65.py
-!app/scripts/fix_pass3_block_01.py
-!app/scripts/fix_pass3_block_02.py
-!app/scripts/fix_pass3_block_03.py
-!app/scripts/fix_pass3_block_07.py
-!app/scripts/scan_de_declension.py
-!app/scripts/fix_empty_placeholder_variant.py
-!app/scripts/fix_slavic_comma_clause.py
-!app/scripts/fix_de_uncontracted.py
-!app/scripts/scan_de_uncontracted.py
-!app/scripts/scan_de_tail_question.py
-!app/scripts/scan_twin_example.py
-!app/scripts/scan_lowercase_start.py
-!app/scripts/fix_pl_comma_clause.py
-!app/scripts/scan_pl_comma_clause.py
-!app/scripts/scan_shown_sense.py
-!app/scripts/fix_pl_numbers_as_words.py
-!app/scripts/scan_number_as_word.py
-!app/scripts/scan_inflected_twin.py
-!app/scripts/scan_same_headword.py
-!app/scripts/fix_dup_pairs_divergence.py
-!app/scripts/fix_pass3_block_08.py
-!app/scripts/scan_en_list_case.py
-!app/scripts/fix_pass3_block_09.py
-!app/scripts/fix_pass3_block_10.py
-!app/scripts/fix_pass3_block_11.py
-!app/scripts/fix_pass3_block_12.py
-!app/scripts/fix_pass3_block_13.py
-!app/scripts/fix_pass3_block_14.py
 
 # Рабочие выгрузки вычитки: все воспроизводимы скриптами, в истории не нужны.
 # Блоки — wordbase_review_block, выгрузки примет — сами приметы,
@@ -469,15 +170,3 @@ asr_check.jsonl
 *.batch.done
 batch_cancel_*.json
 lemma_intra_collisions.json
-!app/scripts/state_report.py
-!app/scripts/fix_long_digit_example.py
-!app/scripts/tts_scan_duration.py
-!app/scripts/scan_clip_title.py
-!app/scripts/tts_synthesize_male.py
-!app/scripts/verify_quiz_channels.py
-!app/scripts/verify_quiz_round.py
-!app/scripts/verify_home.py
-!app/scripts/verify_voices.py
-!app/scripts/fix_example_equals_word.py
-!app/scripts/verify_buttons.py
-!app/scripts/verify_match.py

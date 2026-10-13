@@ -188,7 +188,7 @@ ENV_FILE=.env.local PYTHONIOENCODING=utf-8 .venv/Scripts/python.exe -u \
   | grep -vE "sqlalchemy|INFO |SELECT w\.|FROM words|ORDER BY w\.id" > block_0002.txt
 
 # 2. Прочитать глазами
-# 3. Написать скрипт правок по образцу app/scripts/fix_block_0001.py
+# 3. Написать скрипт правок по образцу archive/wordbase_review/fix_block_0001.py
 # 4. Прогнать вхолостую, убедиться что «пропущено 0»
 # 5. --apply, тесты, коммит, строка в журнал
 ```

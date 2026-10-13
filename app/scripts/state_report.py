@@ -219,6 +219,57 @@ def check_pairs(engine) -> bool:
     return good
 
 
+def check_accounting(engine) -> bool:
+    """
+    УЧЁТ: сходятся ли счётчики занятий со строками ответов.
+
+    Зачем сторож. Эти два числа — один и тот же факт, записанный дважды:
+    `quiz_sessions.correct_answers` и строки `quiz_questions`. Пока они
+    сходятся, всё, что из них считается — точность человека, месячный балл,
+    рейтинг, админская сводка, — говорит одно и то же.
+
+    Разошлись они тихо и надолго: 934 занятия из 2 100, в обе стороны.
+    Наружу это вылезло одной странной строчкой в админке — «Лучший:
+    200.0%», — и только потому, что процент выше ста бросается в глаза.
+    Расхождение в другую сторону (брошенные круги с нулём верных при
+    непустых строках) не бросалось никак и прожило бы сколько угодно.
+
+    Чинится `app.scripts.repair_accounting`.
+    """
+    with engine.connect() as conn:
+        drift = conn.execute(text("""
+            WITH r AS (
+              SELECT session_id,
+                     COUNT(*) AS n,
+                     SUM(CASE WHEN is_correct THEN 1 ELSE 0 END) AS k
+              FROM quiz_questions GROUP BY session_id
+            )
+            SELECT COUNT(*) FROM quiz_sessions s JOIN r ON r.session_id = s.id
+            WHERE s.answered_questions <> r.n OR s.correct_answers <> r.k
+        """)).scalar() or 0
+
+        impossible = conn.execute(text(
+            "SELECT COUNT(*) FROM quiz_sessions "
+            "WHERE correct_answers > answered_questions"
+        )).scalar() or 0
+
+        stale = conn.execute(text("""
+            SELECT COUNT(*) FROM monthly_stats ms
+            JOIN monthly_seasons se ON se.id = ms.season_id
+            WHERE se.is_active AND ms.monthly_avg_percent > 100
+        """)).scalar() or 0
+
+    good = drift == 0 and impossible == 0 and stale == 0
+    detail = (
+        "счётчики сходятся со строками ответов" if good else
+        f"расходится занятий {drift}, невозможных {impossible}, "
+        f"точность выше 100% в действующем сезоне {stale} "
+        f"— чинить repair_accounting"
+    )
+    line(OK if good else BAD, "учёт занятий", detail)
+    return good
+
+
 def check_asr() -> None:
     """Проверка слухом — если её запускали, показать результат."""
     files = sorted(glob.glob("asr_check*.jsonl"))
@@ -240,7 +291,8 @@ def main() -> int:
     engine = create_engine(settings.DATABASE_URL_SYNC)
     print("\n=== СОСТОЯНИЕ ===\n")
     results = [check_base(engine), check_pairs(engine),
-               check_card(engine), check_audio(engine)]
+               check_card(engine), check_audio(engine),
+               check_accounting(engine)]
     check_asr()
     print()
     if all(results):
