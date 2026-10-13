@@ -65,6 +65,70 @@ async def check_database() -> None:
     logger.info("🗄️  База на связи: %s (настройки из %s)", location, ENV_FILE)
 
 
+async def check_speech() -> None:
+    """
+    Есть ли чем судить произношение, если игра вслух кому-то включена.
+
+    ЗАЧЕМ ОТДЕЛЬНАЯ ПРОВЕРКА. Отсутствие распознавателя выглядит СНАРУЖИ
+    РОВНО КАК ШУМ В МИКРОФОНЕ, и это худший вид поломки. `check_pronunciation`
+    ловит любое исключение и возвращает `failed`, а `failed` по правилам
+    проекта — «не разобрал», то есть НЕ ошибка ученика: вопрос остаётся,
+    человеку предлагают записать ещё раз. Значит без библиотеки он записывал
+    бы голосовое, ждал и получал «не разобрал» — каждый раз, молча, без
+    единой строки в журнале.
+
+    Так и было: `faster-whisper` стоял только в `requirements-dev.txt` с
+    комментарием «боту не нужно» — верным в тот день, когда игры вслух ещё
+    не было. Боевой образ собирался без распознавателя. Пока речь имел один
+    человек из 233, это и не всплыло бы; 13 октября её включили всем.
+
+    Бот при этом НЕ ОСТАНАВЛИВАЕТСЯ: три других игры работают, и ронять их
+    из-за четвёртой неправильно. Но в журнале остаётся ошибка, которую
+    видно и в Sentry.
+    """
+    from sqlalchemy import func, select
+
+    from app.database.enums import QuizChannel
+    from app.database.models import User
+    from app.database.session import AsyncSessionLocal
+
+    async with AsyncSessionLocal() as session:
+        with_speech = (await session.execute(
+            select(func.count()).select_from(User)
+            .where(User.quiz_channels.contains(QuizChannel.SPEECH.value))
+        )).scalar() or 0
+
+    if not with_speech:
+        logger.info("🎤 Игра вслух никому не включена — распознаватель не нужен")
+        return
+
+    missing = []
+    try:
+        import faster_whisper  # noqa: F401
+    except Exception as exc:
+        missing.append(f"faster-whisper ({exc})")
+    try:
+        import av  # noqa: F401
+        import numpy  # noqa: F401
+    except Exception as exc:
+        missing.append(f"av/numpy ({exc})")
+
+    if missing:
+        logger.error(
+            "❌ Игра вслух включена у %d человек, а судить произношение НЕЧЕМ: "
+            "не хватает %s", with_speech, "; ".join(missing)
+        )
+        logger.error(
+            "   Снаружи это выглядит как «не разобрал» на каждое голосовое — "
+            "то есть как шум в микрофоне, а не как сбой. Поставить: "
+            "pip install -r requirements.txt"
+        )
+        return
+
+    logger.info("🎤 Игра вслух включена у %d человек, распознаватель на месте",
+                with_speech)
+
+
 async def main():
     setup_logging()
     setup_sentry()
@@ -72,6 +136,7 @@ async def main():
     logger.info("🚀 Starting GenauLingua Bot...")
 
     await check_database()
+    await check_speech()
 
     bot = Bot(
         token=settings.BOT_TOKEN,

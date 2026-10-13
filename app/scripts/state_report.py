@@ -270,6 +270,46 @@ def check_accounting(engine) -> bool:
     return good
 
 
+def check_speech_runtime(engine) -> bool:
+    """
+    Есть ли чем судить произношение, если игра вслух кому-то включена.
+
+    Отсутствие распознавателя выглядит СНАРУЖИ РОВНО КАК ШУМ В МИКРОФОНЕ:
+    `check_pronunciation` ловит любое исключение и отвечает «не разобрал», а
+    это по правилам проекта НЕ ошибка ученика — вопрос остаётся, человеку
+    предлагают записать ещё раз. То есть игра выглядела бы работающей и не
+    работала бы никогда, без единой строки в журнале.
+
+    Так и было: `faster-whisper` стоял только в `requirements-dev.txt`, и
+    боевой образ собирался без него. Пока речь имел один человек из 233,
+    это не всплыло бы; 13 октября её включили всем.
+    """
+    with engine.connect() as conn:
+        with_speech = conn.execute(text(
+            "SELECT COUNT(*) FROM users WHERE quiz_channels LIKE '%s%'"
+        )).scalar() or 0
+
+    missing = []
+    for module in ("faster_whisper", "av", "numpy"):
+        try:
+            __import__(module)
+        except Exception:
+            missing.append(module)
+
+    if not with_speech:
+        line("—   ", "речь: распознаватель", "игра вслух никому не включена")
+        return True
+
+    good = not missing
+    detail = (
+        f"включена у {with_speech}, распознаватель на месте" if good else
+        f"включена у {with_speech}, а не хватает: {', '.join(missing)} "
+        f"— снаружи это «не разобрал» на каждое голосовое"
+    )
+    line(OK if good else BAD, "речь: распознаватель", detail)
+    return good
+
+
 def check_asr() -> None:
     """Проверка слухом — если её запускали, показать результат."""
     files = sorted(glob.glob("asr_check*.jsonl"))
@@ -292,7 +332,7 @@ def main() -> int:
     print("\n=== СОСТОЯНИЕ ===\n")
     results = [check_base(engine), check_pairs(engine),
                check_card(engine), check_audio(engine),
-               check_accounting(engine)]
+               check_accounting(engine), check_speech_runtime(engine)]
     check_asr()
     print()
     if all(results):
