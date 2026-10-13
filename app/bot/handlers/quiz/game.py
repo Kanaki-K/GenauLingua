@@ -9,6 +9,7 @@
 брошенная сессия иначе выглядит как сплошные ошибки.
 """
 
+import asyncio
 import logging
 from datetime import date, timedelta
 from typing import Optional
@@ -67,6 +68,67 @@ from app.services.quiz_service import (
 )
 
 logger = logging.getLogger(__name__)
+
+
+# ============================================================================
+# ОДИН ВОПРОС — ОДИН ОТВЕТ
+# ============================================================================
+
+# Номер вопроса, на который ответ УЖЕ принят. Пока он равен текущему,
+# второй ответ не считается.
+S_ANSWERED = "answered_question"
+
+# Замки по чатам. Нужны потому, что отметка «ответ принят» читается и
+# пишется двумя отдельными await, а aiogram обрабатывает обновления
+# ПАРАЛЛЕЛЬНО: два нажатия, пришедшие в один миг, успели бы оба прочитать
+# «ещё не отвечено». Замок на чат сводит решение к одному потоку.
+#
+# Словарь растёт по активным кругам и чистится в `_finish_quiz`: держать
+# замок на каждого, кто когда-либо играл, незачем.
+_claim_locks: dict[int, asyncio.Lock] = {}
+
+
+def _claim_lock(chat_id: int) -> asyncio.Lock:
+    lock = _claim_locks.get(chat_id)
+    if lock is None:
+        lock = asyncio.Lock()
+        _claim_locks[chat_id] = lock
+    return lock
+
+
+async def _claim_answer(state: FSMContext, chat_id: int) -> bool:
+    """
+    Принять ответ на текущий вопрос РОВНО ОДИН РАЗ.
+
+    ЗАЧЕМ. Один вопрос умел записаться дважды, и замер по рабочей копии это
+    подтвердил: 31 вопрос получил по две строки и больше, 50 лишних строк в
+    30 занятиях. Разрыв между двойными ответами — от 0.00 с до 78 с, то
+    есть беда приходила двумя разными путями:
+
+        0.00 с   двойной тык: оба нажатия пришли раньше, чем карточка
+                 успела перерисоваться и спрятать варианты
+        78 с     правка карточки не удалась, варианты остались на экране,
+                 и человек нажал снова
+
+    Следствие в обоих случаях одно: балл за вопрос начисляется дважды,
+    прогресс по слову двигается дважды, а в занятии оказывается больше
+    отвеченных, чем было запланировано (таких занятий 14).
+
+    Возвращает False, если ответ на этот вопрос уже принят, — тогда
+    вызывающий молча гасит нажатие. Ругаться не за что: человек не
+    виноват, что карточка не поспела.
+    """
+    async with _claim_lock(chat_id):
+        data = await state.get_data()
+        current = data.get("current_question")
+        if current is None:
+            # Круги, начатые до этой правки: номера в состоянии нет, и
+            # отказывать им значило бы сломать уже идущее занятие
+            return True
+        if data.get(S_ANSWERED) == current:
+            return False
+        await state.update_data(**{S_ANSWERED: current})
+        return True
 
 router = Router()
 
@@ -589,6 +651,13 @@ async def start_lesson(
 async def process_answer(callback: CallbackQuery, state: FSMContext, session: AsyncSession):
     selected_word_id = int(callback.data.split("_")[1])
 
+    # ОДИН ВОПРОС — ОДИН ОТВЕТ. Разбор у `_claim_answer`: двойной тык и
+    # нажатие по не перерисовавшейся карточке записывали вопрос дважды, и
+    # балл начислялся дважды
+    if not await _claim_answer(state, callback.message.chat.id):
+        await callback.answer()
+        return
+
     data = await state.get_data()
     correct_word_id = data["correct_word_id"]
     session_id = data["session_id"]
@@ -780,6 +849,12 @@ async def process_voice_answer(message: Message, state: FSMContext, session: Asy
         # записать его случайно, и ругаться тут не за что
         return
 
+    # ОДИН ВОПРОС — ОДИН ОТВЕТ, и для голоса это нужно не меньше: две
+    # записи подряд посчитались бы обе. Проверка стоит ДО распознавания —
+    # оно занимает секунды и стоит денег
+    if not await _claim_answer(state, message.chat.id):
+        return
+
     lang = user.interface_language or DEFAULT_LOCALE
     pair = pair_from_user(user)
     target = spoken_for(correct_word, pair.learning, KIND_WORD) or option_label(
@@ -875,6 +950,13 @@ async def skip_speech(callback: CallbackQuery, state: FSMContext, session: Async
         return
     data, user, correct_word, channel = ctx
     if channel is not QuizChannel.SPEECH:
+        return
+
+    # ПРОПУСК ТОЖЕ ЗАНИМАЕТ ВОПРОС, хотя и не засчитывается ни верным, ни
+    # неверным. Иначе остаётся дыра: пропуск ПОКАЗЫВАЕТ правильный ответ, и
+    # записанное после него голосовое пришло бы на вопрос с ответом на
+    # экране — то есть на даровой балл.
+    if not await _claim_answer(state, callback.message.chat.id):
         return
 
     lang = user.interface_language or DEFAULT_LOCALE
@@ -1019,7 +1101,20 @@ async def record_board_answers(
             )
 
     await session.commit()
-    await state.update_data(correct_answers=correct_answers, errors=errors)
+
+    # СЛОВА ДОСКИ — ЗАДЕЙСТВОВАННЫЕ, и остаток круга их больше не возьмёт.
+    #
+    # Без этого слово, только что найденное на доске, приходило обычным
+    # вопросом через два хода: прогресс по нему двигался дважды за круг, а
+    # человек видел одно и то же. Доска читает тот же список при сборке —
+    # так что запрет работает в обе стороны.
+    used = list(data.get("used_word_ids") or [])
+    used.extend(words[index].id for index in matched
+                if words[index].id not in used)
+
+    await state.update_data(
+        correct_answers=correct_answers, errors=errors, used_word_ids=used
+    )
     return True
 
 
@@ -1343,6 +1438,9 @@ async def _finish_quiz(
     data: dict,
 ) -> None:
     """Завершение викторины: итоги, статистика, кнопки."""
+    # Замок «один вопрос — один ответ» нужен только на время круга
+    _claim_locks.pop(callback.message.chat.id, None)
+
     session_id = data["session_id"]
     correct_answers = data["correct_answers"]
     errors = data.get("errors", [])

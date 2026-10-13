@@ -186,8 +186,20 @@ class User(Base):
 class UserWord(Base):
     __tablename__ = "user_words"
 
-    user_id = mapped_column(ForeignKey("users.id"), primary_key=True)
-    word_id = mapped_column(ForeignKey("words.id"), primary_key=True)
+    # КАСКАД ОБЯЗАТЕЛЕН, и это не косметика. Все прочие таблицы, ссылающиеся
+    # на человека (quiz_sessions, monthly_stats, translation_reports,
+    # win_streaks, user_tts_voices), объявлены с CASCADE — а здесь его не
+    # было, и из-за ОДНОЙ этой таблицы человека нельзя было удалить вообще:
+    # база отвечала «still referenced from table user_words». Для бота, у
+    # которого есть политика приватности и живые люди с личными данными, это
+    # значило, что удалить свои данные нельзя никак, кроме правки базы
+    # руками. То же с словом: его прогресс держал ряд намертво.
+    user_id = mapped_column(
+        ForeignKey("users.id", ondelete="CASCADE"), primary_key=True
+    )
+    word_id = mapped_column(
+        ForeignKey("words.id", ondelete="CASCADE"), primary_key=True
+    )
 
     # Прогресс считается отдельно по каждому изучаемому языку: выученное
     # «das Haus» не делает выученным «house». Часть первичного ключа.

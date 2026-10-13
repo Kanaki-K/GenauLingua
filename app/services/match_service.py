@@ -102,6 +102,7 @@ async def pick_words(
     pair: LanguagePair,
     level: Optional[CEFRLevel] = None,
     size: int = BOARD_SIZE,
+    exclude_ids: Optional[list[int]] = None,
 ) -> list[Word]:
     """
     Слова для доски: знакомые, с короткими подписями, в случайном порядке.
@@ -121,6 +122,12 @@ async def pick_words(
 
     `level` остаётся отдельным параметром для проверок: он сужает набор
     поверх режима, не заменяя его.
+
+    `exclude_ids` — слова, уже задействованные в этом круге. Без него доска
+    повторяла слово, которое человек уже видел несколькими вопросами
+    раньше: приёмка круга поймала это на первом же сочетании. Беда не
+    только в скуке — прогресс по такому слову двигался в одном круге
+    дважды, то есть «выучено» приходило вдвое быстрее заслуженного.
 
     Возвращает меньше `size`, если подходящих не нашлось — решать, хватает
     ли их на доску, предоставлено вызывающему: неполная доска это не ошибка
@@ -163,6 +170,8 @@ async def pick_words(
     query = _apply_quiz_mode_filter(query, user)
     if level is not None:
         query = query.where(Word.level == level)
+    if exclude_ids:
+        query = query.where(Word.id.notin_(exclude_ids))
 
     query = query.order_by(func.random()).limit(CANDIDATES)
     candidates = (await session.execute(query)).scalars().all()

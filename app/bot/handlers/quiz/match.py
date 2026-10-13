@@ -159,10 +159,23 @@ async def start_board(
     lang = user.interface_language or DEFAULT_LOCALE
     pair = pair_from_user(user)
 
+    # УЖЕ ЗАДАННЫЕ В КРУГЕ СЛОВА ДОСКА НЕ БЕРЁТ.
+    #
+    # Список читается из состояния, а не передаётся параметром: доска
+    # открывается ТРЕМЯ путями — командой, кнопкой с домашнего экрана и
+    # внутри круга, — и у первых двух круга нет, значит и списка. Один
+    # источник, и у каждого пути он верный сам собой.
+    #
+    # Прежде списка не было вовсе, и приёмка круга поймала это на первом же
+    # сочетании: доска повторяла слово, спрошенное несколькими вопросами
+    # раньше. Прогресс по такому слову двигался в одном круге дважды.
+    data = await state.get_data()
+    used = list(data.get("used_word_ids") or [])
+
     # Уровень и режим НЕ передаются: `pick_words` берёт их сама, тем же
     # фильтром, которым отбирает слова сам круг. Передай их отдельно — и
     # появится второе место, решающее «какие слова учит этот человек».
-    words = await pick_words(user, session, pair)
+    words = await pick_words(user, session, pair, exclude_ids=used)
     if len(words) < BOARD_SIZE:
         await message.answer(
             get_text("match_not_ready", lang, need=BOARD_SIZE, have=len(words))
