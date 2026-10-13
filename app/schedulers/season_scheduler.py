@@ -31,7 +31,7 @@ async def finalize_and_create_new_season():
     Вызывается 1 числа каждого месяца.
     """
     today = utctoday()
-    logger.info(f"🔄 Проверка смены сезона: {today}")
+    logger.info(f"Проверка смены сезона: {today}")
 
     async with AsyncSessionLocal() as session:
         # 1. Получаем текущий активный сезон
@@ -39,36 +39,36 @@ async def finalize_and_create_new_season():
 
         if not current_season:
             # Нет активного сезона — просто создаём новый
-            logger.info(f"📅 Нет активного сезона, создаю {today.month}/{today.year}")
+            logger.info(f"Нет активного сезона, создаю {today.month}/{today.year}")
             await create_new_season(today.year, today.month, session)
             return
 
         # 2. Проверяем — сезон от текущего месяца или от прошлого?
         if current_season.year == today.year and current_season.month == today.month:
             # Сезон уже текущий — ничего делать не нужно
-            logger.debug(f"✅ Сезон {current_season.month}/{current_season.year} актуален")
+            logger.debug(f"Сезон {current_season.month}/{current_season.year} актуален")
             return
 
         # 3. Сезон от прошлого месяца — завершаем его!
-        logger.info(f"🏁 Завершаю сезон {current_season.month}/{current_season.year} (id={current_season.id})")
+        logger.info(f"Завершаю сезон {current_season.month}/{current_season.year} (id={current_season.id})")
 
         if not current_season.winners_finalized:
             try:
                 await finalize_season(current_season.id, session)
-                logger.info(f"✅ Сезон {current_season.month}/{current_season.year} завершён, награды розданы!")
+                logger.info(f"Сезон {current_season.month}/{current_season.year} завершён, награды розданы!")
             except Exception as e:
-                logger.error(f"❌ Ошибка завершения сезона: {e}")
+                logger.error(f"Ошибка завершения сезона: {e}")
                 # Не прерываем — всё равно создаём новый сезон
         else:
-            logger.info(f"ℹ️ Сезон {current_season.month}/{current_season.year} уже был завершён")
+            logger.info(f"ℹ Сезон {current_season.month}/{current_season.year} уже был завершён")
 
         # 4. Создаём новый сезон
-        logger.info(f"📅 Создаю новый сезон {today.month}/{today.year}")
+        logger.info(f"Создаю новый сезон {today.month}/{today.year}")
         try:
             new_season = await create_new_season(today.year, today.month, session)
-            logger.info(f"✅ Новый сезон создан: {new_season.month}/{new_season.year} (id={new_season.id})")
+            logger.info(f"Новый сезон создан: {new_season.month}/{new_season.year} (id={new_season.id})")
         except Exception as e:
-            logger.error(f"❌ Ошибка создания нового сезона: {e}")
+            logger.error(f"Ошибка создания нового сезона: {e}")
 
 
 async def hourly_season_check():
@@ -83,11 +83,11 @@ async def hourly_season_check():
 
         if not current_season:
             # Нет сезона — создаём
-            logger.warning(f"⚠️ Нет активного сезона! Создаю {today.month}/{today.year}")
+            logger.warning(f"Нет активного сезона! Создаю {today.month}/{today.year}")
             await create_new_season(today.year, today.month, session)
             return
 
         # Если сезон от прошлого месяца — запускаем полную процедуру
         if current_season.year != today.year or current_season.month != today.month:
-            logger.warning(f"⚠️ Активный сезон {current_season.month}/{current_season.year} устарел!")
+            logger.warning(f"Активный сезон {current_season.month}/{current_season.year} устарел!")
             await finalize_and_create_new_season()

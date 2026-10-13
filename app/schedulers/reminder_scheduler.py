@@ -175,10 +175,10 @@ async def send_notification_to_user(bot: Bot, user: User, session) -> bool:
             # вспомнить про реплай-клавиатуру. См. get_reminder_keyboard.
             reply_markup=get_reminder_keyboard(lang, count=user.quiz_word_count or 15),
         )
-        logger.info(f"✅ Напоминание отправлено пользователю {user.id} ({user.username})")
+        logger.info(f"Напоминание отправлено пользователю {user.id} ({user.username})")
         return True
     except Exception as e:
-        logger.error(f"❌ Ошибка отправки напоминания пользователю {user.id}: {e}")
+        logger.error(f"Ошибка отправки напоминания пользователю {user.id}: {e}")
         return False
 
 
@@ -197,7 +197,7 @@ async def check_and_send_notifications(bot: Bot):
         )
         users: List[User] = result.scalars().all()
 
-        logger.debug(f"🔍 Найдено {len(users)} пользователей с включенными уведомлениями")
+        logger.debug(f"Найдено {len(users)} пользователей с включенными уведомлениями")
 
         for user in users:
             try:
@@ -208,7 +208,7 @@ async def check_and_send_notifications(bot: Bot):
                     user_tz = ZoneInfo(user.timezone)
                     now_local = now_utc.replace(tzinfo=ZoneInfo("UTC")).astimezone(user_tz)
                 except Exception:
-                    logger.error(f"❌ Неверный timezone для пользователя {user.id}: {user.timezone}")
+                    logger.error(f"Неверный timezone для пользователя {user.id}: {user.timezone}")
                     continue
 
                 current_weekday = now_local.weekday()
@@ -244,7 +244,7 @@ async def check_and_send_notifications(bot: Bot):
                 if time_diff_minutes > 2:
                     continue
 
-                logger.info(f"⏰ Отправляю напоминание пользователю {user.id}")
+                logger.info(f"Отправляю напоминание пользователю {user.id}")
 
                 success = await send_notification_to_user(bot, user, session)
 
@@ -254,11 +254,11 @@ async def check_and_send_notifications(bot: Bot):
                     sent_count += 1
 
             except Exception as e:
-                logger.error(f"❌ Ошибка обработки пользователя {user.id}: {e}")
+                logger.error(f"Ошибка обработки пользователя {user.id}: {e}")
                 continue
 
     if sent_count > 0:
-        logger.info(f"✅ Отправлено {sent_count} напоминаний")
+        logger.info(f"Отправлено {sent_count} напоминаний")
 
 
 def setup_scheduler(bot: Bot) -> AsyncIOScheduler:
@@ -305,6 +305,6 @@ def setup_scheduler(bot: Bot) -> AsyncIOScheduler:
     )
 
     scheduler.start()
-    logger.info("⏰ Планировщик запущен: напоминания + сезоны рейтинга")
+    logger.info("Планировщик запущен: напоминания + сезоны рейтинга")
 
     return scheduler

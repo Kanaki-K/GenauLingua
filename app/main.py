@@ -51,9 +51,9 @@ async def check_database() -> None:
         async with engine.connect() as conn:
             await conn.execute(text("SELECT 1"))
     except Exception as exc:
-        logger.error("❌ Нет подключения к базе: %s", location)
-        logger.error("   настройки читались из: %s", ENV_FILE)
-        logger.error("   причина: %s", exc)
+        logger.error("Нет подключения к базе: %s", location)
+        logger.error("настройки читались из: %s", ENV_FILE)
+        logger.error("причина: %s", exc)
         if "getaddrinfo" in str(exc) or "could not translate host name" in str(exc):
             logger.error(
                 "   Имя хоста не резолвится. Для запуска не в докере нужен "
@@ -62,7 +62,7 @@ async def check_database() -> None:
             )
         raise SystemExit(1)
 
-    logger.info("🗄️  База на связи: %s (настройки из %s)", location, ENV_FILE)
+    logger.info("База на связи: %s (настройки из %s)", location, ENV_FILE)
 
 
 async def check_speech() -> None:
@@ -99,7 +99,7 @@ async def check_speech() -> None:
         )).scalar() or 0
 
     if not with_speech:
-        logger.info("🎤 Игра вслух никому не включена — распознаватель не нужен")
+        logger.info("Игра вслух никому не включена — распознаватель не нужен")
         return
 
     missing = []
@@ -125,7 +125,7 @@ async def check_speech() -> None:
         )
         return
 
-    logger.info("🎤 Игра вслух включена у %d человек, распознаватель на месте",
+    logger.info("Игра вслух включена у %d человек, распознаватель на месте",
                 with_speech)
 
 
@@ -133,7 +133,7 @@ async def main():
     setup_logging()
     setup_sentry()
 
-    logger.info("🚀 Starting GenauLingua Bot...")
+    logger.info("Starting GenauLingua Bot...")
 
     await check_database()
     await check_speech()
@@ -171,12 +171,12 @@ async def main():
     # Список в логе ТОЖЕ собирается из источника, а не выписан рядом.
     # Выписанный отставал: в нём не было ни домашнего экрана, ни
     # доски — четвёртый список об одном и том же.
-    logger.info("📦 Роутеров подключено: %d", len(all_routers()))
+    logger.info("Роутеров подключено: %d", len(all_routers()))
     for router in all_routers():
-        logger.info("   ✅ %s", router.name or type(router).__name__)
+        logger.info("   %s", router.name or type(router).__name__)
 
     scheduler = setup_scheduler(bot)
-    logger.info("⏰ Планировщик запущен, работ: %d", len(scheduler.get_jobs()))
+    logger.info("Планировщик запущен, работ: %d", len(scheduler.get_jobs()))
 
     await dp.start_polling(bot)
 

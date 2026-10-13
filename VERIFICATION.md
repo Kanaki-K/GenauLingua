@@ -86,7 +86,7 @@
 ```bash
 # 1. базы и тестовый бот
 docker compose -f docker-compose.dev.yml up -d
-ENV_FILE=.env.local .venv/Scripts/python.exe -u -m app.main > bot_test.log 2>&1 &
+ENV_FILE=.env.local PYTHONIOENCODING=utf-8 .venv/Scripts/python.exe -u -m app.main > bot_test.log 2>&1 &
 
 # 2. счёт готов к речи на всех языках (уже сделано для 463491762)
 ENV_FILE=.env.local .venv/Scripts/python.exe -m app.scripts.prepare_live_test <id> --apply
