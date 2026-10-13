@@ -89,12 +89,19 @@ TEXTS = {
     "notif_default_name": "friend",
     "notif_message_greeting": "🔥 <b>Time to practice, {name}!</b>",
 
-    "notif_motivation_1": "Step by step you're reaching your goal!",
-    "notif_motivation_2": "Your streak is growing — keep it up!",
-    "notif_motivation_3": "Today is another step toward fluency!",
-    "notif_motivation_4": "Small efforts every day = big results!",
-    "notif_motivation_5": "You're on the right path! Don't stop!",
-    "notif_motivation_6": "Each quiz brings you closer to your goal!",
+
+    # ONE REASON TO COME BACK — and it has to be true
+    "remind_streak_risk": "{days} days in a row · not today yet",
+    "remind_due": "{count} words are due for review — the bot tracks the timing",
+    "remind_due_many": "Quite a lot is due. Start with one round, the rest can wait.",
+    "remind_streak_lost": "Your best streak was {days} days. A new one starts with a single round.",
+    "remind_milestone_close": "Words in progress: {count} · {left} to go until {target}, that is one round",
+    "remind_almost_learned": "One correct answer away from your first learned word. Such words: {count}",
+    "remind_rank": "Place {rank} of {total} in your language",
+    "remind_fact_1": "A word sticks when it comes back: a day, three days, a week. The bot keeps the schedule.",
+    "remind_fact_2": "An answer by ear is worth more: there is no written shape to lean on.",
+    "remind_fact_3": "Saying a word out loud is harder than recognising it — and worth three times as much.",
+    "remind_fact_4": "Fifteen words take four minutes. Less than a queue for coffee.",
 
     # ============================================================================
     # SETTINGS

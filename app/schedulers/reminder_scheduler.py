@@ -3,10 +3,9 @@
 """
 import logging
 from datetime import datetime
-from app.core.clock import utcnow
+from app.core.clock import utcnow, utctoday
 from zoneinfo import ZoneInfo
 from typing import List
-import random
 
 from aiogram import Bot
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
@@ -20,40 +19,110 @@ from app.locales import get_text
 logger = logging.getLogger(__name__)
 
 
-# Мотивационные сообщения (ключи локализации)
-MOTIVATION_KEYS = [
-    "notif_motivation_1",
-    "notif_motivation_2",
-    "notif_motivation_3",
-    "notif_motivation_4",
-    "notif_motivation_5",
-    "notif_motivation_6"
-]
+# Шесть общих фраз («Шаг за шагом ты достигаешь результата!») отсюда
+# ушли вместе с ключами из всех шести локалей. Они ничего не знали о
+# человеке, а одна лгала по построению: фраза выбиралась только при
+# ПУСТЫХ шкалах, то есть доставалась человеку без прогресса и без серии,
+# и сообщала ему, что его серия растёт.
+#
+# Вместо них — измеренный повод вернуться, `app/services/reminder_reason.py`.
+
+
+async def collect_reminder_facts(user: User, session, pair) -> "ReminderFacts":
+    """
+    Замерить то, из чего выбирается повод вернуться.
+
+    Три запроса на человека, и один из них считает сразу три числа
+    фильтрованными суммами: слова в работе, выученные и те, которым до
+    «выучено» остался один верный ответ. Напоминания уходят всем 233
+    людям в их час, и три отдельных запроса на каждого были бы расточением
+    без нужды.
+    """
+    from sqlalchemy import case, func
+
+    from app.database.models import UserWord
+    from app.services.monthly_leaderboard_service import get_user_monthly_rank
+    from app.services.quiz_service import MIN_ATTEMPTS_FOR_LEARNED, count_due_words
+    from app.services.reminder_reason import ReminderFacts
+
+    due = await count_due_words(user.id, session, pair, user=user)
+
+    in_work, learned, almost = (await session.execute(
+        select(
+            func.count(),
+            func.coalesce(func.sum(
+                case((UserWord.learned.is_(True), 1), else_=0)
+            ), 0),
+            func.coalesce(func.sum(
+                case((
+                    (UserWord.learned.is_(False))
+                    & (UserWord.correct_streak == MIN_ATTEMPTS_FOR_LEARNED - 1),
+                    1,
+                ), else_=0)
+            ), 0),
+        )
+        .select_from(UserWord)
+        .where(
+            UserWord.user_id == user.id,
+            UserWord.learning_lang == pair.learning,
+            UserWord.times_shown > 0,
+        )
+    )).one()
+
+    rank = await get_user_monthly_rank(
+        user.id, session, learning_lang=pair.learning
+    )
+
+    last = getattr(user, "last_quiz_date", None)
+    return ReminderFacts(
+        due_words=due,
+        # Серия — через `streak_service`: колонка пересчитывается только на
+        # завершении круга, и у остановившегося в ней навсегда остаётся
+        # последнее значение. Напоминание — худшее место, чтобы хвалить за
+        # прерванную серию: человек открывает уведомление и видит «1 день
+        # подряд» после восьми месяцев молчания
+        streak_days=current_streak(user),
+        best_streak=int(getattr(user, "best_streak_days", 0) or 0),
+        active_today=last == utctoday(),
+        words_in_work=int(in_work or 0),
+        learned=int(learned or 0),
+        almost_learned=int(almost or 0),
+        rank=int(rank["rank"]) if rank else 0,
+        rank_field=int(rank["total_users"]) if rank else 0,
+        rounds_total=int(user.quizzes_passed or 0),
+        days_away=max(0, (utctoday() - last).days) if last else 0,
+    )
 
 
 async def build_reminder_text(user: User, session) -> str:
     """
-    Текст напоминания: ТРИ ШКАЛЫ, а не четыре строки счётчиков.
+    Текст напоминания: три шкалы и ОДИН повод вернуться.
 
     Прежде здесь висело «Викторин пройдено: 12 · Слов изучено: 47 ·
     Точность: 88%» — четыре числа, из которых ни одно не говорит, ЧЕГО
     человеку не хватает. Три шкалы говорят: «написанное 107, на слух 12,
     вслух 0» — и разрыв между ними виден с первого взгляда.
 
-    Блок собирается той же функцией, что и на домашнем экране. Будь он
+    Блок шкал собирается той же функцией, что и на домашнем экране. Будь он
     написан здесь отдельно, два экрана об одном разошлись бы при первой
     правке, и разошёлся бы этот: напоминание человек видит, но не
     открывает, и расхождение заметили бы последним.
 
-    ШКАЛЫ ИЛИ ПОДБАДРИВАНИЕ, НО НЕ ОБА. У новичка все три полосы пусты, и
-    показывать их — значит встретить его тремя нулями; ему идёт общая
-    фраза. У того, у кого есть что показать, общая фраза рядом с настоящими
-    числами выглядит пустой вежливостью.
+    ВТОРЫМ БЛОКОМ БЫЛА СЛУЧАЙНАЯ ФРАЗА ИЗ ШЕСТИ. «Шаг за шагом ты
+    достигаешь результата», «Твоя серия растёт — продолжай в том же духе».
+    Ни одна ничего не знала о человеке, а вторая ещё и лгала по
+    построению: фраза выбиралась, только если шкалы ПУСТЫ, то есть
+    доставалась человеку без прогресса и без серии. Бот сообщал о росте
+    серии тому, у кого её нет.
+
+    Теперь это измеренный повод — `reminder_reason`, тот же приём, что в
+    поощрении за круг: факты, одно правило, один повод, и каждый обязан
+    быть правдой на момент отправки.
     """
     from app.bot.handlers.quiz.home import _scope, scales_block
     from app.services.language_service import pair_from_user
-    from app.services.monthly_leaderboard_service import get_user_monthly_rank
     from app.services.quiz_service import get_channel_progress
+    from app.services.reminder_reason import reason_line
 
     lang = user.interface_language or "ru"
     name = user.first_name or get_text("notif_default_name", lang)
@@ -66,28 +135,16 @@ async def build_reminder_text(user: User, session) -> str:
 
     text = get_text("notif_message_greeting", lang, name=name) + "\n\n"
 
+    # Шкалы — только когда на них есть что смотреть: у новичка все три
+    # полосы пусты, и встречать его тремя нулями незачем
     block = scales_block(channels, lang)
     if block:
         text += block + "\n\n"
-    else:
-        text += f"💡 {get_text(random.choice(MOTIVATION_KEYS), lang)}\n\n"
 
-    # Серия и место — два повода вернуться, и оба показываются только когда
-    # есть что показать: «🔥 0 дней» гасит, а не подгоняет
-    footer = []
-    # Напоминание — единственный экран вне бота, и хвалить в нём за
-    # прерванную серию хуже всего: человек открывает уведомление и видит
-    # «1 день подряд» после восьми месяцев молчания
-    streak = current_streak(user)
-    if streak:
-        footer.append(get_text("home_streak", lang, days=streak))
-    rank = await get_user_monthly_rank(user.id, session, learning_lang=pair.learning)
-    if rank:
-        footer.append(get_text("home_rank", lang, rank=rank["rank"]))
-    if footer:
-        text += " · ".join(footer)
+    facts = await collect_reminder_facts(user, session, pair)
+    text += reason_line(facts, lang)
 
-    # ТЕКСТОВОГО ПРИЗЫВА БОЛЬШЕ НЕТ: им стала кнопка.
+    # ТЕКСТОВОГО ПРИЗЫВА НЕТ: им стала кнопка.
     #
     # Прежде последней строкой стояло «💪 Не прерывай свою серию!» — и
     # приходило оно в том числе людям, у которых серии нет ни одного дня.

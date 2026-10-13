@@ -94,12 +94,19 @@ TEXTS = {
     "notif_default_name": "Freund",
     "notif_message_greeting": "🔥 <b>Zeit zu üben, {name}!</b>",
 
-    "notif_motivation_1": "Schritt für Schritt kommst du ans Ziel!",
-    "notif_motivation_2": "Deine Serie wächst — bleib dabei!",
-    "notif_motivation_3": "Heute noch ein Schritt zur freien Beherrschung!",
-    "notif_motivation_4": "Kleine Mühe jeden Tag = großes Ergebnis!",
-    "notif_motivation_5": "Du bist auf dem richtigen Weg! Mach weiter!",
-    "notif_motivation_6": "Jedes Quiz bringt dich näher an dein Ziel!",
+
+    # EIN GRUND ZURÜCKZUKOMMEN — und er muss stimmen
+    "remind_streak_risk": "{days} Tage in Folge · heute noch nicht",
+    "remind_due": "{count} Wörter sind zur Wiederholung fällig — die Fristen führt der Bot",
+    "remind_due_many": "Es hat sich viel angesammelt. Fang mit einer Runde an, der Rest wartet.",
+    "remind_streak_lost": "Deine beste Serie war {days} Tage. Eine neue beginnt mit einer Runde.",
+    "remind_milestone_close": "Wörter in Arbeit: {count} · noch {left} bis {target}, das ist eine Runde",
+    "remind_almost_learned": "Eine richtige Antwort bis zum ersten gelernten Wort. Solche Wörter: {count}",
+    "remind_rank": "Platz {rank} von {total} in deiner Sprache",
+    "remind_fact_1": "Ein Wort bleibt, wenn es zurückkommt: ein Tag, drei Tage, eine Woche. Die Fristen hält der Bot.",
+    "remind_fact_2": "Eine Antwort nach Gehör zählt mehr: die Schriftform hilft dabei nicht.",
+    "remind_fact_3": "Aussprechen ist schwerer als Erkennen — und dreifach so viel wert.",
+    "remind_fact_4": "Fünfzehn Wörter sind vier Minuten. Kürzer als die Schlange am Kaffeestand.",
 
     # ============================================================================
     # EINSTELLUNGEN

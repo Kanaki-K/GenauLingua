@@ -89,12 +89,19 @@ TEXTS = {
     "notif_default_name": "arkadaş",
     "notif_message_greeting": "🔥 <b>Çalışma zamanı, {name}!</b>",
 
-    "notif_motivation_1": "Adım adım hedefinize ulaşıyorsunuz!",
-    "notif_motivation_2": "Seriniz büyüyor — devam edin!",
-    "notif_motivation_3": "Bugün akıcı konuşmaya doğru bir adım daha!",
-    "notif_motivation_4": "Her gün küçük çabalar = büyük sonuçlar!",
-    "notif_motivation_5": "Doğru yoldasınız! Durmayın!",
-    "notif_motivation_6": "Her test sizi hedefinize yaklaştırıyor!",
+
+    # GERİ DÖNMEK İÇİN TEK NEDEN — ve doğru olmalı
+    "remind_streak_risk": "{days} gün üst üste · bugün henüz yok",
+    "remind_due": "{count} kelimenin tekrar zamanı geldi — süreleri bot kendi tutuyor",
+    "remind_due_many": "Tekrar edilecek çok şey birikti. Bir turla başla, gerisi bekler.",
+    "remind_streak_lost": "En iyi serin {days} gündü. Yenisi tek bir turla başlar.",
+    "remind_milestone_close": "Çalışmada: {count} · {target} eşiğine {left} kaldı, bu bir tur",
+    "remind_almost_learned": "İlk öğrenilen kelimeye bir doğru yanıt kaldı. Böyle kelime: {count}",
+    "remind_rank": "Dilinde {total} kişi içinde {rank}. sıra",
+    "remind_fact_1": "Kelime geri döndüğünde akılda kalır: bir gün, üç gün, bir hafta. Süreyi bot tutar.",
+    "remind_fact_2": "Kulakla verilen yanıt daha değerli: dayanacak yazılı bir biçim yok.",
+    "remind_fact_3": "Sesli söylemek tanımaktan zordur — ve üç kat değerlidir.",
+    "remind_fact_4": "On beş kelime dört dakika. Kahve kuyruğundan kısa.",
 
     # ============================================================================
     # AYARLAR

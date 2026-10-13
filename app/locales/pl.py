@@ -94,12 +94,19 @@ TEXTS = {
     "notif_default_name": "przyjacielu",
     "notif_message_greeting": "🔥 <b>Czas na naukę, {name}!</b>",
 
-    "notif_motivation_1": "Krok po kroku dojdziesz do celu!",
-    "notif_motivation_2": "Twoja seria rośnie — tak dalej!",
-    "notif_motivation_3": "Dziś kolejny krok do biegłej znajomości!",
-    "notif_motivation_4": "Mały wysiłek codziennie = duży wynik!",
-    "notif_motivation_5": "Jesteś na dobrej drodze! Nie zatrzymuj się!",
-    "notif_motivation_6": "Każdy quiz przybliża cię do celu!",
+
+    # JEDEN POWÓD, BY WRÓCIĆ — i musi być prawdziwy
+    "remind_streak_risk": "{days} dni z rzędu · dziś jeszcze nie",
+    "remind_due": "Słowa czekają na powtórkę: {count} — terminy bot liczy sam",
+    "remind_due_many": "Do powtórki zebrało się wiele. Zacznij od jednej rundy, resztę odłóż.",
+    "remind_streak_lost": "Najlepsza seria to {days} dni. Nowa zaczyna się od jednej rundy.",
+    "remind_milestone_close": "Słów w pracy: {count} · do {target} jeszcze {left}, to jedna runda",
+    "remind_almost_learned": "Jedna poprawna odpowiedź do pierwszego nauczonego słowa. Takich słów: {count}",
+    "remind_rank": "Miejsce {rank} z {total} w twoim języku",
+    "remind_fact_1": "Słowo zostaje, gdy wraca: dzień, trzy dni, tydzień. Terminy pilnuje bot.",
+    "remind_fact_2": "Odpowiedź ze słuchu liczy się więcej: nie ma zapisu, na którym można się oprzeć.",
+    "remind_fact_3": "Powiedzieć na głos jest trudniej niż rozpoznać — i warte trzy razy tyle.",
+    "remind_fact_4": "Piętnaście słów to cztery minuty. Krócej niż kolejka po kawę.",
 
     # ============================================================================
     # USTAWIENIA
