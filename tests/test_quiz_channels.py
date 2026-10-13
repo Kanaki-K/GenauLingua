@@ -191,3 +191,70 @@ def test_short_words_get_a_shorter_prefix():
     assert _prefix_len("Age") == 2
     assert _prefix_len("Way") == 2
     assert _prefix_len("Krieg") == SOUNDALIKE_PREFIX
+
+
+# ============================================================================
+# СОСТАВ ЗАНЯТИЯ ПО УМОЛЧАНИЮ
+# ============================================================================
+
+def test_all_three_channels_are_on_by_default():
+    """
+    Значение по умолчанию — это и есть решение о том, увидят ли люди новое.
+
+    Замер 13 октября: 🎤 речь была включена у ОДНОГО человека из 233, и тем
+    одним был тестовый счёт. Игра построена, проверена на всех тридцати
+    парах в оба направления, озвучка полна — и не доходила ни до кого,
+    потому что состав по умолчанию стоял «ta». А 223 пользователя из 233 ни
+    разу не меняли режим викторины, лежащий первым пунктом настроек.
+
+    Решение владельца: «речь да, по умолчанию всем».
+    """
+    from app.database.models import User
+
+    column = User.__table__.c.quiz_channels
+    assert column.default.arg == "tas", (
+        f"состав по умолчанию {column.default.arg!r}, а должен «tas»"
+    )
+    # `server_default.arg` бывает и строкой, и текстовым выражением —
+    # зависит от того, как объявлено; приводим к строке и сравниваем
+    server = str(getattr(column.server_default.arg, "text", column.server_default.arg))
+    assert server.strip("'") == "tas", (
+        f"значение по умолчанию В БАЗЕ {server!r}, а не «tas» — "
+        f"новые люди получат другое"
+    )
+
+
+async def test_a_fresh_person_gets_all_three_channels(session):
+    """
+    То же, но через настоящую запись: колонка и база могут расходиться.
+    """
+    from app.database.models import User
+    from app.services.quiz_service import enabled_channels
+
+    person = User(
+        id=424242, first_name="Новый", interface_language="ru",
+        learning_lang="de", native_lang="ru", reverse_mode=False,
+    )
+    session.add(person)
+    await session.commit()
+    await session.refresh(person)
+
+    assert person.quiz_channels == "tas"
+    assert set(enabled_channels(person)) == {
+        QuizChannel.TEXT, QuizChannel.AUDIO, QuizChannel.SPEECH
+    }, "у нового человека открыты не все три канала"
+
+
+def test_turning_audio_off_still_cancels_both_sound_channels():
+    """
+    Речь по умолчанию НЕ отменяет прежнего правила: без озвучки нет ни
+    слуха, ни речи. У вопроса на слух самого слова на экране нет, а у
+    вопроса вслух нечем послушать эталон.
+    """
+    from app.services.quiz_service import enabled_channels
+
+    class _Person:
+        quiz_channels = "tas"
+        audio_enabled = False
+
+    assert enabled_channels(_Person()) == [QuizChannel.TEXT]
