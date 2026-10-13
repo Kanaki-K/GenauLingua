@@ -464,18 +464,20 @@ def get_results_keyboard(has_errors: bool, lang: str = "ru") -> InlineKeyboardMa
 # ============================================================================
 
 async def update_user_activity(session: AsyncSession, user_id: int) -> None:
-    """Стрик активных дней — обновляется при завершении викторины."""
+    """
+    Отметить день занятий. Правило и лучшая серия — в `streak_service`.
+
+    Логика переехала туда целиком: серию ЧИТАЮТ пять мест (домашний экран,
+    напоминание, статистика, админка, месячный зачёт), а считало её это
+    единственное. Из-за этого колонка врала всем, кто перестал заниматься:
+    серия пересчитывается только на завершении круга, а значит у
+    остановившегося навсегда остаётся последнее значение. Замер: устарела у
+    128 человек из 128, последняя активность 236 дней назад.
+    """
+    from app.services.streak_service import register_activity
+
     user = await session.get(User, user_id)
-    today = utctoday()
-
-    if user.last_active_date == today:
-        return
-    if user.last_active_date == today - timedelta(days=1):
-        user.streak_days += 1
-    else:
-        user.streak_days = 1
-
-    user.last_active_date = today
+    register_activity(user)
     await session.commit()
 
 

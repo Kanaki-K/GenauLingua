@@ -14,6 +14,7 @@ from sqlalchemy import select
 
 from app.bot.keyboards.notifications import get_reminder_keyboard
 from app.database.models import User
+from app.services.streak_service import current_streak
 from app.locales import get_text
 
 logger = logging.getLogger(__name__)
@@ -74,8 +75,12 @@ async def build_reminder_text(user: User, session) -> str:
     # Серия и место — два повода вернуться, и оба показываются только когда
     # есть что показать: «🔥 0 дней» гасит, а не подгоняет
     footer = []
-    if user.streak_days:
-        footer.append(get_text("home_streak", lang, days=user.streak_days))
+    # Напоминание — единственный экран вне бота, и хвалить в нём за
+    # прерванную серию хуже всего: человек открывает уведомление и видит
+    # «1 день подряд» после восьми месяцев молчания
+    streak = current_streak(user)
+    if streak:
+        footer.append(get_text("home_streak", lang, days=streak))
     rank = await get_user_monthly_rank(user.id, session, learning_lang=pair.learning)
     if rank:
         footer.append(get_text("home_rank", lang, rank=rank["rank"]))

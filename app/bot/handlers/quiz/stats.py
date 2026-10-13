@@ -16,6 +16,7 @@ from app.bot.buttons import BTN_STATS, pressed
 from app.bot.utils import delete_messages_fast, ensure_anchor
 from app.database.models import User, QuizSession, Word, UserWord
 from app.database.enums import QuizMode
+from app.services.streak_service import current_streak
 from app.locales import DEFAULT_LOCALE, get_text
 from app.services.language_service import pair_flags, pair_from_user
 from app.services.quiz_service import (
@@ -257,7 +258,9 @@ async def build_stats_text(user: User, session: AsyncSession) -> str:
 
     text += f"{emoji} {get_text('stats_achievements_title', lang)}\n"
     text += get_text("stats_words_count", lang, count=overall_learned) + "\n"
-    text += get_text("stats_streak_line", lang, days=user.streak_days) + "\n\n"
+    text += get_text(
+        "stats_streak_line", lang, days=current_streak(user)
+    ) + "\n\n"
 
     # Викторины по режиму.
     # Точность считается по фактически отвеченным вопросам: плановое

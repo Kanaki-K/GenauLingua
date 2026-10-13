@@ -91,6 +91,7 @@ from app.database.session import AsyncSessionLocal
 from app.services.monthly_leaderboard_service import (
     REPEAT_QUIZ_MODE, scored_sessions_filter,
 )
+from app.services.quiz_service import MIN_ATTEMPTS_FOR_LEARNED
 
 logging.disable(logging.ERROR)
 
@@ -330,6 +331,211 @@ def _changed(stat: MonthlyStats, fresh: dict) -> bool:
 
 
 # ============================================================================
+# 4. ИТОГИ ЧЕЛОВЕКА ← ЕГО ЖЕ ЗАПИСИ
+# ============================================================================
+
+async def repair_user_totals(session, apply: bool) -> int:
+    """
+    Привести `words_learned`, `quizzes_passed` и лучшую серию к источнику.
+
+    ЧТО НАШЛОСЬ (замер 13 октября 2026, приёмка `audit_accounting`):
+
+      выучено      расходится у 35 человек из 233, и расхождение не
+                   объяснимо сменой языка: у одного записано 225 при НУЛЕ
+                   выученных слов по всем языкам сразу. Числа 125 · 175 ·
+                   225 кратны двадцати пяти — так считала какая-то прежняя
+                   версия, по другому правилу
+      кругов       недосчитано у 41 человека: у одного 109 завершённых
+                   занятий при записанных 54. Все они февраль–апрель с
+                   пустым режимом, то есть прежняя версия увеличивала
+                   счётчик не на каждом завершении
+      лучшая серия НЕ ЗАПИСЫВАЛАСЬ НИ РАЗУ: ноль у всех 233. Колонка
+                   существовала с самого начала
+
+    Сейчас код считает и то и другое верно — расхождение историческое. Но
+    видит человек именно эти числа.
+
+    Лучшая серия считается ПО ИСТОРИИ — по самой длинной череде подряд
+    идущих дней с завершённым кругом. Первая попытка брала максимум из
+    нынешней серии и записанного, и это оказалось слабо: сломав колонку
+    серии нарочно, починка не смогла вернуть число — восстанавливать его
+    было не из чего. А даты завершённых занятий в базе есть, и серия дней
+    отмечается ровно на тех же завершениях, так что история — это и есть
+    источник. Берётся максимум из посчитанного и записанного: записанное
+    могло попасть из дней, которых в занятиях нет (старые версии).
+    """
+    days = (await session.execute(
+        select(QuizSession.user_id,
+               func.date(QuizSession.completed_at).label("day"))
+        .where(QuizSession.completed_at.isnot(None), scored_sessions_filter())
+        .group_by(QuizSession.user_id, func.date(QuizSession.completed_at))
+    )).all()
+
+    history_best: dict[int, int] = {}
+    history_last: dict[int, tuple] = {}
+    active_days: dict[int, list] = {}
+    for user_id, day in days:
+        active_days.setdefault(user_id, []).append(day)
+    for user_id, dates in active_days.items():
+        dates.sort()
+        best = run = 1
+        for before, after in zip(dates, dates[1:]):
+            run = run + 1 if (after - before).days == 1 else 1
+            best = max(best, run)
+        history_best[user_id] = best
+        # Серия на последний активный день — это череда, которая им
+        # оканчивается. Вместе с самим днём это и есть то, что хранят
+        # `streak_days` и `last_active_date`
+        history_last[user_id] = (run, dates[-1])
+
+    learned = (
+        select(UserWord.user_id, func.count().label("n"))
+        .join(User, User.id == UserWord.user_id)
+        .where(UserWord.learned.is_(True),
+               UserWord.learning_lang == User.learning_lang)
+        .group_by(UserWord.user_id)
+        .subquery()
+    )
+    rounds = (
+        select(QuizSession.user_id, func.count().label("n"))
+        .where(QuizSession.completed_at.isnot(None), scored_sessions_filter())
+        .group_by(QuizSession.user_id)
+        .subquery()
+    )
+
+    rows = (await session.execute(
+        select(User, learned.c.n, rounds.c.n)
+        .outerjoin(learned, learned.c.user_id == User.id)
+        .outerjoin(rounds, rounds.c.user_id == User.id)
+    )).all()
+
+    fixed = 0
+    by_column = {"выучено": 0, "кругов": 0, "серия": 0, "лучшая серия": 0}
+    worst = []
+
+    for user, learned_n, rounds_n in rows:
+        learned_n = int(learned_n or 0)
+        rounds_n = int(rounds_n or 0)
+        # Источник — история. Колонка берётся ТОЛЬКО когда истории нет
+        # совсем: иначе выдуманное число живёт вечно, ведь живой код
+        # `best_streak_days` лишь наращивает максимумом и никогда не
+        # пересчитывает. У выученных слов выдуманное снимается (там живой
+        # код считает заново каждый круг) — правило должно быть то же.
+        if user.id in history_last:
+            streak_n, last_day = history_last[user.id]
+            best = max(streak_n, history_best[user.id])
+        else:
+            streak_n, last_day = int(user.streak_days or 0), user.last_active_date
+            best = max(int(user.best_streak_days or 0), streak_n)
+
+        gaps = {
+            "выучено": abs(int(user.words_learned or 0) - learned_n),
+            "кругов": abs(int(user.quizzes_passed or 0) - rounds_n),
+            "серия": abs(int(user.streak_days or 0) - streak_n)
+                     + (user.last_active_date != last_day),
+            "лучшая серия": abs(int(user.best_streak_days or 0) - best),
+        }
+        if not any(gaps.values()):
+            continue
+
+        fixed += 1
+        for column, gap in gaps.items():
+            if gap:
+                by_column[column] += 1
+        worst.append((max(gaps.values()),
+                      f"   человек {user.id}: выучено "
+                      f"{user.words_learned}→{learned_n}, кругов "
+                      f"{user.quizzes_passed}→{rounds_n}, серия "
+                      f"{user.streak_days}→{streak_n}, лучшая "
+                      f"{user.best_streak_days}→{best}"))
+
+        if apply:
+            user.words_learned = learned_n
+            user.quizzes_passed = rounds_n
+            user.streak_days = streak_n
+            user.last_active_date = last_day
+            user.best_streak_days = best
+
+    for column, count in by_column.items():
+        if count:
+            print(f"   {column}: {count}")
+    # Самые крупные расхождения вперёд: именно по ним видно, что правка
+    # попала в тот дефект, который нашла приёмка, а не в мелкую рябь
+    for _, line in sorted(worst, key=lambda item: -item[0])[:8]:
+        print(line)
+    if len(worst) > 8:
+        print(f"   … и ещё {len(worst) - 8}")
+
+    if apply:
+        await session.commit()
+    return fixed
+
+
+# ============================================================================
+# 5. ПРОГРЕСС ПО СЛОВАМ: МЕЛКИЙ ДОЛГ
+# ============================================================================
+
+async def repair_word_rows(session, apply: bool) -> int:
+    """
+    Две мелочи в `user_words`, обе историческиe.
+
+      отметка «выучено» при серии меньше трёх — 1 ряд из 1 537. Правило
+      `_is_learned` пересчитывается на каждом ответе, так что это остаток
+      прежней версии
+
+      пустая дата показа при непустых показах — 60 рядов. С подбором по
+      времени такое слово считается просроченным ВСЕГДА и лезет вперёд
+      остальных; дата ставится по последнему ответу на это слово, а если
+      ответов нет — по времени создания ряда
+    """
+    stale_learned = (await session.execute(
+        select(UserWord).where(
+            UserWord.learned.is_(True),
+            UserWord.correct_streak < MIN_ATTEMPTS_FOR_LEARNED,
+        )
+    )).scalars().all()
+
+    # Дата берётся по ответам ЭТОГО человека на ЭТО слово: соединение
+    # только по слову притянуло бы чужой ответ и поставило дату, которой у
+    # человека не было
+    last_answer = (
+        select(
+            QuizSession.user_id.label("user_id"),
+            QuizQuestion.word_id.label("word_id"),
+            func.max(QuizQuestion.answered_at).label("at"),
+        )
+        .join(QuizSession, QuizSession.id == QuizQuestion.session_id)
+        .where(QuizQuestion.answered_at.isnot(None))
+        .group_by(QuizSession.user_id, QuizQuestion.word_id)
+        .subquery()
+    )
+    no_date = (await session.execute(
+        select(UserWord, last_answer.c.at)
+        .outerjoin(
+            last_answer,
+            (last_answer.c.user_id == UserWord.user_id)
+            & (last_answer.c.word_id == UserWord.word_id),
+        )
+        .where(UserWord.times_shown > 0, UserWord.last_seen_at.is_(None))
+    )).all()
+
+    fixed = len(stale_learned) + len(no_date)
+    if stale_learned:
+        print(f"   отметка «выучено» при короткой серии: {len(stale_learned)}")
+    if no_date:
+        print(f"   без даты показа: {len(no_date)}")
+
+    if apply:
+        for row in stale_learned:
+            row.learned = False
+        for row, answered_at in no_date:
+            row.last_seen_at = answered_at or row.created_at or utcnow()
+        await session.commit()
+
+    return fixed
+
+
+# ============================================================================
 # ПРОГОН
 # ============================================================================
 
@@ -351,7 +557,18 @@ async def run(apply: bool, all_seasons: bool) -> int:
         monthly_fixed = await repair_monthly(session, apply, all_seasons)
         print(f"   расходится рядов: {monthly_fixed}\n")
 
-    total = sessions_fixed + users_fixed + monthly_fixed
+        # Слова ПЕРЕД итогами: снятая отметка «выучено» меняет счёт
+        # выученных, и считать итоги надо уже по исправленным рядам
+        print("4. Прогресс по словам")
+        words_fixed = await repair_word_rows(session, apply)
+        print(f"   расходится рядов: {words_fixed}\n")
+
+        print("5. Итоги человека ← его же записи")
+        totals_fixed = await repair_user_totals(session, apply)
+        print(f"   расходится людей: {totals_fixed}\n")
+
+    total = (sessions_fixed + users_fixed + monthly_fixed
+             + totals_fixed + words_fixed)
     if not total:
         print("учёт сходится: править нечего")
         return 0

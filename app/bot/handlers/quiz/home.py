@@ -34,6 +34,7 @@ from app.database.models import User
 from app.locales import DEFAULT_LOCALE, get_text
 from app.services.language_service import flag, pair_from_user
 from app.services.monthly_leaderboard_service import get_user_monthly_rank
+from app.services.streak_service import current_streak
 from app.services.quiz_service import (
     CHANNEL_UNLOCK,
     get_channel_progress,
@@ -179,8 +180,14 @@ async def build_home(user: User, session: AsyncSession) -> tuple[str, InlineKeyb
     # Серия и место — два повода вернуться завтра, и оба показываются только
     # когда есть что показать: «🔥 0 дней» гасит, а не подгоняет.
     footer = []
-    if user.streak_days:
-        footer.append(get_text("home_streak", lang, days=user.streak_days))
+    # Серия берётся из `current_streak`, а не из колонки: колонка
+    # пересчитывается только на завершении круга, и у остановившегося в ней
+    # навсегда остаётся последнее значение. Замер 13 октября: устарела у 128
+    # человек из 128, последняя активность 236 дней назад — экран говорил
+    # «1 день подряд» тому, кто не заходил восемь месяцев
+    streak = current_streak(user)
+    if streak:
+        footer.append(get_text("home_streak", lang, days=streak))
     rank = await get_user_monthly_rank(user.id, session, learning_lang=pair.learning)
     if rank:
         footer.append(get_text("home_rank", lang, rank=rank["rank"]))

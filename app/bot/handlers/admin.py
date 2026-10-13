@@ -20,6 +20,7 @@ from app.database.enums import QuizChannel
 from app.database.models import (
     MonthlyStats, QuizQuestion, QuizSession, TranslationReport, User, UserWord, Word,
 )
+from app.services.streak_service import current_streak
 from app.services.quiz_service import get_user_progress_stats
 from app.services.language_service import LANGUAGES, flag, pair_from_user, pair_label
 from app.services.word_stats import MIN_SHOWS_FOR_DIFFICULTY, difficulty_rank_sql
@@ -836,7 +837,7 @@ async def admin_export_users(callback: CallbackQuery, session: AsyncSession):
             user.first_name or '',
             user.created_at.strftime('%Y-%m-%d %H:%M:%S') if user.created_at else '',
             user.level.value if user.level else '',
-            user.streak_days or 0,
+            current_streak(user),
             user.quizzes_passed or 0,
             user.words_learned or 0,
             user.last_quiz_date.strftime('%Y-%m-%d') if user.last_quiz_date else '',
@@ -933,7 +934,7 @@ async def admin_top_users_callback(callback: CallbackQuery, session: AsyncSessio
 
     for i, user in enumerate(users, 1):
         name = _display_name(user)
-        streak = user.streak_days or 0
+        streak = current_streak(user)
         quizzes = user.quizzes_passed or 0
         words = user.words_learned or 0
         level = user.level.value if user.level else "—"
@@ -1460,7 +1461,7 @@ async def admin_users(message: Message, session: AsyncSession):
 
     for i, user in enumerate(users, 1):
         name = _display_name(user)
-        streak = user.streak_days or 0
+        streak = current_streak(user)
         quizzes = user.quizzes_passed or 0
         words = user.words_learned or 0
 
@@ -1617,7 +1618,7 @@ async def admin_user_details(message: Message, session: AsyncSession):
 
         "📊 <b>Активность:</b>\n"
         f"├─ Последняя викт.: <b>{user.last_quiz_date or '—'}</b>\n"
-        f"├─ Стрик: <b>{user.streak_days}</b> дн.\n"
+        f"├─ Стрик: <b>{current_streak(user)}</b> дн.\n"
         f"└─ Ср. скорость: <b>{user_avg_response:.1f} сек</b>\n\n"
     )
 
