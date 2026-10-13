@@ -233,6 +233,23 @@ TEXTS = {
     "quiz_result_details": "📝 <b>Details:</b>",
     "quiz_result_errors": "❌ Mistakes: {count}",
 
+    # PRAISE AT THE END OF A ROUND — only for what actually happened
+    "praise_first_round": "First round done. From here words start coming back — that is how they stick.",
+    "praise_first_learned": "First word learned: three correct answers in a row, and not met today.",
+    "praise_learned": "Words learned this round: {count}",
+    "praise_best_streak": "Personal best: {days} days in a row",
+    "praise_milestone": "Milestone {count} reached",
+    "praise_first_speech": "First correct answer by voice",
+    "praise_first_audio": "First correct answer by ear",
+    "praise_comeback": "Welcome back. You were away {days} days.",
+    "praise_perfect": "Round without a single mistake",
+    "praise_streak": "Streak: {days} days in a row",
+    "praise_new_words": "New words: {count}",
+    "praise_returned": "Recognised again: {count}",
+    "praise_progress": "Words in progress: {count} · {left} to go until {target}",
+    "praise_progress_top": "Words in progress: {count}",
+    "praise_points": "Points: +{points}",
+
     "quiz_repeat_title": "🔄 <b>Repeat mistakes</b>",
     "quiz_repeat_question": "🔄 Repeat {current}/{total}",
     "quiz_no_errors": "✅ You had no mistakes!",

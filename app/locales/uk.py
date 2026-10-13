@@ -232,6 +232,23 @@ TEXTS = {
     "quiz_result_details": "📝 <b>Деталі:</b>",
     "quiz_result_errors": "❌ Помилок: {count}",
 
+    # ПОХВАЛА В КІНЦІ КОЛА — хвалимо лише за те, що сталося
+    "praise_first_round": "Перше коло пройдено. Далі слова почнуть повертатися — так вони й запам'ятовуються.",
+    "praise_first_learned": "Перше слово вивчено: три правильні відповіді підряд, і знайомство не сьогодні.",
+    "praise_learned": "Вивчено слів за коло: {count}",
+    "praise_best_streak": "Особистий рекорд: {days} дн. підряд",
+    "praise_milestone": "Рубіж {count} узято",
+    "praise_first_speech": "Перша правильна відповідь голосом",
+    "praise_first_audio": "Перша правильна відповідь на слух",
+    "praise_comeback": "З поверненням. Перерва була {days} дн.",
+    "praise_perfect": "Коло без помилок",
+    "praise_streak": "Серія: {days} дн. підряд",
+    "praise_new_words": "Нових слів: {count}",
+    "praise_returned": "Упізнав знову: {count}",
+    "praise_progress": "Слів у роботі: {count} · до {target} ще {left}",
+    "praise_progress_top": "Слів у роботі: {count}",
+    "praise_points": "Бали: +{points}",
+
     "quiz_repeat_title": "🔄 <b>Повтор помилок</b>",
     "quiz_repeat_question": "🔄 Повтор {current}/{total}",
     "quiz_no_errors": "✅ У тебе не було помилок!",

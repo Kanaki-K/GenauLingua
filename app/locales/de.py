@@ -239,6 +239,23 @@ TEXTS = {
     "quiz_result_details": "📝 <b>Einzelheiten:</b>",
     "quiz_result_errors": "❌ Fehler: {count}",
 
+    # LOB AM RUNDENENDE — nur für das, was wirklich geschah
+    "praise_first_round": "Erste Runde geschafft. Ab jetzt kommen Wörter zurück — so bleiben sie hängen.",
+    "praise_first_learned": "Erstes Wort gelernt: drei richtige Antworten hintereinander, und nicht heute kennengelernt.",
+    "praise_learned": "Gelernte Wörter in dieser Runde: {count}",
+    "praise_best_streak": "Persönlicher Rekord: {days} Tage in Folge",
+    "praise_milestone": "Marke {count} erreicht",
+    "praise_first_speech": "Erste richtige Antwort per Stimme",
+    "praise_first_audio": "Erste richtige Antwort nach Gehör",
+    "praise_comeback": "Willkommen zurück. Die Pause dauerte {days} Tage.",
+    "praise_perfect": "Runde ohne einen Fehler",
+    "praise_streak": "Serie: {days} Tage in Folge",
+    "praise_new_words": "Neue Wörter: {count}",
+    "praise_returned": "Wiedererkannt: {count}",
+    "praise_progress": "Wörter in Arbeit: {count} · noch {left} bis {target}",
+    "praise_progress_top": "Wörter in Arbeit: {count}",
+    "praise_points": "Punkte: +{points}",
+
     "quiz_repeat_title": "🔄 <b>Fehler wiederholen</b>",
     "quiz_repeat_question": "🔄 Wiederholung {current}/{total}",
     "quiz_no_errors": "✅ Du hattest keine Fehler!",

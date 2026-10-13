@@ -233,6 +233,23 @@ TEXTS = {
     "quiz_result_details": "📝 <b>Detaylar:</b>",
     "quiz_result_errors": "❌ Hata: {count}",
 
+    # TUR SONUNDA ÖVGÜ — yalnızca gerçekten olan için
+    "praise_first_round": "İlk tur tamam. Bundan sonra kelimeler geri dönmeye başlar — böyle akılda kalırlar.",
+    "praise_first_learned": "İlk kelime öğrenildi: üst üste üç doğru yanıt ve bugün tanışılmamış.",
+    "praise_learned": "Bu turda öğrenilen kelime: {count}",
+    "praise_best_streak": "Kişisel rekor: {days} gün üst üste",
+    "praise_milestone": "{count} eşiği geçildi",
+    "praise_first_speech": "Sesle ilk doğru yanıt",
+    "praise_first_audio": "Kulakla ilk doğru yanıt",
+    "praise_comeback": "Tekrar hoş geldin. Ara {days} gün sürdü.",
+    "praise_perfect": "Hatasız tur",
+    "praise_streak": "Seri: {days} gün üst üste",
+    "praise_new_words": "Yeni kelime: {count}",
+    "praise_returned": "Yeniden tanındı: {count}",
+    "praise_progress": "Çalışmada: {count} · {target} eşiğine {left} kaldı",
+    "praise_progress_top": "Çalışmada: {count} kelime",
+    "praise_points": "Puan: +{points}",
+
     "quiz_repeat_title": "🔄 <b>Hataları tekrarla</b>",
     "quiz_repeat_question": "🔄 Tekrar {current}/{total}",
     "quiz_no_errors": "✅ Hiç hatan yoktu!",

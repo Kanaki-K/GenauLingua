@@ -64,6 +64,7 @@ from app.services.quiz_service import (
     count_difficult_words,
     generate_question,
     get_distractors,
+    get_user_progress_stats,
     update_word_progress,
 )
 
@@ -1507,6 +1508,146 @@ async def _offer_what_fits(
             logger.warning("не удалось предложить уровень", exc_info=True)
 
 
+
+# ============================================================================
+# ПООЩРЕНИЕ В КОНЦЕ КРУГА
+# ============================================================================
+
+def _days_since_last_round(user: User) -> int:
+    """
+    Сколько дней человек не заходил ДО этого круга.
+
+    Нужно одному поводу — «с возвращением». Берётся `last_quiz_date`, пока
+    она не перезаписана сегодняшним числом.
+    """
+    last = getattr(user, "last_quiz_date", None)
+    if last is None:
+        return 0
+    return max(0, (utctoday() - last).days)
+
+
+async def _season_score(session: AsyncSession, user: User, pair: LanguagePair) -> int:
+    """
+    Месячный балл человека по ЭТОМУ языку — сейчас, до записи круга.
+
+    По языку, а не вообще: ряды сезона ведутся отдельно на каждый
+    изучаемый язык, и балл из чужого ряда дал бы бессмысленную разность.
+    """
+    from app.database.models import MonthlySeason, MonthlyStats
+
+    row = (await session.execute(
+        select(MonthlyStats.monthly_score)
+        .join(MonthlySeason, MonthlySeason.id == MonthlyStats.season_id)
+        .where(
+            MonthlyStats.user_id == user.id,
+            MonthlyStats.learning_lang == pair.learning,
+            MonthlySeason.is_active.is_(True),
+        )
+    )).scalar()
+    return int(row or 0)
+
+
+async def _praise_lines(
+    session: AsyncSession,
+    user: User,
+    pair: LanguagePair,
+    lang: str,
+    items: list,
+    *,
+    quiz_session: Optional[QuizSession],
+    answered: int,
+    correct: int,
+    learned_before: int,
+    score_before: int,
+    days_away: int,
+) -> list[str]:
+    """
+    Собрать факты круга и отдать готовые строки поощрения.
+
+    Решение «за что хвалить» живёт в `praise_service` и проверяется без
+    базы; здесь только ЗАМЕРЫ. Разделение нарочное: выбор повода — правило,
+    и спорить о нём надо на числах, а не гоняя круги.
+    """
+    from app.services.praise_service import RoundFacts, build_lines
+
+    progress = await get_user_progress_stats(user.id, session, pair)
+    words_in_work = int(progress["seen_words"])
+
+    word_ids = [word.id for _, word in items]
+    started = quiz_session.started_at if quiz_session else None
+
+    new_words = 0
+    returned_right = 0
+    if word_ids:
+        rows = (await session.execute(
+            select(UserWord.word_id, UserWord.created_at)
+            .where(
+                UserWord.user_id == user.id,
+                UserWord.learning_lang == pair.learning,
+                UserWord.word_id.in_(word_ids),
+            )
+        )).all()
+        # Слово считается новым, если его ряд прогресса создан В ЭТОМ круге
+        fresh = {
+            word_id for word_id, created in rows
+            if started is not None and created is not None and created >= started
+        }
+        new_words = len(fresh)
+        returned_right = sum(
+            1 for question, word in items
+            if question.is_correct and word.id not in fresh
+        )
+
+    # Первый в жизни верный ответ каналом: сумма по всем словам равна
+    # числу верных этим каналом в этом круге — значит прежде их не было
+    first_audio, first_speech = False, False
+    for channel, column, flag in (
+        (QuizChannel.AUDIO.value, UserWord.correct_audio, "audio"),
+        (QuizChannel.SPEECH.value, UserWord.correct_speech, "speech"),
+    ):
+        here = sum(
+            1 for question, _ in items
+            if question.is_correct and question.channel == channel
+        )
+        if not here:
+            continue
+        total = int((await session.execute(
+            select(func.coalesce(func.sum(column), 0)).where(
+                UserWord.user_id == user.id,
+                UserWord.learning_lang == pair.learning,
+            )
+        )).scalar() or 0)
+        if total == here:
+            if flag == "audio":
+                first_audio = True
+            else:
+                first_speech = True
+
+    # Серия читается через `streak_service`, а не из колонки: колонка
+    # пересчитывается только на завершении круга, и у остановившегося в ней
+    # навсегда остаётся последнее значение
+    from app.services.streak_service import current_streak
+
+    facts = RoundFacts(
+        points=max(0, await _season_score(session, user, pair) - score_before),
+        answered=answered,
+        correct=correct,
+        rounds_total=int(user.quizzes_passed or 0),
+        learned_before=learned_before,
+        learned_now=int(user.words_learned or 0),
+        streak_days=current_streak(user),
+        best_streak=int(getattr(user, "best_streak_days", 0) or 0),
+        words_in_work=words_in_work,
+        words_in_work_before=max(0, words_in_work - new_words),
+        new_words=new_words,
+        returned_right=returned_right,
+        days_away=days_away,
+        first_audio=first_audio,
+        first_speech=first_speech,
+    )
+    return build_lines(facts, lang)
+
+
 async def _finish_quiz(
     callback: CallbackQuery,
     state: FSMContext,
@@ -1534,6 +1675,14 @@ async def _finish_quiz(
         await session.commit()
 
     answered = quiz_session.answered_questions if quiz_session else 0
+
+    # ЧТО БЫЛО ДО КРУГА. Поощрение должно хвалить за то, что случилось
+    # ИМЕННО СЕЙЧАС, а оба числа — накопительные: «выучено» пересчитывается
+    # целиком, месячный балл считается по формуле от всех занятий сезона.
+    # Прирост виден только разностью, и снять «до» надо раньше записи.
+    learned_before = int(user.words_learned or 0)
+    days_away = _days_since_last_round(user)
+    score_before = await _season_score(session, user, pair)
 
     if not is_error_repeat:
         user.quizzes_passed = (user.quizzes_passed or 0) + 1
@@ -1603,6 +1752,26 @@ async def _finish_quiz(
 
     if errors and not is_error_repeat:
         result_text += "\n\n" + get_text("quiz_result_errors", lang, count=len(errors))
+
+    # ПООЩРЕНИЕ. Отдельным блоком в конце итога: разбор отвечает «что
+    # вышло», поощрение — «ради чего возвращаться». Правило одно: хвалить
+    # только за измеренное, иначе похвала обесценивает остальные числа.
+    #
+    # Круг-повтор поощрения НЕ получает: он не платит баллов, не двигает
+    # серию и не считается пройденным кругом — сказать «+0 баллов» значило
+    # бы сообщить о награде, которой нет.
+    if not is_error_repeat:
+        praise = await _praise_lines(
+            session, user, pair, lang, items,
+            quiz_session=quiz_session,
+            answered=answered,
+            correct=correct_answers,
+            learned_before=learned_before,
+            score_before=score_before,
+            days_away=days_away,
+        )
+        if praise:
+            result_text += "\n\n" + "\n".join(praise)
 
     try:
         await callback.message.delete()

@@ -239,6 +239,23 @@ TEXTS = {
     "quiz_result_details": "📝 <b>Szczegóły:</b>",
     "quiz_result_errors": "❌ Błędów: {count}",
 
+    # POCHWAŁA NA KONIEC RUNDY — tylko za to, co się stało
+    "praise_first_round": "Pierwsza runda za tobą. Dalej słowa zaczną wracać — tak się je pamięta.",
+    "praise_first_learned": "Pierwsze słowo nauczone: trzy poprawne odpowiedzi z rzędu i poznane nie dziś.",
+    "praise_learned": "Nauczone słowa w tej rundzie: {count}",
+    "praise_best_streak": "Rekord osobisty: {days} dni z rzędu",
+    "praise_milestone": "Próg {count} osiągnięty",
+    "praise_first_speech": "Pierwsza poprawna odpowiedź głosem",
+    "praise_first_audio": "Pierwsza poprawna odpowiedź ze słuchu",
+    "praise_comeback": "Witaj z powrotem. Przerwa trwała {days} dni.",
+    "praise_perfect": "Runda bez błędu",
+    "praise_streak": "Seria: {days} dni z rzędu",
+    "praise_new_words": "Nowe słowa: {count}",
+    "praise_returned": "Rozpoznane ponownie: {count}",
+    "praise_progress": "Słów w pracy: {count} · do {target} jeszcze {left}",
+    "praise_progress_top": "Słów w pracy: {count}",
+    "praise_points": "Punkty: +{points}",
+
     "quiz_repeat_title": "🔄 <b>Powtórka błędów</b>",
     "quiz_repeat_question": "🔄 Powtórka {current}/{total}",
     "quiz_no_errors": "✅ Nie miałeś żadnych błędów!",

@@ -237,6 +237,23 @@ TEXTS = {
     "quiz_result_details": "📝 <b>Детали:</b>",
     "quiz_result_errors": "❌ Ошибок: {count}",
 
+    # ПООЩРЕНИЕ В КОНЦЕ КРУГА — хвалим только за то, что случилось
+    "praise_first_round": "Первый круг пройден. Дальше слова начнут возвращаться — так они и запоминаются.",
+    "praise_first_learned": "Первое слово выучено: три верных ответа подряд, и знакомство не сегодня.",
+    "praise_learned": "Выучено слов за круг: {count}",
+    "praise_best_streak": "Личный рекорд: {days} дн. подряд",
+    "praise_milestone": "Рубеж {count} взят",
+    "praise_first_speech": "Первый верный ответ голосом",
+    "praise_first_audio": "Первый верный ответ на слух",
+    "praise_comeback": "С возвращением. Перерыв был {days} дн.",
+    "praise_perfect": "Круг без ошибок",
+    "praise_streak": "Серия: {days} дн. подряд",
+    "praise_new_words": "Новых слов: {count}",
+    "praise_returned": "Узнал снова: {count}",
+    "praise_progress": "Слов в работе: {count} · до {target} ещё {left}",
+    "praise_progress_top": "Слов в работе: {count}",
+    "praise_points": "Баллы: +{points}",
+
     "quiz_repeat_title": "🔄 <b>Повтор ошибок</b>",
     "quiz_repeat_question": "🔄 Повтор {current}/{total}",
     "quiz_no_errors": "✅ У тебя не было ошибок!",
