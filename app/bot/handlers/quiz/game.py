@@ -302,23 +302,28 @@ def _question_text(
         word_shown = option_label(word, pair.learning)
         return (
             f"{prefix}{number} · 🎤\n\n"
-            f"{flag(pair.learning)} <b>{word_shown}</b>\n\n"
+            f"<b>{word_shown}</b>\n\n"
             f"{get_text('quiz_question_speak', lang)}"
         )
 
     prompt = option_label(word, pair.prompt_lang)
     example = example_text(word, pair.prompt_lang)
-    task_key = "quiz_question_choose_word" if pair.reverse else "quiz_question_choose_translation"
 
-    parts = [
-        prefix,
-        number,
-        "\n\n",
-        f"{pair.prompt_flag} <b>{prompt}</b>\n\n",
-    ]
+    # НИ ФЛАГА, НИ ЗНАЧКА, НИ УКАЗАНИЯ — устав внешности §4.2.
+    #
+    # Флаг перед словом не нужен: язык виден по самому слову, а пара языков
+    # стоит в якоре над экраном. `📝` перед примером тоже: пример отличается
+    # от слова тем, что он предложение, и значок этого не добавляет.
+    #
+    # «Выбери правильный перевод» убрано: под текстом четыре кнопки с
+    # переводами, и другого прочтения у экрана нет. Указание, которое
+    # повторяет очевидное, человек перестаёт читать — а вместе с ним и те
+    # указания, которые однажды будут нужны.
+    #
+    # Иерархия типографикой: слово полужирным, пример курсивом.
+    parts = [prefix, number, "\n\n", f"<b>{prompt}</b>"]
     if example:
-        parts.append(f"📝 {example}\n\n")
-    parts.append(get_text(task_key, lang))
+        parts.append(f"\n\n<i>{example}</i>")
 
     return "".join(parts)
 
@@ -357,19 +362,25 @@ def _answer_text(
         # произнесено голосом и стоит в примере. Полный перечень значений
         # владелец просил убрать — «Cywilizowany, kulturalny» рядом с примером
         # про одно из них читается как ошибка
-        f"{flag(prompt_lang)} <b>{option_label(word, prompt_lang)}</b>"
-        f" = {flag(answer_lang)} <b>{option_label(word, answer_lang)}</b>",
+        #
+        # ТИРЕ, А НЕ РАВЕНСТВО: `=` между словом и переводом читается как
+        # математика. Флагов нет — пара языков очевидна из порядка строк,
+        # а четыре флага на коротком экране давали только рябь
+        f"<b>{option_label(word, prompt_lang)}</b>"
+        f" — <b>{option_label(word, answer_lang)}</b>",
     ]
 
     # Примеры всегда в порядке «изучаемый язык, затем язык значения»
     learning_example = example_text(word, pair.learning)
     native_example = example_text(word, pair.native)
     if learning_example:
-        lines.append(f"\n\n{flag(pair.learning)} {learning_example}")
+        lines.append(f"\n\n<i>{learning_example}</i>")
     if native_example:
-        # Пустая строка между примерами, а не перенос: вплотную они читаются
-        # как одна фраза в две строки, особенно когда перевод длинный
-        lines.append(f"\n\n{flag(pair.native)} {native_example}")
+        # Перенос, а не пустая строка: без флагов строки стали короче, и
+        # вплотную они читаются как пара «фраза и её перевод». Пустая строка
+        # разрывала эту пару на два отдельных сообщения
+        separator = "\n" if learning_example else "\n\n"
+        lines.append(f"{separator}<i>{native_example}</i>")
 
     return "".join(lines)
 

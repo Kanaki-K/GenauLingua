@@ -81,30 +81,13 @@ def _display_name(user: User) -> str:
 
 def _lang_name(code: Optional[str]) -> str:
     """
-    Название языка словом, без флага.
-
-    Берётся из единственного места, где язык назван — `langname_*` в
-    локалях, через реестр. Прежде в когортах лежал свой словарь на четыре
-    языка: он был полон на момент написания, а при добавлении пятого молча
-    показал бы сырой код.
-
-    Флаг снимается нарочно: в админке значков нет по уставу, а `langname_*`
-    пока несёт флаг в значении. Когда флаги уйдут из значений (это в
-    работах по внешности бота), снимать станет нечего — и код не сломается.
+    Название языка словом. Правило живёт в `language_service`: та же
+    подпись нужна якорю, заголовку занятия и карточке, и приватная копия
+    здесь разъехалась бы с ними при первой правке названий.
     """
-    if not code:
-        return "не выбран"
-    if code not in LANGUAGES:
-        return code
-    from app.locales import get_text
-    from app.services.language_service import language_name_key
+    from app.services.language_service import language_word
 
-    name = get_text(language_name_key(code), "ru")
-    # Оставляем с первой буквы: всё до неё — флаг и пробел
-    for index, char in enumerate(name):
-        if char.isalpha():
-            return name[index:]
-    return code
+    return language_word(code, "ru") or "не выбран"
 
 
 def _full_word(word_de: str, article: Optional[str]) -> str:

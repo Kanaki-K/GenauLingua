@@ -32,7 +32,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.database.enums import CEFRLevel, QuizChannel, QuizMode
 from app.database.models import User
 from app.locales import DEFAULT_LOCALE, get_text
-from app.services.language_service import flag, pair_from_user
+from app.services.language_service import flag, pair_from_user, language_word
 from app.services.monthly_leaderboard_service import get_user_monthly_rank
 from app.services.streak_service import current_streak
 from app.services.quiz_service import (
@@ -63,12 +63,6 @@ _SCALES = (
     (QuizChannel.AUDIO, "home_scale_audio", "audio"),
     (QuizChannel.SPEECH, "home_scale_speech", "speech"),
 )
-
-_CHANNEL_SHORT = {
-    QuizChannel.TEXT: "🔤",
-    QuizChannel.AUDIO: "🎧",
-    QuizChannel.SPEECH: "🎤",
-}
 
 
 def _bar(current: int, total: int, length: int = BAR_LENGTH) -> str:
@@ -166,12 +160,15 @@ async def build_home(user: User, session: AsyncSession) -> tuple[str, InlineKeyb
         user.id, session, pair, level=level, category=category
     )
 
-    # Флага перед названием НЕТ нарочно: `langname_*` уже содержит его, и
-    # первая редакция печатала «🇩🇪 🇩🇪 Немецкий». Замечено не чтением кода, а
-    # показом настоящего экрана живого пользователя.
-    learning_name = get_text(f"langname_{pair.learning}", lang)
+    # ОБА ЯЗЫКА СЛОВАМИ. Прежде второй стоял одним флагом — «Немецкий → 🏴»,
+    # то есть без названия вовсе, и человеку оставалось узнавать свой язык по
+    # цвету. Флаг при этом работал в боте тремя разными способами на трёх
+    # экранах; решение владельца снимает вопрос целиком: языки пишутся
+    # словами, и обозначать их символом не надо нигде.
+    learning_name = language_word(pair.learning, lang)
+    answer_name = language_word(pair.answer_lang, lang)
     header = (
-        f"<b>{learning_name}</b> → {flag(pair.answer_lang)}"
+        f"<b>{learning_name}</b> → {answer_name}"
         f" · {_mode_label(user, lang)}"
     )
 
@@ -226,12 +223,24 @@ def _home_keyboard(
         callback_data="learn_now",
     )]]
 
+    # Подписи кнопок — ТЕМИ ЖЕ словами, что подписи шкал: «Читаю» и
+    # «Читать», «Слушаю» и «Слушать». Прежде кнопки были одними значками,
+    # без слов, и связь шкалы с кнопкой приходилось угадывать: шкала
+    # называлась «Написанное», а кнопка под ней — значком азбуки.
+    #
+    # Знаки слуха и речи остались в подписях (`🎧 Слушать`): они из
+    # разрешённых четырёх и помечают канал в разборе круга. У карточки
+    # знака нет нарочно — она основная.
     shortcuts = [
         InlineKeyboardButton(
-            text=_CHANNEL_SHORT[channel],
+            text=get_text(button_key, lang),
             callback_data=f"home_learn_{channel.value}",
         )
-        for channel, _, _ in _SCALES
+        for channel, _, button_key in (
+            (QuizChannel.TEXT, None, "home_btn_text"),
+            (QuizChannel.AUDIO, None, "home_btn_audio"),
+            (QuizChannel.SPEECH, None, "home_btn_speech"),
+        )
     ]
     rows.append(shortcuts)
 

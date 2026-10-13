@@ -10,71 +10,71 @@ TEXTS = {
     "btn_stats": "📊 Статистика",
     "btn_settings": "🦾 Налаштування",
     "btn_help": "❓ Допомога",
-    "btn_back": "◀️ Назад",
+    "btn_back": "Назад",
     "menu_placeholder": "Обери дію...",
 
     # ============================================================================
     # ВІТАННЯ ТА СТАРТ
     # ============================================================================
-    "welcome_title": "👋 <b>Привіт, {name}!</b>",
+    "welcome_title": "<b>Привіт, {name}!</b>",
 
 
 
 
 
 
-    "welcome_choose_level": "🎯 <b>З чого почнемо?</b>\n\nТвій рівень — {language}\n\n• A1–A2 — базова лексика\n• B1–B2 — впевнене спілкування\n• C1–C2 — вільне володіння",
+    "welcome_choose_level": "<b>З чого почнемо?</b>\n\nТвій рівень — {language}\n\n• A1–A2 — базова лексика\n• B1–B2 — впевнене спілкування\n• C1–C2 — вільне володіння",
     "choose_level_prompt": "Обери рівень:",
 
-    "level_selected": "✅ Рівень <b>{level}</b> обрано.\n\n12 902 слова, шість мов. Почнімо з п'ятнадцяти.",
-    "level_locked": "🔒 Цей рівень поки в розробці",
+    "level_selected": "✓ Рівень <b>{level}</b> обрано.\n\n12 902 слова, шість мов. Почнімо з п'ятнадцяти.",
+    "level_locked": "Цей рівень поки в розробці",
 
     # ============================================================================
     # НАГАДУВАННЯ
     # ============================================================================
-    "notif_title": "🔔 <b>Налаштування нагадувань</b>",
+    "notif_title": "<b>Налаштування нагадувань</b>",
     "notif_status": "Статус: {status}",
-    "notif_status_on": "🔔 Увімкнені",
-    "notif_status_off": "🔕 Вимкнені",
+    "notif_status_on": "Увімкнені",
+    "notif_status_off": "Вимкнені",
     "notif_time": "Час: {time}",
     "notif_days": "Дні: {days}",
     "notif_timezone": "Часовий пояс: {timezone}",
-    "notif_hint": "💡 Нагадування приходитимуть у зазначений час за вашим часовим поясом.",
-    "notif_hint_off": "💡 Увімкніть нагадування, щоб не забувати займатися щодня!",
+    "notif_hint": "Нагадування приходитимуть у зазначений час за вашим часовим поясом.",
+    "notif_hint_off": "Увімкніть нагадування, щоб не забувати займатися щодня!",
 
-    "notif_btn_toggle_on": "🔔 Нагадування: Увімкнено",
-    "notif_btn_toggle_off": "🔕 Нагадування: Вимкнено",
-    "notif_btn_time": "🕐 Час: {time}",
-    "notif_btn_days": "📅 Обрати дні",
-    "notif_btn_timezone": "🌍 Змінити часовий пояс",
+    "notif_btn_toggle_on": "Нагадування: Увімкнено",
+    "notif_btn_toggle_off": "Нагадування: Вимкнено",
+    "notif_btn_time": "Час: {time}",
+    "notif_btn_days": "Обрати дні",
+    "notif_btn_timezone": "Змінити часовий пояс",
 
-    "notif_timezone_title": "🌍 <b>Оберіть ваш часовий пояс</b>",
+    "notif_timezone_title": "<b>Оберіть ваш часовий пояс</b>",
     "notif_timezone_current": "Поточний: {timezone}",
     "notif_timezone_prompt": "Оберіть місто у вашому часовому поясі:",
-    "notif_timezone_more": "🌍 Обрати інше місто ▼",
-    "notif_timezone_back": "◀️ Назад",
-    "notif_timezone_set": "✅ Часовий пояс встановлено: {city}",
+    "notif_timezone_more": "Обрати інше місто",
+    "notif_timezone_back": "Назад",
+    "notif_timezone_set": "✓ Часовий пояс встановлено: {city}",
 
-    "notif_time_title": "🕐 <b>Оберіть час нагадування</b>",
+    "notif_time_title": "<b>Оберіть час нагадування</b>",
     "notif_time_current": "Поточний час: {time}",
     "notif_time_timezone": "Часовий пояс: {timezone}",
     "notif_time_hint": "Нагадування приходитиме щодня у обраний час.",
-    "notif_time_set": "✅ Час встановлено: {time}",
+    "notif_time_set": "✓ Час встановлено: {time}",
 
-    "notif_days_title": "📅 <b>Оберіть дні для нагадувань</b>",
-    "notif_days_hint": "Натисніть на день, щоб увімкнути/вимкнути його.\n✅ Зелена галочка - день увімкнено\n❌ Червоний хрестик - день вимкнено\n\nКоли закінчите - натисніть 'Зберегти'.",
-    "notif_days_all": "📅 Всі дні",
-    "notif_days_weekdays": "🗓️ Будні (Пн-Пт)",
-    "notif_days_save": "💾 Зберегти",
-    "notif_days_saved": "✅ Дні збережено!",
-    "notif_days_all_selected": "✅ Обрано всі дні",
-    "notif_days_weekdays_selected": "✅ Обрано будні (Пн-Пт)",
-    "notif_days_none": "⚠️ Оберіть хоча б один день для нагадувань!",
+    "notif_days_title": "<b>Оберіть дні для нагадувань</b>",
+    "notif_days_hint": "Натисніть на день, щоб увімкнути/вимкнути його.\n✓ Зелена галочка - день увімкнено\n✗ Червоний хрестик - день вимкнено\n\nКоли закінчите - натисніть 'Зберегти'.",
+    "notif_days_all": "Всі дні",
+    "notif_days_weekdays": "Будні (Пн-Пт)",
+    "notif_days_save": "Зберегти",
+    "notif_days_saved": "✓ Дні збережено!",
+    "notif_days_all_selected": "✓ Обрано всі дні",
+    "notif_days_weekdays_selected": "✓ Обрано будні (Пн-Пт)",
+    "notif_days_none": "Оберіть хоча б один день для нагадувань!",
 
-    "notif_toggle_on": "🔔 Нагадування увімкнено!",
-    "notif_toggle_off": "🔕 Нагадування вимкнено",
+    "notif_toggle_on": "Нагадування увімкнено!",
+    "notif_toggle_off": "Нагадування вимкнено",
 
-    "notif_message_btn_disable": "🔕 Вимкнути нагадування",
+    "notif_message_btn_disable": "Вимкнути нагадування",
 
     "day_mon": "Пн",
     "day_tue": "Вт",
@@ -84,10 +84,12 @@ TEXTS = {
     "day_sat": "Сб",
     "day_sun": "Нд",
 
-    "notif_btn_back": "◀️ Назад до налаштувань",
+    "notif_btn_back": "Назад до налаштувань",
 
     "notif_default_name": "друже",
-    "notif_message_greeting": "🔥 <b>Час практики, {name}!</b>",
+
+    "anchor_streak": "{days} дн. підряд",
+    "notif_message_greeting": "<b>Час практики, {name}!</b>",
 
 
     # ПРИЧИНА ПОВЕРНУТИСЯ — одна, і обов'язково правдива
@@ -106,69 +108,70 @@ TEXTS = {
     # ============================================================================
     # НАЛАШТУВАННЯ
     # ============================================================================
-    "settings_title": "🦾 <b>Налаштування</b>",
-    "settings_level": "📚 Рівень: <b>{level}</b>",
-    "settings_mode": "🔄 Переклад: <b>{mode}</b>",
-    "settings_language": "🌍 Мова інтерфейсу: <b>{language}</b>",
+    "settings_title": "<b>Налаштування</b>",
+    "settings_level": "Рівень: <b>{level}</b>",
+    "settings_mode": "Переклад: <b>{mode}</b>",
+    "settings_language": "Мова інтерфейсу: <b>{language}</b>",
     "settings_choose": "Обери, що хочеш змінити:",
 
-    "settings_btn_quiz_mode": "📝 Режим вікторини",
-    "settings_btn_change_mode": "🔄 Режим перекладу",
-    "settings_btn_change_language": "🌍 Мова інтерфейсу",
-    "settings_btn_notifications": "🔔 Нагадування",
+    "settings_btn_quiz_mode": "Режим вікторини",
+    "settings_btn_change_mode": "Режим перекладу",
+    "settings_btn_change_language": "Мова інтерфейсу",
+    "settings_btn_notifications": "Нагадування",
 
-    "settings_quiz_mode_line": "📝 Режим: <b>{mode}</b>",
+    "settings_quiz_mode_line": "Режим: <b>{mode}</b>",
 
-    "settings_mode_title": "🔄 <b>Режим перекладу</b>",
+    "settings_mode_title": "<b>Режим перекладу</b>",
     "settings_mode_description": "Обери напрямок перекладу:",
 
-    "settings_language_title": "🌍 <b>Мова інтерфейсу</b>",
+    "settings_language_title": "<b>Мова інтерфейсу</b>",
     "settings_language_description": "Обери мову інтерфейсу бота:",
+    "start_pick_language": "Обери мову бота",
 
-    "language_changed": "✅ Мову змінено на {language}",
+    "language_changed": "✓ Мову змінено на {language}",
     "level_not_selected": "Не обрано",
-    "user_not_found": "❌ Користувача не знайдено. Використай /start",
+    "user_not_found": "✗ Користувача не знайдено. Використай /start",
 
-    "lang_ru": "🏴 Русский",
-    "lang_uk": "🇺🇦 Українська",
-    "lang_en": "🇬🇧 English",
-    "lang_tr": "🇹🇷 Türkçe",
-    "lang_de": "🇩🇪 Deutsch",
-    "lang_pl": "🇵🇱 Polski",
+    "lang_ru": "Русский",
+    "lang_uk": "Українська",
+    "lang_en": "English",
+    "lang_tr": "Türkçe",
+    "lang_de": "Deutsch",
+    "lang_pl": "Polski",
 
-    "mode_de_to_ru": "🇩🇪 DE → 🏴 RU",
-    "mode_ru_to_de": "🏴 RU → 🇩🇪 DE",
-    "mode_de_to_uk": "🇩🇪 DE → 🇺🇦 UK",
-    "mode_uk_to_de": "🇺🇦 UK → 🇩🇪 DE",
-    "mode_de_to_en": "🇩🇪 DE → 🇬🇧 EN",
-    "mode_en_to_de": "🇬🇧 EN → 🇩🇪 DE",
-    "mode_de_to_tr": "🇩🇪 DE → 🇹🇷 TR",
-    "mode_tr_to_de": "🇹🇷 TR → 🇩🇪 DE",
+    "mode_de_to_ru": "DE → RU",
+    "mode_ru_to_de": "RU → DE",
+    "mode_de_to_uk": "DE → UK",
+    "mode_uk_to_de": "UK → DE",
+    "mode_de_to_en": "DE → EN",
+    "mode_en_to_de": "EN → DE",
+    "mode_de_to_tr": "DE → TR",
+    "mode_tr_to_de": "TR → DE",
 
     # ============================================================================
     # РЕЖИМ ВІКТОРИНИ (НОВЕ)
     # ============================================================================
-    "qmode_title": "📝 <b>Режим вікторини</b>",
+    "qmode_title": "<b>Режим вікторини</b>",
     "qmode_current": "Зараз: <b>{mode}</b>",
     "qmode_choose": "Обери як хочеш вчити слова\nМожеш змінити будь-коли — прогрес зберігається",
 
-    "qmode_btn_level": "📚 За рівнем",
-    "qmode_btn_category": "🗂 Категорія",
-    "qmode_btn_all": "🌍 Топ 10 тисяч",
-    "qmode_btn_difficult": "⚠️ Складні",
+    "qmode_btn_level": "За рівнем",
+    "qmode_btn_category": "Категорія",
+    "qmode_btn_all": "Топ 10 тисяч",
+    "qmode_btn_difficult": "Складні",
 
-    "qmode_level_short": "📚 Рівень {level}",
-    "qmode_category_short": "🗂 {category}",
-    "qmode_all_short": "🌍 Топ 10 тисяч",
-    "qmode_difficult_short": "⚠️ Складні слова",
+    "qmode_level_short": "Рівень {level}",
+    "qmode_category_short": "{category}",
+    "qmode_all_short": "Топ 10 тисяч",
+    "qmode_difficult_short": "Складні слова",
 
-    "qmode_level_title": "📚 <b>Вибір рівня</b>",
+    "qmode_level_title": "<b>Вибір рівня</b>",
     "qmode_level_desc": "Від першого «Hallo» до вільних дискусій\nВсі рівні доступні — обирай свій!\n\n• A1–A2 — базова лексика\n• B1–B2 — впевнене спілкування\n• C1–C2 — вільне володіння",
-    "qmode_level_set": "✅ Режим: За рівнем ({level})",
+    "qmode_level_set": "✓ Режим: За рівнем ({level})",
 
-    "qmode_category_title": "🗂 <b>Вибір категорії</b>",
+    "qmode_category_title": "<b>Вибір категорії</b>",
     "qmode_category_desc": "Від їжі до науки — обери тему, яка тобі потрібна\n\nКожна категорія містить слова всіх рівнів",
-    "qmode_category_set": "✅ Режим: {category}",
+    "qmode_category_set": "✓ Режим: {category}",
 
     # Назви категорій
     "cat_arbeit_beruf": "Робота",
@@ -192,52 +195,52 @@ TEXTS = {
     "cat_wohnen_haus": "Житло",
     "cat_zeit_alltag": "Побут",
 
-    "qmode_all_set": "✅ Режим: Топ 10 тисяч",
+    "qmode_all_set": "✓ Режим: Топ 10 тисяч",
 
-    "qmode_difficult_set": "✅ Режим: Складні слова",
+    "qmode_difficult_set": "✓ Режим: Складні слова",
     "qmode_difficult_few": "У тебе поки тільки {count} складних слів — потрібно мінімум 4\nПройди ще кілька вікторин!",
     "qmode_difficult_empty": "У тебе поки немає складних слів.\nПройди кілька вікторин!",
 
-    "quiz_btn_change_mode": "⚙️ Режим вікторини",
-    "quiz_btn_report_error": "📝 Помилка перекладу",
-    "report_btn_confirm": "✅ Підтвердити ({count})",
-    "report_btn_send": "📨 Відправити",
+    "quiz_btn_change_mode": "Режим вікторини",
+    "quiz_btn_report_error": "Помилка перекладу",
+    "report_btn_confirm": "✓ Підтвердити ({count})",
+    "report_btn_send": "Відправити",
     "report_no_words": "Немає слів для репорту",
     "report_none_selected": "Обери хоча б одне слово",
-    "report_sent": "✅ Відправлено {count} репортів — дякуємо!\nЯкщо помилка підтвердиться — отримаєш +{points} балів",
-    "report_daily_limit": "⚠️ Ліміт репортів на сьогодні вичерпано (макс. 20)",
-    "report_all_reported": "✅ Усі слова з цієї вікторини вже зарепорчені",
-    "report_already_sent": "✔️ Вже відправлено раніше",
+    "report_sent": "✓ Відправлено {count} репортів — дякуємо!\nЯкщо помилка підтвердиться — отримаєш +{points} балів",
+    "report_daily_limit": "Ліміт репортів на сьогодні вичерпано (макс. 20)",
+    "report_all_reported": "✓ Усі слова з цієї вікторини вже зарепорчені",
+    "report_already_sent": "✓ Вже відправлено раніше",
     "report_kind_title": "Що саме не так?",
-    "report_btn_kind_text": "📝 Невірний переклад",
-    "report_btn_kind_audio": "🔊 Невірна вимова",
-    "report_sent_audio": "✅ Надіслано {count} — дякую!\nСкарги на вимову особливо цінні: машинна перевірка наголос не чує\nЯкщо підтвердиться — +{points} балів",
-    "report_approved": "✅ Твою скаргу прийнято: <b>{word}</b> виправлено.\n+{points} балів у місячний залік — дякуємо, словник став кращим для всіх.",
-    "report_approved_audio": "✅ Скаргу на вимову прийнято: <b>{word}</b>.\nОзвучення запишемо заново. +{points} балів у місячний залік — дякуємо.",
+    "report_btn_kind_text": "Невірний переклад",
+    "report_btn_kind_audio": "Невірна вимова",
+    "report_sent_audio": "✓ Надіслано {count} — дякую!\nСкарги на вимову особливо цінні: машинна перевірка наголос не чує\nЯкщо підтвердиться — +{points} балів",
+    "report_approved": "✓ Твою скаргу прийнято: <b>{word}</b> виправлено.\n+{points} балів у місячний залік — дякуємо, словник став кращим для всіх.",
+    "report_approved_audio": "✓ Скаргу на вимову прийнято: <b>{word}</b>.\nОзвучення запишемо заново. +{points} балів у місячний залік — дякуємо.",
 
     # ============================================================================
     # ВІКТОРИНА
     # ============================================================================
-    "quiz_no_level": "⚠️ Спочатку обери свій рівень за допомогою команди /start",
-    "quiz_error_generation": "❌ Сталася помилка при підготовці вікторини.\nСпробуй ще раз через /start",
-    "quiz_no_words": "❌ На жаль, для цього рівня поки немає слів.\nСпробуй обрати інший рівень.",
+    "quiz_no_level": "Спочатку обери свій рівень за допомогою команди /start",
+    "quiz_error_generation": "✗ Сталася помилка при підготовці вікторини.\nСпробуй ще раз через /start",
+    "quiz_no_words": "✗ На жаль, для цього рівня поки немає слів.\nСпробуй обрати інший рівень.",
 
-    "quiz_question_number": "Запитання {current}/{total}",
+    "quiz_question_number": "{current} / {total}",
     "quiz_question_choose_word": "Обери правильне слово:",
     "quiz_question_choose_translation": "Обери правильний переклад:",
 
-    "quiz_correct": "✅ <b>Правильно!</b>",
-    "quiz_wrong": "❌ <b>Неправильно!</b>",
+    "quiz_correct": "✓ <b>Правильно</b>",
+    "quiz_wrong": "✗ <b>Неправильно</b>",
     "quiz_correct_answer": "Правильна відповідь:",
 
     "quiz_btn_next": "Далі →",
-    "quiz_btn_repeat_errors": "🔄 Повторити помилки",
+    "quiz_btn_repeat_errors": "Повторити помилки",
 
-    "quiz_completed": "🎉 <b>Вікторину завершено!</b>",
-    "quiz_result_correct": "✅ Правильно: <b>{correct}/{total}</b>",
-    "quiz_result_percentage": "📈 Результат: <b>{percentage}%</b>",
-    "quiz_result_details": "📝 <b>Деталі:</b>",
-    "quiz_result_errors": "❌ Помилок: {count}",
+    "quiz_completed": "<b>Вікторину завершено!</b>",
+    "quiz_result_correct": "✓ Правильно: <b>{correct}/{total}</b>",
+    "quiz_result_percentage": "Результат: <b>{percentage}%</b>",
+    "quiz_result_details": "<b>Деталі:</b>",
+    "quiz_result_errors": "✗ Помилок: {count}",
 
     # ПОХВАЛА В КІНЦІ КОЛА — хвалимо лише за те, що сталося
     "praise_first_round": "Перше коло пройдено. Далі слова почнуть повертатися — так вони й запам'ятовуються.",
@@ -256,120 +259,120 @@ TEXTS = {
     "praise_progress_top": "Слів у роботі: {count}",
     "praise_points": "Бали: +{points}",
 
-    "quiz_repeat_title": "🔄 <b>Повтор помилок</b>",
-    "quiz_repeat_question": "🔄 Повтор {current}/{total}",
-    "quiz_no_errors": "✅ У тебе не було помилок!",
-    "quiz_error_next": "❌ Не вдалося завантажити наступне запитання.",
-    "quiz_error_generate": "❌ Не вдалося згенерувати наступне запитання.",
+    "quiz_repeat_title": "<b>Повтор помилок</b>",
+    "quiz_repeat_question": "Повтор {current}/{total}",
+    "quiz_no_errors": "✓ У тебе не було помилок!",
+    "quiz_error_next": "✗ Не вдалося завантажити наступне запитання.",
+    "quiz_error_generate": "✗ Не вдалося згенерувати наступне запитання.",
 
     # ============================================================================
     # СТАТИСТИКА
     # ============================================================================
-    "stats_title": "📊 <b>Статистика</b>",
-    "stats_no_level": "⚠️ <b>Спочатку обери рівень!</b>\n\nВикористай команду /start щоб почати.",
+    "stats_title": "<b>Статистика</b>",
+    "stats_no_level": "<b>Спочатку обери рівень!</b>\n\nВикористай команду /start щоб почати.",
 
-    "stats_all_words": "📚 Вся база ({count} слово|слова|слів)",
-    "stats_learned": "✅ Вивчено: {count}",
-    "stats_in_progress": "🔄 В процесі: {count}",
-    "stats_new": "🆕 Нових: {count}",
-    "stats_difficult": "❌ Складні: {count}",
+    "stats_all_words": "Вся база ({count} слово|слова|слів)",
+    "stats_learned": "✓ Вивчено: {count}",
+    "stats_in_progress": "В процесі: {count}",
+    "stats_new": "Нових: {count}",
+    "stats_difficult": "✗ Складні: {count}",
 
-    "stats_level_title": "🎯 Рівень {level} · {mode} ({count} слово|слова|слів)",
-    "stats_quizzes_title": "🏆 <b>Вікторини (рівень {level}):</b>",
+    "stats_level_title": "Рівень {level} · {mode} ({count} слово|слова|слів)",
+    "stats_quizzes_title": "<b>Вікторини (рівень {level}):</b>",
     "stats_quizzes_passed": "Пройдено: {count}",
     "stats_quizzes_avg": "Середній результат: {percentage}%",
     "stats_quizzes_best": "Найкращий результат: {percentage}%",
     "stats_quizzes_none": "Ти ще не проходив вікторини на цьому рівні.",
 
-    "stats_activity_title": "🔥 <b>Активність:</b>",
-    "stats_streak": "└─ Стрік: <b>{days}</b> днів поспіль",
+    "stats_activity_title": "<b>Активність:</b>",
+    "stats_streak": "Стрік: <b>{days}</b> днів поспіль",
 
     "stats_recent_title": "<b>Останні вікторини:</b>",
-    "stats_learned_explanation": "💡 <b>Вивчено</b> — 3 правильні відповіді підряд, і не в день знайомства зі словом",
+    "stats_learned_explanation": "<b>Вивчено</b> — 3 правильні відповіді підряд, і не в день знайомства зі словом",
 
     # ============================================================================
     # ДОПОМОГА
     # ============================================================================
-    "help_title": "❓ <b>Допомога — GenauLingua</b>",
+    "help_title": "<b>Допомога — GenauLingua</b>",
     "help_description": "Тут ти знайдеш інструкції, дізнаєшся що скоро з'явиться в боті та як зв'язатися зі спільнотою.",
     "help_choose": "Обери розділ:",
 
-    "help_btn_how_to_use": "📖 Як користуватися",
-    "help_btn_community": "💬 Спільнота",
+    "help_btn_how_to_use": "Як користуватися",
+    "help_btn_community": "Спільнота",
 
-    "help_how_to_use_title": "📖 <b>Як користуватися ботом</b>",
-    "help_how_to_use_text": """1️⃣ <b>Обери, яку мову вивчати</b>
-🦾 Налаштування → 🎯 Яку мову вивчати: {languages}.
+    "help_how_to_use_title": "<b>Як користуватися ботом</b>",
+    "help_how_to_use_text": """1 <b>Обери, яку мову вивчати</b>
+Налаштування → Яку мову вивчати: {languages}.
 Там само — рівень A1–C2, напрямок перекладу та мова інтерфейсу.
 Прогрес з кожної мови рахується окремо: можна вчити дві паралельно.
 
-2️⃣ <b>Обери режим вікторини</b>
-🦾 Налаштування → 📝 Режим вікторини:
+2 <b>Обери режим вікторини</b>
+Налаштування → Режим вікторини:
 • За рівнем — слова твого рівня
 • За категорією — 20 тем: їжа, робота, подорожі...
 • Топ 10 тисяч — вся база слів
 • Складні — слова, в яких ти часто помиляєшся
 
-3️⃣ <b>Вчи слова щодня</b>
-📚 Вчити слова → вікторина з 25 слів.
+3 <b>Вчи слова щодня</b>
+Вчити слова → вікторина з 25 слів.
 Бот запам'ятовує твої помилки і частіше показує складні слова.
 
-4️⃣ <b>Повторюй помилки</b>
+4 <b>Повторюй помилки</b>
 Після вікторини можеш одразу повторити слова, в яких помилився.
 
-5️⃣ <b>Стеж за прогресом</b>
-📊 Статистика → скільки вивчено, історія вікторин, стрік.
+5 <b>Стеж за прогресом</b>
+Статистика → скільки вивчено, історія вікторин, стрік.
 
-6️⃣ <b>Змагайся з іншими</b>
-🏆 Мій рейтинг → твої бали за місяць та за весь час.
-📊 Таблиця лідерів → топ-10 серед усіх учасників.
+6 <b>Змагайся з іншими</b>
+Мій рейтинг → твої бали за місяць та за весь час.
+Таблиця лідерів → топ-10 серед усіх учасників.
 
-7️⃣ <b>Налаштуй нагадування</b>
-🦾 Налаштування → 🔔 Нагадування → обери час, дні та часовий пояс.
+7 <b>Налаштуй нагадування</b>
+Налаштування → Нагадування → обери час, дні та часовий пояс.
 
-🔊 <b>Озвучення</b>
+<b>Озвучення</b>
 Слово звучить голосом носія: у питанні саме слово, після відповіді — слово разом із прикладом. Так чути і вимову, і те, як слово живе в живій мові.
-🦾 Налаштування → 🔊 Озвучення: можна вимкнути або вибрати голос. Для німецької три чоловічих і три жіночих, натискання одразу дає послухати.
+Налаштування → Озвучення: можна вимкнути або вибрати голос. Для німецької три чоловічих і три жіночих, натискання одразу дає послухати.
 У зворотному напрямку звук приходить після відповіді: інакше вимовлене слово й було б відповіддю.
 
-━━━━━━━━━━━━━━━━━
-💡 Слово <b>вивчено</b> — якщо відповів правильно 3 рази поспіль.
-🔥 <b>Стрік</b> зростає якщо пройшов хоча б 1 вікторину в цей день.
-📝 Знайшов помилку? Натисни кнопку після вікторини та вкажи, що не так — переклад чи вимова. Скарги на вимову особливо потрібні: машина наголос не чує.
+
+Слово <b>вивчено</b> — якщо відповів правильно 3 рази поспіль.
+<b>Стрік</b> зростає якщо пройшов хоча б 1 вікторину в цей день.
+Знайшов помилку? Натисни кнопку після вікторини та вкажи, що не так — переклад чи вимова. Скарги на вимову особливо потрібні: машина наголос не чує.
 
 Питання? → t.me/genaulingua_chat""",
 
 
-    "help_community_title": "💬 <b>Спільнота GenauLingua</b>",
-    "help_community_text": """👉 <b>t.me/genaulingua_chat</b>
+    "help_community_title": "<b>Спільнота GenauLingua</b>",
+    "help_community_text": """ <b>t.me/genaulingua_chat</b>
 
 У чаті:
-📢 Першими дізнаєшся про оновлення
-🐛 Знайшов баг — пиши або присилай скріншот
-📝 Помилка в перекладі — повідомляй, виправимо
-💡 Ідеї та побажання — все читаємо і беремо в роботу
-👥 Спілкування з іншими учнями
+Першими дізнаєшся про оновлення
+Знайшов баг — пиши або присилай скріншот
+Помилка в перекладі — повідомляй, виправимо
+Ідеї та побажання — все читаємо і беремо в роботу
+Спілкування з іншими учнями
 
-━━━━━━━━━━━━━━━━━
-Чим активніша спільнота — тим кращим стає бот. Не соромся! 🙌""",
+
+Чим активніша спільнота — тим кращим стає бот. Не соромся! """,
 
 
     # ============================================================================
     # РЕЙТИНГ
     # ============================================================================
-    "rating_title_monthly": "🏆 <b>Мій рейтинг — {month} {year}</b>",
-    "rating_not_active": "❌ Рейтинг поки не активний.",
-    "rating_not_in_ranking": "📍 Ти ще не в рейтингу",
-    "rating_start_quiz": "🚀 Пройди першу вікторину!",
-    "rating_position": "📍 Позиція: <b>#{rank}</b> з {total}",
-    "rating_points": "💎 Бали: <b>{score}</b>",
-    "rating_your_month": "⭐ <b>Твій {month}:</b>",
-    "rating_quizzes": "├ Вікторин: {count}",
-    "rating_words_learned": "├ Вивчено слів: {count}",
-    "rating_streak": "├ Стрік: {count} дн.",
-    "rating_avg_result": "└ Середній результат: {percent}%",
-    "rating_goal": "🎯 До #{rank} ({name}): ще {diff} балів",
-    "rating_scoring_title": "💡 <b>Як заробити бали:</b>",
+    "rating_title_monthly": "<b>Мій рейтинг — {month} {year}</b>",
+    "rating_not_active": "✗ Рейтинг поки не активний.",
+    "rating_not_in_ranking": "Ти ще не в рейтингу",
+    "rating_start_quiz": "Пройди першу вікторину!",
+    "rating_position": "Позиція: <b>#{rank}</b> з {total}",
+    "rating_points": "Бали: <b>{score}</b>",
+    "rating_your_month": "<b>Твій {month}:</b>",
+    "rating_quizzes": "Вікторин: {count}",
+    "rating_words_learned": "Вивчено слів: {count}",
+    "rating_streak": "Стрік: {count} дн.",
+    "rating_avg_result": "Середній результат: {percent}%",
+    "rating_goal": "До #{rank} ({name}): ще {diff} балів",
+    "rating_scoring_title": "<b>Як заробити бали:</b>",
     "rating_scoring_quiz": "• Пройдена вікторина → +10",
     "rating_scoring_reverse": "• Режим «Реверс» → +5",
     "rating_scoring_word": "• Вивчене слово → +2",
@@ -377,92 +380,92 @@ TEXTS = {
     "rating_scoring_bonus": "• Точність 90%+ → +50 бонус",
     "rating_scoring_report": "• Підтверджений репорт → +1",
 
-    "rating_title_alltime": "🏆 <b>Мій рейтинг — За весь час</b>",
-    "rating_position_alltime": "📍 Позиція: <b>#{rank}</b>",
-    "rating_position_none": "📍 Позиція: <b>—</b>",
-    "rating_achievements": "⭐ <b>Твої досягнення:</b>",
-    "rating_wins": "├ Перемог (1 місце): {count}",
-    "rating_total_words": "└ Вивчено слів: {count}",
-    "rating_motivation_start": "🚀 Почни вчити слова — перший крок найважливіший!",
-    "rating_motivation_continue": "🎯 Продовжуй — перша перемога вже близько!",
-    "rating_motivation_champion": "🔥 Ти справжній чемпіон!",
-    "rating_lifetime_title": "🌟 <b>Lifetime бали — це:</b>",
-    "rating_lifetime_desc": "• Всі бали за всі місяці\n• +100 за 🥇 · +50 за 🥈 · +25 за 🥉",
+    "rating_title_alltime": "<b>Мій рейтинг — За весь час</b>",
+    "rating_position_alltime": "Позиція: <b>#{rank}</b>",
+    "rating_position_none": "Позиція: <b>—</b>",
+    "rating_achievements": "<b>Твої досягнення:</b>",
+    "rating_wins": "Перемог (1 місце): {count}",
+    "rating_total_words": "Вивчено слів: {count}",
+    "rating_motivation_start": "Почни вчити слова — перший крок найважливіший!",
+    "rating_motivation_continue": "Продовжуй — перша перемога вже близько!",
+    "rating_motivation_champion": "Ти справжній чемпіон!",
+    "rating_lifetime_title": "<b>Lifetime бали — це:</b>",
+    "rating_lifetime_desc": "• Всі бали за всі місяці\n• +100 за · +50 за · +25 за",
 
-    "table_title_monthly": "📊 <b>Таблиця лідерів — {month} {year}</b>",
-    "table_title_alltime": "📊 <b>Таблиця лідерів — За весь час</b>",
-    "table_empty": "Поки ніхто не бере участь.\nПройди вікторину першим! 💪",
-    "table_you_in_top": "📍 Ти: <b>#{rank}</b> з {total}",
-    "table_you_not_in_top": "📍 Ти: <b>#{rank}</b> з {total} — {score} балів",
-    "table_you_outside": "📍 Ти: за межами топ-10 — {score} балів",
-    "table_you_not_ranked": "📍 Ти ще не в рейтингу",
+    "table_title_monthly": "<b>Таблиця лідерів — {month} {year}</b>",
+    "table_title_alltime": "<b>Таблиця лідерів — За весь час</b>",
+    "table_empty": "Поки ніхто не бере участь.\nПройди вікторину першим!",
+    "table_you_in_top": "Ти: <b>#{rank}</b> з {total}",
+    "table_you_not_in_top": "Ти: <b>#{rank}</b> з {total} — {score} балів",
+    "table_you_outside": "Ти: за межами топ-10 — {score} балів",
+    "table_you_not_ranked": "Ти ще не в рейтингу",
     "table_points": "балів",
-    "btn_leaderboard_table": "📊 Таблиця лідерів",
-    "btn_back_to_rating": "◀️ Назад до рейтингу",
+    "btn_leaderboard_table": "Таблиця лідерів",
+    "btn_back_to_rating": "Назад до рейтингу",
 
     # СТАТИСТИКА
-    "stats_header": "📊 <b>Твоя статистика</b>",
-    "stats_learned_of": "└─ Вивчено <b>{learned}</b> з {total}",
-    "stats_details": "⏳ В процесі: {progress}\n🆕 Нових: {new}\n⚠️ Складних: {difficult}",
+    "stats_header": "<b>Твоя статистика</b>",
+    "stats_learned_of": "Вивчено <b>{learned}</b> з {total}",
+    "stats_details": "В процесі: {progress}\nНових: {new}\nСкладних: {difficult}",
     "stats_achievements_title": "<b>Твої досягнення</b>",
-    "stats_words_count": "├─ Вивчено слів: <b>{count}</b>",
-    "stats_streak_line": "└─ Стрік: <b>{days} днів поспіль</b>",
+    "stats_words_count": "Вивчено слів: <b>{count}</b>",
+    "stats_streak_line": "Стрік: <b>{days} днів поспіль</b>",
     "stats_quizzes_header": "<b>Вікторини · {level}</b>",
-    "stats_quizzes_passed_line": "├─ Пройдено: <b>{count}</b>",
-    "stats_quizzes_avg_line": "├─ Середній результат: <b>{percent}%</b>",
-    "stats_quizzes_best_line": "└─ Найкращий результат: <b>{percent}%</b>",
-    "stats_quizzes_empty": "└─ Поки немає пройдених вікторин",
-    "stats_recent_header": "📈 <b>Останні вікторини</b>",
-    "stats_overall_header": "🌍 <b>Загальний прогрес</b>",
-    "stats_overall_learned": "└─ Вивчено <b>{learned}</b> з {total} слів",
-    "stats_cta_start": "💪 Почни вчити слова — перший крок найважливіший!",
-    "stats_cta_begin": "🚀 Чудовий початок! Продовжуй так само!",
-    "stats_cta_halfway": "🔥 Ти на півдорозі! Не зупиняйся!",
-    "stats_cta_almost": "🏆 Майже біля мети! Молодець!",
+    "stats_quizzes_passed_line": "Пройдено: <b>{count}</b>",
+    "stats_quizzes_avg_line": "Середній результат: <b>{percent}%</b>",
+    "stats_quizzes_best_line": "Найкращий результат: <b>{percent}%</b>",
+    "stats_quizzes_empty": "Поки немає пройдених вікторин",
+    "stats_recent_header": "<b>Останні вікторини</b>",
+    "stats_overall_header": "<b>Загальний прогрес</b>",
+    "stats_overall_learned": "Вивчено <b>{learned}</b> з {total} слів",
+    "stats_cta_start": "Почни вчити слова — перший крок найважливіший!",
+    "stats_cta_begin": "Чудовий початок! Продовжуй так само!",
+    "stats_cta_halfway": "Ти на півдорозі! Не зупиняйся!",
+    "stats_cta_almost": "Майже біля мети! Молодець!",
     "stats_explanation": "—————————————————————\nСлово вивчено = 3 правильних відповіді поспіль",
-    "stats_btn_rating": "🏆 Мій рейтинг",
+    "stats_btn_rating": "Мій рейтинг",
 }
 
 # ============================================================================
 # БАГАТОМОВНІСТЬ: вибір мови вивчення, мови значення та напрямку
 # ============================================================================
 TEXTS.update({
-    "langname_de": "🇩🇪 Німецька",
-    "langname_en": "🇬🇧 Англійська",
-    "langname_ru": "🏴 Російська",
-    "langname_uk": "🇺🇦 Українська",
-    "langname_tr": "🇹🇷 Турецька",
-    "langname_pl": "🇵🇱 Польська",
+    "langname_de": "Німецька",
+    "langname_en": "Англійська",
+    "langname_ru": "Російська",
+    "langname_uk": "Українська",
+    "langname_tr": "Турецька",
+    "langname_pl": "Польська",
     # Союз для перечисления языков в текстах помощи и приветствия
     "and_word": "і",
 
-    "settings_learning_lang_line": "🎯 Вивчаю: <b>{language}</b>",
+    "settings_learning_lang_line": "Вивчаю: <b>{language}</b>",
 
-    "settings_btn_learning_lang": "🎯 Яку мову вивчати",
+    "settings_btn_learning_lang": "Яку мову вивчати",
 
-    "learning_lang_title": "🎯 <b>Яку мову вивчати</b>",
+    "learning_lang_title": "<b>Яку мову вивчати</b>",
     "learning_lang_description": "Обери мову, слова якої вивчатимеш.\nПрогрес з кожної мови рахується окремо.",
-    "learning_lang_set": "✅ Вивчаємо: {language}",
+    "learning_lang_set": "✓ Вивчаємо: {language}",
     # Рядок у меню налаштувань і екран «Озвучення»
-    "settings_audio_line": "🔊 Озвучення: <b>{state}</b>",
-    "settings_btn_audio": "🔊 Озвучення",
+    "settings_audio_line": "Озвучення: <b>{state}</b>",
+    "settings_btn_audio": "Озвучення",
     "audio_state_on": "увімкнено",
     "audio_state_off": "вимкнено",
 
-    "audio_title": "🔊 <b>Озвучення</b>",
+    "audio_title": "<b>Озвучення</b>",
     "audio_description": "Слово звучить голосом носія. У питанні — саме слово, після відповіді — слово разом із прикладом.",
-    "audio_current_voice": "🎙 Голос: <b>{voice}</b>",
-    "audio_btn_turn_on": "🔊 Увімкнути озвучення",
-    "audio_btn_turn_off": "🔇 Вимкнути озвучення",
-    "audio_btn_choose_voice": "🎙 Вибрати голос",
-    "audio_turned_on": "✅ Озвучення увімкнено",
-    "audio_turned_off": "🔇 Озвучення вимкнено",
+    "audio_current_voice": "Голос: <b>{voice}</b>",
+    "audio_btn_turn_on": "Увімкнути озвучення",
+    "audio_btn_turn_off": "Вимкнути озвучення",
+    "audio_btn_choose_voice": "Вибрати голос",
+    "audio_turned_on": "✓ Озвучення увімкнено",
+    "audio_turned_off": "Озвучення вимкнено",
 
-    "voice_title": "🎙 <b>Вибір голосу</b>",
+    "voice_title": "<b>Вибір голосу</b>",
     "voice_description": "Натисни на голос, щоб послухати. Галочкою позначено вибраний.",
     "voice_male": "Чоловічі",
     "voice_female": "Жіночі",
-    "voice_set": "✅ Голос: {voice}",
+    "voice_set": "✓ Голос: {voice}",
     "voice_only_one": "Для цієї мови в синтезатора один чоловічий і один жіночий голос — більше не існує.",
     "voice_preview_failed": "Не вдалося отримати зразок, спробуй ще раз",
 })
@@ -478,10 +481,10 @@ TEXTS.update({
 TEXTS.update({
     "btn_rating": "🏆 Рейтинг",
     "friend_fallback": "друже",
-    "onboarding_learning_title": "🎯 <b>Яку мову вивчатимеш?</b>",
+    "onboarding_learning_title": "<b>Яку мову вивчатимеш?</b>",
     "onboarding_learning_desc": "Значення слів показуватимуться цією мовою: {native}\nЗмінити мову й напрямок можна в налаштуваннях будь-коли.",
-    "mode_hint_forward": "💡 {learning} → {native} легше: значення підказує логіка",
-    "mode_hint_reverse": "💡 {native} → {learning} складніше: краще закріплює слова",
+    "mode_hint_forward": "{learning} → {native} легше: значення підказує логіка",
+    "mode_hint_reverse": "{native} → {learning} складніше: краще закріплює слова",
 })
 
 
@@ -494,9 +497,9 @@ TEXTS.update({
 # экране, и оставлено то, чего из интерфейса не видно.
 # ============================================================================
 TEXTS.update({
-    "help_how_to_use_text": "🎮 <b>Вікторина</b>\n25 слів, чотири варіанти. Бот запам'ятовує помилки й частіше повертає складне. Після вікторини можна одразу повторити те, у чому помилився.\n\n🔊 <b>Озвучення</b>\nУ питанні звучить слово, після відповіді — слово разом із прикладом. Голос обирається в налаштуваннях, чоловічий або жіночий.\n\n🌍 <b>Мови</b>\n{languages} — у будь-якій парі та в обидва боки. Прогрес і рейтинг з кожної мови рахуються окремо.\n\n━━━━━━━━━━━━━━━━━\n💡 Слово <b>вивчено</b> після трьох правильних відповідей поспіль, причому в різні дні.\n🔥 <b>Стрик</b> росте за будь-яку вікторину цього дня.\n📝 Помилка в перекладі чи вимові — кнопка під вікториною.",
-    "help_community_title": "💬 <b>Про бота і спільноту</b>",
-    "help_community_text": "🤖 <b>GenauLingua</b> — {language_count} мов у будь-якій парі: {languages}\n12 900 слів A1–C2, у кожного приклад і озвучення носія.\nІнтерфейс: {interface_languages}\n\n💬 <b>t.me/genaulingua_chat</b>\nБаги, помилки в перекладі, ідеї — усе читаємо й беремо в роботу. Скарги на вимову особливо потрібні: машина наголос не чує.",
+    "help_how_to_use_text": "<b>Вікторина</b>\n25 слів, чотири варіанти. Бот запам'ятовує помилки й частіше повертає складне. Після вікторини можна одразу повторити те, у чому помилився.\n\n<b>Озвучення</b>\nУ питанні звучить слово, після відповіді — слово разом із прикладом. Голос обирається в налаштуваннях, чоловічий або жіночий.\n\n<b>Мови</b>\n{languages} — у будь-якій парі та в обидва боки. Прогрес і рейтинг з кожної мови рахуються окремо.\n\n\nСлово <b>вивчено</b> після трьох правильних відповідей поспіль, причому в різні дні.\n<b>Стрик</b> росте за будь-яку вікторину цього дня.\nПомилка в перекладі чи вимові — кнопка під вікториною.",
+    "help_community_title": "<b>Про бота і спільноту</b>",
+    "help_community_text": "<b>GenauLingua</b> — {language_count} мов у будь-якій парі: {languages}\n12 900 слів A1–C2, у кожного приклад і озвучення носія.\nІнтерфейс: {interface_languages}\n\n<b>t.me/genaulingua_chat</b>\nБаги, помилки в перекладі, ідеї — усе читаємо й беремо в роботу. Скарги на вимову особливо потрібні: машина наголос не чує.",
 })
 
 
@@ -507,7 +510,7 @@ TEXTS.update({
 # ИЗУЧАЕМОМ языке: спрашивают «что услышал», а не «что это значит».
 # ============================================================================
 TEXTS.update({
-    "quiz_question_listen": "🔊 Послухай і обери, що прозвучало:",
+    "quiz_question_listen": "Послухай і обери, що прозвучало:",
 })
 
 
@@ -569,14 +572,14 @@ TEXTS.update({
 # вопросы на слух можно было только выключив озвучку целиком.
 # ============================================================================
 TEXTS.update({
-    "settings_btn_channels": "🎮 Склад заняття",
-    "settings_channels_line": "🎮 Заняття: <b>{channels}</b>",
-    "channels_title": "🎮 <b>Склад заняття</b>",
+    "settings_btn_channels": "Склад заняття",
+    "settings_channels_line": "Заняття: <b>{channels}</b>",
+    "channels_title": "<b>Склад заняття</b>",
     "channels_description": "Які питання ставити. Що більше каналів, то міцніше запам'ятовується слово: упізнати його очима, на слух і вголос — три різні навички.",
-    "channel_text": "🔤 Картка",
+    "channel_text": "Картка",
     "channel_audio": "🎧 На слух",
     "channel_speech": "🎤 Мовлення",
-    "channels_text_always": "🔤 Картка не вимикається: заняття без жодного каналу — порожній екран.",
+    "channels_text_always": "Картка не вимикається: заняття без жодного каналу — порожній екран.",
     "channels_audio_blocked": "🎧 На слух недоступно: вимкнено озвучення.",
     "channels_speech_soon": "🎤 Мовлення скоро з'явиться.",
     "channels_need_one": "Має лишитися хоча б один канал",
@@ -592,13 +595,13 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "quiz_question_speak": "🎤 Вимов це слово вголос — запиши голосове",
-    "speech_btn_reference": "🔊 Послухати",
-    "speech_btn_skip": "⏭ Пропустити",
+    "speech_btn_reference": "Послухати",
+    "speech_btn_skip": "Пропустити",
     "speech_listening": "🎧 Слухаю…",
     "speech_heard": "Почув: <i>{heard}</i>",
-    "speech_not_understood": "🤔 Не розібрав. Запиши ще раз — ближче до мікрофона і трохи гучніше.",
+    "speech_not_understood": "Не розібрав. Запиши ще раз — ближче до мікрофона і трохи гучніше.",
     "speech_send_voice": "🎤 Відповідь на це питання — голосове повідомлення. Натисни й утримуй кнопку мікрофона.",
-    "speech_skipped": "⏭ Пропущено",
+    "speech_skipped": "Пропущено",
     "quiz_result_spoken": "🎤 Вголос: {count}",
 })
 
@@ -607,13 +610,13 @@ TEXTS.update({
 # ДОМАШНИЙ ЭКРАН: ТРИ ШКАЛЫ
 # ============================================================================
 TEXTS.update({
-    "home_scale_text": "Написане",
-    "home_scale_audio": "На слух",
-    "home_scale_speech": "Вголос",
-    "home_btn_learn": "▶️ Займатися · {count}",
-    "home_streak": "🔥 серія: {days}",
-    "home_rank": "🏆 місце: {rank}",
-    "home_hint": "Смужка — частка від слів, які ти вже зустрічав: три правильні відповіді каналом, і слово йде в його рахунок. Розрив між шкалами показує, чого бракує.",
+    "home_scale_text": "Читаю",
+    "home_scale_audio": "Слухаю",
+    "home_scale_speech": "Говорю",
+    "home_btn_learn": "Займатися · {count}",
+    "home_streak": "серія {days} дн.",
+    "home_rank": "місце {rank}",
+    "home_hint": "Шкала — скільки знайомих слів освоєно цим способом.",
     "home_channel_not_ready": "{channel}: поки рано. Готових слів {ready}, потрібно хоча б {minimum}. Повчи карточками — вони відкривають інші канали.",
 })
 
@@ -626,12 +629,12 @@ TEXTS.update({
 # викторины, которым не пользуются 96%.
 # ============================================================================
 TEXTS.update({
-    "settings_group_what": "🎯 Що вчу",
-    "settings_group_what_title": "<b>🎯 Що вчу</b>",
-    "settings_group_how": "🎮 Як вчу",
-    "settings_group_how_title": "<b>🎮 Як вчу</b>",
-    "settings_group_bot": "🔧 Бот",
-    "settings_group_bot_title": "<b>🔧 Бот</b>",
+    "settings_group_what": "Що вчу",
+    "settings_group_what_title": "<b> Що вчу</b>",
+    "settings_group_how": "Як вчу",
+    "settings_group_how_title": "<b> Як вчу</b>",
+    "settings_group_bot": "Бот",
+    "settings_group_bot_title": "<b> Бот</b>",
 })
 
 
@@ -644,17 +647,17 @@ TEXTS.update({
 # Разбор — MENU_CONCEPT.md.
 # ============================================================================
 TEXTS.update({
-    "quiz_btn_one_more": "▶️ Ще коло",
-    "home_btn_stats": "📊 Детальніше",
-    "notif_off_how_to_return": "Увімкнути назад: ⚙️ Налаштування → 🔧 Бот → 🔔 Нагадування",
-    "reminder_offer": "🔔 Нагадувати раз на день? Так легше не розгубити вивчене — і серія не обривається.",
-    "reminder_offer_yes": "🔔 Так, нагадувати",
+    "quiz_btn_one_more": "Ще коло",
+    "home_btn_stats": "Детальніше",
+    "notif_off_how_to_return": "Увімкнути назад: Налаштування → Бот → Нагадування",
+    "reminder_offer": "Нагадувати раз на день? Так легше не розгубити вивчене — і серія не обривається.",
+    "reminder_offer_yes": "Так, нагадувати",
     "reminder_offer_no": "Не треба",
-    "reminder_offer_done": "🔔 Готово. Час і дні можна змінити в налаштуваннях.",
-    "level_offer": "📈 Ти майже не помиляєшся на рівні <b>{current}</b>. Перейти на <b>{following}</b>? Вивчене залишиться з тобою.",
-    "level_offer_yes": "📈 Так, перейти на {following}",
+    "reminder_offer_done": "Готово. Час і дні можна змінити в налаштуваннях.",
+    "level_offer": "Ти майже не помиляєшся на рівні <b>{current}</b>. Перейти на <b>{following}</b>? Вивчене залишиться з тобою.",
+    "level_offer_yes": "Так, перейти на {following}",
     "level_offer_no": "Залишитися",
-    "level_offer_done": "📈 Рівень <b>{following}</b>. Слова будуть складніші.",
+    "level_offer_done": "Рівень <b>{following}</b>. Слова будуть складніші.",
 })
 
 
@@ -667,11 +670,11 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "goal_question": "Навіщо тобі мова? Підберемо слова під відповідь.",
-    "goal_work": "💼 Для роботи",
-    "goal_travel": "✈️ Для поїздок",
-    "goal_living": "🏠 Для життя за кордоном",
-    "goal_study": "🎓 Для навчання",
-    "goal_any": "📚 Просто вчити слова",
+    "goal_work": "Для роботи",
+    "goal_travel": "Для поїздок",
+    "goal_living": "Для життя за кордоном",
+    "goal_study": "Для навчання",
+    "goal_any": "Просто вчити слова",
 })
 
 
@@ -684,12 +687,12 @@ TEXTS.update({
 # «Помощь» среди них, откуда она уехала в настройки.
 # ============================================================================
 TEXTS.update({
-    "intro_title": "🌍 <b>GenauLingua</b>",
-    "intro_three_games": "Слово — це три різні навички, а не одна:\n🔤 впізнати написане\n🎧 впізнати на слух\n🎤 вимовити вголос\n\nУ занятті вони чергуються самі — залежно від того, наскільки ти знаєш кожне слово.",
+    "intro_title": "<b>GenauLingua</b>",
+    "intro_three_games": "Слово — це три різні навички, а не одна:\nвпізнати написане\n🎧 впізнати на слух\n🎤 вимовити вголос\n\nУ занятті вони чергуються самі — залежно від того, наскільки ти знаєш кожне слово.",
     "intro_numbers": "12 902 слова · 20 тем · 6 рівнів\nШість мов у будь-якій парі: вчи польську через англійську, якщо хочеш.",
     "intro_where_you_are": "Зараз: <b>{language}</b> · {mode}",
-    "intro_btn_progress": "📊 Прогрес",
-    "settings_title_short": "🦾 Налаштування",
+    "intro_btn_progress": "Прогрес",
+    "settings_title_short": "Налаштування",
 })
 
 
@@ -701,11 +704,11 @@ TEXTS.update({
 # состава занятия — колонка есть, экрана нет.
 # ============================================================================
 TEXTS.update({
-    "settings_btn_goal": "🧭 Навіщо вчу",
-    "settings_goal_title": "🧭 <b>Навіщо вчу</b>",
+    "settings_btn_goal": "Навіщо вчу",
+    "settings_goal_title": "<b>Навіщо вчу</b>",
     "settings_goal_description": "Слова теми приходитимуть першими. Складність залишиться за рівнем, а вивчене продовжить повертатися на повторення.",
     "settings_goal_set": "Мету збережено",
-    "settings_goal_line": "🧭 Мета: <b>{goal}</b>",
+    "settings_goal_line": "Мета: <b>{goal}</b>",
     "settings_goal_none": "не обрана",
 })
 
@@ -720,23 +723,27 @@ TEXTS.update({
 # пары, сошедшиеся с первой попытки, и никогда последняя.
 # ============================================================================
 TEXTS.update({
-    "match_title": "🧩 <b>Знайди пари</b>",
+    "match_title": "<b>Знайди пари</b>",
     "match_progress": "Зійшлося: {matched} з {total}",
-    "match_errors": "❌ промахів: {count}",
+    "match_errors": "✗ промахів: {count}",
     "match_hint": "Натисни слово з будь-якого боку, потім його пару з іншого.",
-    "match_wrong": "❌ Не пара",
-    "match_done": "🧩 <b>Дошку складено!</b>",
+    "match_wrong": "✗ Не пара",
+    "match_done": "<b>Дошку складено!</b>",
     "match_done_counted": "У прогрес зараховано {counted} з {total}: лише ті пари, що зійшлися з першої спроби, і крім останньої — вона дістається без вибору.",
-    "match_btn_again": "🧩 Ще дошка",
-    "match_not_ready": "🧩 Поки рано: для дошки потрібно {need} знайомих слів, а їх {have}. Повчи карточками — вони й відкриють дошку.",
-    "home_btn_match": "🧩 Знайди пари",
+    "match_btn_again": "Ще дошка",
+    "match_not_ready": "Поки рано: для дошки потрібно {need} знайомих слів, а їх {have}. Повчи карточками — вони й відкриють дошку.",
+    "home_btn_match": "Знайди пари",
+    "home_btn_text": "Читати",
+    "home_btn_audio": "🎧 Слухати",
+    "home_btn_speech": "🎤 Говорити",
+    "home_btn_details": "Докладніше",
 })
 
 TEXTS["match_back_to_round"] = "Повертаємося до кола."
 
 TEXTS.update({
-    "settings_btn_match": "🧩 Дошка в колі",
-    "settings_match_title": "🧩 <b>Дошка в колі</b>",
+    "settings_btn_match": "Дошка в колі",
+    "settings_match_title": "<b>Дошка в колі</b>",
     "settings_match_description": "Раз на два заняття в середині кола замість п'яти питань приходить дошка: п'ять слів і п'ять значень, треба знайти пари. Беруться лише знайомі слова.",
     "match_state_on": "Дошка увімкнена: прийде в середині кола.",
     "match_state_off": "Дошка вимкнена: коло йде лише питаннями.",

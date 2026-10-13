@@ -13,7 +13,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 from app.bot.states import QuizStates
-from app.bot.utils import delete_messages_fast, ensure_anchor
+from app.bot.utils import BOT_NAME, delete_messages_fast, ensure_anchor
 from app.database.enums import CEFRLevel, QuizMode
 from app.database.models import User
 from app.locales import DEFAULT_LOCALE, LOCALES, get_text
@@ -84,16 +84,28 @@ def _language_selection_text() -> str:
     """
     Самый первый экран: человек ещё не выбрал язык, значит понять его нельзя.
 
-    Поэтому приглашение написано на ВСЕХ шести сразу, строка берётся из каждой
-    локали. Прежде здесь стоял флаг 🇩🇪 и четыре строки — флаг обещал немецкий,
-    которого бот больше не обещает, а четырёх строк не хватало на шесть кнопок.
+    Поэтому призыв написан на ВСЕХ шести сразу — это единственный экран,
+    где многоязычие по делу. Прежде здесь стоял флаг 🇩🇪 и четыре строки:
+    флаг обещал немецкий, которого бот больше не обещает, а четырёх строк
+    не хватало на шесть кнопок.
+
+    ШЕСТЬ ПРИЗЫВОВ СЖАТЫ В ДВЕ СТРОКИ. Шестью отдельными строками они
+    занимали полэкрана, и читать их все незачем: человек ищет своё слово в
+    списке кнопок, а не в абзаце. Название языка перед призывом тоже ушло —
+    оно дублировало кнопку, а после снятия флагов строки стали читаться как
+    «Українська Обери мову інтерфейсу бота:», будто это одно предложение.
+
+    Призыв берётся коротким: у `settings_language_description` в каждой
+    локали длинная форма («Выбери язык интерфейса бота:»), а в две строки
+    влезает только существо.
     """
-    lines = "\n".join(
-        f"{LOCALES[code]['lang_' + code].split()[0]} "
-        f"{LOCALES[code]['settings_language_description']}"
-        for code in INTERFACE_LANGS
-    )
-    return f"🌍 <b>GenauLingua</b>\n\n{lines}"
+    prompts = [LOCALES[code]["start_pick_language"] for code in INTERFACE_LANGS]
+    half = (len(prompts) + 1) // 2
+    lines = "\n".join([
+        " · ".join(prompts[:half]),
+        " · ".join(prompts[half:]),
+    ])
+    return f"<b>{BOT_NAME}</b>\n\n{lines}"
 
 
 def get_level_keyboard(lang: str) -> InlineKeyboardMarkup:

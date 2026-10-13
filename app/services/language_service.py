@@ -692,6 +692,37 @@ def language_name_key(code: str) -> str:
     return f"langname_{code}"
 
 
+def language_word(code: Optional[str], interface_lang: Optional[str] = None) -> str:
+    """
+    Название языка СЛОВОМ, без флага.
+
+    По решению владельца языки в боте обозначаются словами, а не флагами:
+    флаг работал тремя разными способами на трёх экранах («🏴 Русский» в
+    выборе, «🇩🇪 Немецкий → 🏴» в заголовке занятия, где второй язык вообще
+    без названия, и четыре флага на одной короткой карточке).
+
+    Флаг снимается здесь, а не выписыванием названий заново: названия уже
+    живут в локалях (`langname_*`), и второй список разъехался бы с первым.
+    Когда флаги уйдут из самих значений, снимать станет нечего — и код не
+    сломается.
+
+    Прежде такой же помощник лежал приватной копией в админке; это один
+    смысл в двух местах, и первая же правка названий развела бы их.
+    """
+    if not code:
+        return ""
+    if code not in LANGUAGES:
+        return code
+
+    from app.locales import get_text
+
+    name = get_text(language_name_key(code), interface_lang)
+    for index, char in enumerate(name):
+        if char.isalpha():
+            return name[index:]
+    return code
+
+
 def iter_languages(codes: Optional[Iterable[str]] = None) -> list[Language]:
     return [LANGUAGES[c] for c in (codes or LEARNABLE_LANGS) if c in LANGUAGES]
 
