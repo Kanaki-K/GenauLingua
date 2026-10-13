@@ -108,23 +108,6 @@ def _language_selection_text() -> str:
     return f"<b>{BOT_NAME}</b>\n\n{lines}"
 
 
-def get_level_keyboard(lang: str) -> InlineKeyboardMarkup:
-    """Клавиатура выбора уровня — все уровни разблокированы"""
-    return InlineKeyboardMarkup(
-        inline_keyboard=[
-            [
-                InlineKeyboardButton(text="A1", callback_data="start_level_A1"),
-                InlineKeyboardButton(text="A2", callback_data="start_level_A2"),
-                InlineKeyboardButton(text="B1", callback_data="start_level_B1")
-            ],
-            [
-                InlineKeyboardButton(text="B2", callback_data="start_level_B2"),
-                InlineKeyboardButton(text="C1", callback_data="start_level_C1"),
-                InlineKeyboardButton(text="C2", callback_data="start_level_C2")
-            ]
-        ]
-    )
-
 
 @router.message(CommandStart())
 async def cmd_start(message: Message, state: FSMContext, session: AsyncSession):
@@ -181,21 +164,30 @@ async def cmd_start(message: Message, state: FSMContext, session: AsyncSession):
         #
         # Что здесь нужно вместо этого: чем бот стал (три навыка, а не один),
         # сколько в нём всего, где человек сейчас — и кнопка.
-        await _show_intro(message, session, user, lang)
-    else:
-        # Уровень называет язык, к которому относится: A1 немецкого и A1
-        # английского — разные словари, и без названия вопрос неполон
-        learning_name = get_text(f"langname_{pair_from_user(user).learning}", lang)
+        # ИГРАЮЩЕМУ ЭТОТ ЭКРАН НЕ НУЖЕН. Дословно: «тот кто давно играет
+        # ему это меню попросту не нужно». У него уже есть и клавиатура, и
+        # привычка; `/start` ведёт его туда, куда он и шёл бы сам — на
+        # домашний экран со шкалами и кнопкой занятия.
+        if (user.quizzes_passed or 0) > 0:
+            from app.bot.handlers.quiz.home import show_home
 
-        # Текст тот же, что и на втором шаге онбординга: человек попал сюда,
-        # не досидев до выбора уровня, и рассказать ему надо ровно то же
-        await message.answer(
-            f"{get_text('welcome_title', lang, name=first_name)}\n\n"
-            f"{get_text('intro_three_games', lang)}\n\n"
-            f"{get_text('intro_numbers', lang)}\n\n"
-            f"{get_text('welcome_choose_level', lang, language=learning_name)}",
-            reply_markup=get_level_keyboard(lang),
-        )
+            old_anchor_id, _ = await ensure_anchor(message, session, user, emoji="")
+            if old_anchor_id:
+                await delete_messages_fast(
+                    message.bot, message.chat.id, old_anchor_id,
+                    message.message_id,
+                )
+            await show_home(message, session, user)
+        else:
+            await _show_intro(message, session, user, lang)
+    else:
+        # УРОВНЯ У ЧЕЛОВЕКА НЕТ — значит он прервал знакомство на полпути
+        # (язык выбран, дальше не пошёл). Спрашивать уровень незачем: его
+        # ставит бот. Ставим A1 и показываем то же вступление с кнопкой.
+        user.level = CEFRLevel.A1
+        user.quiz_mode = QuizMode.LEVEL
+        await session.commit()
+        await _show_intro(message, session, user, lang)
 
         await state.set_state(QuizStates.choosing_level)
 
@@ -262,113 +254,85 @@ async def onboard_learning_language(callback: CallbackQuery, state: FSMContext,
 
     await session.commit()
 
-    first_name = callback.from_user.first_name or get_text("friend_fallback", lang)
-    # Считаем ДО вызова: test_format_parameters_match разбирает get_text
-    # регулярным выражением, и вложенный вызов внутри аргумента рвёт разбор
-    learning_name = get_text(f"langname_{code}", lang)
+    # УРОВЕНЬ НЕ СПРАШИВАЕТСЯ. Начинаем с A1, а поднимает его бот — сам, по
+    # точности последних ответов (`level_service`). Это и есть его работа:
+    # своего уровня по CEFR человек обычно не знает, а ошибка в нём портит
+    # всё занятие. Кому нужно жёстче — уровень есть в настройках.
+    user.level = CEFRLevel.A1
+    user.quiz_mode = QuizMode.LEVEL
+    await session.commit()
 
-    # ТОТ ЖЕ ТЕКСТ, ЧТО И ВО ВСТУПИТЕЛЬНОМ БЛОКЕ, а не пересказ меню.
-    #
-    # Здесь стояли те же восемь строк про кнопки — и с той же ложью:
-    # «❓ Помощь» обещалась среди пунктов меню, откуда она уехала в
-    # настройки. Новому человеку тем более нельзя обещать кнопку, которой
-    # он не найдёт: это первое, что он о боте узнает.
-    #
-    # А рассказать ему надо ровно то же, что и вернувшемуся: что слово —
-    # это три навыка, и сколько тут всего. Один текст на два места,
-    # разойтись им теперь нечем.
-    welcome_text = (
-        f"{get_text('welcome_title', lang, name=first_name)}\n\n"
-        f"{get_text('intro_three_games', lang)}\n\n"
-        f"{get_text('intro_numbers', lang)}\n\n"
-        f"{get_text('welcome_choose_level', lang, language=learning_name)}"
-    )
-
-    await callback.message.edit_text(welcome_text, reply_markup=get_level_keyboard(lang))
-
-    await state.set_state(QuizStates.choosing_level)
+    await state.clear()
     await callback.answer()
+
+    # Знакомство кончается ОДНОЙ КНОПКОЙ, которая начинает круг. Прежде
+    # здесь были ещё два экрана — уровень и цель, — и замер говорит, чего
+    # это стоило: 24 человека из 233 прошли знакомство и не начали ни
+    # одного круга.
+    try:
+        await callback.message.delete()
+    except Exception:
+        logger.debug("не удалось убрать экран выбора языка", exc_info=True)
+
+    await _show_intro(callback.message, session, user, lang)
 
 
 # ============================================================================
 # ВЫБОР УРОВНЯ (при /start для новых юзеров)
 # ============================================================================
 
-@router.callback_query(F.data.startswith("start_level_"))
-async def select_level(callback: CallbackQuery, state: FSMContext, session: AsyncSession):
-    """Обработчик выбора уровня при первом старте"""
-    level_str = callback.data.replace("start_level_", "")
 
-    user_id = callback.from_user.id
-    user = await session.get(User, user_id)
+def _menu_map(lang: str) -> str:
+    """
+    «Что где» — из САМИХ подписей меню, а не пересказом.
 
-    user.level = CEFRLevel(level_str)
-    user.quiz_mode = QuizMode.LEVEL
-    await session.commit()
+    Владелец просил на этом экране «что где находится в боте коротко». Беда
+    такого раздела известна: прежний был выписан руками и обещал «Помощь»
+    среди кнопок меню, откуда она уехала в настройки. Текст про интерфейс,
+    живущий отдельно от интерфейса, расходится с ним молча.
 
-    lang = user.interface_language or DEFAULT_LOCALE
-
-    await callback.message.delete()
-
-    old_anchor_id, new_anchor_id = await ensure_anchor(callback.message, session, user, emoji="")
-
-    if old_anchor_id:
-        current_msg_id = callback.message.message_id
-        await delete_messages_fast(callback.bot, callback.message.chat.id, old_anchor_id, current_msg_id)
-
-    # КНОПКИ, А НЕ ТЕКСТ «НАЖМИ КНОПКУ».
-    #
-    # Здесь кончается онбординг, и прежде он кончался тупиком: бот писал
-    # «✅ Уровень B1 выбран. 📚 Нажми «Учить слова» — и начнём!» и не давал
-    # ничего нажать. Текст ОБЪЯСНЯЛ, что сделать, вместо того чтобы дать
-    # сделать — а это самый дорогой экран во всём боте: дальше либо первый
-    # круг, либо уход навсегда.
-    #
-    # Замер говорит, чего это стоило: 24 человека из 233 прошли онбординг и
-    # не начали НИ ОДНОГО круга, а ещё 220 кругов закрыты без единого
-    # ответа. Разбор — MENU_CONCEPT.md §3.4.
-    #
-    # ВОПРОС «ЗАЧЕМ УЧИШЬ» ВСТРОЕН В ЭТО ЖЕ НАЖАТИЕ, А НЕ ДОБАВЛЕН ШАГОМ.
-    # Каждая из пяти кнопок И отвечает на вопрос, И начинает первый круг —
-    # то есть онбординг не стал длиннее ни на одно действие. Отдельным
-    # экраном спрашивать было нельзя: лишний шаг здесь стоит людей, а
-    # замеренная цена выбора в этом проекте известна — 223 человека из 233
-    # не меняли ни одной настройки.
-    await callback.bot.send_message(
-        chat_id=callback.message.chat.id,
-        text=(
-            f"{get_text('level_selected', lang, level=level_str)}\n\n"
-            f"{get_text('goal_question', lang)}"
-        ),
-        reply_markup=get_goal_keyboard(lang),
+    Поэтому подпись каждой строки берётся тем же ключом, каким кнопка
+    рисуется на клавиатуре, а в локали лежит только короткое пояснение.
+    Пропадёт кнопка из меню — пропадёт и строка.
+    """
+    from app.bot.buttons import (
+        BTN_LEARN_WORDS, BTN_RATING, BTN_SETTINGS, BTN_STATS,
     )
 
-    await state.clear()
-    await callback.answer()
+    rows = (
+        (BTN_LEARN_WORDS, "intro_menu_learn"),
+        (BTN_RATING, "intro_menu_rating"),
+        (BTN_STATS, "intro_menu_stats"),
+        (BTN_SETTINGS, "intro_menu_settings"),
+    )
+    lines = [
+        f"<b>{get_text(button, lang)}</b> — {get_text(about, lang)}"
+        for button, about in rows
+    ]
+    return get_text("intro_menu_title", lang) + "\n" + "\n".join(lines)
 
 
 async def _show_intro(
     message: Message, session: AsyncSession, user: User, lang: str
 ) -> None:
     """
-    Вступительный блок: что это за бот, где человек сейчас, и кнопка.
+    Первый внятный экран новичка: привет, что умеет бот, что где и кнопка.
 
-    Три игры названы ПЕРВЫМИ и не случайно: это главное, что в боте
-    изменилось, и единственное, чего о нём нельзя догадаться по кнопкам.
-    «Шесть языков в любой паре» — второе такое же: человек, пришедший за
-    немецким, не знает, что может учить польский на английском.
+    ЧЕЙ ЭТО ЭКРАН. Владельца дословно: «Старт — это первое внятное меню
+    после выбора языка для новика», и отдельно: «тот кто давно играет ему
+    это меню попросту не нужно». Поэтому играющего `/start` ведёт на
+    домашний экран, а сюда попадает только тот, у кого кругов ещё нет.
+
+    Строк ровно четыре: приветствие, три способа, сколько тут всего и что
+    где. Кнопка одна — начать.
     """
-    pair = pair_from_user(user)
-    learning_name = get_text(f"langname_{pair.learning}", lang)
-    # Считаем ДО вызова: test_format_parameters_match разбирает get_text
-    # регулярным выражением, и вложенный вызов внутри аргумента рвёт разбор
-    mode = _mode_title(user, lang)
+    first_name = message.chat.first_name or get_text("friend_fallback", lang)
 
     text = (
-        f"{get_text('intro_title', lang)}\n\n"
+        f"{get_text('welcome_title', lang, name=first_name)}\n\n"
         f"{get_text('intro_three_games', lang)}\n\n"
         f"{get_text('intro_numbers', lang)}\n\n"
-        f"{get_text('intro_where_you_are', lang, language=learning_name, mode=mode)}"
+        f"{_menu_map(lang)}"
     )
 
     old_anchor_id, _ = await ensure_anchor(message, session, user, emoji="")
@@ -389,70 +353,25 @@ def _mode_title(user: User, lang: str) -> str:
 
 def _intro_keyboard(user: User, lang: str) -> InlineKeyboardMarkup:
     """
-    Занятие, прогресс, настройки — и всё.
+    ОДНА КНОПКА. Замечание владельца об этом экране дословно: «Там 4
+    кнопки. Нахуя они? Любую тыкаешь — начинаешь игру. И не ясно
+    выбралось что-то отдельное или нет».
 
-    Три кнопки вместо пересказа четырёх: заниматься человек пойдёт отсюда,
-    а остальное у него на клавиатуре. Рейтинг не дублируется нарочно — он
-    кнопкой меню, и вторая дверь в том же боте только путает (решение
-    владельца дословно: «зачем-то рейтинг отдельная кнопка и в статистике
-    тоже — бред»).
+    Прежде их было три, и две из них вели туда, куда ведёт нижняя
+    клавиатура: «Прогресс» и «Настройки» стоят на ней всегда. Экран, где
+    половина кнопок дублирует меню, читается как список непонятных
+    вариантов — а у этого экрана работа ровно одна: начать.
     """
     from app.bot.handlers.quiz.game import DEFAULT_QUIZ_LENGTH
 
     count = user.quiz_word_count or DEFAULT_QUIZ_LENGTH
-    rows = [
-        [InlineKeyboardButton(
+    return InlineKeyboardMarkup(inline_keyboard=[[
+        InlineKeyboardButton(
             text=get_text("home_btn_learn", lang, count=count),
             # Из вступительного блока /start
             callback_data="learn_now:start",
-        )],
-        [
-            InlineKeyboardButton(
-                text=get_text("intro_btn_progress", lang), callback_data="home_back"
-            ),
-            InlineKeyboardButton(
-                text=get_text("settings_title_short", lang),
-                callback_data="settings_open",
-            ),
-        ],
-    ]
-    return InlineKeyboardMarkup(inline_keyboard=rows)
+        )
+    ]])
 
 
-def get_goal_keyboard(lang: str) -> InlineKeyboardMarkup:
-    """Пять целей, и каждая сразу начинает круг."""
-    return InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(
-            text=get_text(f"goal_{code}", lang), callback_data=f"goal_{code}"
-        )]
-        for code in GOAL_ORDER
-    ])
 
-
-@router.callback_query(F.data.startswith("goal_"))
-async def choose_goal(callback: CallbackQuery, state: FSMContext, session: AsyncSession):
-    """
-    Запомнить цель и сразу начать занятие.
-
-    Цель не переключает режим викторины — она подмешивает свои категории в
-    НОВЫЕ слова, оставляя трудность за уровнем. Почему именно так, разобрано
-    в `goal_service`: режим «по категории» не смотрит на уровень вовсе, и
-    новичок получал бы C1 вперемешку с A1.
-    """
-    from app.bot.handlers.quiz.game import start_lesson
-
-    code = callback.data.removeprefix("goal_")
-    if not is_goal(code):
-        await callback.answer("Error", show_alert=True)
-        return
-
-    user = await session.get(User, callback.from_user.id)
-    if not user:
-        await callback.answer("Error", show_alert=True)
-        return
-
-    user.learning_goal = code
-    await session.commit()
-
-    await callback.answer()
-    await start_lesson(callback.message, state, session)

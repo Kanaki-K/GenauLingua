@@ -411,9 +411,20 @@ async def test_reminders_are_offered_after_the_first_finished_round(session, use
 
 async def test_onboarding_runs_from_start_to_the_first_question(session, user, stage):
     """
-    /start → язык → что учить → уровень → зачем учишь → ПЕРВЫЙ ВОПРОС.
+    /start → язык бота → что учить → [ Заниматься ] → ПЕРВЫЙ ВОПРОС.
 
-    Ни одного экрана, где надо что-то искать: каждый шаг кончается кнопкой.
+    ДВА ВОПРОСА ВМЕСТО ЧЕТЫРЁХ. Решение владельца: «нужно дать возможность
+    выбрать язык потом играть. И уже чтобы бот подстраивался сам — это же
+    его фишка. Хотят принудительно сложнее — есть настройки».
+
+    Уровень был самым дорогим вопросом: своего уровня по CEFR человек
+    обычно не знает, а ошибка в нём портит всё занятие. Теперь начинается
+    A1, а поднимает бот — по точности последних ответов.
+
+    Цель («зачем учишь») тоже ушла, и за дело: пять кнопок, каждая молча
+    начинала круг, и по экрану нельзя было понять, выбралось ли что-то.
+    Владелец об этом экране дословно: «любую тыкаешь — начинаешь игру. И не
+    ясно выбралось что-то отдельное или нет». Цель осталась в настройках.
     """
     dp, bot, recorder = stage
 
@@ -446,24 +457,28 @@ async def test_onboarding_runs_from_start_to_the_first_question(session, user, s
         f"нет выбора изучаемого языка: {recorder.buttons()}"
     )
 
+    recorder.clear()
     await _feed(dp, bot, press(user.id, "onboard_learn_de"))
-    assert any(b.startswith("start_level_") for b in recorder.buttons()), (
-        f"нет выбора уровня: {recorder.buttons()}"
+
+    # Уровень НЕ спрашивается — его ставит бот
+    assert not any(b.startswith("start_level_") for b in recorder.buttons()), (
+        f"уровень всё ещё спрашивают: {recorder.buttons()}"
     )
-
-    recorder.clear()
-    await _feed(dp, bot, press(user.id, "start_level_A1"))
-    assert any(b.startswith("goal_") for b in recorder.buttons()), (
-        f"после уровня не спросили о цели: {recorder.buttons()}"
-    )
-
-    recorder.clear()
-    await _feed(dp, bot, press(user.id, "goal_work"))
-
     await session.refresh(user)
-    assert user.learning_goal == "work", "цель из онбординга не сохранилась"
+    assert user.level == CEFRLevel.A1, f"уровень не выставлен сам: {user.level}"
+
+    # И цель не спрашивается
+    assert not any(b.startswith("goal_") for b in recorder.buttons()), (
+        f"цель всё ещё спрашивают: {recorder.buttons()}"
+    )
+
+    start = lesson_button(recorder.all_buttons())
+    assert start, f"знакомство не кончилось кнопкой занятия: {recorder.all_buttons()}"
+
+    recorder.clear()
+    await _feed(dp, bot, press(user.id, start))
     assert any(b.startswith("answer_") for b in recorder.buttons()), (
-        f"онбординг не довёл до первого вопроса: {recorder.buttons()}"
+        f"знакомство не довело до первого вопроса: {recorder.buttons()}"
     )
 
 

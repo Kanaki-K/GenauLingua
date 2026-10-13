@@ -636,7 +636,7 @@ TEXTS.update({
     "home_btn_learn": "Ucz się · {count}",
     "home_streak": "seria {days} dni",
     "home_rank": "miejsce {rank}",
-    "home_hint": "Pasek pokazuje, ile znanych słów opanowałeś tym sposobem.",
+    "home_hint": "",
     "home_channel_not_ready": "{channel}: jeszcze za wcześnie. Gotowych słów jest {ready}, potrzeba co najmniej {minimum}. Poucz się kartami — otwierają pozostałe kanały.",
 })
 
@@ -711,8 +711,13 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "intro_title": "<b>GenauLingua</b>",
-    "intro_three_games": "Słowo to trzy różne umiejętności, nie jedna:\nrozpoznać zapisane\n🎧 rozpoznać ze słuchu\n🎤 wypowiedzieć na głos\n\nW nauce zmieniają się same — zależnie od tego, jak dobrze znasz każde słowo.",
+    "intro_three_games": "Jedno słowo uczy się tu trzema sposobami: przeczytać, usłyszeć i powiedzieć na głos.\nW rundzie same się zmieniają.",
     "intro_numbers": "12 902 słowa · 20 tematów · 6 poziomów\nSześć języków w dowolnej parze: ucz się polskiego przez angielski, jeśli chcesz.",
+    "intro_menu_settings": "język, skład rundy, przypomnienia",
+    "intro_menu_stats": "twój postęp",
+    "intro_menu_rating": "klasyfikacja miesiąca",
+    "intro_menu_learn": "runda",
+    "intro_menu_title": "Co gdzie:",
     "intro_where_you_are": "Teraz: <b>{language}</b> · {mode}",
     "intro_btn_progress": "Postępy",
     "settings_title_short": "Ustawienia",

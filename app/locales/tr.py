@@ -623,7 +623,7 @@ TEXTS.update({
     "home_btn_learn": "Çalış · {count}",
     "home_streak": "seri {days} gün",
     "home_rank": "sıra {rank}",
-    "home_hint": "Çubuk, bildiğin kelimelerin kaçını bu yolla yapabildiğini gösterir.",
+    "home_hint": "",
     "home_channel_not_ready": "{channel}: henüz erken. Hazır kelime sayısı {ready}, en az {minimum} gerekiyor. Kartlarla çalış — diğer kanalları onlar açıyor.",
 })
 
@@ -698,8 +698,13 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "intro_title": "<b>GenauLingua</b>",
-    "intro_three_games": "Bir kelime tek değil, üç ayrı beceridir:\nyazılı hâlini tanımak\n🎧 duyarak tanımak\n🎤 yüksek sesle söylemek\n\nDerste kendiliğinden dönüşümlü gelirler — her kelimeyi ne kadar bildiğine göre.",
+    "intro_three_games": "Bir kelime burada üç yolla öğrenilir: okumak, duymak ve sesli söylemek.\nTur içinde kendileri sırayla gelir.",
     "intro_numbers": "12 902 kelime · 20 konu · 6 seviye\nAltı dil, istediğin eşleşmede: dilersen Lehçeyi İngilizce üzerinden öğren.",
+    "intro_menu_settings": "dil, tur içeriği, hatırlatmalar",
+    "intro_menu_stats": "ilerlemen",
+    "intro_menu_rating": "ayın sıralaması",
+    "intro_menu_learn": "bir tur",
+    "intro_menu_title": "Ne nerede:",
     "intro_where_you_are": "Şu anda: <b>{language}</b> · {mode}",
     "intro_btn_progress": "İlerleme",
     "settings_title_short": "Ayarlar",

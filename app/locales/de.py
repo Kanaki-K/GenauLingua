@@ -636,7 +636,7 @@ TEXTS.update({
     "home_btn_learn": "Üben · {count}",
     "home_streak": "Serie {days} Tage",
     "home_rank": "Platz {rank}",
-    "home_hint": "Der Balken zeigt, wie viele bekannte Wörter du so beherrschst.",
+    "home_hint": "",
     "home_channel_not_ready": "{channel}: noch zu früh. Bereit sind {ready} Wörter, nötig sind mindestens {minimum}. Übe mit Karten — sie schalten die anderen Kanäle frei.",
 })
 
@@ -711,8 +711,13 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "intro_title": "<b>GenauLingua</b>",
-    "intro_three_games": "Ein Wort sind drei verschiedene Fähigkeiten, nicht eine:\ngeschrieben erkennen\n🎧 gehört erkennen\n🎤 laut aussprechen\n\nIn der Übung wechseln sie von selbst — danach, wie gut du jedes Wort kennst.",
+    "intro_three_games": "Ein Wort lernt sich hier auf drei Weisen: lesen, hören und laut sagen.\nIn der Runde wechseln sie sich selbst ab.",
     "intro_numbers": "12 902 Wörter · 20 Themen · 6 Niveaus\nSechs Sprachen in jedem Paar: lerne Polnisch über Englisch, wenn du magst.",
+    "intro_menu_settings": "Sprache, Rundeninhalt, Erinnerungen",
+    "intro_menu_stats": "dein Fortschritt",
+    "intro_menu_rating": "Monatswertung",
+    "intro_menu_learn": "eine Runde",
+    "intro_menu_title": "Was wo ist:",
     "intro_where_you_are": "Gerade: <b>{language}</b> · {mode}",
     "intro_btn_progress": "Fortschritt",
     "settings_title_short": "Einstellungen",

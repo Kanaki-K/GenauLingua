@@ -201,14 +201,31 @@ async def flow_new(dp, bot, rec, raw: bool, session) -> None:
     await dp.feed_update(bot, text_update(user.id, "/start"))
     _dump(rec, raw, "1. /start — первое, что видит человек")
 
+    # ДВА ВОПРОСА, ДАЛЬШЕ ИГРА. Уровень и цель из знакомства убраны: уровень
+    # ставит бот (A1 и выше по точности), цель осталась в настройках. Прежде
+    # здесь нажимались `start_level_A1` и `goal_travel`, и после их снятия
+    # показ печатал «бот ничего не показал» — обход жал кнопки, которых уже
+    # нет, и этого не заметил бы никто, кроме глаз.
+    start = None
     for data, title in (
         ("select_lang_uk", "2. выбрал язык бота"),
-        ("onboard_learn_de", "3. выбрал, что учит"),
-        ("start_level_A1", "4. выбрал уровень"),
-        ("goal_travel", "5. выбрал, зачем учит"),
+        ("onboard_learn_de", "3. выбрал, что учит — и может начать"),
     ):
         await dp.feed_update(bot, press(user.id, data))
+        # Кнопка начала берётся из показанного, а не вписана: её адрес несёт
+        # пометку двери (`learn_now:start`), и вписанный руками разошёлся бы.
+        # Читается ДО печати: `_dump` чистит запись вызовов за собой
+        start = next(
+            (b for b in rec.all_buttons() if b.startswith("learn_now")), start
+        )
         _dump(rec, raw, title)
+
+    if start:
+        await dp.feed_update(bot, press(user.id, start))
+        _dump(rec, raw, "4. первый вопрос")
+    else:
+        _frame("4. первый вопрос")
+        print("   (кнопки занятия на вступительном экране нет)")
 
 
 # ============================================================================

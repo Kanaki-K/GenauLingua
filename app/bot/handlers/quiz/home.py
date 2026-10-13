@@ -192,7 +192,15 @@ async def build_home(user: User, session: AsyncSession) -> tuple[str, InlineKeyb
         lines.append(" · ".join(footer))
         lines.append("")
 
-    lines.append(f"<i>{get_text('home_hint', lang)}</i>")
+    # ЛЕГЕНДЫ К ШКАЛАМ НЕТ. Прежде под ними стояло «Полоса — доля от слов,
+    # которые ты уже встречал: три верных ответа каналом, и слово идёт в
+    # его счёт» — три строки, которых владелец не смог прочесть дословно:
+    # «как понять вообще?». Если к картинке нужна легенда, плоха картинка:
+    # три полосы с подписями «Читаю · Слушаю · Говорю» и числами рядом
+    # объяснения не требуют.
+    hint = get_text('home_hint', lang)
+    if hint:
+        lines.append(f"<i>{hint}</i>")
 
     return "\n".join(lines), _home_keyboard(user, lang, channels)
 

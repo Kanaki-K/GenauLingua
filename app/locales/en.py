@@ -623,7 +623,7 @@ TEXTS.update({
     "home_btn_learn": "Practise · {count}",
     "home_streak": "streak {days} days",
     "home_rank": "rank {rank}",
-    "home_hint": "The bar shows how many familiar words you handle this way.",
+    "home_hint": "",
     "home_channel_not_ready": "{channel}: not yet. Only {ready} words are ready, at least {minimum} are needed. Practise with cards — they unlock the other channels.",
 })
 
@@ -698,8 +698,13 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "intro_title": "<b>GenauLingua</b>",
-    "intro_three_games": "A word is three different skills, not one:\nrecognise it written\n🎧 recognise it by ear\n🎤 say it out loud\n\nThey alternate on their own during a lesson — according to how well you know each word.",
+    "intro_three_games": "One word is learned three ways here: read it, hear it, say it out loud.\nInside a round they take turns on their own.",
     "intro_numbers": "12,902 words · 20 topics · 6 levels\nSix languages in any pair: learn Polish through English if you like.",
+    "intro_menu_settings": "language, round contents, reminders",
+    "intro_menu_stats": "your progress",
+    "intro_menu_rating": "this month's standings",
+    "intro_menu_learn": "a round",
+    "intro_menu_title": "What is where:",
     "intro_where_you_are": "Right now: <b>{language}</b> · {mode}",
     "intro_btn_progress": "Progress",
     "settings_title_short": "Settings",
