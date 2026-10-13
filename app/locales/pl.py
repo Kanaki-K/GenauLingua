@@ -14,7 +14,7 @@ TEXTS = {
     "btn_learn_words": "📚 Ucz się słów",
     "btn_stats": "📊 Statystyki",
     "btn_settings": "🦾 Ustawienia",
-    "btn_help": "❓ Pomoc",
+    "btn_help": "Pomoc",
     "btn_back": "Wróć",
     "menu_placeholder": "Wybierz działanie...",
 
@@ -115,16 +115,16 @@ TEXTS = {
     # ============================================================================
     "settings_title": "<b>Ustawienia</b>",
     "settings_level": "Poziom: <b>{level}</b>",
-    "settings_mode": "Tłumaczenie: <b>{mode}</b>",
-    "settings_language": "Język interfejsu: <b>{language}</b>",
+    "settings_mode": "Kierunek: <b>{mode}</b>",
+    "settings_language": "Język bota: <b>{language}</b>",
     "settings_choose": "Wybierz, co chcesz zmienić:",
 
-    "settings_btn_quiz_mode": "Tryb quizu",
-    "settings_btn_change_mode": "Kierunek tłumaczenia",
+    "settings_btn_quiz_mode": "Poziom i tematy",
+    "settings_btn_change_mode": "Kierunek",
     "settings_btn_change_language": "Język interfejsu",
     "settings_btn_notifications": "Przypomnienia",
 
-    "settings_quiz_mode_line": "Tryb: <b>{mode}</b>",
+    "settings_quiz_mode_line": "Poziom: <b>{mode}</b>",
 
     "settings_mode_title": "<b>Kierunek tłumaczenia</b>",
     "settings_mode_description": "Wybierz kierunek tłumaczenia:",
@@ -167,7 +167,7 @@ TEXTS = {
     "qmode_btn_all": "Top 10 tysięcy",
     "qmode_btn_difficult": "Trudne",
 
-    "qmode_level_short": "Poziom {level}",
+    "qmode_level_short": "{level}",
     "qmode_category_short": "{category}",
     "qmode_all_short": "Top 10 tysięcy",
     "qmode_difficult_short": "Trudne słowa",
@@ -416,10 +416,13 @@ Im aktywniejsza społeczność, tym lepszy bot. Nie krępuj się! """,
     # ============================================================================
     "stats_header": "<b>Twoje statystyki</b>",
     "stats_learned_of": "Nauczone <b>{learned}</b> z {total}",
+    "stats_in_work_line": "Słów w pracy: {count} · do {target} jeszcze {left}",
+    "stats_in_work_top": "Słów w pracy: {count}",
     "stats_details": "W toku: {progress}\nNowe: {new}\nTrudne: {difficult}",
     "stats_achievements_title": "<b>Twoje osiągnięcia</b>",
     "stats_words_count": "Nauczone słowa: <b>{count}</b>",
-    "stats_streak_line": "Seria: <b>{days} dni z rzędu</b>",
+    "stats_streak_line": "Seria: {days} dni z rzędu",
+    "stats_best_streak_line": "Najlepsza seria: {days} dni",
     "stats_quizzes_header": "<b>Quizy · {level}</b>",
     "stats_quizzes_passed_line": "Ukończone: <b>{count}</b>",
     "stats_quizzes_avg_line": "Średni wynik: <b>{percent}%</b>",
@@ -432,7 +435,7 @@ Im aktywniejsza społeczność, tym lepszy bot. Nie krępuj się! """,
     "stats_cta_begin": "Świetny początek! Tak dalej!",
     "stats_cta_halfway": "Jesteś w połowie drogi! Nie zatrzymuj się!",
     "stats_cta_almost": "Prawie u celu! Dobra robota!",
-    "stats_explanation": "—————————————————————\nSłowo nauczone = 3 dobre odpowiedzi z rzędu",
+    "stats_explanation": "Słowo nauczone = trzy poprawne odpowiedzi z rzędu, w różne dni",
     "stats_btn_rating": "Moja pozycja",
 }
 
@@ -453,7 +456,7 @@ TEXTS.update({
     # Wiersze w menu ustawień
     "settings_learning_lang_line": "Uczę się: <b>{language}</b>",
 
-    "settings_btn_learning_lang": "Jakiego języka się uczyć",
+    "settings_btn_learning_lang": "Język",
 
     # Ekran «jakiego języka się uczyć»
     "learning_lang_title": "<b>Jakiego języka się uczyć</b>",
@@ -643,11 +646,14 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "settings_group_what": "Czego się uczę",
-    "settings_group_what_title": "<b> Czego się uczę</b>",
+    "settings_group_what_title": "<b>Czego się uczę</b>",
     "settings_group_how": "Jak się uczę",
-    "settings_group_how_title": "<b> Jak się uczę</b>",
+    "settings_group_how_title": "<b>Jak się uczę</b>",
     "settings_group_bot": "Bot",
-    "settings_group_bot_title": "<b> Bot</b>",
+    "settings_group_bot_title": "<b>Bot</b>",
+    "settings_group_what_about": "Język, poziom i kierunek tłumaczenia.",
+    "settings_group_how_about": "Z czego składa się runda i jak brzmi.",
+    "settings_group_bot_about": "Język bota, przypomnienia i pomoc.",
 })
 
 
@@ -717,7 +723,7 @@ TEXTS.update({
 # состава занятия — колонка есть, экрана нет.
 # ============================================================================
 TEXTS.update({
-    "settings_btn_goal": "Po co się uczę",
+    "settings_btn_goal": "Cel",
     "settings_goal_title": "<b>Po co się uczę</b>",
     "settings_goal_description": "Słowa z twojego tematu będą przychodzić pierwsze. Trudność nadal zależy od poziomu, a to, czego się nauczyłeś, wraca do powtórek.",
     "settings_goal_set": "Cel zapisany",
@@ -759,5 +765,12 @@ TEXTS.update({
     "settings_match_title": "<b>Plansza w rundzie</b>",
     "settings_match_description": "Co drugą naukę w środku rundy zamiast pięciu pytań przychodzi plansza: pięć słów i pięć znaczeń, trzeba znaleźć pary. Brane są tylko znane słowa.",
     "match_state_on": "Plansza włączona: przyjdzie w środku rundy.",
+    "settings_match_short_on": "z tablicą",
+    "settings_channels_short_one": "tylko karta",
+    "settings_channels_short_two": "dwa sposoby",
+    "settings_channels_short_all": "wszystkie trzy sposoby",
+    "settings_audio_short_off": "bez dźwięku",
+    "settings_audio_short_on": "z dźwiękiem",
+    "settings_match_short_off": "bez tablicy",
     "match_state_off": "Plansza wyłączona: runda to same pytania.",
 })

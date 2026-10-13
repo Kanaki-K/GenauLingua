@@ -9,7 +9,7 @@ TEXTS = {
     "btn_learn_words": "📚 Kelime öğren",
     "btn_stats": "📊 İstatistik",
     "btn_settings": "🦾 Ayarlar",
-    "btn_help": "❓ Yardım",
+    "btn_help": "Yardım",
     "btn_back": "Geri",
     "menu_placeholder": "Bir eylem seç...",
 
@@ -110,16 +110,16 @@ TEXTS = {
     # ============================================================================
     "settings_title": "<b>Ayarlar</b>",
     "settings_level": "Seviye: <b>{level}</b>",
-    "settings_mode": "Çeviri: <b>{mode}</b>",
-    "settings_language": "Arayüz dili: <b>{language}</b>",
+    "settings_mode": "Yön: <b>{mode}</b>",
+    "settings_language": "Bot dili: <b>{language}</b>",
     "settings_choose": "Ne değiştirmek istediğini seç:",
 
-    "settings_btn_quiz_mode": "Test modu",
-    "settings_btn_change_mode": "Çeviri modu",
+    "settings_btn_quiz_mode": "Seviye ve konular",
+    "settings_btn_change_mode": "Yön",
     "settings_btn_change_language": "Arayüz dili",
     "settings_btn_notifications": "Hatırlatıcılar",
 
-    "settings_quiz_mode_line": "Mod: <b>{mode}</b>",
+    "settings_quiz_mode_line": "Seviye: <b>{mode}</b>",
 
     "settings_mode_title": "<b>Çeviri modu</b>",
     "settings_mode_description": "Çeviri yönünü seç:",
@@ -161,7 +161,7 @@ TEXTS = {
     "qmode_btn_all": "Top 10 bin",
     "qmode_btn_difficult": "Zor",
 
-    "qmode_level_short": "Seviye {level}",
+    "qmode_level_short": "{level}",
     "qmode_category_short": "{category}",
     "qmode_all_short": "Top 10 bin",
     "qmode_difficult_short": "Zor kelimeler",
@@ -406,10 +406,13 @@ Topluluk ne kadar aktif olursa — bot o kadar iyi olur. Çekinme! """,
 
     "stats_header": "<b>İstatistiklerin</b>",
     "stats_learned_of": "Öğrenildi <b>{learned}</b> / {total}",
+    "stats_in_work_line": "Çalışmada: {count} · {target} eşiğine {left} kaldı",
+    "stats_in_work_top": "Çalışmada: {count} kelime",
     "stats_details": "Devam eden: {progress}\nYeni: {new}\nZor: {difficult}",
     "stats_achievements_title": "<b>Başarıların</b>",
     "stats_words_count": "Öğrenilen kelimeler: <b>{count}</b>",
-    "stats_streak_line": "Seri: <b>{days} gün üst üste</b>",
+    "stats_streak_line": "Seri: {days} gün üst üste",
+    "stats_best_streak_line": "En iyi seri: {days} gün",
     "stats_quizzes_header": "<b>Testler · {level}</b>",
     "stats_quizzes_passed_line": "Tamamlanan: <b>{count}</b>",
     "stats_quizzes_avg_line": "Ortalama sonuç: <b>{percent}%</b>",
@@ -422,7 +425,7 @@ Topluluk ne kadar aktif olursa — bot o kadar iyi olur. Çekinme! """,
     "stats_cta_begin": "Harika başlangıç! Devam et!",
     "stats_cta_halfway": "Yarı yoldasın! Durma!",
     "stats_cta_almost": "Neredeyse hedefe ulaştın! Harikasın!",
-    "stats_explanation": "—————————————————————\nÖğrenildi = üst üste 3 doğru cevap",
+    "stats_explanation": "Kelime öğrenildi = farklı günlerde üst üste üç doğru yanıt",
     "stats_btn_rating": "Sıralamam",
 }
 
@@ -441,7 +444,7 @@ TEXTS.update({
 
     "settings_learning_lang_line": "Öğrenilen: <b>{language}</b>",
 
-    "settings_btn_learning_lang": "Hangi dili öğrenmek",
+    "settings_btn_learning_lang": "Dil",
 
     "learning_lang_title": "<b>Hangi dili öğrenmek</b>",
     "learning_lang_description": "Kelimelerini öğrenmek istediğin dili seç.\nHer dil için ilerleme ayrı tutulur.",
@@ -630,11 +633,14 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "settings_group_what": "Ne öğreniyorum",
-    "settings_group_what_title": "<b> Ne öğreniyorum</b>",
+    "settings_group_what_title": "<b>Ne öğreniyorum</b>",
     "settings_group_how": "Nasıl öğreniyorum",
-    "settings_group_how_title": "<b> Nasıl öğreniyorum</b>",
+    "settings_group_how_title": "<b>Nasıl öğreniyorum</b>",
     "settings_group_bot": "Bot",
-    "settings_group_bot_title": "<b> Bot</b>",
+    "settings_group_bot_title": "<b>Bot</b>",
+    "settings_group_what_about": "Dil, seviye ve çeviri yönü.",
+    "settings_group_how_about": "Turun nelerden oluştuğu ve nasıl duyulduğu.",
+    "settings_group_bot_about": "Bot dili, hatırlatmalar ve yardım.",
 })
 
 
@@ -704,7 +710,7 @@ TEXTS.update({
 # состава занятия — колонка есть, экрана нет.
 # ============================================================================
 TEXTS.update({
-    "settings_btn_goal": "Ne için öğreniyorum",
+    "settings_btn_goal": "Hedef",
     "settings_goal_title": "<b>Ne için öğreniyorum</b>",
     "settings_goal_description": "Konunun kelimeleri önce gelir. Zorluk yine seviyene göre belirlenir, öğrendiklerin de tekrara dönmeye devam eder.",
     "settings_goal_set": "Hedef kaydedildi",
@@ -746,5 +752,12 @@ TEXTS.update({
     "settings_match_title": "<b>Turda tahta</b>",
     "settings_match_description": "Her iki dersten birinde turun ortasında beş soru yerine bir tahta gelir: beş kelime ve beş anlam, eşleri bulmak gerekir. Yalnızca bildik kelimeler alınır.",
     "match_state_on": "Tahta açık: turun ortasında gelecek.",
+    "settings_match_short_on": "tahta ile",
+    "settings_channels_short_one": "yalnızca kart",
+    "settings_channels_short_two": "iki yol",
+    "settings_channels_short_all": "üç yol birden",
+    "settings_audio_short_off": "sessiz",
+    "settings_audio_short_on": "sesli",
+    "settings_match_short_off": "tahtasız",
     "match_state_off": "Tahta kapalı: tur yalnızca sorulardan oluşur.",
 })

@@ -9,7 +9,7 @@ TEXTS = {
     "btn_learn_words": "📚 Вчити слова",
     "btn_stats": "📊 Статистика",
     "btn_settings": "🦾 Налаштування",
-    "btn_help": "❓ Допомога",
+    "btn_help": "Допомога",
     "btn_back": "Назад",
     "menu_placeholder": "Обери дію...",
 
@@ -110,16 +110,16 @@ TEXTS = {
     # ============================================================================
     "settings_title": "<b>Налаштування</b>",
     "settings_level": "Рівень: <b>{level}</b>",
-    "settings_mode": "Переклад: <b>{mode}</b>",
-    "settings_language": "Мова інтерфейсу: <b>{language}</b>",
+    "settings_mode": "Напрямок: <b>{mode}</b>",
+    "settings_language": "Мова бота: <b>{language}</b>",
     "settings_choose": "Обери, що хочеш змінити:",
 
-    "settings_btn_quiz_mode": "Режим вікторини",
-    "settings_btn_change_mode": "Режим перекладу",
+    "settings_btn_quiz_mode": "Рівень і теми",
+    "settings_btn_change_mode": "Напрямок",
     "settings_btn_change_language": "Мова інтерфейсу",
     "settings_btn_notifications": "Нагадування",
 
-    "settings_quiz_mode_line": "Режим: <b>{mode}</b>",
+    "settings_quiz_mode_line": "Рівень: <b>{mode}</b>",
 
     "settings_mode_title": "<b>Режим перекладу</b>",
     "settings_mode_description": "Обери напрямок перекладу:",
@@ -160,7 +160,7 @@ TEXTS = {
     "qmode_btn_all": "Топ 10 тисяч",
     "qmode_btn_difficult": "Складні",
 
-    "qmode_level_short": "Рівень {level}",
+    "qmode_level_short": "{level}",
     "qmode_category_short": "{category}",
     "qmode_all_short": "Топ 10 тисяч",
     "qmode_difficult_short": "Складні слова",
@@ -406,10 +406,13 @@ TEXTS = {
     # СТАТИСТИКА
     "stats_header": "<b>Твоя статистика</b>",
     "stats_learned_of": "Вивчено <b>{learned}</b> з {total}",
+    "stats_in_work_line": "Слів у роботі: {count} · до {target} ще {left}",
+    "stats_in_work_top": "Слів у роботі: {count}",
     "stats_details": "В процесі: {progress}\nНових: {new}\nСкладних: {difficult}",
     "stats_achievements_title": "<b>Твої досягнення</b>",
     "stats_words_count": "Вивчено слів: <b>{count}</b>",
-    "stats_streak_line": "Стрік: <b>{days} днів поспіль</b>",
+    "stats_streak_line": "Серія: {days} дн. підряд",
+    "stats_best_streak_line": "Найкраща серія: {days} дн.",
     "stats_quizzes_header": "<b>Вікторини · {level}</b>",
     "stats_quizzes_passed_line": "Пройдено: <b>{count}</b>",
     "stats_quizzes_avg_line": "Середній результат: <b>{percent}%</b>",
@@ -422,7 +425,7 @@ TEXTS = {
     "stats_cta_begin": "Чудовий початок! Продовжуй так само!",
     "stats_cta_halfway": "Ти на півдорозі! Не зупиняйся!",
     "stats_cta_almost": "Майже біля мети! Молодець!",
-    "stats_explanation": "—————————————————————\nСлово вивчено = 3 правильних відповіді поспіль",
+    "stats_explanation": "Слово вивчено = три правильні відповіді підряд у різні дні",
     "stats_btn_rating": "Мій рейтинг",
 }
 
@@ -441,7 +444,7 @@ TEXTS.update({
 
     "settings_learning_lang_line": "Вивчаю: <b>{language}</b>",
 
-    "settings_btn_learning_lang": "Яку мову вивчати",
+    "settings_btn_learning_lang": "Мова",
 
     "learning_lang_title": "<b>Яку мову вивчати</b>",
     "learning_lang_description": "Обери мову, слова якої вивчатимеш.\nПрогрес з кожної мови рахується окремо.",
@@ -630,11 +633,14 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "settings_group_what": "Що вчу",
-    "settings_group_what_title": "<b> Що вчу</b>",
+    "settings_group_what_title": "<b>Що вчу</b>",
     "settings_group_how": "Як вчу",
-    "settings_group_how_title": "<b> Як вчу</b>",
+    "settings_group_how_title": "<b>Як вчу</b>",
     "settings_group_bot": "Бот",
-    "settings_group_bot_title": "<b> Бот</b>",
+    "settings_group_bot_title": "<b>Бот</b>",
+    "settings_group_what_about": "Мова, рівень і напрямок перекладу.",
+    "settings_group_how_about": "З чого складається коло і як воно звучить.",
+    "settings_group_bot_about": "Мова бота, нагадування та допомога.",
 })
 
 
@@ -704,7 +710,7 @@ TEXTS.update({
 # состава занятия — колонка есть, экрана нет.
 # ============================================================================
 TEXTS.update({
-    "settings_btn_goal": "Навіщо вчу",
+    "settings_btn_goal": "Мета",
     "settings_goal_title": "<b>Навіщо вчу</b>",
     "settings_goal_description": "Слова теми приходитимуть першими. Складність залишиться за рівнем, а вивчене продовжить повертатися на повторення.",
     "settings_goal_set": "Мету збережено",
@@ -746,5 +752,12 @@ TEXTS.update({
     "settings_match_title": "<b>Дошка в колі</b>",
     "settings_match_description": "Раз на два заняття в середині кола замість п'яти питань приходить дошка: п'ять слів і п'ять значень, треба знайти пари. Беруться лише знайомі слова.",
     "match_state_on": "Дошка увімкнена: прийде в середині кола.",
+    "settings_match_short_on": "з дошкою",
+    "settings_channels_short_one": "лише картка",
+    "settings_channels_short_two": "два способи",
+    "settings_channels_short_all": "усі три способи",
+    "settings_audio_short_off": "без звуку",
+    "settings_audio_short_on": "зі звуком",
+    "settings_match_short_off": "без дошки",
     "match_state_off": "Дошка вимкнена: коло йде лише питаннями.",
 })

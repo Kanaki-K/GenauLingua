@@ -9,7 +9,7 @@ TEXTS = {
     "btn_learn_words": "📚 Learn words",
     "btn_stats": "📊 Statistics",
     "btn_settings": "🦾 Settings",
-    "btn_help": "❓ Help",
+    "btn_help": "Help",
     "btn_back": "Back",
     "menu_placeholder": "Choose an action...",
 
@@ -110,16 +110,16 @@ TEXTS = {
     # ============================================================================
     "settings_title": "<b>Settings</b>",
     "settings_level": "Level: <b>{level}</b>",
-    "settings_mode": "Translation: <b>{mode}</b>",
-    "settings_language": "Interface language: <b>{language}</b>",
+    "settings_mode": "Direction: <b>{mode}</b>",
+    "settings_language": "Bot language: <b>{language}</b>",
     "settings_choose": "Choose what you want to change:",
 
-    "settings_btn_quiz_mode": "Quiz mode",
-    "settings_btn_change_mode": "Translation mode",
+    "settings_btn_quiz_mode": "Level and topics",
+    "settings_btn_change_mode": "Direction",
     "settings_btn_change_language": "Interface language",
     "settings_btn_notifications": "Notifications",
 
-    "settings_quiz_mode_line": "Mode: <b>{mode}</b>",
+    "settings_quiz_mode_line": "Level: <b>{mode}</b>",
 
     "settings_mode_title": "<b>Translation mode</b>",
     "settings_mode_description": "Choose translation direction:",
@@ -161,7 +161,7 @@ TEXTS = {
     "qmode_btn_all": "Top 10 thousand",
     "qmode_btn_difficult": "Difficult",
 
-    "qmode_level_short": "Level {level}",
+    "qmode_level_short": "{level}",
     "qmode_category_short": "{category}",
     "qmode_all_short": "Top 10 thousand",
     "qmode_difficult_short": "Difficult words",
@@ -406,10 +406,13 @@ The more active the community — the better the bot gets. Don't be shy! """,
 
     "stats_header": "<b>Your statistics</b>",
     "stats_learned_of": "Learned <b>{learned}</b> of {total}",
+    "stats_in_work_line": "Words in progress: {count} · {left} to go until {target}",
+    "stats_in_work_top": "Words in progress: {count}",
     "stats_details": "In progress: {progress}\nNew: {new}\nDifficult: {difficult}",
     "stats_achievements_title": "<b>Your achievements</b>",
     "stats_words_count": "Words learned: <b>{count}</b>",
-    "stats_streak_line": "Streak: <b>{days} days in a row</b>",
+    "stats_streak_line": "Streak: {days} days in a row",
+    "stats_best_streak_line": "Best streak: {days} days",
     "stats_quizzes_header": "<b>Quizzes · {level}</b>",
     "stats_quizzes_passed_line": "Completed: <b>{count}</b>",
     "stats_quizzes_avg_line": "Average result: <b>{percent}%</b>",
@@ -422,7 +425,7 @@ The more active the community — the better the bot gets. Don't be shy! """,
     "stats_cta_begin": "Great start! Keep going!",
     "stats_cta_halfway": "Halfway there! Don't stop!",
     "stats_cta_almost": "Almost there! Great job!",
-    "stats_explanation": "—————————————————————\nWord learned = 3 correct answers in a row",
+    "stats_explanation": "A word is learned = three correct answers in a row, on different days",
     "stats_btn_rating": "My rating",
 }
 
@@ -441,7 +444,7 @@ TEXTS.update({
 
     "settings_learning_lang_line": "Learning: <b>{language}</b>",
 
-    "settings_btn_learning_lang": "Language to learn",
+    "settings_btn_learning_lang": "Language",
 
     "learning_lang_title": "<b>Language to learn</b>",
     "learning_lang_description": "Pick the language whose words you want to learn.\nProgress is tracked separately for each language.",
@@ -630,11 +633,14 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "settings_group_what": "What I learn",
-    "settings_group_what_title": "<b> What I learn</b>",
+    "settings_group_what_title": "<b>What I learn</b>",
     "settings_group_how": "How I learn",
-    "settings_group_how_title": "<b> How I learn</b>",
+    "settings_group_how_title": "<b>How I learn</b>",
     "settings_group_bot": "Bot",
-    "settings_group_bot_title": "<b> Bot</b>",
+    "settings_group_bot_title": "<b>Bot</b>",
+    "settings_group_what_about": "Language, level and translation direction.",
+    "settings_group_how_about": "What a round is made of and how it sounds.",
+    "settings_group_bot_about": "Bot language, reminders and help.",
 })
 
 
@@ -704,7 +710,7 @@ TEXTS.update({
 # состава занятия — колонка есть, экрана нет.
 # ============================================================================
 TEXTS.update({
-    "settings_btn_goal": "What I need it for",
+    "settings_btn_goal": "Goal",
     "settings_goal_title": "<b>What I need it for</b>",
     "settings_goal_description": "Words from your topic will come first. Difficulty still follows your level, and what you have learnt keeps coming back for review.",
     "settings_goal_set": "Goal saved",
@@ -746,5 +752,12 @@ TEXTS.update({
     "settings_match_title": "<b>Board in the round</b>",
     "settings_match_description": "Every other lesson, the middle of the round brings a board instead of five questions: five words and five meanings to pair up. Only familiar words are used.",
     "match_state_on": "Board is on: it will come mid-round.",
+    "settings_match_short_on": "with the board",
+    "settings_channels_short_one": "cards only",
+    "settings_channels_short_two": "two ways",
+    "settings_channels_short_all": "all three ways",
+    "settings_audio_short_off": "no sound",
+    "settings_audio_short_on": "with sound",
+    "settings_match_short_off": "no board",
     "match_state_off": "Board is off: the round is questions only.",
 })

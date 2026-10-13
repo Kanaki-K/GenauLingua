@@ -254,20 +254,31 @@ def example_text(word, code: Optional[str]) -> str:
     return (getattr(word, lang.example_attr, None) or "").strip()
 
 
-def pair_label(pair: "LanguagePair") -> str:
+def pair_label(pair: "LanguagePair", interface_lang: Optional[str] = None) -> str:
     """
-    Подпись направления в прежнем стиле: «🇩🇪 DE → 🏴 RU».
+    Подпись направления СЛОВАМИ: «Немецкий → Русский».
 
-    Собирается из флагов и кодов, поэтому для любой из двадцати пар выглядит
-    так же, как раньше выглядели восемь захардкоженных вариантов.
+    Прежде собиралась из флагов и кодов — «🇩🇪 DE → 🏴 RU», — и это был
+    третий способ обозначить язык в одном боте: на выборе стояло «🏴
+    Русский», в заголовке занятия «🇩🇪 Немецкий → 🏴» вообще без названия, а
+    здесь код из двух букв. Решение владельца: языки пишутся словами, и
+    тогда подпись одна на все двадцать пар.
+
+    Язык интерфейса необязателен ради вызывающих, которым он недоступен:
+    без него берётся язык по умолчанию, как и везде в `get_text`.
     """
-    src, dst = pair.prompt_lang, pair.answer_lang
-    return f"{flag(src)} {src.upper()} → {flag(dst)} {dst.upper()}"
+    return (f"{language_word(pair.prompt_lang, interface_lang)}"
+            f" → {language_word(pair.answer_lang, interface_lang)}")
 
 
-def pair_flags(pair: "LanguagePair") -> str:
-    """Короткая подпись только флагами: «🇩🇪 → 🏴» (для статистики)."""
-    return f"{flag(pair.prompt_lang)} → {flag(pair.answer_lang)}"
+def pair_flags(pair: "LanguagePair", interface_lang: Optional[str] = None) -> str:
+    """
+    Короткая подпись пары. Имя осталось прежним, флагов в ней больше нет.
+
+    Переименовать её заодно значило бы править семь мест вызова одной
+    правкой с двумя смыслами; имя поправится отдельно.
+    """
+    return pair_label(pair, interface_lang)
 
 
 _WS_RE = re.compile(r"\s+")

@@ -118,10 +118,44 @@ class TestLanguagePair:
         assert pair.prompt_lang == "ru"
         assert pair.answer_lang == "de"
 
-    def test_label_matches_previous_format(self):
-        # Прежде подписи были захардкожены как "🇩🇪 DE → 🏴 RU"
-        assert pair_label(LanguagePair("de", "ru", False)) == f"{flag('de')} DE → {flag('ru')} RU"
-        assert pair_label(LanguagePair("de", "ru", True)) == f"{flag('ru')} RU → {flag('de')} DE"
+    def test_label_names_both_languages_in_words(self):
+        """
+        Подпись направления — СЛОВАМИ, и на языке интерфейса.
+
+        Прежде она собиралась из флага и кода: «🇩🇪 DE → 🏴 RU». Это был
+        третий способ обозначить язык в одном боте — на выборе стояло
+        «🏴 Русский», в заголовке занятия «🇩🇪 Немецкий → 🏴» вообще без
+        названия, а здесь двухбуквенный код. Решение владельца: языки
+        пишутся словами, флагов в наборе знаков нет ни одного.
+
+        Язык интерфейса передаётся НЕ ради красоты: без него `get_text`
+        берёт локаль по умолчанию, и в русском боте настройки показывали
+        «Німецька → Російська». Поймано показом экрана.
+        """
+        forward = pair_label(LanguagePair("de", "ru", False), "ru")
+        assert forward == "Немецкий → Русский", forward
+
+        back = pair_label(LanguagePair("de", "ru", True), "ru")
+        assert back == "Русский → Немецкий", back
+
+        # На другом языке интерфейса — те же языки, другими словами
+        assert pair_label(LanguagePair("de", "ru", False), "en") == "German → Russian"
+
+    def test_label_carries_no_flag(self):
+        """
+        Ни одного флага ни в одной из двадцати пар. Проверка общая, а не на
+        трёх примерах: флаг легко вернуть в одну ветку и не заметить.
+        """
+        import unicodedata
+
+        for learning in LEARNABLE_LANGS:
+            for native in LEARNABLE_LANGS:
+                for reverse in (False, True):
+                    label = pair_label(LanguagePair(learning, native, reverse), "ru")
+                    marks = [c for c in label
+                             if unicodedata.category(c) in ("So", "Mn", "Cf")
+                             and c != "→"]
+                    assert not marks, f"{label!r}: знаки {marks}"
 
     def test_every_pair_is_expressible(self):
         """

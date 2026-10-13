@@ -63,7 +63,7 @@ MARK_CATEGORIES = {"So", "Sk", "Me", "Mn", "Cf"}
 # Подписи кнопок нижнего меню — не здесь. Их правка требует запаса
 # совместимости: нажатие ловится по тексту.
 SKIP_KEYS = {
-    "btn_learn_words", "btn_stats", "btn_rating", "btn_settings", "btn_help",
+    "btn_learn_words", "btn_stats", "btn_rating", "btn_settings",
 }
 
 VALUE_LINE = re.compile(r'^(\s*)"([a-z0-9_]+)":\s(".*",?)$')
@@ -97,6 +97,14 @@ def strip_marks(text: str) -> str:
     kept = re.sub(r"(\\n) +", r"\1", kept)
     kept = re.sub(r" +(\\n)", r"\1", kept)
     kept = re.sub(r"\( +", "(", kept)
+
+    # Пробел ВНУТРИ тега разметки. Значок часто стоял внутри: `<b>🎯 Что
+    # учу</b>` — и после снятия оставалось `<b> Что учу</b>`, то есть
+    # заголовок с отступом в один пробел. Видно это только на экране:
+    # в значении локали пробел не отличим от любого другого.
+    kept = re.sub(r"(<(?:b|i|u|s|code|pre)>) +", r"\1", kept)
+    kept = re.sub(r" +(</(?:b|i|u|s|code|pre)>)", r"\1", kept)
+
     return kept.strip(" ")
 
 

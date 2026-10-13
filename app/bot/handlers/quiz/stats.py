@@ -18,7 +18,7 @@ from app.database.models import User, QuizSession, Word, UserWord
 from app.database.enums import QuizMode
 from app.services.streak_service import current_streak
 from app.locales import DEFAULT_LOCALE, get_text
-from app.services.language_service import pair_flags, pair_from_user
+from app.services.language_service import pair_label, pair_from_user
 from app.services.quiz_service import (
     STRUGGLING_THRESHOLD,
     get_overall_progress,
@@ -50,14 +50,6 @@ def create_progress_bar(current: int, total: int, length: int = 10) -> str:
     filled = int((current / total) * length)
     empty = length - filled
     return f"{'▓' * filled}{'░' * empty} {percentage}%"
-
-
-def get_achievement_emoji(percentage: float) -> str:
-    if percentage >= 95: return "🏆"
-    elif percentage >= 85: return "🥇"
-    elif percentage >= 75: return "🥈"
-    elif percentage >= 60: return "🥉"
-    return "📝"
 
 
 # ============================================================================
@@ -205,7 +197,7 @@ async def build_stats_text(user: User, session: AsyncSession) -> str:
     overall = await get_overall_progress(user_id, session, pair)
 
     mode_title = _get_mode_title(user, lang)
-    mode_arrow = pair_flags(pair)
+    mode_arrow = pair_label(pair, lang)
 
     total = progress['total_words']
     learned = progress['learned_words']
@@ -239,28 +231,54 @@ async def build_stats_text(user: User, session: AsyncSession) -> str:
 
     text = get_text("stats_header", lang) + "\n\n"
 
-    # Режим + прогресс-бар
-    bar = create_progress_bar(learned, total, length=12)
-    text += f"🎯 <b>{mode_title}</b>\n"
-    text += f"🔄 {mode_arrow}\n"
-    text += f"{bar}\n"
-    text += get_text("stats_learned_of", lang, learned=learned, total=total) + "\n\n"
+    # ЗАГОЛОВОК ОДНОЙ СТРОКОЙ, БЕЗ ЗНАЧКОВ. Прежде тут стояло три строки:
+    # `🎯 B1`, `🔄 Німецька → Російська` и полоса, — причём мишень и
+    # круговые стрелки не значили ничего, кроме «тут начинается строка», а
+    # направление собиралось БЕЗ языка интерфейса и в русском боте
+    # показывало украинские названия.
+    text += f"<b>{mode_title}</b> · {mode_arrow}\n\n"
+
+    # ШКАЛА СЧИТАЕТСЯ ДО БЛИЖАЙШЕГО РУБЕЖА, А НЕ ДО ВСЕГО УРОВНЯ.
+    #
+    # Было: «░░░░░░░░░░░░ 0% · Выучено 9 из 3132». Замер 13 октября по 199
+    # людям с прогрессом: «выучено» ноль у 156 из них, а знаменатель в три
+    # тысячи слов уровня даёт вечные 0% и тем, у кого не ноль. Шкала, которая
+    # у всех пустая, не показывает ничего.
+    #
+    # Рубежи те же, что в поощрении за круг, и по тому же числу — СЛОВАМ В
+    # РАБОТЕ: это единственная ступень, которая двигается каждый круг.
+    from app.services.praise_service import next_milestone
+
+    in_work = progress["seen_words"]
+    target = next_milestone(in_work)
+    if target:
+        bar = create_progress_bar(in_work, target, length=12)
+        text += f"{bar}\n"
+        text += get_text(
+            "stats_in_work_line", lang,
+            count=in_work, target=target, left=target - in_work,
+        ) + "\n\n"
+    else:
+        text += get_text("stats_in_work_top", lang, count=in_work) + "\n\n"
 
     # Детализация
     text += get_text("stats_details", lang, progress=in_progress, new=new, difficult=difficult) + "\n\n"
 
-    # Достижения
-    if overall_learned >= 500: emoji = "🏆"
-    elif overall_learned >= 200: emoji = "🥇"
-    elif overall_learned >= 100: emoji = "🥈"
-    elif overall_learned >= 50: emoji = "🥉"
-    else: emoji = "⭐"
-
-    text += f"{emoji} {get_text('stats_achievements_title', lang)}\n"
+    # ДОСТИЖЕНИЯ БЕЗ МЕДАЛЕЙ. Значок выбирался по числу выученных — трофей,
+    # золото, серебро, бронза, звезда, — то есть пять разных знаков на одно
+    # и то же место. Число и так стоит строкой ниже.
+    text += f"<b>{get_text('stats_achievements_title', lang)}</b>\n"
     text += get_text("stats_words_count", lang, count=overall_learned) + "\n"
-    text += get_text(
-        "stats_streak_line", lang, days=current_streak(user)
-    ) + "\n\n"
+
+    # Серия — только когда она есть. «Серия: 0 дней подряд» занимает строку
+    # ничем и читается как упрёк; у остановившегося она и должна молчать
+    streak = current_streak(user)
+    if streak:
+        text += get_text("stats_streak_line", lang, days=streak) + "\n"
+    best = int(getattr(user, "best_streak_days", 0) or 0)
+    if best and best != streak:
+        text += get_text("stats_best_streak_line", lang, days=best) + "\n"
+    text += "\n"
 
     # Викторины по режиму.
     # Точность считается по фактически отвеченным вопросам: плановое
@@ -274,13 +292,12 @@ async def build_stats_text(user: User, session: AsyncSession) -> str:
         # max по пустой последовательности падает, а answered может быть нулём
         best_result = max((s.accuracy_percent for s in mode_sessions), default=0)
 
-        q_emoji = get_achievement_emoji(avg_percent)
-        text += f"{q_emoji} {get_text('stats_quizzes_header', lang, level=mode_title)}\n"
+        text += f"<b>{get_text('stats_quizzes_header', lang, level=mode_title)}</b>\n"
         text += get_text("stats_quizzes_passed_line", lang, count=total_quizzes) + "\n"
         text += get_text("stats_quizzes_avg_line", lang, percent=f"{avg_percent:.0f}") + "\n"
         text += get_text("stats_quizzes_best_line", lang, percent=f"{best_result:.0f}") + "\n\n"
     else:
-        text += f"📝 {get_text('stats_quizzes_header', lang, level=mode_title)}\n"
+        text += f"<b>{get_text('stats_quizzes_header', lang, level=mode_title)}</b>\n"
         text += get_text("stats_quizzes_empty", lang) + "\n\n"
 
     # Последние викторины
@@ -289,28 +306,28 @@ async def build_stats_text(user: User, session: AsyncSession) -> str:
         for s in mode_sessions[:3]:
             pct = s.accuracy_percent
             date_str = s.started_at.strftime("%d.%m")
-            e = get_achievement_emoji(pct)
-            text += f"{e} {date_str} — {s.correct_answers}/{s.answered_questions} ({pct:.0f}%)\n"
+            # Значка перед строкой нет: он выбирался по точности и давал
+            # пять разных знаков на одно место, тогда как сама точность
+            # стоит в той же строке числом
+            text += (f"{date_str} — {s.correct_answers}/{s.answered_questions}"
+                     f" ({pct:.0f}%)\n")
         text += "\n"
 
-    # Общий прогресс
+    # ОБЩИЙ ПРОГРЕСС БЕЗ ШКАЛЫ. Выученных 9 от 12 376 слов базы — это ноль
+    # процентов, и полоса тут пуста у ВСЕХ, включая самых усердных. Число
+    # остаётся: оно честное и растёт, а рисовать по нему полосу — значит
+    # каждый раз показывать человеку, что он ничего не добился
     if overall_total > 0:
-        overall_bar = create_progress_bar(overall_learned, overall_total, length=12)
-        text += get_text("stats_overall_header", lang) + "\n"
-        text += f"{overall_bar}\n"
-        text += get_text("stats_overall_learned", lang, learned=overall_learned, total=overall_total) + "\n\n"
+        text += f"<b>{get_text('stats_overall_header', lang)}</b>\n"
+        text += get_text(
+            "stats_overall_learned", lang,
+            learned=overall_learned, total=overall_total,
+        ) + "\n\n"
 
-    # Мотивация
-    if learned == 0:
-        text += get_text("stats_cta_start", lang)
-    elif learned < total * 0.3:
-        text += get_text("stats_cta_begin", lang)
-    elif learned < total * 0.7:
-        text += get_text("stats_cta_halfway", lang)
-    else:
-        text += get_text("stats_cta_almost", lang)
-
-    text += "\n\n"
-    text += get_text("stats_explanation", lang)
+    # ЧЕТЫРЕ ОБЩИЕ ФРАЗЫ УБРАНЫ. «Отличное начало! Продолжай в том же
+    # духе!» выбиралось по доле выученных и не знало о человеке ничего —
+    # тот же дефект, что был вторым блоком напоминания. Экран статистики и
+    # так весь из чисел; ему нужна не похвала, а пояснение, как они считаны.
+    text += f"<i>{get_text('stats_explanation', lang)}</i>"
 
     return text

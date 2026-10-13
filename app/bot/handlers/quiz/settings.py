@@ -207,8 +207,14 @@ async def show_settings_group(callback: CallbackQuery, session: AsyncSession):
     #
     # У группы «🔧 Бот» своя строка одна, и это нормально: часть её пунктов
     # состояния не имеет вовсе.
+    # ОДНА СТРОКА ПОЯСНЕНИЯ — устав внешности, правило пятое: пояснение
+    # там, где без него непонятно. Группа «Что учу» объединяет язык,
+    # уровень и направление перевода, и это не очевидно из названия.
     state = _settings_state(user, lang, only=tuple(d for _, d in items))
     text = get_text(title_key, lang)
+    about = get_text(f"settings_group_{key}_about", lang)
+    if about and not about.startswith("["):
+        text += f"\n\n<i>{about}</i>"
     if state:
         text += f"\n\n{state}"
 
@@ -272,7 +278,8 @@ def _line_audio(user: User, lang: str) -> str:
 
 
 def _line_direction(user: User, lang: str) -> str:
-    return get_text("settings_mode", lang, mode=pair_label(pair_from_user(user)))
+    return get_text("settings_mode", lang,
+                    mode=pair_label(pair_from_user(user), lang))
 
 
 def _line_interface(user: User, lang: str) -> str:
@@ -305,6 +312,67 @@ _STATE_LINES = {
 }
 
 
+# Короткие значения для строки группы на верхнем экране. Берутся из тех же
+# функций, что печатают состояние внутри группы, — но без подписи: на
+# верхнем экране подпись одна на всю группу.
+#
+# Пункты без значения (напоминания, помощь) в строку не попадают: ставить
+# там заглушку значило бы занять место ничем.
+# Чего в сводке НЕ показывать, хотя пункт в группе есть.
+#
+# Изучаемый язык назван внутри направления («Немецкий → Русский»), и
+# отдельным значением он повторялся: «Немецкий, B1, Немецкий → Русский».
+# Внутри самой группы строка остаётся — там она принадлежит своей кнопке.
+_SUMMARY_SKIP = {
+    "what": ("settings_learning",),
+}
+
+_SUMMARY_VALUES = {
+    "settings_learning": lambda user, lang: language_name(
+        pair_from_user(user).learning, lang
+    ),
+    "settings_quiz_mode": lambda user, lang: _quiz_mode_display(user, lang),
+    "settings_mode": lambda user, lang: pair_label(pair_from_user(user), lang),
+    "settings_goal": lambda user, lang: (
+        get_text(f"goal_{user.learning_goal}", lang) if user.learning_goal else ""
+    ),
+    # Числом способов, а не перечнем: перечень несёт свой разделитель `·`
+    # и в сводке сливался с разделителем между значениями
+    "settings_channels": lambda user, lang: _channels_short(user, lang),
+    # «Со звуком», а не «включена»: в сводке подлежащего нет, и одинокое
+    # «включена» не говорит, что именно включено
+    "settings_audio": lambda user, lang: get_text(
+        "settings_audio_short_on" if user.audio_enabled
+        else "settings_audio_short_off", lang
+    ),
+    # Короткое значение, а не пояснение: `match_state_on` — целая фраза
+    # «Доска включена: придёт в середине круга», и в сводке группы она
+    # занимала строку целиком
+    "settings_match": lambda user, lang: get_text(
+        "settings_match_short_on" if user.match_in_round
+        else "settings_match_short_off", lang
+    ),
+    "settings_language": lambda user, lang: (
+        get_text(f"lang_{user.interface_language}", lang)
+        if user.interface_language else ""
+    ),
+}
+
+def _channels_short(user: User, lang: str) -> str:
+    """
+    Состав занятия числом способов: «три способа», «только карточка».
+
+    Перечень `Карточка · 🎧 На слух · 🎤 Речь` в сводке группы занимал
+    строку целиком и нёс свой разделитель, который сливался с разделителем
+    между значениями.
+    """
+    enabled = len(enabled_channels(user))
+    if enabled >= 3:
+        return get_text("settings_channels_short_all", lang)
+    if enabled == 1:
+        return get_text("settings_channels_short_one", lang)
+    return get_text("settings_channels_short_two", lang)
+
 def _settings_state(user: User, lang: str, only: tuple[str, ...] | None = None) -> str:
     """
     Что сейчас выставлено. `only` — ограничить пунктами одной группы.
@@ -317,12 +385,51 @@ def _settings_state(user: User, lang: str, only: tuple[str, ...] | None = None) 
     return "\n".join(_STATE_LINES[k](user, lang) for k in keys)
 
 
+def _group_summary(key: str, user: User, lang: str) -> str:
+    """
+    Что лежит ЗА кнопкой группы — её собственные значения, в одну строку.
+
+    Прежде верхний экран печатал все семь строк состояния простынёй, и
+    группировка затевалась ровно против этого: человек видел «Режим: Уровень
+    B1», «Занятие: Карточка · На слух», «Цель: не выбрана» и ещё четыре — а
+    кнопок было три, и какая из них ведёт к нужному, оставалось угадывать.
+
+    Теперь у каждой группы своя строка, собранная из ЕЁ пунктов. Значения
+    берутся из тех же функций, что печатают их внутри группы: второй сборки
+    нет, и разойтись им негде.
+    """
+    _, _, items = _GROUPS[key]
+    values = []
+    for _, data in items:
+        if data in _SUMMARY_SKIP.get(key, ()):
+            continue
+        make_value = _SUMMARY_VALUES.get(data)
+        if make_value:
+            value = make_value(user, lang)
+            if value:
+                values.append(value)
+    return " · ".join(values)
+
+
 def _settings_text(user: User, lang: str) -> str:
-    return (
-        f"{get_text('settings_title', lang)}\n\n"
-        f"{_settings_state(user, lang)}\n\n"
-        f"{get_text('settings_choose', lang)}"
-    )
+    """
+    Верхний экран настроек: три группы, у каждой — что за ней.
+
+    ВЫРАВНИВАНИЯ В ДВА СТОЛБЦА ЗДЕСЬ НЕТ, хотя набросок экрана его рисовал.
+    В пропорциональном шрифте Telegram добивка пробелами не выравнивает —
+    выходит хуже, чем без выравнивания вовсе; моноширинный блок, каким
+    сделана админка, превратил бы настройки в таблицу, а это не приборная
+    панель. Поэтому название группы полужирным, значения за разделителем.
+
+    «Выбери, что хочешь изменить» убрано: под текстом три кнопки с
+    названиями групп, и другого прочтения у экрана нет.
+    """
+    lines = [get_text("settings_title", lang), ""]
+    for key, (btn_key, _, _) in _GROUPS.items():
+        summary = _group_summary(key, user, lang)
+        name = get_text(btn_key, lang)
+        lines.append(f"<b>{name}</b> · {summary}" if summary else f"<b>{name}</b>")
+    return "\n".join(lines)
 
 
 @router.message(Command("settings"))
@@ -992,11 +1099,11 @@ async def change_translation_mode(callback: CallbackQuery, session: AsyncSession
     keyboard = InlineKeyboardMarkup(
         inline_keyboard=[
             [InlineKeyboardButton(
-                text=("✅ " if not pair.reverse else "") + pair_label(forward),
+                text=("✓ " if not pair.reverse else "") + pair_label(forward, lang),
                 callback_data="set_dir_forward"
             )],
             [InlineKeyboardButton(
-                text=("✅ " if pair.reverse else "") + pair_label(reverse),
+                text=("✓ " if pair.reverse else "") + pair_label(reverse, lang),
                 callback_data="set_dir_reverse"
             )],
             _back_row(lang, _PARENT_GROUP["settings_mode"])
@@ -1016,7 +1123,8 @@ async def set_translation_direction(callback: CallbackQuery, session: AsyncSessi
     _sync_legacy_mode(user)
     await session.commit()
 
-    await callback.answer(f"✅ {pair_label(pair_from_user(user))}", show_alert=True)
+    await callback.answer(f"✓ {pair_label(pair_from_user(user), lang)}",
+                          show_alert=True)
     await show_settings_callback(callback, session)
 
 

@@ -9,7 +9,7 @@ TEXTS = {
     "btn_learn_words": "📚 Учить слова",
     "btn_stats": "📊 Статистика",
     "btn_settings": "🦾 Настройки",
-    "btn_help": "❓ Помощь",
+    "btn_help": "Помощь",
     "btn_back": "Назад",
     "menu_placeholder": "Выбери действие...",
 
@@ -113,16 +113,16 @@ TEXTS = {
     # ============================================================================
     "settings_title": "<b>Настройки</b>",
     "settings_level": "Уровень: <b>{level}</b>",
-    "settings_mode": "Перевод: <b>{mode}</b>",
-    "settings_language": "Язык интерфейса: <b>{language}</b>",
+    "settings_mode": "Направление: <b>{mode}</b>",
+    "settings_language": "Язык бота: <b>{language}</b>",
     "settings_choose": "Выбери, что хочешь изменить:",
 
-    "settings_btn_quiz_mode": "Режим викторины",
-    "settings_btn_change_mode": "Режим перевода",
+    "settings_btn_quiz_mode": "Уровень и темы",
+    "settings_btn_change_mode": "Направление",
     "settings_btn_change_language": "Язык интерфейса",
     "settings_btn_notifications": "Напоминания",
 
-    "settings_quiz_mode_line": "Режим: <b>{mode}</b>",
+    "settings_quiz_mode_line": "Уровень: <b>{mode}</b>",
 
     "settings_mode_title": "<b>Режим перевода</b>",
     "settings_mode_description": "Выбери направление перевода:",
@@ -165,7 +165,7 @@ TEXTS = {
     "qmode_btn_all": "Топ 10 тысяч",
     "qmode_btn_difficult": "Сложные",
 
-    "qmode_level_short": "Уровень {level}",
+    "qmode_level_short": "{level}",
     "qmode_category_short": "{category}",
     "qmode_all_short": "Топ 10 тысяч",
     "qmode_difficult_short": "Сложные слова",
@@ -414,10 +414,13 @@ TEXTS = {
     # ============================================================================
     "stats_header": "<b>Твоя статистика</b>",
     "stats_learned_of": "Выучено <b>{learned}</b> из {total}",
+    "stats_in_work_line": "Слов в работе: {count} · до {target} ещё {left}",
+    "stats_in_work_top": "Слов в работе: {count}",
     "stats_details": "В процессе: {progress}\nНовых: {new}\nСложных: {difficult}",
     "stats_achievements_title": "<b>Твои достижения</b>",
     "stats_words_count": "Выучено слов: <b>{count}</b>",
-    "stats_streak_line": "Стрик: <b>{days} дней подряд</b>",
+    "stats_streak_line": "Серия: {days} дн. подряд",
+    "stats_best_streak_line": "Лучшая серия: {days} дн.",
     "stats_quizzes_header": "<b>Викторины · {level}</b>",
     "stats_quizzes_passed_line": "Пройдено: <b>{count}</b>",
     "stats_quizzes_avg_line": "Средний результат: <b>{percent}%</b>",
@@ -430,7 +433,7 @@ TEXTS = {
     "stats_cta_begin": "Отличное начало! Продолжай в том же духе!",
     "stats_cta_halfway": "Ты на полпути! Не останавливайся!",
     "stats_cta_almost": "Почти у цели! Ты молодец!",
-    "stats_explanation": "—————————————————————\nСлово выучено = 3 правильных ответа подряд",
+    "stats_explanation": "Слово выучено = три верных ответа подряд в разные дни",
     "stats_btn_rating": "Мой рейтинг",
 }
 
@@ -451,7 +454,7 @@ TEXTS.update({
     # Строки в меню настроек
     "settings_learning_lang_line": "Учу: <b>{language}</b>",
 
-    "settings_btn_learning_lang": "Какой язык учить",
+    "settings_btn_learning_lang": "Язык",
 
     # Экран «какой язык учить»
     "learning_lang_title": "<b>Какой язык учить</b>",
@@ -645,11 +648,14 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "settings_group_what": "Что учу",
-    "settings_group_what_title": "<b> Что учу</b>",
+    "settings_group_what_title": "<b>Что учу</b>",
     "settings_group_how": "Как учу",
-    "settings_group_how_title": "<b> Как учу</b>",
+    "settings_group_how_title": "<b>Как учу</b>",
     "settings_group_bot": "Бот",
-    "settings_group_bot_title": "<b> Бот</b>",
+    "settings_group_bot_title": "<b>Бот</b>",
+    "settings_group_what_about": "Язык, уровень и направление перевода.",
+    "settings_group_how_about": "Из чего состоит круг и как он звучит.",
+    "settings_group_bot_about": "Язык бота, напоминания и помощь.",
 })
 
 
@@ -719,7 +725,7 @@ TEXTS.update({
 # состава занятия — колонка есть, экрана нет.
 # ============================================================================
 TEXTS.update({
-    "settings_btn_goal": "Зачем учу",
+    "settings_btn_goal": "Цель",
     "settings_goal_title": "<b>Зачем учу</b>",
     "settings_goal_description": "Слова темы будут приходить первыми. Трудность останется по уровню, а выученное продолжит возвращаться на повторение.",
     "settings_goal_set": "Цель сохранена",
@@ -761,5 +767,12 @@ TEXTS.update({
     "settings_match_title": "<b>Доска в круге</b>",
     "settings_match_description": "Раз в два занятия в середине круга вместо пяти вопросов приходит доска: пять слов и пять значений, нужно найти пары. Берутся только знакомые слова.",
     "match_state_on": "Доска включена: придёт в середине круга.",
+    "settings_match_short_on": "с доской",
+    "settings_channels_short_one": "только карточка",
+    "settings_channels_short_two": "два способа",
+    "settings_channels_short_all": "все три способа",
+    "settings_audio_short_off": "без звука",
+    "settings_audio_short_on": "со звуком",
+    "settings_match_short_off": "без доски",
     "match_state_off": "Доска выключена: круг идёт только вопросами.",
 })

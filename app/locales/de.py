@@ -14,7 +14,7 @@ TEXTS = {
     "btn_learn_words": "📚 Wörter lernen",
     "btn_stats": "📊 Statistik",
     "btn_settings": "🦾 Einstellungen",
-    "btn_help": "❓ Hilfe",
+    "btn_help": "Hilfe",
     "btn_back": "Zurück",
     "menu_placeholder": "Wähle eine Aktion...",
 
@@ -115,16 +115,16 @@ TEXTS = {
     # ============================================================================
     "settings_title": "<b>Einstellungen</b>",
     "settings_level": "Niveau: <b>{level}</b>",
-    "settings_mode": "Übersetzung: <b>{mode}</b>",
-    "settings_language": "Oberflächensprache: <b>{language}</b>",
+    "settings_mode": "Richtung: <b>{mode}</b>",
+    "settings_language": "Bot-Sprache: <b>{language}</b>",
     "settings_choose": "Wähle aus, was du ändern möchtest:",
 
-    "settings_btn_quiz_mode": "Quiz-Modus",
-    "settings_btn_change_mode": "Übersetzungsrichtung",
+    "settings_btn_quiz_mode": "Niveau und Themen",
+    "settings_btn_change_mode": "Richtung",
     "settings_btn_change_language": "Oberflächensprache",
     "settings_btn_notifications": "Erinnerungen",
 
-    "settings_quiz_mode_line": "Modus: <b>{mode}</b>",
+    "settings_quiz_mode_line": "Niveau: <b>{mode}</b>",
 
     "settings_mode_title": "<b>Übersetzungsrichtung</b>",
     "settings_mode_description": "Wähle die Richtung der Übersetzung:",
@@ -167,7 +167,7 @@ TEXTS = {
     "qmode_btn_all": "Top 10 Tausend",
     "qmode_btn_difficult": "Schwierige",
 
-    "qmode_level_short": "Niveau {level}",
+    "qmode_level_short": "{level}",
     "qmode_category_short": "{category}",
     "qmode_all_short": "Top 10 Tausend",
     "qmode_difficult_short": "Schwierige Wörter",
@@ -416,10 +416,13 @@ Je lebendiger die Community, desto besser wird der Bot. Nur keine Scheu! """,
     # ============================================================================
     "stats_header": "<b>Deine Statistik</b>",
     "stats_learned_of": "Gelernt <b>{learned}</b> von {total}",
+    "stats_in_work_line": "Wörter in Arbeit: {count} · noch {left} bis {target}",
+    "stats_in_work_top": "Wörter in Arbeit: {count}",
     "stats_details": "In Arbeit: {progress}\nNeu: {new}\nSchwierig: {difficult}",
     "stats_achievements_title": "<b>Deine Erfolge</b>",
     "stats_words_count": "Wörter gelernt: <b>{count}</b>",
-    "stats_streak_line": "Serie: <b>{days} Tage in Folge</b>",
+    "stats_streak_line": "Serie: {days} Tage in Folge",
+    "stats_best_streak_line": "Beste Serie: {days} Tage",
     "stats_quizzes_header": "<b>Quizze · {level}</b>",
     "stats_quizzes_passed_line": "Absolviert: <b>{count}</b>",
     "stats_quizzes_avg_line": "Durchschnitt: <b>{percent}%</b>",
@@ -432,7 +435,7 @@ Je lebendiger die Community, desto besser wird der Bot. Nur keine Scheu! """,
     "stats_cta_begin": "Starker Anfang! Bleib dabei!",
     "stats_cta_halfway": "Du bist auf halbem Weg! Nicht aufhören!",
     "stats_cta_almost": "Fast am Ziel! Gut gemacht!",
-    "stats_explanation": "—————————————————————\nEin Wort ist gelernt = 3 richtige Antworten in Folge",
+    "stats_explanation": "Wort gelernt = drei richtige Antworten hintereinander, an verschiedenen Tagen",
     "stats_btn_rating": "Meine Platzierung",
 }
 
@@ -453,7 +456,7 @@ TEXTS.update({
     # Zeilen im Einstellungsmenü
     "settings_learning_lang_line": "Ich lerne: <b>{language}</b>",
 
-    "settings_btn_learning_lang": "Welche Sprache lernen",
+    "settings_btn_learning_lang": "Sprache",
 
     # Bildschirm «Welche Sprache lernen»
     "learning_lang_title": "<b>Welche Sprache lernen</b>",
@@ -643,11 +646,14 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "settings_group_what": "Was ich lerne",
-    "settings_group_what_title": "<b> Was ich lerne</b>",
+    "settings_group_what_title": "<b>Was ich lerne</b>",
     "settings_group_how": "Wie ich lerne",
-    "settings_group_how_title": "<b> Wie ich lerne</b>",
+    "settings_group_how_title": "<b>Wie ich lerne</b>",
     "settings_group_bot": "Bot",
-    "settings_group_bot_title": "<b> Bot</b>",
+    "settings_group_bot_title": "<b>Bot</b>",
+    "settings_group_what_about": "Sprache, Niveau und Übersetzungsrichtung.",
+    "settings_group_how_about": "Woraus eine Runde besteht und wie sie klingt.",
+    "settings_group_bot_about": "Bot-Sprache, Erinnerungen und Hilfe.",
 })
 
 
@@ -717,7 +723,7 @@ TEXTS.update({
 # состава занятия — колонка есть, экрана нет.
 # ============================================================================
 TEXTS.update({
-    "settings_btn_goal": "Wofür ich lerne",
+    "settings_btn_goal": "Ziel",
     "settings_goal_title": "<b>Wofür ich lerne</b>",
     "settings_goal_description": "Wörter deines Themas kommen zuerst. Die Schwierigkeit richtet sich weiter nach dem Niveau, und Gelerntes kommt zur Wiederholung zurück.",
     "settings_goal_set": "Ziel gespeichert",
@@ -759,5 +765,12 @@ TEXTS.update({
     "settings_match_title": "<b>Tafel in der Runde</b>",
     "settings_match_description": "Jede zweite Übung bringt in der Mitte der Runde statt fünf Fragen eine Tafel: fünf Wörter und fünf Bedeutungen, die zu paaren sind. Nur bekannte Wörter.",
     "match_state_on": "Tafel ist an: sie kommt in der Rundenmitte.",
+    "settings_match_short_on": "mit Tafel",
+    "settings_channels_short_one": "nur Karte",
+    "settings_channels_short_two": "zwei Wege",
+    "settings_channels_short_all": "alle drei Wege",
+    "settings_audio_short_off": "ohne Ton",
+    "settings_audio_short_on": "mit Ton",
+    "settings_match_short_off": "ohne Tafel",
     "match_state_off": "Tafel ist aus: die Runde besteht nur aus Fragen.",
 })
