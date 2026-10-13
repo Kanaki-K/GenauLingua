@@ -450,7 +450,8 @@ async def _finish(
         )],
         [InlineKeyboardButton(
             text=get_text("home_btn_learn", lang, count=user.quiz_word_count or 15),
-            callback_data="learn_now",
+            # С итога отдельно открытой доски
+            callback_data="learn_now:board",
         )],
     ])
     try:

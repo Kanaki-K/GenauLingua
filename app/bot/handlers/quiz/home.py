@@ -288,13 +288,32 @@ async def cmd_home(message: Message, session: AsyncSession):
 # переписке живёт прежняя кнопка, и убери фильтр — она молча перестанет
 # работать. Та же причина, по которой в help.py остался фильтр на надпись
 # исчезнувшей кнопки «Помощь».
-@router.callback_query(F.data.in_({"learn_now", "home_learn"}))
+@router.callback_query(F.data.startswith("learn_now"))
+@router.callback_query(F.data == "home_learn")
 async def learn_now(callback: CallbackQuery, state: FSMContext, session: AsyncSession):
-    """Обычное занятие: каналы смешиваются по правилу допуска."""
-    from app.bot.handlers.quiz.game import start_lesson
+    """
+    Обычное занятие: каналы смешиваются по правилу допуска.
+
+    ОДНА КНОПКА, НЕСКОЛЬКО ДВЕРЕЙ. Это нажатие приходит с домашнего экрана,
+    из самого напоминания, из итога прошлого круга и из вступительного
+    блока — и обработчик у них нарочно один: занятие с напоминания не
+    должно вести себя иначе, чем занятие с экрана.
+
+    Но ЗАПИСАТЬСЯ они обязаны по-разному, иначе петлю возврата нечем
+    измерить. Поэтому дверь передаётся пометкой после двоеточия
+    («learn_now:reminder»), а фильтр ловит их по началу строки. Прежде все
+    четыре несли одинаковое `learn_now`, и источник был неразличим даже в
+    принципе — а в базу писалось «menu» независимо ни от чего.
+
+    `home_learn` оставлен ради сообщений, УЖЕ ОТПРАВЛЕННЫХ людям: у них в
+    переписке живёт прежняя кнопка, и убери фильтр — она молча перестанет
+    работать.
+    """
+    from app.bot.handlers.quiz.game import SOURCE_HOME, source_from_callback, start_lesson
 
     await callback.answer()
-    await start_lesson(callback.message, state, session)
+    source = source_from_callback(callback.data or "", default=SOURCE_HOME)
+    await start_lesson(callback.message, state, session, source=source)
 
 
 @router.callback_query(F.data.startswith("home_learn_"))
@@ -357,8 +376,13 @@ async def home_learn_channel(
             )
             return
 
+    from app.bot.handlers.quiz.game import SOURCE_CHANNEL
+
     await callback.answer()
-    await start_lesson(callback.message, state, session, prefer_channel=channel)
+    await start_lesson(
+        callback.message, state, session,
+        prefer_channel=channel, source=SOURCE_CHANNEL,
+    )
 
 
 def _channel_name_key(channel: QuizChannel) -> str:

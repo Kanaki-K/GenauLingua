@@ -20,6 +20,8 @@
 
 import pytest
 
+from app.testing import starts_lesson
+
 from app.bot.handlers.quiz.game import get_results_keyboard
 from app.bot.handlers.reminders import get_reminder_offer_keyboard
 from app.bot.keyboards.notifications import get_reminder_keyboard
@@ -54,7 +56,7 @@ def test_reminder_offers_a_way_to_start_and_a_way_to_stop():
     """
     data = _data(get_reminder_keyboard("ru"))
 
-    assert data[0] == "learn_now", f"первая кнопка не ведёт к занятию: {data}"
+    assert starts_lesson(data[0]), f"первая кнопка не ведёт к занятию: {data}"
     assert "notif_off" in data, f"нечем отказаться от напоминаний: {data}"
 
 
@@ -80,7 +82,7 @@ def test_round_result_offers_another_round_first():
     """
     data = _data(get_results_keyboard(has_errors=False, lang="ru"))
 
-    assert data[0] == "learn_now", f"«ещё круг» не первым: {data}"
+    assert starts_lesson(data[0]), f"«ещё круг» не первым: {data}"
 
 
 def test_complaint_never_outranks_continuing():
@@ -90,7 +92,8 @@ def test_complaint_never_outranks_continuing():
     """
     for has_errors in (False, True):
         data = _data(get_results_keyboard(has_errors=has_errors, lang="ru"))
-        assert data.index("learn_now") < data.index("report_translation_error"), (
+        lesson = next(i for i, d in enumerate(data) if starts_lesson(d))
+        assert lesson < data.index("report_translation_error"), (
             f"жалоба выше продолжения при has_errors={has_errors}: {data}"
         )
 
@@ -348,4 +351,6 @@ def test_intro_keyboard_offers_learning_first(lang):
     person.quiz_word_count = 15
 
     data = _data(_intro_keyboard(person, lang))
-    assert data[0] == "learn_now", f"{lang}: вступление не зовёт заниматься: {data}"
+    assert starts_lesson(data[0]), (
+        f"{lang}: вступление не зовёт заниматься: {data}"
+    )

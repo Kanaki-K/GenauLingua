@@ -22,6 +22,7 @@ import pytest
 from app.database.enums import CEFRLevel, QuizMode
 from app.database.models import UserWord, Word
 from tests.conftest import build_groups, make_word
+from app.testing import lesson_button, starts_lesson  # noqa: F401
 from tests.scenario import (
     make_bot, make_dispatcher, press, reset_state, text_update,
 )
@@ -139,10 +140,12 @@ async def test_result_offers_another_round_and_it_really_starts(session, user, s
         await _feed(dp, bot, press(user.id, options[0]))
         await _feed(dp, bot, press(user.id, "next_question"))
 
-    assert "learn_now" in recorder.all_buttons(), "в итоге нет «ещё круг»"
+    again = lesson_button(recorder.all_buttons())
+    assert again, "в итоге нет «ещё круг»"
 
+    # Кнопка запоминается ДО очистки записи: после `clear()` список пуст
     recorder.clear()
-    await _feed(dp, bot, press(user.id, "learn_now"))
+    await _feed(dp, bot, press(user.id, again))
 
     assert recorder.sent_texts(), "«ещё круг» ничего не показал"
     assert any(b.startswith("answer_") for b in recorder.buttons()), (
@@ -191,7 +194,9 @@ async def test_reminder_button_starts_a_lesson(session, user, stage):
     dp, bot, recorder = stage
     await _ready(session, user)
 
-    await _feed(dp, bot, press(user.id, "learn_now"))
+    # Нажимается ИМЕННО дверь напоминания: у неё своя пометка, по которой
+    # петля возврата и считается
+    await _feed(dp, bot, press(user.id, "learn_now:reminder"))
 
     assert recorder.sent_texts(), "нажатие из напоминания не дало ничего"
     assert any(b.startswith("answer_") for b in recorder.buttons()), (
@@ -210,7 +215,7 @@ async def test_home_screen_opens_from_the_progress_button(session, user, stage):
 
     text = recorder.last_text()
     assert "<code>" in text, f"шкал нет: {text!r}"
-    assert "learn_now" in recorder.buttons(), "с домашнего экрана не начать занятие"
+    assert lesson_button(recorder.buttons()), "с домашнего экрана не начать занятие"
     assert "stats_full" in recorder.buttons(), "нет входа в подробную статистику"
 
 
@@ -478,7 +483,7 @@ async def test_start_for_a_returning_person_is_the_intro_block(session, user, st
     assert get_text("intro_title", "ru").strip("🌍<b/> ") in everything, (
         f"/start не дал вступления: {everything[:120]!r}"
     )
-    assert "learn_now" in recorder.all_buttons(), "из вступления не начать занятие"
+    assert lesson_button(recorder.all_buttons()), "из вступления не начать занятие"
 
     # И вступление не обещает кнопку, которой в меню нет
     assert get_text("btn_help", "ru") not in everything, (

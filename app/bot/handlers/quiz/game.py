@@ -428,7 +428,10 @@ def get_results_keyboard(has_errors: bool, lang: str = "ru") -> InlineKeyboardMa
     buttons = [[
         InlineKeyboardButton(
             text=get_text("quiz_btn_one_more", lang),
-            callback_data="learn_now",
+            # «:again» — это кнопка «ещё круг» в итоге. Петля возврата
+            # считается по этой пометке, и без неё круг-повтор
+            # неотличим от входа с домашнего экрана
+            callback_data="learn_now:again",
         )
     ]]
 
@@ -497,7 +500,56 @@ async def _close_abandoned_sessions(session: AsyncSession, user_id: int) -> None
     await session.commit()
 
 
-def _new_quiz_session(user: User, pair: LanguagePair, total: int, quiz_mode: str) -> QuizSession:
+# ============================================================================
+# ОТКУДА НАЧАЛОСЬ ЗАНЯТИЕ
+# ============================================================================
+
+# Прежде в `start_source` ВСЕГДА писалось «menu», какой бы дверью человек
+# ни вошёл. Следствие измерено: 2 295 занятий с пустым источником и 25 с
+# «menu» на 2 320 всего, а метрика админки «Из напоминаний» искала
+# `start_source == 'notification'` — значение, которого не писал НИКТО, и
+# потому не могла стать ненулевой никогда.
+#
+# Это не мелочь учёта. Петля возврата — напоминание → занятие → итог →
+# «ещё круг» — то, что по замеру оказалось главным рычагом (6.85 дней
+# занятий против 1.59). И прямой её замер был невозможен: нельзя отличить
+# круг, начатый с напоминания, от круга с домашнего экрана.
+#
+# Мешала этому и одна подробность: кнопка напоминания, кнопка домашнего
+# экрана и кнопка «ещё круг» несли ОДИН И ТОТ ЖЕ `callback_data`
+# («learn_now»), то есть источник был неразличим даже в принципе. Поэтому
+# у каждой двери теперь своя пометка после двоеточия.
+SOURCE_MENU = "menu"            # реплай-кнопка «📚 Учить» и /quiz
+SOURCE_HOME = "home"            # главная кнопка домашнего экрана
+SOURCE_CHANNEL = "channel"      # прямой вход 🔤 🎧 🎤 с домашнего экрана
+SOURCE_REMINDER = "reminder"    # кнопка в самом напоминании
+SOURCE_AGAIN = "again"          # «▶️ Ещё круг» в итоге прошлого
+SOURCE_START = "start"          # вступительный блок /start
+SOURCE_BOARD = "board"          # итог отдельно открытой доски
+SOURCE_REPEAT = "repeat"        # повтор ошибок
+
+KNOWN_SOURCES = frozenset({
+    SOURCE_MENU, SOURCE_HOME, SOURCE_CHANNEL, SOURCE_REMINDER,
+    SOURCE_AGAIN, SOURCE_START, SOURCE_BOARD, SOURCE_REPEAT,
+})
+
+
+def source_from_callback(data: str, default: str = SOURCE_HOME) -> str:
+    """
+    Пометка источника из `callback_data` вида «learn_now:reminder».
+
+    Неизвестное значение сводится к `default` молча: в переписке у людей
+    живут кнопки, отправленные прежними версиями, и ронять занятие из-за
+    незнакомой пометки нельзя.
+    """
+    _, _, tail = data.partition(":")
+    return tail if tail in KNOWN_SOURCES else default
+
+
+def _new_quiz_session(
+    user: User, pair: LanguagePair, total: int, quiz_mode: str,
+    source: str = SOURCE_MENU,
+) -> QuizSession:
     return QuizSession(
         user_id=user.id,
         level=user.level,
@@ -511,7 +563,7 @@ def _new_quiz_session(user: User, pair: LanguagePair, total: int, quiz_mode: str
         correct_answers=0,
         quiz_mode=quiz_mode,
         quiz_category=user.quiz_category,
-        start_source="menu",
+        start_source=source,
     )
 
 
@@ -530,7 +582,7 @@ async def start_quiz(message: Message, state: FSMContext, session: AsyncSession)
     тем самым 96%, которые ни разу не меняли ни одной настройки. Своя дверь
     у домашнего экрана есть: `/start` и `/home`.
     """
-    await start_lesson(message, state, session)
+    await start_lesson(message, state, session, source=SOURCE_MENU)
 
 
 async def start_lesson(
@@ -539,6 +591,7 @@ async def start_lesson(
     session: AsyncSession,
     *,
     prefer_channel: Optional[QuizChannel] = None,
+    source: str = SOURCE_MENU,
 ) -> None:
     """
     Начать занятие. Отсюда два входа, и оба нужны.
@@ -596,7 +649,8 @@ async def start_lesson(
         return
 
     quiz_session = _new_quiz_session(
-        user, pair, quiz_total, user.quiz_mode.value if user.quiz_mode else "level"
+        user, pair, quiz_total, user.quiz_mode.value if user.quiz_mode else "level",
+        source=source,
     )
     session.add(quiz_session)
     await session.commit()
@@ -1604,7 +1658,9 @@ async def repeat_errors(callback: CallbackQuery, state: FSMContext, session: Asy
         await callback.answer()
         return
 
-    quiz_session = _new_quiz_session(user, pair, len(errors), "error_repeat")
+    quiz_session = _new_quiz_session(
+        user, pair, len(errors), "error_repeat", source=SOURCE_REPEAT
+    )
     session.add(quiz_session)
     await session.commit()
 

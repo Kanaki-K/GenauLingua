@@ -16,6 +16,7 @@ from sqlalchemy import select, func, and_, distinct, case, desc, or_, text as sq
 from typing import Optional
 from datetime import datetime, timedelta, date
 from app.core.clock import utcnow, utctoday
+from app.database.enums import QuizChannel
 from app.database.models import (
     MonthlyStats, QuizQuestion, QuizSession, TranslationReport, User, UserWord, Word,
 )
@@ -61,6 +62,7 @@ def get_admin_keyboard() -> InlineKeyboardMarkup:
             InlineKeyboardButton(text="📊 Детали", callback_data="admin:detailed")
         ],
         [
+            InlineKeyboardButton(text="🎮 Игры", callback_data="admin:games"),
             InlineKeyboardButton(text="📝 Репорты", callback_data="admin:reports")
         ]
     ])
@@ -112,10 +114,19 @@ async def _get_main_stats(session: AsyncSession) -> str:
     )
     quizzes_24h = quizzes_24h_result.scalar()
 
+    # «Из напоминаний» искало значение 'notification', которого не писал
+    # НИКТО: в `start_source` всегда уходило «menu». Метрика не могла стать
+    # ненулевой ни при каких условиях и показывала 0 как факт. Пометка
+    # берётся из того же места, откуда её пишет обработчик
+    from app.bot.handlers.quiz.game import SOURCE_REMINDER
+
     notif_sessions_result = await session.execute(
         select(func.count())
         .select_from(QuizSession)
-        .where(QuizSession.start_source == 'notification', QuizSession.completed_at.isnot(None))
+        .where(
+            QuizSession.start_source == SOURCE_REMINDER,
+            QuizSession.completed_at.isnot(None),
+        )
     )
     notif_sessions = notif_sessions_result.scalar() or 0
 
@@ -165,6 +176,152 @@ async def admin_panel(message: Message, session: AsyncSession):
 # ============================================================================
 # АНАЛИТИКА
 # ============================================================================
+
+@router.callback_query(F.data == "admin:games")
+async def admin_games(callback: CallbackQuery, session: AsyncSession):
+    """
+    ЧЕТЫРЕ ИГРЫ: чем играют, насколько получается, откуда приходят.
+
+    ЗАЧЕМ ОТДЕЛЬНЫЙ РАЗДЕЛ. Игр в боте четыре, а в админке их не было видно
+    НИ В ОДНОМ экране: ни сколько ответов пришло каждым каналом, ни с какой
+    точностью, ни кто какие каналы включил, ни попадалась ли доска. То
+    есть главную работу последних недель нельзя было ни подтвердить, ни
+    опровергнуть числом.
+
+    Второе здесь не менее важно: ОТКУДА начинают занятия. Прежде в
+    `start_source` всегда писалось «menu», а метрика «Из напоминаний»
+    искала значение, которого не писал никто, — петлю возврата нечем было
+    измерить. Теперь у каждой двери своя пометка, и этот список и есть
+    замер петли.
+    """
+    if not is_admin(callback.from_user.id):
+        await callback.answer("❌ Доступ запрещён")
+        return
+
+    await callback.answer()
+
+    from app.services.match_service import BOARD_CHANNEL
+
+    names = {
+        QuizChannel.TEXT.value: "🔤 карточка",
+        QuizChannel.AUDIO.value: "🎧 на слух",
+        QuizChannel.SPEECH.value: "🎤 вслух",
+        BOARD_CHANNEL: "🧩 доска",
+    }
+
+    # Ответы и точность по каналам. Пустой канал — история до того, как
+    # канал начали записывать; он показывается отдельной строкой, а не
+    # подмешивается к тексту, иначе давняя история исказила бы свежую
+    # картину
+    rows = await session.execute(
+        select(
+            QuizQuestion.channel,
+            func.count(),
+            func.sum(case((QuizQuestion.is_correct.is_(True), 1), else_=0)),
+        ).group_by(QuizQuestion.channel)
+    )
+    by_channel = {
+        channel: (int(total), int(correct or 0))
+        for channel, total, correct in rows.all()
+    }
+
+    text = "🎮 <b>ИГРЫ</b>\n\n<b>Ответы по каналам:</b>\n"
+    known = [c for c in names if c in by_channel]
+    if known:
+        for code in known:
+            total, correct = by_channel[code]
+            share = f"{correct / total * 100:.0f}%" if total else "—"
+            text += f"├─ {names[code]}: <b>{total}</b> ответов, точность {share}\n"
+    else:
+        text += "├─ пока ни одного ответа с записанным каналом\n"
+
+    legacy = by_channel.get(None)
+    if legacy:
+        text += (f"└─ <i>без канала (история): {legacy[0]}</i>\n")
+    text += "\n"
+
+    # Кто какие каналы включил. Это НЕ то же, что ответы: человек мог
+    # включить слух и ни разу не дойти до порога допуска по слову
+    enabled = await session.execute(
+        select(User.quiz_channels, func.count()).group_by(User.quiz_channels)
+    )
+    counts = {"t": 0, "a": 0, "s": 0}
+    for channels, n in enabled.all():
+        for letter in (channels or "t"):
+            if letter in counts:
+                counts[letter] += int(n)
+    text += (
+        "<b>Состав занятия включён у:</b>\n"
+        f"├─ 🔤 {counts['t']}\n"
+        f"├─ 🎧 {counts['a']}\n"
+        f"└─ 🎤 {counts['s']}\n\n"
+    )
+
+    board_on = (await session.execute(
+        select(func.count()).select_from(User).where(User.match_in_round.is_(True))
+    )).scalar() or 0
+    board_rounds = (await session.execute(
+        select(func.count(distinct(QuizQuestion.session_id)))
+        .where(QuizQuestion.channel == BOARD_CHANNEL)
+    )).scalar() or 0
+    text += (
+        "<b>🧩 Доска:</b>\n"
+        f"├─ включена у: {board_on}\n"
+        f"└─ кругов с доской: {board_rounds}\n\n"
+    )
+
+    reverse = (await session.execute(
+        select(func.count()).select_from(QuizSession)
+        .where(QuizSession.is_reverse.is_(True))
+    )).scalar() or 0
+    total_sessions = (await session.execute(
+        select(func.count()).select_from(QuizSession)
+    )).scalar() or 0
+    reverse_share = f"{reverse / total_sessions * 100:.0f}%" if total_sessions else "—"
+    text += f"<b>↔️ Обратное направление:</b> {reverse} из {total_sessions} ({reverse_share})\n\n"
+
+    # ОТКУДА НАЧИНАЮТ — замер петли возврата
+    sources = await session.execute(
+        select(QuizSession.start_source, func.count())
+        .group_by(QuizSession.start_source)
+        .order_by(func.count().desc())
+    )
+    labels = {
+        "menu": "📚 кнопка «Учить»",
+        "home": "🏠 домашний экран",
+        "channel": "🔤🎧🎤 прямой вход",
+        "reminder": "⏰ напоминание",
+        "again": "▶️ ещё круг",
+        "start": "👋 вступление",
+        "board": "🧩 итог доски",
+        "repeat": "🔁 повтор ошибок",
+    }
+    text += "<b>Откуда начинают занятие:</b>\n"
+    found = False
+    for source, n in sources.all():
+        if source is None:
+            continue
+        found = True
+        text += f"├─ {labels.get(source, source)}: {n}\n"
+    if not found:
+        text += "├─ <i>пока нет данных: пометки появились 13 октября</i>\n"
+    text += "\n"
+
+    # Языковые пары: где реально играют
+    pairs = await session.execute(
+        select(QuizSession.learning_lang, QuizSession.native_lang, func.count())
+        .group_by(QuizSession.learning_lang, QuizSession.native_lang)
+        .order_by(func.count().desc()).limit(8)
+    )
+    text += "<b>Пары, в которых играют (топ-8):</b>\n"
+    for learning, native, n in pairs.all():
+        text += f"├─ {learning}→{native}: {n}\n"
+
+    back = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="◀️ Назад", callback_data="admin:back")]
+    ])
+    await callback.message.edit_text(text, reply_markup=back)
+
 
 @router.callback_query(F.data == "admin:analytics")
 async def admin_analytics(callback: CallbackQuery, session: AsyncSession):

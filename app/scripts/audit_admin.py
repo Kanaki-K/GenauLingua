@@ -155,6 +155,7 @@ async def main():
 
     callbacks = [
         ("📈 Аналитика", admin.admin_analytics, "admin:analytics"),
+        ("🎮 Игры", admin.admin_games, "admin:games"),
         ("👥 Когорты", admin.admin_cohorts, "admin:cohorts"),
         ("⚠️ Churn", admin.admin_churn, "admin:churn"),
         ("📤 Экспорт (меню)", admin.admin_export_menu, "admin:export"),
@@ -165,6 +166,25 @@ async def main():
         ("📝 Репорты", admin.admin_reports, "admin:reports"),
         ("◀️ Назад", admin.admin_back, "admin:back"),
     ]
+
+    # СТОРОЖ: НИ ОДИН РАЗДЕЛ НЕ ОСТАЁТСЯ НЕПРОВЕРЕННЫМ.
+    #
+    # Список выше вшит руками — он даёт понятные подписи, — и ровно поэтому
+    # новый раздел админки оказался бы здесь неназванным и необойдённым.
+    # Так уже вышло с `admin:games`: раздела не было вовсе, а когда появился,
+    # приёмка о нём не узнала бы. Сверяем список с кнопками, которые админка
+    # САМА рисует на своей клавиатуре.
+    drawn = {
+        button.callback_data
+        for row in admin.get_admin_keyboard().inline_keyboard
+        for button in row
+        if button.callback_data
+    }
+    missing = sorted(drawn - {data for _, _, data in callbacks})
+    if missing:
+        print("СТОРОЖ: в приёмке не вызываются разделы админки: "
+              + ", ".join(missing))
+        print("        допиши их в `callbacks` — иначе они не проверены ничем\n")
 
     commands = [
         ("/admin", admin.admin_panel, ""),

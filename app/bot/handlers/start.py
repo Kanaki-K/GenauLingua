@@ -391,7 +391,8 @@ def _intro_keyboard(user: User, lang: str) -> InlineKeyboardMarkup:
     rows = [
         [InlineKeyboardButton(
             text=get_text("home_btn_learn", lang, count=count),
-            callback_data="learn_now",
+            # Из вступительного блока /start
+            callback_data="learn_now:start",
         )],
         [
             InlineKeyboardButton(
