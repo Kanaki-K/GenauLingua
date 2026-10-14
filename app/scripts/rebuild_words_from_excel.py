@@ -30,7 +30,10 @@ from pathlib import Path
 from typing import Any
 
 from dotenv import load_dotenv
-load_dotenv()
+
+# Тот же файл, что читает app.config — иначе локальный запуск
+# подхватит боевые строки подключения из .env.
+load_dotenv(os.environ.get("ENV_FILE", ".env"))
 
 from openpyxl import load_workbook
 

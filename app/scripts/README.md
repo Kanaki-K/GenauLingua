@@ -1,82 +1,105 @@
-# Words Import System
+# app/scripts — рабочий инструментарий
 
-## Purpose
+Сто файлов, и все рабочие. Применённые однажды правки словаря переехали в
+[`archive/`](../../archive/README.md) — там же разобрано, зачем.
 
-This folder contains maintenance scripts for rebuilding the `words` table from Excel datasets.
+**Два соглашения, обязательных для всего, что здесь лежит.**
 
-The main script:
+1. **Настройки читаются через `app.config`**, то есть слушаются `ENV_FILE`.
+   Самостоятельный `load_dotenv()` без параметров подхватывает `.env` —
+   БОЕВОЙ, — и четыре таких скрипта уже пришлось вынести в
+   `archive/superseded`: «диагностика рейтинга» полезла бы в прод.
+2. **Запуск модулем**, а не файлом: `python -m app.scripts.имя`. Отсюда же
+   `__init__.py` в каталоге — без него не работает ни один запуск, и он
+   однажды уже оказывался не отслеживаемым git.
 
-    rebuild_words_from_excel.py
+```bash
+ENV_FILE=.env.local .venv/Scripts/python.exe -m app.scripts.state_report
+```
 
-This script is used to:
-- Fully reset the `words` table
-- Reset user quiz progress
-- Import validated word datasets
-- Normalize CEFR levels and Part of Speech enums
-
----
-
-## Current Dataset
-
-- **Total words:** 12,805
-- **Levels:** A1, A2, B1, B2, C1, C2
-- **Categories:** 21 thematic categories
-- **Languages:** DE, RU, UK, EN, TR
-- **Source file:** `de_PERFECT_FIXED.xlsx`
+**Правящие базу скрипты по умолчанию ничего не меняют** — показывают, что
+собираются сделать, и ждут `--apply`.
 
 ---
 
-## Expected Excel Structure
+## Приёмка перед выкладкой
 
-| Column           | Description                          |
-|------------------|--------------------------------------|
-| word_de          | German word                          |
-| article          | der/die/das or "-"                   |
-| pos              | Part of Speech (NOUN, VERB, etc.)    |
-| level            | CEFR level (A1–C2)                   |
-| category         | Thematic category                    |
-| frequency_rank   | Frequency rank (optional)            |
-| translation_ru   | Russian translation                  |
-| translation_uk   | Ukrainian translation                |
-| translation_en   | English translation                  |
-| translation_tr   | Turkish translation                  |
-| example_de       | German example sentence              |
-| example_ru       | Russian example sentence             |
-| example_uk       | Ukrainian example sentence           |
-| example_en       | English example sentence             |
-| example_tr       | Turkish example sentence             |
+Порядок и смысл — в [`VERIFICATION.md`](../../VERIFICATION.md) §4. Снизу
+вверх, от данных к экранам; прерываться на первом нарушении.
 
----
+| | что отвечает |
+|---|---|
+| `state_report` | одна команда на «всё ли в порядке»: целостность, озвучка, карточка, языковые пары, сходимость учёта |
+| `verify_wordbase` | 100 раз по 100 случайных рядов, все проверки сразу |
+| `verify_voices` | озвучка по КАЖДОМУ голосу, а не только основному |
+| `scan_clip_title` | название клипа совпадает с тем, что на карточке и что звучит |
+| `verify_quiz_channels` | сборка вопроса на всех парах, направлениях и каналах |
+| `verify_quiz_round` | полный круг тем же кодом, что у бота |
+| `verify_match` | 🧩 доска на всех 30 парах в оба направления |
+| **`audit_round`** | **круг ЦЕЛИКОМ через настоящий диспетчер: четыре игры вместе и сквозной учёт** |
+| `verify_home` | домашний экран на живых людях и всех шести языках |
+| `verify_buttons` | ни одна кнопка не ведёт в пустоту |
+| `audit_admin` | каждый обработчик админ-панели на реальных данных |
 
-## How To Rebuild Words Database
-
-1) Start database:
-
-       docker compose up -d
-
-2) Run script (single file):
-
-       docker compose run --rm app python app/scripts/rebuild_words_from_excel.py /app/Wordsbase/de_PERFECT_FIXED.xlsx
-
-3) Run script (directory with multiple files):
-
-       docker compose run --rm app python app/scripts/rebuild_words_from_excel.py /app/Wordsbase
-
-4) Import without truncating existing data:
-
-       docker compose run --rm app python app/scripts/rebuild_words_from_excel.py /app/Wordsbase --no-truncate
-
-5) Verify:
-
-       SELECT COUNT(*) FROM words;
-       SELECT level, COUNT(*) FROM words GROUP BY level ORDER BY level;
-       SELECT category, COUNT(*) FROM words GROUP BY category ORDER BY category;
+`audit_round` стоит особняком: все прочие проверяют ЧАСТИ (вопрос
+собрался, доска собралась, кнопка поймана), а он — инварианты, которые
+обязаны сходиться МЕЖДУ частями: нумерация, неповторность слов, счётчики
+против строк, ошибки, список для жалобы, пороги каналов, баллы,
+идемпотентность ответа. Разница не умозрительная: приёмка доски была
+чиста, пока доска не давала ни балла, ни права пожаловаться.
 
 ---
 
-## Important
+## Группы
 
-- Excel files are local only (not committed to Git).
-- Default mode TRUNCATES user progress. Use `--no-truncate` to preserve it.
-- Always verify counts after import.
+### `scan_*` — 49 примет словарной базы
 
+Каждая ищет ОДИН вид дефекта и печатает число найденного. Чужая буква в
+алфавите, несжатый предлог, существительное со строчной, «ты» против
+«Вы», ложный друг, расхождение чисел между языками, мягкий знак не по
+орфографии, «ё» вместо «е», рассказчик, меняющий пол посреди ряда.
+
+Среди них есть `scan_de_typo` с заголовком «ПРИМЕТА НЕ РАБОТАЕТ» —
+оставлена нарочно, как записанный отрицательный результат. Знать, что
+проверено и не сработало, дешевле, чем написать её заново.
+
+### `tts_*` — 14 про озвучку
+
+Синтез (`tts_synthesize`, `tts_synthesize_male`), проверка слухом
+(`tts_asr_check` — распознать сгенерированное и сверить с текстом),
+предполётная проверка, обрезка тишины, уборка сирот, загрузка в Telegram,
+образцы и замеры.
+
+**Полноту озвучки не сверяют счётом файлов на диске** — на этом уже
+попались: разница между каталогами голосов оказалась сиротами от правки
+примеров. Полноту знает `state_report`, он спрашивает то, что нужно коду.
+
+### `verify_*` и `audit_*` — 12 приёмок
+
+См. таблицу выше. `verify_all_flows`, `verify_quiz_chain` и `smoke_quiz` —
+более ранние и грубые прогоны, оставлены как второе мнение.
+
+### `fix_*` — 4 повторяемые правки
+
+Разовые правки в архиве; здесь только те, что нужны ПОСЛЕ КАЖДОГО прогона
+переводов, потому что модель ломает одно и то же: турецкая заглавная `I`
+вместо `İ`, пропущенный украинский апостроф, примеры, не показывающие
+слово, и пример, равный самому слову.
+
+### Прогон переводов
+
+`retranslate_wordbase` (пересборка через API) → `validate_translations`
+(проверить предложения ДО применения, бесплатно) → `review_proposals`
+(сравнить «было» и «стало» глазами) → `watch_batches` (сторож пакетов) →
+`collect_batch` (забрать брошенный пакет) → `finish_translation_round`
+(довести до конца последовательностью из `DEPLOY.md`).
+
+### Прочее
+
+`load_prod_copy` — копия прода в локальную dev-базу. `rebuild_word_groups`
+— пересобрать группы слов по языкам, обязателен после любого изменения
+базы. `rebuild_words_from_excel` — полная пересборка таблицы из Excel.
+`repair_accounting` — починка счётчиков, точности и месячного балла.
+`wordbase_review_block` и `wordbase_sample_review` — вычитка базы подряд и
+выборкой. `apply_lemma_overrides` — указания «эта строка форма, а лемма
+вот эта».

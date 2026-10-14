@@ -8,6 +8,66 @@ from app.utils.timezones import TIMEZONE_CITIES, get_main_cities, get_extended_c
 from app.locales import get_text
 
 
+def city_label(city_code: str, lang: str) -> str:
+    """
+    Название города на языке человека, а без своего — по-английски.
+
+    `get_city_name` знает четыре языка (ru, uk, en, tr) и всем остальным
+    отдаёт РУССКОЕ написание. Немецкий и польский интерфейс появились
+    позже справочника городов, и экран часового пояса у них целиком шёл
+    кириллицей: «🇩🇪 Берлин», «🇺🇸 Нью-Йорк» — 20 кнопок из 20 (обход
+    шести языков, 14 октября). Латиница для них хотя бы читаема; свои
+    названия — в справочнике `app/utils/timezones.py`, тогда эта
+    подстановка просто перестанет срабатывать.
+    """
+    entry = TIMEZONE_CITIES.get(city_code)
+    if entry is None:
+        return get_city_name(city_code, lang)
+    names = entry[0]
+    return names.get(lang) or names["en"]
+
+
+def get_reminder_keyboard(lang: str = "ru", count: int = 15) -> InlineKeyboardMarkup:
+    """
+    Клавиатура САМОГО НАПОМИНАНИЯ. Прежде её не было вовсе.
+
+    Напоминание — единственный замеренный рычаг возврата: у тех, кто его
+    включил, 6.85 дней занятий против 1.59 у остальных, то есть в 4.3 раза.
+    И при этом сообщение приходило БЕЗ ЕДИНОЙ КНОПКИ: в тексте стояло «не
+    прерывай свою серию», а нажать было нечего — человек должен был сам
+    вспомнить про клавиатуру внизу и найти её. Ключи этих двух кнопок
+    лежали в шести локалях и не использовались ни разу.
+
+    ВТОРАЯ КНОПКА НЕ МЕНЕЕ ВАЖНА ПЕРВОЙ. Выключить напоминания можно было
+    только найдя их в настройках — а человек, которому они надоели, в
+    настройки не идёт, он блокирует бота. Один тап «не напоминать»
+    сохраняет пользователя, которого иначе теряем навсегда.
+    """
+    builder = InlineKeyboardBuilder()
+    # Надпись ТА ЖЕ, что на домашнем экране и в итоге круга. Прежде здесь
+    # стояло «📚 Начать викторину», а на домашнем «▶️ Заниматься · 15» —
+    # одно и то же действие под двумя именами. Для подписей шкал это уже
+    # решено так же: одна вещь зовётся одинаково везде, иначе человек
+    # считает их разными.
+    # ПОМЕТКА «:reminder» — чтобы петлю возврата было чем измерить.
+    #
+    # Обработчик тот же, что у домашнего экрана, и это нарочно: занятие с
+    # напоминания не должно вести себя иначе. Но записаться оно обязано
+    # по-другому — прежде кнопка напоминания, кнопка домашнего экрана и
+    # кнопка «ещё круг» несли одинаковое `learn_now`, и отличить круг,
+    # начатый с напоминания, было нельзя. При этом в админке жила метрика
+    # «Из напоминаний», искавшая значение, которого не писал никто.
+    builder.row(InlineKeyboardButton(
+        text=get_text("home_btn_learn", lang, count=count),
+        callback_data="learn_now:reminder",
+    ))
+    builder.row(InlineKeyboardButton(
+        text=get_text("notif_message_btn_disable", lang),
+        callback_data="notif_off",
+    ))
+    return builder.as_markup()
+
+
 def get_timezone_main_keyboard(lang: str = "ru") -> InlineKeyboardMarkup:
     """
     Основные 4 города для выбора часового пояса
@@ -23,11 +83,11 @@ def get_timezone_main_keyboard(lang: str = "ru") -> InlineKeyboardMarkup:
     # Первый ряд: Лондон, Берлин
     builder.row(
         InlineKeyboardButton(
-            text=f"{get_city_name('london', lang)} (UTC{get_utc_offset('london')})",
+            text=f"{city_label('london', lang)} (UTC{get_utc_offset('london')})",
             callback_data="tz:london"
         ),
         InlineKeyboardButton(
-            text=f"{get_city_name('berlin', lang)} (UTC{get_utc_offset('berlin')})",
+            text=f"{city_label('berlin', lang)} (UTC{get_utc_offset('berlin')})",
             callback_data="tz:berlin"
         )
     )
@@ -35,11 +95,11 @@ def get_timezone_main_keyboard(lang: str = "ru") -> InlineKeyboardMarkup:
     # Второй ряд: Киев, Стамбул
     builder.row(
         InlineKeyboardButton(
-            text=f"{get_city_name('kyiv', lang)} (UTC{get_utc_offset('kyiv')})",
+            text=f"{city_label('kyiv', lang)} (UTC{get_utc_offset('kyiv')})",
             callback_data="tz:kyiv"
         ),
         InlineKeyboardButton(
-            text=f"{get_city_name('istanbul', lang)} (UTC{get_utc_offset('istanbul')})",
+            text=f"{city_label('istanbul', lang)} (UTC{get_utc_offset('istanbul')})",
             callback_data="tz:istanbul"
         )
     )
@@ -49,6 +109,18 @@ def get_timezone_main_keyboard(lang: str = "ru") -> InlineKeyboardMarkup:
         InlineKeyboardButton(
             text=get_text("notif_timezone_more", lang),
             callback_data="tz:more_cities"
+        )
+    )
+
+    # ВЫХОД БЕЗ ВЫБОРА. Этот экран открывается нажатием «включить
+    # напоминания», и прежде уйти с него можно было только выбрав город —
+    # то есть только включив напоминания. Передумавший оставался в тупике
+    # (аудит 14 октября). «Назад» ведёт на экран напоминаний, откуда сюда
+    # и приходят во всех трёх случаях.
+    builder.row(
+        InlineKeyboardButton(
+            text=get_text("btn_back", lang),
+            callback_data="settings:notifications"
         )
     )
 
@@ -82,11 +154,11 @@ def get_timezone_extended_keyboard(lang: str = "ru") -> InlineKeyboardMarkup:
     for city1, city2 in city_pairs:
         builder.row(
             InlineKeyboardButton(
-                text=get_city_name(city1, lang),
+                text=city_label(city1, lang),
                 callback_data=f"tz:{city1}"
             ),
             InlineKeyboardButton(
-                text=get_city_name(city2, lang),
+                text=city_label(city2, lang),
                 callback_data=f"tz:{city2}"
             )
         )
@@ -170,7 +242,7 @@ def get_notification_days_keyboard(selected_days: list[int], lang: str = "ru") -
 
     # Первый ряд: Пн-Чт
     for day_num, day_name in days[:4]:
-        emoji = "✅" if day_num in selected_days else "❌"
+        emoji = "✓" if day_num in selected_days else "✗"
         builder.add(InlineKeyboardButton(
             text=f"{emoji} {day_name}",
             callback_data=f"notif_day:{day_num}"
@@ -179,7 +251,7 @@ def get_notification_days_keyboard(selected_days: list[int], lang: str = "ru") -
 
     # Второй ряд: Пт-Вс
     for day_num, day_name in days[4:]:
-        emoji = "✅" if day_num in selected_days else "❌"
+        emoji = "✓" if day_num in selected_days else "✗"
         builder.add(InlineKeyboardButton(
             text=f"{emoji} {day_name}",
             callback_data=f"notif_day:{day_num}"
@@ -275,7 +347,10 @@ def get_notifications_settings_keyboard(
     builder.row(
         InlineKeyboardButton(
             text=get_text("notif_btn_back", lang),
-            callback_data="back_to_settings"
+            # В СВОЮ ГРУППУ «Бот», а не на корень настроек: так возвращают
+            # все остальные пункты групп, и напоминания были единственным
+            # исключением (аудит 14 октября)
+            callback_data="settings_group_bot"
         )
     )
 

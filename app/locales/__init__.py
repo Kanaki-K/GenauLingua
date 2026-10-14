@@ -7,13 +7,23 @@ import app.locales.ru as ru
 import app.locales.uk as uk
 import app.locales.en as en
 import app.locales.tr as tr
+import app.locales.de as de
+import app.locales.pl as pl
 
-# Доступные локали
+# Доступные локали.
+#
+# Немецкая и польская добавлены вместе с шестью изучаемыми языками: раз любая
+# пара из шести доступна, то и читать бота человек может на своём. Набор ключей
+# у всех локалей совпадает — это проверяет
+# tests/test_locales.py::test_all_locales_have_identical_key_sets, и без него
+# пропущенный ключ молча показывал бы текст на языке по умолчанию.
 LOCALES = {
     "uk": uk.TEXTS,
     "en": en.TEXTS,
     "tr": tr.TEXTS,
     "ru": ru.TEXTS,
+    "de": de.TEXTS,
+    "pl": pl.TEXTS,
 }
 
 # Язык по умолчанию
@@ -24,14 +34,20 @@ def get_text(key: str, lang: Optional[str] = None, **kwargs) -> str:
     if lang not in LOCALES:
         lang = DEFAULT_LOCALE
 
-    texts = LOCALES[lang]
-    text = texts.get(key)
+    text = LOCALES[lang].get(key)
 
     if text is None:
-        # Fallback to Russian if key missing in current locale
-        text = LOCALES["uk"].get(key)
+        # Ключ отсутствует в запрошенной локали — берём из локали по умолчанию
+        text = LOCALES[DEFAULT_LOCALE].get(key)
     if text is None:
         return f"[MISSING: {key}]"
+
+    # ЧИСЛО ДНЕЙ СЛОВОМ — правилом здесь, а не формой в каждой строке.
+    # Обход шести языков 14 октября: «1 days», «1 Tage», «1 dni» — а
+    # серия в 1 день бывает у каждого в первый же день. Строка пишет
+    # `{days_word}`, вызывающий передаёт число `days`, форма — по языку
+    if "{days_word}" in text and "days" in kwargs:
+        kwargs = {**kwargs, "days_word": plural(int(kwargs["days"]), "plural_days", lang)}
 
     try:
         return text.format(**kwargs)
@@ -39,21 +55,52 @@ def get_text(key: str, lang: Optional[str] = None, **kwargs) -> str:
         return f"[ERROR: {key} missing parameter {e}]"
 
 
+# ============================================================================
+# ЧИСЛО СО СЛОВОМ
+#
+# Прежде форма слова при числе стояла в строке намертво: «{score} баллов»,
+# «Отправлено {count} репортов». При 1 выходило «1 баллов», при 21 —
+# «21 баллов»; в английском «1 points». Аудит 14 октября нашёл пять таких
+# строк в трёх языках сразу.
+#
+# Формы лежат в локали одной строкой через «|» (`plural_points`:
+# «балл|балла|баллов»), а выбор формы — правило языка здесь. Языку с одной
+# формой (турецкий: после числа множественного нет) хватает одной.
+# ============================================================================
+
+def _plural_index(count: int, lang: str) -> int:
+    """Номер формы: 0 — «один», 1 — «два-четыре», 2 — «пять»."""
+    n = abs(int(count))
+    if lang in ("ru", "uk"):
+        if n % 10 == 1 and n % 100 != 11:
+            return 0
+        if 2 <= n % 10 <= 4 and not 12 <= n % 100 <= 14:
+            return 1
+        return 2
+    if lang == "pl":
+        # В польском «один» — только сама единица: 21 — уже «punktów»
+        if n == 1:
+            return 0
+        if 2 <= n % 10 <= 4 and not 12 <= n % 100 <= 14:
+            return 1
+        return 2
+    if lang == "tr":
+        return 0
+    # en, de: единственное только у единицы
+    return 0 if n == 1 else 1
+
+
+def plural(count: int, forms_key: str, lang: Optional[str] = None) -> str:
+    """«21 балл», «2 балла», «5 баллов» — число вместе со словом в нужной форме."""
+    if lang not in LOCALES:
+        lang = DEFAULT_LOCALE
+    forms = get_text(forms_key, lang).split("|")
+    form = forms[min(_plural_index(count, lang), len(forms) - 1)]
+    return f"{count} {form}"
+
+
 def get_available_languages() -> list[str]:
     return list(LOCALES.keys())
-
-
-def pluralize(number: int, forms: tuple, lang: str = "ru") -> str:
-    n = abs(number)
-    n %= 100
-    if n >= 5 and n <= 20:
-        return forms[2]
-    n %= 10
-    if n == 1:
-        return forms[0]
-    if n >= 2 and n <= 4:
-        return forms[1]
-    return forms[2]
 
 
 def is_language_supported(lang: str) -> bool:

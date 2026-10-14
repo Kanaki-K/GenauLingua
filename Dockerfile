@@ -2,18 +2,37 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Устанавливаем системные зависимости
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    libpq-dev \
+# ffmpeg нужен PyAV, а PyAV — декодеру голосовых. Без него игра вслух
+# возвращает «не разобрал» на каждую запись, и выглядит это как шум в
+# микрофоне, а не как отсутствие библиотеки.
+# build-essential и libpq-dev НЕ НУЖНЫ: psycopg2-binary приходит колесом
+# и несёт libpq в себе, остальные зависимости тоже колёсные. Проверено
+# сборкой — без них образ собирается и речевой путь внутри работает.
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ffmpeg \
     && rm -rf /var/lib/apt/lists/*
 
-# Копируем зависимости
 COPY requirements.txt .
-
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Копируем проект
+# МОДЕЛЬ РАСПОЗНАВАНИЯ УКЛАДЫВАЕТСЯ В ОБРАЗ, а не скачивается в рантайме.
+#
+# Она 464 МБ, и грузится лениво — при первом голосовом ответе. Без этой
+# строки первый же человек, ответивший голосом, ждал бы скачивания 464 МБ
+# внутри процесса бота; а с `restart: always` и без тома скачивание
+# повторялось бы после КАЖДОГО перезапуска контейнера.
+#
+# С речью, включённой всем 233, этот «первый раз» перестал быть
+# гипотетическим.
+ARG ASR_MODEL=small
+ENV ASR_MODEL=${ASR_MODEL}
+RUN python -c "from faster_whisper import WhisperModel; \
+    WhisperModel('${ASR_MODEL}', device='cpu', compute_type='int8')"
+
 COPY . .
 
-CMD ["python", "app/main.py"]
+# Запуск МОДУЛЕМ, а не файлом. `python app/main.py` ломает относительные
+# импорты внутри пакета: прежний CMD был именно таким и работал только
+# потому, что compose его переопределял. Одна копия команды — один способ
+# запустить.
+CMD ["python", "-m", "app.main"]

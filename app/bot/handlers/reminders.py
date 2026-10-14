@@ -3,22 +3,42 @@
 """
 
 from aiogram import Router, F
-from aiogram.types import CallbackQuery
+from aiogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
+from aiogram.utils.keyboard import InlineKeyboardBuilder
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database.models import User
+from app.services.reminder_service import enable_reminders, mark_reminders_offered
 from app.bot.keyboards.notifications import (
     get_timezone_main_keyboard,
     get_timezone_extended_keyboard,
     get_notification_time_keyboard,
     get_notification_days_keyboard,
     get_notifications_settings_keyboard,
+    city_label,
 )
 
-from app.utils.timezones import get_timezone, get_utc_offset, get_city_name
-from app.locales import get_text
+from app.utils.timezones import TIMEZONE_CITIES, get_timezone, get_utc_offset
+from app.locales import DEFAULT_LOCALE, get_text
 
 router = Router()
+
+
+def zone_city(zone: str | None, lang: str) -> str:
+    """
+    Город часового пояса человека, названный на его языке: «🇩🇪 Берлин».
+
+    НУЖЕН ЗАТЕМ, ЧТОБЫ НЕ ВРАТЬ «ПО ВАШЕМУ ВРЕМЕНИ». Согласие на
+    напоминания пояс не спрашивает (`enable_reminders`), а по умолчанию у
+    каждого стоит Берлин. Человек в Киеве читал «в 15:00 по Вашему времени»
+    и получал напоминание в 16:00 своего — аудит 14 октября. Названный
+    город честен: видно, по какому времени считаем, и что его стоит
+    поменять. Пояс не из справочника — называется как есть.
+    """
+    for code, (_, tz, _) in TIMEZONE_CITIES.items():
+        if tz == zone:
+            return city_label(code, lang)
+    return zone or "UTC"
 
 
 # ============================================================================
@@ -31,7 +51,7 @@ async def show_notifications_settings(callback: CallbackQuery, session: AsyncSes
     await callback.answer()
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     # Формируем текст с текущими настройками
     status = get_text("notif_status_on", lang) if user.notifications_enabled else get_text("notif_status_off", lang)
@@ -74,11 +94,116 @@ async def show_notifications_settings(callback: CallbackQuery, session: AsyncSes
 # ВКЛЮЧИТЬ/ВЫКЛЮЧИТЬ НАПОМИНАНИЯ
 # ============================================================================
 
+def get_reminder_offer_keyboard(lang: str) -> InlineKeyboardMarkup:
+    """
+    Предложение напоминаний после первого круга: два ответа, оба одним тапом.
+
+    «Не надо» стоит рядом с «да» нарочно и не спрятано. Предложение, от
+    которого нельзя отказаться одним нажатием, читается как навязывание — а
+    спросить второй раз правило всё равно не позволит, так что честный
+    отказ здесь ничего не стоит.
+    """
+    builder = InlineKeyboardBuilder()
+    builder.row(InlineKeyboardButton(
+        text=get_text("reminder_offer_yes", lang),
+        callback_data="reminder_offer_yes",
+    ))
+    builder.row(InlineKeyboardButton(
+        text=get_text("reminder_offer_no", lang),
+        callback_data="reminder_offer_no",
+    ))
+    return builder.as_markup()
+
+
+@router.callback_query(F.data == "reminder_offer_yes")
+async def accept_reminder_offer(callback: CallbackQuery, session: AsyncSession):
+    """Включить напоминания и назвать поставленный час."""
+    user = await session.get(User, callback.from_user.id)
+    lang = (user.interface_language if user else None) or DEFAULT_LOCALE
+
+    if not user:
+        await callback.answer("Error", show_alert=True)
+        return
+
+    # Время НАЗЫВАЕТСЯ, и рядом — кнопка в настройки. Прежде было «Готово.
+    # Время и дни можно поменять в настройках»: какое время поставлено, не
+    # говорилось, а путь в настройки человек искал сам. Владелец: «да,
+    # предложить гибкие настройки — с переходом в настройки». Согласие
+    # по-прежнему одним нажатием: экран настроек — по желанию, не поверх
+    time = await enable_reminders(user, session)
+    await callback.answer()
+    keyboard = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(
+        text=get_text("reminder_offer_setup", lang),
+        callback_data="settings:notifications",
+    )]])
+    try:
+        await callback.message.edit_text(
+            get_text("reminder_offer_done", lang, time=time,
+                     city=zone_city(user.timezone, lang)),
+            parse_mode="HTML", reply_markup=keyboard,
+        )
+    except Exception:
+        pass
+
+
+@router.callback_query(F.data == "reminder_offer_no")
+async def decline_reminder_offer(callback: CallbackQuery, session: AsyncSession):
+    """
+    Отказ. Запоминаем, что спрашивали, и убираем сообщение целиком.
+
+    Не оставляем ни строчки вроде «ладно, не буду»: человек сказал «нет»,
+    и последнее слово должно остаться за ним, а не за ботом.
+    """
+    user = await session.get(User, callback.from_user.id)
+    if user:
+        await mark_reminders_offered(user, session)
+
+    await callback.answer()
+    try:
+        await callback.message.delete()
+    except Exception:
+        pass
+
+
+@router.callback_query(F.data == "notif_off")
+async def disable_from_reminder(callback: CallbackQuery, session: AsyncSession):
+    """
+    «Не напоминать» прямо из напоминания — отдельно от общего переключателя.
+
+    Общий `notif_toggle` после себя перерисовывает сообщение в экран
+    настроек, и из напоминания это выглядело бы подменой: человек нажал
+    «хватит», а ему открыли меню. Здесь — короткое подтверждение и всё.
+
+    Зачем кнопка вообще. Прежде выключить напоминания можно было только
+    найдя их в настройках, а человек, которому они надоели, в настройки не
+    идёт — он блокирует бота. Выключенное напоминание оставляет
+    пользователя, блокировка забирает его насовсем.
+    """
+    user = await session.get(User, callback.from_user.id)
+    lang = (user.interface_language if user else None) or DEFAULT_LOCALE
+
+    if user:
+        user.notifications_enabled = False
+        await session.commit()
+
+    await callback.answer(get_text("notif_toggle_off", lang), show_alert=False)
+    try:
+        await callback.message.edit_text(
+            f"{get_text('notif_toggle_off', lang)}\n\n"
+            f"<i>{get_text('notif_off_how_to_return', lang)}</i>",
+            parse_mode="HTML",
+        )
+    except Exception:
+        # Сообщение могло быть уже удалено или слишком старое для правки —
+        # напоминания при этом всё равно выключены, и это главное
+        pass
+
+
 @router.callback_query(F.data == "notif_toggle")
 async def toggle_notifications(callback: CallbackQuery, session: AsyncSession):
     """Включить/выключить напоминания"""
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     if user.notifications_enabled:
         # Выключаем напоминания
@@ -114,7 +239,7 @@ async def change_timezone_start(callback: CallbackQuery, session: AsyncSession):
     await callback.answer()
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     text = (
         f"{get_text('notif_timezone_title', lang)}\n\n"
@@ -132,7 +257,7 @@ async def show_extended_cities(callback: CallbackQuery, session: AsyncSession):
     await callback.answer()
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     text = get_text('notif_timezone_title', lang)
 
@@ -146,7 +271,7 @@ async def back_to_main_timezones(callback: CallbackQuery, session: AsyncSession)
     await callback.answer()
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     text = f"{get_text('notif_timezone_title', lang)}\n\n{get_text('notif_timezone_prompt', lang)}"
 
@@ -165,10 +290,10 @@ async def set_timezone(callback: CallbackQuery, session: AsyncSession):
         return
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     # Получаем данные о городе
-    city_name = get_city_name(city_code, lang)
+    city_name = city_label(city_code, lang)
     timezone = get_timezone(city_code)
     utc_offset = get_utc_offset(city_code)
 
@@ -198,7 +323,7 @@ async def change_notification_time(callback: CallbackQuery, session: AsyncSessio
     await callback.answer()
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     time_display = user.notification_time if len(user.notification_time) == 5 else user.notification_time[:5]
 
@@ -219,7 +344,7 @@ async def set_notification_time(callback: CallbackQuery, session: AsyncSession):
     time_str = callback.data.split(":", 1)[1]  # "14:00" или "14"
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     # Нормализация формата времени
     if len(time_str) <= 2:  # только часы ("14")
@@ -233,7 +358,7 @@ async def set_notification_time(callback: CallbackQuery, session: AsyncSession):
             if not (0 <= hour <= 23 and 0 <= minute <= 59):
                 raise ValueError("Неверное время")
             time_str = f"{hour:02d}:{minute:02d}"  # Форматируем 09:05 вместо 9:5
-        except:
+        except Exception:
             time_str = "20:00"  # Fallback на дефолт
     else:
         time_str = "20:00"  # Странный формат → дефолт
@@ -256,7 +381,7 @@ async def change_notification_days(callback: CallbackQuery, session: AsyncSessio
     await callback.answer()
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     text = get_text("notif_days_title", lang) + "\n\n" + get_text("notif_days_hint", lang)
 
@@ -274,7 +399,7 @@ async def toggle_notification_day(callback: CallbackQuery, session: AsyncSession
     day_param = callback.data.split(":")[1]
 
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
     current_days = list(user.notification_days) if user.notification_days else []
 
     if day_param == "all":
@@ -324,7 +449,7 @@ async def toggle_notification_day(callback: CallbackQuery, session: AsyncSession
 async def save_notification_days(callback: CallbackQuery, session: AsyncSession):
     """Сохранить выбранные дни и вернуться"""
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or "ru"
+    lang = user.interface_language or DEFAULT_LOCALE
 
     # Проверяем что выбран хотя бы 1 день
     if not user.notification_days or len(user.notification_days) == 0:

@@ -18,22 +18,8 @@ from aiogram.enums import ParseMode
 from aiogram.types import ErrorEvent
 from aiogram.fsm.storage.memory import MemoryStorage
 
+from app.bot.routers import all_routers, attach_routers
 from app.config import settings
-from app.bot.handlers.start import router as start_router
-from app.bot.handlers.admin import router as admin_router
-from app.bot.handlers.reminders import router as reminders_router
-
-# РЕЙТИНГИ
-from app.bot.handlers.leaderboard.monthly import router as monthly_router
-from app.bot.handlers.leaderboard.alltime import router as alltime_router
-from app.bot.handlers.leaderboard.leaderboard_table import router as table_router
-
-# КВИЗЫ ПО ОТДЕЛЬНОСТИ (НЕ ЧЕРЕЗ quiz_router!)
-from app.bot.handlers.quiz.game import router as game_router
-from app.bot.handlers.quiz.settings import router as settings_router
-from app.bot.handlers.quiz.stats import router as stats_router
-from app.bot.handlers.quiz.help import router as help_router
-from app.bot.handlers.quiz.report import router as report_router
 
 from app.database.session import AsyncSessionLocal
 from app.core.logging import setup_logging
@@ -43,11 +29,114 @@ from app.schedulers import setup_scheduler
 logger = logging.getLogger(__name__)
 
 
+async def check_database() -> None:
+    """
+    Убедиться, что база достижима, ДО начала опроса Telegram.
+
+    Иначе бот стартует нормально, а первое же нажатие кнопки падает
+    стострочной трассировкой внутри обработчика. Самая частая причина —
+    запуск с .env, где DATABASE_URL указывает на хост `postgres` из
+    docker-сети: с машины разработчика это имя не резолвится.
+    """
+    from sqlalchemy import text
+
+    from app.config import ENV_FILE
+    from app.database.session import engine
+
+    # Показываем хост, но не логин с паролем
+    dsn = settings.DATABASE_URL
+    location = dsn.split("@")[-1] if "@" in dsn else dsn
+
+    try:
+        async with engine.connect() as conn:
+            await conn.execute(text("SELECT 1"))
+    except Exception as exc:
+        logger.error("Нет подключения к базе: %s", location)
+        logger.error("настройки читались из: %s", ENV_FILE)
+        logger.error("причина: %s", exc)
+        if "getaddrinfo" in str(exc) or "could not translate host name" in str(exc):
+            logger.error(
+                "   Имя хоста не резолвится. Для запуска не в докере нужен "
+                "ENV_FILE=.env.local (база на localhost:5434), "
+                "а не .env (там хост postgres из docker-сети)."
+            )
+        raise SystemExit(1)
+
+    logger.info("База на связи: %s (настройки из %s)", location, ENV_FILE)
+
+
+async def check_speech() -> None:
+    """
+    Есть ли чем судить произношение, если игра вслух кому-то включена.
+
+    ЗАЧЕМ ОТДЕЛЬНАЯ ПРОВЕРКА. Отсутствие распознавателя выглядит СНАРУЖИ
+    РОВНО КАК ШУМ В МИКРОФОНЕ, и это худший вид поломки. `check_pronunciation`
+    ловит любое исключение и возвращает `failed`, а `failed` по правилам
+    проекта — «не разобрал», то есть НЕ ошибка ученика: вопрос остаётся,
+    человеку предлагают записать ещё раз. Значит без библиотеки он записывал
+    бы голосовое, ждал и получал «не разобрал» — каждый раз, молча, без
+    единой строки в журнале.
+
+    Так и было: `faster-whisper` стоял только в `requirements-dev.txt` с
+    комментарием «боту не нужно» — верным в тот день, когда игры вслух ещё
+    не было. Боевой образ собирался без распознавателя. Пока речь имел один
+    человек из 233, это и не всплыло бы; 13 октября её включили всем.
+
+    Бот при этом НЕ ОСТАНАВЛИВАЕТСЯ: три других игры работают, и ронять их
+    из-за четвёртой неправильно. Но в журнале остаётся ошибка, которую
+    видно и в Sentry.
+    """
+    from sqlalchemy import func, select
+
+    from app.database.enums import QuizChannel
+    from app.database.models import User
+    from app.database.session import AsyncSessionLocal
+
+    async with AsyncSessionLocal() as session:
+        with_speech = (await session.execute(
+            select(func.count()).select_from(User)
+            .where(User.quiz_channels.contains(QuizChannel.SPEECH.value))
+        )).scalar() or 0
+
+    if not with_speech:
+        logger.info("Игра вслух никому не включена — распознаватель не нужен")
+        return
+
+    missing = []
+    try:
+        import faster_whisper  # noqa: F401
+    except Exception as exc:
+        missing.append(f"faster-whisper ({exc})")
+    try:
+        import av  # noqa: F401
+        import numpy  # noqa: F401
+    except Exception as exc:
+        missing.append(f"av/numpy ({exc})")
+
+    if missing:
+        logger.error(
+            "❌ Игра вслух включена у %d человек, а судить произношение НЕЧЕМ: "
+            "не хватает %s", with_speech, "; ".join(missing)
+        )
+        logger.error(
+            "   Снаружи это выглядит как «не разобрал» на каждое голосовое — "
+            "то есть как шум в микрофоне, а не как сбой. Поставить: "
+            "pip install -r requirements.txt"
+        )
+        return
+
+    logger.info("Игра вслух включена у %d человек, распознаватель на месте",
+                with_speech)
+
+
 async def main():
     setup_logging()
     setup_sentry()
 
-    logger.info("🚀 Starting GenauLingua Bot...")
+    logger.info("Starting GenauLingua Bot...")
+
+    await check_database()
+    await check_speech()
 
     bot = Bot(
         token=settings.BOT_TOKEN,
@@ -61,23 +150,13 @@ async def main():
         logger.exception("Unhandled error: %s", event.exception)
         return True
 
-    # ВАЖНО: ПОРЯДОК РЕГИСТРАЦИИ!
-    # Рейтинги ПЕРВЫМИ (чтобы перехватить show_my_rating)
-    dp.include_router(monthly_router)
-    dp.include_router(alltime_router)
-    dp.include_router(table_router)
-
-    # Репорт ПЕРЕД game (чтобы перехватить report_translation_error)
-    dp.include_router(report_router)
-
-    # Потом всё остальное
-    dp.include_router(start_router)
-    dp.include_router(game_router)
-    dp.include_router(settings_router)
-    dp.include_router(stats_router)
-    dp.include_router(help_router)
-    dp.include_router(reminders_router)
-    dp.include_router(admin_router)
+    # ПОРЯДОК РЕГИСТРАЦИИ ЖИВЁТ В ОДНОМ МЕСТЕ — `app.bot.routers`.
+    #
+    # Прежде он был выписан здесь, в приёмке меню и в сценарных
+    # тестах, то есть трижды. Три списка об одном расходятся всегда, и
+    # разошлись: четвёртая игра попала только сюда, а приёмка объявила
+    # её кнопку мёртвой — обработчик есть, просто не в её копии списка.
+    attach_routers(dp)
 
     @dp.update.middleware()
     async def db_session_middleware(handler, event, data):
@@ -89,21 +168,15 @@ async def main():
                 await session.rollback()
                 raise
 
-    logger.info("📦 Routers loaded:")
-    logger.info("   ✅ leaderboard/monthly.py")
-    logger.info("   ✅ leaderboard/alltime.py")
-    logger.info("   ✅ leaderboard/leaderboard_table.py")
-    logger.info("   ✅ quiz/report.py")
-    logger.info("   ✅ start.py")
-    logger.info("   ✅ quiz/game.py")
-    logger.info("   ✅ quiz/settings.py")
-    logger.info("   ✅ quiz/stats.py")
-    logger.info("   ✅ quiz/help.py")
-    logger.info("   ✅ reminders.py")
-    logger.info("   ✅ admin.py")
+    # Список в логе ТОЖЕ собирается из источника, а не выписан рядом.
+    # Выписанный отставал: в нём не было ни домашнего экрана, ни
+    # доски — четвёртый список об одном и том же.
+    logger.info("Роутеров подключено: %d", len(all_routers()))
+    for router in all_routers():
+        logger.info("   %s", router.name or type(router).__name__)
 
     scheduler = setup_scheduler(bot)
-    logger.info("⏰ Notification scheduler started")
+    logger.info("Планировщик запущен, работ: %d", len(scheduler.get_jobs()))
 
     await dp.start_polling(bot)
 
