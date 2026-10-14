@@ -1,13 +1,15 @@
 # Выкатка новой версии на прод — за один заход
 
-Прод сейчас: ветка `main` (июль 2026), схема `f61639c52096`, только
-немецкий, 4 языка интерфейса, без озвучки. Новая версия: 6 языков в любой
-паре, пять игр, озвучка, речь. Между ними **26 миграций** и новый словарь.
+Прод сейчас (осмотр сервера 14.10.2026): `/root/GenauLingua`, ветка `main`
+на d442651 (08.04.2026; по содержимому = нашему 924e8cf, сверено по хешу
+дерева), схема `f61639c52096`, одна игра, только немецкий, 4 языка
+интерфейса, без озвучки. Новая версия: 6 языков в любой паре, шесть игр,
+озвучка, речь. Между ними **26 миграций** и новый словарь.
 
 **Всё ниже отрепетировано 14.10.2026** на копии прод-схемы с реальными
 людьми и СТАРЫМ словарём прода (выгрузка 29.09), последний раз — с
-`f2c7a9d4e801`: 25 миграций за ~30 с, перенос словаря ~10 с, пересборка
-групп ~40 с, один проход починки учёта — слепок «до» и «после»
+`b6d1e3f7a920`: 26 миграций за ~31 с, перенос словаря ~11 с, пересборка
+групп ~37 с, один проход починки учёта — слепок «до» и «после»
 совпал до единицы во всём, кроме того, что меняется нарочно (напоминания
 121 → 233). Любая новая миграция — повод повторить репетицию целиком.
 Старая инструкция лежит в `archive/superseded/DEPLOY_2026-09.md`
@@ -63,7 +65,18 @@ sh /tmp/backup.sh   # git show origin/...:deploy/backup.sh > /tmp/backup.sh
 
 ## 3. Код и образ — бот ещё работает
 
+**На сервере есть незакоммиченные правки** (осмотр 14.10): `.gitignore`,
+`admin.py`, `game.py` добавлены в индекс — правки аналитики админки и
+сохранение данных жалобы после повтора ошибок. Обе вещи в новой версии
+есть (`game.py`: `report_word_ids` через повтор, `last_quiz_date`), а
+админка переписана целиком. Но с ними `git checkout` откажется работать,
+поэтому сперва — сохранить их патчем рядом с бэкапом и сбросить:
+
 ```bash
+git diff --cached > ~/genaulingua-backups/server-local-changes-2026-10.patch
+git branch prod-before-2.0          # метка на старый код — для отката
+git reset --hard HEAD
+git fetch origin
 git checkout feature/multilang-learning && git pull
 # в .env: ENV=prod; новый BOT_TOKEN, если меняли; SQL_ECHO не задавать
 docker compose build app          # 5–10 минут, бот пока на старом образе
@@ -122,7 +135,7 @@ docker compose run --rm app python -m app.scripts.rebuild_word_groups
 ```bash
 docker compose run --rm app python -m app.scripts.release_snapshot --out logs/after.json --compare logs/before.json
 docker compose run --rm app python -m app.scripts.repair_accounting          # просмотр
-docker compose run --rm app python -m app.scripts.repair_accounting --apply  # всегда: заполняет даты «выучено» после миграции
+docker compose run --rm app python -m app.scripts.repair_accounting --apply  # всегда: пересчёт месяца по источнику
 docker compose run --rm app python -m app.scripts.audit_accounting
 ```
 
@@ -148,7 +161,15 @@ docker compose run --rm app python -m app.scripts.state_report
 ```
 
 `up -d` пересоздаст и базу: у неё сменились порт (только 127.0.0.1) и
-политика перезапуска. Это секунды, данные в томе.
+политика перезапуска. Это секунды, данные в томе. **Сейчас база прода
+открыта в интернет** (`ports: "5432:5432"` — Docker обходит файрвол);
+после `up -d` она слушает только 127.0.0.1. Проверить:
+`ss -ltnp | grep 5432` — должно быть `127.0.0.1:5432`.
+
+В каталоге проекта на сервере лежат `db_dump.sql`, `backup_20260307_190630.sql`
+(дампы с данными людей) и `send_active.py`. Каталог смонтирован в контейнер
+(`.:/app`). Решение владельца — перенести в `~/genaulingua-backups` (права
+600) или удалить.
 
 ## 9. Живая проверка — руками
 
@@ -191,7 +212,7 @@ docker compose stop app
 docker compose exec -T postgres sh -c 'dropdb -U "$POSTGRES_USER" "$POSTGRES_DB" && createdb -U "$POSTGRES_USER" "$POSTGRES_DB"'
 gunzip -c ~/genaulingua-backups/before-release-*.sql.gz | \
   docker compose exec -T postgres sh -c 'psql -q -U "$POSTGRES_USER" "$POSTGRES_DB"'
-git checkout main
+git checkout prod-before-2.0        # старый код, метка из шага 3
 docker compose build app && docker compose up -d
 ```
 
