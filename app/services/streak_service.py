@@ -75,7 +75,7 @@ _OFFSET = re.compile(r"^([+-])(\d{1,2}):?(\d{2})?$")
 # неё, считается записанным по UTC — так же думают приёмка
 # `audit_accounting` и починка `repair_accounting`, читая историю занятий.
 # Выкатили позже — сдвинуть эту дату на день выкатки.
-LOCAL_DAYS_FROM = date(2026, 10, 15)
+LOCAL_DAYS_FROM = date(2026, 10, 14)
 
 
 def _zone(user):
