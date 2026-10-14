@@ -597,3 +597,52 @@ async def test_round_points_are_counted_in_the_season_of_the_round(
     )).scalar()
     assert fresh and fresh > 0, "занятие не засчиталось в новый сезон"
     assert seen.get("points") == fresh, f"итог показал +{seen.get('points')} вместо +{fresh}"
+
+
+# ============================================================================
+# «СЛУШАЮ»: ПЯТАЯ КНОПКА «ПРОПУСТИТЬ»
+#
+# Владелец, 14.10: «не всегда люди играют со звуком, может ночью. Нужно дать
+# такую возможность». Пропуск — как у речи: ни ответа, ни ошибки.
+# ============================================================================
+
+async def test_a_listening_question_can_be_skipped_without_a_mistake(
+    session, user, stage, monkeypatch
+):
+    from app.services.audio_service import AudioClip
+
+    dp, bot, recorder = stage
+    words = await _words(session, user, channels="ta")
+    user.audio_enabled = True
+    for w in words[:30]:
+        session.add(_progress(user, w, times_shown=3, times_correct=3, correct_streak=1,
+                              last_seen_at=utcnow() - timedelta(days=2)))
+    await session.commit()
+
+    original = LN.generate_question
+
+    async def forced(*args, **kwargs):
+        kwargs["channel"] = QuizChannel.AUDIO
+        return await original(*args, **kwargs)
+
+    async def clip(*_a, **_k):
+        return AudioClip(kind="blind", voice="v", spoken_text="x", title="GenauLingua",
+                         filename="x.mp3", file_id="AwACAgIAAxkBAAIBfakefileid")
+
+    monkeypatch.setattr(LN, "generate_question", forced)
+    for module in (L, LN, SP):
+        monkeypatch.setattr(module, "clip_for_user", clip)
+
+    await dp.feed_update(bot, text_update(user.id, LEARN))
+    data = await _ctx(dp, bot, user).get_data()
+    assert data["channel"] == QuizChannel.AUDIO.value, data["channel"]
+    assert "listen_skip" in recorder.buttons(), "у вопроса на слух нет «Пропустить»"
+
+    await dp.feed_update(bot, press(user.id, "listen_skip"))
+    rows = (await session.execute(select(QuizQuestion).where(
+        QuizQuestion.session_id == data["session_id"]))).scalars().all()
+    assert rows == [], "пропуск записался ответом"
+    after = await _ctx(dp, bot, user).get_data()
+    assert data["correct_word_id"] not in after.get("errors", []), "пропуск ушёл в ошибки"
+    assert get_text("speech_skipped", "ru") in recorder.last_text()
+    assert "next_question" in recorder.buttons()

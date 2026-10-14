@@ -233,6 +233,18 @@ def _question_keyboard(channel: QuizChannel, options, lang: str,
         return grid_keyboard([tile for _, tile in options], [], word_id or 0, 0, lang,
                              slots=slots)
 
+    if channel is QuizChannel.AUDIO:
+        # ПЯТАЯ КНОПКА — «ПРОПУСТИТЬ», по той же причине, что у речи.
+        # Владелец, 14.10: «не всегда люди играют со звуком, может ночью.
+        # Нужно дать такую возможность». Без неё человек без наушников
+        # жмёт наугад — и ошибка ложится на слово, которое он знает
+        keyboard = get_answer_keyboard(options)
+        keyboard.inline_keyboard.append([InlineKeyboardButton(
+            text=get_text("speech_btn_skip", lang),
+            callback_data="listen_skip",
+        )])
+        return keyboard
+
     if channel is not QuizChannel.SPEECH:
         return get_answer_keyboard(options)
 

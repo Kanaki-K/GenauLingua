@@ -277,10 +277,10 @@ async def play_reference(callback: CallbackQuery, state: FSMContext, session: As
         await session.commit()
 
 
-@router.callback_query(F.data == "speech_skip", QuizStates.answering)
+@router.callback_query(F.data.in_({"speech_skip", "listen_skip"}), QuizStates.answering)
 async def skip_speech(callback: CallbackQuery, state: FSMContext, session: AsyncSession):
     """
-    Пропустить вопрос вслух.
+    Пропустить вопрос вслух — или на слух («Слушаю»: звук включить нельзя).
 
     Пропуск НЕ засчитывается ошибкой: человек мог оказаться в транспорте или
     рядом со спящим ребёнком, и наказывать за это значит потерять не вопрос,
@@ -292,7 +292,11 @@ async def skip_speech(callback: CallbackQuery, state: FSMContext, session: Async
     if ctx is None:
         return
     data, user, correct_word, channel = ctx
-    if channel is not QuizChannel.SPEECH:
+    # Кнопка своей игры: «speech_skip» — у речи, «listen_skip» — у слуха.
+    # Чужая (старая карточка в переписке) ничего не пропускает
+    allowed = (QuizChannel.SPEECH if callback.data == "speech_skip"
+               else QuizChannel.AUDIO)
+    if channel is not allowed:
         return
 
     # ПРОПУСК ТОЖЕ ЗАНИМАЕТ ВОПРОС, хотя и не засчитывается ни верным, ни

@@ -34,7 +34,8 @@ router = Router()
 
 # Кнопки занятия, которые без живого состояния ни к чему не ведут.
 # `answer_…`, «Дальше», «Послушать медленно», «Пропустить»
-_LESSON_BUTTONS = ("answer_", "next_question", "speech_reference", "speech_skip")
+_LESSON_BUTTONS = ("answer_", "next_question", "speech_reference", "speech_skip",
+                   "listen_skip")
 
 
 async def lesson_expired(callback: CallbackQuery, session: AsyncSession) -> None:
