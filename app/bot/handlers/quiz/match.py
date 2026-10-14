@@ -49,10 +49,12 @@ from aiogram.types import (
 )
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.bot.handlers.quiz.lesson_state import S_BOARD_DONE, _recover
+from app.core.clock import utcnow
 from app.database.enums import QuizChannel
-from app.database.models import User, Word
+from app.database.models import QuizQuestion, QuizSession, User, Word
 from app.locales import DEFAULT_LOCALE, get_text
-from app.services.language_service import option_label, pair_from_user
+from app.services.language_service import LanguagePair, option_label, pair_from_user
 from app.services.match_service import (
     BOARD_SIZE, deranged_order, pick_words, scored_pairs,
 )
@@ -413,8 +415,6 @@ async def _finish(
     # `quiz_questions` (от них зависят баллы, точность, разбор и репорт), и
     # ошибки круга для «повторить ошибки». Открытая сама по себе доска
     # круга не имеет, и тогда двигается только прогресс по словам.
-    from app.bot.handlers.quiz.game import record_board_answers
-
     in_round = await record_board_answers(
         state, session, user, pair, words, matched, counted
     )
@@ -479,3 +479,156 @@ async def _finish(
         await callback.message.edit_text(text, reply_markup=keyboard)
     except Exception:
         await callback.message.answer(text, reply_markup=keyboard)
+
+
+# ============================================================================
+# 🧩 ДОСКА ВНУТРИ КРУГА
+# ============================================================================
+
+
+async def record_board_answers(
+    state: FSMContext, session: AsyncSession, user: User, pair: LanguagePair,
+    words: list[Word], matched: list[int], counted: set[int],
+) -> bool:
+    """
+    Записать подвопросы доски как ОБЫЧНЫЕ ответы круга.
+
+    ЗАЧЕМ ЭТО ОТДЕЛЬНОЙ ФУНКЦИЕЙ И ПОЧЕМУ ОНА ВАЖНА. Первая редакция доски
+    звала только `update_word_progress` — то есть двигала прогресс по
+    словам (три шкалы) и НИЧЕГО больше. Следствий было четыре, и все
+    тихие:
+
+        баллов НЕТ        счёт берётся из `quiz_questions`, а строк там
+                          не появлялось
+        точности НЕТ      `answered_questions` не росло
+        репорта НЕТ       жаловаться на перевод не на что: репорт ищет
+                          слова круга по тем же строкам
+        повтора ошибок НЕТ промахи не попадали в список ошибок круга
+
+    Человек решал доску, видел «зачтено 4 из 5» и не получал за это ни
+    балла. Снаружи это выглядело бы как обман.
+
+    Теперь каждая пара пишется ровно как ответ на вопрос: своя строка
+    `QuizQuestion`, свой инкремент счётчиков, своя запись в прогресс. Канал
+    — `BOARD_CHANNEL`, и один балл за верный подвопрос получается сам,
+    вычитанием в месячном счёте.
+
+    Возвращает False, если доска открыта САМА ПО СЕБЕ, а не в круге: тогда
+    записывать некуда, и прогресс по словам двигает уже вызывающий.
+    """
+    from app.services.match_service import BOARD_CHANNEL
+
+    data = await state.get_data()
+    session_id = data.get("session_id")
+    # В КРУГЕ — ЭТО ДОСКА, КОТОРУЮ ПОСТАВИЛ КРУГ, а не любая доска при
+    # живом `session_id`. Прежде `/match` посреди круга писал свои пять пар
+    # в этот круг: шесть строк в занятии вместо одной, план 15 — отвечено
+    # больше. Брошенный круг держал `session_id` до перезапуска бота.
+    if not session_id or not data.get(S_ROUND_AT):
+        return False
+
+    quiz_session = await session.get(QuizSession, session_id)
+    correct_answers = data.get("correct_answers", 0)
+    errors = list(data.get("errors", []))
+    # Номера слов — заранее: после отката (ниже) объекты слов просрочены, а
+    # подгрузить их лениво асинхронная сессия не умеет
+    word_ids = [w.id for w in words]
+
+    for index in matched:
+        word = words[index]
+        is_correct = index in counted
+
+        session.add(QuizQuestion(
+            session_id=session_id,
+            word_id=word.id,
+            # Что человек выбрал, в доске совпадает с верным ответом: пара
+            # сходится только тогда, когда он нажал правильную половину.
+            # Неверные нажатия это промахи, и они не создают строк — иначе
+            # одна пара дала бы их столько, сколько человек перебирал
+            user_answer=option_label(word, pair.answer_lang)[:255] or None,
+            is_correct=is_correct,
+            answered_at=utcnow(),
+            channel=BOARD_CHANNEL,
+        ))
+
+        if quiz_session:
+            quiz_session.answered_questions = (quiz_session.answered_questions or 0) + 1
+            if is_correct:
+                quiz_session.correct_answers = (quiz_session.correct_answers or 0) + 1
+
+        if is_correct:
+            correct_answers += 1
+        else:
+            # Промах идёт в ошибки круга — значит «повторить ошибки» его
+            # разберёт, и разберёт ТЕКСТОМ, как все прочие ошибки
+            errors.append(word.id)
+
+        # Строка и счётчики — В БАЗУ ДО ПРОГРЕССА: упади прогресс, откат
+        # ниже не должен унести уже засчитанный подвопрос
+        await session.commit()
+
+        try:
+            await update_word_progress(
+                user_id=user.id, word_id=word_ids[index], is_correct=is_correct,
+                session=session, learning_lang=pair.learning,
+                channel=QuizChannel.TEXT,
+            )
+        except Exception:
+            logger.exception(
+                "ошибка прогресса на доске (user=%s word=%s)", user.id, word_ids[index]
+            )
+            # Без отката следующий же запрос упал бы — разбор в `_recover`
+            await _recover(session, user, quiz_session, *words)
+
+    await session.commit()
+
+    # СЛОВА ДОСКИ — ЗАДЕЙСТВОВАННЫЕ, и остаток круга их больше не возьмёт.
+    #
+    # Без этого слово, только что найденное на доске, приходило обычным
+    # вопросом через два хода: прогресс по нему двигался дважды за круг, а
+    # человек видел одно и то же. Доска читает тот же список при сборке —
+    # так что запрет работает в обе стороны.
+    used = list(data.get("used_word_ids") or [])
+    used.extend(word_ids[index] for index in matched
+                if word_ids[index] not in used)
+
+    await state.update_data(
+        correct_answers=correct_answers, errors=errors, used_word_ids=used
+    )
+    return True
+
+
+async def _board_due(
+    state: FSMContext, session: AsyncSession, user: User, pair: LanguagePair,
+    current_question: int, total_questions: int,
+) -> bool:
+    """
+    Пора ли показать доску на этом вопросе.
+
+    Проверки идут от дешёвых к дорогим: сперва состояние и номер вопроса,
+    и только потом запрос к базе за годными словами. Обратный порядок
+    стоил бы запроса на КАЖДОМ вопросе круга.
+    """
+    from app.services.match_service import (
+        BOARD_SIZE, board_slot, pick_words, should_insert_board,
+    )
+
+    data = await state.get_data()
+    if data.get(S_BOARD_DONE):
+        return False
+
+    if current_question != board_slot(total_questions):
+        return False
+
+    # Годных слов берём с запасом: `should_insert_board` требует вдвое
+    # больше доски, иначе доски пошли бы одним набором
+    #
+    # УЖЕ ЗАДАННЫЕ СЛОВА ИСКЛЮЧАЮТСЯ И ЗДЕСЬ — тем же списком, что у самой
+    # доски. Без этого проверка насчитывала десять годных, доска после
+    # исключения находила меньше пяти, и посреди круга появлялось «Пока
+    # рано: поучи карточками».
+    eligible = await pick_words(
+        user, session, pair, size=BOARD_SIZE * 2,
+        exclude_ids=list(data.get("used_word_ids") or []),
+    )
+    return should_insert_board(user, total_questions, len(eligible))
