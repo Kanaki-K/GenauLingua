@@ -226,13 +226,21 @@ def wants_new_word(position: int, round_length: int) -> bool:
     половину» и «интересную».
 
         круг из 15, новых 3  →  шаг 5  →  новое на 5-м, 10-м и 15-м
-        круг из 5,  новых 3  →  шаг 2  →  новое на 2-м и 4-м
+        круг из 10, новых 2  →  шаг 5  →  новое на 5-м и 10-м
+        круг из 5,  новое 1  →  шаг 5  →  новое на 5-м
+
+    ОДНО НОВОЕ НА ПЯТЬ ВОПРОСОВ, а не три на любой круг. Прежде короткий круг
+    тоже требовал трёх новых: у круга из пяти шаг выходил 2, новые вставали
+    на 2-е и 4-е места — ровно на все места отработки (каждое второе), и
+    «Вспоминаю», «Слушаю», «Говорю» в такой круг не попадали никогда. На
+    круге из пятнадцати не меняется ничего.
 
     Это ПОЛ, а не потолок: если просроченных слов не хватает, оставшиеся
     места тоже займут новые — так и выглядит первый день, когда повторять
     ещё нечего.
     """
-    step = max(2, round_length // max(1, NEW_WORDS_PER_ROUND))
+    new_words = max(1, min(NEW_WORDS_PER_ROUND, round_length // 5))
+    step = max(2, round_length // new_words)
     return (position + 1) % step == 0
 
 
@@ -244,6 +252,7 @@ async def select_word_by_priority(
     user: Optional[User] = None,
     level: Optional[CEFRLevel] = None,
     round_length: int = DEFAULT_ROUND_LENGTH,
+    position: Optional[int] = None,
 ) -> Optional[Word]:
     """
     Слово для вопроса: сперва то, чему ПОРА, новое — по расписанию места.
@@ -266,8 +275,13 @@ async def select_word_by_priority(
 
     `round_length` нужен только для раскладки новых по месту; подбор от него
     больше ничем не зависит.
+
+    `position` — номер места в круге с нуля. Не передан — берётся число
+    уже заданных слов; но после доски их на четыре больше, чем вопросов
+    (доска — один вопрос из пяти слов), поэтому круг передаёт номер сам.
     """
-    position = len(exclude_ids)
+    if position is None:
+        position = len(exclude_ids)
 
     # ОТРАБОТКА — НА КАЖДОМ ВТОРОМ МЕСТЕ, не под новые слова. Каждое второе,
     # а не все: в первом круге дня новых по-прежнему большинство (в круге из
@@ -322,6 +336,38 @@ def _accuracy_below(threshold: int):
 def _cooled_down():
     cutoff = utcnow() - REPEAT_COOLDOWN
     return or_(UserWord.last_seen_at.is_(None), UserWord.last_seen_at < cutoff)
+
+
+def _answered_before(user_id: int, pair: LanguagePair, cutoff: datetime):
+    """
+    Последний ОТВЕТ по слову был раньше `cutoff`.
+
+    По строкам ответов (`quiz_questions.answered_at`), а не по
+    `last_seen_at`, и это не одно и то же. `last_seen_at` — якорь
+    расписания, и досрочный верный ответ (отработка другой игрой) его
+    нарочно не двигает. Пауза отработки, построенная на нём, не работала
+    вовсе: слово, отвеченное досрочно секунды назад, числилось «показанным
+    позавчера» и открывало следующий круг. Проверено исполнением: шесть
+    знакомых слов возвращались в каждом круге подряд.
+
+    Не `user_words.updated_at`: его двигает любая запись ряда — правка
+    учёта, пересчёт, — и после такой правки весь словарь человека на три
+    минуты выпадал бы из отработки. Строка ответа пишется только ответом.
+    """
+    from app.database.models import QuizQuestion, QuizSession
+
+    recent = (
+        select(QuizQuestion.id)
+        .join(QuizSession, QuizSession.id == QuizQuestion.session_id)
+        .where(
+            QuizQuestion.word_id == Word.id,
+            QuizSession.user_id == user_id,
+            QuizSession.learning_lang == pair.learning,
+            QuizQuestion.answered_at >= cutoff,
+        )
+        .exists()
+    )
+    return ~recent
 
 
 def _due_condition():
@@ -447,7 +493,8 @@ async def get_practice_words(
         UserWord.learned.is_(False),
         UserWord.times_correct >= CHANNEL_UNLOCK[QuizChannel.REVERSE],
         UserWord.last_seen_at.isnot(None),
-        UserWord.last_seen_at < cutoff,
+        # Пауза — от последнего ОТВЕТА, а не от якоря расписания
+        _answered_before(user_id, pair, cutoff),
         ~_due_condition(),
     )
     query = _exclude(_scoped(query, user, level), exclude_ids)
@@ -497,8 +544,10 @@ async def get_ready_for(
         UserWord.times_correct >= CHANNEL_UNLOCK[channel],
     )
     if gap is not None:
+        # Пауза — от последнего ОТВЕТА (`_answered_before`): досрочный ответ
+        # `last_seen_at` не двигает, и пауза по нему не держала ничего
         query = query.where(UserWord.last_seen_at.isnot(None),
-                            UserWord.last_seen_at < utcnow() - gap)
+                            _answered_before(user_id, pair, utcnow() - gap))
     query = _exclude(_scoped(query, user, None), exclude_ids)
     due_first = case((_due_condition(), 0), else_=1)
     rows = await session.execute(
@@ -508,7 +557,9 @@ async def get_ready_for(
 
 
 def _rotation(user: User, exclude_ids: list[int],
-              recent: Optional[list[str]]) -> list[QuizChannel]:
+              recent: Optional[list[str]],
+              position: Optional[int] = None,
+              round_length: Optional[int] = None) -> list[QuizChannel]:
     """
     Какие игры попробовать на этом месте круга, по очереди.
 
@@ -523,15 +574,34 @@ def _rotation(user: User, exclude_ids: list[int],
     открывается по слову (1 верный — припоминание и слух, 2 — речь), и пока
     готовых слов нет, круг сам выходит карточками. База набирается — игры
     подключаются по одной.
+
+    ПРАВИЛА СОСТАВА — ТЕ ЖЕ, ЧТО У `place_in_round`, и это одно правило, а
+    не копия: `_speech_closed` и «не две одинаковые подряд» спрашиваются у
+    тех же функций. Прежде слово, подобранное под игру, получало её минуя
+    состав, и речь приходила ТРИ раза за круг при потолке два — в 4 кругах
+    из 8 (замер на продвинутом). Разница одна: там закрытая игра уступает
+    лишь при наличии замены, а здесь закрытая просто не пробуется — замена
+    у места отработки есть всегда, обычный подбор.
+
+    `position` — номер места с нуля, `round_length` — длина ЭТОГО круга
+    (в «сложных» она короче настройки).
     """
-    position = len(exclude_ids)
-    round_length = getattr(user, "quiz_word_count", None) or DEFAULT_ROUND_LENGTH
+    if position is None:
+        position = len(exclude_ids)
+    if round_length is None:
+        round_length = getattr(user, "quiz_word_count", None) or DEFAULT_ROUND_LENGTH
     if position % 2 == 0 or wants_new_word(position, round_length):
         return []
+    history = _channel_history(recent or [])
+    used = collections.Counter(history)
     games = [c for c in (QuizChannel.REVERSE, QuizChannel.AUDIO, QuizChannel.SPEECH)
              if c in enabled_channels(user)]
-    used = recent or []
-    return sorted(games, key=lambda c: (used.count(c.value), games.index(c)))
+    # Номер вопроса для правил состава — с единицы
+    if _speech_closed(used, position + 1, round_length):
+        games = [c for c in games if c is not QuizChannel.SPEECH]
+    if history:
+        games = [c for c in games if c is not history[-1]]
+    return sorted(games, key=lambda c: (used[c], games.index(c)))
 
 
 async def get_struggling_words(
@@ -662,13 +732,24 @@ async def get_difficult_word(
     exclude_ids: list[int],
 ) -> Optional[Word]:
     """Слово из личного списка сложных (режим DIFFICULT)."""
-    query = _progress_join(_usable_words(pair), user_id, pair).where(
+    query = _difficult_query(user_id, pair)
+    return await _pick_one(session, _exclude(query, exclude_ids))
+
+
+def _difficult_conditions() -> tuple:
+    """Что делает слово «сложным» — одно условие для подбора, счёта и доски."""
+    return (
         UserWord.learned.is_(False),
         UserWord.times_shown >= 2,
         _accuracy_below(STRUGGLING_THRESHOLD),
         _cooled_down(),
     )
-    return await _pick_one(session, _exclude(query, exclude_ids))
+
+
+def _difficult_query(user_id: int, pair: LanguagePair):
+    return _progress_join(_usable_words(pair), user_id, pair).where(
+        *_difficult_conditions()
+    )
 
 
 async def count_difficult_words(
@@ -676,17 +757,20 @@ async def count_difficult_words(
     session: AsyncSession,
     pair: LanguagePair,
 ) -> int:
-    """Сколько сложных слов у пользователя на этом языке."""
-    query = (
-        select(func.count())
-        .select_from(UserWord)
-        .where(
-            UserWord.user_id == user_id,
-            UserWord.learning_lang == pair.learning,
-            UserWord.learned.is_(False),
-            UserWord.times_shown >= 2,
-            _accuracy_below(STRUGGLING_THRESHOLD),
-        )
+    """
+    Сколько сложных слов можно спросить ПРЯМО СЕЙЧАС.
+
+    ТЕМ ЖЕ ЗАПРОСОМ, ЧТО ПОДБОР (`_difficult_query`). Прежде счёт не знал
+    ни часовой паузы, ни годности слова для викторины, а подбор знал, и
+    длина круга назначалась по счёту: шесть сложных, три из них отвечены
+    десять минут назад — круг из шести обрывался на четвёртом вопросе
+    «Не удалось подготовить следующий вопрос», без итога и баллов.
+    Проверено исполнением. Так выходило всякий раз, когда после круга с
+    ошибками человек сразу открывал «сложные»: промахи только что получили
+    свежий показ.
+    """
+    query = select(func.count()).select_from(
+        _difficult_query(user_id, pair).subquery()
     )
     result = await session.execute(query)
     return int(result.scalar() or 0)
@@ -843,6 +927,8 @@ async def generate_question(
     recent_channels: Optional[list[str]] = None,
     channel: Optional[QuizChannel] = None,
     prefer_channel: Optional[QuizChannel] = None,
+    round_length: Optional[int] = None,
+    question_number: Optional[int] = None,
 ) -> Optional[dict]:
     """
     Вопрос викторины: слово, варианты ответа, индекс правильного, канал.
@@ -868,10 +954,18 @@ async def generate_question(
     домашнему экрану не годится: новичок, ткнувший в «🎧», получил бы
     пятнадцать вопросов о словах, которых ни разу не видел.
 
+    `round_length` и `question_number` — длина ЭТОГО круга и номер вопроса
+    в нём (с единицы). Круг передаёт их сам: в «сложных» круг короче
+    настройки, а после доски слов задано на четыре больше, чем вопросов, и
+    вывести номер из `exclude_ids` нельзя. Не переданы — берутся настройка
+    и число заданных слов, как прежде.
+
     Возвращает None, если подходящих слов не осталось.
     """
     exclude_ids = exclude_ids or []
     pair = pair or pair_from_user(user)
+    length = round_length or user.quiz_word_count or DEFAULT_ROUND_LENGTH
+    place = (question_number - 1) if question_number else len(exclude_ids)
 
     # ЗНАЧЕНИЯ, УЖЕ СПРОШЕННЫЕ В ЭТОМ КРУГЕ, — чтобы не спросить второе
     # слово с тем же переводом.
@@ -905,7 +999,8 @@ async def generate_question(
 
     # Обычный круг: место отработки отдаётся игре, которой было меньше всего
     rotation = (
-        _rotation(user, exclude_ids, recent_channels)
+        _rotation(user, exclude_ids, recent_channels,
+                  position=place, round_length=length)
         if wanted is None and channel is None
         and user.quiz_mode != QuizMode.DIFFICULT
         else []
@@ -938,10 +1033,11 @@ async def generate_question(
                 pair=pair,
                 exclude_ids=exclude_ids + skipped,
                 user=user,
-                # Длина круга нужна подбору, чтобы разложить новые слова по
-                # месту. Берётся из настройки человека — той же, по которой
-                # круг и строится; расходиться им нельзя
-                round_length=user.quiz_word_count or DEFAULT_ROUND_LENGTH,
+                # Длина круга и место нужны подбору, чтобы разложить новые
+                # слова по месту. Длина — та же, по которой круг и строится;
+                # расходиться им нельзя
+                round_length=length,
+                position=place,
             )
         if candidate is None:
             break
@@ -969,7 +1065,7 @@ async def generate_question(
     if channel is None:
         channel = await pick_channel(
             session, user, correct_word, pair.learning, recent=recent_channels,
-            prefer=prefer_channel,
+            prefer=prefer_channel, round_length=length, position=place + 1,
         )
 
     # НАПРАВЛЕНИЕ СЛЕДУЕТ ЗА КАНАЛОМ, и дальше в сборке участвует только
@@ -1034,6 +1130,7 @@ async def update_word_progress(
     session: AsyncSession,
     learning_lang: str,
     channel: QuizChannel = QuizChannel.TEXT,
+    advance_schedule: bool = True,
 ) -> None:
     """
     Учесть ответ. Прогресс ведётся отдельно по каждому изучаемому языку:
@@ -1075,7 +1172,8 @@ async def update_word_progress(
             user_id=user_id,
             word_id=word_id,
             learning_lang=learning_lang,
-            correct_streak=1 if is_correct else 0,
+            # Засчитанное по попыткам серию не начинает (см. ниже, «досрочно»)
+            correct_streak=1 if is_correct and advance_schedule else 0,
             times_shown=1,
             times_correct=1 if is_correct else 0,
             last_seen_at=now,
@@ -1094,7 +1192,13 @@ async def update_word_progress(
     # показах, верных и в счётчике игры (за него и баллы), но серия и
     # отметка последнего показа — якорь срока — остаются прежними. Промах
     # досрочным не бывает: забыл — значит забыл, и срок обнуляется.
-    early = is_correct and not _is_due(user_word, now)
+    #
+    # Так же учитывается ответ, засчитанный ПО ПОПЫТКАМ (`advance_schedule=
+    # False`): третья запись «Говорю» верна и с баллами — решение
+    # владельца, — но слово человек не произнёс, и сдвинуть ему срок
+    # значило бы солгать расписанию. Проверено исполнением: три записи
+    # «Katze» на чужое слово давали серию 1 → 2.
+    early = is_correct and (not advance_schedule or not _is_due(user_word, now))
 
     user_word.times_shown += 1
     if not early:
@@ -1123,7 +1227,18 @@ async def update_word_progress(
     else:
         user_word.correct_streak = 0
 
+    # ДАТА ПЕРЕХОДА В «ВЫУЧЕНО» — по ней месячный балл платит +3 за слово,
+    # один раз. Ставится только на переходе False → True: повторение уже
+    # выученного слова дату не двигает (иначе оплата повторилась бы в
+    # следующем месяце, как было при счёте по last_seen_at). Промах снимает
+    # отметку — и дату: выученное заново оплачивается заново, это честно,
+    # слово было забыто и выучено ещё раз
+    was_learned = bool(user_word.learned)
     user_word.learned = _is_learned(user_word, now)
+    if user_word.learned and not was_learned:
+        user_word.learned_at = now
+    elif not user_word.learned:
+        user_word.learned_at = None
     await session.commit()
 
 
@@ -1712,9 +1827,14 @@ async def pick_channel(
     learning_lang: str,
     recent: Optional[list[str]] = None,
     prefer: Optional[QuizChannel] = None,
+    round_length: Optional[int] = None,
+    position: Optional[int] = None,
 ) -> QuizChannel:
     """
     Каким каналом задать вопрос ПРО ЭТО СЛОВО.
+
+    `round_length` и `position` (номер вопроса с единицы) — см.
+    `generate_question`; не переданы — настройка и длина истории.
 
     Канал следует за словом, а не за номером вопроса. Первая версия просто
     чередовала «текст, слух, текст, слух» по счётчику, и это было неверно
@@ -1815,8 +1935,32 @@ async def pick_channel(
         unlocked,
         enabled=channels,
         recent=recent or [],
-        round_length=getattr(user, "quiz_word_count", None) or DEFAULT_ROUND_LENGTH,
+        round_length=(round_length
+                      or getattr(user, "quiz_word_count", None)
+                      or DEFAULT_ROUND_LENGTH),
+        position=position,
     )
+
+
+def _channel_history(recent: list[str]) -> list[QuizChannel]:
+    """
+    История каналов круга: только настоящие каналы. Доска (`m`) занимает
+    место в круге, но игрой-каналом не является.
+    """
+    known = {c.value: c for c in QuizChannel}
+    return [known[v] for v in recent if v in known]
+
+
+def _speech_closed(used: "collections.Counter", position: int,
+                   round_length: int) -> bool:
+    """
+    Закрыта ли речь на вопросе номер `position` (с единицы): последний
+    вопрос круга голосом не задаётся, и больше `speech_cap` голосовых за
+    круг не просят. Одно правило на оба пути выбора игры — `place_in_round`
+    и места отработки (`_rotation`).
+    """
+    return (position >= round_length
+            or used[QuizChannel.SPEECH] >= speech_cap(round_length))
 
 
 def place_in_round(
@@ -1825,9 +1969,16 @@ def place_in_round(
     enabled: list[QuizChannel],
     recent: list[str],
     round_length: int,
+    position: Optional[int] = None,
 ) -> QuizChannel:
     """
     Какой игрой задать вопрос НА ЭТОМ МЕСТЕ круга.
+
+    `position` — номер вопроса с единицы, если круг его знает. Выведенный
+    из `recent` номер верен лишь в круге без доски: доска — вопрос круга,
+    но в историю каналов не пишется, и после неё «последний вопрос» по
+    истории наступал на вопрос позже настоящего — речь могла прийти
+    последней.
 
     Отделено от `pick_channel` нарочно: сюда не ходят в базу, и всё решение
     видно целиком. Правило, которое нельзя проверить без живого человека и
@@ -1837,8 +1988,8 @@ def place_in_round(
     ЧТО ЗНАЕТ ЭТА ФУНКЦИЯ: какие игры открыты ДЛЯ ЭТОГО СЛОВА (`unlocked`,
     их решает порог допуска), какие включены У ЧЕЛОВЕКА (`enabled` — по ним
     считается цель), чем заданы предыдущие вопросы (`recent`) и сколько
-    вопросов в круге. Номер вопроса выводится из `recent`, а не передаётся:
-    два источника одного числа разошлись бы при первой же правке.
+    вопросов в круге. Номер вопроса круг передаёт сам (`position`); без
+    него он выводится из `recent`.
 
     ПРАВИЛА, ПО СТАРШИНСТВУ:
 
@@ -1868,9 +2019,9 @@ def place_in_round(
     # Из истории берутся только настоящие каналы: доска (`m`) занимает место
     # в круге, но игрой-каналом не является, и её пять подвопросов сдвинули
     # бы номер вопроса на пять
-    known = {c.value: c for c in QuizChannel}
-    history = [known[v] for v in recent if v in known]
-    position = len(history) + 1
+    history = _channel_history(recent)
+    if position is None:
+        position = len(history) + 1
     used = collections.Counter(history)
 
     allowed = list(unlocked)
@@ -1889,14 +2040,12 @@ def place_in_round(
         order = list(QuizChannel)
         return min(allowed, key=order.index)
 
-    # 2. РЕЧЬ НЕ ПОСЛЕДНЕЙ и 3. ПОТОЛОК РЕЧИ
-    last_question = position >= round_length
-    if QuizChannel.SPEECH in allowed:
-        too_many = used[QuizChannel.SPEECH] >= speech_cap(round_length)
-        if last_question or too_many:
-            rest = [c for c in allowed if c is not QuizChannel.SPEECH]
-            if rest:
-                allowed = rest
+    # 2. РЕЧЬ НЕ ПОСЛЕДНЕЙ и 3. ПОТОЛОК РЕЧИ — то же правило, что у мест
+    # отработки (`_rotation`)
+    if QuizChannel.SPEECH in allowed and _speech_closed(used, position, round_length):
+        rest = [c for c in allowed if c is not QuizChannel.SPEECH]
+        if rest:
+            allowed = rest
 
     # 4. НЕ ДВА ОДИНАКОВЫХ ПОДРЯД, если есть чем заменить. Перемежение
     # закрепляет слово прочнее, чем блок однотипных повторов, — это и было

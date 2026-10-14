@@ -278,6 +278,35 @@ def build_groups(
     return stats
 
 
+# КАК СКЛЕИВАТЬ КАЖДУЮ КОЛОНКУ ПРОГРЕССА — ПРАВИЛОМ, А НЕ СПИСКОМ.
+# Прежде колонки были перечислены в запросе руками, и всё, что добавили
+# позже (`learned_at`, счётчики «на слух», «вслух», «обратно»), при
+# перепривязке молча стиралось: репетиция 14.10 — `learned_at` у 1 454 из
+# 1 454 выученных стал пустым, `shown_audio` обнулился. Теперь колонки
+# читаются из самой таблицы, а незнакомая останавливает перепривязку:
+# лучше упасть, чем снова тихо потерять прогресс людей.
+_KEYS = ("user_id", "learning_lang")
+_SUM_PREFIXES = ("times_", "shown_", "correct_")
+_MAX = {"correct_streak", "last_seen_at", "updated_at"}
+_MIN = {"created_at", "learned_at"}   # выучено — по самому раннему переходу
+_OR = {"learned"}
+
+
+def _merge_rule(column: str) -> str:
+    if column in _MAX:
+        return f"MAX(uw.{column})"
+    if column in _MIN:
+        return f"MIN(uw.{column})"
+    if column in _OR:
+        return f"BOOL_OR(uw.{column})"
+    if column.startswith(_SUM_PREFIXES):
+        return f"SUM(uw.{column})"
+    raise RuntimeError(
+        f"user_words.{column}: не знаю, как склеивать эту колонку при "
+        f"перепривязке — допишите правило в word_groups._merge_rule"
+    )
+
+
 def remap_user_progress_to_canonical(connection: Connection) -> int:
     """
     Перевести существующий прогресс на канонические слова.
@@ -285,25 +314,32 @@ def remap_user_progress_to_canonical(connection: Connection) -> int:
     Нужно после первой сборки групп: прогресс мог быть записан на строку,
     которая перестала быть представителем группы, и тогда стал бы невидимым.
     Счётчики объединяются: показы и правильные суммируются, streak и
-    последний показ берутся максимальные, «выучено» — по логическому ИЛИ.
+    последний показ берутся максимальные, «выучено» — по логическому ИЛИ,
+    дата перехода в выученные — самая ранняя.
 
     Строки без группы (нет перевода на этот язык) не трогаются.
     """
+    columns = connection.execute(
+        sa.text(
+            "SELECT column_name FROM information_schema.columns "
+            "WHERE table_name = 'user_words' AND table_schema = current_schema() "
+            "ORDER BY ordinal_position"
+        )
+    ).scalars().all()
+    merged = [c for c in columns if c not in _KEYS and c != "word_id"]
+    select_list = ",\n                ".join(
+        [f"uw.{key}" for key in _KEYS]
+        + ["g.canonical_id AS word_id"]
+        + [f"{_merge_rule(c)} AS {c}" for c in merged]
+    )
+    target = ", ".join([*_KEYS, "word_id", *merged])
+
     connection.execute(
         sa.text(
-            """
+            f"""
             CREATE TEMPORARY TABLE uw_canonical AS
             SELECT
-                uw.user_id,
-                uw.learning_lang,
-                g.canonical_id                AS word_id,
-                MAX(uw.correct_streak)        AS correct_streak,
-                SUM(uw.times_shown)           AS times_shown,
-                SUM(uw.times_correct)         AS times_correct,
-                MAX(uw.last_seen_at)          AS last_seen_at,
-                BOOL_OR(uw.learned)           AS learned,
-                MIN(uw.created_at)            AS created_at,
-                MAX(uw.updated_at)            AS updated_at
+                {select_list}
             FROM user_words uw
             JOIN word_lang_groups g
               ON g.lang = uw.learning_lang AND g.word_id = uw.word_id
@@ -323,17 +359,7 @@ def remap_user_progress_to_canonical(connection: Connection) -> int:
     )
 
     result = connection.execute(
-        sa.text(
-            """
-            INSERT INTO user_words
-                (user_id, word_id, learning_lang, correct_streak, times_shown,
-                 times_correct, last_seen_at, learned, created_at, updated_at)
-            SELECT
-                user_id, word_id, learning_lang, correct_streak, times_shown,
-                times_correct, last_seen_at, learned, created_at, updated_at
-            FROM uw_canonical
-            """
-        )
+        sa.text(f"INSERT INTO user_words ({target}) SELECT {target} FROM uw_canonical")
     )
 
     connection.execute(sa.text("DROP TABLE uw_canonical"))

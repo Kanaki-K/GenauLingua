@@ -8,6 +8,25 @@ from app.utils.timezones import TIMEZONE_CITIES, get_main_cities, get_extended_c
 from app.locales import get_text
 
 
+def city_label(city_code: str, lang: str) -> str:
+    """
+    Название города на языке человека, а без своего — по-английски.
+
+    `get_city_name` знает четыре языка (ru, uk, en, tr) и всем остальным
+    отдаёт РУССКОЕ написание. Немецкий и польский интерфейс появились
+    позже справочника городов, и экран часового пояса у них целиком шёл
+    кириллицей: «🇩🇪 Берлин», «🇺🇸 Нью-Йорк» — 20 кнопок из 20 (обход
+    шести языков, 14 октября). Латиница для них хотя бы читаема; свои
+    названия — в справочнике `app/utils/timezones.py`, тогда эта
+    подстановка просто перестанет срабатывать.
+    """
+    entry = TIMEZONE_CITIES.get(city_code)
+    if entry is None:
+        return get_city_name(city_code, lang)
+    names = entry[0]
+    return names.get(lang) or names["en"]
+
+
 def get_reminder_keyboard(lang: str = "ru", count: int = 15) -> InlineKeyboardMarkup:
     """
     Клавиатура САМОГО НАПОМИНАНИЯ. Прежде её не было вовсе.
@@ -64,11 +83,11 @@ def get_timezone_main_keyboard(lang: str = "ru") -> InlineKeyboardMarkup:
     # Первый ряд: Лондон, Берлин
     builder.row(
         InlineKeyboardButton(
-            text=f"{get_city_name('london', lang)} (UTC{get_utc_offset('london')})",
+            text=f"{city_label('london', lang)} (UTC{get_utc_offset('london')})",
             callback_data="tz:london"
         ),
         InlineKeyboardButton(
-            text=f"{get_city_name('berlin', lang)} (UTC{get_utc_offset('berlin')})",
+            text=f"{city_label('berlin', lang)} (UTC{get_utc_offset('berlin')})",
             callback_data="tz:berlin"
         )
     )
@@ -76,11 +95,11 @@ def get_timezone_main_keyboard(lang: str = "ru") -> InlineKeyboardMarkup:
     # Второй ряд: Киев, Стамбул
     builder.row(
         InlineKeyboardButton(
-            text=f"{get_city_name('kyiv', lang)} (UTC{get_utc_offset('kyiv')})",
+            text=f"{city_label('kyiv', lang)} (UTC{get_utc_offset('kyiv')})",
             callback_data="tz:kyiv"
         ),
         InlineKeyboardButton(
-            text=f"{get_city_name('istanbul', lang)} (UTC{get_utc_offset('istanbul')})",
+            text=f"{city_label('istanbul', lang)} (UTC{get_utc_offset('istanbul')})",
             callback_data="tz:istanbul"
         )
     )
@@ -135,11 +154,11 @@ def get_timezone_extended_keyboard(lang: str = "ru") -> InlineKeyboardMarkup:
     for city1, city2 in city_pairs:
         builder.row(
             InlineKeyboardButton(
-                text=get_city_name(city1, lang),
+                text=city_label(city1, lang),
                 callback_data=f"tz:{city1}"
             ),
             InlineKeyboardButton(
-                text=get_city_name(city2, lang),
+                text=city_label(city2, lang),
                 callback_data=f"tz:{city2}"
             )
         )

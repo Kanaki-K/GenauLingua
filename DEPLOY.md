@@ -2,13 +2,15 @@
 
 Прод сейчас: ветка `main` (июль 2026), схема `f61639c52096`, только
 немецкий, 4 языка интерфейса, без озвучки. Новая версия: 6 языков в любой
-паре, пять игр, озвучка, речь. Между ними **23 миграции** и новый словарь.
+паре, пять игр, озвучка, речь. Между ними **25 миграций** и новый словарь.
 
 **Всё ниже отрепетировано 14.10.2026** на копии прод-схемы с реальными
-людьми и СТАРЫМ словарём прода (выгрузка 29.09): 23 миграции за 34 с,
-перенос словаря, пересборка групп, починка учёта — слепок «до» и «после»
+людьми и СТАРЫМ словарём прода (выгрузка 29.09), последний раз — с
+`f2c7a9d4e801`: 25 миграций за ~30 с, перенос словаря ~10 с, пересборка
+групп ~40 с, один проход починки учёта — слепок «до» и «после»
 совпал до единицы во всём, кроме того, что меняется нарочно (напоминания
-121 → 233). Старая инструкция лежит в `archive/superseded/DEPLOY_2026-09.md`
+121 → 233). Любая новая миграция — повод повторить репетицию целиком.
+Старая инструкция лежит в `archive/superseded/DEPLOY_2026-09.md`
 и **опасна**: она советует залить словарь дампом таблицы, а с миграцией
 `d2f4a6b80c13` прогресс удаляется каскадом вслед за словом.
 
@@ -71,14 +73,20 @@ docker compose build app          # 5–10 минут, бот пока на ст
 
 ```bash
 docker compose stop app
+mkdir -p logs                     # каталог проекта смонтирован в контейнер
 docker compose run --rm app python -m app.scripts.release_snapshot --out logs/before.json
 ```
+
+**До шага 8 никакого `docker compose up`.** Команда сервиса начинается с
+`alembic upgrade head`: `up` прогнал бы миграции раньше слепка и запустил
+бота на старом словаре. Здесь только `run --rm` — он команду сервиса
+заменяет.
 
 ## 5. Миграции
 
 ```bash
 docker compose run --rm app alembic upgrade head
-docker compose run --rm app alembic current     # d9a3f0c7e214 (head)
+docker compose run --rm app alembic current     # f2c7a9d4e801 (head)
 ```
 
 Что делают с данными (остальные только добавляют колонки):
@@ -90,6 +98,8 @@ docker compose run --rm app alembic current     # d9a3f0c7e214 (head)
 | `c8f30a2b5d91` | круг 25 → 15 вопросов у тех, у кого стояло 25 |
 | `c5e2a7d41b90` | уникальность наград сезона (дублей в проде на 29.09 — ноль) |
 | `d9a3f0c7e214` | напоминания включены всем; выбранные время и дни не трогаются |
+| `e6b1c8d2f357` | колонка «на каком занятии отказался от уровня» — для повторного предложения через 5 занятий |
+| `f2c7a9d4e801` | `user_words.learned_at` — когда слово выучено; заполняется из прогресса, чтобы «+3 за слово» не платилось в каждом месяце заново |
 
 ## 6. Словарь
 
@@ -109,11 +119,16 @@ docker compose run --rm app python -m app.scripts.rebuild_word_groups
 ## 7. Учёт и сверка
 
 ```bash
-docker compose run --rm app python -m app.scripts.repair_accounting          # просмотр
-docker compose run --rm app python -m app.scripts.repair_accounting --apply  # если есть расхождения
 docker compose run --rm app python -m app.scripts.release_snapshot --out logs/after.json --compare logs/before.json
+docker compose run --rm app python -m app.scripts.repair_accounting          # просмотр
+docker compose run --rm app python -m app.scripts.repair_accounting --apply  # всегда: заполняет даты «выучено» после миграции
 docker compose run --rm app python -m app.scripts.audit_accounting
 ```
+
+**Сверка — ДО починки.** `repair_accounting --apply` нарочно меняет баллы
+текущего сезона (пересчёт по источнику), и после неё сверка показала бы
+`≠` там, где ничего не потеряно. Сверка отвечает на вопрос «выкатка ничего
+не потеряла», починка — «учёт верен»; это два разных шага.
 
 `release_snapshot --compare` обязан закончиться «всё сохранено». Меняться
 могут только `reminders_on` (всем включили) и число строк прогресса (дубли
@@ -153,7 +168,8 @@ docker compose run --rm app python -m app.scripts.state_report
 
 Без всякой подготовки бот синтезирует клип при первом показе слова и
 запоминает его `file_id`: первый человек ждёт ~1 с, остальные — нет.
-Синтез с 14.10 снова надёжен (edge-tts 7.3.0: 0 отказов на 1 900 клипах),
+Синтез с 14.10 снова надёжен (edge-tts 7.3.1, закреплена в `requirements.txt`;
+на 7.3.0 — 0 отказов на 1 900 клипах),
 но предзагрузка убирает и эту секунду:
 
 ```bash
@@ -180,6 +196,20 @@ docker compose build app && docker compose up -d
 
 `alembic downgrade` для отката НЕ годится: миграция `d7e8f9a0b1c2`
 схлопывает дубли прогресса, и обратная её не разделит. Только бэкап.
+
+---
+
+## Патчноут — после живой проверки
+
+```bash
+docker compose run --rm app python -m app.scripts.send_release_notes --key <ключ>              # просмотр: кому и на каком языке
+docker compose run --rm app python -m app.scripts.send_release_notes --key <ключ> --to-admin   # себе, все шесть языков
+docker compose run --rm app python -m app.scripts.send_release_notes --key <ключ> --send       # всем
+```
+
+Текст — ключ локалей, каждому на его языке интерфейса, с кнопкой
+«занятие». Отправленные пишутся в `logs/<ключ>.sent`: повторный запуск
+после обрыва не шлёт второй раз. Заблокировавшие бота пропускаются.
 
 ---
 

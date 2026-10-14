@@ -4,6 +4,8 @@ from sqlalchemy import select
 
 from app.database.enums import CEFRLevel, PartOfSpeech
 from app.database.models import UserWord, Word, WordLangGroup
+import pytest
+
 from app.services.word_groups import build_groups, remap_user_progress_to_canonical
 from tests.conftest import build_groups as rebuild, make_word
 
@@ -387,6 +389,51 @@ class TestProgressRemap:
         assert row.times_shown == 12            # сумма
         assert row.times_correct == 11          # сумма
         assert row.learned is True              # логическое ИЛИ
+
+    async def test_every_progress_column_survives_the_remap(self, session, user):
+        """
+        Репетиция 14.10: перепривязка стирала `learned_at` у 1 454 из 1 454
+        выученных и обнуляла счётчики «на слух» / «вслух» — колонки,
+        добавленные после неё, в запросе не значились.
+        """
+        from datetime import datetime
+
+        session.add_all([
+            make_word("Meeting", en="meeting", frequency_rank=10),
+            make_word("Sitzung", en="meeting", frequency_rank=20),
+        ])
+        await rebuild(session, ["en"])
+        words = {w.word_de: w for w in (await session.execute(select(Word))).scalars().all()}
+
+        early, late = datetime(2026, 9, 1), datetime(2026, 10, 1)
+        session.add_all([
+            UserWord(user_id=user.id, word_id=words["Meeting"].id, learning_lang="en",
+                     times_shown=5, times_correct=4, learned=True, learned_at=late,
+                     shown_audio=2, correct_audio=1, shown_speech=3, correct_speech=2),
+            UserWord(user_id=user.id, word_id=words["Sitzung"].id, learning_lang="en",
+                     times_shown=7, times_correct=7, learned=True, learned_at=early,
+                     shown_audio=1, correct_audio=1, shown_reverse=4, correct_reverse=3),
+        ])
+        await session.commit()
+
+        await session.run_sync(lambda s: remap_user_progress_to_canonical(s.connection()))
+        uid = user.id
+        await session.commit()
+        session.expire_all()
+
+        row = (await session.execute(
+            select(UserWord).where(UserWord.user_id == uid)
+        )).scalar_one()
+        assert row.learned_at == early, "дата перехода потерялась"
+        assert (row.shown_audio, row.correct_audio) == (3, 2)
+        assert (row.shown_speech, row.correct_speech) == (3, 2)
+        assert (row.shown_reverse, row.correct_reverse) == (4, 3)
+
+    def test_an_unknown_column_stops_the_remap(self):
+        from app.services.word_groups import _merge_rule
+
+        with pytest.raises(RuntimeError, match="mystery"):
+            _merge_rule("mystery")
 
     async def test_progress_in_different_languages_stays_separate(self, session, user):
         session.add_all([

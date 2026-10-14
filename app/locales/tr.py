@@ -99,7 +99,7 @@ TEXTS = {
     "remind_fact_1": "Kelime geri döndüğünde akılda kalır: bir gün, üç gün, bir hafta. Süreyi bot tutar.",
     "remind_fact_2": "Kulakla verilen yanıt daha değerli: dayanacak yazılı bir biçim yok.",
     "remind_fact_3": "Sesli söylemek tanımaktan zordur — ve üç kat değerlidir.",
-    "remind_fact_4": "On beş kelime dört dakika sürer — kahve kuyruğundan kısa.",
+    "remind_fact_4": "On beş soru dört dakika sürer — kahve kuyruğundan kısa.",
 
     # ============================================================================
     # AYARLAR
@@ -244,7 +244,6 @@ TEXTS = {
     "quiz_repeat_title": "<b>Hataları tekrarla</b>",
     "quiz_no_errors": "✓ Hiç hatanız yoktu!",
     "quiz_error_next": "✗ Sonraki soru yüklenemedi.",
-    "quiz_error_generate": "✗ Sonraki soru oluşturulamadı.",
 
     # ============================================================================
     # İSTATİSTİK
@@ -289,6 +288,7 @@ Topluluk ne kadar aktif olursa — bot o kadar iyi olur. Çekinmeyin! """,
     "rating_not_active": "✗ Sıralama henüz aktif değil.",
     "rating_not_in_ranking": "Henüz sıralamada değilsiniz",
     "rating_start_quiz": "İlk dersinizi yapın!",
+    "rating_join_by_lesson": "Bildirim puanlarınız ({score}) eklendi. Aylık sıralamaya girmek için bir ders tamamlayın.",
     "rating_position": "Sıranız: <b>#{rank}</b> / {total}",
     "rating_points": "Puan: <b>{score}</b>",
     "rating_title_polyglot": "poliglot",
@@ -319,7 +319,7 @@ Topluluk ne kadar aktif olursa — bot o kadar iyi olur. Çekinmeyin! """,
 
     "table_title_monthly": "<b>Liderlik Tablosu — {month} {year}</b>",
     "table_title_alltime": "<b>Liderlik Tablosu — Tüm Zamanlar</b>",
-    "table_empty": "Henüz katılımcı yok.\nİlk dersi siz yapın!",
+    "table_empty": "Henüz katılımcı yok.\nİlk dersi yapan siz olun!",
     "table_you_in_top": "Siz: <b>#{rank}</b> / {total}",
     "table_you_not_in_top": "Siz: <b>#{rank}</b> / {total} — {score}",
     "table_you_outside": "Siz: ilk 10 dışında — {score}",
@@ -419,7 +419,7 @@ TEXTS.update({
 # экране, и оставлено то, чего из интерфейса не видно.
 # ============================================================================
 TEXTS.update({
-    "help_how_to_use_text": "<b>Ders</b>\n{words}; sorularda dört seçenek var. Bot hatalarınızı hatırlar ve zor kelimeleri daha sık getirir. Dersten sonra yanlışlarınızı hemen tekrarlayabilirsiniz.\n\n<b>Seslendirme</b>\nSoruda kelime duyulur, cevaptan sonra kelime örnekle birlikte gelir. Ayarlardan erkek veya kadın sesi seçebilirsiniz.\n\n<b>Diller</b>\n{languages} — istediğiniz dil çiftinde. İlerleme ve sıralama her dil için ayrı tutulur.\n\n\nKelime, farklı günlerde üst üste üç doğru cevaptan sonra <b>öğrenilmiş</b> sayılır.\n<b>Seri</b>, o gün yapılan herhangi bir dersle uzar.\nÇeviri veya telaffuz hatası mı var? Dersin sonundaki «Hata bildir» düğmesine dokunun.",
+    "help_how_to_use_text": "<b>Ders</b>\n{words}; sorularda dört seçenek var. Oyunlar kendiliğinden değişir: «Okuyorum», «Hatırlıyorum», «Dinliyorum», «Konuşuyorum» ve «Eşleri bulun» tahtası. Bot hatalarınızı hatırlar ve zor kelimeleri daha sık getirir. Dersten sonra yanlışlarınızı hemen tekrarlayabilirsiniz.\n\n<b>Seslendirme</b>\nSoruda kelime duyulur, cevaptan sonra kelime örnekle birlikte gelir. Ayarlardan erkek veya kadın sesi seçebilirsiniz.\n\n<b>Diller</b>\n{languages} — istediğiniz dil çiftinde. İlerleme ve sıralama her dil için ayrı tutulur.\n\n\nKelime, farklı günlerde üst üste üç doğru cevaptan sonra <b>öğrenilmiş</b> sayılır.\n<b>Seri</b>, o gün yapılan herhangi bir dersle uzar.\nÇeviri veya telaffuz hatası mı var? Dersin sonundaki «Hata bildir» düğmesine dokunun.",
     "help_community_title": "<b>Bot ve topluluk hakkında</b>",
     "help_community_text": "<b>GenauLingua</b> — {language_count} dil, istediğiniz çiftte: {languages}\nA1–C2 arası 12 900 kelime, her birinde örnek ve doğal sesle seslendirme.\nArayüz: {interface_languages}\n\n<b>t.me/genaulingua_chat</b>\nHatalar, çeviri yanlışları, fikirler — hepsini okuyoruz. Telaffuzla ilgili bildirimler özellikle değerli: makine vurguyu duymaz.",
 })
@@ -502,7 +502,7 @@ TEXTS.update({
     "quiz_result_recalled": "💭 Hatırlanan: {count}",
     "home_scale_reverse": "Hatırlıyorum",
     "channel_reverse": "💭 Hatırlıyorum",
-    "channels_text_always": "«Okuyorum» kapatılamaz: oyunsuz bir ders boş ekran demektir.",
+    "channels_text_always": "«Okuyorum» kapatılamaz: her yeni kelime bu kartla başlar.",
     "channels_audio_blocked": "🎧 «Dinliyorum» ve «Konuşuyorum» kullanılamıyor: seslendirme kapalı.",
 })
 
@@ -577,7 +577,7 @@ TEXTS.update({
     "reminder_offer": "Günde bir kez hatırlatayım mı? Öğrendiklerinizi kaybetmemek böyle daha kolay — seri de kopmaz.",
     "reminder_offer_yes": "Evet, hatırlat",
     "reminder_offer_no": "Gerek yok",
-    "reminder_offer_done": "✓ Tamam: hatırlatıcı saati <b>{time}</b> (yerel saatinizle). Saati, günleri ve saat dilimini ayarlayabilirsiniz.",
+    "reminder_offer_done": "✓ Tamam: hatırlatıcı saat <b>{time}</b> ({city}) gelecek. Saati, günleri ve saat dilimini ayarlayabilirsiniz.",
     "reminder_offer_setup": "Hatırlatıcıları ayarla",
     "level_offer": "<b>{current}</b> seviyesinde neredeyse hiç hata yapmıyorsunuz. <b>{following}</b> seviyesine geçelim mi? Öğrendikleriniz sizde kalır.",
     "level_offer_yes": "Evet, {following} seviyesine geç",

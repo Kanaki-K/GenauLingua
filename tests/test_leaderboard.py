@@ -254,8 +254,12 @@ class TestPerLanguageSeasons:
         await session.commit()
 
         session.add_all([
-            MonthlyStats(user_id=1, season_id=season.id, learning_lang="de", monthly_score=10),
-            MonthlyStats(user_id=2, season_id=season.id, learning_lang="en", monthly_score=999),
+            # По занятию у каждого: ряд без занятий в рейтинге месяца не
+            # стоит (`ranked_in_month`)
+            MonthlyStats(user_id=1, season_id=season.id, learning_lang="de",
+                         monthly_score=10, monthly_quizzes=1),
+            MonthlyStats(user_id=2, season_id=season.id, learning_lang="en",
+                         monthly_score=999, monthly_quizzes=1),
         ])
         await session.commit()
 

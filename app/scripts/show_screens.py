@@ -467,6 +467,13 @@ def _samples() -> dict[str, str]:
         "notif_day:X": "notif_day:1",
         "set_goal_X": f"set_goal_{GOAL_ORDER[0]}",
         "settings_group_X": "settings_group_how",
+        # Список жалобы: номер страницы и id слова. Без подстановки обход
+        # нажимал `report_page_X` и падал на int('X') — две кнопки жалобы
+        # числились «сбой» и не проверялись вовсе (аудит 14 октября).
+        # Списка в состоянии у подопытного нет, поэтому экран — пустая
+        # клавиатура: проверяется, что нажатие доходит и не роняет обработчик
+        "report_page_X": "report_page_1",
+        "report_toggle_X": "report_toggle_1",
     }
 
 

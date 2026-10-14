@@ -98,13 +98,13 @@ TEXTS = {
     "remind_due": "Zur Wiederholung fällig: {count} — die Termine behält der Bot im Blick",
     "remind_due_many": "Es hat sich viel angesammelt. Fangen Sie mit einer Lektion an, der Rest wartet.",
     "remind_streak_lost": "Ihre beste Serie war {days_word}. Eine neue beginnt mit einer Lektion.",
-    "remind_milestone_close": "Kennengelernte Wörter: {count} · noch {left} bis {target}, das ist eine Lektion",
+    "remind_milestone_close": "Wörter in Arbeit: {count} · noch {left} bis {target}, das ist eine Lektion",
     "remind_almost_learned": "Nur noch eine richtige Antwort bis zum ersten gelernten Wort. Solche Wörter: {count}",
-    "remind_rank": "Platz {rank} von {total} in Ihrer Sprache",
+    "remind_rank": "Platz {rank} von {total} in der Monatsrangliste dieser Sprache",
     "remind_fact_1": "Ein Wort bleibt, wenn es wiederkommt: nach einem Tag, nach drei Tagen, nach einer Woche. Die Termine behält der Bot im Blick.",
     "remind_fact_2": "Eine Antwort nach Gehör zählt doppelt: Das geschriebene Wort fehlt, Sie unterscheiden nur am Klang.",
     "remind_fact_3": "Aussprechen ist schwerer als Erkennen — und dreimal so viel wert.",
-    "remind_fact_4": "Fünfzehn Wörter dauern etwa vier Minuten. Kürzer als die Schlange am Kaffeestand.",
+    "remind_fact_4": "Fünfzehn Fragen dauern etwa vier Minuten. Kürzer als die Schlange am Kaffeestand.",
 
     # ============================================================================
     # EINSTELLUNGEN
@@ -235,7 +235,7 @@ TEXTS = {
     "praise_first_learned": "Erstes Wort gelernt: drei richtige Antworten hintereinander, an verschiedenen Tagen.",
     "praise_learned": "Gelernte Wörter in dieser Lektion: {count}",
     "praise_best_streak": "Persönlicher Rekord: {days_word} in Folge",
-    "praise_milestone": "Schon {count} Wörter kennengelernt",
+    "praise_milestone": "Schon {count} Wörter in Arbeit",
     "praise_first_speech": "Erste richtige Antwort per Stimme",
     "praise_first_audio": "Erste richtige Antwort nach Gehör",
     "praise_comeback": "Willkommen zurück. Die Pause dauerte {days_word}.",
@@ -243,14 +243,13 @@ TEXTS = {
     "praise_streak": "Serie: {days_word} in Folge",
     "praise_new_words": "Neue Wörter: {count}",
     "praise_returned": "Wiedererkannt: {count}",
-    "praise_progress": "Kennengelernte Wörter: {count} · noch {left} bis {target}",
-    "praise_progress_top": "Kennengelernte Wörter: {count}",
+    "praise_progress": "Wörter in Arbeit: {count} · noch {left} bis {target}",
+    "praise_progress_top": "Wörter in Arbeit: {count}",
     "praise_points": "Punkte: +{points}",
 
     "quiz_repeat_title": "<b>Fehler wiederholen</b>",
     "quiz_no_errors": "✓ Sie hatten keine Fehler!",
     "quiz_error_next": "✗ Die nächste Frage konnte nicht geladen werden.",
-    "quiz_error_generate": "✗ Die nächste Frage konnte nicht erstellt werden.",
 
     # ============================================================================
     # STATISTIK
@@ -295,6 +294,7 @@ Je lebendiger die Community, desto besser wird der Bot. Nur keine Scheu! """,
     "rating_not_active": "✗ Die Platzierung ist noch nicht aktiv.",
     "rating_not_in_ranking": "Sie sind noch nicht in der Rangliste",
     "rating_start_quiz": "Machen Sie Ihre erste Lektion!",
+    "rating_join_by_lesson": "Ihre Punkte für Meldungen ({score}) sind gutgeschrieben. Absolvieren Sie eine Lektion, um in die Monatsrangliste zu kommen.",
     "rating_position": "Platz: <b>#{rank}</b> von {total}",
     "rating_points": "Punkte: <b>{score}</b>",
     "rating_title_polyglot": "Polyglott",
@@ -339,8 +339,8 @@ Je lebendiger die Community, desto besser wird der Bot. Nur keine Scheu! """,
     # STATISTIK (NEU)
     # ============================================================================
     "stats_header": "<b>Ihre Statistik</b>",
-    "stats_in_work_line": "Kennengelernte Wörter: {count} · noch {left} bis {target}",
-    "stats_in_work_top": "Kennengelernte Wörter: {count}",
+    "stats_in_work_line": "Wörter in Arbeit: {count} · noch {left} bis {target}",
+    "stats_in_work_top": "Wörter in Arbeit: {count}",
     "stats_details": "Noch in Übung: {progress}\nNeu: {new}\nSchwierig: {difficult}",
     "stats_achievements_title": "<b>Ihre Erfolge</b>",
     "stats_words_count": "Wörter gelernt: <b>{count}</b>",
@@ -431,7 +431,7 @@ TEXTS.update({
 # экране, и оставлено то, чего из интерфейса не видно.
 # ============================================================================
 TEXTS.update({
-    "help_how_to_use_text": "<b>Lektion</b>\n{words}, je vier Antworten. Der Bot merkt sich Ihre Fehler und bringt Schwieriges öfter zurück. Nach der Lektion können Sie Ihre Fehler sofort wiederholen.\n\n<b>Aussprache</b>\nIn der Frage erklingt das Wort, nach der Antwort das Wort mit seinem Beispiel. Die Stimme wählen Sie in den Einstellungen — männlich oder weiblich.\n\n<b>Sprachen</b>\n{languages} — in jedem Paar und in beide Richtungen. Fortschritt und Platzierung werden für jede Sprache getrennt gezählt.\n\n\nEin Wort gilt als <b>gelernt</b> nach drei richtigen Antworten hintereinander, und zwar an verschiedenen Tagen.\nDie <b>Serie</b> zählt Tage in Folge: Eine Lektion am Tag genügt.\nFehler in Übersetzung oder Aussprache — dafür gibt es den Knopf am Ende der Lektion.",
+    "help_how_to_use_text": "<b>Lektion</b>\n{words}, je vier Antworten. Die Spiele wechseln sich von selbst ab: „Ich lese“, „Ich erinnere“, „Ich höre“, „Ich spreche“ und die Tafel „Finden Sie die Paare“. Der Bot merkt sich Ihre Fehler und bringt Schwieriges öfter zurück. Nach der Lektion können Sie Ihre Fehler sofort wiederholen.\n\n<b>Aussprache</b>\nIn der Frage erklingt das Wort, nach der Antwort das Wort mit seinem Beispiel. Die Stimme wählen Sie in den Einstellungen — männlich oder weiblich.\n\n<b>Sprachen</b>\n{languages} — in jedem Paar. Fortschritt und Platzierung werden für jede Sprache getrennt gezählt.\n\n\nEin Wort gilt als <b>gelernt</b> nach drei richtigen Antworten hintereinander, und zwar an verschiedenen Tagen.\nDie <b>Serie</b> zählt Tage in Folge: Eine Lektion am Tag genügt.\nFehler in Übersetzung oder Aussprache — dafür gibt es den Knopf „Fehler melden“ am Ende der Lektion.",
     "help_community_title": "<b>Über den Bot und die Gemeinschaft</b>",
     "help_community_text": "<b>GenauLingua</b> — {language_count} Sprachen, in jeder Kombination: {languages}\n12 900 Wörter A1–C2, jedes mit Beispiel und natürlich klingender Aussprache.\nOberfläche: {interface_languages}\n\n<b>t.me/genaulingua_chat</b>\nFehler, falsche Übersetzungen, Ideen — wir lesen alles. Hinweise zur Aussprache sind besonders willkommen: Eine Maschine hört die Betonung nicht.",
 })
@@ -589,7 +589,7 @@ TEXTS.update({
     "reminder_offer": "Einmal am Tag erinnern? So verlieren Sie das Gelernte nicht — und die Serie bleibt.",
     "reminder_offer_yes": "Ja, bitte erinnern",
     "reminder_offer_no": "Nein, danke",
-    "reminder_offer_done": "✓ Fertig: Die Erinnerung kommt um <b>{time}</b> Ihrer Zeit. Uhrzeit, Tage und Zeitzone können Sie anpassen.",
+    "reminder_offer_done": "✓ Fertig: Die Erinnerung kommt um <b>{time}</b> ({city}). Uhrzeit, Tage und Zeitzone können Sie anpassen.",
     "reminder_offer_setup": "Erinnerungen anpassen",
     "level_offer": "Auf <b>{current}</b> machen Sie kaum noch Fehler. Weiter zu <b>{following}</b>? Alles Gelernte bleibt Ihnen erhalten.",
     "level_offer_yes": "Ja, weiter zu {following}",
@@ -678,7 +678,7 @@ TEXTS.update({
     "settings_btn_match": "Tafel in der Lektion",
     "settings_match_title": "<b>Tafel in der Lektion</b>",
     "settings_match_description": "In jeder Lektion kommt in der Mitte eine Tafel statt einer Frage: fünf Wörter und fünf Bedeutungen, die Sie einander zuordnen. Es sind nur bekannte Wörter, daher erscheint die Tafel, sobald Sie zehn davon haben.",
-    "match_state_on": "Tafel ist an — sie kommt in der Mitte der Lektion.",
+    "match_state_on": "Die Tafel ist an und kommt in der Mitte der Lektion.",
     "settings_match_short_on": "mit Tafel",
     "settings_channels_short_one": "nur „Ich lese“",
     "settings_channels_short_some": "{count} von vier Spielen",
@@ -689,5 +689,5 @@ TEXTS.update({
     "settings_audio_short_off": "ohne Ton",
     "settings_audio_short_on": "mit Ton",
     "settings_match_short_off": "ohne Tafel",
-    "match_state_off": "Tafel ist aus — die Lektion besteht nur aus Fragen.",
+    "match_state_off": "Die Tafel ist aus: Die Lektion besteht nur aus Fragen.",
 })

@@ -153,14 +153,64 @@ def _transcribe_blocking(model, audio, lang: str, hint: Optional[str] = None) ->
     return " ".join(seg.text for seg in segments).strip()
 
 
+# Артикли, которые распознаватель приклеивает к слову: «Derstreit»
+_ARTICLES = ("der", "die", "das", "the", "a", "an")
+
+# Короткое слово сверяется ТОЛЬКО ЦЕЛИКОМ. Доля совпадения у него ничего не
+# говорит: «Eis» и «Reise» дают ровно 0.75, «Ohr» и «Rohr» — 0.86, то есть
+# порог «узнано» проходит чужое слово. Таких целей в немецкой базе 191.
+SHORT_WORD = 4
+
+
+def _contains(want: str, got: str) -> bool:
+    """
+    Есть ли искомое в услышанном ЦЕЛЫМИ СЛОВАМИ.
+
+    Прежде сверка шла подстрокой — `want in got`, — и искомое внутри
+    ЧУЖОГО слова засчитывалось: «das Ei» по записи «nein» и «Bleistift»,
+    «in» по «Kino», «an» по «Mann», «die Uhr» по «Fuhrmann». Проверено
+    исполнением, сходство 1.00 у всех.
+
+    Теперь — по границам слов:
+
+      * искомое стоит в услышанном подряд идущими словами («das ist ein
+        Krieg» — Krieg засчитан);
+      * склейка — только СОСЕДНИХ слов: распознаватель пишет «Derstreit»
+        или «Stra ße», и такое слово, склеенное из соседей, совпадает с
+        искомым без пробелов (с артиклем впереди или без).
+    """
+    if not want:
+        return False
+    w_tokens = want.split()
+    g_tokens = got.split()
+    n = len(w_tokens)
+    for i in range(len(g_tokens) - n + 1):
+        if g_tokens[i:i + n] == w_tokens:
+            return True
+
+    bare = want.replace(" ", "")
+    glued = {bare} | {article + bare for article in _ARTICLES}
+    longest = max(len(g) for g in glued)
+    for i in range(len(g_tokens)):
+        joined = ""
+        for token in g_tokens[i:]:
+            joined += token
+            if joined in glued:
+                return True
+            if len(joined) >= longest:
+                break
+    return False
+
+
+def _threshold(want: str) -> float:
+    """С какой доли совпадения слово узнано: короткое — только целиком."""
+    return 1.0 if len(want.replace(" ", "")) <= SHORT_WORD else MATCH_THRESHOLD
+
+
 def _similarity(want: str, got: str) -> float:
-    ratio = SequenceMatcher(None, want, got).ratio()
-    # Слово внутри фразы тоже засчитывается: «das ist ein Krieg» вместо
-    # одного слова — не ошибка. Сверка и без пробелов: артикль и слово
-    # распознаватель склеивает («Derstreit»)
-    if want and (want in got or want.replace(" ", "") in got.replace(" ", "")):
-        ratio = max(ratio, 1.0)
-    return ratio
+    if _contains(want, got):
+        return 1.0
+    return SequenceMatcher(None, want, got).ratio()
 
 
 async def check_pronunciation(
@@ -200,8 +250,9 @@ async def check_pronunciation(
         return SpeechVerdict(heard=heard, matched=False, similarity=0.0, failed=True)
 
     ratio = _similarity(want, got)
+    threshold = _threshold(want)
 
-    if NEAR_MISS <= ratio < MATCH_THRESHOLD:
+    if NEAR_MISS <= ratio < threshold:
         try:
             async with _slots:
                 second = await asyncio.to_thread(
@@ -217,5 +268,5 @@ async def check_pronunciation(
             heard, ratio = second, second_ratio
 
     return SpeechVerdict(
-        heard=heard, matched=ratio >= MATCH_THRESHOLD, similarity=ratio
+        heard=heard, matched=ratio >= threshold, similarity=ratio
     )

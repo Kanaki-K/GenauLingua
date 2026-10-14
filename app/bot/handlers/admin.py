@@ -37,6 +37,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 # text импортируется под псевдонимом: в этом модуле `text` — локальная
 # переменная, в которой собираются сообщения, и импорт её бы затенял
 from sqlalchemy import select, update, func, and_, distinct, case, desc, or_, text as sql_text
+from sqlalchemy.dialects.postgresql import insert as pg_insert
 from typing import Optional
 from datetime import datetime, timedelta, date
 from app.core.clock import utcnow, utctoday
@@ -1657,6 +1658,16 @@ async def _reward_reporters(
     rewarded: dict[int, tuple[str, set[str]]] = {}
     paid_before = 0
     for user_id, rows in by_user.items():
+        # ОДИН ЧЕЛОВЕК — ОДНО РЕШЕНИЕ ЗА РАЗ, и замок стоит ДО проверки
+        # «уже платили». Прежде проверка шла без замка: «перевод» и «звук»
+        # одного слова, принятые одновременно (две кнопки подряд или два
+        # админа), не видели незакоммиченного `fixed` друг друга и платили
+        # оба — замер 14 октября: report_bonus 30 за одно слово, два
+        # извещения; а если ряда месяца не было, второе нажатие падало с
+        # UniqueViolation и откатывало принятие. Замок транзакционный:
+        # снимается при commit, второй ждёт и, перечитав, видит `fixed`
+        await session.execute(select(func.pg_advisory_xact_lock(user_id)))
+
         earlier = (await session.execute(
             select(func.count()).select_from(TranslationReport).where(
                 TranslationReport.user_id == user_id,
@@ -1678,31 +1689,31 @@ async def _reward_reporters(
         # и балл за польскую ошибку ложился в немецкий ряд.
         learning_lang = await _reporter_lang(rows[0], session)
 
-        # Ряд берётся под замок: два одновременных решения по РАЗНЫМ словам
-        # одного человека иначе прочли бы один и тот же report_bonus, и одно
-        # прибавление потерялось бы
+        # Ряда может не быть — человек жаловался, но в этом месяце не
+        # играл. Создаётся вставкой «если нет»: ряд может в эту же секунду
+        # создать и конец его занятия (`update_monthly_stats`), которого
+        # замок выше не держит, — простая вставка упала бы на уникальности
+        await session.execute(
+            pg_insert(MonthlyStats)
+            .values(user_id=user_id, season_id=season.id,
+                    learning_lang=learning_lang)
+            .on_conflict_do_nothing(
+                constraint="uq_monthly_stats_user_season_lang")
+        )
+
+        # Ряд берётся под замок: решение по жалобе и конец занятия иначе
+        # прочли бы один и тот же ряд, и одно прибавление потерялось бы
         stat = (await session.execute(
             select(MonthlyStats).where(
                 MonthlyStats.user_id == user_id,
                 MonthlyStats.season_id == season.id,
                 MonthlyStats.learning_lang == learning_lang,
-            ).with_for_update()
-        )).scalar_one_or_none()
+            ).with_for_update().execution_options(populate_existing=True)
+        )).scalar_one()
 
         points = REPORT_REWARD_POINTS
-        if stat:
-            stat.report_bonus = (stat.report_bonus or 0) + points
-            stat.monthly_score = stat.calculate_monthly_score()
-        else:
-            # Ряда нет — человек жаловался, но в этом месяце не играл
-            session.add(MonthlyStats(
-                user_id=user_id,
-                season_id=season.id,
-                learning_lang=learning_lang,
-                report_bonus=points,
-                monthly_score=points,
-            ))
-            await session.flush()
+        stat.report_bonus = (stat.report_bonus or 0) + points
+        stat.monthly_score = stat.calculate_monthly_score()
 
         rewarded[user_id] = (learning_lang, {row.kind or "text" for row in rows}, points)
 
@@ -1786,6 +1797,11 @@ async def admin_report_approve(callback: CallbackQuery, session: AsyncSession):
             {"wid": word_id},
         )
         dropped_clips = dropped.rowcount or 0
+        # И файлы на диске: без этого следующий показ залил бы тот же звук
+        from app.services.audio_service import drop_word_files
+        audio_word = await session.get(Word, word_id)
+        if audio_word is not None:
+            dropped_clips += drop_word_files(audio_word)
 
     await session.commit()
 

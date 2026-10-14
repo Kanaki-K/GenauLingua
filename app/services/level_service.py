@@ -43,7 +43,7 @@ from typing import Optional
 from sqlalchemy import desc, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.database.enums import CEFRLevel
+from app.database.enums import CEFRLevel, QuizMode
 from app.database.models import QuizQuestion, QuizSession, User
 
 logger = logging.getLogger(__name__)
@@ -85,6 +85,24 @@ def next_level(level: Optional[CEFRLevel]) -> Optional[CEFRLevel]:
     if index + 1 >= len(LEVEL_ORDER):
         return None
     return LEVEL_ORDER[index + 1]
+
+
+def level_drives_words(user: User) -> bool:
+    """
+    Подбирает ли уровень слова в текущем режиме человека.
+
+    То же правило, что `quiz_service._apply_quiz_mode_filter`: уровнем
+    отбирают «По уровню» и «По теме» без выбранной темы (там откат на
+    уровень); «По теме» с темой, «Все слова» и «Сложные» уровня не
+    смотрят вовсе — «Сложные» берут трудные слова человека по всей базе.
+
+    Зачем: предложение «перейти на A2» приходило и в этих режимах, где от
+    смены уровня не меняется ни одно слово, — согласие было бы обманом.
+    """
+    mode = getattr(user, "quiz_mode", None)
+    if mode == QuizMode.CATEGORY:
+        return not getattr(user, "quiz_category", None)
+    return mode not in (QuizMode.ALL_WORDS, QuizMode.DIFFICULT)
 
 
 async def recent_accuracy(user: User, session: AsyncSession) -> tuple[int, float]:
@@ -136,6 +154,10 @@ async def should_offer_next_level(
     if following is None:
         return None
 
+    # Уровень не подбирает слова в этом режиме — поднимать его незачем
+    if not level_drives_words(user):
+        return None
+
     # Отказ относится к конкретному уровню: поднявшись своей волей, человек
     # снова услышит предложение — уже про следующий.
     #
@@ -157,18 +179,45 @@ async def should_offer_next_level(
     return following
 
 
-async def raise_level(user: User, session: AsyncSession, level: CEFRLevel) -> None:
-    """Поднять уровень по согласию человека."""
+async def raise_level(user: User, session: AsyncSession, level: CEFRLevel) -> bool:
+    """
+    Поднять уровень по согласию человека. False — кнопка устарела.
+
+    ТОЛЬКО НА СЛЕДУЮЩИЙ ЗА ТЕКУЩИМ. Предложение остаётся в переписке, и
+    кнопка «Да, перейти на A2», нажатая, когда человек уже сам поднялся до
+    B1, прежде ОПУСКАЛА его на A2: уровень ставился из кнопки как есть.
+    Устаревшая кнопка теперь ничего не меняет.
+    """
+    if level is None or level != next_level(user.level):
+        logger.info("устаревшее предложение уровня: у человека %s, в кнопке %s",
+                    getattr(user.level, "value", user.level),
+                    getattr(level, "value", level))
+        return False
     user.level = level
     # Прежний отказ относился к прежнему уровню и больше ничего не значит
     user.level_offer_declined = None
     user.level_offer_declined_round = None
     await session.commit()
+    return True
 
 
-async def decline_level(user: User, session: AsyncSession) -> None:
-    """Запомнить отказ, чтобы не спрашивать об этом же уровне снова."""
+async def decline_level(
+    user: User, session: AsyncSession, offered: Optional[CEFRLevel] = None,
+) -> bool:
+    """
+    Запомнить отказ, чтобы не спрашивать об этом же уровне снова.
+
+    `offered` — уровень, который предлагала нажатая кнопка. Если он уже не
+    следующий за текущим (человек сменил уровень сам), кнопка устарела:
+    отказ от «A1 → A2», нажатый на A2, записал бы отказ от «A2 → B1», о
+    котором человека не спрашивали. Без `offered` (кнопки старого вида)
+    отказ пишется к текущему уровню, как прежде. False — ничего не записано.
+    """
+    if offered is not None and offered != next_level(user.level):
+        return False
     if user.level is not None:
         user.level_offer_declined = user.level.value
         user.level_offer_declined_round = user.quizzes_passed or 0
         await session.commit()
+        return True
+    return False

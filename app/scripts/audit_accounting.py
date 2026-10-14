@@ -138,6 +138,18 @@ CHECKS: list[tuple[str, str, str]] = [
         """,
         "SELECT COUNT(*) FROM user_words WHERE learned",
     ),
+    # Дата перехода в «выучено» — основа «+3 за слово» в месячном балле
+    # (`month_words`): выученное без даты не оплачивается ни в каком месяце,
+    # дата у невыученного оплатила бы слово, которое человек забыл
+    (
+        "дата «выучено» есть ровно у выученных",
+        """
+        SELECT COUNT(*) FROM user_words
+        WHERE (learned AND learned_at IS NULL)
+           OR (NOT learned AND learned_at IS NOT NULL)
+        """,
+        "SELECT COUNT(*) FROM user_words WHERE learned",
+    ),
     (
         "у показанного слова есть дата показа",
         """
@@ -296,6 +308,111 @@ async def _check_scores(session, rep: Report) -> None:
         rep.note(line)
 
 
+async def _check_lifetime(session, rep: Report) -> None:
+    """
+    «За всё время» на экране = сумма месячных баллов + бонусы за места.
+
+    Экран считает это в `_lifetime_totals` по каждому изучаемому языку;
+    здесь та же сумма — простым SQL по источнику, мимо кода экрана. Прежде
+    экран читал колонку `users.lifetime_score`, где копились одни бонусы, и
+    у владельца с 189 баллами за октябрь стояло «0». Разойдись код экрана
+    с источником снова — это место скажет.
+    """
+    from app.services.monthly_leaderboard_service import get_lifetime_leaderboard
+
+    langs = [lang for (lang,) in (await session.execute(text(
+        "SELECT DISTINCT learning_lang FROM monthly_stats"))).all()]
+    bad, checked = [], 0
+    for lang in langs:
+        truth = {
+            uid: int(total) for uid, total in (await session.execute(text("""
+                SELECT s.user_id, s.scored + COALESCE(a.bonus, 0)
+                FROM (SELECT user_id, SUM(monthly_score) AS scored
+                      FROM monthly_stats WHERE learning_lang = :lang
+                      GROUP BY user_id) s
+                LEFT JOIN (SELECT user_id, SUM(lifetime_bonus) AS bonus
+                           FROM monthly_awards WHERE learning_lang = :lang
+                           GROUP BY user_id) a ON a.user_id = s.user_id
+            """), {"lang": lang})).all()
+        }
+        shown = {
+            row["user_id"]: row["lifetime_score"]
+            for row in await get_lifetime_leaderboard(
+                session, limit=max(1, len(truth)), learning_lang=lang)
+        }
+        checked += len(truth)
+        for uid, total in truth.items():
+            if shown.get(uid) != total:
+                bad.append(f"{uid} [{lang}]: на экране {shown.get(uid)}, по источнику {total}")
+
+    title = "«за всё время» = месяцы + бонусы за места"
+    rep.line(not bad, title,
+             f"расходится {len(bad)} из {checked}" if bad else f"проверено {checked}")
+    for line in bad[:rep.show]:
+        rep.note(line)
+
+
+# Награда по месту: так её выдаёт `finalize_season`
+_AWARD_BY_RANK = {1: ("gold", 100), 2: ("silver", 50), 3: ("bronze", 25)}
+
+
+async def _check_awards(session, rep: Report) -> None:
+    """
+    Награды закрытых сезонов согласованы с итоговыми местами.
+
+    Каждая награда — у ряда того же человека, сезона и языка, с тем же
+    `final_rank`; вид и бонус соответствуют месту (1/2/3 — медали 100/50/25,
+    4–10 — «десятка», 10); у каждого ряда с местом до десятого награда
+    есть. Медаль без места или место без медали — то, что человек увидел
+    бы в извещении иначе, чем в таблице.
+
+    Правило «место = 1 + сколько набрали больше» здесь НЕ проверяется:
+    сезоны, закрытые до 14 октября, нумеровали места строками, и их итоги
+    не переписываются.
+
+    ПОЧЕМУ НЕТ ПРОВЕРКИ `report_bonus = 15 × оплаченных слов`. Цена жалобы
+    менялась (1 → 5 → 15) и действовал месячный потолок, а когда и по какой
+    цене оплачена каждая прошлая жалоба, нигде не записано; `report_bonus`
+    хранит баллы, а не число жалоб. Вывести ожидаемое число надёжно не из
+    чего — проверка лгала бы на каждом старом ряду.
+    """
+    rows = (await session.execute(text("""
+        SELECT a.user_id, a.season_id, a.learning_lang, a.rank, a.award_type,
+               a.lifetime_bonus, ms.final_rank, ms.id IS NULL AS no_row
+        FROM monthly_awards a
+        LEFT JOIN monthly_stats ms
+          ON ms.user_id = a.user_id AND ms.season_id = a.season_id
+         AND ms.learning_lang = a.learning_lang
+    """))).all()
+    bad = []
+    for uid, sid, lang, rank, kind, bonus, final_rank, no_row in rows:
+        expected = _AWARD_BY_RANK.get(rank, ("top10", 10))
+        if no_row:
+            bad.append(f"{uid} сезон {sid} [{lang}]: награда без ряда месяца")
+        elif final_rank != rank:
+            bad.append(f"{uid} сезон {sid} [{lang}]: награда за место {rank}, итог {final_rank}")
+        elif (kind, bonus) != expected or rank > 10:
+            bad.append(f"{uid} сезон {sid} [{lang}]: место {rank} — {kind}/{bonus}")
+
+    orphans = (await session.execute(text("""
+        SELECT ms.user_id, ms.season_id, ms.learning_lang, ms.final_rank
+        FROM monthly_stats ms
+        JOIN monthly_seasons se ON se.id = ms.season_id AND se.winners_finalized
+        LEFT JOIN monthly_awards a
+          ON a.user_id = ms.user_id AND a.season_id = ms.season_id
+         AND a.learning_lang = ms.learning_lang
+        WHERE ms.final_rank <= 10 AND a.id IS NULL
+    """))).all()
+    bad += [f"{uid} сезон {sid} [{lang}]: место {r} без награды"
+            for uid, sid, lang, r in orphans]
+
+    title = "награды = итоговым местам"
+    rep.line(not bad, title,
+             f"расходится {len(bad)} из {len(rows)}" if bad else f"проверено {len(rows)}")
+    for line in bad[:rep.show]:
+        rep.note(line)
+
+
 async def run(show: int) -> int:
     rep = Report(show)
     print("Приёмка учёта: сходятся ли числа про человека\n" + "=" * 68)
@@ -303,6 +420,8 @@ async def run(show: int) -> int:
     async with AsyncSessionLocal() as session:
         await _check_streaks(session, rep)
         await _check_scores(session, rep)
+        await _check_lifetime(session, rep)
+        await _check_awards(session, rep)
         for title, bad_sql, total_sql in CHECKS:
             bad = int((await session.execute(text(bad_sql))).scalar() or 0)
             total = int((await session.execute(text(total_sql))).scalar() or 0)

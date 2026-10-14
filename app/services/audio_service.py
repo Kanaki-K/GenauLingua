@@ -599,6 +599,41 @@ async def forget(session: AsyncSession, word_id: int, lang: str,
     )
 
 
+def drop_word_files(word: Word) -> int:
+    """
+    Стереть с диска клипы слова: все языки, все голоса, слово/пример/медленный.
+
+    Для принятой жалобы на звук. Строки `word_audio` стирались и прежде, но
+    следующий показ брал клип с диска (`obtain_audio` читает его первым) и
+    заливал в Telegram тот же самый звук: жалоба принята, звук прежний.
+    Вслепую отдельного файла нет — это файл слова.
+
+    Файл с тем же текстом у другого слова уходит тоже: звук у них один, и
+    плох он для обоих. Синтезируется заново при первом показе.
+    """
+    from app.services.tts_voices import VOICES
+
+    removed = 0
+    for lang, voices in VOICES.items():
+        for kind in (KIND_WORD, KIND_FULL, KIND_SLOW):
+            try:
+                spoken = spoken_for(word, lang, kind)
+            except Exception:
+                continue
+            if not spoken:
+                continue
+            for voice in voices:
+                path = audio_store.clip_path(lang, voice.name, kind, spoken)
+                try:
+                    path.unlink()
+                    removed += 1
+                except FileNotFoundError:
+                    pass
+                except OSError:
+                    logger.warning("клип не стёрся: %s", path, exc_info=True)
+    return removed
+
+
 async def reobtain(clip: AudioClip, lang: str) -> Optional[AudioClip]:
     """
     Тот же клип, но ЗВУКОМ, а не ссылкой: с диска, иначе синтезом.

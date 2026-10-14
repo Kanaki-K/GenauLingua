@@ -133,8 +133,10 @@ async def pick_words(
     ли их на доску, предоставлено вызывающему: неполная доска это не ошибка
     данных, а честный ответ «ещё рано».
     """
+    from app.database.enums import QuizMode
     from app.services.quiz_service import (
-        _apply_quiz_mode_filter, _meaning_key, _meanings_asked,
+        _apply_quiz_mode_filter, _difficult_conditions, _meaning_key,
+        _meanings_asked,
     )
     # Колонки берутся по НАПРАВЛЕНИЮ: в обратном режиме вопрос задаётся
     # на языке значения, и пустая ячейка там так же непригодна
@@ -170,6 +172,13 @@ async def pick_words(
 
     # Режим человека — тем же фильтром, что у генератора вопросов
     query = _apply_quiz_mode_filter(query, user)
+    # «СЛОЖНЫЕ СЛОВА» — ТЕМ ЖЕ УСЛОВИЕМ, что подбор вопросов этого режима.
+    # Фильтр режима для них границ не ставит (подбор там идёт своей
+    # функцией, `get_difficult_word`), и доска в круге «сложных» брала
+    # любые знакомые слова — ровно то «что попало», от которого этот отбор
+    # и уводили
+    if getattr(user, "quiz_mode", None) == QuizMode.DIFFICULT:
+        query = query.where(*_difficult_conditions())
     if level is not None:
         query = query.where(Word.level == level)
     if exclude_ids:

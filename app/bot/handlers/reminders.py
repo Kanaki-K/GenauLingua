@@ -15,12 +15,30 @@ from app.bot.keyboards.notifications import (
     get_notification_time_keyboard,
     get_notification_days_keyboard,
     get_notifications_settings_keyboard,
+    city_label,
 )
 
-from app.utils.timezones import get_timezone, get_utc_offset, get_city_name
+from app.utils.timezones import TIMEZONE_CITIES, get_timezone, get_utc_offset
 from app.locales import DEFAULT_LOCALE, get_text
 
 router = Router()
+
+
+def zone_city(zone: str | None, lang: str) -> str:
+    """
+    Город часового пояса человека, названный на его языке: «🇩🇪 Берлин».
+
+    НУЖЕН ЗАТЕМ, ЧТОБЫ НЕ ВРАТЬ «ПО ВАШЕМУ ВРЕМЕНИ». Согласие на
+    напоминания пояс не спрашивает (`enable_reminders`), а по умолчанию у
+    каждого стоит Берлин. Человек в Киеве читал «в 15:00 по Вашему времени»
+    и получал напоминание в 16:00 своего — аудит 14 октября. Названный
+    город честен: видно, по какому времени считаем, и что его стоит
+    поменять. Пояс не из справочника — называется как есть.
+    """
+    for code, (_, tz, _) in TIMEZONE_CITIES.items():
+        if tz == zone:
+            return city_label(code, lang)
+    return zone or "UTC"
 
 
 # ============================================================================
@@ -120,7 +138,8 @@ async def accept_reminder_offer(callback: CallbackQuery, session: AsyncSession):
     )]])
     try:
         await callback.message.edit_text(
-            get_text("reminder_offer_done", lang, time=time),
+            get_text("reminder_offer_done", lang, time=time,
+                     city=zone_city(user.timezone, lang)),
             parse_mode="HTML", reply_markup=keyboard,
         )
     except Exception:
@@ -274,7 +293,7 @@ async def set_timezone(callback: CallbackQuery, session: AsyncSession):
     lang = user.interface_language or DEFAULT_LOCALE
 
     # Получаем данные о городе
-    city_name = get_city_name(city_code, lang)
+    city_name = city_label(city_code, lang)
     timezone = get_timezone(city_code)
     utc_offset = get_utc_offset(city_code)
 

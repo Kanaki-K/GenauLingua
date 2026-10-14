@@ -16,6 +16,7 @@ from datetime import date, timedelta
 from typing import Optional
 
 from aiogram import F, Router
+from aiogram.exceptions import TelegramBadRequest
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import (
@@ -37,6 +38,8 @@ from app.services.audio_service import (
     KIND_WORD,
     clip_for_user,
     clip_kind_for_question,
+    forget,
+    reobtain,
     remember,
     spoken_for,
 )
@@ -140,7 +143,13 @@ async def _claim_answer(state: FSMContext, chat_id: int) -> bool:
 
 # Что переживает круг: ошибки для повтора и слова для жалобы на перевод
 # относятся к ПРОШЛОМУ итогу и нужны его кнопкам.
-_KEEP_BETWEEN_ROUNDS = ("saved_errors", "report_session_id", "report_word_ids")
+#
+# И отметка «повтор с этого итога уже начат» (`S_REPEAT_FROM`): повтор сам
+# начинается со сброса состояния, и без неё второе нажатие той же кнопки
+# не узнало бы, что первое уже прошло.
+S_REPEAT_FROM = "repeat_started_from"
+_KEEP_BETWEEN_ROUNDS = ("saved_errors", "report_session_id", "report_word_ids",
+                        S_REPEAT_FROM)
 
 
 async def _reset_round_state(state: FSMContext) -> dict:
@@ -171,10 +180,14 @@ SPEECH_ATTEMPTS = 3
 
 
 async def _remember_stray(state: FSMContext, *message_ids: int) -> None:
-    data = await state.get_data()
-    stray = list(data.get(S_STRAY) or [])
-    stray.extend(i for i in message_ids if i)
-    await state.update_data(**{S_STRAY: stray})
+    # Под замком чата: две записи, пришедшие разом, дописывают список
+    # одновременно, и без замка одна из них терялась бы. Вызывающие замок
+    # не держат — иначе здесь была бы взаимная блокировка
+    async with _claim_lock(state.key.chat_id):
+        data = await state.get_data()
+        stray = list(data.get(S_STRAY) or [])
+        stray.extend(i for i in message_ids if i)
+        await state.update_data(**{S_STRAY: stray})
 
 
 async def _sweep_stray(bot, chat_id: int, state: FSMContext) -> None:
@@ -197,6 +210,20 @@ async def _sweep_stray(bot, chat_id: int, state: FSMContext) -> None:
             await bot.delete_message(chat_id, message_id)
         except Exception:
             logger.debug("сообщение %s не удалилось", message_id, exc_info=True)
+
+
+async def _recover(session: AsyncSession, *objects) -> None:
+    """
+    Откатить сессию после упавшей записи и перечитать нужные дальше объекты.
+
+    Откат помечает все объекты сессии просроченными, а ленивая подгрузка в
+    асинхронной сессии невозможна: первое же чтение поля упало бы. Поэтому
+    перечитываем явно.
+    """
+    await session.rollback()
+    for obj in objects:
+        if obj is not None:
+            await session.refresh(obj)
 
 
 async def _release_answer(state: FSMContext, chat_id: int) -> None:
@@ -687,10 +714,11 @@ SOURCE_AGAIN = "again"          # «▶️ Ещё круг» в итоге пр�
 SOURCE_START = "start"          # вступительный блок /start
 SOURCE_BOARD = "board"          # итог отдельно открытой доски
 SOURCE_REPEAT = "repeat"        # повтор ошибок
+SOURCE_RELEASE = "release"      # кнопка под патчноутом (send_release_notes)
 
 KNOWN_SOURCES = frozenset({
     SOURCE_MENU, SOURCE_HOME, SOURCE_CHANNEL, SOURCE_REMINDER,
-    SOURCE_AGAIN, SOURCE_START, SOURCE_BOARD, SOURCE_REPEAT,
+    SOURCE_AGAIN, SOURCE_START, SOURCE_BOARD, SOURCE_REPEAT, SOURCE_RELEASE,
 })
 
 # Подписи дверей для админки живут ЗДЕСЬ, рядом с самими пометками. Прежде
@@ -707,6 +735,7 @@ SOURCE_LABELS: dict[str, str] = {
     SOURCE_START: "вступление",
     SOURCE_BOARD: "итог доски",
     SOURCE_REPEAT: "повтор ошибок",
+    SOURCE_RELEASE: "патчноут",
 }
 
 
@@ -821,6 +850,7 @@ async def start_lesson(
         question = await generate_question(
             session, user, exclude_ids=[], pair=pair, recent_channels=[],
             prefer_channel=prefer_channel,
+            round_length=quiz_total, question_number=1,
         )
     except Exception:
         logger.exception("Ошибка генерации первого вопроса (user=%s)", user.id)
@@ -969,7 +999,7 @@ async def _record_answer(
     *, bot, chat_id, state, session, user, pair, lang,
     correct_word, is_correct, channel, answer_text,
     session_id, correct_answers, errors, response_seconds,
-    card_message=None, card_message_id=None,
+    card_message=None, card_message_id=None, forgiven: bool = False,
 ) -> None:
     """
     Общая часть любого ответа: запись, прогресс, показ разбора.
@@ -983,6 +1013,11 @@ async def _record_answer(
     нажатии). При голосовом ответе карточка остаётся выше в переписке, и
     у обработчика есть только её `card_message_id`: прежняя карточка
     удаляется по нему, а разбор приходит новым сообщением.
+
+    `forgiven` — ответ засчитан верным не по существу, а по попыткам
+    (третья запись голосом). Решение владельца: балл за него положен, а
+    расписание он двигать НЕ должен — как досрочный ответ: слово человек
+    не произнёс, и «повторить через три дня» было бы неправдой.
     """
     correct_word_id = correct_word.id
 
@@ -1019,9 +1054,17 @@ async def _record_answer(
             session=session,
             learning_lang=pair.learning,
             channel=channel,
+            # Засчитанное по попыткам — верно и с баллами, но срок не двигает
+            advance_schedule=not forgiven,
         )
     except Exception:
         logger.exception("Ошибка обновления прогресса (user=%s word=%s)", user.id, correct_word_id)
+        # ОТКАТ ОБЯЗАТЕЛЕН. Упавший коммит оставляет сессию в состоянии
+        # «нужен откат», и следующий же запрос — клип разбора — падал бы
+        # уже без перехвата: человек оставался без экрана. Строка вопроса и
+        # счётчики занятия закоммичены выше и откатом не задеваются; объекты,
+        # которые нужны дальше, перечитываются
+        await _recover(session, user, correct_word)
 
     if is_correct:
         correct_answers += 1
@@ -1097,7 +1140,15 @@ async def process_voice_answer(message: Message, state: FSMContext, session: Asy
     # записи подряд посчитались бы обе. Проверка стоит ДО распознавания —
     # оно занимает секунды и стоит денег
     if not await _claim_answer(state, message.chat.id):
+        # Лишняя запись — после засчитанного ответа или пока распознаётся
+        # прежняя — не считается, но и висеть в чате не должна: уйдёт с
+        # остальными при переходе дальше
+        await _remember_stray(state, message.message_id)
         return
+
+    # Счёт попыток читается ПОСЛЕ занятия вопроса: прочитанный до него мог
+    # устареть, пока распознавалась прежняя запись
+    data = await state.get_data()
 
     lang = user.interface_language or DEFAULT_LOCALE
     pair = pair_from_user(user)
@@ -1140,8 +1191,10 @@ async def process_voice_answer(message: Message, state: FSMContext, session: Asy
     # тратит: там нечего сравнивать.
     attempt = int(data.get(S_SPEECH_TRIES) or 0) + 1
     if not verdict.matched and attempt < SPEECH_ATTEMPTS:
-        await _release_answer(state, message.chat.id)
+        # Счёт попыток — ДО освобождения вопроса: иначе следующая запись,
+        # успевшая занять вопрос в этот промежуток, прочла бы старый счёт
         await state.update_data(**{S_SPEECH_TRIES: attempt})
+        await _release_answer(state, message.chat.id)
         # Значения — до вызова: вложенный вызов внутри аргументов рвёт разбор
         # в `test_format_parameters_match`
         heard = html.escape(verdict.heard)
@@ -1168,7 +1221,21 @@ async def process_voice_answer(message: Message, state: FSMContext, session: Asy
         session_id=data["session_id"], correct_answers=data["correct_answers"],
         errors=data["errors"], response_seconds=response_seconds,
         card_message_id=data.get(STATE_CARD_ID),
+        # Засчитано ПО ПОПЫТКАМ, а не по услышанному
+        forgiven=not verdict.matched,
     )
+
+
+async def _send_reference(bot, chat_id: int, clip):
+    """Отправить эталон. None — клипа нет или Telegram его отверг."""
+    if clip is None:
+        return None
+    media = clip.file_id or BufferedInputFile(clip.data, filename=clip.filename)
+    try:
+        return await bot.send_audio(chat_id, media, title=clip.title)
+    except TelegramBadRequest:
+        logger.warning("эталон отвергнут Telegram (%s)", clip.kind, exc_info=True)
+        return None
 
 
 @router.callback_query(F.data == "speech_reference", QuizStates.answering)
@@ -1192,15 +1259,22 @@ async def play_reference(callback: CallbackQuery, state: FSMContext, session: As
     # Да и текст был чужой — «Не разобрал», будто человек что-то записал.
     # МЕДЛЕННО, а не то же самое: обычная озвучка уже на карточке
     clip = await clip_for_user(session, user, correct_word, pair.learning, KIND_SLOW)
-    if clip is None:
+    sent = await _send_reference(callback.bot, callback.message.chat.id, clip)
+
+    # МЁРТВЫЙ file_id — как на карточке (`show_card`): запись кэша
+    # выбрасывается, звук берётся заново с диска или синтезом. Прежде отказ
+    # Telegram уходил наружу, и кнопка на этом слове не работала НИКОГДА:
+    # мёртвая запись оставалась в кэше
+    if sent is None and clip is not None and clip.file_id:
+        await forget(session, correct_word.id, pair.learning, clip.kind, clip.voice)
+        clip = await reobtain(clip, pair.learning)
+        sent = await _send_reference(callback.bot, callback.message.chat.id, clip)
+
+    if sent is None:
         await callback.answer(get_text("voice_preview_failed", lang), show_alert=True)
         return
     await callback.answer()
 
-    media = clip.file_id or BufferedInputFile(clip.data, filename=clip.filename)
-    sent = await callback.bot.send_audio(
-        callback.message.chat.id, media, title=clip.title,
-    )
     await _remember_stray(state, sent.message_id)
     if clip.needs_remembering and getattr(sent, "audio", None):
         await remember(
@@ -1340,6 +1414,9 @@ async def record_board_answers(
     quiz_session = await session.get(QuizSession, session_id)
     correct_answers = data.get("correct_answers", 0)
     errors = list(data.get("errors", []))
+    # Номера слов — заранее: после отката (ниже) объекты слов просрочены, а
+    # подгрузить их лениво асинхронная сессия не умеет
+    word_ids = [w.id for w in words]
 
     for index in matched:
         word = words[index]
@@ -1370,16 +1447,22 @@ async def record_board_answers(
             # разберёт, и разберёт ТЕКСТОМ, как все прочие ошибки
             errors.append(word.id)
 
+        # Строка и счётчики — В БАЗУ ДО ПРОГРЕССА: упади прогресс, откат
+        # ниже не должен унести уже засчитанный подвопрос
+        await session.commit()
+
         try:
             await update_word_progress(
-                user_id=user.id, word_id=word.id, is_correct=is_correct,
+                user_id=user.id, word_id=word_ids[index], is_correct=is_correct,
                 session=session, learning_lang=pair.learning,
                 channel=QuizChannel.TEXT,
             )
         except Exception:
             logger.exception(
-                "ошибка прогресса на доске (user=%s word=%s)", user.id, word.id
+                "ошибка прогресса на доске (user=%s word=%s)", user.id, word_ids[index]
             )
+            # Без отката следующий же запрос упал бы — разбор в `_recover`
+            await _recover(session, user, quiz_session, *words)
 
     await session.commit()
 
@@ -1390,8 +1473,8 @@ async def record_board_answers(
     # человек видел одно и то же. Доска читает тот же список при сборке —
     # так что запрет работает в обе стороны.
     used = list(data.get("used_word_ids") or [])
-    used.extend(words[index].id for index in matched
-                if words[index].id not in used)
+    used.extend(word_ids[index] for index in matched
+                if word_ids[index] not in used)
 
     await state.update_data(
         correct_answers=correct_answers, errors=errors, used_word_ids=used
@@ -1560,15 +1643,14 @@ async def _advance(callback: CallbackQuery, state: FSMContext, session: AsyncSes
             return
 
         word = await session.get(Word, error_words[current_error_index])
-        if not word:
-            await callback.message.answer(get_text("quiz_error_generate", lang))
-            await state.clear()
-            return
-
-        distractors = await get_distractors(word, session, pair, user=user)
+        distractors = (await get_distractors(word, session, pair, user=user)
+                       if word else [])
         if len(distractors) < OPTIONS_TOTAL - 1:
-            await callback.message.answer(get_text("quiz_error_generate", lang))
-            await state.clear()
+            # Вопрос не собрать — повтор кончается ИТОГОМ по отвеченному,
+            # а не обрывом (разбор — у ветки обычного круга ниже)
+            logger.warning("повтор ошибок: слово %s не собрать, завершаю итогом",
+                           error_words[current_error_index])
+            await _finish_quiz(callback, state, session, user, pair, lang, data)
             return
 
         # Повтор ошибок идёт текстом: человек уже не справился с этими
@@ -1597,16 +1679,34 @@ async def _advance(callback: CallbackQuery, state: FSMContext, session: AsyncSes
                     session, user, exclude_ids=used_word_ids, pair=pair,
                     recent_channels=recent_channels,
                     prefer_channel=prefer_channel,
+                    # Длина ЭТОГО круга и настоящий номер вопроса: в
+                    # «сложных» круг короче настройки, а доска добавляет
+                    # слов больше, чем вопросов
+                    round_length=total_questions,
+                    question_number=current_question,
                 )
             except Exception:
                 logger.exception("Ошибка генерации вопроса (user=%s)", user.id)
+                # Упавший запрос оставляет сессию в состоянии «нужен
+                # откат», и без него падало бы уже и завершение итогом
+                await _recover(session, user)
                 question = None
             if question:
                 break
 
         if not question:
-            await callback.message.answer(get_text("quiz_error_generate", lang))
-            await state.clear()
+            # СЛОВА КОНЧИЛИСЬ — ЗАНЯТИЕ КОНЧАЕТСЯ ИТОГОМ, а не обрывом.
+            # Прежде здесь было «Не удалось подготовить следующий вопрос» и
+            # очистка состояния: отвеченное оставалось в базе, но ни итога,
+            # ни баллов, ни повтора ошибок человек не получал, а на экране
+            # висела мёртвая кнопка «Далее». Так обрывался круг «сложных
+            # слов» (проверено исполнением: план 6, отвечено 3). Итог честен
+            # и здесь: в нём ровно то, что отвечено.
+            logger.warning(
+                "вопрос %s из %s не собрать (user=%s) — завершаю итогом",
+                current_question, total_questions, user.id,
+            )
+            await _finish_quiz(callback, state, session, user, pair, lang, data)
             return
 
         word = question["correct_word"]
@@ -1821,12 +1921,21 @@ def _days_since_last_round(user: User) -> int:
     return max(0, (utctoday() - last).days)
 
 
-async def _season_score(session: AsyncSession, user: User, pair: LanguagePair) -> int:
+async def _season_score(
+    session: AsyncSession, user: User, pair: LanguagePair, on: date,
+) -> int:
     """
-    Месячный балл человека по ЭТОМУ языку — сейчас, до записи круга.
+    Месячный балл человека по ЭТОМУ языку в сезоне месяца `on`.
 
     По языку, а не вообще: ряды сезона ведутся отдельно на каждый
     изучаемый язык, и балл из чужого ряда дал бы бессмысленную разность.
+
+    СЕЗОН — ПО ДАТЕ ЗАВЕРШЕНИЯ ЗАНЯТИЯ, а не «какой сейчас активен». Так
+    занятие относит к сезону и месячный счёт (`update_monthly_stats`).
+    Прежде «до» и «после» брались из активного сезона, а он меняется ровно
+    на границе месяца: занятие, законченное 1-го в 00:01, «до» читало
+    октябрь, запись открывала ноябрь, «после» читало ноябрь — разность
+    уходила в минус, и итог показывал «+0» за честно заработанные баллы.
     """
     from app.database.models import MonthlySeason, MonthlyStats
 
@@ -1836,7 +1945,8 @@ async def _season_score(session: AsyncSession, user: User, pair: LanguagePair) -
         .where(
             MonthlyStats.user_id == user.id,
             MonthlyStats.learning_lang == pair.learning,
-            MonthlySeason.is_active.is_(True),
+            MonthlySeason.year == on.year,
+            MonthlySeason.month == on.month,
         )
     )).scalar()
     return int(row or 0)
@@ -1855,6 +1965,7 @@ async def _praise_lines(
     learned_before: int,
     score_before: int,
     days_away: int,
+    season_day: Optional[date] = None,
 ) -> list[str]:
     """
     Собрать факты круга и отдать готовые строки поощрения.
@@ -1924,7 +2035,9 @@ async def _praise_lines(
     from app.services.streak_service import current_streak
 
     facts = RoundFacts(
-        points=max(0, await _season_score(session, user, pair) - score_before),
+        points=max(0, await _season_score(
+            session, user, pair, season_day or utctoday()
+        ) - score_before),
         answered=answered,
         correct=correct,
         rounds_total=int(user.quizzes_passed or 0),
@@ -1989,7 +2102,11 @@ async def _finish_quiz(
     # Прирост виден только разностью, и снять «до» надо раньше записи.
     learned_before = int(user.words_learned or 0)
     days_away = _days_since_last_round(user)
-    score_before = await _season_score(session, user, pair)
+    # Сезон занятия — по его завершению, как его относит месячный счёт
+    season_day = (quiz_session.completed_at
+                  if quiz_session is not None and quiz_session.completed_at
+                  else utcnow()).date()
+    score_before = await _season_score(session, user, pair, season_day)
 
     if not is_error_repeat:
         user.quizzes_passed = (user.quizzes_passed or 0) + 1
@@ -2082,6 +2199,7 @@ async def _finish_quiz(
             learned_before=learned_before,
             score_before=score_before,
             days_away=days_away,
+            season_day=season_day,
         )
         if praise:
             result_text += "\n\n" + "\n".join(praise)
@@ -2141,6 +2259,17 @@ async def _finish_quiz(
 
 @router.callback_query(F.data == "repeat_errors")
 async def repeat_errors(callback: CallbackQuery, state: FSMContext, session: AsyncSession):
+    # ОДИН ПОВТОР С ОДНОГО ИТОГА. Двойное нажатие заводило два занятия-
+    # повтора, и первое оставалось брошенным (проверено исполнением: две
+    # сессии `error_repeat`). Итог — своё сообщение, и его номер отмечается
+    # под тем же замком чата, что ответы: второе нажатие по нему молча
+    # гасится. Новый итог — новое сообщение, и его кнопка снова работает.
+    async with _claim_lock(callback.message.chat.id):
+        data = await state.get_data()
+        if data.get(S_REPEAT_FROM) == callback.message.message_id:
+            await callback.answer()
+            return
+        await state.update_data(**{S_REPEAT_FROM: callback.message.message_id})
     data = await state.get_data()
     errors = data.get("saved_errors", [])
 

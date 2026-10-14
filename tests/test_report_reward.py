@@ -440,3 +440,48 @@ async def test_one_word_pays_once_however_often_it_is_reported(session, user):
     assert await _bonus(session, user.id) == REPORT_REWARD_POINTS, (
         "за одно слово заплачено дважды"
     )
+
+
+# ============================================================================
+# ПРИНЯТАЯ ЖАЛОБА НА ЗВУК СТИРАЕТ И ФАЙЛЫ НА ДИСКЕ
+#
+# Аудит 14 октября: стирались только строки `word_audio`, а следующий показ
+# читал клип с диска первым и заливал в Telegram тот же звук.
+# ============================================================================
+
+async def test_approved_audio_report_removes_clips_from_disk(session, user, tmp_path, monkeypatch):
+    from app.services import audio_store
+    from app.services.audio_service import KIND_FULL, KIND_SLOW, KIND_WORD, spoken_for
+    from app.services.tts_voices import VOICES
+
+    monkeypatch.setattr(audio_store, "DEFAULT_ROOT", tmp_path)
+    word = await _word(session)
+    voice = VOICES["de"][0].name
+    paths = []
+    for kind in (KIND_WORD, KIND_FULL, KIND_SLOW):
+        spoken = spoken_for(word, "de", kind)
+        assert audio_store.write("de", voice, kind, spoken, b"x" * 600)
+        paths.append(audio_store.clip_path("de", voice, kind, spoken))
+    await _report(session, user, word, kind="audio")
+
+    await _press_approve(session, f"admin:report_approve_audio_{word.id}")
+
+    left = [p for p in paths if p.exists()]
+    assert not left, f"после принятой жалобы на звук остались клипы: {left}"
+
+
+async def test_approved_text_report_keeps_clips(session, user, tmp_path, monkeypatch):
+    from app.services import audio_store
+    from app.services.audio_service import KIND_WORD, spoken_for
+    from app.services.tts_voices import VOICES
+
+    monkeypatch.setattr(audio_store, "DEFAULT_ROOT", tmp_path)
+    word = await _word(session)
+    voice = VOICES["de"][0].name
+    spoken = spoken_for(word, "de", KIND_WORD)
+    audio_store.write("de", voice, KIND_WORD, spoken, b"x" * 600)
+    await _report(session, user, word, kind="text")
+
+    await _press_approve(session, f"admin:report_approve_text_{word.id}")
+
+    assert audio_store.clip_path("de", voice, KIND_WORD, spoken).exists()

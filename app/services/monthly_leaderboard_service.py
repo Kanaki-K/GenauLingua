@@ -203,16 +203,9 @@ async def _recalc_monthly_stats_full(
     monthly_stat.correct_speech = by_channel.get(QuizChannel.SPEECH.value, 0)
     monthly_stat.correct_reverse = by_channel.get(QuizChannel.REVERSE.value, 0)
 
-    user_words_result = await session.execute(
-        select(func.count()).select_from(UserWord).where(
-            UserWord.user_id == user_id,
-            UserWord.learning_lang == learning_lang,
-            UserWord.learned == True,
-            UserWord.last_seen_at >= datetime.combine(season.start_date, datetime.min.time()),
-            UserWord.last_seen_at <= datetime.combine(season.end_date, datetime.max.time())
-        )
+    monthly_stat.monthly_words = await month_words(
+        session, user_id, learning_lang, season
     )
-    monthly_stat.monthly_words = int(user_words_result.scalar() or 0)
 
     user = await session.get(User, user_id)
     monthly_stat.monthly_streak, monthly_stat.last_quiz_date = month_streak(
@@ -225,6 +218,34 @@ async def _recalc_monthly_stats_full(
     await session.commit()
     await session.refresh(monthly_stat)
     return monthly_stat
+
+
+async def month_words(
+    session: AsyncSession, user_id: int, learning_lang: str, season,
+) -> int:
+    """
+    Сколько слов человек выучил в этом сезоне — за них «+3 за слово».
+
+    ОДНО ПРАВИЛО НА ТРИ ПУТИ: инкремент занятия, полный пересчёт и починка
+    (`repair_accounting`) зовут эту функцию, а не пишут запрос заново.
+
+    СЧИТАЕТСЯ ПО ДАТЕ ПЕРЕХОДА В «ВЫУЧЕНО» (`learned_at`), а не по
+    последнему показу. Прежде слово, выученное в сентябре и повторённое по
+    расписанию в октябре, оплачивалось в обоих месяцах, а «за всё время»
+    (сумма месяцев) брало его дважды; к тому же починка закрытых сезонов
+    дала бы им другие числа — последний показ с тех пор уехал вперёд.
+    """
+    start = datetime.combine(season.start_date, datetime.min.time())
+    end = datetime.combine(season.end_date, datetime.max.time())
+    return int((await session.execute(
+        select(func.count()).select_from(UserWord).where(
+            UserWord.user_id == user_id,
+            UserWord.learning_lang == learning_lang,
+            UserWord.learned.is_(True),
+            UserWord.learned_at >= start,
+            UserWord.learned_at <= end,
+        )
+    )).scalar() or 0)
 
 
 async def _user_learning_lang(user_id: int, session: AsyncSession) -> str:
@@ -384,17 +405,15 @@ async def update_monthly_stats(
     )
     monthly_stat.last_quiz_date = day
 
-    if (monthly_stat.monthly_quizzes % 10 == 0) or (monthly_stat.monthly_words == 0):
-        user_words_result = await session.execute(
-            select(func.count()).select_from(UserWord).where(
-                UserWord.user_id == user_id,
-                UserWord.learning_lang == learning_lang,
-                UserWord.learned == True,
-                UserWord.last_seen_at >= datetime.combine(season.start_date, datetime.min.time()),
-                UserWord.last_seen_at <= datetime.combine(season.end_date, datetime.max.time())
-            )
-        )
-        monthly_stat.monthly_words = int(user_words_result.scalar() or 0)
+    # СЛОВА — НА КАЖДОМ ЗАНЯТИИ. Прежде пересчёт шёл, только когда число
+    # было нулём или занятий набиралось кратно десяти: замер 14 октября —
+    # после второго занятия выучено 6 слов, записано 2, балл 55 вместо 67.
+    # Итог занятия занижал «+N», десятое занятие прыгало разом, а слова
+    # последних (до девяти) занятий месяца не попадали никуда — сезон
+    # закрывался раньше пересчёта. Это один COUNT по индексу
+    monthly_stat.monthly_words = await month_words(
+        session, user_id, learning_lang, season
+    )
 
     monthly_stat.monthly_score = monthly_stat.calculate_monthly_score()
     monthly_stat.updated_at = utcnow()
@@ -426,6 +445,31 @@ def month_streak(user, month_quizzes: list) -> tuple[int, Optional[date]]:
         streak = next_streak(streak, last, day)
         last = day
     return streak, last
+
+
+# ============================================================================
+# КТО В РЕЙТИНГЕ МЕСЯЦА
+# ============================================================================
+
+def ranked_in_month():
+    """
+    Условие «ряд стоит в рейтинге месяца»: хоть одно занятие и балл больше 0.
+
+    ОДНО ПРАВИЛО ДЛЯ ТАБЛИЦЫ, КАРТОЧКИ И ЗАКРЫТИЯ. Прежде таблица и
+    карточка считали место среди всех рядов месяца, а закрытие — только
+    среди занимавшихся. Ряд без занятий появляется от оплаты жалобы
+    (15 баллов, ни одного занятия), и замер 14 октября показал, к чему это
+    вело: такой человек с 200 баллами весь месяц стоял в таблице первым с
+    🥇 и не получал при закрытии ничего, двое со 100 видели у себя «#2» и
+    получали золото, а извещение «место 4» приходило тому, кто в таблице
+    стоял пятым. Теперь человек без занятий в месяц не входит, пока не
+    пройдёт занятие; баллы за жалобы при этом лежат в его ряду и идут в
+    «за всё время».
+    """
+    return and_(
+        func.coalesce(MonthlyStats.monthly_quizzes, 0) > 0,
+        func.coalesce(MonthlyStats.monthly_score, 0) > 0,
+    )
 
 
 # ============================================================================
@@ -489,6 +533,7 @@ async def get_monthly_leaderboard(
         .where(
             MonthlyStats.season_id == season_id,
             MonthlyStats.learning_lang == learning_lang,
+            ranked_in_month(),
         )
         # Второй ключ — чтобы равные не менялись местами от запроса к запросу
         .order_by(MonthlyStats.monthly_score.desc(), User.id)
@@ -553,6 +598,31 @@ async def get_monthly_leaderboard(
 # ПОЗИЦИЯ ПОЛЬЗОВАТЕЛЯ + ВСЕ ДЕТАЛИ (FIX: теперь возвращает полные данные)
 # ============================================================================
 
+async def get_waiting_month_score(
+        user_id: int,
+        session: AsyncSession,
+        season_id: int,
+        learning_lang: str,
+) -> int:
+    """
+    Баллы ряда, который ещё не стоит в рейтинге месяца (`ranked_in_month`).
+
+    Такой ряд появляется от оплаты жалобы: 15 баллов, ни одного занятия.
+    Карточка прежде говорила такому человеку «Вы ещё не в рейтинге» —
+    будто баллов нет вовсе, хотя они начислены. 0 — ряда нет или он в
+    рейтинге.
+    """
+    result = await session.execute(
+        select(MonthlyStats.monthly_score).where(
+            MonthlyStats.user_id == user_id,
+            MonthlyStats.season_id == season_id,
+            MonthlyStats.learning_lang == learning_lang,
+            func.coalesce(MonthlyStats.monthly_quizzes, 0) == 0,
+        )
+    )
+    return int(result.scalar() or 0)
+
+
 async def get_user_monthly_rank(
         user_id: int,
         session: AsyncSession,
@@ -574,23 +644,27 @@ async def get_user_monthly_rank(
     if learning_lang is None:
         learning_lang = await _user_learning_lang(user_id, session)
 
-    # Стата пользователя
+    # Стата пользователя. Ряд без занятий (одни баллы за жалобы) в
+    # рейтинге месяца не стоит — `ranked_in_month`; карточка тогда говорит
+    # «Вы ещё не в рейтинге / пройдите занятие», как и тому, у кого ряда нет
     stat_result = await session.execute(
         select(MonthlyStats).where(
             MonthlyStats.user_id == user_id,
             MonthlyStats.season_id == season_id,
             MonthlyStats.learning_lang == learning_lang,
+            ranked_in_month(),
         )
     )
     stat = stat_result.scalar_one_or_none()
     if not stat:
         return None
 
-    # Всего участников по этому языку
+    # Всего участников по этому языку — тех же, что стоят в таблице
     total_result = await session.execute(
         select(func.count()).select_from(MonthlyStats).where(
             MonthlyStats.season_id == season_id,
             MonthlyStats.learning_lang == learning_lang,
+            ranked_in_month(),
         )
     )
     total_users = int(total_result.scalar() or 0)
@@ -602,6 +676,7 @@ async def get_user_monthly_rank(
         select(func.count()).select_from(MonthlyStats).where(
             MonthlyStats.season_id == season_id,
             MonthlyStats.learning_lang == learning_lang,
+            ranked_in_month(),
             MonthlyStats.monthly_score > stat.monthly_score
         )
     )
@@ -663,6 +738,13 @@ async def finalize_season(season_id: int, session: AsyncSession):
     for stat in results:
         by_lang.setdefault(stat.learning_lang, []).append(stat)
 
+    # Кто стоит в итогах — тем же условием, что таблица и карточка
+    # (`ranked_in_month`), а не своей копией его на Python
+    in_ranking = set((await session.execute(
+        select(MonthlyStats.id).where(
+            MonthlyStats.season_id == season_id, ranked_in_month())
+    )).scalars())
+
     logger.info(f"Подводим итоги сезона {season.month}/{season.year}")
     logger.info(f"Участников: {len(results)} в {len(by_lang)} языках")
 
@@ -688,8 +770,7 @@ async def finalize_season(season_id: int, session: AsyncSession):
         # любой ряд месяца, включая ноль баллов и ни одного занятия: из двух
         # учащих язык второй, не открывавший бота, получал «серебро» за
         # присутствие. Владелец: «проверь логику, должно быть адекватно»
-        ranked = [s for s in lang_stats
-                  if (s.monthly_score or 0) > 0 and (s.monthly_quizzes or 0) > 0]
+        ranked = [s for s in lang_stats if s.id in in_ranking]
         logger.info(f"  {lang}: {len(ranked)} в итогах из {len(lang_stats)}")
 
         # РАВНЫЕ БАЛЛЫ — РАВНОЕ МЕСТО И РАВНАЯ НАГРАДА («1, 1, 3»). Прежде

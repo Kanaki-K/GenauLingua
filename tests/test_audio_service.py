@@ -186,7 +186,7 @@ class TestBotOwnership:
     """
 
     @pytest.mark.parametrize("token,expected", [
-        ("8570632034:AAGwAPnmTCTDABmvfhR3gwpOcZhCgvm-140", 8570632034),
+        ("1234567890:AAFakeTokenForTestsOnly_notReal", 1234567890),
         ("123:abc", 123),
         ("мусор", None),
         ("", None),

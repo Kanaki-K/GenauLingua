@@ -16,7 +16,8 @@ from app.database.models import MonthlyStats, User
 from app.bot.utils import delete_messages_fast, ensure_anchor
 from app.services.monthly_leaderboard_service import (
     get_user_monthly_rank,
-    get_current_season
+    get_current_season,
+    get_waiting_month_score,
 )
 from app.bot.handlers.leaderboard.utils import (
     edit_screen,
@@ -55,14 +56,19 @@ def get_rating_keyboard(lang: str, current_tab: str = "monthly") -> InlineKeyboa
     )
 
 
-def build_monthly_card(user: User, user_rank: dict, season, lang: str) -> str:
+def build_monthly_card(user: User, user_rank: dict, season, lang: str,
+                       waiting_score: int = 0) -> str:
+    """`waiting_score` — баллы за жалобы у ряда без занятий (не в рейтинге)."""
     month_name = format_month_name(season.month, lang)
 
     text = get_text("rating_title_monthly", lang, month=month_name, year=season.year) + "\n\n"
 
     if not user_rank:
         text += get_text("rating_not_in_ranking", lang) + "\n"
-        text += get_text("rating_start_quiz", lang) + "\n"
+        if waiting_score > 0:
+            text += get_text("rating_join_by_lesson", lang, score=waiting_score) + "\n"
+        else:
+            text += get_text("rating_start_quiz", lang) + "\n"
         return text
 
     rank = user_rank['rank']
@@ -103,6 +109,16 @@ def build_monthly_card(user: User, user_rank: dict, season, lang: str) -> str:
     return text
 
 
+async def _monthly_card(user: User, session: AsyncSession, season, lang: str) -> str:
+    learning = pair_from_user(user).learning
+    user_rank = await get_user_monthly_rank(user.id, session, season_id=season.id,
+                                          learning_lang=learning)
+    waiting = 0
+    if not user_rank:
+        waiting = await get_waiting_month_score(user.id, session, season.id, learning)
+    return build_monthly_card(user, user_rank, season, lang, waiting_score=waiting)
+
+
 @router.callback_query(F.data == "show_my_rating")
 async def show_my_rating_callback(callback: CallbackQuery, session: AsyncSession):
     await callback.answer()
@@ -114,9 +130,7 @@ async def show_my_rating_callback(callback: CallbackQuery, session: AsyncSession
         await callback.message.edit_text(get_text("rating_not_active", lang))
         return
 
-    user_rank = await get_user_monthly_rank(user.id, session, season_id=season.id,
-                                          learning_lang=pair_from_user(user).learning)
-    text = build_monthly_card(user, user_rank, season, lang)
+    text = await _monthly_card(user, session, season, lang)
 
     try:
         await edit_screen(callback, text, get_rating_keyboard(lang, "monthly"))
@@ -145,9 +159,7 @@ async def show_leaderboard(message: Message, session: AsyncSession):
         await message.answer(get_text("rating_not_active", lang))
         return
 
-    user_rank = await get_user_monthly_rank(user.id, session, season_id=season.id,
-                                          learning_lang=pair_from_user(user).learning)
-    text = build_monthly_card(user, user_rank, season, lang)
+    text = await _monthly_card(user, session, season, lang)
 
     old_anchor_id, new_anchor_id = await ensure_anchor(message, session, user, emoji="")
     if old_anchor_id:
@@ -167,9 +179,7 @@ async def switch_to_monthly(callback: CallbackQuery, session: AsyncSession):
         await callback.message.edit_text(get_text("rating_not_active", lang))
         return
 
-    user_rank = await get_user_monthly_rank(user.id, session, season_id=season.id,
-                                          learning_lang=pair_from_user(user).learning)
-    text = build_monthly_card(user, user_rank, season, lang)
+    text = await _monthly_card(user, session, season, lang)
     # Через edit_screen, как соседние вкладки: повторное нажатие на уже
     # открытый «Месяц» шло в журнал ошибкой «message is not modified»
     await edit_screen(callback, text, get_rating_keyboard(lang, "monthly"))

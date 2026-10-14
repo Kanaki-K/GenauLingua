@@ -278,6 +278,16 @@ class UserWord(Base):
     # считается "выучено", когда достигнут порог streak
     learned = mapped_column(Boolean, default=False, nullable=False)
 
+    # КОГДА слово стало выученным — переход learned False → True. Пусто,
+    # пока слово не выучено; промах, снявший отметку, стирает и дату.
+    #
+    # Месячный балл «+3 за выученное слово» прежде считал выученные слова
+    # с последним показом в этом месяце: слово, выученное в сентябре и
+    # повторённое по расписанию в октябре, оплачивалось в обоих месяцах, а
+    # в «за всё время» (сумма месяцев) — дважды. Платим за переход, один
+    # раз, в том месяце, когда он случился (аудит 14 октября).
+    learned_at = mapped_column(DateTime, nullable=True)
+
     created_at = mapped_column(DateTime, default=utcnow, nullable=False)
     updated_at = mapped_column(DateTime, default=utcnow, onupdate=utcnow, nullable=True)
 

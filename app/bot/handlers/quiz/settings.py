@@ -121,19 +121,22 @@ async def _renew_anchor(callback: CallbackQuery, session: AsyncSession, user: Us
 
 async def _show_after_change(
     callback: CallbackQuery, session: AsyncSession, user: User,
-    origin: str = "", renew_anchor: bool = False,
+    origin: str = "", renew_anchor: bool = False, done: str = "",
 ) -> None:
     """
-    Куда ведёт выбор значения: домой, если пришли из итога круга, иначе в
-    настройки. При смене того, что видно в якоре, — под свежим якорем.
+    Куда ведёт выбор значения: к следующему занятию, если пришли из итога,
+    иначе в настройки. При смене того, что видно в якоре, — под свежим
+    якорем. `done` — подтверждение выбора («✓ Режим: все слова»): из итога
+    оно становится текстом экрана, а не всплывающим окном.
     """
     lang = user.interface_language or DEFAULT_LOCALE
     if origin == RESULT_ORIGIN:
-        from app.bot.handlers.quiz.home import build_home
+        if not done:
+            done = "✓ " + get_text("qmode_current", lang, mode=_quiz_mode_display(user, lang))
+        await _show_done_after_result(callback, session, user, done)
+        return
 
-        text, keyboard = await build_home(user, session)
-    else:
-        text, keyboard = _settings_text(user, lang), get_settings_keyboard(lang)
+    text, keyboard = _settings_text(user, lang), get_settings_keyboard(lang)
 
     if renew_anchor and await _renew_anchor(callback, session, user):
         try:
@@ -144,6 +147,65 @@ async def _show_after_change(
         return
 
     await callback.message.edit_text(text, reply_markup=keyboard)
+
+
+async def _answer_choice(callback: CallbackQuery, done: str, origin: str) -> None:
+    """
+    Ответ на нажатие выбора. Из настроек — окном, как и было: экран под ним
+    уходит в настройки, и подтверждению больше негде прозвучать. Из итога
+    занятия подтверждение и есть текст следующего экрана, а окно поверх
+    него сказало бы то же самое второй раз и потребовало бы лишнего «ОК».
+    """
+    if origin == RESULT_ORIGIN:
+        await callback.answer()
+    else:
+        await callback.answer(done, show_alert=True)
+
+
+async def _show_done_after_result(
+    callback: CallbackQuery, session: AsyncSession, user: User, done: str
+) -> None:
+    """
+    Правка, начатая из итога занятия: подтверждение и кнопка «Ещё занятие».
+
+    ПРЕЖДЕ ЗДЕСЬ БЫЛ ДОМАШНИЙ ЭКРАН, и это был экран «Статистика»: кнопку
+    занятия с него давно убрали (решение владельца в `home.py`), а
+    комментарии всё ещё обещали «шкалы и кнопку занятия». Человек, поменявший
+    трудность после занятия, попадал в цифры о себе с единственной кнопкой
+    «Подробнее» — та самая жалоба владельца 14 октября: «попадаю в
+    статистику». Аудит 14 октября воспроизвёл это на всех шести языках.
+
+    Человек поправил трудность ради СЛЕДУЮЩЕГО занятия — значит, ему нужна
+    одна кнопка: начать его. Пометка `again` та же, что у «Ещё занятие» в
+    итоге: это продолжение того же итога, и петля возврата должна видеть
+    его своим.
+
+    ЧАТ ЧИСТЫЙ ВСЕГДА, а не только при смене уровня. Итог с прежним уровнем
+    или темой устарел: его кнопка «Ещё занятие» звала бы на старых
+    условиях. Якорь переезжает вниз и забирает с собой всё от прежнего —
+    итог, экран настроек над ним, предложение уровня. Прежде тема правилась
+    на месте, и устаревший итог оставался висеть выше.
+    """
+    from app.bot.handlers.quiz.game import SOURCE_AGAIN
+
+    lang = user.interface_language or DEFAULT_LOCALE
+    keyboard = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(
+        text=get_text("quiz_btn_one_more", lang),
+        callback_data=f"learn_now:{SOURCE_AGAIN}",
+    )]])
+
+    if await _renew_anchor(callback, session, user):
+        try:
+            await callback.message.delete()
+        except Exception:
+            logger.debug("Не удалось удалить прежний экран", exc_info=True)
+        await callback.message.answer(done, reply_markup=keyboard)
+        return
+
+    try:
+        await callback.message.edit_text(done, reply_markup=keyboard)
+    except Exception:
+        await callback.message.answer(done, reply_markup=keyboard)
 
 
 # ============================================================================
@@ -885,7 +947,9 @@ def get_level_offer_keyboard(following: CEFRLevel, lang: str) -> InlineKeyboardM
         )],
         [InlineKeyboardButton(
             text=get_text("level_offer_no", lang),
-            callback_data="level_up_no",
+            # Уровень в кнопке: отказ, нажатый после смены уровня, устарел и
+            # не должен записать отказ от уровня, о котором не спрашивали
+            callback_data=f"level_up_no_{following.value}",
         )],
     ])
 
@@ -909,8 +973,15 @@ async def answer_level_offer(callback: CallbackQuery, session: AsyncSession):
 
     code = callback.data.removeprefix("level_up_")
 
-    if code == "no":
-        await decline_level(user, session)
+    if code == "no" or code.startswith("no_"):
+        # «level_up_no» без уровня — кнопки, разосланные до 14.10
+        offered = None
+        if code.startswith("no_"):
+            try:
+                offered = CEFRLevel(code.removeprefix("no_"))
+            except ValueError:
+                offered = None
+        await decline_level(user, session, offered=offered)
         await callback.answer()
         try:
             await callback.message.delete()
@@ -924,24 +995,25 @@ async def answer_level_offer(callback: CallbackQuery, session: AsyncSession):
         await callback.answer("Error", show_alert=True)
         return
 
-    await raise_level(user, session, following)
+    if not await raise_level(user, session, following):
+        # Устаревшая кнопка: уровень не менялся, и «Уровень A2» под ней
+        # было бы неправдой. Предложение просто убираем
+        await callback.answer()
+        try:
+            await callback.message.delete()
+        except Exception:
+            pass
+        return
     await callback.answer()
 
     # ОДИН ЭКРАН ПОСЛЕ СОГЛАСИЯ: свежий якорь (уровень написан в нём) и под
-    # ним главный экран с подтверждением сверху. Прежде предложение
+    # ним подтверждение с кнопкой следующего занятия. Прежде предложение
     # правилось в голое «Уровень A2. Слова будут потруднее.» без единой
-    # кнопки, а итог круга и это сообщение оставались висеть выше якоря.
-    from app.bot.handlers.quiz.home import build_home
-
+    # кнопки, а затем — в экран статистики с одной «Подробнее». Предложение
+    # приходит под итогом занятия, и ответ на него — тот же, что у любой
+    # правки из итога
     done = get_text("level_offer_done", lang, following=following.value)
-    text, keyboard = await build_home(user, session)
-    if await _renew_anchor(callback, session, user):
-        await callback.message.answer(f"{done}\n\n{text}", reply_markup=keyboard)
-        return
-    try:
-        await callback.message.edit_text(f"{done}\n\n{text}", reply_markup=keyboard)
-    except Exception:
-        await callback.message.answer(f"{done}\n\n{text}", reply_markup=keyboard)
+    await _show_done_after_result(callback, session, user, done)
 
 
 # ============================================================================
@@ -966,8 +1038,9 @@ async def answer_level_offer(callback: CallbackQuery, session: AsyncSession):
 # ЗАМЕНЯЛ итог круга правкой, и вернуться к итогу было некуда — его уже
 # не существовало. Теперь из итога экран открывается НОВЫМ сообщением под
 # ним, а «Назад» это сообщение убирает: итог с «Ещё круг» снова последний.
-# Если же уровень или тему поменяли, итог устарел — тогда, как и прежде,
-# свежий якорь и домашний экран (`_show_after_change`).
+# Если же уровень или тему поменяли, итог устарел — тогда свежий якорь,
+# а под ним подтверждение и «Ещё занятие» (`_show_done_after_result`).
+# Не домашний экран: он стал экраном статистики и кнопки занятия не несёт.
 RESULT_ORIGIN = "result"
 BACK_FROM_RESULT = "result_back"
 RESULT_SETTINGS = "result_settings"
@@ -1115,10 +1188,11 @@ async def set_quiz_mode_level(callback: CallbackQuery, session: AsyncSession):
     user.quiz_category = None
     await session.commit()
 
-    await callback.answer(get_text("qmode_level_set", lang, level=level_str), show_alert=True)
+    done = get_text("qmode_level_set", lang, level=level_str)
+    await _answer_choice(callback, done, origin)
 
     # Уровень написан в якоре — якорь пересоздаётся
-    await _show_after_change(callback, session, user, origin, renew_anchor=True)
+    await _show_after_change(callback, session, user, origin, renew_anchor=True, done=done)
 
 
 # ============================================================================
@@ -1191,12 +1265,9 @@ async def set_quiz_mode_category(callback: CallbackQuery, session: AsyncSession)
     await session.commit()
 
     display_name = get_category_display(cat.value, lang)
-    await callback.answer(
-        get_text("qmode_category_set", lang, category=display_name),
-        show_alert=True
-    )
-
-    await _show_after_change(callback, session, user, origin)
+    done = get_text("qmode_category_set", lang, category=display_name)
+    await _answer_choice(callback, done, origin)
+    await _show_after_change(callback, session, user, origin, done=done)
 
 
 # ============================================================================
@@ -1213,8 +1284,10 @@ async def set_quiz_mode_all(callback: CallbackQuery, session: AsyncSession):
     user.quiz_category = None
     await session.commit()
 
-    await callback.answer(get_text("qmode_all_set", lang), show_alert=True)
-    await _show_after_change(callback, session, user, _origin(callback.data))
+    origin = _origin(callback.data)
+    done = get_text("qmode_all_set", lang)
+    await _answer_choice(callback, done, origin)
+    await _show_after_change(callback, session, user, origin, done=done)
 
 
 # ============================================================================
@@ -1231,8 +1304,10 @@ async def set_quiz_mode_difficult(callback: CallbackQuery, session: AsyncSession
     user.quiz_category = None
     await session.commit()
 
-    await callback.answer(get_text("qmode_difficult_set", lang), show_alert=True)
-    await _show_after_change(callback, session, user, _origin(callback.data))
+    origin = _origin(callback.data)
+    done = get_text("qmode_difficult_set", lang)
+    await _answer_choice(callback, done, origin)
+    await _show_after_change(callback, session, user, origin, done=done)
 
 
 # ============================================================================

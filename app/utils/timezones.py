@@ -5,25 +5,26 @@
 from typing import Dict, Tuple
 
 # Маппинг городов → (names_by_lang, timezone, UTC offset)
-# Структура: city_code -> ({"ru": "name", "uk": "name", "en": "name", "tr": "name"}, timezone, offset)
+# Структура: city_code -> ({"ru"…"pl": "name"}, timezone, offset) — все шесть языков
+# интерфейса: без de и pl немецкий и польский экран поясов шёл кириллицей (14.10)
 TIMEZONE_CITIES: Dict[str, Tuple[Dict[str, str], str, str]] = {
     # ============================================
     # ПЕРВЫЙ ЭКРАН (4 основных города)
     # ============================================
     "london": (
-        {"ru": "🇬🇧 Лондон", "uk": "🇬🇧 Лондон", "en": "🇬🇧 London", "tr": "🇬🇧 Londra"},
+        {"ru": "🇬🇧 Лондон", "uk": "🇬🇧 Лондон", "en": "🇬🇧 London", "tr": "🇬🇧 Londra", "de": "🇬🇧 London", "pl": "🇬🇧 Londyn"},
         "Europe/London", "+00:00"
     ),
     "berlin": (
-        {"ru": "🇩🇪 Берлин", "uk": "🇩🇪 Берлін", "en": "🇩🇪 Berlin", "tr": "🇩🇪 Berlin"},
+        {"ru": "🇩🇪 Берлин", "uk": "🇩🇪 Берлін", "en": "🇩🇪 Berlin", "tr": "🇩🇪 Berlin", "de": "🇩🇪 Berlin", "pl": "🇩🇪 Berlin"},
         "Europe/Berlin", "+01:00"
     ),
     "kyiv": (
-        {"ru": "🇺🇦 Київ", "uk": "🇺🇦 Київ", "en": "🇺🇦 Kyiv", "tr": "🇺🇦 Kiev"},
+        {"ru": "🇺🇦 Киев", "uk": "🇺🇦 Київ", "en": "🇺🇦 Kyiv", "tr": "🇺🇦 Kiev", "de": "🇺🇦 Kyjiw", "pl": "🇺🇦 Kijów"},
         "Europe/Kyiv", "+02:00"
     ),
     "istanbul": (
-        {"ru": "🇹🇷 Стамбул", "uk": "🇹🇷 Стамбул", "en": "🇹🇷 Istanbul", "tr": "🇹🇷 İstanbul"},
+        {"ru": "🇹🇷 Стамбул", "uk": "🇹🇷 Стамбул", "en": "🇹🇷 Istanbul", "tr": "🇹🇷 İstanbul", "de": "🇹🇷 Istanbul", "pl": "🇹🇷 Stambuł"},
         "Europe/Istanbul", "+03:00"
     ),
 
@@ -33,69 +34,69 @@ TIMEZONE_CITIES: Dict[str, Tuple[Dict[str, str], str, str]] = {
 
     # Америка
     "los_angeles": (
-        {"ru": "🇺🇸 Лос-Анджелес", "uk": "🇺🇸 Лос-Анджелес", "en": "🇺🇸 Los Angeles", "tr": "🇺🇸 Los Angeles"},
+        {"ru": "🇺🇸 Лос-Анджелес", "uk": "🇺🇸 Лос-Анджелес", "en": "🇺🇸 Los Angeles", "tr": "🇺🇸 Los Angeles", "de": "🇺🇸 Los Angeles", "pl": "🇺🇸 Los Angeles"},
         "America/Los_Angeles", "-08:00"
     ),
     "chicago": (
-        {"ru": "🇺🇸 Чикаго", "uk": "🇺🇸 Чикаго", "en": "🇺🇸 Chicago", "tr": "🇺🇸 Chicago"},
+        {"ru": "🇺🇸 Чикаго", "uk": "🇺🇸 Чикаго", "en": "🇺🇸 Chicago", "tr": "🇺🇸 Chicago", "de": "🇺🇸 Chicago", "pl": "🇺🇸 Chicago"},
         "America/Chicago", "-06:00"
     ),
     "new_york": (
-        {"ru": "🇺🇸 Нью-Йорк", "uk": "🇺🇸 Нью-Йорк", "en": "🇺🇸 New York", "tr": "🇺🇸 New York"},
+        {"ru": "🇺🇸 Нью-Йорк", "uk": "🇺🇸 Нью-Йорк", "en": "🇺🇸 New York", "tr": "🇺🇸 New York", "de": "🇺🇸 New York", "pl": "🇺🇸 Nowy Jork"},
         "America/New_York", "-05:00"
     ),
     "toronto": (
-        {"ru": "🇨🇦 Торонто", "uk": "🇨🇦 Торонто", "en": "🇨🇦 Toronto", "tr": "🇨🇦 Toronto"},
+        {"ru": "🇨🇦 Торонто", "uk": "🇨🇦 Торонто", "en": "🇨🇦 Toronto", "tr": "🇨🇦 Toronto", "de": "🇨🇦 Toronto", "pl": "🇨🇦 Toronto"},
         "America/Toronto", "-05:00"
     ),
     "mexico_city": (
-        {"ru": "🇲🇽 Мехико", "uk": "🇲🇽 Мехіко", "en": "🇲🇽 Mexico City", "tr": "🇲🇽 Mexico City"},
+        {"ru": "🇲🇽 Мехико", "uk": "🇲🇽 Мехіко", "en": "🇲🇽 Mexico City", "tr": "🇲🇽 Mexico City", "de": "🇲🇽 Mexiko-Stadt", "pl": "🇲🇽 Meksyk"},
         "America/Mexico_City", "-06:00"
     ),
     "sao_paulo": (
-        {"ru": "🇧🇷 Сан-Паулу", "uk": "🇧🇷 Сан-Паулу", "en": "🇧🇷 São Paulo", "tr": "🇧🇷 São Paulo"},
+        {"ru": "🇧🇷 Сан-Паулу", "uk": "🇧🇷 Сан-Паулу", "en": "🇧🇷 São Paulo", "tr": "🇧🇷 São Paulo", "de": "🇧🇷 São Paulo", "pl": "🇧🇷 São Paulo"},
         "America/Sao_Paulo", "-03:00"
     ),
 
     # Азия
     "dubai": (
-        {"ru": "🇦🇪 Дубай", "uk": "🇦🇪 Дубай", "en": "🇦🇪 Dubai", "tr": "🇦🇪 Dubai"},
+        {"ru": "🇦🇪 Дубай", "uk": "🇦🇪 Дубай", "en": "🇦🇪 Dubai", "tr": "🇦🇪 Dubai", "de": "🇦🇪 Dubai", "pl": "🇦🇪 Dubaj"},
         "Asia/Dubai", "+04:00"
     ),
     "almaty": (
-        {"ru": "🇰🇿 Алматы", "uk": "🇰🇿 Алмати", "en": "🇰🇿 Almaty", "tr": "🇰🇿 Almatı"},
+        {"ru": "🇰🇿 Алматы", "uk": "🇰🇿 Алмати", "en": "🇰🇿 Almaty", "tr": "🇰🇿 Almatı", "de": "🇰🇿 Almaty", "pl": "🇰🇿 Ałmaty"},
         "Asia/Almaty", "+05:00"
     ),
     "tashkent": (
-        {"ru": "🇺🇿 Ташкент", "uk": "🇺🇿 Ташкент", "en": "🇺🇿 Tashkent", "tr": "🇺🇿 Taşkent"},
+        {"ru": "🇺🇿 Ташкент", "uk": "🇺🇿 Ташкент", "en": "🇺🇿 Tashkent", "tr": "🇺🇿 Taşkent", "de": "🇺🇿 Taschkent", "pl": "🇺🇿 Taszkent"},
         "Asia/Tashkent", "+05:00"
     ),
     "delhi": (
-        {"ru": "🇮🇳 Дели", "uk": "🇮🇳 Делі", "en": "🇮🇳 Delhi", "tr": "🇮🇳 Delhi"},
+        {"ru": "🇮🇳 Дели", "uk": "🇮🇳 Делі", "en": "🇮🇳 Delhi", "tr": "🇮🇳 Delhi", "de": "🇮🇳 Delhi", "pl": "🇮🇳 Delhi"},
         "Asia/Kolkata", "+05:30"
     ),
     "bangkok": (
-        {"ru": "🇹🇭 Бангкок", "uk": "🇹🇭 Бангкок", "en": "🇹🇭 Bangkok", "tr": "🇹🇭 Bangkok"},
+        {"ru": "🇹🇭 Бангкок", "uk": "🇹🇭 Бангкок", "en": "🇹🇭 Bangkok", "tr": "🇹🇭 Bangkok", "de": "🇹🇭 Bangkok", "pl": "🇹🇭 Bangkok"},
         "Asia/Bangkok", "+07:00"
     ),
     "hanoi": (
-        {"ru": "🇻🇳 Ханой", "uk": "🇻🇳 Ханой", "en": "🇻🇳 Hanoi", "tr": "🇻🇳 Hanoi"},
+        {"ru": "🇻🇳 Ханой", "uk": "🇻🇳 Ханой", "en": "🇻🇳 Hanoi", "tr": "🇻🇳 Hanoi", "de": "🇻🇳 Hanoi", "pl": "🇻🇳 Hanoi"},
         "Asia/Ho_Chi_Minh", "+07:00"
     ),
     "beijing": (
-        {"ru": "🇨🇳 Пекин", "uk": "🇨🇳 Пекін", "en": "🇨🇳 Beijing", "tr": "🇨🇳 Pekin"},
+        {"ru": "🇨🇳 Пекин", "uk": "🇨🇳 Пекін", "en": "🇨🇳 Beijing", "tr": "🇨🇳 Pekin", "de": "🇨🇳 Peking", "pl": "🇨🇳 Pekin"},
         "Asia/Shanghai", "+08:00"
     ),
     "tokyo": (
-        {"ru": "🇯🇵 Токио", "uk": "🇯🇵 Токіо", "en": "🇯🇵 Tokyo", "tr": "🇯🇵 Tokyo"},
+        {"ru": "🇯🇵 Токио", "uk": "🇯🇵 Токіо", "en": "🇯🇵 Tokyo", "tr": "🇯🇵 Tokyo", "de": "🇯🇵 Tokio", "pl": "🇯🇵 Tokio"},
         "Asia/Tokyo", "+09:00"
     ),
     "seoul": (
-        {"ru": "🇰🇷 Сеул", "uk": "🇰🇷 Сеул", "en": "🇰🇷 Seoul", "tr": "🇰🇷 Seul"},
+        {"ru": "🇰🇷 Сеул", "uk": "🇰🇷 Сеул", "en": "🇰🇷 Seoul", "tr": "🇰🇷 Seul", "de": "🇰🇷 Seoul", "pl": "🇰🇷 Seul"},
         "Asia/Seoul", "+09:00"
     ),
     "sydney": (
-        {"ru": "🇦🇺 Сидней", "uk": "🇦🇺 Сідней", "en": "🇦🇺 Sydney", "tr": "🇦🇺 Sidney"},
+        {"ru": "🇦🇺 Сидней", "uk": "🇦🇺 Сідней", "en": "🇦🇺 Sydney", "tr": "🇦🇺 Sidney", "de": "🇦🇺 Sydney", "pl": "🇦🇺 Sydney"},
         "Australia/Sydney", "+11:00"
     ),
 }

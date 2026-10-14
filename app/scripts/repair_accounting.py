@@ -89,7 +89,7 @@ from app.database.models import (
 )
 from app.database.session import AsyncSessionLocal
 from app.services.monthly_leaderboard_service import (
-    REPEAT_QUIZ_MODE, scored_sessions_filter,
+    REPEAT_QUIZ_MODE, month_words, scored_sessions_filter,
 )
 from app.services.quiz_service import MIN_ATTEMPTS_FOR_LEARNED
 
@@ -278,15 +278,10 @@ async def repair_monthly(session, apply: bool, all_seasons: bool) -> int:
                     )).all()
                 }
 
-            words = (await session.execute(
-                select(func.count()).select_from(UserWord).where(
-                    UserWord.user_id == stat.user_id,
-                    UserWord.learning_lang == stat.learning_lang,
-                    UserWord.learned.is_(True),
-                    UserWord.last_seen_at >= start,
-                    UserWord.last_seen_at <= end,
-                )
-            )).scalar() or 0
+            # Тем же правилом, что бот (`month_words`: по дате перехода в
+            # «выучено»), а не своей копией запроса
+            words = await month_words(
+                session, stat.user_id, stat.learning_lang, season)
 
             fresh = dict(
                 monthly_quizzes=len(quizzes),
@@ -304,11 +299,16 @@ async def repair_monthly(session, apply: bool, all_seasons: bool) -> int:
             )
 
             before = stat.monthly_score
+            # Сравнить ДО записи. Прежде `_changed` звался после `setattr`
+            # и сравнивал свежие числа сами с собой — всегда «не изменилось»:
+            # ряд с разошедшимися счётчиками при том же балле в отчёт не
+            # попадал вовсе
+            counters_changed = _changed(stat, fresh)
             for key, value in fresh.items():
                 setattr(stat, key, value)
             after = stat.calculate_monthly_score()
 
-            if before == after and not _changed(stat, fresh):
+            if before == after and not counters_changed:
                 continue
 
             fixed += 1
@@ -531,17 +531,44 @@ async def repair_word_rows(session, apply: bool) -> int:
         .where(UserWord.times_shown > 0, UserWord.last_seen_at.is_(None))
     )).all()
 
-    fixed = len(stale_learned) + len(no_date)
+    # Дата перехода в «выучено» живёт вместе с отметкой
+    # (`update_word_progress`): у выученного она есть, у невыученного её нет.
+    # Без даты выученное слово не попало бы в «+3 за слово» ни в каком
+    # месяце; дата ставится тем же правилом, что бэкафилл миграции
+    # f2c7a9d4e801 — последний показ
+    learned_no_date = (await session.execute(
+        select(UserWord).where(
+            UserWord.learned.is_(True), UserWord.learned_at.is_(None),
+            UserWord.correct_streak >= MIN_ATTEMPTS_FOR_LEARNED,
+        )
+    )).scalars().all()
+    stray_date = (await session.execute(
+        select(UserWord).where(
+            UserWord.learned.is_(False), UserWord.learned_at.isnot(None),
+        )
+    )).scalars().all()
+
+    fixed = (len(stale_learned) + len(no_date)
+             + len(learned_no_date) + len(stray_date))
     if stale_learned:
         print(f"   отметка «выучено» при короткой серии: {len(stale_learned)}")
     if no_date:
         print(f"   без даты показа: {len(no_date)}")
+    if learned_no_date:
+        print(f"   выучено без даты перехода: {len(learned_no_date)}")
+    if stray_date:
+        print(f"   дата перехода у невыученного: {len(stray_date)}")
 
     if apply:
         for row in stale_learned:
             row.learned = False
+            row.learned_at = None
         for row, answered_at in no_date:
             row.last_seen_at = answered_at or row.created_at or utcnow()
+        for row in learned_no_date:
+            row.learned_at = row.last_seen_at or row.created_at
+        for row in stray_date:
+            row.learned_at = None
         await session.commit()
 
     return fixed
@@ -564,16 +591,20 @@ async def run(apply: bool, all_seasons: bool) -> int:
         users_fixed = await repair_success_rate(session, apply)
         print(f"   расходится людей: {users_fixed}\n")
 
-        scope = "все сезоны" if all_seasons else "действующий сезон"
-        print(f"3. Месячный балл ← занятия сезона ({scope})")
-        monthly_fixed = await repair_monthly(session, apply, all_seasons)
-        print(f"   расходится рядов: {monthly_fixed}\n")
-
-        # Слова ПЕРЕД итогами: снятая отметка «выучено» меняет счёт
-        # выученных, и считать итоги надо уже по исправленным рядам
-        print("4. Прогресс по словам")
+        # Слова ПЕРЕД месячным баллом и итогами: снятая отметка «выучено»
+        # меняет счёт выученных, а «+3 за слово» в месячном балле считается
+        # по `learned_at`. Прежде балл шёл раньше, и на выкатке (после
+        # миграции `learned_at` пуст у всех 1 454 выученных, репетиция
+        # 14.10) первый `--apply` обнулил бы людям слова месяца, а верный
+        # балл дал бы только второй проход
+        print("3. Прогресс по словам")
         words_fixed = await repair_word_rows(session, apply)
         print(f"   расходится рядов: {words_fixed}\n")
+
+        scope = "все сезоны" if all_seasons else "действующий сезон"
+        print(f"4. Месячный балл ← занятия сезона ({scope})")
+        monthly_fixed = await repair_monthly(session, apply, all_seasons)
+        print(f"   расходится рядов: {monthly_fixed}\n")
 
         print("5. Итоги человека ← его же записи")
         totals_fixed = await repair_user_totals(session, apply)

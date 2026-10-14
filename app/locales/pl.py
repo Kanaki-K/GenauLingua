@@ -250,7 +250,6 @@ TEXTS = {
     "quiz_repeat_title": "<b>Powtórka błędów</b>",
     "quiz_no_errors": "✓ Lekcja bez żadnych błędów!",
     "quiz_error_next": "✗ Nie udało się wczytać następnego pytania.",
-    "quiz_error_generate": "✗ Nie udało się utworzyć następnego pytania.",
 
     # ============================================================================
     # STATYSTYKI
@@ -295,6 +294,7 @@ Im aktywniejsza społeczność, tym lepszy bot. Serdecznie zapraszamy! """,
     "rating_not_active": "✗ Ranking nie jest jeszcze aktywny.",
     "rating_not_in_ranking": "Brak jeszcze pozycji w rankingu",
     "rating_start_quiz": "Zapraszamy na pierwszą lekcję!",
+    "rating_join_by_lesson": "Punkty za zgłoszenia ({score}) zostały przyznane. Proszę ukończyć lekcję, aby dołączyć do rankingu miesiąca.",
     "rating_position": "Pozycja: <b>#{rank}</b> z {total}",
     "rating_points": "Punkty: <b>{score}</b>",
     "rating_title_polyglot": "poliglota",
@@ -307,10 +307,6 @@ Im aktywniejsza społeczność, tym lepszy bot. Serdecznie zapraszamy! """,
     "rating_streak": "Seria: {days_word}",
     "rating_avg_result": "Średni wynik: {percent}%",
     "rating_scoring_title": "<b>Jak zdobyć punkty:</b>",
-    "rating_scoring_quiz": "• Ukończona lekcja → +10",
-    "rating_scoring_word": "• Nauczone słowo → +2",
-    "rating_scoring_streak": "• Dzień z rzędu → +3",
-    "rating_scoring_bonus": "• Celność 90%+ → +50 bonus",
     "rating_scoring_report": "• Potwierdzone zgłoszenie błędu → +{points}",
 
     "rating_title_alltime": "<b>Moja pozycja — ogółem</b>",
@@ -431,7 +427,7 @@ TEXTS.update({
 # экране, и оставлено то, чего из интерфейса не видно.
 # ============================================================================
 TEXTS.update({
-    "help_how_to_use_text": "<b>Lekcja</b>\n{words}, cztery warianty odpowiedzi. Bot zapamiętuje błędy i częściej wraca do trudnych słów. Po lekcji można od razu powtórzyć pytania z błędami.\n\n<b>Wymowa</b>\nW pytaniu brzmi słowo, po odpowiedzi — słowo razem z przykładem. Głos można wybrać w ustawieniach, męski albo żeński.\n\n<b>Języki</b>\n{languages} — w każdej parze i w obie strony. Postępy i ranking liczą się osobno dla każdego języka.\n\n\nSłowo jest <b>nauczone</b> po trzech poprawnych odpowiedziach z rzędu, w różne dni.\n<b>Seria</b> to kolejne dni, w których była co najmniej jedna lekcja.\nBłąd w tłumaczeniu lub wymowie — przycisk po lekcji.",
+    "help_how_to_use_text": "<b>Lekcja</b>\n{words}, cztery warianty odpowiedzi. Gry zmieniają się same: „Czytam”, „Przypominam”, „Słucham”, „Mówię” i plansza do łączenia w pary. Bot zapamiętuje błędy i częściej wraca do trudnych słów. Po lekcji można od razu powtórzyć pytania z błędami.\n\n<b>Wymowa</b>\nW pytaniu brzmi słowo, po odpowiedzi — słowo razem z przykładem. Głos można wybrać w ustawieniach, męski albo żeński.\n\n<b>Języki</b>\n{languages} — w każdej parze. Postępy i ranking liczą się osobno dla każdego języka.\n\n\nSłowo jest <b>nauczone</b> po trzech poprawnych odpowiedziach z rzędu, w różne dni.\n<b>Seria</b> to kolejne dni, w których była co najmniej jedna lekcja.\nBłąd w tłumaczeniu lub wymowie — przycisk „Zgłosić błąd” po lekcji.",
     "help_community_title": "<b>O bocie i społeczności</b>",
     "help_community_text": "<b>GenauLingua</b> — {language_count} języków w każdej parze: {languages}\n12 900 słów A1–C2, każde z przykładem i naturalnie brzmiącą wymową.\nInterfejs: {interface_languages}\n\n<b>t.me/genaulingua_chat</b>\nBłędy, pomyłki w tłumaczeniu, pomysły — czytamy wszystko. Zgłoszenia o wymowie są szczególnie cenne: maszyna nie słyszy akcentu.",
 })
@@ -589,7 +585,7 @@ TEXTS.update({
     "reminder_offer": "Przypominać raz dziennie? Łatwiej wtedy utrzymać to, co już nauczone, i nie przerwać serii.",
     "reminder_offer_yes": "Tak, proszę przypominać",
     "reminder_offer_no": "Nie trzeba",
-    "reminder_offer_done": "✓ Gotowe: przypomnienie przyjdzie o <b>{time}</b> czasu lokalnego. Godzinę, dni i strefę czasową można dostosować.",
+    "reminder_offer_done": "✓ Gotowe: przypomnienie przyjdzie o <b>{time}</b> ({city}). Godzinę, dni i strefę czasową można dostosować.",
     "reminder_offer_setup": "Ustawienia przypomnień",
     "level_offer": "Na poziomie <b>{current}</b> błędów prawie nie ma. Przejść na <b>{following}</b>? Wszystkie postępy zostają.",
     "level_offer_yes": "Tak, przejść na {following}",

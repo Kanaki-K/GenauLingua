@@ -95,11 +95,11 @@ TEXTS = {
     "remind_streak_lost": "Your best streak was {days_word}. A new one starts with a single lesson.",
     "remind_milestone_close": "Words you're learning: {count} · {left} more to {target} — that's one lesson",
     "remind_almost_learned": "You're one correct answer away from your first learned word. Words this close: {count}",
-    "remind_rank": "You're #{rank} of {total} among learners of your language",
+    "remind_rank": "#{rank} of {total} in this month's ranking for this language",
     "remind_fact_1": "A word sticks when it comes back: after a day, three days, a week. The bot keeps the schedule.",
     "remind_fact_2": "An answer by ear is worth more: there's no written word to lean on.",
     "remind_fact_3": "Saying a word out loud is harder than recognising it — and worth three times as much.",
-    "remind_fact_4": "Fifteen words take about four minutes — less than a queue for coffee.",
+    "remind_fact_4": "Fifteen questions take about four minutes — less than a queue for coffee.",
 
     # ============================================================================
     # SETTINGS
@@ -244,7 +244,6 @@ TEXTS = {
     "quiz_repeat_title": "<b>Retry mistakes</b>",
     "quiz_no_errors": "✓ No mistakes this time!",
     "quiz_error_next": "✗ Couldn't load the next question.",
-    "quiz_error_generate": "✗ Couldn't prepare the next question.",
 
     # ============================================================================
     # STATISTICS
@@ -289,6 +288,7 @@ The more active the community — the better the bot gets. Don't be shy! """,
     "rating_not_active": "✗ The rating isn't active yet.",
     "rating_not_in_ranking": "You're not in the ranking yet",
     "rating_start_quiz": "Take your first lesson!",
+    "rating_join_by_lesson": "Your report points ({score}) are credited. Complete a lesson to join this month's ranking.",
     "rating_position": "Position: <b>#{rank}</b> of {total}",
     "rating_points": "Points: <b>{score}</b>",
     "rating_title_polyglot": "polyglot",
@@ -419,7 +419,7 @@ TEXTS.update({
 # экране, и оставлено то, чего из интерфейса не видно.
 # ============================================================================
 TEXTS.update({
-    "help_how_to_use_text": "<b>Lesson</b>\n{words}, four options each. A lesson mixes five games: I read, I recall, I listen, I speak and the board. The bot remembers your mistakes and brings hard words back more often. After a lesson you can retry the ones you missed.\n\n<b>Audio</b>\nThe question plays the word; after your answer you hear the word with its example. Pick a male or female voice in settings.\n\n<b>Languages</b>\n{languages} — in any pair. Progress and rating are tracked separately for each language.\n\n\nA word counts as <b>learned</b> after three correct answers in a row, on different days.\nYour <b>streak</b> grows with every day you do at least one lesson.\nWrong translation or pronunciation? Use the “Report an error” button after the lesson.",
+    "help_how_to_use_text": "<b>Lesson</b>\n{words}, four options each. A lesson mixes five games: “I read”, “I recall”, “I listen”, “I speak” and the “Find the pairs” board. The bot remembers your mistakes and brings hard words back more often. After a lesson you can retry the ones you missed.\n\n<b>Audio</b>\nThe question plays the word; after your answer you hear the word with its example. Pick a male or female voice in settings.\n\n<b>Languages</b>\n{languages} — in any pair. Progress and rating are tracked separately for each language.\n\n\nA word counts as <b>learned</b> after three correct answers in a row, on different days.\nYour <b>streak</b> grows with every day you do at least one lesson.\nWrong translation or pronunciation? Use the “Report an error” button after the lesson.",
     "help_community_title": "<b>About the bot and the community</b>",
     "help_community_text": "<b>GenauLingua</b> — {language_count} languages in any pair: {languages}\n12,900 words A1–C2, each with an example and natural-sounding audio.\nInterface: {interface_languages}\n\n<b>t.me/genaulingua_chat</b>\nBugs, translation errors, ideas — we read everything. Pronunciation reports are especially welcome: a machine can't hear stress.",
 })
@@ -577,7 +577,7 @@ TEXTS.update({
     "reminder_offer": "Shall I remind you once a day? It makes it easier to keep what you've learnt — and your streak.",
     "reminder_offer_yes": "Yes, remind me",
     "reminder_offer_no": "No, thanks",
-    "reminder_offer_done": "✓ Done: the reminder will arrive at <b>{time}</b> your time. You can adjust the time, days and time zone.",
+    "reminder_offer_done": "✓ Done: the reminder will arrive at <b>{time}</b> ({city}). You can adjust the time, days and time zone.",
     "reminder_offer_setup": "Adjust reminders",
     "level_offer": "You rarely make mistakes at <b>{current}</b>. Move up to <b>{following}</b>? Everything you've learnt stays with you.",
     "level_offer_yes": "Yes, move to {following}",
