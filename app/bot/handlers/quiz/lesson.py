@@ -135,6 +135,12 @@ async def start_quiz(message: Message, state: FSMContext, session: AsyncSession)
     await start_lesson(message, state, session, source=SOURCE_MENU)
 
 
+
+def _build_slots(question: dict) -> int:
+    """Сколько мест у фразы 🧱 — для верхней зоны сетки; у других игр 0."""
+    puzzle = (question or {}).get("build")
+    return len(puzzle.target) if puzzle is not None else 0
+
 async def start_lesson(
     message: Message,
     state: FSMContext,
@@ -244,7 +250,8 @@ async def start_lesson(
     await show_card(
         message.bot, message.chat.id, state, session,
         text=_question_text(word, pair, lang, 1, quiz_total, channel=channel),
-        keyboard=_question_keyboard(channel, question["options"], lang, word.id),
+        keyboard=_question_keyboard(channel, question["options"], lang, word.id,
+                                    slots=_build_slots(question)),
         clip=clip,
         word_id=word.id, lang=pair.learning,
         without_audio=_as_text_question(
@@ -477,6 +484,8 @@ async def _advance(callback: CallbackQuery, state: FSMContext, session: AsyncSes
         # словами, и добавлять к разбору ещё и слух значит мешать две
         # трудности в одной попытке
         channel = QuizChannel.TEXT
+        # Вопроса-словаря у повтора нет: `_build_slots` читает его ниже
+        question = None
         options, _ = build_options(word, distractors, pair)
         # Клип считается и здесь: без него ветка повтора ошибок падала бы на
         # `clip=clip` ниже с NameError — переменная задавалась только во
@@ -567,7 +576,8 @@ async def _advance(callback: CallbackQuery, state: FSMContext, session: AsyncSes
             word, pair, lang, current_question, total_questions,
             is_repeat=is_error_repeat, channel=channel,
         ),
-        keyboard=_question_keyboard(channel, options, lang, word.id),
+        keyboard=_question_keyboard(channel, options, lang, word.id,
+                                    slots=_build_slots(question)),
         clip=clip,
         word_id=word.id, lang=pair.learning,
         message=callback.message,

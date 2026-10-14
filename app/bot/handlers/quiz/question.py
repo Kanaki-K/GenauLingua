@@ -211,7 +211,8 @@ def _answer_text(
 
 
 def _question_keyboard(channel: QuizChannel, options, lang: str,
-                       word_id: Optional[int] = None) -> InlineKeyboardMarkup:
+                       word_id: Optional[int] = None,
+                       slots: int = 0) -> InlineKeyboardMarkup:
     """
     Клавиатура вопроса. У вопроса вслух она другая: вариантов нет.
 
@@ -228,7 +229,9 @@ def _question_keyboard(channel: QuizChannel, options, lang: str,
     if channel is QuizChannel.BUILD:
         from app.bot.handlers.quiz.build import grid_keyboard
 
-        return grid_keyboard([tile for _, tile in options], [], word_id or 0, 0, lang)
+        # `slots` — длина фразы: сверху сразу видно, сколько мест заполнить
+        return grid_keyboard([tile for _, tile in options], [], word_id or 0, 0, lang,
+                             slots=slots)
 
     if channel is not QuizChannel.SPEECH:
         return get_answer_keyboard(options)

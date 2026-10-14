@@ -569,11 +569,44 @@ async def test_the_question_screen(session, user, stage):
     text = rec.last_text()
     assert "1 / 15 · 🧱" in text
     assert data["build_translation"] in text, "фразы на родном нет"
-    assert text.count("▢") == len(data["build_target"])
+    # Длина фразы — местами ▢ в ВЕРХНЕЙ зоне сетки, а не строкой в тексте
+    assert rec.buttons().count("bd:idle") == len(data["build_target"])
     assert data["build_sentence"] not in text, "эталон на экране"
     tiles = [b for b in rec.buttons() if b.startswith("bd:t:")]
     assert len(tiles) == len(data["build_tiles"]) <= 12
     assert not any(b.startswith("bd:check") for b in rec.buttons()), "проверять нечего"
+
+
+async def test_two_zones_placed_words_go_back_and_spare_words_leave(session, user, stage):
+    """
+    Живой тест владельца 14.10: «после выбранного слова ставит точку, а 3,
+    которые предложило с самого начала, висят как бесполезные». Теперь
+    поставленное слово уходит из нижней зоны наверх, возвращается
+    нажатием с ЛЮБОГО места, а собранная фраза оставляет одну «Проверить».
+    """
+    dp, bot, rec = stage
+    context, data = await _start_build(session, user, rec, dp, bot)
+    target = data["build_target"]
+
+    await _assemble(dp, bot, user, context, target[:2])
+    buttons = rec.buttons()
+    assert not any(b == "bd:spent" for b in buttons), "точки на месте нажатых"
+    pool = [b for b in buttons if b.startswith("bd:t:")]
+    assert len(pool) == len(data["build_tiles"]) - 2, "нажатые слова остались внизу"
+    assert sum(b.startswith("bd:u:") for b in buttons) == 2
+
+    # Вернуть ПЕРВОЕ слово, а не последнее: второе встаёт на его место
+    data = await context.get_data()
+    picked = data["build_picked"]
+    await dp.feed_update(bot, press(
+        user.id, f"bd:u:0:{data['build_word']}:{data['build_version']}"))
+    assert (await context.get_data())["build_picked"] == picked[1:]
+
+    # Собрать целиком: лишние слова уходят, остаётся одна «Проверить»
+    await _assemble(dp, bot, user, context, [target[0]] + target[2:])
+    buttons = rec.buttons()
+    assert not any(b.startswith("bd:t:") for b in buttons), "лишние слова висят"
+    assert sum(b.startswith("bd:check") for b in buttons) == 1
 
 
 async def test_a_right_build_is_recorded_once(session, user, stage):

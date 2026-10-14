@@ -473,7 +473,7 @@ async def flow_build(dp, bot, rec, raw: bool, session) -> None:
             if outcome == "верно":
                 _dump(rec, raw, "1. вопрос: фраза на родном, пропуски, сетка")
                 await _tap_words(dp, bot, context, user, target[:2])
-                _dump(rec, raw, "2. два слова поставлены — появился ⌫")
+                _dump(rec, raw, "2. два слова поставлены — ушли наверх, внизу только неиспользованные")
                 await _tap_words_rest(dp, bot, context, user, target[2:])
                 _dump(rec, raw, "3. пропуски заполнены — «Проверить»")
                 await _check_build(dp, bot, context, user)
