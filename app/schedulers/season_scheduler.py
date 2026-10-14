@@ -19,16 +19,23 @@ from app.database.session import AsyncSessionLocal
 from app.services.monthly_leaderboard_service import (
     get_current_season,
     create_new_season,
-    finalize_season
+    finalize_season,
+    notify_season_awards,
 )
 
 logger = logging.getLogger(__name__)
 
 
-async def finalize_and_create_new_season():
+async def finalize_and_create_new_season(bot=None):
     """
     Завершить старый сезон + создать новый.
     Вызывается 1 числа каждого месяца.
+
+    `bot` нужен, чтобы СООБЩИТЬ победителям. Прежде сезон закрывался молча:
+    награды записаны, lifetime вырос — и ни один человек об этом не узнавал.
+    Необязательный он потому, что страховочная часовая проверка зовёт эту
+    же работу, и бот у неё тоже есть; а приёмки зовут без бота, им
+    сообщать некому.
     """
     today = utctoday()
     logger.info(f"Проверка смены сезона: {today}")
@@ -55,7 +62,15 @@ async def finalize_and_create_new_season():
         if not current_season.winners_finalized:
             try:
                 await finalize_season(current_season.id, session)
-                logger.info(f"Сезон {current_season.month}/{current_season.year} завершён, награды розданы!")
+                logger.info(
+                    f"Сезон {current_season.month}/{current_season.year} "
+                    f"завершён, награды розданы"
+                )
+                # СООБЩИТЬ ПОБЕДИТЕЛЯМ. Отдельным шагом и после commit:
+                # награда уже записана, и неудачная отправка её не отменит
+                # — непомеченная уйдёт при следующем прогоне.
+                if bot is not None:
+                    await notify_season_awards(bot, session)
             except Exception as e:
                 logger.error(f"Ошибка завершения сезона: {e}")
                 # Не прерываем — всё равно создаём новый сезон
@@ -71,7 +86,7 @@ async def finalize_and_create_new_season():
             logger.error(f"Ошибка создания нового сезона: {e}")
 
 
-async def hourly_season_check():
+async def hourly_season_check(bot=None):
     """
     Страховочная проверка каждый час.
     Если бот был выключен 1 числа — подхватит смену сезона.
@@ -89,5 +104,5 @@ async def hourly_season_check():
 
         # Если сезон от прошлого месяца — запускаем полную процедуру
         if current_season.year != today.year or current_season.month != today.month:
-            logger.warning(f"Активный сезон {current_season.month}/{current_season.year} устарел!")
-            await finalize_and_create_new_season()
+            logger.warning(f"Активный сезон {current_season.month}/{current_season.year} устарел")
+            await finalize_and_create_new_season(bot)

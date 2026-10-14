@@ -205,6 +205,7 @@ TEXTS = {
     "report_btn_kind_audio": "Falsche Aussprache",
     "report_sent_audio": "✓ {count} gesendet — danke!\nMeldungen zur Aussprache sind besonders wertvoll: die maschinelle Prüfung hört die Betonung nicht\nWenn bestätigt — +{points} Punkte",
     "report_approved": "✓ Deine Meldung wurde angenommen: <b>{word}</b> ist korrigiert.\n+{points} Punkte für die Monatswertung — danke, das Wörterbuch ist jetzt besser für alle.",
+    "award_won": "{mark} Platz {rank} in der Wertung für {month}.\n{bonus} zu deinem Gesamtstand addiert.",
     "report_approved_audio": "✓ Deine Aussprache-Meldung wurde angenommen: <b>{word}</b>.\nDie Aufnahme wird neu erstellt. +{points} Punkte für die Monatswertung — danke.",
 
     # ============================================================================

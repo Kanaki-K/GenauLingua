@@ -35,40 +35,37 @@ def get_user_title(win_streak: dict, learned_words: int,
     return ""
 
 
+# Названия месяцев по языкам. ТАБЛИЦЕЙ, а не цепочкой условий.
+#
+# Прежде выбор был такой: `months_uk if lang == "uk" else months_en if
+# lang == "en" else months_tr if lang == "tr" else months_ru`. Немецкий и
+# польский в цепочку не попали, и человек, читающий бота по-немецки,
+# видел «Октябрь» русскими буквами. Два языка из шести.
+#
+# Таблица эту ошибку делает невозможной: новый язык либо есть в ней, либо
+# его отсутствие видно сразу — по запасному значению.
+MONTH_NAMES = {
+    "ru": ("Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
+           "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"),
+    "uk": ("Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень",
+           "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень"),
+    "en": ("January", "February", "March", "April", "May", "June",
+           "July", "August", "September", "October", "November", "December"),
+    "de": ("Januar", "Februar", "März", "April", "Mai", "Juni",
+           "Juli", "August", "September", "Oktober", "November", "Dezember"),
+    "pl": ("Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec",
+           "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"),
+    "tr": ("Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran",
+           "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"),
+}
+
+
 def format_month_name(month: int, lang: str = "ru") -> str:
-    """
-    Форматировать название месяца
-
-    Args:
-        month: номер месяца (1-12)
-        lang: язык интерфейса
-
-    Returns:
-        Название месяца на выбранном языке
-    """
-    months_ru = {
-        1: "Январь", 2: "Февраль", 3: "Март", 4: "Апрель",
-        5: "Май", 6: "Июнь", 7: "Июль", 8: "Август",
-        9: "Сентябрь", 10: "Октябрь", 11: "Ноябрь", 12: "Декабрь"
-    }
-    months_uk = {
-        1: "Січень", 2: "Лютий", 3: "Березень", 4: "Квітень",
-        5: "Травень", 6: "Червень", 7: "Липень", 8: "Серпень",
-        9: "Вересень", 10: "Жовтень", 11: "Листопад", 12: "Грудень"
-    }
-    months_en = {
-        1: "January", 2: "February", 3: "March", 4: "April",
-        5: "May", 6: "June", 7: "July", 8: "August",
-        9: "September", 10: "October", 11: "November", 12: "December"
-    }
-    months_tr = {
-        1: "Ocak", 2: "Şubat", 3: "Mart", 4: "Nisan",
-        5: "Mayıs", 6: "Haziran", 7: "Temmuz", 8: "Ağustos",
-        9: "Eylül", 10: "Ekim", 11: "Kasım", 12: "Aralık"
-    }
-
-    months = months_uk if lang == "uk" else months_en if lang == "en" else months_tr if lang == "tr" else months_ru
-    return months.get(month, str(month))
+    """Название месяца на языке человека. Неизвестный язык — номером."""
+    names = MONTH_NAMES.get(lang or "")
+    if not names or not 1 <= month <= 12:
+        return str(month)
+    return names[month - 1]
 
 
 def create_progress_bar(current: int, target: int, length: int = 10) -> str:

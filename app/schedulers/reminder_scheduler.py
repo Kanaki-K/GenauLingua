@@ -291,6 +291,7 @@ def setup_scheduler(bot: Bot) -> AsyncIOScheduler:
         day=1,
         hour=0,
         minute=5,
+        args=[bot],
         id="finalize_season",
         replace_existing=True
     )
@@ -298,6 +299,7 @@ def setup_scheduler(bot: Bot) -> AsyncIOScheduler:
     # Каждый час — страховочная проверка (если бот был выключен 1 числа)
     scheduler.add_job(
         hourly_season_check,
+        args=[bot],
         trigger="cron",
         minute=30,  # каждый час в :30
         id="hourly_season_check",

@@ -423,15 +423,33 @@ async def calculate_monthly_streak(
 # УТИЛИТА: тип награды → эмодзи
 # ============================================================================
 
+# Знак награды. ОН И ЕСТЬ НАГРАДА, а не украшение к ней.
+#
+# Прежде здесь стояли пустые строки: медали сняли общей чисткой знаков, и
+# золото стало неотличимо от седьмого места — только номер. Владелец
+# попросил обратного: «награды, баджи за викторины (которые были в проде)
+# — важно сохранить. Это повышает их ценность».
+#
+# Это тот же довод, что у знаков игр: знак, который НАЗЫВАЕТ вещь, остаётся;
+# знак, который её украшает, уходит. Медаль называет: первое место.
+AWARD_MARKS = {
+    "gold": "🥇",
+    "silver": "🥈",
+    "bronze": "🥉",
+    # У места с четвёртого по десятое своего знака нет нарочно: «вошёл в
+    # десятку» — это номер, а не медаль, и медаль там обесценила бы три
+    # первые.
+    "top10": "",
+}
+
+
+def award_mark(award_type: str) -> str:
+    return AWARD_MARKS.get(award_type, "")
+
+
 def _award_type_to_emoji(award_type: str) -> str:
-    """Конвертировать тип награды в эмодзи"""
-    mapping = {
-        "gold": "",
-        "silver": "",
-        "bronze": "",
-        "top10": "",
-    }
-    return mapping.get(award_type, "")
+    """Прежнее имя: оставлено ради вызывающих."""
+    return award_mark(award_type)
 
 
 # ============================================================================
@@ -747,3 +765,86 @@ async def get_lifetime_leaderboard(
         })
 
     return leaderboard
+
+# ============================================================================
+# ИЗВЕЩЕНИЕ О НАГРАДЕ
+# ============================================================================
+
+async def notify_season_awards(bot, session: AsyncSession) -> int:
+    """
+    Сообщить людям о наградах, о которых им ещё не сообщали.
+
+    ЗАЧЕМ. Сезон закрывался так: награды записаны, `lifetime_score` вырос,
+    серия побед обновлена — и ни один человек об этом не узнавал. Владелец
+    просил прямо обратного: «награды, баджи за викторины (которые были в
+    проде) — важно сохранить. Это повышает их ценность». Награда, о которой
+    не сказали, ценности не добавляет: она не видна даже тому, кто её взял.
+
+    Та же форма дефекта уже встречалась у жалобы на перевод: баллы
+    начислялись, а автору не сообщалось ничего, хотя бот обещал награду.
+
+    ИДЕМПОТЕНТНОСТЬ ОБЯЗАТЕЛЬНА. Закрытие сезона вызывается первого числа
+    по расписанию И каждый час страховкой — на случай выключенного бота.
+    Без отметки `notified_at` победитель получал бы поздравление каждый
+    час. Отметка ставится ПОСЛЕ успешной отправки, иначе сбой сети отнял
+    бы поздравление навсегда.
+
+    Ошибка доставки не валит ничего: человек мог закрыть бота, и награда от
+    этого не хуже. Такая награда остаётся непомеченной и уйдёт при
+    следующем прогоне.
+
+    Возвращает число отправленных.
+    """
+    from app.bot.handlers.leaderboard.utils import format_month_name
+    from app.locales import DEFAULT_LOCALE, get_text
+
+    pending = (await session.execute(
+        select(MonthlyAward)
+        .where(MonthlyAward.notified_at.is_(None))
+        .order_by(MonthlyAward.rank)
+    )).scalars().all()
+
+    if not pending:
+        return 0
+
+    sent = 0
+    for award in pending:
+        user = await session.get(User, award.user_id)
+        if not user:
+            # Человека больше нет — награда остаётся в истории сезона, но
+            # сообщать некому; помечаем, чтобы не перебирать её вечно
+            award.notified_at = utcnow()
+            continue
+
+        season = await session.get(MonthlySeason, award.season_id)
+        lang = user.interface_language or DEFAULT_LOCALE
+
+        # Значения считаются ДО вызова: выражение с запятыми внутри
+        # `get_text(...)` не разбирается проверкой соответствия параметров
+        # (`test_format_parameters_match`), и ключ с подстановками прошёл бы
+        # мимо неё молча
+        mark = award_mark(award.award_type) or f"#{award.rank}"
+        month = format_month_name(season.month, lang) if season else ""
+
+        try:
+            await bot.send_message(
+                award.user_id,
+                get_text(
+                    "award_won", lang,
+                    mark=mark,
+                    rank=award.rank,
+                    month=month,
+                    bonus=award.lifetime_bonus,
+                ),
+            )
+            award.notified_at = utcnow()
+            sent += 1
+        except Exception:
+            logger.info(
+                "не удалось сообщить о награде (user=%s, сезон=%s)",
+                award.user_id, award.season_id, exc_info=True,
+            )
+
+    await session.commit()
+    logger.info("о наградах сообщено: %s из %s", sent, len(pending))
+    return sent

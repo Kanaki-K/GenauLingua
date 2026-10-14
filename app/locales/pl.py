@@ -205,6 +205,7 @@ TEXTS = {
     "report_btn_kind_audio": "Błędna wymowa",
     "report_sent_audio": "✓ Wysłano {count} — dziękujemy!\nZgłoszenia wymowy są szczególnie cenne: sprawdzanie maszynowe nie słyszy akcentu\nJeśli się potwierdzi — +{points} punktów",
     "report_approved": "✓ Twoje zgłoszenie przyjęte: <b>{word}</b> poprawiono.\n+{points} punktów do wyniku miesiąca — dzięki, słownik stał się lepszy dla wszystkich.",
+    "award_won": "{mark} Miejsce {rank} w klasyfikacji za {month}.\nDo stałego wyniku dodano {bonus}.",
     "report_approved_audio": "✓ Zgłoszenie wymowy przyjęte: <b>{word}</b>.\nNagranie powstanie na nowo. +{points} punktów do wyniku miesiąca — dzięki.",
 
     # ============================================================================

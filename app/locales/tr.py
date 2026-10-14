@@ -199,6 +199,7 @@ TEXTS = {
     "report_btn_kind_audio": "Hatalı telaffuz",
     "report_sent_audio": "✓ {count} gönderildi — teşekkürler!\nTelaffuz bildirimleri özellikle değerli: otomatik kontrol vurguyu duymaz\nOnaylanırsa — +{points} puan",
     "report_approved": "✓ Bildirimin kabul edildi: <b>{word}</b> düzeltildi.\nAylık puanına +{points} puan — teşekkürler, sözlük herkes için daha iyi oldu.",
+    "award_won": "{mark} {month} sıralamasında {rank}. oldun.\nKalıcı puanına {bonus} eklendi.",
     "report_approved_audio": "✓ Telaffuz bildirimin kabul edildi: <b>{word}</b>.\nSes kaydı yeniden alınacak. Aylık puanına +{points} puan — teşekkürler.",
 
     # ============================================================================

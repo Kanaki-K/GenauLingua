@@ -199,6 +199,7 @@ TEXTS = {
     "report_btn_kind_audio": "Wrong pronunciation",
     "report_sent_audio": "✓ Sent {count} — thank you!\nPronunciation reports are especially valuable: the automated check cannot hear stress\nIf confirmed — +{points} points",
     "report_approved": "✓ Your report was accepted: <b>{word}</b> is fixed.\n+{points} points to your monthly score — thanks, the dictionary got better for everyone.",
+    "award_won": "{mark} You placed {rank} in the {month} standings.\n{bonus} added to your lifetime score.",
     "report_approved_audio": "✓ Your pronunciation report was accepted: <b>{word}</b>.\nThe audio will be re-recorded. +{points} points to your monthly score — thank you.",
 
     # ============================================================================

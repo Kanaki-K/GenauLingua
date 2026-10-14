@@ -760,6 +760,13 @@ class MonthlyAward(Base):
 
     created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
 
+    # Когда человеку СООБЩИЛИ о награде. Пусто — значит ещё не сообщили.
+    #
+    # Отметка нужна потому, что закрытие сезона вызывается дважды: первого
+    # числа по расписанию и каждый час страховкой, на случай выключенного
+    # бота. Без неё победитель получал бы поздравление каждый час.
+    notified_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
+
     # Relationships
     user: Mapped["User"] = relationship(backref="monthly_awards")
     season: Mapped["MonthlySeason"] = relationship(back_populates="awards")
