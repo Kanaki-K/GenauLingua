@@ -930,3 +930,36 @@ async def test_board_is_skipped_when_switched_off(session, user, stage):
     assert [b for b in recorder.buttons() if b.startswith("answer_")], (
         "вместо доски не пришёл обычный вопрос"
     )
+
+
+async def test_the_end_and_the_repeat_never_leave_only_the_anchor(session, user, stage):
+    """
+    Владелец, 15.10: «пропадает карточка и остаётся якорь, а потом появляется
+    новая — как в начале, так и в конце». Итог занятия и первый вопрос
+    повтора ошибок приходят РАНЬШЕ, чем удаляется прежнее сообщение.
+    """
+    from app.locales import get_text
+
+    dp, bot, recorder = stage
+    await _ready(session, user)
+    await _feed(dp, bot, text_update(user.id, get_text("btn_learn_words", "ru")))
+
+    for number in range(ROUND_LENGTH):
+        await _feed(dp, bot, press(user.id, await _wrong_answer(dp, bot, user.id, recorder)))
+        if number == ROUND_LENGTH - 1:
+            recorder.clear()
+        await _feed(dp, bot, press(user.id, "next_question"))
+
+    def first(names):
+        return next(i for i, (n, _) in enumerate(recorder.calls) if n in names)
+
+    sends = {"SendMessage", "SendAudio"}
+    assert first(sends) < first({"DeleteMessage"}), (
+        f"итог пришёл после удаления вопроса: {[n for n, _ in recorder.calls]}"
+    )
+
+    recorder.clear()
+    await _feed(dp, bot, press(user.id, "repeat_errors"))
+    assert first(sends) < first({"DeleteMessage"}), (
+        f"повтор пришёл после удаления итога: {[n for n, _ in recorder.calls]}"
+    )

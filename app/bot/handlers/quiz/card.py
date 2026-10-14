@@ -122,12 +122,15 @@ async def show_card(
             logger.debug("правка карточки не удалась, пересоздаю", exc_info=True)
             sent = None
 
+    # СНАЧАЛА НОВАЯ КАРТОЧКА, ПОТОМ УДАЛЕНИЕ ПРЕЖНЕЙ. Прежде порядок был
+    # обратный, и пока новая (со звуком — до секунды на загрузку) шла в
+    # Telegram, на экране оставался один якорь. Владелец, 15.10: «при
+    # реверс-режиме пропадает карточка и остаётся якорь, а потом появляется
+    # новая, как в начале, так и в конце». В «Вспоминаю» так на каждом
+    # вопросе: вопрос — текст, разбор — со звуком, правка невозможна
+    replaced = message if sent is None else None
+
     if sent is None:
-        if message is not None:
-            try:
-                await message.delete()
-            except Exception:
-                logger.debug("прежняя карточка не удалилась", exc_info=True)
         try:
             sent = await _send_new(bot, chat_id, text, keyboard, clip, lang)
         except TelegramBadRequest:
@@ -170,6 +173,12 @@ async def show_card(
                         text, keyboard = rebuilt
                 sent = await _send_new(bot, chat_id, text, keyboard, None, lang)
             wants_audio = clip is not None
+
+    if replaced is not None:
+        try:
+            await replaced.delete()
+        except Exception:
+            logger.debug("прежняя карточка не удалилась", exc_info=True)
 
     await state.update_data(**{
         STATE_CARD_ID: sent.message_id,

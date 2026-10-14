@@ -381,13 +381,16 @@ async def _show_board_in_round(
     from app.bot.handlers.quiz.match import S_ROUND_AT, start_board
 
     await state.update_data(**{S_BOARD_DONE: True})
-    try:
-        await callback.message.delete()
-    except Exception:
-        logger.debug("карточка перед доской не удалилась", exc_info=True)
 
+    # Сначала новое, потом удаление прежнего: иначе между ними на экране
+    # один якорь (владелец, 15.10: «пропадает карточка и остаётся якорь,
+    # как в начале, так и в конце»)
     shown = await start_board(callback.message, state, session, user, quiet=True)
     if shown:
+        try:
+            await callback.message.delete()
+        except Exception:
+            logger.debug("карточка перед доской не удалилась", exc_info=True)
         # Номер вопроса, на котором доска встала: по нему она и вернёт круг
         await state.update_data(**{S_ROUND_AT: current_question})
         return
@@ -654,13 +657,11 @@ async def repeat_errors(callback: CallbackQuery, state: FSMContext, session: Asy
         report_session_id=data.get("report_session_id"),
     )
 
-    try:
-        await callback.message.delete()
-    except Exception:
-        logger.debug("Не удалось удалить сообщение с итогами", exc_info=True)
-
-    # Карточка с итогами уже удалена, поэтому message не передаём:
-    # повтор ошибок начинается с новой карточки
+    # Повтор ошибок начинается с новой карточки (message не передаём), и
+    # итог удаляется ПОСЛЕ неё.
+    # Сначала новое, потом удаление прежнего: иначе между ними на экране
+    # один якорь (владелец, 15.10: «пропадает карточка и остаётся якорь,
+    # как в начале, так и в конце»)
     await show_card(
         callback.bot, callback.message.chat.id, state, session,
         text=_question_text(first_word, pair, lang, 1, len(errors), is_repeat=True),
@@ -668,6 +669,10 @@ async def repeat_errors(callback: CallbackQuery, state: FSMContext, session: Asy
         clip=await _question_clip(session, user, first_word, pair, QuizChannel.TEXT),
         word_id=first_word.id, lang=pair.learning,
     )
+    try:
+        await callback.message.delete()
+    except Exception:
+        logger.debug("Не удалось удалить сообщение с итогами", exc_info=True)
 
     await state.set_state(QuizStates.answering)
     await callback.answer()

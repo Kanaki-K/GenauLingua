@@ -517,16 +517,18 @@ async def _finish_quiz(
         if praise:
             result_text += "\n\n" + "\n".join(praise)
 
-    try:
-        await callback.message.delete()
-    except Exception:
-        logger.debug("Не удалось удалить сообщение с вопросом", exc_info=True)
-
+    # Сначала новое, потом удаление прежнего: иначе между ними на экране
+    # один якорь (владелец, 15.10: «пропадает карточка и остаётся якорь,
+    # как в начале, так и в конце»)
     await callback.bot.send_message(
         chat_id=callback.message.chat.id,
         text=result_text,
         reply_markup=get_results_keyboard(has_errors=bool(errors), lang=lang),
     )
+    try:
+        await callback.message.delete()
+    except Exception:
+        logger.debug("Не удалось удалить сообщение с вопросом", exc_info=True)
 
     # ПРЕДЛОЖИТЬ НАПОМИНАНИЯ — ЗДЕСЬ И БОЛЬШЕ НИГДЕ.
     #

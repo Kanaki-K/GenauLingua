@@ -249,13 +249,14 @@ async def match_from_button(
         return
 
     message = callback.message
+    await state.update_data(**{S_ROUND_AT: None})
+    # Сначала доска, потом удаление прежнего экрана: иначе между ними на
+    # экране один якорь (владелец, 15.10)
+    await start_board(message, state, session, user)
     try:
         await message.delete()
     except Exception:
         logger.debug("прежний экран не удалился", exc_info=True)
-
-    await state.update_data(**{S_ROUND_AT: None})
-    await start_board(message, state, session, user)
 
 
 @router.callback_query(F.data == CB_SPENT)
