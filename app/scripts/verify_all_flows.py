@@ -304,7 +304,7 @@ async def flow_settings(rep, s, state, learning, native):
 
 
 async def flow_quiz(rep, s, state, questions=4):
-    from app.bot.handlers.quiz import game, lesson
+    from app.bot.handlers.quiz import choice, lesson
 
     bot = StubBot()
 
@@ -326,7 +326,7 @@ async def flow_quiz(rep, s, state, questions=4):
 
         async def answer():
             cb = StubCallback(f"answer_{word_id}", bot=bot)
-            await game.process_answer(cb, state, s)
+            await choice.process_answer(cb, state, s)
             return cb
 
         await rep.step(f"Викторина: ответ {i + 1}", answer)
@@ -348,7 +348,7 @@ async def flow_quiz(rep, s, state, questions=4):
 
 async def flow_quiz_wrong_answers(rep, s, state):
     """Отдельный прогон с неверными ответами — чтобы дошло до повтора ошибок."""
-    from app.bot.handlers.quiz import game, lesson
+    from app.bot.handlers.quiz import choice, lesson
 
     bot = StubBot()
 
@@ -365,7 +365,7 @@ async def flow_quiz_wrong_answers(rep, s, state):
         # отвечаем заведомо неверно: id, которого нет среди вариантов
         async def answer():
             cb = StubCallback("answer_999999999", bot=bot)
-            await game.process_answer(cb, state, s)
+            await choice.process_answer(cb, state, s)
             return cb
 
         await rep.step(f"Ошибки: неверный ответ {i + 1}", answer)

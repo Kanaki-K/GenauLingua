@@ -29,7 +29,7 @@ def all_routers() -> list[Router]:
     from app.bot.handlers.leaderboard.leaderboard_table import router as table_router
     from app.bot.handlers.leaderboard.monthly import router as monthly_router
     from app.bot.handlers.quiz.build import router as build_router
-    from app.bot.handlers.quiz.game import router as game_router
+    from app.bot.handlers.quiz.choice import router as choice_router
     from app.bot.handlers.quiz.help import router as help_router
     from app.bot.handlers.quiz.home import router as home_router
     from app.bot.handlers.quiz.lesson import router as lesson_router
@@ -56,8 +56,11 @@ def all_routers() -> list[Router]:
         # Сетка «Собираю» — рядом с доской и по той же причине: свои
         # нажатия `bd:`, и ловить их, кроме неё, некому
         ("quiz/build", build_router),
+        # Игра — блоком из трёх на месте прежнего «quiz/game»: ход занятия,
+        # ответ кнопкой, ответ голосом. Речь раньше настроек и статистики,
+        # и её `hint_to_speak` отсеивает надписи меню в фильтре
         ("quiz/lesson", lesson_router),
-        ("quiz/game", game_router),
+        ("quiz/choice", choice_router),
         ("quiz/speech", speech_router),
         ("quiz/settings", settings_router),
         ("quiz/stats", stats_router),

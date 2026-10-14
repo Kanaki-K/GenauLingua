@@ -1,11 +1,11 @@
 """
-Ответ кнопкой и ответ голосом — остаток прежнего модуля игры.
+Ответ кнопкой: «📖 Читаю», «💭 Вспоминаю», «🎧 Слышу».
 
-Вынесено по частям в lesson_state, sources, question, listen, summary,
-match и lesson; этот модуль разносится дальше.
+Три игры обслуживает ОДИН обработчик: различаются они видом вопроса и
+разбора (`question.py`), а нажатие на вариант у всех одно и то же.
+
+Вынесено из `game.py` переносом, без правок поведения.
 """
-
-import logging
 
 from aiogram import F, Router
 from aiogram.fsm.context import FSMContext
@@ -24,9 +24,6 @@ from app.services.language_service import (
     option_label,
     pair_from_user,
 )
-
-logger = logging.getLogger(__name__)
-
 
 router = Router()
 
