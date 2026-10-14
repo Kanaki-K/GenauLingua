@@ -28,7 +28,6 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.bot.buttons import BTN_SETTINGS, pressed
-from app.bot.keyboards import get_main_menu_keyboard
 from app.bot.utils import delete_messages_fast, ensure_anchor
 from app.database.enums import CEFRLevel, QuizChannel, QuizMode, WordCategory
 from app.database.models import User
@@ -56,6 +55,91 @@ from app.services.language_service import (
 logger = logging.getLogger(__name__)
 
 router = Router()
+
+
+@router.callback_query.middleware()
+async def _require_user(handler, event: CallbackQuery, data: dict):
+    """
+    Нажатие от человека, которого нет в базе, — ответ, а не падение.
+
+    Все обработчики ниже начинаются с `session.get(User, ...)` и сразу
+    читают `user.interface_language`. Стёртый из базы человек со старым
+    экраном в переписке получал AttributeError на любой кнопке настроек —
+    воспроизведено аудитом 14 октября на `settings_group_what`. Проверка
+    одна на роутер, а не двадцать копий в каждом обработчике.
+    """
+    session = data.get("session")
+    if session is not None and await session.get(User, event.from_user.id) is None:
+        await event.answer(get_text("user_not_found", DEFAULT_LOCALE), show_alert=True)
+        return None
+    return await handler(event, data)
+
+
+# ============================================================================
+# ОТКУДА ПРИШЛИ И СВЕЖИЙ ЯКОРЬ
+# ============================================================================
+
+def _origin(data: str) -> str:
+    """Пометка после двоеточия: `qmode_level:result` → `result`."""
+    return data.partition(":")[2]
+
+
+def _tail(origin: str) -> str:
+    """Та же пометка, готовая к приклейке к следующей кнопке."""
+    return f":{origin}" if origin else ""
+
+
+async def _renew_anchor(callback: CallbackQuery, session: AsyncSession, user: User) -> bool:
+    """
+    Пересоздать якорь, чтобы нижнее меню и строка состояния стали свежими.
+
+    ПРАВКОЙ ЭТО НЕ СДЕЛАТЬ. Здесь стояла `edit_message_reply_markup` с
+    реплай-клавиатурой, а Telegram (и aiogram ещё до сети) правит только
+    инлайн-разметку: вызов падал на проверке типа, `except` глушил ошибку,
+    и после смены языка меню оставалось на прежнем — аудит 14 октября.
+    Строка якоря («Немецкий → Русский · A1») при этом тоже не менялась ни
+    после смены языка, ни после смены уровня.
+
+    Возвращает, появился ли новый якорь: тогда экран надо прислать ПОД ним,
+    иначе якорь окажется ниже экрана.
+    """
+    old_id, new_id = await ensure_anchor(callback.message, session, user)
+    if not new_id:
+        return False
+    if old_id and old_id != new_id:
+        try:
+            await callback.bot.delete_message(callback.message.chat.id, old_id)
+        except Exception:
+            logger.debug("Не удалось удалить прежний якорь", exc_info=True)
+    return True
+
+
+async def _show_after_change(
+    callback: CallbackQuery, session: AsyncSession, user: User,
+    origin: str = "", renew_anchor: bool = False,
+) -> None:
+    """
+    Куда ведёт выбор значения: домой, если пришли из итога круга, иначе в
+    настройки. При смене того, что видно в якоре, — под свежим якорем.
+    """
+    lang = user.interface_language or DEFAULT_LOCALE
+    if origin == RESULT_ORIGIN:
+        from app.bot.handlers.quiz.home import build_home
+
+        text, keyboard = await build_home(user, session)
+    else:
+        text, keyboard = _settings_text(user, lang), get_settings_keyboard(lang)
+
+    if renew_anchor and await _renew_anchor(callback, session, user):
+        try:
+            await callback.message.delete()
+        except Exception:
+            logger.debug("Не удалось удалить прежний экран", exc_info=True)
+        await callback.message.answer(text, reply_markup=keyboard)
+        return
+
+    await callback.message.edit_text(text, reply_markup=keyboard)
+
 
 # ============================================================================
 # КАТЕГОРИИ: списки для пагинации (20 категорий, 10 на страницу)
@@ -214,7 +298,7 @@ async def show_settings_group(callback: CallbackQuery, session: AsyncSession):
     # состояния не имеет вовсе.
     # ОДНА СТРОКА ПОЯСНЕНИЯ — устав внешности, правило пятое: пояснение
     # там, где без него непонятно. Группа «Что учу» объединяет язык,
-    # уровень и направление перевода, и это не очевидно из названия.
+    # цель и уровень, и это не очевидно из названия.
     state = _settings_state(user, lang, only=tuple(d for _, d in items))
     text = get_text(title_key, lang)
     about = get_text(f"settings_group_{key}_about", lang)
@@ -365,12 +449,14 @@ def _channels_short(user: User, lang: str) -> str:
     строку целиком и нёс свой разделитель, который сливался с разделителем
     между значениями.
     """
+    # Сравнение с числом игр, а не с тройкой: игр стало четыре, и сводка
+    # «все три способа» при трёх включённых из четырёх говорила неправду
     enabled = len(enabled_channels(user))
-    if enabled >= 3:
+    if enabled >= len(QuizChannel):
         return get_text("settings_channels_short_all", lang)
     if enabled == 1:
         return get_text("settings_channels_short_one", lang)
-    return get_text("settings_channels_short_two", lang)
+    return get_text("settings_channels_short_some", lang, count=enabled)
 
 def _settings_state(user: User, lang: str, only: tuple[str, ...] | None = None) -> str:
     """
@@ -534,7 +620,8 @@ async def set_learning_lang(callback: CallbackQuery, session: AsyncSession):
         get_text("learning_lang_set", lang, language=language_name(code, lang)),
         show_alert=True
     )
-    await show_settings_callback(callback, session)
+    # Изучаемый язык написан в якоре — якорь пересоздаётся
+    await _show_after_change(callback, session, user, renew_anchor=True)
 
 
 # ============================================================================
@@ -840,6 +927,8 @@ async def answer_level_offer(callback: CallbackQuery, session: AsyncSession):
         )
     except Exception:
         pass
+    # Уровень написан в якоре: без нового якоря там осталось бы прежнее
+    await _renew_anchor(callback, session, user)
 
 
 # ============================================================================
@@ -860,32 +949,41 @@ RESULT_ORIGIN = "result"
 BACK_FROM_RESULT = "home_back"
 
 
-def get_quiz_mode_keyboard(
-    lang: str, back_to: Optional[str] = None
-) -> InlineKeyboardMarkup:
+def get_quiz_mode_keyboard(lang: str, origin: str = "") -> InlineKeyboardMarkup:
+    """
+    Четыре режима и возврат. `origin` приклеивается к КАЖДОЙ кнопке.
+
+    Прежде пометка «пришёл из итога круга» жила ровно на один экран: уже
+    с экрана уровня «Назад» вёл на голый `settings_quiz_mode`, оттуда — в
+    группу настроек, а выбор уровня выкидывал на корень настроек. То есть
+    находка владельца была закрыта на первом шаге и открыта на втором —
+    аудит 14 октября, воспроизведено нажатиями.
+    """
+    tail = _tail(origin)
+    back_to = BACK_FROM_RESULT if origin == RESULT_ORIGIN else _PARENT_GROUP["settings_quiz_mode"]
     return InlineKeyboardMarkup(
         inline_keyboard=[
             [
                 InlineKeyboardButton(
                     text=get_text("qmode_btn_level", lang),
-                    callback_data="qmode_level"
+                    callback_data=f"qmode_level{tail}"
                 ),
                 InlineKeyboardButton(
                     text=get_text("qmode_btn_category", lang),
-                    callback_data="qmode_category_page_1"
+                    callback_data=f"qmode_category_page_1{tail}"
                 ),
             ],
             [
                 InlineKeyboardButton(
                     text=get_text("qmode_btn_all", lang),
-                    callback_data="qmode_all"
+                    callback_data=f"qmode_all{tail}"
                 ),
                 InlineKeyboardButton(
                     text=get_text("qmode_btn_difficult", lang),
-                    callback_data="qmode_difficult"
+                    callback_data=f"qmode_difficult{tail}"
                 ),
             ],
-            _back_row(lang, back_to or _PARENT_GROUP["settings_quiz_mode"])
+            _back_row(lang, back_to)
         ]
     )
 
@@ -902,7 +1000,7 @@ async def show_quiz_mode(callback: CallbackQuery, session: AsyncSession):
     """
     await callback.answer()
 
-    _, _, origin = callback.data.partition(":")
+    origin = _origin(callback.data)
 
     user = await session.get(User, callback.from_user.id)
     lang = user.interface_language or DEFAULT_LOCALE
@@ -913,9 +1011,8 @@ async def show_quiz_mode(callback: CallbackQuery, session: AsyncSession):
         f"{get_text('qmode_choose', lang)}"
     )
 
-    back_to = BACK_FROM_RESULT if origin == RESULT_ORIGIN else None
     await callback.message.edit_text(
-        text, reply_markup=get_quiz_mode_keyboard(lang, back_to)
+        text, reply_markup=get_quiz_mode_keyboard(lang, origin)
     )
 
 
@@ -923,11 +1020,16 @@ async def show_quiz_mode(callback: CallbackQuery, session: AsyncSession):
 # РЕЖИМ: ПО УРОВНЮ (A1–C2)
 # ============================================================================
 
-@router.callback_query(F.data == "qmode_level")
+# По НАЧАЛУ строки, а не по равенству: за именем едет пометка
+# («qmode_level:result»). Других нажатий с этим началом нет, а равенство
+# не пропустило бы помеченное — и приёмка `verify_buttons` проверяет
+# f-строки именно по приставке.
+@router.callback_query(F.data.startswith("qmode_level"))
 async def show_level_selection(callback: CallbackQuery, session: AsyncSession):
     """Показать выбор уровня для режима 'По уровню'"""
     await callback.answer()
 
+    tail = _tail(_origin(callback.data))
     user = await session.get(User, callback.from_user.id)
     lang = user.interface_language or DEFAULT_LOCALE
 
@@ -937,11 +1039,11 @@ async def show_level_selection(callback: CallbackQuery, session: AsyncSession):
     )
 
     levels = [
-        InlineKeyboardButton(text=level.value, callback_data=f"qmode_set_level_{level.value}")
+        InlineKeyboardButton(text=level.value, callback_data=f"qmode_set_level_{level.value}{tail}")
         for level in CEFRLevel
     ]
     keyboard = InlineKeyboardMarkup(
-        inline_keyboard=_grid(levels, per_row=3) + [_back_row(lang, "settings_quiz_mode")]
+        inline_keyboard=_grid(levels, per_row=3) + [_back_row(lang, f"settings_quiz_mode{tail}")]
     )
 
     await callback.message.edit_text(text, reply_markup=keyboard)
@@ -950,7 +1052,7 @@ async def show_level_selection(callback: CallbackQuery, session: AsyncSession):
 @router.callback_query(F.data.startswith("qmode_set_level_"))
 async def set_quiz_mode_level(callback: CallbackQuery, session: AsyncSession):
     """Установить режим 'По уровню' с конкретным уровнем"""
-    level_str = callback.data.removeprefix("qmode_set_level_")
+    level_str, _, origin = callback.data.removeprefix("qmode_set_level_").partition(":")
 
     user = await session.get(User, callback.from_user.id)
     lang = user.interface_language or DEFAULT_LOCALE
@@ -967,23 +1069,24 @@ async def set_quiz_mode_level(callback: CallbackQuery, session: AsyncSession):
 
     await callback.answer(get_text("qmode_level_set", lang, level=level_str), show_alert=True)
 
-    await _refresh_anchor_keyboard(callback, user, lang)
-    await show_settings_callback(callback, session)
+    # Уровень написан в якоре — якорь пересоздаётся
+    await _show_after_change(callback, session, user, origin, renew_anchor=True)
 
 
 # ============================================================================
 # РЕЖИМ: ПО КАТЕГОРИИ (пагинация 10 на страницу)
 # ============================================================================
 
-def get_category_keyboard(page: int, lang: str) -> InlineKeyboardMarkup:
-    """Клавиатура категорий с пагинацией"""
+def get_category_keyboard(page: int, lang: str, origin: str = "") -> InlineKeyboardMarkup:
+    """Клавиатура категорий с пагинацией. `origin` едет на каждой кнопке."""
     categories = CATEGORIES_PAGE_1 if page == 1 else CATEGORIES_PAGE_2
     total_pages = 2
+    tail = _tail(origin)
 
     buttons = [
         InlineKeyboardButton(
             text=get_category_display(cat.value, lang),
-            callback_data=f"qmode_set_cat_{cat.name}",
+            callback_data=f"qmode_set_cat_{cat.name}{tail}",
         )
         for cat in categories
     ]
@@ -992,13 +1095,13 @@ def get_category_keyboard(page: int, lang: str) -> InlineKeyboardMarkup:
     # Пагинация
     nav_row = []
     if page > 1:
-        nav_row.append(InlineKeyboardButton(text="<", callback_data=f"qmode_category_page_{page - 1}"))
+        nav_row.append(InlineKeyboardButton(text="<", callback_data=f"qmode_category_page_{page - 1}{tail}"))
     nav_row.append(InlineKeyboardButton(text=f"{page} / {total_pages}", callback_data="noop"))
     if page < total_pages:
-        nav_row.append(InlineKeyboardButton(text=">", callback_data=f"qmode_category_page_{page + 1}"))
+        nav_row.append(InlineKeyboardButton(text=">", callback_data=f"qmode_category_page_{page + 1}{tail}"))
     rows.append(nav_row)
 
-    rows.append(_back_row(lang, "settings_quiz_mode"))
+    rows.append(_back_row(lang, f"settings_quiz_mode{tail}"))
 
     return InlineKeyboardMarkup(inline_keyboard=rows)
 
@@ -1008,7 +1111,8 @@ async def show_category_page(callback: CallbackQuery, session: AsyncSession):
     """Показать страницу категорий"""
     await callback.answer()
 
-    page = int(callback.data.removeprefix("qmode_category_page_"))
+    page_str, _, origin = callback.data.removeprefix("qmode_category_page_").partition(":")
+    page = int(page_str)
     user = await session.get(User, callback.from_user.id)
     lang = user.interface_language or DEFAULT_LOCALE
 
@@ -1017,13 +1121,13 @@ async def show_category_page(callback: CallbackQuery, session: AsyncSession):
         f"{get_text('qmode_category_desc', lang)}"
     )
 
-    await callback.message.edit_text(text, reply_markup=get_category_keyboard(page, lang))
+    await callback.message.edit_text(text, reply_markup=get_category_keyboard(page, lang, origin))
 
 
 @router.callback_query(F.data.startswith("qmode_set_cat_"))
 async def set_quiz_mode_category(callback: CallbackQuery, session: AsyncSession):
     """Установить режим 'По категории'"""
-    cat_name = callback.data.removeprefix("qmode_set_cat_")
+    cat_name, _, origin = callback.data.removeprefix("qmode_set_cat_").partition(":")
 
     user = await session.get(User, callback.from_user.id)
     lang = user.interface_language or DEFAULT_LOCALE
@@ -1044,14 +1148,14 @@ async def set_quiz_mode_category(callback: CallbackQuery, session: AsyncSession)
         show_alert=True
     )
 
-    await show_settings_callback(callback, session)
+    await _show_after_change(callback, session, user, origin)
 
 
 # ============================================================================
 # РЕЖИМ: ТОП 10К (ВСЕ СЛОВА)
 # ============================================================================
 
-@router.callback_query(F.data == "qmode_all")
+@router.callback_query(F.data.startswith("qmode_all"))
 async def set_quiz_mode_all(callback: CallbackQuery, session: AsyncSession):
     """Установить режим 'Все слова'"""
     user = await session.get(User, callback.from_user.id)
@@ -1062,14 +1166,14 @@ async def set_quiz_mode_all(callback: CallbackQuery, session: AsyncSession):
     await session.commit()
 
     await callback.answer(get_text("qmode_all_set", lang), show_alert=True)
-    await show_settings_callback(callback, session)
+    await _show_after_change(callback, session, user, _origin(callback.data))
 
 
 # ============================================================================
 # РЕЖИМ: СЛОЖНЫЕ СЛОВА
 # ============================================================================
 
-@router.callback_query(F.data == "qmode_difficult")
+@router.callback_query(F.data.startswith("qmode_difficult"))
 async def set_quiz_mode_difficult(callback: CallbackQuery, session: AsyncSession):
     """Установить режим 'Сложные слова'"""
     user = await session.get(User, callback.from_user.id)
@@ -1080,7 +1184,7 @@ async def set_quiz_mode_difficult(callback: CallbackQuery, session: AsyncSession
     await session.commit()
 
     await callback.answer(get_text("qmode_difficult_set", lang), show_alert=True)
-    await show_settings_callback(callback, session)
+    await _show_after_change(callback, session, user, _origin(callback.data))
 
 
 # ============================================================================
@@ -1144,32 +1248,20 @@ async def set_interface_language(callback: CallbackQuery, session: AsyncSession)
 
     lang_display = get_text(f"lang_{new_lang}", new_lang)
 
-    await _refresh_anchor_keyboard(callback, user, new_lang)
-
     await callback.answer(
         get_text("language_changed", new_lang, language=lang_display),
         show_alert=True
     )
 
-    await show_settings_callback(callback, session)
+    # Новый язык нужен и нижнему меню, и строке якоря — якорь пересоздаётся
+    await _show_after_change(callback, session, user, renew_anchor=True)
 
 
 # ============================================================================
 # НАВИГАЦИЯ
 # ============================================================================
 
-async def _refresh_anchor_keyboard(callback: CallbackQuery, user: User, lang: str) -> None:
-    """Обновить главное меню в якорном сообщении под новый язык"""
-    if not user.anchor_message_id:
-        return
-    try:
-        await callback.bot.edit_message_reply_markup(
-            chat_id=callback.message.chat.id,
-            message_id=user.anchor_message_id,
-            reply_markup=get_main_menu_keyboard(lang)
-        )
-    except Exception:
-        logger.debug("Не удалось обновить якорную клавиатуру", exc_info=True)
+# Прежняя `_refresh_anchor_keyboard` удалена: см. `_renew_anchor` выше.
 
 
 # ============================================================================

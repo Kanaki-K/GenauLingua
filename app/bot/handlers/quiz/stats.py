@@ -267,7 +267,9 @@ async def build_stats_text(user: User, session: AsyncSession) -> str:
     # ДОСТИЖЕНИЯ БЕЗ МЕДАЛЕЙ. Значок выбирался по числу выученных — трофей,
     # золото, серебро, бронза, звезда, — то есть пять разных знаков на одно
     # и то же место. Число и так стоит строкой ниже.
-    text += f"<b>{get_text('stats_achievements_title', lang)}</b>\n"
+    # Полужирный — в самой локали (`<b>Твои достижения</b>`); обёртка здесь
+    # давала `<b><b>…</b></b>` в четырёх заголовках экрана (аудит 14 октября)
+    text += f"{get_text('stats_achievements_title', lang)}\n"
     text += get_text("stats_words_count", lang, count=overall_learned) + "\n"
 
     # Серия — только когда она есть. «Серия: 0 дней подряд» занимает строку
@@ -292,12 +294,12 @@ async def build_stats_text(user: User, session: AsyncSession) -> str:
         # max по пустой последовательности падает, а answered может быть нулём
         best_result = max((s.accuracy_percent for s in mode_sessions), default=0)
 
-        text += f"<b>{get_text('stats_quizzes_header', lang, level=mode_title)}</b>\n"
+        text += f"{get_text('stats_quizzes_header', lang, level=mode_title)}\n"
         text += get_text("stats_quizzes_passed_line", lang, count=total_quizzes) + "\n"
         text += get_text("stats_quizzes_avg_line", lang, percent=f"{avg_percent:.0f}") + "\n"
         text += get_text("stats_quizzes_best_line", lang, percent=f"{best_result:.0f}") + "\n\n"
     else:
-        text += f"<b>{get_text('stats_quizzes_header', lang, level=mode_title)}</b>\n"
+        text += f"{get_text('stats_quizzes_header', lang, level=mode_title)}\n"
         text += get_text("stats_quizzes_empty", lang) + "\n\n"
 
     # Последние викторины
@@ -318,7 +320,7 @@ async def build_stats_text(user: User, session: AsyncSession) -> str:
     # остаётся: оно честное и растёт, а рисовать по нему полосу — значит
     # каждый раз показывать человеку, что он ничего не добился
     if overall_total > 0:
-        text += f"<b>{get_text('stats_overall_header', lang)}</b>\n"
+        text += f"{get_text('stats_overall_header', lang)}\n"
         text += get_text(
             "stats_overall_learned", lang,
             learned=overall_learned, total=overall_total,

@@ -24,7 +24,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func
 
 from app.database.models import MonthlyStats, User, Word, TranslationReport
-from app.locales import DEFAULT_LOCALE, get_text
+from app.locales import DEFAULT_LOCALE, get_text, plural
 from app.services.audio_service import voice_for_user
 from app.services.language_service import LanguagePair, display_text, pair_from_user
 
@@ -202,26 +202,21 @@ def _build_confirm_keyboard(lang: str, *, audio_available: bool) -> InlineKeyboa
 
 
 def _get_results_keyboard_lazy(has_errors: bool, lang: str) -> InlineKeyboardMarkup:
-    """Восстановить исходные кнопки результата"""
-    buttons = []
+    """
+    Вернуть кнопки итога круга — ТЕ ЖЕ, что рисует сам итог.
 
-    if has_errors:
-        buttons.append([InlineKeyboardButton(
-            text=get_text("quiz_btn_repeat_errors", lang),
-            callback_data="repeat_errors"
-        )])
+    Здесь жила своя копия клавиатуры, и она отстала дважды: в ней не было
+    «Ещё круг» (главной кнопки итога, ради петли возврата) и пометки
+    `:result`, по которой «Назад» с экрана уровня ведёт домой, а не в
+    настройки. Человек, открывший и закрывший жалобу, терял и то и другое
+    — аудит 14 октября. Копии больше нет: источник один, `game.py`.
 
-    buttons.append([InlineKeyboardButton(
-        text=get_text("quiz_btn_change_mode", lang),
-        callback_data="settings_quiz_mode"
-    )])
+    Импорт внутри функции: `game` сам тянет модули настроек, и на уровне
+    модуля это грозит циклом.
+    """
+    from app.bot.handlers.quiz.game import get_results_keyboard
 
-    buttons.append([InlineKeyboardButton(
-        text=get_text("quiz_btn_report_error", lang),
-        callback_data="report_translation_error"
-    )])
-
-    return InlineKeyboardMarkup(inline_keyboard=buttons)
+    return get_results_keyboard(has_errors, lang)
 
 
 # ============================================================================
@@ -550,10 +545,12 @@ async def report_send(
         # Обещанное число баллов берётся ОТТУДА ЖЕ, откуда его начисляет
         # подтверждение. Прежде в шести локалях стояло «+1 балл» словами, то
         # есть обещание жило отдельно от начисления и соврало бы при первой
-        # же правке цены
+        # же правке цены. Слово при числе — тоже по числу: при цене 1 строка
+        # «+{points} баллов» дала бы «+1 баллов»
         key = "report_sent_audio" if kind == "audio" else "report_sent"
+        points = plural(REPORT_REWARD_POINTS, "plural_points", lang)
         await callback.answer(
-            get_text(key, lang, count=saved_count, points=REPORT_REWARD_POINTS),
+            get_text(key, lang, count=saved_count, points=points),
             show_alert=True
         )
     else:

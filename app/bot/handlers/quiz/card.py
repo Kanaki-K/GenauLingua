@@ -16,7 +16,7 @@
 from __future__ import annotations
 
 import logging
-from typing import Optional
+from typing import Awaitable, Callable, Optional
 
 from aiogram import Bot
 from aiogram.enums import ParseMode
@@ -91,12 +91,19 @@ async def show_card(
     word_id: int,
     lang: str,
     message: Optional[Message] = None,
+    without_audio: Optional[
+        Callable[[], Awaitable[Optional[tuple[str, InlineKeyboardMarkup]]]]
+    ] = None,
 ) -> None:
     """
     Показать карточку: новую или на месте прежней.
 
     message — сообщение прежней карточки, если её нужно переиспользовать.
     Когда медийность меняется, правка невозможна: сообщение пересоздаётся.
+
+    without_audio — как пересобрать карточку, если звук пропал уже при
+    отправке. Нужен вопросу на слух: там звук и есть вопрос, и без него
+    текст «Послушай и выбери» над четырьмя вариантами — вопрос без вопроса.
     """
     data = await state.get_data()
     had_audio = bool(data.get(STATE_CARD_HAS_AUDIO))
@@ -144,12 +151,24 @@ async def show_card(
             )
             await forget(session, word_id, lang, clip.kind, clip.voice)
             fresh = await reobtain(clip, lang)
+            if fresh is not None:
+                try:
+                    sent = await _send_new(bot, chat_id, text, keyboard, fresh, lang)
+                    clip = fresh
+                except TelegramBadRequest:
+                    # И свежий клип отвергнут — дальше только без звука.
+                    # Прежде эта ошибка уходила наружу, и человек оставался
+                    # вовсе без экрана
+                    logger.warning("свежий клип тоже отвергнут (слово %s %s)",
+                                   word_id, lang, exc_info=True)
+                    fresh = None
             if fresh is None:
                 clip = None
+                if without_audio is not None:
+                    rebuilt = await without_audio()
+                    if rebuilt is not None:
+                        text, keyboard = rebuilt
                 sent = await _send_new(bot, chat_id, text, keyboard, None, lang)
-            else:
-                clip = fresh
-                sent = await _send_new(bot, chat_id, text, keyboard, fresh, lang)
             wants_audio = clip is not None
 
     await state.update_data(**{

@@ -208,6 +208,17 @@ async def test_broadcast_without_text_shows_how_to_use_it(session, user):
     assert "/broadcast" in recorder.last_text()
 
 
+def _drafts_of(uid):
+    return [text for owner, text in admin._PENDING_BROADCASTS.values() if owner == uid]
+
+
+def _draft(uid, text) -> str:
+    """Положить черновик, как это делает /broadcast, и вернуть данные его кнопки."""
+    draft_id = next(admin._DRAFT_IDS)
+    admin._PENDING_BROADCASTS[draft_id] = (uid, text)
+    return f"admin:broadcast_confirm:{draft_id}"
+
+
 async def test_broadcast_previews_to_the_admin_only(session, user):
     """
     Предпросмотр уходит САМОМУ админу тем же вызовом, каким пойдёт
@@ -220,7 +231,7 @@ async def test_broadcast_previews_to_the_admin_only(session, user):
     everything = "\n".join(recorder.sent_texts())
     assert "Привет всем" in everything, "предпросмотра не было"
     assert "Рассылка" in everything, "нет экрана подтверждения"
-    assert ADMIN_ID in admin._PENDING_BROADCASTS, "текст не запомнен"
+    assert _drafts_of(ADMIN_ID) == ["Привет всем"], "текст не запомнен"
 
 
 async def test_broadcast_is_not_sent_until_confirmed(session, user):
@@ -232,55 +243,127 @@ async def test_broadcast_is_not_sent_until_confirmed(session, user):
     recorder = await _broadcast(session, "/broadcast Проверка")
 
     # Получатель один — сам админ, и это предпросмотр
-    assert recorder.sent_to() == [ADMIN_ID] or set(recorder.sent_to()) <= {ADMIN_ID}, (
+    assert set(recorder.sent_to()) <= {ADMIN_ID}, (
         f"до подтверждения сообщение ушло кому-то ещё: {recorder.sent_to()}"
     )
 
 
-async def test_cancelling_forgets_the_text(session, user):
-    admin._PENDING_BROADCASTS[ADMIN_ID] = "черновик"
+async def test_each_button_sends_the_draft_shown_above_it(session, user):
+    """
+    Два черновика подряд — и кнопка первого отправляет ПЕРВЫЙ.
 
-    await _press(broadcast_cancel, session, "admin:broadcast_cancel",
+    Прежде черновик был один на админа: «/broadcast A», затем «/broadcast B»,
+    и кнопка под предпросмотром A рассылала B (аудит 14 октября).
+    """
+    admin._PENDING_BROADCASTS.clear()
+    first = await _broadcast(session, "/broadcast Черновик A")
+    button_a = first.buttons()[0]
+    await _broadcast(session, "/broadcast Черновик B")
+
+    _, recorder = await _press(broadcast_confirm, session, button_a)
+
+    sent = {payload.get("text") for name, payload in recorder.calls
+            if name == "SendMessage"}
+    assert sent == {"Черновик A"}, f"кнопка A разослала: {sent}"
+    assert _drafts_of(ADMIN_ID) == ["Черновик B"], "черновик B пропал"
+
+
+async def test_cancelling_forgets_the_text(session, user):
+    admin._PENDING_BROADCASTS.clear()
+    data = _draft(ADMIN_ID, "черновик")
+
+    await _press(broadcast_cancel, session,
+                 data.replace("broadcast_confirm", "broadcast_cancel"),
                  with_session=False)
 
-    assert ADMIN_ID not in admin._PENDING_BROADCASTS, "черновик остался"
+    assert not _drafts_of(ADMIN_ID), "черновик остался"
 
 
-async def test_confirming_sends_to_everyone(session, user):
+async def test_confirming_sends_to_everyone_but_the_admin(session, user):
     """
-    Подтверждение рассылает всем. Получателей считаем по базе, а не по
-    обещанию экрана.
+    Подтверждение рассылает всем, КРОМЕ админа: предпросмотр он уже получил,
+    и прежде получал тот же текст второй раз. Получателей считаем по базе,
+    а не по обещанию экрана.
     """
     extra = User(id=5151, first_name="Ещё один", interface_language="ru",
                  learning_lang="de", native_lang="ru", reverse_mode=False)
-    session.add(extra)
+    admin_row = User(id=ADMIN_ID, first_name="Админ", interface_language="ru",
+                     learning_lang="de", native_lang="ru", reverse_mode=False)
+    session.add_all([extra, admin_row])
     await session.commit()
 
-    admin._PENDING_BROADCASTS[ADMIN_ID] = "Всем привет"
-    _, recorder = await _press(
-        broadcast_confirm, session, "admin:broadcast_confirm"
-    )
+    admin._PENDING_BROADCASTS.clear()
+    data = _draft(ADMIN_ID, "Всем привет")
+    _, recorder = await _press(broadcast_confirm, session, data)
 
     everyone = set((await session.execute(select(User.id))).scalars().all())
-    reached = set(recorder.sent_to())
-    assert everyone <= reached, f"не дошло до {sorted(everyone - reached)}"
-    assert ADMIN_ID not in admin._PENDING_BROADCASTS, "черновик не очищен"
+    reached = recorder.sent_to()
+    assert everyone - {ADMIN_ID} <= set(reached), (
+        f"не дошло до {sorted(everyone - {ADMIN_ID} - set(reached))}"
+    )
+    assert ADMIN_ID not in reached, "админ получил рассылку второй раз"
+    assert not _drafts_of(ADMIN_ID), "черновик не очищен"
+
+
+async def test_confirming_twice_sends_once(session, user):
+    """Второе нажатие той же кнопки черновика не находит и не рассылает."""
+    admin._PENDING_BROADCASTS.clear()
+    data = _draft(ADMIN_ID, "Один раз")
+    await _press(broadcast_confirm, session, data)
+
+    _, recorder = await _press(broadcast_confirm, session, data)
+
+    assert not recorder.sent_to(), f"второе нажатие разослало: {recorder.sent_to()}"
+
+
+async def test_a_retry_after_is_waited_out_and_retried(session, user, monkeypatch):
+    """
+    Telegram сказал «подожди» — ждём и повторяем один раз.
+
+    Прежде такой получатель уходил в «прочие ошибки» и не получал рассылку.
+    """
+    from aiogram.exceptions import TelegramRetryAfter
+    from aiogram.methods import SendMessage
+
+    monkeypatch.setattr(admin, "RETRY_AFTER_CAP", 0)
+    admin._PENDING_BROADCASTS.clear()
+    data = _draft(ADMIN_ID, "Повтор")
+
+    bot, recorder = make_bot()
+    original = recorder.make_request
+    refused = {"done": False}
+
+    async def once_too_fast(b, method, timeout=None):
+        if (isinstance(method, SendMessage) and method.chat_id == user.id
+                and not refused["done"]):
+            refused["done"] = True
+            raise TelegramRetryAfter(method=method, message="Too Many Requests",
+                                     retry_after=1)
+        return await original(b, method, timeout)
+
+    recorder.make_request = once_too_fast
+    callback = press(ADMIN_ID, data).callback_query.as_(bot)
+    callback.message.as_(bot)
+    await broadcast_confirm(callback, session)
+
+    assert refused["done"], "RetryAfter не случился — проверка ни о чём"
+    assert user.id in recorder.sent_to(), "после RetryAfter не повторили"
 
 
 async def test_confirming_without_a_draft_does_not_send(session, user):
     """
     После перезапуска бота черновик теряется НАРОЧНО: неотправленный текст
     лучше потерять, чем отправить неожиданно. Кнопка в такой переписке
-    остаётся жить — и не должна рассылать пустоту.
+    остаётся жить — и не должна рассылать пустоту. Кнопка прежней версии,
+    без номера черновика, тоже не рассылает ничего.
     """
     admin._PENDING_BROADCASTS.clear()
-    _, recorder = await _press(
-        broadcast_confirm, session, "admin:broadcast_confirm"
-    )
+    for data in ("admin:broadcast_confirm:999999", "admin:broadcast_confirm"):
+        _, recorder = await _press(broadcast_confirm, session, data)
 
-    assert not recorder.sent_to(), f"ушло без текста: {recorder.sent_to()}"
-    assert recorder.alerts(), "ответа на нажатие не было"
-    assert "заново" in recorder.alerts()[0].lower(), recorder.alerts()
+        assert not recorder.sent_to(), f"ушло без текста: {recorder.sent_to()}"
+        assert recorder.alerts(), "ответа на нажатие не было"
+        assert "заново" in recorder.alerts()[0].lower(), recorder.alerts()
 
 
 async def test_an_outsider_cannot_broadcast(session, user):
@@ -293,13 +376,12 @@ async def test_an_outsider_cannot_broadcast(session, user):
 
 
 async def test_an_outsider_cannot_confirm_someone_elses_broadcast(session, user):
-    admin._PENDING_BROADCASTS[ADMIN_ID] = "текст админа"
+    admin._PENDING_BROADCASTS.clear()
+    data = _draft(ADMIN_ID, "текст админа")
 
     _, recorder = await _press(
-        broadcast_confirm, session, "admin:broadcast_confirm", uid=OUTSIDER_ID
+        broadcast_confirm, session, data, uid=OUTSIDER_ID
     )
 
     assert not recorder.sent_to(), "чужой запустил рассылку"
-    assert admin._PENDING_BROADCASTS.get(ADMIN_ID) == "текст админа", (
-        "чужой стёр черновик админа"
-    )
+    assert _drafts_of(ADMIN_ID) == ["текст админа"], "чужой стёр черновик админа"

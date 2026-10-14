@@ -15,6 +15,7 @@ from app.services.language_service import DEFAULT_LEARNING_LANG, pair_from_user
 from typing import List, Dict, Optional
 from datetime import datetime, date, timedelta
 from app.core.clock import utcnow, utctoday
+from app.services.streak_service import next_streak, user_day
 import calendar
 
 import logging
@@ -166,8 +167,12 @@ async def _recalc_monthly_stats_full(
             QuizSession.user_id == user_id,
             QuizSession.learning_lang == learning_lang,
             QuizSession.completed_at.isnot(None),
-            QuizSession.started_at >= season.start_date,
-            QuizSession.started_at <= datetime.combine(season.end_date, datetime.max.time()),
+            # Сезону занятие принадлежит по ЗАВЕРШЕНИЮ — так его относит
+            # инкрементальный путь. Прежде здесь стояло начало, и круг,
+            # начатый 30-го в 23:58 и законченный 1-го, инкремент клал в
+            # новый сезон, а пересчёт — в старый: один круг, два хозяина
+            QuizSession.completed_at >= datetime.combine(season.start_date, datetime.min.time()),
+            QuizSession.completed_at <= datetime.combine(season.end_date, datetime.max.time()),
             # Повтор ошибок в зачёт не идёт — тем же условием, что и у
             # инкрементального пути. Разбор — у `scored_sessions_filter`
             scored_sessions_filter(),
@@ -209,11 +214,10 @@ async def _recalc_monthly_stats_full(
     )
     monthly_stat.monthly_words = int(user_words_result.scalar() or 0)
 
-    monthly_stat.monthly_streak = await calculate_monthly_streak(user_id, season, month_quizzes, session)
-
-    if month_quizzes:
-        last_quiz = max((q.completed_at or q.started_at) for q in month_quizzes)
-        monthly_stat.last_quiz_date = (last_quiz.date() if last_quiz else None)
+    user = await session.get(User, user_id)
+    monthly_stat.monthly_streak, monthly_stat.last_quiz_date = month_streak(
+        user, month_quizzes
+    )
 
     monthly_stat.monthly_score = monthly_stat.calculate_monthly_score()
     monthly_stat.updated_at = utcnow()
@@ -275,8 +279,6 @@ async def update_monthly_stats(
     if force_full_recalc or quiz_session_id is None:
         return await _recalc_monthly_stats_full(user_id, session)
 
-    season = await get_or_create_current_season(session)
-
     quiz = await session.get(QuizSession, quiz_session_id)
     if not quiz or quiz.user_id != user_id:
         return await _recalc_monthly_stats_full(user_id, session)
@@ -286,6 +288,18 @@ async def update_monthly_stats(
 
     quiz_dt = quiz.completed_at or quiz.started_at
     quiz_date = quiz_dt.date()
+
+    # СЕЗОН — ПО ДАТЕ КРУГА, а не «какой сейчас активен».
+    #
+    # Смена сезона идёт по расписанию в 00:05 UTC первого числа (а если бот
+    # был выключен — в ближайшие :30). Круг, законченный в эти минуты, прежде
+    # не попадал в активный сезон, уходил в полный пересчёт СТАРОГО сезона,
+    # где по дате тоже не числился, — и не засчитывался нигде, никогда.
+    # Теперь новый сезон открывается здесь же; старый закроет страховочная
+    # проверка (`finalize_pending_seasons`), награды от этого не теряются.
+    season = await get_or_create_current_season(session)
+    if quiz_date > season.end_date:
+        season = await create_new_season(quiz_date.year, quiz_date.month, session)
     if not (season.start_date <= quiz_date <= season.end_date):
         return await _recalc_monthly_stats_full(user_id, session, quiz.learning_lang)
 
@@ -359,14 +373,16 @@ async def update_monthly_stats(
         QuizChannel.REVERSE.value, 0
     )
 
-    last_date = monthly_stat.last_quiz_date
-    if last_date == quiz_date:
-        pass
-    elif last_date == (quiz_date - timedelta(days=1)):
-        monthly_stat.monthly_streak = (monthly_stat.monthly_streak or 0) + 1
-    else:
-        monthly_stat.monthly_streak = 1
-    monthly_stat.last_quiz_date = quiz_date
+    # Серия месяца — в ДНЯХ ЧЕЛОВЕКА и по тому же правилу, что серия на
+    # домашнем экране (`streak_service.next_streak`). Прежде здесь было своё
+    # правило по UTC — вторая копия, которая разошлась бы с первой при
+    # первой же правке.
+    user = await session.get(User, user_id)
+    day = user_day(user, quiz_dt)
+    monthly_stat.monthly_streak = next_streak(
+        monthly_stat.monthly_streak, monthly_stat.last_quiz_date, day
+    )
+    monthly_stat.last_quiz_date = day
 
     if (monthly_stat.monthly_quizzes % 10 == 0) or (monthly_stat.monthly_words == 0):
         user_words_result = await session.execute(
@@ -388,35 +404,28 @@ async def update_monthly_stats(
     return monthly_stat
 
 
-async def calculate_monthly_streak(
-        user_id: int,
-        season: MonthlySeason,
-        month_quizzes: list,
-        session: AsyncSession
-) -> int:
-    """Подсчитать стрик в рамках текущего месяца"""
-    if not month_quizzes:
-        return 0
+def month_streak(user, month_quizzes: list) -> tuple[int, Optional[date]]:
+    """
+    Серия месяца и последний её день — по завершённым кругам сезона.
 
-    days_with_quizzes = set()
-    for quiz in month_quizzes:
-        quiz_date = quiz.started_at.date()
-        days_with_quizzes.add(quiz_date)
+    ТО ЖЕ, ЧТО ДАЁТ ИНКРЕМЕНТ, и это главное. Прежняя редакция считала
+    другое: череду, оканчивающуюся СЕГОДНЯ, по дням НАЧАЛА круга и по UTC.
+    Инкремент же ведёт череду, оканчивающуюся последним днём занятий, по
+    дням завершения. Два пути к одному числу давали два числа: человек,
+    вчера закончивший пятый день подряд, имел 5 по инкременту и 0 по
+    пересчёту — до того, как сегодня сядет заниматься.
 
-    if not days_with_quizzes:
-        return 0
-
-    current_date = min(utctoday(), season.end_date)
-    streak = 0
-
-    while current_date >= season.start_date:
-        if current_date in days_with_quizzes:
-            streak += 1
-            current_date -= timedelta(days=1)
-        else:
-            break
-
-    return streak
+    Дни — дни человека (`user_day`), правило продолжения — `next_streak`.
+    """
+    days = sorted({
+        user_day(user, quiz.completed_at or quiz.started_at)
+        for quiz in month_quizzes
+    })
+    streak, last = 0, None
+    for day in days:
+        streak = next_streak(streak, last, day)
+        last = day
+    return streak, last
 
 
 # ============================================================================
@@ -607,7 +616,22 @@ async def get_user_monthly_rank(
 # ============================================================================
 
 async def finalize_season(season_id: int, session: AsyncSession):
-    """Подвести итоги месяца"""
+    """
+    Подвести итоги месяца — ОДНОЙ транзакцией.
+
+    ПОЧЕМУ ОДНОЙ. Прежде серия побед записывалась своим commit посреди
+    раздачи наград. Упади закрытие после него — часть наград и бонусов уже
+    в базе, а `winners_finalized` ещё ложь; планировщик тем временем
+    открывал новый сезон и снимал со старого `is_active`, и старый не
+    дозакрывался уже никогда. Теперь либо записано всё, либо ничего, и
+    незакрытый сезон подберёт `finalize_pending_seasons`.
+
+    ПОБЕДА СЧИТАЕТСЯ ПО СЕЗОНУ, А НЕ ПО ЯЗЫКУ. Первое место в двух языках
+    одного месяца прежде дважды звало серию побед: второй вызов видел
+    «прошлая победа — этот же сезон, не предыдущий» и сбрасывал серию на 1
+    (было 3 → 4 → 1), а `total_wins` рос на два. Награды остаются по
+    языкам — медаль за каждый, — а месяц побед один.
+    """
     season = await session.get(MonthlySeason, season_id)
     if not season:
         logger.error(f"Сезон {season_id} не найден")
@@ -639,6 +663,17 @@ async def finalize_season(season_id: int, session: AsyncSession):
         3: ('bronze', 25),
     }
 
+    # Награды, уже выданные в этом сезоне: закрытие, прерванное до
+    # введения единой транзакции, могло оставить часть. Второй раз их не
+    # выдаём — иначе и бонус к lifetime начислился бы дважды
+    already = {
+        (a.user_id, a.learning_lang)
+        for a in (await session.execute(
+            select(MonthlyAward).where(MonthlyAward.season_id == season_id)
+        )).scalars()
+    }
+    winners: set[int] = set()
+
     for lang, lang_stats in by_lang.items():
         logger.info(f"  {lang}: {len(lang_stats)} участников")
 
@@ -655,23 +690,31 @@ async def finalize_season(season_id: int, session: AsyncSession):
             else:
                 award_type, lifetime_bonus = ('top10', 10)
 
+            if (stat.user_id, lang) in already:
+                continue
+
             session.add(MonthlyAward(
                 user_id=stat.user_id,
                 season_id=season_id,
+                learning_lang=lang,
                 rank=rank,
                 award_type=award_type,
                 lifetime_bonus=lifetime_bonus
             ))
 
-            user.lifetime_score += lifetime_bonus
+            user.lifetime_score = (user.lifetime_score or 0) + lifetime_bonus
 
             if rank == 1:
-                user.total_monthly_wins += 1
-                await update_win_streak(stat.user_id, season_id, session)
+                winners.add(stat.user_id)
 
             logger.info(
                 f"  #{rank} [{lang}] {user.display_name} — {stat.monthly_score} баллов — {award_type}"
             )
+
+    for user_id in winners:
+        if await update_win_streak(user_id, season_id, session):
+            user = await session.get(User, user_id)
+            user.total_monthly_wins = (user.total_monthly_wins or 0) + 1
 
     season.winners_finalized = True
     season.is_active = False
@@ -680,16 +723,58 @@ async def finalize_season(season_id: int, session: AsyncSession):
     logger.info(f"Сезон {season.month}/{season.year} завершён")
 
 
-async def update_win_streak(user_id: int, season_id: int, session: AsyncSession):
-    """Обновить серию побед пользователя"""
+async def finalize_pending_seasons(session: AsyncSession) -> int:
+    """
+    Закрыть прошедшие сезоны, итоги которых так и не подведены.
+
+    Сезон остаётся незакрытым в двух случаях: закрытие упало (теперь оно
+    откатывается целиком), или новый сезон открыл круг, законченный в
+    первые минуты месяца (`update_monthly_stats`), раньше планировщика —
+    тогда старый уже не активен, и обычная проверка его не видит.
+    Возвращает число закрытых.
+    """
+    today = utctoday()
+    # Номера, а не объекты: откат после неудачного сезона просрочивает все
+    # объекты сессии, и обращение к `season.id` следующего в асинхронной
+    # сессии упало бы с MissingGreenlet
+    pending = (await session.execute(
+        select(MonthlySeason.id, MonthlySeason.month, MonthlySeason.year)
+        .where(MonthlySeason.winners_finalized.is_(False),
+               MonthlySeason.end_date < today)
+        .order_by(MonthlySeason.year, MonthlySeason.month)
+    )).all()
+
+    closed = 0
+    for season_id, month, year in pending:
+        try:
+            await finalize_season(season_id, session)
+            closed += 1
+        except Exception:
+            await session.rollback()
+            logger.exception("сезон %s/%s не закрылся", month, year)
+    return closed
+
+
+async def update_win_streak(user_id: int, season_id: int, session: AsyncSession) -> bool:
+    """
+    Обновить серию побед пользователя. БЕЗ commit — его делает закрытие
+    сезона, одной транзакцией за всё.
+
+    Возвращает False, если победа в этом сезоне уже учтена: второй вызов
+    за тот же сезон ничего не меняет.
+    """
     result = await session.execute(
         select(WinStreak).where(WinStreak.user_id == user_id)
     )
     win_streak = result.scalar_one_or_none()
 
     if not win_streak:
-        win_streak = WinStreak(user_id=user_id)
+        win_streak = WinStreak(
+            user_id=user_id, current_streak=0, best_streak=0, total_wins=0
+        )
         session.add(win_streak)
+    elif win_streak.last_win_season == season_id:
+        return False
 
     season = await session.get(MonthlySeason, season_id)
 
@@ -712,12 +797,13 @@ async def update_win_streak(user_id: int, season_id: int, session: AsyncSession)
     if win_streak.current_streak > win_streak.best_streak:
         win_streak.best_streak = win_streak.current_streak
 
-    win_streak.total_wins += 1
+    win_streak.total_wins = (win_streak.total_wins or 0) + 1
     win_streak.last_win_season = season_id
     win_streak.updated_at = utcnow()
 
-    await session.commit()
+    await session.flush()
     logger.info(f"Серия побед: {win_streak.current_streak}")
+    return True
 
 
 # ============================================================================
@@ -770,7 +856,18 @@ async def get_lifetime_leaderboard(
 # ИЗВЕЩЕНИЕ О НАГРАДЕ
 # ============================================================================
 
-async def notify_season_awards(bot, session: AsyncSession) -> int:
+# Сколько дней после закрытия сезона извещение о награде ещё досылается.
+# Почасовая проверка повторяет неотправленные, но не вечно: поздравление с
+# местом за прошлый месяц, пришедшее через месяц, — то самое «поздравить с
+# местом, о котором человек забыл», ради которого 65 старых наград и были
+# помечены сообщёнными при миграции. Трое суток покрывают выключенный бот
+# и сбой сети, но не следующий сезон
+AWARD_NOTICE_WINDOW = timedelta(days=3)
+
+
+async def notify_season_awards(
+    bot, session: AsyncSession, now: Optional[datetime] = None,
+) -> int:
     """
     Сообщить людям о наградах, о которых им ещё не сообщали.
 
@@ -796,11 +893,19 @@ async def notify_season_awards(bot, session: AsyncSession) -> int:
     Возвращает число отправленных.
     """
     from app.bot.handlers.leaderboard.utils import format_month_name
+    from aiogram.exceptions import TelegramForbiddenError
+
     from app.locales import DEFAULT_LOCALE, get_text
 
+    now = now or utcnow()
     pending = (await session.execute(
         select(MonthlyAward)
-        .where(MonthlyAward.notified_at.is_(None))
+        .where(
+            MonthlyAward.notified_at.is_(None),
+            # Только свежезакрытый сезон: прежде выборка не знала срока, и
+            # недоставленная в октябре награда ушла бы при закрытии ноября
+            MonthlyAward.created_at >= now - AWARD_NOTICE_WINDOW,
+        )
         .order_by(MonthlyAward.rank)
     )).scalars().all()
 
@@ -823,7 +928,11 @@ async def notify_season_awards(bot, session: AsyncSession) -> int:
         # `get_text(...)` не разбирается проверкой соответствия параметров
         # (`test_format_parameters_match`), и ключ с подстановками прошёл бы
         # мимо неё молча
-        mark = award_mark(award.award_type) or f"#{award.rank}"
+        #
+        # У десятки медали нет, и знак остаётся пустым. Прежде на его место
+        # вставал «#5» — и строка выходила «#5 Ты в зачёте за октябрь: место
+        # 5», номер дважды; ровно этот повтор («🥇 1.») снимали в таблице
+        mark = award_mark(award.award_type)
         month = format_month_name(season.month, lang) if season else ""
 
         try:
@@ -835,10 +944,20 @@ async def notify_season_awards(bot, session: AsyncSession) -> int:
                     rank=award.rank,
                     month=month,
                     bonus=award.lifetime_bonus,
-                ),
+                ).strip(),
             )
             award.notified_at = utcnow()
             sent += 1
+        except TelegramForbiddenError:
+            # Заблокировал бота — доставить нельзя ни сейчас, ни через час.
+            # Без отметки попытка повторялась бы каждый час все трое суток.
+            # `notified_at` здесь значит «извещение закрыто», а не «прочитано»:
+            # отдельной колонки под отказ в схеме нет
+            logger.info(
+                "о награде не сообщить: бот заблокирован (user=%s, сезон=%s)",
+                award.user_id, award.season_id,
+            )
+            award.notified_at = utcnow()
         except Exception:
             logger.info(
                 "не удалось сообщить о награде (user=%s, сезон=%s)",

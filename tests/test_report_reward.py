@@ -240,6 +240,115 @@ async def test_a_closed_bot_does_not_break_the_approval(session, user):
 
 
 # ============================================================================
+# ОДИН БАЛЛ ЧЕЛОВЕКУ ЗА СЛОВО, РЕШЕНИЕ ПО ВИДУ
+#
+# Аудит 14 октября: человек, пожаловавшийся на перевод и на звук одного
+# слова, получал за одно нажатие админа 10 баллов вместо 5 и два
+# поздравления, а принятие перевода стирало озвучку — кнопка была одна на
+# слово и решала оба вида разом.
+# ============================================================================
+
+async def _press_approve(session, data):
+    bot, recorder = make_bot()
+    callback = press(ADMIN_ID, data).callback_query.as_(bot)
+    await admin_report_approve(callback, session)
+    return recorder
+
+
+def _told(recorder, user_id):
+    return [payload.get("text") or "" for name, payload in recorder.calls
+            if name == "SendMessage" and payload.get("chat_id") == user_id]
+
+
+async def _bonus(session, user_id) -> int:
+    rows = (await session.execute(
+        select(MonthlyStats.report_bonus).where(MonthlyStats.user_id == user_id)
+    )).scalars().all()
+    return sum(r or 0 for r in rows)
+
+
+async def test_two_kinds_of_one_word_pay_one_point(session, user):
+    """Прежняя кнопка решает оба вида — и всё равно балл один, поздравление одно."""
+    word = await _word(session)
+    await _report(session, user, word, kind="text")
+    await _report(session, user, word, kind="audio")
+
+    recorder = await _approve(session, word)
+
+    assert await _bonus(session, user.id) == REPORT_REWARD_POINTS, (
+        "за два вида жалобы на одно слово начислено дважды"
+    )
+    assert len(_told(recorder, user.id)) == 1, "поздравлений больше одного"
+    alert = next(a for a in recorder.alerts() if a)
+    assert "1 человек" in alert, f"окно считает жалобы, а не людей: {alert!r}"
+
+
+async def test_accepting_the_translation_leaves_the_audio_report_open(session, user):
+    """Принять перевод — не значит принять звук: жалоба на звук ждёт своего решения."""
+    word = await _word(session)
+    text_report = await _report(session, user, word, kind="text")
+    audio_report = await _report(session, user, word, kind="audio")
+
+    await _press_approve(session, f"admin:report_approve_text_{word.id}")
+
+    await session.refresh(text_report)
+    await session.refresh(audio_report)
+    assert text_report.status == "fixed"
+    assert audio_report.status == "pending", "жалобу на звук решили вместе с переводом"
+
+
+async def test_the_second_kind_accepted_later_pays_nothing(session, user):
+    """Балл — за слово, а не за нажатие: второй вид, принятый позже, его не удваивает."""
+    word = await _word(session)
+    await _report(session, user, word, kind="text")
+    await _report(session, user, word, kind="audio")
+
+    await _press_approve(session, f"admin:report_approve_text_{word.id}")
+    second = await _press_approve(session, f"admin:report_approve_audio_{word.id}")
+
+    assert await _bonus(session, user.id) == REPORT_REWARD_POINTS
+    assert not _told(second, user.id), "второе поздравление за то же слово"
+
+
+async def test_a_repeated_press_pays_nothing(session, user):
+    """Второе нажатие той же кнопки ничего не находит и ничего не начисляет."""
+    word = await _word(session)
+    await _report(session, user, word)
+
+    await _press_approve(session, f"admin:report_approve_text_{word.id}")
+    second = await _press_approve(session, f"admin:report_approve_text_{word.id}")
+
+    assert await _bonus(session, user.id) == REPORT_REWARD_POINTS
+    assert any("нечего" in a.lower() for a in second.alerts()), second.alerts()
+
+
+async def test_the_reporter_sees_the_word_he_was_learning(session, user):
+    """
+    Учил английский — в извещении английское слово, а не немецкое.
+
+    Прежде там всегда стояло `word_de`: ученик английского, пожаловавшийся
+    на «from, starting from, off», читал «жалоба принята: ab».
+    """
+    word = make_word("Entwurf", level=CEFRLevel.A1, ru="черновик", en="draft")
+    session.add(word)
+    await session.commit()
+    quiz = QuizSession(
+        user_id=user.id, level=CEFRLevel.A1, learning_lang="en",
+        native_lang="ru", total_questions=5, answered_questions=5,
+        correct_answers=5, quiz_mode="level",
+    )
+    session.add(quiz)
+    await session.commit()
+    await _report(session, user, word, quiz=quiz)
+
+    recorder = await _approve(session, word)
+
+    text = _told(recorder, user.id)[0]
+    assert "raft" in text, f"слова на изучаемом языке нет: {text!r}"
+    assert "Entwurf" not in text, f"ученику английского показали немецкое: {text!r}"
+
+
+# ============================================================================
 # ОДНО ЧИСЛО
 # ============================================================================
 

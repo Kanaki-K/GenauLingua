@@ -106,16 +106,14 @@ def plural(count: int, one: str, few: str, many: str) -> str:
 
     Нужно потому, что «233 человек» на экране читается как опечатка, а
     обойти склонение, выбросив существительное, выходит не везде.
+
+    Правило выбора формы — общее с экранами пользователя
+    (`app.locales._plural_index`): два списка правил одного языка однажды
+    разошлись бы, как разошлись подписи кнопок с фильтрами.
     """
-    tail_100 = abs(count) % 100
-    tail_10 = abs(count) % 10
-    if 11 <= tail_100 <= 14:
-        return many
-    if tail_10 == 1:
-        return one
-    if 2 <= tail_10 <= 4:
-        return few
-    return many
+    from app.locales import _plural_index
+
+    return (one, few, many)[_plural_index(count, "ru")]
 
 
 def people(count: int) -> str:

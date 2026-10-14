@@ -105,6 +105,18 @@ def _dump(recorder, raw: bool, title: str) -> bool:
                     _keyboard_rows(payload), raw)
             shown = True
             continue
+        # ВСПЛЫВАЮЩЕЕ ОКНО — тоже экран. Обход его не печатал, и кнопка,
+        # отвечающая только им («сначала включи озвучку», «уровень
+        # поднят»), числилась среди «бот ничего не показал» — рядом с
+        # настоящими кнопками в пустоту, неотличимо от них.
+        if name == "AnswerCallbackQuery":
+            if payload.get("text"):
+                if shown:
+                    print("   " + "·" * (WIDTH - 4))
+                kind = "окно" if payload.get("show_alert") else "подсказка"
+                _screen(f"({kind}) {payload['text']}", [], raw)
+                shown = True
+            continue
         if name not in ("SendMessage", "EditMessageText", "SendAudio",
                         "EditMessageCaption", "EditMessageMedia"):
             continue
@@ -128,7 +140,13 @@ def _dump(recorder, raw: bool, title: str) -> bool:
 # ============================================================================
 
 async def _drop(session) -> None:
+    from app.database.models import MonthlyQuizEvent
+
     await session.rollback()
+    # События сезона внешнего ключа на человека не имеют, и удаление
+    # подопытного их не уносит: каждый показ оставлял в общей базе
+    # осиротевшие строки (их набралось 95). Приёмка за собой убирает всё
+    await session.execute(delete(MonthlyQuizEvent).where(MonthlyQuizEvent.user_id == PROBE))
     await session.execute(delete(User).where(User.id == PROBE))
     await session.commit()
     session.expunge_all()
@@ -417,6 +435,58 @@ async def flow_old(dp, bot, rec, raw: bool, session) -> None:
 # ОБХОД ВСЕХ КНОПОК ИЗ КОДА
 # ============================================================================
 
+def _samples() -> dict[str, str]:
+    """
+    Настоящее значение на место `X` в шаблоне кнопки.
+
+    Сборщик заменяет переменную часть кнопки буквой `X`, и обход прежде так
+    и нажимал: `iface_lang_X`, `set_goal_X`, `voice_use_X`. Обработчик
+    такое отвергал, кнопка попадала в «не дали экрана» с пометкой
+    «ожидаемо» — и 27 кнопок из 74 числились пройденными, ни разу не
+    показав экрана. Значения берутся из тех же перечней, из которых бот
+    строит кнопки, и совпадают с подопытным (ru → de, B1), чтобы обход
+    не перевёл его на другой язык посреди прохода.
+    """
+    from app.database.enums import WordCategory
+    from app.services.goal_service import GOAL_ORDER
+    from app.services.tts_voices import VOICES
+
+    other_voice = VOICES["de"][1].name
+    return {
+        "audio_voice_X": f"audio_voice_{other_voice}",
+        "voice_use_X": f"voice_use_{other_voice}",
+        "channel_toggle_X": f"channel_toggle_{list(QuizChannel)[-1].value}",
+        "iface_lang_X": "iface_lang_ru",
+        "select_lang_X": "select_lang_ru",
+        "set_learning_X": "set_learning_de",
+        "onboard_learn_X": "onboard_learn_de",
+        "level_up_X": f"level_up_{CEFRLevel.B2.value}",
+        "qmode_set_level_X": f"qmode_set_level_{CEFRLevel.B1.value}",
+        "qmode_set_cat_X": f"qmode_set_cat_{list(WordCategory)[0].name}",
+        "qmode_category_page_X": "qmode_category_page_1",
+        "notif_day:X": "notif_day:1",
+        "set_goal_X": f"set_goal_{GOAL_ORDER[0]}",
+        "settings_group_X": "settings_group_how",
+    }
+
+
+def _sample(data: str) -> str:
+    """
+    Шаблон кнопки → то, что бот шлёт на самом деле.
+
+    `X`, ПРИКЛЕЕННЫЙ К СЛОВУ, — это хвост «откуда пришёл» (`{tail}`,
+    пустой или `:result`): `qmode_levelX`, `help_backX`,
+    `qmode_category_page_1X`. Обход нажимал их буквально, и кнопки
+    отвечали лишь потому, что обработчик ловит по началу строки, — а
+    `qmode_category_page_1X` падал. Правило, а не список: хвост появится у
+    новой кнопки — подставится сам.
+    """
+    data = _samples().get(data, data)
+    if data.endswith("X") and len(data) > 1 and data[-2] not in "_:":
+        data = data[:-1]
+    return _samples().get(data, data)
+
+
 async def flow_sweep(dp, bot, rec, raw: bool, session) -> None:
     """
     Нажать КАЖДУЮ кнопку, которую бот рисует, и доложить о непокрытых.
@@ -432,7 +502,7 @@ async def flow_sweep(dp, bot, rec, raw: bool, session) -> None:
         everything |= values
 
     plain = sorted(
-        data for data in everything
+        _sample(data) for data in everything
         if "<" not in data and not data.startswith(SKIP)
     )
 

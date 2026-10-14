@@ -332,3 +332,65 @@ async def test_one_correct_answer_moves_the_scale(session, user):
     assert progress["audio"] == 1, (
         f"после верного ответа на слух шкала показывает {progress['audio']}"
     )
+
+
+# ============================================================================
+# ПРОМАХ И ТРУДНОЕ СЛОВО — ТОЖЕ ПО СРОКУ
+# ============================================================================
+
+async def test_a_lapse_brings_the_word_back_within_a_day(session, user):
+    """
+    Промах по хорошо знакомому слову возвращает его скоро, а не через 60 дней.
+
+    Прежде серия 7 после промаха становилась 5 — хвостом расписания, — и
+    слово, которое человек только что не вспомнил, пряталось на два месяца.
+    """
+    from app.services.quiz_service import update_word_progress
+
+    words = await _ready(session, user)
+    pair = pair_from_user(user)
+    word = words[0]
+    session.add(UserWord(
+        user_id=user.id, word_id=word.id, learning_lang="de",
+        times_shown=8, times_correct=8, correct_streak=7, learned=True,
+        created_at=utcnow() - timedelta(days=120),
+        last_seen_at=utcnow() - timedelta(days=61),
+    ))
+    await session.commit()
+
+    await update_word_progress(user.id, word.id, False, session, learning_lang="de")
+
+    row = (await session.execute(
+        select(UserWord).where(UserWord.user_id == user.id, UserWord.word_id == word.id)
+    )).scalar_one()
+    row.last_seen_at = utcnow() - timedelta(days=1)
+    await session.commit()
+
+    due = await get_due_words(user.id, session, pair, [], user=user)
+    assert due is not None and due.id == word.id, (
+        f"через сутки после промаха слово не вернулось (серия {row.correct_streak})"
+    )
+
+
+async def test_a_struggling_word_waits_for_its_time(session, user):
+    """
+    «Трудное» (точность ниже 70%) не обходит расписание.
+
+    Серия 2 — срок три дня. Показанное два часа назад слово прежде всё
+    равно приходило на первом же месте круга через корзину трудных.
+    """
+    words = await _ready(session, user)
+    pair = pair_from_user(user)
+    word = words[0]
+    session.add(UserWord(
+        user_id=user.id, word_id=word.id, learning_lang="de",
+        times_shown=5, times_correct=2, correct_streak=2, learned=False,
+        created_at=utcnow() - timedelta(days=10),
+        last_seen_at=utcnow() - timedelta(hours=2),
+    ))
+    await session.commit()
+
+    from app.services.quiz_service import get_struggling_words
+
+    got = await get_struggling_words(user.id, session, pair, [], user=user)
+    assert got is None, "трудное слово вернулось раньше своего срока"

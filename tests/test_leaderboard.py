@@ -453,3 +453,147 @@ class TestRepeatRoundDoesNotPay:
 
         assert stat.monthly_quizzes == 1, "занятие с пустым режимом потерялось"
         assert stat.total_correct == 7
+
+
+# ============================================================================
+# ЗАКРЫТИЕ СЕЗОНА: ОДНОЙ ТРАНЗАКЦИЕЙ, ПОБЕДА — ПО СЕЗОНУ
+# ============================================================================
+
+async def _two_language_winner(session, season):
+    """Человек 1 первый и в немецком, и в английском; 2 и 3 — вторые."""
+    for uid, lang in ((1, "de"), (2, "de"), (3, "en")):
+        if await session.get(User, uid) is None:
+            session.add(User(id=uid, first_name=f"U{uid}", learning_lang=lang,
+                             native_lang="ru", interface_language="ru"))
+    await session.commit()
+    for uid, lang, score in ((1, "de", 300), (2, "de", 200),
+                             (1, "en", 250), (3, "en", 100)):
+        session.add(MonthlyStats(user_id=uid, season_id=season.id,
+                                 learning_lang=lang, monthly_score=score))
+    await session.commit()
+
+
+class TestSeasonWinsPerSeason:
+    async def test_first_place_in_two_languages_is_one_won_month(self, session):
+        """
+        Прежде второй вызов серии побед за тот же сезон сбрасывал её: 3 → 4 → 1,
+        а `total_wins` рос на два. Медали — по языкам, победный месяц — один.
+        """
+        from app.database.models import MonthlyAward, WinStreak
+
+        february = await create_new_season(2026, 2, session)
+        march = await create_new_season(2026, 3, session)
+        session.add(User(id=1, first_name="U1", learning_lang="de",
+                         native_lang="ru", interface_language="ru"))
+        await session.commit()
+        session.add(WinStreak(user_id=1, current_streak=3, best_streak=3,
+                              total_wins=3, last_win_season=february.id))
+        await session.commit()
+        await _two_language_winner(session, march)
+
+        await finalize_season(march.id, session)
+
+        streak = (await session.execute(
+            select(WinStreak).where(WinStreak.user_id == 1)
+        )).scalar_one()
+        user = await session.get(User, 1)
+        golds = (await session.execute(
+            select(MonthlyAward).where(MonthlyAward.user_id == 1,
+                                       MonthlyAward.award_type == "gold")
+        )).scalars().all()
+        assert len(golds) == 2, "медаль положена за каждый язык"
+        assert {g.learning_lang for g in golds} == {"de", "en"}
+        assert streak.current_streak == 4, f"серия побед сброшена: {streak.current_streak}"
+        assert streak.total_wins == 4
+        assert user.total_monthly_wins == 1
+
+    async def test_a_failed_close_leaves_nothing_behind(self, session, monkeypatch):
+        """
+        Прежде серия побед делала commit посреди раздачи: сбой после него
+        оставлял награды без `winners_finalized`, и повторное закрытие
+        выдавало их второй раз.
+        """
+        from app.database.models import MonthlyAward
+        from app.services import monthly_leaderboard_service as service
+
+        season = await create_new_season(2026, 3, session)
+        await _two_language_winner(session, season)
+
+        async def broken(*args, **kwargs):
+            await session.flush()
+            raise RuntimeError("сбой посреди закрытия")
+
+        monkeypatch.setattr(service, "update_win_streak", broken)
+        with pytest.raises(RuntimeError):
+            await finalize_season(season.id, session)
+        await session.rollback()
+
+        assert (await session.execute(select(MonthlyAward))).scalars().all() == []
+        await session.refresh(season)
+        assert season.winners_finalized is False
+
+        monkeypatch.undo()
+        await finalize_season(season.id, session)
+        awards = (await session.execute(select(MonthlyAward))).scalars().all()
+        assert len(awards) == 4, f"после повтора наград {len(awards)}, ждали 4"
+        user = await session.get(User, 1)
+        await session.refresh(user)
+        assert user.lifetime_score == 200, "бонус за два золота начислен не один раз"
+
+    async def test_award_is_unique_per_person_season_language(self, session):
+        from sqlalchemy.exc import IntegrityError
+
+        from app.database.models import MonthlyAward
+
+        season = await create_new_season(2026, 3, session)
+        session.add(User(id=1, first_name="U1", learning_lang="de",
+                         native_lang="ru", interface_language="ru"))
+        await session.commit()
+        for _ in range(2):
+            session.add(MonthlyAward(user_id=1, season_id=season.id,
+                                     learning_lang="de", rank=1,
+                                     award_type="gold", lifetime_bonus=100))
+        with pytest.raises(IntegrityError):
+            await session.commit()
+        await session.rollback()
+
+    async def test_a_past_season_left_open_is_closed_later(self, session):
+        """
+        Сезон, который не закрылся (сбой или новый сезон открыл круг раньше
+        планировщика), прежде оставался без наград навсегда.
+        """
+        from app.services.monthly_leaderboard_service import finalize_pending_seasons
+
+        season = await create_new_season(2026, 3, session)
+        await _two_language_winner(session, season)
+        await create_new_season(2099, 1, session)   # старый больше не активен
+
+        closed = await finalize_pending_seasons(session)
+        await session.refresh(season)
+        assert closed == 1
+        assert season.winners_finalized is True
+
+
+class TestRoundAtTheMonthBoundary:
+    async def test_a_round_after_midnight_counts_in_the_new_month(self, session, user):
+        """
+        Круг, законченный в первые минуты месяца, до смены сезона по
+        расписанию (00:05 UTC), прежде уходил в пересчёт СТАРОГО сезона, где
+        по дате не числился, — и не засчитывался нигде.
+        """
+        from datetime import datetime
+
+        await create_new_season(2026, 10, session)
+        quiz = _completed_quiz(user.id, answered=10, correct=8)
+        quiz.started_at = datetime(2026, 11, 1, 0, 1)
+        quiz.completed_at = datetime(2026, 11, 1, 0, 2)
+        session.add(quiz)
+        await session.commit()
+
+        stat = await update_monthly_stats(
+            user_id=user.id, session=session, quiz_session_id=quiz.id
+        )
+        season = await session.get(MonthlySeason, stat.season_id)
+        assert (season.year, season.month) == (2026, 11)
+        assert stat.monthly_quizzes == 1
+        assert stat.total_correct == 8

@@ -19,6 +19,7 @@ from app.services.monthly_leaderboard_service import (
     get_current_season
 )
 from app.bot.handlers.leaderboard.utils import (
+    edit_screen,
     format_month_name,
     get_leaderboard_keyboard_text
 )
@@ -105,7 +106,7 @@ async def show_my_rating_callback(callback: CallbackQuery, session: AsyncSession
     text = build_monthly_card(user, user_rank, season, lang)
 
     try:
-        await callback.message.edit_text(text, reply_markup=get_rating_keyboard(lang, "monthly"))
+        await edit_screen(callback, text, get_rating_keyboard(lang, "monthly"))
     except Exception:
         await callback.message.answer(text, reply_markup=get_rating_keyboard(lang, "monthly"))
 

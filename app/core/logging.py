@@ -16,6 +16,18 @@ def setup_logging() -> None:
     root = logging.getLogger()
     root.setLevel(level)
 
+    # ЖУРНАЛ ПИШЕТСЯ В UTF-8 ПРИ ЛЮБОЙ КОНСОЛИ. На Windows stdout в cp1251/
+    # cp866, и строка со значком или словом вроде 'żółw' падала
+    # UnicodeEncodeError и терялась ЦЕЛИКОМ — в том числе сторож «игра вслух
+    # включена, а распознавателя нет». Снимать значки списком (af9b479) не
+    # помогло: слова из базы в журнал всё равно попадают. Правило вместо
+    # списка — нераспечатываемое экранируется, а не роняет запись.
+    for stream in (sys.stdout, sys.stderr):
+        try:
+            stream.reconfigure(encoding="utf-8", errors="backslashreplace")
+        except (AttributeError, ValueError):
+            pass  # подменённый поток (тесты, pythonw) — оставляем как есть
+
     # Console (docker logs)
     console_handler = logging.StreamHandler(sys.stdout)
     console_handler.setFormatter(formatter)

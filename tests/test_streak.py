@@ -190,3 +190,84 @@ def test_no_screen_reads_the_column_directly():
         "колонка серии читается напрямую, минуя current_streak: "
         + ", ".join(offenders)
     )
+
+
+# ============================================================================
+# ДЕНЬ ЧЕЛОВЕКА, А НЕ UTC
+# ============================================================================
+#
+# Даты ниже — после `LOCAL_DAYS_FROM`: до него день по-прежнему считается
+# по UTC, так он и записан.
+
+from datetime import datetime  # noqa: E402
+
+from app.services.streak_service import (  # noqa: E402
+    LOCAL_DAYS_FROM, next_streak, user_day, user_today,
+)
+
+
+def _berlin(y, m, d, hh, mm) -> datetime:
+    """Местное время Берлина → наивное UTC, как его пишет бот (ноябрь: UTC+1)."""
+    return datetime(y, m, d, hh, mm) - timedelta(hours=1)
+
+
+def _play(person, moment) -> int:
+    return register_activity(person, user_today(person, moment))
+
+
+def test_two_local_days_in_a_row_are_a_streak():
+    """Пн 00:30 и вт 23:30 по Берлину. По UTC это вс и вт — серия рвалась."""
+    person = _person(streak_days=0, last_active_date=None, timezone="Europe/Berlin")
+    _play(person, _berlin(2026, 11, 2, 0, 30))
+    assert _play(person, _berlin(2026, 11, 3, 23, 30)) == 2
+
+
+def test_a_skipped_local_day_breaks_the_streak():
+    """Пн 23:30 и СР 00:30 по Берлину. По UTC это пн и вт — серия выдумывалась."""
+    person = _person(streak_days=0, last_active_date=None, timezone="Europe/Berlin")
+    _play(person, _berlin(2026, 11, 2, 23, 30))
+    assert _play(person, _berlin(2026, 11, 4, 0, 30)) == 1
+
+
+def test_the_offset_is_used_when_the_zone_is_unknown():
+    person = _person(timezone="Нигде/Никак", utc_offset="+05:00")
+    assert user_day(person, datetime(2026, 11, 2, 20, 0)) == date(2026, 11, 3)
+
+
+def test_unknown_everything_falls_back_to_berlin():
+    person = _person(timezone=None, utc_offset=None)
+    assert user_day(person, datetime(2026, 11, 2, 23, 30)) == date(2026, 11, 3)
+
+
+def test_days_before_the_switch_stay_utc():
+    """История, записанная по UTC, читается по UTC — иначе приёмка видела бы расхождения."""
+    person = _person(timezone="Asia/Tokyo")
+    before = datetime.combine(LOCAL_DAYS_FROM - timedelta(days=1), datetime.min.time())
+    assert user_day(person, before.replace(hour=20)) == before.date()
+
+
+def test_the_switch_does_not_break_a_streak():
+    """
+    Последний день записан по UTC и мог быть на сутки раньше местного:
+    круг в пн 01:30 по Берлину лёг воскресеньем. Первый местный день после
+    перехода продолжает серию и через один день.
+    """
+    last = LOCAL_DAYS_FROM - timedelta(days=1)
+    assert next_streak(5, last, last + timedelta(days=2)) == 6
+    person = _person(streak_days=5, last_active_date=last)
+    assert current_streak(person, last + timedelta(days=2)) == 5
+
+
+def test_the_switch_grace_is_one_time():
+    """После перехода разрыв в день снова рвёт серию."""
+    last = LOCAL_DAYS_FROM + timedelta(days=3)
+    assert next_streak(5, last, last + timedelta(days=2)) == 1
+    person = _person(streak_days=5, last_active_date=last)
+    assert current_streak(person, last + timedelta(days=2)) == 0
+
+
+def test_last_quiz_date_is_the_local_day():
+    person = _person(streak_days=0, last_active_date=None, last_quiz_date=None,
+                     timezone="Europe/Berlin")
+    _play(person, _berlin(2026, 11, 3, 0, 30))
+    assert person.last_quiz_date == date(2026, 11, 3)

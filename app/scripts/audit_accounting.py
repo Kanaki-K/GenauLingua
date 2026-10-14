@@ -29,7 +29,7 @@ import asyncio
 import logging
 import sys
 
-from sqlalchemy import text
+from sqlalchemy import select, text
 
 from app.database.session import AsyncSessionLocal
 
@@ -110,46 +110,18 @@ CHECKS: list[tuple[str, str, str]] = [
         """,
         "SELECT COUNT(*) FROM users WHERE COALESCE(quizzes_passed,0) > 0",
     ),
-    # Источник серии — дни с завершённым зачётным кругом: отметка дня стоит
-    # ровно там же. Нашла человека, у которого в колонке было 2 при двух
-    # последних днях с разрывом (1 и 29 числа) — считала прежняя версия.
-    (
-        "серия и последний день = истории занятий",
-        """
-        WITH days AS (
-          SELECT user_id, DATE(completed_at) AS day FROM quiz_sessions
-          WHERE completed_at IS NOT NULL
-            AND COALESCE(quiz_mode,'') <> 'error_repeat'
-          GROUP BY user_id, DATE(completed_at)
-        ),
-        runs AS (
-          SELECT user_id, day,
-                 day - (ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY day))
-                     * INTERVAL '1 day' AS grp
-          FROM days
-        ),
-        last_run AS (
-          SELECT user_id, COUNT(*) AS len, MAX(day) AS day,
-                 ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY MAX(day) DESC) AS rn
-          FROM runs GROUP BY user_id, grp
-        )
-        SELECT COUNT(*) FROM users u
-        JOIN last_run r ON r.user_id = u.id AND r.rn = 1
-        WHERE COALESCE(u.streak_days,0) <> r.len
-           OR u.last_active_date IS DISTINCT FROM r.day
-        """,
-        """
-        SELECT COUNT(DISTINCT user_id) FROM quiz_sessions
-        WHERE completed_at IS NOT NULL
-          AND COALESCE(quiz_mode,'') <> 'error_repeat'
-        """,
-    ),
+    # Серия и последний день сверяются НЕ ЗДЕСЬ, а в `_check_streaks` ниже:
+    # с 15 октября 2026 день занятий — день ЧЕЛОВЕКА (его часовой пояс), до
+    # того — UTC, и на переходе действует допуск. Повторять это правило на
+    # SQL значило бы завести вторую копию, которая разойдётся с первой.
     (
         "каналы слова не больше его показов",
         """
         SELECT COUNT(*) FROM user_words
-        WHERE COALESCE(shown_audio,0) + COALESCE(shown_speech,0) > times_shown
-           OR COALESCE(correct_audio,0) + COALESCE(correct_speech,0) > times_correct
+        WHERE COALESCE(shown_audio,0) + COALESCE(shown_speech,0)
+              + COALESCE(shown_reverse,0) > times_shown
+           OR COALESCE(correct_audio,0) + COALESCE(correct_speech,0)
+              + COALESCE(correct_reverse,0) > times_correct
         """,
         "SELECT COUNT(*) FROM user_words",
     ),
@@ -205,34 +177,11 @@ CHECKS: list[tuple[str, str, str]] = [
         """,
         "SELECT COUNT(*) FROM users WHERE COALESCE(success_rate,0) > 0",
     ),
-    (
-        "месячный балл = расчёту по своим же числам",
-        """
-        SELECT COUNT(*) FROM monthly_stats ms
-        JOIN monthly_seasons se ON se.id = ms.season_id
-        WHERE se.is_active AND ms.monthly_score <> (
-            GREATEST(0, COALESCE(ms.total_correct,0)
-                        - COALESCE(ms.correct_audio,0)
-                        - COALESCE(ms.correct_speech,0))
-          + COALESCE(ms.correct_audio,0) * 2
-          + COALESCE(ms.correct_speech,0) * 3
-          + COALESCE(ms.monthly_quizzes,0) * 10
-          + COALESCE(ms.monthly_reverse,0) * 5
-          + COALESCE(ms.monthly_words,0) * 3
-          + COALESCE(ms.report_bonus,0)
-          + ROUND(COALESCE(ms.total_questions,0)
-                  * GREATEST(0, COALESCE(ms.monthly_avg_percent,0) - 60) / 100.0)
-          + CASE WHEN COALESCE(ms.monthly_streak,0) >= 10
-                 THEN 55 + (COALESCE(ms.monthly_streak,0) - 10) * 10
-                 ELSE COALESCE(ms.monthly_streak,0)
-                      * (COALESCE(ms.monthly_streak,0) + 1) / 2 END
-        )
-        """,
-        """
-        SELECT COUNT(*) FROM monthly_stats ms
-        JOIN monthly_seasons se ON se.id = ms.season_id WHERE se.is_active
-        """,
-    ),
+    # Месячный балл сверяется в `_check_scores` ниже — ФОРМУЛОЙ БОТА, а не
+    # её копией на SQL. Копия здесь уже разошлась: она платила 5 за обратный
+    # круг (в боте с пятой игрой 0) и не знала про `correct_reverse`, и
+    # ложно падала на каждом из 10 человек с прежней настройкой реверса,
+    # стоило тому закончить круг.
     (
         "месячная точность не выше ста",
         """
@@ -283,11 +232,77 @@ SAMPLES: dict[str, str] = {
 }
 
 
+async def _check_streaks(session, rep: Report) -> None:
+    """
+    Серия и последний день = истории завершённых зачётных кругов.
+
+    День каждого круга — `user_day` (до перехода UTC, после — пояс
+    человека), череда — `next_streak`: ровно то, чем отмечает день бот.
+    Нашла в своё время человека с серией 2 при последних днях 1 и 29 числа.
+    """
+    from app.database.models import QuizSession, User
+    from app.services.monthly_leaderboard_service import scored_sessions_filter
+    from app.services.streak_service import next_streak, user_day
+
+    rows = (await session.execute(
+        select(User, QuizSession.completed_at)
+        .join(QuizSession, QuizSession.user_id == User.id)
+        .where(QuizSession.completed_at.isnot(None), scored_sessions_filter())
+    )).all()
+
+    days: dict[int, set] = {}
+    people: dict[int, object] = {}
+    for user, completed_at in rows:
+        people[user.id] = user
+        days.setdefault(user.id, set()).add(user_day(user, completed_at))
+
+    bad = []
+    for user_id, active in days.items():
+        streak, last = 0, None
+        for day in sorted(active):
+            streak = next_streak(streak, last, day)
+            last = day
+        user = people[user_id]
+        if int(user.streak_days or 0) != streak or user.last_active_date != last:
+            bad.append(f"{user_id}: записано {user.streak_days} · {user.last_active_date}, "
+                       f"по истории {streak} · {last}")
+
+    title = "серия и последний день = истории занятий"
+    rep.line(not bad, title,
+             f"расходится {len(bad)} из {len(days)}" if bad else f"проверено {len(days)}")
+    for line in bad[:rep.show]:
+        rep.note(line)
+
+
+async def _check_scores(session, rep: Report) -> None:
+    """Месячный балл действующего сезона = `calculate_monthly_score()` по своим числам."""
+    from app.database.models import MonthlySeason, MonthlyStats
+
+    stats = (await session.execute(
+        select(MonthlyStats)
+        .join(MonthlySeason, MonthlySeason.id == MonthlyStats.season_id)
+        .where(MonthlySeason.is_active.is_(True))
+    )).scalars().all()
+
+    bad = [
+        f"{s.user_id} [{s.learning_lang}]: записано {s.monthly_score}, "
+        f"по формуле {s.calculate_monthly_score()}"
+        for s in stats if (s.monthly_score or 0) != s.calculate_monthly_score()
+    ]
+    title = "месячный балл = расчёту по своим же числам"
+    rep.line(not bad, title,
+             f"расходится {len(bad)} из {len(stats)}" if bad else f"проверено {len(stats)}")
+    for line in bad[:rep.show]:
+        rep.note(line)
+
+
 async def run(show: int) -> int:
     rep = Report(show)
     print("Приёмка учёта: сходятся ли числа про человека\n" + "=" * 68)
 
     async with AsyncSessionLocal() as session:
+        await _check_streaks(session, rep)
+        await _check_scores(session, rep)
         for title, bad_sql, total_sql in CHECKS:
             bad = int((await session.execute(text(bad_sql))).scalar() or 0)
             total = int((await session.execute(text(total_sql))).scalar() or 0)

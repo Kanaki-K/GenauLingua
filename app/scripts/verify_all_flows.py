@@ -537,13 +537,12 @@ async def flow_schedulers(rep, s):
 
     await rep.step("Планировщик: текущий сезон", season, expect_text=False)
 
-    async def notifications():
-        from app.schedulers.reminder_scheduler import check_and_send_notifications
-
-        await check_and_send_notifications(StubBot())
-        return None
-
-    await rep.step("Планировщик: рассылка напоминаний", notifications, expect_text=False)
+    # РАССЫЛКУ НАПОМИНАНИЙ ЭТА ПРИЁМКА НЕ ЗОВЁТ. Она шла по ОБЩЕЙ базе из
+    # окружения, а с 14 октября любая попытка — и поддельным ботом тоже —
+    # ставит отметку дня: прогон съел бы сегодняшние напоминания у всех,
+    # кому пора. Приёмка, играющая поддельным ботом, не должна писать в
+    # общие данные. Напоминания проверяет `audit_reminders` — он только
+    # читает.
 
 
 # ============================================================================

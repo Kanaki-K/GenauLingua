@@ -185,3 +185,66 @@ def test_month_is_named_in_every_interface_language():
     # Неизвестный язык и негодный номер не ломают экран
     assert format_month_name(10, "xx") == "10"
     assert format_month_name(0, "ru") == "0"
+
+
+# ============================================================================
+# ДОСЫЛКА: КАЖДЫЙ ЧАС, НО ТОЛЬКО СВЕЖЕЕ (аудит 14 октября)
+#
+# Прежде извещение звалось один раз, при закрытии сезона: недоставленное не
+# повторялось, а через месяц уходило вместе с наградами следующего сезона.
+# ============================================================================
+
+@pytest.mark.asyncio
+async def test_an_old_award_is_not_sent_a_month_late(session, user):
+    """Награда старше трёх суток не досылается: поздравлять с забытым — хуже тишины."""
+    from datetime import timedelta
+
+    from app.core.clock import utcnow
+
+    season = await _season(session)
+    award = await _award(session, season, user)
+    award.created_at = utcnow() - timedelta(days=10)
+    await session.commit()
+
+    bot = FakeBot()
+    assert await notify_season_awards(bot, session) == 0
+    assert not bot.sent, "поздравление за прошлый сезон ушло через месяц"
+
+
+@pytest.mark.asyncio
+async def test_a_blocked_winner_is_not_retried_every_hour(session, user):
+    """Заблокировал бота — извещение закрывается, а не повторяется каждый час."""
+    from aiogram.exceptions import TelegramForbiddenError
+    from aiogram.methods import SendMessage
+
+    class Blocked:
+        def __init__(self):
+            self.tries = 0
+
+        async def send_message(self, chat_id, text, **kwargs):
+            self.tries += 1
+            raise TelegramForbiddenError(
+                method=SendMessage(chat_id=chat_id, text=text),
+                message="Forbidden: bot was blocked by the user",
+            )
+
+    season = await _season(session)
+    await _award(session, season, user)
+
+    bot = Blocked()
+    await notify_season_awards(bot, session)
+    await notify_season_awards(bot, session)
+    assert bot.tries == 1, f"попыток {bot.tries}: заблокировавшему пишем каждый час"
+
+
+@pytest.mark.asyncio
+async def test_top10_notice_names_the_place_once(session, user):
+    """«#5 … место 5» — номер дважды; остаться должен один."""
+    season = await _season(session)
+    await _award(session, season, user, rank=5, award_type="top10", bonus=10)
+
+    bot = FakeBot()
+    await notify_season_awards(bot, session)
+    text = bot.sent[0][1]
+    assert "#5" not in text, f"номер дважды: {text!r}"
+    assert not text.startswith(" "), f"пустой знак оставил пробел: {text!r}"

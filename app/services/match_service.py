@@ -133,7 +133,9 @@ async def pick_words(
     ли их на доску, предоставлено вызывающему: неполная доска это не ошибка
     данных, а честный ответ «ещё рано».
     """
-    from app.services.quiz_service import _apply_quiz_mode_filter
+    from app.services.quiz_service import (
+        _apply_quiz_mode_filter, _meaning_key, _meanings_asked,
+    )
     # Колонки берутся по НАПРАВЛЕНИЮ: в обратном режиме вопрос задаётся
     # на языке значения, и пустая ячейка там так же непригодна
     prompt_col = word_column(pair.prompt_lang)
@@ -176,9 +178,18 @@ async def pick_words(
     query = query.order_by(func.random()).limit(CANDIDATES)
     candidates = (await session.execute(query)).scalars().all()
 
+    # ЗНАЧЕНИЯ, УЖЕ СПРОШЕННЫЕ В КРУГЕ, доска тоже не берёт — тем же
+    # правилом, что генератор вопросов. Номера слов исключались и прежде, но
+    # у трети слов есть двойник по значению: «шептать» приходило карточкой,
+    # а потом другим словом с тем же значением на доске.
+    taken_meanings = await _meanings_asked(session, list(exclude_ids or []), pair.native)
+
     picked: list[Word] = []
     seen_labels: set[tuple[str, str]] = set()
     for word in candidates:
+        meaning = _meaning_key(word, pair.native)
+        if meaning and meaning in taken_meanings:
+            continue
         left = option_label(word, pair.prompt_lang)
         right = option_label(word, pair.answer_lang)
         if not left or not right:
@@ -195,6 +206,8 @@ async def pick_words(
                for l, r in seen_labels):
             continue
         seen_labels.add(key)
+        if meaning:
+            taken_meanings.add(meaning)
         picked.append(word)
         if len(picked) == size:
             break

@@ -147,7 +147,8 @@ def _board_text(lang: str, matched: int, total: int, errors: int) -> str:
 # ============================================================================
 
 async def start_board(
-    message: Message, state: FSMContext, session: AsyncSession, user: User
+    message: Message, state: FSMContext, session: AsyncSession, user: User,
+    *, quiet: bool = False,
 ) -> bool:
     """
     Собрать и показать доску. Возвращает False, если собирать было не из чего.
@@ -177,9 +178,12 @@ async def start_board(
     # появится второе место, решающее «какие слова учит этот человек».
     words = await pick_words(user, session, pair, exclude_ids=used)
     if len(words) < BOARD_SIZE:
-        await message.answer(
-            get_text("match_not_ready", lang, need=BOARD_SIZE, have=len(words))
-        )
+        # Внутри круга отказ молчит: круг продолжит обычным вопросом, а
+        # «поучи карточками» посреди карточек читалось бы как насмешка
+        if not quiet:
+            await message.answer(
+                get_text("match_not_ready", lang, need=BOARD_SIZE, have=len(words))
+            )
         return False
 
     # НАПРАВЛЕНИЕ СОБЛЮДАЕТСЯ: слева язык ВОПРОСА, справа язык ОТВЕТА.
@@ -222,6 +226,8 @@ async def cmd_match(message: Message, state: FSMContext, session: AsyncSession):
         await message.answer(get_text("quiz_no_level", lang))
         return
 
+    # Отдельная доска — НЕ доска круга, даже если круг брошен посередине
+    await state.update_data(**{S_ROUND_AT: None})
     await start_board(message, state, session, user)
 
 
@@ -246,6 +252,7 @@ async def match_from_button(
     except Exception:
         logger.debug("прежний экран не удалился", exc_info=True)
 
+    await state.update_data(**{S_ROUND_AT: None})
     await start_board(message, state, session, user)
 
 
@@ -267,7 +274,21 @@ async def spent_cell(callback: CallbackQuery):
 @router.callback_query(F.data.startswith("mt:l:"))
 @router.callback_query(F.data.startswith("mt:r:"))
 async def tap(callback: CallbackQuery, state: FSMContext, session: AsyncSession):
-    """Одно нажатие по доске: выбрать, перенести выбор или решить пару."""
+    """
+    Одно нажатие по доске: выбрать, перенести выбор или решить пару.
+
+    ЦЕЛИКОМ ПОД ЗАМКОМ ЧАТА. Проверка версии и её увеличение разделены
+    несколькими `await`, а aiogram ведёт нажатия параллельно: двойной тык
+    по последней паре проходил проверку дважды и записывал доску дважды —
+    десять строк вместо пяти. Замок тот же, что у ответов круга.
+    """
+    from app.bot.handlers.quiz.game import _claim_lock
+
+    async with _claim_lock(callback.message.chat.id):
+        await _tap(callback, state, session)
+
+
+async def _tap(callback: CallbackQuery, state: FSMContext, session: AsyncSession):
     _, side, index_raw, version_raw = callback.data.split(":")
     data = await state.get_data()
 

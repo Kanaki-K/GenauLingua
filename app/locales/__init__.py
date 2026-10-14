@@ -48,6 +48,50 @@ def get_text(key: str, lang: Optional[str] = None, **kwargs) -> str:
         return f"[ERROR: {key} missing parameter {e}]"
 
 
+# ============================================================================
+# ЧИСЛО СО СЛОВОМ
+#
+# Прежде форма слова при числе стояла в строке намертво: «{score} баллов»,
+# «Отправлено {count} репортов». При 1 выходило «1 баллов», при 21 —
+# «21 баллов»; в английском «1 points». Аудит 14 октября нашёл пять таких
+# строк в трёх языках сразу.
+#
+# Формы лежат в локали одной строкой через «|» (`plural_points`:
+# «балл|балла|баллов»), а выбор формы — правило языка здесь. Языку с одной
+# формой (турецкий: после числа множественного нет) хватает одной.
+# ============================================================================
+
+def _plural_index(count: int, lang: str) -> int:
+    """Номер формы: 0 — «один», 1 — «два-четыре», 2 — «пять»."""
+    n = abs(int(count))
+    if lang in ("ru", "uk"):
+        if n % 10 == 1 and n % 100 != 11:
+            return 0
+        if 2 <= n % 10 <= 4 and not 12 <= n % 100 <= 14:
+            return 1
+        return 2
+    if lang == "pl":
+        # В польском «один» — только сама единица: 21 — уже «punktów»
+        if n == 1:
+            return 0
+        if 2 <= n % 10 <= 4 and not 12 <= n % 100 <= 14:
+            return 1
+        return 2
+    if lang == "tr":
+        return 0
+    # en, de: единственное только у единицы
+    return 0 if n == 1 else 1
+
+
+def plural(count: int, forms_key: str, lang: Optional[str] = None) -> str:
+    """«21 балл», «2 балла», «5 баллов» — число вместе со словом в нужной форме."""
+    if lang not in LOCALES:
+        lang = DEFAULT_LOCALE
+    forms = get_text(forms_key, lang).split("|")
+    form = forms[min(_plural_index(count, lang), len(forms) - 1)]
+    return f"{count} {form}"
+
+
 def get_available_languages() -> list[str]:
     return list(LOCALES.keys())
 

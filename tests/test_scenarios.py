@@ -510,6 +510,12 @@ async def test_start_for_a_returning_person_is_the_intro_block(session, user, st
 
     dp, bot, recorder = stage
     await _ready(session, user)
+    # Вернувшийся человек знакомство ПРОШЁЛ — значит якорь с меню у него
+    # уже был. Без якоря и без единого круга `/start` с 14 октября задаёт
+    # заново второй вопрос знакомства («какой язык учить»): так выглядит
+    # прервавший его на полпути, и прежде ему молча ставился немецкий.
+    user.anchor_message_id = 1
+    await session.commit()
 
     await _feed(dp, bot, text_update(user.id, "/start"))
 

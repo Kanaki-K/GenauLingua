@@ -748,11 +748,23 @@ class MonthlyAward(Base):
     __table_args__ = (
         Index("ix_monthly_awards_user_id", "user_id"),
         Index("ix_monthly_awards_season_id", "season_id"),
+        # Одна награда на человека, сезон и язык. Закрытие сезона зовётся по
+        # расписанию И каждый час страховкой; без этой уникальности сбой
+        # посреди закрытия и повторный прогон выдали бы награду и бонус к
+        # lifetime дважды — база этому ничем не мешала
+        UniqueConstraint("user_id", "season_id", "learning_lang",
+                         name="uq_monthly_awards_user_season_lang"),
     )
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     user_id: Mapped[int] = mapped_column(BigInteger, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     season_id: Mapped[int] = mapped_column(ForeignKey("monthly_seasons.id", ondelete="CASCADE"), nullable=False)
+
+    # Язык, в котором взято место: топ-10 подводится отдельно по каждому
+    # изучаемому языку, и без языка две законные награды одного человека за
+    # один месяц (немецкий и английский) не отличить от выданной дважды
+    learning_lang: Mapped[str] = mapped_column(String(2), nullable=False, default="de",
+                                               server_default="de")
 
     rank: Mapped[int] = mapped_column(Integer, nullable=False)
     award_type: Mapped[str] = mapped_column(String(50), nullable=False)  # "gold", "silver", "bronze", "top10"

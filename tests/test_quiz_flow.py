@@ -247,7 +247,7 @@ def test_both_branches_of_the_next_question_assign_everything_the_tail_uses():
     """
     Проверка не поведения, а ФОРМЫ — и она тут уместна.
 
-    `show_next_question` устроен как развилка с общим хвостом: одна ветка
+    `_advance` (тело `show_next_question`) устроен как развилка с общим хвостом: одна ветка
     собирает повтор ошибок, другая обычный вопрос, а показ карточки стоит
     ПОСЛЕ них и читает `word`, `options`, `channel`, `clip`. Стоит одной
     ветке забыть присвоить что-то одно — обработчик падает с NameError.
@@ -269,12 +269,12 @@ def test_both_branches_of_the_next_question_assign_everything_the_tail_uses():
     tree = ast.parse(inspect.getsource(game))
     func = next(
         node for node in ast.walk(tree)
-        if isinstance(node, ast.AsyncFunctionDef) and node.name == "show_next_question"
+        if isinstance(node, ast.AsyncFunctionDef) and node.name == "_advance"
     )
 
     # Развилка «повтор ошибок / обычный вопрос» — последняя в теле функции
     forks = [n for n in func.body if isinstance(n, ast.If) and n.orelse]
-    assert forks, "развилка в show_next_question пропала — проверку надо переписать"
+    assert forks, "развилка в _advance пропала — проверку надо переписать"
     fork = forks[-1]
 
     def assigned(nodes) -> set[str]:

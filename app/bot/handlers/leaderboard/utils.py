@@ -103,16 +103,39 @@ def get_leaderboard_keyboard_text(lang: str, current_tab: str) -> dict:
     Returns:
         Словарь с текстами кнопок
     """
+    # ПОДПИСИ ИЗ ЛОКАЛИ. Здесь стоял тернарник на четыре языка, а языков
+    # шесть: немец и поляк видели вкладки по-турецки — «Ay», «Tüm
+    # Zamanlar». Найдено аудитом 14 октября; та же ошибка «список вместо
+    # правила», что и с надписями нижних кнопок.
+    from app.locales import get_text
+
+    monthly = get_text("rating_tab_month", lang)
+    alltime = get_text("rating_tab_alltime", lang)
     if current_tab == "monthly":
-        monthly_text = "• Месяц •" if lang == "ru" else "• Місяць •" if lang == "uk" else "• Month •" if lang == "en" else "• Ay •"
-        alltime_text = "За всё время" if lang == "ru" else "За весь час" if lang == "uk" else "All-Time" if lang == "en" else "Tüm Zamanlar"
+        monthly = f"• {monthly} •"
     else:
-        monthly_text = "Месяц" if lang == "ru" else "Місяць" if lang == "uk" else "Month" if lang == "en" else "Ay"
-        alltime_text = "• За всё время •" if lang == "ru" else "• За весь час •" if lang == "uk" else "• All-Time •" if lang == "en" else "• Tüm Zamanlar •"
+        alltime = f"• {alltime} •"
 
     return {
-        'monthly': monthly_text,
-        'alltime': alltime_text
+        'monthly': monthly,
+        'alltime': alltime
     }
+
+
+async def edit_screen(callback, text: str, reply_markup) -> None:
+    """
+    Перерисовать экран рейтинга, не падая на повторном нажатии.
+
+    Нажатие на уже открытую вкладку присылает тот же текст, и Telegram
+    отвечает «message is not modified» — в журнал это шло ошибкой
+    обработчика, хотя ничего не сломано: экран уже такой, какой просили.
+    """
+    from aiogram.exceptions import TelegramBadRequest
+
+    try:
+        await callback.message.edit_text(text, reply_markup=reply_markup)
+    except TelegramBadRequest as error:
+        if "not modified" not in str(error):
+            raise
 
 

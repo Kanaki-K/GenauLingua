@@ -14,11 +14,12 @@ from app.services.monthly_leaderboard_service import (
     get_lifetime_leaderboard
 )
 from app.bot.handlers.leaderboard.utils import (
+    edit_screen,
     format_month_name,
     get_user_title,
     get_leaderboard_keyboard_text
 )
-from app.locales import DEFAULT_LOCALE, get_text
+from app.locales import DEFAULT_LOCALE, get_text, plural
 from app.services.language_service import pair_from_user
 
 router = Router()
@@ -35,7 +36,11 @@ def get_table_keyboard(lang: str, current_tab: str = "monthly") -> InlineKeyboar
             [
                 InlineKeyboardButton(
                     text=get_text("btn_back_to_rating", lang),
-                    callback_data="rating_monthly"
+                    # На ТУ ЖЕ вкладку: из таблицы «за всё время» прежде
+                    # возвращало на карточку месяца (аудит 14 октября)
+                    # Два литерала, а не f-строка: приёмка `verify_buttons`
+                    # сверяет с обработчиками именно литералы
+                    callback_data="rating_alltime" if current_tab == "alltime" else "rating_monthly"
                 )
             ]
         ]
@@ -77,7 +82,6 @@ def _shorten_name(name: str, max_len: int = 15) -> str:
 
 def build_monthly_table(leaderboard: list, user_rank: dict, season, user_id: int, lang: str) -> str:
     month_name = format_month_name(season.month, lang)
-    pts = get_text("table_points", lang)
 
     text = get_text("table_title_monthly", lang, month=month_name, year=season.year) + "\n\n"
 
@@ -101,9 +105,9 @@ def build_monthly_table(leaderboard: list, user_rank: dict, season, user_id: int
         is_me = entry["user_id"] == user_id
         if is_me:
             user_in_top = True
-            text += f"{emoji} <b>{name}{title}</b> — {score} {pts}\n"
+            text += f"{emoji} <b>{name}{title}</b> — {plural(score, 'plural_points', lang)}\n"
         else:
-            text += f"{emoji} {name}{title} — {score} {pts}\n"
+            text += f"{emoji} {name}{title} — {plural(score, 'plural_points', lang)}\n"
 
     text += "\n" + "·" * 17 + "\n"
 
@@ -115,7 +119,11 @@ def build_monthly_table(leaderboard: list, user_rank: dict, season, user_id: int
         if user_in_top:
             text += get_text("table_you_in_top", lang, rank=rank, total=total) + "\n"
         else:
-            text += get_text("table_you_not_in_top", lang, rank=rank, total=total, score=score) + "\n"
+            # Число со словом считается ДО вызова: test_format_parameters_match
+            # разбирает get_text регулярным выражением, и вложенный вызов
+            # внутри аргумента рвёт разбор
+            shown = plural(score, "plural_points", lang)
+            text += get_text("table_you_not_in_top", lang, rank=rank, total=total, score=shown) + "\n"
     else:
         text += get_text("table_you_not_ranked", lang) + "\n"
 
@@ -124,7 +132,6 @@ def build_monthly_table(leaderboard: list, user_rank: dict, season, user_id: int
 
 def build_alltime_table(leaderboard: list, user: User, lang: str) -> str:
     user_id = user.id
-    pts = get_text("table_points", lang)
 
     text = get_text("table_title_alltime", lang) + "\n\n"
 
@@ -148,9 +155,9 @@ def build_alltime_table(leaderboard: list, user: User, lang: str) -> str:
         is_me = entry["user_id"] == user_id
         if is_me:
             user_in_top = True
-            text += f"{emoji} <b>{name}{title}</b> — {score} {pts}\n"
+            text += f"{emoji} <b>{name}{title}</b> — {plural(score, 'plural_points', lang)}\n"
         else:
-            text += f"{emoji} {name}{title} — {score} {pts}\n"
+            text += f"{emoji} {name}{title} — {plural(score, 'plural_points', lang)}\n"
 
     text += "\n" + "·" * 17 + "\n"
 
@@ -162,15 +169,16 @@ def build_alltime_table(leaderboard: list, user: User, lang: str) -> str:
 
     lifetime = user.lifetime_score or 0
     total = len(leaderboard)
+    shown = plural(lifetime, "plural_points", lang)
 
     if user_rank_num:
         if user_in_top:
             text += get_text("table_you_in_top", lang, rank=user_rank_num, total=total) + "\n"
         else:
-            text += get_text("table_you_not_in_top", lang, rank=user_rank_num, total=total, score=lifetime) + "\n"
+            text += get_text("table_you_not_in_top", lang, rank=user_rank_num, total=total, score=shown) + "\n"
     else:
         if lifetime > 0:
-            text += get_text("table_you_outside", lang, score=lifetime) + "\n"
+            text += get_text("table_you_outside", lang, score=shown) + "\n"
         else:
             text += get_text("table_you_not_ranked", lang) + "\n"
 
@@ -193,7 +201,7 @@ async def show_table_monthly(callback: CallbackQuery, session: AsyncSession):
     user_rank = await get_user_monthly_rank(user.id, session, season_id=season.id,
                                           learning_lang=pair_from_user(user).learning)
     text = build_monthly_table(leaderboard, user_rank, season, user.id, lang)
-    await callback.message.edit_text(text, reply_markup=get_table_keyboard(lang, "monthly"))
+    await edit_screen(callback, text, get_table_keyboard(lang, "monthly"))
 
 
 @router.callback_query(F.data == "leaderboard_table_alltime")
@@ -204,7 +212,7 @@ async def show_table_alltime(callback: CallbackQuery, session: AsyncSession):
 
     leaderboard = await get_lifetime_leaderboard(session, limit=10)
     text = build_alltime_table(leaderboard, user, lang)
-    await callback.message.edit_text(text, reply_markup=get_table_keyboard(lang, "alltime"))
+    await edit_screen(callback, text, get_table_keyboard(lang, "alltime"))
 
 
 @router.callback_query(F.data == "table_monthly")
@@ -223,7 +231,7 @@ async def switch_table_to_monthly(callback: CallbackQuery, session: AsyncSession
     user_rank = await get_user_monthly_rank(user.id, session, season_id=season.id,
                                           learning_lang=pair_from_user(user).learning)
     text = build_monthly_table(leaderboard, user_rank, season, user.id, lang)
-    await callback.message.edit_text(text, reply_markup=get_table_keyboard(lang, "monthly"))
+    await edit_screen(callback, text, get_table_keyboard(lang, "monthly"))
 
 
 @router.callback_query(F.data == "table_alltime")
@@ -234,4 +242,4 @@ async def switch_table_to_alltime(callback: CallbackQuery, session: AsyncSession
 
     leaderboard = await get_lifetime_leaderboard(session, limit=10)
     text = build_alltime_table(leaderboard, user, lang)
-    await callback.message.edit_text(text, reply_markup=get_table_keyboard(lang, "alltime"))
+    await edit_screen(callback, text, get_table_keyboard(lang, "alltime"))

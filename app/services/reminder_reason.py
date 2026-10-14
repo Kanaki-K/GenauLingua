@@ -76,6 +76,9 @@ class ReminderFacts:
     rank_field: int = 0          # сколько людей в зачёте по этому языку
     rounds_total: int = 0
     days_away: int = 0
+    # Сколько новых слов принесёт ближайший круг. None — не замерено (так
+    # строят факты проверки правила); напоминание замеряет всегда
+    new_next_round: Optional[int] = None
 
 
 def pick_reason(facts: ReminderFacts) -> tuple[str, dict]:
@@ -121,9 +124,17 @@ def pick_reason(facts: ReminderFacts) -> tuple[str, dict]:
     # Рубеж — только когда есть что двигать. При нуле слов строка выходила
     # «Слов в работе: 0 · до 10 ещё 10», то есть той самой шкалой-нулём, от
     # которой и уходили: ноль в лицо вместо повода
+    #
+    # «Это один круг» — обещание, и держит его только состав круга: новых в
+    # нём три, если повторять есть что. Замер 14 октября: у 12 человек из 72,
+    # получавших этот повод, рубеж кругом был недостижим (44 просроченных,
+    # 3 новых за круг, до рубежа 6). Такой человек повод не получает — ему
+    # честнее «слова ждут»
     target = next_milestone(facts.words_in_work)
     if (facts.words_in_work > 0 and target is not None
-            and target - facts.words_in_work <= MILESTONE_CLOSE):
+            and target - facts.words_in_work <= MILESTONE_CLOSE
+            and (facts.new_next_round is None
+                 or target - facts.words_in_work <= facts.new_next_round)):
         return "remind_milestone_close", {
             "count": facts.words_in_work,
             "target": target,

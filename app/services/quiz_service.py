@@ -253,9 +253,11 @@ async def select_word_by_priority(
         место под новое   новое → просроченное → трудное → любое
         прочие места      просроченное → трудное → новое → любое
 
-    Почему просроченное впереди трудного: «трудное» (точность ниже 70%) и
-    так просрочено — серия у него нулевая, срок час. Отдельной корзиной оно
-    осталось ради режима «сложные слова» и как страховка.
+    Почему просроченное впереди трудного: трудное, которому пора, и так
+    просрочено — корзина «трудных» тоже ждёт срока (`_due_condition`), и
+    отдельной она осталась ради режима «сложные слова» и как страховка.
+    Прежде это обоснование утверждало «серия у трудного нулевая», что
+    неверно: серия 2 при точности 40% — обычное дело.
 
     Почему «любое» в конце: когда у человека кончились и новые слова, и
     просроченные, круг всё равно должен состояться. Прежде этот откат был
@@ -398,11 +400,23 @@ async def get_struggling_words(
     user: Optional[User] = None,
     level: Optional[CEFRLevel] = None,
 ) -> Optional[Word]:
+    # ТРУДНОЕ ТОЖЕ ЖДЁТ СВОЕГО СРОКА. Прежде здесь стояли только точность
+    # ниже 70% и часовая пауза, и корзина обходила расписание: слово с 2
+    # верными из 5 и серией 2 (срок три дня), показанное два часа назад, не
+    # было просроченным — и всё равно приходило на первом же месте круга,
+    # потому что эта корзина идёт сразу за просроченными. Проверено
+    # исполнением. Точность — накопленная, и у слова, которое человек уже
+    # начал отвечать верно, она ещё долго ниже 70: оно возвращалось бы
+    # каждый час, вытесняя новые.
+    #
+    # Режим «сложные слова» (`get_difficult_word`) срока НЕ ждёт нарочно: там
+    # человек сам попросил гонять трудное.
     query = _progress_join(_usable_words(pair), user_id, pair).where(
         UserWord.learned.is_(False),
         UserWord.times_shown > 0,
         _accuracy_below(STRUGGLING_THRESHOLD),
         _cooled_down(),
+        _due_condition(),
     )
     return await _pick_one(session, _exclude(_scoped(query, user, level), exclude_ids))
 
@@ -572,6 +586,13 @@ async def get_distractors(
     """
     answer_lang = pair.answer_lang
     taken: set[str] = set(_option_variants(correct_word, answer_lang))
+    # ЗНАЧЕНИЯ НА ЯЗЫКЕ ПОДСКАЗКИ ТОЖЕ НЕ ДОЛЖНЫ СОВПАДАТЬ. В «Вспоминаю»
+    # подсказка — значение на родном языке, а варианты — слова изучаемого,
+    # и сверка шла только по ним. Слова разные (auf, an, für), а значение у
+    # них общее («на»), — и вопрос «На» выходил с двумя верными ответами:
+    # 13 вопросов из 1620 по словам с общим значением. В прямых играх это
+    # условие отсекает дубли одного и того же слова.
+    prompt_meanings = _option_variants(correct_word, pair.prompt_lang)
     picked: list[Word] = []
     excluded_ids = [correct_word.id]
 
@@ -606,6 +627,8 @@ async def get_distractors(
             # Пересечение хотя бы по одному значению делает вариант
             # неотличимо верным — такой дистрактор не годится
             if not variants or variants & taken:
+                continue
+            if prompt_meanings & _option_variants(candidate, pair.prompt_lang):
                 continue
             taken |= variants
             picked.append(candidate)
@@ -888,13 +911,26 @@ async def update_word_progress(
     user_word.last_seen_at = now
     _count_channel(user_word, channel, is_correct)
 
+    # ПРОМАХ ОБНУЛЯЕТ СЕРИЮ, а с ней и срок возврата.
+    #
+    # Прежде промах лишь откусывал от серии: больше трёх — минус два, но не
+    # ниже двух; иначе минус один. Пока подбор смотрел на точность, это было
+    # безобидно. С тех пор как серия задаёт СРОК (`REVIEW_SCHEDULE`), правило
+    # стало прятать ошибки: слово с серией 7 после промаха получало серию 5 и
+    # возвращалось через ШЕСТЬДЕСЯТ ДНЕЙ — проверено исполнением: через 1, 7,
+    # 30 и 59 дней после промаха оно не было ни просроченным, ни «трудным».
+    # Серия 3 после промаха давала 2, то есть три дня. Человек только что
+    # показал, что слово забыл, — именно его и надо вернуть первым.
+    #
+    # Ноль — это срок «час» (`REVIEW_SCHEDULE[0]`), то есть следующий круг
+    # после паузы; немедленный повтор и так делает кнопка «повторить
+    # ошибки». «Выучено» при этом снимается: оно определено как три верных
+    # ПОДРЯД, а подряд больше нет.
     if is_correct:
         user_word.correct_streak += 1
         user_word.times_correct += 1
-    elif user_word.correct_streak > 3:
-        user_word.correct_streak = max(2, user_word.correct_streak - 2)
     else:
-        user_word.correct_streak = max(0, user_word.correct_streak - 1)
+        user_word.correct_streak = 0
 
     user_word.learned = _is_learned(user_word, now)
     await session.commit()
@@ -1530,7 +1566,10 @@ async def pick_channel(
     # чего и написано правило допуска. Слово, до канала не доросшее, придёт
     # текстом, и это честный ответ, а не поломка.
     if prefer is not None:
-        if prefer is not QuizChannel.TEXT and not getattr(user, "audio_enabled", True):
+        # Без озвучки закрыты ТОЛЬКО слух и речь. Прежде условие было «всё,
+        # кроме текста», и вход «Вспоминаю» с выключенным звуком давал круг
+        # из одних карточек — при том что «Вспоминаю» звука не требует.
+        if prefer in NEEDS_AUDIO and not getattr(user, "audio_enabled", True):
             return QuizChannel.TEXT
         if times_correct >= CHANNEL_UNLOCK.get(prefer, 0):
             return prefer

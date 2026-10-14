@@ -42,6 +42,11 @@ class Settings(BaseSettings):
 
     # Optional / infra (можно хранить в .env, но боту не обязательно)
     ENV: Optional[str] = None
+    # Печать каждого SQL-запроса с параметрами. Отдельный флаг, а не
+    # «ENV == dev»: шаблон .env.example стоял на ENV=dev, и боевой .env,
+    # сделанный по нему, писал бы в журнал каждый запрос вместе с id и
+    # текстами людей — ротация 10 МБ × 5 съедала бы историю за часы.
+    SQL_ECHO: bool = False
     LOG_LEVEL: Optional[str] = None
     LOG_DIR: Optional[str] = None
     SENTRY_DSN: Optional[str] = None

@@ -257,7 +257,12 @@ class TestLearnedRequiresSpacing:
         await session.refresh(row)
         assert row.learned is True
 
-    async def test_wrong_answer_reduces_streak(self, session, user):
+    async def test_wrong_answer_resets_streak(self, session, user):
+        """
+        Промах обнуляет серию. Прежде серия 5 становилась 3, а серия 7 —
+        пятью, то есть сроком возврата в шестьдесят дней: забытое слово
+        пряталось от повторения надолго. Разбор — у `update_word_progress`.
+        """
         words = await _seed_distinct(session, 5)
         await build_groups(session)
         word = words[0]
@@ -271,7 +276,7 @@ class TestLearnedRequiresSpacing:
 
         await qs.update_word_progress(user.id, word.id, False, session, learning_lang="de")
         await session.refresh(row)
-        assert row.correct_streak == 3
+        assert row.correct_streak == 0
         assert row.times_shown == 6
         assert row.times_correct == 5
 

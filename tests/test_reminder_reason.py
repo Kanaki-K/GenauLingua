@@ -400,3 +400,90 @@ async def test_a_live_streak_is_the_reason(session, user):
 
     text = await build_reminder_text(user, session)
     assert "5" in text and "подряд" in text, f"серия не названа: {text!r}"
+
+
+# ============================================================================
+# «ЭТО ОДИН КРУГ» — ТОЛЬКО ЕСЛИ КРУГ ПРАВДА ДОВЕДЁТ ДО РУБЕЖА
+#
+# Аудит 14 октября: повод «до 50 ещё 6, это один круг» получали люди с
+# 44 просроченными словами — их круг приносит три новых слова, и рубеж
+# кругом недостижим. Таких было 12 из 72 получавших повод.
+# ============================================================================
+
+def test_milestone_is_not_promised_when_the_round_brings_too_few_new_words():
+    facts = _facts(words_in_work=44, due_words=44, new_next_round=3)
+    key, _ = pick_reason(facts)
+    assert key != "remind_milestone_close", "обещан рубеж, недостижимый за круг"
+
+
+def test_milestone_is_promised_when_the_round_reaches_it():
+    facts = _facts(words_in_work=47, due_words=44, new_next_round=3)
+    key, params = pick_reason(facts)
+    assert key == "remind_milestone_close", key
+    assert params["left"] <= 3
+
+
+# ============================================================================
+# КОГДА ПОРА СЛАТЬ: одна попытка в день и догон после перезапуска
+# ============================================================================
+
+def _reminder_user(**kwargs):
+    from app.database.models import User
+
+    values = dict(
+        id=1, timezone="Europe/Berlin", notification_time="14:00",
+        notification_days=list(range(7)), last_notification_sent=None,
+    )
+    values.update(kwargs)
+    return User(**values)
+
+
+def test_a_reminder_catches_up_after_a_restart():
+    """
+    Бот лежал в 14:00 — напоминание уходит, когда он поднялся.
+
+    Прежде окно было ±2 минуты: перезапуск в 11:58–12:02 UTC оставлял без
+    напоминания на день 117 человек из 121 включивших.
+    """
+    from datetime import datetime
+
+    from app.schedulers.reminder_scheduler import reminder_is_due
+
+    user = _reminder_user()
+    # 14:00 по Берлину 15 октября 2026 — это 12:00 UTC
+    assert reminder_is_due(user, datetime(2026, 10, 15, 12, 40))
+    assert reminder_is_due(user, datetime(2026, 10, 15, 11, 58))
+    assert not reminder_is_due(user, datetime(2026, 10, 15, 11, 50)), "раньше срока"
+    assert not reminder_is_due(user, datetime(2026, 10, 15, 15, 1)), "позже трёх часов"
+
+
+def test_one_attempt_a_day_whatever_its_outcome():
+    """Отметка дня стоит — второй попытки сегодня нет, завтра — есть."""
+    from datetime import datetime
+
+    from app.schedulers.reminder_scheduler import reminder_is_due
+
+    user = _reminder_user(last_notification_sent=datetime(2026, 10, 15, 11, 58))
+    assert not reminder_is_due(user, datetime(2026, 10, 15, 12, 1))
+    assert reminder_is_due(user, datetime(2026, 10, 16, 12, 0))
+
+
+@pytest.mark.asyncio
+async def test_a_blocked_bot_is_reported_as_forbidden(session, user):
+    """
+    Заблокировавший бота — не сбой сети: исход отдельный, по нему
+    напоминания выключаются. Прежде попыток было пять в день, вечно.
+    """
+    from aiogram.exceptions import TelegramForbiddenError
+    from aiogram.methods import SendMessage
+
+    from app.schedulers.reminder_scheduler import FORBIDDEN, send_notification_to_user
+
+    class Blocked:
+        async def send_message(self, chat_id, text, **kwargs):
+            raise TelegramForbiddenError(
+                method=SendMessage(chat_id=chat_id, text=text),
+                message="Forbidden: bot was blocked by the user",
+            )
+
+    assert await send_notification_to_user(Blocked(), user, session) == FORBIDDEN

@@ -191,6 +191,10 @@ def spoken_text_for(row: dict, lang: str, kind: str) -> str:
 MIN_CHARS_FOR_ASR = 9
 
 
+# Отказы машины, а не суждение о голосе: при возобновлении их переделывают
+TRANSIENT_VERDICTS = frozenset({"синтез не удался", "распознавание не удалось"})
+
+
 async def check_one(row: dict, lang: str, kind: str, voice: str,
                     recognizer: Recognizer, threshold: float) -> dict:
     spoken = spoken_text_for(row, lang, kind)
@@ -305,13 +309,20 @@ async def run(args) -> int:
 
     recognizer = Recognizer()
     out_path = pathlib.Path(args.out if not ids else args.out + ".recheck")
-    # Возобновление: уже проверенное не переделываем
+    # Возобновление: уже проверенное не переделываем. Но ОТКАЗ — не
+    # проверка: клип, который движок не озвучил или распознаватель не
+    # разобрал, о голосе не говорит ничего. Прежде отказ считался сделанным,
+    # и голос, у которого все сто клипов упали на отказе движка, при
+    # повторном прогоне пропускался целиком — с долей «0%» навсегда.
     done: set[tuple[int, str]] = set()
+    prior: dict[tuple[int, str], str] = {}
     if out_path.exists() and not ids:
         for line in out_path.read_text(encoding="utf-8").splitlines():
             if line.strip():
                 r = json.loads(line)
-                done.add((r["id"], r["kind"]))
+                prior[(r["id"], r["kind"])] = r["verdict"]
+        prior = {k: v for k, v in prior.items() if v not in TRANSIENT_VERDICTS}
+        done = set(prior)
         if done:
             print(f"в {out_path} уже есть {len(done)} проверок — пропускаю их")
 
@@ -341,6 +352,11 @@ async def run(args) -> int:
 
     await asyncio.gather(*(one(row, kind) for row in words for kind in kinds))
 
+    # Итог — по ВСЕМ проверкам голоса, а не только по этому заходу: иначе
+    # возобновлённый прогон отчитывался бы сорока клипами из ста, и число
+    # зависело бы от того, сколько раз его прерывали.
+    for verdict in prior.values():
+        stats[verdict] = stats.get(verdict, 0) + 1
     checked = sum(stats.values())
     print()
     print("=== ИТОГ ===")

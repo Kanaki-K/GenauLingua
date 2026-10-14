@@ -251,8 +251,10 @@ async def repair_monthly(session, apply: bool, all_seasons: bool) -> int:
                     QuizSession.user_id == stat.user_id,
                     QuizSession.learning_lang == stat.learning_lang,
                     QuizSession.completed_at.isnot(None),
-                    QuizSession.started_at >= start,
-                    QuizSession.started_at <= end,
+                    # По завершению — тем же правилом, что бот
+                    # (`update_monthly_stats`) и его полный пересчёт
+                    QuizSession.completed_at >= start,
+                    QuizSession.completed_at <= end,
                     scored_sessions_filter(),
                 )
             )).scalars().all()
@@ -294,6 +296,10 @@ async def repair_monthly(session, apply: bool, all_seasons: bool) -> int:
                 monthly_avg_percent=int(correct / answered * 100) if answered else 0,
                 correct_audio=by_channel.get(QuizChannel.AUDIO.value, 0),
                 correct_speech=by_channel.get(QuizChannel.SPEECH.value, 0),
+                # Пятая игра. Без неё починка оставляла колонку как есть,
+                # а «текст» в балле выводится вычитанием всех каналов из
+                # итога — разойдись реверс с источником, и вычитание врёт
+                correct_reverse=by_channel.get(QuizChannel.REVERSE.value, 0),
                 monthly_words=int(words),
             )
 
@@ -364,23 +370,29 @@ async def repair_user_totals(session, apply: bool) -> int:
     источник. Берётся максимум из посчитанного и записанного: записанное
     могло попасть из дней, которых в занятиях нет (старые версии).
     """
-    days = (await session.execute(
-        select(QuizSession.user_id,
-               func.date(QuizSession.completed_at).label("day"))
+    # ДЕНЬ — ДЕНЬ ЧЕЛОВЕКА, ЧЕРЕДА — `next_streak`: тем же правилом, каким
+    # отмечает бот (`streak_service`). До 15 октября 2026 день брался по
+    # UTC, после — по поясу человека, и на переходе разрыв в один день
+    # прощается. Своё правило здесь — «разница ровно в сутки по UTC» —
+    # оборвало бы серию тем, кого бот на переходе не обрывал.
+    from app.services.streak_service import next_streak, user_day
+
+    rows_days = (await session.execute(
+        select(User, QuizSession.completed_at)
+        .join(QuizSession, QuizSession.user_id == User.id)
         .where(QuizSession.completed_at.isnot(None), scored_sessions_filter())
-        .group_by(QuizSession.user_id, func.date(QuizSession.completed_at))
     )).all()
 
     history_best: dict[int, int] = {}
     history_last: dict[int, tuple] = {}
-    active_days: dict[int, list] = {}
-    for user_id, day in days:
-        active_days.setdefault(user_id, []).append(day)
-    for user_id, dates in active_days.items():
-        dates.sort()
+    active_days: dict[int, set] = {}
+    for person, completed_at in rows_days:
+        active_days.setdefault(person.id, set()).add(user_day(person, completed_at))
+    for user_id, day_set in active_days.items():
+        dates = sorted(day_set)
         best = run = 1
         for before, after in zip(dates, dates[1:]):
-            run = run + 1 if (after - before).days == 1 else 1
+            run = next_streak(run, before, after)
             best = max(best, run)
         history_best[user_id] = best
         # Серия на последний активный день — это череда, которая им

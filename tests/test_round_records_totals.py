@@ -21,7 +21,7 @@
 import pytest
 from sqlalchemy import func, select
 
-from app.core.clock import utcnow, utctoday
+from app.core.clock import utcnow
 from app.database.enums import CEFRLevel, QuizMode
 from app.database.models import (
     MonthlyStats, QuizQuestion, QuizSession, User, UserWord, Word,
@@ -237,7 +237,10 @@ async def test_the_first_round_starts_the_streak(session, user, stage):
 
     await session.refresh(user)
     assert user.streak_days == 1
-    assert user.last_active_date == utctoday()
+    # День человека, а не UTC: с 22:00 до 24:00 UTC у Берлина уже завтра
+    from app.services.streak_service import user_today
+
+    assert user.last_active_date == user_today(user)
     assert current_streak(user) == 1, "серия не читается как живая"
 
 

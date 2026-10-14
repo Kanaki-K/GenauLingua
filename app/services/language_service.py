@@ -657,11 +657,14 @@ def pair_from_user(user) -> LanguagePair:
     if native is None or native == learning:
         native = fallback_native_for(learning, preferred=user.interface_language)
 
-    return LanguagePair(
-        learning=learning,
-        native=native,
-        reverse=bool(getattr(user, "reverse_mode", False)),
-    )
+    # ПРЕЖНЯЯ НАСТРОЙКА ОБРАТНОГО ПЕРЕВОДА БОЛЬШЕ НЕ ЧИТАЕТСЯ. Реверс стал
+    # пятой игрой (706ee78), направление — свойство игры, а не человека. Но
+    # у 10 человек колонка `reverse_mode` осталась включённой, и пара у них
+    # переворачивалась везде, где код не шёл через `pair_for_channel`:
+    # повтор ошибок показывал слово в одну сторону, а варианты в другую,
+    # доска стояла задом наперёд, занятие писалось как `is_reverse`.
+    # Колонка оставлена в схеме ради истории, но в пару не идёт.
+    return LanguagePair(learning=learning, native=native, reverse=False)
 
 
 def fallback_native_for(learning: str, preferred: Optional[str] = None) -> str:

@@ -19,11 +19,36 @@ from app.services.language_service import (
     learnable_count,
     learnable_names,
 )
-from app.locales import DEFAULT_LOCALE, get_text
+from app.locales import DEFAULT_LOCALE, get_text, plural
 
 router = Router()
 
-def get_help_keyboard(lang: str) -> InlineKeyboardMarkup:
+# Пометка «пришёл из настроек». Помощь живёт в группе «Бот», и прежде её
+# экран кончался двумя кнопками без «Назад»: вернуться в настройки было
+# нельзя ничем, кроме нижнего меню (аудит 14 октября). Из команды /help
+# возвращаться некуда — там «Назад» и не рисуется.
+FROM_SETTINGS = "settings"
+
+
+def _help_text(lang: str) -> str:
+    return (
+        f"{get_text('help_title', lang)}\n\n"
+        f"{get_text('help_description', lang)}\n\n"
+        f"{get_text('help_choose', lang)}"
+    )
+
+
+def _back_to_help(lang: str, origin: str) -> InlineKeyboardMarkup:
+    tail = f":{origin}" if origin else ""
+    return InlineKeyboardMarkup(
+        inline_keyboard=[[InlineKeyboardButton(
+            text=get_text("btn_back", lang),
+            callback_data=f"help_back{tail}"
+        )]]
+    )
+
+
+def get_help_keyboard(lang: str, origin: str = "") -> InlineKeyboardMarkup:
     """
     Два экрана вместо четырёх.
 
@@ -35,18 +60,23 @@ def get_help_keyboard(lang: str) -> InlineKeyboardMarkup:
     «ℹ️ О боте» слит с «💬 Сообществом»: оба экрана кончались одной и той же
     ссылкой на чат.
     """
-    return InlineKeyboardMarkup(
-        inline_keyboard=[
-            [InlineKeyboardButton(
-                text=get_text("help_btn_how_to_use", lang),
-                callback_data="help_how_to_use"
-            )],
-            [InlineKeyboardButton(
-                text=get_text("help_btn_community", lang),
-                callback_data="help_community"
-            )],
-        ]
-    )
+    tail = f":{origin}" if origin else ""
+    rows = [
+        [InlineKeyboardButton(
+            text=get_text("help_btn_how_to_use", lang),
+            callback_data=f"help_how_to_use{tail}"
+        )],
+        [InlineKeyboardButton(
+            text=get_text("help_btn_community", lang),
+            callback_data=f"help_community{tail}"
+        )],
+    ]
+    if origin == FROM_SETTINGS:
+        rows.append([InlineKeyboardButton(
+            text=get_text("btn_back", lang),
+            callback_data="settings_group_bot"
+        )])
+    return InlineKeyboardMarkup(inline_keyboard=rows)
 
 
 # ============================================================================
@@ -60,12 +90,9 @@ async def show_help_from_settings(callback: CallbackQuery, session: AsyncSession
     user = await session.get(User, callback.from_user.id)
     lang = user.interface_language if user else DEFAULT_LOCALE
 
-    help_text = (
-        f"{get_text('help_title', lang)}\n\n"
-        f"{get_text('help_description', lang)}\n\n"
-        f"{get_text('help_choose', lang)}"
+    await callback.message.edit_text(
+        _help_text(lang), reply_markup=get_help_keyboard(lang, FROM_SETTINGS)
     )
-    await callback.message.edit_text(help_text, reply_markup=get_help_keyboard(lang))
 
 
 @router.message(Command("help"))
@@ -79,11 +106,7 @@ async def show_help(message: Message, session: AsyncSession):
     user = await session.get(User, message.from_user.id)
     lang = user.interface_language if user else DEFAULT_LOCALE
 
-    help_text = (
-        f"{get_text('help_title', lang)}\n\n"
-        f"{get_text('help_description', lang)}\n\n"
-        f"{get_text('help_choose', lang)}"
-    )
+    help_text = _help_text(lang)
 
     try:
         await message.delete()
@@ -103,7 +126,7 @@ async def show_help(message: Message, session: AsyncSession):
 # КАК ПОЛЬЗОВАТЬСЯ
 # ============================================================================
 
-@router.callback_query(F.data == "help_how_to_use")
+@router.callback_query(F.data.startswith("help_how_to_use"))
 async def show_how_to_use(callback: CallbackQuery, session: AsyncSession):
     await callback.answer()
 
@@ -114,27 +137,27 @@ async def show_how_to_use(callback: CallbackQuery, session: AsyncSession):
     # сверяет подстановки в тексте с переданными параметрами, разбирая вызов
     # регулярным выражением, и на скобках внутри аргумента разбор обрывается
     languages = learnable_names(lang)
+    # ДЛИНА КРУГА — ИЗ ТОГО ЖЕ МЕСТА, ЧТО У ИГРЫ. В тексте стояло «25 слов»
+    # во всех шести языках, а круг — 15: число жило отдельно от правила
+    from app.bot.handlers.quiz.game import DEFAULT_QUIZ_LENGTH
+
+    length = (user.quiz_word_count if user else None) or DEFAULT_QUIZ_LENGTH
+    words = plural(length, "plural_words", lang)
 
     text = (
         f"{get_text('help_how_to_use_title', lang)}\n\n"
-        f"{get_text('help_how_to_use_text', lang, languages=languages)}"
+        f"{get_text('help_how_to_use_text', lang, languages=languages, words=words)}"
     )
 
-    keyboard = InlineKeyboardMarkup(
-        inline_keyboard=[[InlineKeyboardButton(
-            text=get_text("btn_back", lang),
-            callback_data="help_back"
-        )]]
-    )
-
-    await callback.message.edit_text(text, reply_markup=keyboard)
+    origin = callback.data.partition(":")[2]
+    await callback.message.edit_text(text, reply_markup=_back_to_help(lang, origin))
 
 
 # ============================================================================
 # О БОТЕ И СООБЩЕСТВО — один экран вместо двух
 # ============================================================================
 
-@router.callback_query(F.data == "help_community")
+@router.callback_query(F.data.startswith("help_community"))
 async def show_community(callback: CallbackQuery, session: AsyncSession):
     await callback.answer()
 
@@ -153,34 +176,25 @@ async def show_community(callback: CallbackQuery, session: AsyncSession):
         f"{get_text('help_community_text', lang, languages=languages, language_count=language_count, interface_languages=interface_languages)}"
     )
 
-    keyboard = InlineKeyboardMarkup(
-        inline_keyboard=[[InlineKeyboardButton(
-            text=get_text("btn_back", lang),
-            callback_data="help_back"
-        )]]
-    )
-
-    await callback.message.edit_text(text, reply_markup=keyboard)
+    origin = callback.data.partition(":")[2]
+    await callback.message.edit_text(text, reply_markup=_back_to_help(lang, origin))
 
 
 # ============================================================================
 # НАВИГАЦИЯ
 # ============================================================================
 
-@router.callback_query(F.data == "help_back")
+@router.callback_query(F.data.startswith("help_back"))
 async def back_to_help(callback: CallbackQuery, session: AsyncSession):
     await callback.answer()
 
     user = await session.get(User, callback.from_user.id)
     lang = user.interface_language if user else DEFAULT_LOCALE
 
-    help_text = (
-        f"{get_text('help_title', lang)}\n\n"
-        f"{get_text('help_description', lang)}\n\n"
-        f"{get_text('help_choose', lang)}"
+    origin = callback.data.partition(":")[2]
+    await callback.message.edit_text(
+        _help_text(lang), reply_markup=get_help_keyboard(lang, origin)
     )
-
-    await callback.message.edit_text(help_text, reply_markup=get_help_keyboard(lang))
 
 # Обработчик `back_to_menu` отсюда убран. Он был зарегистрирован ДВАЖДЫ — и
 # здесь, и в settings.py — при том, что кнопки, которая шлёт такой callback,

@@ -21,7 +21,7 @@ from aiogram.types import (
     BufferedInputFile, CallbackQuery, InlineKeyboardButton,
     InlineKeyboardMarkup, Message,
 )
-from sqlalchemy import func, select
+from sqlalchemy import func, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.bot.buttons import BTN_LEARN_WORDS, menu_texts, pressed
@@ -85,8 +85,10 @@ S_ANSWERED = "answered_question"
 # ПАРАЛЛЕЛЬНО: два нажатия, пришедшие в один миг, успели бы оба прочитать
 # «ещё не отвечено». Замок на чат сводит решение к одному потоку.
 #
-# Словарь растёт по активным кругам и чистится в `_finish_quiz`: держать
-# замок на каждого, кто когда-либо играл, незачем.
+# Словарь НЕ чистится. Прежде `_finish_quiz` выбрасывал замок, пока второе
+# «Далее» его ещё ждало, — и следующий вызов получал НОВЫЙ замок, то есть
+# два обработчика шли параллельно. Замок — несколько сотен байт на чат,
+# у бота 233 человека: держать их все дешевле, чем ловить такую гонку.
 _claim_locks: dict[int, asyncio.Lock] = {}
 
 
@@ -131,6 +133,44 @@ async def _claim_answer(state: FSMContext, chat_id: int) -> bool:
             return False
         await state.update_data(**{S_ANSWERED: current})
         return True
+
+
+# Что переживает круг: ошибки для повтора и слова для жалобы на перевод
+# относятся к ПРОШЛОМУ итогу и нужны его кнопкам.
+_KEEP_BETWEEN_ROUNDS = ("saved_errors", "report_session_id", "report_word_ids")
+
+
+async def _reset_round_state(state: FSMContext) -> dict:
+    """
+    Начать круг с чистого состояния. Возвращает то, что сохранено.
+
+    Прежде новый круг ДОПИСЫВАЛ своё поверх прежнего. Из брошенного круга
+    оставались `answered_question`, `board_shown` и ключи доски: бросил на
+    первом вопросе, нажал «Учить» — и первый ответ нового круга гасился как
+    повтор, человек застревал. Оставшийся `board_shown` к тому же убирал
+    доску из нового круга.
+    """
+    data = await state.get_data()
+    kept = {k: data[k] for k in _KEEP_BETWEEN_ROUNDS if k in data}
+    await state.clear()
+    if kept:
+        await state.update_data(**kept)
+    return kept
+
+
+async def _release_answer(state: FSMContext, chat_id: int) -> None:
+    """
+    Вернуть вопрос в «не отвечен», если ответ на него так и не записан.
+
+    Нужна речи: голосовое занимает вопрос ДО распознавания, а неразобранная
+    запись ответом не считается — бот просит записать ещё раз. Без возврата
+    вопрос оставался занятым навсегда: следующее голосовое и «Пропустить»
+    гасились как повтор, и выйти из круга было нельзя.
+    """
+    async with _claim_lock(chat_id):
+        data = await state.get_data()
+        if data.get(S_ANSWERED) == data.get("current_question"):
+            await state.update_data(**{S_ANSWERED: None})
 
 router = Router()
 
@@ -231,6 +271,36 @@ async def _clip_or_text(
     text_options, _ = build_options(word, distractors, pair)
     fallback_clip = await _question_clip(session, user, word, pair, QuizChannel.TEXT)
     return fallback_clip, QuizChannel.TEXT, text_options
+
+
+def _as_text_question(
+    session, user: User, word: Word, pair: LanguagePair, state: FSMContext,
+    lang: str, current: int, total: int, channel: QuizChannel,
+):
+    """
+    Пересборка вопроса на слух в «Читаю», если звук пропал ПРИ ОТПРАВКЕ.
+
+    `_clip_or_text` решает то же при сборке, но file_id может умереть уже в
+    Telegram: тогда клип отвергается на отправке, и вопрос уходил текстом
+    «Послушай и выбери» без слова. Канал в состоянии меняется на текст —
+    засчитан ответ будет так, как его давали.
+    """
+    if channel is not QuizChannel.AUDIO:
+        return None
+
+    async def rebuild():
+        distractors = await get_distractors(word, session, pair, user=user)
+        if len(distractors) < OPTIONS_TOTAL - 1:
+            return None
+        options, _ = build_options(word, distractors, pair)
+        await state.update_data(channel=QuizChannel.TEXT.value)
+        return (
+            _question_text(word, pair, lang, current, total,
+                           channel=QuizChannel.TEXT),
+            _question_keyboard(QuizChannel.TEXT, options, lang),
+        )
+
+    return rebuild
 
 
 def _question_text(
@@ -728,6 +798,7 @@ async def start_lesson(
         session, user, word, pair, channel, question["options"]
     )
 
+    await _reset_round_state(state)
     await state.update_data(
         session_id=quiz_session.id,
         current_question=1,
@@ -760,6 +831,9 @@ async def start_lesson(
         keyboard=_question_keyboard(channel, question["options"], lang),
         clip=clip,
         word_id=word.id, lang=pair.learning,
+        without_audio=_as_text_question(
+            session, user, word, pair, state, lang, 1, quiz_total, channel
+        ),
     )
     await state.set_state(QuizStates.answering)
 
@@ -821,8 +895,11 @@ async def process_answer(callback: CallbackQuery, state: FSMContext, session: As
     # Поле к тому же обрезано до 255 знаков, и длинные ячейки усекались.
     #
     # Язык вариантов задаёт канал: на слух они на ИЗУЧАЕМОМ языке, иначе —
-    # на языке ответа.
-    options_lang = pair.learning if channel is QuizChannel.AUDIO else pair.answer_lang
+    # на языке ответа ЭТОЙ ИГРЫ. В «Вспоминаю» пара перевёрнута, и варианты
+    # — слова изучаемого языка: прежде бралась неперевёрнутая пара, и
+    # нажатое «der Drink» записывалось как «Напиток».
+    options_lang = (pair.learning if channel is QuizChannel.AUDIO
+                    else pair_for_channel(pair, channel).answer_lang)
     selected_word = correct_word if is_correct else await session.get(Word, selected_word_id)
     selected_text = option_label(selected_word, options_lang) if selected_word else None
 
@@ -1002,6 +1079,7 @@ async def process_voice_answer(message: Message, state: FSMContext, session: Asy
     # засчитывать это промахом значит наказывать за чужую беду, и человек
     # бросит игру. Предлагаем записать ещё раз, вопрос остаётся прежним.
     if verdict is None or verdict.failed or verdict.empty:
+        await _release_answer(state, message.chat.id)
         await message.answer(get_text("speech_not_understood", lang))
         return
 
@@ -1029,18 +1107,22 @@ async def play_reference(callback: CallbackQuery, state: FSMContext, session: As
     Приходит ОТДЕЛЬНЫМ сообщением, а не заменяет карточку: задание должно
     остаться на экране, иначе человек забудет, что произносить.
     """
-    await callback.answer()
     ctx = await _speech_context(callback, state, session)
     if ctx is None:
+        await callback.answer()
         return
     _, user, correct_word, _ = ctx
     lang = user.interface_language or DEFAULT_LOCALE
     pair = pair_from_user(user)
 
+    # На нажатие отвечают ОДИН раз: прежде `answer()` стоял в начале, и
+    # окно «клипа нет» шло вторым ответом, которого Telegram не показывает.
+    # Да и текст был чужой — «Не разобрал», будто человек что-то записал.
     clip = await clip_for_user(session, user, correct_word, pair.learning, KIND_WORD)
     if clip is None:
-        await callback.answer(get_text("speech_not_understood", lang), show_alert=True)
+        await callback.answer(get_text("voice_preview_failed", lang), show_alert=True)
         return
+    await callback.answer()
 
     media = clip.file_id or BufferedInputFile(clip.data, filename=clip.filename)
     sent = await callback.bot.send_audio(
@@ -1169,11 +1251,16 @@ async def record_board_answers(
     Возвращает False, если доска открыта САМА ПО СЕБЕ, а не в круге: тогда
     записывать некуда, и прогресс по словам двигает уже вызывающий.
     """
+    from app.bot.handlers.quiz.match import S_ROUND_AT
     from app.services.match_service import BOARD_CHANNEL
 
     data = await state.get_data()
     session_id = data.get("session_id")
-    if not session_id:
+    # В КРУГЕ — ЭТО ДОСКА, КОТОРУЮ ПОСТАВИЛ КРУГ, а не любая доска при
+    # живом `session_id`. Прежде `/match` посреди круга писал свои пять пар
+    # в этот круг: шесть строк в занятии вместо одной, план 15 — отвечено
+    # больше. Брошенный круг держал `session_id` до перезапуска бота.
+    if not session_id or not data.get(S_ROUND_AT):
         return False
 
     quiz_session = await session.get(QuizSession, session_id)
@@ -1262,7 +1349,15 @@ async def _board_due(
 
     # Годных слов берём с запасом: `should_insert_board` требует вдвое
     # больше доски, иначе доски пошли бы одним набором
-    eligible = await pick_words(user, session, pair, size=BOARD_SIZE * 2)
+    #
+    # УЖЕ ЗАДАННЫЕ СЛОВА ИСКЛЮЧАЮТСЯ И ЗДЕСЬ — тем же списком, что у самой
+    # доски. Без этого проверка насчитывала десять годных, доска после
+    # исключения находила меньше пяти, и посреди круга появлялось «Пока
+    # рано: поучи карточками».
+    eligible = await pick_words(
+        user, session, pair, size=BOARD_SIZE * 2,
+        exclude_ids=list(data.get("used_word_ids") or []),
+    )
     return should_insert_board(user, total_questions, len(eligible))
 
 
@@ -1284,7 +1379,7 @@ async def _show_board_in_round(
     except Exception:
         logger.debug("карточка перед доской не удалилась", exc_info=True)
 
-    shown = await start_board(callback.message, state, session, user)
+    shown = await start_board(callback.message, state, session, user, quiet=True)
     if shown:
         # Номер вопроса, на котором доска встала: по нему она и вернёт круг
         await state.update_data(**{S_ROUND_AT: current_question})
@@ -1293,17 +1388,47 @@ async def _show_board_in_round(
     # Доска не собралась — круг не должен встать. Отдаём обычный вопрос с
     # того же номера, как будто доски и не было
     logger.info("доска в круге не собралась (user=%s), продолжаю вопросами", user.id)
-    await show_next_question(callback, state, session)
+    await _advance(callback, state, session)
 
 
 # ============================================================================
 # СЛЕДУЮЩИЙ ВОПРОС / ЗАВЕРШЕНИЕ
 # ============================================================================
 
+# С какого номера круг уже продвинут кнопкой «Далее»
+S_ADVANCED = "advanced_from"
+
+
+async def _claim_advance(state: FSMContext, chat_id: int) -> bool:
+    """
+    Продвинуть круг с текущего номера РОВНО ОДИН РАЗ.
+
+    Двойное «Далее» на последнем вопросе завершало круг дважды: два экрана
+    итога, `quizzes_passed` +2, а однажды второй обработчик упал на
+    уникальном ключе месячного счёта. На середине круга двойной тык
+    пропускал вопрос. Замок тот же, что у ответа: оба решения про один чат.
+    """
+    async with _claim_lock(chat_id):
+        data = await state.get_data()
+        current = data.get("current_question")
+        if current is None:
+            return True
+        if data.get(S_ADVANCED) == current:
+            return False
+        await state.update_data(**{S_ADVANCED: current})
+        return True
+
+
 @router.callback_query(F.data == "next_question", QuizStates.answering)
 async def show_next_question(callback: CallbackQuery, state: FSMContext, session: AsyncSession):
     await callback.answer()
+    if not await _claim_advance(state, callback.message.chat.id):
+        return
+    await _advance(callback, state, session)
 
+
+async def _advance(callback: CallbackQuery, state: FSMContext, session: AsyncSession):
+    """Следующий вопрос, доска или итог. На нажатие уже ответили."""
     data = await state.get_data()
     current_question = data["current_question"] + 1
     total_questions = data["total_questions"]
@@ -1448,6 +1573,10 @@ async def show_next_question(callback: CallbackQuery, state: FSMContext, session
         clip=clip,
         word_id=word.id, lang=pair.learning,
         message=callback.message,
+        without_audio=_as_text_question(
+            session, user, word, pair, state, lang,
+            current_question, total_questions, channel,
+        ),
     )
 
 
@@ -1747,21 +1876,33 @@ async def _finish_quiz(
     data: dict,
 ) -> None:
     """Завершение викторины: итоги, статистика, кнопки."""
-    # Замок «один вопрос — один ответ» нужен только на время круга
-    _claim_locks.pop(callback.message.chat.id, None)
-
     session_id = data["session_id"]
     correct_answers = data["correct_answers"]
     errors = data.get("errors", [])
     is_error_repeat = data.get("is_error_repeat", False)
 
+    # ЗАВЕРШИТЬ МОЖНО ОДИН РАЗ — и это решает база, а не память процесса.
+    # Двойное «Далее» гасит `_claim_advance`, но состояние живёт в памяти и
+    # не переживает двух экземпляров бота или повтора обновления после
+    # перезапуска. Условное обновление атомарно: второй вызов не получит
+    # строки и уйдёт, не прибавив `quizzes_passed` и не прислав второй итог.
+    claimed = await session.execute(
+        update(QuizSession)
+        .where(QuizSession.id == session_id, QuizSession.is_completed.isnot(True))
+        .values(
+            completed_at=utcnow(), is_completed=True, exit_reason="completed",
+            exit_at_question=QuizSession.answered_questions,
+        )
+        .returning(QuizSession.id)
+    )
+    if claimed.first() is None:
+        await session.rollback()
+        logger.info("круг %s уже завершён — повтор завершения пропущен", session_id)
+        return
+    await session.commit()
     quiz_session = await session.get(QuizSession, session_id)
-    if quiz_session:
-        quiz_session.completed_at = utcnow()
-        quiz_session.is_completed = True
-        quiz_session.exit_reason = "completed"
-        quiz_session.exit_at_question = quiz_session.answered_questions
-        await session.commit()
+    if quiz_session is not None:
+        await session.refresh(quiz_session)
 
     answered = quiz_session.answered_questions if quiz_session else 0
 
@@ -1790,21 +1931,25 @@ async def _finish_quiz(
         )
         user.words_learned = int(learned_count.scalar() or 0)
 
-        # Общая точность — по фактически отвеченным вопросам
-        totals = await session.execute(
-            select(
-                func.coalesce(func.sum(QuizSession.answered_questions), 0),
-                func.coalesce(func.sum(QuizSession.correct_answers), 0),
-            ).where(
-                QuizSession.user_id == user.id,
-                QuizSession.completed_at.isnot(None),
-            )
+    # Общая точность — по фактически отвеченным вопросам ВСЕХ завершённых
+    # занятий, повторы ошибок включительно. Сумма их включала и прежде, а
+    # пересчёт стоял только после обычного круга: круг 0/4, потом повтор
+    # 4/4 — по данным 50%, у человека оставалось 0%.
+    totals = await session.execute(
+        select(
+            func.coalesce(func.sum(QuizSession.answered_questions), 0),
+            func.coalesce(func.sum(QuizSession.correct_answers), 0),
+        ).where(
+            QuizSession.user_id == user.id,
+            QuizSession.completed_at.isnot(None),
         )
-        total_answered, total_correct = totals.one()
-        user.success_rate = int(total_correct / total_answered * 100) if total_answered else 0
+    )
+    total_answered, total_correct = totals.one()
+    user.success_rate = int(total_correct / total_answered * 100) if total_answered else 0
 
-        await session.commit()
+    await session.commit()
 
+    if not is_error_repeat:
         try:
             await update_monthly_stats(
                 user_id=user.id, session=session, quiz_session_id=session_id
@@ -1951,6 +2096,7 @@ async def repeat_errors(callback: CallbackQuery, state: FSMContext, session: Asy
 
     options, _ = build_options(first_word, distractors, pair)
 
+    await _reset_round_state(state)
     await state.update_data(
         session_id=quiz_session.id,
         current_question=1,

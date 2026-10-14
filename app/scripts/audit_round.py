@@ -48,7 +48,8 @@ from sqlalchemy import Integer, delete, func, select
 
 from app.database.enums import CEFRLevel, QuizChannel, QuizMode
 from app.database.models import (
-    MonthlyStats, QuizQuestion, QuizSession, User, UserWord, Word, WordLangGroup,
+    MonthlyQuizEvent, MonthlyStats, QuizQuestion, QuizSession, User, UserWord, Word,
+    WordLangGroup,
 )
 from app.database.session import AsyncSessionLocal
 from app.locales import get_text
@@ -241,6 +242,12 @@ async def _drop_probe(session, user_id: int) -> None:
     на первом же сочетании.
     """
     await session.rollback()          # на случай сорванного круга
+    # Отметки месячного зачёта — ОТДЕЛЬНО: у `monthly_quiz_events` нет
+    # внешнего ключа, каскад их не берёт. Замер 14 октября 2026: 234
+    # осиротевших отметки в dev-базе, почти все — подопытные этой приёмки
+    await session.execute(
+        delete(MonthlyQuizEvent).where(MonthlyQuizEvent.user_id == user_id)
+    )
     await session.execute(delete(User).where(User.id == user_id))
     await session.commit()
     session.expunge_all()
@@ -505,15 +512,22 @@ async def _check_score(session, user, case, rep, rows, quiz, score_before) -> No
 
     audio = sum(1 for r in rows if r.is_correct and r.channel == QuizChannel.AUDIO.value)
     speech = sum(1 for r in rows if r.is_correct and r.channel == QuizChannel.SPEECH.value)
-    other = sum(1 for r in rows if r.is_correct) - audio - speech
+    # Пятая игра своей ценой и своей колонкой: пока цена равна карточке,
+    # её отсутствие здесь не видно по баллу — и было бы не видно, пока цену
+    # не поменяют. Поэтому сверяется и колонка, а не только итог
+    reverse = sum(1 for r in rows if r.is_correct and r.channel == QuizChannel.REVERSE.value)
+    other = sum(1 for r in rows if r.is_correct) - audio - speech - reverse
 
     if stat.correct_audio != audio:
         rep.fail(case, f"[G] слух в зачёте {stat.correct_audio}, верных строк {audio}")
     if stat.correct_speech != speech:
         rep.fail(case, f"[G] речь в зачёте {stat.correct_speech}, верных строк {speech}")
+    if (stat.correct_reverse or 0) != reverse:
+        rep.fail(case, f"[G] припоминание в зачёте {stat.correct_reverse}, верных строк {reverse}")
 
     expected = (
         other * MonthlyStats.POINTS_TEXT
+        + reverse * MonthlyStats.POINTS_REVERSE
         + audio * MonthlyStats.POINTS_AUDIO
         + speech * MonthlyStats.POINTS_SPEECH
         + MonthlyStats.POINTS_PER_ROUND

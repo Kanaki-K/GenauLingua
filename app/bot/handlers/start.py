@@ -12,7 +12,6 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-from app.bot.states import QuizStates
 from app.bot.utils import BOT_NAME, delete_messages_fast, ensure_anchor
 from app.database.enums import CEFRLevel, QuizMode
 from app.database.models import User
@@ -78,6 +77,20 @@ def get_learning_keyboard(native: str, lang: str) -> InlineKeyboardMarkup:
         if code != native
     ]
     return InlineKeyboardMarkup(inline_keyboard=_grid(buttons))
+
+
+def _learning_question_text(user: User, lang: str) -> str:
+    """
+    Второй вопрос знакомства: какой язык учить.
+
+    Один текст на два входа — сразу после выбора языка бота и при /start
+    того, кто на этом вопросе прервался. Две копии разошлись бы.
+    """
+    native = user.native_lang or lang
+    return (
+        f"{get_text('onboarding_learning_title', lang)}\n\n"
+        f"{get_text('onboarding_learning_desc', lang, native=get_text(f'langname_{native}', lang))}"
+    )
 
 
 def _language_selection_text() -> str:
@@ -148,7 +161,7 @@ async def cmd_start(message: Message, state: FSMContext, session: AsyncSession):
     # для всех: турок без имени в профиле получал русское слово.
     first_name = message.from_user.first_name or get_text("friend_fallback", lang)
 
-    if user.level:
+    if not await _learning_language_unanswered(session, user):
         # `/START` — ЭТО ВСТУПИТЕЛЬНЫЙ БЛОК, И БОЛЬШЕ НИЧЕГО.
         #
         # Замечание владельца: сюда возвращаются только набрав команду
@@ -180,15 +193,48 @@ async def cmd_start(message: Message, state: FSMContext, session: AsyncSession):
         # чем экран, который где-то уже есть.
         await _show_intro(message, session, user, lang)
     else:
-        # УРОВНЯ У ЧЕЛОВЕКА НЕТ — значит он прервал знакомство на полпути
-        # (язык выбран, дальше не пошёл). Спрашивать уровень незачем: его
-        # ставит бот. Ставим A1 и показываем то же вступление с кнопкой.
-        user.level = CEFRLevel.A1
-        user.quiz_mode = QuizMode.LEVEL
-        await session.commit()
-        await _show_intro(message, session, user, lang)
+        # ЗНАКОМСТВО ПРЕРВАНО НА ВТОРОМ ВОПРОСЕ: язык бота выбран, а какой
+        # язык учить — нет. Задаём его снова.
+        #
+        # Прежде эта ветка ловила «нет уровня», а уровень у колонки по
+        # умолчанию A1 — то есть ветка была мёртвой, вопрос пропускался, и
+        # человек учил немецкий по умолчанию колонки —
+        # ровно та беда «233 из 233 учат немецкий», против которой второй
+        # вопрос и заводился. Немцу выходило хуже всех: учить немецкий со
+        # значениями на запасном языке. Воспроизведено аудитом 14 октября.
+        #
+        # Состояние `choosing_level` больше не ставится: обработчиков у него
+        # нет ни одного, и висело оно впустую.
+        await message.answer(
+            _learning_question_text(user, lang),
+            reply_markup=get_learning_keyboard(user.native_lang or lang, lang),
+        )
 
-        await state.set_state(QuizStates.choosing_level)
+
+async def _learning_language_unanswered(session: AsyncSession, user: User) -> bool:
+    """
+    Не ответил ли человек на второй вопрос знакомства — какой язык учить.
+
+    Отдельной колонки «знакомство пройдено» нет, а изучаемый язык и уровень
+    имеют значения по умолчанию (`de`, A1) — по ним не отличить ответившего
+    от прервавшегося. Отличает ЯКОРЬ: первый раз он создаётся вступлением,
+    которое показывается только после ответа, а нижнего меню, через которое
+    якорь мог бы появиться раньше, у прервавшегося ещё нет.
+
+    Кругов при этом тоже не должно быть ни одного: человек из давних
+    времён, у которого якоря почему-то нет, но занятия есть, знакомство
+    прошёл, и переспрашивать его — значит сбросить ему уровень на A1.
+    """
+    if user.anchor_message_id is not None:
+        return False
+    from sqlalchemy import func, select
+
+    from app.database.models import QuizSession
+
+    played = await session.scalar(
+        select(func.count()).select_from(QuizSession).where(QuizSession.user_id == user.id)
+    )
+    return not played
 
 
 # ============================================================================
@@ -214,6 +260,15 @@ async def select_language(callback: CallbackQuery, state: FSMContext, session: A
         return
 
     user = await session.get(User, callback.from_user.id)
+    if user is None:
+        # Старый экран выбора языка у человека, которого в базе уже нет:
+        # завести заново, как это сделал бы /start, а не упасть на None
+        user = User(
+            id=callback.from_user.id,
+            username=callback.from_user.username,
+            first_name=callback.from_user.first_name,
+        )
+        session.add(user)
     user.interface_language = lang
     user.native_lang = lang
     user.reverse_mode = False
@@ -221,8 +276,7 @@ async def select_language(callback: CallbackQuery, state: FSMContext, session: A
     await session.commit()
 
     await callback.message.edit_text(
-        f"{get_text('onboarding_learning_title', lang)}\n\n"
-        f"{get_text('onboarding_learning_desc', lang, native=get_text(f'langname_{lang}', lang))}",
+        _learning_question_text(user, lang),
         reply_markup=get_learning_keyboard(lang, lang),
     )
     await callback.answer()
@@ -319,8 +373,10 @@ async def _show_intro(
 
     ЧЕЙ ЭТО ЭКРАН. Владельца дословно: «Старт — это первое внятное меню
     после выбора языка для новика», и отдельно: «тот кто давно играет ему
-    это меню попросту не нужно». Поэтому играющего `/start` ведёт на
-    домашний экран, а сюда попадает только тот, у кого кругов ещё нет.
+    это меню попросту не нужно». Это решение потом пересмотрено им же
+    («СТОП, прошлый старт был ПРАВИЛЬНЫМ… Верни старт!»), и теперь
+    вступление видят ВСЕ, кто набрал /start, — подробно в `cmd_start`.
+    Прежняя строка здесь говорила обратное коду.
 
     Строк ровно четыре: приветствие, три способа, сколько тут всего и что
     где. Кнопка одна — начать.

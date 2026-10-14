@@ -93,6 +93,18 @@ def get_timezone_main_keyboard(lang: str = "ru") -> InlineKeyboardMarkup:
         )
     )
 
+    # ВЫХОД БЕЗ ВЫБОРА. Этот экран открывается нажатием «включить
+    # напоминания», и прежде уйти с него можно было только выбрав город —
+    # то есть только включив напоминания. Передумавший оставался в тупике
+    # (аудит 14 октября). «Назад» ведёт на экран напоминаний, откуда сюда
+    # и приходят во всех трёх случаях.
+    builder.row(
+        InlineKeyboardButton(
+            text=get_text("btn_back", lang),
+            callback_data="settings:notifications"
+        )
+    )
+
     return builder.as_markup()
 
 
@@ -316,7 +328,10 @@ def get_notifications_settings_keyboard(
     builder.row(
         InlineKeyboardButton(
             text=get_text("notif_btn_back", lang),
-            callback_data="back_to_settings"
+            # В СВОЮ ГРУППУ «Бот», а не на корень настроек: так возвращают
+            # все остальные пункты групп, и напоминания были единственным
+            # исключением (аудит 14 октября)
+            callback_data="settings_group_bot"
         )
     )
 

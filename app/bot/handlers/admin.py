@@ -9,7 +9,7 @@
 СТРОЕНИЕ. Пять групп, у каждой на главной своя строка с её же числом:
 
     Люди     приход по месяцам, отток, лучшие, карточка человека
-    Занятия  четыре игры, удержание, внимание
+    Занятия  пять игр, удержание, внимание
     Слова    сложные и частые
     Жалобы   разбор с начислением баллов
     Выгрузка CSV
@@ -27,13 +27,16 @@
 import asyncio
 import csv
 import io
+import itertools
+from html import escape
 from aiogram import Router, F
+from aiogram.exceptions import TelegramForbiddenError, TelegramRetryAfter
 from aiogram.filters import Command
 from aiogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton, BufferedInputFile
 from sqlalchemy.ext.asyncio import AsyncSession
 # text импортируется под псевдонимом: в этом модуле `text` — локальная
 # переменная, в которой собираются сообщения, и импорт её бы затенял
-from sqlalchemy import select, func, and_, distinct, case, desc, or_, text as sql_text
+from sqlalchemy import select, update, func, and_, distinct, case, desc, or_, text as sql_text
 from typing import Optional
 from datetime import datetime, timedelta, date
 from app.core.clock import utcnow, utctoday
@@ -60,6 +63,12 @@ ADMIN_USER_ID = settings.ADMIN_USER
 # выгрузки обещал «все»: на 2 320 занятиях разница незаметна, на двадцати
 # тысячах файл молча оборвётся на последней тысяче
 EXPORT_QUIZ_LIMIT = 1000
+
+# «За 7 дней» — семь календарных дней: сегодня и шесть перед ним
+LAST_DAYS = 7
+
+# Пояс для людей без пояса в базе — тот же, что по умолчанию у колонки
+DEFAULT_TZ = "Europe/Berlin"
 
 # Сколько людей в «Лучших». Прежде на экране было 15, а в команде
 # `/admin_users` — 20, и это были две копии одного кода
@@ -137,13 +146,15 @@ async def _get_main_stats(session: AsyncSession) -> str:
     )
     active_24h = active_24h_result.scalar()
 
-    week_ago = utctoday() - timedelta(days=7)
+    # Семь календарных дней — сегодня и шесть перед ним. Прежде стояло
+    # `>= сегодня − 7`, то есть восемь дней под подписью «за 7 дней»
+    week_start = utctoday() - timedelta(days=LAST_DAYS - 1)
     active_7d_result = await session.execute(
         select(func.count(distinct(User.id)))
         .select_from(User)
         .where(or_(
-            User.last_active_date >= week_ago,
-            User.last_quiz_date >= week_ago
+            User.last_active_date >= week_start,
+            User.last_quiz_date >= week_start
         ))
     )
     active_7d = active_7d_result.scalar()
@@ -302,6 +313,8 @@ async def admin_people(callback: CallbackQuery, session: AsyncSession):
     # Через подзапрос, а не `group_by` + `having`: с группировкой запрос
     # отдаёт по строке на человека, и `.scalar()` взял бы первую вместо
     # количества — то есть показал бы единицу при любом числе пропавших
+    # «Пропали на 7+ дней»: последний круг НЕ ПОЗЖЕ недели назад. Строгое
+    # «раньше» считало от восьми дней — подпись обещала одно, число другое
     week_ago = utctoday() - timedelta(days=7)
     last_round = (
         select(QuizSession.user_id,
@@ -312,7 +325,7 @@ async def admin_people(callback: CallbackQuery, session: AsyncSession):
     )
     stale = (await session.execute(
         select(func.count()).select_from(last_round)
-        .where(last_round.c.day < week_ago)
+        .where(last_round.c.day <= week_ago)
     )).scalar() or 0
 
     text = admin_ui.screen(
@@ -344,7 +357,7 @@ async def admin_people(callback: CallbackQuery, session: AsyncSession):
 @router.callback_query(F.data == "admin:lessons")
 async def admin_lessons(callback: CallbackQuery, session: AsyncSession):
     """
-    Группа «Занятия»: четыре игры, удержание, внимание.
+    Группа «Занятия»: пять игр, удержание, внимание.
 
     Прежде всё это лежало на одном экране «Аналитика» вместе с когортами:
     удержание, двери входа, скорость ответа, точки выхода и самые медленные
@@ -382,7 +395,7 @@ async def admin_lessons(callback: CallbackQuery, session: AsyncSession):
                 ("Точность", admin_ui.pct(correct, answered)),
             ]),
             "\n".join([
-                f"Игры {admin_ui.DOT} четыре канала, состав, доска, двери входа",
+                f"Игры {admin_ui.DOT} пять игр, состав, двери входа",
                 f"Удержание {admin_ui.DOT} возвращаются ли на второй день",
                 f"Внимание {admin_ui.DOT} скорость ответа и где бросают круг",
             ]),
@@ -403,9 +416,9 @@ async def admin_lessons(callback: CallbackQuery, session: AsyncSession):
 @router.callback_query(F.data == "admin:games")
 async def admin_games(callback: CallbackQuery, session: AsyncSession):
     """
-    ЧЕТЫРЕ ИГРЫ: чем играют, насколько получается, откуда приходят.
+    ПЯТЬ ИГР: чем играют, насколько получается, откуда приходят.
 
-    ЗАЧЕМ ОТДЕЛЬНЫЙ РАЗДЕЛ. Игр в боте четыре, а в админке их не было видно
+    ЗАЧЕМ ОТДЕЛЬНЫЙ РАЗДЕЛ. Игр в боте пять, а в админке их не было видно
     НИ В ОДНОМ экране: ни сколько ответов пришло каждым каналом, ни с какой
     точностью, ни кто какие каналы включил, ни попадалась ли доска. То
     есть главную работу последних недель нельзя было ни подтвердить, ни
@@ -422,11 +435,15 @@ async def admin_games(callback: CallbackQuery, session: AsyncSession):
 
     from app.services.match_service import BOARD_CHANNEL
 
+    # Имена игр — ТЕ ЖЕ, что видит человек (`channel_*` в локалях): одна
+    # вещь зовётся одинаково везде. Прежде здесь стояли «Карточка, Вспомнить,
+    # На слух, Вслух», а подпись экрана перечисляла четыре канала без
+    # «Вспоминаю», хотя после 706ee78 игр пять
     names = {
-        QuizChannel.TEXT.value: "Карточка",
-        QuizChannel.REVERSE.value: "Вспомнить",
-        QuizChannel.AUDIO.value: "На слух",
-        QuizChannel.SPEECH.value: "Вслух",
+        QuizChannel.TEXT.value: "Читаю",
+        QuizChannel.REVERSE.value: "Вспоминаю",
+        QuizChannel.AUDIO.value: "Слушаю",
+        QuizChannel.SPEECH.value: "Говорю",
         BOARD_CHANNEL: "Доска",
     }
 
@@ -490,10 +507,10 @@ async def admin_games(callback: CallbackQuery, session: AsyncSession):
     setup_block = admin_ui.section(
         "Что включено у людей",
         admin_ui.table([
-            ("Карточка", counts["t"]),
-            ("Вспомнить", counts["r"]),
-            ("На слух", counts["a"]),
-            ("Вслух", counts["s"]),
+            (names[QuizChannel.TEXT.value], counts["t"]),
+            (names[QuizChannel.REVERSE.value], counts["r"]),
+            (names[QuizChannel.AUDIO.value], counts["a"]),
+            (names[QuizChannel.SPEECH.value], counts["s"]),
             ("Доска в круге", board_on),
             ("Кругов с доской", board_rounds),
             ("Обратный перевод", f"{admin_ui.num(reverse)} из "
@@ -533,7 +550,7 @@ async def admin_games(callback: CallbackQuery, session: AsyncSession):
 
     text = admin_ui.screen(
         "Игры",
-        lead="четыре канала: карточка, слух, речь, доска",
+        lead="пять игр: читаю, вспоминаю, слушаю, говорю, доска",
         blocks=[channels_block, setup_block, doors_block, pairs_block],
     )
     await callback.message.edit_text(
@@ -557,20 +574,37 @@ async def admin_retention(callback: CallbackQuery, session: AsyncSession):
     # По когортам: «вернулся на СЛЕДУЮЩИЙ календарный день после
     # регистрации», а не «играл когда-нибудь позже». Прежний запрос считал
     # второе и завышал D1 примерно втрое: 31% вместо 11%.
-    yesterday = utctoday() - timedelta(days=1)
-    week_ago = utctoday() - timedelta(days=7)
+    #
+    # ДЕНЬ — МЕСТНЫЙ, по поясу человека, а не по UTC. Берлинец, зашедший в
+    # 00:30 по своему времени, по UTC заходил ещё «вчера». Замер 14 октября:
+    # по UTC вернулись 25, по местному дню — 28 (10,8% против 12,1%).
+    #
+    # В КОГОРТЕ — ТОЛЬКО ТЕ, ЧЬЁ ОКНО ЗАКРЫЛОСЬ. Прежде в D1 входили
+    # пришедшие вчера: их «второй день» — сегодня, он ещё идёт, и человек,
+    # который вернётся вечером, уже числился невернувшимся. С D7 то же:
+    # окно 7–14-й день, а в когорту шли пришедшие неделю назад
+    tz = func.coalesce(User.timezone, DEFAULT_TZ)
+
+    def local_day(column):
+        # timestamp в базе — наивный UTC: сперва объявить его UTC, потом
+        # перевести в пояс человека и взять дату
+        return func.date(func.timezone(tz, func.timezone("UTC", column)))
+
+    joined = local_day(User.created_at)
+    today_local = func.date(func.timezone(tz, func.now()))
+    returned_day = local_day(QuizSession.started_at)
 
     d1_cohort = (await session.execute(
         select(func.count()).select_from(User)
-        .where(func.date(User.created_at) <= yesterday)
+        .where(joined + 1 < today_local)
     )).scalar() or 0
     d1_returned = (await session.execute(
         select(func.count(distinct(User.id)))
         .select_from(User)
         .join(QuizSession, User.id == QuizSession.user_id)
         .where(
-            func.date(User.created_at) <= yesterday,
-            func.date(QuizSession.started_at) == func.date(User.created_at) + 1,
+            joined + 1 < today_local,
+            returned_day == joined + 1,
         )
     )).scalar() or 0
 
@@ -578,26 +612,27 @@ async def admin_retention(callback: CallbackQuery, session: AsyncSession):
     # метрика сливается с «когда-нибудь возвращался»
     d7_cohort = (await session.execute(
         select(func.count()).select_from(User)
-        .where(func.date(User.created_at) <= week_ago)
+        .where(joined + 14 < today_local)
     )).scalar() or 0
     d7_returned = (await session.execute(
         select(func.count(distinct(User.id)))
         .select_from(User)
         .join(QuizSession, User.id == QuizSession.user_id)
         .where(
-            func.date(User.created_at) <= week_ago,
-            func.date(QuizSession.started_at) >= func.date(User.created_at) + 7,
-            func.date(QuizSession.started_at) <= func.date(User.created_at) + 14,
+            joined + 14 < today_local,
+            returned_day >= joined + 7,
+            returned_day <= joined + 14,
         )
     )).scalar() or 0
 
     # Не удержание когорты, а нынешняя живость базы: сколько вообще
-    # заходило за неделю
+    # заходило за семь календарных дней (сегодня и шесть перед ним)
+    week_start = utctoday() - timedelta(days=LAST_DAYS - 1)
     active_week = (await session.execute(
         select(func.count(distinct(QuizSession.user_id)))
         .select_from(QuizSession)
         .where(QuizSession.started_at
-               >= datetime.combine(week_ago, datetime.min.time()))
+               >= datetime.combine(week_start, datetime.min.time()))
     )).scalar() or 0
 
     text = admin_ui.screen(
@@ -612,8 +647,9 @@ async def admin_retention(callback: CallbackQuery, session: AsyncSession):
                 ("Заходили за 7 дней", active_week),
             ]),
             ("<i>второй день — вернулись именно на следующий календарный день "
-             "после знакомства. Седьмой — на 7–14-й. «Заходили за 7 дней» — "
-             "не удержание, а нынешняя живость базы</i>"),
+             "после знакомства, по местному времени человека. Седьмой — на "
+             "7–14-й. В когорте только те, чьё окно уже закрылось. «Заходили "
+             "за 7 дней» — не удержание, а нынешняя живость базы</i>"),
             admin_ui.section(
                 "Шкалы",
                 admin_ui.listing([
@@ -883,7 +919,7 @@ async def admin_churn(callback: CallbackQuery, session: AsyncSession):
     high_risk_result = await session.execute(
         select(User.first_name, User.username, last_quiz_subq.c.real_last_quiz)
         .join(last_quiz_subq, User.id == last_quiz_subq.c.user_id)
-        .where(last_quiz_subq.c.real_last_quiz < week_ago)
+        .where(last_quiz_subq.c.real_last_quiz <= week_ago)
         .order_by(last_quiz_subq.c.real_last_quiz.asc())
         .limit(10)
     )
@@ -892,7 +928,7 @@ async def admin_churn(callback: CallbackQuery, session: AsyncSession):
     high_risk_count_result = await session.execute(
         select(func.count())
         .select_from(last_quiz_subq)
-        .where(last_quiz_subq.c.real_last_quiz < week_ago)
+        .where(last_quiz_subq.c.real_last_quiz <= week_ago)
     )
     high_risk_count = high_risk_count_result.scalar() or 0
 
@@ -900,7 +936,7 @@ async def admin_churn(callback: CallbackQuery, session: AsyncSession):
         select(func.count())
         .select_from(last_quiz_subq)
         .where(
-            last_quiz_subq.c.real_last_quiz >= week_ago,
+            last_quiz_subq.c.real_last_quiz > week_ago,
             last_quiz_subq.c.real_last_quiz < three_days_ago
         )
     )
@@ -1448,25 +1484,33 @@ async def _build_reports_text_and_keyboard(session: AsyncSession) -> tuple:
                          f"{admin_ui.DOT} {', '.join(kinds)}")
             lines.append(f"  {trans}")
 
-            # Решение по слову: `✓` и `✗` — из разрешённого набора четырёх
-            buttons.append([
-                InlineKeyboardButton(
-                    text=f"✓ {full_word}",
-                    callback_data=f"admin:report_approve_{wid}",
-                ),
-                InlineKeyboardButton(
-                    text="✗",
-                    callback_data=f"admin:report_reject_{wid}",
-                ),
-            ])
+            # Решение по слову И ВИДУ: `✓` и `✗` — из разрешённого набора.
+            # Прежде кнопка была одна на слово, и принять перевод значило
+            # заодно стереть озвучку, на которую жалобы никто не принимал
+            for kind, kind_count in (("text", count - audio_count),
+                                     ("audio", audio_count)):
+                if not kind_count:
+                    continue
+                buttons.append([
+                    InlineKeyboardButton(
+                        text=f"✓ {full_word} {admin_ui.DOT} "
+                             f"{REPORT_KIND_LABELS[kind]}",
+                        callback_data=f"admin:report_approve_{kind}_{wid}",
+                    ),
+                    InlineKeyboardButton(
+                        text="✗",
+                        callback_data=f"admin:report_reject_{kind}_{wid}",
+                    ),
+                ])
 
         queue_block = admin_ui.section(
             "Разобрать",
             admin_ui.listing(lines),
-            note=(f"✓ принять — все, кто жаловался, получат "
+            note=(f"решается по виду: принять перевод не трогает звук. "
+                  f"✓ принять — каждый, кто жаловался, получит "
                   f"+{REPORT_REWARD_POINTS} "
                   f"{admin_ui.plural(REPORT_REWARD_POINTS, 'балл', 'балла', 'баллов')}"
-                  f". ✗ отклонить — без баллов"),
+                  f", один раз за слово. ✗ отклонить — без баллов"),
         )
 
     text = admin_ui.screen(
@@ -1490,7 +1534,7 @@ async def admin_reports(callback: CallbackQuery, session: AsyncSession):
     await callback.message.edit_text(text, reply_markup=keyboard)
 
 
-async def _reporter_lang(report: TranslationReport, session: AsyncSession) -> str:
+async def _reporter_lang(report, session: AsyncSession) -> str:
     """
     КАКОЙ ЯЗЫК учил человек, когда жаловался.
 
@@ -1502,6 +1546,9 @@ async def _reporter_lang(report: TranslationReport, session: AsyncSession) -> st
     Сперва спрашиваем занятие, из которого пришла жалоба: это язык, на
     котором ошибка и была замечена. Если занятие не сохранилось — берём
     текущий язык человека, тем же способом, которым его берёт сам рейтинг.
+
+    Принимает и жалобу, и строку из `RETURNING`: нужны только
+    `quiz_session_id` и `user_id`.
     """
     if report.quiz_session_id:
         quiz = await session.get(QuizSession, report.quiz_session_id)
@@ -1512,36 +1559,187 @@ async def _reporter_lang(report: TranslationReport, session: AsyncSession) -> st
     return pair_from_user(user).learning if user else "de"
 
 
+# Виды жалобы и их имена на кнопках. Решение принимается ПО ВИДУ: перевод
+# правится в базе слов, произношение — пересборкой клипа, и это разные
+# решения. Прежде кнопка была одна на слово и решала оба вида разом: принять
+# перевод значило заодно стереть озвучку, на которую никто не жаловался
+REPORT_KINDS = ("text", "audio")
+REPORT_KIND_LABELS = {"text": "перевод", "audio": "звук"}
+
+
+def _parse_report_callback(data: str, prefix: str) -> tuple[int, tuple[str, ...]]:
+    """
+    Слово и виды жалобы из `admin:report_approve_audio_123`.
+
+    Кнопки прежней версии (`admin:report_approve_123`) остались в переписке
+    админа. Они решали слово целиком — так и продолжают: награда при этом
+    всё равно одна на человека (см. `_reward_reporters`).
+    """
+    tail = data[len(prefix):]
+    kind, sep, rest = tail.partition("_")
+    if sep and kind in REPORT_KINDS:
+        return int(rest), (kind,)
+    return int(tail), REPORT_KINDS
+
+
+async def _claim_reports(
+    session: AsyncSession, word_id: int, kinds: tuple[str, ...], status: str,
+) -> list:
+    """
+    Перевести жалобы из `pending` в решённые ОДНИМ запросом и вернуть их.
+
+    ПОЧЕМУ НЕ «ВЫБРАТЬ, ПОТОМ ПОМЕНЯТЬ». Прежде жалобы читались SELECT'ом, а
+    статус менялся при commit. aiogram обрабатывает нажатия параллельно, и
+    двойное нажатие «✓» читало одни и те же pending дважды: замер с задержкой
+    150 мс между чтением и commit — 10 баллов вместо 5 и два поздравления.
+
+    `UPDATE … WHERE status = 'pending' RETURNING` берёт строку под замок:
+    второй такой же запрос ждёт первого, перечитывает условие и не находит
+    ничего. Награда начисляется только по возвращённым строкам.
+    """
+    kind_filter = TranslationReport.kind.in_(kinds)
+    if "text" in kinds:
+        # Жалобы до появления вида записаны без него, и это жалобы на перевод
+        kind_filter = or_(kind_filter, TranslationReport.kind.is_(None))
+
+    result = await session.execute(
+        update(TranslationReport)
+        .where(
+            TranslationReport.word_id == word_id,
+            TranslationReport.status == "pending",
+            kind_filter,
+        )
+        .values(status=status)
+        .returning(
+            TranslationReport.id,
+            TranslationReport.user_id,
+            TranslationReport.kind,
+            TranslationReport.quiz_session_id,
+        )
+        .execution_options(synchronize_session=False)
+    )
+    return result.all()
+
+
+async def _reward_reporters(
+    session: AsyncSession, word_id: int, claimed: list,
+) -> tuple[dict[int, tuple[str, set[str]]], int]:
+    """
+    Начислить балл — ОДИН человеку за слово, сколько бы видов жалоб он ни подал.
+
+    Прежде балл шёл за каждую жалобу: человек, пожаловавшийся на перевод и
+    на звук одного слова, получал за одно нажатие админа 10 вместо 5 и два
+    поздравления, а окно писало «балла получили 2» про одного человека.
+
+    «За слово» — и между разными нажатиями тоже: если перевод этого слова
+    у человека уже приняли раньше, принятие звука балла не добавляет.
+
+    Возвращает {user_id: (язык ряда, виды принятых жалоб)} награждённых и
+    число людей, получивших балл за это слово прежде.
+    """
+    from app.services.monthly_leaderboard_service import get_or_create_current_season
+
+    claimed_ids = [row.id for row in claimed]
+    by_user: dict[int, list] = {}
+    for row in claimed:
+        by_user.setdefault(row.user_id, []).append(row)
+
+    season = await get_or_create_current_season(session)
+
+    rewarded: dict[int, tuple[str, set[str]]] = {}
+    paid_before = 0
+    for user_id, rows in by_user.items():
+        earlier = (await session.execute(
+            select(func.count()).select_from(TranslationReport).where(
+                TranslationReport.user_id == user_id,
+                TranslationReport.word_id == word_id,
+                TranslationReport.status == "fixed",
+                TranslationReport.id.notin_(claimed_ids),
+            )
+        )).scalar() or 0
+        if earlier:
+            paid_before += 1
+            continue
+
+        # ЯЗЫК ОБЯЗАТЕЛЕН, И ЭТО НЕ ПРИДИРКА.
+        #
+        # `monthly_stats` ведётся отдельно по языкам — тройная уникальность
+        # user + сезон + язык. Прежний запрос спрашивал только user и сезон:
+        # у двуязычного `scalar_one_or_none()` ПАДАЛ с MultipleResultsFound,
+        # а при создании ряда язык брался из значения по умолчанию — «de», —
+        # и балл за польскую ошибку ложился в немецкий ряд.
+        learning_lang = await _reporter_lang(rows[0], session)
+
+        # Ряд берётся под замок: два одновременных решения по РАЗНЫМ словам
+        # одного человека иначе прочли бы один и тот же report_bonus, и одно
+        # прибавление потерялось бы
+        stat = (await session.execute(
+            select(MonthlyStats).where(
+                MonthlyStats.user_id == user_id,
+                MonthlyStats.season_id == season.id,
+                MonthlyStats.learning_lang == learning_lang,
+            ).with_for_update()
+        )).scalar_one_or_none()
+
+        if stat:
+            stat.report_bonus = (stat.report_bonus or 0) + REPORT_REWARD_POINTS
+            stat.monthly_score = stat.calculate_monthly_score()
+        else:
+            # Ряда нет — человек жаловался, но в этом месяце не играл
+            session.add(MonthlyStats(
+                user_id=user_id,
+                season_id=season.id,
+                learning_lang=learning_lang,
+                report_bonus=REPORT_REWARD_POINTS,
+                monthly_score=REPORT_REWARD_POINTS,
+            ))
+            await session.flush()
+
+        rewarded[user_id] = (learning_lang, {row.kind or "text" for row in rows})
+
+    return rewarded, paid_before
+
+
 async def _tell_reporter(
-    callback: CallbackQuery, session: AsyncSession, report: TranslationReport,
-    word_display: str,
+    callback: CallbackQuery, session: AsyncSession, user_id: int,
+    kinds: set[str], word: Optional[Word], learning_lang: str,
 ) -> bool:
     """
     Сказать автору жалобы, что её приняли и балл начислен.
 
     БЕЗ ЭТОГО НАГРАДЫ НЕТ, сколько бы её ни начисляли. Бот обещает прямо в
     сообщении об отправке: «если ошибка подтвердится — получишь баллы», — а
-    подтверждение проходило молча, и балл растворялся в общем счёте. То
-    есть обещание выполнялось технически и не выполнялось по существу.
+    подтверждение проходило молча, и балл растворялся в общем счёте.
+
+    СЛОВО — НА ЯЗЫКЕ, КОТОРЫЙ ЧЕЛОВЕК УЧИЛ. Прежде здесь всегда стояло
+    немецкое `word_de`: ученик английского, пожаловавшийся на «from, starting
+    from, off», получал «жалоба принята: ab».
+
+    Одно сообщение на человека, даже если приняты оба вида его жалоб: балл
+    один, и поздравлений должно быть одно.
 
     Ошибка доставки не должна валить подтверждение: человек мог закрыть
     бота, и жалоба от этого хуже не стала.
     """
     from app.locales import DEFAULT_LOCALE, get_text
+    from app.services.language_service import display_text
 
-    user = await session.get(User, report.user_id)
+    user = await session.get(User, user_id)
     lang = (user.interface_language if user else None) or DEFAULT_LOCALE
-    key = "report_approved_audio" if report.kind == "audio" else "report_approved"
+    key = "report_approved" if "text" in kinds else "report_approved_audio"
+    shown = (display_text(word, learning_lang) if word else "") or (
+        _full_word(word.word_de, word.article) if word else "?"
+    )
 
     try:
         await callback.bot.send_message(
-            report.user_id,
-            get_text(key, lang, word=word_display, points=REPORT_REWARD_POINTS),
+            user_id,
+            get_text(key, lang, word=escape(shown), points=REPORT_REWARD_POINTS),
         )
         return True
     except Exception:
         logger.info(
-            "не удалось известить автора жалобы (user=%s)", report.user_id,
+            "не удалось известить автора жалобы (user=%s)", user_id,
             exc_info=True,
         )
         return False
@@ -1549,82 +1747,30 @@ async def _tell_reporter(
 
 @router.callback_query(F.data.startswith("admin:report_approve_"))
 async def admin_report_approve(callback: CallbackQuery, session: AsyncSession):
-    """Подтвердить жалобу → статус fixed, баллы автору, извещение автору."""
+    """Принять жалобы одного вида на слово → fixed, балл автору, извещение."""
     if not is_admin(callback.from_user.id):
         await callback.answer("Доступа нет")
         return
 
-    word_id = int(callback.data.replace("admin:report_approve_", ""))
+    word_id, kinds = _parse_report_callback(callback.data, "admin:report_approve_")
 
-    from app.services.monthly_leaderboard_service import get_or_create_current_season
-
-    # Находим всех юзеров с pending репортами на это слово
-    reports_result = await session.execute(
-        select(TranslationReport)
-        .where(
-            TranslationReport.word_id == word_id,
-            TranslationReport.status == 'pending'
-        )
-    )
-    reports = reports_result.scalars().all()
-
-    if not reports:
+    claimed = await _claim_reports(session, word_id, kinds, "fixed")
+    if not claimed:
+        # Закрыть пустую транзакцию коммитом, а не откатом: откат делает
+        # просроченными все объекты сессии, и обработчик, получивший ту же
+        # сессию дальше, споткнулся бы о первое же чтение поля
+        await session.commit()
         await callback.answer("По этому слову нечего решать", show_alert=True)
         return
 
-    # Получаем текущий сезон
-    season = await get_or_create_current_season(session)
+    rewarded, paid_before = await _reward_reporters(session, word_id, claimed)
 
-    rewarded_users = 0
-    for report in reports:
-        report.status = 'fixed'
-
-        # ЯЗЫК ОБЯЗАТЕЛЕН, И ЭТО НЕ ПРИДИРКА.
-        #
-        # `monthly_stats` ведётся отдельно по языкам — тройная уникальность
-        # user + сезон + язык. Прежний запрос спрашивал только user и сезон,
-        # и давал две беды сразу: у двуязычного `scalar_one_or_none()`
-        # ПАДАЛ с MultipleResultsFound прямо под рукой админа (жалобы
-        # остались бы висеть), а при создании ряда язык брался из значения
-        # по умолчанию — «de», — и балл за польскую ошибку ложился в
-        # немецкий ряд, где человека в рейтинге нет.
-        #
-        # Сейчас у двух языков в одном сезоне ноль человек, то есть не
-        # выстрелило ещё ни разу. Но язык в боте уже шесть, и ряд с «en»
-        # в базе есть.
-        learning_lang = await _reporter_lang(report, session)
-
-        stat_result = await session.execute(
-            select(MonthlyStats).where(
-                MonthlyStats.user_id == report.user_id,
-                MonthlyStats.season_id == season.id,
-                MonthlyStats.learning_lang == learning_lang,
-            )
-        )
-        stat = stat_result.scalar_one_or_none()
-
-        if stat:
-            stat.report_bonus = (stat.report_bonus or 0) + REPORT_REWARD_POINTS
-            stat.monthly_score = stat.calculate_monthly_score()
-        else:
-            # Ряда нет — человек жаловался, но в этом месяце не играл
-            stat = MonthlyStats(
-                user_id=report.user_id,
-                season_id=season.id,
-                learning_lang=learning_lang,
-                report_bonus=REPORT_REWARD_POINTS,
-                monthly_score=REPORT_REWARD_POINTS,
-            )
-            session.add(stat)
-
-        rewarded_users += 1
-
-    # Подтверждённая жалоба на произношение означает, что клип негодный.
-    # Без сброса кэша он остался бы в Telegram навсегда: file_id живёт вечно,
-    # и пересобрать озвучку было бы нечем.
-    audio_kinds = {r.kind for r in reports}
+    # Клип стирается ТОЛЬКО по принятой жалобе на звук. Прежде он стирался,
+    # если среди жалоб на слово была хоть одна на звук, — даже когда админ
+    # соглашался лишь с переводом. Без сброса принятой жалобы клип остался
+    # бы в Telegram навсегда: file_id живёт вечно
     dropped_clips = 0
-    if 'audio' in audio_kinds:
+    if any((row.kind or "text") == "audio" for row in claimed):
         dropped = await session.execute(
             sql_text("DELETE FROM word_audio WHERE word_id = :wid"),
             {"wid": word_id},
@@ -1633,12 +1779,17 @@ async def admin_report_approve(callback: CallbackQuery, session: AsyncSession):
 
     await session.commit()
 
-    # Получаем слово для лога
     word = await session.get(Word, word_id)
     word_display = (_full_word(word.word_de, word.article)
                     if word else str(word_id))
+    kinds_label = ", ".join(REPORT_KIND_LABELS[k] for k in kinds)
 
-    logger.info(f"Admin approved report for word '{word_display}' (id={word_id}), rewarded {rewarded_users} users with +{REPORT_REWARD_POINTS}")
+    logger.info(
+        "Admin approved %s reports (%s) for word '%s' (id=%s): rewarded %s "
+        "people with +%s, %s already paid for this word",
+        len(claimed), kinds_label, word_display, word_id, len(rewarded),
+        REPORT_REWARD_POINTS, paid_before,
+    )
 
     if dropped_clips:
         logger.info(
@@ -1647,19 +1798,25 @@ async def admin_report_approve(callback: CallbackQuery, session: AsyncSession):
         )
 
     # ИЗВЕСТИТЬ АВТОРОВ — после коммита, чтобы ничего не обещать прежде,
-    # чем начислено. Шлётся каждому пожаловавшемуся на своём языке
+    # чем начислено. Каждому награждённому — одно сообщение на его языке
     told = 0
-    for report in reports:
-        if await _tell_reporter(callback, session, report, word_display):
+    for user_id, (learning_lang, user_kinds) in rewarded.items():
+        if await _tell_reporter(callback, session, user_id, user_kinds,
+                                word, learning_lang):
             told += 1
 
-    await callback.answer(
-        f"✓ {word_display} — принято\n"
-        f"балла получили {rewarded_users}, извещено {told}"
-        + (f"\nозвучка сброшена ({dropped_clips} клипов), пересоберётся"
-           if dropped_clips else ""),
-        show_alert=True
-    )
+    # Счёт — по ЛЮДЯМ, а не по жалобам: прежде один человек с двумя видами
+    # жалоб давал «балла получили 2»
+    lines = [
+        f"✓ {word_display} {admin_ui.DOT} {kinds_label} — принято",
+        f"балл получили {admin_ui.people(len(rewarded))}, извещено {told}",
+    ]
+    if paid_before:
+        lines.append(f"без балла (уже получали за это слово): "
+                     f"{admin_ui.people(paid_before)}")
+    if dropped_clips:
+        lines.append(f"озвучка сброшена ({dropped_clips} клипов), пересоберётся")
+    await callback.answer("\n".join(lines), show_alert=True)
 
     # Обновляем страницу репортов
     text, keyboard = await _build_reports_text_and_keyboard(session)
@@ -1671,42 +1828,38 @@ async def admin_report_approve(callback: CallbackQuery, session: AsyncSession):
 
 @router.callback_query(F.data.startswith("admin:report_reject_"))
 async def admin_report_reject(callback: CallbackQuery, session: AsyncSession):
-    """Отклонить репорт → статус rejected, баллы не начисляются"""
+    """Отклонить жалобы одного вида на слово → rejected, баллы не начисляются"""
     if not is_admin(callback.from_user.id):
         await callback.answer("Доступа нет")
         return
 
-    word_id = int(callback.data.replace("admin:report_reject_", ""))
+    word_id, kinds = _parse_report_callback(callback.data, "admin:report_reject_")
 
-    # Находим все pending репорты на это слово
-    reports_result = await session.execute(
-        select(TranslationReport)
-        .where(
-            TranslationReport.word_id == word_id,
-            TranslationReport.status == 'pending'
-        )
-    )
-    reports = reports_result.scalars().all()
-
-    if not reports:
+    # Тот же атомарный перевод статуса, что у принятия: двойное нажатие
+    # второй раз не находит ничего
+    claimed = await _claim_reports(session, word_id, kinds, "rejected")
+    if not claimed:
+        # Закрыть пустую транзакцию коммитом, а не откатом: откат делает
+        # просроченными все объекты сессии, и обработчик, получивший ту же
+        # сессию дальше, споткнулся бы о первое же чтение поля
+        await session.commit()
         await callback.answer("По этому слову нечего решать", show_alert=True)
         return
-
-    rejected_count = 0
-    for report in reports:
-        report.status = 'rejected'
-        rejected_count += 1
 
     await session.commit()
 
     word = await session.get(Word, word_id)
     word_display = (_full_word(word.word_de, word.article)
                     if word else str(word_id))
+    kinds_label = ", ".join(REPORT_KIND_LABELS[k] for k in kinds)
 
-    logger.info(f"Admin rejected report for word '{word_display}' (id={word_id}), {rejected_count} reports")
+    logger.info(f"Admin rejected report for word '{word_display}' (id={word_id}), "
+                f"{len(claimed)} reports ({kinds_label})")
 
     await callback.answer(
-        f"✗ {word_display} — отклонено ({rejected_count} жалоб)",
+        f"✗ {word_display} {admin_ui.DOT} {kinds_label} — отклонено "
+        f"({len(claimed)} "
+        f"{admin_ui.plural(len(claimed), 'жалоба', 'жалобы', 'жалоб')})",
         show_alert=True
     )
 
@@ -1969,14 +2122,20 @@ async def broadcast_message(message: Message, session: AsyncSession):
             await message.answer(f"Предпросмотр не ушёл: {exc}")
         return
 
-    count_result = await session.execute(select(func.count()).select_from(User))
-    recipients = count_result.scalar() or 0
+    # Админ в число получателей не входит: предпросмотр он уже получил, и
+    # рассылка прислала бы ему тот же текст второй раз
+    recipients = (await session.execute(
+        select(func.count()).select_from(User)
+        .where(User.id != message.from_user.id)
+    )).scalar() or 0
 
-    _PENDING_BROADCASTS[message.from_user.id] = broadcast_text
+    draft_id = next(_DRAFT_IDS)
+    _PENDING_BROADCASTS[draft_id] = (message.from_user.id, broadcast_text)
 
     confirm = admin_ui.kb(
-        [(f"Отправить {admin_ui.people(recipients)}", "admin:broadcast_confirm")],
-        [("Отмена", "admin:broadcast_cancel")],
+        [(f"Отправить {admin_ui.people(recipients)}",
+          f"{BROADCAST_CONFIRM}:{draft_id}")],
+        [("Отмена", f"{BROADCAST_CANCEL}:{draft_id}")],
     )
 
     await message.answer(
@@ -1992,59 +2151,116 @@ async def broadcast_message(message: Message, session: AsyncSession):
     )
 
 
-# Текст ждёт подтверждения. В памяти процесса: рассылка — операция на минуты,
-# переживать рестарт ей не нужно, а неотправленный черновик после рестарта
-# лучше потерять, чем отправить неожиданно.
-_PENDING_BROADCASTS: dict[int, str] = {}
+# Черновики ждут подтверждения. В памяти процесса: рассылка — операция на
+# минуты, переживать рестарт ей не нужно, а неотправленный черновик после
+# рестарта лучше потерять, чем отправить неожиданно.
+#
+# КЛЮЧ — НОМЕР ЧЕРНОВИКА, А НЕ АДМИН, и кнопка несёт этот номер. Прежде
+# черновик был один на админа: «/broadcast A», затем «/broadcast B» — и
+# кнопка «Отправить» под предпросмотром A рассылала B. Теперь каждая
+# кнопка отправляет ровно тот текст, предпросмотр которого стоит над ней.
+_PENDING_BROADCASTS: dict[int, tuple[int, str]] = {}
+_DRAFT_IDS = itertools.count(1)
+
+BROADCAST_CONFIRM = "admin:broadcast_confirm"
+BROADCAST_CANCEL = "admin:broadcast_cancel"
 
 # Telegram ограничивает бота примерно 30 сообщениями в секунду.
 BROADCAST_CHUNK = 25
 BROADCAST_PAUSE = 1.0
 
+# Сколько ждать сверх того, что попросил Telegram в RetryAfter, — и потолок
+# ожидания: рассылка не должна повиснуть на минуты из-за одного ответа
+RETRY_AFTER_CAP = 60
 
+
+def _draft_id(data: str) -> Optional[int]:
+    """Номер черновика из `admin:broadcast_confirm:7`. Нет номера — None."""
+    _, sep, tail = data.rpartition(":")
+    if not sep or not tail.isdigit():
+        return None
+    return int(tail)
+
+
+# Строкой, а не именем: приёмка админки находит разделы по литералу
 @router.callback_query(F.data == "admin:broadcast_cancel")
+@router.callback_query(F.data.startswith(f"{BROADCAST_CANCEL}:"))
 async def broadcast_cancel(callback: CallbackQuery):
     if not is_admin(callback.from_user.id):
         await callback.answer("Доступа нет")
         return
 
-    _PENDING_BROADCASTS.pop(callback.from_user.id, None)
+    draft_id = _draft_id(callback.data or "")
+    if draft_id is not None:
+        _PENDING_BROADCASTS.pop(draft_id, None)
+    else:
+        # Кнопка прежней версии, без номера: снимаются все черновики админа
+        for key in [k for k, (owner, _) in _PENDING_BROADCASTS.items()
+                    if owner == callback.from_user.id]:
+            _PENDING_BROADCASTS.pop(key, None)
     await callback.answer("Отменено")
     await callback.message.edit_text("Рассылка отменена")
 
 
+async def _deliver(bot, user_id: int, text: str) -> str:
+    """
+    Одна доставка: 'ok', 'blocked' или 'failed'.
+
+    RETRY AFTER — НЕ ОТКАЗ. Telegram, превысивший предел, говорит «подожди
+    N секунд», и прежде такой получатель уходил в «прочие ошибки» и не
+    получал рассылку вовсе. Теперь — ждём сказанное и повторяем один раз.
+    """
+    for attempt in (1, 2):
+        try:
+            await bot.send_message(user_id, text)
+            return "ok"
+        except TelegramRetryAfter as exc:
+            if attempt == 2:
+                logger.warning("Рассылка: %s — снова RetryAfter", user_id)
+                return "failed"
+            await asyncio.sleep(min(exc.retry_after, RETRY_AFTER_CAP))
+        except TelegramForbiddenError:
+            return "blocked"
+        except Exception as exc:
+            # Заблокировавшие бота — это норма, а не сбой рассылки
+            if "blocked" in str(exc).lower() or "deactivated" in str(exc).lower():
+                return "blocked"
+            logger.warning("Рассылка: не доставлено %s: %s", user_id, exc)
+            return "failed"
+    return "failed"
+
+
 @router.callback_query(F.data == "admin:broadcast_confirm")
+@router.callback_query(F.data.startswith(f"{BROADCAST_CONFIRM}:"))
 async def broadcast_confirm(callback: CallbackQuery, session: AsyncSession):
     if not is_admin(callback.from_user.id):
         await callback.answer("Доступа нет")
         return
 
-    broadcast_text = _PENDING_BROADCASTS.pop(callback.from_user.id, None)
-    if not broadcast_text:
+    # Снимается ДО первого await: второе нажатие той же кнопки черновика
+    # уже не найдёт, и двойной рассылки не будет. Кнопка без номера — от
+    # прежней версии — не рассылает ничего: какой текст был над ней,
+    # неизвестно
+    draft_id = _draft_id(callback.data or "")
+    draft = _PENDING_BROADCASTS.pop(draft_id, None) if draft_id is not None else None
+    if not draft or draft[0] != callback.from_user.id:
+        if draft:
+            _PENDING_BROADCASTS[draft_id] = draft
         await callback.answer("Текст не найден — отправь /broadcast заново", show_alert=True)
         return
+    _, broadcast_text = draft
 
     await callback.answer()
     await callback.message.edit_text("Рассылка пошла")
 
-    result = await session.execute(select(User.id))
+    result = await session.execute(
+        select(User.id).where(User.id != callback.from_user.id)
+    )
     user_ids = [row[0] for row in result.all()]
 
-    success = 0
-    blocked = 0
-    failed = 0
-
+    counts = {"ok": 0, "blocked": 0, "failed": 0}
     for index, user_id in enumerate(user_ids):
-        try:
-            await callback.bot.send_message(user_id, broadcast_text)
-            success += 1
-        except Exception as exc:
-            # Заблокировавшие бота — это норма, а не сбой рассылки
-            if "blocked" in str(exc).lower() or "deactivated" in str(exc).lower():
-                blocked += 1
-            else:
-                failed += 1
-                logger.warning("Рассылка: не доставлено %s: %s", user_id, exc)
+        counts[await _deliver(callback.bot, user_id, broadcast_text)] += 1
 
         if (index + 1) % BROADCAST_CHUNK == 0:
             await asyncio.sleep(BROADCAST_PAUSE)
@@ -2052,8 +2268,8 @@ async def broadcast_confirm(callback: CallbackQuery, session: AsyncSession):
     await callback.message.edit_text(admin_ui.screen(
         "Рассылка разослана",
         blocks=[admin_ui.table([
-            ("Доставлено", success),
-            ("Заблокировали бота", blocked),
-            ("Прочие ошибки", failed),
+            ("Доставлено", counts["ok"]),
+            ("Заблокировали бота", counts["blocked"]),
+            ("Прочие ошибки", counts["failed"]),
         ])],
     ))

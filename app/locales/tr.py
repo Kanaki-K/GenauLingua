@@ -181,7 +181,7 @@ TEXTS = {
     "qmode_all_set": "✓ Mod: Top 10 bin",
 
     "qmode_difficult_set": "✓ Mod: Zor kelimeler",
-    "qmode_difficult_few": "Henüz sadece {count} zor kelimeniz var — en az 4 gerekli\nBirkaç test daha çöz!",
+    "qmode_difficult_few": "Şimdilik zor kelime: {count} — en az 4 gerekli\nBirkaç test daha çöz!",
     "qmode_difficult_empty": "Henüz zor kelimelerin yok.\nÖnce birkaç test çöz!",
 
     "quiz_btn_change_mode": "Seviye ve konular",
@@ -191,14 +191,14 @@ TEXTS = {
     "report_no_words": "Raporlanacak kelime yok",
     "report_none_selected": "En az bir kelime seç",
     "report_pick_kind": "{count} kelime seçildi. Şimdi neyin yanlış olduğunu söyle — çeviri mi, telaffuz mu.",
-    "report_sent": "✓ {count} rapor gönderildi — teşekkürler!\nOnaylanırsa — +{points} puan kazanırsın",
+    "report_sent": "✓ Gönderilen rapor: {count} — teşekkürler!\nOnaylanırsa — +{points} kazanırsın",
     "report_daily_limit": "Bugünkü rapor limiti doldu (maks. 20)",
     "report_all_reported": "✓ Bu testdeki tüm kelimeler zaten raporlandı",
     "report_already_sent": "✓ Zaten raporlandı",
     "report_btn_kind_text": "Hatalı çeviri",
     "report_btn_kind_audio": "Hatalı telaffuz",
-    "report_sent_audio": "✓ {count} gönderildi — teşekkürler!\nTelaffuz bildirimleri özellikle değerli: otomatik kontrol vurguyu duymaz\nOnaylanırsa — +{points} puan",
-    "report_approved": "✓ Bildirimin kabul edildi: <b>{word}</b> düzeltildi.\nAylık puanına +{points} puan — teşekkürler, sözlük herkes için daha iyi oldu.",
+    "report_sent_audio": "✓ {count} gönderildi — teşekkürler!\nTelaffuz bildirimleri özellikle değerli: otomatik kontrol vurguyu duymaz\nOnaylanırsa — +{points}",
+    "report_approved": "✓ <b>{word}</b> için bildirimin kabul edildi — çeviriyi düzelteceğiz.\nAylık puanına +{points} puan — teşekkürler, sözlük herkes için daha iyi olacak.",
     "award_won": "{mark} {month} sıralamasında {rank}. oldun.\nKalıcı puanına {bonus} eklendi.",
     "report_approved_audio": "✓ Telaffuz bildirimin kabul edildi: <b>{word}</b>.\nSes kaydı yeniden alınacak. Aylık puanına +{points} puan — teşekkürler.",
 
@@ -259,53 +259,13 @@ TEXTS = {
     # YARDIM
     # ============================================================================
     "help_title": "<b>Yardım — GenauLingua</b>",
-    "help_description": "Burada talimatlar, yakında gelecek özellikler ve toplulukla iletişim bilgilerini bulacaksın.",
+    "help_description": "Burada: derslerin nasıl işlediği ve toplulukla nasıl iletişim kurulacağı.",
     "help_choose": "Bölüm seç:",
 
     "help_btn_how_to_use": "Nasıl kullanılır",
     "help_btn_community": "Topluluk",
 
     "help_how_to_use_title": "<b>Botu nasıl kullanırsın</b>",
-    "help_how_to_use_text": """1 <b>Hangi dili öğreneceğini seç</b>
-Ayarlar → Hangi dili öğrenmek: {languages}.
-Aynı ekranda: A1–C2 seviyesi, çeviri yönü ve arayüz dili.
-İlerleme her dil için ayrı tutulur, iki dili birlikte öğrenebilirsin.
-
-2 <b>Test modunu seç</b>
-Ayarlar → Test modu:
-• Seviyeye göre — seviyenin kelimeleri
-• Kategoriye göre — 20 konu: yemek, iş, seyahat...
-• Top 10 bin — tüm kelime tabanı
-• Zor — sık yanlış yaptığın kelimeler
-
-3 <b>Her gün kelime öğren</b>
-Kelime öğren → 25 kelimelik test.
-Bot hatalarını hatırlar ve zor kelimeleri daha sık gösterir.
-
-4 <b>Hatalarını tekrarla</b>
-Testten sonra hatalı kelimeleri hemen tekrarlayabilirsin.
-
-5 <b>İlerlemeni takip et</b>
-İstatistik → kaç kelime öğrenildi, test geçmişi, seri.
-
-6 <b>Diğerleriyle yarış</b>
-Sıralamam → aylık ve tüm zamanlar puanların.
-Liderlik Tablosu → tüm katılımcılar arasında ilk 10.
-
-7 <b>Hatırlatıcıları ayarla</b>
-Ayarlar → Hatırlatıcılar → saat, gün ve zaman dilimi seç.
-
-<b>Seslendirme</b>
-Kelime ana dili konuşan bir sesle okunur: soruda kelimenin kendisi, cevaptan sonra örnekle birlikte. Böylece hem telaffuzu hem de kelimenin gerçek konuşmadaki halini duyarsın.
-Ayarlar → Seslendirme: kapatabilir ya da ses seçebilirsin. Almanca için üç erkek ve üç kadın sesi var, dokununca hemen çalar.
-Ters yönde ses cevaptan sonra gelir: aksi halde okunan kelime cevabın kendisi olurdu.
-
-
-Kelime <b>öğrenildi</b> sayılır — üst üste 3 doğru cevap verilince.
-<b>Seri</b> günde en az 1 test çözersen artar.
-Hata mı buldun? Testten sonra butona bas ve neyin yanlış olduğunu belirt — çeviri mi telaffuz mu. Telaffuz bildirimleri en çok gerekli olan: makine vurguyu duymaz.
-
-Sorular? → t.me/genaulingua_chat""",
 
 
     "help_community_title": "<b>GenauLingua Topluluğu</b>",
@@ -362,12 +322,13 @@ Topluluk ne kadar aktif olursa — bot o kadar iyi olur. Çekinme! """,
     "table_title_alltime": "<b>Liderlik Tablosu — Tüm Zamanlar</b>",
     "table_empty": "Henüz katılımcı yok.\nİlk testi sen çöz!",
     "table_you_in_top": "Sen: <b>#{rank}</b> / {total}",
-    "table_you_not_in_top": "Sen: <b>#{rank}</b> / {total} — {score} puan",
-    "table_you_outside": "Sen: ilk 10 dışında — {score} puan",
+    "table_you_not_in_top": "Sen: <b>#{rank}</b> / {total} — {score}",
+    "table_you_outside": "Sen: ilk 10 dışında — {score}",
     "table_you_not_ranked": "Henüz sıralamada değilsin",
-    "table_points": "puan",
     "btn_leaderboard_table": "Liderlik Tablosu",
     "btn_back_to_rating": "Sıralamaya geri dön",
+    "rating_tab_month": "Ay",
+    "rating_tab_alltime": "Tüm Zamanlar",
 
     "stats_header": "<b>İstatistiklerin</b>",
     "stats_in_work_line": "Çalışmada: {count} · {target} eşiğine {left} kaldı",
@@ -384,7 +345,7 @@ Topluluk ne kadar aktif olursa — bot o kadar iyi olur. Çekinme! """,
     "stats_quizzes_empty": "Henüz tamamlanan test yok",
     "stats_recent_header": "<b>Son testler</b>",
     "stats_overall_header": "<b>Genel ilerleme</b>",
-    "stats_overall_learned": "Öğrenildi <b>{learned}</b> / {total} kelime",
+    "stats_overall_learned": "Öğrenilen kelime: <b>{learned}</b> / {total}",
     "stats_explanation": "Kelime öğrenildi = farklı günlerde üst üste üç doğru yanıt",
 }
 
@@ -446,7 +407,7 @@ TEXTS.update({
     "btn_rating": "Sıralama",
     "friend_fallback": "dostum",
     "onboarding_learning_title": "<b>Hangi dili öğreneceksin?</b>",
-    "onboarding_learning_desc": "Kelimelerin anlamı şu dilde gösterilecek: {native}\nDili ve yönü ayarlardan istediğin zaman değiştirebilirsin.",
+    "onboarding_learning_desc": "Kelimelerin anlamı şu dilde gösterilecek: {native}\nDili ayarlardan istediğin zaman değiştirebilirsin.",
 })
 
 
@@ -459,7 +420,7 @@ TEXTS.update({
 # экране, и оставлено то, чего из интерфейса не видно.
 # ============================================================================
 TEXTS.update({
-    "help_how_to_use_text": "<b>Test</b>\n25 kelime, dört seçenek. Bot hatalarını hatırlar ve zor kelimeleri daha sık getirir. Testten sonra yanlışları hemen tekrarlayabilirsin.\n\n<b>Seslendirme</b>\nSoruda kelime duyulur, cevaptan sonra kelime örnekle birlikte gelir. Ayarlardan erkek veya kadın sesi seçebilirsin.\n\n<b>Diller</b>\n{languages} — her çiftte ve iki yönde. İlerleme ve sıralama her dil için ayrı tutulur.\n\n\nKelime, farklı günlerde üst üste üç doğru cevaptan sonra <b>öğrenilmiş</b> sayılır.\n<b>Seri</b> o gün yapılan herhangi bir testle büyür.\nÇeviri veya telaffuz hatası — testin altındaki düğme.",
+    "help_how_to_use_text": "<b>Test</b>\n{words}, dört seçenek. Bot hatalarını hatırlar ve zor kelimeleri daha sık getirir. Testten sonra yanlışları hemen tekrarlayabilirsin.\n\n<b>Seslendirme</b>\nSoruda kelime duyulur, cevaptan sonra kelime örnekle birlikte gelir. Ayarlardan erkek veya kadın sesi seçebilirsin.\n\n<b>Diller</b>\n{languages} — her çiftte ve iki yönde. İlerleme ve sıralama her dil için ayrı tutulur.\n\n\nKelime, farklı günlerde üst üste üç doğru cevaptan sonra <b>öğrenilmiş</b> sayılır.\n<b>Seri</b> o gün yapılan herhangi bir testle büyür.\nÇeviri veya telaffuz hatası — testin altındaki düğme.",
     "help_community_title": "<b>Bot ve topluluk hakkında</b>",
     "help_community_text": "<b>GenauLingua</b> — her çiftte {language_count} dil: {languages}\nA1–C2 arası 12 900 kelime, her birinde örnek ve ana dili konuşanın sesi.\nArayüz: {interface_languages}\n\n<b>t.me/genaulingua_chat</b>\nHatalar, çeviri yanlışları, fikirler — hepsini okuyoruz. Telaffuzla ilgili bildirimler özellikle değerli: makine vurguyu duymaz.",
 })
@@ -536,15 +497,15 @@ TEXTS.update({
     "settings_btn_channels": "Ders karışımı",
     "settings_channels_line": "Ders: <b>{channels}</b>",
     "channels_title": "<b>Ders karışımı</b>",
-    "channels_description": "Hangi sorular sorulsun. Kanal ne kadar çoksa kelime o kadar iyi yerleşir: gözle tanımak, kulakla tanımak ve söylemek üç ayrı beceridir.",
-    "channel_text": "📖 Kart",
-    "channel_audio": "🎧 Dinleme",
-    "channel_speech": "🎤 Konuşma",
-    "quiz_result_recalled": "← Hatırlanan: {count}",
+    "channels_description": "Hangi sorular sorulsun. Yol ne kadar çoksa kelime o kadar iyi yerleşir: okumak, hatırlamak, duymak ve söylemek ayrı becerilerdir.",
+    "channel_text": "📖 Okuyorum",
+    "channel_audio": "🎧 Dinliyorum",
+    "channel_speech": "🎤 Konuşuyorum",
+    "quiz_result_recalled": "💭 Hatırlanan: {count}",
     "home_scale_reverse": "Hatırlıyorum",
-    "channel_reverse": "💭 Kelimeyi hatırla",
-    "channels_text_always": "Kart kapatılamaz: tek kanalı olmayan ders boş ekran demektir.",
-    "channels_audio_blocked": "🎧 Kulakla kullanılamıyor: seslendirme kapalı.",
+    "channel_reverse": "💭 Hatırlıyorum",
+    "channels_text_always": "“Okuyorum” kapatılamaz: hiçbir yolu olmayan ders boş ekran demektir.",
+    "channels_audio_blocked": "🎧 «Dinliyorum» ve «Konuşuyorum» kullanılamıyor: seslendirme kapalı.",
 })
 
 
@@ -596,7 +557,7 @@ TEXTS.update({
     "settings_group_how_title": "<b>Nasıl öğreniyorum</b>",
     "settings_group_bot": "Bot",
     "settings_group_bot_title": "<b>Bot</b>",
-    "settings_group_what_about": "Dil, seviye ve çeviri yönü.",
+    "settings_group_what_about": "Dil, hedef ve seviye.",
     "settings_group_how_about": "Turun nelerden oluştuğu ve nasıl duyulduğu.",
     "settings_group_bot_about": "Bot dili, hatırlatmalar ve yardım.",
 })
@@ -707,9 +668,11 @@ TEXTS.update({
     "settings_match_description": "Her iki dersten birinde turun ortasında beş soru yerine bir tahta gelir: beş kelime ve beş anlam, eşleri bulmak gerekir. Yalnızca bildik kelimeler alınır.",
     "match_state_on": "Tahta açık: turun ortasında gelecek.",
     "settings_match_short_on": "tahta ile",
-    "settings_channels_short_one": "yalnızca kart",
-    "settings_channels_short_two": "iki yol",
-    "settings_channels_short_all": "üç yol birden",
+    "settings_channels_short_one": "yalnızca “Okuyorum”",
+    "settings_channels_short_some": "dört oyundan {count} tanesi",
+    "settings_channels_short_all": "dört oyunun hepsi",
+    "plural_words": "kelime",
+    "plural_points": "puan",
     "settings_audio_short_off": "sessiz",
     "settings_audio_short_on": "sesli",
     "settings_match_short_off": "tahtasız",

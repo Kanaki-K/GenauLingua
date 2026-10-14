@@ -107,23 +107,31 @@ async def _run_all(args) -> int:
             suspect = report["mismatched"]
             judged = matched + suspect
             checked = report["checked"]
-            share = matched / judged * 100 if judged else 0.0
+            # МАЛО РАЗОБРАННЫХ — НЕТ ЧИСЛА. Голос, у которого движок отказал
+            # на всех клипах, прежде получал долю 0.0 и попадал в «негодные»,
+            # хотя о нём не узнали ничего. Меньше половины заказанного —
+            # «не проверен», а не «плох».
+            share = (matched / judged * 100
+                     if judged >= max(1, args.per_voice // 2) else None)
             skipped = checked - judged
+            share_text = f"{share:.1f}%" if share is not None else "числа нет"
             print(f"   разобрано {judged} из {checked} "
-                  f"(пропущено коротких {skipped}), расхождений {suspect} "
-                  f"→ {share:.1f}% за {report['seconds']} с", flush=True)
+                  f"(отброшено {skipped}), расхождений {suspect} "
+                  f"→ {share_text} за {report['seconds']} с", flush=True)
             rows.append((lang, voice.label, judged, suspect, share))
 
     print("\n" + "=" * 70)
     print("ИТОГ ПО ГОЛОСАМ")
     print("=" * 70)
-    worst = []
-    for lang, label, checked, suspect, share in rows:
-        if checked is None:
-            print(f"  {lang} {label:12} — не проверен (ошибка)")
+    worst, unchecked = [], []
+    for lang, label, judged, suspect, share in rows:
+        if share is None:
+            print(f"  {lang} {label:12} — НЕ ПРОВЕРЕН "
+                  f"(разобрано {judged or 0} из {args.per_voice})")
+            unchecked.append((lang, label))
             continue
-        print(f"  {lang} {label:12} {checked:4} клипов, "
-              f"подозрительных {suspect:3} → {share:5.1f}%")
+        print(f"  {lang} {label:12} {judged:4} разобрано, "
+              f"расхождений {suspect:3} → {share:5.1f}%")
         if share < 90:
             worst.append((lang, label, share))
 
@@ -131,6 +139,18 @@ async def _run_all(args) -> int:
         print("\nГОЛОСА НИЖЕ 90%:")
         for lang, label, share in sorted(worst, key=lambda r: r[2]):
             print(f"  {lang} {label} — {share:.1f}%")
+    if unchecked:
+        print("\nНЕ ПРОВЕРЕНЫ (нужен повторный прогон, синтез не дал клипов):")
+        for lang, label in unchecked:
+            print(f"  {lang} {label}")
+
+    # НЕПРОВЕРЕННЫЙ ГОЛОС — ТОЖЕ НЕЗАКРЫТЫЙ ВОПРОС, и выход должен быть
+    # ненулевым: иначе прогон, не получивший ни одного клипа, выглядел бы
+    # успешным. Так и случилось 14 октября при десяти потоках: движок
+    # отказал на 944 запросах, у семи голосов из девятнадцати не озвучился
+    # ни один клип, доля посчиталась нулём — и обёртка объявила голоса,
+    # о которых не узнала ничего, негодными.
+    if worst or unchecked:
         return 1
 
     print("\nвсе голоса читают свой язык верно")

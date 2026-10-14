@@ -187,7 +187,7 @@ TEXTS = {
     "qmode_all_set": "✓ Modus: Top 10 Tausend",
 
     "qmode_difficult_set": "✓ Modus: Schwierige Wörter",
-    "qmode_difficult_few": "Du hast bisher nur {count} schwierige Wörter — es braucht mindestens 4\nMach noch ein paar Quizze!",
+    "qmode_difficult_few": "Schwierige Wörter bisher: {count} — es braucht mindestens 4\nMach noch ein paar Quizze!",
     "qmode_difficult_empty": "Du hast bisher keine schwierigen Wörter.\nMach ein paar Quizze!",
 
     "quiz_btn_change_mode": "Niveau und Themen",
@@ -197,14 +197,14 @@ TEXTS = {
     "report_no_words": "Keine Wörter zum Melden",
     "report_none_selected": "Wähle mindestens ein Wort",
     "report_pick_kind": "{count} Wort(e) ausgewählt. Sag jetzt, was falsch ist — die Übersetzung oder die Aussprache.",
-    "report_sent": "✓ {count} Meldungen gesendet — danke!\nWenn der Fehler bestätigt wird, bekommst du +{points} Punkte",
+    "report_sent": "✓ Meldungen gesendet: {count} — danke!\nWenn der Fehler bestätigt wird, bekommst du +{points}",
     "report_daily_limit": "Tageslimit für Meldungen erreicht (max. 20)",
     "report_all_reported": "✓ Alle Wörter aus diesem Quiz sind schon gemeldet",
     "report_already_sent": "✓ Schon früher gesendet",
     "report_btn_kind_text": "Falsche Übersetzung",
     "report_btn_kind_audio": "Falsche Aussprache",
-    "report_sent_audio": "✓ {count} gesendet — danke!\nMeldungen zur Aussprache sind besonders wertvoll: die maschinelle Prüfung hört die Betonung nicht\nWenn bestätigt — +{points} Punkte",
-    "report_approved": "✓ Deine Meldung wurde angenommen: <b>{word}</b> ist korrigiert.\n+{points} Punkte für die Monatswertung — danke, das Wörterbuch ist jetzt besser für alle.",
+    "report_sent_audio": "✓ {count} gesendet — danke!\nMeldungen zur Aussprache sind besonders wertvoll: die maschinelle Prüfung hört die Betonung nicht\nWenn bestätigt — +{points}",
+    "report_approved": "✓ Deine Meldung zu <b>{word}</b> wurde angenommen — wir korrigieren die Übersetzung.\n+{points} Punkte für die Monatswertung — danke, das Wörterbuch wird besser für alle.",
     "award_won": "{mark} Platz {rank} in der Wertung für {month}.\n{bonus} zu deinem Gesamtstand addiert.",
     "report_approved_audio": "✓ Deine Aussprache-Meldung wurde angenommen: <b>{word}</b>.\nDie Aufnahme wird neu erstellt. +{points} Punkte für die Monatswertung — danke.",
 
@@ -265,54 +265,13 @@ TEXTS = {
     # HILFE
     # ============================================================================
     "help_title": "<b>Hilfe — GenauLingua</b>",
-    "help_description": "Hier findest du die Anleitung, erfährst, was bald dazukommt, und wie du die Community erreichst.",
+    "help_description": "Hier: wie die Übungen funktionieren und wie du die Community erreichst.",
     "help_choose": "Wähle einen Bereich:",
 
     "help_btn_how_to_use": "So funktioniert es",
     "help_btn_community": "Community",
 
     "help_how_to_use_title": "<b>So benutzt du den Bot</b>",
-    "help_how_to_use_text": """1 <b>Wähle, welche Sprache du lernst</b>
-Einstellungen → Welche Sprache lernen: {languages}.
-Dort auch das Niveau A1–C2, die Übersetzungsrichtung und die Oberflächensprache.
-Der Fortschritt zählt pro Sprache getrennt: du kannst zwei parallel lernen.
-
-2 <b>Wähle den Quiz-Modus</b>
-Einstellungen → Quiz-Modus:
-• Nach Niveau — Wörter deines Niveaus
-• Nach Kategorie — 20 Themen: Essen, Arbeit, Reisen...
-• Top 10 Tausend — die ganze Datenbank
-• Schwierige — Wörter, bei denen du oft Fehler machst
-
-3 <b>Lerne jeden Tag</b>
-Wörter lernen → Quiz aus 25 Wörtern.
-Der Bot merkt sich deine Fehler und zeigt schwierige Wörter häufiger.
-
-4 <b>Wiederhole die Fehler</b>
-Nach dem Quiz kannst du die Wörter sofort wiederholen, bei denen du falsch lagst.
-
-5 <b>Verfolge deinen Fortschritt</b>
-Statistik → wie viel gelernt ist, Quiz-Verlauf, Serie.
-
-6 <b>Tritt gegen andere an</b>
-Meine Platzierung → deine Punkte für den Monat und insgesamt.
-Rangliste → die Top 10 aller Teilnehmer.
-Die Rangliste läuft pro Sprache getrennt — wer Englisch lernt, tritt gegen andere Englischlernende an.
-
-7 <b>Richte Erinnerungen ein</b>
-Einstellungen → Erinnerungen → wähle Zeit, Tage und Zeitzone.
-
-<b>Aussprache</b>
-Das Wort erklingt mit der Stimme eines Muttersprachlers: in der Frage das Wort allein, nach der Antwort das Wort zusammen mit dem Beispiel. So hörst du die Aussprache und wie das Wort in echter Rede lebt.
-Einstellungen → Aussprache: abschaltbar, Stimme wählbar. Für Deutsch drei männliche und drei weibliche — ein Tippen spielt sofort eine Probe.
-In der umgekehrten Richtung kommt der Ton nach der Antwort: sonst wäre das gesprochene Wort schon die Lösung.
-
-
-Ein Wort ist <b>gelernt</b> — 3 richtige Antworten in Folge, und nicht am Tag des ersten Kontakts: du musst mindestens am nächsten Tag darauf zurückkommen.
-Die <b>Serie</b> wächst, wenn du an diesem Tag mindestens 1 Quiz gemacht hast.
-Fehler gefunden? Tippe nach dem Quiz auf die Taste und sage, was nicht stimmt — Übersetzung oder Aussprache. Meldungen zur Aussprache sind besonders nötig: die Maschine hört die Betonung nicht.
-
-Fragen? → t.me/genaulingua_chat""",
 
 
     "help_community_title": "<b>GenauLingua Community</b>",
@@ -369,12 +328,13 @@ Je lebendiger die Community, desto besser wird der Bot. Nur keine Scheu! """,
     "table_title_alltime": "<b>Rangliste — Insgesamt</b>",
     "table_empty": "Noch nimmt niemand teil.\nMach das Quiz als Erster!",
     "table_you_in_top": "Du: <b>#{rank}</b> von {total}",
-    "table_you_not_in_top": "Du: <b>#{rank}</b> von {total} — {score} Punkte",
-    "table_you_outside": "Du: außerhalb der Top 10 — {score} Punkte",
+    "table_you_not_in_top": "Du: <b>#{rank}</b> von {total} — {score}",
+    "table_you_outside": "Du: außerhalb der Top 10 — {score}",
     "table_you_not_ranked": "Du bist noch nicht in der Rangliste",
-    "table_points": "Punkte",
     "btn_leaderboard_table": "Rangliste",
     "btn_back_to_rating": "Zurück zur Platzierung",
+    "rating_tab_month": "Monat",
+    "rating_tab_alltime": "Gesamt",
 
     # ============================================================================
     # STATISTIK (NEU)
@@ -394,7 +354,7 @@ Je lebendiger die Community, desto besser wird der Bot. Nur keine Scheu! """,
     "stats_quizzes_empty": "Noch keine absolvierten Quizze",
     "stats_recent_header": "<b>Letzte Quizze</b>",
     "stats_overall_header": "<b>Gesamtfortschritt</b>",
-    "stats_overall_learned": "Gelernt <b>{learned}</b> von {total} Wörtern",
+    "stats_overall_learned": "Gelernte Wörter: <b>{learned}</b> von {total}",
     "stats_explanation": "Wort gelernt = drei richtige Antworten hintereinander, an verschiedenen Tagen",
 }
 
@@ -459,7 +419,7 @@ TEXTS.update({
     "btn_rating": "Rangliste",
     "friend_fallback": "Freund",
     "onboarding_learning_title": "<b>Welche Sprache lernst du?</b>",
-    "onboarding_learning_desc": "Die Bedeutungen erscheinen auf {native}\nSprache und Richtung kannst du jederzeit in den Einstellungen ändern.",
+    "onboarding_learning_desc": "Die Bedeutungen erscheinen auf {native}\nDie Sprache kannst du jederzeit in den Einstellungen ändern.",
 })
 
 
@@ -472,7 +432,7 @@ TEXTS.update({
 # экране, и оставлено то, чего из интерфейса не видно.
 # ============================================================================
 TEXTS.update({
-    "help_how_to_use_text": "<b>Quiz</b>\n25 Wörter, vier Antworten. Der Bot merkt sich deine Fehler und zeigt Schweres öfter. Nach dem Quiz kannst du die Fehler sofort wiederholen.\n\n<b>Aussprache</b>\nIn der Frage klingt das Wort, nach der Antwort das Wort mit seinem Beispiel. Die Stimme wählst du in den Einstellungen — männlich oder weiblich.\n\n<b>Sprachen</b>\n{languages} — in jedem Paar und in beide Richtungen. Fortschritt und Platzierung zählen pro Sprache getrennt.\n\n\nEin Wort gilt als <b>gelernt</b> nach drei richtigen Antworten hintereinander, und zwar an verschiedenen Tagen.\nDie <b>Serie</b> wächst mit jedem Quiz an diesem Tag.\nFehler in Übersetzung oder Aussprache — der Knopf unter dem Quiz.",
+    "help_how_to_use_text": "<b>Quiz</b>\n{words}, vier Antworten. Der Bot merkt sich deine Fehler und zeigt Schweres öfter. Nach dem Quiz kannst du die Fehler sofort wiederholen.\n\n<b>Aussprache</b>\nIn der Frage klingt das Wort, nach der Antwort das Wort mit seinem Beispiel. Die Stimme wählst du in den Einstellungen — männlich oder weiblich.\n\n<b>Sprachen</b>\n{languages} — in jedem Paar und in beide Richtungen. Fortschritt und Platzierung zählen pro Sprache getrennt.\n\n\nEin Wort gilt als <b>gelernt</b> nach drei richtigen Antworten hintereinander, und zwar an verschiedenen Tagen.\nDie <b>Serie</b> wächst mit jedem Quiz an diesem Tag.\nFehler in Übersetzung oder Aussprache — der Knopf unter dem Quiz.",
     "help_community_title": "<b>Über den Bot und die Gemeinschaft</b>",
     "help_community_text": "<b>GenauLingua</b> — {language_count} Sprachen in jedem Paar: {languages}\n12 900 Wörter A1–C2, jedes mit Beispiel und Muttersprachler-Aussprache.\nOberfläche: {interface_languages}\n\n<b>t.me/genaulingua_chat</b>\nFehler, falsche Übersetzungen, Ideen — wir lesen alles. Hinweise zur Aussprache sind besonders willkommen: eine Maschine hört die Betonung nicht.",
 })
@@ -549,15 +509,15 @@ TEXTS.update({
     "settings_btn_channels": "Aufbau der Übung",
     "settings_channels_line": "Übung: <b>{channels}</b>",
     "channels_title": "<b>Aufbau der Übung</b>",
-    "channels_description": "Welche Fragen gestellt werden. Je mehr Kanäle, desto fester sitzt ein Wort: es mit den Augen erkennen, nach Gehör erkennen und aussprechen sind drei verschiedene Fähigkeiten.",
-    "channel_text": "📖 Karte",
-    "channel_audio": "🎧 Hören",
-    "channel_speech": "🎤 Sprechen",
-    "quiz_result_recalled": "← Erinnert: {count}",
+    "channels_description": "Welche Fragen gestellt werden. Je mehr Wege, desto fester sitzt ein Wort: lesen, erinnern, hören und sprechen sind verschiedene Fähigkeiten.",
+    "channel_text": "📖 Ich lese",
+    "channel_audio": "🎧 Ich höre",
+    "channel_speech": "🎤 Ich spreche",
+    "quiz_result_recalled": "💭 Erinnert: {count}",
     "home_scale_reverse": "Ich erinnere",
-    "channel_reverse": "💭 Wort erinnern",
-    "channels_text_always": "Karten lassen sich nicht abschalten: eine Übung ohne Kanal ist ein leerer Bildschirm.",
-    "channels_audio_blocked": "🎧 Nach Gehör nicht verfügbar: die Aussprache ist aus.",
+    "channel_reverse": "💭 Ich erinnere",
+    "channels_text_always": "„Ich lese“ lässt sich nicht abschalten: eine Übung ohne jeden Weg ist ein leerer Bildschirm.",
+    "channels_audio_blocked": "🎧 „Ich höre“ und „Ich spreche“ sind nicht verfügbar: die Aussprache ist aus.",
 })
 
 
@@ -609,7 +569,7 @@ TEXTS.update({
     "settings_group_how_title": "<b>Wie ich lerne</b>",
     "settings_group_bot": "Bot",
     "settings_group_bot_title": "<b>Bot</b>",
-    "settings_group_what_about": "Sprache, Niveau und Übersetzungsrichtung.",
+    "settings_group_what_about": "Sprache, Ziel und Niveau.",
     "settings_group_how_about": "Woraus eine Runde besteht und wie sie klingt.",
     "settings_group_bot_about": "Bot-Sprache, Erinnerungen und Hilfe.",
 })
@@ -720,9 +680,11 @@ TEXTS.update({
     "settings_match_description": "Jede zweite Übung bringt in der Mitte der Runde statt fünf Fragen eine Tafel: fünf Wörter und fünf Bedeutungen, die zu paaren sind. Nur bekannte Wörter.",
     "match_state_on": "Tafel ist an: sie kommt in der Rundenmitte.",
     "settings_match_short_on": "mit Tafel",
-    "settings_channels_short_one": "nur Karte",
-    "settings_channels_short_two": "zwei Wege",
-    "settings_channels_short_all": "alle drei Wege",
+    "settings_channels_short_one": "nur „Ich lese“",
+    "settings_channels_short_some": "{count} von vier Spielen",
+    "settings_channels_short_all": "alle vier Spiele",
+    "plural_words": "Wort|Wörter",
+    "plural_points": "Punkt|Punkte",
     "settings_audio_short_off": "ohne Ton",
     "settings_audio_short_on": "mit Ton",
     "settings_match_short_off": "ohne Tafel",
