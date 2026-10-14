@@ -17,7 +17,6 @@ from app.services.monthly_leaderboard_service import (
 from app.bot.handlers.leaderboard.utils import (
     edit_screen,
     format_month_name,
-    get_user_title,
     get_leaderboard_keyboard_text
 )
 from app.locales import DEFAULT_LOCALE, get_text, plural
@@ -97,18 +96,13 @@ def build_monthly_table(leaderboard: list, user_rank: dict, season, user_id: int
         score = entry["monthly_score"]
         emoji = _rank_emoji(rank)
 
-        title = ""
-        if rank > 3:
-            t = get_user_title(entry.get("win_streak"),
-                               entry.get("monthly_words", 0), lang)
-            if t: title = f" {t}"
 
         is_me = entry["user_id"] == user_id
         if is_me:
             user_in_top = True
-            text += f"{emoji} <b>{name}{title}</b> — {plural(score, 'plural_points', lang)}\n"
+            text += f"{emoji} <b>{name}</b> — {plural(score, 'plural_points', lang)}\n"
         else:
-            text += f"{emoji} {name}{title} — {plural(score, 'plural_points', lang)}\n"
+            text += f"{emoji} {name} — {plural(score, 'plural_points', lang)}\n"
 
     text += "\n" + "·" * 17 + "\n"
 
@@ -145,18 +139,13 @@ def build_alltime_table(leaderboard: list, user_rank: dict, user_id: int, lang: 
         score = entry["lifetime_score"]
         emoji = _rank_emoji(rank)
 
-        title = ""
-        if rank > 3:
-            t = get_user_title(entry.get("win_streak"),
-                               entry.get("words_learned", 0), lang)
-            if t: title = f" {t}"
 
         is_me = entry["user_id"] == user_id
         if is_me:
             user_in_top = True
-            text += f"{emoji} <b>{name}{title}</b> — {plural(score, 'plural_points', lang)}\n"
+            text += f"{emoji} <b>{name}</b> — {plural(score, 'plural_points', lang)}\n"
         else:
-            text += f"{emoji} {name}{title} — {plural(score, 'plural_points', lang)}\n"
+            text += f"{emoji} {name} — {plural(score, 'plural_points', lang)}\n"
 
     text += "\n" + "·" * 17 + "\n"
 
