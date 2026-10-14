@@ -11,7 +11,7 @@ TEXTS = {
     "btn_settings": "Settings",
     "btn_help": "Help",
     "btn_back": "Back",
-    "menu_placeholder": "Choose an action...",
+    "menu_placeholder": "Choose an action…",
 
     # ============================================================================
     # WELCOME & START
@@ -28,49 +28,49 @@ TEXTS = {
     # ============================================================================
     # NOTIFICATIONS
     # ============================================================================
-    "notif_title": "<b>Notification Settings</b>",
+    "notif_title": "<b>Reminders</b>",
     "notif_status": "Status: {status}",
-    "notif_status_on": "Enabled",
-    "notif_status_off": "Disabled",
+    "notif_status_on": "on",
+    "notif_status_off": "off",
     "notif_time": "Time: {time}",
     "notif_days": "Days: {days}",
-    "notif_timezone": "Timezone: {timezone}",
+    "notif_timezone": "Time zone: {timezone}",
     "notif_hint": "The reminder arrives at the chosen time in your time zone.",
     "notif_hint_off": "Turn reminders on — it's easier to keep your streak going.",
 
-    "notif_btn_toggle_on": "Notifications: Enabled",
-    "notif_btn_toggle_off": "Notifications: Disabled",
+    "notif_btn_toggle_on": "Reminders: on",
+    "notif_btn_toggle_off": "Reminders: off",
     "notif_btn_time": "Time: {time}",
-    "notif_btn_days": "Select days",
-    "notif_btn_timezone": "Change timezone",
+    "notif_btn_days": "Choose days",
+    "notif_btn_timezone": "Change time zone",
 
     "notif_timezone_title": "<b>Your time zone</b>",
     "notif_timezone_current": "Current: {timezone}",
     "notif_timezone_prompt": "Pick a city in your time zone:",
-    "notif_timezone_more": "Select another city",
+    "notif_timezone_more": "Another city",
     "notif_timezone_back": "Back",
-    "notif_timezone_set": "✓ Timezone set: {city}",
+    "notif_timezone_set": "✓ Time zone set: {city}",
 
     "notif_time_title": "<b>Reminder time</b>",
     "notif_time_current": "Current time: {time}",
-    "notif_time_timezone": "Timezone: {timezone}",
-    "notif_time_hint": "The reminder arrives every day at the chosen time.",
+    "notif_time_timezone": "Time zone: {timezone}",
+    "notif_time_hint": "The reminder arrives at this time on the days you've chosen.",
     "notif_time_set": "✓ Time set: {time}",
 
     "notif_days_title": "<b>Reminder days</b>",
-    "notif_days_hint": "Tap a day to turn it on or off.\n✓ — day on\n✗ — day off\n\nWhen you're done, tap «Save».",
+    "notif_days_hint": "Tap a day to turn it on or off.\n✓ — day on\n✗ — day off\n\nWhen you're done, tap “Save”.",
     "notif_days_all": "All days",
-    "notif_days_weekdays": "Weekdays (Mon-Fri)",
+    "notif_days_weekdays": "Weekdays (Mon–Fri)",
     "notif_days_save": "Save",
     "notif_days_saved": "✓ Days saved!",
     "notif_days_all_selected": "✓ All days selected",
-    "notif_days_weekdays_selected": "✓ Weekdays selected (Mon-Fri)",
+    "notif_days_weekdays_selected": "✓ Weekdays selected (Mon–Fri)",
     "notif_days_none": "Pick at least one day.",
 
-    "notif_toggle_on": "Notifications enabled!",
-    "notif_toggle_off": "Notifications disabled",
+    "notif_toggle_on": "Reminders are on",
+    "notif_toggle_off": "Reminders are off",
 
-    "notif_message_btn_disable": "Disable notifications",
+    "notif_message_btn_disable": "Turn off reminders",
 
     "day_mon": "Mon",
     "day_tue": "Tue",
@@ -85,32 +85,32 @@ TEXTS = {
     "notif_default_name": "friend",
 
     "anchor_streak": "🔥 {days}",
-    "notif_message_greeting": "<b>Time to practice, {name}!</b>",
+    "notif_message_greeting": "<b>Time to practise, {name}!</b>",
 
 
     # ONE REASON TO COME BACK — and it has to be true
-    "remind_streak_risk": "{days} days in a row · not today yet",
-    "remind_due": "{count} words are due for review — the bot tracks the timing",
-    "remind_due_many": "Quite a lot is due. Start with one round, the rest can wait.",
-    "remind_streak_lost": "Your best streak was {days} days. A new one starts with a single round.",
-    "remind_milestone_close": "Words in progress: {count} · {left} to go until {target}, that is one round",
-    "remind_almost_learned": "One correct answer away from your first learned word. Such words: {count}",
-    "remind_rank": "Place {rank} of {total} in your language",
-    "remind_fact_1": "A word sticks when it comes back: a day, three days, a week. The bot keeps the schedule.",
-    "remind_fact_2": "An answer by ear is worth more: there is no written shape to lean on.",
+    "remind_streak_risk": "{days_word} in a row · not today yet",
+    "remind_due": "Words due for review: {count} — the bot keeps track of the timing",
+    "remind_due_many": "Quite a lot is due. Start with one round — the rest can wait.",
+    "remind_streak_lost": "Your best streak was {days_word}. A new one starts with a single round.",
+    "remind_milestone_close": "Words in progress: {count} · {left} more to {target} — that's one round",
+    "remind_almost_learned": "You're one correct answer away from your first learned word. Words this close: {count}",
+    "remind_rank": "You're #{rank} of {total} among learners of your language",
+    "remind_fact_1": "A word sticks when it comes back: after a day, three days, a week. The bot keeps the schedule.",
+    "remind_fact_2": "An answer by ear is worth more: there's no written word to lean on.",
     "remind_fact_3": "Saying a word out loud is harder than recognising it — and worth three times as much.",
-    "remind_fact_4": "Fifteen words take four minutes. Less than a queue for coffee.",
+    "remind_fact_4": "Fifteen words take about four minutes — less than a queue for coffee.",
 
     # ============================================================================
     # SETTINGS
     # ============================================================================
     "settings_title": "<b>Settings</b>",
-    "settings_mode": "Direction: <b>{mode}</b>",
+    "settings_mode": "Mode: <b>{mode}</b>",
     "settings_language": "Bot language: <b>{language}</b>",
 
     "settings_btn_quiz_mode": "Level and topics",
     "settings_btn_change_language": "Interface language",
-    "settings_btn_notifications": "Notifications",
+    "settings_btn_notifications": "Reminders",
 
     "settings_quiz_mode_line": "Level: <b>{mode}</b>",
 
@@ -120,7 +120,7 @@ TEXTS = {
     "start_pick_language": "Choose a language",
 
     "language_changed": "✓ Language changed to {language}",
-    "user_not_found": "✗ User not found. Use /start",
+    "user_not_found": "✗ Profile not found. Please send /start",
 
     "lang_ru": "Русский",
     "lang_uk": "Українська",
@@ -136,25 +136,25 @@ TEXTS = {
     # ============================================================================
     "qmode_title": "<b>Level and topics</b>",
     "qmode_current": "Current: <b>{mode}</b>",
-    "qmode_choose": "Choose how you want to learn\nYou can switch anytime — your progress is saved",
+    "qmode_choose": "Choose how you want to learn.\nYou can switch at any time — your progress is saved.",
 
     "qmode_btn_level": "By level",
-    "qmode_btn_category": "Category",
-    "qmode_btn_all": "Top 10 thousand",
-    "qmode_btn_difficult": "Difficult",
+    "qmode_btn_category": "By topic",
+    "qmode_btn_all": "All words",
+    "qmode_btn_difficult": "Difficult words",
 
     "qmode_level_short": "{level}",
     "qmode_category_short": "{category}",
-    "qmode_all_short": "Top 10 thousand",
+    "qmode_all_short": "All words",
     "qmode_difficult_short": "Difficult words",
 
-    "qmode_level_title": "<b>Choose level</b>",
+    "qmode_level_title": "<b>Choose a level</b>",
     "qmode_level_desc": "From your first words to free-flowing conversation. All levels are open — pick yours.\n\n• A1–A2 — basic vocabulary\n• B1–B2 — confident communication\n• C1–C2 — near-native fluency",
-    "qmode_level_set": "✓ Mode: By level ({level})",
+    "qmode_level_set": "✓ Mode: by level ({level})",
 
-    "qmode_category_title": "<b>Choose category</b>",
-    "qmode_category_desc": "From food to science — pick the topic you need\n\nEach category includes words from all levels",
-    "qmode_category_set": "✓ Mode: {category}",
+    "qmode_category_title": "<b>Choose a topic</b>",
+    "qmode_category_desc": "From food to science — pick the topic you need.\n\nEach topic includes words from all levels.",
+    "qmode_category_set": "✓ Topic: {category}",
 
     # Category names
     "cat_arbeit_beruf": "Work",
@@ -162,10 +162,10 @@ TEXTS = {
     "cat_einkaufen_geld": "Shopping",
     "cat_emotionen_charakter": "Emotions",
     "cat_essen_trinken": "Food",
-    "cat_freizeit_sport": "Sports",
+    "cat_freizeit_sport": "Sport",
     "cat_gesundheit_medizin": "Health",
     "cat_grammatik": "Grammar",
-    "cat_kleidung_mode": "Fashion",
+    "cat_kleidung_mode": "Clothing",
     "cat_kommunikation": "Communication",
     "cat_kultur_kunst": "Culture",
     "cat_mensch_familie": "Family",
@@ -178,37 +178,37 @@ TEXTS = {
     "cat_wohnen_haus": "Housing",
     "cat_zeit_alltag": "Daily life",
 
-    "qmode_all_set": "✓ Mode: Top 10 thousand",
+    "qmode_all_set": "✓ Mode: all words",
 
-    "qmode_difficult_set": "✓ Mode: Difficult words",
+    "qmode_difficult_set": "✓ Mode: difficult words",
     "qmode_difficult_few": "Difficult words so far: {count} — at least 4 needed.\nPlay a few more rounds!",
     "qmode_difficult_empty": "No difficult words yet.\nPlay a few rounds first!",
 
     "quiz_btn_change_mode": "Level and topics",
-    "quiz_btn_report_error": "Translation error",
+    "quiz_btn_report_error": "Report an error",
     "report_btn_confirm": "✓ Confirm ({count})",
     "report_btn_send": "Send",
     "report_no_words": "No words to report",
     "report_none_selected": "Select at least one word",
-    "report_pick_kind": "{count} word(s) selected. Now say what is wrong — the translation or the pronunciation.",
-    "report_sent": "✓ Reports sent: {count} — thank you!\nIf confirmed — you'll get +{points}",
-    "report_daily_limit": "Daily report limit reached (max 20)",
-    "report_all_reported": "✓ All words from this quiz already reported",
+    "report_pick_kind": "Words selected: {count}. Now choose what's wrong: the translation or the pronunciation.",
+    "report_sent": "✓ Reports sent: {count} — thank you!\nEach confirmed report earns +{points}.",
+    "report_daily_limit": "You've reached today's limit of 20 reports.",
+    "report_all_reported": "✓ All words from this round have already been reported",
     "report_already_sent": "✓ Already reported",
     "report_btn_kind_text": "Wrong translation",
     "report_btn_kind_audio": "Wrong pronunciation",
-    "report_sent_audio": "✓ Sent {count} — thank you!\nPronunciation reports are especially valuable: the automated check cannot hear stress\nIf confirmed — +{points}",
-    "report_approved": "✓ Your report on <b>{word}</b> was accepted — we'll fix the translation.\n+{points} points to your monthly score — thanks, the dictionary gets better for everyone.",
-    "award_won": "{mark} You placed {rank} in the {month} standings.\n{bonus} added to your lifetime score.",
-    "report_approved_audio": "✓ Your pronunciation report was accepted: <b>{word}</b>.\nThe audio will be re-recorded. +{points} points to your monthly score — thank you.",
-    "report_approved_capped": "✓ Your report on <b>{word}</b> was accepted — thanks, the dictionary gets better for everyone.\nYou've already earned this month's report points: we pay for {limit} a month.",
+    "report_sent_audio": "✓ Reports sent: {count} — thank you!\nPronunciation reports are especially valuable: the automated check can't hear stress.\nEach confirmed report earns +{points}.",
+    "report_approved": "✓ Your report on <b>{word}</b> was accepted — we'll fix the translation.\n+{points} points to your monthly score. Thank you — the dictionary gets better for everyone.",
+    "award_won": "{mark} You finished #{rank} in the {month} standings.\n{bonus} points added to your all-time score.",
+    "report_approved_audio": "✓ Your pronunciation report on <b>{word}</b> was accepted.\nThe audio will be re-recorded. +{points} points to your monthly score — thank you.",
+    "report_approved_capped": "✓ Your report on <b>{word}</b> was accepted. Thank you — the dictionary gets better for everyone.\nYou've already received points for {limit} reports this month — that's the monthly maximum.",
 
     # ============================================================================
     # QUIZ
     # ============================================================================
-    "quiz_no_level": "First choose your level using /start",
-    "quiz_error_generation": "✗ An error occurred while preparing the quiz.\nTry again via /start",
-    "quiz_no_words": "✗ Sorry, no words available for this level.\nTry choosing a different level.",
+    "quiz_no_level": "Please choose your level first: /start",
+    "quiz_error_generation": "✗ Something went wrong while preparing the round.\nPlease try again via /start",
+    "quiz_no_words": "✗ Sorry, there are no words for this level.\nPlease try a different level.",
 
     "quiz_question_number": "{current} / {total}",
 
@@ -217,7 +217,7 @@ TEXTS = {
     "quiz_correct_answer": "Correct answer:",
 
     "quiz_btn_next": "Next →",
-    "quiz_btn_repeat_errors": "Repeat mistakes",
+    "quiz_btn_repeat_errors": "Retry mistakes",
 
     "quiz_completed": "<b>Round done</b>",
     "quiz_result_correct": "Correct: <b>{correct}/{total}</b>",
@@ -227,25 +227,25 @@ TEXTS = {
 
     # PRAISE AT THE END OF A ROUND — only for what actually happened
     "praise_first_round": "First round done. From here words start coming back — that is how they stick.",
-    "praise_first_learned": "First word learned: three correct answers in a row, and not met today.",
+    "praise_first_learned": "First word learned: three correct answers in a row, none of them on the day you met it.",
     "praise_learned": "Words learned this round: {count}",
-    "praise_best_streak": "Personal best: {days} days in a row",
-    "praise_milestone": "Milestone {count} reached",
-    "praise_first_speech": "First correct answer by voice",
+    "praise_best_streak": "Personal best: {days_word} in a row",
+    "praise_milestone": "Milestone reached: {count} words in progress",
+    "praise_first_speech": "First correct answer out loud",
     "praise_first_audio": "First correct answer by ear",
-    "praise_comeback": "Welcome back. You were away {days} days.",
-    "praise_perfect": "Round without a single mistake",
-    "praise_streak": "Streak: {days} days in a row",
+    "praise_comeback": "Welcome back! It's been {days_word}.",
+    "praise_perfect": "A round without a single mistake",
+    "praise_streak": "Streak: {days_word} in a row",
     "praise_new_words": "New words: {count}",
     "praise_returned": "Recognised again: {count}",
-    "praise_progress": "Words in progress: {count} · {left} to go until {target}",
+    "praise_progress": "Words in progress: {count} · {left} more to {target}",
     "praise_progress_top": "Words in progress: {count}",
     "praise_points": "Points: +{points}",
 
-    "quiz_repeat_title": "<b>Repeat mistakes</b>",
-    "quiz_no_errors": "✓ You had no mistakes!",
-    "quiz_error_next": "✗ Failed to load next question.",
-    "quiz_error_generate": "✗ Failed to generate next question.",
+    "quiz_repeat_title": "<b>Retry mistakes</b>",
+    "quiz_no_errors": "✓ No mistakes this time!",
+    "quiz_error_next": "✗ Couldn't load the next question.",
+    "quiz_error_generate": "✗ Couldn't prepare the next question.",
 
     # ============================================================================
     # STATISTICS
@@ -260,7 +260,7 @@ TEXTS = {
     # HELP
     # ============================================================================
     "help_title": "<b>Help — GenauLingua</b>",
-    "help_description": "Here: how lessons work and how to reach the community.",
+    "help_description": "How rounds work and how to reach the community.",
     "help_choose": "Choose a section:",
 
     "help_btn_how_to_use": "How to use",
@@ -287,9 +287,9 @@ The more active the community — the better the bot gets. Don't be shy! """,
     # RATING
     # ============================================================================
     "rating_title_monthly": "<b>My rating — {month} {year}</b>",
-    "rating_not_active": "✗ Rating is not active yet.",
+    "rating_not_active": "✗ The rating isn't active yet.",
     "rating_not_in_ranking": "You're not in the ranking yet",
-    "rating_start_quiz": "Take your first quiz!",
+    "rating_start_quiz": "Play your first round!",
     "rating_position": "Position: <b>#{rank}</b> of {total}",
     "rating_points": "Points: <b>{score}</b>",
     "rating_title_polyglot": "polyglot",
@@ -297,56 +297,56 @@ The more active the community — the better the bot gets. Don't be shy! """,
     "rating_title_expert": "expert",
     "rating_title_student": "student",
     "rating_your_month": "<b>Your {month}:</b>",
-    "rating_quizzes": "Quizzes: {count}",
+    "rating_quizzes": "Rounds: {count}",
     "rating_words_learned": "Words learned: {count}",
-    "rating_streak": "Streak: {count} days",
+    "rating_streak": "Streak: {days_word}",
     "rating_avg_result": "Average result: {percent}%",
     "rating_scoring_title": "<b>How to earn points:</b>",
-    "rating_scoring_quiz": "• Completed quiz → +10",
-    "rating_scoring_word": "• Word learned → +2",
-    "rating_scoring_streak": "• Day streak → +3",
-    "rating_scoring_bonus": "• 90%+ accuracy → +50 bonus",
+    "rating_scoring_quiz": "• Round finished → +10",
+    "rating_scoring_word": "• Word learned → +3",
+    "rating_scoring_streak": "• Streak → each day in a row is worth more, up to +10",
+    "rating_scoring_bonus": "• Accuracy above 60% → a bonus that grows with accuracy",
     "rating_scoring_report": "• Confirmed error report → +{points} (up to {limit} a month)",
 
-    "rating_title_alltime": "<b>My rating — All Time</b>",
+    "rating_title_alltime": "<b>My rating — all time</b>",
     "rating_position_alltime": "Position: <b>#{rank}</b>",
     "rating_position_none": "Position: <b>—</b>",
     "rating_achievements": "<b>Your achievements:</b>",
     "rating_wins": "Wins (1st place): {count}",
     "rating_total_words": "Words learned: {count}",
-    "rating_motivation_start": "Start learning — the first step is the most important!",
-    "rating_motivation_continue": "Keep going — your first win is near!",
+    "rating_motivation_start": "Play a round in this language to join the ranking.",
+    "rating_motivation_continue": "Keep going — a first win in the monthly standings is within reach.",
     "rating_motivation_champion": "You're a true champion!",
 
     "table_title_monthly": "<b>Leaderboard — {month} {year}</b>",
-    "table_title_alltime": "<b>Leaderboard — All Time</b>",
-    "table_empty": "No participants yet.\nBe the first to take a quiz!",
+    "table_title_alltime": "<b>Leaderboard — all time</b>",
+    "table_empty": "No participants yet.\nBe the first to play a round!",
     "table_you_in_top": "You: <b>#{rank}</b> of {total}",
     "table_you_not_in_top": "You: <b>#{rank}</b> of {total} — {score}",
-    "table_you_outside": "You: outside top-10 — {score}",
+    "table_you_outside": "You: outside the top 10 — {score}",
     "table_you_not_ranked": "You're not ranked yet",
     "btn_leaderboard_table": "Leaderboard",
     "btn_back_to_rating": "Back to rating",
     "rating_tab_month": "Month",
-    "rating_tab_alltime": "All-Time",
+    "rating_tab_alltime": "All time",
 
     "stats_header": "<b>Your statistics</b>",
-    "stats_in_work_line": "Words in progress: {count} · {left} to go until {target}",
+    "stats_in_work_line": "Words in progress: {count} · {left} more to {target}",
     "stats_in_work_top": "Words in progress: {count}",
     "stats_details": "In progress: {progress}\nNew: {new}\nDifficult: {difficult}",
     "stats_achievements_title": "<b>Your achievements</b>",
     "stats_words_count": "Words learned: <b>{count}</b>",
-    "stats_streak_line": "Streak: {days} days in a row",
-    "stats_best_streak_line": "Best streak: {days} days",
-    "stats_quizzes_header": "<b>Quizzes · {level}</b>",
+    "stats_streak_line": "Streak: {days_word} in a row",
+    "stats_best_streak_line": "Best streak: {days_word}",
+    "stats_quizzes_header": "<b>Rounds · {level}</b>",
     "stats_quizzes_passed_line": "Completed: <b>{count}</b>",
     "stats_quizzes_avg_line": "Average result: <b>{percent}%</b>",
     "stats_quizzes_best_line": "Best result: <b>{percent}%</b>",
-    "stats_quizzes_empty": "No quizzes completed yet",
-    "stats_recent_header": "<b>Recent quizzes</b>",
+    "stats_quizzes_empty": "No rounds completed yet",
+    "stats_recent_header": "<b>Recent rounds</b>",
     "stats_overall_header": "<b>Overall progress</b>",
     "stats_overall_learned": "Words learned: <b>{learned}</b> of {total}",
-    "stats_explanation": "A word is learned = three correct answers in a row, on different days",
+    "stats_explanation": "A word counts as learned after three correct answers in a row, on different days.",
 }
 
 # ============================================================================
@@ -391,8 +391,8 @@ TEXTS.update({
     "voice_set": "✓ Voice: {voice}",
     "voice_use": "Use {voice}",
     "voice_listening": "Playing {voice}",
-    "voice_only_one": "For this language the engine has one male and one female voice — no more exist.",
-    "voice_preview_failed": "Could not get a sample, try again",
+    "voice_only_one": "For this language there is only one male and one female voice.",
+    "voice_preview_failed": "Couldn't load a sample. Please try again.",
 })
 
 
@@ -407,7 +407,7 @@ TEXTS.update({
     "btn_rating": "Rating",
     "friend_fallback": "friend",
     "onboarding_learning_title": "<b>Which language will you learn?</b>",
-    "onboarding_learning_desc": "Meanings will be shown in {native}\nYou can change the language in settings at any time.",
+    "onboarding_learning_desc": "Meanings will be shown in {native}.\nYou can change the language in settings at any time.",
 })
 
 
@@ -420,9 +420,9 @@ TEXTS.update({
 # экране, и оставлено то, чего из интерфейса не видно.
 # ============================================================================
 TEXTS.update({
-    "help_how_to_use_text": "<b>Quiz</b>\n{words}, four options. The bot remembers your mistakes and brings hard words back more often. After a quiz you can replay the ones you missed.\n\n<b>Audio</b>\nThe question plays the word; after your answer you hear the word with its example. Pick a male or female voice in settings.\n\n<b>Languages</b>\n{languages} — in any pair, both directions. Progress and rating are tracked separately for each language.\n\n\nA word counts as <b>learned</b> after three correct answers in a row, on different days.\nYour <b>streak</b> grows with any quiz that day.\nWrong translation or pronunciation — use the button under the quiz.",
+    "help_how_to_use_text": "<b>Round</b>\n{words}, four options each. A round mixes five games: I read, I recall, I listen, I speak and the board. The bot remembers your mistakes and brings hard words back more often. After a round you can retry the ones you missed.\n\n<b>Audio</b>\nThe question plays the word; after your answer you hear the word with its example. Pick a male or female voice in settings.\n\n<b>Languages</b>\n{languages} — in any pair. Progress and rating are tracked separately for each language.\n\n\nA word counts as <b>learned</b> after three correct answers in a row, on different days.\nYour <b>streak</b> grows with every day you play at least one round.\nWrong translation or pronunciation? Use the “Report an error” button after the round.",
     "help_community_title": "<b>About the bot and the community</b>",
-    "help_community_text": "<b>GenauLingua</b> — {language_count} languages in any pair: {languages}\n12,900 words A1–C2, each with an example and native audio.\nInterface: {interface_languages}\n\n<b>t.me/genaulingua_chat</b>\nBugs, translation errors, ideas — we read everything. Reports about pronunciation are especially welcome: a machine cannot hear stress.",
+    "help_community_text": "<b>GenauLingua</b> — {language_count} languages in any pair: {languages}\n12,900 words A1–C2, each with an example and native audio.\nInterface: {interface_languages}\n\n<b>t.me/genaulingua_chat</b>\nBugs, translation errors, ideas — we read everything. Pronunciation reports are especially welcome: a machine can't hear stress.",
 })
 
 
@@ -454,8 +454,8 @@ TEXTS.update({
     "rating_scoring_answer": "• Correct answer → +1, by ear → +2, out loud → +3",
     "rating_scoring_quiz": "• Round finished → +10",
     "rating_scoring_word": "• Word learned → +3",
-    "rating_scoring_streak": "• Each day in a row is worth more, up to +10",
-    "rating_scoring_bonus": "• Accuracy above 60% — the higher, the more",
+    "rating_scoring_streak": "• Streak → each day in a row is worth more, up to +10",
+    "rating_scoring_bonus": "• Accuracy above 60% → a bonus that grows with accuracy",
 })
 
 
@@ -493,18 +493,18 @@ TEXTS.update({
 # вопросы на слух можно было только выключив озвучку целиком.
 # ============================================================================
 TEXTS.update({
-    "settings_btn_channels": "Lesson mix",
-    "settings_channels_line": "Lesson: <b>{channels}</b>",
-    "channels_title": "<b>Lesson mix</b>",
-    "channels_description": "Which games to mix into a round. A new word comes as an “I read” card; once you know it, it comes back in other games: recall it, hear it, say it. The more games, the firmer the word.",
+    "settings_btn_channels": "Round mix",
+    "settings_channels_line": "Round: <b>{channels}</b>",
+    "channels_title": "<b>Round mix</b>",
+    "channels_description": "Which games to mix into a round. A new word comes as an “I read” card; once you know it, it comes back in other games: recall it, hear it, say it. The more games, the better the word sticks.",
     "channel_text": "📖 I read",
     "channel_audio": "🎧 I listen",
     "channel_speech": "🎤 I speak",
     "quiz_result_recalled": "💭 Recalled: {count}",
     "home_scale_reverse": "I recall",
     "channel_reverse": "💭 I recall",
-    "channels_text_always": "“I read” cannot be switched off: a lesson with no way at all is an empty screen.",
-    "channels_audio_blocked": "🎧 “I listen” and “I speak” are unavailable: audio is switched off.",
+    "channels_text_always": "“I read” can't be switched off: every new word starts with it.",
+    "channels_audio_blocked": "🎧 “I listen” and “I speak” are unavailable while audio is off.",
 })
 
 
@@ -520,8 +520,8 @@ TEXTS.update({
     "speech_btn_reference": "Listen slowly",
     "speech_btn_skip": "Skip",
     "speech_listening": "🎧 Listening…",
-    "speech_not_understood": "Could not make it out. Record again — closer to the mic and a bit louder.",
-    "speech_send_voice": "🎤 This question is answered with a voice message. Press and hold the microphone button.",
+    "speech_not_understood": "Couldn't make that out. Please record again — closer to the mic and a little louder.",
+    "speech_send_voice": "🎤 This question needs a voice message. Press and hold the microphone button.",
     "speech_skipped": "Skipped",
     "quiz_result_spoken": "🎤 Spoken: {count}",
 })
@@ -535,10 +535,10 @@ TEXTS.update({
     "home_scale_audio": "I listen",
     "home_scale_speech": "I speak",
     "home_btn_learn": "Learn words",
-    "home_streak": "streak {days} days",
+    "home_streak": "streak {days_word}",
     "home_rank": "rank {rank}",
     "home_hint": "",
-    "home_channel_not_ready": "{channel}: not yet. Only {ready} words are ready, at least {minimum} are needed. Practise with cards — they unlock the other channels.",
+    "home_channel_not_ready": "{channel}: not yet. Words ready: {ready}, at least {minimum} needed. Practise with “I read” cards — they unlock the other games.",
 })
 
 
@@ -574,14 +574,14 @@ TEXTS.update({
     "quiz_btn_one_more": "One more round",
     "home_btn_stats": "More details",
     "notif_off_how_to_return": "To turn it back on: Settings → Bot → Reminders",
-    "reminder_offer": "Remind you once a day? It is easier not to lose what you have learnt — and the streak holds.",
+    "reminder_offer": "Shall I remind you once a day? It makes it easier to keep what you've learnt — and your streak.",
     "reminder_offer_yes": "Yes, remind me",
-    "reminder_offer_no": "No thanks",
-    "reminder_offer_done": "Done. Time and days can be changed in settings.",
-    "level_offer": "You hardly ever get <b>{current}</b> wrong. Move up to <b>{following}</b>? Everything you have learnt stays with you.",
+    "reminder_offer_no": "No, thanks",
+    "reminder_offer_done": "Done. You can change the time and days in settings.",
+    "level_offer": "You rarely make mistakes at <b>{current}</b>. Move up to <b>{following}</b>? Everything you've learnt stays with you.",
     "level_offer_yes": "Yes, move to {following}",
     "level_offer_no": "Stay here",
-    "level_offer_done": "Level <b>{following}</b>. The words will be harder now.",
+    "level_offer_done": "You're now at <b>{following}</b>. The words will be harder.",
 })
 
 
@@ -593,7 +593,7 @@ TEXTS.update({
 # на вопрос, И начинает первый круг — шага не прибавилось.
 # ============================================================================
 TEXTS.update({
-    "goal_question": "What do you need the language for? We will pick words to match.",
+    "goal_question": "What do you need the language for? We'll pick words to match.",
     "goal_work": "For work",
     "goal_travel": "For travel",
     "goal_living": "For living abroad",
@@ -611,9 +611,9 @@ TEXTS.update({
 # «Помощь» среди них, откуда она уехала в настройки.
 # ============================================================================
 TEXTS.update({
-    "intro_games": "A word is learned four ways here: read it, recall it from the meaning, hear it, say it out loud.\nThe lesson mixes them on its own.",
+    "intro_games": "Each word is learned through five games here: read it, recall it from the meaning, hear it, say it out loud and match it on the board.\nEach round mixes them for you.",
     "intro_numbers": "12,902 words · 20 topics · 6 levels\nSix languages in any pair: learn Polish through English if you like.",
-    "intro_menu_settings": "language, round contents, reminders",
+    "intro_menu_settings": "language, round mix, reminders",
     "intro_menu_stats": "your progress",
     "intro_menu_rating": "this month's standings",
     "intro_menu_learn": "a round",
@@ -631,7 +631,7 @@ TEXTS.update({
 TEXTS.update({
     "settings_btn_goal": "Goal",
     "settings_goal_title": "<b>What I need it for</b>",
-    "settings_goal_description": "Words from your topic will come first. Difficulty still follows your level, and what you have learnt keeps coming back for review.",
+    "settings_goal_description": "Words from your topic will come first. Difficulty still follows your level, and what you've learnt keeps coming back for review.",
     "settings_goal_set": "Goal saved",
     "settings_goal_line": "Goal: <b>{goal}</b>",
     "settings_goal_none": "not chosen",
@@ -654,9 +654,9 @@ TEXTS.update({
     "match_hint": "Tap a word on either side, then its pair on the other.",
     "match_wrong": "✗ Not a pair",
     "match_done": "<b>Board cleared!</b>",
-    "match_done_counted": "Counted towards progress: {counted} of {total} — only pairs matched on the first try, and never the last one, which comes with no choice left.",
+    "match_done_counted": "Counted towards progress: {counted} of {total}. Only pairs matched on the first try count, and never the last one: by then there's no choice left.",
     "match_btn_again": "One more board",
-    "match_not_ready": "Not yet: a board needs {need} familiar words and you have {have}. Practise with cards — they unlock it.",
+    "match_not_ready": "Not yet: a board needs {need} familiar words, and you have {have}. Practise with “I read” cards — they unlock it.",
 })
 
 TEXTS["match_back_to_round"] = "Back to the round."
@@ -664,16 +664,17 @@ TEXTS["match_back_to_round"] = "Back to the round."
 TEXTS.update({
     "settings_btn_match": "Board in the round",
     "settings_match_title": "<b>Board in the round</b>",
-    "settings_match_description": "Every other round, a board takes one question's place in the middle: five words and five meanings to pair up. Only familiar words are used.",
-    "match_state_on": "Board is on: it will come mid-round.",
+    "settings_match_description": "In every round, a board takes the place of one question mid-round: five words and five meanings to pair up. It uses only familiar words, so it appears once you have at least ten.",
+    "match_state_on": "The board is on: it comes mid-round.",
     "settings_match_short_on": "with the board",
     "settings_channels_short_one": "“I read” only",
     "settings_channels_short_some": "{count} of four games",
     "settings_channels_short_all": "all four games",
     "plural_words": "word|words",
     "plural_points": "point|points",
+    "plural_days": "day|days",
     "settings_audio_short_off": "no sound",
     "settings_audio_short_on": "with sound",
     "settings_match_short_off": "no board",
-    "match_state_off": "Board is off: the round is questions only.",
+    "match_state_off": "The board is off: the round is questions only.",
 })

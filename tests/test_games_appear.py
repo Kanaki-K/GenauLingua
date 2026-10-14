@@ -95,3 +95,44 @@ async def test_the_recall_button_gives_recall(session, user):
     await _ready(session, user)
     channels = await _round(session, user, prefer=QuizChannel.REVERSE)
     assert channels.count("r") >= 10, f"кнопка «Вспоминаю» дала: {''.join(channels)}"
+
+
+async def test_every_round_has_every_game(session, user):
+    """
+    «Каждая игра включала в себя все виды игр» — владелец, 14 октября.
+
+    Случай, где без чередования речь не наступает: почти все слова знакомы
+    один раз (к речи не готовы), а немногие готовые уже бывали в других
+    играх. Отработка «по наименьшему числу показов» уходила к свежим —
+    первая редакция этого теста, где все слова готовы ко всему, оставалась
+    зелёной и без чередования (проверено поломкой). Здесь место отработки
+    обязано найти слово ПОД игру.
+    """
+    await _ready(session, user, correct=1)
+    rows = (await session.execute(
+        select(UserWord).where(UserWord.user_id == user.id).order_by(UserWord.word_id)
+    )).scalars().all()
+    for row in rows[:6]:
+        row.times_correct = row.times_shown = 3
+        row.shown_reverse = row.shown_audio = row.shown_speech = 1
+    await session.commit()
+
+    channels = await _round(session, user)
+    for game in ("r", "a", "s"):
+        assert game in channels, f"в круге нет игры {game}: {''.join(channels)}"
+
+
+async def test_a_newcomer_round_is_cards(session, user):
+    """Новичку — сперва база: без знакомых слов круг выходит карточками."""
+    for i in range(80):
+        session.add(make_word(f"Haus{i:02d}", level=CEFRLevel.A1, ru=f"дом{i:02d}"))
+    await build_groups(session, ["de"])
+    user.level = CEFRLevel.A1
+    user.quiz_mode = QuizMode.LEVEL
+    user.quiz_word_count = 15
+    user.audio_enabled = True
+    user.quiz_channels = "tasr"
+    await session.commit()
+
+    channels = await _round(session, user)
+    assert set(channels) == {"t"}, f"новичок получил игры раньше базы: {''.join(channels)}"

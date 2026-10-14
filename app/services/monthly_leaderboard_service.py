@@ -1097,7 +1097,7 @@ async def notify_season_awards(
         # вставал «#5» — и строка выходила «#5 Ты в зачёте за октябрь: место
         # 5», номер дважды; ровно этот повтор («🥇 1.») снимали в таблице
         mark = award_mark(award.award_type)
-        month = format_month_name(season.month, lang) if season else ""
+        month = format_month_name(season.month, lang, inline=True) if season else ""
 
         try:
             await bot.send_message(

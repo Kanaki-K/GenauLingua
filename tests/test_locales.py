@@ -22,7 +22,12 @@ GET_TEXT_FSTRING = re.compile(r'get_text\(\s*f["\']([a-zA-Z0-9_{}\.]+)["\']')
 DYNAMIC_KEYS = {
     *(f"lang_{code}" for code in ("ru", "uk", "en", "tr")),
     *(f"langname_{code}" for code in ("de", "en", "ru", "uk", "tr")),
+    # Формы слова «день» берёт сам `get_text` для `{days_word}`
+    "plural_days",
 }
+
+# Параметры, которые `get_text` выводит сам: `{days_word}` — из числа `days`
+DERIVED = {"days_word": "days"}
 
 
 def _app_sources():
@@ -89,6 +94,8 @@ def test_format_parameters_match():
                 if template is None:
                     continue
                 needed = set(placeholder.findall(template))
+                needed = {DERIVED.get(name, name) if DERIVED.get(name) in passed
+                          else name for name in needed}
                 if needed - passed:
                     problems.append(
                         f"{path.name}: {key} [{lang}] не передаётся {sorted(needed - passed)}"
@@ -192,3 +199,18 @@ def test_no_locale_key_is_dead():
     assert not dead, (
         f"строки, которых не показывает никто ({len(dead)}): {dead[:15]}"
     )
+
+
+@pytest.mark.parametrize("lang,one,many", [
+    ("ru", "1 день", "5 дней"), ("uk", "1 день", "5 днів"), ("en", "1 day ", "5 days"),
+    ("de", "1 Tag ", "5 Tage"), ("pl", "1 dzień", "5 dni"), ("tr", "1 gün", "5 gün"),
+])
+def test_day_counts_agree_with_the_number(lang, one, many):
+    """
+    «1 days», «1 Tage», «1 dni» — обход шести языков 14 октября: серия в
+    один день бывает у каждого в первый же день. Форму ставит `get_text`.
+    """
+    from app.locales import get_text
+
+    assert one in get_text("praise_streak", lang, days=1) + " "
+    assert many in get_text("praise_streak", lang, days=5)

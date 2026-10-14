@@ -158,3 +158,23 @@ async def test_choice_button_is_absent_for_the_current_voice(stage, session):
     assert f"voice_use_{current}" not in rec.all_buttons(), (
         "предложено выбрать то, что уже выбрано"
     )
+
+
+def test_voice_names_follow_the_interface_language():
+    """
+    «Voice: Катя» в английском интерфейсе — находка обхода шести языков
+    14 октября. Латинское имя берётся из идентификатора движка.
+    """
+    from app.services.tts_voices import VOICES
+
+    by_name = {v.name: v for group in VOICES.values() for v in group}
+    katja = by_name["de-DE-KatjaNeural"]
+    assert katja.shown("ru") == "Катя"
+    for lang in ("en", "de", "pl", "tr"):
+        assert katja.shown(lang) == "Katja"
+    assert by_name["de-DE-SeraphinaMultilingualNeural"].shown("en") == "Seraphina"
+    assert by_name["uk-UA-PolinaNeural"].shown("uk") == "Поліна"
+    for voice in by_name.values():
+        for lang in ("en", "de", "pl", "tr"):
+            shown = voice.shown(lang)
+            assert shown and not any("А" <= ch <= "я" for ch in shown), (voice.name, lang, shown)

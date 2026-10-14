@@ -420,17 +420,16 @@ def _person(**kwargs):
     return person
 
 
-def test_board_is_offered_every_other_round():
+def test_board_is_offered_every_round():
     """
-    Каждый круг — треть занятия всегда одно и то же. Чётность числа
-    пройденных кругов даёт «через раз» бесплатно и детерминированно.
+    В каждом круге, а не через один: «каждая игра включала в себя все виды
+    игр» — владелец, 14 октября. Прежде шла чётность числа кругов.
     """
     from app.services.match_service import BOARD_SIZE, should_insert_board
 
     plenty = BOARD_SIZE * 2
-    assert should_insert_board(_person(quizzes_passed=0), 15, plenty)
-    assert not should_insert_board(_person(quizzes_passed=1), 15, plenty)
-    assert should_insert_board(_person(quizzes_passed=2), 15, plenty)
+    for passed in range(4):
+        assert should_insert_board(_person(quizzes_passed=passed), 15, plenty)
 
 
 def test_board_needs_twice_its_size_in_words():

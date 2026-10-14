@@ -60,12 +60,23 @@ MONTH_NAMES = {
 }
 
 
-def format_month_name(month: int, lang: str = "ru") -> str:
-    """Название месяца на языке человека. Неизвестный язык — номером."""
+def format_month_name(month: int, lang: str = "ru", *, inline: bool = False) -> str:
+    """
+    Название месяца на языке человека. Неизвестный язык — номером.
+
+    `inline` — месяц ВНУТРИ фразы: «Вы в зачёте за октябрь». По-русски и
+    по-украински он тогда со строчной; с заглавной — только в заголовке
+    («Таблица лидеров — Октябрь 2026»). Прежде везде стояла заглавная, и
+    выходило «за Октябрь». В английском и немецком месяц всегда с
+    заглавной — их не трогаем.
+    """
     names = MONTH_NAMES.get(lang or "")
     if not names or not 1 <= month <= 12:
         return str(month)
-    return names[month - 1]
+    name = names[month - 1]
+    if inline and lang in ("ru", "uk"):
+        return name[:1].lower() + name[1:]
+    return name
 
 
 def create_progress_bar(current: int, target: int, length: int = 10) -> str:

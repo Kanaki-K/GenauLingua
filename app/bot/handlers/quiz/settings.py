@@ -1331,11 +1331,11 @@ def _audio_text(user: User, lang: str, voice_name: str) -> str:
     return "\n".join(lines)
 
 
-def _voice_label(code: str, voice_name: str) -> str:
+def _voice_label(code: str, voice_name: str, lang: str = "ru") -> str:
     """Подпись голоса: имя и пол. Реестр — единственный источник имён."""
     for voice in voices_for(code):
         if voice.name == voice_name:
-            return voice.label
+            return voice.shown(lang)
     return voice_name
 
 
@@ -1365,7 +1365,7 @@ async def settings_audio(callback: CallbackQuery, session: AsyncSession):
         )
 
     await callback.message.edit_text(
-        _audio_text(user, lang, _voice_label(pair.learning, chosen)),
+        _audio_text(user, lang, _voice_label(pair.learning, chosen, lang)),
         reply_markup=InlineKeyboardMarkup(
             inline_keyboard=[[b] for b in buttons] + [_back_row(lang, _PARENT_GROUP["settings_audio"])]
         ),
@@ -1488,7 +1488,7 @@ async def _voices_screen(
                     # одинаково, узнать причину немоты было неоткуда
                     text=("✓ " if v.name == chosen
                           else "🎧 " if v.name == listening else "")
-                         + v.label
+                         + v.shown(lang)
                          + ("" if voice_is_ready(pair.learning, v.name, probes) else " ·"),
                     callback_data=f"audio_voice_{v.name}",
                 )
@@ -1503,7 +1503,7 @@ async def _voices_screen(
     if listening and listening != chosen:
         rows.append([InlineKeyboardButton(
             text=get_text("voice_use", lang,
-                          voice=_voice_label(pair.learning, listening)),
+                          voice=_voice_label(pair.learning, listening, lang)),
             callback_data=f"voice_use_{listening}",
         )])
 
@@ -1566,7 +1566,7 @@ async def audio_voice_use(callback: CallbackQuery, session: AsyncSession):
     await set_voice_for_user(session, user.id, pair.learning, voice_name)
     await session.commit()
 
-    label = _voice_label(pair.learning, voice_name)
+    label = _voice_label(pair.learning, voice_name, lang)
     await callback.answer(get_text("voice_set", lang, voice=label))
     await _show_voices(callback, session)
 
@@ -1589,7 +1589,7 @@ async def audio_voice_preview(callback: CallbackQuery, session: AsyncSession):
         await callback.answer(get_text("voice_preview_failed", lang), show_alert=True)
         return
 
-    label = _voice_label(pair.learning, voice_name)
+    label = _voice_label(pair.learning, voice_name, lang)
     await callback.answer(get_text("voice_listening", lang, voice=label))
     await _show_voices(callback, session, listening=voice_name)
 

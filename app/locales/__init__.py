@@ -42,6 +42,13 @@ def get_text(key: str, lang: Optional[str] = None, **kwargs) -> str:
     if text is None:
         return f"[MISSING: {key}]"
 
+    # ЧИСЛО ДНЕЙ СЛОВОМ — правилом здесь, а не формой в каждой строке.
+    # Обход шести языков 14 октября: «1 days», «1 Tage», «1 dni» — а
+    # серия в 1 день бывает у каждого в первый же день. Строка пишет
+    # `{days_word}`, вызывающий передаёт число `days`, форма — по языку
+    if "{days_word}" in text and "days" in kwargs:
+        kwargs = {**kwargs, "days_word": plural(int(kwargs["days"]), "plural_days", lang)}
+
     try:
         return text.format(**kwargs)
     except KeyError as e:

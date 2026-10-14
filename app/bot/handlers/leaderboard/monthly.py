@@ -76,10 +76,13 @@ def build_monthly_card(user: User, user_rank: dict, season, lang: str) -> str:
     text += get_text("rating_position", lang, rank=rank, total=total_users) + "\n"
     text += get_text("rating_points", lang, score=score) + "\n\n"
 
-    text += get_text("rating_your_month", lang, month=month_name) + "\n"
+    text += get_text(
+        "rating_your_month", lang,
+        month=format_month_name(season.month, lang, inline=True),
+    ) + "\n"
     text += get_text("rating_quizzes", lang, count=quizzes) + "\n"
     text += get_text("rating_words_learned", lang, count=words) + "\n"
-    text += get_text("rating_streak", lang, count=streak) + "\n"
+    text += get_text("rating_streak", lang, days=streak) + "\n"
     text += get_text("rating_avg_result", lang, percent=avg_pct) + "\n"
 
     text += "\n"

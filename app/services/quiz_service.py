@@ -405,7 +405,11 @@ async def count_due_words(
 # Сколько ждать, прежде чем слово, увиденное сегодня, вернётся ДРУГОЙ игрой.
 # Внутри круга повтор и так запрещён (`exclude_ids`), так что пауза нужна
 # только между кругами: только что отвеченное не должно открывать следующий.
-PRACTICE_GAP = timedelta(minutes=10)
+#
+# Три минуты, а не десять: владелец играет круги подряд, и при десяти
+# второй круг, начатый сразу за первым, не находил ни одного слова для
+# отработки — снова одни карточки. Три минуты — это конец прошлого круга.
+PRACTICE_GAP = timedelta(minutes=3)
 
 
 async def get_practice_words(
@@ -467,9 +471,14 @@ async def get_ready_for(
     pair: LanguagePair,
     exclude_ids: list[int],
     user: Optional[User] = None,
+    gap: Optional[timedelta] = None,
 ) -> Optional[Word]:
     """
-    Слово, ДОРОСШЕЕ до этой игры, — для входа одной игрой с главного экрана.
+    Слово, ДОРОСШЕЕ до этой игры: для входа одной игрой с главного экрана и
+    для чередования игр в круге (`_rotation`).
+
+    Слово, которому ПОРА на повтор, идёт первым: отработка в другой игре —
+    лучший способ его повторить. `gap` — не брать только что отвеченное.
 
     Человек нажал 🎤 «Говорю» и ждёт речи. Прежде круг брал следующее слово
     по расписанию, а оно чаще всего новое — и приходило карточкой: порог
@@ -487,11 +496,42 @@ async def get_ready_for(
     query = _progress_join(_usable_words(pair), user_id, pair).where(
         UserWord.times_correct >= CHANNEL_UNLOCK[channel],
     )
+    if gap is not None:
+        query = query.where(UserWord.last_seen_at.isnot(None),
+                            UserWord.last_seen_at < utcnow() - gap)
     query = _exclude(_scoped(query, user, None), exclude_ids)
+    due_first = case((_due_condition(), 0), else_=1)
     rows = await session.execute(
-        query.order_by(shown.asc(), func.random()).limit(1)
+        query.order_by(due_first, shown.asc(), func.random()).limit(1)
     )
     return rows.scalars().first()
+
+
+def _rotation(user: User, exclude_ids: list[int],
+              recent: Optional[list[str]]) -> list[QuizChannel]:
+    """
+    Какие игры попробовать на этом месте круга, по очереди.
+
+    ВСЕ ИГРЫ В КАЖДОМ КРУГЕ — владелец, 14 октября: «а можно чтобы каждая
+    игра включала в себя все виды игр? так же веселее. Кроме понятное дело
+    для новичков». Места отработки (каждое второе, не под новые слова)
+    отдаются той игре, которой в круге было МЕНЬШЕ ВСЕГО, — и под неё
+    ищется слово, к ней готовое. Так «Вспоминаю», «Слушаю» и «Говорю»
+    чередуются, а не выпадают по жребию.
+
+    НОВИЧКА ЭТО НЕ ТРОГАЕТ, и отдельного режима для него не нужно: игра
+    открывается по слову (1 верный — припоминание и слух, 2 — речь), и пока
+    готовых слов нет, круг сам выходит карточками. База набирается — игры
+    подключаются по одной.
+    """
+    position = len(exclude_ids)
+    round_length = getattr(user, "quiz_word_count", None) or DEFAULT_ROUND_LENGTH
+    if position % 2 == 0 or wants_new_word(position, round_length):
+        return []
+    games = [c for c in (QuizChannel.REVERSE, QuizChannel.AUDIO, QuizChannel.SPEECH)
+             if c in enabled_channels(user)]
+    used = recent or []
+    return sorted(games, key=lambda c: (used.count(c.value), games.index(c)))
 
 
 async def get_struggling_words(
@@ -863,12 +903,30 @@ async def generate_question(
         else None
     )
 
+    # Обычный круг: место отработки отдаётся игре, которой было меньше всего
+    rotation = (
+        _rotation(user, exclude_ids, recent_channels)
+        if wanted is None and channel is None
+        and user.quiz_mode != QuizMode.DIFFICULT
+        else []
+    )
+    rotated: Optional[QuizChannel] = None
+
     for _ in range(MEANING_RETRIES):
         candidate = None
+        rotated = None
         if wanted is not None:
             candidate = await get_ready_for(
                 wanted, user.id, session, pair, exclude_ids + skipped, user=user,
             )
+        for game in rotation:
+            candidate = await get_ready_for(
+                game, user.id, session, pair, exclude_ids + skipped,
+                user=user, gap=PRACTICE_GAP,
+            )
+            if candidate is not None:
+                rotated = game
+                break
         if candidate is None and user.quiz_mode == QuizMode.DIFFICULT:
             candidate = await get_difficult_word(
                 user.id, session, pair, exclude_ids + skipped
@@ -899,9 +957,14 @@ async def generate_question(
         # Все подобранные столкнулись по значению: берём первое из них —
         # вопрос лучше, чем его отсутствие
         correct_word = await session.get(Word, skipped[0])
+        rotated = None
 
     if not correct_word:
         return None
+
+    # Слово подобрано ПОД игру — ею и спрашиваем
+    if channel is None and rotated is not None:
+        channel = rotated
 
     if channel is None:
         channel = await pick_channel(
