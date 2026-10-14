@@ -432,3 +432,66 @@ async def test_the_repeat_round_gets_no_praise(session, user, stage):
         f"повтор получил поощрение: {everything[-400:]!r}"
     )
     assert "Баллы: +" not in everything, "повтор показал баллы"
+
+
+# ============================================================================
+# ЗНАК ПОВОДА: один за круг, и только у события
+# ============================================================================
+
+def test_every_event_has_a_mark_and_shift_has_none():
+    """
+    У каждого ПОВОДА есть знак, а у сдвига круга — нет.
+
+    Разница содержательная. Повод редкий: первый круг, рубеж, рекорд серии,
+    первый ответ голосом. Сдвиг бывает почти всегда — новые слова или
+    вернувшиеся есть в каждом втором круге, — и знак, который виден всегда,
+    не отмечает ничего. Ровно по этой причине из бота сняли 68 прежних
+    знаков, и вернуть их тем же путём нельзя.
+    """
+    from app.services import praise_service as ps
+
+    events = {
+        "praise_first_round", "praise_first_learned", "praise_learned",
+        "praise_best_streak", "praise_streak", "praise_milestone",
+        "praise_first_speech", "praise_first_audio", "praise_comeback",
+        "praise_perfect",
+    }
+    shift = {"praise_new_words", "praise_returned"}
+    progress = {"praise_progress", "praise_progress_top", "praise_points"}
+
+    missing = sorted(events - set(ps.PRAISE_MARKS))
+    assert not missing, f"повод без знака: {missing}"
+
+    extra = sorted(set(ps.PRAISE_MARKS) & (shift | progress))
+    assert not extra, f"знак у строки, которая видна всегда: {extra}"
+
+
+def test_praise_block_shows_at_most_one_mark():
+    """
+    За круг человек видит ОДИН знак поощрения, как бы много поводов ни
+    совпало.
+
+    Это и есть мера тепла: «стиль холодный минимализм мне нравится,
+    единственное, что прям очень холодно». Один знак в момент, когда
+    человек закончил работу, — тепло. Три знака в одном блоке — рябь,
+    и мы уже знаем, чем она кончается.
+    """
+    import unicodedata
+
+    from app.services.praise_service import RoundFacts, build_lines
+
+    # Нарочно сходятся сразу несколько поводов: первый круг, выученные
+    # слова, рубеж, идеальная точность и серия
+    facts = RoundFacts(
+        rounds_total=1, answered=15, correct=15, new_words=3,
+        words_in_work=100, words_in_work_before=97,
+        learned_before=0, learned_now=3,
+        streak_days=7, best_streak=3,
+        points=25, returned_right=4, days_away=0,
+        first_audio=True, first_speech=True,
+    )
+    lines = build_lines(facts, "ru")
+    text = "\n".join(lines)
+    marks = [c for c in text
+             if unicodedata.category(c) in ("So", "Sk") and c not in "·→—–…"]
+    assert len(marks) <= 1, f"знаков в блоке {len(marks)}: {text!r}"

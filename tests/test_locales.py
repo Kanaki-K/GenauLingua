@@ -138,3 +138,57 @@ def test_button_texts_cover_all_interface_languages():
     expected = {get_text(BTN_LEARN_WORDS, lang) for lang in LOCALES}
     expected |= set(LEGACY_TEXTS[BTN_LEARN_WORDS])
     assert caught == expected
+
+
+def _dynamic_prefixes() -> set[str]:
+    """
+    Приставки ключей, которые код собирает НА ХОДУ.
+
+    Собираются из самого кода — `f"remind_fact_{n}"`, `"cat_" + value`, —
+    а не выписываются списком: выписанный список отстанет от кода при
+    первой же новой приставке, и честный ключ сочтётся мёртвым.
+    """
+    prefixes: set[str] = set()
+    for path in _app_sources():
+        src = path.read_text(encoding="utf-8")
+        prefixes |= set(re.findall(r'["\']([a-z_]{3,})["\']\s*\+', src))
+        prefixes |= set(re.findall(r'f["\']([a-z_]{3,})\{', src))
+    return prefixes
+
+
+def test_no_locale_key_is_dead():
+    """
+    ОБРАТНАЯ СТОРОНА: в локалях нет строк, которых не показывает никто.
+
+    Проверка `test_every_requested_key_exists` смотрит из кода в локали —
+    и ловит пропажу. Эта смотрит обратно и ловит МУСОР, а он не безобиден:
+
+      экран подробной статистики переписали новыми ключами, а 23 старых
+      остались — `stats_title`, `stats_learned`, `stats_cta_begin`…;
+      экран направления перевода сняли вместе с пятой игрой, а его строки
+      остались — `settings_mode_title`, `mode_de_to_ru` и восемь других;
+      кнопки игр убрали с экрана чисел, а подписи остались.
+
+    Всего таких нашлось 61 ключ — 366 строк в шести языках. Вред не в
+    размере: человек, который придёт править текст бота, будет править
+    строку, которой бот не показывает, и не поймёт, почему ничего не
+    изменилось. Так уже случилось с «+100 за · +50 за» в рейтинге: строка
+    была СЛОМАНА (из неё выпали медали), и никто этого не замечал.
+    """
+    literal = set()
+    for path in _app_sources():
+        src = path.read_text(encoding="utf-8")
+        literal |= set(re.findall(r'["\']([a-zA-Z0-9_]{3,})["\']', src))
+
+    prefixes = _dynamic_prefixes()
+    everything = set().union(*(set(t) for t in LOCALES.values()))
+
+    dead = sorted(
+        key for key in everything
+        if key not in literal
+        and key not in DYNAMIC_KEYS
+        and not any(key.startswith(prefix) for prefix in prefixes)
+    )
+    assert not dead, (
+        f"строки, которых не показывает никто ({len(dead)}): {dead[:15]}"
+    )

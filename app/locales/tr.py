@@ -23,11 +23,7 @@ TEXTS = {
 
 
 
-    "welcome_choose_level": "<b>Nereden başlayalım?</b>\n\nSeviyen — {language}\n\n• A1–A2 — temel kelimeler\n• B1–B2 — güvenli iletişim\n• C1–C2 — ana dil seviyesi",
-    "choose_level_prompt": "Seviye seç:",
 
-    "level_selected": "✓ <b>{level}</b> seviyesi seçildi.\n\n12 902 kelime, altı dil. Haydi on beşle başlayalım.",
-    "level_locked": "Bu seviye yakında geliyor",
 
     # ============================================================================
     # HATIRLATICILAR
@@ -88,7 +84,7 @@ TEXTS = {
 
     "notif_default_name": "arkadaş",
 
-    "anchor_streak": "{days} gün üst üste",
+    "anchor_streak": "🔥 {days}",
     "notif_message_greeting": "<b>Çalışma zamanı, {name}!</b>",
 
 
@@ -109,27 +105,21 @@ TEXTS = {
     # AYARLAR
     # ============================================================================
     "settings_title": "<b>Ayarlar</b>",
-    "settings_level": "Seviye: <b>{level}</b>",
     "settings_mode": "Yön: <b>{mode}</b>",
     "settings_language": "Bot dili: <b>{language}</b>",
-    "settings_choose": "Ne değiştirmek istediğini seç:",
 
     "settings_btn_quiz_mode": "Seviye ve konular",
-    "settings_btn_change_mode": "Yön",
     "settings_btn_change_language": "Arayüz dili",
     "settings_btn_notifications": "Hatırlatıcılar",
 
     "settings_quiz_mode_line": "Seviye: <b>{mode}</b>",
 
-    "settings_mode_title": "<b>Çeviri modu</b>",
-    "settings_mode_description": "Çeviri yönünü seç:",
 
     "settings_language_title": "<b>Arayüz dili</b>",
     "settings_language_description": "Bot arayüz dilini seç:",
     "start_pick_language": "Dil seç",
 
     "language_changed": "✓ Dil {language} olarak değiştirildi",
-    "level_not_selected": "Seçilmedi",
     "user_not_found": "✗ Kullanıcı bulunamadı. /start kullan",
 
     "lang_ru": "Русский",
@@ -139,14 +129,6 @@ TEXTS = {
     "lang_de": "Deutsch",
     "lang_pl": "Polski",
 
-    "mode_de_to_ru": "DE → RU",
-    "mode_ru_to_de": "RU → DE",
-    "mode_de_to_uk": "DE → UK",
-    "mode_uk_to_de": "UK → DE",
-    "mode_de_to_en": "DE → EN",
-    "mode_en_to_de": "EN → DE",
-    "mode_de_to_tr": "DE → TR",
-    "mode_tr_to_de": "TR → DE",
 
 
     # ============================================================================
@@ -213,7 +195,6 @@ TEXTS = {
     "report_daily_limit": "Bugünkü rapor limiti doldu (maks. 20)",
     "report_all_reported": "✓ Bu testdeki tüm kelimeler zaten raporlandı",
     "report_already_sent": "✓ Zaten raporlandı",
-    "report_kind_title": "Tam olarak ne yanlış?",
     "report_btn_kind_text": "Hatalı çeviri",
     "report_btn_kind_audio": "Hatalı telaffuz",
     "report_sent_audio": "✓ {count} gönderildi — teşekkürler!\nTelaffuz bildirimleri özellikle değerli: otomatik kontrol vurguyu duymaz\nOnaylanırsa — +{points} puan",
@@ -228,8 +209,6 @@ TEXTS = {
     "quiz_no_words": "✗ Üzgünüz, bu seviye için henüz kelime yok.\nBaşka bir seviye seçmeyi dene.",
 
     "quiz_question_number": "{current} / {total}",
-    "quiz_question_choose_word": "Doğru kelimeyi seç:",
-    "quiz_question_choose_translation": "Doğru çeviriyi seç:",
 
     "quiz_correct": "✓ <b>Doğru</b>",
     "quiz_wrong": "✗ <b>Yanlış</b>",
@@ -262,7 +241,6 @@ TEXTS = {
     "praise_points": "Puan: +{points}",
 
     "quiz_repeat_title": "<b>Hataları tekrarla</b>",
-    "quiz_repeat_question": "Tekrar {current}/{total}",
     "quiz_no_errors": "✓ Hiç hatan yoktu!",
     "quiz_error_next": "✗ Sonraki soru yüklenemedi.",
     "quiz_error_generate": "✗ Sonraki soru oluşturulamadı.",
@@ -270,27 +248,11 @@ TEXTS = {
     # ============================================================================
     # İSTATİSTİK
     # ============================================================================
-    "stats_title": "<b>İstatistik</b>",
     "stats_no_level": "<b>Önce seviyeni seç!</b>\n\nBaşlamak için /start kullan.",
 
-    "stats_all_words": "Tüm kelimeler ({count})",
-    "stats_learned": "✓ Öğrenildi: {count}",
-    "stats_in_progress": "Devam ediyor: {count}",
-    "stats_new": "Yeni: {count}",
-    "stats_difficult": "✗ Zor: {count}",
 
-    "stats_level_title": "Seviye {level} · {mode} ({count} kelime)",
-    "stats_quizzes_title": "<b>Testler (seviye {level}):</b>",
-    "stats_quizzes_passed": "Tamamlanan: {count}",
-    "stats_quizzes_avg": "Ortalama sonuç: {percentage}%",
-    "stats_quizzes_best": "En iyi sonuç: {percentage}%",
-    "stats_quizzes_none": "Bu seviyede henüz test çözmedin.",
 
-    "stats_activity_title": "<b>Aktivite:</b>",
-    "stats_streak": "Seri: <b>{days}</b> gün üst üste",
 
-    "stats_recent_title": "<b>Son testler:</b>",
-    "stats_learned_explanation": "<b>Öğrenildi</b> — üst üste 3 doğru cevap, ve kelimeyle tanıştığın gün değil",
 
     # ============================================================================
     # YARDIM
@@ -377,7 +339,6 @@ Topluluk ne kadar aktif olursa — bot o kadar iyi olur. Çekinme! """,
     "rating_words_learned": "Öğrenilen kelimeler: {count}",
     "rating_streak": "Seri: {count} gün",
     "rating_avg_result": "Ortalama sonuç: {percent}%",
-    "rating_goal": "#{rank} ({name}) için: {diff} puan daha",
     "rating_scoring_title": "<b>Puan nasıl kazanılır:</b>",
     "rating_scoring_quiz": "• Tamamlanan test → +10",
     "rating_scoring_reverse": "• Ters mod → +5",
@@ -395,8 +356,6 @@ Topluluk ne kadar aktif olursa — bot o kadar iyi olur. Çekinme! """,
     "rating_motivation_start": "Kelime öğrenmeye başla — ilk adım en önemlisi!",
     "rating_motivation_continue": "Devam et — ilk galibiyet yakın!",
     "rating_motivation_champion": "Gerçek bir şampiyonsun!",
-    "rating_lifetime_title": "<b>Lifetime puanlar:</b>",
-    "rating_lifetime_desc": "• Tüm aylardan toplam puanlar\n• için +100 · için +50 · için +25",
 
     "table_title_monthly": "<b>Liderlik Tablosu — {month} {year}</b>",
     "table_title_alltime": "<b>Liderlik Tablosu — Tüm Zamanlar</b>",
@@ -410,7 +369,6 @@ Topluluk ne kadar aktif olursa — bot o kadar iyi olur. Çekinme! """,
     "btn_back_to_rating": "Sıralamaya geri dön",
 
     "stats_header": "<b>İstatistiklerin</b>",
-    "stats_learned_of": "Öğrenildi <b>{learned}</b> / {total}",
     "stats_in_work_line": "Çalışmada: {count} · {target} eşiğine {left} kaldı",
     "stats_in_work_top": "Çalışmada: {count} kelime",
     "stats_details": "Devam eden: {progress}\nYeni: {new}\nZor: {difficult}",
@@ -426,12 +384,7 @@ Topluluk ne kadar aktif olursa — bot o kadar iyi olur. Çekinme! """,
     "stats_recent_header": "<b>Son testler</b>",
     "stats_overall_header": "<b>Genel ilerleme</b>",
     "stats_overall_learned": "Öğrenildi <b>{learned}</b> / {total} kelime",
-    "stats_cta_start": "Kelime öğrenmeye başla — ilk adım en önemlisi!",
-    "stats_cta_begin": "Harika başlangıç! Devam et!",
-    "stats_cta_halfway": "Yarı yoldasın! Durma!",
-    "stats_cta_almost": "Neredeyse hedefe ulaştın! Harikasın!",
     "stats_explanation": "Kelime öğrenildi = farklı günlerde üst üste üç doğru yanıt",
-    "stats_btn_rating": "Sıralamam",
 }
 
 # ============================================================================
@@ -493,8 +446,6 @@ TEXTS.update({
     "friend_fallback": "dostum",
     "onboarding_learning_title": "<b>Hangi dili öğreneceksin?</b>",
     "onboarding_learning_desc": "Kelimelerin anlamı şu dilde gösterilecek: {native}\nDili ve yönü ayarlardan istediğin zaman değiştirebilirsin.",
-    "mode_hint_forward": "{learning} → {native} daha kolay: anlamı mantıkla bulursun",
-    "mode_hint_reverse": "{native} → {learning} daha zor: kelimeleri daha iyi pekiştirir",
 })
 
 
@@ -558,7 +509,6 @@ TEXTS.update({
 # не имея возможности узнать причину: все голоса выглядели одинаково.
 # ============================================================================
 TEXTS.update({
-    "voice_not_ready_hint": "<i>· sesin yanındaysa henüz tamamı kaydedilmemiş: kelime anlık sentezlenir, bazen gecikmeli ya da sessiz gelir</i>",
 })
 
 
@@ -586,18 +536,14 @@ TEXTS.update({
     "settings_channels_line": "Ders: <b>{channels}</b>",
     "channels_title": "<b>Ders karışımı</b>",
     "channels_description": "Hangi sorular sorulsun. Kanal ne kadar çoksa kelime o kadar iyi yerleşir: gözle tanımak, kulakla tanımak ve söylemek üç ayrı beceridir.",
-    "channel_text": "Kart",
-    "channel_audio": "🎧 Kulakla",
+    "channel_text": "📖 Kart",
+    "channel_audio": "🎧 Dinleme",
     "channel_speech": "🎤 Konuşma",
-    "channels_reverse_about": "Anlam verilir, kelimeyi sen seçersin.",
     "quiz_result_recalled": "← Hatırlanan: {count}",
-    "home_btn_reverse": "Hatırla",
     "home_scale_reverse": "Hatırlıyorum",
-    "channel_reverse": "Kelimeyi hatırla",
+    "channel_reverse": "💭 Kelimeyi hatırla",
     "channels_text_always": "Kart kapatılamaz: tek kanalı olmayan ders boş ekran demektir.",
     "channels_audio_blocked": "🎧 Kulakla kullanılamıyor: seslendirme kapalı.",
-    "channels_speech_soon": "🎤 Konuşma yakında geliyor.",
-    "channels_need_one": "En az bir kanal açık kalmalı",
 })
 
 
@@ -613,7 +559,6 @@ TEXTS.update({
     "speech_btn_reference": "Dinle",
     "speech_btn_skip": "Atla",
     "speech_listening": "🎧 Dinliyorum…",
-    "speech_heard": "Duydum: <i>{heard}</i>",
     "speech_not_understood": "Anlayamadım. Tekrar kaydet — mikrofona yakın ve biraz daha yüksek sesle.",
     "speech_send_voice": "🎤 Bu soru sesli mesajla cevaplanır. Mikrofon düğmesine basılı tut.",
     "speech_skipped": "Atlandı",
@@ -712,9 +657,6 @@ TEXTS.update({
     "intro_menu_rating": "ayın sıralaması",
     "intro_menu_learn": "bir tur",
     "intro_menu_title": "Ne nerede:",
-    "intro_where_you_are": "Şu anda: <b>{language}</b> · {mode}",
-    "intro_btn_progress": "İlerleme",
-    "settings_title_short": "Ayarlar",
 })
 
 
@@ -754,11 +696,6 @@ TEXTS.update({
     "match_done_counted": "İlerlemeye sayılan: {total} içinden {counted} — yalnızca ilk denemede eşleşenler, son eşleşme ise hiç sayılmaz: orada seçenek kalmıyor.",
     "match_btn_again": "Bir tahta daha",
     "match_not_ready": "Henüz erken: tahta için {need} bildik kelime gerek, sende {have} var. Kartlarla çalış — tahtayı onlar açıyor.",
-    "home_btn_match": "Eşleri bul",
-    "home_btn_text": "Oku",
-    "home_btn_audio": "🎧 Dinle",
-    "home_btn_speech": "🎤 Konuş",
-    "home_btn_details": "Ayrıntılar",
 })
 
 TEXTS["match_back_to_round"] = "Tura dönüyoruz."

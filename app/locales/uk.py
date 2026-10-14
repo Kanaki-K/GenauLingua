@@ -23,11 +23,7 @@ TEXTS = {
 
 
 
-    "welcome_choose_level": "<b>З чого почнемо?</b>\n\nТвій рівень — {language}\n\n• A1–A2 — базова лексика\n• B1–B2 — впевнене спілкування\n• C1–C2 — вільне володіння",
-    "choose_level_prompt": "Обери рівень:",
 
-    "level_selected": "✓ Рівень <b>{level}</b> обрано.\n\n12 902 слова, шість мов. Почнімо з п'ятнадцяти.",
-    "level_locked": "Цей рівень поки в розробці",
 
     # ============================================================================
     # НАГАДУВАННЯ
@@ -88,7 +84,7 @@ TEXTS = {
 
     "notif_default_name": "друже",
 
-    "anchor_streak": "{days} дн. підряд",
+    "anchor_streak": "🔥 {days}",
     "notif_message_greeting": "<b>Час практики, {name}!</b>",
 
 
@@ -109,27 +105,21 @@ TEXTS = {
     # НАЛАШТУВАННЯ
     # ============================================================================
     "settings_title": "<b>Налаштування</b>",
-    "settings_level": "Рівень: <b>{level}</b>",
     "settings_mode": "Напрямок: <b>{mode}</b>",
     "settings_language": "Мова бота: <b>{language}</b>",
-    "settings_choose": "Обери, що хочеш змінити:",
 
     "settings_btn_quiz_mode": "Рівень і теми",
-    "settings_btn_change_mode": "Напрямок",
     "settings_btn_change_language": "Мова інтерфейсу",
     "settings_btn_notifications": "Нагадування",
 
     "settings_quiz_mode_line": "Рівень: <b>{mode}</b>",
 
-    "settings_mode_title": "<b>Режим перекладу</b>",
-    "settings_mode_description": "Обери напрямок перекладу:",
 
     "settings_language_title": "<b>Мова інтерфейсу</b>",
     "settings_language_description": "Обери мову інтерфейсу бота:",
     "start_pick_language": "Обери мову бота",
 
     "language_changed": "✓ Мову змінено на {language}",
-    "level_not_selected": "Не обрано",
     "user_not_found": "✗ Користувача не знайдено. Використай /start",
 
     "lang_ru": "Русский",
@@ -139,14 +129,6 @@ TEXTS = {
     "lang_de": "Deutsch",
     "lang_pl": "Polski",
 
-    "mode_de_to_ru": "DE → RU",
-    "mode_ru_to_de": "RU → DE",
-    "mode_de_to_uk": "DE → UK",
-    "mode_uk_to_de": "UK → DE",
-    "mode_de_to_en": "DE → EN",
-    "mode_en_to_de": "EN → DE",
-    "mode_de_to_tr": "DE → TR",
-    "mode_tr_to_de": "TR → DE",
 
     # ============================================================================
     # РЕЖИМ ВІКТОРИНИ (НОВЕ)
@@ -212,7 +194,6 @@ TEXTS = {
     "report_daily_limit": "Ліміт репортів на сьогодні вичерпано (макс. 20)",
     "report_all_reported": "✓ Усі слова з цієї вікторини вже зарепорчені",
     "report_already_sent": "✓ Вже відправлено раніше",
-    "report_kind_title": "Що саме не так?",
     "report_btn_kind_text": "Невірний переклад",
     "report_btn_kind_audio": "Невірна вимова",
     "report_sent_audio": "✓ Надіслано {count} — дякую!\nСкарги на вимову особливо цінні: машинна перевірка наголос не чує\nЯкщо підтвердиться — +{points} балів",
@@ -227,8 +208,6 @@ TEXTS = {
     "quiz_no_words": "✗ На жаль, для цього рівня поки немає слів.\nСпробуй обрати інший рівень.",
 
     "quiz_question_number": "{current} / {total}",
-    "quiz_question_choose_word": "Обери правильне слово:",
-    "quiz_question_choose_translation": "Обери правильний переклад:",
 
     "quiz_correct": "✓ <b>Правильно</b>",
     "quiz_wrong": "✗ <b>Неправильно</b>",
@@ -261,7 +240,6 @@ TEXTS = {
     "praise_points": "Бали: +{points}",
 
     "quiz_repeat_title": "<b>Повтор помилок</b>",
-    "quiz_repeat_question": "Повтор {current}/{total}",
     "quiz_no_errors": "✓ У тебе не було помилок!",
     "quiz_error_next": "✗ Не вдалося завантажити наступне запитання.",
     "quiz_error_generate": "✗ Не вдалося згенерувати наступне запитання.",
@@ -269,27 +247,11 @@ TEXTS = {
     # ============================================================================
     # СТАТИСТИКА
     # ============================================================================
-    "stats_title": "<b>Статистика</b>",
     "stats_no_level": "<b>Спочатку обери рівень!</b>\n\nВикористай команду /start щоб почати.",
 
-    "stats_all_words": "Вся база ({count} слово|слова|слів)",
-    "stats_learned": "✓ Вивчено: {count}",
-    "stats_in_progress": "В процесі: {count}",
-    "stats_new": "Нових: {count}",
-    "stats_difficult": "✗ Складні: {count}",
 
-    "stats_level_title": "Рівень {level} · {mode} ({count} слово|слова|слів)",
-    "stats_quizzes_title": "<b>Вікторини (рівень {level}):</b>",
-    "stats_quizzes_passed": "Пройдено: {count}",
-    "stats_quizzes_avg": "Середній результат: {percentage}%",
-    "stats_quizzes_best": "Найкращий результат: {percentage}%",
-    "stats_quizzes_none": "Ти ще не проходив вікторини на цьому рівні.",
 
-    "stats_activity_title": "<b>Активність:</b>",
-    "stats_streak": "Стрік: <b>{days}</b> днів поспіль",
 
-    "stats_recent_title": "<b>Останні вікторини:</b>",
-    "stats_learned_explanation": "<b>Вивчено</b> — 3 правильні відповіді підряд, і не в день знайомства зі словом",
 
     # ============================================================================
     # ДОПОМОГА
@@ -376,7 +338,6 @@ TEXTS = {
     "rating_words_learned": "Вивчено слів: {count}",
     "rating_streak": "Стрік: {count} дн.",
     "rating_avg_result": "Середній результат: {percent}%",
-    "rating_goal": "До #{rank} ({name}): ще {diff} балів",
     "rating_scoring_title": "<b>Як заробити бали:</b>",
     "rating_scoring_quiz": "• Пройдена вікторина → +10",
     "rating_scoring_reverse": "• Режим «Реверс» → +5",
@@ -394,8 +355,6 @@ TEXTS = {
     "rating_motivation_start": "Почни вчити слова — перший крок найважливіший!",
     "rating_motivation_continue": "Продовжуй — перша перемога вже близько!",
     "rating_motivation_champion": "Ти справжній чемпіон!",
-    "rating_lifetime_title": "<b>Lifetime бали — це:</b>",
-    "rating_lifetime_desc": "• Всі бали за всі місяці\n• +100 за · +50 за · +25 за",
 
     "table_title_monthly": "<b>Таблиця лідерів — {month} {year}</b>",
     "table_title_alltime": "<b>Таблиця лідерів — За весь час</b>",
@@ -410,7 +369,6 @@ TEXTS = {
 
     # СТАТИСТИКА
     "stats_header": "<b>Твоя статистика</b>",
-    "stats_learned_of": "Вивчено <b>{learned}</b> з {total}",
     "stats_in_work_line": "Слів у роботі: {count} · до {target} ще {left}",
     "stats_in_work_top": "Слів у роботі: {count}",
     "stats_details": "В процесі: {progress}\nНових: {new}\nСкладних: {difficult}",
@@ -426,12 +384,7 @@ TEXTS = {
     "stats_recent_header": "<b>Останні вікторини</b>",
     "stats_overall_header": "<b>Загальний прогрес</b>",
     "stats_overall_learned": "Вивчено <b>{learned}</b> з {total} слів",
-    "stats_cta_start": "Почни вчити слова — перший крок найважливіший!",
-    "stats_cta_begin": "Чудовий початок! Продовжуй так само!",
-    "stats_cta_halfway": "Ти на півдорозі! Не зупиняйся!",
-    "stats_cta_almost": "Майже біля мети! Молодець!",
     "stats_explanation": "Слово вивчено = три правильні відповіді підряд у різні дні",
-    "stats_btn_rating": "Мій рейтинг",
 }
 
 # ============================================================================
@@ -493,8 +446,6 @@ TEXTS.update({
     "friend_fallback": "друже",
     "onboarding_learning_title": "<b>Яку мову вивчатимеш?</b>",
     "onboarding_learning_desc": "Значення слів показуватимуться цією мовою: {native}\nЗмінити мову й напрямок можна в налаштуваннях будь-коли.",
-    "mode_hint_forward": "{learning} → {native} легше: значення підказує логіка",
-    "mode_hint_reverse": "{native} → {learning} складніше: краще закріплює слова",
 })
 
 
@@ -558,7 +509,6 @@ TEXTS.update({
 # не имея возможности узнать причину: все голоса выглядели одинаково.
 # ============================================================================
 TEXTS.update({
-    "voice_not_ready_hint": "<i>· біля голосу — він ще не записаний повністю: слово синтезуватиметься на льоту, іноді із затримкою або без звуку</i>",
 })
 
 
@@ -586,18 +536,14 @@ TEXTS.update({
     "settings_channels_line": "Заняття: <b>{channels}</b>",
     "channels_title": "<b>Склад заняття</b>",
     "channels_description": "Які питання ставити. Що більше каналів, то міцніше запам'ятовується слово: упізнати його очима, на слух і вголос — три різні навички.",
-    "channel_text": "Картка",
+    "channel_text": "📖 Картка",
     "channel_audio": "🎧 На слух",
     "channel_speech": "🎤 Мовлення",
-    "channels_reverse_about": "Значення дано — обрати слово.",
     "quiz_result_recalled": "← Згадав: {count}",
-    "home_btn_reverse": "Згадати",
     "home_scale_reverse": "Згадую",
-    "channel_reverse": "Згадати слово",
+    "channel_reverse": "💭 Згадати слово",
     "channels_text_always": "Картка не вимикається: заняття без жодного каналу — порожній екран.",
     "channels_audio_blocked": "🎧 На слух недоступно: вимкнено озвучення.",
-    "channels_speech_soon": "🎤 Мовлення скоро з'явиться.",
-    "channels_need_one": "Має лишитися хоча б один канал",
 })
 
 
@@ -613,7 +559,6 @@ TEXTS.update({
     "speech_btn_reference": "Послухати",
     "speech_btn_skip": "Пропустити",
     "speech_listening": "🎧 Слухаю…",
-    "speech_heard": "Почув: <i>{heard}</i>",
     "speech_not_understood": "Не розібрав. Запиши ще раз — ближче до мікрофона і трохи гучніше.",
     "speech_send_voice": "🎤 Відповідь на це питання — голосове повідомлення. Натисни й утримуй кнопку мікрофона.",
     "speech_skipped": "Пропущено",
@@ -712,9 +657,6 @@ TEXTS.update({
     "intro_menu_rating": "залік місяця",
     "intro_menu_learn": "заняття",
     "intro_menu_title": "Що де:",
-    "intro_where_you_are": "Зараз: <b>{language}</b> · {mode}",
-    "intro_btn_progress": "Прогрес",
-    "settings_title_short": "Налаштування",
 })
 
 
@@ -754,11 +696,6 @@ TEXTS.update({
     "match_done_counted": "У прогрес зараховано {counted} з {total}: лише ті пари, що зійшлися з першої спроби, і крім останньої — вона дістається без вибору.",
     "match_btn_again": "Ще дошка",
     "match_not_ready": "Поки рано: для дошки потрібно {need} знайомих слів, а їх {have}. Повчи карточками — вони й відкриють дошку.",
-    "home_btn_match": "Знайди пари",
-    "home_btn_text": "Читати",
-    "home_btn_audio": "🎧 Слухати",
-    "home_btn_speech": "🎤 Говорити",
-    "home_btn_details": "Докладніше",
 })
 
 TEXTS["match_back_to_round"] = "Повертаємося до кола."

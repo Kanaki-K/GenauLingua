@@ -178,6 +178,37 @@ def progress_line(facts: RoundFacts) -> tuple[str, dict]:
     }
 
 
+# ОДИН ЗНАК НА ПОВОД — и за круг человек видит ровно один.
+#
+# Владелец о внешности бота: «стиль холодный минимализм мне нравится.
+# Единственное, что прям очень холодно». Конец круга — то самое место, где
+# теплу место: человек только что закончил работу, и это единственный
+# момент, который стоит отметить. А повод за круг выбирается ОДИН (по
+# редкости, см. `pick_event`), значит и знак будет один — не рябь.
+#
+# Знаки не нарисованы наугад: 🔥 у серии узнаётся без объяснений, 🎯 —
+# взятый рубеж, ⭐ — выученное слово, ✨ — редкий случай вроде первого
+# круга или круга без ошибок. У первого ответа голосом и на слух знак
+# ТОТ ЖЕ, что у самих игр (🎤 и 🎧): человек уже видел его в вопросе, и
+# второй знак про то же был бы новым словом для знакомой вещи.
+# У СДВИГА КРУГА ЗНАКА НЕТ НАРОЧНО (`praise_new_words`, `praise_returned`).
+# Это не событие, а то, что бывает почти всегда: новые слова или
+# вернувшиеся есть в каждом втором круге. Знак, который виден всегда, не
+# отмечает ничего — ровно по этой причине мы и сняли 68 прежних.
+PRAISE_MARKS = {
+    "praise_first_round": "✨",
+    "praise_first_learned": "⭐",
+    "praise_learned": "⭐",
+    "praise_best_streak": "🔥",
+    "praise_streak": "🔥",
+    "praise_milestone": "🎯",
+    "praise_first_speech": "🎤",
+    "praise_first_audio": "🎧",
+    "praise_comeback": "✨",
+    "praise_perfect": "✨",
+}
+
+
 def build_lines(facts: RoundFacts, lang: Optional[str]) -> list[str]:
     """
     Готовый блок поощрения: похвала, прогресс, баллы.
@@ -193,7 +224,9 @@ def build_lines(facts: RoundFacts, lang: Optional[str]) -> list[str]:
     chosen = pick_event(facts) or pick_shift(facts)
     if chosen:
         key, params = chosen
-        lines.append(get_text(key, lang, **params))
+        mark = PRAISE_MARKS.get(key)
+        text = get_text(key, lang, **params)
+        lines.append(f"{mark} {text}" if mark else text)
 
     key, params = progress_line(facts)
     lines.append(get_text(key, lang, **params))

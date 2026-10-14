@@ -23,14 +23,10 @@ TEXTS = {
 
 
 
-    "welcome_choose_level": "<b>С чего начнём?</b>\n\nТвой уровень — {language}\n\n• A1–A2 — базовая лексика\n• B1–B2 — уверенное общение\n• C1–C2 — свободное владение",
-    "choose_level_prompt": "Выбери уровень:",
 
     # Текст больше НЕ ОБЪЯСНЯЕТ, какую кнопку нажать: кнопка теперь стоит
     # прямо под ним. Прежняя редакция отправляла человека искать клавиатуру
     # внизу, и это был тупик, в котором терялись 24 человека из 233.
-    "level_selected": "✓ Уровень <b>{level}</b> выбран.\n\n12 902 слова, шесть языков. Начнём с пятнадцати.",
-    "level_locked": "Этот уровень пока в разработке",
 
     # ============================================================================
     # НАПОМИНАНИЯ
@@ -91,7 +87,7 @@ TEXTS = {
 
     "notif_default_name": "друг",
 
-    "anchor_streak": "{days} дн. подряд",
+    "anchor_streak": "🔥 {days}",
     "notif_message_greeting": "<b>Время практики, {name}!</b>",
 
 
@@ -112,27 +108,21 @@ TEXTS = {
     # НАСТРОЙКИ
     # ============================================================================
     "settings_title": "<b>Настройки</b>",
-    "settings_level": "Уровень: <b>{level}</b>",
     "settings_mode": "Направление: <b>{mode}</b>",
     "settings_language": "Язык бота: <b>{language}</b>",
-    "settings_choose": "Выбери, что хочешь изменить:",
 
     "settings_btn_quiz_mode": "Уровень и темы",
-    "settings_btn_change_mode": "Направление",
     "settings_btn_change_language": "Язык интерфейса",
     "settings_btn_notifications": "Напоминания",
 
     "settings_quiz_mode_line": "Уровень: <b>{mode}</b>",
 
-    "settings_mode_title": "<b>Режим перевода</b>",
-    "settings_mode_description": "Выбери направление перевода:",
 
     "settings_language_title": "<b>Язык интерфейса</b>",
     "settings_language_description": "Выбери язык интерфейса бота:",
     "start_pick_language": "Выбери язык бота",
 
     "language_changed": "✓ Язык изменён на {language}",
-    "level_not_selected": "Не выбран",
     "user_not_found": "✗ Пользователь не найден. Используй /start",
 
     # Названия языков
@@ -144,14 +134,6 @@ TEXTS = {
     "lang_pl": "Polski",
 
     # Режимы перевода
-    "mode_de_to_ru": "DE → RU",
-    "mode_ru_to_de": "RU → DE",
-    "mode_de_to_uk": "DE → UK",
-    "mode_uk_to_de": "UK → DE",
-    "mode_de_to_en": "DE → EN",
-    "mode_en_to_de": "EN → DE",
-    "mode_de_to_tr": "DE → TR",
-    "mode_tr_to_de": "TR → DE",
 
     # ============================================================================
     # РЕЖИМ ВИКТОРИНЫ (НОВОЕ)
@@ -217,7 +199,6 @@ TEXTS = {
     "report_daily_limit": "Лимит репортов на сегодня исчерпан (макс. 20)",
     "report_all_reported": "✓ Все слова из этой викторины уже зарепорчены",
     "report_already_sent": "✓ Уже отправлено ранее",
-    "report_kind_title": "Что именно не так?",
     "report_btn_kind_text": "Неверный перевод",
     "report_btn_kind_audio": "Неверное произношение",
     "report_sent_audio": "✓ Отправлено {count} — спасибо!\nЖалобы на произношение особенно ценны: машинная проверка ударение не слышит\nЕсли подтвердится — +{points} баллов",
@@ -232,8 +213,6 @@ TEXTS = {
     "quiz_no_words": "✗ К сожалению, для этого уровня пока нет слов.\nПопробуй выбрать другой уровень.",
 
     "quiz_question_number": "{current} / {total}",
-    "quiz_question_choose_word": "Выбери правильное слово:",
-    "quiz_question_choose_translation": "Выбери правильный перевод:",
 
     "quiz_correct": "✓ <b>Верно</b>",
     "quiz_wrong": "✗ <b>Неверно</b>",
@@ -266,7 +245,6 @@ TEXTS = {
     "praise_points": "Баллы: +{points}",
 
     "quiz_repeat_title": "<b>Повтор ошибок</b>",
-    "quiz_repeat_question": "Повтор {current}/{total}",
     "quiz_no_errors": "✓ У тебя не было ошибок!",
     "quiz_error_next": "✗ Не удалось загрузить следующий вопрос.",
     "quiz_error_generate": "✗ Не удалось сгенерировать следующий вопрос.",
@@ -274,27 +252,11 @@ TEXTS = {
     # ============================================================================
     # СТАТИСТИКА
     # ============================================================================
-    "stats_title": "<b>Статистика</b>",
     "stats_no_level": "<b>Сначала выбери уровень!</b>\n\nИспользуй команду /start чтобы начать.",
 
-    "stats_all_words": "Вся база ({count} слово|слова|слов)",
-    "stats_learned": "✓ Выучено: {count}",
-    "stats_in_progress": "В процессе: {count}",
-    "stats_new": "Новых: {count}",
-    "stats_difficult": "✗ Сложные: {count}",
 
-    "stats_level_title": "Уровень {level} · {mode} ({count} слово|слова|слов)",
-    "stats_quizzes_title": "<b>Викторины (уровень {level}):</b>",
-    "stats_quizzes_passed": "Пройдено: {count}",
-    "stats_quizzes_avg": "Средний результат: {percentage}%",
-    "stats_quizzes_best": "Лучший результат: {percentage}%",
-    "stats_quizzes_none": "Ты ещё не проходил викторины на этом уровне.",
 
-    "stats_activity_title": "<b>Активность:</b>",
-    "stats_streak": "Стрик: <b>{days}</b> дней подряд",
 
-    "stats_recent_title": "<b>Последние викторины:</b>",
-    "stats_learned_explanation": "<b>Выучено</b> — 3 правильных ответа подряд, и не в день знакомства со словом",
 
     # ============================================================================
     # ПОМОЩЬ
@@ -382,7 +344,6 @@ TEXTS = {
     "rating_words_learned": "Выучено слов: {count}",
     "rating_streak": "Стрик: {count} дн.",
     "rating_avg_result": "Средний результат: {percent}%",
-    "rating_goal": "До #{rank} ({name}): ещё {diff} баллов",
     "rating_scoring_title": "<b>Как заработать баллы:</b>",
     "rating_scoring_quiz": "• Пройденная викторина → +10",
     "rating_scoring_reverse": "• Режим «Реверс» → +5",
@@ -400,8 +361,6 @@ TEXTS = {
     "rating_motivation_start": "Начни учить слова — первый шаг самый важный!",
     "rating_motivation_continue": "Продолжай — первая победа уже близко!",
     "rating_motivation_champion": "Ты настоящий чемпион!",
-    "rating_lifetime_title": "<b>Lifetime баллы — это:</b>",
-    "rating_lifetime_desc": "• Все баллы за все месяцы\n• +100 за · +50 за · +25 за",
 
     "table_title_monthly": "<b>Таблица лидеров — {month} {year}</b>",
     "table_title_alltime": "<b>Таблица лидеров — За всё время</b>",
@@ -418,7 +377,6 @@ TEXTS = {
     # СТАТИСТИКА (НОВАЯ)
     # ============================================================================
     "stats_header": "<b>Твоя статистика</b>",
-    "stats_learned_of": "Выучено <b>{learned}</b> из {total}",
     "stats_in_work_line": "Слов в работе: {count} · до {target} ещё {left}",
     "stats_in_work_top": "Слов в работе: {count}",
     "stats_details": "В процессе: {progress}\nНовых: {new}\nСложных: {difficult}",
@@ -434,12 +392,7 @@ TEXTS = {
     "stats_recent_header": "<b>Последние викторины</b>",
     "stats_overall_header": "<b>Общий прогресс</b>",
     "stats_overall_learned": "Выучено <b>{learned}</b> из {total} слов",
-    "stats_cta_start": "Начни учить слова — первый шаг самый важный!",
-    "stats_cta_begin": "Отличное начало! Продолжай в том же духе!",
-    "stats_cta_halfway": "Ты на полпути! Не останавливайся!",
-    "stats_cta_almost": "Почти у цели! Ты молодец!",
     "stats_explanation": "Слово выучено = три верных ответа подряд в разные дни",
-    "stats_btn_rating": "Мой рейтинг",
 }
 
 # ============================================================================
@@ -504,8 +457,6 @@ TEXTS.update({
     "friend_fallback": "друг",
     "onboarding_learning_title": "<b>Какой язык будешь учить?</b>",
     "onboarding_learning_desc": "Значения слов будут показываться на этом языке: {native}\nСменить язык и направление можно в настройках в любой момент.",
-    "mode_hint_forward": "{learning} → {native} легче: значение подсказывает логика",
-    "mode_hint_reverse": "{native} → {learning} сложнее: лучше закрепляет слова",
 })
 
 
@@ -569,7 +520,6 @@ TEXTS.update({
 # не имея возможности узнать причину: все голоса выглядели одинаково.
 # ============================================================================
 TEXTS.update({
-    "voice_not_ready_hint": "<i>· рядом с голосом — он ещё не записан целиком: слово будет синтезироваться на лету, иногда с задержкой или без звука</i>",
 })
 
 
@@ -597,18 +547,14 @@ TEXTS.update({
     "settings_channels_line": "Занятие: <b>{channels}</b>",
     "channels_title": "<b>Состав занятия</b>",
     "channels_description": "Какие вопросы задавать. Чем больше каналов, тем прочнее запоминается слово: узнать его глазами, на слух и вслух — три разных навыка.",
-    "channel_text": "Карточка",
+    "channel_text": "📖 Карточка",
     "channel_audio": "🎧 На слух",
     "channel_speech": "🎤 Речь",
-    "channels_reverse_about": "Значение дано — выбрать слово.",
     "quiz_result_recalled": "← Вспомнил: {count}",
-    "home_btn_reverse": "Вспомнить",
     "home_scale_reverse": "Вспоминаю",
-    "channel_reverse": "Вспомнить слово",
+    "channel_reverse": "💭 Вспомнить слово",
     "channels_text_always": "Карточка не выключается: занятие без единого канала — пустой экран.",
     "channels_audio_blocked": "🎧 На слух недоступно: выключена озвучка.",
-    "channels_speech_soon": "🎤 Речь скоро появится.",
-    "channels_need_one": "Должен остаться хотя бы один канал",
 })
 
 
@@ -624,7 +570,6 @@ TEXTS.update({
     "speech_btn_reference": "Послушать",
     "speech_btn_skip": "Пропустить",
     "speech_listening": "🎧 Слушаю…",
-    "speech_heard": "Услышал: <i>{heard}</i>",
     "speech_not_understood": "Не разобрал. Запиши ещё раз — ближе к микрофону и чуть громче.",
     "speech_send_voice": "🎤 Ответ на этот вопрос — голосовое сообщение. Нажми и удерживай кнопку микрофона.",
     "speech_skipped": "Пропущено",
@@ -727,9 +672,6 @@ TEXTS.update({
     "intro_menu_rating": "зачёт месяца",
     "intro_menu_learn": "занятие",
     "intro_menu_title": "Что где:",
-    "intro_where_you_are": "Сейчас: <b>{language}</b> · {mode}",
-    "intro_btn_progress": "Прогресс",
-    "settings_title_short": "Настройки",
 })
 
 
@@ -769,11 +711,6 @@ TEXTS.update({
     "match_done_counted": "В прогресс зачтено {counted} из {total}: только те пары, что сошлись с первой попытки, и кроме последней — она достаётся без выбора.",
     "match_btn_again": "Ещё доска",
     "match_not_ready": "Пока рано: для доски нужно {need} знакомых слова, а их {have}. Поучи карточками — они и откроют доску.",
-    "home_btn_match": "Найди пары",
-    "home_btn_text": "Читать",
-    "home_btn_audio": "🎧 Слушать",
-    "home_btn_speech": "🎤 Говорить",
-    "home_btn_details": "Подробнее",
 })
 
 TEXTS["match_back_to_round"] = "Возвращаемся к кругу."

@@ -28,11 +28,7 @@ TEXTS = {
 
 
 
-    "welcome_choose_level": "<b>Od czego zaczniemy?</b>\n\nTwój poziom — {language}\n\n• A1–A2 — podstawowe słownictwo\n• B1–B2 — swobodna rozmowa\n• C1–C2 — biegła znajomość",
-    "choose_level_prompt": "Wybierz poziom:",
 
-    "level_selected": "✓ Poziom <b>{level}</b> wybrany.\n\n12 902 słowa, sześć języków. Zacznijmy od piętnastu.",
-    "level_locked": "Ten poziom jest jeszcze w przygotowaniu",
 
     # ============================================================================
     # PRZYPOMNIENIA
@@ -93,7 +89,7 @@ TEXTS = {
 
     "notif_default_name": "przyjacielu",
 
-    "anchor_streak": "{days} dni z rzędu",
+    "anchor_streak": "🔥 {days}",
     "notif_message_greeting": "<b>Czas na naukę, {name}!</b>",
 
 
@@ -114,27 +110,21 @@ TEXTS = {
     # USTAWIENIA
     # ============================================================================
     "settings_title": "<b>Ustawienia</b>",
-    "settings_level": "Poziom: <b>{level}</b>",
     "settings_mode": "Kierunek: <b>{mode}</b>",
     "settings_language": "Język bota: <b>{language}</b>",
-    "settings_choose": "Wybierz, co chcesz zmienić:",
 
     "settings_btn_quiz_mode": "Poziom i tematy",
-    "settings_btn_change_mode": "Kierunek",
     "settings_btn_change_language": "Język interfejsu",
     "settings_btn_notifications": "Przypomnienia",
 
     "settings_quiz_mode_line": "Poziom: <b>{mode}</b>",
 
-    "settings_mode_title": "<b>Kierunek tłumaczenia</b>",
-    "settings_mode_description": "Wybierz kierunek tłumaczenia:",
 
     "settings_language_title": "<b>Język interfejsu</b>",
     "settings_language_description": "Wybierz język interfejsu bota:",
     "start_pick_language": "Wybierz język",
 
     "language_changed": "✓ Język zmieniony na {language}",
-    "level_not_selected": "Nie wybrano",
     "user_not_found": "✗ Nie znaleziono użytkownika. Użyj /start",
 
     # Nazwy języków interfejsu — każda w swoim języku
@@ -146,14 +136,6 @@ TEXTS = {
     "lang_pl": "Polski",
 
     # Kierunki tłumaczenia
-    "mode_de_to_ru": "DE → RU",
-    "mode_ru_to_de": "RU → DE",
-    "mode_de_to_uk": "DE → UK",
-    "mode_uk_to_de": "UK → DE",
-    "mode_de_to_en": "DE → EN",
-    "mode_en_to_de": "EN → DE",
-    "mode_de_to_tr": "DE → TR",
-    "mode_tr_to_de": "TR → DE",
 
     # ============================================================================
     # TRYB QUIZU
@@ -219,7 +201,6 @@ TEXTS = {
     "report_daily_limit": "Dzienny limit zgłoszeń wyczerpany (maks. 20)",
     "report_all_reported": "✓ Wszystkie słowa z tego quizu są już zgłoszone",
     "report_already_sent": "✓ Już wysłane wcześniej",
-    "report_kind_title": "Co konkretnie jest nie tak?",
     "report_btn_kind_text": "Błędne tłumaczenie",
     "report_btn_kind_audio": "Błędna wymowa",
     "report_sent_audio": "✓ Wysłano {count} — dziękujemy!\nZgłoszenia wymowy są szczególnie cenne: sprawdzanie maszynowe nie słyszy akcentu\nJeśli się potwierdzi — +{points} punktów",
@@ -234,8 +215,6 @@ TEXTS = {
     "quiz_no_words": "✗ Niestety dla tego poziomu nie ma jeszcze słów.\nWybierz inny poziom.",
 
     "quiz_question_number": "{current} / {total}",
-    "quiz_question_choose_word": "Wybierz właściwe słowo:",
-    "quiz_question_choose_translation": "Wybierz właściwe tłumaczenie:",
 
     "quiz_correct": "✓ <b>Dobrze</b>",
     "quiz_wrong": "✗ <b>Źle</b>",
@@ -268,7 +247,6 @@ TEXTS = {
     "praise_points": "Punkty: +{points}",
 
     "quiz_repeat_title": "<b>Powtórka błędów</b>",
-    "quiz_repeat_question": "Powtórka {current}/{total}",
     "quiz_no_errors": "✓ Nie miałeś żadnych błędów!",
     "quiz_error_next": "✗ Nie udało się wczytać następnego pytania.",
     "quiz_error_generate": "✗ Nie udało się utworzyć następnego pytania.",
@@ -276,27 +254,11 @@ TEXTS = {
     # ============================================================================
     # STATYSTYKI
     # ============================================================================
-    "stats_title": "<b>Statystyki</b>",
     "stats_no_level": "<b>Najpierw wybierz poziom!</b>\n\nUżyj polecenia /start, żeby zacząć.",
 
-    "stats_all_words": "Cała baza ({count} słowo|słowa|słów)",
-    "stats_learned": "✓ Nauczone: {count}",
-    "stats_in_progress": "W toku: {count}",
-    "stats_new": "Nowe: {count}",
-    "stats_difficult": "✗ Trudne: {count}",
 
-    "stats_level_title": "Poziom {level} · {mode} ({count} słowo|słowa|słów)",
-    "stats_quizzes_title": "<b>Quizy (poziom {level}):</b>",
-    "stats_quizzes_passed": "Ukończone: {count}",
-    "stats_quizzes_avg": "Średni wynik: {percentage}%",
-    "stats_quizzes_best": "Najlepszy wynik: {percentage}%",
-    "stats_quizzes_none": "Nie zrobiłeś jeszcze quizów na tym poziomie.",
 
-    "stats_activity_title": "<b>Aktywność:</b>",
-    "stats_streak": "Seria: <b>{days}</b> dni z rzędu",
 
-    "stats_recent_title": "<b>Ostatnie quizy:</b>",
-    "stats_learned_explanation": "<b>Nauczone</b> — 3 dobre odpowiedzi z rzędu, i nie w dniu pierwszego spotkania ze słowem",
 
     # ============================================================================
     # POMOC
@@ -384,7 +346,6 @@ Im aktywniejsza społeczność, tym lepszy bot. Nie krępuj się! """,
     "rating_words_learned": "Nauczone słowa: {count}",
     "rating_streak": "Seria: {count} dni",
     "rating_avg_result": "Średni wynik: {percent}%",
-    "rating_goal": "Do #{rank} ({name}): jeszcze {diff} punktów",
     "rating_scoring_title": "<b>Jak zdobyć punkty:</b>",
     "rating_scoring_quiz": "• Ukończony quiz → +10",
     "rating_scoring_reverse": "• Tryb «Odwrotny» → +5",
@@ -402,8 +363,6 @@ Im aktywniejsza społeczność, tym lepszy bot. Nie krępuj się! """,
     "rating_motivation_start": "Zacznij uczyć się słów — pierwszy krok jest najważniejszy!",
     "rating_motivation_continue": "Tak dalej — pierwsze zwycięstwo blisko!",
     "rating_motivation_champion": "Jesteś prawdziwym mistrzem!",
-    "rating_lifetime_title": "<b>Punkty Lifetime — to:</b>",
-    "rating_lifetime_desc": "• Wszystkie punkty ze wszystkich miesięcy\n• +100 za · +50 za · +25 za",
 
     "table_title_monthly": "<b>Tabela liderów — {month} {year}</b>",
     "table_title_alltime": "<b>Tabela liderów — Za cały czas</b>",
@@ -420,7 +379,6 @@ Im aktywniejsza społeczność, tym lepszy bot. Nie krępuj się! """,
     # STATYSTYKI (NOWE)
     # ============================================================================
     "stats_header": "<b>Twoje statystyki</b>",
-    "stats_learned_of": "Nauczone <b>{learned}</b> z {total}",
     "stats_in_work_line": "Słów w pracy: {count} · do {target} jeszcze {left}",
     "stats_in_work_top": "Słów w pracy: {count}",
     "stats_details": "W toku: {progress}\nNowe: {new}\nTrudne: {difficult}",
@@ -436,12 +394,7 @@ Im aktywniejsza społeczność, tym lepszy bot. Nie krępuj się! """,
     "stats_recent_header": "<b>Ostatnie quizy</b>",
     "stats_overall_header": "<b>Postęp ogólny</b>",
     "stats_overall_learned": "Nauczone <b>{learned}</b> z {total} słów",
-    "stats_cta_start": "Zacznij uczyć się słów — pierwszy krok jest najważniejszy!",
-    "stats_cta_begin": "Świetny początek! Tak dalej!",
-    "stats_cta_halfway": "Jesteś w połowie drogi! Nie zatrzymuj się!",
-    "stats_cta_almost": "Prawie u celu! Dobra robota!",
     "stats_explanation": "Słowo nauczone = trzy poprawne odpowiedzi z rzędu, w różne dni",
-    "stats_btn_rating": "Moja pozycja",
 }
 
 # ============================================================================
@@ -506,8 +459,6 @@ TEXTS.update({
     "friend_fallback": "przyjacielu",
     "onboarding_learning_title": "<b>Jakiego języka będziesz się uczyć?</b>",
     "onboarding_learning_desc": "Znaczenia będą pokazywane w języku: {native}\nJęzyk i kierunek zmienisz w ustawieniach w każdej chwili.",
-    "mode_hint_forward": "{learning} → {native} jest łatwiejszy: znaczenie podpowiada kontekst",
-    "mode_hint_reverse": "{native} → {learning} jest trudniejszy: lepiej utrwala słowa",
 })
 
 
@@ -571,7 +522,6 @@ TEXTS.update({
 # не имея возможности узнать причину: все голоса выглядели одинаково.
 # ============================================================================
 TEXTS.update({
-    "voice_not_ready_hint": "<i>· przy głosie oznacza, że nie jest jeszcze w całości nagrany: słowo powstaje na żywo, czasem z opóźnieniem lub bez dźwięku</i>",
 })
 
 
@@ -599,18 +549,14 @@ TEXTS.update({
     "settings_channels_line": "Zajęcia: <b>{channels}</b>",
     "channels_title": "<b>Skład zajęć</b>",
     "channels_description": "Jakie pytania zadawać. Im więcej kanałów, tym trwalej zapada słowo: rozpoznać je wzrokiem, ze słuchu i wypowiedzieć to trzy różne umiejętności.",
-    "channel_text": "Karta",
-    "channel_audio": "🎧 Ze słuchu",
-    "channel_speech": "🎤 Mowa",
-    "channels_reverse_about": "Masz znaczenie, wybierasz słowo.",
+    "channel_text": "📖 Karta",
+    "channel_audio": "🎧 Słuchanie",
+    "channel_speech": "🎤 Mówienie",
     "quiz_result_recalled": "← Przypomniane: {count}",
-    "home_btn_reverse": "Przypomnij",
     "home_scale_reverse": "Przypominam",
-    "channel_reverse": "Przypomnij słowo",
+    "channel_reverse": "💭 Przypomnij słowo",
     "channels_text_always": "Karty się nie wyłączają: zajęcia bez żadnego kanału to pusty ekran.",
     "channels_audio_blocked": "🎧 Ze słuchu niedostępne: wymowa jest wyłączona.",
-    "channels_speech_soon": "🎤 Mowa pojawi się wkrótce.",
-    "channels_need_one": "Musi zostać co najmniej jeden kanał",
 })
 
 
@@ -626,7 +572,6 @@ TEXTS.update({
     "speech_btn_reference": "Posłuchaj",
     "speech_btn_skip": "Pomiń",
     "speech_listening": "🎧 Słucham…",
-    "speech_heard": "Usłyszałem: <i>{heard}</i>",
     "speech_not_understood": "Nie zrozumiałem. Nagraj jeszcze raz — bliżej mikrofonu i trochę głośniej.",
     "speech_send_voice": "🎤 Na to pytanie odpowiada się wiadomością głosową. Naciśnij i przytrzymaj przycisk mikrofonu.",
     "speech_skipped": "Pominięto",
@@ -725,9 +670,6 @@ TEXTS.update({
     "intro_menu_rating": "klasyfikacja miesiąca",
     "intro_menu_learn": "runda",
     "intro_menu_title": "Co gdzie:",
-    "intro_where_you_are": "Teraz: <b>{language}</b> · {mode}",
-    "intro_btn_progress": "Postępy",
-    "settings_title_short": "Ustawienia",
 })
 
 
@@ -767,11 +709,6 @@ TEXTS.update({
     "match_done_counted": "Do postępu zaliczono {counted} z {total}: tylko pary dopasowane za pierwszym razem i nigdy ostatnia — przy niej nie ma już wyboru.",
     "match_btn_again": "Jeszcze jedna plansza",
     "match_not_ready": "Jeszcze za wcześnie: plansza potrzebuje {need} znanych słów, a masz {have}. Poucz się kartami — one ją otworzą.",
-    "home_btn_match": "Znajdź pary",
-    "home_btn_text": "Czytać",
-    "home_btn_audio": "🎧 Słuchać",
-    "home_btn_speech": "🎤 Mówić",
-    "home_btn_details": "Więcej",
 })
 
 TEXTS["match_back_to_round"] = "Wracamy do rundy."
