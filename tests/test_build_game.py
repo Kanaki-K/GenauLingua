@@ -699,3 +699,19 @@ async def test_the_full_check_only_comes_when_slots_are_full(session, user, stag
     await _assemble(dp, bot, user, context, data["build_target"][:1])
     await _check(dp, bot, user, context)
     assert await _rows(session, data["session_id"]) == []
+
+
+@pytest.mark.parametrize("word_level,user_level,fits", [
+    (CEFRLevel.A2, CEFRLevel.A2, True),
+    (CEFRLevel.A1, CEFRLevel.A2, True),
+    # Живой тест 14.10: A2, режим «по теме», слово C1 —
+    # «Die Kritik an seinem Plan war nicht ungerechtfertigt», «топорно»
+    (CEFRLevel.C1, CEFRLevel.A2, False),
+    (CEFRLevel.B1, CEFRLevel.A2, False),
+    (CEFRLevel.C1, None, True),           # приёмки без человека — без условия
+])
+def test_build_takes_words_not_above_the_learners_level(word_level, user_level, fits):
+    from app.services.quiz_service import channel_fits
+
+    word = _W("Die Kritik an seinem Plan war berechtigt", level=word_level)
+    assert channel_fits(QuizChannel.BUILD, word, PAIR, user_level) is fits

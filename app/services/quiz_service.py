@@ -547,8 +547,14 @@ async def get_ready_for(
     )
     if channel is QuizChannel.BUILD:
         # Сборке нужен пример на обоих языках; число слов в нём решает
-        # `fits` ниже, уже в Python
+        # `fits` ниже, уже в Python. И слово не выше уровня человека
+        # (`build_level_fits`) — уже в запросе, чтобы двадцать кандидатов
+        # не ушли на слова, которые сборке всё равно не годятся
         query = query.where(*build_service.sql_prefilter(pair))
+        level = getattr(user, "level", None)
+        if level is not None:
+            query = query.where(Word.level.in_(
+                [lv for lv in CEFRLevel if _LEVEL_RANK[lv] <= _LEVEL_RANK[level]]))
     if gap is not None:
         # Пауза — от последнего ОТВЕТА (`_answered_before`): досрочный ответ
         # `last_seen_at` не двигает, и пауза по нему не держала ничего
@@ -564,7 +570,8 @@ async def get_ready_for(
         query.order_by(due_first, shown.asc(), func.random()).limit(limit)
     )
     return next(
-        (w for w in rows.scalars() if channel_fits(channel, w, pair)), None
+        (w for w in rows.scalars()
+         if channel_fits(channel, w, pair, getattr(user, "level", None))), None
     )
 
 
@@ -575,19 +582,43 @@ async def get_ready_for(
 FIT_CANDIDATES = 20
 
 
-def channel_fits(channel: QuizChannel, word: Word, pair: LanguagePair) -> bool:
+def channel_fits(channel: QuizChannel, word: Word, pair: LanguagePair,
+                 level: Optional[CEFRLevel] = None) -> bool:
     """
     Годится ли слово для этой игры ПО СВОИМ ДАННЫМ, а не по прогрессу.
 
     Порог допуска (`CHANNEL_UNLOCK`) спрашивает человека: доросло ли
     слово. Здесь спрашивается само слово: есть ли из чего собрать вопрос.
-    Сейчас такое условие есть у одной игры — у сборки нужен пример в 3–10
+    Сейчас такое условие есть у одной игры — у сборки нужен пример в 3–9
     слов с переводом; остальные игры собираются из любого слова (их откат
     при неудаче — в `generate_question`).
+
+    `level` — уровень человека: сборка берёт слова НЕ ВЫШЕ него
+    (`build_level_fits`). Без уровня (приёмки) — без этого условия.
     """
     if channel is QuizChannel.BUILD:
-        return build_service.fits(word, pair)
+        return build_level_fits(word, level) and build_service.fits(word, pair)
     return True
+
+
+# Порядок уровней A1 → C2 — по объявлению в enum
+_LEVEL_RANK = {level: rank for rank, level in enumerate(CEFRLevel)}
+
+
+def build_level_fits(word: Word, level: Optional[CEFRLevel]) -> bool:
+    """
+    Сборка — только по словам НЕ ВЫШЕ уровня человека.
+
+    В режимах «По теме» и «Все слова» приходят слова любого уровня, и
+    пример к слову C1 — фраза уровня C1. Живой тест владельца 14.10 (уровень
+    A2, режим «по теме»): «Die Kritik an seinem Plan war nicht
+    ungerechtfertigt» — «слишком топорный вариант, будто так не общаются, от
+    этого выглядит сложным вдвойне». Узнавать такое слово — посильно,
+    собирать его фразу на A2 — нет. Оно придёт остальными играми.
+    """
+    if level is None or word.level is None:
+        return True
+    return _LEVEL_RANK[word.level] <= _LEVEL_RANK[level]
 
 
 def _rotation(user: User, exclude_ids: list[int],
@@ -1952,7 +1983,8 @@ async def pick_channel(
 
     def open_for_word(channel: QuizChannel) -> bool:
         return (times_correct >= CHANNEL_UNLOCK.get(channel, 0)
-                and (pair is None or channel_fits(channel, word, pair)))
+                and (pair is None or channel_fits(channel, word, pair,
+                                                  getattr(user, "level", None))))
 
     if prefer is not None:
         # Без озвучки закрыты ТОЛЬКО слух и речь. Прежде условие было «всё,
