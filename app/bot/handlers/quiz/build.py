@@ -340,7 +340,7 @@ async def _claim_check(state: FSMContext, chat_id: int, word_id: int,
 async def _check(callback: CallbackQuery, state: FSMContext, session: AsyncSession,
                  word_id: int, version: int) -> None:
     """«Проверить»: сравнить, записать ответ общим путём, показать разбор."""
-    from app.bot.handlers.quiz.game import _record_answer
+    from app.bot.handlers.quiz.lesson import _record_answer
 
     data = await _claim_check(state, callback.message.chat.id, word_id, version)
     if data is None:

@@ -264,9 +264,9 @@ def test_both_branches_of_the_next_question_assign_everything_the_tail_uses():
     import ast
     import inspect
 
-    from app.bot.handlers.quiz import game
+    from app.bot.handlers.quiz import lesson
 
-    tree = ast.parse(inspect.getsource(game))
+    tree = ast.parse(inspect.getsource(lesson))
     func = next(
         node for node in ast.walk(tree)
         if isinstance(node, ast.AsyncFunctionDef) and node.name == "_advance"

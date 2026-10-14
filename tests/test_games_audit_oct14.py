@@ -30,6 +30,7 @@ import pytest
 from sqlalchemy import func, select, text
 
 from app.bot.handlers.quiz import game as G
+from app.bot.handlers.quiz import lesson as LN
 from app.bot.handlers.quiz import lesson_state as LS
 from app.bot.handlers.quiz import listen as L
 from app.core.clock import utcnow
@@ -316,13 +317,13 @@ async def test_the_hint_does_not_rescue_a_foreign_short_word(monkeypatch):
 async def test_a_surplus_voice_is_swept_away(session, user, stage, monkeypatch):
     dp, bot, recorder = stage
     await _words(session, user, channels="ts")
-    original = G.generate_question
+    original = LN.generate_question
 
     async def forced(*args, **kwargs):
         kwargs["channel"] = QuizChannel.SPEECH
         return await original(*args, **kwargs)
 
-    monkeypatch.setattr(G, "generate_question", forced)
+    monkeypatch.setattr(LN, "generate_question", forced)
 
     async def judge(_audio, target, _lang):
         return sc.SpeechVerdict(heard=target, matched=True, similarity=1.0)
@@ -393,7 +394,7 @@ async def test_a_failed_progress_write_leaves_the_session_usable(
         # Падение посреди транзакции: Postgres помечает её прерванной
         await session.execute(text("select 1/0"))
 
-    monkeypatch.setattr(G, "update_word_progress", broken)
+    monkeypatch.setattr(LN, "update_word_progress", broken)
     await dp.feed_update(bot, text_update(user.id, LEARN))
     data = await _ctx(dp, bot, user).get_data()
     await dp.feed_update(bot, press(user.id, f"answer_{data['correct_word_id']}"))
@@ -411,13 +412,13 @@ async def test_a_dead_slow_clip_is_forgotten_and_resent(session, user, stage, mo
     await _words(session, user, channels="ts")
     user.audio_enabled = True
     await session.commit()
-    original = G.generate_question
+    original = LN.generate_question
 
     async def forced(*args, **kwargs):
         kwargs["channel"] = QuizChannel.SPEECH
         return await original(*args, **kwargs)
 
-    monkeypatch.setattr(G, "generate_question", forced)
+    monkeypatch.setattr(LN, "generate_question", forced)
 
     dead = AudioClip(kind="slow", voice="v", spoken_text="x", title="t",
                      filename="t.mp3", file_id="D" * 40)
@@ -436,6 +437,7 @@ async def test_a_dead_slow_clip_is_forgotten_and_resent(session, user, stage, mo
 
     monkeypatch.setattr(G, "clip_for_user", clip)
     monkeypatch.setattr(L, "clip_for_user", clip)
+    monkeypatch.setattr(LN, "clip_for_user", clip)
     monkeypatch.setattr(G, "forget", forget)
     monkeypatch.setattr(G, "reobtain", reobtain)
 
@@ -469,7 +471,7 @@ async def _speech_round(session, user, stage, monkeypatch, verdicts):
                               last_seen_at=utcnow() - timedelta(days=2)))
     await session.commit()
 
-    original = G.generate_question
+    original = LN.generate_question
 
     async def forced(*args, **kwargs):
         kwargs["channel"] = QuizChannel.SPEECH
@@ -492,9 +494,10 @@ async def _speech_round(session, user, stage, monkeypatch, verdicts):
     async def download(*_a, **_k):
         return _Downloaded()
 
-    monkeypatch.setattr(G, "generate_question", forced)
+    monkeypatch.setattr(LN, "generate_question", forced)
     monkeypatch.setattr(G, "clip_for_user", no_clip)
     monkeypatch.setattr(L, "clip_for_user", no_clip)
+    monkeypatch.setattr(LN, "clip_for_user", no_clip)
     monkeypatch.setattr(G, "check_pronunciation", judge)
     monkeypatch.setattr(bot, "download", download, raising=False)
 

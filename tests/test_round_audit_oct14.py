@@ -26,6 +26,7 @@ from sqlalchemy import func, select
 import pytest
 
 from app.bot.handlers.quiz import game as G
+from app.bot.handlers.quiz import lesson as LN
 from app.bot.handlers.quiz import lesson_state as LS
 from app.bot.handlers.quiz import summary as SM
 from app.database.enums import CEFRLevel, QuizChannel, QuizMode
@@ -83,13 +84,13 @@ async def _rows(session, session_id, channel=None):
 
 
 def _force(monkeypatch, channel):
-    original = G.generate_question
+    original = LN.generate_question
 
     async def forced(*args, **kwargs):
         kwargs["channel"] = channel
         return await original(*args, **kwargs)
 
-    monkeypatch.setattr(G, "generate_question", forced)
+    monkeypatch.setattr(LN, "generate_question", forced)
 
 
 def _first_option(recorder):

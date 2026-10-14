@@ -32,6 +32,7 @@ def all_routers() -> list[Router]:
     from app.bot.handlers.quiz.game import router as game_router
     from app.bot.handlers.quiz.help import router as help_router
     from app.bot.handlers.quiz.home import router as home_router
+    from app.bot.handlers.quiz.lesson import router as lesson_router
     from app.bot.handlers.quiz.match import router as match_router
     from app.bot.handlers.quiz.report import router as report_router
     from app.bot.handlers.quiz.settings import router as settings_router
@@ -54,6 +55,7 @@ def all_routers() -> list[Router]:
         # Сетка «Собираю» — рядом с доской и по той же причине: свои
         # нажатия `bd:`, и ловить их, кроме неё, некому
         ("quiz/build", build_router),
+        ("quiz/lesson", lesson_router),
         ("quiz/game", game_router),
         ("quiz/settings", settings_router),
         ("quiz/stats", stats_router),

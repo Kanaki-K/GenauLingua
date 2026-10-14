@@ -365,9 +365,9 @@ def test_lesson_identifies_the_person_by_chat_not_by_sender():
     import ast
     import inspect
 
-    from app.bot.handlers.quiz import game
+    from app.bot.handlers.quiz import lesson
 
-    tree = ast.parse(inspect.getsource(game))
+    tree = ast.parse(inspect.getsource(lesson))
     func = next(
         node for node in ast.walk(tree)
         if isinstance(node, ast.AsyncFunctionDef) and node.name == "start_lesson"

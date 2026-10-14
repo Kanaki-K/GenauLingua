@@ -358,7 +358,7 @@ async def learn_now(callback: CallbackQuery, state: FSMContext, session: AsyncSe
     переписке живёт прежняя кнопка, и убери фильтр — она молча перестанет
     работать.
     """
-    from app.bot.handlers.quiz.game import start_lesson
+    from app.bot.handlers.quiz.lesson import start_lesson
     from app.bot.handlers.quiz.sources import SOURCE_HOME, source_from_callback
 
     await callback.answer()
@@ -379,7 +379,7 @@ async def home_learn_channel(
     сплошного текста, и кнопка читалась бы как сломанная. Лучше назвать
     причину и число, которого не хватает.
     """
-    from app.bot.handlers.quiz.game import start_lesson
+    from app.bot.handlers.quiz.lesson import start_lesson
 
     code = callback.data.removeprefix("home_learn_")
     try:

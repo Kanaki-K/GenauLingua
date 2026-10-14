@@ -304,13 +304,13 @@ async def flow_settings(rep, s, state, learning, native):
 
 
 async def flow_quiz(rep, s, state, questions=4):
-    from app.bot.handlers.quiz import game
+    from app.bot.handlers.quiz import game, lesson
 
     bot = StubBot()
 
     async def start():
         msg = StubMessage(bot, text="📚 Учить слова")
-        await game.start_quiz(msg, state, s)
+        await lesson.start_quiz(msg, state, s)
         return msg
 
     result = await rep.step("Викторина: старт", start)
@@ -333,7 +333,7 @@ async def flow_quiz(rep, s, state, questions=4):
 
         async def nxt():
             cb = StubCallback("next_question", bot=bot)
-            await game.show_next_question(cb, state, s)
+            await lesson.show_next_question(cb, state, s)
             return cb
 
         await rep.step(f"Викторина: далее {i + 1}", nxt, expect_text=(i < questions - 1))
@@ -348,13 +348,13 @@ async def flow_quiz(rep, s, state, questions=4):
 
 async def flow_quiz_wrong_answers(rep, s, state):
     """Отдельный прогон с неверными ответами — чтобы дошло до повтора ошибок."""
-    from app.bot.handlers.quiz import game
+    from app.bot.handlers.quiz import game, lesson
 
     bot = StubBot()
 
     async def start():
         msg = StubMessage(bot, text="📚 Учить слова")
-        await game.start_quiz(msg, state, s)
+        await lesson.start_quiz(msg, state, s)
         return msg
 
     if await rep.step("Ошибки: старт викторины", start) is None:
@@ -372,7 +372,7 @@ async def flow_quiz_wrong_answers(rep, s, state):
 
         async def nxt():
             cb = StubCallback("next_question", bot=bot)
-            await game.show_next_question(cb, state, s)
+            await lesson.show_next_question(cb, state, s)
             return cb
 
         await rep.step(f"Ошибки: далее {i + 1}", nxt, expect_text=(i < 1))
@@ -385,7 +385,7 @@ async def flow_quiz_wrong_answers(rep, s, state):
 
     async def repeat():
         cb = StubCallback("repeat_errors", bot=bot)
-        await game.repeat_errors(cb, state, s)
+        await lesson.repeat_errors(cb, state, s)
         return cb
 
     await rep.step("Ошибки: повтор", repeat, expect_text=False)
