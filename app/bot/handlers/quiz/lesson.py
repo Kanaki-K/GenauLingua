@@ -238,14 +238,7 @@ async def start_lesson(
         **_build_state(question, channel),
     )
 
-    try:
-        await message.delete()
-    except Exception:
-        logger.debug("Не удалось удалить сообщение пользователя", exc_info=True)
-
     old_anchor_id, _ = await ensure_anchor(message, session, user, emoji="")
-    if old_anchor_id:
-        await delete_messages_fast(message.bot, message.chat.id, old_anchor_id, message.message_id)
 
     await show_card(
         message.bot, message.chat.id, state, session,
@@ -258,6 +251,19 @@ async def start_lesson(
             session, user, word, pair, state, lang, 1, quiz_total, channel
         ),
     )
+    # Прежние сообщения убираются ПОСЛЕДНИМИ, когда новый экран уже на
+    # месте: иначе, пока он готовится (статистика — запросы к базе,
+    # занятие — загрузка звука), на экране один якорь. Владелец, 15.10:
+    # «рейтинг и настройки более плавно работают». Диапазон удаления —
+    # от прежнего якоря до нажатия человека, новых сообщений он не задевает
+    if old_anchor_id:
+        await delete_messages_fast(message.bot, message.chat.id, old_anchor_id, message.message_id)
+    # И само сообщение, с которого начали: нажатие «Учить» или домашний
+    # экран / напоминание, на месте которого встаёт занятие, — тоже после
+    try:
+        await message.delete()
+    except Exception:
+        logger.debug("Не удалось удалить сообщение пользователя", exc_info=True)
     await state.set_state(QuizStates.answering)
 
 

@@ -174,10 +174,14 @@ async def show_statistics(message: Message, session: AsyncSession):
         return
 
     old_anchor_id, _ = await ensure_anchor(message, session, user, emoji="")
+    await show_home(message, session, user)
+    # Прежние сообщения убираются ПОСЛЕДНИМИ, когда новый экран уже на
+    # месте: иначе, пока он готовится (статистика — запросы к базе,
+    # занятие — загрузка звука), на экране один якорь. Владелец, 15.10:
+    # «рейтинг и настройки более плавно работают». Диапазон удаления —
+    # от прежнего якоря до нажатия человека, новых сообщений он не задевает
     if old_anchor_id:
         await delete_messages_fast(message.bot, message.chat.id, old_anchor_id, message.message_id)
-
-    await show_home(message, session, user)
 
 
 async def build_totals(user: User, session: AsyncSession) -> tuple[int, int]:

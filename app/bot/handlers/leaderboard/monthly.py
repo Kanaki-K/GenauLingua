@@ -162,10 +162,14 @@ async def show_leaderboard(message: Message, session: AsyncSession):
     text = await _monthly_card(user, session, season, lang)
 
     old_anchor_id, new_anchor_id = await ensure_anchor(message, session, user, emoji="")
+    await message.answer(text, reply_markup=get_rating_keyboard(lang, "monthly"))
+    # Прежние сообщения убираются ПОСЛЕДНИМИ, когда новый экран уже на
+    # месте: иначе, пока он готовится (статистика — запросы к базе,
+    # занятие — загрузка звука), на экране один якорь. Владелец, 15.10:
+    # «рейтинг и настройки более плавно работают». Диапазон удаления —
+    # от прежнего якоря до нажатия человека, новых сообщений он не задевает
     if old_anchor_id:
         await delete_messages_fast(message.bot, message.chat.id, old_anchor_id, message.message_id)
-
-    await message.answer(text, reply_markup=get_rating_keyboard(lang, "monthly"))
 
 
 @router.callback_query(F.data == "rating_monthly")

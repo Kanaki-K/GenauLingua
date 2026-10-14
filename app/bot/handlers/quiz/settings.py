@@ -603,10 +603,14 @@ async def show_settings(message: Message, session: AsyncSession):
         logger.debug("Не удалось удалить сообщение пользователя", exc_info=True)
 
     old_anchor_id, _ = await ensure_anchor(message, session, user, emoji="")
+    await message.answer(_settings_text(user, lang), reply_markup=get_settings_keyboard(lang))
+    # Прежние сообщения убираются ПОСЛЕДНИМИ, когда новый экран уже на
+    # месте: иначе, пока он готовится (статистика — запросы к базе,
+    # занятие — загрузка звука), на экране один якорь. Владелец, 15.10:
+    # «рейтинг и настройки более плавно работают». Диапазон удаления —
+    # от прежнего якоря до нажатия человека, новых сообщений он не задевает
     if old_anchor_id:
         await delete_messages_fast(message.bot, message.chat.id, old_anchor_id, message.message_id)
-
-    await message.answer(_settings_text(user, lang), reply_markup=get_settings_keyboard(lang))
 
 
 async def show_settings_callback(callback: CallbackQuery, session: AsyncSession):
