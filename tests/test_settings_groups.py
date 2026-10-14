@@ -48,13 +48,59 @@ WAS_REACHABLE = {
 }
 
 
+# Экраны, снятые НАРОЧНО, — с причиной на каждый.
+#
+# Из `WAS_REACHABLE` они не вычёркиваются: список описывает прошлое, и
+# стирание из него превратило бы «мы это решили» в «мы это потеряли» —
+# неотличимо через месяц. Отмеченный здесь экран перестаёт требоваться, но
+# остаётся названным.
+REMOVED_ON_PURPOSE = {
+    # «Направление перевода» переворачивало ВСЕ пятнадцать вопросов круга и
+    # было включено у 10 человек из 233. Обратная сторона стала пятой игрой
+    # в составе занятия (`QuizChannel.REVERSE`), и два рычага на одно и то
+    # же держать нельзя. Решение владельца: «реверс будет игрой 5, которая
+    # логически будет расставлена среди 15ти вопросов».
+    "settings_mode",
+}
+
+
 def _all_group_items() -> set[str]:
     return {data for _, _, items in _GROUPS.values() for _, data in items}
 
 
 def test_no_screen_was_lost_in_the_regrouping():
-    lost = WAS_REACHABLE - _all_group_items()
+    lost = WAS_REACHABLE - _all_group_items() - REMOVED_ON_PURPOSE
     assert not lost, f"экраны стали недостижимы: {sorted(lost)}"
+
+
+def test_a_removed_screen_is_really_gone():
+    """
+    Снятый экран не должен остаться ЖИВЫМ и недостижимым.
+
+    Это ровно та беда, что уже случилась: обработчик `settings_mode`
+    остался в коде после правки состава групп, а его «Назад» читал
+    `_PARENT_GROUP["settings_mode"]` — ключа, которого больше нет. Нажатие
+    со старой клавиатуры упало бы с KeyError, и ни один тест этого не
+    видел: кнопки на экранах уже не было.
+    """
+    import re
+    from pathlib import Path
+
+    source = (Path(__file__).resolve().parents[1]
+              / "app" / "bot" / "handlers" / "quiz" / "settings.py"
+              ).read_text(encoding="utf-8")
+
+    for data in REMOVED_ON_PURPOSE:
+        handler = re.search(
+            rf'@router\.callback_query\(F\.data == "{re.escape(data)}"\)', source
+        )
+        assert handler is None, (
+            f"экран {data} снят из групп, но обработчик жив — "
+            f"нажатие со старой клавиатуры ведёт в недостижимый экран"
+        )
+        assert data not in _PARENT_GROUP, (
+            f"{data} остался в таблице возврата"
+        )
 
 
 def test_no_screen_was_invented_out_of_nowhere():

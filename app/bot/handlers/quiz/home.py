@@ -37,6 +37,7 @@ from app.services.monthly_leaderboard_service import get_user_monthly_rank
 from app.services.streak_service import current_streak
 from app.services.quiz_service import (
     CHANNEL_UNLOCK,
+    NEEDS_AUDIO,
     get_channel_progress,
 )
 
@@ -60,9 +61,23 @@ CHANNEL_ENTRY_MIN = 4
 # шкалами читается сверху вниз как убывающая лестница.
 _SCALES = (
     (QuizChannel.TEXT, "home_scale_text", "text"),
+    # Пятая игра стоит ВТОРОЙ, и это замер, а не вкус: точность прямых
+    # вопросов 87.9%, обратных 87.1% — то есть припоминание чуть труднее
+    # карточки и заметно легче слуха
+    (QuizChannel.REVERSE, "home_scale_reverse", "reverse"),
     (QuizChannel.AUDIO, "home_scale_audio", "audio"),
     (QuizChannel.SPEECH, "home_scale_speech", "speech"),
 )
+
+
+# Какое число готовности смотреть у какого канала. Таблицей, а не условием:
+# каналов стало четыре, и «если слух, иначе речь» молча отдавало бы
+# припоминанию чужое число.
+_READY_KEYS = {
+    QuizChannel.REVERSE: "ready_reverse",
+    QuizChannel.AUDIO: "ready_audio",
+    QuizChannel.SPEECH: "ready_speech",
+}
 
 
 def _bar(current: int, total: int, length: int = BAR_LENGTH) -> str:
@@ -246,11 +261,15 @@ def _home_keyboard(
         )
         for channel, _, button_key in (
             (QuizChannel.TEXT, None, "home_btn_text"),
+            (QuizChannel.REVERSE, None, "home_btn_reverse"),
             (QuizChannel.AUDIO, None, "home_btn_audio"),
             (QuizChannel.SPEECH, None, "home_btn_speech"),
         )
     ]
-    rows.append(shortcuts)
+    # ЧЕТЫРЕ КНОПКИ В ДВА РЯДА, а не в один: четыре подписи словами в одну
+    # строку Telegram сжимает до нечитаемого, и на узком телефоне обрезает
+    rows.append(shortcuts[:2])
+    rows.append(shortcuts[2:])
 
     # Доска сопоставления — отдельным упражнением, а не каналом занятия.
     #
@@ -372,7 +391,8 @@ async def home_learn_channel(
 
     # Слух и речь обойтись без озвучки не могут: у вопроса на слух самого
     # слова на экране нет, а у вопроса вслух нечем послушать эталон.
-    if channel is not QuizChannel.TEXT and not user.audio_enabled:
+    # ПРИПОМИНАНИЕ ЗВУКА НЕ ТРЕБУЕТ: оно текстовое, просто в другую сторону.
+    if channel in NEEDS_AUDIO and not user.audio_enabled:
         await callback.answer(get_text("channels_audio_blocked", lang), show_alert=True)
         return
 
@@ -382,7 +402,9 @@ async def home_learn_channel(
         progress = await get_channel_progress(
             user.id, session, pair, level=level, category=category
         )
-        ready = progress["ready_audio" if channel is QuizChannel.AUDIO else "ready_speech"]
+        # Готовность берётся по КАНАЛУ из таблицы, а не тернарником на два:
+        # с появлением пятой игры тернарник отдал бы ей готовность речи
+        ready = progress[_READY_KEYS[channel]]
         if ready < CHANNEL_ENTRY_MIN:
             # Название канала считается ДО вызова: test_format_parameters_match
             # разбирает get_text регулярным выражением, и вложенный вызов

@@ -150,8 +150,12 @@ class User(Base):
     # увидит её не в первом круге, а когда уже знает слово глазами. Пропуск
     # вопроса вслух не считается ошибкой — человек в транспорте ничего не
     # теряет.
+    # ПЯТАЯ ИГРА — ПРИПОМИНАНИЕ — тоже по умолчанию. Прежде направление
+    # было отдельной настройкой на весь круг, и включили её 10 человек из
+    # 233. Решение владельца: она становится игрой среди пятнадцати
+    # вопросов, а не режимом.
     quiz_channels: Mapped[str] = mapped_column(
-        String(8), nullable=False, default="tas", server_default="tas"
+        String(8), nullable=False, default="tasr", server_default="tasr"
     )
 
     # === МЕСЯЧНАЯ СИСТЕМА РЕЙТИНГА ===
@@ -239,14 +243,33 @@ class UserWord(Base):
     shown_speech = mapped_column(Integer, default=0, nullable=False, server_default="0")
     correct_speech = mapped_column(Integer, default=0, nullable=False, server_default="0")
 
+    # ПЯТАЯ ИГРА: значение дано, выбрать слово. Своя пара колонок нужна по
+    # той же причине, по какой она есть у слуха: без неё бот не отличит
+    # «узнаю das Metall» от «вспомню, что металл — это das Metall», и
+    # подбор не сможет догружать слабую сторону. Прежде направление было
+    # настройкой на весь круг, и в прогрессе слова не отражалось ВОВСЕ.
+    shown_reverse = mapped_column(Integer, default=0, nullable=False, server_default="0")
+    correct_reverse = mapped_column(Integer, default=0, nullable=False, server_default="0")
+
     @property
     def shown_text(self) -> int:
-        """Текстовых показов: всё, что не слух и не речь."""
-        return self.times_shown - self.shown_audio - self.shown_speech
+        """
+        Текстовых показов: всё, что не слух, не речь и не припоминание.
+
+        ВЕЗДЕ `or 0`, и это не перестраховка. У только что созданного
+        объекта значения по умолчанию ещё не применены — они ставятся при
+        вставке, а свойство спрашивают раньше. На трёх каналах это не
+        всплывало, потому что их счётчики всегда передавали явно; четвёртый
+        уронил вычитание с «unsupported operand type(s) for -: int and
+        NoneType» на первом же прогоне тестов.
+        """
+        return ((self.times_shown or 0) - (self.shown_audio or 0)
+                - (self.shown_speech or 0) - (self.shown_reverse or 0))
 
     @property
     def correct_text(self) -> int:
-        return self.times_correct - self.correct_audio - self.correct_speech
+        return ((self.times_correct or 0) - (self.correct_audio or 0)
+                - (self.correct_speech or 0) - (self.correct_reverse or 0))
 
     # считается "выучено", когда достигнут порог streak
     learned = mapped_column(Boolean, default=False, nullable=False)
@@ -516,10 +539,11 @@ class MonthlyStats(Base):
     total_questions: Mapped[int] = mapped_column(Integer, default=0)
 
     # Верных ответов по каналам. Текстовый не хранится — выводится как
-    # total_correct минус эти два, ровно как в user_words: отдельной колонкой
-    # его рано или поздно обновили бы не вместе с остальными.
+    # total_correct минус остальные, ровно как в user_words: отдельной
+    # колонкой его рано или поздно обновили бы не вместе с остальными.
     correct_audio: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
     correct_speech: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
+    correct_reverse: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
 
     # Бонус за подтверждённые репорты
     report_bonus: Mapped[int] = mapped_column(Integer, default=0)
@@ -545,12 +569,27 @@ class MonthlyStats(Base):
     # самом лёгком, и соревнование будет награждать выбор кнопки, а не
     # усилие.
     POINTS_TEXT = 1
+    # Припоминание стоит столько же, сколько карточка, И ЭТО ЗАМЕР, а не
+    # осторожность: точность прямых вопросов 87.9%, обратных 87.1% на
+    # 28 204 и 1 002 ответах. Платить больше за труд, которого замер не
+    # находит, значит наградить за выбор кнопки. Когда пятая игра пойдёт
+    # всем и накопит свои числа, цену можно будет пересмотреть — на них.
+    POINTS_REVERSE = 1
     POINTS_AUDIO = 2
     POINTS_SPEECH = 3
 
     POINTS_PER_ROUND = 10        # за ДОВЕДЁННЫЙ до конца круг
-    POINTS_PER_REVERSE = 5       # обратное направление труднее прямого
     POINTS_PER_WORD = 3          # слово перешло в «выучено»
+
+    # БОНУСА ЗА ОБРАТНЫЙ КРУГ БОЛЬШЕ НЕТ. Он платил 5 за круг, целиком
+    # сыгранный в обратную сторону, — а такого круга больше не существует:
+    # направление стало игрой внутри круга и платит за ответ, как
+    # остальные. Снятие никого не обидело: в действующем сезоне
+    # `monthly_reverse` у всех ноль, то есть бонус не начислился ни разу.
+    #
+    # Ноль оставлен, а не удалён, чтобы прежние, уже закрытые сезоны
+    # пересчитывались тем же кодом и давали те же числа.
+    POINTS_PER_REVERSE = 0
 
     # За ПОДТВЕРЖДЁННУЮ жалобу на перевод или произношение.
     #
@@ -596,10 +635,13 @@ class MonthlyStats(Base):
         """
         correct_audio = self.correct_audio or 0
         correct_speech = self.correct_speech or 0
-        correct_text = max(0, (self.total_correct or 0) - correct_audio - correct_speech)
+        correct_reverse = self.correct_reverse or 0
+        correct_text = max(0, (self.total_correct or 0) - correct_audio
+                           - correct_speech - correct_reverse)
 
         score = (
             correct_text * self.POINTS_TEXT
+            + correct_reverse * self.POINTS_REVERSE
             + correct_audio * self.POINTS_AUDIO
             + correct_speech * self.POINTS_SPEECH
         )

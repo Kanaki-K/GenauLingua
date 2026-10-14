@@ -196,6 +196,7 @@ async def _recalc_monthly_stats_full(
     )
     monthly_stat.correct_audio = by_channel.get(QuizChannel.AUDIO.value, 0)
     monthly_stat.correct_speech = by_channel.get(QuizChannel.SPEECH.value, 0)
+    monthly_stat.correct_reverse = by_channel.get(QuizChannel.REVERSE.value, 0)
 
     user_words_result = await session.execute(
         select(func.count()).select_from(UserWord).where(
@@ -353,6 +354,9 @@ async def update_monthly_stats(
     )
     monthly_stat.correct_speech = (monthly_stat.correct_speech or 0) + by_channel.get(
         QuizChannel.SPEECH.value, 0
+    )
+    monthly_stat.correct_reverse = (monthly_stat.correct_reverse or 0) + by_channel.get(
+        QuizChannel.REVERSE.value, 0
     )
 
     last_date = monthly_stat.last_quiz_date

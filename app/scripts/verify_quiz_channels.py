@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-ПРИЁМКА ТРЁХ ИГР: прогон вопросов по всем парам, направлениям и каналам.
+ПРИЁМКА ВСЕХ ИГР: прогон вопросов по всем парам языков и всем каналам.
 
     python -m app.scripts.verify_quiz_channels
     python -m app.scripts.verify_quiz_channels --per-case 40
@@ -8,8 +8,14 @@
 ЗАЧЕМ. Владелец дословно: «убедись, что все игры работают как надо, без
 поломок... я не в состоянии проверить все языки и остальное». Проверить
 руками тут и правда нельзя: шесть изучаемых языков на пять языков значения
-дают 30 пар, каждая в двух направлениях, каждая двумя каналами — 120
-сочетаний. Нажать их все невозможно, а сломаться может каждое.
+дают 30 пар, и каждая проверяется ЧЕТЫРЬМЯ каналами: карточка,
+припоминание, слух, речь. Сто двадцать сочетаний — нажать их все
+невозможно, а сломаться может каждое.
+
+НАПРАВЛЕНИЯ В СЛУЧАЯХ НЕТ НАРОЧНО. Оно было настройкой на весь круг и
+стало ПЯТОЙ ИГРОЙ, то есть каналом (`QuizChannel.REVERSE`). Прежний цикл
+по `reverse` после этого проверял бы прямую сторону дважды — и приёмка
+осталась бы зелёной, потеряв половину покрытия.
 
 Скрипт делает то же, что `verify_wordbase` делает для словарной базы:
 гоняет НАСТОЯЩИЙ генератор вопросов и проверяет не «не упало ли», а
@@ -58,7 +64,8 @@ from app.services import audio_store  # noqa: E402
 from app.services.audio_service import (  # noqa: E402
     clip_kind_for_question, spoken_for,
 )
-from app.services.language_service import (  # noqa: E402
+from app.services.language_service import (
+    pair_for_channel,  # noqa: E402
     LEARNABLE_LANGS, LanguagePair, fold, main_meaning, meaning_variants,
     option_label,
 )
@@ -99,8 +106,17 @@ def _check(question: dict, pair: LanguagePair, text: str) -> list[str]:
     if options[idx][0] != word.id:
         problems.append("индекс правильного указывает не на то слово")
 
-    # Ни один неверный вариант не должен значить того же, что верный
-    answer_lang = pair.learning if channel is QuizChannel.AUDIO else pair.answer_lang
+    # Ни один неверный вариант не должен значить того же, что верный.
+    #
+    # Язык ответа берётся ПО КАНАЛУ: направление стало свойством игры, и
+    # пара, пришедшая снаружи, всегда прямая. Пятая игра ждёт ответа на
+    # изучаемом языке, как и слух, — но по другой причине: там спрашивают
+    # значением
+    channel_pair = pair_for_channel(pair, channel)
+    answer_lang = (
+        pair.learning if channel is QuizChannel.AUDIO
+        else channel_pair.answer_lang
+    )
     right = meaning_variants(option_label(word, answer_lang), answer_lang)
     for i, (wid, label) in enumerate(options):
         if i == idx:
@@ -150,9 +166,17 @@ def _check(question: dict, pair: LanguagePair, text: str) -> list[str]:
         if "📝" in text:
             problems.append("вслух показан пример — он подталкивает прочесть фразу")
     else:
-        prompt = option_label(word, pair.prompt_lang)
+        # Язык ВОПРОСА — по каналу, как и в коде. Прежде здесь стояло
+        # `pair.prompt_lang` от пары, пришедшей снаружи, и для пятой игры
+        # это давало 175 ложных нарушений: проверка искала в карточке
+        # немецкое слово, а карточка показывает значение. Ожидание обязано
+        # следовать тому же правилу, по которому вопрос собран, — иначе
+        # приёмка ругается на верный код и прячет настоящие дефекты в шуме.
+        prompt = option_label(word, channel_pair.prompt_lang)
         if prompt and prompt not in text:
-            problems.append("в текстовом вопросе нет самого слова")
+            problems.append(
+                f"в вопросе каналом {channel.value} нет самого задания"
+            )
 
     return problems
 
@@ -215,12 +239,16 @@ async def _clips_missing(word, lang: str) -> list[str]:
 async def run(per_case: int) -> int:
     from app.bot.handlers.quiz.game import _question_text
 
+    # НАПРАВЛЕНИЯ В СЛУЧАЯХ БОЛЬШЕ НЕТ. Оно было прежней настройкой на весь
+    # круг и на сборку вопроса не влияет: обратная сторона стала ПЯТОЙ
+    # ИГРОЙ, то есть каналом, и проверяется перечислением каналов ниже.
+    # Оставь его здесь — и обратная половина тридцати пар проверяла бы ровно
+    # то же, что прямая, а приёмка осталась бы зелёной, потеряв половину.
     cases = [
-        (learning, native, reverse)
+        (learning, native)
         for learning in LEARNABLE_LANGS
         for native in LEARNABLE_LANGS
         if learning != native
-        for reverse in (False, True)
     ]
 
     totals = collections.Counter()
@@ -229,18 +257,18 @@ async def run(per_case: int) -> int:
     fell_back = collections.Counter()
 
     async with AsyncSessionLocal() as session:
-        for learning, native, reverse in cases:
-            pair = LanguagePair(learning=learning, native=native, reverse=reverse)
-            arrow = "←" if reverse else "→"
-            case = f"{learning}{arrow}{native}"
+        for learning, native in cases:
+            pair = LanguagePair(learning=learning, native=native)
+            case = f"{learning}→{native}"
 
-            # ВСЕ ТРИ КАНАЛА, а не два.
+            # ВСЕ КАНАЛЫ ИЗ ПЕРЕЧИСЛЕНИЯ, а не список руками.
             #
             # Прежде речи здесь не было вовсе: она появилась позже и в
             # перечисление не попала. Выходило, что третья игра на 30 парах
-            # и в обоих направлениях не проверялась НИКОГДА — её держала
-            # только приёмка круга, а та идёт по девяти подобранным случаям.
-            for want in (QuizChannel.TEXT, QuizChannel.AUDIO, QuizChannel.SPEECH):
+            # не проверялась НИКОГДА — её держала только приёмка круга, а та
+            # идёт по десятку подобранных случаев. Пятая игра повторила бы
+            # эту историю, поэтому список берётся из `QuizChannel`.
+            for want in QuizChannel:
                 # Канал НАВЯЗЫВАЕТСЯ параметром, а не составом занятия.
                 #
                 # Первая редакция навязывала составом — и проверка прошла
@@ -294,7 +322,7 @@ async def run(per_case: int) -> int:
     for (_, channel_name), count in totals.items():
         by_channel[channel_name] += count
 
-    print(f"\nсочетаний проверено: {len(cases)} (пар 30 × 2 направления)")
+    print(f"\nпар проверено: {len(cases)}, каналов у каждой: {len(QuizChannel)}")
     print(f"вопросов сгенерировано: {asked}")
     print("  по каналам: " + ", ".join(
         f"{name} {count}" for name, count in sorted(by_channel.items())
@@ -314,7 +342,7 @@ async def run(per_case: int) -> int:
     # собрав НИ ОДНОГО вопроса на слух (канал навязывался составом, а не
     # параметром). Речь добавлена в перечисление позже, и ровно та же
     # ловушка ждала её.
-    empty = [c.name for c in (QuizChannel.TEXT, QuizChannel.AUDIO, QuizChannel.SPEECH)
+    empty = [c.name for c in QuizChannel
              if not by_channel.get(c.name)]
     if empty:
         print(f"\nКАНАЛОВ БЕЗ ЕДИНОГО ВОПРОСА: {', '.join(empty)} — "
@@ -337,7 +365,7 @@ async def run(per_case: int) -> int:
     if no_clip:
         return 1
 
-    print("\nвсе игры собираются верно на всех парах и в обе стороны")
+    print("\nвсе игры собираются верно на всех парах и всеми каналами")
     return 0
 
 

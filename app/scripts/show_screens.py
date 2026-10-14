@@ -16,6 +16,7 @@
     ... --who new      путь нового человека
     ... --who old      экраны играющего
     ... --who round    круг целиком и жалоба на перевод
+    ... --who reverse  пятая игра: вопрос значением, разбор, главная
     ... --who sweep    обход ВСЕХ кнопок из кода + отчёт о покрытии
     ... --who all      всё подряд
     ... --raw          не убирать html-разметку
@@ -31,7 +32,7 @@ import sys
 
 from sqlalchemy import delete, func, select
 
-from app.database.enums import CEFRLevel, QuizMode
+from app.database.enums import CEFRLevel, QuizChannel, QuizMode
 from app.database.models import User, UserWord, Word, WordLangGroup
 from app.database.session import AsyncSessionLocal
 from app.locales import get_text
@@ -304,6 +305,65 @@ async def flow_round(dp, bot, rec, raw: bool, session) -> None:
 
 
 # ============================================================================
+# ПЯТАЯ ИГРА
+# ============================================================================
+
+async def flow_reverse(dp, bot, rec, raw: bool, session) -> None:
+    """
+    Пятая игра — припоминание — своими экранами.
+
+    ПОЧЕМУ ОТДЕЛЬНЫМ ПОТОКОМ, А НЕ ВНУТРИ КРУГА. В круге состав «tasr», и
+    какая игра достанется вопросу, решает подбор. Показ, где пятая игра
+    появляется «если повезёт», ничего не показывает: в прошлый раз её
+    экраны так и не увидел никто, а тесты были зелёные.
+
+    Состав «r» — ровно та игра и ничего кроме. Заодно это проверка, что
+    круг целиком из припоминания собирается: кнопка «Вспомнить» на главной
+    ведёт именно сюда.
+    """
+    print("\n\n" + "=" * (WIDTH + 2))
+    print("  ПЯТАЯ ИГРА: СПРОСИЛИ ЗНАЧЕНИЕМ")
+    print("=" * (WIDTH + 2))
+
+    await reset_state(dp)
+    user = await _probe(session, channels="r", count=3)
+    context = dp.fsm.get_context(bot, chat_id=user.id, user_id=user.id)
+    rec.clear()
+
+    await dp.feed_update(bot, text_update(user.id, get_text("btn_learn_words", "ru")))
+    _dump(rec, raw, "1. вопрос значением — ответ словом")
+
+    data = await context.get_data()
+    if data.get("correct_word_id"):
+        await dp.feed_update(bot, press(user.id, f"answer_{data['correct_word_id']}"))
+        _dump(rec, raw, "2. разбор: слово и значение рядом")
+        await dp.feed_update(bot, press(user.id, "next_question"))
+
+    for _ in range(10):
+        options = [b for b in rec.buttons() if b.startswith("answer_")]
+        if not options:
+            break
+        rec.clear()
+        await dp.feed_update(bot, press(user.id, options[0]))
+        if "next_question" not in rec.buttons():
+            break
+        await dp.feed_update(bot, press(user.id, "next_question"))
+    _dump(rec, raw, "3. итог круга: припоминание отдельной строкой")
+
+    # Главная и прямой вход кнопкой: состав возвращается полным, иначе
+    # полос было бы видно не четыре, а одна
+    await _drop(session)
+    user = await _probe(session, channels="tasr", count=15)
+    rec.clear()
+    await dp.feed_update(bot, text_update(user.id, "/home"))
+    _dump(rec, raw, "4. главная: четыре полосы, четвёртая — припоминание")
+
+    rec.clear()
+    await dp.feed_update(bot, press(user.id, f"home_learn_{QuizChannel.REVERSE.value}"))
+    _dump(rec, raw, "5. вход в пятую игру кнопкой с главной")
+
+
+# ============================================================================
 # ЭКРАНЫ ИГРАЮЩЕГО
 # ============================================================================
 
@@ -490,6 +550,7 @@ FLOWS = {
     "new": flow_new,
     "old": flow_old,
     "round": flow_round,
+    "reverse": flow_reverse,
     "sweep": flow_sweep,
     "scales": flow_scales,
 }
@@ -497,7 +558,7 @@ FLOWS = {
 
 async def run(who: str, raw: bool) -> int:
     chosen = (
-        ["new", "old", "round", "scales", "sweep"] if who == "all"
+        ["new", "old", "round", "reverse", "scales", "sweep"] if who == "all"
         else ["new", "old", "round"] if who == "both"
         else [who]
     )
@@ -516,7 +577,8 @@ async def run(who: str, raw: bool) -> int:
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--who", default="both",
-                    choices=("new", "old", "round", "sweep", "scales", "both", "all"))
+                    choices=("new", "old", "round", "reverse", "sweep", "scales",
+                             "both", "all"))
     ap.add_argument("--raw", action="store_true")
     args = ap.parse_args()
     return asyncio.run(run(args.who, args.raw))

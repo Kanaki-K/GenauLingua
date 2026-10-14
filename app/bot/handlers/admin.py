@@ -424,6 +424,7 @@ async def admin_games(callback: CallbackQuery, session: AsyncSession):
 
     names = {
         QuizChannel.TEXT.value: "Карточка",
+        QuizChannel.REVERSE.value: "Вспомнить",
         QuizChannel.AUDIO.value: "На слух",
         QuizChannel.SPEECH.value: "Вслух",
         BOARD_CHANNEL: "Доска",
@@ -466,7 +467,7 @@ async def admin_games(callback: CallbackQuery, session: AsyncSession):
     enabled = await session.execute(
         select(User.quiz_channels, func.count()).group_by(User.quiz_channels)
     )
-    counts = {"t": 0, "a": 0, "s": 0}
+    counts = {"t": 0, "r": 0, "a": 0, "s": 0}
     for channels, n in enabled.all():
         for letter in (channels or "t"):
             if letter in counts:
@@ -490,6 +491,7 @@ async def admin_games(callback: CallbackQuery, session: AsyncSession):
         "Что включено у людей",
         admin_ui.table([
             ("Карточка", counts["t"]),
+            ("Вспомнить", counts["r"]),
             ("На слух", counts["a"]),
             ("Вслух", counts["s"]),
             ("Доска в круге", board_on),

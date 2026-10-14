@@ -37,7 +37,7 @@ from app.services.audio_service import (
     voice_for_user,
 )
 from app.services.audio_store import voice_is_ready
-from app.services.quiz_service import enabled_channels
+from app.services.quiz_service import enabled_channels, NEEDS_AUDIO
 from app.services.tts_voices import by_gender, is_valid_voice, voices_for
 from app.services.language_service import (
     INTERFACE_LANGS,
@@ -137,11 +137,14 @@ def _sync_legacy_mode(user: User) -> None:
 # экрана к ней не существует, и обещать кнопку, которой нет, нельзя.
 _GROUPS: dict[str, tuple[str, str, tuple[tuple[str, str], ...]]] = {
     # ключ группы: (ключ надписи кнопки, ключ заголовка экрана, пункты)
+    # ПУНКТА «НАПРАВЛЕНИЕ» БОЛЬШЕ НЕТ. Он переворачивал ВСЕ пятнадцать
+    # вопросов круга, и включили его 10 человек из 233. Теперь обратная
+    # сторона — пятая игра в составе занятия, и два рычага на одно и то же
+    # оставлять нельзя: человек не поймёт, какой из них главнее.
     "what": ("settings_group_what", "settings_group_what_title", (
         ("settings_btn_learning_lang", "settings_learning"),
         ("settings_btn_goal", "settings_goal"),
         ("settings_btn_quiz_mode", "settings_quiz_mode"),
-        ("settings_btn_change_mode", "settings_mode"),
     )),
     "how": ("settings_group_how", "settings_group_how_title", (
         ("settings_btn_channels", "settings_channels"),
@@ -277,10 +280,6 @@ def _line_audio(user: User, lang: str) -> str:
     return get_text("settings_audio_line", lang, state=state)
 
 
-def _line_direction(user: User, lang: str) -> str:
-    return get_text("settings_mode", lang,
-                    mode=pair_label(pair_from_user(user), lang))
-
 
 def _line_interface(user: User, lang: str) -> str:
     display = (
@@ -307,7 +306,6 @@ _STATE_LINES = {
     # и перетряхивать его ради новой строки не за что.
     "settings_goal": _line_goal,
     "settings_audio": _line_audio,
-    "settings_mode": _line_direction,
     "settings_language": _line_interface,
 }
 
@@ -332,7 +330,6 @@ _SUMMARY_VALUES = {
         pair_from_user(user).learning, lang
     ),
     "settings_quiz_mode": lambda user, lang: _quiz_mode_display(user, lang),
-    "settings_mode": lambda user, lang: pair_label(pair_from_user(user), lang),
     "settings_goal": lambda user, lang: (
         get_text(f"goal_{user.learning_goal}", lang) if user.learning_goal else ""
     ),
@@ -546,6 +543,7 @@ async def set_learning_lang(callback: CallbackQuery, session: AsyncSession):
 # канал не пришлось вписывать в трёх местах.
 _CHANNEL_NAMES = {
     QuizChannel.TEXT: "channel_text",
+    QuizChannel.REVERSE: "channel_reverse",
     QuizChannel.AUDIO: "channel_audio",
     QuizChannel.SPEECH: "channel_speech",
 }
@@ -570,7 +568,10 @@ def _channel_available(channel: QuizChannel, user: User) -> bool:
     сравнить себя станет не с чем. Упражнение превратится в «скажи что-то, я
     угадаю», а в этом половина пользы теряется.
     """
-    if channel in (QuizChannel.AUDIO, QuizChannel.SPEECH):
+    # Припоминания здесь нет нарочно: оно текстовое, просто в другую
+    # сторону, и человеку с выключенной озвучкой доступно полностью.
+    # Список звуковых каналов один на проект — `NEEDS_AUDIO`
+    if channel in NEEDS_AUDIO:
         return bool(user.audio_enabled)
     return True
 
@@ -1064,69 +1065,6 @@ async def noop_handler(callback: CallbackQuery):
 # ============================================================================
 # ИЗМЕНЕНИЕ РЕЖИМА ПЕРЕВОДА (направление вопроса)
 # ============================================================================
-
-@router.callback_query(F.data == "settings_mode")
-async def change_translation_mode(callback: CallbackQuery, session: AsyncSession):
-    await callback.answer()
-
-    user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or DEFAULT_LOCALE
-    pair = pair_from_user(user)
-
-    forward = LanguagePair(learning=pair.learning, native=pair.native, reverse=False)
-    reverse = LanguagePair(learning=pair.learning, native=pair.native, reverse=True)
-
-    # Подсказки работают на все ТРИДЦАТЬ пар, а не на восемь.
-    #
-    # Прежде ключ собирался из кодов языков — `settings_mode_hint_de_ru` и
-    # ещё семь, — то есть подсказки были только у пар с немецким. Для
-    # польского их не было вовсе, а в русской локали часть этих ключей была
-    # написана по-турецки и по-английски: копипаста расползлась незаметно,
-    # потому что до появления шести языков эти строки никто не видел.
-    #
-    # Теперь подсказок ДВЕ, а названия языков подставляются. Смысл от пары не
-    # зависит: узнавание всегда легче воспроизведения.
-    learning_name = get_text(f"langname_{pair.learning}", lang)
-    native_name = get_text(f"langname_{pair.native}", lang)
-
-    text = (
-        f"{get_text('settings_mode_title', lang)}\n\n"
-        f"{get_text('settings_mode_description', lang)}\n"
-        f"{get_text('mode_hint_forward', lang, learning=learning_name, native=native_name)}\n"
-        f"{get_text('mode_hint_reverse', lang, learning=learning_name, native=native_name)}"
-    )
-
-    keyboard = InlineKeyboardMarkup(
-        inline_keyboard=[
-            [InlineKeyboardButton(
-                text=("✓ " if not pair.reverse else "") + pair_label(forward, lang),
-                callback_data="set_dir_forward"
-            )],
-            [InlineKeyboardButton(
-                text=("✓ " if pair.reverse else "") + pair_label(reverse, lang),
-                callback_data="set_dir_reverse"
-            )],
-            _back_row(lang, _PARENT_GROUP["settings_mode"])
-        ]
-    )
-
-    await callback.message.edit_text(text, reply_markup=keyboard)
-
-
-@router.callback_query(F.data.startswith("set_dir_"))
-async def set_translation_direction(callback: CallbackQuery, session: AsyncSession):
-    reverse = callback.data.removeprefix("set_dir_") == "reverse"
-
-    user = await session.get(User, callback.from_user.id)
-
-    user.reverse_mode = reverse
-    _sync_legacy_mode(user)
-    await session.commit()
-
-    await callback.answer(f"✓ {pair_label(pair_from_user(user), lang)}",
-                          show_alert=True)
-    await show_settings_callback(callback, session)
-
 
 # ============================================================================
 # ИЗМЕНЕНИЕ ЯЗЫКА ИНТЕРФЕЙСА

@@ -20,6 +20,7 @@ from app.services.goal_service import categories_for
 from app.services.language_service import (
     LanguagePair,
     fold,
+    pair_for_channel,
     display_text,
     main_meaning,
     meaning_variants,
@@ -701,6 +702,14 @@ async def generate_question(
             prefer=prefer_channel,
         )
 
+    # НАПРАВЛЕНИЕ СЛЕДУЕТ ЗА КАНАЛОМ, и дальше в сборке участвует только
+    # оно. Пятая игра — припоминание — спрашивает значением и ждёт слова
+    # изучаемого языка, то есть её пара перевёрнута; остальные каналы идут
+    # в прямую сторону. Правило одно на весь проект (`pair_for_channel`),
+    # потому что ту же пару спрашивают показ карточки и разбор ответа:
+    # разойдись они — задание окажется на одном языке, а варианты на другом.
+    pair = pair_for_channel(pair, channel)
+
     # Канал решает и ЧТО подставить в варианты, и НА КАКОМ они языке.
     #
     # На слух варианты обязаны быть созвучны: смысл не звучит, звучит форма.
@@ -724,6 +733,10 @@ async def generate_question(
         if channel is not QuizChannel.AUDIO:
             return None
         channel = QuizChannel.TEXT
+        # Пара пересчитывается вместе с каналом: иначе откат со слуха на
+        # текст оставил бы направление слуха, а оно у них совпадает лишь
+        # пока реверса нет в составе
+        pair = pair_for_channel(pair, channel)
         distractors = await get_distractors(correct_word, session, pair, user=user)
         builder = build_options
         if len(distractors) < OPTIONS_TOTAL - 1:
@@ -836,7 +849,11 @@ def _count_channel(user_word: UserWord, channel: QuizChannel, is_correct: bool) 
     # Нашла это приёмка круга на первом же прогоне с включённой речью:
     # текстовые и слуховые ответы по новым словам в неё не попадали, потому
     # что новое слово на слух не спрашивают, а тексту счётчиков нет.
-    if channel is QuizChannel.AUDIO:
+    if channel is QuizChannel.REVERSE:
+        user_word.shown_reverse = (user_word.shown_reverse or 0) + 1
+        if is_correct:
+            user_word.correct_reverse = (user_word.correct_reverse or 0) + 1
+    elif channel is QuizChannel.AUDIO:
         user_word.shown_audio = (user_word.shown_audio or 0) + 1
         if is_correct:
             user_word.correct_audio = (user_word.correct_audio or 0) + 1
@@ -965,12 +982,17 @@ async def get_channel_progress(
     category: Optional[str] = None,
 ) -> dict[str, int]:
     """
-    Сколько слов человек узнаёт глазами, на слух и произносит.
+    Сколько слов человек узнаёт глазами, вспоминает, узнаёт на слух и
+    произносит.
 
-    Это и есть три шкалы домашнего экрана. Самое полезное в них — не сами
+    Это и есть шкалы домашнего экрана. Самое полезное в них — не сами
     числа, а РАЗРЫВ между ними: «342 узнаю глазами, а произношу 64» говорит
     о человеке правду, которую он сам о себе не знает, и мотивирует сильнее
     любого бейджа.
+
+    Шкала ПРИПОМИНАНИЯ появилась вместе с пятой игрой. Без неё бот не
+    отличал бы «узнаю das Metall» от «вспомню, что металл — это das
+    Metall», а это и есть та разница, ради которой игру заводили.
 
     Текстовая шкала считается вычитанием, ровно как в модели: отдельной
     колонки у неё нет, и разойтись с итогом она не может.
@@ -985,7 +1007,8 @@ async def get_channel_progress(
     на одно поле, а меняется соседнее.
     """
     text_correct = (
-        UserWord.times_correct - UserWord.correct_audio - UserWord.correct_speech
+        UserWord.times_correct - UserWord.correct_audio
+        - UserWord.correct_speech - UserWord.correct_reverse
     )
 
     def scoped(query):
@@ -1003,6 +1026,7 @@ async def get_channel_progress(
         _progress_join(scoped(_usable_words(pair)), user_id, pair)
         .with_only_columns(
             (text_correct >= CHANNEL_MASTERY).label("by_text"),
+            (UserWord.correct_reverse >= CHANNEL_MASTERY).label("by_reverse"),
             (UserWord.correct_audio >= CHANNEL_MASTERY).label("by_audio"),
             (UserWord.correct_speech >= CHANNEL_MASTERY).label("by_speech"),
             # Допуск — не то же, что освоение, и порог у него другой: слуху
@@ -1010,6 +1034,7 @@ async def get_channel_progress(
             # считаются три ЕГО собственных. Нужно для домашнего экрана: он
             # обязан ответить, есть ли вообще что слушать, прежде чем
             # запускать занятие одним каналом.
+            (UserWord.times_correct >= CHANNEL_UNLOCK[QuizChannel.REVERSE]).label("ready_reverse"),
             (UserWord.times_correct >= CHANNEL_UNLOCK[QuizChannel.AUDIO]).label("ready_audio"),
             (UserWord.times_correct >= CHANNEL_UNLOCK[QuizChannel.SPEECH]).label("ready_speech"),
         )
@@ -1019,19 +1044,24 @@ async def get_channel_progress(
     row = await session.execute(
         select(
             func.count().filter(inner.c.by_text),
+            func.count().filter(inner.c.by_reverse),
             func.count().filter(inner.c.by_audio),
             func.count().filter(inner.c.by_speech),
+            func.count().filter(inner.c.ready_reverse),
             func.count().filter(inner.c.ready_audio),
             func.count().filter(inner.c.ready_speech),
             func.count(),
         ).select_from(inner)
     )
-    by_text, by_audio, by_speech, ready_audio, ready_speech, touched = row.one()
+    (by_text, by_reverse, by_audio, by_speech,
+     ready_reverse, ready_audio, ready_speech, touched) = row.one()
 
     return {
         "text": by_text or 0,
+        "reverse": by_reverse or 0,
         "audio": by_audio or 0,
         "speech": by_speech or 0,
+        "ready_reverse": ready_reverse or 0,
         "ready_audio": ready_audio or 0,
         "ready_speech": ready_speech or 0,
         "touched": touched or 0,
@@ -1259,9 +1289,21 @@ AUDIO_UNLOCK_CORRECT = 1
 # гарантировать промах.
 CHANNEL_UNLOCK = {
     QuizChannel.TEXT: 0,
+    # Припоминание требует того же, что и слух: одного верного ответа
+    # глазами. Нельзя вспомнить слово, которое ни разу не узнал, — вопрос
+    # «металл по-немецки?» о слове, которого человек не видел, это не
+    # упражнение, а гадание по четырём вариантам.
+    QuizChannel.REVERSE: 1,
     QuizChannel.AUDIO: AUDIO_UNLOCK_CORRECT,
     QuizChannel.SPEECH: 2,
 }
+
+
+# Каналы, которым нужна озвучка. Перечислены, а не выведены из «всё, кроме
+# текста»: пятая игра — припоминание — тоже не текст, но звука не требует,
+# и прежнее «не текст, значит нужен звук» отняло бы её у всех, кто звук
+# выключил.
+NEEDS_AUDIO = (QuizChannel.AUDIO, QuizChannel.SPEECH)
 
 
 def enabled_channels(user: Optional[User]) -> list[QuizChannel]:
@@ -1276,6 +1318,7 @@ def enabled_channels(user: Optional[User]) -> list[QuizChannel]:
     кончаться не имеет права.
 
     ВЫКЛЮЧЕННАЯ ОЗВУЧКА ОТМЕНЯЕТ СЛУХ И РЕЧЬ, что бы ни стояло в составе.
+    Припоминание она НЕ отменяет: оно текстовое, просто в другую сторону.
     Это не удобство, а исправление настоящего дефекта: у вопроса на слух
     самого слова на экране НЕТ — его заменяет звук. Без звука остаётся
     «Послушай и выбери» и четыре варианта, то есть вопрос без вопроса, на
@@ -1286,7 +1329,7 @@ def enabled_channels(user: Optional[User]) -> list[QuizChannel]:
     raw = (getattr(user, "quiz_channels", None) or "t").lower()
     picked = [c for c in QuizChannel if c.value in raw]
     if not getattr(user, "audio_enabled", True):
-        picked = [c for c in picked if c is QuizChannel.TEXT]
+        picked = [c for c in picked if c not in NEEDS_AUDIO]
     return picked or [QuizChannel.TEXT]
 
 

@@ -44,6 +44,7 @@ from app.database.enums import QuizChannel, QuizMode
 from app.database.models import QuizQuestion, QuizSession, User, UserWord, Word
 from app.locales import DEFAULT_LOCALE, get_text
 from app.services.language_service import (
+    pair_for_channel,
     LanguagePair,
     option_label,
     example_text,
@@ -151,17 +152,22 @@ async def _question_clip(
 
     НА СЛУХ КЛИП — ЭТО И ЕСТЬ ВОПРОС, и направление на него не влияет.
     Обратного порядка у слушания не существует: звучит изучаемый язык, из
-    него и выбирают. Поэтому ветка `pair.reverse` сюда не распространяется —
-    без клипа такой вопрос попросту пуст.
+    него и выбирают.
 
-    В текстовом вопросе в обратном направлении звука нет: вопрос задан на
-    языке значения, а произнести изучаемое слово означало бы назвать ответ.
+    У ПЯТОЙ ИГРЫ ЗВУКА НЕТ, И ЭТО НЕ МЕЛОЧЬ. Она спрашивает значением —
+    «металл по-немецки?» — а произнести при этом само слово означало бы
+    назвать ответ голосом. Проверка эта была и прежде, но смотрела на
+    `pair.reverse`, то есть на НАСТРОЙКУ человека; направление стало
+    свойством игры, и смотреть надо на канал. Иначе озвучка выдавала бы
+    ответ в каждом обратном вопросе — а их теперь получают все.
 
     В прямом направлении звучит слово. Исключение — гетероним: произнесённый
     отдельно, он читается наугад («modern», «umfahren» имеют по два чтения),
     и управлять этим нельзя, SSML движку недоступен. Такому слову ставится
     клип с примером, где контекст задаёт чтение однозначно.
     """
+    pair = pair_for_channel(pair, channel)
+
     if channel is QuizChannel.AUDIO:
         # ВСЕГДА ОДНО СЛОВО, даже для гетеронима.
         #
@@ -269,6 +275,11 @@ def _question_text(
     Какое именно значение берётся — решает `main_meaning`: то, что стоит в
     примере. Полный набор значений виден на экране «Помилка перекладу».
     """
+    # НАПРАВЛЕНИЕ ПО КАНАЛУ, и считается здесь, а не в вызывающем коде:
+    # вопрос рисуется из четырёх мест, и каждое могло бы забыть перевернуть
+    # пару для пятой игры
+    pair = pair_for_channel(pair, channel)
+
     prefix = f"{get_text('quiz_repeat_title', lang)}\n" if is_repeat else ""
     number = get_text("quiz_question_number", lang, current=current, total=total)
 
@@ -344,6 +355,10 @@ def _answer_text(
     видел. Поэтому для слуха порядок всегда «изучаемый → значение»,
     независимо от направления занятия.
     """
+    # Пара по каналу — по той же причине, что у карточки. У слуха поверх
+    # этого свой порядок: спрашивал не язык значения, а ЗВУК на изучаемом
+    pair = pair_for_channel(pair, channel)
+
     if channel is QuizChannel.AUDIO:
         prompt_lang, answer_lang = pair.learning, pair.native
     else:
@@ -1427,6 +1442,10 @@ _CHANNEL_MARKS = {
     # типографики. Разбор перенимает её собственный язык, а не вводит
     # восьмой значок.
     BOARD_CHANNEL: "▸",
+    # ПЯТАЯ ИГРА — обратной стрелкой. Знака припоминания в разрешённом
+    # наборе нет, а `←` из набора типографики и значит ровно то, что
+    # происходит: тот же вопрос в другую сторону.
+    QuizChannel.REVERSE.value: "←",
 }
 
 
@@ -1449,16 +1468,20 @@ def _round_breakdown(
     три канала.
     """
     details: list[str] = []
-    counts = {QuizChannel.AUDIO.value: 0, QuizChannel.SPEECH.value: 0}
+    counts = {
+        QuizChannel.REVERSE.value: 0,
+        QuizChannel.AUDIO.value: 0,
+        QuizChannel.SPEECH.value: 0,
+    }
 
     for item, word in items:
         icon = "✓" if item.is_correct else "✗"
         mark = _CHANNEL_MARKS.get(item.channel)
         if mark:
             icon += f" {mark}"
-        # Значок есть у трёх каналов, а СЧЁТЧИК только у двух: доска значком
-        # помечается, но своей строки «сколько пришло» не имеет — она не
-        # навык. Прибавлять по значку, а не по наличию ключа, значило бы
+        # Значок есть у четырёх каналов, а СЧЁТЧИК только у трёх: доска
+        # значком помечается, но своей строки «сколько пришло» не имеет —
+        # она не навык. Прибавлять по значку, а не по наличию ключа, значило бы
         # KeyError на первом же круге с доской, то есть падение ИТОГА, когда
         # круг уже пройден и записан. Хуже места для падения нет
         if item.channel in counts:
@@ -1469,6 +1492,7 @@ def _round_breakdown(
 
     channel_lines: list[str] = []
     for value, key in (
+        (QuizChannel.REVERSE.value, "quiz_result_recalled"),
         (QuizChannel.AUDIO.value, "quiz_result_by_ear"),
         (QuizChannel.SPEECH.value, "quiz_result_spoken"),
     ):

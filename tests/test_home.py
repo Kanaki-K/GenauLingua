@@ -290,7 +290,20 @@ async def test_home_renders_on_an_empty_account(session, user):
 
     assert "░" in text, "полос нет вовсе"
     assert "▓" not in text, "на пустом счёте нечему быть закрашенным"
-    assert len(keyboard.inline_keyboard[1]) == 3, "три прямых входа по каналам"
+    # Прямых входов столько же, сколько каналов, и считается это от
+    # ПЕРЕЧИСЛЕНИЯ: пятая игра добавила четвёртый, и вписанная руками
+    # тройка молча оставила бы её без кнопки
+    from app.database.enums import QuizChannel
+
+    shortcuts = [
+        button
+        for row in keyboard.inline_keyboard
+        for button in row
+        if (button.callback_data or "").startswith("home_learn_")
+    ]
+    assert len(shortcuts) == len(QuizChannel), (
+        f"прямых входов {len(shortcuts)}, каналов {len(QuizChannel)}"
+    )
 
 
 @pytest.mark.asyncio
@@ -391,7 +404,12 @@ async def test_every_button_has_a_handler_that_answers_it(session, user):
 
     _, keyboard = await build_home(user, session)
     data = [b.callback_data for row in keyboard.inline_keyboard for b in row]
-    assert len(data) == 6, f"кнопок стало {len(data)}, проверка устарела"
+    # Число кнопок считается, а не вписано: занятие, прямые входы по числу
+    # каналов, доска и подробности
+    expected = 1 + len(QuizChannel) + 2
+    assert len(data) == expected, (
+        f"кнопок стало {len(data)}, ожидалось {expected}: {data}"
+    )
 
     # Обработчики берутся из ВСЕГО набора роутеров, а не из одного.
     #

@@ -33,7 +33,7 @@
 
     ENV_FILE=.env.local .venv/Scripts/python.exe -m app.scripts.audit_round
     ... -m app.scripts.audit_round --pairs 6 --questions 9
-    ... -m app.scripts.audit_round --full          # все 30 пар × 2 стороны
+    ... -m app.scripts.audit_round --full          # все 30 пар полным составом
 """
 
 from __future__ import annotations
@@ -177,6 +177,8 @@ async def _make_probe(session, case: Case, index: int) -> User:
         quiz_mode=QuizMode.LEVEL,
         quiz_word_count=case.questions,
         quiz_channels=case.channels,
+        # Озвучка включается только ради звуковых каналов: пятая игра
+        # текстовая, и случай «tr» обязан проходить с выключенным звуком
         audio_enabled="a" in case.channels or "s" in case.channels,
         match_in_round=True,
         quizzes_passed=0,            # чётное — доска положена
@@ -481,20 +483,39 @@ async def _check_score(session, user, case, rep, rows, quiz, score_before) -> No
 # ============================================================================
 
 def _cases(full: bool, pairs_limit: int, questions: int) -> list[Case]:
+    """
+    Все пары языков ПОЛНЫМ составом, плюс отдельные составы.
+
+    ФЛАГА `reverse` У СЛУЧАЕВ БОЛЬШЕ НЕТ. Он выставлял прежнюю настройку
+    «весь круг в обратную сторону», а она на круг не влияет: направление
+    стало свойством игры (`QuizChannel.REVERSE`). Оставь его — и половина
+    случаев проверяла бы ровно то же, что прямая половина, а приёмка
+    оставалась бы зелёной, потеряв половину покрытия.
+
+    Обратная сторона теперь проверяется СОСТАВОМ: «tasr» содержит пятую
+    игру, и она приходит в круге сама, вперемешку с остальными.
+    """
     codes = sorted(LANGUAGES)
     out: list[Case] = []
     for learning in codes:
         for native in codes:
             if learning == native:
                 continue
-            for reverse in (False, True):
-                out.append(Case(learning, native, reverse, "tas", questions))
+            out.append(Case(learning, native, False, "tasr", questions))
     if not full:
         # Ровный срез: берём каждую k-ю, чтобы попали все языки
         step = max(1, len(out) // max(1, pairs_limit))
         out = out[::step][:pairs_limit]
-    # Состав занятия тоже надо потрогать: один канал и два
+
+    # Составы по отдельности: каждый канал один, и пары.
+    #
+    # «r» в одиночку — важный случай: круг целиком из припоминания должен
+    # собираться и считаться, иначе прямой вход кнопкой «Вспомнить» вёл бы
+    # в поломку. «tr» без звука проверяет, что пятая игра доступна тому,
+    # кто озвучку выключил, — она текстовая и звука не требует.
     out.append(Case("de", "ru", False, "t", questions))
+    out.append(Case("de", "ru", False, "r", questions))
+    out.append(Case("de", "ru", False, "tr", questions))
     out.append(Case("de", "ru", False, "ta", questions))
     return out
 
@@ -573,7 +594,7 @@ async def run(full: bool, pairs_limit: int, questions: int) -> int:
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--full", action="store_true",
-                    help="все 30 пар × 2 направления")
+                    help="все 30 пар, каждая полным составом «tasr»")
     ap.add_argument("--pairs", type=int, default=8,
                     help="сколько сочетаний брать без --full")
     ap.add_argument("--questions", type=int, default=DEFAULT_QUESTIONS)

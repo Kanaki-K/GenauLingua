@@ -250,15 +250,31 @@ def test_question_header_is_one_meaning_in_both_directions():
     word.example_de = "Kannst du das Gespräch aufnehmen?"
     word.example_ru = "Ты можешь записать разговор?"
 
-    for reverse in (False, True):
-        pair = LanguagePair(learning="de", native="ru", reverse=reverse)
-        text = _question_text(word, pair, "ru", 1, 25)
-        head = text.split("<b>")[1].split("</b>")[0]
-        assert "," not in head, f"в заголовке список, reverse={reverse}: {head!r}"
+    # НАПРАВЛЕНИЕ ЗАДАЁТ КАНАЛ, а не флаг пары. Прежде обратная сторона
+    # была настройкой человека на весь круг, и тест переворачивал пару сам;
+    # теперь это пятая игра круга, и спрашивать её надо каналом. Пара при
+    # этом всегда прямая — такой она и приходит из `pair_from_user`.
+    from app.database.enums import QuizChannel
 
-    pair = LanguagePair(learning="de", native="ru", reverse=True)
-    head = _question_text(word, pair, "ru", 1, 25).split("<b>")[1].split("</b>")[0]
-    assert head == "Записывать"
+    pair = LanguagePair(learning="de", native="ru")
+
+    for channel in (QuizChannel.TEXT, QuizChannel.REVERSE):
+        text = _question_text(word, pair, "ru", 1, 25, channel=channel)
+        head = text.split("<b>")[1].split("</b>")[0]
+        assert "," not in head, (
+            f"в заголовке список, канал {channel.value}: {head!r}"
+        )
+
+    # В прямую сторону спрашивается слово, в обратную — одно значение
+    forward = _question_text(
+        word, pair, "ru", 1, 25, channel=QuizChannel.TEXT
+    ).split("<b>")[1].split("</b>")[0]
+    assert forward == "aufnehmen", forward
+
+    back = _question_text(
+        word, pair, "ru", 1, 25, channel=QuizChannel.REVERSE
+    ).split("<b>")[1].split("</b>")[0]
+    assert back == "Записывать", back
 
 
 def test_heteronym_gets_context_clip_even_in_a_multi_meaning_row():
