@@ -139,7 +139,7 @@ async def show_how_to_use(callback: CallbackQuery, session: AsyncSession):
     languages = learnable_names(lang)
     # ДЛИНА КРУГА — ИЗ ТОГО ЖЕ МЕСТА, ЧТО У ИГРЫ. В тексте стояло «25 слов»
     # во всех шести языках, а круг — 15: число жило отдельно от правила
-    from app.bot.handlers.quiz.game import DEFAULT_QUIZ_LENGTH
+    from app.bot.handlers.quiz.lesson_state import DEFAULT_QUIZ_LENGTH
 
     length = (user.quiz_word_count if user else None) or DEFAULT_QUIZ_LENGTH
     words = plural(length, "plural_words", lang)

@@ -25,7 +25,7 @@ build_service.py`; здесь только то, что видит и нажим
 появляется, когда пропуски заполнены: до того проверять нечего.
 
 ДВОЙНЫЕ И УСТАРЕВШИЕ НАЖАТИЯ. Как у доски: в `callback_data` — номер
-слова и ВЕРСИЯ сетки, нажатия идут под замком чата (`game._claim_lock`).
+слова и ВЕРСИЯ сетки, нажатия идут под замком чата (`lesson_state._claim_lock`).
 Номер слова отличает сетку нынешнего вопроса от сетки прошлого, версия —
 нынешнее состояние от того, что человек видел до своего же прошлого
 нажатия. «Проверить» занимает вопрос (`S_ANSWERED`) под тем же замком,
@@ -232,7 +232,7 @@ def _parse(data: str) -> Optional[tuple[str, int, int, int]]:
 
 def _live(data: dict, word_id: int, version: int) -> bool:
     """Нажатие относится к НЫНЕШНЕЙ сетке и вопрос ещё не отвечен."""
-    from app.bot.handlers.quiz.game import S_ANSWERED
+    from app.bot.handlers.quiz.lesson_state import S_ANSWERED
 
     return (
         data.get("channel") == QuizChannel.BUILD.value
@@ -254,7 +254,7 @@ async def press(callback: CallbackQuery, state: FSMContext, session: AsyncSessio
         await _check(callback, state, session, word_id, version)
         return
 
-    from app.bot.handlers.quiz.game import _claim_lock
+    from app.bot.handlers.quiz.lesson_state import _claim_lock
 
     # ЦЕЛИКОМ ПОД ЗАМКОМ ЧАТА, как нажатие по доске: проверка версии и её
     # увеличение разделены несколькими `await`, а aiogram ведёт нажатия
@@ -325,7 +325,7 @@ async def _claim_check(state: FSMContext, chat_id: int, word_id: int,
     бы двойное «Проверить» (две строки ответа, балл дважды) и «⌫»,
     пришедший между проверкой версии и записью.
     """
-    from app.bot.handlers.quiz.game import S_ANSWERED, _claim_lock
+    from app.bot.handlers.quiz.lesson_state import S_ANSWERED, _claim_lock
 
     async with _claim_lock(chat_id):
         data = await state.get_data()

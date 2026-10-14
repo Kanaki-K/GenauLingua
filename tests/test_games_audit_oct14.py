@@ -30,6 +30,7 @@ import pytest
 from sqlalchemy import func, select, text
 
 from app.bot.handlers.quiz import game as G
+from app.bot.handlers.quiz import lesson_state as LS
 from app.core.clock import utcnow
 from app.database.enums import CEFRLevel, QuizChannel, QuizMode
 from app.database.models import QuizQuestion, QuizSession, User, UserWord, Word
@@ -340,7 +341,7 @@ async def test_a_surplus_voice_is_swept_away(session, user, stage, monkeypatch):
     surplus = voice_update(user.id)            # после засчитанного ответа
     await dp.feed_update(bot, surplus)
 
-    stray = (await _ctx(dp, bot, user).get_data()).get(G.S_STRAY) or []
+    stray = (await _ctx(dp, bot, user).get_data()).get(LS.S_STRAY) or []
     assert surplus.message.message_id in stray, "лишнее голосовое останется в чате"
 
 

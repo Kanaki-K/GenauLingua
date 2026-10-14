@@ -26,6 +26,7 @@ from sqlalchemy import func, select
 import pytest
 
 from app.bot.handlers.quiz import game as G
+from app.bot.handlers.quiz import lesson_state as LS
 from app.database.enums import CEFRLevel, QuizChannel, QuizMode
 from app.database.models import QuizQuestion, QuizSession, User, UserWord, Word
 from app.locales import get_text
@@ -162,7 +163,7 @@ async def test_a_new_round_after_an_abandoned_one_accepts_its_first_answer(
     data = await _ctx(dp, bot, user).get_data()
     second = data["session_id"]
     assert second != first
-    assert data.get(G.S_ANSWERED) is None, "отметка брошенного круга пережила новый"
+    assert data.get(LS.S_ANSWERED) is None, "отметка брошенного круга пережила новый"
 
     await dp.feed_update(bot, press(user.id, _first_option(recorder)))
     assert await _rows(session, second) == 1
@@ -252,12 +253,12 @@ async def test_next_advances_from_one_number_only_once(session, user, stage):
     ctx = _ctx(dp, bot, user)
     await ctx.update_data(current_question=15)
 
-    assert await G._claim_advance(ctx, user.id) is True
-    assert await G._claim_advance(ctx, user.id) is False
+    assert await LS._claim_advance(ctx, user.id) is True
+    assert await LS._claim_advance(ctx, user.id) is False
 
     # Следующий номер продвигается снова
     await ctx.update_data(current_question=16)
-    assert await G._claim_advance(ctx, user.id) is True
+    assert await LS._claim_advance(ctx, user.id) is True
 
 
 async def test_a_round_is_finished_once_however_many_times_finish_is_called(

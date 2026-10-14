@@ -282,7 +282,7 @@ async def tap(callback: CallbackQuery, state: FSMContext, session: AsyncSession)
     по последней паре проходил проверку дважды и записывал доску дважды —
     десять строк вместо пяти. Замок тот же, что у ответов круга.
     """
-    from app.bot.handlers.quiz.game import _claim_lock
+    from app.bot.handlers.quiz.lesson_state import _claim_lock
 
     async with _claim_lock(callback.message.chat.id):
         await _tap(callback, state, session)
