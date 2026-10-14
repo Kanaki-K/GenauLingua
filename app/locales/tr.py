@@ -533,6 +533,7 @@ TEXTS.update({
     "speech_send_voice": "🎤 Bu soru sesli mesajla cevaplanır. Mikrofon düğmesine basılı tutun.",
     "speech_skipped": "Atlandı",
     "speech_not_counted": "Yine «{heard}» gibi duyuldu. Bu ne doğru ne de hata sayılır — nasıl söylendiğini dinleyin ve devam edelim.",
+    "lesson_expired": "Bu ders yarıda kaldı — bot güncellendi ya da ders çoktan bitti. Aşağıdaki düğmeyle yeni bir ders başlatın.",
     "quiz_result_spoken": "🎤 Sesli: {count}",
 })
 

@@ -545,6 +545,7 @@ TEXTS.update({
     "speech_send_voice": "🎤 Diese Frage wird mit einer Sprachnachricht beantwortet. Halten Sie die Mikrofontaste gedrückt.",
     "speech_skipped": "Übersprungen",
     "speech_not_counted": "Wieder klang es wie „{heard}“. Das zählt weder als richtig noch als Fehler — hören Sie sich an, wie es klingt, und weiter geht’s.",
+    "lesson_expired": "Diese Lektion wurde unterbrochen — der Bot wurde aktualisiert oder sie ist längst beendet. Starten Sie eine neue mit der Taste unten.",
     "quiz_result_spoken": "🎤 Gesprochen: {count}",
 })
 

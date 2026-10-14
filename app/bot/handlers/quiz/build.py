@@ -272,6 +272,12 @@ async def press(callback: CallbackQuery, state: FSMContext, session: AsyncSessio
 async def _tap(callback: CallbackQuery, state: FSMContext, session: AsyncSession,
                action: str, index: int, word_id: int, version: int) -> None:
     data = await state.get_data()
+    if not data.get(S_WORD):
+        # Сетки в состоянии нет вовсе — бот её не помнит (перезапуск)
+        from app.bot.handlers.quiz.expired import lesson_expired
+
+        await lesson_expired(callback, session)
+        return
     if not _live(data, word_id, version):
         # Устаревшее нажатие или сетка прошлого вопроса — молча гасим: это
         # не ошибка человека, он нажал быстрее, чем пришёл ответ
@@ -353,6 +359,11 @@ async def _check(callback: CallbackQuery, state: FSMContext, session: AsyncSessi
     """«Проверить»: сравнить, записать ответ общим путём, показать разбор."""
     from app.bot.handlers.quiz.lesson import _record_answer
 
+    if not (await state.get_data()).get(S_WORD):
+        from app.bot.handlers.quiz.expired import lesson_expired
+
+        await lesson_expired(callback, session)
+        return
     data = await _claim_check(state, callback.message.chat.id, word_id, version)
     if data is None:
         await callback.answer()

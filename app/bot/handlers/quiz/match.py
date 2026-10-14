@@ -296,7 +296,11 @@ async def _tap(callback: CallbackQuery, state: FSMContext, session: AsyncSession
 
     word_ids: list[int] = data.get(S_WORDS) or []
     if not word_ids:
-        await callback.answer()
+        # Доски в состоянии нет вовсе — бот её не помнит (перезапуск):
+        # сказать, а не промолчать
+        from app.bot.handlers.quiz.expired import lesson_expired
+
+        await lesson_expired(callback, session)
         return
 
     version = int(data.get(S_VERSION) or 0)

@@ -533,6 +533,7 @@ TEXTS.update({
     "speech_send_voice": "🎤 This question needs a voice message. Press and hold the microphone button.",
     "speech_skipped": "Skipped",
     "speech_not_counted": "Again it sounded like “{heard}”. This counts neither as right nor as a mistake — listen to how it sounds, and let's move on.",
+    "lesson_expired": "This lesson was interrupted — the bot was updated or the lesson ended long ago. Start a new one with the button below.",
     "quiz_result_spoken": "🎤 Spoken: {count}",
 })
 

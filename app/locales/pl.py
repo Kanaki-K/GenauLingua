@@ -541,6 +541,7 @@ TEXTS.update({
     "speech_send_voice": "🎤 Na to pytanie odpowiada się wiadomością głosową. Proszę nacisnąć i przytrzymać przycisk mikrofonu.",
     "speech_skipped": "Pominięto",
     "speech_not_counted": "Znowu brzmiało jak „{heard}”. Nie liczę tego ani jako dobrej odpowiedzi, ani jako błędu — proszę posłuchać, jak to brzmi, i idziemy dalej.",
+    "lesson_expired": "Ta lekcja została przerwana — bot był aktualizowany albo skończyła się dawno temu. Proszę zacząć nową przyciskiem poniżej.",
     "quiz_result_spoken": "🎤 Na głos: {count}",
 })
 
