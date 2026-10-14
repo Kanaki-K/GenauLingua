@@ -348,11 +348,20 @@ async def run(args) -> int:
         if count:
             share = count / checked * 100 if checked else 0
             print(f"  {name:<20} {count:>6}  ({share:.2f}%)")
+    clean_share = stats["совпало"] / checked * 100 if checked else 0.0
     if checked:
-        clean_share = stats["совпало"] / checked * 100
         print(f"\n  озвучка подтверждена распознаванием: {clean_share:.2f}%")
     print(f"  подробности: {out_path}")
-    return 0
+    return {
+        "lang": lang,
+        "voice": voice,
+        "checked": checked,
+        "matched": stats.get("совпало", 0),
+        "mismatched": stats.get("расхождение", 0),
+        "clean_share": clean_share,
+        "stats": dict(stats),
+        "out": str(out_path),
+    }
 
 
 def main() -> int:
@@ -372,7 +381,8 @@ def main() -> int:
     ap.add_argument("--recheck-clean", type=int, metavar="N",
                     help="перепроверить N случайных из признанных верными")
     ap.add_argument("--seed", type=int, default=20260930)
-    return asyncio.run(run(ap.parse_args()))
+    report = asyncio.run(run(ap.parse_args()))
+    return 0 if report else 1
 
 
 if __name__ == "__main__":
