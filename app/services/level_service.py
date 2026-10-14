@@ -73,6 +73,9 @@ MIN_ANSWERS = 20
 # всех подряд.
 EASY_ACCURACY = 0.90
 
+# Через сколько занятий после отказа предложить снова (при той же точности)
+REOFFER_AFTER_ROUNDS = 5
+
 
 def next_level(level: Optional[CEFRLevel]) -> Optional[CEFRLevel]:
     """Следующий уровень или None, если дальше некуда."""
@@ -134,9 +137,18 @@ async def should_offer_next_level(
         return None
 
     # Отказ относится к конкретному уровню: поднявшись своей волей, человек
-    # снова услышит предложение — уже про следующий
+    # снова услышит предложение — уже про следующий.
+    #
+    # И ОТКАЗ НЕ НАВСЕГДА. Прежде на этом уровне бот не спрашивал больше
+    # никогда, даже когда человек давно его перерос. Владелец, 14 октября:
+    # «если он ещё 5 игр будет на высоком уровне — предлагаем перейти».
+    # Через пять занятий после отказа — снова, если точность всё ещё высокая
+    # (ниже); новый отказ начинает отсчёт заново
     if user.level_offer_declined == user.level.value:
-        return None
+        declined_at = getattr(user, "level_offer_declined_round", None)
+        played_since = (user.quizzes_passed or 0) - (declined_at or 0)
+        if declined_at is None or played_since < REOFFER_AFTER_ROUNDS:
+            return None
 
     answered, accuracy = await recent_accuracy(user, session)
     if answered < MIN_ANSWERS or accuracy < EASY_ACCURACY:
@@ -150,6 +162,7 @@ async def raise_level(user: User, session: AsyncSession, level: CEFRLevel) -> No
     user.level = level
     # Прежний отказ относился к прежнему уровню и больше ничего не значит
     user.level_offer_declined = None
+    user.level_offer_declined_round = None
     await session.commit()
 
 
@@ -157,4 +170,5 @@ async def decline_level(user: User, session: AsyncSession) -> None:
     """Запомнить отказ, чтобы не спрашивать об этом же уровне снова."""
     if user.level is not None:
         user.level_offer_declined = user.level.value
+        user.level_offer_declined_round = user.quizzes_passed or 0
         await session.commit()

@@ -92,6 +92,10 @@ class User(Base):
     # человек снова услышит предложение — уже про следующий. Сравнение идёт
     # с текущим уровнем, поэтому отметка обесценивается сама.
     level_offer_declined: Mapped[Optional[str]] = mapped_column(String(8), nullable=True)
+    # На каком по счёту занятии был отказ (`quizzes_passed` в тот момент).
+    # Отказ не навсегда: через `level_service.REOFFER_AFTER_ROUNDS` занятий
+    # на высокой точности бот спросит снова — владелец, 14 октября.
+    level_offer_declined_round: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
 
     # Зачем человек учит язык: work / travel / living / study / any.
     #

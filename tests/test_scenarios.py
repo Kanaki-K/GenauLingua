@@ -405,10 +405,18 @@ async def test_reminders_are_offered_after_the_first_finished_round(session, use
         "после первого круга напоминания не предложены"
     )
 
+    recorder.clear()
     await _feed(dp, bot, press(user.id, "reminder_offer_yes"))
     await session.refresh(user)
     assert user.notifications_enabled, "согласие не включило напоминания"
     assert user.notification_time, "час напоминания не выставлен"
+
+    # Владелец: «предложить гибкие настройки — с переходом в настройки».
+    # Ответ называет поставленное время и ведёт кнопкой в настройки
+    assert user.notification_time in recorder.last_text(), (
+        f"время не названо: {recorder.last_text()!r}"
+    )
+    assert "settings:notifications" in recorder.buttons(), "нет кнопки в настройки"
 
 
 # ============================================================================

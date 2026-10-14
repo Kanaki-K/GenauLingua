@@ -251,3 +251,47 @@ async def test_agreeing_leaves_one_clean_screen(session, user):
     assert len(screens) == 1, [p.get("text", "")[:40] for p in sent]
     done = get_text("level_offer_done", user.interface_language or "ru", following="A2")
     assert screens[0]["text"].startswith(done)
+
+
+# ============================================================================
+# ОТКАЗ НЕ НАВСЕГДА — через пять занятий на высокой точности спросим снова
+# ============================================================================
+
+@pytest.mark.asyncio
+async def test_a_refusal_is_asked_again_after_five_lessons(session, user):
+    """
+    Владелец, 14 октября: «если он ещё 5 игр будет на высоком уровне —
+    предлагаем перейти». Прежде отказ на этом уровне был навсегда.
+    """
+    from app.services.level_service import REOFFER_AFTER_ROUNDS
+
+    user.level = CEFRLevel.A1
+    user.quizzes_passed = 10
+    await _answers(session, user, correct=MIN_ANSWERS, wrong=0)
+    await decline_level(user, session)
+    assert await should_offer_next_level(user, session) is None, "спросили сразу после отказа"
+
+    user.quizzes_passed = 10 + REOFFER_AFTER_ROUNDS - 1
+    await session.commit()
+    assert await should_offer_next_level(user, session) is None, "спросили раньше пяти занятий"
+
+    user.quizzes_passed = 10 + REOFFER_AFTER_ROUNDS
+    await session.commit()
+    assert await should_offer_next_level(user, session) is CEFRLevel.A2, (
+        "через пять занятий на высокой точности не спросили"
+    )
+
+
+@pytest.mark.asyncio
+async def test_a_second_refusal_restarts_the_count(session, user):
+    from app.services.level_service import REOFFER_AFTER_ROUNDS
+
+    user.level = CEFRLevel.A1
+    user.quizzes_passed = 10 + REOFFER_AFTER_ROUNDS
+    user.level_offer_declined = CEFRLevel.A1.value
+    user.level_offer_declined_round = 10
+    await session.commit()
+    await _answers(session, user, correct=MIN_ANSWERS, wrong=0)
+
+    await decline_level(user, session)
+    assert await should_offer_next_level(user, session) is None

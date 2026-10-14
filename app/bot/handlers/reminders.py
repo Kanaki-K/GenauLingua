@@ -107,11 +107,21 @@ async def accept_reminder_offer(callback: CallbackQuery, session: AsyncSession):
         await callback.answer("Error", show_alert=True)
         return
 
-    await enable_reminders(user, session)
+    # Время НАЗЫВАЕТСЯ, и рядом — кнопка в настройки. Прежде было «Готово.
+    # Время и дни можно поменять в настройках»: какое время поставлено, не
+    # говорилось, а путь в настройки человек искал сам. Владелец: «да,
+    # предложить гибкие настройки — с переходом в настройки». Согласие
+    # по-прежнему одним нажатием: экран настроек — по желанию, не поверх
+    time = await enable_reminders(user, session)
     await callback.answer()
+    keyboard = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(
+        text=get_text("reminder_offer_setup", lang),
+        callback_data="settings:notifications",
+    )]])
     try:
         await callback.message.edit_text(
-            get_text("reminder_offer_done", lang), parse_mode="HTML"
+            get_text("reminder_offer_done", lang, time=time),
+            parse_mode="HTML", reply_markup=keyboard,
         )
     except Exception:
         pass
