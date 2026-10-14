@@ -220,7 +220,6 @@ async def build_stats_text(user: User, session: AsyncSession) -> str:
     mode_title = _get_mode_title(user, lang)
     mode_arrow = pair_label(pair, lang)
 
-    total = progress['total_words']
     learned = progress['learned_words']
     in_progress = progress['seen_words'] - learned
     new = progress['new_words']

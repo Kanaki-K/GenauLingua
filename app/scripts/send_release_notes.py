@@ -84,6 +84,23 @@ async def _deliver(bot: Bot, chat_id: int, text: str, lang: str) -> str:
     return "failed"
 
 
+def read_journal(journal: pathlib.Path) -> dict[int, str]:
+    """
+    Журнал рассылки: номер человека → исход («ok» или «blocked»).
+
+    Строка — «<номер> <исход>». Строка из одного номера — журнал прежнего
+    вида, без исхода; такой человек считается получившим.
+    """
+    out: dict[int, str] = {}
+    if not journal.exists():
+        return out
+    for line in journal.read_text(encoding="utf-8").splitlines():
+        parts = line.split()
+        if parts and parts[0].lstrip("-").isdigit():
+            out[int(parts[0])] = parts[1] if len(parts) > 1 else "ok"
+    return out
+
+
 async def run(args) -> int:
     missing = [lang for lang in LOCALES if args.key not in LOCALES[lang]]
     if missing:
@@ -92,9 +109,7 @@ async def run(args) -> int:
 
     journal = pathlib.Path(settings.LOG_DIR or "logs") / f"{args.key}.sent"
     journal.parent.mkdir(parents=True, exist_ok=True)
-    sent = set()
-    if journal.exists():
-        sent = {int(line) for line in journal.read_text(encoding="utf-8").split() if line}
+    sent = set(read_journal(journal))
 
     async with AsyncSessionLocal() as session:
         people = (await session.execute(
@@ -124,9 +139,11 @@ async def run(args) -> int:
             for index, (uid, lang) in enumerate(pending, start=1):
                 result = await _deliver(bot, uid, get_text(args.key, lang), lang)
                 counts[result] += 1
-                # Помечается и заблокировавший: стучаться к нему снова незачем
+                # Помечается и заблокировавший: стучаться к нему снова незачем.
+                # Исход — рядом с номером: по нему отчёт (`release_report`)
+                # отличает «дошло» от «заблокировал бота»
                 if result in ("ok", "blocked"):
-                    log.write(f"{uid}\n")
+                    log.write(f"{uid} {result}\n")
                     log.flush()
                 if index % 25 == 0:
                     print(f"  {index}/{len(pending)}: {dict(counts)}", flush=True)

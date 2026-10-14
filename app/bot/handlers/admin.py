@@ -966,7 +966,6 @@ async def admin_churn(callback: CallbackQuery, session: AsyncSession):
         )
     )
     churned = churned_result.scalar() or 0
-    churn_rate = (churned / players_month_ago * 100) if players_month_ago > 0 else 0
 
     # Два разных счётчика, которые раньше были свалены в один.
     # Прежний запрос считал «нет ЗАВЕРШЁННЫХ викторин», а подпись говорила

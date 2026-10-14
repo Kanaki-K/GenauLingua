@@ -5,7 +5,7 @@ import logging
 from datetime import datetime, timedelta
 from app.core.clock import utcnow
 from zoneinfo import ZoneInfo
-from typing import List, Optional
+from typing import TYPE_CHECKING, List, Optional
 
 from aiogram import Bot
 from aiogram.exceptions import TelegramForbiddenError
@@ -16,6 +16,10 @@ from app.bot.keyboards.notifications import get_reminder_keyboard
 from app.database.models import User
 from app.services.streak_service import current_streak, user_today
 from app.locales import get_text
+
+if TYPE_CHECKING:
+    # Только для подписи: сам модуль импортируется лениво внутри функции
+    from app.services.reminder_reason import ReminderFacts
 
 logger = logging.getLogger(__name__)
 

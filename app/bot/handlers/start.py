@@ -157,9 +157,6 @@ async def cmd_start(message: Message, state: FSMContext, session: AsyncSession):
 
     # Язык уже выбран — продолжаем обычный flow
     lang = user.interface_language
-    # Запасное обращение берётся из локали. Прежде здесь стояло русское «друг»
-    # для всех: турок без имени в профиле получал русское слово.
-    first_name = message.from_user.first_name or get_text("friend_fallback", lang)
 
     if not await _learning_language_unanswered(session, user):
         # `/START` — ЭТО ВСТУПИТЕЛЬНЫЙ БЛОК, И БОЛЬШЕ НИЧЕГО.
