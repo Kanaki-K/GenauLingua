@@ -22,7 +22,7 @@ import pytest
 
 from app.testing import starts_lesson
 
-from app.bot.handlers.quiz.game import get_results_keyboard
+from app.bot.handlers.quiz.summary import get_results_keyboard
 from app.bot.handlers.reminders import get_reminder_offer_keyboard
 from app.bot.keyboards.notifications import get_reminder_keyboard
 from app.core.clock import utcnow

@@ -118,7 +118,7 @@ def test_the_reminder_button_carries_its_own_door():
 
 
 def test_the_result_button_says_another_round():
-    from app.bot.handlers.quiz.game import get_results_keyboard
+    from app.bot.handlers.quiz.summary import get_results_keyboard
 
     data = [
         button.callback_data

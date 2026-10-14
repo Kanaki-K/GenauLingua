@@ -27,6 +27,7 @@ import pytest
 
 from app.bot.handlers.quiz import game as G
 from app.bot.handlers.quiz import lesson_state as LS
+from app.bot.handlers.quiz import summary as SM
 from app.database.enums import CEFRLevel, QuizChannel, QuizMode
 from app.database.models import QuizQuestion, QuizSession, User, UserWord, Word
 from app.locales import get_text
@@ -296,7 +297,7 @@ async def test_a_round_is_finished_once_however_many_times_finish_is_called(
     await session.refresh(fresh)
     assert fresh.quizzes_passed == 1
 
-    await G._finish_quiz(_Callback(), ctx, session, fresh, pair, "ru", data)
+    await SM._finish_quiz(_Callback(), ctx, session, fresh, pair, "ru", data)
     await session.refresh(fresh)
     assert fresh.quizzes_passed == 1, "второе завершение прибавило круг"
 

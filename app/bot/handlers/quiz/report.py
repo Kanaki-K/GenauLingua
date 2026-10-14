@@ -209,12 +209,12 @@ def _get_results_keyboard_lazy(has_errors: bool, lang: str) -> InlineKeyboardMar
     «Ещё круг» (главной кнопки итога, ради петли возврата) и пометки
     `:result`, по которой «Назад» с экрана уровня ведёт домой, а не в
     настройки. Человек, открывший и закрывший жалобу, терял и то и другое
-    — аудит 14 октября. Копии больше нет: источник один, `game.py`.
+    — аудит 14 октября. Копии больше нет: источник один, `summary.py`.
 
-    Импорт внутри функции: `game` сам тянет модули настроек, и на уровне
+    Импорт внутри функции: `summary` сам тянет модули настроек, и на уровне
     модуля это грозит циклом.
     """
-    from app.bot.handlers.quiz.game import get_results_keyboard
+    from app.bot.handlers.quiz.summary import get_results_keyboard
 
     return get_results_keyboard(has_errors, lang)
 

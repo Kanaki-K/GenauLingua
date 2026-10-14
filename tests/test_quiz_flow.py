@@ -422,7 +422,7 @@ def _pair() -> LanguagePair:
 
 
 def _round(*channels: str | None):
-    from app.bot.handlers.quiz.game import _round_breakdown
+    from app.bot.handlers.quiz.summary import _round_breakdown
 
     word = make_word("Haus", ru="дом")
     items = [(_Asked(c), word) for c in channels]
