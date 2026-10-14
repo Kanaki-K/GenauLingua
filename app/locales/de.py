@@ -214,6 +214,7 @@ TEXTS = {
     "report_btn_send": "Senden",
     "report_no_words": "Keine Wörter zum Melden",
     "report_none_selected": "Wähle mindestens ein Wort",
+    "report_pick_kind": "{count} Wort(e) ausgewählt. Sag jetzt, was falsch ist — die Übersetzung oder die Aussprache.",
     "report_sent": "✓ {count} Meldungen gesendet — danke!\nWenn der Fehler bestätigt wird, bekommst du +{points} Punkte",
     "report_daily_limit": "Tageslimit für Meldungen erreicht (max. 20)",
     "report_all_reported": "✓ Alle Wörter aus diesem Quiz sind schon gemeldet",
@@ -486,6 +487,8 @@ TEXTS.update({
     "voice_male": "Männlich",
     "voice_female": "Weiblich",
     "voice_set": "✓ Stimme: {voice}",
+    "voice_use": "{voice} nehmen",
+    "voice_listening": "{voice} läuft",
     "voice_only_one": "Für diese Sprache hat der Synthesizer eine männliche und eine weibliche Stimme — mehr gibt es nicht.",
     "voice_preview_failed": "Die Probe konnte nicht geladen werden, versuche es noch einmal",
 })
@@ -638,7 +641,7 @@ TEXTS.update({
     "home_scale_text": "Ich lese",
     "home_scale_audio": "Ich höre",
     "home_scale_speech": "Ich spreche",
-    "home_btn_learn": "Üben · {count}",
+    "home_btn_learn": "Wörter lernen",
     "home_streak": "Serie {days} Tage",
     "home_rank": "Platz {rank}",
     "home_hint": "",
@@ -715,8 +718,7 @@ TEXTS.update({
 # «Помощь» среди них, откуда она уехала в настройки.
 # ============================================================================
 TEXTS.update({
-    "intro_title": "<b>GenauLingua</b>",
-    "intro_three_games": "Ein Wort lernt sich hier auf drei Weisen: lesen, hören und laut sagen.\nIn der Runde wechseln sie sich selbst ab.",
+    "intro_games": "Ein Wort lernt sich hier auf vier Arten: lesen, aus der Bedeutung erinnern, hören, laut sagen.\nDie Übung mischt sie selbst.",
     "intro_numbers": "12 902 Wörter · 20 Themen · 6 Niveaus\nSechs Sprachen in jedem Paar: lerne Polnisch über Englisch, wenn du magst.",
     "intro_menu_settings": "Sprache, Rundeninhalt, Erinnerungen",
     "intro_menu_stats": "dein Fortschritt",

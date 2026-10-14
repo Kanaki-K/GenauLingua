@@ -30,7 +30,6 @@ from app.bot.states import QuizStates
 from app.bot.handlers.quiz.card import STATE_CARD_HAS_AUDIO, STATE_CARD_ID, show_card
 from app.bot.utils import delete_messages_fast, ensure_anchor
 from app.services.audio_service import (
-    AUDIO_PERFORMER,
     KIND_FULL,
     KIND_WORD,
     clip_for_user,
@@ -42,6 +41,7 @@ from app.services.speech_check import check_pronunciation
 from app.core.clock import utcnow, utctoday
 from app.database.enums import QuizChannel, QuizMode
 from app.database.models import QuizQuestion, QuizSession, User, UserWord, Word
+from app.bot.handlers.quiz.settings import RESULT_ORIGIN
 from app.locales import DEFAULT_LOCALE, get_text
 from app.services.language_service import (
     pair_for_channel,
@@ -391,11 +391,17 @@ def _answer_text(
     if learning_example:
         lines.append(f"\n\n<i>{learning_example}</i>")
     if native_example:
-        # Перенос, а не пустая строка: без флагов строки стали короче, и
-        # вплотную они читаются как пара «фраза и её перевод». Пустая строка
-        # разрывала эту пару на два отдельных сообщения
-        separator = "\n" if learning_example else "\n\n"
-        lines.append(f"{separator}<i>{native_example}</i>")
+        # ПУСТАЯ СТРОКА МЕЖДУ ПРИМЕРАМИ — решение владельца, дословно: «в
+        # ответах правильно\неправильно… хочу между примерами 1 язык и
+        # язык 2 разрыв 1 строку (ентер)».
+        #
+        # Прежде здесь стоял один перенос, и довод был такой: вплотную
+        # строки читаются как пара «фраза и её перевод», а пустая строка
+        # разрывает эту пару. Довод не выдержал встречи с глазами: на
+        # телефоне две строки курсивом подряд сливаются в одну кашу, и
+        # понять, где кончился немецкий и начался русский, труднее, чем
+        # связать их через пробел.
+        lines.append(f"\n\n<i>{native_example}</i>")
 
     return "".join(lines)
 
@@ -473,7 +479,11 @@ def get_results_keyboard(has_errors: bool, lang: str = "ru") -> InlineKeyboardMa
     buttons.append([
         InlineKeyboardButton(
             text=get_text("quiz_btn_change_mode", lang),
-            callback_data="settings_quiz_mode",
+            # «:result» говорит экрану уровня, ОТКУДА пришли: его «Назад»
+            # ведёт на домашний экран, а не в настройки. Прежде человек,
+            # поправив трудность после круга, оказывался в чужом месте —
+            # находка владельца
+            callback_data=f"settings_quiz_mode:{RESULT_ORIGIN}",
         )
     ])
     buttons.append([
@@ -1030,7 +1040,6 @@ async def play_reference(callback: CallbackQuery, state: FSMContext, session: As
     media = clip.file_id or BufferedInputFile(clip.data, filename=clip.filename)
     sent = await callback.bot.send_audio(
         callback.message.chat.id, media, title=clip.title,
-        performer=AUDIO_PERFORMER,
     )
     if clip.needs_remembering and getattr(sent, "audio", None):
         await remember(
@@ -1401,9 +1410,19 @@ async def show_next_question(callback: CallbackQuery, state: FSMContext, session
         )
         used_word_ids.append(word.id)
 
-        # Хвост истории каналов: нужен только чтобы не ставить три
-        # одинаковых подряд, поэтому двух последних достаточно
-        recent_channels = (recent_channels + [channel.value])[-2:]
+        # ИСТОРИЯ КАНАЛОВ КРУГА ЦЕЛИКОМ, а не два последних.
+        #
+        # Прежде хранился хвост из двух: больше и не требовалось, правило
+        # умело только «не три одинаковых подряд». Теперь состав круга
+        # сходится к ДОЛЯМ (`place_in_round`), а доля — это «сколько уже
+        # было», то есть вся история. Оставь хвост — и правило считало бы
+        # долю по двум последним вопросам, то есть ни по чему.
+        #
+        # Обрезка по длине САМОГО КРУГА: дольше истории не бывает, а расти
+        # бесконечно ей нельзя, если занятие почему-то не кончилось.
+        recent_channels = (
+            recent_channels + [channel.value]
+        )[-max(1, total_questions):]
 
         await state.update_data(
             current_question=current_question,

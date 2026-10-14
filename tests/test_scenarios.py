@@ -205,7 +205,15 @@ async def test_reminder_button_starts_a_lesson(session, user, stage):
 
 
 async def test_home_screen_opens_from_the_progress_button(session, user, stage):
-    """Реплай-кнопка «Статистика» открывает домашний экран с тремя шкалами."""
+    """
+    Кнопка «Статистика» открывает шкалы — и РОВНО ОДНУ кнопку.
+
+    Прежде этот тест требовал, чтобы с экрана можно было начать занятие.
+    Требование снято решением владельца: «у статистики 1 кнопка —
+    подробнее. Зачем нам на экране 2 раза учить слова, не понимаю».
+    «Учить слова» стоит на нижней клавиатуре под каждым экраном, и та же
+    кнопка внутри сообщения — одно действие в двух местах.
+    """
     from app.locales import get_text
 
     dp, bot, recorder = stage
@@ -215,8 +223,9 @@ async def test_home_screen_opens_from_the_progress_button(session, user, stage):
 
     text = recorder.last_text()
     assert "<code>" in text, f"шкал нет: {text!r}"
-    assert lesson_button(recorder.buttons()), "с домашнего экрана не начать занятие"
-    assert "stats_full" in recorder.buttons(), "нет входа в подробную статистику"
+    assert recorder.buttons() == ["stats_full"], (
+        f"на экране числа не одна кнопка: {recorder.buttons()}"
+    )
 
 
 async def test_detailed_stats_opens_and_comes_back(session, user, stage):
@@ -484,8 +493,18 @@ async def test_onboarding_runs_from_start_to_the_first_question(session, user, s
 
 async def test_start_for_a_returning_person_is_the_intro_block(session, user, stage):
     """
-    Вернувшийся человек видит вступление, а не шкалы: шкалы живут на кнопке
-    «Прогресс», куда приходят постоянно, а /start набирают раз в жизни.
+    `/start` — ЭТО ПРИВЕТСТВИЕ, и одинаковое для всех.
+
+    Разделения по числу кругов тут нет, и это проверено дважды на живом
+    человеке. Сперва играющего вело на экран шкал — «что-то ты не то
+    сделал, теперь при /start вызывает статистику». Потом на короткую
+    строку «С возвращением» — «СТОП, прошлый старт был ПРАВИЛЬНЫМ... Верни
+    старт!», и отдельно: «старт — это приветствие, оно было правильное».
+
+    ПРЕЖДЕ ЭТОТ ТЕСТ БЫЛ ПУСТЫМ. Он искал в тексте «GenauLingua» (ключ
+    `intro_title`) и находил имя не во вступлении, а в ЯКОРЕ — строке
+    состояния под экраном. Стоило убрать имя из якоря, и тест упал, хотя
+    вступление не менялось: он проверял чужой экран.
     """
     from app.locales import get_text
 
@@ -495,8 +514,17 @@ async def test_start_for_a_returning_person_is_the_intro_block(session, user, st
     await _feed(dp, bot, text_update(user.id, "/start"))
 
     everything = "\n".join(recorder.sent_texts())
-    assert get_text("intro_title", "ru").strip("🌍<b/> ") in everything, (
-        f"/start не дал вступления: {everything[:120]!r}"
+    # Обращение берётся из ЧАТА (`message.chat.first_name`), а не из ряда
+    # человека: во вступлении здороваются с тем, кто пишет. В поддельном
+    # обновлении имени чата нет, поэтому срабатывает запасное слово из
+    # локали — то самое, которое увидит турок без имени в профиле.
+    greeting = get_text("welcome_title", "ru",
+                        name=get_text("friend_fallback", "ru"))
+    assert greeting.strip("<b/> ") in everything, (
+        f"/start не дал приветствия: {everything[:160]!r}"
+    )
+    assert get_text("intro_games", "ru").split(":")[0] in everything, (
+        "вступление не говорит, чем бот занимается"
     )
     assert lesson_button(recorder.all_buttons()), "из вступления не начать занятие"
 
@@ -547,9 +575,9 @@ async def test_board_opens_from_the_home_screen(session, user, stage):
     dp, bot, recorder = stage
     await _board_ready(session, user)
 
-    await _feed(dp, bot, text_update(user.id, get_text("btn_stats", "ru")))
-    assert "match_start" in recorder.all_buttons(), "доски нет на домашнем экране"
-
+    # ВХОДА С ЭКРАНА ЧИСЕЛ БОЛЬШЕ НЕТ: доска — отдельная игра, а там только
+    # числа. Обработчик жив и проверяется напрямую — именно так его вызовет
+    # старая клавиатура из переписки.
     recorder.clear()
     await _feed(dp, bot, press(user.id, "match_start"))
 

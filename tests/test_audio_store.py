@@ -147,7 +147,7 @@ class TestObtainAudio:
 
         calls = {"n": 0}
 
-        async def must_not_run(text, voice):
+        async def must_not_run(text, voice, **kwargs):
             calls["n"] += 1
             return b"y" * 3000
 
@@ -162,7 +162,7 @@ class TestObtainAudio:
 
         monkeypatch.setattr(audio_store, "DEFAULT_ROOT", root)
 
-        async def fake(text, voice):
+        async def fake(text, voice, **kwargs):
             return b"z" * 3000
 
         monkeypatch.setattr(audio_service, "_synthesize", fake)
@@ -177,7 +177,7 @@ class TestObtainAudio:
 
         monkeypatch.setattr(audio_store, "DEFAULT_ROOT", root)
 
-        async def fails(text, voice):
+        async def fails(text, voice, **kwargs):
             return None
 
         monkeypatch.setattr(audio_service, "_synthesize", fails)
@@ -196,7 +196,7 @@ class TestObtainAudio:
 
         monkeypatch.setattr(audio_store, "DEFAULT_ROOT", root)
 
-        async def fake(text, voice):
+        async def fake(text, voice, **kwargs):
             return b"x" * 4000
 
         trimmed = {"called": False}
@@ -233,7 +233,7 @@ class TestObtainAudio:
 
         monkeypatch.setattr(audio_store, "DEFAULT_ROOT", root)
 
-        async def fake(text, voice):
+        async def fake(text, voice, **kwargs):
             return b"x" * 4000
 
         def broken(data, decode):

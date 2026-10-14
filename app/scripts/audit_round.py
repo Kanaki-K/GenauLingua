@@ -52,7 +52,7 @@ from app.database.models import (
 )
 from app.database.session import AsyncSessionLocal
 from app.locales import get_text
-from app.services.language_service import LANGUAGES, pair_from_user
+from app.services.language_service import LANGUAGES, main_meaning, pair_from_user
 from app.services.match_service import BOARD_CHANNEL, BOARD_SIZE, board_slot
 from app.services.monthly_leaderboard_service import get_or_create_current_season
 from app.testing import make_bot, make_dispatcher, press, reset_state, text_update
@@ -129,11 +129,20 @@ class Case:
     channels: str
     questions: int
     level: CEFRLevel = CEFRLevel.A1
+    # Тема вместо уровня. НУЖНА НЕ ДЛЯ ПОЛНОТЫ, А ПОТОМУ ЧТО ИМЕННО ТАМ
+    # ЛОМАЕТСЯ: отбор по теме сужает запас до сотен слов, и синонимы
+    # встречаются в одном круге. У владельца так и вышло — «шептать» было
+    # ответом к `flüstern` и к `raunen` в одном занятии по теме
+    # Kommunikation. Пока подопытный играл только ПО УРОВНЮ, проверка
+    # значений была зелёной и пустой: 14 кругов не дали ни одного
+    # столкновения.
+    category: str | None = None
 
     @property
     def title(self) -> str:
         arrow = "←" if self.reverse else "→"
-        return f"{self.learning}{arrow}{self.native} [{self.channels}]"
+        where = f" {{{self.category}}}" if self.category else ""
+        return f"{self.learning}{arrow}{self.native} [{self.channels}]{where}"
 
 
 @dataclass
@@ -174,7 +183,8 @@ async def _make_probe(session, case: Case, index: int) -> User:
         native_lang=case.native,
         reverse_mode=case.reverse,
         level=case.level,
-        quiz_mode=QuizMode.LEVEL,
+        quiz_mode=QuizMode.CATEGORY if case.category else QuizMode.LEVEL,
+        quiz_category=case.category,
         quiz_word_count=case.questions,
         quiz_channels=case.channels,
         # Озвучка включается только ради звуковых каналов: пятая игра
@@ -317,6 +327,7 @@ async def _check_idempotence(dp, bot, recorder, session, user, case, rep) -> Non
 
     quiz = await session.get(QuizSession, session_id)
     await session.refresh(quiz)
+
     if quiz.answered_questions != twice:
         rep.fail(case, f"[H] счётчик отвеченных {quiz.answered_questions} "
                        f"при {twice} строках")
@@ -355,6 +366,14 @@ async def _check(session, user: User, case: Case, rep: Report,
     quiz = await session.get(QuizSession, session_id)
     await session.refresh(quiz)
 
+    # Слова круга одним запросом: нужны проверке значений ниже
+    words_by_id = {
+        w.id: w for w in (await session.execute(
+            select(Word).where(Word.id.in_([r.word_id for r in rows] or [0]))
+        )).scalars().all()
+    }
+    pair = pair_from_user(user)
+
     # --- A. Нумерация идёт подряд
     expected = list(range(1, len(numbers) + 1))
     if board_at is not None:
@@ -376,6 +395,38 @@ async def _check(session, user: User, case: Case, rep: Report,
         overlap = [w for w in twice if w in board_words]
         rep.fail(case, f"[B] слов спрошено дважды: {len(twice)}"
                        + (f", из них задето доской {len(overlap)}" if overlap else ""))
+
+    # --- Б2. Ни одно ЗНАЧЕНИЕ не спрошено дважды
+    #
+    # Проверка [B] выше ловит повтор СЛОВА, а это другое: два разных слова с
+    # одним переводом. Находка владельца на живом круге: «отметил 2 слова
+    # как ошибка перевода. В 1 ошибки было 2 раза слово шептать, но разное
+    # значение на немецком. Бред».
+    #
+    # В словаре так и надо — «шептать» это и `flüstern`, и `raunen`, — но в
+    # одном круге человек видит повтор и считает его ошибкой, а в пятой
+    # игре (спрашиваем значением) правильных ответов становится два.
+    # Столкновений в базе много: у 4 144 канонических слов из 12 376 (33%)
+    # главное значение совпадает с чьим-то ещё, поэтому без проверки
+    # правило тихо перестанет работать при первой правке подбора.
+    #
+    # Доска исключена: её пять подвопросов берут слова парами и значения
+    # там не показываются строкой разбора.
+    meanings: dict[str, list[int]] = {}
+    for row in rows:
+        if row.channel == BOARD_CHANNEL:
+            continue
+        word = words_by_id.get(row.word_id)
+        if word is None:
+            continue
+        key = (main_meaning(word, pair.native) or "").strip().lower()
+        if key:
+            meanings.setdefault(key, []).append(row.word_id)
+    repeated = {k: v for k, v in meanings.items() if len(v) > 1}
+    if repeated:
+        sample = next(iter(repeated.items()))
+        rep.fail(case, f"[Б2] одно значение у разных слов: {len(repeated)}, "
+                       f"например {sample[0]!r} у слов {sample[1]}")
 
     # --- C. Счётчики занятия сходятся со строками
     correct_rows = sum(1 for r in rows if r.is_correct)
@@ -517,6 +568,12 @@ def _cases(full: bool, pairs_limit: int, questions: int) -> list[Case]:
     out.append(Case("de", "ru", False, "r", questions))
     out.append(Case("de", "ru", False, "tr", questions))
     out.append(Case("de", "ru", False, "ta", questions))
+
+    # ОТБОР ПО ТЕМЕ — случай, без которого проверка значений пуста.
+    # «Kommunikation» взята не наугад: именно в ней столкнулись `flüstern`
+    # и `raunen` у живого человека.
+    out.append(Case("de", "ru", False, "tasr", questions, category="Kommunikation"))
+    out.append(Case("de", "ru", False, "tr", questions, category="Kommunikation"))
     return out
 
 

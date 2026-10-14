@@ -214,6 +214,7 @@ TEXTS = {
     "report_btn_send": "Wyślij",
     "report_no_words": "Brak słów do zgłoszenia",
     "report_none_selected": "Wybierz przynajmniej jedno słowo",
+    "report_pick_kind": "Wybrano słów: {count}. Teraz powiedz, co jest nie tak — tłumaczenie czy wymowa.",
     "report_sent": "✓ Wysłano {count} zgłoszeń — dziękujemy!\nJeśli błąd się potwierdzi, dostaniesz +{points} punktów",
     "report_daily_limit": "Dzienny limit zgłoszeń wyczerpany (maks. 20)",
     "report_all_reported": "✓ Wszystkie słowa z tego quizu są już zgłoszone",
@@ -486,6 +487,8 @@ TEXTS.update({
     "voice_male": "Męskie",
     "voice_female": "Żeńskie",
     "voice_set": "✓ Głos: {voice}",
+    "voice_use": "Wybierz: {voice}",
+    "voice_listening": "Słuchasz: {voice}",
     "voice_only_one": "Dla tego języka syntezator ma jeden głos męski i jeden żeński — więcej nie istnieje.",
     "voice_preview_failed": "Nie udało się pobrać próbki, spróbuj jeszcze raz",
 })
@@ -638,7 +641,7 @@ TEXTS.update({
     "home_scale_text": "Czytam",
     "home_scale_audio": "Słucham",
     "home_scale_speech": "Mówię",
-    "home_btn_learn": "Ucz się · {count}",
+    "home_btn_learn": "Ucz się słów",
     "home_streak": "seria {days} dni",
     "home_rank": "miejsce {rank}",
     "home_hint": "",
@@ -715,8 +718,7 @@ TEXTS.update({
 # «Помощь» среди них, откуда она уехала в настройки.
 # ============================================================================
 TEXTS.update({
-    "intro_title": "<b>GenauLingua</b>",
-    "intro_three_games": "Jedno słowo uczy się tu trzema sposobami: przeczytać, usłyszeć i powiedzieć na głos.\nW rundzie same się zmieniają.",
+    "intro_games": "Jedno słowo uczy się tu na cztery sposoby: przeczytać, przypomnieć ze znaczenia, usłyszeć, powiedzieć na głos.\nLekcja miesza je sama.",
     "intro_numbers": "12 902 słowa · 20 tematów · 6 poziomów\nSześć języków w dowolnej parze: ucz się polskiego przez angielski, jeśli chcesz.",
     "intro_menu_settings": "język, skład rundy, przypomnienia",
     "intro_menu_stats": "twój postęp",

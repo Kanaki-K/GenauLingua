@@ -12,8 +12,10 @@
 """
 
 import logging
+from typing import Optional
 
 from aiogram import F, Router
+from aiogram.exceptions import TelegramBadRequest
 from aiogram.filters import Command
 from aiogram.types import (
     BufferedInputFile,
@@ -844,7 +846,23 @@ async def answer_level_offer(callback: CallbackQuery, session: AsyncSession):
 # РЕЖИМ ВИКТОРИНЫ — главное подменю (4 кнопки 2x2)
 # ============================================================================
 
-def get_quiz_mode_keyboard(lang: str) -> InlineKeyboardMarkup:
+# Куда ведёт «Назад» с экрана уровня и тем, когда на него пришли ИЗ ИТОГА
+# КРУГА, а не из настроек.
+#
+# Находка владельца: «В конце викторины — уровень и темы. Потом выбираю
+# назад — оно в меню настроек возвращает. Неправильно». И правда: человек
+# шёл не в настройки — он только что закончил занятие и поправил трудность.
+# Возврат «туда, где эта кнопка живёт» — это возврат в чужое место.
+#
+# Домашний экран — верный ответ: там шкалы и кнопка занятия, то есть то,
+# ради чего человек трудность и правил.
+RESULT_ORIGIN = "result"
+BACK_FROM_RESULT = "home_back"
+
+
+def get_quiz_mode_keyboard(
+    lang: str, back_to: Optional[str] = None
+) -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(
         inline_keyboard=[
             [
@@ -867,15 +885,24 @@ def get_quiz_mode_keyboard(lang: str) -> InlineKeyboardMarkup:
                     callback_data="qmode_difficult"
                 ),
             ],
-            _back_row(lang, _PARENT_GROUP["settings_quiz_mode"])
+            _back_row(lang, back_to or _PARENT_GROUP["settings_quiz_mode"])
         ]
     )
 
 
-@router.callback_query(F.data == "settings_quiz_mode")
+@router.callback_query(F.data.startswith("settings_quiz_mode"))
 async def show_quiz_mode(callback: CallbackQuery, session: AsyncSession):
-    """Показать меню выбора режима викторины"""
+    """
+    Уровень и темы. Возврат зависит от того, ОТКУДА пришли.
+
+    Приставка в `callback_data` — единственное, что отличает приход из
+    итога круга (`settings_quiz_mode:result`) от прихода из настроек.
+    Состояние тут не годится: экран живёт на сообщении, а сообщений у
+    человека несколько, и «откуда пришли» у каждого своё.
+    """
     await callback.answer()
+
+    _, _, origin = callback.data.partition(":")
 
     user = await session.get(User, callback.from_user.id)
     lang = user.interface_language or DEFAULT_LOCALE
@@ -886,7 +913,10 @@ async def show_quiz_mode(callback: CallbackQuery, session: AsyncSession):
         f"{get_text('qmode_choose', lang)}"
     )
 
-    await callback.message.edit_text(text, reply_markup=get_quiz_mode_keyboard(lang))
+    back_to = BACK_FROM_RESULT if origin == RESULT_ORIGIN else None
+    await callback.message.edit_text(
+        text, reply_markup=get_quiz_mode_keyboard(lang, back_to)
+    )
 
 
 # ============================================================================
@@ -1270,20 +1300,33 @@ async def _voice_probes(session: AsyncSession, learning: str) -> list[tuple[str,
     return probes
 
 
-@router.callback_query(F.data == "audio_voices")
-async def audio_voices(callback: CallbackQuery, session: AsyncSession):
+async def _voices_screen(
+    session: AsyncSession, user: User, lang: str, pair,
+    listening: Optional[str] = None,
+) -> tuple[str, InlineKeyboardMarkup]:
     """
-    Список голосов изучаемого языка, отдельно мужские и женские.
+    Экран голосов: слушать — одно, выбрать — другое.
 
-    Голоса берутся из реестра, а не выписываются: их число на язык разное —
-    для немецкого шесть, для польского и остальных два, потому что больше
-    у синтезатора не существует.
+    ПОЧЕМУ ОНИ РАЗДЕЛЕНЫ. Прежде нажатие на голос СРАЗУ его и сохраняло,
+    а образец присылало заодно. Выглядело разумно, пока владелец не
+    перебрал голоса подряд, чтобы сравнить: Катя, Амала, Серафина, Конрад,
+    Килиан — и получил последний, а не понравившийся. Дословно: «выбрал
+    Серафину — в настройках бота один голос, а в игре другой». В логе
+    видно ровно это: пять сохранений за двадцать восемь секунд.
+
+    Текст экрана при этом всё время обещал правду: «нажми на голос, чтобы
+    послушать; галочкой отмечен выбранный». Врал не текст, а код.
+
+    Теперь так и есть:
+        нажатие на голос     присылает образец, ничего не меняя
+        🎧 у голоса          его слушаешь сейчас
+        ✓ у голоса           он выбран и звучит в занятии
+        кнопка «Выбрать»     единственное, что сохраняет
+
+    `listening` — голос, образец которого только что отправлен. Нигде не
+    хранится: он нужен ровно на один показ экрана, и помнить его между
+    нажатиями значило бы завести состояние ради подписи кнопки.
     """
-    await callback.answer()
-    user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or DEFAULT_LOCALE
-    pair = pair_from_user(user)
-
     chosen = await voice_for_user(session, user.id, pair.learning)
     probes = await _voice_probes(session, pair.learning)
 
@@ -1298,12 +1341,13 @@ async def audio_voices(callback: CallbackQuery, session: AsyncSession):
         rows.extend(_grid(
             [
                 InlineKeyboardButton(
-                    # ⚡ у голосов с готовыми клипами. Предсинтезированы не
-                    # все: это гигабайты и часы на каждый, а у остальных
+                    # Точка у голосов БЕЗ готовых клипов. Предсинтезированы
+                    # не все: это гигабайты и часы на каждый, а у остальных
                     # слово синтезируется на лету и примерно в одном случае
                     # из пяти приходит без звука. Пока все голоса выглядели
                     # одинаково, узнать причину немоты было неоткуда
-                    text=("✓ " if v.name == chosen else "")
+                    text=("✓ " if v.name == chosen
+                          else "🎧 " if v.name == listening else "")
                          + v.label
                          + ("" if voice_is_ready(pair.learning, v.name, probes) else " ·"),
                     callback_data=f"audio_voice_{v.name}",
@@ -1312,6 +1356,16 @@ async def audio_voices(callback: CallbackQuery, session: AsyncSession):
             ],
             per_row=3,
         ))
+
+    # Кнопка выбора появляется только после прослушивания, и только если
+    # слушали НЕ тот голос, который уже стоит: «выбрать выбранное» —
+    # кнопка без действия.
+    if listening and listening != chosen:
+        rows.append([InlineKeyboardButton(
+            text=get_text("voice_use", lang,
+                          voice=_voice_label(pair.learning, listening)),
+            callback_data=f"voice_use_{listening}",
+        )])
 
     text = (
         f"{get_text('voice_title', lang)}\n\n"
@@ -1322,21 +1376,44 @@ async def audio_voices(callback: CallbackQuery, session: AsyncSession):
     if len(voices_for(pair.learning)) <= 2:
         text += f"\n\n<i>{get_text('voice_only_one', lang)}</i>"
 
-    await callback.message.edit_text(
-        text,
-        reply_markup=InlineKeyboardMarkup(
-            inline_keyboard=rows + [_back_row(lang, "settings_audio")]
-        ),
+    return text, InlineKeyboardMarkup(
+        inline_keyboard=rows + [_back_row(lang, "settings_audio")]
     )
 
 
-@router.callback_query(F.data.startswith("audio_voice_"))
-async def audio_voice_chosen(callback: CallbackQuery, session: AsyncSession):
+async def _show_voices(callback: CallbackQuery, session: AsyncSession,
+                       listening: Optional[str] = None) -> None:
+    user = await session.get(User, callback.from_user.id)
+    lang = user.interface_language or DEFAULT_LOCALE
+    pair = pair_from_user(user)
+    text, keyboard = await _voices_screen(session, user, lang, pair, listening)
+    try:
+        await callback.message.edit_text(text, reply_markup=keyboard)
+    except TelegramBadRequest:
+        # «message is not modified»: повторное нажатие на тот же голос
+        # ничего в экране не меняет. Это не ошибка, и в журнал она попадать
+        # не должна — у живого человека таких записей набралось две за
+        # четыре минуты.
+        pass
+
+
+@router.callback_query(F.data == "audio_voices")
+async def audio_voices(callback: CallbackQuery, session: AsyncSession):
     """
-    Выбор голоса. Он же и прослушивание: нажатие сразу присылает образец,
-    чтобы услышать голос, а не угадывать его по имени.
+    Список голосов изучаемого языка, отдельно мужские и женские.
+
+    Голоса берутся из реестра, а не выписываются: их число на язык разное —
+    для немецкого шесть, для польского и остальных два, потому что больше
+    у синтезатора не существует.
     """
-    voice_name = callback.data.removeprefix("audio_voice_")
+    await callback.answer()
+    await _show_voices(callback, session)
+
+
+@router.callback_query(F.data.startswith("voice_use_"))
+async def audio_voice_use(callback: CallbackQuery, session: AsyncSession):
+    """ВЫБОР голоса — единственное место, где он сохраняется."""
+    voice_name = callback.data.removeprefix("voice_use_")
 
     user = await session.get(User, callback.from_user.id)
     lang = user.interface_language or DEFAULT_LOCALE
@@ -1351,6 +1428,30 @@ async def audio_voice_chosen(callback: CallbackQuery, session: AsyncSession):
 
     label = _voice_label(pair.learning, voice_name)
     await callback.answer(get_text("voice_set", lang, voice=label))
+    await _show_voices(callback, session)
+
+
+@router.callback_query(F.data.startswith("audio_voice_"))
+async def audio_voice_preview(callback: CallbackQuery, session: AsyncSession):
+    """
+    ПРОСЛУШИВАНИЕ голоса. Ничего не сохраняет.
+
+    Порядок обработчиков тут значим: `voice_use_` объявлен ВЫШЕ и имеет
+    свою приставку, иначе `audio_voice_` перехватывал бы и выбор.
+    """
+    voice_name = callback.data.removeprefix("audio_voice_")
+
+    user = await session.get(User, callback.from_user.id)
+    lang = user.interface_language or DEFAULT_LOCALE
+    pair = pair_from_user(user)
+
+    if not is_valid_voice(voice_name, pair.learning):
+        await callback.answer(get_text("voice_preview_failed", lang), show_alert=True)
+        return
+
+    label = _voice_label(pair.learning, voice_name)
+    await callback.answer(get_text("voice_listening", lang, voice=label))
+    await _show_voices(callback, session, listening=voice_name)
 
     # Образец — отдельным сообщением: карточка настроек остаётся на месте,
     # и её не приходится превращать в медийную ради прослушивания
@@ -1363,8 +1464,10 @@ async def audio_voice_chosen(callback: CallbackQuery, session: AsyncSession):
             BufferedInputFile(sample, filename=f"{label}.mp3"),
             title=label,
         )
-
-    await audio_voices(callback, session)
+    # Экран уже перерисован ВЫШЕ, до синтеза: пометка 🎧 должна появиться
+    # сразу по нажатию, а образец приходит через секунду. Повторная
+    # перерисовка здесь стирала бы её и вдобавок вызывала `callback.answer`
+    # второй раз.
 
 
 @router.callback_query(F.data == "back_to_settings")

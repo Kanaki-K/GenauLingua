@@ -381,7 +381,25 @@ async def report_change_page(callback: CallbackQuery, state: FSMContext, session
 
 @router.callback_query(F.data == "report_confirm")
 async def report_confirm(callback: CallbackQuery, state: FSMContext, session: AsyncSession):
-    """Показать экран подтверждения"""
+    """
+    Подтверждение. ОДНО, а не два подряд.
+
+    ЧТО БЫЛО НЕ ТАК. Нажав «✓ Подтвердить (2)», человек получал тот же
+    текст итога с другими кнопками — «Отправить» и «Назад», — без единого
+    слова о том, что произошло и чего от него ждут. Экран менял ТОЛЬКО
+    клавиатуру.
+
+    Владелец на этом и попался: «Закончил викторину, отметил 2 слова как
+    ошибка перевода» — и дальше: «в админ панели не вижу, чтобы я отметил
+    эти 2 неправильных перевода». В базе их и не было: он подтвердил выбор
+    и ушёл, уверенный, что отправил. Два подтверждения подряд человек
+    читает как одно.
+
+    ТЕПЕРЬ: если выбирать не из чего — отправляем сразу. Второй шаг
+    остаётся только там, где он что-то решает: когда озвучка включена и
+    жалоба может быть либо на перевод, либо на произношение. И тогда об
+    этом СКАЗАНО, а не показано двумя кнопками молча.
+    """
     data = await state.get_data()
     selected = data.get("report_selected", [])
 
@@ -392,16 +410,22 @@ async def report_confirm(callback: CallbackQuery, state: FSMContext, session: As
         await callback.answer(get_text("report_none_selected", lang), show_alert=True)
         return
 
-    keyboard = _build_confirm_keyboard(
-        lang, audio_available=bool(getattr(user, "audio_enabled", False))
-    )
+    audio_available = bool(getattr(user, "audio_enabled", False))
+    if not audio_available:
+        # Выбора нет — значит и шага нет. Жалоба уходит немедленно.
+        await report_send(callback, state, session, kind="text")
+        return
+
+    keyboard = _build_confirm_keyboard(lang, audio_available=True)
 
     try:
         await callback.message.edit_reply_markup(reply_markup=keyboard)
     except Exception:
         pass
 
-    await callback.answer()
+    await callback.answer(
+        get_text("report_pick_kind", lang, count=len(selected)), show_alert=True
+    )
 
 
 # ============================================================================

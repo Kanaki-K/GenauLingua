@@ -164,22 +164,21 @@ async def cmd_start(message: Message, state: FSMContext, session: AsyncSession):
         #
         # Что здесь нужно вместо этого: чем бот стал (три навыка, а не один),
         # сколько в нём всего, где человек сейчас — и кнопка.
-        # ИГРАЮЩЕМУ ЭТОТ ЭКРАН НЕ НУЖЕН. Дословно: «тот кто давно играет
-        # ему это меню попросту не нужно». У него уже есть и клавиатура, и
-        # привычка; `/start` ведёт его туда, куда он и шёл бы сам — на
-        # домашний экран со шкалами и кнопкой занятия.
-        if (user.quizzes_passed or 0) > 0:
-            from app.bot.handlers.quiz.home import show_home
-
-            old_anchor_id, _ = await ensure_anchor(message, session, user, emoji="")
-            if old_anchor_id:
-                await delete_messages_fast(
-                    message.bot, message.chat.id, old_anchor_id,
-                    message.message_id,
-                )
-            await show_home(message, session, user)
-        else:
-            await _show_intro(message, session, user, lang)
+        # `/START` ПОКАЗЫВАЕТ ВСТУПЛЕНИЕ ВСЕМ — и новичку, и играющему.
+        #
+        # Здесь было две неудачные попытки сделать иначе, и обе владелец
+        # отверг. Сперва играющего вело на домашний экран со шкалами —
+        # «что-то ты не то сделал, теперь при /start вызывает статистику».
+        # Потом — короткая строка «С возвращением» с одной кнопкой; на это
+        # ответ был прямой: «СТОП, прошлый старт был ПРАВИЛЬНЫМ, не
+        # правильной была статистика. Верни старт!»
+        #
+        # Значит разделения по числу кругов нет. Экран, который он назвал
+        # правильным, — это вступление: приветствие, чем бот занимается,
+        # сколько в нём всего, что где лежит, и кнопка начать. Набирают
+        # `/start` руками и редко; увидеть на него осмысленный экран лучше,
+        # чем экран, который где-то уже есть.
+        await _show_intro(message, session, user, lang)
     else:
         # УРОВНЯ У ЧЕЛОВЕКА НЕТ — значит он прервал знакомство на полпути
         # (язык выбран, дальше не пошёл). Спрашивать уровень незачем: его
@@ -330,7 +329,7 @@ async def _show_intro(
 
     text = (
         f"{get_text('welcome_title', lang, name=first_name)}\n\n"
-        f"{get_text('intro_three_games', lang)}\n\n"
+        f"{get_text('intro_games', lang)}\n\n"
         f"{get_text('intro_numbers', lang)}\n\n"
         f"{_menu_map(lang)}"
     )

@@ -209,14 +209,45 @@ class TestSynthesisRetry:
     """
     Озвучка должна быть у каждого слова, поэтому одна сетевая заминка не
     должна оставлять карточку беззвучной.
+
+    ЗАГЛУШКИ ПРИНИМАЮТ ТРЕТИЙ ПАРАМЕТР — потолок ожидания. Он появился,
+    когда бюджетов стало два: предсинтез может ждать восемь секунд на
+    попытку, а путь человека не может ждать вовсе. У живого человека это и
+    вскрылось: нажатие «Учить слова» собиралось 21 секунду, и он решил,
+    что бот сломан.
     """
+
+    async def test_the_human_path_does_not_retry(self, monkeypatch):
+        """
+        В пути человека попытка одна, и потолок короткий.
+
+        Без этого «две попытки по восемь секунд» вернулись бы незаметно:
+        остальные проверки этого класса смотрят на предсинтез.
+        """
+        from app.services import audio_service as svc
+
+        seen = []
+
+        async def note(text, voice, timeout=None):
+            seen.append(timeout)
+            return None
+
+        monkeypatch.setattr(svc, "_synthesize_once", note)
+        monkeypatch.setattr(svc, "RETRY_PAUSE", 0)
+
+        assert await svc._synthesize("x", "de-DE-KatjaNeural", live=True) is None
+        assert len(seen) == svc.LIVE_SYNTH_ATTEMPTS == 1, (
+            f"в пути человека попыток {len(seen)}, а должна одна"
+        )
+        assert seen == [svc.LIVE_SYNTH_TIMEOUT]
+        assert svc.LIVE_SYNTH_TIMEOUT < svc.SYNTH_TIMEOUT
 
     async def test_second_attempt_saves_the_clip(self, monkeypatch):
         from app.services import audio_service as svc
 
         attempts = {"n": 0}
 
-        async def flaky(text, voice):
+        async def flaky(text, voice, timeout=None):
             attempts["n"] += 1
             return None if attempts["n"] == 1 else b"x" * 2000
 
@@ -232,7 +263,7 @@ class TestSynthesisRetry:
 
         attempts = {"n": 0}
 
-        async def always_fails(text, voice):
+        async def always_fails(text, voice, timeout=None):
             attempts["n"] += 1
             return None
 
@@ -248,7 +279,7 @@ class TestSynthesisRetry:
 
         attempts = {"n": 0}
 
-        async def fine(text, voice):
+        async def fine(text, voice, timeout=None):
             attempts["n"] += 1
             return b"x" * 2000
 

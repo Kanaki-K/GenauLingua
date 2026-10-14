@@ -324,7 +324,11 @@ def test_intro_does_not_promise_a_button_that_is_not_in_the_menu(lang):
 
     intro = " ".join(
         get_text(key, lang)
-        for key in ("intro_title", "intro_three_games", "intro_numbers")
+        # `intro_title` больше нет: ключ со значением «<b>GenauLingua</b>»
+        # не читала ни одна строка кода — его держали только тесты.
+        # `intro_three_games` переименован в `intro_games`: игр стало
+        # четыре, и «three» в имени лгало бы.
+        for key in ("intro_games", "intro_numbers")
     )
     # Сверяется не слово «помощь», а ИМЕННО надпись кнопки: слово само по
     # себе в тексте появиться может и ничего не обещает

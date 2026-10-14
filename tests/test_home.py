@@ -290,19 +290,24 @@ async def test_home_renders_on_an_empty_account(session, user):
 
     assert "░" in text, "полос нет вовсе"
     assert "▓" not in text, "на пустом счёте нечему быть закрашенным"
-    # Прямых входов столько же, сколько каналов, и считается это от
-    # ПЕРЕЧИСЛЕНИЯ: пятая игра добавила четвёртый, и вписанная руками
-    # тройка молча оставила бы её без кнопки
-    from app.database.enums import QuizChannel
 
+    # ПРЯМЫХ ВХОДОВ ПО ИГРАМ ЗДЕСЬ БЫТЬ НЕ ДОЛЖНО, и это обратная
+    # половина прежней проверки: раньше тест требовал ровно столько
+    # кнопок, сколько каналов.
+    #
+    # Решение владельца, дословно: «не понимаю, для чего нам в статистике
+    # 5 кнопок запуска разных режимов нашего бота... В статистике может
+    # быть только информация по статистике, но никак не выбор игр или
+    # какие-то отдельные режимы». Экран открывается кнопкой «Статистика».
     shortcuts = [
         button
         for row in keyboard.inline_keyboard
         for button in row
-        if (button.callback_data or "").startswith("home_learn_")
+        if (button.callback_data or "").startswith(("home_learn_", "match_start"))
     ]
-    assert len(shortcuts) == len(QuizChannel), (
-        f"прямых входов {len(shortcuts)}, каналов {len(QuizChannel)}"
+    assert not shortcuts, (
+        f"на экране числа снова предлагают выбрать игру: "
+        f"{[b.callback_data for b in shortcuts]}"
     )
 
 
@@ -404,12 +409,11 @@ async def test_every_button_has_a_handler_that_answers_it(session, user):
 
     _, keyboard = await build_home(user, session)
     data = [b.callback_data for row in keyboard.inline_keyboard for b in row]
-    # Число кнопок считается, а не вписано: занятие, прямые входы по числу
-    # каналов, доска и подробности
-    expected = 1 + len(QuizChannel) + 2
-    assert len(data) == expected, (
-        f"кнопок стало {len(data)}, ожидалось {expected}: {data}"
-    )
+    # КНОПКА ОДНА: «Подробнее». Прямые входы по играм, доска и само
+    # занятие с этого экрана сняты — он отвечает на «где я сейчас» и
+    # ничего не предлагает. Решение владельца: «у статистики 1 кнопка —
+    # подробнее. Зачем нам на экране 2 раза учить слова, не понимаю».
+    assert data == ["stats_full"], f"кнопки экрана чисел: {data}"
 
     # Обработчики берутся из ВСЕГО набора роутеров, а не из одного.
     #

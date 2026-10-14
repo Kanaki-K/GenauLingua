@@ -208,6 +208,7 @@ TEXTS = {
     "report_btn_send": "Send",
     "report_no_words": "No words to report",
     "report_none_selected": "Select at least one word",
+    "report_pick_kind": "{count} word(s) selected. Now say what is wrong — the translation or the pronunciation.",
     "report_sent": "✓ Sent {count} reports — thank you!\nIf confirmed — you'll get +{points} points",
     "report_daily_limit": "Daily report limit reached (max 20)",
     "report_all_reported": "✓ All words from this quiz already reported",
@@ -473,6 +474,8 @@ TEXTS.update({
     "voice_male": "Male",
     "voice_female": "Female",
     "voice_set": "✓ Voice: {voice}",
+    "voice_use": "Use {voice}",
+    "voice_listening": "Playing {voice}",
     "voice_only_one": "For this language the engine has one male and one female voice — no more exist.",
     "voice_preview_failed": "Could not get a sample, try again",
 })
@@ -625,7 +628,7 @@ TEXTS.update({
     "home_scale_text": "I read",
     "home_scale_audio": "I listen",
     "home_scale_speech": "I speak",
-    "home_btn_learn": "Practise · {count}",
+    "home_btn_learn": "Learn words",
     "home_streak": "streak {days} days",
     "home_rank": "rank {rank}",
     "home_hint": "",
@@ -702,8 +705,7 @@ TEXTS.update({
 # «Помощь» среди них, откуда она уехала в настройки.
 # ============================================================================
 TEXTS.update({
-    "intro_title": "<b>GenauLingua</b>",
-    "intro_three_games": "One word is learned three ways here: read it, hear it, say it out loud.\nInside a round they take turns on their own.",
+    "intro_games": "A word is learned four ways here: read it, recall it from the meaning, hear it, say it out loud.\nThe lesson mixes them on its own.",
     "intro_numbers": "12,902 words · 20 topics · 6 levels\nSix languages in any pair: learn Polish through English if you like.",
     "intro_menu_settings": "language, round contents, reminders",
     "intro_menu_stats": "your progress",

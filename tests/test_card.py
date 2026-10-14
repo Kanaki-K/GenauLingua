@@ -84,7 +84,17 @@ class FakeBot:
 
 
 class FakeAudio:
-    file_id = "AgACAgIAAxkDAAI-fake"
+    # ДЛИНА ЗДЕСЬ ЗНАЧИМА. Кэш озвучки больше не принимает строки, не
+    # похожие на telegram-овский file_id: в рабочей копии базы нашлось
+    # 3 251 поддельная запись вида `fake-file-3292`, и живой человек из-за
+    # них терял вопрос — Telegram отвечал «wrong remote file identifier:
+    # Wrong padding in the string».
+    #
+    # Прежнее значение этого теста (`AgACAgIAAxkDAAI-fake`, 20 знаков) тоже
+    # оказалось короче порога, и тест упал — честно упал: он проверял, что
+    # в кэш попадает ЛЮБАЯ строка. Теперь он проверяет то же на строке,
+    # похожей на настоящую.
+    file_id = "AgACAgIAAxkDAAI-fakebutlongenoughtopassthecheck_0123"
     duration = 3
 
 

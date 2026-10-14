@@ -20,11 +20,14 @@ from typing import Optional
 
 from aiogram import Bot
 from aiogram.enums import ParseMode
+from aiogram.exceptions import TelegramBadRequest
 from aiogram.fsm.context import FSMContext
 from aiogram.types import BufferedInputFile, InlineKeyboardMarkup, InputMediaAudio, Message
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.services.audio_service import AUDIO_PERFORMER, AudioClip, remember
+from app.services.audio_service import (
+    AudioClip, forget, reobtain, remember,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -39,6 +42,7 @@ async def _send_new(
     text: str,
     keyboard: InlineKeyboardMarkup,
     clip: Optional[AudioClip],
+    lang: str,
 ) -> Message:
     if clip is None:
         return await bot.send_message(chat_id, text, reply_markup=keyboard)
@@ -47,14 +51,15 @@ async def _send_new(
         clip.file_id if clip.file_id
         else BufferedInputFile(clip.data, filename=clip.filename)
     )
+    # Исполнитель не передаётся нарочно: см. audio_service — подпись,
+    # одинаковая у всех клипов, не несёт ничего
     return await bot.send_audio(
         chat_id, media, caption=text, reply_markup=keyboard, title=clip.title,
-        performer=AUDIO_PERFORMER,
     )
 
 
 async def _edit_media(message: Message, text: str, keyboard: InlineKeyboardMarkup,
-                      clip: AudioClip) -> Message:
+                      clip: AudioClip, lang: str) -> Message:
     media = (
         clip.file_id if clip.file_id
         else BufferedInputFile(clip.data, filename=clip.filename)
@@ -62,7 +67,6 @@ async def _edit_media(message: Message, text: str, keyboard: InlineKeyboardMarku
     return await message.edit_media(
         InputMediaAudio(
             media=media, caption=text, parse_mode=ParseMode.HTML, title=clip.title,
-            performer=AUDIO_PERFORMER,
         ),
         reply_markup=keyboard,
     )
@@ -103,7 +107,7 @@ async def show_card(
     if message is not None and had_audio == wants_audio:
         try:
             if wants_audio:
-                sent = await _edit_media(message, text, keyboard, clip)
+                sent = await _edit_media(message, text, keyboard, clip, lang)
             else:
                 sent = await message.edit_text(text, reply_markup=keyboard)
         except Exception:
@@ -117,7 +121,36 @@ async def show_card(
                 await message.delete()
             except Exception:
                 logger.debug("прежняя карточка не удалилась", exc_info=True)
-        sent = await _send_new(bot, chat_id, text, keyboard, clip)
+        try:
+            sent = await _send_new(bot, chat_id, text, keyboard, clip, lang)
+        except TelegramBadRequest:
+            # МЁРТВАЯ ССЫЛКА НА КЛИП НЕ ИМЕЕТ ПРАВА ОБРЫВАТЬ КРУГ.
+            #
+            # Так и случилось у живого человека: Telegram ответил «wrong
+            # remote file identifier: Wrong padding in the string», ошибка
+            # ушла наружу, вопрос не появился, и занятие встало на третьем
+            # вопросе. Правка медиа выше свой отказ ловила — а пересоздание
+            # отправляло ТОТ ЖЕ негодный file_id и падало окончательно.
+            #
+            # Что делаем: запись кэша выбрасываем (её file_id мёртв), звук
+            # берём заново — с диска, иначе синтезом, — и отправляем им.
+            # Не вышло и это: карточка выходит ТЕКСТОВОЙ. Вопрос без звука
+            # хуже вопроса со звуком, но несравнимо лучше оборванного круга.
+            if clip is None or not clip.file_id:
+                raise
+            logger.warning(
+                "Telegram отклонил file_id клипа (слово %s %s) — переделываю",
+                word_id, lang, exc_info=True,
+            )
+            await forget(session, word_id, lang, clip.kind, clip.voice)
+            fresh = await reobtain(clip, lang)
+            if fresh is None:
+                clip = None
+                sent = await _send_new(bot, chat_id, text, keyboard, None, lang)
+            else:
+                clip = fresh
+                sent = await _send_new(bot, chat_id, text, keyboard, fresh, lang)
+            wants_audio = clip is not None
 
     await state.update_data(**{
         STATE_CARD_ID: sent.message_id,

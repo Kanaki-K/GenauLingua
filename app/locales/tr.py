@@ -208,6 +208,7 @@ TEXTS = {
     "report_btn_send": "Gönder",
     "report_no_words": "Raporlanacak kelime yok",
     "report_none_selected": "En az bir kelime seç",
+    "report_pick_kind": "{count} kelime seçildi. Şimdi neyin yanlış olduğunu söyle — çeviri mi, telaffuz mu.",
     "report_sent": "✓ {count} rapor gönderildi — teşekkürler!\nOnaylanırsa — +{points} puan kazanırsın",
     "report_daily_limit": "Bugünkü rapor limiti doldu (maks. 20)",
     "report_all_reported": "✓ Bu testdeki tüm kelimeler zaten raporlandı",
@@ -473,6 +474,8 @@ TEXTS.update({
     "voice_male": "Erkek",
     "voice_female": "Kadın",
     "voice_set": "✓ Ses: {voice}",
+    "voice_use": "{voice} seç",
+    "voice_listening": "{voice} çalıyor",
     "voice_only_one": "Bu dil için motorda bir erkek ve bir kadın sesi var — daha fazlası yok.",
     "voice_preview_failed": "Örnek alınamadı, tekrar dene",
 })
@@ -625,7 +628,7 @@ TEXTS.update({
     "home_scale_text": "Okuyorum",
     "home_scale_audio": "Dinliyorum",
     "home_scale_speech": "Konuşuyorum",
-    "home_btn_learn": "Çalış · {count}",
+    "home_btn_learn": "Kelime öğren",
     "home_streak": "seri {days} gün",
     "home_rank": "sıra {rank}",
     "home_hint": "",
@@ -702,8 +705,7 @@ TEXTS.update({
 # «Помощь» среди них, откуда она уехала в настройки.
 # ============================================================================
 TEXTS.update({
-    "intro_title": "<b>GenauLingua</b>",
-    "intro_three_games": "Bir kelime burada üç yolla öğrenilir: okumak, duymak ve sesli söylemek.\nTur içinde kendileri sırayla gelir.",
+    "intro_games": "Bir kelime burada dört yolla öğrenilir: okumak, anlamından hatırlamak, duymak, yüksek sesle söylemek.\nDers bunları kendisi karıştırır.",
     "intro_numbers": "12 902 kelime · 20 konu · 6 seviye\nAltı dil, istediğin eşleşmede: dilersen Lehçeyi İngilizce üzerinden öğren.",
     "intro_menu_settings": "dil, tur içeriği, hatırlatmalar",
     "intro_menu_stats": "ilerlemen",
