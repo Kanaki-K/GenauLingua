@@ -105,12 +105,12 @@ def _patch_speech() -> None:
     счётчики, прогресс, баллы — работает настоящее. Оценки произношения тут
     и нет: бот её не выводит нарочно, значит и подделывать нечего.
     """
-    from app.bot.handlers.quiz import game as game_module
+    from app.bot.handlers.quiz import speech as speech_module
 
     async def recognise(_audio, target, _lang):
         return _Verdict(target)
 
-    game_module.check_pronunciation = recognise
+    speech_module.check_pronunciation = recognise
 
 
 def _patch_download(bot) -> None:

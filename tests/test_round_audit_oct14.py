@@ -25,10 +25,10 @@ from sqlalchemy import func, select
 
 import pytest
 
-from app.bot.handlers.quiz import game as G
 from app.bot.handlers.quiz import lesson as LN
 from app.bot.handlers.quiz import lesson_state as LS
 from app.bot.handlers.quiz import summary as SM
+from app.bot.handlers.quiz import speech as SP
 from app.database.enums import CEFRLevel, QuizChannel, QuizMode
 from app.database.models import QuizQuestion, QuizSession, User, UserWord, Word
 from app.locales import get_text
@@ -129,7 +129,7 @@ async def test_an_unrecognised_voice_leaves_the_question_open(
     async def download(*_a, **_k):
         return _Downloaded()
 
-    monkeypatch.setattr(G, "check_pronunciation", judge)
+    monkeypatch.setattr(SP, "check_pronunciation", judge)
     monkeypatch.setattr(bot, "download", download, raising=False)
 
     await dp.feed_update(bot, text_update(user.id, LEARN))
@@ -324,7 +324,7 @@ async def _speech_round(session, user, stage, monkeypatch, verdicts):
     async def download(*_a, **_k):
         return _Downloaded()
 
-    monkeypatch.setattr(G, "check_pronunciation", judge)
+    monkeypatch.setattr(SP, "check_pronunciation", judge)
     monkeypatch.setattr(bot, "download", download, raising=False)
     await dp.feed_update(bot, text_update(user.id, LEARN))
     return dp, bot, recorder
@@ -358,7 +358,7 @@ async def test_the_reference_button_sends_a_slow_clip(session, user, stage, monk
         asked.append(kind)
         return None
 
-    monkeypatch.setattr(G, "clip_for_user", clip)
+    monkeypatch.setattr(SP, "clip_for_user", clip)
     await dp.feed_update(bot, press(user.id, "speech_reference"))
     assert asked == [svc.KIND_SLOW], f"кнопка просит не медленный клип: {asked}"
 

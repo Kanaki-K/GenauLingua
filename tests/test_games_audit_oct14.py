@@ -29,10 +29,10 @@ from datetime import timedelta
 import pytest
 from sqlalchemy import func, select, text
 
-from app.bot.handlers.quiz import game as G
 from app.bot.handlers.quiz import lesson as LN
 from app.bot.handlers.quiz import lesson_state as LS
 from app.bot.handlers.quiz import listen as L
+from app.bot.handlers.quiz import speech as SP
 from app.core.clock import utcnow
 from app.database.enums import CEFRLevel, QuizChannel, QuizMode
 from app.database.models import QuizQuestion, QuizSession, User, UserWord, Word
@@ -335,7 +335,7 @@ async def test_a_surplus_voice_is_swept_away(session, user, stage, monkeypatch):
     async def download(*_a, **_k):
         return _Downloaded()
 
-    monkeypatch.setattr(G, "check_pronunciation", judge)
+    monkeypatch.setattr(SP, "check_pronunciation", judge)
     monkeypatch.setattr(bot, "download", download, raising=False)
 
     await dp.feed_update(bot, text_update(user.id, LEARN))
@@ -435,11 +435,11 @@ async def test_a_dead_slow_clip_is_forgotten_and_resent(session, user, stage, mo
         return AudioClip(kind=c.kind, voice=c.voice, spoken_text=c.spoken_text,
                          title=c.title, filename=c.filename, data=b"y" * 600)
 
-    monkeypatch.setattr(G, "clip_for_user", clip)
+    monkeypatch.setattr(SP, "clip_for_user", clip)
     monkeypatch.setattr(L, "clip_for_user", clip)
     monkeypatch.setattr(LN, "clip_for_user", clip)
-    monkeypatch.setattr(G, "forget", forget)
-    monkeypatch.setattr(G, "reobtain", reobtain)
+    monkeypatch.setattr(SP, "forget", forget)
+    monkeypatch.setattr(SP, "reobtain", reobtain)
 
     real = recorder.make_request
 
@@ -495,10 +495,10 @@ async def _speech_round(session, user, stage, monkeypatch, verdicts):
         return _Downloaded()
 
     monkeypatch.setattr(LN, "generate_question", forced)
-    monkeypatch.setattr(G, "clip_for_user", no_clip)
+    monkeypatch.setattr(SP, "clip_for_user", no_clip)
     monkeypatch.setattr(L, "clip_for_user", no_clip)
     monkeypatch.setattr(LN, "clip_for_user", no_clip)
-    monkeypatch.setattr(G, "check_pronunciation", judge)
+    monkeypatch.setattr(SP, "check_pronunciation", judge)
     monkeypatch.setattr(bot, "download", download, raising=False)
 
     await dp.feed_update(bot, text_update(user.id, LEARN))

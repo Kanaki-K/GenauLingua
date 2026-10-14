@@ -36,6 +36,7 @@ def all_routers() -> list[Router]:
     from app.bot.handlers.quiz.match import router as match_router
     from app.bot.handlers.quiz.report import router as report_router
     from app.bot.handlers.quiz.settings import router as settings_router
+    from app.bot.handlers.quiz.speech import router as speech_router
     from app.bot.handlers.quiz.stats import router as stats_router
     from app.bot.handlers.reminders import router as reminders_router
     from app.bot.handlers.start import router as start_router
@@ -57,6 +58,7 @@ def all_routers() -> list[Router]:
         ("quiz/build", build_router),
         ("quiz/lesson", lesson_router),
         ("quiz/game", game_router),
+        ("quiz/speech", speech_router),
         ("quiz/settings", settings_router),
         ("quiz/stats", stats_router),
         ("quiz/help", help_router),
