@@ -511,9 +511,9 @@ TEXTS.update({
     "channel_build": "🧱 Układam",
     "home_scale_build": "Układam",
     "quiz_result_built": "🧱 Ułożone: {count}",
-    "build_hint": "Proszę ułożyć zdanie ze słów poniżej — niektóre są zbędne. Dotknięcie ułożonego słowa odsyła je z powrotem",
+    "build_hint": "Proszę ułożyć zdanie ze słów poniżej — niektóre są zbędne",
     "build_btn_check": "Sprawdzić",
-    "build_full": "Wszystkie miejsca są zajęte. Proszę dotknąć ułożonego słowa, aby je cofnąć, albo nacisnąć „Sprawdzić”.",
+    "build_full": "Wszystkie miejsca są zajęte. Proszę usunąć słowo przyciskiem ⌫ albo nacisnąć „Sprawdzić”.",
     "build_order_only": "↔ <b>Słowa poprawne, inna kolejność</b>",
     "build_reference": "Poprawnie:",
     "build_yours": "Odpowiedź:",
@@ -544,6 +544,7 @@ TEXTS.update({
     "speech_try_again": "Brzmiało to jak „{heard}” — jeszcze nie to. Proszę nagrać ponownie: próba {attempt} z {total}.",
     "speech_send_voice": "🎤 Na to pytanie odpowiada się wiadomością głosową. Proszę nacisnąć i przytrzymać przycisk mikrofonu.",
     "speech_skipped": "Pominięto",
+    "speech_not_counted": "Znowu brzmiało jak „{heard}”. Nie liczę tego ani jako dobrej odpowiedzi, ani jako błędu — proszę posłuchać, jak to brzmi, i idziemy dalej.",
     "quiz_result_spoken": "🎤 Na głos: {count}",
 })
 

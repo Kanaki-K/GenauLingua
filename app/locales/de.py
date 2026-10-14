@@ -515,9 +515,9 @@ TEXTS.update({
     "channel_build": "🧱 Ich baue",
     "home_scale_build": "Ich baue",
     "quiz_result_built": "🧱 Gebaut: {count}",
-    "build_hint": "Setzen Sie den Satz aus den Wörtern unten zusammen — einige davon sind überflüssig. Tippen Sie auf ein gesetztes Wort, um es zurückzulegen",
+    "build_hint": "Setzen Sie den Satz aus den Wörtern unten zusammen — einige davon sind überflüssig",
     "build_btn_check": "Prüfen",
-    "build_full": "Alle Plätze sind belegt. Tippen Sie auf ein gesetztes Wort, um es zurückzulegen, oder auf „Prüfen“.",
+    "build_full": "Alle Plätze sind belegt. Entfernen Sie ein Wort mit ⌫ oder tippen Sie auf „Prüfen“.",
     "build_order_only": "↔ <b>Richtige Wörter, andere Reihenfolge</b>",
     "build_reference": "Richtig:",
     "build_yours": "Ihre Antwort:",
@@ -548,6 +548,7 @@ TEXTS.update({
     "speech_try_again": "Das klang wie „{heard}“ — noch nicht ganz. Bitte nehmen Sie es noch einmal auf: Versuch {attempt} von {total}.",
     "speech_send_voice": "🎤 Diese Frage wird mit einer Sprachnachricht beantwortet. Halten Sie die Mikrofontaste gedrückt.",
     "speech_skipped": "Übersprungen",
+    "speech_not_counted": "Wieder klang es wie „{heard}“. Das zählt weder als richtig noch als Fehler — hören Sie sich an, wie es klingt, und weiter geht’s.",
     "quiz_result_spoken": "🎤 Gesprochen: {count}",
 })
 

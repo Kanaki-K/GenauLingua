@@ -503,9 +503,9 @@ TEXTS.update({
     "channel_build": "🧱 Kuruyorum",
     "home_scale_build": "Kuruyorum",
     "quiz_result_built": "🧱 Kurulan: {count}",
-    "build_hint": "Cümleyi aşağıdaki kelimelerden kurun — aralarında fazlalar var. Yerleştirdiğiniz bir kelimeye dokunursanız geri gider",
+    "build_hint": "Cümleyi aşağıdaki kelimelerden kurun — aralarında fazlalar var",
     "build_btn_check": "Kontrol et",
-    "build_full": "Tüm yerler dolu. Bir kelimeyi geri almak için ona dokunun ya da «Kontrol et» düğmesine basın.",
+    "build_full": "Tüm yerler dolu. ⌫ ile bir kelimeyi kaldırın ya da «Kontrol et» düğmesine basın.",
     "build_order_only": "↔ <b>Kelimeler doğru, sıra farklı</b>",
     "build_reference": "Doğrusu:",
     "build_yours": "Cevabınız:",
@@ -536,6 +536,7 @@ TEXTS.update({
     "speech_try_again": "«{heard}» gibi duyuldu — tam değil. Lütfen tekrar kaydedin: deneme {attempt}/{total}.",
     "speech_send_voice": "🎤 Bu soru sesli mesajla cevaplanır. Mikrofon düğmesine basılı tutun.",
     "speech_skipped": "Atlandı",
+    "speech_not_counted": "Yine «{heard}» gibi duyuldu. Bu ne doğru ne de hata sayılır — nasıl söylendiğini dinleyin ve devam edelim.",
     "quiz_result_spoken": "🎤 Sesli: {count}",
 })
 

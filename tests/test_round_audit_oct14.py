@@ -384,26 +384,36 @@ async def test_back_from_round_settings_returns_to_the_result(session, user, sta
     assert deleted == {778}, f"«Назад» удалил не только экран настроек: {deleted}"
 
 
-async def test_speech_gives_three_tries_and_counts_the_third(session, user, stage, monkeypatch):
+async def test_speech_gives_two_tries_then_moves_on_without_a_verdict(
+    session, user, stage, monkeypatch
+):
     """
-    «Почему бы не дать возможность перезаписать? … на 3-тий раз точно
-    правильно засчитываем, он ведь старался!» — владелец, 14 октября.
+    «Давай сделаем 2 попытки… нужно адекватное решение» — владелец после
+    живого теста 14.10: две записи издалека не разобраны, третья с матом
+    засчиталась. Первая неудача — «попытка 2 из 2», вторая — пропуск со
+    словом и звуком, без строки ответа и без ошибки.
     """
+    from app.locales import get_text
+
     dp, bot, recorder = await _speech_round(
         session, user, stage, monkeypatch,
-        [("Verstrahlt!", False, False)] * 3,
+        [("Verstrahlt!", False, False)] * 2,
     )
-    session_id = (await _ctx(dp, bot, user).get_data())["session_id"]
+    ctx = _ctx(dp, bot, user)
+    session_id = (await ctx.get_data())["session_id"]
 
     await dp.feed_update(bot, voice_update(user.id))
-    await dp.feed_update(bot, voice_update(user.id))
-    assert await _rows(session, session_id) == 0, "неудачная попытка записалась ответом"
+    assert "2" in recorder.last_text() and await _rows(session, session_id) == 0
 
     await dp.feed_update(bot, voice_update(user.id))
-    row = (await session.execute(
-        select(QuizQuestion).where(QuizQuestion.session_id == session_id)
-    )).scalar_one()
-    assert row.is_correct, "третья попытка не засчитана"
+    assert await _rows(session, session_id) == 0, "неудача голосом записалась ответом"
+    word_id = (await ctx.get_data())["correct_word_id"]
+    assert word_id not in (await ctx.get_data()).get("errors", []), "пропуск ушёл в ошибки"
+    shown = get_text("speech_not_counted", "ru", heard="Verstrahlt!")
+    assert shown in recorder.last_text(), recorder.last_text()
+    # Третьей попытки нет: следующее голосовое на этот вопрос не принимается
+    await dp.feed_update(bot, voice_update(user.id))
+    assert await _rows(session, session_id) == 0
 
 
 async def test_a_good_second_try_is_recorded_once(session, user, stage, monkeypatch):

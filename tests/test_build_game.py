@@ -53,8 +53,8 @@ def test_tokens_drop_punctuation_but_keep_word_inner_marks():
 @pytest.mark.parametrize("sentence,fits", [
     ("Er ist Tischler", True),                                  # 3 — нижняя граница
     ("Ich gehe", False),                                        # 2
-    ("eins zwei drei vier fünf sechs sieben acht neun zehn", True),   # 10
-    ("eins zwei drei vier fünf sechs sieben acht neun zehn elf", False),
+    ("eins zwei drei vier fünf sechs sieben acht neun", True),        # 9
+    ("eins zwei drei vier fünf sechs sieben acht neun zehn", False),  # 10 — с ловушкой 11 кнопок
     ("Hallo , Welt", False),                                    # запятая не слово
 ])
 def test_a_sentence_fits_by_its_word_count(sentence, fits):
@@ -569,45 +569,52 @@ async def test_the_question_screen(session, user, stage):
     text = rec.last_text()
     assert "1 / 15 · 🧱" in text
     assert data["build_translation"] in text, "фразы на родном нет"
-    # Длина фразы — местами ▢ в ВЕРХНЕЙ зоне сетки, а не строкой в тексте
-    assert rec.buttons().count("bd:idle") == len(data["build_target"])
+    # Длина фразы — пропусками ▢ в строке текста
+    assert text.count("▢") == len(data["build_target"])
     assert data["build_sentence"] not in text, "эталон на экране"
     tiles = [b for b in rec.buttons() if b.startswith("bd:t:")]
     assert len(tiles) == len(data["build_tiles"]) <= 12
     assert not any(b.startswith("bd:check") for b in rec.buttons()), "проверять нечего"
 
 
-async def test_two_zones_placed_words_go_back_and_spare_words_leave(session, user, stage):
+async def test_placed_words_leave_the_grid_and_spare_words_leave_at_the_end(
+    session, user, stage
+):
     """
-    Живой тест владельца 14.10: «после выбранного слова ставит точку, а 3,
-    которые предложило с самого начала, висят как бесполезные». Теперь
-    поставленное слово уходит из нижней зоны наверх, возвращается
-    нажатием с ЛЮБОГО места, а собранная фраза оставляет одну «Проверить».
+    Два живых теста владельца 14.10. Первый: «после выбранного слова
+    ставит точку, а 3, которые предложило с самого начала, висят как
+    бесполезные». Второй: собранное кнопками-местами — «половина из них
+    пустые клетки… было хорошо, когда заполнялся текст на экране… слева и
+    справа максимум по 5». Теперь: собранное — строкой в тексте, нажатое
+    уходит из сетки, сетка в две колонки, не больше десяти, после сборки —
+    только «⌫» и «Проверить».
     """
+    from app.services.build_service import GRID_COLUMNS, MAX_TILES
+
     dp, bot, rec = stage
     context, data = await _start_build(session, user, rec, dp, bot)
     target = data["build_target"]
+    assert len(data["build_tiles"]) <= MAX_TILES == 10
 
     await _assemble(dp, bot, user, context, target[:2])
     buttons = rec.buttons()
-    assert not any(b == "bd:spent" for b in buttons), "точки на месте нажатых"
+    assert "bd:spent" not in buttons and "bd:idle" not in buttons, "пустые кнопки в сетке"
     pool = [b for b in buttons if b.startswith("bd:t:")]
-    assert len(pool) == len(data["build_tiles"]) - 2, "нажатые слова остались внизу"
-    assert sum(b.startswith("bd:u:") for b in buttons) == 2
+    assert len(pool) == len(data["build_tiles"]) - 2, "нажатые слова остались в сетке"
+    assert " ".join(target[:2]) in rec.last_text(), "собранное не в тексте"
+    assert any(b.startswith("bd:back:") for b in buttons)
 
-    # Вернуть ПЕРВОЕ слово, а не последнее: второе встаёт на его место
-    data = await context.get_data()
-    picked = data["build_picked"]
-    await dp.feed_update(bot, press(
-        user.id, f"bd:u:0:{data['build_word']}:{data['build_version']}"))
-    assert (await context.get_data())["build_picked"] == picked[1:]
-
-    # Собрать целиком: лишние слова уходят, остаётся одна «Проверить»
-    await _assemble(dp, bot, user, context, [target[0]] + target[2:])
+    await _assemble(dp, bot, user, context, target[2:])
     buttons = rec.buttons()
     assert not any(b.startswith("bd:t:") for b in buttons), "лишние слова висят"
     assert sum(b.startswith("bd:check") for b in buttons) == 1
 
+
+def test_the_grid_has_two_columns():
+    from app.bot.handlers.quiz.build import grid_keyboard
+
+    rows = grid_keyboard([f"w{i}" for i in range(9)], [], 1, 0, "ru", slots=7).inline_keyboard
+    assert [len(r) for r in rows] == [2, 2, 2, 2, 1]
 
 async def test_a_right_build_is_recorded_once(session, user, stage):
     dp, bot, rec = stage

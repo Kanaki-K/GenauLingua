@@ -13,22 +13,21 @@ build_service.py`; здесь только то, что видит и нажим
 
     После еды мы идём гулять
 
-    [ ① nach ] [ ② dem ] [ ▢ ] [ ▢ ]      ← собранное
-    [ ▢ ]
-    [ gehen ] [ den ] [ wir ] [ Essen ]   ← что ещё не использовано
-    [ raus  ] [ ihr ]
+    nach dem ▢ ▢ ▢
 
-ДВЕ ЗОНЫ, КАК В DUOLINGO. Сверху — собранное кнопками по порядку и пустые
-места; нажатие на собранное слово возвращает его вниз, так что исправить
-можно ЛЮБОЕ место, а не только последнее. Снизу — только то, что ещё не
-поставлено. Когда места заняты, нижняя зона исчезает и остаётся одна
-«Проверить» во всю ширину.
+    [ gehen ] [ den   ]
+    [ wir   ] [ Essen ]
+    [ raus  ] [ ihr   ]
+    [ ⌫ ]
 
-Почему так. Прежде нажатое слово оставалось в сетке точкой «·», чтобы
-кнопки не сдвигались под пальцем, а лишние слова висели и после того, как
-фраза собрана. Владелец, первый живой тест 14.10: «после выбранного слова
-ставит точку, а 3, которые предложило с самого начала, висят как
-бесполезные». Сдвиг нижней зоны — меньшая беда, чем сетка из точек.
+СОБРАННОЕ — СТРОКОЙ В ТЕКСТЕ, ВНИЗУ — ТОЛЬКО НЕИСПОЛЬЗОВАННОЕ, В ДВЕ
+КОЛОНКИ, НЕ БОЛЬШЕ ДЕСЯТИ. Так решил владелец после двух живых тестов
+14.10. Первый вид оставлял нажатое слово в сетке точкой «·», а лишние
+слова висели и после сборки: «висят как бесполезные». Второй ставил
+собранное кнопками-местами ▢ над словами: «половина из них — пустые
+клетки… перенагружает и делает этот вид игры "душным". Было хорошо, когда
+заполнялся текст на экране». Нажатое слово уходит из сетки, «⌫» убирает
+последнее, а когда места заняты, сетки нет — одна «Проверить».
 
 ДВОЙНЫЕ И УСТАРЕВШИЕ НАЖАТИЯ. Как у доски: в `callback_data` — номер
 слова и ВЕРСИЯ сетки, нажатия идут под замком чата (`lesson_state._claim_lock`).
@@ -55,7 +54,7 @@ from app.database.enums import QuizChannel
 from app.database.models import User, Word
 from app.locales import DEFAULT_LOCALE, get_text
 from app.services.build_service import (
-    Puzzle, Verdict, judge, row_width,
+    GRID_COLUMNS, Puzzle, Verdict, judge, sentence_tokens,
 )
 from app.services.language_service import (
     LanguagePair, example_text, pair_from_user,
@@ -75,12 +74,6 @@ S_SENTENCE = "build_sentence"        # фраза на изучаемом, с п
 S_TRANSLATION = "build_translation"  # она же на родном — задание
 
 SLOT = "▢"
-# Номера мест в собранном: фраза — не больше `MAX_WORDS` (10) слов
-PLACES = "①②③④⑤⑥⑦⑧⑨⑩"
-
-# Нажатие по пустому месту. Telegram не умеет неактивных кнопок: нажатие
-# придёт всё равно, и его надо тихо погасить (`_parse` → None)
-CB_IDLE = "bd:idle"
 
 
 def initial_state(puzzle: Puzzle, word_id: int) -> dict:
@@ -100,20 +93,25 @@ def initial_state(puzzle: Puzzle, word_id: int) -> dict:
 # ЭКРАН
 # ============================================================================
 
-def render_text(lang: str, current: int, total: int, translation: str) -> str:
+def render_text(lang: str, current: int, total: int, translation: str,
+                picked_words: list[str], slots: int) -> str:
     """
-    Текст вопроса: номер, фраза на родном и подсказка.
+    Текст вопроса: номер, фраза на родном, собранное и пропуски.
 
-    Собранного в тексте нет: оно стоит кнопками над словами, и строка
-    «nach dem ▢ ▢» здесь повторяла бы то же самое второй раз. Длину фразы
-    видно по числу мест ▢ в верхней зоне.
+    Собранное и пропуски — одной строкой, пропусков ровно столько, сколько
+    слов ещё не хватает: длина фразы видна сразу, и человек не гадает,
+    сколько нажимать. Владелец: «было хорошо, когда заполнялся текст на
+    экране».
     """
     from app.bot.handlers.quiz.question import channel_mark
 
     number = get_text("quiz_question_number", lang, current=current, total=total)
+    built = [html.escape(w, quote=False) for w in picked_words]
+    built += [SLOT] * max(0, slots - len(picked_words))
     return (
         f"{number} · {channel_mark(QuizChannel.BUILD)}\n\n"
         f"<b>{html.escape(translation, quote=False)}</b>\n\n"
+        f"{' '.join(built)}\n\n"
         f"<i>{get_text('build_hint', lang)}</i>"
     )
 
@@ -121,56 +119,45 @@ def render_text(lang: str, current: int, total: int, translation: str) -> str:
 def question_text_for(word: Word, pair: LanguagePair, lang: str,
                       current: int, total: int) -> str:
     """Экран только что заданного вопроса — ничего ещё не собрано."""
-    return render_text(lang, current, total, example_text(word, pair.native))
+    target = sentence_tokens(word, pair) or []
+    return render_text(lang, current, total,
+                       example_text(word, pair.native), [], len(target))
 
 
 def grid_keyboard(tiles: list[str], picked: list[int], word_id: int,
                   version: int, lang: str, slots: int = 0) -> InlineKeyboardMarkup:
     """
-    Две зоны: собранное сверху, неиспользованное снизу.
+    Неиспользованные слова в две колонки и ряд управления под ними.
 
-    ВЕРХНЯЯ — места фразы по порядку: занятое — «① слово», нажатие
-    возвращает его вниз (`bd:u:<место>`); пустое — «▢», нажатие гасится.
-    НИЖНЯЯ — ещё не поставленные слова в их исходном порядке; номер в
-    `bd:t:<номер>` — номер слова в сетке, он не меняется от сдвига кнопок,
-    поэтому нажатие по старой раскладке ставит то самое слово.
-    КОГДА МЕСТА ЗАНЯТЫ — нижней зоны нет, есть «Проверить» во всю ширину:
-    лишние слова больше не нужны, и висеть им незачем.
+    Нажатое слово УХОДИТ из сетки — собранное видно строкой в тексте, и
+    кнопка-точка на его месте была бы шумом. Номер в `bd:t:<номер>` — номер
+    слова в исходной сетке, он не меняется от сдвига кнопок, поэтому
+    нажатие по прежней раскладке ставит то самое слово. КОГДА МЕСТА ЗАНЯТЫ,
+    сетки нет: лишние слова больше не нужны, остаются «⌫» и «Проверить».
 
-    Ширина ряда — по самой длинной надписи зоны (`row_width`): 4, 3 или 2.
     Одинаковые слова («die … die») — разные кнопки: у каждой свой номер.
-    `slots == 0` — вызов без знания длины фразы: только нижняя зона.
     """
-    def chunked(cells: list) -> list[list]:
-        per_row = row_width([c.text for c in cells])
-        return [cells[i:i + per_row] for i in range(0, len(cells), per_row)]
-
     rows: list[list] = []
-    if slots:
-        places = []
-        for place in range(slots):
-            if place < len(picked):
-                places.append(InlineKeyboardButton(
-                    text=f"{PLACES[place]} {tiles[picked[place]]}",
-                    callback_data=f"bd:u:{place}:{word_id}:{version}",
-                ))
-            else:
-                places.append(InlineKeyboardButton(text=SLOT, callback_data=CB_IDLE))
-        rows += chunked(places)
+    full = bool(slots) and len(picked) >= slots
+    if not full:
+        pool = [
+            InlineKeyboardButton(text=tile, callback_data=f"bd:t:{index}:{word_id}:{version}")
+            for index, tile in enumerate(tiles) if index not in picked
+        ]
+        rows += [pool[i:i + GRID_COLUMNS] for i in range(0, len(pool), GRID_COLUMNS)]
 
-    if slots and len(picked) == slots:
-        rows.append([InlineKeyboardButton(
+    controls = []
+    if picked:
+        controls.append(InlineKeyboardButton(
+            text="⌫", callback_data=f"bd:back:{word_id}:{version}",
+        ))
+    if full:
+        controls.append(InlineKeyboardButton(
             text=get_text("build_btn_check", lang),
             callback_data=f"bd:check:{word_id}:{version}",
-        )])
-        return InlineKeyboardMarkup(inline_keyboard=rows)
-
-    pool = [
-        InlineKeyboardButton(text=tile, callback_data=f"bd:t:{index}:{word_id}:{version}")
-        for index, tile in enumerate(tiles) if index not in picked
-    ]
-    if pool:
-        rows += chunked(pool)
+        ))
+    if controls:
+        rows.append(controls)
     return InlineKeyboardMarkup(inline_keyboard=rows)
 
 
@@ -323,11 +310,12 @@ async def _tap(callback: CallbackQuery, state: FSMContext, session: AsyncSession
     await state.update_data(**{S_PICKED: picked, S_VERSION: version})
     await callback.answer()
 
+    words = [tiles[i] for i in picked]
     try:
         await callback.message.edit_text(
             render_text(lang, int(data.get("current_question") or 1),
                         int(data.get("total_questions") or 1),
-                        data.get(S_TRANSLATION) or ""),
+                        data.get(S_TRANSLATION) or "", words, len(target)),
             reply_markup=grid_keyboard(tiles, picked, word_id, version, lang,
                                        slots=len(target)),
         )

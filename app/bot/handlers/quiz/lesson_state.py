@@ -113,9 +113,10 @@ async def _reset_round_state(state: FSMContext) -> dict:
 # голосовые человека, «Не разобрал…», присланный эталон.
 S_STRAY = "stray_message_ids"
 
-# Попытки голосом на текущем вопросе: третья засчитывается верной
+# Попытки голосом на текущем вопросе. ДВЕ: после второй неудачи вопрос
+# проходит пропуском — без балла и без ошибки (`speech._give_up`)
 S_SPEECH_TRIES = "speech_tries"
-SPEECH_ATTEMPTS = 3
+SPEECH_ATTEMPTS = 2
 
 
 async def _remember_stray(state: FSMContext, *message_ids: int) -> None:

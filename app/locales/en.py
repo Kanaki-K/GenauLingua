@@ -503,9 +503,9 @@ TEXTS.update({
     "channel_build": "🧱 I build",
     "home_scale_build": "I build",
     "quiz_result_built": "🧱 Built: {count}",
-    "build_hint": "Build the sentence from the words below — some of them are extra. Tap a placed word to send it back",
+    "build_hint": "Build the sentence from the words below — some of them are extra",
     "build_btn_check": "Check",
-    "build_full": "All places are filled. Tap a placed word to send it back, or press “Check”.",
+    "build_full": "All places are filled. Remove a word with ⌫ or press “Check”.",
     "build_order_only": "↔ <b>Right words, different order</b>",
     "build_reference": "Correct:",
     "build_yours": "Your answer:",
@@ -536,6 +536,7 @@ TEXTS.update({
     "speech_try_again": "That sounded like “{heard}” — not quite. Please record it again: attempt {attempt} of {total}.",
     "speech_send_voice": "🎤 This question needs a voice message. Press and hold the microphone button.",
     "speech_skipped": "Skipped",
+    "speech_not_counted": "Again it sounded like “{heard}”. This counts neither as right nor as a mistake — listen to how it sounds, and let's move on.",
     "quiz_result_spoken": "🎤 Spoken: {count}",
 })
 

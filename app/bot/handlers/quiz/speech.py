@@ -14,7 +14,7 @@ from aiogram.types import BufferedInputFile, CallbackQuery, Message
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.bot.buttons import menu_texts
-from app.bot.handlers.quiz.card import STATE_CARD_ID, show_card
+from app.bot.handlers.quiz.card import STATE_CARD_HAS_AUDIO, STATE_CARD_ID, show_card
 from app.bot.handlers.quiz.lesson import _record_answer
 from app.bot.handlers.quiz.lesson_state import (
     S_SPEECH_TRIES,
@@ -132,14 +132,18 @@ async def process_voice_answer(message: Message, state: FSMContext, session: Asy
         await _remember_stray(state, message.message_id, retry.message_id)
         return
 
-    # ТРИ ПОПЫТКИ, И ТРЕТЬЯ ЗАСЧИТЫВАЕТСЯ. Владелец, 14 октября: «почему бы
-    # не дать возможность юзеру перезаписать? и если уж 3 раза неправильно —
-    # не давать 4-ю… давай на 3-тий раз точно правильно засчитываем, он ведь
-    # старался! я думаю это ошибка будет точно бота, а не человека». Живой
-    # пример: «der Streit» распознавалось как «Verstrahlt!». Первые две
-    # неудачи не записываются — человек видит, что услышано, и пишет снова;
-    # третья засчитывается верной. Неразобранная запись (выше) попытку не
-    # тратит: там нечего сравнивать.
+    # ДВЕ ПОПЫТКИ; ВТОРАЯ НЕУДАЧА — ПРОПУСК. Прежде попыток было три, и
+    # третья засчитывалась верной («он ведь старался»). Живой тест владельца
+    # 14.10 показал цену: две записи издалека не разобраны («3D-Site um.»,
+    # «Dietze und Tonk»), а третью он «вообще обматерил — и засчитало».
+    # Владелец: «он так заебет людей. Давай сделаем 2 попытки… нужно
+    # адекватное решение».
+    #
+    # Решение — как у кнопки «Пропустить»: ни балла, ни ошибки. Балл за мат
+    # был бы даровым, а ошибка — наказанием за микрофон, а не за
+    # произношение: распознаватель ошибается чаще, чем человек. Слово
+    # показывается со звуком, расписание не трогается, занятие идёт дальше.
+    # Неразобранная запись (выше) попытку не тратит: там нечего сравнивать.
     attempt = int(data.get(S_SPEECH_TRIES) or 0) + 1
     if not verdict.matched and attempt < SPEECH_ATTEMPTS:
         # Счёт попыток — ДО освобождения вопроса: иначе следующая запись,
@@ -159,6 +163,11 @@ async def process_voice_answer(message: Message, state: FSMContext, session: Asy
 
     await _remember_stray(state, message.message_id)
 
+    if not verdict.matched:
+        await _give_up(message, state, session, user, correct_word, channel,
+                       data, html.escape(verdict.heard))
+        return
+
     asked_at = data.get("asked_at")
     response_seconds = (
         max(0, int(utcnow().timestamp() - float(asked_at))) if asked_at else None
@@ -167,13 +176,46 @@ async def process_voice_answer(message: Message, state: FSMContext, session: Asy
     await _record_answer(
         bot=message.bot, chat_id=message.chat.id, state=state, session=session,
         user=user, pair=pair, lang=lang, correct_word=correct_word,
-        is_correct=verdict.matched or attempt >= SPEECH_ATTEMPTS, channel=channel,
+        is_correct=True, channel=channel,
         answer_text=verdict.heard,
         session_id=data["session_id"], correct_answers=data["correct_answers"],
         errors=data["errors"], response_seconds=response_seconds,
         card_message_id=data.get(STATE_CARD_ID),
-        # Засчитано ПО ПОПЫТКАМ, а не по услышанному
-        forgiven=not verdict.matched,
+    )
+
+
+async def _give_up(message: Message, state: FSMContext, session: AsyncSession,
+                   user: User, correct_word: Word, channel: QuizChannel,
+                   data: dict, heard: str) -> None:
+    """
+    Вторая неудача голосом — вопрос проходит ПРОПУСКОМ.
+
+    Ничего не записывается: ни строки ответа, ни прогресса, ни ошибки —
+    ровно как у кнопки «Пропустить». Показ — как у разбора: карточка
+    вопроса выше в переписке (под ней уже голосовые), поэтому она
+    удаляется, а ответ приходит новым сообщением со звуком слова и примера.
+    """
+    lang = user.interface_language or DEFAULT_LOCALE
+    pair = pair_from_user(user)
+
+    card_id = data.get(STATE_CARD_ID)
+    if card_id:
+        try:
+            await message.bot.delete_message(message.chat.id, card_id)
+        except Exception:
+            logger.debug("карточка вопроса не удалилась", exc_info=True)
+        await state.update_data(**{STATE_CARD_HAS_AUDIO: False})
+
+    # Значения — до вызова: вложенный вызов внутри аргументов рвёт разбор
+    # в `test_format_parameters_match`
+    gave_up = get_text("speech_not_counted", lang, heard=heard)
+    breakdown = _answer_text(correct_word, pair, lang, True, channel)
+    await show_card(
+        message.bot, message.chat.id, state, session,
+        text=f"{gave_up}\n\n{breakdown}",
+        keyboard=get_next_question_keyboard(lang),
+        clip=await clip_for_user(session, user, correct_word, pair.learning, KIND_FULL),
+        word_id=correct_word.id, lang=pair.learning,
     )
 
 

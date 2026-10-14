@@ -514,20 +514,25 @@ async def _speech_round(session, user, stage, monkeypatch, verdicts):
     after = (await session.execute(select(UserWord).where(
         UserWord.user_id == uid, UserWord.word_id == word_id))).scalar_one()
     row = (await session.execute(select(QuizQuestion).where(
-        QuizQuestion.session_id == data["session_id"]))).scalar_one()
+        QuizQuestion.session_id == data["session_id"]))).scalar_one_or_none()
     return streak, seen, after, row
 
 
-async def test_the_forgiven_third_try_counts_but_keeps_the_schedule(
+async def test_two_failed_tries_are_a_skip_not_a_free_point(
     session, user, stage, monkeypatch
 ):
+    """
+    Живой тест 14.10: третью попытку владелец «обматерил — и засчитало».
+    Теперь попыток две, и вторая неудача — пропуск: ни строки ответа, ни
+    балла за речь, ни сдвига расписания.
+    """
     streak, seen, after, row = await _speech_round(
-        session, user, stage, monkeypatch, [False, False, False]
+        session, user, stage, monkeypatch, [False, False]
     )
-    assert row.is_correct and row.channel == "s", "третья попытка не засчитана"
-    assert after.correct_speech == 1, "балл за речь не учтён"
-    assert after.correct_streak == streak, "прощённый ответ сдвинул серию"
-    assert after.last_seen_at == seen, "прощённый ответ сдвинул якорь срока"
+    assert row is None, "неудача голосом записалась ответом"
+    assert (after.correct_speech or 0) == 0, "за неразобранную речь дан балл"
+    assert after.correct_streak == streak, "пропуск сдвинул серию"
+    assert after.last_seen_at == seen, "пропуск сдвинул якорь срока"
 
 
 async def test_a_heard_answer_still_moves_the_schedule(session, user, stage, monkeypatch):
