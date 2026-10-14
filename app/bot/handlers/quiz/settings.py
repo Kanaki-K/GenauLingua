@@ -106,11 +106,16 @@ async def _renew_anchor(callback: CallbackQuery, session: AsyncSession, user: Us
     old_id, new_id = await ensure_anchor(callback.message, session, user)
     if not new_id:
         return False
+    # ЗАЧИЩАЕТСЯ ВСЁ ОТ ПРЕЖНЕГО ЯКОРЯ ДО НОВОГО, а не один прежний якорь —
+    # тем же правилом, что у каждого входа в бот. Удаление одного якоря
+    # оставляло выше нового итог круга и «Уровень A2…»: якорь — закладка
+    # зачистки, и, переехав вниз, он уводил закладку из-под старых
+    # сообщений. Живой тест владельца 14 октября: «должно быть всегда одно
+    # меню».
     if old_id and old_id != new_id:
-        try:
-            await callback.bot.delete_message(callback.message.chat.id, old_id)
-        except Exception:
-            logger.debug("Не удалось удалить прежний якорь", exc_info=True)
+        await delete_messages_fast(
+            callback.bot, callback.message.chat.id, old_id, new_id
+        )
     return True
 
 
@@ -921,14 +926,22 @@ async def answer_level_offer(callback: CallbackQuery, session: AsyncSession):
 
     await raise_level(user, session, following)
     await callback.answer()
+
+    # ОДИН ЭКРАН ПОСЛЕ СОГЛАСИЯ: свежий якорь (уровень написан в нём) и под
+    # ним главный экран с подтверждением сверху. Прежде предложение
+    # правилось в голое «Уровень A2. Слова будут потруднее.» без единой
+    # кнопки, а итог круга и это сообщение оставались висеть выше якоря.
+    from app.bot.handlers.quiz.home import build_home
+
+    done = get_text("level_offer_done", lang, following=following.value)
+    text, keyboard = await build_home(user, session)
+    if await _renew_anchor(callback, session, user):
+        await callback.message.answer(f"{done}\n\n{text}", reply_markup=keyboard)
+        return
     try:
-        await callback.message.edit_text(
-            get_text("level_offer_done", lang, following=following.value)
-        )
+        await callback.message.edit_text(f"{done}\n\n{text}", reply_markup=keyboard)
     except Exception:
-        pass
-    # Уровень написан в якоре: без нового якоря там осталось бы прежнее
-    await _renew_anchor(callback, session, user)
+        await callback.message.answer(f"{done}\n\n{text}", reply_markup=keyboard)
 
 
 # ============================================================================

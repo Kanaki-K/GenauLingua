@@ -12,7 +12,7 @@ from datetime import datetime, timedelta
 from app.core.clock import utcnow
 from typing import Optional
 
-from sqlalchemy import and_, func, or_, select
+from sqlalchemy import and_, case, func, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database.enums import CEFRLevel, QuizChannel, QuizMode
@@ -269,10 +269,20 @@ async def select_word_by_priority(
     """
     position = len(exclude_ids)
 
+    # ОТРАБОТКА — НА КАЖДОМ ВТОРОМ МЕСТЕ, не под новые слова. Каждое второе,
+    # а не все: в первом круге дня новых по-прежнему большинство (в круге из
+    # 15 — девять), а со второго круга идут все игры. Отдай отработке все
+    # места — и новых за круг осталось бы три: за открытием приходят.
+    practice_slot = position % 2 == 1
+
     if wants_new_word(position, round_length):
         order = (get_new_words, get_due_words, get_struggling_words)
+    elif practice_slot:
+        order = (get_due_words, get_struggling_words, get_practice_words,
+                 get_new_words)
     else:
-        order = (get_due_words, get_struggling_words, get_new_words)
+        order = (get_due_words, get_struggling_words, get_new_words,
+                 get_practice_words)
 
     for getter in order:
         word = await getter(
@@ -390,6 +400,98 @@ async def count_due_words(
     ).where(_due_condition())
     query = _scoped(query, user, level)
     return int((await session.execute(query)).scalar() or 0)
+
+
+# Сколько ждать, прежде чем слово, увиденное сегодня, вернётся ДРУГОЙ игрой.
+# Внутри круга повтор и так запрещён (`exclude_ids`), так что пауза нужна
+# только между кругами: только что отвеченное не должно открывать следующий.
+PRACTICE_GAP = timedelta(minutes=10)
+
+
+async def get_practice_words(
+    user_id: int,
+    session: AsyncSession,
+    pair: LanguagePair,
+    exclude_ids: list[int],
+    user: Optional[User] = None,
+    level: Optional[CEFRLevel] = None,
+) -> Optional[Word]:
+    """
+    Слово для ОТРАБОТКИ: уже узнанное, ещё не просроченное — другой игрой.
+
+    ЗАЧЕМ. Игры открываются для каждого слова отдельно — припоминание и слух
+    после одного верного ответа, речь после двух, — а возвращается слово
+    только по расписанию: верно ответил — до завтра. Значит в один день круг
+    собирался из одних новых слов, а у нового открыта лишь карточка. Живой
+    тест владельца 14 октября: 101 ответ за день, из них 91 карточка и 10
+    пар доски, НИ ОДНОГО «Вспоминаю», «Слушаю» или «Говорю» — при 70 словах,
+    уже готовых к ним. «Ниразу не было режима реверса. Ниразу не предложило
+    мне голосовое записать».
+
+    Отработка — это не досрочный повтор: слово приходит другой игрой, а
+    расписание при этом не двигается (см. `update_word_progress`, «досрочно»).
+
+    Порядок — ЛЕСЕНКА: узнал → вспомнил или услышал → сказал. Первым идёт
+    слово, уже готовое к речи (два верных) и ни разу не произнесённое;
+    затем — с наименьшим числом показов в других играх, чтобы отработку
+    получали разные слова. Без первого правила «Говорю» не наступало
+    никогда: свежих слов с одним верным всегда больше, и они занимали все
+    места отработки — симуляция четырёх кругов подряд дала ноль речи.
+    """
+    cutoff = utcnow() - PRACTICE_GAP
+    query = _progress_join(_usable_words(pair), user_id, pair).where(
+        UserWord.learned.is_(False),
+        UserWord.times_correct >= CHANNEL_UNLOCK[QuizChannel.REVERSE],
+        UserWord.last_seen_at.isnot(None),
+        UserWord.last_seen_at < cutoff,
+        ~_due_condition(),
+    )
+    query = _exclude(_scoped(query, user, level), exclude_ids)
+    other_games = (UserWord.shown_reverse + UserWord.shown_audio
+                   + UserWord.shown_speech)
+    ready_to_speak = case(
+        (and_(UserWord.times_correct >= CHANNEL_UNLOCK[QuizChannel.SPEECH],
+              UserWord.shown_speech == 0), 0),
+        else_=1,
+    )
+    rows = await session.execute(
+        query.order_by(ready_to_speak, other_games.asc(), func.random()).limit(1)
+    )
+    return rows.scalars().first()
+
+
+async def get_ready_for(
+    channel: QuizChannel,
+    user_id: int,
+    session: AsyncSession,
+    pair: LanguagePair,
+    exclude_ids: list[int],
+    user: Optional[User] = None,
+) -> Optional[Word]:
+    """
+    Слово, ДОРОСШЕЕ до этой игры, — для входа одной игрой с главного экрана.
+
+    Человек нажал 🎤 «Говорю» и ждёт речи. Прежде круг брал следующее слово
+    по расписанию, а оно чаще всего новое — и приходило карточкой: порог
+    речи — два верных ответа на ЭТО слово. Владелец, 14 октября: «я банально
+    не могу проверить тест Говорения, потому что оно мне не попадается…
+    юзер зашёл, ожидает одно, играет в другое». Теперь сперва ищется слово,
+    для которого игра уже открыта, — меньше всего бывавшее в ней. Не нашлось
+    — обычный подбор, и слово придёт той игрой, до которой доросло.
+    """
+    shown = {
+        QuizChannel.REVERSE: UserWord.shown_reverse,
+        QuizChannel.AUDIO: UserWord.shown_audio,
+        QuizChannel.SPEECH: UserWord.shown_speech,
+    }[channel]
+    query = _progress_join(_usable_words(pair), user_id, pair).where(
+        UserWord.times_correct >= CHANNEL_UNLOCK[channel],
+    )
+    query = _exclude(_scoped(query, user, None), exclude_ids)
+    rows = await session.execute(
+        query.order_by(shown.asc(), func.random()).limit(1)
+    )
+    return rows.scalars().first()
 
 
 async def get_struggling_words(
@@ -752,12 +854,26 @@ async def generate_question(
     # Попыток немного: столкновение редкое, а круг важнее чистоты. Не нашли
     # за пять подборов — берём как есть: повтор значения неприятен, а
     # оборванный круг хуже.
+    # Вход одной игрой: сперва слово, ДОРОСШЕЕ до неё (`get_ready_for`)
+    wanted = (
+        prefer_channel
+        if channel is None and prefer_channel is not None
+        and prefer_channel is not QuizChannel.TEXT
+        and prefer_channel in enabled_channels(user)
+        else None
+    )
+
     for _ in range(MEANING_RETRIES):
-        if user.quiz_mode == QuizMode.DIFFICULT:
+        candidate = None
+        if wanted is not None:
+            candidate = await get_ready_for(
+                wanted, user.id, session, pair, exclude_ids + skipped, user=user,
+            )
+        if candidate is None and user.quiz_mode == QuizMode.DIFFICULT:
             candidate = await get_difficult_word(
                 user.id, session, pair, exclude_ids + skipped
             )
-        else:
+        elif candidate is None:
             candidate = await select_word_by_priority(
                 user_id=user.id,
                 session=session,
@@ -907,8 +1023,19 @@ async def update_word_progress(
         await session.commit()
         return
 
+    # ДОСРОЧНЫЙ ВЕРНЫЙ ОТВЕТ НЕ ДВИГАЕТ РАСПИСАНИЕ. Слово, которому ещё не
+    # пора, приходит отработкой — другой игрой в тот же день
+    # (`get_practice_words`). Засчитай такой ответ в серию — и три игры за
+    # вечер превратили бы вчерашнее знакомство в «повторить через неделю»,
+    # хотя ни одного дня между ответами не прошло. Ответ учитывается в
+    # показах, верных и в счётчике игры (за него и баллы), но серия и
+    # отметка последнего показа — якорь срока — остаются прежними. Промах
+    # досрочным не бывает: забыл — значит забыл, и срок обнуляется.
+    early = is_correct and not _is_due(user_word, now)
+
     user_word.times_shown += 1
-    user_word.last_seen_at = now
+    if not early:
+        user_word.last_seen_at = now
     _count_channel(user_word, channel, is_correct)
 
     # ПРОМАХ ОБНУЛЯЕТ СЕРИЮ, а с ней и срок возврата.
@@ -927,7 +1054,8 @@ async def update_word_progress(
     # ошибки». «Выучено» при этом снимается: оно определено как три верных
     # ПОДРЯД, а подряд больше нет.
     if is_correct:
-        user_word.correct_streak += 1
+        if not early:
+            user_word.correct_streak += 1
         user_word.times_correct += 1
     else:
         user_word.correct_streak = 0
@@ -965,6 +1093,18 @@ def _count_channel(user_word: UserWord, channel: QuizChannel, is_correct: bool) 
         user_word.shown_speech = (user_word.shown_speech or 0) + 1
         if is_correct:
             user_word.correct_speech = (user_word.correct_speech or 0) + 1
+
+
+def _is_due(user_word: UserWord, now: datetime) -> bool:
+    """Пора ли слову по расписанию — то же правило, что `_due_condition`."""
+    seen = user_word.last_seen_at
+    if seen is None:
+        return True
+    streak = user_word.correct_streak or 0
+    delay = REVIEW_SCHEDULE.get(streak)
+    if delay is None:
+        delay = REVIEW_SCHEDULE_TAIL if streak > max(REVIEW_SCHEDULE) else REVIEW_SCHEDULE[0]
+    return seen <= now - delay
 
 
 def _is_learned(user_word: UserWord, now: datetime) -> bool:
@@ -1548,14 +1688,15 @@ async def pick_channel(
     if prefer is None and len(channels) == 1:
         return channels[0]
 
-    progress = await session.execute(
-        select(UserWord.times_correct).where(
+    progress = (await session.execute(
+        select(UserWord.times_correct, UserWord.last_seen_at).where(
             UserWord.user_id == (user.id if user else 0),
             UserWord.word_id == word.id,
             UserWord.learning_lang == learning_lang,
         )
-    )
-    times_correct = progress.scalar() or 0
+    )).first()
+    times_correct = (progress[0] if progress else 0) or 0
+    seen_at = progress[1] if progress else None
 
     # ПРЯМОЙ ВХОД ОДНИМ КАНАЛОМ — с домашнего экрана. Состав занятия тут не
     # спрашивается: человек только что ткнул в «🎧», это и есть его выбор на
@@ -1582,6 +1723,27 @@ async def pick_channel(
         c for c in channels
         if times_correct >= CHANNEL_UNLOCK.get(c, 0)
     ] or [QuizChannel.TEXT]
+
+    # СЛОВО, УЖЕ ВИДЕННОЕ СЕГОДНЯ, ВОЗВРАЩАЕТСЯ ДРУГОЙ ИГРОЙ. Карточкой его
+    # только что узнали; вторая карточка того же слова за день ничему не
+    # учит, а «Вспоминаю», «Слушаю» и «Говорю» — учат. Так отработка
+    # (`get_practice_words`) и становится видимой.
+    #
+    # Кроме ПЕРВОГО вопроса круга (история пуста): круг открывается
+    # карточкой, начинать с того, что непонятно без звука, плохо.
+    #
+    # И кроме случая, когда без карточки осталась лишь та игра, что уже шла
+    # два раза подряд: «не три одинаковых подряд» важнее.
+    if (recent and seen_at is not None
+            and utcnow() - seen_at < timedelta(days=1)
+            and len(unlocked) > 1):
+        others = [c for c in unlocked if c is not QuizChannel.TEXT]
+        third_in_a_row = (
+            len(recent) >= 2 and recent[-1] == recent[-2]
+            and all(c.value == recent[-1] for c in others)
+        )
+        if not third_in_a_row:
+            unlocked = others
 
     if len(unlocked) == 1:
         return unlocked[0]

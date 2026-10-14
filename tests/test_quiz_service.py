@@ -14,6 +14,29 @@ from app.services.language_service import LanguagePair
 from tests.conftest import build_groups, make_word
 
 
+async def _answer_when_due(session, user, word, correct, lang="de"):
+    """
+    Ответить на слово, когда ему ПОРА по расписанию.
+
+    Досрочный верный ответ серию не двигает (`update_word_progress`): три
+    ответа подряд за доли секунды — это не три повторения, а одно. Тесты,
+    которые набирали серию быстрыми повторами, проверяли бы накрутку,
+    которую правило как раз закрывает. Поэтому перед ответом показ
+    отодвигается на срок текущей серии — слово «созревает».
+    """
+    row = (await session.execute(
+        select(UserWord).where(
+            UserWord.user_id == user.id, UserWord.word_id == word.id,
+            UserWord.learning_lang == lang,
+        )
+    )).scalar_one_or_none()
+    if row is not None and row.last_seen_at is not None:
+        delay = qs.REVIEW_SCHEDULE.get(row.correct_streak or 0, qs.REVIEW_SCHEDULE_TAIL)
+        row.last_seen_at = utcnow() - delay - timedelta(minutes=1)
+        await session.commit()
+    await qs.update_word_progress(user.id, word.id, correct, session, learning_lang=lang)
+
+
 async def _seed_distinct(session, count: int, *, level=CEFRLevel.A1, pos=PartOfSpeech.NOUN):
     """Слова с гарантированно различными переводами на все языки."""
     words = [
@@ -184,7 +207,7 @@ class TestProgressIsolation:
         word = words[0]
 
         for _ in range(3):
-            await qs.update_word_progress(user.id, word.id, True, session, learning_lang="de")
+            await _answer_when_due(session, user, word, True)
 
         de_row = (await session.execute(
             select(UserWord).where(
@@ -228,7 +251,7 @@ class TestLearnedRequiresSpacing:
         word = words[0]
 
         for _ in range(4):
-            await qs.update_word_progress(user.id, word.id, True, session, learning_lang="de")
+            await _answer_when_due(session, user, word, True)
 
         row = (await session.execute(
             select(UserWord).where(UserWord.word_id == word.id, UserWord.user_id == user.id)
@@ -243,7 +266,7 @@ class TestLearnedRequiresSpacing:
         word = words[0]
 
         for _ in range(2):
-            await qs.update_word_progress(user.id, word.id, True, session, learning_lang="de")
+            await _answer_when_due(session, user, word, True)
 
         # Знакомство было два дня назад
         row = (await session.execute(
@@ -252,7 +275,7 @@ class TestLearnedRequiresSpacing:
         row.created_at = utcnow() - timedelta(days=2)
         await session.commit()
 
-        await qs.update_word_progress(user.id, word.id, True, session, learning_lang="de")
+        await _answer_when_due(session, user, word, True)
 
         await session.refresh(row)
         assert row.learned is True
@@ -268,7 +291,7 @@ class TestLearnedRequiresSpacing:
         word = words[0]
 
         for _ in range(5):
-            await qs.update_word_progress(user.id, word.id, True, session, learning_lang="de")
+            await _answer_when_due(session, user, word, True)
         row = (await session.execute(
             select(UserWord).where(UserWord.word_id == word.id, UserWord.user_id == user.id)
         )).scalar_one()
@@ -279,6 +302,46 @@ class TestLearnedRequiresSpacing:
         assert row.correct_streak == 0
         assert row.times_shown == 6
         assert row.times_correct == 5
+
+
+class TestEarlyAnswersKeepTheSchedule:
+    """
+    Отработка другой игрой в тот же день не двигает расписание.
+
+    Живой тест владельца: за день ни одного «Вспоминаю», «Слушаю» и
+    «Говорю», потому что слово возвращалось только назавтра. Теперь оно
+    возвращается отработкой — но три верных ответа за вечер не должны
+    превращать вчерашнее знакомство в «повтор через неделю».
+    """
+
+    async def test_correct_answers_before_due_do_not_grow_the_streak(self, session, user):
+        words = await _seed_distinct(session, 5)
+        await build_groups(session)
+        word = words[0]
+
+        for _ in range(4):
+            await qs.update_word_progress(user.id, word.id, True, session, learning_lang="de")
+
+        row = (await session.execute(
+            select(UserWord).where(UserWord.word_id == word.id, UserWord.user_id == user.id)
+        )).scalar_one()
+        assert row.correct_streak == 1, "досрочные ответы накрутили серию"
+        assert row.times_correct == 4, "досрочный ответ обязан засчитываться"
+        assert row.times_shown == 4
+
+    async def test_a_miss_before_due_still_resets(self, session, user):
+        words = await _seed_distinct(session, 5)
+        await build_groups(session)
+        word = words[0]
+
+        await _answer_when_due(session, user, word, True)
+        await _answer_when_due(session, user, word, True)
+        await qs.update_word_progress(user.id, word.id, False, session, learning_lang="de")
+
+        row = (await session.execute(
+            select(UserWord).where(UserWord.word_id == word.id, UserWord.user_id == user.id)
+        )).scalar_one()
+        assert row.correct_streak == 0, "забытое слово досрочным не бывает"
 
 
 class TestQuizModes:

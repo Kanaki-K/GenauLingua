@@ -209,3 +209,45 @@ async def test_agreeing_raises_the_level_and_clears_the_old_refusal(session, use
 
     assert user.level is CEFRLevel.A2
     assert user.level_offer_declined is None, "отказ от прежнего уровня пережил переход"
+
+
+# ============================================================================
+# СОГЛАСИЕ: ОДИН ЭКРАН, ЧАТ ЧИСТ
+#
+# Живой тест владельца 14 октября: после «да» в чате остались итог круга,
+# голое «Уровень A2. Слова будут потруднее.» без кнопок и новый якорь под
+# ними. «Должно быть всегда одно меню». Якорь — закладка зачистки, и при
+# переезде вниз он обязан забрать с собой всё, что было между.
+# ============================================================================
+
+async def test_agreeing_leaves_one_clean_screen(session, user):
+    from app.locales import get_text
+    from app.testing import make_bot, make_dispatcher, press, reset_state
+
+    user.level = CEFRLevel.A1
+    user.anchor_message_id = 990          # якорь над итогом круга
+    await session.commit()
+
+    bot, recorder = make_bot()
+    dp = make_dispatcher(session)
+    await reset_state(dp)
+
+    # Предложение пришло сообщением 995, под итогом круга
+    await dp.feed_update(bot, press(user.id, "level_up_A2", message_id=995))
+
+    await session.refresh(user)
+    assert user.level == CEFRLevel.A2
+    new_anchor = user.anchor_message_id
+    assert new_anchor and new_anchor != 990
+
+    deleted = {p["message_id"] for n, p in recorder.calls if n == "DeleteMessage"}
+    # Прежний якорь, итог круга и само предложение — всё между ними ушло
+    assert {990, 993, 995} <= deleted, sorted(deleted)
+    assert new_anchor not in deleted
+
+    # Под якорем — ровно один экран, с кнопками и подтверждением сверху
+    sent = [p for n, p in recorder.calls if n == "SendMessage"]
+    screens = [p for p in sent if p.get("reply_markup", {}).get("inline_keyboard")]
+    assert len(screens) == 1, [p.get("text", "")[:40] for p in sent]
+    done = get_text("level_offer_done", user.interface_language or "ru", following="A2")
+    assert screens[0]["text"].startswith(done)

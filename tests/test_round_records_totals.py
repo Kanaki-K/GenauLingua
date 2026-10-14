@@ -124,15 +124,19 @@ async def _seen_before(session, user, *, dated: bool) -> list[Word]:
 async def _almost_learned(session, user) -> int:
     """
     Подготовить слова, которым до «выучено» остался один верный ответ:
-    серия 2 из 3 и знакомство вчера (сегодняшнее знакомство выучиться не
+    серия 2 из 3 и знакомство давно (сегодняшнее знакомство выучиться не
     даёт нарочно). Возвращает, сколько таких рядов.
+
+    Последний показ — ЧЕТЫРЕ дня назад: срок серии 2 — три дня, и только
+    созревшее слово двигает серию. Досрочный верный ответ её не трогает
+    (`update_word_progress`), так что «позавчера» давало бы ноль выученных.
     """
     from datetime import timedelta
 
     from app.core.clock import utcnow
 
     words = (await session.execute(select(Word).order_by(Word.id))).scalars().all()
-    yesterday = utcnow() - timedelta(days=2)
+    yesterday = utcnow() - timedelta(days=4)
     for word in words:
         session.add(UserWord(
             user_id=user.id, word_id=word.id, learning_lang="de",
