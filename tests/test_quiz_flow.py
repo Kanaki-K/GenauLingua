@@ -225,7 +225,7 @@ async def test_listening_question_hides_the_word_but_text_one_shows_it(session, 
     нет, у текстового — есть. Если оба будут показывать слово, слушать
     станет незачем; если оба спрячут — отвечать будет не на что.
     """
-    from app.bot.handlers.quiz.game import _question_text
+    from app.bot.handlers.quiz.question import _question_text
 
     words = await _seed(session)
     pair = LanguagePair(learning="de", native="ru", reverse=False)
@@ -365,7 +365,7 @@ async def test_speech_question_shows_the_word_and_has_no_options(session, user):
     произнести можно только то, что видишь, а вариантов нет вовсе: ответ
     приходит голосовым сообщением.
     """
-    from app.bot.handlers.quiz.game import _question_keyboard, _question_text
+    from app.bot.handlers.quiz.question import _question_keyboard, _question_text
 
     words = await _seed(session)
     pair = LanguagePair(learning="de", native="ru", reverse=False)

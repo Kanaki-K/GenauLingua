@@ -235,7 +235,7 @@ def test_question_header_is_one_meaning_in_both_directions():
     Восемь значений в заголовке при одном в примере. Неопознаваемость
     снимается самим примером — он стоит строкой ниже.
     """
-    from app.bot.handlers.quiz.game import _question_text
+    from app.bot.handlers.quiz.question import _question_text
     from app.services.language_service import LanguagePair
 
     word = make_word(

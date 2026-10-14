@@ -287,7 +287,7 @@ async def _clips_missing(word, lang: str) -> list[str]:
 
 
 async def run(per_case: int) -> int:
-    from app.bot.handlers.quiz.game import _question_text
+    from app.bot.handlers.quiz.question import _question_text
 
     # НАПРАВЛЕНИЯ В СЛУЧАЯХ БОЛЬШЕ НЕТ. Оно было прежней настройкой на весь
     # круг и на сборку вопроса не влияет: обратная сторона стала ПЯТОЙ

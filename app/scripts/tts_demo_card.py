@@ -31,7 +31,7 @@ from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.types import CallbackQuery, FSInputFile, InputMediaAudio, Message
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
-from app.bot.handlers.quiz.game import (
+from app.bot.handlers.quiz.question import (
     _answer_text,
     _question_text,
     get_next_question_keyboard,

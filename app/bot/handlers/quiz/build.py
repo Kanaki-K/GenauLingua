@@ -102,7 +102,7 @@ def render_text(lang: str, current: int, total: int, translation: str,
     слов ещё не хватает: длина фразы видна сразу, и человек не гадает,
     сколько нажимать.
     """
-    from app.bot.handlers.quiz.game import channel_mark
+    from app.bot.handlers.quiz.question import channel_mark
 
     number = get_text("quiz_question_number", lang, current=current, total=total)
     built = [html.escape(w, quote=False) for w in picked_words]

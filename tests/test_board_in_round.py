@@ -370,7 +370,7 @@ async def test_board_is_marked_in_the_round_breakdown(session, user, stage):
     Проверка берёт пометку из кода, а не вписывает её второй копией: иначе
     следующая смена знака прошла бы молча.
     """
-    from app.bot.handlers.quiz.game import _CHANNEL_MARKS
+    from app.bot.handlers.quiz.question import _CHANNEL_MARKS
 
     dp, bot, recorder = stage
     await _ready(session, user)
