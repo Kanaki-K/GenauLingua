@@ -43,7 +43,10 @@ ALL = list(QuizChannel)
 class FakeUser:
     """Человек без базы: состав занятия и длина круга — всё, что нужно."""
 
-    def __init__(self, channels: str = "tasr", audio: bool = True,
+    # Состав по умолчанию — ВСЕ игры перечисления, как у живого человека
+    # (`User.quiz_channels`); строка руками отстала бы от шестой игры
+    def __init__(self, channels: str = "".join(c.value for c in QuizChannel),
+                 audio: bool = True,
                  length: int = ROUND):
         self.id = -1
         self.quiz_channels = channels

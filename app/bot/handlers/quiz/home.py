@@ -59,24 +59,23 @@ CHANNEL_ENTRY_MIN = 4
 # Порядок шкал: от самого лёгкого навыка к самому трудному. Он же порядок
 # кнопок прямого входа, и он же порядок порогов допуска — так разрыв между
 # шкалами читается сверху вниз как убывающая лестница.
-_SCALES = (
-    (QuizChannel.TEXT, "home_scale_text", "text"),
-    # Пятая игра стоит ВТОРОЙ, и это замер, а не вкус: точность прямых
-    # вопросов 87.9%, обратных 87.1% — то есть припоминание чуть труднее
-    # карточки и заметно легче слуха
-    (QuizChannel.REVERSE, "home_scale_reverse", "reverse"),
-    (QuizChannel.AUDIO, "home_scale_audio", "audio"),
-    (QuizChannel.SPEECH, "home_scale_speech", "speech"),
+#
+# ИЗ ПЕРЕЧИСЛЕНИЯ, а не списком руками: `QuizChannel` и так выстроен от
+# лёгкого к трудному (пятая игра стоит второй по замеру точности 87.9% и
+# 87.1%, шестая — последней), и шкала новой игры встаёт на место сама.
+# Подпись — `home_scale_<имя>`, число — по тому же имени из
+# `get_channel_progress`.
+_SCALES = tuple(
+    (channel, f"home_scale_{channel.key}", channel.key) for channel in QuizChannel
 )
 
 
-# Какое число готовности смотреть у какого канала. Таблицей, а не условием:
-# каналов стало четыре, и «если слух, иначе речь» молча отдавало бы
-# припоминанию чужое число.
+# Какое число готовности смотреть у какого канала — по имени, как и шкалы.
+# Прежде таблицей на три канала: шестой игры в ней не было бы, и прямой
+# вход «Собираю» падал бы на KeyError.
 _READY_KEYS = {
-    QuizChannel.REVERSE: "ready_reverse",
-    QuizChannel.AUDIO: "ready_audio",
-    QuizChannel.SPEECH: "ready_speech",
+    channel: f"ready_{channel.key}"
+    for channel in QuizChannel if channel is not QuizChannel.TEXT
 }
 
 

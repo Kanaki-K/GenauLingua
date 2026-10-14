@@ -31,6 +31,7 @@ import sys
 
 from sqlalchemy import select, text
 
+from app.database.enums import counted_channels
 from app.database.session import AsyncSessionLocal
 
 logging.disable(logging.ERROR)
@@ -58,6 +59,11 @@ class Report:
 # ============================================================================
 # ЗАПРОСЫ. Каждый отвечает на один вопрос и возвращает (расхождений, всего)
 # ============================================================================
+
+def _channel_sum(prefix: str) -> str:
+    """`COALESCE(shown_reverse,0) + …` по всем каналам со своими колонками."""
+    return " + ".join(f"COALESCE({prefix}_{c.key},0)" for c in counted_channels())
+
 
 CHECKS: list[tuple[str, str, str]] = [
     (
@@ -116,12 +122,13 @@ CHECKS: list[tuple[str, str, str]] = [
     # SQL значило бы завести вторую копию, которая разойдётся с первой.
     (
         "каналы слова не больше его показов",
-        """
+        # Сумма — по ВСЕМ каналам со своими колонками, собранная из
+        # перечисления: список руками отстал бы от шестой игры, и сборки
+        # сверх показов прошли бы проверку молча
+        f"""
         SELECT COUNT(*) FROM user_words
-        WHERE COALESCE(shown_audio,0) + COALESCE(shown_speech,0)
-              + COALESCE(shown_reverse,0) > times_shown
-           OR COALESCE(correct_audio,0) + COALESCE(correct_speech,0)
-              + COALESCE(correct_reverse,0) > times_correct
+        WHERE {_channel_sum("shown")} > times_shown
+           OR {_channel_sum("correct")} > times_correct
         """,
         "SELECT COUNT(*) FROM user_words",
     ),
@@ -308,6 +315,55 @@ async def _check_scores(session, rep: Report) -> None:
         rep.note(line)
 
 
+async def _check_channels(session, rep: Report) -> None:
+    """
+    Верные по каналам в месячном зачёте = верным СТРОКАМ ответов этих каналов.
+
+    Месячный балл сверяется выше «по своим же числам», то есть колонка
+    против колонки: если колонка канала разошлась со строками ответов,
+    формула честно пересчитает неверное число, и проверка будет зелёной.
+    Здесь — источник против колонки, по каждому каналу со своей колонкой
+    (`counted_channels`), занятия — тем же отбором, что у зачёта
+    (`scored_sessions_filter`, по завершению в сезоне).
+    """
+    from datetime import datetime
+
+    from app.database.models import MonthlySeason, MonthlyStats, QuizSession
+    from app.services.monthly_leaderboard_service import (
+        _correct_by_channel, scored_sessions_filter,
+    )
+
+    rows = (await session.execute(
+        select(MonthlyStats, MonthlySeason)
+        .join(MonthlySeason, MonthlySeason.id == MonthlyStats.season_id)
+        .where(MonthlySeason.is_active.is_(True))
+    )).all()
+
+    bad = []
+    for stat, season in rows:
+        ids = (await session.execute(
+            select(QuizSession.id).where(
+                QuizSession.user_id == stat.user_id,
+                QuizSession.learning_lang == stat.learning_lang,
+                QuizSession.completed_at >= datetime.combine(season.start_date, datetime.min.time()),
+                QuizSession.completed_at <= datetime.combine(season.end_date, datetime.max.time()),
+                scored_sessions_filter(),
+            )
+        )).scalars().all()
+        source = await _correct_by_channel(session, list(ids))
+        for channel in counted_channels():
+            column = getattr(stat, f"correct_{channel.key}") or 0
+            if column != source.get(channel.value, 0):
+                bad.append(f"{stat.user_id} [{stat.learning_lang}] {channel.key}: "
+                           f"в зачёте {column}, строк {source.get(channel.value, 0)}")
+
+    title = "каналы месяца = верным строкам этих каналов"
+    rep.line(not bad, title,
+             f"расходится {len(bad)}" if bad else f"проверено {len(rows)}")
+    for line in bad[:rep.show]:
+        rep.note(line)
+
+
 async def _check_lifetime(session, rep: Report) -> None:
     """
     «За всё время» на экране = сумма месячных баллов + бонусы за места.
@@ -420,6 +476,7 @@ async def run(show: int) -> int:
     async with AsyncSessionLocal() as session:
         await _check_streaks(session, rep)
         await _check_scores(session, rep)
+        await _check_channels(session, rep)
         await _check_lifetime(session, rep)
         await _check_awards(session, rep)
         for title, bad_sql, total_sql in CHECKS:

@@ -12,11 +12,12 @@ from datetime import datetime, timedelta
 from app.core.clock import utcnow
 from typing import Optional
 
-from sqlalchemy import and_, case, func, or_, select
+from sqlalchemy import and_, case, func, literal_column, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.database.enums import CEFRLevel, QuizChannel, QuizMode
+from app.database.enums import CEFRLevel, QuizChannel, QuizMode, counted_channels
 from app.database.models import PartOfSpeech, User, UserWord, Word, WordLangGroup
+from app.services import build_service
 from app.services.goal_service import categories_for
 from app.services.language_service import (
     LanguagePair,
@@ -498,8 +499,13 @@ async def get_practice_words(
         ~_due_condition(),
     )
     query = _exclude(_scoped(query, user, level), exclude_ids)
-    other_games = (UserWord.shown_reverse + UserWord.shown_audio
-                   + UserWord.shown_speech)
+    # Показы ВО ВСЕХ ИГРАХ, кроме карточки, — правилом, а не списком:
+    # шестая игра, забытая здесь, не считалась бы отработкой, и одно и то
+    # же слово собиралось бы снова и снова
+    other_games = sum(
+        (getattr(UserWord, f"shown_{c.key}") for c in counted_channels()),
+        start=literal_column("0"),
+    )
     ready_to_speak = case(
         (and_(UserWord.times_correct >= CHANNEL_UNLOCK[QuizChannel.SPEECH],
               UserWord.shown_speech == 0), 0),
@@ -535,14 +541,14 @@ async def get_ready_for(
     для которого игра уже открыта, — меньше всего бывавшее в ней. Не нашлось
     — обычный подбор, и слово придёт той игрой, до которой доросло.
     """
-    shown = {
-        QuizChannel.REVERSE: UserWord.shown_reverse,
-        QuizChannel.AUDIO: UserWord.shown_audio,
-        QuizChannel.SPEECH: UserWord.shown_speech,
-    }[channel]
+    shown = getattr(UserWord, f"shown_{channel.key}")
     query = _progress_join(_usable_words(pair), user_id, pair).where(
         UserWord.times_correct >= CHANNEL_UNLOCK[channel],
     )
+    if channel is QuizChannel.BUILD:
+        # Сборке нужен пример на обоих языках; число слов в нём решает
+        # `fits` ниже, уже в Python
+        query = query.where(*build_service.sql_prefilter(pair))
     if gap is not None:
         # Пауза — от последнего ОТВЕТА (`_answered_before`): досрочный ответ
         # `last_seen_at` не двигает, и пауза по нему не держала ничего
@@ -550,10 +556,38 @@ async def get_ready_for(
                             _answered_before(user_id, pair, utcnow() - gap))
     query = _exclude(_scoped(query, user, None), exclude_ids)
     due_first = case((_due_condition(), 0), else_=1)
+    # Игре с отбором в Python — запас кандидатов: у сборки годна не каждая
+    # фраза (3–10 слов), и первое по порядку слово может не подойти.
+    # Остальным играм хватает одного
+    limit = 1 if channel is not QuizChannel.BUILD else FIT_CANDIDATES
     rows = await session.execute(
-        query.order_by(due_first, shown.asc(), func.random()).limit(1)
+        query.order_by(due_first, shown.asc(), func.random()).limit(limit)
     )
-    return rows.scalars().first()
+    return next(
+        (w for w in rows.scalars() if channel_fits(channel, w, pair)), None
+    )
+
+
+# Сколько кандидатов тянуть для игры, годность которой решается в Python.
+# Замер по dev-базе 14 октября: сборке годится от 91% (турецкий, у него
+# много примеров короче трёх слов) до 97% (немецкий) канонических слов, так
+# что из двадцати негодными окажутся все с вероятностью меньше 10^-20
+FIT_CANDIDATES = 20
+
+
+def channel_fits(channel: QuizChannel, word: Word, pair: LanguagePair) -> bool:
+    """
+    Годится ли слово для этой игры ПО СВОИМ ДАННЫМ, а не по прогрессу.
+
+    Порог допуска (`CHANNEL_UNLOCK`) спрашивает человека: доросло ли
+    слово. Здесь спрашивается само слово: есть ли из чего собрать вопрос.
+    Сейчас такое условие есть у одной игры — у сборки нужен пример в 3–10
+    слов с переводом; остальные игры собираются из любого слова (их откат
+    при неудаче — в `generate_question`).
+    """
+    if channel is QuizChannel.BUILD:
+        return build_service.fits(word, pair)
+    return True
 
 
 def _rotation(user: User, exclude_ids: list[int],
@@ -594,8 +628,9 @@ def _rotation(user: User, exclude_ids: list[int],
         return []
     history = _channel_history(recent or [])
     used = collections.Counter(history)
-    games = [c for c in (QuizChannel.REVERSE, QuizChannel.AUDIO, QuizChannel.SPEECH)
-             if c in enabled_channels(user)]
+    # Все игры, кроме карточки, — из перечисления, а не списком руками:
+    # шестая («Собираю») встаёт в чередование сама
+    games = [c for c in enabled_channels(user) if c is not QuizChannel.TEXT]
     # Номер вопроса для правил состава — с единицы
     if _speech_closed(used, position + 1, round_length):
         games = [c for c in games if c is not QuizChannel.SPEECH]
@@ -1076,6 +1111,27 @@ async def generate_question(
     # разойдись они — задание окажется на одном языке, а варианты на другом.
     pair = pair_for_channel(pair, channel)
 
+    # 🧱 СБОРКА: вариантов нет, есть кнопки-слова. Пример не годится (меньше
+    # трёх слов, больше десяти, нет перевода) — ОТКАТ на карточку, ровно
+    # как у слуха без созвучных соседей ниже: слово не теряется, игра
+    # просто другая. Подбор под сборку (`get_ready_for`, `pick_channel`)
+    # негодное слово и так не выбирает; откат — для навязанного канала и
+    # для данных, поменявшихся между подбором и сборкой.
+    if channel is QuizChannel.BUILD:
+        puzzle = await build_service.make_puzzle(session, correct_word, pair)
+        if puzzle is not None:
+            return {
+                "correct_word": correct_word,
+                # Кнопки — те же «варианты»: номер кнопки и её слово
+                "options": list(enumerate(puzzle.tiles)),
+                "correct_answer_index": None,
+                "pair": pair,
+                "channel": channel,
+                "build": puzzle,
+            }
+        channel = QuizChannel.TEXT
+        pair = pair_for_channel(pair, channel)
+
     # Канал решает и ЧТО подставить в варианты, и НА КАКОМ они языке.
     #
     # На слух варианты обязаны быть созвучны: смысл не звучит, звучит форма.
@@ -1259,18 +1315,16 @@ def _count_channel(user_word: UserWord, channel: QuizChannel, is_correct: bool) 
     # Нашла это приёмка круга на первом же прогоне с включённой речью:
     # текстовые и слуховые ответы по новым словам в неё не попадали, потому
     # что новое слово на слух не спрашивают, а тексту счётчиков нет.
-    if channel is QuizChannel.REVERSE:
-        user_word.shown_reverse = (user_word.shown_reverse or 0) + 1
-        if is_correct:
-            user_word.correct_reverse = (user_word.correct_reverse or 0) + 1
-    elif channel is QuizChannel.AUDIO:
-        user_word.shown_audio = (user_word.shown_audio or 0) + 1
-        if is_correct:
-            user_word.correct_audio = (user_word.correct_audio or 0) + 1
-    elif channel is QuizChannel.SPEECH:
-        user_word.shown_speech = (user_word.shown_speech or 0) + 1
-        if is_correct:
-            user_word.correct_speech = (user_word.correct_speech or 0) + 1
+    #
+    # Колонки — ПО ИМЕНИ КАНАЛА (`shown_<key>`, `correct_<key>`), а не
+    # веткой на каждый: прежде здесь было три ветки, и канал без ветки
+    # молча уходил бы в «текст» вычитанием.
+    if channel not in counted_channels():
+        return
+    shown, correct = f"shown_{channel.key}", f"correct_{channel.key}"
+    setattr(user_word, shown, (getattr(user_word, shown) or 0) + 1)
+    if is_correct:
+        setattr(user_word, correct, (getattr(user_word, correct) or 0) + 1)
 
 
 def _is_due(user_word: UserWord, now: datetime) -> bool:
@@ -1428,9 +1482,10 @@ async def get_channel_progress(
     форма, что и семь прежних дефектов (`ROADMAP.md` §6): проверка смотрит
     на одно поле, а меняется соседнее.
     """
-    text_correct = (
-        UserWord.times_correct - UserWord.correct_audio
-        - UserWord.correct_speech - UserWord.correct_reverse
+    own = counted_channels()
+    text_correct = UserWord.times_correct - sum(
+        (getattr(UserWord, f"correct_{c.key}") for c in own),
+        start=literal_column("0"),
     )
 
     def scoped(query):
@@ -1447,47 +1502,38 @@ async def get_channel_progress(
     inner = (
         _progress_join(scoped(_usable_words(pair)), user_id, pair)
         .with_only_columns(
-            (text_correct >= CHANNEL_MASTERY).label("by_text"),
-            (UserWord.correct_reverse >= CHANNEL_MASTERY).label("by_reverse"),
-            (UserWord.correct_audio >= CHANNEL_MASTERY).label("by_audio"),
-            (UserWord.correct_speech >= CHANNEL_MASTERY).label("by_speech"),
+            (text_correct >= CHANNEL_MASTERY).label("text"),
+            *(
+                (getattr(UserWord, f"correct_{c.key}") >= CHANNEL_MASTERY).label(c.key)
+                for c in own
+            ),
             # Допуск — не то же, что освоение, и порог у него другой: слуху
-            # довольно одного верного ответа, речи двух, а освоением канала
-            # считаются три ЕГО собственных. Нужно для домашнего экрана: он
-            # обязан ответить, есть ли вообще что слушать, прежде чем
-            # запускать занятие одним каналом.
-            (UserWord.times_correct >= CHANNEL_UNLOCK[QuizChannel.REVERSE]).label("ready_reverse"),
-            (UserWord.times_correct >= CHANNEL_UNLOCK[QuizChannel.AUDIO]).label("ready_audio"),
-            (UserWord.times_correct >= CHANNEL_UNLOCK[QuizChannel.SPEECH]).label("ready_speech"),
+            # довольно одного верного ответа, речи и сборке двух, а
+            # освоением канала считается верный ответ ИМ САМИМ. Нужно для
+            # прямого входа одной игрой: есть ли вообще что слушать, прежде
+            # чем запускать занятие одним каналом.
+            *(
+                (UserWord.times_correct >= CHANNEL_UNLOCK[c]).label(f"ready_{c.key}")
+                for c in own
+            ),
         )
         .subquery()
     )
 
+    # Ключи — ИМЕНА КАНАЛОВ (`text`, `reverse`, …, `build`) и `ready_<имя>`:
+    # шкалы домашнего экрана берут их по тому же имени, и канал, добавленный
+    # в перечисление, появляется в обоих местах сам
+    names = ["text", *(c.key for c in own), *(f"ready_{c.key}" for c in own)]
     row = await session.execute(
         select(
-            func.count().filter(inner.c.by_text),
-            func.count().filter(inner.c.by_reverse),
-            func.count().filter(inner.c.by_audio),
-            func.count().filter(inner.c.by_speech),
-            func.count().filter(inner.c.ready_reverse),
-            func.count().filter(inner.c.ready_audio),
-            func.count().filter(inner.c.ready_speech),
+            *(func.count().filter(inner.c[name]) for name in names),
             func.count(),
         ).select_from(inner)
     )
-    (by_text, by_reverse, by_audio, by_speech,
-     ready_reverse, ready_audio, ready_speech, touched) = row.one()
-
-    return {
-        "text": by_text or 0,
-        "reverse": by_reverse or 0,
-        "audio": by_audio or 0,
-        "speech": by_speech or 0,
-        "ready_reverse": ready_reverse or 0,
-        "ready_audio": ready_audio or 0,
-        "ready_speech": ready_speech or 0,
-        "touched": touched or 0,
-    }
+    values = row.one()
+    out = {name: values[i] or 0 for i, name in enumerate(names)}
+    out["touched"] = values[-1] or 0
+    return out
 
 
 # ============================================================================
@@ -1702,6 +1748,12 @@ def build_audio_options(
 # времени ученик перерос текстовый вопрос, и слух придёт слишком поздно.
 AUDIO_UNLOCK_CORRECT = 1
 
+# Сколько верных ответов открывают слово для ПРОИЗВОДСТВА — речи и сборки.
+# Два: произвести труднее, чем узнать, и требовать этого от слова, которое
+# узнано один раз, значит гарантировать промах. Одно число на обе игры —
+# правило, а не две копии, которые однажды разойдутся.
+PRODUCTION_UNLOCK_CORRECT = 2
+
 # Сколько верных ответов открывают слово для каждого канала.
 #
 # Порог растёт вместе с трудностью: прочитать можно сразу; узнать на слух —
@@ -1717,7 +1769,11 @@ CHANNEL_UNLOCK = {
     # упражнение, а гадание по четырём вариантам.
     QuizChannel.REVERSE: 1,
     QuizChannel.AUDIO: AUDIO_UNLOCK_CORRECT,
-    QuizChannel.SPEECH: 2,
+    QuizChannel.SPEECH: PRODUCTION_UNLOCK_CORRECT,
+    # Сборка — тоже производство, и порог у неё тот же, что у речи, ОДНОЙ
+    # константой: собрать фразу со словом, которое едва узнал, значит
+    # гадать и по слову, и по порядку сразу
+    QuizChannel.BUILD: PRODUCTION_UNLOCK_CORRECT,
 }
 
 
@@ -1757,13 +1813,9 @@ def channel_targets(channels: list[QuizChannel]) -> dict[QuizChannel, float]:
     """Какую долю круга должна занять каждая игра. Сумма — единица."""
     from app.database.models import MonthlyStats
 
-    price = {
-        QuizChannel.TEXT: MonthlyStats.POINTS_TEXT,
-        QuizChannel.REVERSE: MonthlyStats.POINTS_REVERSE,
-        QuizChannel.AUDIO: MonthlyStats.POINTS_AUDIO,
-        QuizChannel.SPEECH: MonthlyStats.POINTS_SPEECH,
-    }
-    weight = {c: 1 / max(1, price.get(c, 1)) for c in channels}
+    # Цена — из того же места, где её берёт месячный балл (`points_for`):
+    # таблица здесь отстала бы от той при первой новой игре
+    weight = {c: 1 / max(1, MonthlyStats.points_for(c)) for c in channels}
     total = sum(weight.values()) or 1
     return {c: w / total for c, w in weight.items()}
 
@@ -1868,7 +1920,12 @@ async def pick_channel(
     разница разобрана ниже по ходу кода.
     """
     channels = enabled_channels(user)
-    if prefer is None and len(channels) == 1:
+    # Короткий путь — только для одной КАРТОЧКИ. Прежде он срабатывал на
+    # любой единственный канал и обходил порог допуска: состав из одного
+    # «Вспоминаю» или «Собираю» задавал так и НОВОЕ слово — вспомнить или
+    # собрать то, чего человек ни разу не видел. Приёмка круга этого не
+    # видела, пока сверяла порог только у слуха и речи
+    if prefer is None and channels == [QuizChannel.TEXT]:
         return channels[0]
 
     progress = (await session.execute(
@@ -1889,23 +1946,29 @@ async def pick_channel(
     # узнать их на слух не может, и остаётся жать наугад — ровно то, против
     # чего и написано правило допуска. Слово, до канала не доросшее, придёт
     # текстом, и это честный ответ, а не поломка.
+    # Годность по данным слова (`channel_fits`): сборке нужен пример в 3–10
+    # слов с переводом. Пара — человека: на его родном показан пример
+    pair = pair_from_user(user) if user is not None else None
+
+    def open_for_word(channel: QuizChannel) -> bool:
+        return (times_correct >= CHANNEL_UNLOCK.get(channel, 0)
+                and (pair is None or channel_fits(channel, word, pair)))
+
     if prefer is not None:
         # Без озвучки закрыты ТОЛЬКО слух и речь. Прежде условие было «всё,
         # кроме текста», и вход «Вспоминаю» с выключенным звуком давал круг
         # из одних карточек — при том что «Вспоминаю» звука не требует.
         if prefer in NEEDS_AUDIO and not getattr(user, "audio_enabled", True):
             return QuizChannel.TEXT
-        if times_correct >= CHANNEL_UNLOCK.get(prefer, 0):
+        if open_for_word(prefer):
             return prefer
         return QuizChannel.TEXT
 
     # Какие каналы открыты ДЛЯ ЭТОГО СЛОВА. Порог растёт вместе с
     # трудностью канала: узнать написанное можно сразу, узнать на слух —
-    # после одного успеха глазами, произнести — после двух.
-    unlocked = [
-        c for c in channels
-        if times_correct >= CHANNEL_UNLOCK.get(c, 0)
-    ] or [QuizChannel.TEXT]
+    # после одного успеха глазами, произнести и собрать — после двух. И
+    # слово должно годиться игре: без примера в 3–10 слов собирать нечего.
+    unlocked = [c for c in channels if open_for_word(c)] or [QuizChannel.TEXT]
 
     # СЛОВО, УЖЕ ВИДЕННОЕ СЕГОДНЯ, ВОЗВРАЩАЕТСЯ ДРУГОЙ ИГРОЙ. Карточкой его
     # только что узнали; вторая карточка того же слова за день ничему не

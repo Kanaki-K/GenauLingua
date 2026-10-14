@@ -695,14 +695,10 @@ async def set_learning_lang(callback: CallbackQuery, session: AsyncSession):
 # СОСТАВ ЗАНЯТИЯ: какими каналами задавать вопросы
 # ============================================================================
 
-# Порядок показа и ключ названия. Берётся из QuizChannel, чтобы четвёртый
-# канал не пришлось вписывать в трёх местах.
-_CHANNEL_NAMES = {
-    QuizChannel.TEXT: "channel_text",
-    QuizChannel.REVERSE: "channel_reverse",
-    QuizChannel.AUDIO: "channel_audio",
-    QuizChannel.SPEECH: "channel_speech",
-}
+# Порядок показа и ключ названия — ИЗ ПЕРЕЧИСЛЕНИЯ, по имени канала
+# (`channel_<имя>`). Прежде таблицей руками: шестая игра без строки в ней
+# не появилась бы ни в настройках, ни в подсказке «пока рано».
+_CHANNEL_NAMES = {channel: f"channel_{channel.key}" for channel in QuizChannel}
 
 
 def _channels_display(user: User, lang: str) -> str:

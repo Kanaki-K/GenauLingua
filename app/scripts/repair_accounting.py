@@ -83,7 +83,7 @@ from datetime import datetime
 from sqlalchemy import Integer, func, select
 
 from app.core.clock import utcnow
-from app.database.enums import QuizChannel
+from app.database.enums import counted_channels
 from app.database.models import (
     MonthlySeason, MonthlyStats, QuizQuestion, QuizSession, User, UserWord,
 )
@@ -289,14 +289,14 @@ async def repair_monthly(session, apply: bool, all_seasons: bool) -> int:
                 total_correct=correct,
                 total_questions=answered,
                 monthly_avg_percent=int(correct / answered * 100) if answered else 0,
-                correct_audio=by_channel.get(QuizChannel.AUDIO.value, 0),
-                correct_speech=by_channel.get(QuizChannel.SPEECH.value, 0),
-                # Пятая игра. Без неё починка оставляла колонку как есть,
-                # а «текст» в балле выводится вычитанием всех каналов из
-                # итога — разойдись реверс с источником, и вычитание врёт
-                correct_reverse=by_channel.get(QuizChannel.REVERSE.value, 0),
                 monthly_words=int(words),
             )
+            # ВСЕ КАНАЛЫ СО СВОИМИ КОЛОНКАМИ — правилом, а не списком.
+            # Пятую игру сюда вписывали руками, и до того починка оставляла
+            # её колонку как есть: «текст» в балле выводится вычитанием всех
+            # каналов из итога, и забытый канал делает вычитание ложным
+            for channel in counted_channels():
+                fresh[f"correct_{channel.key}"] = by_channel.get(channel.value, 0)
 
             before = stat.monthly_score
             # Сравнить ДО записи. Прежде `_changed` звался после `setattr`

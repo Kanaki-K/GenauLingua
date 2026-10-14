@@ -10,7 +10,10 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import ARRAY
-from app.database.enums import CEFRLevel, TranslationMode, PartOfSpeech, QuizMode, WordCategory
+from app.database.enums import (
+    CEFRLevel, TranslationMode, PartOfSpeech, QuizMode, WordCategory,
+    counted_channels,
+)
 
 
 class Base(DeclarativeBase):
@@ -158,8 +161,11 @@ class User(Base):
     # было отдельной настройкой на весь круг, и включили её 10 человек из
     # 233. Решение владельца: она становится игрой среди пятнадцати
     # вопросов, а не режимом.
+    # ШЕСТАЯ — «Собираю» (`b`) — тоже по умолчанию и по той же причине:
+    # спрятанную игру не увидит никто. Миграция `b6d1e3f7a920` дописала её
+    # всем, у кого состав был «tasr».
     quiz_channels: Mapped[str] = mapped_column(
-        String(8), nullable=False, default="tasr", server_default="tasr"
+        String(8), nullable=False, default="tasrb", server_default="tasrb"
     )
 
     # === МЕСЯЧНАЯ СИСТЕМА РЕЙТИНГА ===
@@ -255,6 +261,13 @@ class UserWord(Base):
     shown_reverse = mapped_column(Integer, default=0, nullable=False, server_default="0")
     correct_reverse = mapped_column(Integer, default=0, nullable=False, server_default="0")
 
+    # ШЕСТАЯ ИГРА: собрать пример из кнопок-слов. Своя пара колонок — по
+    # той же причине, что у остальных: «узнаю слово» и «соберу с ним
+    # фразу» — разные навыки; строка «Грамматика» в подробной статистике
+    # считается отсюда.
+    shown_build = mapped_column(Integer, default=0, nullable=False, server_default="0")
+    correct_build = mapped_column(Integer, default=0, nullable=False, server_default="0")
+
     @property
     def shown_text(self) -> int:
         """
@@ -267,13 +280,18 @@ class UserWord(Base):
         уронил вычитание с «unsupported operand type(s) for -: int and
         NoneType» на первом же прогоне тестов.
         """
-        return ((self.times_shown or 0) - (self.shown_audio or 0)
-                - (self.shown_speech or 0) - (self.shown_reverse or 0))
+        # Вычитаются ВСЕ каналы со своими колонками — правилом, а не
+        # списком (`counted_channels`): канал, не вписанный сюда руками,
+        # раздул бы карточку на все свои ответы
+        return (self.times_shown or 0) - sum(
+            getattr(self, f"shown_{c.key}") or 0 for c in counted_channels()
+        )
 
     @property
     def correct_text(self) -> int:
-        return ((self.times_correct or 0) - (self.correct_audio or 0)
-                - (self.correct_speech or 0) - (self.correct_reverse or 0))
+        return (self.times_correct or 0) - sum(
+            getattr(self, f"correct_{c.key}") or 0 for c in counted_channels()
+        )
 
     # считается "выучено", когда достигнут порог streak
     learned = mapped_column(Boolean, default=False, nullable=False)
@@ -558,6 +576,7 @@ class MonthlyStats(Base):
     correct_audio: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
     correct_speech: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
     correct_reverse: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
+    correct_build: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
 
     # Бонус за подтверждённые репорты
     report_bonus: Mapped[int] = mapped_column(Integer, default=0)
@@ -591,6 +610,21 @@ class MonthlyStats(Base):
     POINTS_REVERSE = 1
     POINTS_AUDIO = 2
     POINTS_SPEECH = 3
+    # Сборка фразы стоит столько же, сколько речь: это тоже ПРОИЗВОДСТВО, и
+    # самое длинное в боте — вся фраза с порядком слов и формами, среди
+    # слов-ловушек (der/den/dem). Дешевле речи её ставить нельзя: тогда
+    # выгоднее было бы говорить, хотя трудом они равны. Решение владельца.
+    POINTS_BUILD = 3
+
+    @classmethod
+    def points_for(cls, channel) -> int:
+        """
+        Цена верного ответа каналом — по имени: `POINTS_<КАНАЛ>`.
+
+        Правило, а не таблица: канал без цены упадёт здесь же
+        (AttributeError) на первом тесте, а не заплатит тихо как карточка.
+        """
+        return getattr(cls, f"POINTS_{channel.name}")
 
     POINTS_PER_ROUND = 10        # за ДОВЕДЁННЫЙ до конца круг
     POINTS_PER_WORD = 3          # слово перешло в «выучено»
@@ -659,17 +693,14 @@ class MonthlyStats(Base):
         Текстовые ответы считаются ВЫЧИТАНИЕМ из общего числа верных —
         своей колонки у них нет, и разойтись с итогом они не могут.
         """
-        correct_audio = self.correct_audio or 0
-        correct_speech = self.correct_speech or 0
-        correct_reverse = self.correct_reverse or 0
-        correct_text = max(0, (self.total_correct or 0) - correct_audio
-                           - correct_speech - correct_reverse)
+        # Каналы со своими колонками — ВСЕ, правилом (`counted_channels`):
+        # канал, забытый в формуле, оплачивался бы как карточка, и по баллу
+        # этого было бы не видно
+        own = {c: getattr(self, f"correct_{c.key}") or 0 for c in counted_channels()}
+        correct_text = max(0, (self.total_correct or 0) - sum(own.values()))
 
-        score = (
-            correct_text * self.POINTS_TEXT
-            + correct_reverse * self.POINTS_REVERSE
-            + correct_audio * self.POINTS_AUDIO
-            + correct_speech * self.POINTS_SPEECH
+        score = correct_text * self.POINTS_TEXT + sum(
+            count * self.points_for(c) for c, count in own.items()
         )
 
         score += self.monthly_quizzes * self.POINTS_PER_ROUND

@@ -52,7 +52,7 @@ from app.database.enums import CEFRLevel, QuizChannel, QuizMode  # noqa: E402
 from app.database.models import User, UserWord  # noqa: E402
 from app.database.session import AsyncSessionLocal  # noqa: E402
 from app.services.language_service import (  # noqa: E402
-    LEARNABLE_LANGS, LanguagePair, option_label,
+    LEARNABLE_LANGS, LanguagePair, example_text, option_label, pair_for_channel,
 )
 from app.services.quiz_service import (  # noqa: E402
     generate_question, update_word_progress,
@@ -175,8 +175,16 @@ async def play_round(session, user: User, pair: LanguagePair, length: int,
         # У вопроса ВСЛУХ слово показано на ИЗУЧАЕМОМ языке, а не на языке
         # вопроса: произнести можно только то, что видишь, и произносят его
         # на изучаемом. У остальных — на языке вопроса.
-        shown_lang = pair.learning if channel is QuizChannel.SPEECH else pair.prompt_lang
+        # Язык вопроса — ПО КАНАЛУ (`pair_for_channel`): у «Вспоминаю» на
+        # экране значение, а не слово. Прежде здесь стояла пара снаружи, и
+        # проверка молчала только потому, что в её случаях не было «r»:
+        # первый же состав с пятой игрой дал 22 ложных «ни слова, ни звука»
+        shown_lang = (pair.learning if channel is QuizChannel.SPEECH
+                      else pair_for_channel(pair, channel).prompt_lang)
         shown = option_label(word, shown_lang)
+        # У сборки на экране не слово, а ФРАЗА на родном — её и собирают
+        if channel is QuizChannel.BUILD:
+            shown = example_text(word, pair.native)
         word_on_screen = bool(shown) and shown in text
         if not word_on_screen and clip is None:
             problems.append(
@@ -188,9 +196,20 @@ async def play_round(session, user: User, pair: LanguagePair, length: int,
         # голосовым. Проверяется отдельно, потому что 
         # однажды уже оказалась вызываемой, но не определённой — модуль при
         # этом импортировался, а падало бы на первом же вопросе.
-        keyboard = _question_keyboard(channel, options, "ru")
+        keyboard = _question_keyboard(channel, options, "ru", word.id)
         buttons = [b for row in keyboard.inline_keyboard for b in row]
-        if channel is QuizChannel.SPEECH:
+        if channel is QuizChannel.BUILD:
+            # 🧱 Сетка: по кнопке на слово фразы и на каждую ловушку, не
+            # больше двенадцати, и ни «⌫», ни «Проверить» — собрано ничего
+            from app.services.build_service import MAX_TILES
+
+            tiles = question["build"].tiles
+            if len(buttons) != len(tiles) or len(tiles) > MAX_TILES:
+                problems.append(
+                    f"{pair.learning}->{pair.native} вопрос {number}: "
+                    f"у сборки {len(buttons)} кнопок при {len(tiles)} словах"
+                )
+        elif channel is QuizChannel.SPEECH:
             if len(buttons) != 2:
                 problems.append(
                     f"{pair.learning}->{pair.native} вопрос {number}: "
@@ -231,6 +250,9 @@ async def run(rounds: int, length: int, full: bool) -> int:
         ("pl", "uk", False, True, "ta", "пара без немецкого"),
         ("en", "tr", True, True, "ta", "обратное, пара без немецкого"),
         ("tr", "pl", False, True, "t", "только текст"),
+        ("de", "ru", False, True, "b", "только сборка"),
+        ("de", "ru", False, False, "tb", "сборка при ВЫКЛЮЧЕННОЙ озвучке"),
+        ("ru", "de", False, True, "tasrb", "все игры, пара без немецкого изучаемого"),
     ]
 
     # И СВЕРХ НИХ — ВСЕ 30 ПАР В ОБА НАПРАВЛЕНИЯ, ВСЕМИ ТРЕМЯ КАНАЛАМИ.
@@ -246,7 +268,7 @@ async def run(rounds: int, length: int, full: bool) -> int:
     # перестаёт быть обещанием.
     if full:
         cases += [
-            (learning, native, reverse, True, "tas",
+            (learning, native, reverse, True, "tasb",
              f"{learning}{'←' if reverse else '→'}{native} все каналы")
             for learning in LEARNABLE_LANGS
             for native in LEARNABLE_LANGS
@@ -283,8 +305,10 @@ async def run(rounds: int, length: int, full: bool) -> int:
     # первым же прогоном получил «ок» на случаях «только речь» и «все три
     # вместе», не задав НИ ОДНОГО вопроса вслух — `pick_channel` про третий
     # канал ещё не знал и молча отдавал текст.
-    for channel, letter in ((QuizChannel.AUDIO, "a"), (QuizChannel.SPEECH, "s")):
-        expected = any(audio_on and letter in channels
+    for channel in (QuizChannel.AUDIO, QuizChannel.SPEECH, QuizChannel.BUILD):
+        # Звук нужен слуху и речи; сборке — нет
+        expected = any((audio_on or channel is QuizChannel.BUILD)
+                       and channel.value in channels
                        for _, _, _, audio_on, channels, _ in cases)
         if expected and not seen.get(channel.name):
             print(f"\nПРОВЕРКА ПРОШЛА ВХОЛОСТУЮ: ни одного вопроса канала "

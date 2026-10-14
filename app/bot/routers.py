@@ -28,6 +28,7 @@ def all_routers() -> list[Router]:
     from app.bot.handlers.leaderboard.alltime import router as alltime_router
     from app.bot.handlers.leaderboard.leaderboard_table import router as table_router
     from app.bot.handlers.leaderboard.monthly import router as monthly_router
+    from app.bot.handlers.quiz.build import router as build_router
     from app.bot.handlers.quiz.game import router as game_router
     from app.bot.handlers.quiz.help import router as help_router
     from app.bot.handlers.quiz.home import router as home_router
@@ -45,11 +46,14 @@ def all_routers() -> list[Router]:
         ("leaderboard/table", table_router),
         # Репорт ПЕРЕД игрой: иначе `report_translation_error` не доходит
         ("quiz/report", report_router),
-        # Дальше всё остальное. Домашний экран и доска — перед игрой: у них
+        # Дальше всё остальное. Домашний экран, доска и сборка — перед игрой: у них
         # свои нажатия, и перехватывать их не должен никто
         ("start", start_router),
         ("quiz/home", home_router),
         ("quiz/match", match_router),
+        # Сетка «Собираю» — рядом с доской и по той же причине: свои
+        # нажатия `bd:`, и ловить их, кроме неё, некому
+        ("quiz/build", build_router),
         ("quiz/game", game_router),
         ("quiz/settings", settings_router),
         ("quiz/stats", stats_router),

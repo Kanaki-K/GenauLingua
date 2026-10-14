@@ -220,7 +220,9 @@ def test_short_words_get_a_shorter_prefix():
 # СОСТАВ ЗАНЯТИЯ ПО УМОЛЧАНИЮ
 # ============================================================================
 
-DEFAULT_COMPOSITION = "tasr"
+# Шестая игра «Собираю» (`b`) — тоже по умолчанию: решение владельца,
+# миграция `b6d1e3f7a920` дописала её всем
+DEFAULT_COMPOSITION = "tasrb"
 
 
 def test_every_game_is_on_by_default():

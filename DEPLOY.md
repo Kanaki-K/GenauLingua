@@ -2,7 +2,7 @@
 
 Прод сейчас: ветка `main` (июль 2026), схема `f61639c52096`, только
 немецкий, 4 языка интерфейса, без озвучки. Новая версия: 6 языков в любой
-паре, пять игр, озвучка, речь. Между ними **25 миграций** и новый словарь.
+паре, пять игр, озвучка, речь. Между ними **26 миграций** и новый словарь.
 
 **Всё ниже отрепетировано 14.10.2026** на копии прод-схемы с реальными
 людьми и СТАРЫМ словарём прода (выгрузка 29.09), последний раз — с
@@ -86,7 +86,7 @@ docker compose run --rm app python -m app.scripts.release_snapshot --out logs/be
 
 ```bash
 docker compose run --rm app alembic upgrade head
-docker compose run --rm app alembic current     # f2c7a9d4e801 (head)
+docker compose run --rm app alembic current     # b6d1e3f7a920 (head)
 ```
 
 Что делают с данными (остальные только добавляют колонки):
@@ -100,6 +100,7 @@ docker compose run --rm app alembic current     # f2c7a9d4e801 (head)
 | `d9a3f0c7e214` | напоминания включены всем; выбранные время и дни не трогаются |
 | `e6b1c8d2f357` | колонка «на каком занятии отказался от уровня» — для повторного предложения через 5 занятий |
 | `f2c7a9d4e801` | `user_words.learned_at` — когда слово выучено; заполняется из прогресса, чтобы «+3 за слово» не платилось в каждом месяце заново |
+| `b6d1e3f7a920` | шестая игра «Собираю»: счётчики `shown_build`/`correct_build` и `monthly_stats.correct_build`; буква `b` дописывается в состав игр ВСЕМ (`tasr` → `tasrb`) |
 
 ## 6. Словарь
 
@@ -202,9 +203,9 @@ docker compose build app && docker compose up -d
 ## Патчноут — после живой проверки
 
 ```bash
-docker compose run --rm app python -m app.scripts.send_release_notes --key <ключ>              # просмотр: кому и на каком языке
-docker compose run --rm app python -m app.scripts.send_release_notes --key <ключ> --to-admin   # себе, все шесть языков
-docker compose run --rm app python -m app.scripts.send_release_notes --key <ключ> --send       # всем
+docker compose run --rm app python -m app.scripts.send_release_notes              # просмотр: кому и на каком языке
+docker compose run --rm app python -m app.scripts.send_release_notes --to-admin   # себе, все шесть языков
+docker compose run --rm app python -m app.scripts.send_release_notes --send       # всем
 ```
 
 Текст — ключ локалей, каждому на его языке интерфейса, с кнопкой

@@ -86,6 +86,53 @@ def _probe_user(channels: str) -> User:
     return user
 
 
+def _check_build(question: dict, pair: LanguagePair, text: str) -> list[str]:
+    """
+    🧱 Сборка: вариантов нет, есть кнопки-слова. Проверяется то, без чего
+    вопрос нельзя решить или можно решить, не зная языка:
+
+        эталон      3–10 слов, все они есть среди кнопок (с повторами)
+        кнопок      не больше двенадцати, ловушек от двух до четырёх
+        ловушки     ни одна не совпадает со словом фразы — иначе две
+                    одинаковые кнопки и неоднозначная проверка
+        порядок     кнопки стоят НЕ в порядке фразы — иначе ответ готов
+        экран       перевод на родном показан, фраза на изучаемом — НЕТ
+    """
+    import collections
+
+    from app.services.build_service import (
+        MAX_TILES, MAX_WORDS, MIN_DISTRACTORS, MIN_WORDS,
+    )
+
+    problems: list[str] = []
+    puzzle = question.get("build")
+    if puzzle is None:
+        return ["сборка без задачи"]
+    target, tiles = puzzle.target, puzzle.tiles
+    if not MIN_WORDS <= len(target) <= MAX_WORDS:
+        problems.append(f"в эталоне {len(target)} слов")
+    if len(tiles) > MAX_TILES:
+        problems.append(f"кнопок {len(tiles)} — больше {MAX_TILES}")
+    if collections.Counter(target) - collections.Counter(tiles):
+        problems.append("не все слова эталона есть среди кнопок")
+    if len(puzzle.distractors) < MIN_DISTRACTORS:
+        problems.append(f"ловушек {len(puzzle.distractors)}")
+    if {fold(d) for d in puzzle.distractors} & {fold(t) for t in target}:
+        problems.append(f"ловушка совпадает со словом фразы: {puzzle.distractors}")
+    if tiles[:len(target)] == target:
+        problems.append("кнопки стоят в порядке фразы — ответ готов")
+    # Экран — в HTML, и фраза в нём экранирована так же, как её экранирует
+    # сам экран (`build.py`): сверка сырой строки дала 11 ложных нарушений
+    # на фразах с апострофом
+    import html
+
+    if puzzle.translation and html.escape(puzzle.translation, quote=False) not in text:
+        problems.append("на экране нет фразы на родном — собирать нечего")
+    if puzzle.sentence and html.escape(puzzle.sentence, quote=False) in text:
+        problems.append("на экране эталон — собирать незачем")
+    return problems
+
+
 def _check(question: dict, pair: LanguagePair, text: str) -> list[str]:
     """Содержательные проверки одного вопроса. Пустой список — всё верно."""
     problems: list[str] = []
@@ -93,6 +140,9 @@ def _check(question: dict, pair: LanguagePair, text: str) -> list[str]:
     options = question["options"]
     channel = question["channel"]
     idx = question["correct_answer_index"]
+
+    if channel is QuizChannel.BUILD:
+        return _check_build(question, pair, text)
 
     if len(options) != OPTIONS_TOTAL:
         problems.append(f"вариантов {len(options)}, а должно {OPTIONS_TOTAL}")
@@ -255,6 +305,7 @@ async def run(per_case: int) -> int:
     failures: list[str] = []
     no_clip: list[str] = []
     fell_back = collections.Counter()
+    build_fell_back = collections.Counter()
 
     async with AsyncSessionLocal() as session:
         for learning, native in cases:
@@ -298,6 +349,12 @@ async def run(per_case: int) -> int:
                         # Законный откат: созвучных соседей не нашлось
                         fell_back[case] += 1
                         continue
+                    if want is QuizChannel.BUILD and got is QuizChannel.TEXT:
+                        # Законный откат: пример короче трёх слов или длиннее
+                        # десяти. Канал навязан мимо подбора, а подбор такие
+                        # слова сборкой не задаёт (`channel_fits`)
+                        build_fell_back[case] += 1
+                        continue
 
                     text = _question_text(
                         word, pair, "ru", 1, per_case, channel=got
@@ -329,6 +386,9 @@ async def run(per_case: int) -> int:
     ))
     print(f"откатов со слуха на текст: {sum(fell_back.values())} "
           f"({100 * sum(fell_back.values()) / max(asked, 1):.1f}%)")
+
+    print(f"откатов со сборки на текст (пример не годится): "
+          f"{sum(build_fell_back.values())}")
 
     if fell_back:
         worst = fell_back.most_common(5)

@@ -6,7 +6,7 @@
 
 from sqlalchemy import select, func, and_, or_
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.database.enums import QuizChannel
+from app.database.enums import counted_channels
 from app.database.models import (
     User, MonthlySeason, MonthlyStats, MonthlyQuizEvent, MonthlyAward, WinStreak,
     QuizQuestion, QuizSession, UserWord
@@ -199,9 +199,11 @@ async def _recalc_monthly_stats_full(
     by_channel = await _correct_by_channel(
         session, [q.id for q in month_quizzes]
     )
-    monthly_stat.correct_audio = by_channel.get(QuizChannel.AUDIO.value, 0)
-    monthly_stat.correct_speech = by_channel.get(QuizChannel.SPEECH.value, 0)
-    monthly_stat.correct_reverse = by_channel.get(QuizChannel.REVERSE.value, 0)
+    # Все каналы со своими колонками — правилом (`counted_channels`):
+    # забытый здесь канал в балле стал бы карточкой, вычитанием
+    for channel in counted_channels():
+        setattr(monthly_stat, f"correct_{channel.key}",
+                by_channel.get(channel.value, 0))
 
     monthly_stat.monthly_words = await month_words(
         session, user_id, learning_lang, season
@@ -384,15 +386,12 @@ async def update_monthly_stats(
         monthly_stat.monthly_avg_percent = 0
 
     by_channel = await _correct_by_channel(session, [quiz.id])
-    monthly_stat.correct_audio = (monthly_stat.correct_audio or 0) + by_channel.get(
-        QuizChannel.AUDIO.value, 0
-    )
-    monthly_stat.correct_speech = (monthly_stat.correct_speech or 0) + by_channel.get(
-        QuizChannel.SPEECH.value, 0
-    )
-    monthly_stat.correct_reverse = (monthly_stat.correct_reverse or 0) + by_channel.get(
-        QuizChannel.REVERSE.value, 0
-    )
+    # Тем же правилом, что полный пересчёт выше: два пути учёта с разными
+    # списками каналов разошлись бы на первом же новом
+    for channel in counted_channels():
+        column = f"correct_{channel.key}"
+        setattr(monthly_stat, column,
+                (getattr(monthly_stat, column) or 0) + by_channel.get(channel.value, 0))
 
     # Серия месяца — в ДНЯХ ЧЕЛОВЕКА и по тому же правилу, что серия на
     # домашнем экране (`streak_service.next_streak`). Прежде здесь было своё

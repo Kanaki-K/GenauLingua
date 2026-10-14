@@ -180,6 +180,27 @@ async def show_statistics(message: Message, session: AsyncSession):
     await show_home(message, session, user)
 
 
+async def build_totals(user: User, session: AsyncSession) -> tuple[int, int]:
+    """
+    Сколько сборок показано и сколько собрано верно — по изучаемому языку.
+
+    Из `user_words.shown_build`/`correct_build`, то есть из тех же
+    счётчиков, что ведёт учёт ответа, а не из отдельного подсчёта по
+    строкам: одно число про одно и то же должно браться из одного места.
+    """
+    pair = pair_from_user(user)
+    shown, correct = (await session.execute(
+        select(
+            func.coalesce(func.sum(UserWord.shown_build), 0),
+            func.coalesce(func.sum(UserWord.correct_build), 0),
+        ).where(
+            UserWord.user_id == user.id,
+            UserWord.learning_lang == pair.learning,
+        )
+    )).one()
+    return int(shown), int(correct)
+
+
 async def build_stats_text(user: User, session: AsyncSession) -> str:
     """
     Подробная статистика одним текстом.
@@ -280,6 +301,14 @@ async def build_stats_text(user: User, session: AsyncSession) -> str:
     best = int(getattr(user, "best_streak_days", 0) or 0)
     if best and best != streak:
         text += get_text("stats_best_streak_line", lang, days=best) + "\n"
+    # 🧱 ГРАММАТИКА — верные сборки из показанных. Решение владельца: игра
+    # «Собираю» проверяет грамматику (порядок слов, формы среди ловушек), и
+    # это число стоит в статистике под этим именем. Как серия выше — только
+    # когда есть что показать: «0 из 0» читается как упрёк за игру, до
+    # которой человек ещё не дошёл (сборка открывается после двух верных)
+    built, built_right = await build_totals(user, session)
+    if built:
+        text += get_text("stats_grammar_line", lang, correct=built_right, shown=built) + "\n"
     text += "\n"
 
     # Викторины по режиму.

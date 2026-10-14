@@ -46,7 +46,7 @@ from dataclasses import dataclass, field
 
 from sqlalchemy import Integer, delete, func, select
 
-from app.database.enums import CEFRLevel, QuizChannel, QuizMode
+from app.database.enums import CEFRLevel, QuizChannel, QuizMode, counted_channels
 from app.database.models import (
     MonthlyQuizEvent, MonthlyStats, QuizQuestion, QuizSession, User, UserWord, Word,
     WordLangGroup,
@@ -71,6 +71,10 @@ PROBE_ID_BASE = 990_000_001
 FAMILIAR_WORDS = 40
 
 DEFAULT_QUESTIONS = 15
+
+# Полный состав — все игры из перечисления, а не строка руками: шестая
+# игра не попала бы в приёмку, пока её букву не вписали бы сюда
+FULL = "".join(c.value for c in QuizChannel)
 
 
 # ============================================================================
@@ -152,6 +156,7 @@ class Report:
     rounds: int = 0
     questions: int = 0
     boards: int = 0
+    builds: int = 0
     by_channel: dict = field(default_factory=dict)
     problems: list = field(default_factory=list)
     skipped: list = field(default_factory=list)
@@ -289,6 +294,15 @@ async def _play(dp, bot, recorder, session, user: User, case: Case, rep: Report)
             # Вопрос ВСЛУХ: кнопок ответа у него нет, отвечают голосовым
             seen_numbers.append(int(data.get("current_question") or 0))
             await dp.feed_update(bot, voice_update(user.id))
+        elif any(b.startswith("bd:t:") for b in buttons):
+            # 🧱 СБОРКА: нажать слова и «Проверить». Через раз — НЕВЕРНО
+            # (слова фразы задом наперёд): иначе ошибки сборки не попали бы
+            # ни в список ошибок [D], ни в баллы [G] — проверялся бы один
+            # исход из двух
+            number = int(data.get("current_question") or 0)
+            seen_numbers.append(number)
+            rep.builds += 1
+            await _solve_build(dp, bot, context, user, right=number % 2 == 1)
         else:
             break
 
@@ -320,14 +334,26 @@ async def _check_idempotence(dp, bot, recorder, session, user, case, rep) -> Non
     data = await context.get_data()
     session_id = data.get("session_id")
     options = [b for b in recorder.buttons() if b.startswith("answer_")]
-    if not session_id or not options:
+    grid = any(b.startswith("bd:t:") for b in recorder.buttons())
+    if not session_id or not (options or grid):
         rep.skipped.append(f"{case.title}: круг для [H] не начался")
         return
 
-    await dp.feed_update(bot, press(user.id, options[0]))
-    once = await _rows(session, session_id)
-    await dp.feed_update(bot, press(user.id, options[0]))
-    twice = await _rows(session, session_id)
+    if grid:
+        # 🧱 Сборка: второе «Проверить» с той же версией сетки не считается
+        from app.bot.handlers.quiz.build import S_VERSION, S_WORD
+
+        await _solve_build(dp, bot, context, user, right=True)
+        data = await context.get_data()
+        again = f"bd:check:{data[S_WORD]}:{data[S_VERSION]}"
+        once = await _rows(session, session_id)
+        await dp.feed_update(bot, press(user.id, again))
+        twice = await _rows(session, session_id)
+    else:
+        await dp.feed_update(bot, press(user.id, options[0]))
+        once = await _rows(session, session_id)
+        await dp.feed_update(bot, press(user.id, options[0]))
+        twice = await _rows(session, session_id)
 
     if twice != once:
         rep.fail(case, f"[H] второе нажатие записалось: строк {once} → {twice}")
@@ -338,6 +364,30 @@ async def _check_idempotence(dp, bot, recorder, session, user, case, rep) -> Non
     if quiz.answered_questions != twice:
         rep.fail(case, f"[H] счётчик отвеченных {quiz.answered_questions} "
                        f"при {twice} строках")
+
+
+async def _solve_build(dp, bot, context, user, right: bool) -> None:
+    """
+    Собрать фразу настоящими нажатиями по сетке и нажать «Проверить».
+
+    Кнопки берутся по СЛОВАМ, а не по номерам: одинаковые слова («die …
+    die») — разные кнопки, и любая из них годится.
+    """
+    from app.bot.handlers.quiz.build import S_TARGET, S_TILES, S_VERSION, S_WORD
+
+    data = await context.get_data()
+    target, tiles = list(data[S_TARGET]), list(data[S_TILES])
+    order = target if right else list(reversed(target))
+    used: set[int] = set()
+    for word in order:
+        index = next(i for i, t in enumerate(tiles) if t == word and i not in used)
+        used.add(index)
+        data = await context.get_data()
+        await dp.feed_update(bot, press(
+            user.id, f"bd:t:{index}:{data[S_WORD]}:{data[S_VERSION]}"))
+    data = await context.get_data()
+    await dp.feed_update(bot, press(
+        user.id, f"bd:check:{data[S_WORD]}:{data[S_VERSION]}"))
 
 
 async def _solve_board(dp, bot, context, user) -> None:
@@ -456,7 +506,12 @@ async def _check(session, user: User, case: Case, rep: Report,
         rep.fail(case, f"[E] для жалобы недоступно слов: {len(missing)}")
 
     # --- F. Каналы разрешены человеку и порогу слова
-    allowed = set(case.channels) | {BOARD_CHANNEL}
+    # Карточка разрешена ВСЕГДА: она не выключается (настройки добавляют
+    # «t» при любом нажатии), и слово, не доросшее до игры состава, приходит
+    # ею — порог допуска важнее состава. Прежде состав из одного «r»
+    # задавал припоминанием и НОВОЕ слово, и эта проверка была зелёной на
+    # нарушенном пороге
+    allowed = set(case.channels) | {BOARD_CHANNEL, QuizChannel.TEXT.value}
     for row in rows:
         if row.channel and row.channel not in allowed:
             rep.fail(case, f"[F] канал {row.channel!r} вне состава {case.channels!r}")
@@ -479,10 +534,22 @@ async def _check_thresholds(session, user, case, rep, rows) -> None:
     сверяется послабление: было хотя бы столько верных, сколько требует
     канал, МИНУС то, что мог добавить сам круг (по одному на строку).
     """
-    need = {QuizChannel.AUDIO.value: 1, QuizChannel.SPEECH.value: 2}
+    # Порог — из того же места, где его берёт бот (`CHANNEL_UNLOCK`), по
+    # всем играм кроме карточки: прежде здесь были слух и речь руками, и
+    # припоминание со сборкой не проверялись вовсе
+    from app.services.quiz_service import CHANNEL_UNLOCK, channel_fits
+
+    need = {c.value: CHANNEL_UNLOCK[c] for c in counted_channels()}
+    pair = pair_from_user(user)
     for row in rows:
         if row.channel not in need:
             continue
+        # Сборка — ещё и по данным слова: пример в 3–10 слов с переводом
+        word = await session.get(Word, row.word_id)
+        if word is not None and not channel_fits(QuizChannel(row.channel), word, pair):
+            rep.fail(case, f"[F] канал {row.channel!r} выдан слову {row.word_id}, "
+                           f"которому он не годится по данным")
+            return
         progress = (await session.execute(
             select(UserWord.times_correct).where(
                 UserWord.user_id == user.id,
@@ -510,26 +577,24 @@ async def _check_score(session, user, case, rep, rows, quiz, score_before) -> No
         rep.fail(case, "[G] месячной статистики не появилось вовсе")
         return
 
-    audio = sum(1 for r in rows if r.is_correct and r.channel == QuizChannel.AUDIO.value)
-    speech = sum(1 for r in rows if r.is_correct and r.channel == QuizChannel.SPEECH.value)
-    # Пятая игра своей ценой и своей колонкой: пока цена равна карточке,
-    # её отсутствие здесь не видно по баллу — и было бы не видно, пока цену
-    # не поменяют. Поэтому сверяется и колонка, а не только итог
-    reverse = sum(1 for r in rows if r.is_correct and r.channel == QuizChannel.REVERSE.value)
-    other = sum(1 for r in rows if r.is_correct) - audio - speech - reverse
+    # КАЖДЫЙ КАНАЛ СО СВОЕЙ КОЛОНКОЙ — колонка против верных строк, и
+    # правилом (`counted_channels`), а не списком. Пока цена игры равна
+    # карточке, её забытая колонка не видна по баллу — поэтому сверяется и
+    # сама колонка. Ожидаемое — из строк ответов, а не из формулы
+    by_channel = {
+        c: sum(1 for r in rows if r.is_correct and r.channel == c.value)
+        for c in counted_channels()
+    }
+    other = sum(1 for r in rows if r.is_correct) - sum(by_channel.values())
 
-    if stat.correct_audio != audio:
-        rep.fail(case, f"[G] слух в зачёте {stat.correct_audio}, верных строк {audio}")
-    if stat.correct_speech != speech:
-        rep.fail(case, f"[G] речь в зачёте {stat.correct_speech}, верных строк {speech}")
-    if (stat.correct_reverse or 0) != reverse:
-        rep.fail(case, f"[G] припоминание в зачёте {stat.correct_reverse}, верных строк {reverse}")
+    for channel, count in by_channel.items():
+        column = getattr(stat, f"correct_{channel.key}") or 0
+        if column != count:
+            rep.fail(case, f"[G] {channel.key} в зачёте {column}, верных строк {count}")
 
     expected = (
         other * MonthlyStats.POINTS_TEXT
-        + reverse * MonthlyStats.POINTS_REVERSE
-        + audio * MonthlyStats.POINTS_AUDIO
-        + speech * MonthlyStats.POINTS_SPEECH
+        + sum(count * MonthlyStats.points_for(c) for c, count in by_channel.items())
         + MonthlyStats.POINTS_PER_ROUND
         + (MonthlyStats.POINTS_PER_REVERSE if case.reverse else 0)
         + stat.monthly_words * MonthlyStats.POINTS_PER_WORD
@@ -539,8 +604,9 @@ async def _check_score(session, user, case, rep, rows, quiz, score_before) -> No
     )
     got = stat.calculate_monthly_score()
     if got != expected:
+        parts = ", ".join(f"{c.key} {n}" for c, n in by_channel.items())
         rep.fail(case, f"[G] балл {got}, а по каналам ожидался {expected} "
-                       f"(текст {other}, слух {audio}, речь {speech})")
+                       f"(текст {other}, {parts})")
 
 
 # ============================================================================
@@ -566,7 +632,7 @@ def _cases(full: bool, pairs_limit: int, questions: int) -> list[Case]:
         for native in codes:
             if learning == native:
                 continue
-            out.append(Case(learning, native, False, "tasr", questions))
+            out.append(Case(learning, native, False, FULL, questions))
     if not full:
         # Ровный срез: берём каждую k-ю, чтобы попали все языки
         step = max(1, len(out) // max(1, pairs_limit))
@@ -582,11 +648,15 @@ def _cases(full: bool, pairs_limit: int, questions: int) -> list[Case]:
     out.append(Case("de", "ru", False, "r", questions))
     out.append(Case("de", "ru", False, "tr", questions))
     out.append(Case("de", "ru", False, "ta", questions))
+    # «b» в одиночку — круг из одной сборки (вход «Собираю»), «tb» без
+    # звука — сборка звука не требует и обязана идти и с выключенным
+    out.append(Case("de", "ru", False, "b", questions))
+    out.append(Case("de", "ru", False, "tb", questions))
 
     # ОТБОР ПО ТЕМЕ — случай, без которого проверка значений пуста.
     # «Kommunikation» взята не наугад: именно в ней столкнулись `flüstern`
     # и `raunen` у живого человека.
-    out.append(Case("de", "ru", False, "tasr", questions, category="Kommunikation"))
+    out.append(Case("de", "ru", False, FULL, questions, category="Kommunikation"))
     out.append(Case("de", "ru", False, "tr", questions, category="Kommunikation"))
     return out
 
@@ -636,7 +706,7 @@ async def run(full: bool, pairs_limit: int, questions: int) -> int:
     print()
     print(f"сочетаний проверено: {rep.checked}")
     print(f"кругов доиграно: {rep.rounds}, вопросов: {rep.questions}")
-    print(f"досок в кругах: {rep.boards}")
+    print(f"досок в кругах: {rep.boards}, сборок: {rep.builds}")
     if rep.by_channel:
         parts = ", ".join(f"{k} {v}" for k, v in sorted(rep.by_channel.items()))
         print(f"  по каналам: {parts}")
@@ -665,7 +735,7 @@ async def run(full: bool, pairs_limit: int, questions: int) -> int:
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--full", action="store_true",
-                    help="все 30 пар, каждая полным составом «tasr»")
+                    help="все 30 пар, каждая полным составом всех игр")
     ap.add_argument("--pairs", type=int, default=8,
                     help="сколько сочетаний брать без --full")
     ap.add_argument("--questions", type=int, default=DEFAULT_QUESTIONS)

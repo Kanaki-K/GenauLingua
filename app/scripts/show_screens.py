@@ -17,6 +17,7 @@
     ... --who old      экраны играющего
     ... --who round    круг целиком и жалоба на перевод
     ... --who reverse  пятая игра: вопрос значением, разбор, главная
+    ... --who build    шестая игра: вопрос, верно, неверно, «порядок другой»
     ... --who sweep    обход ВСЕХ кнопок из кода + отчёт о покрытии
     ... --who all      всё подряд
     ... --raw          не убирать html-разметку
@@ -153,7 +154,8 @@ async def _drop(session) -> None:
 
 
 async def _probe(session, *, fresh: bool = False, channels: str = "tas",
-                 count: int = 15, words: int = 60) -> User:
+                 count: int = 15, words: int = 60, interface: str = "ru",
+                 learning: str = "de", native: str = "ru") -> User:
     """
     Подопытный. `fresh=True` — настоящий новичок: ни языка, ни уровня.
 
@@ -175,8 +177,8 @@ async def _probe(session, *, fresh: bool = False, channels: str = "tas",
         return user
 
     user = User(
-        id=PROBE, first_name="Играющий", interface_language="ru",
-        learning_lang="de", native_lang="ru", reverse_mode=False,
+        id=PROBE, first_name="Играющий", interface_language=interface,
+        learning_lang=learning, native_lang=native, reverse_mode=False,
         level=CEFRLevel.B1, quiz_mode=QuizMode.LEVEL, quiz_word_count=count,
         quiz_channels=channels,
         audio_enabled=("a" in channels or "s" in channels),
@@ -189,14 +191,14 @@ async def _probe(session, *, fresh: bool = False, channels: str = "tas",
     rows = (await session.execute(
         select(Word)
         .join(WordLangGroup, (WordLangGroup.word_id == Word.id)
-              & (WordLangGroup.lang == "de")
+              & (WordLangGroup.lang == learning)
               & (WordLangGroup.is_canonical.is_(True)))
         .where(Word.level == CEFRLevel.B1)
         .order_by(func.random()).limit(words)
     )).scalars().all()
     for index, word in enumerate(rows):
         session.add(UserWord(
-            user_id=user.id, word_id=word.id, learning_lang="de",
+            user_id=user.id, word_id=word.id, learning_lang=learning,
             times_shown=5, times_correct=3, correct_streak=1,
             learned=index % 7 == 0, last_seen_at=None,
         ))
@@ -379,6 +381,128 @@ async def flow_reverse(dp, bot, rec, raw: bool, session) -> None:
     rec.clear()
     await dp.feed_update(bot, press(user.id, f"home_learn_{QuizChannel.REVERSE.value}"))
     _dump(rec, raw, "5. вход в пятую игру кнопкой с главной")
+
+
+# ============================================================================
+# ШЕСТАЯ ИГРА
+# ============================================================================
+
+async def _tap_words(dp, bot, context, user, words: list[str]) -> None:
+    """Нажать по сетке эти слова по порядку — настоящими нажатиями."""
+    from app.bot.handlers.quiz.build import S_TILES, S_VERSION, S_WORD
+
+    used: set[int] = set()
+    for word in words:
+        data = await context.get_data()
+        tiles = data[S_TILES]
+        index = next(i for i, t in enumerate(tiles) if t == word and i not in used)
+        used.add(index)
+        await dp.feed_update(bot, press(
+            user.id, f"bd:t:{index}:{data[S_WORD]}:{data[S_VERSION]}"))
+
+
+async def _tap_words_rest(dp, bot, context, user, words: list[str]) -> None:
+    """Дослать слова, не трогая уже поставленные кнопки."""
+    from app.bot.handlers.quiz.build import S_PICKED, S_TILES, S_VERSION, S_WORD
+
+    for word in words:
+        data = await context.get_data()
+        taken = set(data[S_PICKED])
+        index = next(i for i, t in enumerate(data[S_TILES])
+                     if t == word and i not in taken)
+        await dp.feed_update(bot, press(
+            user.id, f"bd:t:{index}:{data[S_WORD]}:{data[S_VERSION]}"))
+
+
+async def _check_build(dp, bot, context, user) -> None:
+    from app.bot.handlers.quiz.build import S_VERSION, S_WORD
+
+    data = await context.get_data()
+    await dp.feed_update(bot, press(
+        user.id, f"bd:check:{data[S_WORD]}:{data[S_VERSION]}"))
+
+
+async def flow_build(dp, bot, rec, raw: bool, session) -> None:
+    """
+    🧱 «Собираю» — все экраны игры на двух языках интерфейса.
+
+    Состав «tb», а не круг целиком: какая игра достанется вопросу, решает
+    подбор, и показ, где сборка появляется «если повезёт», не показывает
+    ничего — та же причина, что у пятой игры. Карточка при этом в составе:
+    новое слово сборкой не задаётся (порог — два верных), и первый вопрос
+    круга — всегда карточка. Поэтому круг листается до первой сборки.
+
+    Четыре исхода, и у каждого свой экран: вопрос, собранная наполовину
+    сетка, верно, неверно (лишнее слово-ловушка), «слова верные, порядок
+    другой».
+    """
+    from app.bot.handlers.quiz.build import S_TARGET, S_TILES
+
+    for interface, learning, native in (("ru", "de", "ru"), ("de", "en", "de")):
+        print("\n\n" + "=" * (WIDTH + 2))
+        print(f"  ШЕСТАЯ ИГРА «СОБИРАЮ»: интерфейс {interface}, учит {learning}")
+        print("=" * (WIDTH + 2))
+
+        outcomes = ("верно", "неверно", "порядок")
+        for outcome in outcomes:
+            await reset_state(dp)
+            user = await _probe(session, channels="tb", count=15,
+                                interface=interface, learning=learning,
+                                native=native)
+            context = dp.fsm.get_context(bot, chat_id=user.id, user_id=user.id)
+            rec.clear()
+            await dp.feed_update(bot, text_update(
+                user.id, get_text("btn_learn_words", interface)))
+
+            # До первой сборки — карточками
+            for _ in range(15):
+                if any(b.startswith("bd:t:") for b in rec.buttons()):
+                    break
+                options = [b for b in rec.buttons() if b.startswith("answer_")]
+                if not options:
+                    break
+                await dp.feed_update(bot, press(user.id, options[0]))
+                rec.clear()
+                await dp.feed_update(bot, press(user.id, "next_question"))
+            if not any(b.startswith("bd:t:") for b in rec.buttons()):
+                print("   сборка в круг не пришла — показывать нечего")
+                break
+
+            data = await context.get_data()
+            target, tiles = list(data[S_TARGET]), list(data[S_TILES])
+            if outcome == "верно":
+                _dump(rec, raw, "1. вопрос: фраза на родном, пропуски, сетка")
+                await _tap_words(dp, bot, context, user, target[:2])
+                _dump(rec, raw, "2. два слова поставлены — появился ⌫")
+                await _tap_words_rest(dp, bot, context, user, target[2:])
+                _dump(rec, raw, "3. пропуски заполнены — «Проверить»")
+                await _check_build(dp, bot, context, user)
+                _dump(rec, raw, "4. ВЕРНО: эталон и перевод")
+            elif outcome == "неверно":
+                traps = [t for t in tiles if t not in target]
+                answer = list(target)
+                if traps:
+                    answer[0] = traps[0]
+                answer[-1], answer[-2] = answer[-2], answer[-1]
+                await _tap_words(dp, bot, context, user, answer)
+                rec.clear()
+                await _check_build(dp, bot, context, user)
+                _dump(rec, raw, "5. НЕВЕРНО: ловушка и перестановка, ✓/✗ по словам")
+            else:
+                answer = list(reversed(target))
+                await _tap_words(dp, bot, context, user, answer)
+                rec.clear()
+                await _check_build(dp, bot, context, user)
+                _dump(rec, raw, "6. СЛОВА ВЕРНЫЕ, ПОРЯДОК ДРУГОЙ")
+
+        # Шкала на главной и строка «Грамматика» в подробной статистике —
+        # после трёх сборок они есть что показать
+        rec.clear()
+        await reset_state(dp)
+        await dp.feed_update(bot, text_update(user.id, "/home"))
+        _dump(rec, raw, "7. главная: шкала «Собираю» последней")
+        await dp.feed_update(bot, press(user.id, "stats_full"))
+        _dump(rec, raw, "8. подробная статистика: строка «Грамматика»")
 
 
 # ============================================================================
@@ -628,6 +752,7 @@ FLOWS = {
     "old": flow_old,
     "round": flow_round,
     "reverse": flow_reverse,
+    "build": flow_build,
     "sweep": flow_sweep,
     "scales": flow_scales,
 }
@@ -635,7 +760,7 @@ FLOWS = {
 
 async def run(who: str, raw: bool) -> int:
     chosen = (
-        ["new", "old", "round", "reverse", "scales", "sweep"] if who == "all"
+        ["new", "old", "round", "reverse", "build", "scales", "sweep"] if who == "all"
         else ["new", "old", "round"] if who == "both"
         else [who]
     )
@@ -654,7 +779,7 @@ async def run(who: str, raw: bool) -> int:
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--who", default="both",
-                    choices=("new", "old", "round", "reverse", "sweep", "scales",
+                    choices=("new", "old", "round", "reverse", "build", "sweep", "scales",
                              "both", "all"))
     ap.add_argument("--raw", action="store_true")
     args = ap.parse_args()

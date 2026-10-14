@@ -276,6 +276,13 @@ async def _question_clip(
     """
     pair = pair_for_channel(pair, channel)
 
+    # 🧱 У СБОРКИ ЗВУКА В ВОПРОСЕ НЕТ — решение владельца: «на экране
+    # вопроса озвучка не нужна». Клип слова с примером назвал бы ответ
+    # голосом, а клип одного слова — подсказал бы, какое из него собирать.
+    # Звук — на разборе, как у остальных игр
+    if channel is QuizChannel.BUILD:
+        return None
+
     if channel is QuizChannel.AUDIO:
         # ВСЕГДА ОДНО СЛОВО, даже для гетеронима.
         #
@@ -450,6 +457,13 @@ def _question_text(
     # Звук в вопросе НЕ играет. Эталон есть, но по кнопке: услышав слово
     # перед ответом, человек его просто повторит, а это проверяет слух и
     # подражание, тогда как спрашивают умение произнести по написанному.
+    # 🧱 СБОРКА: экран целиком — в своём модуле (`build.py`), здесь только
+    # вход. Пропуски «▢» по числу слов, ничего ещё не собрано
+    if channel is QuizChannel.BUILD:
+        from app.bot.handlers.quiz.build import question_text_for
+
+        return question_text_for(word, pair, lang, current, total)
+
     if channel is QuizChannel.SPEECH:
         word_shown = option_label(word, pair.learning)
         return (
@@ -552,7 +566,8 @@ def _answer_text(
     return "".join(lines)
 
 
-def _question_keyboard(channel: QuizChannel, options, lang: str) -> InlineKeyboardMarkup:
+def _question_keyboard(channel: QuizChannel, options, lang: str,
+                       word_id: Optional[int] = None) -> InlineKeyboardMarkup:
     """
     Клавиатура вопроса. У вопроса вслух она другая: вариантов нет.
 
@@ -562,7 +577,15 @@ def _question_keyboard(channel: QuizChannel, options, lang: str) -> InlineKeyboa
     ПРОПУСК ОБЯЗАТЕЛЕН, и это не поблажка. Человек бывает в транспорте, в
     библиотеке, рядом со спящим ребёнком. Без пропуска он бросит круг
     целиком, и мы потеряем не один вопрос, а всё занятие.
+
+    У сборки — сетка кнопок-слов (`build.py`); `word_id` нужен ей, чтобы
+    нажатие по сетке прошлого вопроса не попало в нынешний.
     """
+    if channel is QuizChannel.BUILD:
+        from app.bot.handlers.quiz.build import grid_keyboard
+
+        return grid_keyboard([tile for _, tile in options], [], word_id or 0, 0, lang)
+
     if channel is not QuizChannel.SPEECH:
         return get_answer_keyboard(options)
 
@@ -576,6 +599,20 @@ def _question_keyboard(channel: QuizChannel, options, lang: str) -> InlineKeyboa
             callback_data="speech_skip",
         ),
     ]])
+
+
+def _build_state(question: Optional[dict], channel: QuizChannel) -> dict:
+    """
+    Состояние сетки 🧱 для вопроса-сборки; для остальных игр — пусто.
+
+    Одна точка встраивания на оба места, где круг задаёт вопрос (первый
+    вопрос и следующий): сама сетка, нажатия и разбор — в `build.py`.
+    """
+    if channel is not QuizChannel.BUILD or not question or not question.get("build"):
+        return {}
+    from app.bot.handlers.quiz.build import initial_state
+
+    return initial_state(question["build"], question["correct_word"].id)
 
 
 def get_next_question_keyboard(lang: str = DEFAULT_LOCALE) -> InlineKeyboardMarkup:
@@ -890,6 +927,8 @@ async def start_lesson(
         # Желание держится весь круг, а не один вопрос: вход «только слух»,
         # сменившийся на втором вопросе общим правилом, выглядел бы поломкой
         prefer_channel=prefer_channel.value if prefer_channel else None,
+        # 🧱 Сборке — своё состояние сетки (пусто для остальных игр)
+        **_build_state(question, channel),
     )
 
     try:
@@ -904,7 +943,7 @@ async def start_lesson(
     await show_card(
         message.bot, message.chat.id, state, session,
         text=_question_text(word, pair, lang, 1, quiz_total, channel=channel),
-        keyboard=_question_keyboard(channel, question["options"], lang),
+        keyboard=_question_keyboard(channel, question["options"], lang, word.id),
         clip=clip,
         word_id=word.id, lang=pair.learning,
         without_audio=_as_text_question(
@@ -1000,6 +1039,7 @@ async def _record_answer(
     correct_word, is_correct, channel, answer_text,
     session_id, correct_answers, errors, response_seconds,
     card_message=None, card_message_id=None, forgiven: bool = False,
+    breakdown: Optional[str] = None,
 ) -> None:
     """
     Общая часть любого ответа: запись, прогресс, показ разбора.
@@ -1018,6 +1058,10 @@ async def _record_answer(
     (третья запись голосом). Решение владельца: балл за него положен, а
     расписание он двигать НЕ должен — как досрочный ответ: слово человек
     не произнёс, и «повторить через три дня» было бы неправдой.
+
+    `breakdown` — готовый текст разбора, если у игры он свой: у сборки это
+    фраза человека с отметками по словам и эталон (`build.py`). Без него —
+    общий разбор «слово — значение» с примерами.
     """
     correct_word_id = correct_word.id
 
@@ -1089,7 +1133,7 @@ async def _record_answer(
     # там его было бы не разобрать.
     await show_card(
         bot, chat_id, state, session,
-        text=_answer_text(correct_word, pair, lang, is_correct, channel),
+        text=breakdown or _answer_text(correct_word, pair, lang, is_correct, channel),
         keyboard=get_next_question_keyboard(lang),
         clip=await clip_for_user(session, user, correct_word, pair.learning, KIND_FULL),
         word_id=correct_word.id, lang=pair.learning,
@@ -1738,6 +1782,7 @@ async def _advance(callback: CallbackQuery, state: FSMContext, session: AsyncSes
             asked_at=utcnow().timestamp(),
             channel=channel.value,
             recent_channels=recent_channels,
+            **_build_state(question, channel),
         )
 
     await show_card(
@@ -1746,7 +1791,7 @@ async def _advance(callback: CallbackQuery, state: FSMContext, session: AsyncSes
             word, pair, lang, current_question, total_questions,
             is_repeat=is_error_repeat, channel=channel,
         ),
-        keyboard=_question_keyboard(channel, options, lang),
+        keyboard=_question_keyboard(channel, options, lang, word.id),
         clip=clip,
         word_id=word.id, lang=pair.learning,
         message=callback.message,
@@ -1776,12 +1821,13 @@ async def _advance(callback: CallbackQuery, state: FSMContext, session: AsyncSes
 # Выбраны знаки, которые СОВПАДАЮТ С ДЕЙСТВИЕМ, а не с настроением:
 #   📖 читаешь написанное        💭 тянешь из памяти
 #   🎧 слушаешь                  🎤 говоришь
-#   🧩 складываешь пары
+#   🧱 собираешь фразу           🧩 складываешь пары
 _CHANNEL_MARKS = {
     QuizChannel.TEXT.value: "📖",
     QuizChannel.REVERSE.value: "💭",
     QuizChannel.AUDIO.value: "🎧",
     QuizChannel.SPEECH.value: "🎤",
+    QuizChannel.BUILD.value: "🧱",
     # Доска — не канал, но в разборе круга её подвопросы надо отличать:
     # иначе пять строк подряд выглядят как пять обычных карточек. Знак у
     # неё был и в документах — тот же.
@@ -1793,6 +1839,17 @@ def channel_mark(channel) -> str:
     """Знак игры. Принимает и канал, и его букву."""
     value = getattr(channel, "value", channel)
     return _CHANNEL_MARKS.get(value, "")
+
+
+# Строка итога «сколько пришло этой игрой» — у каждой игры, кроме карточки.
+# Таблицей, потому что подписи разные по смыслу («Вспомнили», «На слух»), но
+# счётчики строятся по ней же: игра без строки здесь не уронит итог.
+_RESULT_LINES = {
+    QuizChannel.REVERSE.value: "quiz_result_recalled",
+    QuizChannel.AUDIO.value: "quiz_result_by_ear",
+    QuizChannel.SPEECH.value: "quiz_result_spoken",
+    QuizChannel.BUILD.value: "quiz_result_built",
+}
 
 
 def _round_breakdown(
@@ -1814,11 +1871,7 @@ def _round_breakdown(
     три канала.
     """
     details: list[str] = []
-    counts = {
-        QuizChannel.REVERSE.value: 0,
-        QuizChannel.AUDIO.value: 0,
-        QuizChannel.SPEECH.value: 0,
-    }
+    counts = {value: 0 for value in _RESULT_LINES}
 
     # ЗНАК ИГРЫ — ТОЛЬКО ЕСЛИ ИГР БЫЛО БОЛЬШЕ ОДНОЙ.
     #
@@ -1846,13 +1899,10 @@ def _round_breakdown(
         )
 
     channel_lines: list[str] = []
-    for value, key in (
-        (QuizChannel.REVERSE.value, "quiz_result_recalled"),
-        (QuizChannel.AUDIO.value, "quiz_result_by_ear"),
-        (QuizChannel.SPEECH.value, "quiz_result_spoken"),
-    ):
+    for value, key in _RESULT_LINES.items():
         if counts[value]:
-            channel_lines.append(get_text(key, lang, count=counts[value]))
+            count = counts[value]
+            channel_lines.append(get_text(key, lang, count=count))
 
     return details, channel_lines
 

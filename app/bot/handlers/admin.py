@@ -445,6 +445,7 @@ async def admin_games(callback: CallbackQuery, session: AsyncSession):
         QuizChannel.REVERSE.value: "Вспоминаю",
         QuizChannel.AUDIO.value: "Слушаю",
         QuizChannel.SPEECH.value: "Говорю",
+        QuizChannel.BUILD.value: "Собираю",
         BOARD_CHANNEL: "Доска",
     }
 
@@ -485,7 +486,8 @@ async def admin_games(callback: CallbackQuery, session: AsyncSession):
     enabled = await session.execute(
         select(User.quiz_channels, func.count()).group_by(User.quiz_channels)
     )
-    counts = {"t": 0, "r": 0, "a": 0, "s": 0}
+    # Буквы — из перечисления: список руками не знал бы шестой игры
+    counts = {c.value: 0 for c in QuizChannel}
     for channels, n in enabled.all():
         for letter in (channels or "t"):
             if letter in counts:
@@ -508,10 +510,7 @@ async def admin_games(callback: CallbackQuery, session: AsyncSession):
     setup_block = admin_ui.section(
         "Что включено у людей",
         admin_ui.table([
-            (names[QuizChannel.TEXT.value], counts["t"]),
-            (names[QuizChannel.REVERSE.value], counts["r"]),
-            (names[QuizChannel.AUDIO.value], counts["a"]),
-            (names[QuizChannel.SPEECH.value], counts["s"]),
+            *((names[c.value], counts[c.value]) for c in QuizChannel),
             ("Доска в круге", board_on),
             ("Кругов с доской", board_rounds),
             ("Обратный перевод", f"{admin_ui.num(reverse)} из "
