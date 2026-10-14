@@ -56,7 +56,10 @@ monthly_score = (
 
 ### Lifetime баллы:
 ```python
-lifetime_score = sum(monthly_scores) + award_bonuses
+# Считается из источника (get_user_lifetime_rank / get_lifetime_leaderboard),
+# по изучаемому языку, текущий незакрытый месяц включительно:
+lifetime = sum(monthly_stats.monthly_score) + sum(monthly_awards.lifetime_bonus)
+# Колонка users.lifetime_score копит ТОЛЬКО бонусы и экранами не читается.
 # 🥇 1 место → +100
 # 🥈 2 место → +50
 # 🥉 3 место → +25

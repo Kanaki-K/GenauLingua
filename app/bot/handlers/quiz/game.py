@@ -30,7 +30,9 @@ from app.bot.states import QuizStates
 from app.bot.handlers.quiz.card import STATE_CARD_HAS_AUDIO, STATE_CARD_ID, show_card
 from app.bot.utils import delete_messages_fast, ensure_anchor
 from app.services.audio_service import (
+    KIND_BLIND,
     KIND_FULL,
+    KIND_SLOW,
     KIND_WORD,
     clip_for_user,
     clip_kind_for_question,
@@ -41,7 +43,7 @@ from app.services.speech_check import check_pronunciation
 from app.core.clock import utcnow, utctoday
 from app.database.enums import QuizChannel, QuizMode
 from app.database.models import QuizQuestion, QuizSession, User, UserWord, Word
-from app.bot.handlers.quiz.settings import RESULT_ORIGIN
+from app.bot.handlers.quiz.settings import RESULT_SETTINGS
 from app.locales import DEFAULT_LOCALE, get_text
 from app.services.language_service import (
     pair_for_channel,
@@ -158,6 +160,40 @@ async def _reset_round_state(state: FSMContext) -> dict:
     return kept
 
 
+# Сообщения вокруг вопроса «Говорю», которые убираются при переходе дальше:
+# голосовые человека, «Не разобрал…», присланный эталон.
+S_STRAY = "stray_message_ids"
+
+
+async def _remember_stray(state: FSMContext, *message_ids: int) -> None:
+    data = await state.get_data()
+    stray = list(data.get(S_STRAY) or [])
+    stray.extend(i for i in message_ids if i)
+    await state.update_data(**{S_STRAY: stray})
+
+
+async def _sweep_stray(bot, chat_id: int, state: FSMContext) -> None:
+    """
+    Убрать голосовые и служебные сообщения прошлого вопроса.
+
+    Живой тест владельца 14 октября: «после голосового ответа — новый
+    вопрос не удаляет сообщения юзера, и его аудио просто висит в чате».
+    Карточка круга одна и правится на месте, а голосовое человек присылает
+    сам — его карточка не накрывает. Пока виден разбор, голосовое остаётся:
+    его можно сравнить с эталоном. Уходит оно при переходе дальше.
+    """
+    data = await state.get_data()
+    stray = data.get(S_STRAY) or []
+    if not stray:
+        return
+    await state.update_data(**{S_STRAY: []})
+    for message_id in stray:
+        try:
+            await bot.delete_message(chat_id, message_id)
+        except Exception:
+            logger.debug("сообщение %s не удалилось", message_id, exc_info=True)
+
+
 async def _release_answer(state: FSMContext, chat_id: int) -> None:
     """
     Вернуть вопрос в «не отвечен», если ответ на него так и не записан.
@@ -221,7 +257,10 @@ async def _question_clip(
         # вариантах из одного слова. Это другая задача, заметно более
         # лёгкая, и соседние вопросы круга оказывались бы разной трудности
         # без всякой причины.
-        return await clip_for_user(session, user, word, pair.learning, KIND_WORD)
+        #
+        # И ВСЛЕПУЮ: у клипа слова название — само слово, и плеер Telegram
+        # показывал ответ прямо над вариантами (`KIND_BLIND`).
+        return await clip_for_user(session, user, word, pair.learning, KIND_BLIND)
     if pair.reverse:
         return None
     return await clip_for_user(
@@ -558,7 +597,9 @@ def get_results_keyboard(has_errors: bool, lang: str = "ru") -> InlineKeyboardMa
             # ведёт на домашний экран, а не в настройки. Прежде человек,
             # поправив трудность после круга, оказывался в чужом месте —
             # находка владельца
-            callback_data=f"settings_quiz_mode:{RESULT_ORIGIN}",
+            # Новым сообщением под итогом, и «Назад» его убирает
+            # (`settings.RESULT_SETTINGS`): итог круга остаётся на месте
+            callback_data=RESULT_SETTINGS,
         )
     ])
     buttons.append([
@@ -1080,8 +1121,11 @@ async def process_voice_answer(message: Message, state: FSMContext, session: Asy
     # бросит игру. Предлагаем записать ещё раз, вопрос остаётся прежним.
     if verdict is None or verdict.failed or verdict.empty:
         await _release_answer(state, message.chat.id)
-        await message.answer(get_text("speech_not_understood", lang))
+        retry = await message.answer(get_text("speech_not_understood", lang))
+        await _remember_stray(state, message.message_id, retry.message_id)
         return
+
+    await _remember_stray(state, message.message_id)
 
     asked_at = data.get("asked_at")
     response_seconds = (
@@ -1118,7 +1162,8 @@ async def play_reference(callback: CallbackQuery, state: FSMContext, session: As
     # На нажатие отвечают ОДИН раз: прежде `answer()` стоял в начале, и
     # окно «клипа нет» шло вторым ответом, которого Telegram не показывает.
     # Да и текст был чужой — «Не разобрал», будто человек что-то записал.
-    clip = await clip_for_user(session, user, correct_word, pair.learning, KIND_WORD)
+    # МЕДЛЕННО, а не то же самое: обычная озвучка уже на карточке
+    clip = await clip_for_user(session, user, correct_word, pair.learning, KIND_SLOW)
     if clip is None:
         await callback.answer(get_text("voice_preview_failed", lang), show_alert=True)
         return
@@ -1128,6 +1173,7 @@ async def play_reference(callback: CallbackQuery, state: FSMContext, session: As
     sent = await callback.bot.send_audio(
         callback.message.chat.id, media, title=clip.title,
     )
+    await _remember_stray(state, sent.message_id)
     if clip.needs_remembering and getattr(sent, "audio", None):
         await remember(
             session, correct_word.id, pair.learning, clip,
@@ -1429,6 +1475,7 @@ async def show_next_question(callback: CallbackQuery, state: FSMContext, session
 
 async def _advance(callback: CallbackQuery, state: FSMContext, session: AsyncSession):
     """Следующий вопрос, доска или итог. На нажатие уже ответили."""
+    await _sweep_stray(callback.bot, callback.message.chat.id, state)
     data = await state.get_data()
     current_question = data["current_question"] + 1
     total_questions = data["total_questions"]

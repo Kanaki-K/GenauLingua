@@ -41,7 +41,7 @@ TEXTS = {
     "notif_days": "Tage: {days}",
     "notif_timezone": "Zeitzone: {timezone}",
     "notif_hint": "Die Erinnerungen kommen zur angegebenen Zeit in deiner Zeitzone.",
-    "notif_hint_off": "Schalte die Erinnerungen ein, damit du das tägliche Üben nicht vergisst!",
+    "notif_hint_off": "Schalte die Erinnerungen ein – so bleibt deine Serie leichter bestehen.",
 
     "notif_btn_toggle_on": "Erinnerungen: Ein",
     "notif_btn_toggle_off": "Erinnerungen: Aus",
@@ -63,7 +63,7 @@ TEXTS = {
     "notif_time_set": "✓ Zeit gesetzt: {time}",
 
     "notif_days_title": "<b>Wähle die Tage für Erinnerungen</b>",
-    "notif_days_hint": "Tippe auf einen Tag, um ihn ein- oder auszuschalten.\n✓ Grüner Haken — Tag ist an\n✗ Rotes Kreuz — Tag ist aus\n\nWenn du fertig bist — tippe auf «Speichern».",
+    "notif_days_hint": "Tippe auf einen Tag, um ihn ein- oder auszuschalten.\n✓ — Tag an\n✗ — Tag aus\n\nWenn du fertig bist, tippe auf «Speichern».",
     "notif_days_all": "Alle Tage",
     "notif_days_weekdays": "Wochentage (Mo–Fr)",
     "notif_days_save": "Speichern",
@@ -140,7 +140,7 @@ TEXTS = {
     # ============================================================================
     # QUIZ-MODUS
     # ============================================================================
-    "qmode_title": "<b>Quiz-Modus</b>",
+    "qmode_title": "<b>Niveau und Themen</b>",
     "qmode_current": "Jetzt: <b>{mode}</b>",
     "qmode_choose": "Wähle, wie du Wörter lernen willst\nDu kannst es jederzeit ändern — der Fortschritt bleibt",
 
@@ -155,7 +155,7 @@ TEXTS = {
     "qmode_difficult_short": "Schwierige Wörter",
 
     "qmode_level_title": "<b>Niveau wählen</b>",
-    "qmode_level_desc": "Vom ersten «Hallo» bis zur freien Diskussion\nAlle Niveaus sind offen — wähle deins!\n\n• A1–A2 — Grundwortschatz\n• B1–B2 — sicheres Sprechen\n• C1–C2 — freie Beherrschung",
+    "qmode_level_desc": "Von den ersten Wörtern bis zur freien Diskussion. Alle Niveaus sind offen – wähle deins.\n\n• A1–A2 — Grundwortschatz\n• B1–B2 — sicheres Sprechen\n• C1–C2 — freie Beherrschung",
     "qmode_level_set": "✓ Modus: Nach Niveau ({level})",
 
     "qmode_category_title": "<b>Kategorie wählen</b>",
@@ -187,8 +187,8 @@ TEXTS = {
     "qmode_all_set": "✓ Modus: Top 10 Tausend",
 
     "qmode_difficult_set": "✓ Modus: Schwierige Wörter",
-    "qmode_difficult_few": "Schwierige Wörter bisher: {count} — es braucht mindestens 4\nMach noch ein paar Quizze!",
-    "qmode_difficult_empty": "Du hast bisher keine schwierigen Wörter.\nMach ein paar Quizze!",
+    "qmode_difficult_few": "Schwierige Wörter bisher: {count} — es braucht mindestens 4.\nSpiel noch ein paar Runden!",
+    "qmode_difficult_empty": "Du hast bisher keine schwierigen Wörter.\nSpiel ein paar Runden!",
 
     "quiz_btn_change_mode": "Niveau und Themen",
     "quiz_btn_report_error": "Fehler melden",
@@ -207,6 +207,7 @@ TEXTS = {
     "report_approved": "✓ Deine Meldung zu <b>{word}</b> wurde angenommen — wir korrigieren die Übersetzung.\n+{points} Punkte für die Monatswertung — danke, das Wörterbuch wird besser für alle.",
     "award_won": "{mark} Platz {rank} in der Wertung für {month}.\n{bonus} zu deinem Gesamtstand addiert.",
     "report_approved_audio": "✓ Deine Aussprache-Meldung wurde angenommen: <b>{word}</b>.\nDie Aufnahme wird neu erstellt. +{points} Punkte für die Monatswertung — danke.",
+    "report_approved_capped": "✓ Deine Meldung zu <b>{word}</b> wurde angenommen — danke, das Wörterbuch wird besser für alle.\nDie Punkte für Meldungen sind diesen Monat schon erreicht: wir zahlen für {limit} im Monat.",
 
     # ============================================================================
     # QUIZ
@@ -308,11 +309,10 @@ Je lebendiger die Community, desto besser wird der Bot. Nur keine Scheu! """,
     "rating_avg_result": "Durchschnitt: {percent}%",
     "rating_scoring_title": "<b>So verdienst du Punkte:</b>",
     "rating_scoring_quiz": "• Absolviertes Quiz → +10",
-    "rating_scoring_reverse": "• Modus «Umgekehrt» → +5",
     "rating_scoring_word": "• Gelerntes Wort → +2",
     "rating_scoring_streak": "• Tag in Folge → +3",
     "rating_scoring_bonus": "• Treffsicherheit 90%+ → +50 Bonus",
-    "rating_scoring_report": "• Bestätigte Meldung → +1",
+    "rating_scoring_report": "• Bestätigte Fehlermeldung → +{points} (bis zu {limit} im Monat)",
 
     "rating_title_alltime": "<b>Meine Platzierung — Insgesamt</b>",
     "rating_position_alltime": "Platz: <b>#{rank}</b>",
@@ -465,7 +465,6 @@ TEXTS.update({
 TEXTS.update({
     "rating_scoring_answer": "• Richtige Antwort → +1, nach Gehör → +2, laut → +3",
     "rating_scoring_quiz": "• Runde beendet → +10",
-    "rating_scoring_reverse": "• Umgekehrte Richtung → +5",
     "rating_scoring_word": "• Wort gelernt → +3",
     "rating_scoring_streak": "• Jeder Tag in Folge zählt mehr, bis +10",
     "rating_scoring_bonus": "• Genauigkeit über 60% — je höher, desto mehr",
@@ -509,7 +508,7 @@ TEXTS.update({
     "settings_btn_channels": "Aufbau der Übung",
     "settings_channels_line": "Übung: <b>{channels}</b>",
     "channels_title": "<b>Aufbau der Übung</b>",
-    "channels_description": "Welche Fragen gestellt werden. Je mehr Wege, desto fester sitzt ein Wort: lesen, erinnern, hören und sprechen sind verschiedene Fähigkeiten.",
+    "channels_description": "Welche Spiele in die Runde kommen. Ein neues Wort kommt als „Ich lese“-Karte; kennst du es, kommt es in anderen Spielen zurück: erinnern, hören, sprechen. Je mehr Spiele, desto fester sitzt das Wort.",
     "channel_text": "📖 Ich lese",
     "channel_audio": "🎧 Ich höre",
     "channel_speech": "🎤 Ich spreche",
@@ -530,7 +529,7 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "quiz_question_speak": "🎤 Sprich dieses Wort laut aus — nimm eine Sprachnachricht auf",
-    "speech_btn_reference": "Anhören",
+    "speech_btn_reference": "Langsam anhören",
     "speech_btn_skip": "Überspringen",
     "speech_listening": "🎧 Ich höre zu…",
     "speech_not_understood": "Nicht verstanden. Nimm es noch einmal auf — näher am Mikrofon und etwas lauter.",
@@ -677,7 +676,7 @@ TEXTS["match_back_to_round"] = "Zurück zur Runde."
 TEXTS.update({
     "settings_btn_match": "Tafel in der Runde",
     "settings_match_title": "<b>Tafel in der Runde</b>",
-    "settings_match_description": "Jede zweite Übung bringt in der Mitte der Runde statt fünf Fragen eine Tafel: fünf Wörter und fünf Bedeutungen, die zu paaren sind. Nur bekannte Wörter.",
+    "settings_match_description": "Jede zweite Runde kommt in der Mitte eine Tafel – statt einer Frage: fünf Wörter und fünf Bedeutungen, die du paarst. Nur bekannte Wörter.",
     "match_state_on": "Tafel ist an: sie kommt in der Rundenmitte.",
     "settings_match_short_on": "mit Tafel",
     "settings_channels_short_one": "nur „Ich lese“",

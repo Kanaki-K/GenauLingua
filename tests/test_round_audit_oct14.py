@@ -298,3 +298,84 @@ async def test_a_round_is_finished_once_however_many_times_finish_is_called(
     await G._finish_quiz(_Callback(), ctx, session, fresh, pair, "ru", data)
     await session.refresh(fresh)
     assert fresh.quizzes_passed == 1, "второе завершение прибавило круг"
+
+
+# ============================================================================
+# ЖИВОЙ ТЕСТ ВЛАДЕЛЬЦА, ВЕЧЕР 14 ОКТЯБРЯ: ЧИСТОТА ЧАТА И КНОПКИ «ГОВОРЮ»
+# ============================================================================
+
+async def _speech_round(session, user, stage, monkeypatch, verdicts):
+    dp, bot, recorder = stage
+    await _ready(session, user, channels="ts")
+    _force(monkeypatch, QuizChannel.SPEECH)
+    queue = list(verdicts)
+
+    async def judge(_audio, target, _lang):
+        heard, ok, failed = queue.pop(0)
+        return _Verdict(target if heard is True else heard, ok, failed)
+
+    class _Downloaded:
+        def read(self):
+            return b"x"
+
+    async def download(*_a, **_k):
+        return _Downloaded()
+
+    monkeypatch.setattr(G, "check_pronunciation", judge)
+    monkeypatch.setattr(bot, "download", download, raising=False)
+    await dp.feed_update(bot, text_update(user.id, LEARN))
+    return dp, bot, recorder
+
+
+async def test_voices_are_swept_when_the_round_moves_on(session, user, stage, monkeypatch):
+    """«После голосового ответа новый вопрос не удаляет сообщения юзера»."""
+    dp, bot, recorder = await _speech_round(
+        session, user, stage, monkeypatch,
+        [("", False, True), (True, True, False)],
+    )
+    first, second = voice_update(user.id), voice_update(user.id)
+    await dp.feed_update(bot, first)
+    await dp.feed_update(bot, second)
+
+    recorder.clear()
+    await dp.feed_update(bot, press(user.id, "next_question"))
+    deleted = {p["message_id"] for n, p in recorder.calls if n == "DeleteMessage"}
+    assert first.message.message_id in deleted, "неразобранное голосовое осталось в чате"
+    assert second.message.message_id in deleted, "голосовое ответа осталось в чате"
+
+
+async def test_the_reference_button_sends_a_slow_clip(session, user, stage, monkeypatch):
+    """Обычная озвучка уже на карточке — кнопка присылает медленную."""
+    from app.services import audio_service as svc
+
+    dp, bot, recorder = await _speech_round(session, user, stage, monkeypatch, [])
+    asked = []
+
+    async def clip(_session, _user, _word, _lang, kind):
+        asked.append(kind)
+        return None
+
+    monkeypatch.setattr(G, "clip_for_user", clip)
+    await dp.feed_update(bot, press(user.id, "speech_reference"))
+    assert asked == [svc.KIND_SLOW], f"кнопка просит не медленный клип: {asked}"
+
+
+async def test_back_from_round_settings_returns_to_the_result(session, user, stage):
+    """«Почему не возвращает на прошлое сообщение круга?»"""
+    from app.bot.handlers.quiz.settings import BACK_FROM_RESULT, RESULT_SETTINGS
+
+    dp, bot, recorder = stage
+    await _ready(session, user)
+
+    recorder.clear()
+    await dp.feed_update(bot, press(user.id, RESULT_SETTINGS, message_id=777))
+    sent = [(n, p) for n, p in recorder.calls if n in ("SendMessage", "EditMessageText")]
+    assert sent and sent[0][0] == "SendMessage", "экран настроек заменил итог круга правкой"
+    back = [b for row in sent[0][1]["reply_markup"]["inline_keyboard"] for b in row
+            if b.get("callback_data") == BACK_FROM_RESULT]
+    assert back, "у экрана из итога нет «Назад» к итогу"
+
+    recorder.clear()
+    await dp.feed_update(bot, press(user.id, BACK_FROM_RESULT, message_id=778))
+    deleted = {p["message_id"] for n, p in recorder.calls if n == "DeleteMessage"}
+    assert deleted == {778}, f"«Назад» удалил не только экран настроек: {deleted}"

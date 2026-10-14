@@ -55,6 +55,22 @@ MAX_PARALLEL = 2
 # произнёс. Требовать точного совпадения значило бы браковать верные ответы.
 MATCH_THRESHOLD = 0.75
 
+# С какой доли совпадения первый проход считается «созвучным промахом», и
+# тогда слушаем второй раз — с подсказкой ожидаемого слова.
+#
+# ЗАЧЕМ ВТОРОЙ ПРОХОД. Живой тест владельца 14 октября: сказал «der Streit»,
+# распознаватель услышал «Verstrahlt!» и засчитал ошибку. Короткое слово
+# без контекста маленькая модель путает с созвучным, а мы-то ЗНАЕМ, какое
+# слово ждём. Замер на синтезе: голос с английским акцентом и быстрым
+# темпом — без подсказки «Derstreit», с подсказкой «der Streit».
+#
+# ПОЧЕМУ ТОЛЬКО ДЛЯ СОЗВУЧНЫХ. Подсказка сдвигает модель к ожидаемому, и
+# дать её на любую запись значило бы засчитывать что попало. Порог отсекает
+# чужие слова: «Katze» вместо «Hund» — сходство 0.0, второго прохода нет.
+# И сама подсказка чужое слово в нужное не превращает — проверено: «die
+# Stadt» и «der Stern» с подсказкой «der Streit» остались собой.
+NEAR_MISS = 0.4
+
 # Короче этого распознавать нечего: человек нажал и отпустил.
 MIN_DURATION_SECONDS = 0.3
 
@@ -126,12 +142,25 @@ async def _get_model():
     return _model
 
 
-def _transcribe_blocking(model, audio, lang: str) -> str:
+def _transcribe_blocking(model, audio, lang: str, hint: Optional[str] = None) -> str:
+    # beam_size=5, а не 1: точнее на коротких словах, а по времени замер
+    # 14.10 разницы почти не показал (3.6 с против 3.8 на одном слове)
     segments, _ = model.transcribe(
-        audio, language=ASR_LANG.get(lang, lang), beam_size=1,
+        audio, language=ASR_LANG.get(lang, lang), beam_size=5,
         vad_filter=False, condition_on_previous_text=False,
+        initial_prompt=hint,
     )
     return " ".join(seg.text for seg in segments).strip()
+
+
+def _similarity(want: str, got: str) -> float:
+    ratio = SequenceMatcher(None, want, got).ratio()
+    # Слово внутри фразы тоже засчитывается: «das ist ein Krieg» вместо
+    # одного слова — не ошибка. Сверка и без пробелов: артикль и слово
+    # распознаватель склеивает («Derstreit»)
+    if want and (want in got or want.replace(" ", "") in got.replace(" ", "")):
+        ratio = max(ratio, 1.0)
+    return ratio
 
 
 async def check_pronunciation(
@@ -170,12 +199,22 @@ async def check_pronunciation(
     if not want:
         return SpeechVerdict(heard=heard, matched=False, similarity=0.0, failed=True)
 
-    ratio = SequenceMatcher(None, want, got).ratio()
+    ratio = _similarity(want, got)
 
-    # Слово, произнесённое внутри фразы, тоже засчитывается: человек мог
-    # сказать «das ist ein Krieg» вместо одного слова, и это не ошибка
-    if want and want in got:
-        ratio = max(ratio, 1.0)
+    if NEAR_MISS <= ratio < MATCH_THRESHOLD:
+        try:
+            async with _slots:
+                second = await asyncio.to_thread(
+                    _transcribe_blocking, model, audio, lang, target
+                )
+        except Exception:
+            logger.exception("второй проход распознавания не удался")
+            second = ""
+        second_ratio = _similarity(want, _strip_article(_normalize(second, lang), lang))
+        logger.info("созвучный промах %r → со второго прохода %r (%.2f → %.2f)",
+                    heard, second, ratio, second_ratio)
+        if second_ratio > ratio:
+            heard, ratio = second, second_ratio
 
     return SpeechVerdict(
         heard=heard, matched=ratio >= MATCH_THRESHOLD, similarity=ratio

@@ -12,7 +12,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-from app.database.models import User
+from app.database.models import MonthlyStats, User
 from app.bot.utils import delete_messages_fast, ensure_anchor
 from app.services.monthly_leaderboard_service import (
     get_user_monthly_rank,
@@ -40,7 +40,15 @@ def get_rating_keyboard(lang: str, current_tab: str = "monthly") -> InlineKeyboa
             [
                 InlineKeyboardButton(
                     text=get_text("btn_leaderboard_table", lang),
-                    callback_data="leaderboard_table_monthly"
+                    # Таблица ТОЙ ЖЕ вкладки, что открыта на карточке. Прежде
+                    # кнопка вела в таблицу месяца всегда: владелец с вкладки
+                    # «За всё время» жал «Таблица лидеров» и получал «Октябрь
+                    # 2026» (жалоба 14 октября). Два литерала, а не f-строка —
+                    # ради приёмки `verify_buttons`, как у «Назад» в таблице
+                    callback_data=(
+                        "leaderboard_table_alltime" if current_tab == "alltime"
+                        else "leaderboard_table_monthly"
+                    )
                 )
             ]
         ]
@@ -81,11 +89,14 @@ def build_monthly_card(user: User, user_rank: dict, season, lang: str) -> str:
     # насколько человек себя напряг
     text += get_text("rating_scoring_answer", lang) + "\n"
     text += get_text("rating_scoring_quiz", lang) + "\n"
-    text += get_text("rating_scoring_reverse", lang) + "\n"
     text += get_text("rating_scoring_word", lang) + "\n"
     text += get_text("rating_scoring_streak", lang) + "\n"
     text += get_text("rating_scoring_bonus", lang) + "\n"
-    text += get_text("rating_scoring_report", lang) + "\n"
+    text += get_text(
+        "rating_scoring_report", lang,
+        points=MonthlyStats.POINTS_PER_REPORT,
+        limit=MonthlyStats.REPORT_REWARDS_PER_SEASON,
+    ) + "\n"
 
     return text
 
@@ -157,4 +168,6 @@ async def switch_to_monthly(callback: CallbackQuery, session: AsyncSession):
     user_rank = await get_user_monthly_rank(user.id, session, season_id=season.id,
                                           learning_lang=pair_from_user(user).learning)
     text = build_monthly_card(user, user_rank, season, lang)
-    await callback.message.edit_text(text, reply_markup=get_rating_keyboard(lang, "monthly"))
+    # Через edit_screen, как соседние вкладки: повторное нажатие на уже
+    # открытый «Месяц» шло в журнал ошибкой «message is not modified»
+    await edit_screen(callback, text, get_rating_keyboard(lang, "monthly"))

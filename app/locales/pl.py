@@ -41,7 +41,7 @@ TEXTS = {
     "notif_days": "Dni: {days}",
     "notif_timezone": "Strefa czasowa: {timezone}",
     "notif_hint": "Przypomnienia przyjdą o podanej godzinie w twojej strefie czasowej.",
-    "notif_hint_off": "Włącz przypomnienia, żeby nie zapominać o codziennej nauce!",
+    "notif_hint_off": "Włącz przypomnienia — łatwiej nie przerwać serii.",
 
     "notif_btn_toggle_on": "Przypomnienia: Włączone",
     "notif_btn_toggle_off": "Przypomnienia: Wyłączone",
@@ -63,7 +63,7 @@ TEXTS = {
     "notif_time_set": "✓ Godzina ustawiona: {time}",
 
     "notif_days_title": "<b>Wybierz dni przypomnień</b>",
-    "notif_days_hint": "Naciśnij dzień, żeby go włączyć lub wyłączyć.\n✓ Zielony haczyk — dzień włączony\n✗ Czerwony krzyżyk — dzień wyłączony\n\nGdy skończysz — naciśnij «Zapisz».",
+    "notif_days_hint": "Naciśnij dzień, żeby go włączyć lub wyłączyć.\n✓ — dzień włączony\n✗ — dzień wyłączony\n\nGdy skończysz — naciśnij «Zapisz».",
     "notif_days_all": "Wszystkie dni",
     "notif_days_weekdays": "Dni powszednie (pn–pt)",
     "notif_days_save": "Zapisz",
@@ -140,7 +140,7 @@ TEXTS = {
     # ============================================================================
     # TRYB QUIZU
     # ============================================================================
-    "qmode_title": "<b>Tryb quizu</b>",
+    "qmode_title": "<b>Poziom i tematy</b>",
     "qmode_current": "Teraz: <b>{mode}</b>",
     "qmode_choose": "Wybierz, jak chcesz uczyć się słów\nMożesz zmienić w każdej chwili — postępy zostają",
 
@@ -155,7 +155,7 @@ TEXTS = {
     "qmode_difficult_short": "Trudne słowa",
 
     "qmode_level_title": "<b>Wybór poziomu</b>",
-    "qmode_level_desc": "Od pierwszego «Hallo» do swobodnych dyskusji\nWszystkie poziomy są dostępne — wybierz swój!\n\n• A1–A2 — podstawowe słownictwo\n• B1–B2 — swobodna rozmowa\n• C1–C2 — biegła znajomość",
+    "qmode_level_desc": "Od pierwszych słów do swobodnych dyskusji. Wszystkie poziomy są otwarte — wybierz swój.\n\n• A1–A2 — podstawowe słownictwo\n• B1–B2 — swobodna rozmowa\n• C1–C2 — biegła znajomość",
     "qmode_level_set": "✓ Tryb: Po poziomie ({level})",
 
     "qmode_category_title": "<b>Wybór kategorii</b>",
@@ -187,8 +187,8 @@ TEXTS = {
     "qmode_all_set": "✓ Tryb: Top 10 tysięcy",
 
     "qmode_difficult_set": "✓ Tryb: Trudne słowa",
-    "qmode_difficult_few": "Trudnych słów na razie: {count} — potrzeba przynajmniej 4\nZrób jeszcze kilka quizów!",
-    "qmode_difficult_empty": "Nie masz na razie trudnych słów.\nZrób kilka quizów!",
+    "qmode_difficult_few": "Trudnych słów na razie: {count} — potrzeba co najmniej 4.\nZagraj jeszcze kilka rund!",
+    "qmode_difficult_empty": "Nie masz na razie trudnych słów.\nZagraj kilka rund!",
 
     "quiz_btn_change_mode": "Poziom i tematy",
     "quiz_btn_report_error": "Zgłoś błąd",
@@ -207,6 +207,7 @@ TEXTS = {
     "report_approved": "✓ Twoje zgłoszenie dotyczące <b>{word}</b> przyjęte — poprawimy tłumaczenie.\n+{points} punktów do wyniku miesiąca — dzięki, słownik będzie lepszy dla wszystkich.",
     "award_won": "{mark} Miejsce {rank} w klasyfikacji za {month}.\nDo stałego wyniku dodano {bonus}.",
     "report_approved_audio": "✓ Zgłoszenie wymowy przyjęte: <b>{word}</b>.\nNagranie powstanie na nowo. +{points} punktów do wyniku miesiąca — dzięki.",
+    "report_approved_capped": "✓ Twoje zgłoszenie dotyczące <b>{word}</b> przyjęte — dzięki, słownik będzie lepszy dla wszystkich.\nPunkty za zgłoszenia w tym miesiącu już zdobyte: płacimy za {limit} w miesiącu.",
 
     # ============================================================================
     # QUIZ
@@ -308,11 +309,10 @@ Im aktywniejsza społeczność, tym lepszy bot. Nie krępuj się! """,
     "rating_avg_result": "Średni wynik: {percent}%",
     "rating_scoring_title": "<b>Jak zdobyć punkty:</b>",
     "rating_scoring_quiz": "• Ukończony quiz → +10",
-    "rating_scoring_reverse": "• Tryb «Odwrotny» → +5",
     "rating_scoring_word": "• Nauczone słowo → +2",
     "rating_scoring_streak": "• Dzień z rzędu → +3",
     "rating_scoring_bonus": "• Celność 90%+ → +50 bonus",
-    "rating_scoring_report": "• Potwierdzone zgłoszenie → +1",
+    "rating_scoring_report": "• Potwierdzone zgłoszenie błędu → +{points} (do {limit} w miesiącu)",
 
     "rating_title_alltime": "<b>Moja pozycja — Za cały czas</b>",
     "rating_position_alltime": "Pozycja: <b>#{rank}</b>",
@@ -465,7 +465,6 @@ TEXTS.update({
 TEXTS.update({
     "rating_scoring_answer": "• Poprawna odpowiedź → +1, ze słuchu → +2, na głos → +3",
     "rating_scoring_quiz": "• Ukończona runda → +10",
-    "rating_scoring_reverse": "• Kierunek odwrotny → +5",
     "rating_scoring_word": "• Opanowane słowo → +3",
     "rating_scoring_streak": "• Każdy kolejny dzień wart więcej, do +10",
     "rating_scoring_bonus": "• Celność powyżej 60% — im wyżej, tym więcej",
@@ -509,7 +508,7 @@ TEXTS.update({
     "settings_btn_channels": "Skład zajęć",
     "settings_channels_line": "Zajęcia: <b>{channels}</b>",
     "channels_title": "<b>Skład zajęć</b>",
-    "channels_description": "Jakie pytania zadawać. Im więcej sposobów, tym trwalej zapada słowo: przeczytać, przypomnieć, usłyszeć i powiedzieć to różne umiejętności.",
+    "channels_description": "Jakie gry dodawać do rundy. Nowe słowo przychodzi jako karta „Czytam”, a gdy już je znasz — wraca w innych grach: przypomnieć, usłyszeć, powiedzieć. Im więcej gier, tym trwalsze słowo.",
     "channel_text": "📖 Czytam",
     "channel_audio": "🎧 Słucham",
     "channel_speech": "🎤 Mówię",
@@ -530,7 +529,7 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "quiz_question_speak": "🎤 Wypowiedz to słowo na głos — nagraj wiadomość głosową",
-    "speech_btn_reference": "Posłuchaj",
+    "speech_btn_reference": "Posłuchaj wolniej",
     "speech_btn_skip": "Pomiń",
     "speech_listening": "🎧 Słucham…",
     "speech_not_understood": "Nie zrozumiałem. Nagraj jeszcze raz — bliżej mikrofonu i trochę głośniej.",
@@ -677,7 +676,7 @@ TEXTS["match_back_to_round"] = "Wracamy do rundy."
 TEXTS.update({
     "settings_btn_match": "Plansza w rundzie",
     "settings_match_title": "<b>Plansza w rundzie</b>",
-    "settings_match_description": "Co drugą naukę w środku rundy zamiast pięciu pytań przychodzi plansza: pięć słów i pięć znaczeń, trzeba znaleźć pary. Brane są tylko znane słowa.",
+    "settings_match_description": "Co drugą rundę w środku przychodzi plansza — zamiast jednego pytania: pięć słów i pięć znaczeń, trzeba znaleźć pary. Brane są tylko znane słowa.",
     "match_state_on": "Plansza włączona: przyjdzie w środku rundy.",
     "settings_match_short_on": "z tablicą",
     "settings_channels_short_one": "tylko „Czytam”",

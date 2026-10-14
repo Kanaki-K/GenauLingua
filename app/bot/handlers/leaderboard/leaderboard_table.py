@@ -11,7 +11,8 @@ from app.services.monthly_leaderboard_service import (
     get_monthly_leaderboard,
     get_user_monthly_rank,
     get_current_season,
-    get_lifetime_leaderboard
+    get_lifetime_leaderboard,
+    get_user_lifetime_rank,
 )
 from app.bot.handlers.leaderboard.utils import (
     edit_screen,
@@ -130,9 +131,7 @@ def build_monthly_table(leaderboard: list, user_rank: dict, season, user_id: int
     return text
 
 
-def build_alltime_table(leaderboard: list, user: User, lang: str) -> str:
-    user_id = user.id
-
+def build_alltime_table(leaderboard: list, user_rank: dict, user_id: int, lang: str) -> str:
     text = get_text("table_title_alltime", lang) + "\n\n"
 
     if not leaderboard:
@@ -161,14 +160,14 @@ def build_alltime_table(leaderboard: list, user: User, lang: str) -> str:
 
     text += "\n" + "·" * 17 + "\n"
 
-    user_rank_num = None
-    for entry in leaderboard:
-        if entry["user_id"] == user_id:
-            user_rank_num = entry["rank"]
-            break
-
-    lifetime = user.lifetime_score or 0
-    total = len(leaderboard)
+    # Место, баллы и «из N» — из `get_user_lifetime_rank`, тем же расчётом,
+    # что и строки таблицы. Прежде место искалось в первой десятке, баллы
+    # брались из `users.lifetime_score` (одни бонусы за места), а «из N»
+    # было `len(leaderboard)` — размером таблицы, то есть «из 10» при
+    # семидесяти участниках
+    user_rank_num = user_rank.get("rank") if user_rank else None
+    lifetime = user_rank.get("lifetime_score", 0) if user_rank else 0
+    total = user_rank.get("total_users", 0) if user_rank else 0
     shown = plural(lifetime, "plural_points", lang)
 
     if user_rank_num:
@@ -185,8 +184,7 @@ def build_alltime_table(leaderboard: list, user: User, lang: str) -> str:
     return text
 
 
-@router.callback_query(F.data == "leaderboard_table_monthly")
-async def show_table_monthly(callback: CallbackQuery, session: AsyncSession):
+async def _show_monthly_table(callback: CallbackQuery, session: AsyncSession) -> None:
     await callback.answer()
     user = await session.get(User, callback.from_user.id)
     lang = user.interface_language if user else DEFAULT_LOCALE
@@ -196,50 +194,51 @@ async def show_table_monthly(callback: CallbackQuery, session: AsyncSession):
         await callback.message.edit_text(get_text("rating_not_active", lang))
         return
 
+    learning = pair_from_user(user).learning
     leaderboard = await get_monthly_leaderboard(session, season_id=season.id, limit=10,
-                                         learning_lang=pair_from_user(user).learning)
+                                                learning_lang=learning)
     user_rank = await get_user_monthly_rank(user.id, session, season_id=season.id,
-                                          learning_lang=pair_from_user(user).learning)
+                                            learning_lang=learning)
     text = build_monthly_table(leaderboard, user_rank, season, user.id, lang)
     await edit_screen(callback, text, get_table_keyboard(lang, "monthly"))
+
+
+async def _show_alltime_table(callback: CallbackQuery, session: AsyncSession) -> None:
+    """
+    Таблица за всё время — по изучаемому языку человека, как таблица месяца.
+
+    Прежде язык сюда не передавался вовсе, и таблица была одна на всех:
+    немецкая и английская десятки вперемешку, хотя месяц их разделяет.
+    """
+    await callback.answer()
+    user = await session.get(User, callback.from_user.id)
+    lang = user.interface_language if user else DEFAULT_LOCALE
+
+    learning = pair_from_user(user).learning
+    leaderboard = await get_lifetime_leaderboard(session, limit=10, learning_lang=learning)
+    user_rank = await get_user_lifetime_rank(user.id, session, learning_lang=learning)
+    text = build_alltime_table(leaderboard, user_rank, user.id, lang)
+    await edit_screen(callback, text, get_table_keyboard(lang, "alltime"))
+
+
+# Две пары обработчиков на один экран: «Таблица лидеров» с карточки и
+# переключатель вкладок внутри таблицы. Прежде у каждой пары было по копии
+# тела — четыре копии двух экранов, и правка одной расходилась с другой
+@router.callback_query(F.data == "leaderboard_table_monthly")
+async def show_table_monthly(callback: CallbackQuery, session: AsyncSession):
+    await _show_monthly_table(callback, session)
 
 
 @router.callback_query(F.data == "leaderboard_table_alltime")
 async def show_table_alltime(callback: CallbackQuery, session: AsyncSession):
-    await callback.answer()
-    user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language if user else DEFAULT_LOCALE
-
-    leaderboard = await get_lifetime_leaderboard(session, limit=10)
-    text = build_alltime_table(leaderboard, user, lang)
-    await edit_screen(callback, text, get_table_keyboard(lang, "alltime"))
+    await _show_alltime_table(callback, session)
 
 
 @router.callback_query(F.data == "table_monthly")
 async def switch_table_to_monthly(callback: CallbackQuery, session: AsyncSession):
-    await callback.answer()
-    user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language if user else DEFAULT_LOCALE
-    season = await get_current_season(session)
-
-    if not season:
-        await callback.message.edit_text(get_text("rating_not_active", lang))
-        return
-
-    leaderboard = await get_monthly_leaderboard(session, season_id=season.id, limit=10,
-                                         learning_lang=pair_from_user(user).learning)
-    user_rank = await get_user_monthly_rank(user.id, session, season_id=season.id,
-                                          learning_lang=pair_from_user(user).learning)
-    text = build_monthly_table(leaderboard, user_rank, season, user.id, lang)
-    await edit_screen(callback, text, get_table_keyboard(lang, "monthly"))
+    await _show_monthly_table(callback, session)
 
 
 @router.callback_query(F.data == "table_alltime")
 async def switch_table_to_alltime(callback: CallbackQuery, session: AsyncSession):
-    await callback.answer()
-    user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language if user else DEFAULT_LOCALE
-
-    leaderboard = await get_lifetime_leaderboard(session, limit=10)
-    text = build_alltime_table(leaderboard, user, lang)
-    await edit_screen(callback, text, get_table_keyboard(lang, "alltime"))
+    await _show_alltime_table(callback, session)

@@ -228,7 +228,7 @@ class TestSynthesisRetry:
 
         seen = []
 
-        async def note(text, voice, timeout=None):
+        async def note(text, voice, timeout=None, rate=None):
             seen.append(timeout)
             return None
 
@@ -247,7 +247,7 @@ class TestSynthesisRetry:
 
         attempts = {"n": 0}
 
-        async def flaky(text, voice, timeout=None):
+        async def flaky(text, voice, timeout=None, rate=None):
             attempts["n"] += 1
             return None if attempts["n"] == 1 else b"x" * 2000
 
@@ -263,7 +263,7 @@ class TestSynthesisRetry:
 
         attempts = {"n": 0}
 
-        async def always_fails(text, voice, timeout=None):
+        async def always_fails(text, voice, timeout=None, rate=None):
             attempts["n"] += 1
             return None
 
@@ -279,7 +279,7 @@ class TestSynthesisRetry:
 
         attempts = {"n": 0}
 
-        async def fine(text, voice, timeout=None):
+        async def fine(text, voice, timeout=None, rate=None):
             attempts["n"] += 1
             return b"x" * 2000
 
@@ -354,3 +354,66 @@ class TestVoices:
         assert "учу" in PREVIEW_TEXT["ru"]
         assert "вчу" in PREVIEW_TEXT["uk"]
         assert "öğreniyorum" in PREVIEW_TEXT["tr"]
+
+
+# ============================================================================
+# ВОПРОС «СЛУШАЮ»: НАЗВАНИЕ КЛИПА НЕ ВЫДАЁТ ОТВЕТ
+#
+# Владелец, 14 октября: «Там на аудио написано название того, что
+# прозвучало… в названии уже ответ». Плеер Telegram показывает название
+# клипа над вариантами, а название клипа-слова — само слово.
+# ============================================================================
+
+class TestBlindClip:
+    async def test_the_question_clip_does_not_name_the_word(self, session, monkeypatch):
+        from app.services import audio_service as svc
+
+        word = make_word("Verspätung", ru="опоздание")
+        session.add(word)
+        await session.commit()
+
+        async def fake_obtain(spoken, lang, kind, voice, *, live=False):
+            return b"mp3"
+
+        monkeypatch.setattr(svc, "obtain_audio", fake_obtain)
+
+        card = await svc.get_clip(session, word, "de", svc.KIND_WORD)
+        blind = await svc.get_clip(session, word, "de", svc.KIND_BLIND)
+
+        assert "Verspätung" in card.title, "у карточки название — слово"
+        assert "Verspätung" not in blind.title, f"название выдаёт ответ: {blind.title}"
+        assert "Verspätung" not in blind.filename
+        assert blind.spoken_text == card.spoken_text, "звучать обязано то же слово"
+
+    async def test_the_question_clip_is_the_word_file_on_disk(self, monkeypatch):
+        """Вслепую — тот же файл, что у слова: второй синтез не нужен."""
+        from app.services import audio_service as svc
+
+        asked = []
+
+        def read(lang, voice, kind, spoken):
+            asked.append(kind)
+            return b"mp3"
+
+        monkeypatch.setattr(svc.audio_store, "read", read)
+        data = await svc.obtain_audio("Verspätung", "de", svc.KIND_BLIND, "de-DE-KatjaNeural")
+        assert data == b"mp3"
+        assert asked == [svc.KIND_WORD]
+
+    def test_the_audio_question_asks_for_a_blind_clip(self):
+        """Вопрос на слух берёт клип вслепую — проверка по коду обработчика."""
+        import inspect
+
+        from app.bot.handlers.quiz import game
+
+        import re
+
+        source = inspect.getsource(game._question_clip)
+        audio_branch = source.split("if channel is QuizChannel.AUDIO:")[1].split("if pair.reverse")[0]
+        # Ищется САМ ВЫЗОВ, а не упоминание: первая редакция проверки искала
+        # слово «KIND_BLIND» во всей ветке, находила его в комментарии и
+        # оставалась зелёной при вернувшемся KIND_WORD — проверено поломкой
+        calls = re.findall(r"clip_for_user\([^)]*\)", audio_branch)
+        assert calls and all("KIND_BLIND" in c for c in calls), (
+            f"вопрос на слух снова получит клип с названием-ответом: {calls}"
+        )

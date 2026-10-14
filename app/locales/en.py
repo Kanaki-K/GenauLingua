@@ -35,8 +35,8 @@ TEXTS = {
     "notif_time": "Time: {time}",
     "notif_days": "Days: {days}",
     "notif_timezone": "Timezone: {timezone}",
-    "notif_hint": "Notifications will arrive at the specified time in your timezone.",
-    "notif_hint_off": "Enable notifications to never forget your daily practice!",
+    "notif_hint": "The reminder arrives at the chosen time in your time zone.",
+    "notif_hint_off": "Turn reminders on — it's easier to keep your streak going.",
 
     "notif_btn_toggle_on": "Notifications: Enabled",
     "notif_btn_toggle_off": "Notifications: Disabled",
@@ -44,28 +44,28 @@ TEXTS = {
     "notif_btn_days": "Select days",
     "notif_btn_timezone": "Change timezone",
 
-    "notif_timezone_title": "<b>Select your timezone</b>",
+    "notif_timezone_title": "<b>Your time zone</b>",
     "notif_timezone_current": "Current: {timezone}",
-    "notif_timezone_prompt": "Select a city in your timezone:",
+    "notif_timezone_prompt": "Pick a city in your time zone:",
     "notif_timezone_more": "Select another city",
     "notif_timezone_back": "Back",
     "notif_timezone_set": "✓ Timezone set: {city}",
 
-    "notif_time_title": "<b>Select notification time</b>",
+    "notif_time_title": "<b>Reminder time</b>",
     "notif_time_current": "Current time: {time}",
     "notif_time_timezone": "Timezone: {timezone}",
-    "notif_time_hint": "Notification will arrive daily at the selected time.",
+    "notif_time_hint": "The reminder arrives every day at the chosen time.",
     "notif_time_set": "✓ Time set: {time}",
 
-    "notif_days_title": "<b>Select notification days</b>",
-    "notif_days_hint": "Tap on a day to enable/disable it.\n✓ Green check - day enabled\n✗ Red cross - day disabled\n\nWhen done - tap 'Save'.",
+    "notif_days_title": "<b>Reminder days</b>",
+    "notif_days_hint": "Tap a day to turn it on or off.\n✓ — day on\n✗ — day off\n\nWhen you're done, tap «Save».",
     "notif_days_all": "All days",
     "notif_days_weekdays": "Weekdays (Mon-Fri)",
     "notif_days_save": "Save",
     "notif_days_saved": "✓ Days saved!",
     "notif_days_all_selected": "✓ All days selected",
     "notif_days_weekdays_selected": "✓ Weekdays selected (Mon-Fri)",
-    "notif_days_none": "Select at least one day for notifications!",
+    "notif_days_none": "Pick at least one day.",
 
     "notif_toggle_on": "Notifications enabled!",
     "notif_toggle_off": "Notifications disabled",
@@ -134,7 +134,7 @@ TEXTS = {
     # ============================================================================
     # QUIZ MODE (NEW)
     # ============================================================================
-    "qmode_title": "<b>Quiz mode</b>",
+    "qmode_title": "<b>Level and topics</b>",
     "qmode_current": "Current: <b>{mode}</b>",
     "qmode_choose": "Choose how you want to learn\nYou can switch anytime — your progress is saved",
 
@@ -149,7 +149,7 @@ TEXTS = {
     "qmode_difficult_short": "Difficult words",
 
     "qmode_level_title": "<b>Choose level</b>",
-    "qmode_level_desc": "From your first «Hallo» to fluent debates\nAll levels available — pick yours!\n\n• A1–A2 — basic vocabulary\n• B1–B2 — confident communication\n• C1–C2 — near-native fluency",
+    "qmode_level_desc": "From your first words to free-flowing conversation. All levels are open — pick yours.\n\n• A1–A2 — basic vocabulary\n• B1–B2 — confident communication\n• C1–C2 — near-native fluency",
     "qmode_level_set": "✓ Mode: By level ({level})",
 
     "qmode_category_title": "<b>Choose category</b>",
@@ -181,8 +181,8 @@ TEXTS = {
     "qmode_all_set": "✓ Mode: Top 10 thousand",
 
     "qmode_difficult_set": "✓ Mode: Difficult words",
-    "qmode_difficult_few": "Difficult words so far: {count} — need at least 4\nTake a few more quizzes!",
-    "qmode_difficult_empty": "You don't have difficult words yet.\nTake a few quizzes first!",
+    "qmode_difficult_few": "Difficult words so far: {count} — at least 4 needed.\nPlay a few more rounds!",
+    "qmode_difficult_empty": "No difficult words yet.\nPlay a few rounds first!",
 
     "quiz_btn_change_mode": "Level and topics",
     "quiz_btn_report_error": "Translation error",
@@ -201,6 +201,7 @@ TEXTS = {
     "report_approved": "✓ Your report on <b>{word}</b> was accepted — we'll fix the translation.\n+{points} points to your monthly score — thanks, the dictionary gets better for everyone.",
     "award_won": "{mark} You placed {rank} in the {month} standings.\n{bonus} added to your lifetime score.",
     "report_approved_audio": "✓ Your pronunciation report was accepted: <b>{word}</b>.\nThe audio will be re-recorded. +{points} points to your monthly score — thank you.",
+    "report_approved_capped": "✓ Your report on <b>{word}</b> was accepted — thanks, the dictionary gets better for everyone.\nYou've already earned this month's report points: we pay for {limit} a month.",
 
     # ============================================================================
     # QUIZ
@@ -302,11 +303,10 @@ The more active the community — the better the bot gets. Don't be shy! """,
     "rating_avg_result": "Average result: {percent}%",
     "rating_scoring_title": "<b>How to earn points:</b>",
     "rating_scoring_quiz": "• Completed quiz → +10",
-    "rating_scoring_reverse": "• Reverse mode → +5",
     "rating_scoring_word": "• Word learned → +2",
     "rating_scoring_streak": "• Day streak → +3",
     "rating_scoring_bonus": "• 90%+ accuracy → +50 bonus",
-    "rating_scoring_report": "• Confirmed report → +1",
+    "rating_scoring_report": "• Confirmed error report → +{points} (up to {limit} a month)",
 
     "rating_title_alltime": "<b>My rating — All Time</b>",
     "rating_position_alltime": "Position: <b>#{rank}</b>",
@@ -453,7 +453,6 @@ TEXTS.update({
 TEXTS.update({
     "rating_scoring_answer": "• Correct answer → +1, by ear → +2, out loud → +3",
     "rating_scoring_quiz": "• Round finished → +10",
-    "rating_scoring_reverse": "• Reverse direction → +5",
     "rating_scoring_word": "• Word learned → +3",
     "rating_scoring_streak": "• Each day in a row is worth more, up to +10",
     "rating_scoring_bonus": "• Accuracy above 60% — the higher, the more",
@@ -497,7 +496,7 @@ TEXTS.update({
     "settings_btn_channels": "Lesson mix",
     "settings_channels_line": "Lesson: <b>{channels}</b>",
     "channels_title": "<b>Lesson mix</b>",
-    "channels_description": "Which questions to ask. The more ways, the better a word sticks: reading, recalling, hearing and saying it are different skills.",
+    "channels_description": "Which games to mix into a round. A new word comes as an “I read” card; once you know it, it comes back in other games: recall it, hear it, say it. The more games, the firmer the word.",
     "channel_text": "📖 I read",
     "channel_audio": "🎧 I listen",
     "channel_speech": "🎤 I speak",
@@ -518,7 +517,7 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "quiz_question_speak": "🎤 Say this word out loud — record a voice message",
-    "speech_btn_reference": "Listen",
+    "speech_btn_reference": "Listen slowly",
     "speech_btn_skip": "Skip",
     "speech_listening": "🎧 Listening…",
     "speech_not_understood": "Could not make it out. Record again — closer to the mic and a bit louder.",
@@ -665,7 +664,7 @@ TEXTS["match_back_to_round"] = "Back to the round."
 TEXTS.update({
     "settings_btn_match": "Board in the round",
     "settings_match_title": "<b>Board in the round</b>",
-    "settings_match_description": "Every other lesson, the middle of the round brings a board instead of five questions: five words and five meanings to pair up. Only familiar words are used.",
+    "settings_match_description": "Every other round, a board takes one question's place in the middle: five words and five meanings to pair up. Only familiar words are used.",
     "match_state_on": "Board is on: it will come mid-round.",
     "settings_match_short_on": "with the board",
     "settings_channels_short_one": "“I read” only",

@@ -1634,9 +1634,12 @@ async def _reward_reporters(
     «За слово» — и между разными нажатиями тоже: если перевод этого слова
     у человека уже приняли раньше, принятие звука балла не добавляет.
 
-    Возвращает {user_id: (язык ряда, виды принятых жалоб)} награждённых и
-    число людей, получивших балл за это слово прежде.
+    Возвращает {user_id: (язык ряда, виды принятых жалоб, начислено)}
+    награждённых и число людей, получивших балл за это слово прежде.
+    «Начислено» бывает нулём: месячный потолок
+    (`MonthlyStats.REPORT_REWARDS_PER_SEASON`) уже набран.
     """
+    cap = REPORT_REWARD_POINTS * MonthlyStats.REPORT_REWARDS_PER_SEASON
     from app.services.monthly_leaderboard_service import get_or_create_current_season
 
     claimed_ids = [row.id for row in claimed]
@@ -1681,21 +1684,26 @@ async def _reward_reporters(
             ).with_for_update()
         )).scalar_one_or_none()
 
+        # Сколько ещё можно заплатить в этом месяце: потолок считается по
+        # самому бонусу, а не по числу жалоб — он и есть то, что видит таблица
+        already = (stat.report_bonus or 0) if stat else 0
+        points = max(0, min(REPORT_REWARD_POINTS, cap - already))
+
         if stat:
-            stat.report_bonus = (stat.report_bonus or 0) + REPORT_REWARD_POINTS
+            stat.report_bonus = already + points
             stat.monthly_score = stat.calculate_monthly_score()
-        else:
+        elif points:
             # Ряда нет — человек жаловался, но в этом месяце не играл
             session.add(MonthlyStats(
                 user_id=user_id,
                 season_id=season.id,
                 learning_lang=learning_lang,
-                report_bonus=REPORT_REWARD_POINTS,
-                monthly_score=REPORT_REWARD_POINTS,
+                report_bonus=points,
+                monthly_score=points,
             ))
             await session.flush()
 
-        rewarded[user_id] = (learning_lang, {row.kind or "text" for row in rows})
+        rewarded[user_id] = (learning_lang, {row.kind or "text" for row in rows}, points)
 
     return rewarded, paid_before
 
@@ -1703,6 +1711,7 @@ async def _reward_reporters(
 async def _tell_reporter(
     callback: CallbackQuery, session: AsyncSession, user_id: int,
     kinds: set[str], word: Optional[Word], learning_lang: str,
+    points: int = REPORT_REWARD_POINTS,
 ) -> bool:
     """
     Сказать автору жалобы, что её приняли и балл начислен.
@@ -1727,6 +1736,9 @@ async def _tell_reporter(
     user = await session.get(User, user_id)
     lang = (user.interface_language if user else None) or DEFAULT_LOCALE
     key = "report_approved" if "text" in kinds else "report_approved_audio"
+    if not points:
+        # Потолок месяца набран: поблагодарить, но не обещать баллов
+        key = "report_approved_capped"
     shown = (display_text(word, learning_lang) if word else "") or (
         _full_word(word.word_de, word.article) if word else "?"
     )
@@ -1734,7 +1746,8 @@ async def _tell_reporter(
     try:
         await callback.bot.send_message(
             user_id,
-            get_text(key, lang, word=escape(shown), points=REPORT_REWARD_POINTS),
+            get_text(key, lang, word=escape(shown), points=points,
+                     limit=MonthlyStats.REPORT_REWARDS_PER_SEASON),
         )
         return True
     except Exception:
@@ -1800,9 +1813,10 @@ async def admin_report_approve(callback: CallbackQuery, session: AsyncSession):
     # ИЗВЕСТИТЬ АВТОРОВ — после коммита, чтобы ничего не обещать прежде,
     # чем начислено. Каждому награждённому — одно сообщение на его языке
     told = 0
-    for user_id, (learning_lang, user_kinds) in rewarded.items():
+    capped = sum(1 for _, _, points in rewarded.values() if not points)
+    for user_id, (learning_lang, user_kinds, points) in rewarded.items():
         if await _tell_reporter(callback, session, user_id, user_kinds,
-                                word, learning_lang):
+                                word, learning_lang, points):
             told += 1
 
     # Счёт — по ЛЮДЯМ, а не по жалобам: прежде один человек с двумя видами
@@ -1814,6 +1828,8 @@ async def admin_report_approve(callback: CallbackQuery, session: AsyncSession):
     if paid_before:
         lines.append(f"без балла (уже получали за это слово): "
                      f"{admin_ui.people(paid_before)}")
+    if capped:
+        lines.append(f"без балла (потолок месяца набран): {admin_ui.people(capped)}")
     if dropped_clips:
         lines.append(f"озвучка сброшена ({dropped_clips} клипов), пересоберётся")
     await callback.answer("\n".join(lines), show_alert=True)

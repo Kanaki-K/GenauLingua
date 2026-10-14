@@ -958,8 +958,19 @@ async def answer_level_offer(callback: CallbackQuery, session: AsyncSession):
 #
 # Домашний экран — верный ответ: там шкалы и кнопка занятия, то есть то,
 # ради чего человек трудность и правил.
+#
+# ВТОРАЯ ПОПРАВКА ВЛАДЕЛЬЦА, 14 октября: «Уровень и темы — нажимаю,
+# попадаю в настройки, а когда нажимаю назад — попадаю в статистику.
+# Почему не возвращает на прошлое сообщение круга, ведь назад должно было
+# туда попасть?» Домашний экран был неверным ответом: экран уровня
+# ЗАМЕНЯЛ итог круга правкой, и вернуться к итогу было некуда — его уже
+# не существовало. Теперь из итога экран открывается НОВЫМ сообщением под
+# ним, а «Назад» это сообщение убирает: итог с «Ещё круг» снова последний.
+# Если же уровень или тему поменяли, итог устарел — тогда, как и прежде,
+# свежий якорь и домашний экран (`_show_after_change`).
 RESULT_ORIGIN = "result"
-BACK_FROM_RESULT = "home_back"
+BACK_FROM_RESULT = "result_back"
+RESULT_SETTINGS = "result_settings"
 
 
 def get_quiz_mode_keyboard(lang: str, origin: str = "") -> InlineKeyboardMarkup:
@@ -1001,6 +1012,36 @@ def get_quiz_mode_keyboard(lang: str, origin: str = "") -> InlineKeyboardMarkup:
     )
 
 
+def _quiz_mode_text(user: User, lang: str) -> str:
+    return (
+        f"{get_text('qmode_title', lang)}\n\n"
+        f"{get_text('qmode_current', lang, mode=_quiz_mode_display(user, lang))}\n\n"
+        f"{get_text('qmode_choose', lang)}"
+    )
+
+
+@router.callback_query(F.data == RESULT_SETTINGS)
+async def open_quiz_mode_from_result(callback: CallbackQuery, session: AsyncSession):
+    """«Уровень и темы» под итогом круга: новым сообщением, итог остаётся."""
+    await callback.answer()
+    user = await session.get(User, callback.from_user.id)
+    lang = user.interface_language or DEFAULT_LOCALE
+    await callback.message.answer(
+        _quiz_mode_text(user, lang),
+        reply_markup=get_quiz_mode_keyboard(lang, RESULT_ORIGIN),
+    )
+
+
+@router.callback_query(F.data == BACK_FROM_RESULT)
+async def back_to_result(callback: CallbackQuery):
+    """«Назад» к итогу круга: убрать экран настроек — итог под ним на месте."""
+    await callback.answer()
+    try:
+        await callback.message.delete()
+    except Exception:
+        logger.debug("экран настроек над итогом не удалился", exc_info=True)
+
+
 @router.callback_query(F.data.startswith("settings_quiz_mode"))
 async def show_quiz_mode(callback: CallbackQuery, session: AsyncSession):
     """
@@ -1018,14 +1059,8 @@ async def show_quiz_mode(callback: CallbackQuery, session: AsyncSession):
     user = await session.get(User, callback.from_user.id)
     lang = user.interface_language or DEFAULT_LOCALE
 
-    text = (
-        f"{get_text('qmode_title', lang)}\n\n"
-        f"{get_text('qmode_current', lang, mode=_quiz_mode_display(user, lang))}\n\n"
-        f"{get_text('qmode_choose', lang)}"
-    )
-
     await callback.message.edit_text(
-        text, reply_markup=get_quiz_mode_keyboard(lang, origin)
+        _quiz_mode_text(user, lang), reply_markup=get_quiz_mode_keyboard(lang, origin)
     )
 
 

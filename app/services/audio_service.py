@@ -60,6 +60,29 @@ logger = logging.getLogger(__name__)
 KIND_WORD = "word"   # только слово — в вопросе
 KIND_FULL = "full"   # слово и пример — на разборе
 
+# КЛИП ВСЛЕПУЮ — для вопроса «Слушаю». Звучит то же слово, что в KIND_WORD,
+# и лежит на диске тем же файлом, но в кэше Telegram это СВОЯ запись с
+# нейтральным названием. Владелец, 14 октября: «Там на аудио написано
+# название того, что прозвучало… в названии уже ответ». Telegram впечатывает
+# название при загрузке и при отправке по file_id менять его не даёт, так
+# что одна запись на два названия невозможна: карточка и вопрос
+# перезаливали бы клип друг за другом без конца.
+#
+# Название одно на все языки интерфейса по той же причине: запись в кэше
+# общая для всех людей, и «Слушай» на шести языках снова заставило бы её
+# метаться.
+KIND_BLIND = "blind"
+BLIND_TITLE = "GenauLingua"
+
+# МЕДЛЕННЫЙ КЛИП — для кнопки под вопросом «Говорю». Прежде кнопка
+# «Послушать» присылала ТО ЖЕ аудио, что уже висит на карточке; владелец:
+# «Зачем нам ещё 1 кнопка… которая присылает в чат такое же аудио?…
+# пусть лучше будет кнопка, которая пришлёт эту озвучку, но медленнее».
+# Свой файл на диске и своя запись в кэше: темп другой, звук другой.
+KIND_SLOW = "slow"
+SLOW_RATE = "-45%"
+SLOW_TITLE_MARK = "· 0.6×"
+
 # Сколько слов примера попадает в название клипа. Примеры разной длины, а
 # карточки должны выглядеть одинаково, поэтому пример всегда обрезается.
 TITLE_EXAMPLE_WORDS = 3
@@ -292,12 +315,12 @@ async def clip_for_user(
 
 
 async def _synthesize_once(
-    text: str, voice: str, timeout: float = SYNTH_TIMEOUT
+    text: str, voice: str, timeout: float = SYNTH_TIMEOUT, rate: str = DEFAULT_RATE,
 ) -> Optional[bytes]:
     """Одна попытка синтеза. None, если движок не ответил или отдал пустоту."""
     async def run() -> bytes:
         data = b""
-        stream = edge_tts.Communicate(text, voice, rate=DEFAULT_RATE).stream()
+        stream = edge_tts.Communicate(text, voice, rate=rate).stream()
         async for chunk in stream:
             if chunk["type"] == "audio":
                 data += chunk["data"]
@@ -320,7 +343,7 @@ async def _synthesize_once(
 
 
 async def _synthesize(
-    text: str, voice: str, *, live: bool = False
+    text: str, voice: str, *, live: bool = False, rate: str = DEFAULT_RATE,
 ) -> Optional[bytes]:
     """
     Синтез с повтором.
@@ -334,7 +357,7 @@ async def _synthesize(
     timeout = LIVE_SYNTH_TIMEOUT if live else SYNTH_TIMEOUT
 
     for attempt in range(1, attempts + 1):
-        data = await _synthesize_once(text, voice, timeout)
+        data = await _synthesize_once(text, voice, timeout, rate)
         if data is not None:
             if attempt > 1:
                 logger.info("синтез удался со второй попытки: %r", text[:40])
@@ -388,11 +411,16 @@ async def obtain_audio(
     Синтезированное здесь же обрезается: в хранилище клипы уже без тишины, и
     новый клип должен звучать так же.
     """
+    # Клип вслепую — тот же звук, что у слова: и на диске это тот же файл
+    if kind == KIND_BLIND:
+        kind = KIND_WORD
+
     stored = audio_store.read(lang, voice, kind, spoken)
     if stored is not None:
         return stored
 
-    data = await _synthesize(spoken, voice, live=live)
+    rate = SLOW_RATE if kind == KIND_SLOW else DEFAULT_RATE
+    data = await _synthesize(spoken, voice, live=live, rate=rate)
     if data is None:
         return None
 
@@ -456,7 +484,10 @@ async def get_clip(
     # На имя файла в хранилище это не влияет: ключ там хеш ПРОИЗНОСИМОГО
     # текста, а не названия, поэтому переименование ничего не осиротило.
     example = example_text(word, lang) if kind == KIND_FULL else None
-    title = audio_title(option_label(word, lang), example)
+    title = (BLIND_TITLE if kind == KIND_BLIND
+             else audio_title(option_label(word, lang), example))
+    if kind == KIND_SLOW:
+        title = f"{title} {SLOW_TITLE_MARK}"
 
     cached = await session.scalar(
         select(WordAudio).where(

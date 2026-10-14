@@ -35,8 +35,8 @@ TEXTS = {
     "notif_time": "Saat: {time}",
     "notif_days": "Günler: {days}",
     "notif_timezone": "Zaman dilimi: {timezone}",
-    "notif_hint": "Hatırlatıcılar belirtilen saatte saat diliminize göre gelecek.",
-    "notif_hint_off": "Günlük çalışmayı unutmamak için hatırlatıcıları açın!",
+    "notif_hint": "Hatırlatıcı, kendi saat diliminde seçtiğin saatte gelir.",
+    "notif_hint_off": "Hatırlatıcıları aç — serini korumak daha kolay olur.",
 
     "notif_btn_toggle_on": "Hatırlatıcılar: Açık",
     "notif_btn_toggle_off": "Hatırlatıcılar: Kapalı",
@@ -44,28 +44,28 @@ TEXTS = {
     "notif_btn_days": "Günleri seç",
     "notif_btn_timezone": "Zaman dilimini değiştir",
 
-    "notif_timezone_title": "<b>Zaman diliminizi seçin</b>",
+    "notif_timezone_title": "<b>Saat dilimin</b>",
     "notif_timezone_current": "Şu anki: {timezone}",
-    "notif_timezone_prompt": "Zaman diliminizde bir şehir seçin:",
+    "notif_timezone_prompt": "Saat diliminde bir şehir seç:",
     "notif_timezone_more": "Başka şehir seç",
     "notif_timezone_back": "Geri",
     "notif_timezone_set": "✓ Zaman dilimi ayarlandı: {city}",
 
-    "notif_time_title": "<b>Hatırlatıcı saatini seçin</b>",
+    "notif_time_title": "<b>Hatırlatıcı saati</b>",
     "notif_time_current": "Şu anki saat: {time}",
     "notif_time_timezone": "Zaman dilimi: {timezone}",
-    "notif_time_hint": "Hatırlatıcı her gün seçilen saatte gelecek.",
+    "notif_time_hint": "Hatırlatıcı her gün seçtiğin saatte gelir.",
     "notif_time_set": "✓ Saat ayarlandı: {time}",
 
-    "notif_days_title": "<b>Hatırlatıcı günlerini seçin</b>",
-    "notif_days_hint": "Günü açmak/kapatmak için dokunun.\n✓ Yeşil işaret - gün açık\n✗ Kırmızı çarpı - gün kapalı\n\nBitirdiğinizde - 'Kaydet'e basın.",
+    "notif_days_title": "<b>Hatırlatıcı günleri</b>",
+    "notif_days_hint": "Bir günü açmak ya da kapatmak için ona dokun.\n✓ — gün açık\n✗ — gün kapalı\n\nBitirince «Kaydet» düğmesine dokun.",
     "notif_days_all": "Tüm günler",
     "notif_days_weekdays": "Hafta içi (Pzt-Cum)",
     "notif_days_save": "Kaydet",
     "notif_days_saved": "✓ Günler kaydedildi!",
     "notif_days_all_selected": "✓ Tüm günler seçildi",
     "notif_days_weekdays_selected": "✓ Hafta içi seçildi (Pzt-Cum)",
-    "notif_days_none": "Hatırlatıcılar için en az bir gün seçin!",
+    "notif_days_none": "En az bir gün seç.",
 
     "notif_toggle_on": "Hatırlatıcılar açıldı!",
     "notif_toggle_off": "Hatırlatıcılar kapatıldı",
@@ -134,7 +134,7 @@ TEXTS = {
     # ============================================================================
     # TEST MODU (YENİ)
     # ============================================================================
-    "qmode_title": "<b>Test modu</b>",
+    "qmode_title": "<b>Seviye ve konular</b>",
     "qmode_current": "Şu an: <b>{mode}</b>",
     "qmode_choose": "Nasıl öğrenmek istediğini seç\nİstediğin zaman değiştirebilirsin — ilerlemen kaybolmaz",
 
@@ -149,7 +149,7 @@ TEXTS = {
     "qmode_difficult_short": "Zor kelimeler",
 
     "qmode_level_title": "<b>Seviye seç</b>",
-    "qmode_level_desc": "İlk «Hallo»dan akıcı tartışmalara\nTüm seviyeler açık — birini seç!\n\n• A1–A2 — temel kelimeler\n• B1–B2 — güvenli iletişim\n• C1–C2 — ana dil seviyesi",
+    "qmode_level_desc": "İlk kelimelerden akıcı sohbetlere. Tüm seviyeler açık — kendininkini seç.\n\n• A1–A2 — temel kelimeler\n• B1–B2 — güvenli iletişim\n• C1–C2 — ana dil seviyesi",
     "qmode_level_set": "✓ Mod: Seviyeye göre ({level})",
 
     "qmode_category_title": "<b>Kategori seç</b>",
@@ -181,8 +181,8 @@ TEXTS = {
     "qmode_all_set": "✓ Mod: Top 10 bin",
 
     "qmode_difficult_set": "✓ Mod: Zor kelimeler",
-    "qmode_difficult_few": "Şimdilik zor kelime: {count} — en az 4 gerekli\nBirkaç test daha çöz!",
-    "qmode_difficult_empty": "Henüz zor kelimelerin yok.\nÖnce birkaç test çöz!",
+    "qmode_difficult_few": "Şimdilik zor kelime: {count} — en az 4 gerekli.\nBirkaç tur daha oyna!",
+    "qmode_difficult_empty": "Henüz zor kelimen yok.\nÖnce birkaç tur oyna!",
 
     "quiz_btn_change_mode": "Seviye ve konular",
     "quiz_btn_report_error": "Çeviri hatası",
@@ -201,6 +201,7 @@ TEXTS = {
     "report_approved": "✓ <b>{word}</b> için bildirimin kabul edildi — çeviriyi düzelteceğiz.\nAylık puanına +{points} puan — teşekkürler, sözlük herkes için daha iyi olacak.",
     "award_won": "{mark} {month} sıralamasında {rank}. oldun.\nKalıcı puanına {bonus} eklendi.",
     "report_approved_audio": "✓ Telaffuz bildirimin kabul edildi: <b>{word}</b>.\nSes kaydı yeniden alınacak. Aylık puanına +{points} puan — teşekkürler.",
+    "report_approved_capped": "✓ <b>{word}</b> için bildirimin kabul edildi — teşekkürler, sözlük herkes için daha iyi olacak.\nBu ayın bildirim puanları zaten alındı: ayda {limit} bildirim için puan veriyoruz.",
 
     # ============================================================================
     # TEST
@@ -302,11 +303,10 @@ Topluluk ne kadar aktif olursa — bot o kadar iyi olur. Çekinme! """,
     "rating_avg_result": "Ortalama sonuç: {percent}%",
     "rating_scoring_title": "<b>Puan nasıl kazanılır:</b>",
     "rating_scoring_quiz": "• Tamamlanan test → +10",
-    "rating_scoring_reverse": "• Ters mod → +5",
     "rating_scoring_word": "• Öğrenilen kelime → +2",
     "rating_scoring_streak": "• Gün serisi → +3",
     "rating_scoring_bonus": "• %90+ doğruluk → +50 bonus",
-    "rating_scoring_report": "• Onaylanan rapor → +1",
+    "rating_scoring_report": "• Onaylanan hata bildirimi → +{points} (ayda en fazla {limit})",
 
     "rating_title_alltime": "<b>Sıralamam — Tüm Zamanlar</b>",
     "rating_position_alltime": "Pozisyon: <b>#{rank}</b>",
@@ -453,7 +453,6 @@ TEXTS.update({
 TEXTS.update({
     "rating_scoring_answer": "• Doğru cevap → +1, kulakla → +2, sesli → +3",
     "rating_scoring_quiz": "• Tamamlanan tur → +10",
-    "rating_scoring_reverse": "• Ters yön → +5",
     "rating_scoring_word": "• Öğrenilen kelime → +3",
     "rating_scoring_streak": "• Üst üste her gün bir öncekinden değerli, +10'a kadar",
     "rating_scoring_bonus": "• %60 üstü doğruluk — ne kadar yüksekse o kadar çok",
@@ -497,7 +496,7 @@ TEXTS.update({
     "settings_btn_channels": "Ders karışımı",
     "settings_channels_line": "Ders: <b>{channels}</b>",
     "channels_title": "<b>Ders karışımı</b>",
-    "channels_description": "Hangi sorular sorulsun. Yol ne kadar çoksa kelime o kadar iyi yerleşir: okumak, hatırlamak, duymak ve söylemek ayrı becerilerdir.",
+    "channels_description": "Tura hangi oyunlar karışsın. Yeni kelime «Okuyorum» kartıyla gelir; onu tanıdığında başka oyunlarla döner: hatırla, duy, söyle. Oyun ne kadar çoksa kelime o kadar iyi yerleşir.",
     "channel_text": "📖 Okuyorum",
     "channel_audio": "🎧 Dinliyorum",
     "channel_speech": "🎤 Konuşuyorum",
@@ -518,7 +517,7 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "quiz_question_speak": "🎤 Bu kelimeyi yüksek sesle söyle — sesli mesaj kaydet",
-    "speech_btn_reference": "Dinle",
+    "speech_btn_reference": "Yavaş dinle",
     "speech_btn_skip": "Atla",
     "speech_listening": "🎧 Dinliyorum…",
     "speech_not_understood": "Anlayamadım. Tekrar kaydet — mikrofona yakın ve biraz daha yüksek sesle.",
@@ -665,7 +664,7 @@ TEXTS["match_back_to_round"] = "Tura dönüyoruz."
 TEXTS.update({
     "settings_btn_match": "Turda tahta",
     "settings_match_title": "<b>Turda tahta</b>",
-    "settings_match_description": "Her iki dersten birinde turun ortasında beş soru yerine bir tahta gelir: beş kelime ve beş anlam, eşleri bulmak gerekir. Yalnızca bildik kelimeler alınır.",
+    "settings_match_description": "İki turdan birinde ortada bir soru yerine tahta gelir: beş kelime ve beş anlam, eşlerini bul. Yalnızca bildik kelimeler alınır.",
     "match_state_on": "Tahta açık: turun ortasında gelecek.",
     "settings_match_short_on": "tahta ile",
     "settings_channels_short_one": "yalnızca “Okuyorum”",

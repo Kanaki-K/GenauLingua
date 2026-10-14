@@ -490,14 +490,23 @@ async def get_monthly_leaderboard(
             MonthlyStats.season_id == season_id,
             MonthlyStats.learning_lang == learning_lang,
         )
-        .order_by(MonthlyStats.monthly_score.desc())
+        # Второй ключ — чтобы равные не менялись местами от запроса к запросу
+        .order_by(MonthlyStats.monthly_score.desc(), User.id)
         .limit(limit)
     )
 
     stats_users = result.all()
 
+    # МЕСТО — «1 + сколько набрали больше», как в `get_user_monthly_rank`.
+    # Прежде здесь стоял порядковый номер строки: двое с равными 40 баллами
+    # стояли в таблице вторым и третьим, а строка «Ты: #N» под ней говорила
+    # обоим «#2» — один и тот же человек на одном экране с двумя местами
     leaderboard = []
-    for rank, (stat, user) in enumerate(stats_users, 1):
+    rank = 0
+    prev_score = None
+    for position, (stat, user) in enumerate(stats_users, 1):
+        if stat.monthly_score != prev_score:
+            rank, prev_score = position, stat.monthly_score
         awards_result = await session.execute(
             select(MonthlyAward)
             .where(MonthlyAward.user_id == user.id)
@@ -807,42 +816,152 @@ async def update_win_streak(user_id: int, season_id: int, session: AsyncSession)
 
 
 # ============================================================================
-# LIFETIME РЕЙТИНГ
+# РЕЙТИНГ ЗА ВСЁ ВРЕМЯ
 # ============================================================================
+#
+# ЗА ВСЁ ВРЕМЯ = ВСЕ МЕСЯЧНЫЕ БАЛЛЫ (ЗАКРЫТЫЕ СЕЗОНЫ И ТЕКУЩИЙ) + НАГРАДЫ.
+#
+# Прежде таблица и карточка брали колонку `users.lifetime_score`. Её
+# пополняет только `finalize_season`, и только БОНУСОМ ЗА МЕСТО (+100/50/25/
+# 10) — месячные баллы туда не шли никогда, хотя README обещал
+# «sum(monthly_scores) + award_bonuses». На dev-базе 14 октября у всех 26
+# человек с ненулевой колонкой она равна сумме `monthly_awards.lifetime_bonus`
+# до балла: у Juri 575 = 575 бонусов, а заработано в закрытых сезонах 2 603.
+# Владелец набрал 189 за октябрь и видел «Баллы: 0, не в рейтинге»: труд
+# вне десятки за всё время не считался вовсе, а текущего месяца — ни у кого.
+#
+# ПОЧЕМУ ИЗ ИСТОЧНИКА, А НЕ КОЛОНКОЙ. Сумма считается по `monthly_stats` и
+# `monthly_awards`, а закрытие сезона месячные строки не трогает (пишет
+# только `final_rank`). Поэтому в момент закрытия сумма не скачет: баллы
+# октября стоят в ней весь октябрь и остаются после, а прибавляется ровно
+# бонус за место — та награда, о которой человеку приходит извещение.
+# Колонку пришлось бы при закрытии дописывать месячным баллом — и тогда
+# текущий месяц до закрытия не входил бы, а после входил бы дважды, стоит
+# сложить колонку с `monthly_stats`. Одна величина — один источник.
+#
+# ПО ИЗУЧАЕМОМУ ЯЗЫКУ, КАК ТАБЛИЦА МЕСЯЦА. Месяц сравнивает учащих один язык
+# («объём базы, частотность и сложность у языков разные»), награды тоже
+# выдаются по языкам. Таблица «за всё время» по всем языкам сразу
+# противоречила бы этому доводу и разошлась бы с месячной: человек, учивший
+# английский и перешедший на немецкий, стоял бы в немецком месяце со своими
+# немецкими баллами, а в общей — с английскими. Поэтому всё здесь — баллы,
+# награды, победы, выученные слова, число участников — по одному
+# `learning_lang`.
+
+def _lifetime_totals(learning_lang: str):
+    """
+    Подзапрос (user_id, total) — сумма за всё время по одному языку.
+
+    Участник — тот, у кого есть хоть одна месячная строка на этом языке:
+    ровно как в месяце, где «из N» — число строк сезона.
+    """
+    scored = (
+        select(
+            MonthlyStats.user_id.label("user_id"),
+            func.sum(MonthlyStats.monthly_score).label("scored"),
+        )
+        .where(MonthlyStats.learning_lang == learning_lang)
+        .group_by(MonthlyStats.user_id)
+        .subquery()
+    )
+    bonus = (
+        select(
+            MonthlyAward.user_id.label("user_id"),
+            func.sum(MonthlyAward.lifetime_bonus).label("bonus"),
+        )
+        .where(MonthlyAward.learning_lang == learning_lang)
+        .group_by(MonthlyAward.user_id)
+        .subquery()
+    )
+    total = func.coalesce(scored.c.scored, 0) + func.coalesce(bonus.c.bonus, 0)
+    return (
+        select(scored.c.user_id, total.label("total"))
+        .outerjoin(bonus, bonus.c.user_id == scored.c.user_id)
+        .subquery()
+    )
+
+
+async def _wins_by_user(session: AsyncSession, user_ids: list,
+                        learning_lang: str) -> Dict[int, int]:
+    """Первых мест на этом языке — по наградам, как и баллы."""
+    if not user_ids:
+        return {}
+    rows = await session.execute(
+        select(MonthlyAward.user_id, func.count())
+        .where(
+            MonthlyAward.user_id.in_(user_ids),
+            MonthlyAward.learning_lang == learning_lang,
+            MonthlyAward.award_type == "gold",
+        )
+        .group_by(MonthlyAward.user_id)
+    )
+    return {uid: int(n) for uid, n in rows.all()}
+
+
+async def _learned_by_user(session: AsyncSession, user_ids: list,
+                           learning_lang: str) -> Dict[int, int]:
+    """
+    Выученных слов на этом языке — по `user_words`.
+
+    Колонка `users.words_learned` пересчитывается в конце круга по ТЕКУЩЕМУ
+    языку человека: у сменившего язык она показала бы в немецкой таблице
+    английские слова.
+    """
+    if not user_ids:
+        return {}
+    rows = await session.execute(
+        select(UserWord.user_id, func.count())
+        .where(
+            UserWord.user_id.in_(user_ids),
+            UserWord.learning_lang == learning_lang,
+            UserWord.learned.is_(True),
+        )
+        .group_by(UserWord.user_id)
+    )
+    return {uid: int(n) for uid, n in rows.all()}
+
 
 async def get_lifetime_leaderboard(
         session: AsyncSession,
-        limit: int = 50
+        limit: int = 50,
+        learning_lang: str = DEFAULT_LEARNING_LANG,
 ) -> List[Dict]:
-    """Получить lifetime рейтинг"""
-    result = await session.execute(
-        select(User, WinStreak)
-        .outerjoin(WinStreak, User.id == WinStreak.user_id)
-        .where(User.quizzes_passed > 0)
-        .order_by(User.lifetime_score.desc())
-        .limit(limit)
-    )
+    """
+    Таблица за всё время по одному изучаемому языку.
 
-    users_streaks = result.all()
+    МЕСТО — «1 + сколько набрали больше», как в `get_user_lifetime_rank`:
+    при равенстве порядковый номер строки дал бы в таблице одно место, а в
+    строке «Ты: #N» под ней — другое.
+    """
+    totals = _lifetime_totals(learning_lang)
+    rows = (await session.execute(
+        select(User, WinStreak, totals.c.total)
+        .join(totals, totals.c.user_id == User.id)
+        .outerjoin(WinStreak, User.id == WinStreak.user_id)
+        # Второй ключ — чтобы равные не менялись местами от запроса к запросу
+        .order_by(totals.c.total.desc(), User.id)
+        .limit(limit)
+    )).all()
+
+    ids = [user.id for user, _, _ in rows]
+    wins = await _wins_by_user(session, ids, learning_lang)
+    learned = await _learned_by_user(session, ids, learning_lang)
 
     leaderboard = []
-    for rank, (user, win_streak) in enumerate(users_streaks, 1):
-        awards_result = await session.execute(
-            select(MonthlyAward)
-            .where(MonthlyAward.user_id == user.id)
-            .order_by(MonthlyAward.created_at.desc())
-        )
-        awards = awards_result.scalars().all()
-
+    rank = 0
+    prev_total = None
+    for position, (user, win_streak, total) in enumerate(rows, 1):
+        total = int(total or 0)
+        if total != prev_total:
+            rank, prev_total = position, total
         leaderboard.append({
             'rank': rank,
             'user_id': user.id,
             'display_name': user.display_name,
-            'lifetime_score': user.lifetime_score,
-            'total_wins': user.total_monthly_wins,
-            'words_learned': user.words_learned,
+            'lifetime_score': total,
+            'total_wins': wins.get(user.id, 0),
+            'words_learned': learned.get(user.id, 0),
             'best_streak_days': user.best_streak_days,
-            'awards_count': len(awards),
             'win_streak': {
                 'current': win_streak.current_streak if win_streak else 0,
                 'best': win_streak.best_streak if win_streak else 0,
@@ -851,6 +970,51 @@ async def get_lifetime_leaderboard(
         })
 
     return leaderboard
+
+
+async def get_user_lifetime_rank(
+        user_id: int,
+        session: AsyncSession,
+        learning_lang: Optional[str] = None,
+) -> Dict:
+    """
+    Карточка «за всё время»: место, баллы, победы, выученные слова.
+
+    Не зависит от размера таблицы: прежде место искалось в её первых десяти
+    строках, и одиннадцатый получал «Позиция: —».
+
+    Словарь возвращается всегда; `rank` — None, если на этом языке у
+    человека нет ни одной месячной строки (баллов тогда ноль).
+    """
+    if learning_lang is None:
+        learning_lang = await _user_learning_lang(user_id, session)
+
+    totals = _lifetime_totals(learning_lang)
+    mine = (await session.execute(
+        select(totals.c.total).where(totals.c.user_id == user_id)
+    )).scalar_one_or_none()
+    total_users = int((await session.execute(
+        select(func.count()).select_from(totals)
+    )).scalar() or 0)
+
+    rank = None
+    if mine is not None:
+        mine = int(mine)
+        higher = int((await session.execute(
+            select(func.count()).select_from(totals).where(totals.c.total > mine)
+        )).scalar() or 0)
+        rank = higher + 1
+
+    wins = await _wins_by_user(session, [user_id], learning_lang)
+    learned = await _learned_by_user(session, [user_id], learning_lang)
+    return {
+        'rank': rank,
+        'total_users': total_users,
+        'learning_lang': learning_lang,
+        'lifetime_score': mine or 0,
+        'total_wins': wins.get(user_id, 0),
+        'words_learned': learned.get(user_id, 0),
+    }
 
 # ============================================================================
 # ИЗВЕЩЕНИЕ О НАГРАДЕ
