@@ -214,6 +214,16 @@ async def play_round(session, user: User, pair: LanguagePair, length: int,
                     f"{pair.learning}->{pair.native} вопрос {number}: "
                     f"у вопроса вслух {len(buttons)} кнопок вместо двух"
                 )
+        elif channel is QuizChannel.AUDIO:
+            # Четыре варианта и пятая — «Пропустить»: звук бывает нельзя
+            # включить (владелец, 14.10: «может ночью»)
+            answers = [b for b in buttons if (b.callback_data or "").startswith("answer_")]
+            skips = [b for b in buttons if b.callback_data == "listen_skip"]
+            if len(answers) != 4 or len(skips) != 1:
+                problems.append(
+                    f"{pair.learning}->{pair.native} вопрос {number}: у вопроса на "
+                    f"слух {len(answers)} вариантов и {len(skips)} «Пропустить»"
+                )
         elif len(buttons) != 4:
             problems.append(
                 f"{pair.learning}->{pair.native} вопрос {number}: "
