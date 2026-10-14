@@ -379,3 +379,40 @@ async def test_back_from_round_settings_returns_to_the_result(session, user, sta
     await dp.feed_update(bot, press(user.id, BACK_FROM_RESULT, message_id=778))
     deleted = {p["message_id"] for n, p in recorder.calls if n == "DeleteMessage"}
     assert deleted == {778}, f"«Назад» удалил не только экран настроек: {deleted}"
+
+
+async def test_speech_gives_three_tries_and_counts_the_third(session, user, stage, monkeypatch):
+    """
+    «Почему бы не дать возможность перезаписать? … на 3-тий раз точно
+    правильно засчитываем, он ведь старался!» — владелец, 14 октября.
+    """
+    dp, bot, recorder = await _speech_round(
+        session, user, stage, monkeypatch,
+        [("Verstrahlt!", False, False)] * 3,
+    )
+    session_id = (await _ctx(dp, bot, user).get_data())["session_id"]
+
+    await dp.feed_update(bot, voice_update(user.id))
+    await dp.feed_update(bot, voice_update(user.id))
+    assert await _rows(session, session_id) == 0, "неудачная попытка записалась ответом"
+
+    await dp.feed_update(bot, voice_update(user.id))
+    row = (await session.execute(
+        select(QuizQuestion).where(QuizQuestion.session_id == session_id)
+    )).scalar_one()
+    assert row.is_correct, "третья попытка не засчитана"
+
+
+async def test_a_good_second_try_is_recorded_once(session, user, stage, monkeypatch):
+    dp, bot, recorder = await _speech_round(
+        session, user, stage, monkeypatch,
+        [("Verstrahlt!", False, False), (True, True, False)],
+    )
+    session_id = (await _ctx(dp, bot, user).get_data())["session_id"]
+    await dp.feed_update(bot, voice_update(user.id))
+    await dp.feed_update(bot, voice_update(user.id))
+
+    rows = (await session.execute(
+        select(QuizQuestion).where(QuizQuestion.session_id == session_id)
+    )).scalars().all()
+    assert len(rows) == 1 and rows[0].is_correct

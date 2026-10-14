@@ -10,6 +10,7 @@
 """
 
 import asyncio
+import html
 import logging
 from datetime import date, timedelta
 from typing import Optional
@@ -163,6 +164,10 @@ async def _reset_round_state(state: FSMContext) -> dict:
 # Сообщения вокруг вопроса «Говорю», которые убираются при переходе дальше:
 # голосовые человека, «Не разобрал…», присланный эталон.
 S_STRAY = "stray_message_ids"
+
+# Попытки голосом на текущем вопросе: третья засчитывается верной
+S_SPEECH_TRIES = "speech_tries"
+SPEECH_ATTEMPTS = 3
 
 
 async def _remember_stray(state: FSMContext, *message_ids: int) -> None:
@@ -1125,6 +1130,29 @@ async def process_voice_answer(message: Message, state: FSMContext, session: Asy
         await _remember_stray(state, message.message_id, retry.message_id)
         return
 
+    # ТРИ ПОПЫТКИ, И ТРЕТЬЯ ЗАСЧИТЫВАЕТСЯ. Владелец, 14 октября: «почему бы
+    # не дать возможность юзеру перезаписать? и если уж 3 раза неправильно —
+    # не давать 4-ю… давай на 3-тий раз точно правильно засчитываем, он ведь
+    # старался! я думаю это ошибка будет точно бота, а не человека». Живой
+    # пример: «der Streit» распознавалось как «Verstrahlt!». Первые две
+    # неудачи не записываются — человек видит, что услышано, и пишет снова;
+    # третья засчитывается верной. Неразобранная запись (выше) попытку не
+    # тратит: там нечего сравнивать.
+    attempt = int(data.get(S_SPEECH_TRIES) or 0) + 1
+    if not verdict.matched and attempt < SPEECH_ATTEMPTS:
+        await _release_answer(state, message.chat.id)
+        await state.update_data(**{S_SPEECH_TRIES: attempt})
+        # Значения — до вызова: вложенный вызов внутри аргументов рвёт разбор
+        # в `test_format_parameters_match`
+        heard = html.escape(verdict.heard)
+        following = attempt + 1
+        retry = await message.answer(get_text(
+            "speech_try_again", lang, heard=heard,
+            attempt=following, total=SPEECH_ATTEMPTS,
+        ))
+        await _remember_stray(state, message.message_id, retry.message_id)
+        return
+
     await _remember_stray(state, message.message_id)
 
     asked_at = data.get("asked_at")
@@ -1135,7 +1163,7 @@ async def process_voice_answer(message: Message, state: FSMContext, session: Asy
     await _record_answer(
         bot=message.bot, chat_id=message.chat.id, state=state, session=session,
         user=user, pair=pair, lang=lang, correct_word=correct_word,
-        is_correct=verdict.matched, channel=channel,
+        is_correct=verdict.matched or attempt >= SPEECH_ATTEMPTS, channel=channel,
         answer_text=verdict.heard,
         session_id=data["session_id"], correct_answers=data["correct_answers"],
         errors=data["errors"], response_seconds=response_seconds,
@@ -1476,6 +1504,8 @@ async def show_next_question(callback: CallbackQuery, state: FSMContext, session
 async def _advance(callback: CallbackQuery, state: FSMContext, session: AsyncSession):
     """Следующий вопрос, доска или итог. На нажатие уже ответили."""
     await _sweep_stray(callback.bot, callback.message.chat.id, state)
+    # Новый вопрос — попытки голосом снова с первой
+    await state.update_data(**{S_SPEECH_TRIES: 0})
     data = await state.get_data()
     current_question = data["current_question"] + 1
     total_questions = data["total_questions"]

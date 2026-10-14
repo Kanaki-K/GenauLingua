@@ -395,54 +395,48 @@ def test_a_report_is_worth_more_than_a_learned_word():
 
     14 октября владелец поднял цену: «подтверждённый репорт я считаю должно
     быть 15 а то и 20. Чем больше помогают и это подтверждают — больше
-    пользы боту = выше награда». Жалоба теперь дороже круга, и прежнее
-    условие «дешевле занятия» снято сознательно. Взамен — потолок за месяц:
-    жалобы не должны решать таблицу, иначе её выиграет самый жалобливый.
-    Потолок — не больше полутора средних месячных баллов (около ста).
+    пользы боту = выше награда». Жалоба дороже выученного слова и не
+    дешевле занятия.
     """
     assert MonthlyStats.POINTS_PER_REPORT > MonthlyStats.POINTS_PER_WORD
     assert MonthlyStats.POINTS_PER_REPORT >= MonthlyStats.POINTS_PER_ROUND
-    cap = MonthlyStats.POINTS_PER_REPORT * MonthlyStats.REPORT_REWARDS_PER_SEASON
-    assert 0 < cap <= 150, f"потолок жалоб за месяц {cap} — решает таблицу"
 
 
 # ============================================================================
-# ПОТОЛОК ЗА МЕСЯЦ — антиабуз цены в 15 баллов
+# ПЛАТИМ ЗА КАЖДУЮ ПОДТВЕРЖДЁННУЮ — потолка нет
 # ============================================================================
 
-async def test_reports_over_the_monthly_cap_are_thanked_without_points(session, user):
+async def test_every_confirmed_report_is_paid(session, user):
     """
-    Десять оплаченных жалоб в месяц, дальше — спасибо без баллов.
-
-    Без потолка двадцать жалоб в день по 15 давали бы 300 баллов за день
-    без единого круга, при среднем месячном балле около ста.
+    Владелец: «мы платим всегда, если реально репорт подтверждает, что
+    ошибка была! Абуз — это нельзя чтобы на 1 слово несколько раз
+    присылали». Месячный потолок в десять жалоб был — и снят.
     """
-    from app.locales import get_text
-
-    cap = MonthlyStats.REPORT_REWARDS_PER_SEASON
     words = []
-    for i in range(cap + 2):
+    for i in range(12):
         word = make_word(f"Entwurf{i}", level=CEFRLevel.A1, ru=f"черновик{i}")
         session.add(word)
         words.append(word)
     await session.commit()
 
-    for word in words[:cap]:
+    for word in words:
         await _report(session, user, word)
-        await _approve(session, word)
-    assert await _bonus(session, user.id) == cap * REPORT_REWARD_POINTS
+        recorder = await _approve(session, word)
+        assert len(_told(recorder, user.id)) == 1
 
-    await _report(session, user, words[cap])
-    recorder = await _approve(session, words[cap])
+    assert await _bonus(session, user.id) == len(words) * REPORT_REWARD_POINTS, (
+        "подтверждённая жалоба осталась без баллов"
+    )
 
-    assert await _bonus(session, user.id) == cap * REPORT_REWARD_POINTS, (
-        "жалоба сверх потолка принесла баллы"
+
+async def test_one_word_pays_once_however_often_it_is_reported(session, user):
+    """Антиабуз по слову: за одно слово человеку платят один раз."""
+    word = await _word(session)
+    await _report(session, user, word, kind="text")
+    await _press_approve(session, f"admin:report_approve_text_{word.id}")
+    await _report(session, user, word, kind="audio")
+    await _press_approve(session, f"admin:report_approve_audio_{word.id}")
+
+    assert await _bonus(session, user.id) == REPORT_REWARD_POINTS, (
+        "за одно слово заплачено дважды"
     )
-    told = _told(recorder, user.id)
-    assert len(told) == 1, "автора сверх потолка не поблагодарили"
-    capped_head = get_text("report_approved_capped", "ru", word="X", limit=cap).split("—")[0]
-    assert told[0].startswith(capped_head[:8]) and f"+{REPORT_REWARD_POINTS}" not in told[0], (
-        f"сверх потолка обещаны баллы: {told[0]!r}"
-    )
-    alert = next(a for a in recorder.alerts() if a)
-    assert "потолок" in alert, f"админ не видит, что балл не начислен: {alert!r}"

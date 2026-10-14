@@ -16,6 +16,14 @@
 """
 
 from app.locales import LOCALES
+
+# Начала строк поощрения — из локали, а не выписаны: формулировки меняются
+# (14.10 «круг» стал «занятием», «слов в работе» — «изучаемых слов»), и
+# проверка, сверявшая текст дословно, падала на каждой правке
+from app.locales import get_text as _gt
+
+PROGRESS_HEAD = _gt("praise_progress", "ru", count=0, target=0, left=0).split(":")[0]
+FIRST_HEAD = _gt("praise_first_round", "ru").split(".")[0]
 from app.services.praise_service import (
     COMEBACK_DAYS, MILESTONES, PERFECT_MIN_ANSWERS, RoundFacts, build_lines,
     crossed_milestone, next_milestone, pick_event, pick_shift,
@@ -372,7 +380,7 @@ async def test_the_praise_block_reaches_the_screen(session, user, stage):
     await _play(dp, bot, recorder, user)
 
     everything = "\n".join(recorder.sent_texts())
-    assert "Слов в работе" in everything, (
+    assert PROGRESS_HEAD in everything, (
         f"блока поощрения нет в итоге: {recorder.last_text()!r}"
     )
 
@@ -401,7 +409,7 @@ async def test_the_very_first_round_is_greeted(session, user, stage):
     await _play(dp, bot, recorder, user)
 
     everything = "\n".join(recorder.sent_texts())
-    assert "Первый круг пройден" in everything, everything[-400:]
+    assert FIRST_HEAD in everything, everything[-400:]
 
 
 async def test_the_repeat_round_gets_no_praise(session, user, stage):
@@ -428,7 +436,7 @@ async def test_the_repeat_round_gets_no_praise(session, user, stage):
         await dp.feed_update(bot, press(user.id, "next_question"))
 
     everything = "\n".join(recorder.sent_texts())
-    assert "Слов в работе" not in everything, (
+    assert PROGRESS_HEAD not in everything, (
         f"повтор получил поощрение: {everything[-400:]!r}"
     )
     assert "Баллы: +" not in everything, "повтор показал баллы"

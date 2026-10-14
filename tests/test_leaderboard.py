@@ -234,7 +234,8 @@ class TestPerLanguageSeasons:
 
         for uid, lang, score in [(1, "de", 100), (2, "de", 50), (3, "en", 200)]:
             session.add(MonthlyStats(user_id=uid, season_id=season.id,
-                                     learning_lang=lang, monthly_score=score))
+                                     learning_lang=lang, monthly_score=score,
+                                     monthly_quizzes=1))
         await session.commit()
 
         de_board = await get_monthly_leaderboard(session, season.id, learning_lang="de")
@@ -278,7 +279,8 @@ class TestFinalizeSeason:
 
         for uid, lang, score in users:
             session.add(MonthlyStats(user_id=uid, season_id=season.id,
-                                     learning_lang=lang, monthly_score=score))
+                                     learning_lang=lang, monthly_score=score,
+                                     monthly_quizzes=1))
         await session.commit()
 
         await finalize_season(season.id, session)
@@ -300,7 +302,8 @@ class TestFinalizeSeason:
         await session.commit()
         for uid, lang, score in users:
             session.add(MonthlyStats(user_id=uid, season_id=season.id,
-                                     learning_lang=lang, monthly_score=score))
+                                     learning_lang=lang, monthly_score=score,
+                                     monthly_quizzes=1))
         await session.commit()
 
         await finalize_season(season.id, session)
@@ -319,7 +322,8 @@ class TestFinalizeSeason:
                          native_lang="ru", interface_language="ru"))
         await session.commit()
         session.add(MonthlyStats(user_id=1, season_id=season.id,
-                                 learning_lang="de", monthly_score=100))
+                                 learning_lang="de", monthly_score=100,
+                                 monthly_quizzes=1))
         await session.commit()
 
         await finalize_season(season.id, session)
@@ -469,7 +473,8 @@ async def _two_language_winner(session, season):
     for uid, lang, score in ((1, "de", 300), (2, "de", 200),
                              (1, "en", 250), (3, "en", 100)):
         session.add(MonthlyStats(user_id=uid, season_id=season.id,
-                                 learning_lang=lang, monthly_score=score))
+                                 learning_lang=lang, monthly_score=score,
+                                     monthly_quizzes=1))
     await session.commit()
 
 
@@ -597,3 +602,36 @@ class TestRoundAtTheMonthBoundary:
         assert (season.year, season.month) == (2026, 11)
         assert stat.monthly_quizzes == 1
         assert stat.total_correct == 8
+
+
+class TestMonthlyResultsAreFair:
+    """
+    Итоги месяца, 14 октября: владелец «проверь логику, должно быть
+    адекватно». Два дефекта: при равных баллах золото получал один из двух
+    первых, а медаль давалась и тому, кто за месяц не занимался вовсе.
+    """
+
+    async def _close(self, session, rows):
+        from app.database.models import MonthlyAward
+
+        season = await create_new_season(2026, 4, session)
+        for uid, score, lessons in rows:
+            session.add(User(id=uid, first_name=f"U{uid}", learning_lang="de",
+                             native_lang="ru", interface_language="ru"))
+        await session.commit()
+        for uid, score, lessons in rows:
+            session.add(MonthlyStats(user_id=uid, season_id=season.id, learning_lang="de",
+                                     monthly_score=score, monthly_quizzes=lessons))
+        await session.commit()
+        await finalize_season(season.id, session)
+        awards = (await session.execute(select(MonthlyAward))).scalars().all()
+        return {a.user_id: (a.rank, a.award_type) for a in awards}
+
+    async def test_equal_scores_share_the_place_and_the_medal(self, session):
+        got = await self._close(session, [(1, 200, 3), (2, 200, 2), (3, 150, 1)])
+        assert got[1] == (1, "gold") and got[2] == (1, "gold"), got
+        assert got[3] == (3, "bronze"), f"после двух первых — третье место: {got}"
+
+    async def test_no_medal_without_a_lesson_this_month(self, session):
+        got = await self._close(session, [(1, 200, 3), (2, 15, 0), (3, 0, 0)])
+        assert set(got) == {1}, f"медаль за присутствие без занятий: {got}"

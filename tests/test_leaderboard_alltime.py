@@ -48,7 +48,8 @@ async def _stats(session, season, rows):
     """rows: [(user_id, learning_lang, monthly_score)]"""
     for uid, lang, score in rows:
         session.add(MonthlyStats(user_id=uid, season_id=season.id,
-                                 learning_lang=lang, monthly_score=score))
+                                 learning_lang=lang, monthly_score=score,
+                                     monthly_quizzes=1))
     await session.commit()
 
 

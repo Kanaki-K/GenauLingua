@@ -684,12 +684,30 @@ async def finalize_season(season_id: int, session: AsyncSession):
     winners: set[int] = set()
 
     for lang, lang_stats in by_lang.items():
-        logger.info(f"  {lang}: {len(lang_stats)} участников")
+        # В ИТОГАХ — ТОЛЬКО ТЕ, КТО ЗАНИМАЛСЯ. Прежде место и медаль получал
+        # любой ряд месяца, включая ноль баллов и ни одного занятия: из двух
+        # учащих язык второй, не открывавший бота, получал «серебро» за
+        # присутствие. Владелец: «проверь логику, должно быть адекватно»
+        ranked = [s for s in lang_stats
+                  if (s.monthly_score or 0) > 0 and (s.monthly_quizzes or 0) > 0]
+        logger.info(f"  {lang}: {len(ranked)} в итогах из {len(lang_stats)}")
 
-        for rank, stat in enumerate(lang_stats, 1):
+        # РАВНЫЕ БАЛЛЫ — РАВНОЕ МЕСТО И РАВНАЯ НАГРАДА («1, 1, 3»). Прежде
+        # место было номером строки: при равенстве таблица показывала двух
+        # 🥇, а золото доставалось одному — тому, кого база отдала первым.
+        # Таблица считает место так же (`get_monthly_leaderboard`)
+        scores = [s.monthly_score for s in ranked]
+        for stat in lang_stats:
+            stat.final_rank = None
+        places = []
+        for stat in ranked:
+            rank = 1 + sum(1 for other in scores if other > stat.monthly_score)
             stat.final_rank = rank
+            places.append((rank, stat))
 
-        for rank, stat in enumerate(lang_stats[:10], 1):
+        for rank, stat in places:
+            if rank > 10:
+                continue
             user = await session.get(User, stat.user_id)
             if not user:
                 continue
