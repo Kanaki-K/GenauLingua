@@ -124,7 +124,7 @@ def _pct(part: int, whole: int) -> str:
 def format_report(r: Report) -> str:
     """Сообщение владельцу. По-русски: это служебный отчёт, как админка."""
     days = max(0, (r.now - r.since).days)
-    hours = int((r.now - r.since).total_seconds() // 3600)
+    hours = max(0, int((r.now - r.since).total_seconds() // 3600))
     period = f"{days} дн." if days else f"{hours} ч"
     lines = [
         f"<b>Отчёт о рассылке 2.0</b> · прошло {period}",
