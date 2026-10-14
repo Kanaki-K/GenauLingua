@@ -59,6 +59,34 @@ CHECKS = {
 EXPECTED_TO_CHANGE = {"reminders_on", "user_words_rows"}
 
 
+def merge_bound_ok(key: str, before: dict, now: dict) -> bool:
+    """
+    Изменение, допустимое ТОЛЬКО В ПРЕДЕЛАХ СКЛЕЙКИ строк прогресса.
+
+    Перенос словаря сводит формы к словарной («kuck» → «gucken»), и две
+    строки прогресса одного человека склеиваются в одну; «выучено» при этом
+    — логическое ИЛИ. Если выучены были обе, отметок становится на одну
+    меньше, хотя не потеряно ничего. Репетиция на копии прода 14.10:
+    строк 21 554 → 21 427, выученных 1 573 → 1 566 — шесть склеек двух
+    выученных и одна трёх, построчно 0 потерь из 21 427.
+
+    Поэтому: строк не больше, чем было; выученных не больше, чем было, и
+    убыль не больше убыли строк — каждая склейка убирает одну строку и не
+    больше одной отметки. Настоящая потеря выученных (без склейки) этот
+    предел нарушит.
+    """
+    if key == "user_words_rows":
+        return now[key] <= before[key]
+    if key == "uw_learned":
+        rows_lost = before["user_words_rows"] - now["user_words_rows"]
+        return 0 <= before[key] - now[key] <= max(rows_lost, 0)
+    return False
+
+
+# Меняются только в пределах склейки (`merge_bound_ok`)
+MERGE_BOUNDED = {"uw_learned"}
+
+
 def snapshot() -> dict:
     out = {}
     with create_engine(settings.DATABASE_URL_SYNC).connect() as c:
@@ -87,9 +115,16 @@ def main() -> int:
     bad = []
     for key in CHECKS:
         a, b = before.get(key), now.get(key)
-        mark = "  " if a == b else ("~ " if key in EXPECTED_TO_CHANGE else "≠ ")
+        if a == b:
+            ok, mark = True, "  "
+        elif key in MERGE_BOUNDED or key == "user_words_rows":
+            ok = merge_bound_ok(key, before, now)
+            mark = "~ " if ok else "≠ "
+        else:
+            ok = key in EXPECTED_TO_CHANGE
+            mark = "~ " if ok else "≠ "
         print(f"{mark}{key:16} {a!s:>34} -> {b}")
-        if a != b and key not in EXPECTED_TO_CHANGE:
+        if not ok:
             bad.append(key)
     if bad:
         print(f"\nСТОП: изменилось то, что меняться не должно: {', '.join(bad)}")

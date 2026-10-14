@@ -405,10 +405,23 @@ def first_on_tile(target: list[str], lang: str) -> list[str]:
     """
     if not target or target[0] in _ALWAYS_UPPER:
         return list(target)
+    first = target[0]
+    # КРОМЕ НЕМЕЦКОГО — СТРОЧНЫМ ЛЮБОЕ ПЕРВОЕ СЛОВО. Там, где с большой
+    # пишется только начало фразы, заглавная кнопка одна — и это ответ на
+    # вопрос «что первым». Проба 14.10 по 400 словам: так выдавалось начало
+    # у en 76, pl 261, tr 278, uk 176, ru 198 заданий; закрытые списки
+    # ловили лишь артикли и местоимения. Не трогаются аббревиатуры («USA»)
+    # и турецкое имя с падежом через апостроф («İstanbul'da»)
+    if lang != "de":
+        acronym = len(first) > 1 and first.isupper()
+        proper_tr = lang == "tr" and ("'" in first or "’" in first)
+        if acronym or proper_tr:
+            return list(target)
+        return [_lower(first, lang), *target[1:]]
     closed = {fold(w) for w in _closed_list(lang)}
-    if fold(target[0]) not in closed:
+    if fold(first) not in closed:
         return list(target)
-    return [_lower(target[0], lang), *target[1:]]
+    return [_lower(first, lang), *target[1:]]
 
 
 def pick_distractors(

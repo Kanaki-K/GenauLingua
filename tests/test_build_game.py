@@ -106,6 +106,23 @@ async def test_the_first_capital_gives_nothing_away():
     assert bs.first_on_tile(["İçin", "geldi", "o"], "tr")[0] == "için"
 
 
+@pytest.mark.parametrize("lang,words,shown", [
+    # Проба 14.10: первое слово было единственной заглавной кнопкой
+    ("ru", ["Полиция", "конфисковала", "документы"], "полиция"),
+    ("uk", ["Корови", "паслися", "на", "пасовищі"], "корови"),
+    ("pl", ["Cena", "jest", "do", "negocjacji"], "cena"),
+    ("tr", ["Masa", "örtüsü", "güzel"], "masa"),
+    ("tr", ["Işık", "yanıyor", "şimdi"], "ışık"),
+    ("en", ["That's", "very", "far", "away"], "that's"),
+    # Не трогаются: аббревиатура, турецкое имя с падежом, «I»
+    ("en", ["USA", "is", "big"], "USA"),
+    ("tr", ["İstanbul'da", "yaşıyorum", "şimdi"], "İstanbul'da"),
+    ("en", ["I", "am", "here"], "I"),
+])
+def test_first_word_never_gives_away_the_start(lang, words, shown):
+    assert bs.first_on_tile(words, lang)[0] == shown
+
+
 @pytest.mark.parametrize("level,traps", [
     (CEFRLevel.A1, 2), (CEFRLevel.A2, 3), (CEFRLevel.B1, 3),
     (CEFRLevel.B2, 4), (CEFRLevel.C1, 5), (CEFRLevel.C2, 5),
