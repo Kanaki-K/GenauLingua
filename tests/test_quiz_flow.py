@@ -173,7 +173,7 @@ async def test_audio_question_without_a_clip_becomes_a_text_question(
     Канал меняется вместе с вопросом — и засчитан ответ будет текстовым,
     что верно: на слух ученик его не давал.
     """
-    from app.bot.handlers.quiz import game
+    from app.bot.handlers.quiz import listen
 
     words = await _seed(session)
     pair = LanguagePair(learning="de", native="ru", reverse=False)
@@ -181,9 +181,9 @@ async def test_audio_question_without_a_clip_becomes_a_text_question(
     async def no_clip(*args, **kwargs):
         return None
 
-    monkeypatch.setattr(game, "_question_clip", no_clip)
+    monkeypatch.setattr(listen, "_question_clip", no_clip)
 
-    clip, channel, options = await game._clip_or_text(
+    clip, channel, options = await listen._clip_or_text(
         session, user, words[0], pair, QuizChannel.AUDIO, options=[]
     )
 
@@ -200,7 +200,7 @@ async def test_text_question_is_left_alone_when_there_is_no_clip(
     клипа для него — норма (так в обратном направлении всегда), и
     пересобирать там нечего.
     """
-    from app.bot.handlers.quiz import game
+    from app.bot.handlers.quiz import listen
 
     words = await _seed(session)
     pair = LanguagePair(learning="de", native="ru", reverse=True)
@@ -208,10 +208,10 @@ async def test_text_question_is_left_alone_when_there_is_no_clip(
     async def no_clip(*args, **kwargs):
         return None
 
-    monkeypatch.setattr(game, "_question_clip", no_clip)
+    monkeypatch.setattr(listen, "_question_clip", no_clip)
 
     sentinel = [("x", "y")]
-    clip, channel, options = await game._clip_or_text(
+    clip, channel, options = await listen._clip_or_text(
         session, user, words[0], pair, QuizChannel.TEXT, options=sentinel
     )
 

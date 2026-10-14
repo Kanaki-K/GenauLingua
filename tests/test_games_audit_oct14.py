@@ -31,6 +31,7 @@ from sqlalchemy import func, select, text
 
 from app.bot.handlers.quiz import game as G
 from app.bot.handlers.quiz import lesson_state as LS
+from app.bot.handlers.quiz import listen as L
 from app.core.clock import utcnow
 from app.database.enums import CEFRLevel, QuizChannel, QuizMode
 from app.database.models import QuizQuestion, QuizSession, User, UserWord, Word
@@ -434,6 +435,7 @@ async def test_a_dead_slow_clip_is_forgotten_and_resent(session, user, stage, mo
                          title=c.title, filename=c.filename, data=b"y" * 600)
 
     monkeypatch.setattr(G, "clip_for_user", clip)
+    monkeypatch.setattr(L, "clip_for_user", clip)
     monkeypatch.setattr(G, "forget", forget)
     monkeypatch.setattr(G, "reobtain", reobtain)
 
@@ -492,6 +494,7 @@ async def _speech_round(session, user, stage, monkeypatch, verdicts):
 
     monkeypatch.setattr(G, "generate_question", forced)
     monkeypatch.setattr(G, "clip_for_user", no_clip)
+    monkeypatch.setattr(L, "clip_for_user", no_clip)
     monkeypatch.setattr(G, "check_pronunciation", judge)
     monkeypatch.setattr(bot, "download", download, raising=False)
 

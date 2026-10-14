@@ -404,11 +404,11 @@ class TestBlindClip:
         """Вопрос на слух берёт клип вслепую — проверка по коду обработчика."""
         import inspect
 
-        from app.bot.handlers.quiz import game
+        from app.bot.handlers.quiz import listen
 
         import re
 
-        source = inspect.getsource(game._question_clip)
+        source = inspect.getsource(listen._question_clip)
         audio_branch = source.split("if channel is QuizChannel.AUDIO:")[1].split("if pair.reverse")[0]
         # Ищется САМ ВЫЗОВ, а не упоминание: первая редакция проверки искала
         # слово «KIND_BLIND» во всей ветке, находила его в комментарии и

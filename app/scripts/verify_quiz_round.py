@@ -142,7 +142,7 @@ async def _cleanup(session) -> None:
 async def play_round(session, user: User, pair: LanguagePair, length: int,
                      problems: list[str], seen: collections.Counter) -> None:
     """Один круг целиком, теми же функциями, что и в обработчике."""
-    from app.bot.handlers.quiz.game import _clip_or_text
+    from app.bot.handlers.quiz.listen import _clip_or_text
     from app.bot.handlers.quiz.question import _question_keyboard, _question_text
 
     used: list[int] = []
