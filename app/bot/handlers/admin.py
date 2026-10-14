@@ -182,7 +182,7 @@ async def _get_main_stats(session: AsyncSession) -> str:
     # НИКТО: в `start_source` всегда уходило «menu». Метрика не могла стать
     # ненулевой ни при каких условиях и показывала 0 как факт. Пометка
     # берётся из того же места, откуда её пишет обработчик
-    from app.bot.handlers.quiz.game import SOURCE_REMINDER
+    from app.bot.handlers.quiz.sources import SOURCE_REMINDER
 
     notif_sessions_result = await session.execute(
         select(func.count())
@@ -522,7 +522,7 @@ async def admin_games(callback: CallbackQuery, session: AsyncSession):
     # ОТКУДА НАЧИНАЮТ — замер петли возврата. Подписи берутся из того же
     # места, где живут сами пометки (`game.SOURCE_LABELS`): прежде они были
     # выписаны здесь руками, и в соседнем экране — по-другому
-    from app.bot.handlers.quiz.game import source_label
+    from app.bot.handlers.quiz.sources import source_label
 
     sources = (await session.execute(
         select(QuizSession.start_source, func.count())
@@ -2015,7 +2015,7 @@ async def admin_user_details(message: Message, session: AsyncSession):
 
     # Двери входа — подписями из одного источника, а не сырыми пометками:
     # прежде здесь выводилось «menu: 3, again: 1»
-    from app.bot.handlers.quiz.game import source_label
+    from app.bot.handlers.quiz.sources import source_label
 
     doors = (await session.execute(
         select(QuizSession.start_source, func.count())

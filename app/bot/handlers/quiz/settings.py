@@ -186,7 +186,7 @@ async def _show_done_after_result(
     итог, экран настроек над ним, предложение уровня. Прежде тема правилась
     на месте, и устаревший итог оставался висеть выше.
     """
-    from app.bot.handlers.quiz.game import SOURCE_AGAIN
+    from app.bot.handlers.quiz.sources import SOURCE_AGAIN
 
     lang = user.interface_language or DEFAULT_LOCALE
     keyboard = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(

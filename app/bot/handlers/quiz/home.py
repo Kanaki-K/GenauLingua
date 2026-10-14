@@ -358,7 +358,8 @@ async def learn_now(callback: CallbackQuery, state: FSMContext, session: AsyncSe
     переписке живёт прежняя кнопка, и убери фильтр — она молча перестанет
     работать.
     """
-    from app.bot.handlers.quiz.game import SOURCE_HOME, source_from_callback, start_lesson
+    from app.bot.handlers.quiz.game import start_lesson
+    from app.bot.handlers.quiz.sources import SOURCE_HOME, source_from_callback
 
     await callback.answer()
     source = source_from_callback(callback.data or "", default=SOURCE_HOME)
@@ -428,7 +429,7 @@ async def home_learn_channel(
             )
             return
 
-    from app.bot.handlers.quiz.game import SOURCE_CHANNEL
+    from app.bot.handlers.quiz.sources import SOURCE_CHANNEL
 
     await callback.answer()
     await start_lesson(

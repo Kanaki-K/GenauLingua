@@ -22,7 +22,7 @@
 
 from sqlalchemy import select
 
-from app.bot.handlers.quiz.game import (
+from app.bot.handlers.quiz.sources import (
     KNOWN_SOURCES, SOURCE_AGAIN, SOURCE_CHANNEL, SOURCE_HOME, SOURCE_MENU,
     SOURCE_REMINDER, SOURCE_REPEAT, source_from_callback,
 )

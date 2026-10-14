@@ -44,6 +44,7 @@ from app.bot.handlers.quiz.lesson_state import (
     _reset_round_state,
     _sweep_stray,
 )
+from app.bot.handlers.quiz.sources import SOURCE_MENU, SOURCE_REPEAT
 from app.bot.utils import delete_messages_fast, ensure_anchor
 from app.services.audio_service import (
     KIND_BLIND,
@@ -573,77 +574,6 @@ async def _close_abandoned_sessions(session: AsyncSession, user_id: int) -> None
         stale.exit_reason = "abandoned"
         stale.exit_at_question = stale.answered_questions
     await session.commit()
-
-
-# ============================================================================
-# ОТКУДА НАЧАЛОСЬ ЗАНЯТИЕ
-# ============================================================================
-
-# Прежде в `start_source` ВСЕГДА писалось «menu», какой бы дверью человек
-# ни вошёл. Следствие измерено: 2 295 занятий с пустым источником и 25 с
-# «menu» на 2 320 всего, а метрика админки «Из напоминаний» искала
-# `start_source == 'notification'` — значение, которого не писал НИКТО, и
-# потому не могла стать ненулевой никогда.
-#
-# Это не мелочь учёта. Петля возврата — напоминание → занятие → итог →
-# «ещё круг» — то, что по замеру оказалось главным рычагом (6.85 дней
-# занятий против 1.59). И прямой её замер был невозможен: нельзя отличить
-# круг, начатый с напоминания, от круга с домашнего экрана.
-#
-# Мешала этому и одна подробность: кнопка напоминания, кнопка домашнего
-# экрана и кнопка «ещё круг» несли ОДИН И ТОТ ЖЕ `callback_data`
-# («learn_now»), то есть источник был неразличим даже в принципе. Поэтому
-# у каждой двери теперь своя пометка после двоеточия.
-SOURCE_MENU = "menu"            # реплай-кнопка «📚 Учить» и /quiz
-SOURCE_HOME = "home"            # главная кнопка домашнего экрана
-SOURCE_CHANNEL = "channel"      # прямой вход 🔤 🎧 🎤 с домашнего экрана
-SOURCE_REMINDER = "reminder"    # кнопка в самом напоминании
-SOURCE_AGAIN = "again"          # «▶️ Ещё круг» в итоге прошлого
-SOURCE_START = "start"          # вступительный блок /start
-SOURCE_BOARD = "board"          # итог отдельно открытой доски
-SOURCE_REPEAT = "repeat"        # повтор ошибок
-SOURCE_RELEASE = "release"      # кнопка под патчноутом (send_release_notes)
-
-KNOWN_SOURCES = frozenset({
-    SOURCE_MENU, SOURCE_HOME, SOURCE_CHANNEL, SOURCE_REMINDER,
-    SOURCE_AGAIN, SOURCE_START, SOURCE_BOARD, SOURCE_REPEAT, SOURCE_RELEASE,
-})
-
-# Подписи дверей для админки живут ЗДЕСЬ, рядом с самими пометками. Прежде
-# они были выписаны в трёх местах по-разному: в «Играх» со значками, в
-# «Аналитике» — там искалось значение 'notification', которого не пишет
-# никто, а остальные двери выводились сырым тегом, в карточке человека —
-# тоже сырым. Подпись рядом с пометкой разъехаться не может.
-SOURCE_LABELS: dict[str, str] = {
-    SOURCE_MENU: "кнопка «Учить»",
-    SOURCE_HOME: "домашний экран",
-    SOURCE_CHANNEL: "прямой вход",
-    SOURCE_REMINDER: "напоминание",
-    SOURCE_AGAIN: "ещё круг",
-    SOURCE_START: "вступление",
-    SOURCE_BOARD: "итог доски",
-    SOURCE_REPEAT: "повтор ошибок",
-    SOURCE_RELEASE: "патчноут",
-}
-
-
-def source_label(source: Optional[str]) -> str:
-    """Подпись двери. Незнакомая пометка показывается как есть, а не прячется."""
-    if not source:
-        return "без пометки (история)"
-    return SOURCE_LABELS.get(source, source)
-
-
-def source_from_callback(data: str, default: str = SOURCE_HOME) -> str:
-    """
-    Пометка источника из `callback_data` вида «learn_now:reminder».
-
-    Неизвестное значение сводится к `default` молча: в переписке у людей
-    живут кнопки, отправленные прежними версиями, и ронять занятие из-за
-    незнакомой пометки нельзя.
-    """
-    _, _, tail = data.partition(":")
-    return tail if tail in KNOWN_SOURCES else default
 
 
 def _new_quiz_session(
