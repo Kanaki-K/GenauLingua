@@ -432,6 +432,12 @@ async def obtain_audio(
             data = None
         if data is not None:
             return data
+        # На пути человека второй синтез не запускается: прогрев уже идёт и
+        # сам допишет клип на диск, а ждать ещё 2,5 с поверх уже прошедших —
+        # это те 5–6 секунд, что прод показал 15.10. Разбор выйдет без звука
+        # один раз; со следующего показа клип на диске
+        if live:
+            return None
 
     rate = SLOW_RATE if kind == KIND_SLOW else DEFAULT_RATE
     data = await _synthesize(spoken, voice, live=live, rate=rate)
@@ -486,6 +492,10 @@ async def warm_clip(
     if sent is not None:
         return
 
+    # Повторная проверка: пока шёл запрос к базе выше, тот же клип мог
+    # начать готовиться параллельным нажатием
+    if key in _WARMING:
+        return
     task = asyncio.create_task(obtain_audio(spoken, lang, kind, voice))
     _WARMING[key] = task
 

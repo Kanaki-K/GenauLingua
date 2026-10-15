@@ -69,11 +69,18 @@ async def _answers(session, user: User, correct: int, wrong: int) -> None:
     """
     from sqlalchemy import select
 
-    word = (await session.execute(select(Word))).scalars().first()
+    # Слово ТЕКУЩЕГО уровня: точность считается только по словам уровня
+    # человека (`recent_accuracy`), и ответы на слово прежнего уровня
+    # честно не в счёт
+    word = (await session.execute(
+        select(Word).where(Word.level == user.level)
+    )).scalars().first()
     if word is None:
         session.add(make_word("Haus", level=user.level))
         await build_groups(session, ["de"])
-        word = (await session.execute(select(Word))).scalars().first()
+        word = (await session.execute(
+            select(Word).where(Word.level == user.level)
+        )).scalars().first()
     quiz = QuizSession(
         user_id=user.id, learning_lang=user.learning_lang, level=user.level,
         total_questions=correct + wrong,

@@ -977,6 +977,63 @@ def get_level_pick_keyboard(current: CEFRLevel, lang: str) -> InlineKeyboardMark
     ])
 
 
+def get_level_down_keyboard(current: CEFRLevel, previous: CEFRLevel,
+                            lang: str) -> InlineKeyboardMarkup:
+    """Понижение: согласие и «Остаться на X»."""
+    return InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(
+            text=get_text("level_down_yes", lang, previous=previous.value),
+            callback_data=f"level_down_{previous.value}",
+        )],
+        [InlineKeyboardButton(
+            text=get_text("level_offer_stay", lang, current=current.value),
+            callback_data=f"level_down_no_{previous.value}",
+        )],
+    ])
+
+
+@router.callback_query(F.data.startswith("level_down_"))
+async def answer_level_down(callback: CallbackQuery, session: AsyncSession):
+    """Ответ на предложение уровня ниже: согласие или «остаться»."""
+    from app.services.level_service import decline_lower_level, lower_level
+
+    user = await session.get(User, callback.from_user.id)
+    lang = (user.interface_language if user else None) or DEFAULT_LOCALE
+    if not user:
+        await callback.answer("Error", show_alert=True)
+        return
+    code = callback.data.removeprefix("level_down_")
+    staying = code.startswith("no_")
+    try:
+        target = CEFRLevel(code.removeprefix("no_"))
+    except ValueError:
+        await callback.answer("Error", show_alert=True)
+        return
+
+    if staying:
+        await decline_lower_level(user, session, offered=target)
+        await callback.answer()
+        try:
+            await callback.message.delete()
+        except Exception:
+            pass
+        await _offer_reminders_after_level(callback, session, user, lang)
+        return
+
+    if not await lower_level(user, session, target):
+        # Устаревшая кнопка: уровень уже другой — ничего не меняем
+        await callback.answer()
+        try:
+            await callback.message.delete()
+        except Exception:
+            pass
+        return
+    await callback.answer()
+    done = get_text("level_down_done", lang, previous=target.value)
+    await _show_done_after_result(callback, session, user, done)
+    await _offer_reminders_after_level(callback, session, user, lang)
+
+
 @router.callback_query(F.data.startswith("level_jump_"))
 async def answer_level_pick(callback: CallbackQuery, session: AsyncSession):
     """Новичок выбрал уровень под итогом — сразу на него."""

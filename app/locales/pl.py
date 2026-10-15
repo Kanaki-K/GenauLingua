@@ -604,6 +604,9 @@ TEXTS.update({
     "level_offer_done": "Nowy poziom: <b>{following}</b>. Słowa będą trudniejsze.",
     "level_offer_pick": "Poziom <b>{current}</b> wydaje się łatwy. Proszę wybrać, od którego poziomu kontynuować. Wszystkie postępy zostają.",
     "level_offer_stay": "Zostaję na {current}",
+    "level_down_offer": "Na poziomie <b>{current}</b> jest na razie sporo błędów. Przejść na <b>{previous}</b>? Słowa będą łatwiejsze, wszystkie postępy zostają.",
+    "level_down_yes": "Tak, przejść na {previous}",
+    "level_down_done": "Nowy poziom: <b>{previous}</b>. Słowa będą łatwiejsze.",
 })
 
 

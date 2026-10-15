@@ -82,3 +82,47 @@ async def test_started_words_keep_coming_back_whatever_their_level(session, user
 
     new = await quiz_service.get_new_words(user.id, session, pair, [started.id], user=user)
     assert new is not None and new.id == fresh_low.id, "новое слово пришло не своего уровня"
+
+
+async def test_old_empty_lesson_is_a_real_dropout(session, user):
+    """Открыл первую карточку и ушёл на три дня — это отвал, а не перезапуск."""
+    from datetime import timedelta
+
+    from app.bot.handlers.quiz.lesson import _close_abandoned_sessions
+    from app.core.clock import utcnow
+
+    old = QuizSession(user_id=user.id, level=CEFRLevel.A1, total_questions=7,
+                      answered_questions=0, started_at=utcnow() - timedelta(days=3))
+    session.add(old)
+    await session.commit()
+
+    await _close_abandoned_sessions(session, user.id)
+
+    assert old.exit_reason == "abandoned"
+
+
+async def test_reminders_lead_from_the_second_lesson(session, user):
+    """
+    Выбор уровня впереди напоминаний — только после первого занятия.
+    Проигнорировал и ушёл — со второго напоминания снова первыми.
+    """
+    from app.bot.handlers.quiz.summary import _offer_what_fits
+    from app.services.level_service import NEWCOMER_MIN_ANSWERS
+    from app.testing import make_bot, press
+    from tests.test_level_offer import _answers
+
+    user.level = CEFRLevel.A1
+    user.quizzes_passed = 2
+    user.notifications_enabled = False
+    await _answers(session, user, correct=NEWCOMER_MIN_ANSWERS + 1, wrong=0)
+    bot, recorder = make_bot()
+    callback = press(user.id, "next_question").callback_query.as_(bot)
+
+    await _offer_what_fits(callback, session, user, "ru")
+
+    buttons = [b["callback_data"] for _, p in recorder.calls if p.get("reply_markup")
+               for row in p["reply_markup"]["inline_keyboard"] for b in row]
+    assert not any(b.startswith("level_jump_") for b in buttons), (
+        f"со второго занятия уровень снова впереди напоминаний: {buttons}"
+    )
+    assert buttons, "под итогом ничего не предложено"

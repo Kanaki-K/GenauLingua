@@ -44,7 +44,7 @@ from sqlalchemy import desc, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database.enums import CEFRLevel, QuizMode
-from app.database.models import QuizQuestion, QuizSession, User
+from app.database.models import QuizQuestion, QuizSession, User, Word
 
 logger = logging.getLogger(__name__)
 
@@ -89,6 +89,76 @@ REOFFER_AFTER_ROUNDS = 5
 NEWCOMER_LESSONS = 3
 NEWCOMER_MIN_ANSWERS = 6
 NEWCOMER_ACCURACY = 0.85
+
+
+# ПОНИЖЕНИЕ — ОБРАТНАЯ СТОРОНА ВЫБОРА. Раз уровень можно выбрать одним
+# нажатием, человек может и переоценить себя: встать на C1 и ошибаться
+# через слово. Признак — меньше 60% верных за два занятия (20 ответов):
+# угадывание из четырёх даёт 25%, нормальная учёба — 85–90% (прод 15.10:
+# «Читаю» 87%, «Вспоминаю» 90%). Тоже предложение, а не молча; отказ —
+# спросим снова через те же 5 занятий. Отказ записывается как «B2:down»,
+# чтобы не путать его с отказом подняться
+LOWER_ACCURACY = 0.60
+LOWER_MIN_ANSWERS = MIN_ANSWERS
+DOWN_MARK = ":down"
+
+
+def previous_level(level: Optional[CEFRLevel]) -> Optional[CEFRLevel]:
+    """Предыдущий уровень или None, если ниже некуда."""
+    if level is None or level not in LEVEL_ORDER:
+        return None
+    index = LEVEL_ORDER.index(level)
+    return LEVEL_ORDER[index - 1] if index > 0 else None
+
+
+def _declined_recently(user: User, mark: str) -> bool:
+    """Отказывался ли человек от этого предложения меньше 5 занятий назад."""
+    if user.level_offer_declined != mark:
+        return False
+    declined_at = getattr(user, "level_offer_declined_round", None)
+    played_since = (user.quizzes_passed or 0) - (declined_at or 0)
+    return declined_at is None or played_since < REOFFER_AFTER_ROUNDS
+
+
+async def should_offer_lower_level(
+    user: User, session: AsyncSession
+) -> Optional[CEFRLevel]:
+    """Слишком ли трудно: меньше 60% верных за два занятия. Возвращает уровень ниже."""
+    previous = previous_level(user.level)
+    if previous is None or not level_drives_words(user):
+        return None
+    if _declined_recently(user, user.level.value + DOWN_MARK):
+        return None
+    answered, accuracy = await recent_accuracy(user, session)
+    if answered < LOWER_MIN_ANSWERS or accuracy >= LOWER_ACCURACY:
+        return None
+    return previous
+
+
+async def lower_level(user: User, session: AsyncSession, target: CEFRLevel) -> bool:
+    """Опустить на уровень ниже по согласию. Только на соседний; иначе кнопка устарела."""
+    if target is None or target != previous_level(user.level):
+        return False
+    user.level = target
+    # Без качелей: человек только что ушёл с уровня выше, и предлагать его
+    # снова через два лёгких занятия значило бы гонять туда-сюда. Записано
+    # как отказ подняться с нового уровня — спросим через те же 5 занятий
+    user.level_offer_declined = target.value
+    user.level_offer_declined_round = user.quizzes_passed or 0
+    await session.commit()
+    return True
+
+
+async def decline_lower_level(
+    user: User, session: AsyncSession, offered: Optional[CEFRLevel]
+) -> bool:
+    """Остаться на трудном уровне: спросим снова через 5 занятий."""
+    if offered is None or offered != previous_level(user.level):
+        return False
+    user.level_offer_declined = user.level.value + DOWN_MARK
+    user.level_offer_declined_round = user.quizzes_passed or 0
+    await session.commit()
+    return True
 
 
 def is_newcomer(user: User) -> bool:
@@ -144,6 +214,13 @@ async def recent_accuracy(user: User, session: AsyncSession) -> tuple[int, float
     rows = (await session.execute(
         select(QuizQuestion.is_correct)
         .join(QuizSession, QuizSession.id == QuizQuestion.session_id)
+        # ТОЛЬКО СЛОВА ЭТОГО УРОВНЯ. Повторение начатых слов идёт с любого
+        # уровня (`quiz_service._review_scoped`), и половину занятия может
+        # занять отработка прежнего: прыгнувший A1→B1 набрал бы 90% на
+        # повторах A1 и получил бы «выше» снова, а на C1 лёгкие повторы не
+        # дали бы сработать понижению. Находка независимой проверки 15.10
+        .join(Word, Word.id == QuizQuestion.word_id)
+        .where(Word.level == user.level)
         .where(
             QuizSession.user_id == user.id,
             QuizSession.learning_lang == user.learning_lang,

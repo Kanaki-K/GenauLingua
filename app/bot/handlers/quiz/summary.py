@@ -21,7 +21,9 @@ from app.database.enums import QuizChannel
 from app.database.models import QuizQuestion, QuizSession, User, UserWord, Word
 from app.locales import get_text
 from app.services.language_service import LanguagePair, option_label
-from app.services.level_service import is_newcomer, should_offer_next_level
+from app.services.level_service import (
+    is_newcomer, should_offer_lower_level, should_offer_next_level,
+)
 from app.services.monthly_leaderboard_service import update_monthly_stats
 from app.services.quiz_service import get_user_progress_stats
 from app.services.reminder_service import mark_reminders_offered, should_offer_reminders
@@ -196,7 +198,11 @@ async def _offer_what_fits(
     теряется.
     """
     following = await should_offer_next_level(user, session)
-    if following is not None and is_newcomer(user):
+    # Первым — только после ПЕРВОГО занятия. Проигнорировал выбор и ушёл —
+    # со второго занятия напоминания снова впереди: иначе тот, кто уходит
+    # после первого дня (79%), не получил бы их никогда (находка
+    # независимой проверки 15.10)
+    if following is not None and is_newcomer(user) and (user.quizzes_passed or 0) <= 1:
         await _send_level_offer(callback, user, lang, following)
         return
 
@@ -216,6 +222,23 @@ async def _offer_what_fits(
 
     if following is not None:
         await _send_level_offer(callback, user, lang, following)
+        return
+
+    # Слишком трудно — уровень ниже. Никогда вместе с подъёмом: оба
+    # смотрят на одну точность, и выше 90% и ниже 60% разом не бывает
+    previous = await should_offer_lower_level(user, session)
+    if previous is not None:
+        from app.bot.handlers.quiz.settings import get_level_down_keyboard
+
+        try:
+            await callback.bot.send_message(
+                chat_id=callback.message.chat.id,
+                text=get_text("level_down_offer", lang,
+                              current=user.level.value, previous=previous.value),
+                reply_markup=get_level_down_keyboard(user.level, previous, lang),
+            )
+        except Exception:
+            logger.warning("не удалось предложить уровень ниже", exc_info=True)
 
 
 async def _send_level_offer(callback: CallbackQuery, user: User, lang: str, following) -> None:
@@ -233,7 +256,9 @@ async def _send_level_offer(callback: CallbackQuery, user: User, lang: str, foll
 
     # Выбор — пока выше есть что выбрать до C1; с C1 остаётся только C2, и
     # пустой ряд кнопок Telegram не примет — тогда обычный вопрос
-    if following.value <= PICK_UP_TO.value:
+    from app.services.level_service import LEVEL_ORDER
+
+    if LEVEL_ORDER.index(following) <= LEVEL_ORDER.index(PICK_UP_TO):
 
         text = get_text("level_offer_pick", lang, current=user.level.value)
         keyboard = get_level_pick_keyboard(user.level, lang)

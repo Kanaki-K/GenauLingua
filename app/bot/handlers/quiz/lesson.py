@@ -10,6 +10,7 @@
 """
 
 import logging
+from datetime import timedelta
 from typing import Optional
 
 from aiogram import F, Router
@@ -76,6 +77,10 @@ QUESTION_ATTEMPTS = 10
 # ============================================================================
 
 
+# Пустое занятие моложе этого при новом старте — перезапуск, а не отвал
+RESTART_WINDOW = timedelta(minutes=10)
+
+
 async def _close_abandoned_sessions(session: AsyncSession, user_id: int) -> None:
     """
     Помечать незавершённые сессии как брошенные при старте новой.
@@ -99,7 +104,12 @@ async def _close_abandoned_sessions(session: AsyncSession, user_id: int) -> None
         # человек мог уйти в меню и вернуться — владелец: «по логике верно,
         # новая игра». Поэтому новое занятие начинается как всегда, а
         # прежнее пустое помечается честно
-        stale.exit_reason = "abandoned" if stale.answered_questions else "restarted"
+        # Свежее — моложе десяти минут: открыл первую карточку и ушёл на
+        # три дня — это настоящий отвал на нулевом вопросе, а не перезапуск
+        fresh = stale.started_at and stale.started_at >= utcnow() - RESTART_WINDOW
+        stale.exit_reason = (
+            "restarted" if not stale.answered_questions and fresh else "abandoned"
+        )
         stale.exit_at_question = stale.answered_questions
     await session.commit()
 

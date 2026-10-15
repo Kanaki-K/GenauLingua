@@ -525,3 +525,39 @@ async def test_speech_question_warms_the_slow_clip(session, user, monkeypatch):
     warmed.clear()
     await listen._question_clip(session, user, word, pair_from_user(user), QuizChannel.TEXT)
     assert warmed == [KIND_FULL], "медленный клип нужен только «Говорю»"
+
+
+async def test_human_path_does_not_synthesize_twice_after_a_slow_warmup(session, user, monkeypatch, tmp_path):
+    """
+    Прогрев не успел — разбор не синтезирует второй раз (было до 5–6 с на
+    проде 15.10), а прогрев сам допишет клип.
+    """
+    import asyncio
+
+    from app.services import audio_service as svc
+
+    monkeypatch.setattr(svc.audio_store, "DEFAULT_ROOT", tmp_path / "tts")
+    monkeypatch.setattr(svc, "LIVE_SYNTH_TIMEOUT", 0.05)
+    calls = []
+
+    async def slow(text, voice, timeout=None, rate=None):
+        calls.append(text)
+        await asyncio.sleep(0.3)
+        return b"ID3" + b"x" * 3000
+
+    monkeypatch.setattr(svc, "_synthesize_once", slow)
+    monkeypatch.setattr(svc, "_trimmed", lambda data: data)
+    user.audio_enabled = True
+    word = make_word("Fenster", article="das")
+    session.add(word)
+    await session.commit()
+
+    await svc.warm_clip(session, user, word, "de", svc.KIND_FULL)
+    await asyncio.sleep(0)
+    voice = await svc.voice_for_user(session, user.id, "de")
+    spoken = svc.spoken_for(word, "de", svc.KIND_FULL)
+    data = await svc.obtain_audio(spoken, "de", svc.KIND_FULL, voice, live=True)
+
+    assert data is None and len(calls) == 1, f"синтезов {len(calls)}"
+    await asyncio.gather(*svc._WARMING.values())
+    assert svc.audio_store.exists("de", voice, svc.KIND_FULL, spoken), "прогрев не дописал клип"
