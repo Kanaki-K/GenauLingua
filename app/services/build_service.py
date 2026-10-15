@@ -453,6 +453,24 @@ def first_on_tile(target: list[str], lang: str) -> list[str]:
     return [_lower(first, lang), *target[1:]]
 
 
+def same_stem(a: str, b: str) -> bool:
+    """
+    Две формы одного слова на глаз новичка: общее начало не короче трёх
+    букв и на всю длину короткого, кроме разве что последней буквы —
+    «gehe/geht», «Hund/Hunde», «gute/guten». Лишний отказ (Mut/Mutter)
+    дешевле: у новичка просто будет на ловушку меньше.
+    """
+    fa, fb = fold(a), fold(b)
+    if fa == fb:
+        return True
+    prefix = 0
+    for x, y in zip(fa, fb):
+        if x != y:
+            break
+        prefix += 1
+    return prefix >= 3 and prefix >= min(len(fa), len(fb)) - 1
+
+
 def pick_distractors(
     target: list[str], lang: str, foreign: list[str],
     rng: Optional[random.Random] = None, count: Optional[int] = None,
@@ -505,7 +523,10 @@ def pick_distractors(
     # меньше ловушек, чем двойник (независимая проверка 2.1)
     if easy:
         twins = {fold(s) for token in target for s in _siblings(token, lang)}
-        pool = [w for w in foreign if fold(w) not in twins]
+        # Чужое слово той же основы — тоже форма: к «gehe» — «geht», к
+        # «Hund» — «Hunde». Закрытые списки этого не ловят (аудит 2.1)
+        pool = [w for w in foreign if fold(w) not in twins
+                and not any(same_stem(w, token) for token in target)]
         rng.shuffle(pool)
         closed = [w for w in _closed_list(lang) if fold(w) not in twins]
         rng.shuffle(closed)
