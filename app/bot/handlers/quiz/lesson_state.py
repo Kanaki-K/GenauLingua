@@ -12,7 +12,7 @@ import asyncio
 import logging
 import time
 import uuid
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Optional
 
 from aiogram.fsm.context import FSMContext
@@ -63,7 +63,8 @@ async def _answer_recorded_since(session: AsyncSession, session_id, since: float
     """Записан ли в занятии ответ после момента отметки (секунды эпохи, UTC)."""
     from app.database.models import QuizQuestion
 
-    moment = datetime.utcfromtimestamp(since) - timedelta(seconds=2)
+    # База хранит наивное UTC; utcfromtimestamp устарел (в тестах — ошибка)
+    moment = datetime.fromtimestamp(since, timezone.utc).replace(tzinfo=None) - timedelta(seconds=2)
     return (await session.execute(
         select(QuizQuestion.id).where(QuizQuestion.session_id == session_id,
                                       QuizQuestion.answered_at >= moment).limit(1)

@@ -212,12 +212,14 @@ async def send_nudges(bot: Bot, now_utc: Optional[datetime] = None) -> dict[str,
                 continue
             decision = nudge_plan.decide(state)
             if decision:
-                plans.append((user.id, state, decision))
+                # Отметки, по которым решено, — для захвата: см. _deliver
+                seen = (user.last_notification_sent, user.nudge_anchor, user.nudge_step or 0)
+                plans.append((user.id, state, decision, seen))
 
-        for user_id, state, (kind, step) in plans:
+        for user_id, state, (kind, step), seen in plans:
             try:
                 outcome = await _deliver(bot, session, user_id, state, kind, step, now,
-                                         compose, situation)
+                                         compose, situation, seen)
             except Exception:
                 logger.exception("сообщение %s не обработано (%s)", kind, user_id)
                 await session.rollback()
@@ -229,16 +231,19 @@ async def send_nudges(bot: Bot, now_utc: Optional[datetime] = None) -> dict[str,
     return counts
 
 
-async def _deliver(bot, session, user_id, state, kind, step, now, compose, situation) -> Optional[str]:
+async def _deliver(bot, session, user_id, state, kind, step, now, compose, situation,
+                   seen) -> Optional[str]:
     user = await session.get(User, user_id, populate_existing=True)
     if user is None:
         return None
     holdout = (kind != DAILY and not user.notifications_enabled
                and nudge_plan.in_holdout(user_id))
 
-    # ЗАХВАТ: отметки сверяются с прочитанными — кто успел раньше, тот и пишет
-    previous_sent, previous_anchor, previous_step = (
-        user.last_notification_sent, user.nudge_anchor, user.nudge_step or 0)
+    # ЗАХВАТ: отметки сверяются с теми, по которым РЕШЕНО писать, — кто
+    # успел раньше, тот и пишет. Не с перечитанными: полный прогон 16.10
+    # поймал второй процесс, решивший до коммита первого, а перечитавший
+    # после, — его условие совпало с новыми отметками, и ушло два сообщения
+    previous_sent, previous_anchor, previous_step = seen
     values = {}
     if not holdout:
         values["last_notification_sent"] = now

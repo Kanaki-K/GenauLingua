@@ -512,6 +512,46 @@ async def test_two_processes_send_one_daily(session, own_sessions):
 
 
 @pytest.mark.asyncio
+async def test_late_process_does_not_send_on_a_stale_decision(session, own_sessions, monkeypatch):
+    """
+    Порядок, который прежний тест ловил лишь иногда (полный прогон 16.10):
+    оба процесса решили «писать» до коммита первого, второй дошёл до
+    захвата после. Захват сверялся с перечитанными отметками — уже новыми,
+    первого же процесса, — и второе сообщение уходило. Здесь порядок задан.
+    """
+    import app.schedulers.nudges as nudges
+
+    await _person(session, 5001, opted=True)
+    bot = FakeBot()
+    now = utc(2026, 11, 3, 20, 1)
+
+    both_planned = asyncio.Barrier(2)
+    first_done = asyncio.Event()
+    real_last_done, real_deliver = nudges._last_done, nudges._deliver
+    calls = []
+
+    async def last_done(*args):
+        out = await real_last_done(*args)
+        await both_planned.wait()          # оба решили по одному состоянию
+        return out
+
+    async def deliver(*args, **kwargs):
+        calls.append(1)
+        if len(calls) == 2:
+            await first_done.wait()        # второй — после коммита первого
+        try:
+            return await real_deliver(*args, **kwargs)
+        finally:
+            first_done.set()
+
+    monkeypatch.setattr(nudges, "_last_done", last_done)
+    monkeypatch.setattr(nudges, "_deliver", deliver)
+    await asyncio.gather(nudges.send_nudges(bot, now), nudges.send_nudges(bot, now))
+    assert len(calls) == 2, "оба процесса должны дойти до захвата"
+    assert len(bot.sent) == 1
+
+
+@pytest.mark.asyncio
 async def test_report_tells_works_or_harms(session):
     """Отчёт: вернулись, кнопкой, отписались, заблокировали — и контрольная группа рядом."""
     from app.services.nudge_report import nudge_report, share

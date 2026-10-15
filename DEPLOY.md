@@ -307,10 +307,12 @@ docker compose run --rm app python -m app.scripts.send_release_notes --send     
    памяти. Проверка после запуска: в журнале `Хранилище занятий: RedisStorage`.
    Первую выкатку с Redis занятия ещё оборвёт (они были в памяти); со
    следующей — уже нет.
-2. **Словарь 2.1 — сленг** (13 слов, 29 полей), затем пересчёт производного:
+2. **Словарь 2.1 — сленг** (13 слов, 29 полей) и **примеры** (19 слов, 21 поле:
+   пример не совпадал с немецким, как у meinen), затем пересчёт производного:
    ```bash
    R='docker compose run --rm -T -e ENV_FILE=.env app python -m'
    $R app.scripts.word_fixes_2026_10_slang --apply
+   $R app.scripts.word_fixes_2026_10_examples --apply
    $R app.scripts.rebuild_word_groups
    $R app.scripts.fill_word_frequency
    $R app.scripts.fill_word_levels
