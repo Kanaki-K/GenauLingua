@@ -180,7 +180,12 @@ async def build_reminder_text(user: User, session) -> str:
         user.id, session, pair, level=level, category=category
     )
 
-    text = get_text("notif_message_greeting", lang, name=name) + "\n\n"
+    # Слова — по кругу (патч 2.1): номер дня + номер человека, чтобы один и
+    # тот же текст не приходил изо дня в день
+    from app.locales import rotated
+
+    seed = utcnow().date().toordinal() + int(user.id or 0)
+    text = get_text(rotated("notif_message_greeting", seed), lang, name=name) + "\n\n"
 
     # Шкалы — только когда на них есть что смотреть: у новичка все три
     # полосы пусты, и встречать его тремя нулями незачем
@@ -189,7 +194,7 @@ async def build_reminder_text(user: User, session) -> str:
         text += block + "\n\n"
 
     facts = await collect_reminder_facts(user, session, pair)
-    text += reason_line(facts, lang)
+    text += reason_line(facts, lang, seed=seed)
 
     # ТЕКСТОВОГО ПРИЗЫВА НЕТ: им стала кнопка.
     #

@@ -156,12 +156,15 @@ def pick_reason(facts: ReminderFacts) -> tuple[str, dict]:
     return f"remind_fact_{index}", {}
 
 
-def reason_line(facts: ReminderFacts, lang: Optional[str]) -> str:
-    """Готовая строка повода."""
-    from app.locales import get_text
+def reason_line(facts: ReminderFacts, lang: Optional[str], seed: int = 0) -> str:
+    """
+    Готовая строка повода. Повод — правилом, СЛОВА — по кругу (`rotated`):
+    тот же повод изо дня в день звучит по-разному (патч 2.1).
+    """
+    from app.locales import get_text, rotated
 
     key, params = pick_reason(facts)
-    return get_text(key, lang, **params)
+    return get_text(rotated(key, seed), lang, **params)
 
 
 __all__ = [
