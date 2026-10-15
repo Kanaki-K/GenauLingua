@@ -9,7 +9,7 @@ from sqlalchemy import (
     UniqueConstraint, Index, true as sa_true
 )
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
-from sqlalchemy.dialects.postgresql import ARRAY
+from sqlalchemy.dialects.postgresql import ARRAY, JSONB
 from app.database.enums import (
     CEFRLevel, TranslationMode, PartOfSpeech, QuizMode, WordCategory,
     counted_channels,
@@ -179,7 +179,11 @@ class User(Base):
     # /start) — и какая ступень (день перерыва) по нему уже была. Новый
     # перерыв — новый день — лесенка начинается заново
     nudge_anchor: Mapped[Optional[date]] = mapped_column(Date, nullable=True)
+    # Когда кончился «первый урок» (патч 2.1): первое законченное занятие
+    # ИЛИ 7 ответов всего, даже в брошенных. До этого — лёгкое занятие из 7
+    # карточек частых однословных слов (`quiz_service.in_first_lesson`)
     nudge_step: Mapped[int] = mapped_column(Integer, default=0, server_default="0", nullable=False)
+    onboarded_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
     # Когда человек ЯВНО отказался от напоминаний («Не надо» под
     # предложением или «Не напоминать»). Молчание отказом не считается:
     # `reminder_offered_at` ставится при отправке предложения (патч 2.1)
@@ -1173,5 +1177,44 @@ class NudgeLog(Base):
     __table_args__ = (
         Index("ix_nudge_log_sent", "sent_at"),
         Index("ix_nudge_log_user", "user_id", "sent_at"),
+    )
+
+
+class UserEvent(Base):
+    """
+    Журнал пути человека: нажатия, показанные вопросы, попытки голосом.
+
+    Владелец 16.10: «мы должны иметь возможность разбирать весь путь, чтобы
+    быть лучше после анализа»; «записывать попытки про голосовое — это
+    важно». Разбор дня 15.10 упёрся в то, чего бот не писал: польский
+    новичок нажал 4 раза и ушёл — что именно, не узнать; с какой попытки
+    распознан голос — тоже: в базу шёл только итоговый ответ.
+
+    ТЕКСТА ЛЮДЕЙ ЗДЕСЬ НЕТ: у нажатия — только вид действия (`slow_log.
+    describe`), у голосового — распознанное слово изучаемого языка (это
+    ответ на задание, а не переписка). Номер человека — как во всех
+    таблицах. Разбор пути — `app/scripts/journey.py`.
+    """
+    __tablename__ = "user_events"
+
+    id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=True)
+    # Без внешнего ключа: первое нажатие /start приходит раньше, чем
+    # человек записан в users
+    user_id: Mapped[int] = mapped_column(BigInteger, nullable=False)
+    at: Mapped[datetime] = mapped_column(DateTime, default=utcnow, nullable=False)
+    # tap / msg / question / speech / skip
+    kind: Mapped[str] = mapped_column(String(16), nullable=False)
+    # Действие: «кнопка answer», «голосовое»; исход попытки голосом
+    action: Mapped[Optional[str]] = mapped_column(String(64), nullable=True)
+    session_id: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
+    word_id: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
+    channel: Mapped[Optional[str]] = mapped_column(String(1), nullable=True)
+    ms: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
+    # Подробности: номер вопроса, попытка, услышанное, похожесть…
+    data: Mapped[Optional[dict]] = mapped_column(JSONB, nullable=True)
+
+    __table_args__ = (
+        Index("ix_user_events_user_at", "user_id", "at"),
+        Index("ix_user_events_at", "at"),
     )
 

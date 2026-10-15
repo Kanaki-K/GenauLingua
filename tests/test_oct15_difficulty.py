@@ -28,6 +28,7 @@ async def test_new_word_comes_from_the_common_ones(session, user, monkeypatch):
         session.add(WordFrequency(word_id=w.id, lang="de", zipf=7.0 - i * 0.01))
     user.level = CEFRLevel.A1
     user.quiz_mode = QuizMode.LEVEL
+    user.quizzes_passed = 3          # не первый урок: у него свой отбор
     await session.commit()
 
     common = {w.id for w in words[:5]}

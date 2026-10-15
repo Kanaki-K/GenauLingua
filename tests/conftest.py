@@ -71,7 +71,7 @@ _TRUNCATE_SQL = text(
     "TRUNCATE TABLE "
     "  monthly_quiz_events, monthly_awards, monthly_stats, monthly_seasons,"
     "  win_streaks, translation_reports, quiz_questions, quiz_sessions,"
-    "  user_words, word_lang_groups, words, users "
+    "  user_words, word_lang_groups, words, users, user_events, nudge_log "
     "RESTART IDENTITY CASCADE"
 )
 

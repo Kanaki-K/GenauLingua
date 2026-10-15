@@ -147,14 +147,34 @@ DEFAULT_ROUND_LENGTH = 15
 FIRST_LESSON_LENGTH = 7
 
 
+def in_first_lesson(user) -> bool:
+    """
+    Человек ещё на ПЕРВОМ УРОКЕ (патч 2.1): не закончил ни одного занятия и
+    не ответил на 7 вопросов всего (`users.onboarded_at` пусто).
+
+    ЗАЧЕМ. Прод 15.10: 21 из 32 брошенных занятий брошены на 0–2-м вопросе;
+    польский новичок первым словом получил многозначное «mieć na myśli» и
+    ушёл после первого ответа. Владелец: «первые 7 с лёгкими вопросами,
+    чтобы юзер как можно прошёл первый круг… и получил дофамин». И: «даже
+    если по какой-то причине он его сбросит — чтобы открывалась полноценная
+    игра после первого круга» — поэтому отметка ставится и после 7 ответов
+    в брошенных занятиях: лёгкий режим не держит вечно.
+    """
+    if user is None:
+        return False
+    if getattr(user, "onboarded_at", None) is not None:
+        return False
+    return not (getattr(user, "quizzes_passed", 0) or 0)
+
+
 def lesson_length(user) -> int:
     """
-    Сколько вопросов в занятии. Первое — короче, пока человек не закончил
-    ни одного; дальше — его настройка. Одно место для всех, кто это число
-    показывает: кнопки «Учить N слов», вступление, напоминание.
+    Сколько вопросов в занятии. Первое — короче, пока человек на первом
+    уроке (`in_first_lesson`); дальше — его настройка. Одно место для всех,
+    кто это число показывает: кнопки «Учить N слов», вступление, напоминание.
     """
     chosen = (getattr(user, "quiz_word_count", None) if user is not None else None) or DEFAULT_ROUND_LENGTH
-    if user is not None and not (getattr(user, "quizzes_passed", 0) or 0):
+    if in_first_lesson(user):
         # Короче, но не длиннее выбранного: первое занятие не растягивается
         return min(FIRST_LESSON_LENGTH, chosen)
     return chosen
@@ -250,6 +270,10 @@ async def _pick_one(session: AsyncSession, query) -> Optional[Word]:
 # Haus, Mutter, gut, fahren, а редкое экзаменационное (Familienstand,
 # buchstabieren) приходит позже
 COMMON_POOL = 150
+# Первый урок: из 60 самых частых — однословные существительные, глаголы,
+# прилагательные не длиннее 10 букв (`get_new_words`)
+EASY_POOL = 60
+EASY_MAX_LETTERS = 10
 
 
 # На сколько служебное слово «реже» в очереди новых: der, von, zwischen, but
@@ -262,6 +286,7 @@ COMMON_POOL = 150
 # на 2.5, наречия — на 1.0; в начале — существительные, глаголы, признаки
 FUNCTION_WORD_PENALTY = 2.5
 ADVERB_PENALTY = 1.0
+EASY_POS = (PartOfSpeech.NOUN, PartOfSpeech.VERB, PartOfSpeech.ADJECTIVE)
 _FUNCTION_POS = (PartOfSpeech.PRONOUN, PartOfSpeech.PREPOSITION,
                  PartOfSpeech.CONJUNCTION, PartOfSpeech.OTHER)
 
@@ -274,7 +299,8 @@ def _function_word_penalty():
     )
 
 
-async def _pick_common(session: AsyncSession, query, lang: str) -> Optional[Word]:
+async def _pick_common(session: AsyncSession, query, lang: str,
+                       pool: Optional[int] = None) -> Optional[Word]:
     """
     Новое слово — случайное среди самых ходовых на изучаемом языке.
 
@@ -289,7 +315,7 @@ async def _pick_common(session: AsyncSession, query, lang: str) -> Optional[Word
             and_(WordFrequency.word_id == Word.id, WordFrequency.lang == lang),
         )
         .order_by((WordFrequency.zipf - _function_word_penalty()).desc().nulls_last(), Word.id)
-        .limit(COMMON_POOL)
+        .limit(pool or COMMON_POOL)
         .subquery()
     )
     picked = aliased(Word, pool)
@@ -841,6 +867,23 @@ async def get_new_words(
     )
     query = _exclude(_scoped(_usable_words(pair).where(~seen), user, level), exclude_ids)
 
+    # ПЕРВЫЙ УРОК — САМЫЕ ЛЁГКИЕ: частые, однословные, знаменательные.
+    # «mieć na myśli» первым словом (прод 15.10) — ровно то, чего не надо
+    categories = categories_for(getattr(user, "learning_goal", None))
+    if in_first_lesson(user):
+        first = func.split_part(word_column(pair.learning), ",", 1)
+        easy = query.where(
+            Word.pos.in_(EASY_POS),
+            ~func.btrim(first).like("% %"),
+            func.length(func.btrim(first)) <= EASY_MAX_LETTERS,
+        )
+        # И тема, если человек её назвал: лёгкие слова — из неё же
+        tries = ([easy.where(Word.category.in_(categories))] if categories else []) + [easy]
+        for candidates in tries:
+            picked = await _pick_common(session, candidates, pair.learning, pool=EASY_POOL)
+            if picked is not None:
+                return picked
+
     # СЛОВА ТЕМЫ ВПЕРЁД, ЕСЛИ ЧЕЛОВЕК НАЗВАЛ ЦЕЛЬ.
     #
     # Подмешивается только в НОВЫЕ слова, и это важно: повторение и трудные
@@ -853,7 +896,6 @@ async def get_new_words(
     #
     # Кончились слова темы — берём любые. Пустой круг хуже нетематического,
     # и запас этот не теоретический: в «Wirtschaft» слов уровня A1 всего два.
-    categories = categories_for(getattr(user, "learning_goal", None))
     if categories:
         themed = await _pick_common(
             session, query.where(Word.category.in_(categories)), pair.learning
@@ -1171,6 +1213,11 @@ async def generate_question(
     """
     exclude_ids = exclude_ids or []
     pair = pair or pair_from_user(user)
+    # Первый урок — только карточки: «выбери перевод» понятен без
+    # объяснений, и слова ещё ни разу не встречались (`in_first_lesson`)
+    if channel is None and in_first_lesson(user):
+        channel = QuizChannel.TEXT
+        prefer_channel = None
     length = round_length or user.quiz_word_count or DEFAULT_ROUND_LENGTH
     place = (question_number - 1) if question_number else len(exclude_ids)
 

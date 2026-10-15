@@ -17,7 +17,9 @@ from aiogram import F, Router
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery, Message
-from sqlalchemy import select
+from sqlalchemy import func, select
+
+from app.services import journal
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.bot.buttons import BTN_LEARN_WORDS, pressed
@@ -55,6 +57,7 @@ from app.locales import DEFAULT_LOCALE, get_text
 from app.services.audio_service import KIND_FULL, clip_for_user
 from app.services.language_service import LanguagePair, legacy_mode_name, pair_from_user
 from app.services.quiz_service import (
+    FIRST_LESSON_LENGTH,
     OPTIONS_TOTAL,
     build_options,
     count_difficult_words,
@@ -258,6 +261,8 @@ async def start_lesson(
 
     old_anchor_id, _ = await ensure_anchor(message, session, user, emoji="")
 
+    journal.note(session, user.id, "question", channel.value, session_id=quiz_session.id,
+                 word_id=word.id, channel=channel.value, n=1, total=quiz_total)
     await show_card(
         message.bot, message.chat.id, state, session,
         text=_question_text(word, pair, lang, 1, quiz_total, channel=channel),
@@ -338,6 +343,18 @@ async def _record_answer(
         quiz_session.answered_questions = (quiz_session.answered_questions or 0) + 1
         if is_correct:
             quiz_session.correct_answers = (quiz_session.correct_answers or 0) + 1
+
+    # ПЕРВЫЙ УРОК КОНЧАЕТСЯ И БЕЗ ЗАКОНЧЕННОГО ЗАНЯТИЯ — на 7-м ответе всего,
+    # в каких бы занятиях они ни были. Владелец: «даже если он его сбросит —
+    # чтобы открывалась полноценная игра после первого круга»
+    if getattr(user, "onboarded_at", None) is None:
+        answered = (await session.execute(
+            select(func.count()).select_from(QuizQuestion)
+            .join(QuizSession, QuizSession.id == QuizQuestion.session_id)
+            .where(QuizSession.user_id == user.id)
+        )).scalar() or 0
+        if answered >= FIRST_LESSON_LENGTH:
+            user.onboarded_at = utcnow()
 
     await session.commit()
 
@@ -614,6 +631,9 @@ async def _advance(callback: CallbackQuery, state: FSMContext, session: AsyncSes
             **_build_state(question, channel),
         )
 
+    journal.note(session, user.id, "question", channel.value, session_id=data.get("session_id"),
+                 word_id=word.id, channel=channel.value, n=current_question,
+                 total=total_questions, repeat=is_error_repeat or None)
     await show_card(
         callback.bot, callback.message.chat.id, state, session,
         text=_question_text(
@@ -708,6 +728,9 @@ async def repeat_errors(callback: CallbackQuery, state: FSMContext, session: Asy
     # Сначала новое, потом удаление прежнего: иначе между ними на экране
     # один якорь (владелец, 15.10: «пропадает карточка и остаётся якорь,
     # как в начале, так и в конце»)
+    journal.note(session, user.id, "question", QuizChannel.TEXT.value, session_id=quiz_session.id,
+                 word_id=first_word.id, channel=QuizChannel.TEXT.value, n=1,
+                 total=len(errors), repeat=True)
     await show_card(
         callback.bot, callback.message.chat.id, state, session,
         text=_question_text(first_word, pair, lang, 1, len(errors), is_repeat=True),

@@ -285,6 +285,11 @@ def make_dispatcher(db_session=None) -> Dispatcher:
         data["session"] = session
         return await handler(event, data)
 
+    # Журнал пути — так же, как в app.main: иначе приёмки его не проверят
+    from app.services.journal import install_journal
+
+    install_journal(dp)
+
     _DISPATCHER = dp
     return dp
 

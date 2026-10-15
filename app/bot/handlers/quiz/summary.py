@@ -511,6 +511,9 @@ async def _finish_quiz(
 
     if not is_error_repeat:
         user.quizzes_passed = (user.quizzes_passed or 0) + 1
+        # Первый урок кончился (патч 2.1, `quiz_service.in_first_lesson`)
+        if getattr(user, "onboarded_at", None) is None:
+            user.onboarded_at = utcnow()
         user.last_quiz_date = utctoday()
         if user.first_quiz_at is None:
             user.first_quiz_at = utcnow()
