@@ -307,3 +307,14 @@ docker compose run --rm app python -m app.scripts.send_release_notes --send     
    памяти. Проверка после запуска: в журнале `Хранилище занятий: RedisStorage`.
    Первую выкатку с Redis занятия ещё оборвёт (они были в памяти); со
    следующей — уже нет.
+2. **Словарь 2.1 — сленг** (13 слов, 29 полей), затем пересчёт производного:
+   ```bash
+   R='docker compose run --rm -T -e ENV_FILE=.env app python -m'
+   $R app.scripts.word_fixes_2026_10_slang --apply
+   $R app.scripts.rebuild_word_groups
+   $R app.scripts.fill_word_frequency
+   $R app.scripts.fill_word_levels
+   ```
+3. **Заморозка серии действует с `FREEZE_FROM`** (`streak_service`) — поставить
+   на день выкатки 2.1, как `LOCAL_DAYS_FROM`. Раньше — приёмка «воскресит»
+   серии по старой истории; позже — заморозка не сработает до этой даты.
