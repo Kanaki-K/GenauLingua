@@ -20,13 +20,17 @@ from app.locales import DEFAULT_LOCALE
 logger = logging.getLogger(__name__)
 
 
-# Telegram ограничивает бота примерно 30 сообщениями в секунду. Удаляем
-# порциями с паузой, иначе большой разрыв в id упирается в лимит и получаем 429.
+# Удаление — пачками `deleteMessages`, до 100 номеров за запрос; отсутствующие
+# Telegram пропускает сам. Прежде удаляли поштучно, порциями по 20 с паузой,
+# и диапазон был ограничен сотней номеров. Но одно занятие расходует их
+# больше сотни (каждая карточка — отправить и удалить), и на проде 15.10 у
+# владельца рассылка и рейтинг остались в чате на 352 номера ниже якоря:
+# нажатие меню после занятия до них не дотягивалось, и следующее — тоже
+DELETE_BATCH_SIZE = 100
 DELETE_CHUNK_SIZE = 20
 DELETE_CHUNK_PAUSE = 0.35
-# Разрыв больше этого означает, что пользователь давно не заходил: вычищать
-# сотни чужих сообщений бессмысленно и дорого
-MAX_DELETE_RANGE = 100
+# Сколько номеров назад от нажатия вычищается: десять пачек, десять запросов
+MAX_DELETE_RANGE = 1000
 
 # Название бота. В ЯКОРЕ ЕГО БОЛЬШЕ НЕТ, и это решение владельца дословно:
 # «нету смысла в информации генау лингва, 2 — рядок слишком длинный и в
@@ -54,6 +58,20 @@ async def delete_messages_fast(bot, chat_id: int, start_id: int, end_id: int):
 
     first_id = max(start_id, end_id - MAX_DELETE_RANGE)
     message_ids = list(range(first_id, end_id))
+
+    leftover: list[int] = []
+    for offset in range(0, len(message_ids), DELETE_BATCH_SIZE):
+        batch = message_ids[offset:offset + DELETE_BATCH_SIZE]
+        try:
+            await bot.delete_messages(chat_id=chat_id, message_ids=batch)
+        except Exception:
+            # Пачка отклонена целиком (например, в ней сообщение старше
+            # 48 часов) — эти номера идут поштучно, как прежде
+            logger.debug("пачка удаления отклонена, поштучно", exc_info=True)
+            leftover.extend(batch)
+    # Поштучно — не больше последней сотни: тысяча одиночных запросов
+    # упёрлась бы в лимит Telegram, а старые номера отказали бы и так
+    message_ids = leftover[-100:]
 
     deleted = 0
     for offset in range(0, len(message_ids), DELETE_CHUNK_SIZE):

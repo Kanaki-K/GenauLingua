@@ -77,6 +77,13 @@ class RecordingSession(BaseSession):
     ) -> Any:
         name = type(method).__name__
         payload = method.model_dump(warnings=False)
+        if name == "DeleteMessages":
+            # Пачка записывается поштучно: проверкам важно, КАКИЕ сообщения
+            # удалены, а не сколькими запросами
+            for mid in payload["message_ids"]:
+                self.calls.append(("DeleteMessage",
+                                   {"chat_id": payload["chat_id"], "message_id": mid}))
+            return True
         self.calls.append((name, payload))
 
         if name in ("SendMessage", "EditMessageText", "EditMessageCaption"):
