@@ -229,7 +229,7 @@ def test_voice_names_follow_the_interface_language():
     assert katja.shown("ru") == "Катя"
     for lang in ("en", "de", "pl", "tr"):
         assert katja.shown(lang) == "Katja"
-    assert by_name["de-DE-SeraphinaMultilingualNeural"].shown("en") == "Seraphina"
+    assert by_name["de-DE-AmalaNeural"].shown("en") == "Amala"
     assert by_name["uk-UA-PolinaNeural"].shown("uk") == "Поліна"
     for voice in by_name.values():
         for lang in ("en", "de", "pl", "tr"):
