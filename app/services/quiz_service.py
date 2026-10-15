@@ -1259,7 +1259,8 @@ async def generate_question(
     # негодное слово и так не выбирает; откат — для навязанного канала и
     # для данных, поменявшихся между подбором и сборкой.
     if channel is QuizChannel.BUILD:
-        puzzle = await build_service.make_puzzle(session, correct_word, pair)
+        puzzle = await build_service.make_puzzle(
+            session, correct_word, pair, learner_level=getattr(user, "level", None))
         if puzzle is not None:
             return {
                 "correct_word": correct_word,

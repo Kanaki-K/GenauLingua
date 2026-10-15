@@ -88,6 +88,18 @@ LEVEL_DISTRACTORS: dict[CEFRLevel, int] = {
     CEFRLevel.C2: 5,
 }
 MIN_DISTRACTORS = 1
+
+# A1–A2 — ПРОЩЕ (патч 2.1). Прод 15.10: «Собираю» — 38% верных против
+# 87–100% у остальных игр; ошибки ровно на грамматических двойниках
+# («Bitte Sie Ihrer Unterschrift…», «Wie ist deinem Handynummer»), человек
+# A1 провалил оба задания. Решение владельца: сложность растёт с уровнем —
+# для A1–A2 короче фраза и без падежных ловушек; ошибку не прятать.
+# Поэтому по уровню ЧЕЛОВЕКА: фраза до 5 слов на A1 и до 6 на A2, одна
+# ловушка — и та другим словом из чужого примера, не формой (dem вместо
+# den): проверяется порядок и смысл, а не окончания. Фраза длиннее — слово
+# уйдёт другой игрой (откат `make_puzzle` → None). С B1 — как прежде.
+EASY_MAX_WORDS: dict[CEFRLevel, int] = {CEFRLevel.A1: 5, CEFRLevel.A2: 6}
+EASY_DISTRACTORS = 1
 MAX_DISTRACTORS = max(LEVEL_DISTRACTORS.values())
 
 # Ширина сетки. В ряд по четыре на телефоне влезает слово около семи букв;
@@ -434,6 +446,7 @@ def first_on_tile(target: list[str], lang: str) -> list[str]:
 def pick_distractors(
     target: list[str], lang: str, foreign: list[str],
     rng: Optional[random.Random] = None, count: Optional[int] = None,
+    easy: bool = False,
 ) -> tuple[list[str], dict[str, int]]:
     """
     Слова-ловушки и откуда они взяты.
@@ -475,6 +488,20 @@ def pick_distractors(
         picked.append(word)
         sources[source] += 1
         return True
+
+    # Для A1–A2 — сначала ЧУЖИЕ слова, без двойников (`EASY_MAX_WORDS`)
+    if easy:
+        # И чужое слово не должно быть двойником слова фразы: «in» из чужого
+        # примера — та же падежная ловушка к «im» (нашёл тест 2.1)
+        twins = {fold(s) for token in target for s in _siblings(token, lang)}
+        pool = [w for w in foreign if fold(w) not in twins]
+        rng.shuffle(pool)
+        for word in pool:
+            if len(picked) >= count:
+                break
+            take(word, "foreign")
+        if len(picked) >= count:
+            return picked, dict(sources)
 
     # 1. ПОХОЖИЕ — по кругу от разных слов фразы
     pools = []
@@ -576,6 +603,7 @@ def shuffle_tiles(target: list[str], distractors: list[str],
 async def make_puzzle(
     session: Optional[AsyncSession], word, pair: LanguagePair,
     rng: Optional[random.Random] = None,
+    learner_level: Optional[CEFRLevel] = None,
 ) -> Optional[Puzzle]:
     """
     Сборка по примеру слова или None, если пример не годится.
@@ -590,7 +618,25 @@ async def make_puzzle(
     # закрытых списков (`first_on_tile`). Ловушки к нему берутся тоже
     # строчными (`_like`), и ни одна кнопка не выдаёт начало фразы
     target = first_on_tile(target, pair.learning)
-    count = distractor_count(len(target), getattr(word, "level", None))
+    easy = learner_level in EASY_MAX_WORDS
+    if easy and len(target) > EASY_MAX_WORDS[learner_level]:
+        return None
+    count = (EASY_DISTRACTORS if easy
+             else distractor_count(len(target), getattr(word, "level", None)))
+
+    if easy and session is not None:
+        # Новичку — ловушка другим словом: чужие примеры нужны сразу
+        foreign = await foreign_words(session, word, pair)
+        distractors, sources = pick_distractors(
+            target, pair.learning, foreign, rng, count, easy=True)
+        return Puzzle(
+            target=target,
+            tiles=shuffle_tiles(target, distractors, rng),
+            distractors=distractors,
+            sentence=example_text(word, pair.learning),
+            translation=example_text(word, pair.native),
+            sources=sources,
+        )
 
     # Чужие примеры — только если закрытых списков не хватило: запрос к
     # базе на каждую сборку незачем, когда ловушки уже набраны
