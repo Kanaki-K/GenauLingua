@@ -160,6 +160,63 @@ async def test_choice_button_is_absent_for_the_current_voice(stage, session):
     )
 
 
+async def test_choice_button_under_the_sample(stage, session, monkeypatch):
+    """
+    Кнопка выбора есть и ПОД ОБРАЗЦОМ, и она ставит галочку на экране.
+
+    Владелец 15.10: «не меняется, галочка не ставится». Послушал Серафину,
+    кнопку «Выбрать» над «Назад» не увидел — образец пришёл ниже, туда он
+    и смотрел; в базе у него голоса не было вовсе. Нажатие под образцом
+    сохраняет голос, перерисовывает экран голосов по его номеру (500) и
+    снимает кнопку с образца.
+    """
+    from app.bot.handlers.quiz import settings
+
+    async def fake_preview(lang, voice):
+        return b"ID3-fake"
+
+    monkeypatch.setattr(settings, "synthesize_preview", fake_preview)
+    dp, bot, rec, user = stage
+
+    await dp.feed_update(bot, press(user.id, f"audio_voice_{OTHER}"))
+    sample = [p for n, p in rec.calls if n == "SendAudio"]
+    assert sample, "образец не прислан"
+    under = [b["callback_data"]
+             for row in (sample[-1].get("reply_markup") or {}).get("inline_keyboard") or []
+             for b in row]
+    assert under == [f"voice_use_{OTHER}:500"], f"под образцом: {under}"
+
+    rec.clear()
+    await dp.feed_update(bot, press(user.id, under[0], message_id=777))
+
+    assert await _saved(session, user.id) == OTHER
+    screen = [p for n, p in rec.calls if n == "EditMessageText"]
+    assert screen and screen[-1].get("message_id") == 500, "экран голосов не перерисован"
+    label = next(v.label for v in VOICES[LANG] if v.name == OTHER)
+    ticks = [b["text"] for row in screen[-1]["reply_markup"]["inline_keyboard"]
+             for b in row if b["text"].startswith("✓")]
+    assert len(ticks) == 1 and label in ticks[0], f"галочки на экране: {ticks}"
+    assert any(n == "EditMessageReplyMarkup" for n, _ in rec.calls), (
+        "кнопка под образцом осталась — выбор уже сделан"
+    )
+
+
+async def test_no_dots_when_no_voice_is_ready(stage, monkeypatch):
+    """
+    Точка «·» (нет готовых клипов) — только если хоть один голос готов.
+    На проде 15.10 не готов был ни один, и точка стояла у всех шести.
+    """
+    from app.bot.handlers.quiz import settings
+
+    monkeypatch.setattr(settings, "voice_is_ready", lambda *a, **k: False)
+    dp, bot, rec, user = stage
+
+    await dp.feed_update(bot, press(user.id, "audio_voices"))
+
+    texts = rec.button_texts()
+    assert not any(t.endswith(" ·") for t in texts), f"точки без смысла: {texts}"
+
+
 def test_voice_names_follow_the_interface_language():
     """
     «Voice: Катя» в английском интерфейсе — находка обхода шести языков

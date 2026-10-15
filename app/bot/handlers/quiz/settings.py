@@ -1545,6 +1545,14 @@ async def _voices_screen(
     chosen = await voice_for_user(session, user.id, pair.learning)
     probes = await _voice_probes(session, pair.learning)
 
+    ready = {v.name: voice_is_ready(pair.learning, v.name, probes)
+             for v in voices_for(pair.learning)}
+    # Точка различает голоса, только когда часть из них готова. На проде
+    # 15.10 предсинтеза не было ни у одного: точка стояла у всех шести
+    # немецких, включая основную Катю, и ничего не сообщала — владелец
+    # прислал снимок с «✓ Катя ·» и шестью точками
+    mark_unready = any(ready.values())
+
     rows: list[list[InlineKeyboardButton]] = []
     for gender, header_key in (("female", "voice_female"), ("male", "voice_male")):
         group = by_gender(pair.learning, gender)
@@ -1564,7 +1572,7 @@ async def _voices_screen(
                     text=("✓ " if v.name == chosen
                           else "🎧 " if v.name == listening else "")
                          + v.shown(lang)
-                         + ("" if voice_is_ready(pair.learning, v.name, probes) else " ·"),
+                         + (" ·" if mark_unready and not ready[v.name] else ""),
                     callback_data=f"audio_voice_{v.name}",
                 )
                 for v in group
@@ -1627,8 +1635,14 @@ async def audio_voices(callback: CallbackQuery, session: AsyncSession):
 
 @router.callback_query(F.data.startswith("voice_use_"))
 async def audio_voice_use(callback: CallbackQuery, session: AsyncSession):
-    """ВЫБОР голоса — единственное место, где он сохраняется."""
-    voice_name = callback.data.removeprefix("voice_use_")
+    """
+    ВЫБОР голоса — единственное место, где он сохраняется.
+
+    Нажимают с экрана голосов (`voice_use_<голос>`) или из-под образца
+    (`voice_use_<голос>:<номер экрана>`). Во втором случае перерисовывается
+    экран по номеру, а у образца кнопка снимается: выбор сделан.
+    """
+    voice_name, _, screen_id = callback.data.removeprefix("voice_use_").partition(":")
 
     user = await session.get(User, callback.from_user.id)
     lang = user.interface_language or DEFAULT_LOCALE
@@ -1643,7 +1657,21 @@ async def audio_voice_use(callback: CallbackQuery, session: AsyncSession):
 
     label = _voice_label(pair.learning, voice_name, lang)
     await callback.answer(get_text("voice_set", lang, voice=label))
-    await _show_voices(callback, session)
+    if not screen_id.isdigit():
+        await _show_voices(callback, session)
+        return
+    text, keyboard = await _voices_screen(session, user, lang, pair)
+    for call in (
+        callback.bot.edit_message_text(text=text, chat_id=callback.message.chat.id,
+                                       message_id=int(screen_id), reply_markup=keyboard),
+        callback.message.edit_reply_markup(reply_markup=None),
+    ):
+        try:
+            await call
+        except TelegramBadRequest:
+            # Экран мог быть уже удалён или не изменился — выбор сохранён,
+            # а ответ «✓ Голос: …» человек уже увидел
+            pass
 
 
 @router.callback_query(F.data.startswith("audio_voice_"))
@@ -1674,10 +1702,23 @@ async def audio_voice_preview(callback: CallbackQuery, session: AsyncSession):
     if sample is None:
         await callback.message.answer(get_text("voice_preview_failed", lang))
     else:
+        # Кнопка выбора — и ПОД ОБРАЗЦОМ. Образец приходит ниже экрана, туда
+        # и смотрит человек; кнопка на экране оставалась выше, над «Назад».
+        # Владелец 15.10 послушал Серафину, кнопки не увидел, и в базе у него
+        # голоса не оказалось вовсе — «не меняется, галочка не ставится».
+        # В данных — номер экрана голосов, чтобы перерисовать его галочкой
+        chosen = await voice_for_user(session, user.id, pair.learning)
+        markup = None
+        if voice_name != chosen:
+            markup = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(
+                text=get_text("voice_use", lang, voice=label),
+                callback_data=f"voice_use_{voice_name}:{callback.message.message_id}",
+            )]])
         await callback.bot.send_audio(
             callback.message.chat.id,
             BufferedInputFile(sample, filename=f"{label}.mp3"),
             title=label,
+            reply_markup=markup,
         )
     # Экран уже перерисован ВЫШЕ, до синтеза: пометка 🎧 должна появиться
     # сразу по нажатию, а образец приходит через секунду. Повторная
