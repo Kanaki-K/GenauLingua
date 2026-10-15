@@ -270,7 +270,13 @@ def make_dispatcher(db_session=None) -> Dispatcher:
     # не сообщая.
     from app.bot.routers import attach_routers
 
-    dp = attach_routers(Dispatcher(storage=MemoryStorage()))
+    # Приёмки можно гонять и на Redis (FSM_TEST_REDIS_URL) — так проверяется,
+    # что всё состояние занятия переживает сериализацию в JSON
+    import os
+
+    from app.bot.fsm_storage import make_storage
+
+    dp = attach_routers(Dispatcher(storage=make_storage(os.environ.get("FSM_TEST_REDIS_URL"))))
 
     @dp.update.middleware()
     async def inject_session(handler, event, data):
@@ -298,6 +304,9 @@ async def reset_state(dp: Dispatcher) -> None:
     states = getattr(storage, "states", None)
     if isinstance(states, dict):
         states.clear()
+    redis = getattr(storage, "redis", None)
+    if redis is not None:
+        await redis.flushdb()
 
 
 # ============================================================================

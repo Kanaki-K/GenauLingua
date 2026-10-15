@@ -16,7 +16,7 @@ from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.types import ErrorEvent
-from aiogram.fsm.storage.memory import MemoryStorage
+from app.bot.fsm_storage import make_storage
 
 from app.bot.routers import all_routers, attach_routers
 from app.config import settings
@@ -143,7 +143,9 @@ async def main():
         default=DefaultBotProperties(parse_mode=ParseMode.HTML),
     )
 
-    dp = Dispatcher(storage=MemoryStorage())
+    # Занятие — в Redis, если он задан: выкатка не обрывает уроки
+    dp = Dispatcher(storage=make_storage(settings.REDIS_URL))
+    logger.info("Хранилище занятий: %s", type(dp.storage).__name__)
 
     @dp.errors()
     async def global_error_handler(event: ErrorEvent):
