@@ -523,7 +523,9 @@ def _channels_short(user: User, lang: str) -> str:
         return get_text("settings_channels_short_all", lang)
     if enabled == 1:
         return get_text("settings_channels_short_one", lang)
-    return get_text("settings_channels_short_some", lang, count=enabled)
+    # Всего — из перечня игр, а не словом в тексте: «из четырёх» пережило
+    # пятую и шестую игру, и владелец 15.10 увидел «все четыре игры»
+    return get_text("settings_channels_short_some", lang, count=enabled, total=len(QuizChannel))
 
 def _settings_state(user: User, lang: str, only: tuple[str, ...] | None = None) -> str:
     """
