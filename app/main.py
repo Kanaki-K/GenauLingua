@@ -17,7 +17,7 @@ from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.types import ErrorEvent
-from aiogram.fsm.storage.base import SimpleEventIsolation
+from aiogram.fsm.storage.memory import SimpleEventIsolation
 
 from app.bot.fsm_storage import make_storage
 from app.bot.slow_log import SLOW_MS, describe as describe_update
