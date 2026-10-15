@@ -282,9 +282,16 @@ def test_no_ai_trail(lang):
     сообщении — не больше двух тире, в одной строке — не больше одного.
     """
     for kind, facts, seed, text in _all_messages(lang):
-        assert text.count(" — ") <= 2, (lang, kind, text)
-        for line in text.split("\n"):
-            assert line.count(" — ") <= 1, (lang, kind, line)
+        # Владелец 16.10: «без длинных тире, вместо них минус — так человечнее»
+        assert "—" not in text, (lang, kind, text)
+        assert text.count(" - ") <= 2, (lang, kind, text)
+        lines = text.split("\n")
+        for line in lines:
+            assert line.count(" - ") <= 1, (lang, kind, line)
+            # Без точки в конце: «точки визуально сковывают»
+            assert not (line.endswith(".") and not line.endswith("...")), (lang, kind, line)
+        # Между строками — пустая строка, «чтобы текст дышал»
+        assert not any(a and b for a, b in zip(lines, lines[1:])), (lang, kind, text)
 
 
 def test_heads_do_not_repeat_until_all_were_shown():

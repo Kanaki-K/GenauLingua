@@ -184,5 +184,15 @@ def compose(kind: str, facts: NudgeFacts, lang: str, seed: int) -> str:
         else:
             lines.append(get_text(_pick(variants("nd_short"), seed, 2), lang, **n))
 
-    head, *rest = [line for line in lines if line]
-    return head + "\n\n" + "\n".join(rest) if rest else head
+    # Владелец 16.10: между строками — пустая строка, «чтобы текст дышал»;
+    # точки в конце строк нет — «точки визуально сковывают» (? и ! остаются)
+    return "\n\n".join(_open_end(line) for line in lines if line)
+
+
+def _open_end(line: str) -> str:
+    """Строка без точки в конце; многоточие и ? ! не трогаются."""
+    if line.endswith(".") and not line.endswith("..."):
+        return line[:-1]
+    if line.endswith(".</b>"):
+        return line[:-5] + "</b>"
+    return line
