@@ -467,3 +467,38 @@ async def save_notification_days(callback: CallbackQuery, session: AsyncSession)
 
     # Возвращаемся к настройкам напоминаний
     await show_notifications_settings(callback, session)
+
+
+@router.callback_query(F.data.startswith("nd_optin:"))
+async def optin_from_nudge(callback: CallbackQuery, session: AsyncSession):
+    """
+    «⏰ Напоминать в 18:00» из сообщения вовлечения (патч 2.1, `nudges`).
+
+    Напоминания — единственный замеренный рычаг возврата (дни занятий в 4.3
+    раза больше), а предлагались они один раз, после первого занятия. Кнопка
+    ставит то время, когда человеку пришло сообщение, — он его и открыл.
+    Отказ, если был, снимается: человек передумал сам.
+    """
+    at = callback.data.partition(":")[2]
+    user = await session.get(User, callback.from_user.id)
+    if user is None or len(at) != 5:
+        await callback.answer()
+        return
+    lang = user.interface_language or DEFAULT_LOCALE
+    user.notifications_enabled = True
+    user.notification_time = at
+    user.reminders_declined_at = None
+    user.reminder_offered_at = user.reminder_offered_at or utcnow()
+    await session.commit()
+
+    await callback.answer()
+    # Кнопку согласия убираем: второй раз нажимать незачем
+    markup = callback.message.reply_markup
+    if markup:
+        rows = [row for row in markup.inline_keyboard
+                if not any((b.callback_data or "").startswith("nd_optin:") for b in row)]
+        try:
+            await callback.message.edit_reply_markup(reply_markup=InlineKeyboardMarkup(inline_keyboard=rows))
+        except Exception:
+            pass
+    await callback.message.answer(get_text("nd_optin_done", lang, time=at))

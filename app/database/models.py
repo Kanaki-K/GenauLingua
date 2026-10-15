@@ -174,8 +174,12 @@ class User(Base):
     # День, когда заморозка простила пропуск (патч 2.1): следующая — не
     # раньше чем через неделю (`streak_service.advance`)
     streak_freeze_on: Mapped[Optional[date]] = mapped_column(Date, nullable=True)
-    # Когда ушло сообщение второго дня новичку (патч 2.1) — одно на жизнь
-    day2_hook_sent_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
+    # Лесенка возврата (патч 2.1, `nudge_plan`): к какому перерыву она
+    # относится — его последний день занятий (у не занимавшегося — день
+    # /start) — и какая ступень (день перерыва) по нему уже была. Новый
+    # перерыв — новый день — лесенка начинается заново
+    nudge_anchor: Mapped[Optional[date]] = mapped_column(Date, nullable=True)
+    nudge_step: Mapped[int] = mapped_column(Integer, default=0, server_default="0", nullable=False)
     # Когда человек ЯВНО отказался от напоминаний («Не надо» под
     # предложением или «Не напоминать»). Молчание отказом не считается:
     # `reminder_offered_at` ставится при отправке предложения (патч 2.1)
@@ -1135,3 +1139,39 @@ class WordAudio(Base):
     duration_seconds: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
 
     created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
+
+
+class NudgeLog(Base):
+    """
+    Каждое сообщение по инициативе бота — и каждое НЕотправленное контрольной
+    группе (патч 2.1, `app/schedulers/nudges.py`).
+
+    Владелец 15.10: «нужно внимательно трекать, чтобы точно понимать, что
+    это либо работает, либо вредит». Без журнала не узнать ни того, ни
+    другого: возврат после сообщения ничего не доказывает, пока не видно,
+    сколько вернулось бы и без него (контрольная группа, исход `holdout`),
+    и сколько людей после сообщения отписались или заблокировали бота.
+
+    Возврат, нажатие кнопки и отписка не хранятся здесь — они считаются в
+    отчёте по занятиям (`start_source = "nd_<вид>"`) и отметкам отказа:
+    так журнал не врёт, если отчёт поправят.
+    """
+    __tablename__ = "nudge_log"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    user_id: Mapped[int] = mapped_column(
+        BigInteger, ForeignKey("users.id", ondelete="CASCADE"), nullable=False
+    )
+    # daily, back1/3/7/14, start1/3/7
+    kind: Mapped[str] = mapped_column(String(16), nullable=False)
+    # Набор частей текста: streak, progress, first, kept, farewell, start…
+    situation: Mapped[Optional[str]] = mapped_column(String(16), nullable=True)
+    # sent / holdout / forbidden / failed
+    outcome: Mapped[str] = mapped_column(String(12), nullable=False)
+    sent_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow, nullable=False)
+
+    __table_args__ = (
+        Index("ix_nudge_log_sent", "sent_at"),
+        Index("ix_nudge_log_user", "user_id", "sent_at"),
+    )
+

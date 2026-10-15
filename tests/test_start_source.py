@@ -107,14 +107,17 @@ def test_the_reminder_button_carries_its_own_door():
     не заходя в бота. Если она неотличима от домашнего экрана, замерить
     напоминания нечем.
     """
-    from app.bot.keyboards.notifications import get_reminder_keyboard
+    from datetime import datetime
 
-    data = [
-        button.callback_data
-        for row in get_reminder_keyboard("ru", count=15).inline_keyboard
-        for button in row
-    ]
-    assert f"learn_now:{SOURCE_REMINDER}" in data, data
+    from app.bot.handlers.quiz.sources import source_from_callback
+    from app.schedulers.nudges import keyboard
+
+    for kind in ("daily", "back1", "back7", "start1"):
+        data = [button.callback_data
+                for row in keyboard("ru", kind, False, datetime(2026, 11, 2, 18, 0)).inline_keyboard
+                for button in row]
+        assert f"learn_now:nd_{kind}" in data, data
+        assert source_from_callback(f"learn_now:nd_{kind}") == f"nd_{kind}"
 
 
 def test_the_result_button_says_another_round():

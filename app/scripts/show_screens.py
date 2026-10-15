@@ -544,15 +544,13 @@ async def flow_old(dp, bot, rec, raw: bool, session) -> None:
         await dp.feed_update(bot, update)
         _dump(rec, raw, title)
 
-    from app.bot.keyboards.notifications import get_reminder_keyboard
-    from app.schedulers.reminder_scheduler import build_reminder_text
+    from app.schedulers.nudges import preview
     async with AsyncSessionLocal() as fresh:
         person = await fresh.get(User, user.id)
-        text = await build_reminder_text(person, fresh)
-    _frame("12. напоминание — единственный экран вне бота")
-    _screen(text, [[b.text for b in row]
-                   for row in get_reminder_keyboard("ru", count=15).inline_keyboard],
-            raw)
+        for kind in ("daily", "back1", "back7", "back14"):
+            text, markup = await preview(fresh, person, kind)
+            _frame(f"12. сообщение {kind} — экран вне бота")
+            _screen(text, [[b.text for b in row] for row in markup.inline_keyboard], raw)
 
 
 # ============================================================================
@@ -736,15 +734,12 @@ async def flow_scales(dp, bot, rec, raw: bool, session) -> None:
         await dp.feed_update(bot, text_update(user.id, get_text("btn_rating", "ru")))
         _dump(rec, raw, f"{title} · рейтинг")
 
-        from app.bot.keyboards.notifications import get_reminder_keyboard
-        from app.schedulers.reminder_scheduler import build_reminder_text
+        from app.schedulers.nudges import preview
         async with AsyncSessionLocal() as fresh:
             person = await fresh.get(User, user.id)
-            text = await build_reminder_text(person, fresh)
+            text, markup = await preview(fresh, person, "daily")
         _frame(f"{title} · напоминание")
-        _screen(text, [[b.text for b in row]
-                       for row in get_reminder_keyboard("ru", count=15).inline_keyboard],
-                raw)
+        _screen(text, [[b.text for b in row] for row in markup.inline_keyboard], raw)
 
 
 FLOWS = {

@@ -24,7 +24,9 @@ from app.testing import starts_lesson
 
 from app.bot.handlers.quiz.summary import get_results_keyboard
 from app.bot.handlers.reminders import get_reminder_offer_keyboard
-from app.bot.keyboards.notifications import get_reminder_keyboard
+from datetime import datetime
+
+from app.schedulers.nudges import keyboard as nudge_keyboard
 from app.core.clock import utcnow
 from app.database.enums import CEFRLevel
 from app.database.models import User
@@ -54,7 +56,7 @@ def test_reminder_offers_a_way_to_start_and_a_way_to_stop():
     только найдя их в настройках, а человек, которому они надоели, в
     настройки не идёт — он блокирует бота.
     """
-    data = _data(get_reminder_keyboard("ru"))
+    data = _data(nudge_keyboard("ru", "daily", True, datetime(2026, 11, 2, 18, 0)))
 
     assert starts_lesson(data[0]), f"первая кнопка не ведёт к занятию: {data}"
     assert "notif_off" in data, f"нечем отказаться от напоминаний: {data}"
@@ -63,9 +65,10 @@ def test_reminder_offers_a_way_to_start_and_a_way_to_stop():
 @pytest.mark.parametrize("lang", sorted(LOCALES))
 def test_reminder_keyboard_speaks_every_language(lang):
     """Пропущенный ключ не падает — он уезжает человеку как «[MISSING: …]»."""
-    texts = [b.text for row in get_reminder_keyboard(lang).inline_keyboard for b in row]
+    keyboard = nudge_keyboard(lang, "back1", False, datetime(2026, 11, 2, 18, 0))
+    texts = [b.text for row in keyboard.inline_keyboard for b in row]
 
-    assert len(texts) == 2
+    assert len(texts) == 3   # занятие, «напоминать в это время», «не присылать»
     for text in texts:
         assert "[MISSING:" not in text and "[ERROR:" not in text, f"{lang}: {text}"
 
@@ -255,56 +258,6 @@ async def test_measured_hour_is_translated_into_the_persons_timezone(session, us
 # Прежде там висели четыре счётчика: «Викторин пройдено: 12 · Слов изучено:
 # 47 · Точность: 88%». Ни одно из этих чисел не говорит, ЧЕГО человеку не
 # хватает. Три шкалы говорят.
-# ============================================================================
-
-@pytest.mark.asyncio
-async def test_reminder_shows_the_scales_when_there_is_progress(session, user):
-    from app.database.enums import QuizMode
-    from app.schedulers.reminder_scheduler import build_reminder_text
-    from tests.test_home import _progress, _seed
-
-    user.level = CEFRLevel.A1
-    user.quiz_mode = QuizMode.LEVEL
-    user.streak_days = 3
-    await _seed(session, user, words_a1=3, words_b1=0)
-
-    from sqlalchemy import select
-    from app.database.models import Word
-
-    word = (await session.execute(select(Word))).scalars().first()
-    session.add(_progress(user.id, word.id, times_shown=5, times_correct=3))
-    await session.commit()
-
-    text = await build_reminder_text(user, session)
-
-    assert "<code>" in text, "шкал в напоминании нет"
-    assert "▓" in text, "ни одна полоса не закрашена"
-
-
-@pytest.mark.asyncio
-async def test_reminder_without_progress_shows_no_empty_bars(session, user):
-    """
-    У новичка все три полосы пусты, и показывать их — значит встретить его
-    тремя нулями. Напоминание пришло звать заниматься, а не отчитываться.
-    """
-    from app.database.enums import QuizMode
-    from app.schedulers.reminder_scheduler import build_reminder_text
-    from tests.test_home import _seed
-
-    user.level = CEFRLevel.A1
-    user.quiz_mode = QuizMode.LEVEL
-    await _seed(session, user, words_a1=2, words_b1=0)
-    await session.commit()
-
-    text = await build_reminder_text(user, session)
-
-    assert "░" not in text, "новичку показали пустые полосы"
-    assert "<code>" not in text
-    assert len(text.strip()) > 20, "осталось пустое сообщение"
-
-
-# ============================================================================
-# ВСТУПИТЕЛЬНЫЙ БЛОК НЕ ПЕРЕСКАЗЫВАЕТ МЕНЮ
 # ============================================================================
 
 @pytest.mark.parametrize("lang", sorted(LOCALES))

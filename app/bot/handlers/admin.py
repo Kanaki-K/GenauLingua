@@ -127,7 +127,7 @@ def get_admin_keyboard() -> InlineKeyboardMarkup:
     return admin_ui.kb(
         [("Люди", "admin:people"), ("Занятия", "admin:lessons")],
         [("Слова", "admin:words"), ("Жалобы", "admin:reports")],
-        [("Выгрузка", "admin:export")],
+        [("Сообщения", "admin:nudges"), ("Выгрузка", "admin:export")],
     )
 
 
@@ -340,6 +340,41 @@ async def admin_panel(message: Message, session: AsyncSession):
 # ============================================================================
 # ГРУППЫ: ЛЮДИ И ЗАНЯТИЯ
 # ============================================================================
+
+@router.callback_query(F.data == "admin:nudges")
+async def admin_nudges(callback: CallbackQuery, session: AsyncSession):
+    """
+    Сообщения вовлечения за 14 дней: работают или вредят (патч 2.1).
+
+    Главная строка — «вернулись за сутки» у получивших и у контрольной
+    группы (ей сообщение не ушло): разница и есть действие сообщения. Вред —
+    отписки и блокировки после сообщения. Разбор — `nudge_report`.
+    """
+    if not await _guard(callback):
+        return
+    from app.services.nudge_report import nudge_report, share
+
+    report = await nudge_report(session, utcnow())
+    total = report.total()
+    order = ["daily", "back1", "back3", "back7", "back14", "start1", "start3", "start7"]
+    rows = [("вид", "отпр", "верн", "кнопк", "отпис", "блок")]
+    for kind in order:
+        k = report.kinds.get(kind)
+        if k and (k.sent or k.holdout or k.blocked):
+            rows.append((kind, k.sent, share(k.returned, k.sent), k.via_button, k.stopped, k.blocked))
+    lead = (f"вернулись за сутки: с сообщением {share(total.returned, total.sent)} "
+            f"из {admin_ui.num(total.sent)}, контроль {share(total.holdout_returned, total.holdout)} "
+            f"из {admin_ui.num(total.holdout)}")
+    text = admin_ui.screen(
+        "Сообщения · 14 дней",
+        lead=lead if (total.sent or total.holdout) else "сообщений ещё не было",
+        blocks=[admin_ui.columns(rows) if len(rows) > 1 else None,
+                "<i>верн — закончили занятие за сутки; кнопк — начали кнопкой из "
+                "сообщения; отпис — нажали «Не присылать» или выключили; контроль — "
+                "10% людей, которым сообщение не отправлялось</i>"],
+    )
+    await callback.message.edit_text(text, reply_markup=admin_ui.kb(back="admin:back"))
+
 
 @router.callback_query(F.data == "admin:people")
 async def admin_people(callback: CallbackQuery, session: AsyncSession):

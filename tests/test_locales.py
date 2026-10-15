@@ -190,14 +190,14 @@ def test_no_locale_key_is_dead():
     prefixes = _dynamic_prefixes()
     everything = set().union(*(set(t) for t in LOCALES.values()))
 
-    # Варианты текста `key_v2`, `key_v3` берёт `rotated` на ходу (патч 2.1):
-    # вариант жив, если жив его основной ключ
+    # Варианты текста `prefix_1`, `prefix_2` берёт `nudge_texts.variants` на
+    # ходу (патч 2.1): вариант жив, если его приставка есть в коде
     def base(key: str) -> str:
-        return re.sub(r"_v\d+$", "", key)
+        return re.sub(r"_\d+$", "", key)
 
     dead = sorted(
         key for key in everything
-        if base(key) not in literal
+        if key not in literal and base(key) not in literal
         and key not in DYNAMIC_KEYS
         and not any(key.startswith(prefix) for prefix in prefixes)
     )
@@ -220,18 +220,3 @@ def test_day_counts_agree_with_the_number(lang, one, many):
     assert one in get_text("praise_streak", lang, days=1) + " "
     assert many in get_text("praise_streak", lang, days=5)
 
-
-def test_reminder_texts_rotate_day_by_day():
-    """
-    Патч 2.1: тот же повод изо дня в день звучит по-разному; у каждого
-    варианта — те же подстановки, что у основного текста, во всех языках.
-    """
-    from app.locales import get_text, rotated
-
-    keys = {rotated("remind_due", day) for day in range(10)}
-    assert len(keys) >= 4, f"вариантов напоминания мало: {keys}"
-    assert rotated("remind_due", 0) != rotated("remind_due", 1), "два дня подряд один текст"
-    for key in keys | {rotated("notif_message_greeting", d) for d in range(10)}:
-        for lang in LOCALES:
-            text = get_text(key, lang, count=7, name="Анна")
-            assert "{" not in text and "[MISSING" not in text, (lang, key, text)

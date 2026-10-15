@@ -30,23 +30,6 @@ LOCALES = {
 DEFAULT_LOCALE = "uk"
 
 
-def rotated(key: str, seed: int) -> str:
-    """
-    Один из вариантов текста по кругу: `key`, `key_v2`, `key_v3`…
-
-    ЗАЧЕМ (патч 2.1). Один и тот же текст изо дня в день перестают читать:
-    у Duolingo эффект новизны напоминания затухает примерно за две недели
-    (KDD 2020). `seed` — номер дня плюс номер человека: каждый день другой
-    вариант, и у разных людей в один день — разные. Варианты считаются по
-    русскому набору: все языки обязаны иметь те же ключи (проверяет тест).
-    """
-    count = 1
-    while f"{key}_v{count + 1}" in LOCALES["ru"]:
-        count += 1
-    index = seed % count
-    return key if index == 0 else f"{key}_v{index + 1}"
-
-
 def get_text(key: str, lang: Optional[str] = None, **kwargs) -> str:
     if lang not in LOCALES:
         lang = DEFAULT_LOCALE
