@@ -3,6 +3,8 @@
 users.streak_freeze_on — день, когда заморозка простила пропуск: следующая
 не раньше чем через неделю (`streak_service.advance`).
 users.day2_hook_sent_at — когда новичку ушло сообщение второго дня (одно).
+quiz_sessions.local_day — день человека на момент завершения занятия:
+история серии читается им, а не нынешним поясом (аудит 2.1).
 
 Revision ID: e5a8b2d4f617
 Revises: d4f7a1c9e215
@@ -24,9 +26,11 @@ def upgrade() -> None:
     op.add_column("users", sa.Column("streak_freeze_on", sa.Date(), nullable=True))
     op.add_column("users", sa.Column("day2_hook_sent_at", sa.DateTime(), nullable=True))
     op.add_column("users", sa.Column("reminders_declined_at", sa.DateTime(), nullable=True))
+    op.add_column("quiz_sessions", sa.Column("local_day", sa.Date(), nullable=True))
 
 
 def downgrade() -> None:
+    op.drop_column("quiz_sessions", "local_day")
     op.drop_column("users", "reminders_declined_at")
     op.drop_column("users", "day2_hook_sent_at")
     op.drop_column("users", "streak_freeze_on")

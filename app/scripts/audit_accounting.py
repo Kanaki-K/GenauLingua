@@ -261,19 +261,19 @@ async def _check_streaks(session, rep: Report) -> None:
     """
     from app.database.models import QuizSession, User
     from app.services.monthly_leaderboard_service import scored_sessions_filter
-    from app.services.streak_service import advance, user_day
+    from app.services.streak_service import advance, session_day, user_day
 
     rows = (await session.execute(
-        select(User, QuizSession.completed_at)
+        select(User, QuizSession.completed_at, QuizSession.local_day)
         .join(QuizSession, QuizSession.user_id == User.id)
         .where(QuizSession.completed_at.isnot(None), scored_sessions_filter())
     )).all()
 
     days: dict[int, set] = {}
     people: dict[int, object] = {}
-    for user, completed_at in rows:
+    for user, completed_at, local_day in rows:
         people[user.id] = user
-        days.setdefault(user.id, set()).add(user_day(user, completed_at))
+        days.setdefault(user.id, set()).add(session_day(user, local_day, completed_at))
 
     bad = []
     for user_id, active in days.items():

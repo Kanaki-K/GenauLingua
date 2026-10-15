@@ -97,6 +97,30 @@ def _zone(user):
     return ZoneInfo(DEFAULT_TIMEZONE)
 
 
+def lesson_day(user, done_at: datetime) -> date:
+    """
+    День, которым засчитывается законченное сейчас занятие: день человека,
+    но не раньше прошлого засчитанного. При переезде на запад «сегодня»
+    бывает раньше вчерашнего дня занятий — последний день уезжал назад, и
+    следующий день засчитывался второй раз (аудит 2.1). Пишется в
+    `quiz_sessions.local_day` и идёт в серию — история и живой путь читают
+    одно и то же.
+    """
+    day = user_day(user, done_at)
+    last = getattr(user, "last_active_date", None)
+    return last if last and last > day else day
+
+
+def session_day(user, local_day: Optional[date], completed_at: datetime) -> date:
+    """
+    День занятия: записанный при завершении (`quiz_sessions.local_day`), а
+    для строк до 2.1 — по `completed_at` и нынешнему поясу. Так история
+    читается тем днём, каким его засчитал живой путь, и смена пояса не
+    разводит их (аудит 2.1).
+    """
+    return local_day or user_day(user, completed_at)
+
+
 def user_day(user, moment: datetime) -> date:
     """
     Какой день был у человека в момент `moment`.

@@ -436,7 +436,7 @@ def month_streak(user, month_quizzes: list) -> tuple[int, Optional[date]]:
     Дни — дни человека (`user_day`), правило продолжения — `next_streak`.
     """
     days = sorted({
-        user_day(user, quiz.completed_at or quiz.started_at)
+        quiz.local_day or user_day(user, quiz.completed_at or quiz.started_at)
         for quiz in month_quizzes
     })
     streak, last = 0, None

@@ -8,6 +8,7 @@ from aiogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKe
 from aiogram.fsm.context import FSMContext
 from sqlalchemy.ext.asyncio import AsyncSession
 
+import html
 import logging
 
 logger = logging.getLogger(__name__)
@@ -378,7 +379,8 @@ async def _show_intro(
     Строк ровно четыре: приветствие, три способа, сколько тут всего и что
     где. Кнопка одна — начать.
     """
-    first_name = message.chat.first_name or get_text("friend_fallback", lang)
+    # Экранируется: имя идёт в HTML (аудит 2.1, «Tom <3»)
+    first_name = html.escape(message.chat.first_name or get_text("friend_fallback", lang))
 
     text = (
         f"{get_text('welcome_title', lang, name=first_name)}\n\n"

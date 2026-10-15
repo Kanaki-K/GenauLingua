@@ -2,6 +2,8 @@
 Таблица лидеров — топ-10 игроков — ЛОКАЛИЗОВАНО
 """
 
+import html
+
 from aiogram import Router, F
 from aiogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
 from typing import Optional
@@ -118,7 +120,9 @@ def build_monthly_table(leaderboard: list, user_rank: dict, season, user_id: int
     user_in_top = False
     for entry in leaderboard:
         rank = entry["rank"]
-        name = _with_fire(_shorten_name(entry["display_name"]), entry["user_id"], streaks)
+        # Имя — в HTML-сообщении: «Tom <3» Telegram отверг бы целиком.
+        # Экранируем ПОСЛЕ обрезки — иначе она резала бы «&lt;» (аудит 2.1)
+        name = _with_fire(html.escape(_shorten_name(entry["display_name"])), entry["user_id"], streaks)
         score = entry["monthly_score"]
         emoji = _rank_emoji(rank)
 
@@ -162,7 +166,7 @@ def build_alltime_table(leaderboard: list, user_rank: dict, user_id: int, lang: 
     user_in_top = False
     for entry in leaderboard:
         rank = entry["rank"]
-        name = _with_fire(_shorten_name(entry["display_name"]), entry["user_id"], streaks)
+        name = _with_fire(html.escape(_shorten_name(entry["display_name"])), entry["user_id"], streaks)
         score = entry["lifetime_score"]
         emoji = _rank_emoji(rank)
 

@@ -5,7 +5,7 @@
 """
 
 import logging
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 from typing import Optional
 
 from aiogram.fsm.context import FSMContext
@@ -89,7 +89,8 @@ def get_results_keyboard(has_errors: bool, lang: str = "ru") -> InlineKeyboardMa
     return InlineKeyboardMarkup(inline_keyboard=buttons)
 
 
-async def update_user_activity(session: AsyncSession, user_id: int) -> None:
+async def update_user_activity(session: AsyncSession, user_id: int,
+                               day: Optional[date]) -> None:
     """
     Отметить день занятий. Правило и лучшая серия — в `streak_service`.
 
@@ -103,7 +104,11 @@ async def update_user_activity(session: AsyncSession, user_id: int) -> None:
     from app.services.streak_service import register_activity
 
     user = await session.get(User, user_id)
-    register_activity(user)
+    # День — тот, что записан в занятие при завершении (`local_day`), а не
+    # часы в момент отметки: занятие, законченное в 23:59:59.8, отмечалось
+    # через полсекунды уже следующим днём, сжигало заморозку и расходилось
+    # с восстановлением по истории (аудит 2.1)
+    register_activity(user, today=day)
     await session.commit()
 
 
@@ -406,7 +411,8 @@ async def _praise_lines(
 
     # Первое ли это законченное занятие за день человека: рубеж серии и
     # заморозка празднуются один раз — в занятие, которое серию и сдвинуло
-    today = user_today(user)
+    # Тот же день, что у отметки серии: по моменту завершения занятия
+    today = getattr(quiz_session, "local_day", None) or user_today(user)
     from app.services.monthly_leaderboard_service import scored_sessions_filter
 
     # Только зачётные занятия: повтор ошибок в 00:05 не делает настоящее
@@ -465,11 +471,17 @@ async def _finish_quiz(
     # не переживает двух экземпляров бота или повтора обновления после
     # перезапуска. Условное обновление атомарно: второй вызов не получит
     # строки и уйдёт, не прибавив `quizzes_passed` и не прислав второй итог.
+    from app.services.streak_service import lesson_day
+
+    done_at = utcnow()
+    # День занятия пишется в занятие и тот же идёт в серию (`lesson_day`)
+    done_day = lesson_day(user, done_at)
     claimed = await session.execute(
         update(QuizSession)
         .where(QuizSession.id == session_id, QuizSession.is_completed.isnot(True))
         .values(
-            completed_at=utcnow(), is_completed=True, exit_reason="completed",
+            completed_at=done_at, local_day=done_day,
+            is_completed=True, exit_reason="completed",
             exit_at_question=QuizSession.answered_questions,
         )
         .returning(QuizSession.id)
@@ -540,7 +552,7 @@ async def _finish_quiz(
         except Exception:
             logger.exception("Ошибка обновления месячной статистики (user=%s)", user.id)
 
-        await update_user_activity(session, user.id)
+        await update_user_activity(session, user.id, day=getattr(quiz_session, "local_day", None))
 
     # Разбор по словам
     result_items = await session.execute(

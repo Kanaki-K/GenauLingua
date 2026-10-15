@@ -465,6 +465,11 @@ class QuizSession(Base):
         default=utcnow
     )
     completed_at: Mapped[Optional[datetime]] = mapped_column(DateTime)
+    # День человека (по его поясу НА МОМЕНТ завершения). Серия из истории
+    # прежде пересчитывалась нынешним поясом, и после смены пояса живой
+    # путь и восстановление расходились (аудит 2.1: 503 истории из 1971).
+    # У строк до 2.1 пусто — для них день считается по `completed_at`
+    local_day: Mapped[Optional[date]] = mapped_column(Date, nullable=True)
 
     # Relationships
     user: Mapped["User"] = relationship(back_populates="quiz_sessions")

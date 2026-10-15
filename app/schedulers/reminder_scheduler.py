@@ -1,6 +1,7 @@
 """
 Планировщик напоминаний и сезонов для бота
 """
+import html
 import logging
 from datetime import datetime, timedelta
 from app.core.clock import utcnow
@@ -172,7 +173,9 @@ async def build_reminder_text(user: User, session) -> str:
     from app.services.reminder_reason import reason_line
 
     lang = user.interface_language or "ru"
-    name = user.first_name or get_text("notif_default_name", lang)
+    # Имя идёт в <b>…</b> HTML-сообщения: «Tom <3» без экранирования
+    # Telegram отвергал, и напоминание не доходило никогда (аудит 2.1)
+    name = html.escape(user.first_name or get_text("notif_default_name", lang))
     pair = pair_from_user(user)
     level, category = _scope(user)
 

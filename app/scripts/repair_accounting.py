@@ -375,10 +375,10 @@ async def repair_user_totals(session, apply: bool) -> int:
     # UTC, после — по поясу человека, и на переходе разрыв в один день
     # прощается. Своё правило здесь — «разница ровно в сутки по UTC» —
     # оборвало бы серию тем, кого бот на переходе не обрывал.
-    from app.services.streak_service import advance, user_day
+    from app.services.streak_service import advance, session_day, user_day
 
     rows_days = (await session.execute(
-        select(User, QuizSession.completed_at)
+        select(User, QuizSession.completed_at, QuizSession.local_day)
         .join(QuizSession, QuizSession.user_id == User.id)
         .where(QuizSession.completed_at.isnot(None), scored_sessions_filter())
     )).all()
@@ -386,8 +386,8 @@ async def repair_user_totals(session, apply: bool) -> int:
     history_best: dict[int, int] = {}
     history_last: dict[int, tuple] = {}
     active_days: dict[int, set] = {}
-    for person, completed_at in rows_days:
-        active_days.setdefault(person.id, set()).add(user_day(person, completed_at))
+    for person, completed_at, local_day in rows_days:
+        active_days.setdefault(person.id, set()).add(session_day(person, local_day, completed_at))
     for user_id, day_set in active_days.items():
         dates = sorted(day_set)
         best = run = 1

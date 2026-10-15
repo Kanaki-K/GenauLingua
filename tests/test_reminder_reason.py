@@ -487,3 +487,18 @@ async def test_a_blocked_bot_is_reported_as_forbidden(session, user):
             )
 
     assert await send_notification_to_user(Blocked(), user, session) == FORBIDDEN
+
+
+@pytest.mark.asyncio
+async def test_name_with_html_characters_is_escaped(session, user):
+    """
+    Имя идёт в <b>…</b> HTML-сообщения. «Tom <3» без экранирования Telegram
+    отвергал — напоминание не доходило никогда, а бот считал это «прочим
+    сбоем» (аудит 2.1).
+    """
+    from app.schedulers.reminder_scheduler import build_reminder_text
+
+    user.first_name = "Tom <3"
+    await session.commit()
+    text = await build_reminder_text(user, session)
+    assert "Tom &lt;3" in text and "Tom <3" not in text

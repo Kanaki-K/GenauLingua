@@ -148,14 +148,14 @@ async def retention_today(session: AsyncSession) -> tuple[int, int, int, int]:
 
     from app.services.monthly_leaderboard_service import scored_sessions_filter
 
-    started = (await session.execute(
-        select(func.count(distinct(QuizSession.user_id))).where(
+    started_ids = set((await session.execute(
+        select(distinct(QuizSession.user_id)).where(
             QuizSession.started_at >= since,
             scored_sessions_filter(),
             # Пустой перезапуск (`restarted`) — не приход, а повторное нажатие
             or_(QuizSession.exit_reason.is_(None), QuizSession.exit_reason != "restarted"),
         )
-    )).scalar() or 0
+    )).scalars())
 
     def finished(start, end=None):
         q = select(distinct(QuizSession.user_id)).where(
@@ -167,7 +167,10 @@ async def retention_today(session: AsyncSession) -> tuple[int, int, int, int]:
 
     base = set((await session.execute(finished(week, since))).scalars())
     today_done = set((await session.execute(finished(since))).scalars())
-    return int(started), len(today_done), len(base & today_done), len(base)
+    # Закончивший сегодня — тоже пришёл сегодня, даже если начал в 23:58
+    # вчера: иначе «закончили» бывало больше «начали» (аудит 2.1)
+    started = len(started_ids | today_done)
+    return started, len(today_done), len(base & today_done), len(base)
 
 
 async def _get_main_stats(session: AsyncSession) -> str:
