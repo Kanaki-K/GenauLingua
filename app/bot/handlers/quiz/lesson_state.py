@@ -183,6 +183,9 @@ async def _release_answer(state: FSMContext, chat_id: int) -> None:
 
 DEFAULT_QUIZ_LENGTH = 15
 
+# Длина занятия — `quiz_service.lesson_length` (первое занятие короче)
+from app.services.quiz_service import FIRST_LESSON_LENGTH, lesson_length  # noqa: E402,F401
+
 
 # Ключ состояния: доска в этом круге уже была. Один круг — одна доска:
 # вторая превратила бы занятие в сопоставление с довеском из вопросов.

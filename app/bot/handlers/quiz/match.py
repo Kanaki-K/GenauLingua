@@ -49,7 +49,7 @@ from aiogram.types import (
 )
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.bot.handlers.quiz.lesson_state import S_BOARD_DONE, _recover
+from app.bot.handlers.quiz.lesson_state import S_BOARD_DONE, _recover, lesson_length
 from app.core.clock import utcnow
 from app.database.enums import QuizChannel
 from app.database.models import QuizQuestion, QuizSession, User, Word
@@ -475,7 +475,7 @@ async def _finish(
             text=get_text("match_btn_again", lang), callback_data="match_start"
         )],
         [InlineKeyboardButton(
-            text=get_text("home_btn_learn", lang, count=user.quiz_word_count or 15),
+            text=get_text("home_btn_learn", lang, count=lesson_length(user)),
             # С итога отдельно открытой доски
             callback_data="learn_now:board",
         )],

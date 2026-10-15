@@ -91,7 +91,7 @@ TEXTS = {
     # ONE REASON TO COME BACK — and it has to be true
     "remind_streak_risk": "{days_word} in a row · not today yet",
     "remind_due": "Words due for review: {count} — the bot keeps track of the timing",
-    "remind_due_many": "Quite a lot is due. Start with one lesson — the rest can wait.",
+    "remind_due_many": "Words are waiting for review — the lesson starts with them on its own. One lesson is enough; the rest can wait.",
     "remind_streak_lost": "Your best streak was {days_word}. A new one starts with a single lesson.",
     "remind_milestone_close": "Words you're learning: {count} · {left} more to {target} — that's one lesson",
     "remind_almost_learned": "You're one correct answer away from your first learned word. Words this close: {count}",

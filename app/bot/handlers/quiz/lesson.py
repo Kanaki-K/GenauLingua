@@ -24,6 +24,7 @@ from app.bot.handlers.quiz.card import STATE_CARD_HAS_AUDIO, show_card
 from app.bot.handlers.quiz.lesson_state import (
     DEFAULT_QUIZ_LENGTH,
     S_BOARD_DONE,
+    lesson_length,
     S_REPEAT_FROM,
     S_SPEECH_TRIES,
     _claim_advance,
@@ -91,7 +92,14 @@ async def _close_abandoned_sessions(session: AsyncSession, user_id: int) -> None
         )
     )
     for stale in result.scalars():
-        stale.exit_reason = "abandoned"
+        # БЕЗ ЕДИНОГО ОТВЕТА — НЕ ОТВАЛ, А ПЕРЕЗАПУСК. Прод 15.10: занятия,
+        # начатые повторно через 1–4 секунды (карточка грузилась, человек
+        # нажал ещё раз), считались брошенными на нулевом вопросе и
+        # завышали отвалы новичков втрое. Блокировать второе нажатие нельзя:
+        # человек мог уйти в меню и вернуться — владелец: «по логике верно,
+        # новая игра». Поэтому новое занятие начинается как всегда, а
+        # прежнее пустое помечается честно
+        stale.exit_reason = "abandoned" if stale.answered_questions else "restarted"
         stale.exit_at_question = stale.answered_questions
     await session.commit()
 
@@ -175,7 +183,7 @@ async def start_lesson(
 
     await _close_abandoned_sessions(session, user.id)
 
-    quiz_total = user.quiz_word_count or DEFAULT_QUIZ_LENGTH
+    quiz_total = lesson_length(user)
 
     if user.quiz_mode == QuizMode.DIFFICULT:
         difficult = await count_difficult_words(user.id, session, pair)

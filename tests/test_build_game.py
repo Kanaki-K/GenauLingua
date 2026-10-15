@@ -248,6 +248,7 @@ async def _seed(session, user, *, n=60, fit=True, correct=2, channels="tasrb",
     user.quiz_word_count = 15
     user.audio_enabled = audio
     user.quiz_channels = channels
+    user.quizzes_passed = 2  # не новичок: у новичка первое занятие короче (7)
     await session.commit()
     words = (await session.execute(select(Word).order_by(Word.id))).scalars().all()
     if correct:

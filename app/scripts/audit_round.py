@@ -197,7 +197,9 @@ async def _make_probe(session, case: Case, index: int) -> User:
         # текстовая, и случай «tr» обязан проходить с выключенным звуком
         audio_enabled="a" in case.channels or "s" in case.channels,
         match_in_round=True,
-        quizzes_passed=0,            # чётное — доска положена
+        # Чётное — доска положена; не 0: у новичка первое занятие короче (7),
+        # а приёмка проверяет занятие заданной длины
+        quizzes_passed=2,
     )
     session.add(user)
     await session.commit()

@@ -936,6 +936,30 @@ class WordLangGroup(Base):
     norm_key: Mapped[str] = mapped_column(String(255), nullable=False)
 
 
+class WordFrequency(Base):
+    """
+    Насколько ходовое слово на каждом языке — частота zipf по wordfreq.
+
+    ЗАЧЕМ. Новое слово внутри уровня бралось случайно, и новичок A1 получал
+    Strumpf (22 385-е по частоте) раньше Haus. Прод 15.10: новички уходили
+    после первых слов, отвечая на всё верно. Теперь новое берётся среди
+    самых ходовых невиденных (`quiz_service.get_new_words`).
+
+    СВОЯ ТАБЛИЦА, А НЕ КОЛОНКА В ГРУППАХ: `rebuild_word_groups` пересобирает
+    word_lang_groups целиком и стёр бы частоты. Частота — по ИЗУЧАЕМОМУ
+    языку: учащему английский ходовое по-английски, а не по-немецки.
+    Заполняет `app.scripts.fill_word_frequency`.
+    """
+
+    __tablename__ = "word_frequency"
+
+    word_id: Mapped[int] = mapped_column(
+        ForeignKey("words.id", ondelete="CASCADE"), primary_key=True
+    )
+    lang: Mapped[str] = mapped_column(String(2), primary_key=True)
+    zipf: Mapped[float] = mapped_column(Float, nullable=False)
+
+
 class UserTtsVoice(Base):
     """
     Выбранный голос — на каждый изучаемый язык свой.

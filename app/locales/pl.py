@@ -96,7 +96,7 @@ TEXTS = {
     # JEDEN POWÓD, BY WRÓCIĆ — i musi być prawdziwy
     "remind_streak_risk": "{days_word} z rzędu · dziś jeszcze nie",
     "remind_due": "Słowa czekają na powtórkę: {count} — terminy bot liczy sam",
-    "remind_due_many": "Do powtórki zebrało się sporo słów. Najlepiej zacząć od jednej lekcji, a resztę odłożyć na później.",
+    "remind_due_many": "Zebrały się słowa do powtórki — lekcja sama zacznie od nich. Wystarczy jedna, reszta poczeka.",
     "remind_streak_lost": "Najlepsza seria to {days_word}. Nowa zaczyna się od jednej lekcji.",
     "remind_milestone_close": "Słowa w nauce: {count} · do {target} jeszcze {left}, to jedna lekcja",
     "remind_almost_learned": "Do pierwszego nauczonego słowa brakuje jednej poprawnej odpowiedzi. Takich słów: {count}",

@@ -21,7 +21,7 @@ from app.database.enums import QuizChannel
 from app.database.models import QuizQuestion, QuizSession, User, UserWord, Word
 from app.locales import get_text
 from app.services.language_service import LanguagePair, option_label
-from app.services.level_service import should_offer_next_level
+from app.services.level_service import is_newcomer, should_offer_next_level
 from app.services.monthly_leaderboard_service import update_monthly_stats
 from app.services.quiz_service import get_user_progress_stats
 from app.services.reminder_service import mark_reminders_offered, should_offer_reminders
@@ -187,7 +187,19 @@ async def _offer_what_fits(
     предлагаются они ровно один раз в жизни — упустив этот круг, второго
     случая не будет. Уровень подождёт: признак, по которому он предлагается,
     никуда не денется и к следующему кругу будет тот же.
+
+    ИСКЛЮЧЕНИЕ — НОВИЧКУ ЯВНО ЛЕГКО (15.10). Новички, знающие язык,
+    отвечали верно на всё и уходили после первых слов: A1 был скучен, и
+    напоминание такого не вернёт — вернуть может только интересное занятие.
+    Тогда первым идёт уровень, а напоминания — сразу после ответа на него
+    (`settings.answer_level_offer`): по-прежнему по одному, но ни одно не
+    теряется.
     """
+    following = await should_offer_next_level(user, session)
+    if following is not None and is_newcomer(user):
+        await _send_level_offer(callback, user, lang, following)
+        return
+
     if should_offer_reminders(user):
         try:
             await callback.bot.send_message(
@@ -202,19 +214,22 @@ async def _offer_what_fits(
             logger.warning("не удалось предложить напоминания", exc_info=True)
         return
 
-    following = await should_offer_next_level(user, session)
     if following is not None:
-        try:
-            await callback.bot.send_message(
-                chat_id=callback.message.chat.id,
-                text=get_text(
-                    "level_offer", lang,
-                    current=user.level.value, following=following.value,
-                ),
-                reply_markup=get_level_offer_keyboard(following, lang),
-            )
-        except Exception:
-            logger.warning("не удалось предложить уровень", exc_info=True)
+        await _send_level_offer(callback, user, lang, following)
+
+
+async def _send_level_offer(callback: CallbackQuery, user: User, lang: str, following) -> None:
+    try:
+        await callback.bot.send_message(
+            chat_id=callback.message.chat.id,
+            text=get_text(
+                "level_offer", lang,
+                current=user.level.value, following=following.value,
+            ),
+            reply_markup=get_level_offer_keyboard(following, lang),
+        )
+    except Exception:
+        logger.warning("не удалось предложить уровень", exc_info=True)
 
 
 # ============================================================================

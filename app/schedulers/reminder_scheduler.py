@@ -125,7 +125,7 @@ async def count_new_in_next_round(user: User, session, pair, due: int) -> int:
     """
     from app.database.enums import QuizMode
     from app.services.quiz_service import (
-        DEFAULT_ROUND_LENGTH, count_difficult_words, get_new_words, wants_new_word,
+        count_difficult_words, get_new_words, lesson_length, wants_new_word,
     )
 
     # Режим «сложные слова» новых не берёт вовсе
@@ -135,7 +135,7 @@ async def count_new_in_next_round(user: User, session, pair, due: int) -> int:
     if await get_new_words(user.id, session, pair, [], user=user) is None:
         return 0
 
-    length = user.quiz_word_count or DEFAULT_ROUND_LENGTH
+    length = lesson_length(user)
     new_slots = sum(1 for place in range(length) if wants_new_word(place, length))
     busy = due + await count_difficult_words(user.id, session, pair)
     return new_slots + max(0, (length - new_slots) - busy)
@@ -221,6 +221,8 @@ EARLY = timedelta(minutes=2)
 
 async def send_notification_to_user(bot: Bot, user: User, session) -> str:
     """Отправить напоминание конкретному пользователю. Возвращает исход."""
+    from app.services.quiz_service import lesson_length
+
     lang = user.interface_language or "ru"
 
     try:
@@ -240,7 +242,7 @@ async def send_notification_to_user(bot: Bot, user: User, session) -> str:
             # БЕЗ КЛАВИАТУРЫ ЭТО СООБЩЕНИЕ БЫЛО ТУПИКОМ. Текст звал
             # заниматься, нажать было нечего, и человек должен был сам
             # вспомнить про реплай-клавиатуру. См. get_reminder_keyboard.
-            reply_markup=get_reminder_keyboard(lang, count=user.quiz_word_count or 15),
+            reply_markup=get_reminder_keyboard(lang, count=lesson_length(user)),
         )
         logger.info(f"Напоминание отправлено пользователю {user.id} ({user.username})")
         return SENT

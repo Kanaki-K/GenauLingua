@@ -76,6 +76,32 @@ EASY_ACCURACY = 0.90
 # Через сколько занятий после отказа предложить снова (при той же точности)
 REOFFER_AFTER_ROUNDS = 5
 
+# БЫСТРЫЙ ПУТЬ ДЛЯ НОВИЧКА. Прод 15.10: новички, знающие язык, отвечали на
+# всё верно за 4–15 секунд и уходили после первых слов, не дождавшись
+# двадцати ответов: A1 им был скучен. Один новичок дотерпел, на 30-м ответе
+# принял B1 — и остался. Владелец: «2 круга с высокой точностью — явно
+# знает», «плюс у него есть выбор остаться», «сделай по-умному».
+#
+# Поэтому первые занятия судятся по ОДНОМУ: шесть ответов (короткое первое
+# занятие — семь вопросов) и не больше одной ошибки на семь. Человек,
+# знающий язык, поднимается на уровень за занятие, пока не дойдёт до
+# своего; дальше действует обычное правило — два занятия.
+NEWCOMER_LESSONS = 3
+NEWCOMER_MIN_ANSWERS = 6
+NEWCOMER_ACCURACY = 0.85
+
+
+def is_newcomer(user: User) -> bool:
+    """Первые занятия человека — уровень судится по одному занятию."""
+    return (getattr(user, "quizzes_passed", 0) or 0) <= NEWCOMER_LESSONS
+
+
+def _thresholds(user: User) -> tuple[int, float]:
+    """Сколько ответов и какая точность нужны, чтобы предложить уровень."""
+    if is_newcomer(user):
+        return NEWCOMER_MIN_ANSWERS, NEWCOMER_ACCURACY
+    return MIN_ANSWERS, EASY_ACCURACY
+
 
 def next_level(level: Optional[CEFRLevel]) -> Optional[CEFRLevel]:
     """Следующий уровень или None, если дальше некуда."""
@@ -173,7 +199,8 @@ async def should_offer_next_level(
             return None
 
     answered, accuracy = await recent_accuracy(user, session)
-    if answered < MIN_ANSWERS or accuracy < EASY_ACCURACY:
+    need_answers, need_accuracy = _thresholds(user)
+    if answered < need_answers or accuracy < need_accuracy:
         return None
 
     return following

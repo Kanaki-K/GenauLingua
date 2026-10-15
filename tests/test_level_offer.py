@@ -25,6 +25,8 @@ from app.services.level_service import (
     EASY_ACCURACY,
     LEVEL_ORDER,
     MIN_ANSWERS,
+    NEWCOMER_LESSONS,
+    NEWCOMER_MIN_ANSWERS,
     RECENT_ANSWERS,
     decline_level,
     next_level,
@@ -107,6 +109,7 @@ async def test_too_few_answers_to_judge(session, user):
     При малом числе ответов одна ошибка двигает точность на пять пунктов, и
     предложение превращается в лотерею.
     """
+    user.quizzes_passed = NEWCOMER_LESSONS + 1  # обычное правило — два занятия
     user.level = CEFRLevel.A1
     await _answers(session, user, correct=MIN_ANSWERS - 1, wrong=0)
 
@@ -127,6 +130,7 @@ async def test_not_offered_while_the_level_still_bites(session, user):
     Порог обязан РАЗЛИЧАТЬ. Проверка на точности заведомо ниже порога: если
     и она пройдёт, правило метит во всех подряд, а не в тех, кому легко.
     """
+    user.quizzes_passed = NEWCOMER_LESSONS + 1  # обычное правило — два занятия
     user.level = CEFRLevel.A1
     wrong = max(1, int(MIN_ANSWERS * (1 - EASY_ACCURACY)) + 2)
     await _answers(session, user, correct=MIN_ANSWERS, wrong=wrong)
@@ -295,3 +299,62 @@ async def test_a_second_refusal_restarts_the_count(session, user):
 
     await decline_level(user, session)
     assert await should_offer_next_level(user, session) is None
+
+
+# ============================================================================
+# БЫСТРЫЙ ПУТЬ НОВИЧКА (15.10)
+# ============================================================================
+#
+# Прод 15.10: новички, знающие язык, отвечали верно на всё и уходили после
+# первых слов, не дождавшись двадцати ответов. Владелец: «2 круга с высокой
+# точностью — явно знает», «сделай по-умному». Первые занятия судятся по
+# одному: шесть ответов, не больше одной ошибки на семь.
+
+
+@pytest.mark.asyncio
+async def test_newcomer_is_offered_after_one_short_lesson(session, user):
+    user.level = CEFRLevel.A1
+    user.quizzes_passed = 1
+    await _answers(session, user, correct=NEWCOMER_MIN_ANSWERS, wrong=1)
+
+    assert await should_offer_next_level(user, session) == CEFRLevel.A2, (
+        "новичок ответил 6 из 7 — A1 ему явно легко, а предложения нет"
+    )
+
+
+@pytest.mark.asyncio
+async def test_newcomer_with_two_mistakes_stays(session, user):
+    user.level = CEFRLevel.A1
+    user.quizzes_passed = 1
+    await _answers(session, user, correct=NEWCOMER_MIN_ANSWERS - 1, wrong=2)
+
+    assert await should_offer_next_level(user, session) is None, (
+        "две ошибки из семи — уровень ещё по силам, предлагать рано"
+    )
+
+
+@pytest.mark.asyncio
+async def test_regular_user_needs_two_lessons(session, user):
+    """После первых занятий — правило владельца: два занятия с высокой точностью."""
+    user.level = CEFRLevel.A1
+    user.quizzes_passed = NEWCOMER_LESSONS + 1
+    await _answers(session, user, correct=NEWCOMER_MIN_ANSWERS + 1, wrong=0)
+
+    assert await should_offer_next_level(user, session) is None, (
+        "одного короткого занятия хватило обычному человеку — быстрый путь протёк"
+    )
+
+
+@pytest.mark.asyncio
+async def test_first_lesson_is_short():
+    from app.services.quiz_service import FIRST_LESSON_LENGTH, lesson_length
+
+    class Person:
+        quizzes_passed = 0
+        quiz_word_count = 15
+
+    assert lesson_length(Person()) == FIRST_LESSON_LENGTH == 7
+    Person.quizzes_passed = 1
+    assert lesson_length(Person()) == 15, "второе занятие — обычной длины"
+    Person.quizzes_passed, Person.quiz_word_count = 0, 5
+    assert lesson_length(Person()) == 5, "первое не длиннее выбранного"

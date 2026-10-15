@@ -14,9 +14,12 @@ from typing import Optional
 
 from sqlalchemy import and_, case, func, literal_column, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import aliased
 
 from app.database.enums import CEFRLevel, QuizChannel, QuizMode, counted_channels
-from app.database.models import PartOfSpeech, User, UserWord, Word, WordLangGroup
+from app.database.models import (
+    PartOfSpeech, User, UserWord, Word, WordFrequency, WordLangGroup,
+)
 from app.services import build_service
 from app.services.goal_service import categories_for
 from app.services.language_service import (
@@ -124,6 +127,25 @@ NEW_WORDS_PER_ROUND = 3
 # вызов из приёмки, первый вопрос до создания занятия).
 DEFAULT_ROUND_LENGTH = 15
 
+# ПЕРВОЕ ЗАНЯТИЕ КОРОЧЕ. Прод 15.10: новички уходили на втором-пятом
+# вопросе из пятнадцати, не увидев ни итога, ни зачем это всё. Семь —
+# короткое знакомство: итог и первая победа приходят через пару минут, а
+# доска (ей нужно не меньше пяти вопросов в круге) в нём ещё помещается
+FIRST_LESSON_LENGTH = 7
+
+
+def lesson_length(user) -> int:
+    """
+    Сколько вопросов в занятии. Первое — короче, пока человек не закончил
+    ни одного; дальше — его настройка. Одно место для всех, кто это число
+    показывает: кнопки «Учить N слов», вступление, напоминание.
+    """
+    chosen = (getattr(user, "quiz_word_count", None) if user is not None else None) or DEFAULT_ROUND_LENGTH
+    if user is not None and not (getattr(user, "quizzes_passed", 0) or 0):
+        # Короче, но не длиннее выбранного: первое занятие не растягивается
+        return min(FIRST_LESSON_LENGTH, chosen)
+    return chosen
+
 # Сколько кандидатов тянуть из БД, чтобы набрать 3 различных дистрактора.
 # С запасом: часть кандидатов отсеется как совпадающие по тексту.
 DISTRACTOR_CANDIDATES = 16
@@ -206,6 +228,49 @@ async def _pick_one(session: AsyncSession, query) -> Optional[Word]:
     на каждый вопрос) и random.choice применялся в Python.
     """
     result = await session.execute(query.order_by(func.random()).limit(1))
+    return result.scalars().first()
+
+
+# Из скольких самых ходовых невиденных слов уровня выбирать новое. Не из
+# десяти: верх частотного списка — служебные слова (der, und, in, ich), и
+# первое занятие новичка состояло бы из них. Сто пятьдесят смешивают их с
+# Haus, Mutter, gut, fahren, а редкое экзаменационное (Familienstand,
+# buchstabieren) приходит позже
+COMMON_POOL = 150
+
+
+# На сколько служебное слово «реже» в очереди новых: der, von, zwischen, but
+# занимали половину первого занятия (замер 15.10: bei, von, zwischen, nun,
+# mal из 15). Они не пропадают — просто содержательные идут чаще раньше
+FUNCTION_WORD_PENALTY = 1.0
+_FUNCTION_POS = (PartOfSpeech.PRONOUN, PartOfSpeech.PREPOSITION,
+                 PartOfSpeech.CONJUNCTION, PartOfSpeech.OTHER)
+
+
+def _function_word_penalty():
+    return case((Word.pos.in_(_FUNCTION_POS), FUNCTION_WORD_PENALTY), else_=0.0)
+
+
+async def _pick_common(session: AsyncSession, query, lang: str) -> Optional[Word]:
+    """
+    Новое слово — случайное среди самых ходовых на изучаемом языке.
+
+    Прежде — случайное из всего уровня: новичок A1 получал Strumpf (22 385-е
+    по частоте) раньше Haus. Прод 15.10: новички уходили после первых
+    слов, отвечая на всё верно. Частота — по ИЗУЧАЕМОМУ языку
+    (`WordFrequency`); слово без частоты идёт последним, но не пропадает.
+    """
+    pool = (
+        query.outerjoin(
+            WordFrequency,
+            and_(WordFrequency.word_id == Word.id, WordFrequency.lang == lang),
+        )
+        .order_by((WordFrequency.zipf - _function_word_penalty()).desc().nulls_last(), Word.id)
+        .limit(COMMON_POOL)
+        .subquery()
+    )
+    picked = aliased(Word, pool)
+    result = await session.execute(select(picked).order_by(func.random()).limit(1))
     return result.scalars().first()
 
 
@@ -738,11 +803,13 @@ async def get_new_words(
     # и запас этот не теоретический: в «Wirtschaft» слов уровня A1 всего два.
     categories = categories_for(getattr(user, "learning_goal", None))
     if categories:
-        themed = await _pick_one(session, query.where(Word.category.in_(categories)))
+        themed = await _pick_common(
+            session, query.where(Word.category.in_(categories)), pair.learning
+        )
         if themed is not None:
             return themed
 
-    return await _pick_one(session, query)
+    return await _pick_common(session, query, pair.learning)
 
 
 async def get_review_words(

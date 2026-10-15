@@ -414,9 +414,9 @@ def _intro_keyboard(user: User, lang: str) -> InlineKeyboardMarkup:
     половина кнопок дублирует меню, читается как список непонятных
     вариантов — а у этого экрана работа ровно одна: начать.
     """
-    from app.bot.handlers.quiz.lesson_state import DEFAULT_QUIZ_LENGTH
+    from app.bot.handlers.quiz.lesson_state import lesson_length
 
-    count = user.quiz_word_count or DEFAULT_QUIZ_LENGTH
+    count = lesson_length(user)
     return InlineKeyboardMarkup(inline_keyboard=[[
         InlineKeyboardButton(
             text=get_text("home_btn_learn", lang, count=count),

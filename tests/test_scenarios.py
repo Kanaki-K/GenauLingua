@@ -762,7 +762,7 @@ async def _long_round_ready(session, user) -> None:
     user.audio_enabled = False
     user.quiz_channels = "t"
     user.match_in_round = True
-    user.quizzes_passed = 0          # чётное — доска положена
+    user.quizzes_passed = 2  # чётное — доска положена; не 0: у новичка первое занятие короче (7)
     await session.commit()
 
     # Знакомыми делаем ПОЛОВИНУ: доске нужны отвеченные верно, а кругу —

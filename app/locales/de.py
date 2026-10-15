@@ -96,7 +96,7 @@ TEXTS = {
     # EIN GRUND ZURÜCKZUKOMMEN — und er muss stimmen
     "remind_streak_risk": "{days_word} in Folge · heute noch nicht",
     "remind_due": "Zur Wiederholung fällig: {count} — die Termine behält der Bot im Blick",
-    "remind_due_many": "Es hat sich viel angesammelt. Fangen Sie mit einer Lektion an, der Rest wartet.",
+    "remind_due_many": "Wörter warten auf Wiederholung — die Lektion beginnt von selbst mit ihnen. Eine reicht, der Rest wartet.",
     "remind_streak_lost": "Ihre beste Serie war {days_word}. Eine neue beginnt mit einer Lektion.",
     "remind_milestone_close": "Wörter in Arbeit: {count} · noch {left} bis {target}, das ist eine Lektion",
     "remind_almost_learned": "Nur noch eine richtige Antwort bis zum ersten gelernten Wort. Solche Wörter: {count}",

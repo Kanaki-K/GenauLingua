@@ -91,7 +91,7 @@ TEXTS = {
     # GERİ DÖNMEK İÇİN TEK NEDEN — ve doğru olmalı
     "remind_streak_risk": "{days_word} üst üste · bugün henüz ders yok",
     "remind_due": "{count} kelimenin tekrar zamanı geldi — süreleri bot kendi tutuyor",
-    "remind_due_many": "Tekrar edilecek çok şey birikti. Bir dersle başlayın, gerisi bekler.",
+    "remind_due_many": "Tekrar bekleyen kelimeler birikti — ders kendiliğinden onlarla başlar. Bir ders yeterli, gerisi bekleyebilir.",
     "remind_streak_lost": "En iyi seriniz {days_word}dü. Yenisi tek bir dersle başlar.",
     "remind_milestone_close": "Üzerinde çalıştığınız kelime: {count} · {target} kelimeye {left} kaldı — yani bir ders",
     "remind_almost_learned": "İlk öğrenilen kelimeye bir doğru yanıt kaldı. Böyle kelime sayısı: {count}",
