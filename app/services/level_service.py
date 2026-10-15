@@ -248,3 +248,28 @@ async def decline_level(
         await session.commit()
         return True
     return False
+
+
+async def jump_to_level(user: User, session: AsyncSession, target: CEFRLevel) -> bool:
+    """
+    Перейти сразу на выбранный уровень — выше текущего. False — кнопка устарела.
+
+    ВЫБОР ДЛЯ НОВИЧКА, А НЕ ЛЕСЕНКА. Подъём по одной ступени за занятие
+    заставлял сильного человека гонять A1, A2, B1 подряд — три скучных
+    занятия, прежде чем станет интересно. Владелец, 15.10: «нужно угодить и
+    новичкам и более продвинутым. Людям не очень интересно несколько кругов
+    гонять, и скорее всего не полезут в настройки». Поэтому новичку под
+    итогом — выбор A2 / B1 / B2 / C1 одним нажатием.
+
+    Только ВВЕРХ: кнопка, нажатая после того, как человек уже поднялся сам,
+    не должна опустить его обратно.
+    """
+    if (target not in LEVEL_ORDER or user.level not in LEVEL_ORDER
+            or LEVEL_ORDER.index(target) <= LEVEL_ORDER.index(user.level)):
+        return False
+    user.level = target
+    user.level_offer_declined = None
+    user.level_offer_declined_round = None
+    await session.commit()
+    return True
+

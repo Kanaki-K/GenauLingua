@@ -606,6 +606,8 @@ TEXTS.update({
     "level_offer_yes": "Ja, weiter zu {following}",
     "level_offer_no": "Hier bleiben",
     "level_offer_done": "Niveau <b>{following}</b>. Die Wörter werden jetzt schwerer.",
+    "level_offer_pick": "<b>{current}</b> scheint Ihnen leichtzufallen. Mit welchem Niveau möchten Sie weitermachen? Alles Gelernte bleibt Ihnen erhalten.",
+    "level_offer_stay": "Bei {current} bleiben",
 })
 
 

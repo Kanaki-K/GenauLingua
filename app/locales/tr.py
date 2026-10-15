@@ -594,6 +594,8 @@ TEXTS.update({
     "level_offer_yes": "Evet, {following} seviyesine geç",
     "level_offer_no": "Burada kalayım",
     "level_offer_done": "Yeni seviye: <b>{following}</b>. Kelimeler artık daha zor olacak.",
+    "level_offer_pick": "<b>{current}</b> seviyesi size kolay geliyor gibi. Hangi seviyeden devam etmek istersiniz? Öğrendikleriniz sizde kalır.",
+    "level_offer_stay": "{current} seviyesinde kalayım",
 })
 
 

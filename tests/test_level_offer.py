@@ -358,3 +358,90 @@ async def test_first_lesson_is_short():
     assert lesson_length(Person()) == 15, "второе занятие — обычной длины"
     Person.quizzes_passed, Person.quiz_word_count = 0, 5
     assert lesson_length(Person()) == 5, "первое не длиннее выбранного"
+
+
+# ============================================================================
+# ВЫБОР УРОВНЯ ДЛЯ НОВИЧКА (15.10)
+# ============================================================================
+#
+# Владелец: «нужно угодить и новичкам и более продвинутым. Людям не очень
+# интересно несколько кругов гонять, и скорее всего не полезут в настройки».
+
+
+def test_newcomer_picks_any_level_up_to_c1():
+    from app.bot.handlers.quiz.settings import get_level_pick_keyboard
+
+    kb = get_level_pick_keyboard(CEFRLevel.A1, "ru")
+    jumps = [b.callback_data for b in kb.inline_keyboard[0]]
+    assert jumps == ["level_jump_A2", "level_jump_B1", "level_jump_B2", "level_jump_C1"]
+    stay = kb.inline_keyboard[1][0]
+    assert stay.callback_data == "level_up_no_A2" and "A1" in stay.text
+
+
+@pytest.mark.asyncio
+async def test_jump_goes_straight_to_the_chosen_level(session, user):
+    from app.services.level_service import jump_to_level
+
+    user.level = CEFRLevel.A1
+    user.level_offer_declined = "A1"
+    await session.commit()
+
+    assert await jump_to_level(user, session, CEFRLevel.B2)
+    assert user.level == CEFRLevel.B2
+    assert user.level_offer_declined is None
+
+
+@pytest.mark.asyncio
+async def test_stale_jump_never_lowers_the_level(session, user):
+    """Кнопка B1, нажатая уже на B2, не должна опустить человека."""
+    from app.services.level_service import jump_to_level
+
+    user.level = CEFRLevel.B2
+    await session.commit()
+
+    assert not await jump_to_level(user, session, CEFRLevel.B1)
+    assert not await jump_to_level(user, session, CEFRLevel.B2)
+    assert user.level == CEFRLevel.B2
+
+
+@pytest.mark.asyncio
+async def test_newcomer_gets_the_level_choice_under_the_result(session, user):
+    """Под итогом первого занятия, где почти всё верно, — выбор уровня, а не «да/нет»."""
+    from app.bot.handlers.quiz.summary import _offer_what_fits
+    from app.testing import make_bot, press
+
+    user.level = CEFRLevel.A1
+    user.quizzes_passed = 1
+    user.notifications_enabled = False
+    await _answers(session, user, correct=NEWCOMER_MIN_ANSWERS + 1, wrong=0)
+    bot, recorder = make_bot()
+    callback = press(user.id, "next_question").callback_query.as_(bot)
+
+    await _offer_what_fits(callback, session, user, "ru")
+
+    buttons = [b["callback_data"] for _, p in recorder.calls if p.get("reply_markup")
+               for row in p["reply_markup"]["inline_keyboard"] for b in row]
+    assert "level_jump_B2" in buttons, f"новичку не предложен выбор уровня: {buttons}"
+    assert not any(b.startswith("reminder") for b in buttons), (
+        "уровень и напоминания пришли разом — два вопроса подряд"
+    )
+
+
+@pytest.mark.asyncio
+async def test_longtime_user_also_gets_the_level_choice(session, user):
+    """Давние «первую семёрку» не увидят — выбор уровня и им, после двух занятий."""
+    from app.bot.handlers.quiz.summary import _offer_what_fits
+    from app.testing import make_bot, press
+
+    user.level = CEFRLevel.A1
+    user.quizzes_passed = 40
+    user.notifications_enabled = True
+    await _answers(session, user, correct=MIN_ANSWERS, wrong=0)
+    bot, recorder = make_bot()
+    callback = press(user.id, "next_question").callback_query.as_(bot)
+
+    await _offer_what_fits(callback, session, user, "ru")
+
+    buttons = [b["callback_data"] for _, p in recorder.calls if p.get("reply_markup")
+               for row in p["reply_markup"]["inline_keyboard"] for b in row]
+    assert "level_jump_B2" in buttons, f"давнему не предложен выбор уровня: {buttons}"

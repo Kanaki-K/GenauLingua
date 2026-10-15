@@ -219,14 +219,31 @@ async def _offer_what_fits(
 
 
 async def _send_level_offer(callback: CallbackQuery, user: User, lang: str, following) -> None:
+    """
+    Выбор уровня (A2 / B1 / B2 / C1) — всем, когда пора предложить подъём.
+
+    Сильный человек встаёт на свой уровень одним нажатием, а не тремя
+    скучными занятиями подряд (`level_service.jump_to_level`). Не только
+    новичку: владелец, 15.10 — «у нас так же есть те, кто первую семёрку
+    никогда не увидят». Многие давние стоят на A1 — старая версия ставила
+    его всем. Новичок и давний различаются лишь тем, КОГДА пора
+    (`level_service._thresholds`): после одного занятия или после двух.
+    """
+    from app.bot.handlers.quiz.settings import PICK_UP_TO, get_level_pick_keyboard
+
+    # Выбор — пока выше есть что выбрать до C1; с C1 остаётся только C2, и
+    # пустой ряд кнопок Telegram не примет — тогда обычный вопрос
+    if following.value <= PICK_UP_TO.value:
+
+        text = get_text("level_offer_pick", lang, current=user.level.value)
+        keyboard = get_level_pick_keyboard(user.level, lang)
+    else:
+        text = get_text("level_offer", lang,
+                        current=user.level.value, following=following.value)
+        keyboard = get_level_offer_keyboard(following, lang)
     try:
         await callback.bot.send_message(
-            chat_id=callback.message.chat.id,
-            text=get_text(
-                "level_offer", lang,
-                current=user.level.value, following=following.value,
-            ),
-            reply_markup=get_level_offer_keyboard(following, lang),
+            chat_id=callback.message.chat.id, text=text, reply_markup=keyboard,
         )
     except Exception:
         logger.warning("не удалось предложить уровень", exc_info=True)

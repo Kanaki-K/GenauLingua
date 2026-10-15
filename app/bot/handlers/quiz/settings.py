@@ -956,6 +956,57 @@ def get_level_offer_keyboard(following: CEFRLevel, lang: str) -> InlineKeyboardM
     ])
 
 
+# До какого уровня новичку предлагается прыгнуть сразу. C2 не предлагается:
+# его выбирают осознанно, в настройках, а не одним нажатием под итогом
+PICK_UP_TO = CEFRLevel.C1
+
+
+def get_level_pick_keyboard(current: CEFRLevel, lang: str) -> InlineKeyboardMarkup:
+    """Новичку: уровни выше текущего до C1 в ряд и «Остаться»."""
+    from app.services.level_service import LEVEL_ORDER, next_level
+
+    above = LEVEL_ORDER[LEVEL_ORDER.index(current) + 1:LEVEL_ORDER.index(PICK_UP_TO) + 1]
+    following = next_level(current)
+    return InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text=level.value, callback_data=f"level_jump_{level.value}")
+         for level in above],
+        [InlineKeyboardButton(
+            text=get_text("level_offer_stay", lang, current=current.value),
+            callback_data=f"level_up_no_{following.value}",
+        )],
+    ])
+
+
+@router.callback_query(F.data.startswith("level_jump_"))
+async def answer_level_pick(callback: CallbackQuery, session: AsyncSession):
+    """Новичок выбрал уровень под итогом — сразу на него."""
+    from app.services.level_service import jump_to_level
+
+    user = await session.get(User, callback.from_user.id)
+    lang = (user.interface_language if user else None) or DEFAULT_LOCALE
+    if not user:
+        await callback.answer("Error", show_alert=True)
+        return
+    try:
+        target = CEFRLevel(callback.data.removeprefix("level_jump_"))
+    except ValueError:
+        await callback.answer("Error", show_alert=True)
+        return
+
+    if not await jump_to_level(user, session, target):
+        # Устаревшая кнопка: человек уже на этом уровне или выше
+        await callback.answer()
+        try:
+            await callback.message.delete()
+        except Exception:
+            pass
+        return
+    await callback.answer()
+    done = get_text("level_offer_done", lang, following=target.value)
+    await _show_done_after_result(callback, session, user, done)
+    await _offer_reminders_after_level(callback, session, user, lang)
+
+
 @router.callback_query(F.data.startswith("level_up_"))
 async def answer_level_offer(callback: CallbackQuery, session: AsyncSession):
     """

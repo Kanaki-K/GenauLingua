@@ -594,6 +594,8 @@ TEXTS.update({
     "level_offer_yes": "Yes, move to {following}",
     "level_offer_no": "Stay here",
     "level_offer_done": "You're now at <b>{following}</b>. The words will be harder.",
+    "level_offer_pick": "Looks like <b>{current}</b> is easy for you. Which level would you like to continue at? Everything you've learnt stays with you.",
+    "level_offer_stay": "Stay at {current}",
 })
 
 
