@@ -137,10 +137,16 @@ def compose(kind: str, facts: NudgeFacts, lang: str, seed: int) -> str:
         lines.append(get_text("nd_start_last_body", lang, **n))
     elif sit == "farewell":
         lines.append(get_text(_pick(variants("nd_farewell_head"), seed), lang, **n))
-        lines.append(get_text(_pick(variants("nd_farewell_body"), seed, 1), lang, **n))
+        # Варианты с числами — только когда оба числа не ноль: «выучено 0»
+        # в прощальном письме звучит как упрёк, а не польза
+        bodies = (variants("nd_farewell_body") if facts.known > 0 and facts.learned > 0
+                  else ["nd_farewell_body_2"])
+        lines.append(get_text(_pick(bodies, seed, 1), lang, **n))
     elif sit == "kept":
         lines.append(get_text(_pick(variants("nd_kept_head"), seed), lang, **n))
-        lines.append(get_text(_pick(variants("nd_kept_body"), seed, 1), lang, **n))
+        bodies = (variants("nd_kept_body") if facts.known > 0 and facts.learned > 0
+                  else ["nd_kept_body_2", "nd_kept_body_3"])
+        lines.append(get_text(_pick(bodies, seed, 1), lang, **n))
         if facts.best >= 3:
             lines.append(get_text("nd_kept_best", lang, **n))
         lines.append(get_text(_pick(variants("nd_short"), seed, 2), lang, **n))

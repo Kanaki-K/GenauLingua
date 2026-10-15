@@ -558,3 +558,36 @@ def test_yesterday_only_when_it_was_yesterday():
         assert "вчера" not in compose("daily", facts, "ru", seed).lower()
     facts = NudgeFacts(name="Анна", first_day=True, first_day_words=7, known=5, in_work=7, away=1)
     assert any("вчера" in compose("daily", facts, "ru", s).lower() for s in range(6))
+
+
+@pytest.mark.parametrize("lang", sorted(LOCALES))
+def test_no_icons_outside_the_bot_charter(lang):
+    """
+    Владелец о первой редакции: «сделаны не в стилистике бота. Откуда
+    появились все эти смайлики?» Устав (`strip_marks.py`): 🔥 — только в
+    похвале в конце занятия, флагов, ▶️ и ⏰ нет нигде. В сообщениях — ни
+    одного значка, кроме ✓ в подтверждении.
+    """
+    import unicodedata
+
+    for key, text in LOCALES[lang].items():
+        if not key.startswith("nd_"):
+            continue
+        icons = {ch for ch in text if unicodedata.category(ch) in ("So", "Sk", "Cs")
+                 or 0x1F000 <= ord(ch) <= 0x1FAFF or ch == "️"} - {"✓"}
+        assert not icons, (lang, key, icons)
+    for kind in KINDS:
+        for facts in PEOPLE:
+            text = compose(kind, facts, lang, 0)
+            assert not any(0x1F000 <= ord(ch) <= 0x1FAFF for ch in text), (lang, kind, text)
+
+
+@pytest.mark.parametrize("lang", sorted(LOCALES))
+def test_no_zero_numbers_in_messages(lang):
+    """«Знакомых слов 0, выученных 0» в прощальном письме — насмешка, а не польза."""
+    for facts in (NudgeFacts(name="Анна", lessons=1),
+                  NudgeFacts(name="Анна", known=25, in_work=25, lessons=2)):
+        for kind in ("daily", "back3", "back7", "back14"):
+            for seed in range(8):
+                text = compose(kind, facts, lang, seed)
+                assert not re.search(r"(?<![\d.])0(?![\d:])", text), (lang, kind, text)
