@@ -17,6 +17,8 @@ from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.types import ErrorEvent
+from aiogram.fsm.storage.base import SimpleEventIsolation
+
 from app.bot.fsm_storage import make_storage
 from app.bot.slow_log import SLOW_MS, describe as describe_update
 
@@ -146,7 +148,11 @@ async def main():
     )
 
     # Занятие — в Redis, если он задан: выкатка не обрывает уроки
-    dp = Dispatcher(storage=make_storage(settings.REDIS_URL))
+    # Нажатия одного человека — по очереди (SimpleEventIsolation): в Redis
+    # между чтением и записью состояния есть настоящее ожидание, и два
+    # быстрых нажатия по сетке «Собираю» могли бы потерять одно обновление
+    dp = Dispatcher(storage=make_storage(settings.REDIS_URL),
+                    events_isolation=SimpleEventIsolation())
     logger.info("Хранилище занятий: %s", type(dp.storage).__name__)
 
     @dp.errors()

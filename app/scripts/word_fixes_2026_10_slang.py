@@ -53,8 +53,8 @@ FIXES: dict[int, tuple[str, dict[str, str]]] = {
         "translation_pl": "pieniądze (pot.), plastelina",
     }),
     10060: ("Mist", {
-        "translation_en": "rubbish, manure, damn (interj.)",
-        "example_en": "Oh no, I'm late",
+        "translation_en": "darn (interj.), rubbish, manure",
+        "example_en": "Darn, I'm late",
     }),
     10128: ("irre", {
         "translation_ru": "безумный, сумасшедший, потрясающий",

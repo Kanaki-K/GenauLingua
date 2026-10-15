@@ -340,9 +340,19 @@ def sentence_tokens(word, pair: LanguagePair) -> Optional[list[str]]:
     return found
 
 
-def fits(word, pair: LanguagePair) -> bool:
-    """Можно ли спросить это слово сборкой. Одно правило для всего бота."""
-    return sentence_tokens(word, pair) is not None
+def fits(word, pair: LanguagePair, learner_level: Optional[CEFRLevel] = None) -> bool:
+    """
+    Можно ли спросить это слово сборкой. Одно правило для всего бота.
+
+    С уровнем человека — и длиной для A1–A2 (`EASY_MAX_WORDS`): иначе
+    подбор выбирал бы сборке слово с длинной фразой, а `make_puzzle`
+    отправлял бы его карточкой (независимая проверка 2.1).
+    """
+    found = sentence_tokens(word, pair)
+    if found is None:
+        return False
+    limit = EASY_MAX_WORDS.get(learner_level)
+    return limit is None or len(found) <= limit
 
 
 def sql_prefilter(pair: LanguagePair) -> tuple:
@@ -489,19 +499,21 @@ def pick_distractors(
         sources[source] += 1
         return True
 
-    # Для A1–A2 — сначала ЧУЖИЕ слова, без двойников (`EASY_MAX_WORDS`)
+    # Для A1–A2 — ловушки БЕЗ ДВОЙНИКОВ (`EASY_MAX_WORDS`): чужие слова,
+    # потом закрытые списки, оба без форм слов фразы. «Похожие» не
+    # берутся вовсе: это и есть падежные ловушки. Не хватило — лучше
+    # меньше ловушек, чем двойник (независимая проверка 2.1)
     if easy:
-        # И чужое слово не должно быть двойником слова фразы: «in» из чужого
-        # примера — та же падежная ловушка к «im» (нашёл тест 2.1)
         twins = {fold(s) for token in target for s in _siblings(token, lang)}
         pool = [w for w in foreign if fold(w) not in twins]
         rng.shuffle(pool)
-        for word in pool:
+        closed = [w for w in _closed_list(lang) if fold(w) not in twins]
+        rng.shuffle(closed)
+        for word, source in [(w, "foreign") for w in pool] + [(w, "closed") for w in closed]:
             if len(picked) >= count:
                 break
-            take(word, "foreign")
-        if len(picked) >= count:
-            return picked, dict(sources)
+            take(word, source)
+        return picked, dict(sources)
 
     # 1. ПОХОЖИЕ — по кругу от разных слов фразы
     pools = []
@@ -624,9 +636,9 @@ async def make_puzzle(
     count = (EASY_DISTRACTORS if easy
              else distractor_count(len(target), getattr(word, "level", None)))
 
-    if easy and session is not None:
+    if easy:
         # Новичку — ловушка другим словом: чужие примеры нужны сразу
-        foreign = await foreign_words(session, word, pair)
+        foreign = await foreign_words(session, word, pair) if session is not None else []
         distractors, sources = pick_distractors(
             target, pair.learning, foreign, rng, count, easy=True)
         return Puzzle(

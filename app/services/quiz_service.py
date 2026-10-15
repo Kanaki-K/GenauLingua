@@ -705,7 +705,7 @@ def channel_fits(channel: QuizChannel, word: Word, pair: LanguagePair,
     (`build_level_fits`). Без уровня (приёмки) — без этого условия.
     """
     if channel is QuizChannel.BUILD:
-        return build_level_fits(word, level) and build_service.fits(word, pair)
+        return build_level_fits(word, level) and build_service.fits(word, pair, level)
     return True
 
 

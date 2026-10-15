@@ -109,7 +109,7 @@ TEXTS = {
     "remind_due_many": "Zebrały się słowa do powtórki — lekcja sama zacznie od nich. Wystarczy jedna, reszta poczeka.",
     "remind_due_many_v2": "Do powtórki zebrało się sporo słów — lekcja sama wybierze najważniejsze.",
     "remind_due_many_v3": "Powtórek się nazbierało — dziś wystarczy jedna lekcja, reszta poczeka.",
-    "day2_hook_words": "Wczoraj było nowych słów: {count}. Sprawdzimy, co zostało w pamięci? To tylko 2 minuty.",
+    "day2_hook_words": "Wczoraj było nowych słów: {count}. Sprawdźmy, co zostało w pamięci? To tylko 2 minuty.",
     "day2_hook": "Wczoraj zaczęła się nauka słów. Sprawdźmy, co zostało w pamięci? To 2 minuty.",
     "remind_streak_lost": "Najlepsza seria to {days_word}. Nowa zaczyna się od jednej lekcji.",
     "remind_streak_lost_v2": "Rekord to {days_word} z rzędu. Zaczynamy dziś nową serię?",

@@ -17,8 +17,10 @@ from app.schedulers.day2_hook import day2_keyboard, due_users, may_write
 pytestmark = pytest.mark.asyncio
 
 
-async def _finished(session, user, hours_ago: float):
-    done = utcnow() - timedelta(hours=hours_ago)
+async def _finished(session, user, hours_ago: float, now=None):
+    # Закончил — значит, и в счётчике занятий (как в боте, `_finish_quiz`)
+    user.quizzes_passed = (user.quizzes_passed or 0) + 1
+    done = (now or utcnow()) - timedelta(hours=hours_ago)
     session.add(QuizSession(user_id=user.id, level=CEFRLevel.A1, total_questions=7,
                             answered_questions=7, is_completed=True,
                             started_at=done - timedelta(minutes=3), completed_at=done))
@@ -51,15 +53,36 @@ async def test_once_in_a_lifetime(session, user):
 
 
 async def test_declined_reminders_means_no_message(session, user):
-    """Предложили напоминания — отказался: писать нельзя."""
+    """
+    Писать нельзя только тому, кто ЯВНО отказался. Предложение без ответа —
+    не отказ: новичок, который просто ушёл, и есть тот, кого возвращаем
+    (независимая проверка 2.1 — прежнее правило отсекало почти всех).
+    """
     user.reminder_offered_at = utcnow() - timedelta(hours=20)
     user.notifications_enabled = False
-    assert not may_write(user)
+    assert may_write(user), "промолчавший новичок сочтён отказавшимся"
+    user.reminders_declined_at = utcnow() - timedelta(hours=19)
+    assert not may_write(user), "явный отказ проигнорирован"
     user.notifications_enabled = True
-    assert may_write(user)
-    user.reminder_offered_at = None
-    user.notifications_enabled = False
-    assert may_write(user), "напоминания ещё не предлагали — сообщение второго дня можно"
+    assert may_write(user), "отказался, а потом включил — можно"
+
+
+async def test_no_second_message_on_a_reminder_day(session, user):
+    """Обычное напоминание сегодня уже было — второго сообщения в тот же день нет."""
+    now = utcnow()
+    user.last_notification_sent = now - timedelta(minutes=30)
+    assert not may_write(user, now)
+
+
+async def test_two_lessons_on_the_first_day_still_due(session, user):
+    """Утром и вечером первого дня — всё равно «не вернулся на второй»."""
+    # «Сейчас» — полдень: оба занятия вчера днём по Берлину, в один день,
+    # когда бы ни запускали тест
+    noon = utcnow().replace(hour=12, minute=0, second=0, microsecond=0)
+    await _finished(session, user, hours_ago=25, now=noon)
+    await _finished(session, user, hours_ago=23, now=noon)
+    due = await due_users(session, noon)
+    assert [u.id for u, _ in due] == [user.id]
 
 
 def test_button_starts_a_lesson_marked_day2():

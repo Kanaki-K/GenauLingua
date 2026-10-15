@@ -42,6 +42,7 @@ async def test_returned_today_among_active_last_week(session, user):
     ])
     await session.commit()
 
-    started, back, base = await retention_today(session)
+    started, finished, back, base = await retention_today(session)
     assert (back, base) == (1, 2), (back, base)
     assert started == 2, "пустой перезапуск засчитан как приход"
+    assert finished == 2 and finished <= started

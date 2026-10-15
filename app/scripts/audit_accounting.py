@@ -283,9 +283,13 @@ async def _check_streaks(session, rep: Report) -> None:
             streak, freeze, _ = advance(streak, last, day, freeze)
             last = day
         user = people[user_id]
-        if int(user.streak_days or 0) != streak or user.last_active_date != last:
-            bad.append(f"{user_id}: записано {user.streak_days} · {user.last_active_date}, "
-                       f"по истории {streak} · {last}")
+        # День последней заморозки — тоже из истории: битая колонка дала бы
+        # вторую заморозку раньше недели (независимая проверка 2.1)
+        frozen = getattr(user, "streak_freeze_on", None)
+        if (int(user.streak_days or 0) != streak or user.last_active_date != last
+                or frozen != freeze):
+            bad.append(f"{user_id}: записано {user.streak_days} · {user.last_active_date} · "
+                       f"заморозка {frozen}, по истории {streak} · {last} · {freeze}")
 
     title = "серия и последний день = истории занятий"
     rep.line(not bad, title,

@@ -7,6 +7,7 @@ from aiogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMar
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.core.clock import utcnow
 from app.database.models import User
 from app.services.reminder_service import enable_reminders, mark_reminders_offered
 from app.bot.keyboards.notifications import (
@@ -156,6 +157,8 @@ async def decline_reminder_offer(callback: CallbackQuery, session: AsyncSession)
     """
     user = await session.get(User, callback.from_user.id)
     if user:
+        # Явный отказ — отдельно от «предлагали»: молчание отказом не считается
+        user.reminders_declined_at = utcnow()
         await mark_reminders_offered(user, session)
 
     await callback.answer()
@@ -184,6 +187,7 @@ async def disable_from_reminder(callback: CallbackQuery, session: AsyncSession):
 
     if user:
         user.notifications_enabled = False
+        user.reminders_declined_at = utcnow()
         await session.commit()
 
     await callback.answer(get_text("notif_toggle_off", lang), show_alert=False)

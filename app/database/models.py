@@ -176,6 +176,10 @@ class User(Base):
     streak_freeze_on: Mapped[Optional[date]] = mapped_column(Date, nullable=True)
     # Когда ушло сообщение второго дня новичку (патч 2.1) — одно на жизнь
     day2_hook_sent_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
+    # Когда человек ЯВНО отказался от напоминаний («Не надо» под
+    # предложением или «Не напоминать»). Молчание отказом не считается:
+    # `reminder_offered_at` ставится при отправке предложения (патч 2.1)
+    reminders_declined_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
     total_monthly_wins: Mapped[int] = mapped_column(Integer, default=0)
 
     # Связи

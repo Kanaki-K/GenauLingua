@@ -407,11 +407,16 @@ async def _praise_lines(
     # Первое ли это законченное занятие за день человека: рубеж серии и
     # заморозка празднуются один раз — в занятие, которое серию и сдвинуло
     today = user_today(user)
+    from app.services.monthly_leaderboard_service import scored_sessions_filter
+
+    # Только зачётные занятия: повтор ошибок в 00:05 не делает настоящее
+    # первое занятие дня «вторым» (независимая проверка 2.1)
     recent = (await session.execute(
         select(QuizSession.completed_at).where(
             QuizSession.user_id == user.id,
             QuizSession.completed_at.isnot(None),
             QuizSession.completed_at >= utcnow() - timedelta(days=2),
+            scored_sessions_filter(),
         )
     )).scalars().all()
     rounds_today = sum(1 for moment in recent if user_day(user, moment) == today)

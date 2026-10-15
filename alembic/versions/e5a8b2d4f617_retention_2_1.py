@@ -23,8 +23,10 @@ depends_on: Union[str, Sequence[str], None] = None
 def upgrade() -> None:
     op.add_column("users", sa.Column("streak_freeze_on", sa.Date(), nullable=True))
     op.add_column("users", sa.Column("day2_hook_sent_at", sa.DateTime(), nullable=True))
+    op.add_column("users", sa.Column("reminders_declined_at", sa.DateTime(), nullable=True))
 
 
 def downgrade() -> None:
+    op.drop_column("users", "reminders_declined_at")
     op.drop_column("users", "day2_hook_sent_at")
     op.drop_column("users", "streak_freeze_on")

@@ -716,7 +716,9 @@ async def test_the_full_check_only_comes_when_slots_are_full(session, user, stag
 def test_build_takes_words_not_above_the_learners_level(word_level, user_level, fits):
     from app.services.quiz_service import channel_fits
 
-    word = _W("Die Kritik an seinem Plan war berechtigt", level=word_level)
+    # Четыре слова: на A1–A2 сборка берёт фразы до 5–6 слов (патч 2.1) —
+    # здесь проверяется уровень слова, а не длина
+    word = _W("Die Kritik war berechtigt", level=word_level)
     assert channel_fits(QuizChannel.BUILD, word, PAIR, user_level) is fits
 
 
@@ -788,3 +790,27 @@ def test_easy_trap_skips_twins_from_foreign_words():
     for seed in range(20):
         picked, _ = bs.pick_distractors(target, "de", ["in", "Katze"], random.Random(seed), 1, easy=True)
         assert picked == ["Katze"], f"двойник в ловушках новичка: {picked}"
+
+
+def test_selection_knows_the_easy_length():
+    """Подбор не выбирает сборке слово, чья фраза длинна для A1 (проверка 2.1)."""
+    from app.services.quiz_service import channel_fits
+    from app.services.language_service import LanguagePair
+
+    pair = LanguagePair(learning="de", native="ru", reverse=False)
+    long_one = _W("Wir suchen seit Monaten eine neue Wohnung", level=CEFRLevel.A1)
+    assert not channel_fits(QuizChannel.BUILD, long_one, pair, CEFRLevel.A1)
+    assert channel_fits(QuizChannel.BUILD, long_one, pair, CEFRLevel.B1)
+
+
+def test_easy_never_takes_a_twin_even_without_foreign_words():
+    """Чужих слов нет — двойник «den» к «der» всё равно не берётся."""
+    import random
+
+    from app.services import build_service as bs
+
+    target = ["der", "Hund", "spielt", "heute"]
+    twins = {s.lower() for t in target for s in bs._siblings(t, "de")}
+    for seed in range(30):
+        picked, _ = bs.pick_distractors(target, "de", [], random.Random(seed), 1, easy=True)
+        assert not ({p.lower() for p in picked} & twins), f"двойник: {picked}"

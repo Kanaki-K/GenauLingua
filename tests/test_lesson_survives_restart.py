@@ -6,7 +6,7 @@
 состояние умирало вместе с процессом. С Redis новый процесс продолжает с
 того же вопроса.
 
-Нужен живой Redis: FSM_REDIS_TEST_URL=redis://localhost:6380/2. Без него
+Нужен живой Redis: FSM_TEST_REDIS_URL=redis://localhost:6380/2. Без него
 тест пропускается — на машине без Redis проверять нечего.
 """
 import os
@@ -21,7 +21,7 @@ from tests.test_scenarios import _ready
 
 pytestmark = pytest.mark.asyncio
 
-REDIS = os.environ.get("FSM_REDIS_TEST_URL")
+REDIS = os.environ.get("FSM_TEST_REDIS_URL")
 
 
 def _restart(dp: Dispatcher) -> None:
@@ -35,7 +35,7 @@ def _restart(dp: Dispatcher) -> None:
     dp.fsm.storage = make_storage(REDIS)
 
 
-@pytest.mark.skipif(not REDIS, reason="нужен Redis: FSM_REDIS_TEST_URL")
+@pytest.mark.skipif(not REDIS, reason="нужен Redis: FSM_TEST_REDIS_URL")
 async def test_lesson_continues_after_restart(session, user):
     await _ready(session, user)
     dp = make_dispatcher(session)

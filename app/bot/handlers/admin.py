@@ -131,9 +131,11 @@ def get_admin_keyboard() -> InlineKeyboardMarkup:
     )
 
 
-async def retention_today(session: AsyncSession) -> tuple[int, int, int]:
+async def retention_today(session: AsyncSession) -> tuple[int, int, int, int]:
     """
-    (начали сегодня, вернулись сегодня из активных за 7 дней, активных за 7 дней).
+    (начали сегодня, закончили сегодня, вернулись сегодня из активных за 7
+    дней, активных за 7 дней). Все четыре — по зачётным занятиям и дню UTC:
+    одно правило, иначе «закончили» могло бы оказаться больше «начали».
 
     «Активный» — закончил занятие. Активные за 7 дней — закончившие хоть
     одно в шесть предыдущих дней и вчера (сегодня не в счёт); вернулись —
@@ -144,9 +146,12 @@ async def retention_today(session: AsyncSession) -> tuple[int, int, int]:
     since = datetime.combine(today, datetime.min.time())
     week = since - timedelta(days=LAST_DAYS)
 
+    from app.services.monthly_leaderboard_service import scored_sessions_filter
+
     started = (await session.execute(
         select(func.count(distinct(QuizSession.user_id))).where(
             QuizSession.started_at >= since,
+            scored_sessions_filter(),
             # Пустой перезапуск (`restarted`) — не приход, а повторное нажатие
             or_(QuizSession.exit_reason.is_(None), QuizSession.exit_reason != "restarted"),
         )
@@ -154,14 +159,15 @@ async def retention_today(session: AsyncSession) -> tuple[int, int, int]:
 
     def finished(start, end=None):
         q = select(distinct(QuizSession.user_id)).where(
-            QuizSession.is_completed.is_(True), QuizSession.completed_at >= start)
+            QuizSession.is_completed.is_(True), QuizSession.completed_at >= start,
+            scored_sessions_filter())
         if end is not None:
             q = q.where(QuizSession.completed_at < end)
         return q
 
     base = set((await session.execute(finished(week, since))).scalars())
     today_done = set((await session.execute(finished(since))).scalars())
-    return int(started), len(base & today_done), len(base)
+    return int(started), len(today_done), len(base & today_done), len(base)
 
 
 async def _get_main_stats(session: AsyncSession) -> str:
@@ -244,7 +250,7 @@ async def _get_main_stats(session: AsyncSession) -> str:
     )
     answered, correct = totals.one()
 
-    started_today, curr_back, curr_base = await retention_today(session)
+    started_today, finished_today, curr_back, curr_base = await retention_today(session)
 
     words_total = (await session.execute(
         select(func.count()).select_from(Word)
@@ -281,7 +287,7 @@ async def _get_main_stats(session: AsyncSession) -> str:
                 # ставится при завершении): 15.10 админка показала 9, а
                 # занимались 22 — владелец решил, что пришли девять
                 ("Сегодня начали", started_today),
-                ("Сегодня закончили", active_24h),
+                ("Сегодня закончили", finished_today),
                 ("За 7 дней", active_7d),
                 # Главный ежедневный индикатор удержания (как CURR у Duolingo)
                 ("Вернулись сегодня из активных за 7 дней",
