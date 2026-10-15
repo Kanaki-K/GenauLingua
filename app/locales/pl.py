@@ -559,7 +559,7 @@ TEXTS.update({
 # судить не умеет — он обучен ПОНИМАТЬ акцент, а не замечать его.
 # ============================================================================
 TEXTS.update({
-    "quiz_question_speak": "🎤 Proszę wypowiedzieć to słowo na głos — w wiadomości głosowej",
+    "quiz_question_speak": "🎤 Proszę wypowiedzieć to słowo na głos w wiadomości głosowej: nacisnąć i przytrzymać ikonę mikrofonu w polu wpisywania Telegrama, w prawym dolnym rogu",
     "speech_btn_reference": "Odsłuchać wolniej",
     "speech_btn_skip": "Pominąć",
     "speech_listening": "🎧 Słucham…",

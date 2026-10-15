@@ -563,7 +563,7 @@ TEXTS.update({
 # судить не умеет — он обучен ПОНИМАТЬ акцент, а не замечать его.
 # ============================================================================
 TEXTS.update({
-    "quiz_question_speak": "🎤 Sprechen Sie dieses Wort laut aus — nehmen Sie eine Sprachnachricht auf",
+    "quiz_question_speak": "🎤 Sprechen Sie dieses Wort laut aus — nehmen Sie eine Sprachnachricht auf: Mikrofonsymbol im Telegram-Eingabefeld unten rechts gedrückt halten",
     "speech_btn_reference": "Langsam anhören",
     "speech_btn_skip": "Überspringen",
     "speech_listening": "🎧 Ich höre zu…",

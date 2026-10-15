@@ -551,7 +551,7 @@ TEXTS.update({
 # судить не умеет — он обучен ПОНИМАТЬ акцент, а не замечать его.
 # ============================================================================
 TEXTS.update({
-    "quiz_question_speak": "🎤 Bu kelimeyi yüksek sesle söyleyin — sesli mesaj kaydedin",
+    "quiz_question_speak": "🎤 Bu kelimeyi yüksek sesle söyleyin — sesli mesaj kaydedin: Telegram'daki mesaj alanının sağ altındaki mikrofon simgesine basılı tutun",
     "speech_btn_reference": "Yavaş dinle",
     "speech_btn_skip": "Atla",
     "speech_listening": "🎧 Sesinizi dinliyorum…",

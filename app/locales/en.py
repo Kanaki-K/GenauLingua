@@ -551,7 +551,7 @@ TEXTS.update({
 # судить не умеет — он обучен ПОНИМАТЬ акцент, а не замечать его.
 # ============================================================================
 TEXTS.update({
-    "quiz_question_speak": "🎤 Say this word out loud — record a voice message",
+    "quiz_question_speak": "🎤 Say this word out loud — record a voice message: press and hold the microphone icon in the Telegram message field, bottom right",
     "speech_btn_reference": "Listen slowly",
     "speech_btn_skip": "Skip",
     "speech_listening": "🎧 Listening…",
