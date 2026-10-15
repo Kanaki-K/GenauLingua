@@ -45,6 +45,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database.enums import CEFRLevel, QuizMode
 from app.database.models import QuizQuestion, QuizSession, User, Word
+from app.services import journal
 from app.services.word_level import level_expr
 
 logger = logging.getLogger(__name__)
@@ -140,7 +141,10 @@ async def lower_level(user: User, session: AsyncSession, target: CEFRLevel) -> b
     """Опустить на уровень ниже по согласию. Только на соседний; иначе кнопка устарела."""
     if target is None or target != previous_level(user.level):
         return False
+    was = user.level
     user.level = target
+    journal.note(session, user.id, "level", "down",
+                 frm=getattr(was, "value", was), to=getattr(user.level, "value", user.level))
     # Без качелей: человек только что ушёл с уровня выше, и предлагать его
     # снова через два лёгких занятия значило бы гонять туда-сюда. Записано
     # как отказ подняться с нового уровня — спросим через те же 5 занятий
@@ -298,7 +302,10 @@ async def raise_level(user: User, session: AsyncSession, level: CEFRLevel) -> bo
                     getattr(user.level, "value", user.level),
                     getattr(level, "value", level))
         return False
+    was = user.level
     user.level = level
+    journal.note(session, user.id, "level", "up",
+                 frm=getattr(was, "value", was), to=getattr(user.level, "value", user.level))
     # Прежний отказ относился к прежнему уровню и больше ничего не значит
     user.level_offer_declined = None
     user.level_offer_declined_round = None
@@ -345,7 +352,10 @@ async def jump_to_level(user: User, session: AsyncSession, target: CEFRLevel) ->
     if (target not in LEVEL_ORDER or user.level not in LEVEL_ORDER
             or LEVEL_ORDER.index(target) <= LEVEL_ORDER.index(user.level)):
         return False
+    was = user.level
     user.level = target
+    journal.note(session, user.id, "level", "jump",
+                 frm=getattr(was, "value", was), to=getattr(target, "value", target))
     user.level_offer_declined = None
     user.level_offer_declined_round = None
     await session.commit()

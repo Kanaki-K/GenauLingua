@@ -190,10 +190,9 @@ TEXTS = {
     "report_btn_kind_text": "Błędne tłumaczenie",
     "report_btn_kind_audio": "Błędna wymowa",
     "report_sent_audio": "✓ Wysłano zgłoszeń: {count} — dziękujemy!\nZgłoszenia wymowy są szczególnie cenne: automatyczna kontrola nie słyszy akcentu.\nJeśli błąd się potwierdzi — +{points}",
-    "report_approved": "✓ Zgłoszenie dotyczące <b>{word}</b> zostało przyjęte — poprawimy tłumaczenie.\n+{points} punktów do wyniku miesiąca — dziękujemy, słownik będzie lepszy dla wszystkich.",
-    "award_won": "{mark} {month}: miejsce {rank} w rankingu miesiąca.\nDo wyniku ogólnego dodano {bonus} pkt.",
-    "report_approved_audio": "✓ Zgłoszenie wymowy przyjęte: <b>{word}</b>.\nNagranie zostanie przygotowane na nowo. +{points} punktów do wyniku miesiąca — dziękujemy.",
-
+    "report_approved": "✓ Zgłoszenie dotyczące <b>{word}</b> zostało przyjęte - poprawimy tłumaczenie\n\n+{points} punktów do wyniku miesiąca - dziękujemy, słownik będzie lepszy dla wszystkich",
+    "award_won": "{mark} {month}: miejsce {rank} w rankingu miesiąca\n\nDo wyniku ogólnego dodano {bonus} pkt",
+    "report_approved_audio": "✓ Zgłoszenie wymowy przyjęte: <b>{word}</b>\n\nNagranie zostanie przygotowane na nowo\n\n+{points} punktów do wyniku miesiąca - dziękujemy",
     # ============================================================================
     # QUIZ
     # ============================================================================
@@ -586,10 +585,10 @@ TEXTS.update({
     "quiz_btn_one_more": "Jeszcze jedna lekcja",
     "home_btn_stats": "Szczegóły",
     "notif_off_how_to_return": "Włączyć ponownie: Ustawienia → Bot → Przypomnienia",
-    "reminder_offer": "Przypominać raz dziennie? Łatwiej wtedy utrzymać to, co już nauczone, i nie przerwać serii.",
+    "reminder_offer": "Przypominać raz dziennie?\n\nŁatwiej wtedy utrzymać to, co już nauczone, i nie przerwać serii",
     "reminder_offer_yes": "Tak, proszę przypominać",
     "reminder_offer_no": "Nie trzeba",
-    "reminder_offer_done": "✓ Gotowe: przypomnienie przyjdzie o <b>{time}</b> ({city}). Godzinę, dni i strefę czasową można dostosować.",
+    "reminder_offer_done": "✓ Gotowe: przypomnienie przyjdzie o <b>{time}</b> ({city})\n\nGodzinę, dni i strefę czasową można dostosować",
     "reminder_offer_setup": "Ustawienia przypomnień",
     "level_offer": "Na poziomie <b>{current}</b> błędów prawie nie ma. Przejść na <b>{following}</b>? Wszystkie postępy zostają.",
     "level_offer_yes": "Tak, przejść na {following}",
@@ -775,5 +774,5 @@ TEXTS.update({
     "nd_start_last_body": "Przypomnień już nie będzie. Pierwsza lekcja to około {minutes_n} minut - przycisk jest poniżej.",
     "nd_btn_optin": "Przypomnienie o {time}",
     "nd_btn_stop": "Nie wysyłać",
-    "nd_optin_done": "✓ Gotowe: przypomnienie będzie przychodzić o <b>{time}</b>. Godzinę można zmienić w ustawieniach.",
+    "nd_optin_done": "✓ Gotowe: przypomnienie będzie przychodzić o <b>{time}</b>\n\nGodzinę można zmienić w ustawieniach",
 })

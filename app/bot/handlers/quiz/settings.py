@@ -1317,11 +1317,18 @@ async def set_quiz_mode_level(callback: CallbackQuery, session: AsyncSession):
     user = await session.get(User, callback.from_user.id)
     lang = user.interface_language or DEFAULT_LOCALE
 
+    was = user.level
     try:
         user.level = CEFRLevel(level_str)
     except ValueError:
         await callback.answer("Error", show_alert=True)
         return
+    # Смена уровня — в журнал пути: по разбору 15.10 нельзя было отличить,
+    # сам человек сменил уровень или принял предложение бота
+    from app.services import journal
+
+    journal.note(session, user.id, "level", "settings",
+                 frm=getattr(was, "value", was), to=level_str)
 
     user.quiz_mode = QuizMode.LEVEL
     user.quiz_category = None

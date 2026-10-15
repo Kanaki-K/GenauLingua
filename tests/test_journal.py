@@ -147,3 +147,18 @@ async def test_journey_script_prints_the_path(session, user):
     lines = await journey(session, user.id, start, end)
     text = "\n".join(lines)
     assert "ЗАНЯТИЕ  начато" in text and "вопрос 1/" in text and "ОТВЕТ    ✓" in text, text
+
+
+async def test_level_changes_are_recorded(session, user):
+    """По разбору 15.10 нельзя было отличить, сам человек сменил уровень или бот предложил."""
+    from app.database.enums import CEFRLevel
+    from app.services.level_service import jump_to_level, lower_level, raise_level
+
+    user.level = CEFRLevel.A1
+    await session.commit()
+    assert await raise_level(user, session, CEFRLevel.A2)
+    assert await jump_to_level(user, session, CEFRLevel.B2)
+    assert await lower_level(user, session, CEFRLevel.B1)
+    levels = await _events(session, user.id, "level")
+    assert [(e.action, e.data["frm"], e.data["to"]) for e in levels] == [
+        ("up", "A1", "A2"), ("jump", "A2", "B2"), ("down", "B2", "B1")]

@@ -190,10 +190,9 @@ TEXTS = {
     "report_btn_kind_text": "Falsche Übersetzung",
     "report_btn_kind_audio": "Falsche Aussprache",
     "report_sent_audio": "✓ Meldungen gesendet: {count} — danke!\nMeldungen zur Aussprache sind besonders wertvoll: Eine Maschine hört die Betonung nicht.\nWird der Fehler bestätigt, bekommen Sie +{points}.",
-    "report_approved": "✓ Ihre Meldung zu <b>{word}</b> wurde angenommen — wir korrigieren die Übersetzung.\n+{points} Punkte für die Rangliste des Monats — danke, das Wörterbuch wird besser für alle.",
-    "award_won": "{mark} Platz {rank} in der Rangliste für {month}.\n{bonus} Punkte wurden Ihrem Gesamtstand gutgeschrieben.",
-    "report_approved_audio": "✓ Ihre Meldung zur Aussprache von <b>{word}</b> wurde angenommen.\nDie Aussprache wird neu erzeugt. +{points} Punkte für die Rangliste des Monats — danke.",
-
+    "report_approved": "✓ Ihre Meldung zu <b>{word}</b> wurde angenommen - wir korrigieren die Übersetzung\n\n+{points} Punkte für die Rangliste des Monats - danke, das Wörterbuch wird besser für alle",
+    "award_won": "{mark} Platz {rank} in der Rangliste für {month}\n\n{bonus} Punkte wurden Ihrem Gesamtstand gutgeschrieben",
+    "report_approved_audio": "✓ Ihre Meldung zur Aussprache von <b>{word}</b> wurde angenommen\n\nDie Aussprache wird neu erzeugt\n\n+{points} Punkte für die Rangliste des Monats - danke",
     # ============================================================================
     # QUIZ
     # ============================================================================
@@ -590,10 +589,10 @@ TEXTS.update({
     "quiz_btn_one_more": "Noch eine Lektion",
     "home_btn_stats": "Mehr Details",
     "notif_off_how_to_return": "Wieder einschalten: Einstellungen → Bot → Erinnerungen",
-    "reminder_offer": "Einmal am Tag erinnern? So verlieren Sie das Gelernte nicht — und die Serie bleibt.",
+    "reminder_offer": "Einmal am Tag erinnern?\n\nSo verlieren Sie das Gelernte nicht - und die Serie bleibt",
     "reminder_offer_yes": "Ja, bitte erinnern",
     "reminder_offer_no": "Nein, danke",
-    "reminder_offer_done": "✓ Fertig: Die Erinnerung kommt um <b>{time}</b> ({city}). Uhrzeit, Tage und Zeitzone können Sie anpassen.",
+    "reminder_offer_done": "✓ Fertig: Die Erinnerung kommt um <b>{time}</b> ({city})\n\nUhrzeit, Tage und Zeitzone können Sie anpassen",
     "reminder_offer_setup": "Erinnerungen anpassen",
     "level_offer": "Auf <b>{current}</b> machen Sie kaum noch Fehler. Weiter zu <b>{following}</b>? Alles Gelernte bleibt Ihnen erhalten.",
     "level_offer_yes": "Ja, weiter zu {following}",
@@ -779,5 +778,5 @@ TEXTS.update({
     "nd_start_last_body": "Es kommen keine Erinnerungen mehr. Wenn Sie anfangen möchten: Die erste Lektion dauert etwa {minutes_n} Minuten - der Button ist unten.",
     "nd_btn_optin": "Um {time} erinnern",
     "nd_btn_stop": "Nicht mehr senden",
-    "nd_optin_done": "✓ Erledigt: Die Erinnerung kommt um <b>{time}</b>. Die Uhrzeit können Sie in den Einstellungen ändern.",
+    "nd_optin_done": "✓ Erledigt: Die Erinnerung kommt um <b>{time}</b>\n\nDie Uhrzeit können Sie in den Einstellungen ändern",
 })

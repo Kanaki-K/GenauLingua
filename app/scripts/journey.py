@@ -75,6 +75,9 @@ async def journey(session, user_id: int, start: datetime, end: datetime) -> list
             extra = (f"голос, попытка {d.get('attempt')} → {e.action} · услышано «{d.get('heard', '')}» "
                      f"(похожесть {d.get('similarity')}, распознавание {d.get('recognize_s')} с) · "
                      f"{await word_text(e.word_id)}")
+        elif e.kind == "level":
+            d = e.data or {}
+            extra = f"уровень {d.get('frm')} → {d.get('to')} ({e.action})"
         elif e.kind == "skip":
             extra = f"пропуск ({e.action}) · {await word_text(e.word_id)}"
         else:

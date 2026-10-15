@@ -184,10 +184,9 @@ TEXTS = {
     "report_btn_kind_text": "Hatalı çeviri",
     "report_btn_kind_audio": "Hatalı telaffuz",
     "report_sent_audio": "✓ Gönderilen bildirim: {count} — teşekkürler!\nTelaffuz bildirimleri özellikle değerli: otomatik kontrol vurguyu duymaz.\nOnaylanırsa +{points} puan.",
-    "report_approved": "✓ <b>{word}</b> için bildiriminiz kabul edildi — çeviriyi düzelteceğiz.\nAylık puanınıza +{points} puan eklendi — teşekkürler, sözlük herkes için daha iyi olacak.",
-    "award_won": "{mark} {month} sıralamasında {rank}. oldunuz.\nTüm zamanlar puanınıza +{bonus} puan eklendi.",
-    "report_approved_audio": "✓ Telaffuz bildiriminiz kabul edildi: <b>{word}</b>.\nKelime yeniden seslendirilecek. Aylık puanınıza +{points} puan eklendi — teşekkürler.",
-
+    "report_approved": "✓ <b>{word}</b> için bildiriminiz kabul edildi - çeviriyi düzelteceğiz\n\nAylık puanınıza +{points} puan eklendi - teşekkürler, sözlük herkes için daha iyi olacak",
+    "award_won": "{mark} {month} sıralamasında {rank}. oldunuz\n\nTüm zamanlar puanınıza +{bonus} puan eklendi",
+    "report_approved_audio": "✓ Telaffuz bildiriminiz kabul edildi: <b>{word}</b>\n\nKelime yeniden seslendirilecek\n\nAylık puanınıza +{points} puan eklendi - teşekkürler",
     # ============================================================================
     # TEST
     # ============================================================================
@@ -578,10 +577,10 @@ TEXTS.update({
     "quiz_btn_one_more": "Bir ders daha",
     "home_btn_stats": "Ayrıntılar",
     "notif_off_how_to_return": "Geri açmak için: Ayarlar → Bot → Hatırlatıcılar",
-    "reminder_offer": "Günde bir kez hatırlatayım mı? Öğrendiklerinizi kaybetmemek böyle daha kolay — seri de kopmaz.",
+    "reminder_offer": "Günde bir kez hatırlatayım mı?\n\nÖğrendiklerinizi kaybetmemek böyle daha kolay - seri de kopmaz",
     "reminder_offer_yes": "Evet, hatırlat",
     "reminder_offer_no": "Gerek yok",
-    "reminder_offer_done": "✓ Tamam: hatırlatıcı saat <b>{time}</b> ({city}) gelecek. Saati, günleri ve saat dilimini ayarlayabilirsiniz.",
+    "reminder_offer_done": "✓ Tamam: hatırlatıcı saat <b>{time}</b> ({city}) gelecek\n\nSaati, günleri ve saat dilimini ayarlayabilirsiniz",
     "reminder_offer_setup": "Hatırlatıcıları ayarla",
     "level_offer": "<b>{current}</b> seviyesinde neredeyse hiç hata yapmıyorsunuz. <b>{following}</b> seviyesine geçelim mi? Öğrendikleriniz sizde kalır.",
     "level_offer_yes": "Evet, {following} seviyesine geç",
@@ -767,5 +766,5 @@ TEXTS.update({
     "nd_start_last_body": "Artık hatırlatma gelmeyecek. Başlamak isterseniz ilk ders yaklaşık {minutes_n} dakika sürer - düğme aşağıda.",
     "nd_btn_optin": "Hatırlatma: {time}",
     "nd_btn_stop": "Göndermeyin",
-    "nd_optin_done": "✓ Tamam: hatırlatma saat <b>{time}</b> gelecek. Saati ayarlardan değiştirebilirsiniz.",
+    "nd_optin_done": "✓ Tamam: hatırlatma saat <b>{time}</b> gelecek\n\nSaati ayarlardan değiştirebilirsiniz",
 })

@@ -184,10 +184,9 @@ TEXTS = {
     "report_btn_kind_text": "Wrong translation",
     "report_btn_kind_audio": "Wrong pronunciation",
     "report_sent_audio": "✓ Reports sent: {count} — thank you!\nPronunciation reports are especially valuable: the automated check can't hear stress.\nEach confirmed report earns +{points}.",
-    "report_approved": "✓ Your report on <b>{word}</b> was accepted — we'll fix the translation.\n+{points} points to your monthly score. Thank you — the dictionary gets better for everyone.",
-    "award_won": "{mark} You finished #{rank} on the {month} leaderboard.\n{bonus} points added to your all-time score.",
-    "report_approved_audio": "✓ Your pronunciation report on <b>{word}</b> was accepted.\nThe audio will be fixed. +{points} points to your monthly score — thank you.",
-
+    "report_approved": "✓ Your report on <b>{word}</b> was accepted - we'll fix the translation\n\n+{points} points to your monthly score. Thank you - the dictionary gets better for everyone",
+    "award_won": "{mark} You finished #{rank} on the {month} leaderboard\n\n{bonus} points added to your all-time score",
+    "report_approved_audio": "✓ Your pronunciation report on <b>{word}</b> was accepted\n\nThe audio will be fixed\n\n+{points} points to your monthly score - thank you",
     # ============================================================================
     # QUIZ
     # ============================================================================
@@ -578,10 +577,10 @@ TEXTS.update({
     "quiz_btn_one_more": "Another lesson",
     "home_btn_stats": "More details",
     "notif_off_how_to_return": "To turn it back on: Settings → Bot → Reminders",
-    "reminder_offer": "Shall I remind you once a day? It makes it easier to keep what you've learnt — and your streak.",
+    "reminder_offer": "Shall I remind you once a day?\n\nIt makes it easier to keep what you've learnt - and your streak",
     "reminder_offer_yes": "Yes, remind me",
     "reminder_offer_no": "No, thanks",
-    "reminder_offer_done": "✓ Done: the reminder will arrive at <b>{time}</b> ({city}). You can adjust the time, days and time zone.",
+    "reminder_offer_done": "✓ Done: the reminder will arrive at <b>{time}</b> ({city})\n\nYou can adjust the time, days and time zone",
     "reminder_offer_setup": "Adjust reminders",
     "level_offer": "You rarely make mistakes at <b>{current}</b>. Move up to <b>{following}</b>? Everything you've learnt stays with you.",
     "level_offer_yes": "Yes, move to {following}",
@@ -767,5 +766,5 @@ TEXTS.update({
     "nd_start_last_body": "There will be no more reminders. If you want to start, the first lesson takes about {minutes_n} minutes - the button is below.",
     "nd_btn_optin": "Remind me at {time}",
     "nd_btn_stop": "Don't send these",
-    "nd_optin_done": "✓ Done: the reminder will arrive at <b>{time}</b>. You can change the time in settings.",
+    "nd_optin_done": "✓ Done: the reminder will arrive at <b>{time}</b>\n\nYou can change the time in settings",
 })

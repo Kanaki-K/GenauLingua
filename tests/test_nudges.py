@@ -613,3 +613,20 @@ def test_minutes_promised_match_the_lesson():
     for lang in LOCALES:
         for kind in KINDS:
             assert "{minutes_n}" not in compose(kind, NudgeFacts(name="A", questions=15), lang, 0)
+
+
+# Все сообщения, которые бот присылает сам, — в одном оформлении с
+# сообщениями вовлечения (владелец 16.10: «уведомления других типов нужно
+# тоже привести к такому внешнему виду»)
+OUTGOING_KEYS = ("award_won", "report_approved", "report_approved_audio",
+                 "nd_optin_done", "reminder_offer_done", "reminder_offer")
+
+
+@pytest.mark.parametrize("lang", sorted(LOCALES))
+def test_every_outgoing_message_has_the_same_look(lang):
+    for key in OUTGOING_KEYS:
+        text = LOCALES[lang][key]
+        lines = text.split("\n")
+        assert "—" not in text, (lang, key, text)
+        assert not any(l.endswith(".") and not l.endswith("...") for l in lines), (lang, key, text)
+        assert not any(a and b for a, b in zip(lines, lines[1:])), (lang, key, text)
