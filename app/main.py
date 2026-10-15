@@ -178,6 +178,18 @@ async def main():
     scheduler = setup_scheduler(bot)
     logger.info("Планировщик запущен, работ: %d", len(scheduler.get_jobs()))
 
+    # Модель распознавания речи — в память СРАЗУ, в фоне. Прежде она
+    # грузилась при первом голосовом ответе после каждого перезапуска, и
+    # этот человек ждал загрузку сверх распознавания (прод 15.10: 3 с).
+    # Владелец: «проверки голосовых ответов достаточно долгие»
+    from app.services.speech_check import _get_model
+
+    preload = asyncio.create_task(_get_model())
+    preload.add_done_callback(
+        lambda t: t.cancelled() or t.exception() is None
+        or logger.warning("модель распознавания не загружена заранее: %s", t.exception())
+    )
+
     await dp.start_polling(bot)
 
 

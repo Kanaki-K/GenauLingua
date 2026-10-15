@@ -28,6 +28,9 @@ ARG ASR_MODEL=small
 ENV ASR_MODEL=${ASR_MODEL}
 RUN python -c "from faster_whisper import WhisperModel; \
     WhisperModel('${ASR_MODEL}', device='cpu', compute_type='int8')"
+# Модель уже в образе — при работе в сеть за ней не ходить. Прежде каждая
+# загрузка начиналась с запроса к huggingface.co (прод 15.10, журнал)
+ENV HF_HUB_OFFLINE=1
 
 COPY . .
 
