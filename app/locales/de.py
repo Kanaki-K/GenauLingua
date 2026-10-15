@@ -244,6 +244,8 @@ TEXTS = {
     "quiz_correct_answer": "Richtige Antwort:",
 
     "quiz_btn_next": "Weiter →",
+
+    "quiz_answer_already_counted": "Ihre Antwort wurde bereits gewertet. Machen wir weiter?",
     "quiz_btn_repeat_errors": "Fehler wiederholen",
 
     "quiz_completed": "<b>Lektion geschafft</b>",

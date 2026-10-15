@@ -211,8 +211,36 @@ async def main():
         or logger.warning("модель распознавания не загружена заранее: %s", t.exception())
     )
 
+    dp.shutdown.register(waiter_for(dp))
     await dp.start_polling(bot)
 
+
+SHUTDOWN_WAIT_SECONDS = 25
+
+
+def waiter_for(dispatcher: Dispatcher):
+    """Обработчик `shutdown` для этого диспетчера (aiogram не передаёт его сам)."""
+    async def wait_in_flight() -> None:
+        await _wait_in_flight(dispatcher)
+    return wait_in_flight
+
+
+async def _wait_in_flight(dispatcher: Dispatcher) -> None:
+    """
+    ДОЖДАТЬСЯ НАЧАТЫХ ОТВЕТОВ при остановке (выкатка).
+
+    Остановка прекращает опрос, а обработчики в пути отменялись вместе с
+    циклом. С 2.1 их отметки живут в Redis, и оборванный посреди
+    распознавания ответ запирал вопрос (аудит 2.1). Ждём здесь — в
+    `shutdown`, — потому что после него aiogram закрывает соединение с
+    Telegram, и дождавшиеся обработчики уже не смогли бы ответить. До 25 с:
+    голосовой ответ на проде шёл до 21,5 с.
+    """
+    in_flight = {task for task in getattr(dispatcher, "_handle_update_tasks", ())
+                 if task is not asyncio.current_task()}
+    if in_flight:
+        logger.info("Остановка: жду начатых ответов: %d", len(in_flight))
+        await asyncio.wait(in_flight, timeout=SHUTDOWN_WAIT_SECONDS)
 
 if __name__ == "__main__":
     asyncio.run(main())

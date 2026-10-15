@@ -10,8 +10,13 @@
 
 import asyncio
 import logging
+import time
+import uuid
+from datetime import datetime, timedelta
+from typing import Optional
 
 from aiogram.fsm.context import FSMContext
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 logger = logging.getLogger(__name__)
@@ -24,6 +29,15 @@ logger = logging.getLogger(__name__)
 # Номер вопроса, на который ответ УЖЕ принят. Пока он равен текущему,
 # второй ответ не считается.
 S_ANSWERED = "answered_question"
+
+# КТО И КОГДА ПОСТАВИЛ ОТМЕТКУ. С 2.1 состояние живёт в Redis и переживает
+# процесс; отметка, поставленная процессом, который умер посреди ответа
+# (выкатка, сбой), запирала вопрос на двое суток: следующее голосовое,
+# «Пропустить» и «Далее» гасились как повтор (аудит 2.1). Отметка чужого
+# процесса — уже не «ответ в пути»: её смотрим по базе (`_claim_answer`).
+BOOT = uuid.uuid4().hex
+S_CLAIM_BOOT = "claim_boot"
+S_CLAIM_AT = "claim_at"
 
 # Замки по чатам. Нужны потому, что отметка «ответ принят» читается и
 # пишется двумя отдельными await, а aiogram обрабатывает обновления
@@ -45,7 +59,39 @@ def _claim_lock(chat_id: int) -> asyncio.Lock:
     return lock
 
 
-async def _claim_answer(state: FSMContext, chat_id: int) -> bool:
+async def _answer_recorded_since(session: AsyncSession, session_id, since: float) -> bool:
+    """Записан ли в занятии ответ после момента отметки (секунды эпохи, UTC)."""
+    from app.database.models import QuizQuestion
+
+    moment = datetime.utcfromtimestamp(since) - timedelta(seconds=2)
+    return (await session.execute(
+        select(QuizQuestion.id).where(QuizQuestion.session_id == session_id,
+                                      QuizQuestion.answered_at >= moment).limit(1)
+    )).first() is not None
+
+
+async def answered_by_dead_process(state: FSMContext, session: AsyncSession) -> bool:
+    """
+    Ответ на текущий вопрос записан процессом, который умер, не показав
+    разбора (аудит 2.1: убит между записью в базу и правкой карточки).
+    Тогда кнопки «Далее» на экране нет, а вариант гасится как повтор —
+    вызывающий должен дать «Далее», не записывая ответ второй раз.
+    Отметка переписывается на этот процесс: «Далее» выдаётся один раз.
+    """
+    data = await state.get_data()
+    current = data.get("current_question")
+    if (current is None or data.get(S_ANSWERED) != current
+            or data.get(S_CLAIM_BOOT) in (None, BOOT) or data.get("session_id") is None):
+        return False
+    if not await _answer_recorded_since(session, data["session_id"],
+                                        float(data.get(S_CLAIM_AT) or 0)):
+        return False
+    await state.update_data(**{S_CLAIM_BOOT: BOOT})
+    return True
+
+
+async def _claim_answer(state: FSMContext, chat_id: int,
+                        session: Optional[AsyncSession] = None) -> bool:
     """
     Принять ответ на текущий вопрос РОВНО ОДИН РАЗ.
 
@@ -75,8 +121,14 @@ async def _claim_answer(state: FSMContext, chat_id: int) -> bool:
             # отказывать им значило бы сломать уже идущее занятие
             return True
         if data.get(S_ANSWERED) == current:
-            return False
-        await state.update_data(**{S_ANSWERED: current})
+            stale = (session is not None and data.get(S_CLAIM_BOOT) not in (None, BOOT)
+                     and data.get("session_id") is not None)
+            if not stale or await _answer_recorded_since(
+                    session, data["session_id"], float(data.get(S_CLAIM_AT) or 0)):
+                return False
+            logger.warning("вопрос %s занят умершим процессом и не записан — освобождаю", current)
+        await state.update_data(**{S_ANSWERED: current, S_CLAIM_BOOT: BOOT,
+                                   S_CLAIM_AT: time.time()})
         return True
 
 
@@ -194,6 +246,7 @@ S_BOARD_DONE = "board_shown"
 
 # С какого номера круг уже продвинут кнопкой «Далее»
 S_ADVANCED = "advanced_from"
+S_ADVANCE_BOOT = "advanced_boot"
 
 
 async def _claim_advance(state: FSMContext, chat_id: int) -> bool:
@@ -211,6 +264,10 @@ async def _claim_advance(state: FSMContext, chat_id: int) -> bool:
         if current is None:
             return True
         if data.get(S_ADVANCED) == current:
-            return False
-        await state.update_data(**{S_ADVANCED: current})
+            # «Далее» умершего процесса: следующий вопрос так и не показан.
+            # Двойного продвижения тут нет — тот процесс мёртв (аудит 2.1)
+            if data.get(S_ADVANCE_BOOT) in (None, BOOT):
+                return False
+            logger.warning("«Далее» с вопроса %s оборвано перезапуском — повторяю", current)
+        await state.update_data(**{S_ADVANCED: current, S_ADVANCE_BOOT: BOOT})
         return True

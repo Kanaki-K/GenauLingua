@@ -4,6 +4,7 @@
 Вынесено из `game.py` переносом, без правок поведения.
 """
 
+import asyncio
 import html
 import time
 import logging
@@ -91,7 +92,7 @@ async def process_voice_answer(message: Message, state: FSMContext, session: Asy
     # ОДИН ВОПРОС — ОДИН ОТВЕТ, и для голоса это нужно не меньше: две
     # записи подряд посчитались бы обе. Проверка стоит ДО распознавания —
     # оно занимает секунды и стоит денег
-    if not await _claim_answer(state, message.chat.id):
+    if not await _claim_answer(state, message.chat.id, session):
         # Лишняя запись — после засчитанного ответа или пока распознаётся
         # прежняя — не считается, но и висеть в чате не должна: уйдёт с
         # остальными при переходе дальше
@@ -119,6 +120,12 @@ async def process_voice_answer(message: Message, state: FSMContext, session: Asy
         audio = await message.bot.download(message.voice.file_id)
         downloaded = time.perf_counter()
         verdict = await check_pronunciation(audio.read(), target, pair.learning)
+    except asyncio.CancelledError:
+        # Остановка бота посреди распознавания (выкатка): вопрос занят, а
+        # ответа нет. Состояние в Redis переживёт процесс — без возврата
+        # вопрос остался бы запертым на двое суток (аудит 2.1)
+        await _release_answer(state, message.chat.id)
+        raise
     except Exception:
         logger.exception("не удалось обработать голосовой ответ")
     # Разбивка времени: прод 15.10 — один голосовой ответ шёл 21,5 с при
@@ -311,7 +318,7 @@ async def skip_speech(callback: CallbackQuery, state: FSMContext, session: Async
     # неверным. Иначе остаётся дыра: пропуск ПОКАЗЫВАЕТ правильный ответ, и
     # записанное после него голосовое пришло бы на вопрос с ответом на
     # экране — то есть на даровой балл.
-    if not await _claim_answer(state, callback.message.chat.id):
+    if not await _claim_answer(state, callback.message.chat.id, session):
         return
 
     lang = user.interface_language or DEFAULT_LOCALE

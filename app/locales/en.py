@@ -238,6 +238,8 @@ TEXTS = {
     "quiz_correct_answer": "Correct answer:",
 
     "quiz_btn_next": "Next →",
+
+    "quiz_answer_already_counted": "Your answer has already been counted. Shall we continue?",
     "quiz_btn_repeat_errors": "Retry mistakes",
 
     "quiz_completed": "<b>Lesson complete</b>",

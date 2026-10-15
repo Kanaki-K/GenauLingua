@@ -51,9 +51,13 @@ services:
         condition: service_healthy
     env_file:
       - .env
+    # exec — чтобы сигнал остановки получил Python, а не sh: без него
+    # docker stop через 10 с убивал бота по SIGKILL посреди ответов (аудит 2.1)
     command: >
       sh -c "alembic upgrade head &&
-             python app/main.py"
+             exec python app/main.py"
+    # Бот дожидается начатых ответов до 25 с (распознавание голоса — до 21 с)
+    stop_grace_period: 40s
     volumes:
       - .:/app
     restart: unless-stopped

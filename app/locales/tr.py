@@ -238,6 +238,8 @@ TEXTS = {
     "quiz_correct_answer": "Doğru cevap:",
 
     "quiz_btn_next": "İleri →",
+
+    "quiz_answer_already_counted": "Cevabınız zaten sayıldı. Devam edelim mi?",
     "quiz_btn_repeat_errors": "Hataları tekrarla",
 
     "quiz_completed": "<b>Ders tamamlandı</b>",

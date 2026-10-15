@@ -237,6 +237,8 @@ TEXTS = {
     "quiz_correct_answer": "Правильна відповідь:",
 
     "quiz_btn_next": "Далі →",
+
+    "quiz_answer_already_counted": "Відповідь уже зараховано. Продовжимо?",
     "quiz_btn_repeat_errors": "Повторити помилки",
 
     "quiz_completed": "<b>Заняття завершено</b>",

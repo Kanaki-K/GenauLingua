@@ -242,6 +242,8 @@ TEXTS = {
     "quiz_correct_answer": "Правильный ответ:",
 
     "quiz_btn_next": "Дальше →",
+
+    "quiz_answer_already_counted": "Ответ уже засчитан. Продолжим?",
     "quiz_btn_repeat_errors": "Повторить ошибки",
 
     "quiz_completed": "<b>Занятие завершено</b>",
