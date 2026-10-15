@@ -126,3 +126,43 @@ async def test_reminders_lead_from_the_second_lesson(session, user):
         f"со второго занятия уровень снова впереди напоминаний: {buttons}"
     )
     assert buttons, "под итогом ничего не предложено"
+
+
+async def test_english_learner_gets_english_levels(session, user):
+    """
+    Уровень — в ИЗУЧАЕМОМ языке. Сверка 15.10: немецкие уровни расходились с
+    Oxford на 2+ ступени у 22% слов; «cold» по Goethe B1, по Oxford A1.
+    """
+    from app.database.models import WordLevel
+    from app.services import quiz_service
+
+    cold = make_word("kalt", level=CEFRLevel.B1, en="cold")          # Goethe B1, Oxford A1
+    rare = make_word("Kaltfront", level=CEFRLevel.A1, en="cold front")  # обратный случай
+    session.add_all([cold, rare])
+    await build_groups(session, ["de", "en"])
+    session.add_all([WordLevel(word_id=cold.id, lang="en", level=CEFRLevel.A1),
+                     WordLevel(word_id=rare.id, lang="en", level=CEFRLevel.B2)])
+    user.learning_lang, user.native_lang = "en", "ru"
+    user.level = CEFRLevel.A1
+    user.quiz_mode = QuizMode.LEVEL
+    await session.commit()
+
+    picked = await quiz_service.get_new_words(user.id, session, pair_from_user(user), [], user=user)
+    assert picked is not None and picked.id == cold.id, "учащий английский получил немецкий уровень"
+
+
+async def test_german_learner_keeps_goethe_levels(session, user):
+    """Строк уровня для немецкого нет — берётся words.level (Goethe)."""
+    from app.services import quiz_service
+
+    haus = make_word("Haus", level=CEFRLevel.A1)
+    seele = make_word("Seele", level=CEFRLevel.B1)
+    session.add_all([haus, seele])
+    await build_groups(session, ["de"])
+    user.level = CEFRLevel.A1
+    user.quiz_mode = QuizMode.LEVEL
+    await session.commit()
+
+    for _ in range(5):
+        picked = await quiz_service.get_new_words(user.id, session, pair_from_user(user), [], user=user)
+        assert picked.id == haus.id

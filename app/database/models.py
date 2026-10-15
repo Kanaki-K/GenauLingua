@@ -960,6 +960,33 @@ class WordFrequency(Base):
     zipf: Mapped[float] = mapped_column(Float, nullable=False)
 
 
+class WordLevel(Base):
+    """
+    Уровень слова В ИЗУЧАЕМОМ ЯЗЫКЕ — для всех, кроме немецкого.
+
+    ЗАЧЕМ. `Word.level` — уровень немецкого слова по спискам Goethe, и
+    учащий английский получал немецкие уровни: сверка 15.10 с Oxford —
+    точно совпадает 32%, на два уровня и больше расходится 22%, треть
+    английских A1 (cold, only, check) стояла на B1 и выше. Владелец: «В
+    английском быстро дошёл до C2», «бот должен быть правильный в своей
+    выдаче, уровнях… на всех языках».
+
+    Английский — по официальному Oxford 3000/5000 by CEFR; слова вне списка
+    и польский, турецкий, русский, украинский — среднее уровня понятия
+    (Goethe) и места слова по частоте в своём языке. Строки нет — берётся
+    `Word.level` (`quiz_service.level_expr`). Заполняет
+    `app.scripts.fill_word_levels`.
+    """
+
+    __tablename__ = "word_levels"
+
+    word_id: Mapped[int] = mapped_column(
+        ForeignKey("words.id", ondelete="CASCADE"), primary_key=True
+    )
+    lang: Mapped[str] = mapped_column(String(2), primary_key=True)
+    level: Mapped[CEFRLevel] = mapped_column(SQLEnum(CEFRLevel), nullable=False)
+
+
 class UserTtsVoice(Base):
     """
     Выбранный голос — на каждый изучаемый язык свой.

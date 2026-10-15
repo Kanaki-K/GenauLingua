@@ -45,6 +45,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database.enums import CEFRLevel, QuizMode
 from app.database.models import QuizQuestion, QuizSession, User, Word
+from app.services.word_level import level_expr
 
 logger = logging.getLogger(__name__)
 
@@ -220,7 +221,7 @@ async def recent_accuracy(user: User, session: AsyncSession) -> tuple[int, float
         # повторах A1 и получил бы «выше» снова, а на C1 лёгкие повторы не
         # дали бы сработать понижению. Находка независимой проверки 15.10
         .join(Word, Word.id == QuizQuestion.word_id)
-        .where(Word.level == user.level)
+        .where(level_expr(user.learning_lang) == user.level)
         .where(
             QuizSession.user_id == user.id,
             QuizSession.learning_lang == user.learning_lang,

@@ -21,6 +21,7 @@ from app.database.models import (
     PartOfSpeech, User, UserWord, Word, WordFrequency, WordLangGroup,
 )
 from app.services import build_service
+from app.services.word_level import level_expr
 from app.services.goal_service import categories_for
 from app.services.language_service import (
     LanguagePair,
@@ -203,7 +204,7 @@ def _apply_quiz_mode_filter(query, user: User):
     if user.quiz_mode == QuizMode.CATEGORY:
         if user.quiz_category:
             return query.where(Word.category == user.quiz_category)
-        return query.where(Word.level == user.level)
+        return query.where(level_expr(user.learning_lang) == user.level)
 
     if user.quiz_mode == QuizMode.ALL_WORDS:
         return query
@@ -211,8 +212,8 @@ def _apply_quiz_mode_filter(query, user: User):
     if user.quiz_mode == QuizMode.DIFFICULT:
         return query
 
-    # LEVEL и всё неизвестное
-    return query.where(Word.level == user.level)
+    # LEVEL и всё неизвестное. Уровень — В ИЗУЧАЕМОМ ЯЗЫКЕ (`word_level`)
+    return query.where(level_expr(user.learning_lang) == user.level)
 
 
 def _exclude(query, exclude_ids: Optional[list[int]]):
@@ -242,13 +243,23 @@ COMMON_POOL = 150
 # На сколько служебное слово «реже» в очереди новых: der, von, zwischen, but
 # занимали половину первого занятия (замер 15.10: bei, von, zwischen, nun,
 # mal из 15). Они не пропадают — просто содержательные идут чаще раньше
-FUNCTION_WORD_PENALTY = 1.0
+#
+# Второй замер, после уровней по языкам (15.10): у английского, польского,
+# украинского уровень A1 стал частотным, и первое занятие снова состояло из
+# you, a, the, with it / na, ten, do / з, для, в. Штраф поднят: служебные —
+# на 2.5, наречия — на 1.0; в начале — существительные, глаголы, признаки
+FUNCTION_WORD_PENALTY = 2.5
+ADVERB_PENALTY = 1.0
 _FUNCTION_POS = (PartOfSpeech.PRONOUN, PartOfSpeech.PREPOSITION,
                  PartOfSpeech.CONJUNCTION, PartOfSpeech.OTHER)
 
 
 def _function_word_penalty():
-    return case((Word.pos.in_(_FUNCTION_POS), FUNCTION_WORD_PENALTY), else_=0.0)
+    return case(
+        (Word.pos.in_(_FUNCTION_POS), FUNCTION_WORD_PENALTY),
+        (Word.pos == PartOfSpeech.ADVERB, ADVERB_PENALTY),
+        else_=0.0,
+    )
 
 
 async def _pick_common(session: AsyncSession, query, lang: str) -> Optional[Word]:
@@ -639,7 +650,7 @@ async def get_ready_for(
         query = query.where(*build_service.sql_prefilter(pair))
         level = getattr(user, "level", None)
         if level is not None:
-            query = query.where(Word.level.in_(
+            query = query.where(level_expr(pair.learning).in_(
                 [lv for lv in CEFRLevel if _LEVEL_RANK[lv] <= _LEVEL_RANK[level]]))
     if gap is not None:
         # Пауза — от последнего ОТВЕТА (`_answered_before`): досрочный ответ
@@ -1496,7 +1507,7 @@ async def get_user_progress_stats(
     """
     def scoped(query):
         if level is not None:
-            query = query.where(Word.level == level)
+            query = query.where(level_expr(pair.learning) == level)
         if category is not None:
             query = query.where(Word.category == category)
         return query
@@ -1609,7 +1620,7 @@ async def get_channel_progress(
 
     def scoped(query):
         if level is not None:
-            query = query.where(Word.level == level)
+            query = query.where(level_expr(pair.learning) == level)
         if category is not None:
             query = query.where(Word.category == category)
         return query

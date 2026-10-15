@@ -40,6 +40,7 @@ from typing import Optional
 from sqlalchemy import and_, func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.services.word_level import level_expr
 from app.database.enums import CEFRLevel
 from app.database.models import User, UserWord, Word, WordLangGroup
 from app.services.language_service import LanguagePair, option_label, word_column
@@ -180,7 +181,7 @@ async def pick_words(
     if getattr(user, "quiz_mode", None) == QuizMode.DIFFICULT:
         query = query.where(*_difficult_conditions())
     if level is not None:
-        query = query.where(Word.level == level)
+        query = query.where(level_expr(getattr(user, "learning_lang", None)) == level)
     if exclude_ids:
         query = query.where(Word.id.notin_(exclude_ids))
 
