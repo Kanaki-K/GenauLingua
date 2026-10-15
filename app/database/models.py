@@ -171,6 +171,11 @@ class User(Base):
     # === МЕСЯЧНАЯ СИСТЕМА РЕЙТИНГА ===
     lifetime_score: Mapped[int] = mapped_column(Integer, default=0)
     best_streak_days: Mapped[int] = mapped_column(Integer, default=0)
+    # День, когда заморозка простила пропуск (патч 2.1): следующая — не
+    # раньше чем через неделю (`streak_service.advance`)
+    streak_freeze_on: Mapped[Optional[date]] = mapped_column(Date, nullable=True)
+    # Когда ушло сообщение второго дня новичку (патч 2.1) — одно на жизнь
+    day2_hook_sent_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
     total_monthly_wins: Mapped[int] = mapped_column(Integer, default=0)
 
     # Связи

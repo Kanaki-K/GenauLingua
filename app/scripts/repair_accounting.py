@@ -375,7 +375,7 @@ async def repair_user_totals(session, apply: bool) -> int:
     # UTC, после — по поясу человека, и на переходе разрыв в один день
     # прощается. Своё правило здесь — «разница ровно в сутки по UTC» —
     # оборвало бы серию тем, кого бот на переходе не обрывал.
-    from app.services.streak_service import next_streak, user_day
+    from app.services.streak_service import advance, user_day
 
     rows_days = (await session.execute(
         select(User, QuizSession.completed_at)
@@ -391,8 +391,10 @@ async def repair_user_totals(session, apply: bool) -> int:
     for user_id, day_set in active_days.items():
         dates = sorted(day_set)
         best = run = 1
+        freeze = None
         for before, after in zip(dates, dates[1:]):
-            run = next_streak(run, before, after)
+            # Заморозка — тем же правилом, что у бота (`advance`)
+            run, freeze, _ = advance(run, before, after, freeze)
             best = max(best, run)
         history_best[user_id] = best
         # Серия на последний активный день — это череда, которая им

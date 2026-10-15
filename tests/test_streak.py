@@ -60,7 +60,45 @@ def test_yesterday_keeps_the_streak():
 
 
 def test_the_day_before_yesterday_breaks_it():
-    person = _person(streak_days=7, last_active_date=TODAY - timedelta(days=2))
+    """Пропуск вчера рвёт серию, если заморозка уже потрачена на этой неделе."""
+    person = _person(streak_days=7, last_active_date=TODAY - timedelta(days=2),
+                     streak_freeze_on=TODAY - timedelta(days=3))
+    assert current_streak(person, TODAY) == 0
+
+
+# Заморозка действует с дня выкатки 2.1 — проверяем на дне после него
+from app.services.streak_service import FREEZE_FROM  # noqa: E402
+
+AFTER = FREEZE_FROM + timedelta(days=10)
+
+
+def test_a_missed_day_is_forgiven_by_the_freeze():
+    """
+    Патч 2.1: один пропуск в неделю прощается (с дня выкатки — FREEZE_FROM). Вчера пропустил — серия жива
+    сегодня, и занятие её продолжает; день заморозки запоминается.
+    """
+    person = _person(streak_days=7, last_active_date=AFTER - timedelta(days=2),
+                     streak_freeze_on=None, best_streak_days=7)
+    assert current_streak(person, AFTER) == 7
+    assert register_activity(person, AFTER) == 8
+    assert person.streak_freeze_on == AFTER
+
+
+def test_the_freeze_works_once_a_week():
+    """Вторая заморозка — не раньше чем через семь дней после первой."""
+    from app.services.streak_service import advance
+
+    day = AFTER
+    streak, freeze, used = advance(5, day - timedelta(days=2), day, None)
+    assert (streak, used) == (6, True)
+    streak, freeze, used = advance(streak, day + timedelta(days=1), day + timedelta(days=3), freeze)
+    assert (streak, used) == (1, False), "вторая заморозка через три дня"
+    streak, freeze, used = advance(4, day + timedelta(days=5), day + timedelta(days=7), freeze)
+    assert (streak, used) == (5, True), "через неделю заморозка снова свободна"
+
+
+def test_two_missed_days_break_even_with_the_freeze():
+    person = _person(streak_days=7, last_active_date=TODAY - timedelta(days=3), streak_freeze_on=None)
     assert current_streak(person, TODAY) == 0
 
 
@@ -223,8 +261,12 @@ def test_two_local_days_in_a_row_are_a_streak():
 
 
 def test_a_skipped_local_day_breaks_the_streak():
-    """Пн 23:30 и СР 00:30 по Берлину. По UTC это пн и вт — серия выдумывалась."""
-    person = _person(streak_days=0, last_active_date=None, timezone="Europe/Berlin")
+    """
+    Пн 23:30 и СР 00:30 по Берлину. По UTC это пн и вт — серия выдумывалась.
+    Заморозка этой недели уже потрачена: пропуск вторника рвёт серию.
+    """
+    person = _person(streak_days=0, last_active_date=None, timezone="Europe/Berlin",
+                     streak_freeze_on=date(2026, 11, 1))
     _play(person, _berlin(2026, 11, 2, 23, 30))
     assert _play(person, _berlin(2026, 11, 4, 0, 30)) == 1
 
@@ -262,7 +304,8 @@ def test_the_switch_grace_is_one_time():
     """После перехода разрыв в день снова рвёт серию."""
     last = LOCAL_DAYS_FROM + timedelta(days=3)
     assert next_streak(5, last, last + timedelta(days=2)) == 1
-    person = _person(streak_days=5, last_active_date=last)
+    # Заморозка потрачена — проверяется именно допуск перехода
+    person = _person(streak_days=5, last_active_date=last, streak_freeze_on=last)
     assert current_streak(person, last + timedelta(days=2)) == 0
 
 
@@ -271,3 +314,14 @@ def test_last_quiz_date_is_the_local_day():
                      timezone="Europe/Berlin")
     _play(person, _berlin(2026, 11, 3, 0, 30))
     assert person.last_quiz_date == date(2026, 11, 3)
+
+
+def test_no_freeze_before_the_release_day():
+    """
+    История до выкатки 2.1 читается старым правилом: иначе приёмка
+    «воскресила» бы серии задним числом (6 из 128 на рабочей копии 15.10).
+    """
+    from app.services.streak_service import advance
+
+    day = date(2026, 9, 10)          # до выкатки 2.1 и до перехода на местный день
+    assert advance(5, day - timedelta(days=2), day, None) == (1, None, False)

@@ -261,7 +261,7 @@ async def _check_streaks(session, rep: Report) -> None:
     """
     from app.database.models import QuizSession, User
     from app.services.monthly_leaderboard_service import scored_sessions_filter
-    from app.services.streak_service import next_streak, user_day
+    from app.services.streak_service import advance, user_day
 
     rows = (await session.execute(
         select(User, QuizSession.completed_at)
@@ -277,9 +277,10 @@ async def _check_streaks(session, rep: Report) -> None:
 
     bad = []
     for user_id, active in days.items():
-        streak, last = 0, None
+        streak, last, freeze = 0, None, None
         for day in sorted(active):
-            streak = next_streak(streak, last, day)
+            # Заморозка — тем же правилом, что у бота (`advance`)
+            streak, freeze, _ = advance(streak, last, day, freeze)
             last = day
         user = people[user_id]
         if int(user.streak_days or 0) != streak or user.last_active_date != last:

@@ -5,7 +5,7 @@
 """
 
 import logging
-from datetime import date
+from datetime import date, timedelta
 from typing import Optional
 
 from aiogram.fsm.context import FSMContext
@@ -402,7 +402,19 @@ async def _praise_lines(
     # Серия читается через `streak_service`, а не из колонки: колонка
     # пересчитывается только на завершении круга, и у остановившегося в ней
     # навсегда остаётся последнее значение
-    from app.services.streak_service import current_streak
+    from app.services.streak_service import current_streak, user_day, user_today
+
+    # Первое ли это законченное занятие за день человека: рубеж серии и
+    # заморозка празднуются один раз — в занятие, которое серию и сдвинуло
+    today = user_today(user)
+    recent = (await session.execute(
+        select(QuizSession.completed_at).where(
+            QuizSession.user_id == user.id,
+            QuizSession.completed_at.isnot(None),
+            QuizSession.completed_at >= utcnow() - timedelta(days=2),
+        )
+    )).scalars().all()
+    rounds_today = sum(1 for moment in recent if user_day(user, moment) == today)
 
     facts = RoundFacts(
         points=max(0, await _season_score(
@@ -422,6 +434,8 @@ async def _praise_lines(
         days_away=days_away,
         first_audio=first_audio,
         first_speech=first_speech,
+        first_round_today=rounds_today <= 1,
+        freeze_used_today=getattr(user, "streak_freeze_on", None) == today,
     )
     return build_lines(facts, lang)
 

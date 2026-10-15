@@ -4,6 +4,9 @@
 
 from aiogram import Router, F
 from aiogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
+from typing import Optional
+
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database.models import User
@@ -80,7 +83,30 @@ def _shorten_name(name: str, max_len: int = 15) -> str:
     return first[:max_len - 1] + "…"
 
 
-def build_monthly_table(leaderboard: list, user_rank: dict, season, user_id: int, lang: str) -> str:
+# 🔥 у имени — с трёх дней подряд (патч 2.1). Один-два дня — ещё не серия:
+# огонёк у каждого второго перестал бы что-то значить
+FIRE_FROM_DAYS = 3
+
+
+def _with_fire(name: str, user_id: int, streaks: Optional[dict]) -> str:
+    """Имя и серия: «Оксана 🔥12». Серия живая (`current_streak`), не из колонки."""
+    days = (streaks or {}).get(user_id, 0)
+    return f"{name} 🔥{days}" if days >= FIRE_FROM_DAYS else name
+
+
+async def streaks_of(session: AsyncSession, leaderboard: list) -> dict[int, int]:
+    """Текущая серия каждого в таблице — одним запросом."""
+    from app.services.streak_service import current_streak
+
+    ids = [entry["user_id"] for entry in leaderboard]
+    if not ids:
+        return {}
+    people = (await session.execute(select(User).where(User.id.in_(ids)))).scalars().all()
+    return {person.id: current_streak(person) for person in people}
+
+
+def build_monthly_table(leaderboard: list, user_rank: dict, season, user_id: int, lang: str,
+                        streaks: Optional[dict] = None) -> str:
     month_name = format_month_name(season.month, lang)
 
     text = get_text("table_title_monthly", lang, month=month_name, year=season.year) + "\n\n"
@@ -92,7 +118,7 @@ def build_monthly_table(leaderboard: list, user_rank: dict, season, user_id: int
     user_in_top = False
     for entry in leaderboard:
         rank = entry["rank"]
-        name = _shorten_name(entry["display_name"])
+        name = _with_fire(_shorten_name(entry["display_name"]), entry["user_id"], streaks)
         score = entry["monthly_score"]
         emoji = _rank_emoji(rank)
 
@@ -125,7 +151,8 @@ def build_monthly_table(leaderboard: list, user_rank: dict, season, user_id: int
     return text
 
 
-def build_alltime_table(leaderboard: list, user_rank: dict, user_id: int, lang: str) -> str:
+def build_alltime_table(leaderboard: list, user_rank: dict, user_id: int, lang: str,
+                        streaks: Optional[dict] = None) -> str:
     text = get_text("table_title_alltime", lang) + "\n\n"
 
     if not leaderboard:
@@ -135,7 +162,7 @@ def build_alltime_table(leaderboard: list, user_rank: dict, user_id: int, lang: 
     user_in_top = False
     for entry in leaderboard:
         rank = entry["rank"]
-        name = _shorten_name(entry["display_name"])
+        name = _with_fire(_shorten_name(entry["display_name"]), entry["user_id"], streaks)
         score = entry["lifetime_score"]
         emoji = _rank_emoji(rank)
 
@@ -188,7 +215,8 @@ async def _show_monthly_table(callback: CallbackQuery, session: AsyncSession) ->
                                                 learning_lang=learning)
     user_rank = await get_user_monthly_rank(user.id, session, season_id=season.id,
                                             learning_lang=learning)
-    text = build_monthly_table(leaderboard, user_rank, season, user.id, lang)
+    text = build_monthly_table(leaderboard, user_rank, season, user.id, lang,
+                               streaks=await streaks_of(session, leaderboard))
     await edit_screen(callback, text, get_table_keyboard(lang, "monthly"))
 
 
@@ -206,7 +234,8 @@ async def _show_alltime_table(callback: CallbackQuery, session: AsyncSession) ->
     learning = pair_from_user(user).learning
     leaderboard = await get_lifetime_leaderboard(session, limit=10, learning_lang=learning)
     user_rank = await get_user_lifetime_rank(user.id, session, learning_lang=learning)
-    text = build_alltime_table(leaderboard, user_rank, user.id, lang)
+    text = build_alltime_table(leaderboard, user_rank, user.id, lang,
+                               streaks=await streaks_of(session, leaderboard))
     await edit_screen(callback, text, get_table_keyboard(lang, "alltime"))
 
 
