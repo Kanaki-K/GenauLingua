@@ -417,3 +417,71 @@ class TestBlindClip:
         assert calls and all("KIND_BLIND" in c for c in calls), (
             f"вопрос на слух снова получит клип с названием-ответом: {calls}"
         )
+
+
+class TestWarmClip:
+    """
+    Звук разбора готовится заранее, пока человек думает над вопросом.
+
+    Прод, 15.10: из 57 нажатий 18 шли дольше двух секунд, 24 раза синтез
+    не успел — разбор выходил без звука примера. Владелец: «подвисает после
+    ответов», «аудио с примером не всегда или вообще нету».
+    """
+
+    async def test_answer_takes_the_warmed_clip_without_second_synthesis(
+        self, session, user, monkeypatch, tmp_path
+    ):
+        import asyncio
+
+        from app.services import audio_service as svc
+
+        monkeypatch.setattr(svc.audio_store, "DEFAULT_ROOT", tmp_path / "tts")
+        calls = []
+
+        async def slow(text, voice, timeout=None, rate=None):
+            calls.append(text)
+            await asyncio.sleep(0.2)
+            return b"ID3" + b"x" * 3000
+
+        monkeypatch.setattr(svc, "_synthesize_once", slow)
+        monkeypatch.setattr(svc, "_trimmed", lambda data: data)
+        user.audio_enabled = True
+        word = make_word("Fahrrad", article="das")
+        session.add(word)
+        await session.commit()
+
+        await svc.warm_clip(session, user, word, "de", svc.KIND_FULL)
+        await asyncio.sleep(0)          # фоновая задача стартует на следующем шаге
+        assert calls, "подготовка не началась"
+
+        # Ответ пришёл, пока клип ещё готовится: ждём его, второй синтез не нужен
+        clip = await svc.clip_for_user(session, user, word, "de", svc.KIND_FULL)
+        assert clip is not None and clip.data, "разбор без звука"
+        assert len(calls) == 1, f"синтез дважды: {calls}"
+        await asyncio.gather(*svc._WARMING.values())
+        assert not svc._WARMING, "задача подготовки не убралась за собой"
+
+    async def test_nothing_to_warm_when_the_clip_is_on_disk(
+        self, session, user, monkeypatch, tmp_path
+    ):
+        from app.services import audio_service as svc
+
+        monkeypatch.setattr(svc.audio_store, "DEFAULT_ROOT", tmp_path / "tts")
+        calls = []
+
+        async def note(text, voice, timeout=None, rate=None):
+            calls.append(text)
+            return b"ID3" + b"x" * 3000
+
+        monkeypatch.setattr(svc, "_synthesize_once", note)
+        user.audio_enabled = True
+        word = make_word("Tisch", article="der")
+        session.add(word)
+        await session.commit()
+        voice = await svc.voice_for_user(session, user.id, "de")
+        spoken = svc.spoken_for(word, "de", svc.KIND_FULL)
+        svc.audio_store.write("de", voice, svc.KIND_FULL, spoken, b"ID3" + b"y" * 3000)
+
+        await svc.warm_clip(session, user, word, "de", svc.KIND_FULL)
+
+        assert calls == [] and not svc._WARMING

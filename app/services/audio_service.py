@@ -419,6 +419,20 @@ async def obtain_audio(
     if stored is not None:
         return stored
 
+    # Клип уже готовится заранее (`warm_clip`) — дождаться его, а не
+    # синтезировать второй раз параллельно
+    warming = _WARMING.get((lang, voice, kind, spoken))
+    if warming is not None and warming is not asyncio.current_task():
+        try:
+            data = await asyncio.wait_for(
+                asyncio.shield(warming),
+                LIVE_SYNTH_TIMEOUT if live else SYNTH_TIMEOUT,
+            )
+        except Exception:
+            data = None
+        if data is not None:
+            return data
+
     rate = SLOW_RATE if kind == KIND_SLOW else DEFAULT_RATE
     data = await _synthesize(spoken, voice, live=live, rate=rate)
     if data is None:
@@ -430,6 +444,57 @@ async def obtain_audio(
     # просто в следующий раз он синтезируется снова
     audio_store.write(lang, voice, kind, spoken, data)
     return data
+
+
+# Клипы, которые готовятся в фоне: (язык, голос, вид, текст) → задача
+_WARMING: dict[tuple[str, str, str, str], "asyncio.Task"] = {}
+
+
+async def warm_clip(
+    session: AsyncSession, user: User, word: Word, lang: str, kind: str
+) -> None:
+    """
+    Начать готовить клип заранее, не дожидаясь его.
+
+    ЗАЧЕМ. Звук разбора (слово с примером) нужен сразу после ответа, а
+    синтезировался только тогда: на проде 15.10 из 57 нажатий 18 шли дольше
+    двух секунд, и 24 раза синтез не успел за 2,5 с — разбор выходил без
+    звука. Владелец: «подвисает после ответов», «аудио с примером не всегда
+    или вообще нету». Пока человек думает над вопросом, клип разбора уже
+    синтезируется и ложится на диск; после ответа он берётся оттуда.
+
+    Клип с диска или уже отправленный (есть file_id) не готовится: он и так
+    мгновенный.
+    """
+    if not getattr(user, "audio_enabled", True):
+        return
+    voice = await voice_for_user(session, user.id, lang)
+    spoken = spoken_for(word, lang, kind)
+    if not spoken or audio_store.exists(lang, voice, kind, spoken):
+        return
+    key = (lang, voice, kind, spoken)
+    if key in _WARMING:
+        return
+    sent = await session.scalar(
+        select(WordAudio.id).where(
+            WordAudio.word_id == word.id, WordAudio.lang == lang,
+            WordAudio.kind == kind, WordAudio.voice == voice,
+            # file_id чужого бота не годится — такой клип готовить надо
+            WordAudio.bot_id == current_bot_id(),
+        ).limit(1)
+    )
+    if sent is not None:
+        return
+
+    task = asyncio.create_task(obtain_audio(spoken, lang, kind, voice))
+    _WARMING[key] = task
+
+    def _done(t: "asyncio.Task") -> None:
+        _WARMING.pop(key, None)
+        if not t.cancelled() and t.exception() is not None:
+            logger.debug("заранее клип не готов: %r", spoken[:40], exc_info=t.exception())
+
+    task.add_done_callback(_done)
 
 
 def _bot_id_from_token(token: Optional[str]) -> Optional[int]:
