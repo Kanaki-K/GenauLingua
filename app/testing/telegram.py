@@ -306,6 +306,12 @@ async def reset_state(dp: Dispatcher) -> None:
         states.clear()
     redis = getattr(storage, "redis", None)
     if redis is not None:
+        # Соединения пула привязаны к циклу событий, в котором открыты, а у
+        # pytest-asyncio цикл свой на каждый тест: старое соединение падает
+        # «Event loop is closed» (прогон 15.10 — 11 падений и 53 ошибки только
+        # под FSM_TEST_REDIS_URL). Бросаем их, не закрывая: закрывать нечем —
+        # их цикл уже мёртв.
+        redis.connection_pool.reset()
         await redis.flushdb()
 
 
