@@ -131,6 +131,39 @@ def get_admin_keyboard() -> InlineKeyboardMarkup:
     )
 
 
+async def retention_today(session: AsyncSession) -> tuple[int, int, int]:
+    """
+    (начали сегодня, вернулись сегодня из активных за 7 дней, активных за 7 дней).
+
+    «Активный» — закончил занятие. Активные за 7 дней — закончившие хоть
+    одно в шесть предыдущих дней и вчера (сегодня не в счёт); вернулись —
+    те из них, кто закончил занятие сегодня. Это CURR — у Duolingo главная
+    метрика роста (патч 2.1). Дни — UTC, как остальная панель.
+    """
+    today = utctoday()
+    since = datetime.combine(today, datetime.min.time())
+    week = since - timedelta(days=LAST_DAYS)
+
+    started = (await session.execute(
+        select(func.count(distinct(QuizSession.user_id))).where(
+            QuizSession.started_at >= since,
+            # Пустой перезапуск (`restarted`) — не приход, а повторное нажатие
+            or_(QuizSession.exit_reason.is_(None), QuizSession.exit_reason != "restarted"),
+        )
+    )).scalar() or 0
+
+    def finished(start, end=None):
+        q = select(distinct(QuizSession.user_id)).where(
+            QuizSession.is_completed.is_(True), QuizSession.completed_at >= start)
+        if end is not None:
+            q = q.where(QuizSession.completed_at < end)
+        return q
+
+    base = set((await session.execute(finished(week, since))).scalars())
+    today_done = set((await session.execute(finished(since))).scalars())
+    return int(started), len(base & today_done), len(base)
+
+
 async def _get_main_stats(session: AsyncSession) -> str:
     """Собрать базовую статистику для главной панели"""
     total_users_result = await session.execute(select(func.count()).select_from(User))
@@ -211,6 +244,8 @@ async def _get_main_stats(session: AsyncSession) -> str:
     )
     answered, correct = totals.one()
 
+    started_today, curr_back, curr_base = await retention_today(session)
+
     words_total = (await session.execute(
         select(func.count()).select_from(Word)
     )).scalar() or 0
@@ -242,8 +277,15 @@ async def _get_main_stats(session: AsyncSession) -> str:
             admin_ui.table([
                 ("Людей", total_users),
                 ("Играли хоть раз", active_ever),
-                ("Сегодня", active_24h),
+                # «Сегодня» прежде считало только ЗАКОНЧИВШИХ занятие (дата
+                # ставится при завершении): 15.10 админка показала 9, а
+                # занимались 22 — владелец решил, что пришли девять
+                ("Сегодня начали", started_today),
+                ("Сегодня закончили", active_24h),
                 ("За 7 дней", active_7d),
+                # Главный ежедневный индикатор удержания (как CURR у Duolingo)
+                ("Вернулись сегодня из активных за 7 дней",
+                 f"{curr_back} из {curr_base} ({admin_ui.pct(curr_back, curr_base)})"),
                 ("Кругов всего", total_quizzes),
                 ("Из напоминаний", notif_sessions),
             ]),
