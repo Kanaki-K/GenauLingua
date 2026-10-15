@@ -21,11 +21,12 @@ from app.database.models import (
     PartOfSpeech, User, UserWord, Word, WordFrequency, WordLangGroup,
 )
 from app.services import build_service
-from app.services.word_level import level_expr
+from app.services.word_level import level_expr, level_of
 from app.services.goal_service import categories_for
 from app.services.language_service import (
     LanguagePair,
     fold,
+    get_language,
     pair_for_channel,
     display_text,
     main_meaning,
@@ -691,7 +692,8 @@ FIT_CANDIDATES = 20
 
 
 def channel_fits(channel: QuizChannel, word: Word, pair: LanguagePair,
-                 level: Optional[CEFRLevel] = None) -> bool:
+                 level: Optional[CEFRLevel] = None,
+                 word_level: Optional[CEFRLevel] = None) -> bool:
     """
     Годится ли слово для этой игры ПО СВОИМ ДАННЫМ, а не по прогрессу.
 
@@ -705,7 +707,14 @@ def channel_fits(channel: QuizChannel, word: Word, pair: LanguagePair,
     (`build_level_fits`). Без уровня (приёмки) — без этого условия.
     """
     if channel is QuizChannel.BUILD:
-        return build_level_fits(word, level) and build_service.fits(word, pair, level)
+        # Уровень СЛОВА — в изучаемом языке (`word_level`). `Word.level` —
+        # немецкий (Goethe), и у учащего английский сборка сверялась с чужим
+        # уровнем (аудит подбора 15.10). Не передан и язык не немецкий —
+        # проверки нет: подбор (`get_ready_for`) уже отсеял по `level_expr`
+        if word_level is None and pair.learning == "de":
+            word_level = word.level
+        return (build_level_fits(word_level, level)
+                and build_service.fits(word, pair, level))
     return True
 
 
@@ -713,7 +722,7 @@ def channel_fits(channel: QuizChannel, word: Word, pair: LanguagePair,
 _LEVEL_RANK = {level: rank for rank, level in enumerate(CEFRLevel)}
 
 
-def build_level_fits(word: Word, level: Optional[CEFRLevel]) -> bool:
+def build_level_fits(word_level: Optional[CEFRLevel], level: Optional[CEFRLevel]) -> bool:
     """
     Сборка — только по словам НЕ ВЫШЕ уровня человека.
 
@@ -724,9 +733,9 @@ def build_level_fits(word: Word, level: Optional[CEFRLevel]) -> bool:
     этого выглядит сложным вдвойне». Узнавать такое слово — посильно,
     собирать его фразу на A2 — нет. Оно придёт остальными играми.
     """
-    if level is None or word.level is None:
+    if level is None or word_level is None:
         return True
-    return _LEVEL_RANK[word.level] <= _LEVEL_RANK[level]
+    return _LEVEL_RANK[word_level] <= _LEVEL_RANK[level]
 
 
 def _rotation(user: User, exclude_ids: list[int],
@@ -1000,13 +1009,35 @@ async def get_distractors(
 
     base = _usable_words(pair)
 
-    # 1. Та же часть речи и тот же уровень; для существительных — иной артикль
-    # (в режимах по категории и по всей базе уровень не ограничиваем).
+    # 1. Та же часть речи и тот же уровень (в режимах по категории и по всей
+    # базе уровень не ограничиваем).
+    #
+    # УРОВЕНЬ — В ИЗУЧАЕМОМ ЯЗЫКЕ (`level_expr`), а не немецкий `Word.level`:
+    # у учащего английский A1 все 60 вариантов из 60 приходили уровня C1
+    # (аудит подбора 15.10) — та же ошибка, что была с подбором слов.
     same_level = not (user and user.quiz_mode in (QuizMode.CATEGORY, QuizMode.ALL_WORDS))
     strict = base.where(Word.pos == correct_word.pos)
     if same_level:
-        strict = strict.where(Word.level == correct_word.level)
-    if correct_word.pos == PartOfSpeech.NOUN and correct_word.article:
+        own_level = await level_of(session, correct_word, pair.learning)
+        strict = strict.where(level_expr(pair.learning) == own_level)
+
+    # АРТИКЛЬ. Когда варианты — слова С АРТИКЛЕМ («Вспоминаю»: ответ на
+    # изучаемом немецком), артикль у всех вариантов ТОТ ЖЕ, что у верного.
+    # Прежде требовался ИНОЙ — и артикль верного ответа всегда был
+    # единственным среди четырёх: стратегия «бери непохожий артикль»
+    # угадывала 63–65% вместо 25% (аудит подбора 15.10). Когда варианты —
+    # значения на родном языке, артикль не виден, и прежнее условие
+    # безвредно: оно лишь разводит варианты.
+    noun = correct_word.pos == PartOfSpeech.NOUN and correct_word.article
+    article_shown = bool(noun) and get_language(answer_lang).uses_article
+    same_article = []
+    if article_shown:
+        strict = strict.where(Word.article == correct_word.article)
+        # 1б. Та же часть речи и артикль, любой уровень — прежде чем
+        # ослабить артикль
+        same_article = [base.where(Word.pos == correct_word.pos,
+                                   Word.article == correct_word.article)]
+    elif noun:
         strict = strict.where(
             or_(Word.article.is_(None), Word.article != correct_word.article)
         )
@@ -1017,7 +1048,7 @@ async def get_distractors(
     # 3. Любое слово — лишь бы вариантов было четыре
     anything = base
 
-    for stage in (strict, by_pos, anything):
+    for stage in (strict, *same_article, by_pos, anything):
         if len(picked) >= count:
             break
 
@@ -2092,11 +2123,13 @@ async def pick_channel(
     # Годность по данным слова (`channel_fits`): сборке нужен пример в 3–10
     # слов с переводом. Пара — человека: на его родном показан пример
     pair = pair_from_user(user) if user is not None else None
+    word_level = await level_of(session, word, pair.learning) if pair is not None else None
 
     def open_for_word(channel: QuizChannel) -> bool:
         return (times_correct >= CHANNEL_UNLOCK.get(channel, 0)
                 and (pair is None or channel_fits(channel, word, pair,
-                                                  getattr(user, "level", None))))
+                                                  getattr(user, "level", None),
+                                                  word_level=word_level)))
 
     if prefer is not None:
         # Без озвучки закрыты ТОЛЬКО слух и речь. Прежде условие было «всё,

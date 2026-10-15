@@ -30,3 +30,13 @@ def level_expr(lang: Optional[str]):
         .scalar_subquery()
     )
     return func.coalesce(own, Word.level)
+
+
+async def level_of(session, word: Word, lang: Optional[str]):
+    """Уровень ЭТОГО слова в языке `lang` — значение, не выражение."""
+    if not lang or lang == "de":
+        return word.level
+    own = (await session.execute(
+        select(WordLevel.level).where(WordLevel.word_id == word.id, WordLevel.lang == lang)
+    )).scalar()
+    return own or word.level

@@ -35,9 +35,10 @@ from __future__ import annotations
 
 import logging
 import random
+from datetime import timedelta
 from typing import Optional
 
-from sqlalchemy import and_, func, select
+from sqlalchemy import and_, case, func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.services.word_level import level_expr
@@ -95,6 +96,9 @@ UNLOCK_CORRECT = 1
 # длине идёт уже в Python — она считается по ВЫБРАННОМУ значению, а не по
 # ячейке, и в SQL это условие не выразить.
 CANDIDATES = 120
+
+# Слово, отвеченное за последние 12 ч, доска берёт только когда других нет
+FRESH_FOR = timedelta(hours=12)
 
 
 async def pick_words(
@@ -185,7 +189,21 @@ async def pick_words(
     if exclude_ids:
         query = query.where(Word.id.notin_(exclude_ids))
 
-    query = query.order_by(func.random()).limit(CANDIDATES)
+    # ПОРЯДОК: сперва слова, которых сегодня ещё не было, потом подошедшие
+    # по сроку, потом реже всего показанные, внутри — случайно. Прежде было
+    # просто random(): аудит подбора 15.10 — 92–96% показов на доске
+    # досрочные, у владельца 14.10 во всех 9 досках все 5 слов уже
+    # встречались в тот же день; слово, отвеченное на 3-й день, доска
+    # давала на 4-й, 5-й и 6-й подряд. И пауза после ответа — та же, что у
+    # отработки (`PRACTICE_GAP`): только что отвеченное слово доска не берёт
+    from app.core.clock import utcnow
+    from app.services.quiz_service import PRACTICE_GAP, _answered_before, _due_condition
+
+    query = query.where(_answered_before(user.id, pair, utcnow() - PRACTICE_GAP))
+    not_today = case((_answered_before(user.id, pair, utcnow() - FRESH_FOR), 0), else_=1)
+    due_first = case((_due_condition(), 0), else_=1)
+    query = query.order_by(not_today, due_first, UserWord.times_shown.asc(),
+                           func.random()).limit(CANDIDATES)
     candidates = (await session.execute(query)).scalars().all()
 
     # ЗНАЧЕНИЯ, УЖЕ СПРОШЕННЫЕ В КРУГЕ, доска тоже не берёт — тем же

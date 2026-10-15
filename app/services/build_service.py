@@ -583,11 +583,14 @@ async def foreign_words(
     Слишком длинные — тоже: они расширили бы сетку ради ловушки.
     """
     from app.database.models import Word
+    from app.services.word_level import level_expr, level_of
 
     column = example_column(pair.learning)
+    # Уровень — в изучаемом языке, не немецкий `Word.level` (аудит подбора 15.10)
+    own_level = await level_of(session, word, pair.learning)
     rows = (await session.execute(
         select(column)
-        .where(Word.id != word.id, Word.level == word.level,
+        .where(Word.id != word.id, level_expr(pair.learning) == own_level,
                column.isnot(None), func.btrim(column) != "")
         .order_by(func.random())
         .limit(limit)
