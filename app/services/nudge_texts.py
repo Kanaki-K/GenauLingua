@@ -31,6 +31,7 @@ KNOWN_HEAD_FROM = 5
 # Больше этого — число не зовёт, а придавливает («Пора освежить 2742
 # слова», живой пример из базы): вместо числа — спокойная строка
 DUE_MANY = 50
+SECONDS_PER_QUESTION = 15
 
 
 @dataclass(frozen=True)
@@ -93,6 +94,9 @@ def _numbers(facts: NudgeFacts, lang: str) -> dict:
         best=plural(facts.best, "plural_days", lang),
         words=plural(facts.first_day_words, "plural_words", lang), first_n=facts.first_day_words,
         questions=facts.questions,
+        # ~15 с на вопрос: медиана на проде 15.10 — 3,8 мин на 15 вопросов,
+        # 1,7 мин на 7. Не меньше двух: «около 1 минут» не по-русски
+        minutes_n=max(2, round(facts.questions * SECONDS_PER_QUESTION / 60)),
     )
 
 

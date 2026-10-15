@@ -591,3 +591,18 @@ def test_no_zero_numbers_in_messages(lang):
             for seed in range(8):
                 text = compose(kind, facts, lang, seed)
                 assert not re.search(r"(?<![\d.])0(?![\d:])", text), (lang, kind, text)
+
+
+def test_minutes_promised_match_the_lesson():
+    """
+    «Около трёх минут» было неправдой: на проде 15.10 медиана занятия из 15
+    вопросов — 3,8 мин, первого (7 вопросов) — 1,7 мин. Обещание считается
+    из длины занятия человека.
+    """
+    first = compose("start7", NudgeFacts(name="Анна", questions=7), "ru", 0)
+    assert "около 2 минут" in first, first
+    regular = compose("back7", NudgeFacts(name="Анна", questions=15, known=5), "ru", 1)
+    assert "около 4 минут" in regular, regular
+    for lang in LOCALES:
+        for kind in KINDS:
+            assert "{minutes_n}" not in compose(kind, NudgeFacts(name="A", questions=15), lang, 0)
