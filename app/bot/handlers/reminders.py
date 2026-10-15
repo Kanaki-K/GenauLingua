@@ -210,8 +210,11 @@ async def toggle_notifications(callback: CallbackQuery, session: AsyncSession):
     lang = user.interface_language or DEFAULT_LOCALE
 
     if user.notifications_enabled:
-        # Выключаем напоминания
+        # Выключаем напоминания. Это такой же явный отказ, как «Не надо» и
+        # «Не напоминать»: без отметки сообщение второго дня всё равно
+        # приходило выключившему (аудит 2.1)
         user.notifications_enabled = False
+        user.reminders_declined_at = utcnow()
         await session.commit()
         await callback.answer(get_text("notif_toggle_off", lang), show_alert=False)
     else:

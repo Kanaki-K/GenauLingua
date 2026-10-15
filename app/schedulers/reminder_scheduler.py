@@ -10,7 +10,7 @@ from typing import TYPE_CHECKING, List, Optional
 from aiogram import Bot
 from aiogram.exceptions import TelegramForbiddenError
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from sqlalchemy import select
+from sqlalchemy import select, update
 
 from app.bot.keyboards.notifications import get_reminder_keyboard
 from app.database.models import User
@@ -338,9 +338,32 @@ async def check_and_send_notifications(bot: Bot, now_utc: Optional[datetime] = N
 
         for user_id in due_ids:
             try:
-                user = await session.get(User, user_id)
+                # Заново ИЗ БАЗЫ (populate_existing), а не из карты сессии:
+                # сообщение второго дня могло занять человека после выборки
+                user = await session.get(User, user_id, populate_existing=True)
                 if user is None or not user.notifications_enabled:
                     continue
+                if not reminder_is_due(user, now_utc):
+                    continue
+
+                # ЗАНЯТЬ ДО ОТПРАВКИ условным UPDATE: отметка дня ставится,
+                # только если её никто не сменил с момента чтения. Прежде
+                # она писалась после ответа Telegram, и сообщение второго дня,
+                # пришедшее в ту же минуту, видело «сегодня ничего не было» —
+                # человек получал два (аудит 2.1). Исход попытки отметку не
+                # снимает: одна попытка в день, как и было
+                previous = user.last_notification_sent
+                claimed = (await session.execute(
+                    update(User)
+                    .where(User.id == user_id,
+                           User.last_notification_sent.is_not_distinct_from(previous))
+                    .values(last_notification_sent=now_utc)
+                    .returning(User.id)
+                )).scalar()
+                await session.commit()
+                if claimed is None:
+                    continue
+                user.last_notification_sent = now_utc
 
                 logger.info(f"Отправляю напоминание пользователю {user_id}")
                 outcome = await send_notification_to_user(bot, user, session)
@@ -351,7 +374,6 @@ async def check_and_send_notifications(bot: Bot, now_utc: Optional[datetime] = N
                         "напоминания выключены: пользователь %s заблокировал бота",
                         user_id,
                     )
-                user.last_notification_sent = now_utc
                 await session.commit()
                 if outcome == SENT:
                     sent_count += 1

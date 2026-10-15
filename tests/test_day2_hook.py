@@ -5,7 +5,8 @@
 79% новичков не возвращаются на второй день. Через сутки после первого
 занятия — одно личное сообщение с числом вчерашних слов и кнопкой занятия.
 """
-from datetime import timedelta
+from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
 
 import pytest
 
@@ -16,11 +17,16 @@ from app.schedulers.day2_hook import day2_keyboard, due_users, may_write
 
 pytestmark = pytest.mark.asyncio
 
+# Неподвижное «сейчас» — 18:00 по Берлину: окно привязано к часам дня
+# человека (09:00–22:00), и тест от настоящих часов падал бы ночью
+NOW = (datetime(2026, 10, 21, 18, 0, tzinfo=ZoneInfo("Europe/Berlin"))
+       .astimezone(ZoneInfo("UTC")).replace(tzinfo=None))
+
 
 async def _finished(session, user, hours_ago: float, now=None):
     # Закончил — значит, и в счётчике занятий (как в боте, `_finish_quiz`)
     user.quizzes_passed = (user.quizzes_passed or 0) + 1
-    done = (now or utcnow()) - timedelta(hours=hours_ago)
+    done = (now or NOW) - timedelta(hours=hours_ago)
     session.add(QuizSession(user_id=user.id, level=CEFRLevel.A1, total_questions=7,
                             answered_questions=7, is_completed=True,
                             started_at=done - timedelta(minutes=3), completed_at=done))
@@ -29,27 +35,27 @@ async def _finished(session, user, hours_ago: float, now=None):
 
 async def test_newcomer_a_day_later_is_due(session, user):
     await _finished(session, user, hours_ago=23)
-    due = await due_users(session, utcnow())
+    due = await due_users(session, NOW)
     assert [u.id for u, _ in due] == [user.id]
 
 
 async def test_too_early_and_too_late_are_not_due(session, user):
     await _finished(session, user, hours_ago=10)
-    assert await due_users(session, utcnow()) == []
-    assert await due_users(session, utcnow() + timedelta(hours=30)) == []
+    assert await due_users(session, NOW) == []
+    assert await due_users(session, NOW + timedelta(hours=30)) == []
 
 
 async def test_who_came_back_is_not_bothered(session, user):
     await _finished(session, user, hours_ago=23)
     await _finished(session, user, hours_ago=1)          # вернулся сам
-    assert await due_users(session, utcnow()) == []
+    assert await due_users(session, NOW) == []
 
 
 async def test_once_in_a_lifetime(session, user):
     await _finished(session, user, hours_ago=23)
     user.day2_hook_sent_at = utcnow() - timedelta(days=30)
     await session.commit()
-    assert await due_users(session, utcnow()) == []
+    assert await due_users(session, NOW) == []
 
 
 async def test_declined_reminders_means_no_message(session, user):
