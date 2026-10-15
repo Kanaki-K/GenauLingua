@@ -492,3 +492,36 @@ class TestWarmClip:
         await svc.warm_clip(session, user, word, "de", svc.KIND_FULL)
 
         assert calls == [] and not svc._WARMING
+
+
+async def test_speech_question_warms_the_slow_clip(session, user, monkeypatch):
+    """
+    «Говорю»: медленный клип (кнопка «Медленно») готовится уже при показе
+    вопроса. Прежде он синтезировался по нажатию — готовых медленных у Кати
+    70 на 12 тысяч слов, у Полины ни одного.
+    """
+    from app.bot.handlers.quiz import listen
+    from app.database.enums import QuizChannel
+    from app.services.audio_service import KIND_FULL, KIND_SLOW
+    from app.services.language_service import pair_from_user
+
+    warmed = []
+
+    async def note(session, user, word, lang, kind):
+        warmed.append(kind)
+
+    async def no_clip(*args, **kwargs):
+        return None
+
+    monkeypatch.setattr(listen, "warm_clip", note)
+    monkeypatch.setattr(listen, "clip_for_user", no_clip)
+    word = make_word("Fahrrad", article="das")
+    session.add(word)
+    await session.commit()
+
+    await listen._question_clip(session, user, word, pair_from_user(user), QuizChannel.SPEECH)
+    assert warmed == [KIND_FULL, KIND_SLOW], warmed
+
+    warmed.clear()
+    await listen._question_clip(session, user, word, pair_from_user(user), QuizChannel.TEXT)
+    assert warmed == [KIND_FULL], "медленный клип нужен только «Говорю»"

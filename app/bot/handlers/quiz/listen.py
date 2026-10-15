@@ -14,6 +14,7 @@ from app.database.models import User, Word
 from app.services.audio_service import (
     KIND_BLIND,
     KIND_FULL,
+    KIND_SLOW,
     warm_clip,
     clip_for_user,
     clip_kind_for_question,
@@ -55,6 +56,10 @@ async def _question_clip(
     # человек думает: после ответа он берётся с диска, а не синтезируется.
     # Язык — изучаемый из настроек, как у разбора, до разворота по игре
     await warm_clip(session, user, word, pair.learning, KIND_FULL)
+    # «Говорю»: кнопка «Медленно» прежде синтезировала свой клип по нажатию
+    # (у Кати готовых медленных 70 на 12 тысяч слов, у Полины ни одного)
+    if channel is QuizChannel.SPEECH:
+        await warm_clip(session, user, word, pair.learning, KIND_SLOW)
     pair = pair_for_channel(pair, channel)
 
     # 🧱 У СБОРКИ ЗВУКА В ВОПРОСЕ НЕТ — решение владельца: «на экране

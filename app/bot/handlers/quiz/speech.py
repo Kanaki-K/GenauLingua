@@ -5,6 +5,7 @@
 """
 
 import html
+import time
 import logging
 
 from aiogram import F, Router
@@ -112,11 +113,18 @@ async def process_voice_answer(message: Message, state: FSMContext, session: Asy
     thinking = await message.answer(get_text("speech_listening", lang))
 
     verdict = None
+    started = time.perf_counter()
+    downloaded = started
     try:
         audio = await message.bot.download(message.voice.file_id)
+        downloaded = time.perf_counter()
         verdict = await check_pronunciation(audio.read(), target, pair.learning)
     except Exception:
         logger.exception("не удалось обработать голосовой ответ")
+    # Разбивка времени: прод 15.10 — один голосовой ответ шёл 21,5 с при
+    # обычных пяти, и по журналу было не понять, на что ушло время
+    logger.info("голосовой ответ: скачивание %.1f с, распознавание %.1f с",
+                downloaded - started, time.perf_counter() - downloaded)
 
     try:
         await thinking.delete()
