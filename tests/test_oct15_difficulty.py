@@ -48,3 +48,37 @@ async def test_empty_restarted_lesson_is_not_counted_as_abandoned(session, user)
 
     assert empty.exit_reason == "restarted", "пустое занятие засчитано отвалом"
     assert begun.exit_reason == "abandoned"
+
+
+async def test_started_words_keep_coming_back_whatever_their_level(session, user):
+    """
+    Уровень решает, какие НОВЫЕ слова давать, — не какие повторять.
+    Переуровнение 15.10 увело бы с уровня 4 317 слов в работе у 165 человек,
+    и они перестали бы повторяться.
+    """
+    from datetime import timedelta
+
+    from app.core.clock import utcnow
+    from app.database.models import UserWord
+    from app.services import quiz_service
+
+    started = make_word("Waffe", level=CEFRLevel.B1)       # было A1, стало B1
+    fresh_low = make_word("Haus", level=CEFRLevel.A1)
+    fresh_high = make_word("Strumpf", level=CEFRLevel.B1)
+    session.add_all([started, fresh_low, fresh_high])
+    await build_groups(session, ["de"])
+    user.level = CEFRLevel.A1
+    user.quiz_mode = QuizMode.LEVEL
+    session.add(UserWord(
+        user_id=user.id, word_id=started.id, learning_lang="de",
+        times_shown=2, times_correct=1, correct_streak=0, learned=False,
+        last_seen_at=utcnow() - timedelta(days=10),
+    ))
+    await session.commit()
+    pair = pair_from_user(user)
+
+    due = await quiz_service.get_due_words(user.id, session, pair, [], user=user)
+    assert due is not None and due.id == started.id, "начатое слово B1 не вернулось к человеку A1"
+
+    new = await quiz_service.get_new_words(user.id, session, pair, [started.id], user=user)
+    assert new is not None and new.id == fresh_low.id, "новое слово пришло не своего уровня"

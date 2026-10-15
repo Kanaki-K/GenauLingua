@@ -383,6 +383,27 @@ def _scoped(query, user: Optional[User], level: Optional[CEFRLevel]):
     return query
 
 
+def _review_scoped(query, user: Optional[User], level: Optional[CEFRLevel]):
+    """
+    Ограничить выборку УЖЕ НАЧАТЫХ слов: повторение, трудные, закрепление.
+
+    УРОВЕНЬ РЕШАЕТ, КАКИЕ НОВЫЕ СЛОВА ДАВАТЬ, — НЕ КАКИЕ ПОВТОРЯТЬ. Начатое
+    слово возвращается в срок, на каком бы уровне оно ни числилось. Прежде
+    повторение шло только по словам текущего уровня, и это ломало прогресс
+    дважды: при подъёме уровня слова прежнего переставали возвращаться и
+    забывались, а при переуровнении словаря 15.10 по спискам Goethe у 165
+    человек ушло бы с уровня 4 317 слов в работе — у половины людей
+    половина их слов перестала бы повторяться.
+
+    Режим «по теме» с темой и прочие — как прежде (`_scoped`).
+    """
+    if user is not None and user.quiz_mode in (QuizMode.LEVEL, None):
+        return query
+    if user is not None and user.quiz_mode == QuizMode.CATEGORY and not user.quiz_category:
+        return query
+    return _scoped(query, user, level)
+
+
 def _progress_join(query, user_id: int, pair: LanguagePair):
     """Присоединить прогресс пользователя по этому языку."""
     return query.join(
@@ -489,7 +510,7 @@ async def get_due_words(
     query = _progress_join(_usable_words(pair), user_id, pair).where(
         _due_condition()
     )
-    query = _exclude(_scoped(query, user, level), exclude_ids)
+    query = _exclude(_review_scoped(query, user, level), exclude_ids)
     # Выученные НЕ отсеиваются: их срок — 21 и 60 дней, и возвращаются они
     # ровно затем, чтобы не забылись. Прежде выученному доставался 1%
     # подбора, то есть забывались они тихо.
@@ -510,7 +531,7 @@ async def count_due_words(
     query = _progress_join(
         select(func.count()).select_from(Word), user_id, pair
     ).where(_due_condition())
-    query = _scoped(query, user, level)
+    query = _review_scoped(query, user, level)
     return int((await session.execute(query)).scalar() or 0)
 
 
@@ -563,7 +584,7 @@ async def get_practice_words(
         _answered_before(user_id, pair, cutoff),
         ~_due_condition(),
     )
-    query = _exclude(_scoped(query, user, level), exclude_ids)
+    query = _exclude(_review_scoped(query, user, level), exclude_ids)
     # Показы ВО ВСЕХ ИГРАХ, кроме карточки, — правилом, а не списком:
     # шестая игра, забытая здесь, не считалась бы отработкой, и одно и то
     # же слово собиралось бы снова и снова
@@ -761,7 +782,7 @@ async def get_struggling_words(
         _cooled_down(),
         _due_condition(),
     )
-    return await _pick_one(session, _exclude(_scoped(query, user, level), exclude_ids))
+    return await _pick_one(session, _exclude(_review_scoped(query, user, level), exclude_ids))
 
 
 async def get_new_words(
@@ -827,7 +848,7 @@ async def get_review_words(
         _accuracy_below(REVIEW_THRESHOLD),
         _cooled_down(),
     )
-    return await _pick_one(session, _exclude(_scoped(query, user, level), exclude_ids))
+    return await _pick_one(session, _exclude(_review_scoped(query, user, level), exclude_ids))
 
 
 async def get_learned_words(
@@ -843,7 +864,7 @@ async def get_learned_words(
         UserWord.times_shown >= MIN_ATTEMPTS_FOR_LEARNED,
         (UserWord.times_correct * 100.0 / UserWord.times_shown) >= LEARNED_SUCCESS_RATE,
     )
-    return await _pick_one(session, _exclude(_scoped(query, user, level), exclude_ids))
+    return await _pick_one(session, _exclude(_review_scoped(query, user, level), exclude_ids))
 
 
 async def get_any_word(
