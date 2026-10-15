@@ -20,7 +20,7 @@ from aiogram.types import ErrorEvent
 from aiogram.fsm.storage.memory import SimpleEventIsolation
 
 from app.bot.fsm_storage import make_storage
-from app.bot.slow_log import SLOW_MS, describe as describe_update
+from app.bot.slow_log import install_slow_log
 
 from app.bot.routers import all_routers, attach_routers
 from app.config import settings
@@ -169,15 +169,7 @@ async def main():
     attach_routers(dp)
 
     # Медленные нажатия — в журнал с видом действия (патч 2.1, `slow_log`)
-    @dp.update.outer_middleware()
-    async def slow_update_log(handler, event, data):
-        started = time.perf_counter()
-        try:
-            return await handler(event, data)
-        finally:
-            spent = (time.perf_counter() - started) * 1000
-            if spent >= SLOW_MS:
-                logger.warning("медленно %d мс: %s", spent, describe_update(event))
+    install_slow_log(dp)
 
     @dp.update.middleware()
     async def db_session_middleware(handler, event, data):

@@ -430,6 +430,23 @@ async def _show_board_in_round(
 # ============================================================================
 
 
+async def _errors_of_last_lesson(session: AsyncSession, user_id: int) -> list[int]:
+    """Слова с неверным ответом в последнем законченном занятии, по порядку."""
+    last = (await session.execute(
+        select(QuizSession.id).where(QuizSession.user_id == user_id,
+                                     QuizSession.is_completed.is_(True))
+        .order_by(QuizSession.completed_at.desc()).limit(1)
+    )).scalar()
+    if last is None:
+        return []
+    rows = (await session.execute(
+        select(QuizQuestion.word_id).where(QuizQuestion.session_id == last,
+                                           QuizQuestion.is_correct.is_(False))
+        .order_by(QuizQuestion.id)
+    )).scalars().all()
+    return list(dict.fromkeys(rows))
+
+
 @router.callback_query(F.data == "next_question", QuizStates.answering)
 async def show_next_question(callback: CallbackQuery, state: FSMContext, session: AsyncSession):
     await callback.answer()
@@ -633,7 +650,12 @@ async def repeat_errors(callback: CallbackQuery, state: FSMContext, session: Asy
             return
         await state.update_data(**{S_REPEAT_FROM: callback.message.message_id})
     data = await state.get_data()
-    errors = data.get("saved_errors", [])
+    errors = data.get("saved_errors")
+    if errors is None:
+        # Состояния нет (Redis хранит его 2 дня, итог мог быть старше) —
+        # ошибки берутся из базы, из последнего законченного занятия.
+        # Прежде отвечалось «У Вас не было ошибок!» — неправда (аудит 2.1)
+        errors = await _errors_of_last_lesson(session, callback.from_user.id)
 
     user = await session.get(User, callback.from_user.id)
     lang = user.interface_language or DEFAULT_LOCALE
