@@ -377,6 +377,19 @@ def setup_scheduler(bot: Bot) -> AsyncIOScheduler:
         replace_existing=True
     )
 
+    # ═══════════════ ВТОРОЙ ДЕНЬ НОВИЧКА (патч 2.1) ═══════════════
+    # Каждые 10 минут: кому сутки назад закончилось первое занятие
+    from app.schedulers.day2_hook import send_day2_hooks
+
+    scheduler.add_job(
+        send_day2_hooks,
+        trigger="cron",
+        minute="*/10",
+        args=[bot],
+        id="day2_hooks",
+        replace_existing=True
+    )
+
     # ═══════════════ СЕЗОНЫ РЕЙТИНГА ═══════════════
     from app.schedulers.season_scheduler import (
         finalize_and_create_new_season,

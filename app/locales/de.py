@@ -97,6 +97,8 @@ TEXTS = {
     "remind_streak_risk": "{days_word} in Folge · heute noch nicht",
     "remind_due": "Zur Wiederholung fällig: {count} — die Termine behält der Bot im Blick",
     "remind_due_many": "Wörter warten auf Wiederholung — die Lektion beginnt von selbst mit ihnen. Eine reicht, der Rest wartet.",
+    "day2_hook_words": "Gestern haben Sie {count} neue Wörter kennengelernt. Prüfen wir, was hängen geblieben ist? Das dauert 2 Minuten.",
+    "day2_hook": "Gestern haben Sie mit neuen Wörtern begonnen. Prüfen wir, was hängen geblieben ist? Das dauert 2 Minuten.",
     "remind_streak_lost": "Ihre beste Serie war {days_word}. Eine neue beginnt mit einer Lektion.",
     "remind_milestone_close": "Wörter in Arbeit: {count} · noch {left} bis {target}, das ist eine Lektion",
     "remind_almost_learned": "Nur noch eine richtige Antwort bis zum ersten gelernten Wort. Solche Wörter: {count}",

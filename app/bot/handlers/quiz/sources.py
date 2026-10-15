@@ -35,10 +35,12 @@ SOURCE_START = "start"          # вступительный блок /start
 SOURCE_BOARD = "board"          # итог отдельно открытой доски
 SOURCE_REPEAT = "repeat"        # повтор ошибок
 SOURCE_RELEASE = "release"      # кнопка под патчноутом (send_release_notes)
+SOURCE_DAY2 = "day2"            # сообщение второго дня новичку (патч 2.1)
 
 KNOWN_SOURCES = frozenset({
     SOURCE_MENU, SOURCE_HOME, SOURCE_CHANNEL, SOURCE_REMINDER,
     SOURCE_AGAIN, SOURCE_START, SOURCE_BOARD, SOURCE_REPEAT, SOURCE_RELEASE,
+    SOURCE_DAY2,
 })
 
 # Подписи дверей для админки живут ЗДЕСЬ, рядом с самими пометками. Прежде
@@ -56,6 +58,7 @@ SOURCE_LABELS: dict[str, str] = {
     SOURCE_BOARD: "итог доски",
     SOURCE_REPEAT: "повтор ошибок",
     SOURCE_RELEASE: "патчноут",
+    SOURCE_DAY2: "второй день",
 }
 
 
