@@ -598,9 +598,6 @@ TEXTS.update({
     "quiz_btn_one_more": "Encore une leçon",
     "home_btn_stats": "Plus de détails",
     "notif_off_how_to_return": "Pour les réactiver : Réglages → Bot → Rappels",
-    "reminder_offer": "Voulez-vous un rappel une fois par jour ?\n\nIl est plus facile ainsi de garder ce que vous avez appris, et votre série",
-    "reminder_offer_yes": "Oui, me le rappeler",
-    "reminder_offer_no": "Non, merci",
     "reminder_offer_done": "✓ C’est fait : le rappel arrivera à <b>{time}</b> ({city})\n\nVous pouvez régler l’heure, les jours et le fuseau horaire",
     "reminder_offer_setup": "Régler les rappels",
     "level_offer": "Vous faites rarement des erreurs au niveau <b>{current}</b>\n\nPasser au niveau <b>{following}</b> ?\n\nTout ce que vous avez appris est conservé",
@@ -787,5 +784,7 @@ TEXTS.update({
     "nd_start_last_body": "Il n’y aura plus de rappels. Si vous voulez commencer, la première leçon prend environ {minutes_n} minutes - le bouton est ci-dessous.",
     "nd_btn_optin": "Me le rappeler à {time}",
     "nd_btn_stop": "Ne plus envoyer",
+    "nd_auto_time": "Je vous le rappelle chaque jour à {time}. Vous pouvez changer l’heure",
+    "nd_btn_change_time": "Changer l’heure",
     "nd_optin_done": "✓ C’est fait : le rappel arrivera à <b>{time}</b>\n\nVous pouvez changer l’heure dans les réglages",
 })

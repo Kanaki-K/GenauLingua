@@ -23,7 +23,6 @@ import pytest
 from app.testing import starts_lesson
 
 from app.bot.handlers.quiz.summary import get_results_keyboard
-from app.bot.handlers.reminders import get_reminder_offer_keyboard
 from datetime import datetime
 
 from app.schedulers.nudges import keyboard as nudge_keyboard
@@ -34,7 +33,6 @@ from app.locales import LOCALES
 from app.services.reminder_service import (
     FALLBACK_HOUR_UTC,
     MIN_ROUNDS_FOR_OWN_TIME,
-    should_offer_reminders,
     suggest_reminder_time,
 )
 
@@ -127,53 +125,9 @@ def _user(**kwargs) -> User:
     return user
 
 
-def test_not_offered_before_the_first_round_is_finished():
-    """
-    В онбординге спрашивать нельзя: человек ещё не знает, нужен ли ему бот,
-    и ответит «нет» — а второго раза правило уже не даст.
-    """
-    assert not should_offer_reminders(_user(quizzes_passed=0))
-
-
-def test_offered_right_after_the_first_round():
-    assert should_offer_reminders(_user(quizzes_passed=1))
-
-
-def test_never_offered_twice():
-    """
-    Второе предложение того же самого человек воспринимает не как заботу, а
-    как навязывание, и уходит не от напоминаний, а от бота.
-    """
-    asked = _user(quizzes_passed=5, reminder_offered_at=utcnow())
-
-    assert not should_offer_reminders(asked)
-
-
-def test_not_offered_when_already_on():
-    assert not should_offer_reminders(
-        _user(quizzes_passed=1, notifications_enabled=True)
-    )
-
-
-def test_old_users_with_many_rounds_are_still_offered_once():
-    """
-    112 человек с выключенными напоминаниями и десятками кругов за спиной —
-    ровно те, кого мы потеряли. Условие «после первого круга» не должно
-    читаться как «только новичкам».
-    """
-    veteran = _user(quizzes_passed=40)
-
-    assert should_offer_reminders(veteran), "ветеран не получит предложения"
-
-
-def test_offer_keyboard_lets_you_say_no_in_one_tap():
-    """
-    Предложение, от которого нельзя отказаться одним нажатием, читается как
-    навязывание.
-    """
-    data = _data(get_reminder_offer_keyboard("ru"))
-
-    assert data == ["reminder_offer_yes", "reminder_offer_no"], data
+# Проверки «когда ПРЕДЛАГАТЬ напоминания» удалены 16.10 вместе с самим
+# предложением: новичку напоминания включаются сами при знакомстве
+# (`tests/test_reminders_default.py`).
 
 
 # ============================================================================

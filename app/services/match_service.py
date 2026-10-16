@@ -356,3 +356,43 @@ def scored_pairs(first_try: set[int], matched_order: list[int]) -> set[int]:
     if not matched_order:
         return set()
     return set(first_try) & set(matched_order)
+
+
+async def pick_first_lesson_words(
+    user: User, session: AsyncSession, pair: LanguagePair,
+    size: int, exclude_ids: Optional[list[int]] = None,
+) -> list[Word]:
+    """
+    Доска первого урока (16.10): НОВЫЕ лёгкие слова, а не знакомые.
+
+    Обычная доска берёт только слова с верным ответом — у новичка их нет, и
+    в первый урок она не попадала никогда. Владелец: «сделай 3 пары лёгких».
+    Три пары, а не пять, и слова самые частые и короткие: найти пару
+    незнакомых слов из трёх — посильно, из пяти — лотерея. Подписи и
+    значения отбираются тем же правилом, что у обычной доски.
+    """
+    from app.services.quiz_service import _meaning_key, _meanings_asked, easy_new_words
+
+    candidates = await easy_new_words(session, user, pair, list(exclude_ids or []))
+    taken = await _meanings_asked(session, list(exclude_ids or []), pair.native)
+    picked: list[Word] = []
+    lefts: set[str] = set()
+    rights: set[str] = set()
+    for word in candidates:
+        meaning = _meaning_key(word, pair.native)
+        if meaning and meaning in taken:
+            continue
+        left = option_label(word, pair.prompt_lang)
+        right = option_label(word, pair.answer_lang)
+        if not left or not right or len(left) > LABEL_LIMIT or len(right) > LABEL_LIMIT:
+            continue
+        if left.casefold() in lefts or right.casefold() in rights:
+            continue
+        lefts.add(left.casefold())
+        rights.add(right.casefold())
+        if meaning:
+            taken.add(meaning)
+        picked.append(word)
+        if len(picked) == size:
+            break
+    return picked

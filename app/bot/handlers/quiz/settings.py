@@ -1019,7 +1019,6 @@ async def answer_level_down(callback: CallbackQuery, session: AsyncSession):
             await callback.message.delete()
         except Exception:
             pass
-        await _offer_reminders_after_level(callback, session, user, lang)
         return
 
     if not await lower_level(user, session, target):
@@ -1033,7 +1032,6 @@ async def answer_level_down(callback: CallbackQuery, session: AsyncSession):
     await callback.answer()
     done = get_text("level_down_done", lang, previous=target.value)
     await _show_done_after_result(callback, session, user, done)
-    await _offer_reminders_after_level(callback, session, user, lang)
 
 
 @router.callback_query(F.data.startswith("level_jump_"))
@@ -1063,7 +1061,6 @@ async def answer_level_pick(callback: CallbackQuery, session: AsyncSession):
     await callback.answer()
     done = get_text("level_offer_done", lang, following=target.value)
     await _show_done_after_result(callback, session, user, done)
-    await _offer_reminders_after_level(callback, session, user, lang)
 
 
 @router.callback_query(F.data.startswith("level_up_"))
@@ -1099,7 +1096,6 @@ async def answer_level_offer(callback: CallbackQuery, session: AsyncSession):
             await callback.message.delete()
         except Exception:
             pass
-        await _offer_reminders_after_level(callback, session, user, lang)
         return
 
     try:
@@ -1127,34 +1123,12 @@ async def answer_level_offer(callback: CallbackQuery, session: AsyncSession):
     # правки из итога
     done = get_text("level_offer_done", lang, following=following.value)
     await _show_done_after_result(callback, session, user, done)
-    await _offer_reminders_after_level(callback, session, user, lang)
 
 
-async def _offer_reminders_after_level(
-    callback: CallbackQuery, session: AsyncSession, user: User, lang: str
-) -> None:
-    """
-    Напоминания — сразу после ответа на предложение уровня.
-
-    Новичку, которому явно легко, итог занятия предлагает сперва уровень
-    (`summary._offer_what_fits`), и напоминания уступают ему место. Здесь
-    они возвращаются — тоже одним вопросом, а не вторым одновременно.
-    Предлагаются, как и прежде, один раз в жизни.
-    """
-    from app.bot.handlers.reminders import get_reminder_offer_keyboard
-    from app.services.reminder_service import mark_reminders_offered, should_offer_reminders
-
-    if not should_offer_reminders(user):
-        return
-    try:
-        await callback.bot.send_message(
-            chat_id=callback.message.chat.id,
-            text=get_text("reminder_offer", lang),
-            reply_markup=get_reminder_offer_keyboard(lang),
-        )
-        await mark_reminders_offered(user, session)
-    except Exception:
-        logger.warning("не удалось предложить напоминания", exc_info=True)
+# ПРЕДЛОЖЕНИЯ НАПОМИНАНИЙ ПОСЛЕ УРОВНЯ БОЛЬШЕ НЕТ (16.10). Напоминания
+# новичку включаются сами при знакомстве (`reminder_service.enable_by_default`),
+# и спрашивать про включённое незачем. Владелец: «мы не должны его ещё 500
+# раз спрашивать».
 
 
 # ============================================================================

@@ -39,18 +39,72 @@ async def _dictionary(session, user):
     return hard, easy
 
 
-async def test_first_lesson_is_seven_cards_of_easy_words(session, user):
+async def test_first_lesson_mixes_three_games_on_easy_words(session, user):
+    """
+    Решение владельца 16.10: не семь карточек, а Читаю · Слышу · Вспоминаю
+    по кругу. Слова словаря здесь похожи на свои значения («Haus0» —
+    «Haus0_ru»), значит у «Слышу» и «Вспоминаю» есть что взять.
+    """
+    from app.services import first_lesson
+
     hard, easy = await _dictionary(session, user)
+    user.audio_enabled = True
+    user.quiz_channels = "tasrb"
+    await session.commit()
     assert quiz_service.in_first_lesson(user) and quiz_service.lesson_length(user) == 7
     hard_ids = {w.id for w in hard}
-    used = []
-    for n in range(1, 8):
+    used, games = [], []
+    for n in range(1, 7):
         q = await quiz_service.generate_question(
             session, user, exclude_ids=used, pair=pair_from_user(user),
             round_length=7, question_number=n)
-        assert q["channel"] is QuizChannel.TEXT, q["channel"]
         assert q["correct_word"].id not in hard_ids, q["correct_word"].word_de
+        assert q["correct_word"].id not in used, "слово повторилось"
         used.append(q["correct_word"].id)
+        games.append(q["channel"])
+    assert games == list(first_lesson.PLAN), games
+    assert QuizChannel.SPEECH not in games and QuizChannel.BUILD not in games
+
+
+async def test_first_lesson_without_similar_word_gives_a_card(session, user):
+    """Похожего на родное нет — «Слышу» не становится загадкой, идёт карточка."""
+    words = [make_word(f"Wort{i}", ru=f"значение{i}") for i in range(8)]
+    session.add_all(words)
+    await build_groups(session, ["de"])
+    user.level = CEFRLevel.A1
+    user.quiz_mode = QuizMode.LEVEL
+    user.audio_enabled = True
+    user.quiz_channels = "tasrb"
+    await session.commit()
+    q = await quiz_service.generate_question(
+        session, user, exclude_ids=[], pair=pair_from_user(user),
+        round_length=7, question_number=2)
+    assert q["channel"] is QuizChannel.TEXT
+
+
+def test_similarity_threshold():
+    from app.services.first_lesson import SIMILAR_ENOUGH, similarity
+
+    for learning, native in (("Taxi", "такси"), ("Hotel", "отель"), ("Kaffee", "кофе")):
+        assert similarity(learning, native) >= SIMILAR_ENOUGH, (learning, native)
+    for learning, native in (("Hand", "рука"), ("Bett", "кровать")):
+        assert similarity(learning, native) < SIMILAR_ENOUGH, (learning, native)
+
+
+async def test_first_lesson_board_is_last_with_three_new_pairs(session, user):
+    from app.bot.handlers.quiz.match import _board_due
+    from app.services.match_service import pick_first_lesson_words
+
+    await _dictionary(session, user)
+    bot, _ = make_bot()
+    dp = make_dispatcher(session)
+    await reset_state(dp)
+    state = dp.fsm.get_context(bot, chat_id=user.id, user_id=user.id)
+    pair = pair_from_user(user)
+    assert not await _board_due(state, session, user, pair, 4, 7), "доска в середине первого урока"
+    assert await _board_due(state, session, user, pair, 7, 7), "доски в конце первого урока нет"
+    words = await pick_first_lesson_words(user, session, pair, 3)
+    assert len(words) == 3 and len({w.id for w in words}) == 3
 
 
 async def test_full_game_after_seven_answers_even_in_abandoned_lessons(session, user):
@@ -73,6 +127,9 @@ async def test_full_game_after_seven_answers_even_in_abandoned_lessons(session, 
 
 async def test_finished_first_lesson_opens_the_full_game(session, user):
     await _dictionary(session, user)
+    # Доска последним вопросом здесь не нужна: проверяется отметка урока
+    user.match_in_round = False
+    await session.commit()
     bot, _ = make_bot()
     dp = make_dispatcher(session)
     await reset_state(dp)
@@ -94,3 +151,47 @@ def test_old_players_are_not_newcomers():
     assert not quiz_service.in_first_lesson(SimpleNamespace(onboarded_at=None, quizzes_passed=4))
     assert not quiz_service.in_first_lesson(SimpleNamespace(onboarded_at=object(), quizzes_passed=0))
     assert quiz_service.in_first_lesson(SimpleNamespace(onboarded_at=None, quizzes_passed=0))
+
+
+async def test_whole_first_lesson_three_games_then_a_three_pair_board(session, user):
+    """
+    Живой путь целиком: шесть вопросов трёх игр, доска на 3 пары последним
+    вопросом, затем итог. Учёт: 6 ответов + 3 пары = 9, урок закрыт.
+    """
+    from sqlalchemy import select
+
+    from app.database.models import QuizSession
+
+    await _dictionary(session, user)
+    user.audio_enabled = False        # звука в тестах нет; «Слышу» уступит карточке
+    await session.commit()
+    bot, recorder = make_bot()
+    dp = make_dispatcher(session)
+    await reset_state(dp)
+    context = dp.fsm.get_context(bot, chat_id=user.id, user_id=user.id)
+
+    await dp.feed_update(bot, text_update(user.id, LEARN))
+    for _ in range(6):
+        data = await context.get_data()
+        await dp.feed_update(bot, press(user.id, f"answer_{data['correct_word_id']}"))
+        await dp.feed_update(bot, press(user.id, "next_question"))
+
+    assert [b for b in recorder.buttons() if b.startswith("mt:")], (
+        f"после шестого вопроса нет доски: {recorder.buttons()}"
+    )
+    data = await context.get_data()
+    assert len(data["match_words"]) == 3
+    for _ in range(3):
+        data = await context.get_data()
+        order, matched = data["match_right"], data["match_matched"]
+        left = next(i for i in range(3) if i not in matched)
+        await dp.feed_update(bot, press(user.id, f"mt:l:{left}:{data['match_version']}"))
+        data = await context.get_data()
+        await dp.feed_update(bot, press(user.id, f"mt:r:{order.index(left)}:{data['match_version']}"))
+    await dp.feed_update(bot, press(user.id, "next_question"))
+
+    await session.refresh(user)
+    assert user.quizzes_passed == 1 and user.onboarded_at is not None
+    quiz = (await session.execute(select(QuizSession))).scalar_one()
+    assert quiz.is_completed and quiz.answered_questions == 9, (
+        quiz.is_completed, quiz.answered_questions)

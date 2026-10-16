@@ -606,9 +606,6 @@ TEXTS.update({
     "quiz_btn_one_more": "Noch eine Lektion",
     "home_btn_stats": "Mehr Details",
     "notif_off_how_to_return": "Wieder einschalten: Einstellungen → Bot → Erinnerungen",
-    "reminder_offer": "Einmal am Tag erinnern?\n\nSo verlieren Sie das Gelernte nicht - und die Serie bleibt",
-    "reminder_offer_yes": "Ja, bitte erinnern",
-    "reminder_offer_no": "Nein, danke",
     "reminder_offer_done": "✓ Fertig: Die Erinnerung kommt um <b>{time}</b> ({city})\n\nUhrzeit, Tage und Zeitzone können Sie anpassen",
     "reminder_offer_setup": "Erinnerungen anpassen",
     "level_offer": "Auf <b>{current}</b> machen Sie kaum noch Fehler\n\nWeiter zu <b>{following}</b>?\n\nAlles Gelernte bleibt Ihnen erhalten",
@@ -795,5 +792,7 @@ TEXTS.update({
     "nd_start_last_body": "Es kommen keine Erinnerungen mehr. Wenn Sie anfangen möchten: Die erste Lektion dauert etwa {minutes_n} Minuten - der Button ist unten.",
     "nd_btn_optin": "Um {time} erinnern",
     "nd_btn_stop": "Nicht mehr senden",
+    "nd_auto_time": "Ich erinnere Sie täglich um {time}. Die Uhrzeit können Sie ändern",
+    "nd_btn_change_time": "Uhrzeit ändern",
     "nd_optin_done": "✓ Erledigt: Die Erinnerung kommt um <b>{time}</b>\n\nDie Uhrzeit können Sie in den Einstellungen ändern",
 })

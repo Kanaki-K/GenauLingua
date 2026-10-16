@@ -42,27 +42,6 @@ FALLBACK_HOUR_UTC = 13
 MIN_ROUNDS_FOR_OWN_TIME = 3
 
 
-def should_offer_reminders(user: User) -> bool:
-    """
-    Пора ли предлагать напоминания.
-
-    Три условия, и каждое обязательно:
-
-    * напоминания ВЫКЛЮЧЕНЫ — предлагать включённое незачем;
-    * не предлагали НИ РАЗУ. Второе предложение того же самого человек
-      воспринимает не как заботу, а как навязывание, и уходит не от
-      напоминаний, а от бота;
-    * круг хотя бы один закончен. Спрашивать в онбординге нельзя: человек
-      ещё не знает, нужен ли ему бот, и ответит «нет» — а спросить второй
-      раз правило уже не даст.
-    """
-    if user.notifications_enabled:
-        return False
-    if user.reminder_offered_at is not None:
-        return False
-    return (user.quizzes_passed or 0) >= 1
-
-
 async def suggest_reminder_time(user: User, session: AsyncSession) -> str:
     """
     Час, в который человек обычно занимается, — в ЕГО часовом поясе, «HH:00».
@@ -121,6 +100,7 @@ async def enable_reminders(user: User, session: AsyncSession) -> str:
     """
     user.notifications_enabled = True
     user.notification_time = await suggest_reminder_time(user, session)
+    user.reminders_auto = False
     user.reminder_offered_at = utcnow()
     await session.commit()
     return user.notification_time
@@ -130,3 +110,47 @@ async def mark_reminders_offered(user: User, session: AsyncSession) -> None:
     """Запомнить, что предлагали, — чтобы не предложить второй раз."""
     user.reminder_offered_at = utcnow()
     await session.commit()
+
+
+# Час напоминания по умолчанию — в тех же границах, что и час лесенки
+# (`nudge_plan.EARLIEST_USUAL`/`LATEST_USUAL`): зашедший в 02:00 не должен
+# получать напоминание в 02:00 каждую ночь, а свой час он выбирал не сам
+DEFAULT_EARLIEST_HOUR = 10
+DEFAULT_LATEST_HOUR = 20
+
+
+def default_reminder_time(user: User, now_utc=None) -> str:
+    """Час первого захода по поясу человека, «HH:00», в пределах 10–20."""
+    zone = user.timezone or "Europe/Berlin"
+    moment = (now_utc or utcnow()).replace(tzinfo=ZoneInfo("UTC"))
+    try:
+        hour = moment.astimezone(ZoneInfo(zone)).hour
+    except Exception:
+        logger.warning("неизвестный часовой пояс %r у пользователя %s", zone, user.id)
+        hour = FALLBACK_HOUR_UTC
+    hour = min(max(hour, DEFAULT_EARLIEST_HOUR), DEFAULT_LATEST_HOUR)
+    return f"{hour:02d}:00"
+
+
+def enable_by_default(user: User, now_utc=None) -> None:
+    """
+    Включить напоминания новичку при знакомстве — без вопроса (16.10).
+
+    Решение владельца: «поставил бы базово на то время, как человек зашёл —
+    хочет? меняет сам». Прежде бот спрашивал «Напоминать раз в день?» после
+    первого урока; спрашивать включённое незачем. Выключить — одной кнопкой
+    «Не напоминать» под любым сообщением или в настройках.
+
+    Отметка `reminders_auto` — для контрольной группы: см. `nudges._deliver`.
+    `reminder_offered_at` ставится, чтобы старая логика предложения (её
+    кнопки ещё лежат в чатах) не сочла человека «не спрошенным».
+    """
+    user.notifications_enabled = True
+    user.notification_time = default_reminder_time(user, now_utc)
+    user.reminders_auto = True
+    user.reminder_offered_at = now_utc or utcnow()
+
+
+def mark_reminders_own(user: User) -> None:
+    """Человек сам включил или настроил напоминания — отметка «по умолчанию» снимается."""
+    user.reminders_auto = False

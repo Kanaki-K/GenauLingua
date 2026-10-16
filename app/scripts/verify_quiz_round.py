@@ -310,8 +310,8 @@ async def run(rounds: int, length: int, full: bool) -> int:
                     delete(UserWord).where(UserWord.user_id == PROBE_ID)
                 )
                 await session.commit()
-            # ПЕРВЫЙ УРОК: все игры включены и открыты по прогрессу, но
-            # новичку — только карточки (`in_first_lesson`, патч 2.1)
+            # ПЕРВЫЙ УРОК: все игры включены, но новичку — только Читаю,
+            # Слышу и Вспоминаю (`first_lesson`, 16.10); речи и «Собираю» нет
             user = await _probe(session, "de", "ru", False, True, "tasrb",
                                 onboarded=False)
             await _seed_progress(session, "de")
@@ -319,10 +319,13 @@ async def run(rounds: int, length: int, full: bool) -> int:
             before = len(problems)
             await play_round(session, user, LanguagePair(learning="de", native="ru", reverse=False),
                              length, problems, first)
-            if set(first) != {QuizChannel.TEXT.name}:
-                problems.append(f"первый урок: не одни карточки — {dict(first)}")
+            allowed = {QuizChannel.TEXT.name, QuizChannel.AUDIO.name, QuizChannel.REVERSE.name}
+            if not set(first) <= allowed:
+                problems.append(f"первый урок: лишние игры — {dict(first)}")
+            if QuizChannel.TEXT.name not in first:
+                problems.append(f"первый урок без карточки — {dict(first)}")
             mark = "ок" if len(problems) == before else f"СБОЙ ({len(problems) - before})"
-            print(f"  {'первый урок: только карточки':42s} {mark}")
+            print(f"  {'первый урок: Читаю · Слышу · Вспоминаю':42s} {mark} {dict(first)}")
         finally:
             await _cleanup(session)
 

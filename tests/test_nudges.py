@@ -659,7 +659,7 @@ def test_minutes_promised_match_the_lesson():
 # сообщениями вовлечения (владелец 16.10: «уведомления других типов нужно
 # тоже привести к такому внешнему виду»)
 OUTGOING_KEYS = ("award_won", "report_approved", "report_approved_audio",
-                 "nd_optin_done", "reminder_offer_done", "reminder_offer",
+                 "nd_optin_done", "reminder_offer_done", "nd_auto_time",
                  # Предложение уровня — отдельное сообщение после итога занятия
                  "level_offer", "level_offer_pick", "level_offer_done",
                  "level_down_offer", "level_down_done")

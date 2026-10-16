@@ -4,7 +4,6 @@
 
 from aiogram import Router, F
 from aiogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
-from aiogram.utils.keyboard import InlineKeyboardBuilder
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.clock import utcnow
@@ -95,25 +94,9 @@ async def show_notifications_settings(callback: CallbackQuery, session: AsyncSes
 # ВКЛЮЧИТЬ/ВЫКЛЮЧИТЬ НАПОМИНАНИЯ
 # ============================================================================
 
-def get_reminder_offer_keyboard(lang: str) -> InlineKeyboardMarkup:
-    """
-    Предложение напоминаний после первого круга: два ответа, оба одним тапом.
-
-    «Не надо» стоит рядом с «да» нарочно и не спрятано. Предложение, от
-    которого нельзя отказаться одним нажатием, читается как навязывание — а
-    спросить второй раз правило всё равно не позволит, так что честный
-    отказ здесь ничего не стоит.
-    """
-    builder = InlineKeyboardBuilder()
-    builder.row(InlineKeyboardButton(
-        text=get_text("reminder_offer_yes", lang),
-        callback_data="reminder_offer_yes",
-    ))
-    builder.row(InlineKeyboardButton(
-        text=get_text("reminder_offer_no", lang),
-        callback_data="reminder_offer_no",
-    ))
-    return builder.as_markup()
+# КЛАВИАТУРЫ ПРЕДЛОЖЕНИЯ БОЛЬШЕ НЕТ (16.10): напоминания новичку включаются
+# сами (`reminder_service.enable_by_default`). Обработчики ниже оставлены —
+# кнопки прежнего предложения лежат в чатах, и нажатие на них должно работать.
 
 
 @router.callback_query(F.data == "reminder_offer_yes")
@@ -229,6 +212,7 @@ async def toggle_notifications(callback: CallbackQuery, session: AsyncSession):
         else:
             # Timezone уже настроен - просто включаем
             user.notifications_enabled = True
+            user.reminders_auto = False
             await session.commit()
             await callback.answer(get_text("notif_toggle_on", lang), show_alert=False)
 
@@ -307,6 +291,8 @@ async def set_timezone(callback: CallbackQuery, session: AsyncSession):
     # Сохраняем в базу
     user.timezone = timezone
     user.utc_offset = utc_offset
+    # Настроил сам — напоминания уже не «по умолчанию» (контрольная группа)
+    user.reminders_auto = False
 
     # Если это первая настройка - включаем напоминания
     if not user.notifications_enabled:
@@ -371,6 +357,7 @@ async def set_notification_time(callback: CallbackQuery, session: AsyncSession):
         time_str = "20:00"  # Странный формат → дефолт
 
     user.notification_time = time_str
+    user.reminders_auto = False
     await session.commit()
 
     await callback.answer(get_text("notif_time_set", lang, time=time_str), show_alert=False)
@@ -463,6 +450,8 @@ async def save_notification_days(callback: CallbackQuery, session: AsyncSession)
         await callback.answer(get_text("notif_days_none", lang), show_alert=True)
         return
 
+    user.reminders_auto = False
+    await session.commit()
     await callback.answer(get_text("notif_days_saved", lang), show_alert=False)
 
     # Возвращаемся к настройкам напоминаний
@@ -487,6 +476,7 @@ async def optin_from_nudge(callback: CallbackQuery, session: AsyncSession):
     lang = user.interface_language or DEFAULT_LOCALE
     user.notifications_enabled = True
     user.notification_time = at
+    user.reminders_auto = False
     user.reminders_declined_at = None
     user.reminder_offered_at = user.reminder_offered_at or utcnow()
     await session.commit()

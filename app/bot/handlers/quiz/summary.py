@@ -15,18 +15,16 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.bot.handlers.quiz.question import _CHANNEL_MARKS
 from app.bot.handlers.quiz.settings import RESULT_SETTINGS, get_level_offer_keyboard
-from app.bot.handlers.reminders import get_reminder_offer_keyboard
 from app.core.clock import utcnow, utctoday
 from app.database.enums import QuizChannel
 from app.database.models import QuizQuestion, QuizSession, User, UserWord, Word
 from app.locales import get_text
 from app.services.language_service import LanguagePair, option_label
 from app.services.level_service import (
-    is_newcomer, should_offer_lower_level, should_offer_next_level,
+    should_offer_lower_level, should_offer_next_level,
 )
 from app.services.monthly_leaderboard_service import update_monthly_stats
 from app.services.quiz_service import get_user_progress_stats
-from app.services.reminder_service import mark_reminders_offered, should_offer_reminders
 
 logger = logging.getLogger(__name__)
 
@@ -184,47 +182,17 @@ async def _offer_what_fits(
     """
     Предложить человеку одно — и не больше одного за круг.
 
-    После круга у бота бывает что сказать сверх результата: включить
-    напоминания, поднять уровень. Два предложения подряд превращают конец
-    круга в допрос, и человек отмахивается от обоих — поэтому здесь
-    очередь, а не список.
+    После круга у бота бывает что сказать сверх результата: поднять или
+    опустить уровень. Два предложения подряд превращают конец круга в
+    допрос, поэтому здесь очередь, а не список.
 
-    ПОРЯДОК НЕ ПРОИЗВОЛЕН. Напоминания идут первыми, потому что это
-    единственный замеренный рычаг возврата (6.85 дней против 1.59) и
-    предлагаются они ровно один раз в жизни — упустив этот круг, второго
-    случая не будет. Уровень подождёт: признак, по которому он предлагается,
-    никуда не денется и к следующему кругу будет тот же.
-
-    ИСКЛЮЧЕНИЕ — НОВИЧКУ ЯВНО ЛЕГКО (15.10). Новички, знающие язык,
-    отвечали верно на всё и уходили после первых слов: A1 был скучен, и
-    напоминание такого не вернёт — вернуть может только интересное занятие.
-    Тогда первым идёт уровень, а напоминания — сразу после ответа на него
-    (`settings.answer_level_offer`): по-прежнему по одному, но ни одно не
-    теряется.
+    НАПОМИНАНИЙ ЗДЕСЬ БОЛЬШЕ НЕТ (16.10). Прежде они шли первыми, кроме
+    случая, когда новичку явно легко. Теперь они включаются сами при
+    знакомстве (`reminder_service.enable_by_default`), и после первого
+    урока предлагается ОДНО — уровень, по прежней логике (владелец: «это
+    может быть человек более высокого уровня… её я бы не трогал»).
     """
     following = await should_offer_next_level(user, session)
-    # Первым — только после ПЕРВОГО занятия. Проигнорировал выбор и ушёл —
-    # со второго занятия напоминания снова впереди: иначе тот, кто уходит
-    # после первого дня (79%), не получил бы их никогда (находка
-    # независимой проверки 15.10)
-    if following is not None and is_newcomer(user) and (user.quizzes_passed or 0) <= 1:
-        await _send_level_offer(callback, user, lang, following)
-        return
-
-    if should_offer_reminders(user):
-        try:
-            await callback.bot.send_message(
-                chat_id=callback.message.chat.id,
-                text=get_text("reminder_offer", lang),
-                reply_markup=get_reminder_offer_keyboard(lang),
-            )
-            # Отметка ТОЛЬКО после удачной отправки: не дошло — предложим в
-            # следующий раз, а не потеряем единственную попытку
-            await mark_reminders_offered(user, session)
-        except Exception:
-            logger.warning("не удалось предложить напоминания", exc_info=True)
-        return
-
     if following is not None:
         await _send_level_offer(callback, user, lang, following)
         return

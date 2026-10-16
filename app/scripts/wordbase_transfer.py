@@ -55,12 +55,21 @@ from sqlalchemy import create_engine, text  # noqa: E402
 
 from app.config import settings  # noqa: E402
 
-CONTENT = (
-    "word_de", "article", "pos", "level",
-    "translation_ru", "translation_uk", "translation_en", "translation_tr",
-    "translation_pl",
-    "example_de", "example_ru", "example_uk", "example_en", "example_tr",
-    "example_pl",
+# КОЛОНКИ ЯЗЫКОВ — ИЗ РЕЕСТРА, А НЕ СПИСКОМ (Н1, 16.10). Прежде список был
+# вписан руками и кончался польским: перенос на прод «прошёл» бы успешно и
+# привёз словарь без итальянского, испанского, французского и чешского —
+# 12 902 × 8 ячеек остались бы пустыми, и ничто бы об этом не сказало.
+# Теперь новый язык в реестре — новые колонки здесь сами собой.
+def _language_columns() -> tuple[str, ...]:
+    from app.services.language_service import LANGUAGES, SUPPORTED_LANGS
+
+    words = tuple(LANGUAGES[code].word_attr for code in SUPPORTED_LANGS)
+    examples = tuple(LANGUAGES[code].example_attr for code in SUPPORTED_LANGS)
+    return words + examples
+
+
+LANGUAGE_COLUMNS = _language_columns()
+CONTENT = ("article", "pos", "level") + LANGUAGE_COLUMNS + (
     "categories", "category", "frequency_rank",
 )
 
@@ -106,6 +115,13 @@ def load(path: str, apply: bool) -> int:
                       ensure_ascii=False, sort_keys=True, default=str)
     if hashlib.sha256(body.encode("utf-8")).hexdigest() != data["sha256"]:
         print("СТОП: контрольная сумма файла не сходится — файл повреждён")
+        return 1
+
+    # ФАЙЛ ОБЯЗАН НЕСТИ ВСЕ КОЛОНКИ. Выгрузка старой версией скрипта (без
+    # новых языков) иначе затёрла бы их на проде пустыми значениями
+    missing = missing_columns(words)
+    if missing:
+        print(f"СТОП: в файле нет колонок {missing} — выгружен старой версией?")
         return 1
 
     incoming = {w["id"]: w for w in words}
@@ -179,10 +195,38 @@ def load(path: str, apply: bool) -> int:
             print(f"СТОП: прогресс разошёлся {tuple(before)} → {tuple(after)} — откат")
             raise SystemExit(1)
 
+        # ПРАВИЛО 4 (Н1): заполненных ячеек каждого языка в базе ровно
+        # столько, сколько в файле, — иначе колонка доехала не целиком
+        expected = filled_counts(words)
+        for col in LANGUAGE_COLUMNS:
+            got = c.execute(text(
+                f"select count(*) from words where coalesce(btrim({col}), '') <> ''"
+            )).scalar()
+            print(f"    {col:16} в файле {expected[col]:6}  в базе {got:6}")
+            if got != expected[col]:
+                print(f"СТОП: колонка {col} доехала не целиком — откат")
+                raise SystemExit(1)
+
     print(f"\nприменено: изменено {len(to_update)}, добавлено {len(new_ids)}; "
           "прогресс людей сошёлся до единицы")
     print("дальше ОБЯЗАТЕЛЬНО: python -m app.scripts.rebuild_word_groups")
     return 0
+
+
+def missing_columns(words: list[dict]) -> list[str]:
+    """Каких колонок нет в выгрузке (смотрится по всем словам, не по первому)."""
+    if not words:
+        return []
+    present = set().union(*(w.keys() for w in words))
+    return [col for col in CONTENT if col not in present]
+
+
+def filled_counts(words: list[dict]) -> dict[str, int]:
+    """Сколько непустых ячеек каждого языка в выгрузке."""
+    return {
+        col: sum(1 for w in words if (w.get(col) or "").strip())
+        for col in LANGUAGE_COLUMNS
+    }
 
 
 def _norm(value):

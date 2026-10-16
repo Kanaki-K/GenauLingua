@@ -594,9 +594,6 @@ TEXTS.update({
     "quiz_btn_one_more": "Another lesson",
     "home_btn_stats": "More details",
     "notif_off_how_to_return": "To turn it back on: Settings → Bot → Reminders",
-    "reminder_offer": "Shall I remind you once a day?\n\nIt makes it easier to keep what you've learnt - and your streak",
-    "reminder_offer_yes": "Yes, remind me",
-    "reminder_offer_no": "No, thanks",
     "reminder_offer_done": "✓ Done: the reminder will arrive at <b>{time}</b> ({city})\n\nYou can adjust the time, days and time zone",
     "reminder_offer_setup": "Adjust reminders",
     "level_offer": "You rarely make mistakes at <b>{current}</b>\n\nMove up to <b>{following}</b>?\n\nEverything you've learnt stays with you",
@@ -783,5 +780,7 @@ TEXTS.update({
     "nd_start_last_body": "There will be no more reminders. If you want to start, the first lesson takes about {minutes_n} minutes - the button is below.",
     "nd_btn_optin": "Remind me at {time}",
     "nd_btn_stop": "Don't send these",
+    "nd_auto_time": "I remind you daily at {time}. You can change the time",
+    "nd_btn_change_time": "Change the time",
     "nd_optin_done": "✓ Done: the reminder will arrive at <b>{time}</b>\n\nYou can change the time in settings",
 })

@@ -594,9 +594,6 @@ TEXTS.update({
     "quiz_btn_one_more": "Bir ders daha",
     "home_btn_stats": "Ayrıntılar",
     "notif_off_how_to_return": "Geri açmak için: Ayarlar → Bot → Hatırlatıcılar",
-    "reminder_offer": "Günde bir kez hatırlatayım mı?\n\nÖğrendiklerinizi kaybetmemek böyle daha kolay - seri de kopmaz",
-    "reminder_offer_yes": "Evet, hatırlat",
-    "reminder_offer_no": "Gerek yok",
     "reminder_offer_done": "✓ Tamam: hatırlatıcı saat <b>{time}</b> ({city}) gelecek\n\nSaati, günleri ve saat dilimini ayarlayabilirsiniz",
     "reminder_offer_setup": "Hatırlatıcıları ayarla",
     "level_offer": "<b>{current}</b> seviyesinde neredeyse hiç hata yapmıyorsunuz\n\n<b>{following}</b> seviyesine geçelim mi?\n\nÖğrendikleriniz sizde kalır",
@@ -783,5 +780,7 @@ TEXTS.update({
     "nd_start_last_body": "Artık hatırlatma gelmeyecek. Başlamak isterseniz ilk ders yaklaşık {minutes_n} dakika sürer - düğme aşağıda.",
     "nd_btn_optin": "Hatırlatma: {time}",
     "nd_btn_stop": "Göndermeyin",
+    "nd_auto_time": "Hatırlatma saati: her gün {time}. Saati değiştirebilirsiniz",
+    "nd_btn_change_time": "Saati değiştir",
     "nd_optin_done": "✓ Tamam: hatırlatma saat <b>{time}</b> gelecek\n\nSaati ayarlardan değiştirebilirsiniz",
 })

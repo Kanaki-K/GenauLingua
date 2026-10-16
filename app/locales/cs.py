@@ -599,9 +599,6 @@ TEXTS.update({
     "quiz_btn_one_more": "Další lekce",
     "home_btn_stats": "Podrobnosti",
     "notif_off_how_to_return": "Znovu zapnout: Nastavení → Bot → Připomínky",
-    "reminder_offer": "Mám Vám připomínat lekci jednou denně?\n\nSnáz si tak udržíte naučená slova i svou sérii",
-    "reminder_offer_yes": "Ano, připomínejte",
-    "reminder_offer_no": "Ne, děkuji",
     "reminder_offer_done": "✓ Hotovo: připomínka přijde v <b>{time}</b> ({city})\n\nČas, dny i časové pásmo si můžete upravit",
     "reminder_offer_setup": "Upravit připomínky",
     "level_offer": "Na úrovni <b>{current}</b> chybujete jen zřídka\n\nPřejít na <b>{following}</b>?\n\nVšechno naučené Vám zůstane",
@@ -788,5 +785,7 @@ TEXTS.update({
     "nd_start_last_body": "Další připomínky už nebudou. Pokud budete chtít začít, první lekce trvá kolem {minutes_n} minut - tlačítko je níže.",
     "nd_btn_optin": "Připomenout v {time}",
     "nd_btn_stop": "Tyto zprávy neposílat",
+    "nd_auto_time": "Připomínám denně v {time}. Čas můžete změnit",
+    "nd_btn_change_time": "Změnit čas",
     "nd_optin_done": "✓ Hotovo: připomínka bude chodit v <b>{time}</b>\n\nČas můžete změnit v nastavení",
 })

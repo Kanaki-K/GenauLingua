@@ -1555,10 +1555,10 @@ async def _build_reports_text_and_keyboard(session: AsyncSession) -> tuple:
     queue_block = None
 
     if top_words:
+        pairs_by_word = await _report_pairs(session, [row[0] for row in top_words])
         lines = []
         for wid, word_de, article, level, trans_ru, trans_uk, count, audio_count in top_words:
             full_word = _full_word(word_de, article)
-            trans = trans_ru or trans_uk or "—"
             # Видно, что именно править: перевод в базе или клип озвучки
             kinds = []
             if count - audio_count:
@@ -1567,7 +1567,10 @@ async def _build_reports_text_and_keyboard(session: AsyncSession) -> tuple:
                 kinds.append(f"звук {audio_count}")
             lines.append(f"{full_word} {admin_ui.DOT} {level.value} "
                          f"{admin_ui.DOT} {', '.join(kinds)}")
-            lines.append(f"  {trans}")
+            # ОБЕ СТОРОНЫ ИМЕННО ТОЙ ПАРЫ, где жаловались (Н5). Прежде здесь
+            # стоял русский или украинский перевод при любой паре: жалоба на
+            # чешский показывалась с русским, и править было нечего
+            lines.extend(pairs_by_word.get(wid, ()))
 
             # Решение по слову И ВИДУ: `✓` и `✗` — из разрешённого набора.
             # Прежде кнопка была одна на слово, и принять перевод значило
@@ -1609,6 +1612,36 @@ async def _build_reports_text_and_keyboard(session: AsyncSession) -> tuple:
     return text, InlineKeyboardMarkup(inline_keyboard=buttons)
 
 
+async def _report_pairs(session: AsyncSession, word_ids: list[int]) -> dict[int, list[str]]:
+    """Строки «пара: слово — перевод» по ждущим жалобам каждого слова."""
+    from app.services.language_service import LANGUAGES, display_text, language_word
+
+    rows = (await session.execute(
+        select(TranslationReport.word_id, TranslationReport.learning_lang,
+               TranslationReport.native_lang, func.count())
+        .where(TranslationReport.status == "pending",
+               TranslationReport.word_id.in_(word_ids))
+        .group_by(TranslationReport.word_id, TranslationReport.learning_lang,
+                  TranslationReport.native_lang)
+        .order_by(TranslationReport.word_id, desc(func.count()))
+    )).all()
+    words = {w.id: w for w in (await session.execute(
+        select(Word).where(Word.id.in_(word_ids)))).scalars()}
+    out: dict[int, list[str]] = {}
+    for wid, learning, native, count in rows:
+        word = words.get(wid)
+        if word is None:
+            continue
+        learning = learning if learning in LANGUAGES else "de"
+        native = native if native in LANGUAGES else "ru"
+        # Две строки: экран админки режет длинные, а перевод — главное
+        out.setdefault(wid, []).extend([
+            f"  {language_word(learning, 'ru')} → {language_word(native, 'ru')} · {count}",
+            f"    {display_text(word, native) or '—'}",
+        ])
+    return out
+
+
 @router.callback_query(F.data == "admin:reports")
 async def admin_reports(callback: CallbackQuery, session: AsyncSession):
     """Показать жалобы с кнопками решения"""
@@ -1635,6 +1668,10 @@ async def _reporter_lang(report, session: AsyncSession) -> str:
     Принимает и жалобу, и строку из `RETURNING`: нужны только
     `quiz_session_id` и `user_id`.
     """
+    # С 16.10 язык записан в самой жалобе (Н4) — он и главный
+    if getattr(report, "learning_lang", None):
+        return report.learning_lang
+
     if report.quiz_session_id:
         quiz = await session.get(QuizSession, report.quiz_session_id)
         if quiz and quiz.learning_lang:
@@ -1700,6 +1737,7 @@ async def _claim_reports(
             TranslationReport.user_id,
             TranslationReport.kind,
             TranslationReport.quiz_session_id,
+            TranslationReport.learning_lang,
         )
         .execution_options(synchronize_session=False)
     )

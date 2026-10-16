@@ -211,6 +211,11 @@ async def cmd_start(message: Message, state: FSMContext, session: AsyncSession):
             username=message.from_user.username,
             first_name=message.from_user.first_name
         )
+        # Напоминания — сразу включены, на час захода (16.10): см.
+        # `enable_by_default`. Тем, кто в боте уже был, ничего не меняется
+        from app.services.reminder_service import enable_by_default
+
+        enable_by_default(user)
         session.add(user)
         await session.commit()
 

@@ -597,9 +597,6 @@ TEXTS.update({
     "quiz_btn_one_more": "Otra lección",
     "home_btn_stats": "Más detalles",
     "notif_off_how_to_return": "Para volver a activarlos: Ajustes → Bot → Recordatorios",
-    "reminder_offer": "¿Le recuerdo una vez al día?\n\nAsí es más fácil conservar lo aprendido - y su racha",
-    "reminder_offer_yes": "Sí, recuérdemelo",
-    "reminder_offer_no": "No, gracias",
     "reminder_offer_done": "✓ Listo: el recordatorio llegará a las <b>{time}</b> ({city})\n\nPuede ajustar la hora, los días y la zona horaria",
     "reminder_offer_setup": "Ajustar recordatorios",
     "level_offer": "En <b>{current}</b> apenas comete errores\n\n¿Pasa a <b>{following}</b>?\n\nTodo lo aprendido se conserva",
@@ -786,5 +783,7 @@ TEXTS.update({
     "nd_start_last_body": "No habrá más recordatorios. Si quiere empezar, la primera lección dura unos {minutes_n} minutos - el botón está abajo.",
     "nd_btn_optin": "Recuérdemelo a las {time}",
     "nd_btn_stop": "No enviar más",
+    "nd_auto_time": "Le recuerdo cada día a las {time}. Puede cambiar la hora",
+    "nd_btn_change_time": "Cambiar la hora",
     "nd_optin_done": "✓ Listo: el recordatorio llegará a las <b>{time}</b>\n\nPuede cambiar la hora en los ajustes",
 })

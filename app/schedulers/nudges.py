@@ -173,7 +173,8 @@ async def gather_facts(session, user: User, kind: str, now: datetime):
     )
 
 
-def keyboard(lang: str, kind: str, opted_in: bool, local_now: datetime) -> InlineKeyboardMarkup:
+def keyboard(lang: str, kind: str, opted_in: bool, local_now: datetime,
+             change_time: bool = False) -> InlineKeyboardMarkup:
     from app.locales import get_text
 
     rows = [[InlineKeyboardButton(text=get_text("home_btn_learn", lang),
@@ -182,6 +183,9 @@ def keyboard(lang: str, kind: str, opted_in: bool, local_now: datetime) -> Inlin
         at = f"{local_now.hour:02d}:00"
         rows.append([InlineKeyboardButton(text=get_text("nd_btn_optin", lang, time=at),
                                           callback_data=f"nd_optin:{at}")])
+    if change_time:
+        rows.append([InlineKeyboardButton(text=get_text("nd_btn_change_time", lang),
+                                          callback_data="notif_change_time")])
     if not nudge_plan.is_last(kind):
         rows.append([InlineKeyboardButton(text=get_text("nd_btn_stop", lang),
                                           callback_data="notif_off")])
@@ -236,8 +240,13 @@ async def _deliver(bot, session, user_id, state, kind, step, now, compose, situa
     user = await session.get(User, user_id, populate_existing=True)
     if user is None:
         return None
-    holdout = (kind != DAILY and not user.notifications_enabled
-               and nudge_plan.in_holdout(user_id))
+    # Контрольная группа: у не включавших — кроме ежедневного (его нет), у
+    # включённых БОТОМ (`reminders_auto`, 16.10) — всё: иначе с напоминаниями
+    # по умолчанию сравнивать стало бы не с кем. Кто включил сам, получает всегда
+    holdout = nudge_plan.in_holdout(user_id) and (
+        (kind != DAILY and not user.notifications_enabled)
+        or bool(getattr(user, "reminders_auto", False))
+    )
 
     # ЗАХВАТ: отметки сверяются с теми, по которым РЕШЕНО писать, — кто
     # успел раньше, тот и пишет. Не с перечитанными: полный прогон 16.10
@@ -245,7 +254,9 @@ async def _deliver(bot, session, user_id, state, kind, step, now, compose, situa
     # после, — его условие совпало с новыми отметками, и ушло два сообщения
     previous_sent, previous_anchor, previous_step = seen
     values = {}
-    if not holdout:
+    # Ежедневное в контрольной группе тоже отмечается отправленным: у него
+    # нет ступени, и без отметки его «удерживали» бы каждые 5 минут окна
+    if not holdout or kind == DAILY:
         values["last_notification_sent"] = now
     if kind != DAILY:
         values.update(nudge_anchor=state.anchor_day, nudge_step=step)
@@ -269,10 +280,19 @@ async def _deliver(bot, session, user_id, state, kind, step, now, compose, situa
         await session.commit()
         return "holdout"
 
-    text = compose(kind, facts, lang, seed=user_id % 97 + await _sent_before(session, user_id))
+    sent_before = await _sent_before(session, user_id)
+    text = compose(kind, facts, lang, seed=user_id % 97 + sent_before)
+    # Напоминания включил бот, а не человек: в ПЕРВОМ сообщении сказать, на
+    # какой час, и дать сменить его одним нажатием (16.10)
+    first_auto = bool(getattr(user, "reminders_auto", False)) and sent_before == 0
+    if first_auto:
+        from app.locales import get_text
+
+        text += "\n\n<i>" + get_text("nd_auto_time", lang, time=user.notification_time) + "</i>"
     try:
         await bot.send_message(user_id, text, parse_mode="HTML",
-                               reply_markup=keyboard(lang, kind, state.opted_in, state.now_local))
+                               reply_markup=keyboard(lang, kind, state.opted_in, state.now_local,
+                                                     change_time=first_auto))
         outcome = "sent"
     except TelegramForbiddenError:
         # Заблокировал — это ответ: больше не пишем

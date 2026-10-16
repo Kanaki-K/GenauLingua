@@ -597,9 +597,6 @@ TEXTS.update({
     "quiz_btn_one_more": "Un'altra lezione",
     "home_btn_stats": "Più dettagli",
     "notif_off_how_to_return": "Per riattivarli: Impostazioni → Bot → Promemoria",
-    "reminder_offer": "Le mando un promemoria una volta al giorno?\n\nCosì è più facile conservare ciò che ha imparato, e anche la sua serie",
-    "reminder_offer_yes": "Sì, me lo ricordi",
-    "reminder_offer_no": "No, grazie",
     "reminder_offer_done": "✓ Fatto: il promemoria arriverà alle <b>{time}</b> ({city})\n\nPuò regolare ora, giorni e fuso orario",
     "reminder_offer_setup": "Regolare i promemoria",
     "level_offer": "Al livello <b>{current}</b> sbaglia raramente\n\nPassare a <b>{following}</b>?\n\nTutto ciò che ha imparato resta",
@@ -786,5 +783,7 @@ TEXTS.update({
     "nd_start_last_body": "Non ci saranno altri promemoria. Se vuole cominciare, la prima lezione dura circa {minutes_n} minuti - il pulsante è qui sotto.",
     "nd_btn_optin": "Promemoria alle {time}",
     "nd_btn_stop": "Niente più messaggi",
+    "nd_auto_time": "Le ricordo ogni giorno alle {time}. Può cambiare l'orario",
+    "nd_btn_change_time": "Cambiare orario",
     "nd_optin_done": "✓ Fatto: il promemoria arriverà alle <b>{time}</b>\n\nPuò cambiare l'ora nelle impostazioni",
 })

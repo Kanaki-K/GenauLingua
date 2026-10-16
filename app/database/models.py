@@ -188,6 +188,11 @@ class User(Base):
     # предложением или «Не напоминать»). Молчание отказом не считается:
     # `reminder_offered_at` ставится при отправке предложения (патч 2.1)
     reminders_declined_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
+    # Напоминания включил БОТ при знакомстве, а не человек (16.10). Нужна
+    # контрольной группе: у таких 10% сообщений не получают. Снимается,
+    # как только человек сам включит, выберет время, дни или пояс
+    reminders_auto: Mapped[bool] = mapped_column(Boolean, default=False,
+                                                 server_default="false", nullable=False)
     total_monthly_wins: Mapped[int] = mapped_column(Integer, default=0)
 
     # Связи
@@ -890,8 +895,11 @@ class TranslationReport(Base):
     """
     __tablename__ = "translation_reports"
     __table_args__ = (
+        # С ПАРОЙ (16.10): на одно слово жалуются в каждой паре отдельно —
+        # неверным бывает чешский перевод при верном русском
         UniqueConstraint(
-            "user_id", "word_id", "kind", name="uq_translation_reports_user_word_kind"
+            "user_id", "word_id", "kind", "learning_lang", "native_lang",
+            name="uq_translation_reports_user_word_kind_pair",
         ),
         Index("ix_translation_reports_status", "status"),
         Index("ix_translation_reports_kind", "kind"),
@@ -915,6 +923,12 @@ class TranslationReport(Base):
     # Каким голосом человек слышал слово. Без этого жалобу на произношение
     # нечем проверить: голосов на язык до шести, и звучат они по-разному.
     voice: Mapped[Optional[str]] = mapped_column(String(64), nullable=True)
+    # ПАРА ЯЗЫКОВ, в которой замечена ошибка (Н4, 16.10). Прежде угадывалась
+    # по занятию, а без него — по нынешнему языку человека; вторая сторона
+    # пары не была известна вовсе. С десятью языками без неё не понять,
+    # какую из колонок перевода править и в чей рейтинг класть балл
+    learning_lang: Mapped[Optional[str]] = mapped_column(String(2), nullable=True)
+    native_lang: Mapped[Optional[str]] = mapped_column(String(2), nullable=True)
     status: Mapped[str] = mapped_column(
         String(20), nullable=False, default="pending"
     )  # pending / reviewed / fixed / rejected

@@ -382,10 +382,14 @@ async def test_repeating_errors_goes_all_the_way_through(session, user, stage):
         await _feed(dp, bot, press(user.id, "next_question"))
 
 
-async def test_reminders_are_offered_after_the_first_finished_round(session, user, stage):
+async def test_reminders_are_not_offered_after_the_first_finished_round(session, user, stage):
     """
-    Предложение напоминаний — единственный замеренный рычаг возврата, и
-    показывается он ровно один раз в жизни, после первого круга.
+    Предложения «Напоминать раз в день?» после круга БОЛЬШЕ НЕТ (16.10):
+    новичку напоминания включаются сами при знакомстве. Владелец: «мы не
+    должны его ещё 500 раз спрашивать».
+
+    Прежде этот тест требовал предложения — то есть держал ровно то, что
+    теперь убрано.
     """
     from app.locales import get_text
 
@@ -401,22 +405,20 @@ async def test_reminders_are_offered_after_the_first_finished_round(session, use
         await _feed(dp, bot, press(user.id, options[0]))
         await _feed(dp, bot, press(user.id, "next_question"))
 
-    assert "reminder_offer_yes" in recorder.all_buttons(), (
-        "после первого круга напоминания не предложены"
+    assert "reminder_offer_yes" not in recorder.all_buttons(), (
+        "после круга снова спрашивают про напоминания"
     )
 
-    recorder.clear()
+
+async def test_old_reminder_offer_button_still_works(session, user, stage):
+    """Старые кнопки предложения лежат в чатах — нажатие на них не падает."""
+    dp, bot, recorder = stage
+    user.notifications_enabled = False
+    await session.commit()
     await _feed(dp, bot, press(user.id, "reminder_offer_yes"))
     await session.refresh(user)
-    assert user.notifications_enabled, "согласие не включило напоминания"
-    assert user.notification_time, "час напоминания не выставлен"
-
-    # Владелец: «предложить гибкие настройки — с переходом в настройки».
-    # Ответ называет поставленное время и ведёт кнопкой в настройки
-    assert user.notification_time in recorder.last_text(), (
-        f"время не названо: {recorder.last_text()!r}"
-    )
-    assert "settings:notifications" in recorder.buttons(), "нет кнопки в настройки"
+    assert user.notifications_enabled and not user.reminders_auto
+    assert user.notification_time in recorder.last_text()
 
 
 # ============================================================================

@@ -842,6 +842,51 @@ async def get_struggling_words(
     return await _pick_one(session, _exclude(_review_scoped(query, user, level), exclude_ids))
 
 
+def _unseen_query(user_id: int, pair: LanguagePair, exclude_ids: list[int],
+                  user: Optional[User], level: Optional[CEFRLevel]):
+    """Слова, которых человек на этом языке ещё не видел (NOT EXISTS)."""
+    seen = (
+        select(UserWord.word_id)
+        .where(
+            UserWord.user_id == user_id,
+            UserWord.learning_lang == pair.learning,
+            UserWord.word_id == Word.id,
+        )
+        .exists()
+    )
+    return _exclude(_scoped(_usable_words(pair).where(~seen), user, level), exclude_ids)
+
+
+def _easy(query, pair: LanguagePair):
+    """Лёгкие: знаменательные, однословные, короткие (первый урок)."""
+    first = func.split_part(word_column(pair.learning), ",", 1)
+    return query.where(
+        Word.pos.in_(EASY_POS),
+        ~func.btrim(first).like("% %"),
+        func.length(func.btrim(first)) <= EASY_MAX_LETTERS,
+    )
+
+
+async def easy_new_words(session: AsyncSession, user: User, pair: LanguagePair,
+                         exclude_ids: list[int], limit: int = EASY_POOL) -> list[Word]:
+    """
+    Новые лёгкие слова, самые частые первыми, — список, а не одно.
+
+    Нужен первому уроку (`first_lesson`): похожее на родное слово ищется
+    перебором пула, а доске на три пары нужно три слова сразу.
+    """
+    query = _easy(_unseen_query(user.id, pair, exclude_ids, user, user.level), pair)
+    rows = await session.execute(
+        query.outerjoin(
+            WordFrequency,
+            and_(WordFrequency.word_id == Word.id, WordFrequency.lang == pair.learning),
+        )
+        .order_by((WordFrequency.zipf - _function_word_penalty()).desc().nulls_last(), Word.id)
+        .limit(limit)
+    )
+    return list(rows.scalars().all())
+
+
 async def get_new_words(
     user_id: int,
     session: AsyncSession,
@@ -856,27 +901,13 @@ async def get_new_words(
     NOT EXISTS вместо прежнего NOT IN со списком всех виденных id: у активного
     пользователя это тысячи идентификаторов, гонявшихся в каждом из 25 запросов.
     """
-    seen = (
-        select(UserWord.word_id)
-        .where(
-            UserWord.user_id == user_id,
-            UserWord.learning_lang == pair.learning,
-            UserWord.word_id == Word.id,
-        )
-        .exists()
-    )
-    query = _exclude(_scoped(_usable_words(pair).where(~seen), user, level), exclude_ids)
+    query = _unseen_query(user_id, pair, exclude_ids, user, level)
 
     # ПЕРВЫЙ УРОК — САМЫЕ ЛЁГКИЕ: частые, однословные, знаменательные.
     # «mieć na myśli» первым словом (прод 15.10) — ровно то, чего не надо
     categories = categories_for(getattr(user, "learning_goal", None))
     if in_first_lesson(user):
-        first = func.split_part(word_column(pair.learning), ",", 1)
-        easy = query.where(
-            Word.pos.in_(EASY_POS),
-            ~func.btrim(first).like("% %"),
-            func.length(func.btrim(first)) <= EASY_MAX_LETTERS,
-        )
+        easy = _easy(query, pair)
         # И тема, если человек её назвал: лёгкие слова — из неё же
         tries = ([easy.where(Word.category.in_(categories))] if categories else []) + [easy]
         for candidates in tries:
@@ -1213,13 +1244,19 @@ async def generate_question(
     """
     exclude_ids = exclude_ids or []
     pair = pair or pair_from_user(user)
-    # Первый урок — только карточки: «выбери перевод» понятен без
-    # объяснений, и слова ещё ни разу не встречались (`in_first_lesson`)
-    if channel is None and in_first_lesson(user):
-        channel = QuizChannel.TEXT
-        prefer_channel = None
     length = round_length or user.quiz_word_count or DEFAULT_ROUND_LENGTH
     place = (question_number - 1) if question_number else len(exclude_ids)
+    # ПЕРВЫЙ УРОК — ИГРА ПО НОМЕРУ ВОПРОСА (16.10, `first_lesson`): Читаю,
+    # Слышу, Вспоминаю, по кругу. Прежде — семь карточек подряд. Слышу и
+    # Вспоминаю берут новое слово, ПОХОЖЕЕ на родное: правило допуска здесь
+    # обойдено, и решаемой игру делает выбор слова
+    first_game: Optional[QuizChannel] = None
+    if channel is None and in_first_lesson(user):
+        from app.services import first_lesson
+
+        first_game = first_lesson.planned_game(place + 1, enabled_channels(user))
+        channel = QuizChannel.TEXT
+        prefer_channel = None
 
     # ЗНАЧЕНИЯ, УЖЕ СПРОШЕННЫЕ В ЭТОМ КРУГЕ, — чтобы не спросить второе
     # слово с тем же переводом.
@@ -1239,6 +1276,17 @@ async def generate_question(
 
     correct_word = None
     skipped: list[int] = []
+
+    preset: Optional[Word] = None
+    if first_game in (QuizChannel.AUDIO, QuizChannel.REVERSE):
+        from app.services import first_lesson
+
+        preset = await first_lesson.similar_new_word(
+            session, user, pair, exclude_ids, taken_meanings,
+        )
+        if preset is not None:
+            channel = first_game
+            correct_word = preset
     # Попыток немного: столкновение редкое, а круг важнее чистоты. Не нашли
     # за пять подборов — берём как есть: повтор значения неприятен, а
     # оборванный круг хуже.
@@ -1261,7 +1309,7 @@ async def generate_question(
     )
     rotated: Optional[QuizChannel] = None
 
-    for _ in range(MEANING_RETRIES):
+    for _ in range(0 if preset is not None else MEANING_RETRIES):
         candidate = None
         rotated = None
         if wanted is not None:

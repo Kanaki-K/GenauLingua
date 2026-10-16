@@ -102,10 +102,12 @@ async def test_old_empty_lesson_is_a_real_dropout(session, user):
     assert old.exit_reason == "abandoned"
 
 
-async def test_reminders_lead_from_the_second_lesson(session, user):
+async def test_level_is_offered_and_reminders_are_not_after_any_lesson(session, user):
     """
-    Выбор уровня впереди напоминаний — только после первого занятия.
-    Проигнорировал и ушёл — со второго напоминания снова первыми.
+    Очереди «напоминания или уровень» больше нет (16.10): напоминания
+    включаются сами при знакомстве, и под итогом — только уровень, по
+    прежней логике. Прежде этот тест требовал напоминаний впереди уровня со
+    второго занятия.
     """
     from app.bot.handlers.quiz.summary import _offer_what_fits
     from app.services.level_service import NEWCOMER_MIN_ANSWERS
@@ -123,10 +125,12 @@ async def test_reminders_lead_from_the_second_lesson(session, user):
 
     buttons = [b["callback_data"] for _, p in recorder.calls if p.get("reply_markup")
                for row in p["reply_markup"]["inline_keyboard"] for b in row]
-    assert not any(b.startswith("level_jump_") for b in buttons), (
-        f"со второго занятия уровень снова впереди напоминаний: {buttons}"
+    assert not any(b.startswith("reminder_offer_") for b in buttons), (
+        f"под итогом снова спрашивают про напоминания: {buttons}"
     )
-    assert buttons, "под итогом ничего не предложено"
+    assert any(b.startswith("level_") for b in buttons), (
+        f"уровень не предложен: {buttons}"
+    )
 
 
 async def test_english_learner_gets_english_levels(session, user):

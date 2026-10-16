@@ -426,7 +426,8 @@ async def _show_board_in_round(
     # Сначала новое, потом удаление прежнего: иначе между ними на экране
     # один якорь (владелец, 15.10: «пропадает карточка и остаётся якорь,
     # как в начале, так и в конце»)
-    shown = await start_board(callback.message, state, session, user, quiet=True)
+    shown = await start_board(callback.message, state, session, user, quiet=True,
+                              in_round=True)
     if shown:
         try:
             await callback.message.delete()
