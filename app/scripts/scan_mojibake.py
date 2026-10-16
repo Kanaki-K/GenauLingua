@@ -38,6 +38,10 @@ COLUMNS = [
     "translation_uk", "example_uk",
     "translation_tr", "example_tr",
     "translation_pl", "example_pl",
+    "translation_it", "example_it",
+    "translation_es", "example_es",
+    "translation_fr", "example_fr",
+    "translation_cs", "example_cs",
 ]
 
 # Вторым символом идёт то, что получается из «хвостового» байта utf-8,

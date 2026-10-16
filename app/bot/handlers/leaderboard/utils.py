@@ -33,6 +33,14 @@ MONTH_NAMES = {
            "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"),
     "tr": ("Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran",
            "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"),
+    "it": ("Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno",
+           "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"),
+    "es": ("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+           "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"),
+    "fr": ("Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
+           "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"),
+    "cs": ("Leden", "Únor", "Březen", "Duben", "Květen", "Červen",
+           "Červenec", "Srpen", "Září", "Říjen", "Listopad", "Prosinec"),
 }
 
 
@@ -50,7 +58,9 @@ def format_month_name(month: int, lang: str = "ru", *, inline: bool = False) -> 
     if not names or not 1 <= month <= 12:
         return str(month)
     name = names[month - 1]
-    if inline and lang in ("ru", "uk"):
+    # В итальянском, испанском, французском и чешском месяц внутри фразы
+    # тоже со строчной
+    if inline and lang in ("ru", "uk", "it", "es", "fr", "cs"):
         return name[:1].lower() + name[1:]
     return name
 

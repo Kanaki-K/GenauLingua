@@ -91,22 +91,22 @@ from sqlalchemy import create_engine, text
 from app.config import settings
 
 LANGS = ("en", "ru", "uk", "tr", "pl")
+# Новые языки считаются ОТДЕЛЬНО, и замер старых от них не меняется: числа
+# 30 и 56 выше — про пять старых языков. Для новых интересно другое: пара,
+# где немецкие фразы разные, старые языки их РАЗЛИЧАЮТ, а новые переводят
+# одной строкой. Синонимы (`herrlich` ~ `wunderbar`) старые языки уже
+# склеили, и это известный класс; а склейка только в новых — похоже на
+# пример, переписанный из соседнего ряда.
+NEW_LANGS = ("it", "es", "fr", "cs")
 MIN_LANGS = 3
 EXPECTED_SAME_DE = 30
 EXPECTED_DIFF_DE = 56
 
 
-def main() -> None:
-    engine = create_engine(settings.DATABASE_URL_SYNC)
-    with engine.connect() as conn:
-        rows = conn.execute(text(
-            "SELECT id, word_de, level, example_de, example_en, example_ru, "
-            "example_uk, example_tr, example_pl FROM words ORDER BY id"
-        )).mappings().all()
-    by_id = {r["id"]: r for r in rows}
-
+def coinciding(rows, langs) -> dict[tuple[int, int], set[str]]:
+    """Пары рядов и языки, в которых их примеры совпали строка в строку."""
     pair_langs: dict[tuple[int, int], set[str]] = defaultdict(set)
-    for lang in LANGS:
+    for lang in langs:
         by_text: dict[str, list[int]] = defaultdict(list)
         for row in rows:
             example = (row[f"example_{lang}"] or "").strip()
@@ -118,6 +118,20 @@ def main() -> None:
             for i in range(len(ids)):
                 for j in range(i + 1, len(ids)):
                     pair_langs[(ids[i], ids[j])].add(lang)
+    return pair_langs
+
+
+def main() -> None:
+    engine = create_engine(settings.DATABASE_URL_SYNC)
+    with engine.connect() as conn:
+        rows = conn.execute(text(
+            "SELECT id, word_de, level, example_de, "
+            + ", ".join(f"example_{lang}" for lang in LANGS + NEW_LANGS)
+            + " FROM words ORDER BY id"
+        )).mappings().all()
+    by_id = {r["id"]: r for r in rows}
+
+    pair_langs = coinciding(rows, LANGS)
 
     same_de = []
     diff_de = []
@@ -145,6 +159,28 @@ def main() -> None:
     print(f"   немецкий эталон тоже совпадает: {len(same_de)} (ожидаем {EXPECTED_SAME_DE})")
     print(f"   немецкий эталон разный:         {len(diff_de)} (ожидаем {EXPECTED_DIFF_DE})")
     print("для теста безвредно: get_distractors отбрасывает пересечение значений")
+
+    new_pairs = coinciding(rows, NEW_LANGS)
+    only_new = []
+    for (first, second), langs in new_pairs.items():
+        if len(langs) < MIN_LANGS:
+            continue
+        a, b = by_id[first], by_id[second]
+        if (a["example_de"] or "").strip() == (b["example_de"] or "").strip():
+            continue
+        if len(pair_langs.get((first, second), ())) >= MIN_LANGS:
+            continue                      # старые языки склеили тоже — синонимы
+        only_new.append((a, b, langs))
+    if new_pairs:
+        print(f"\n=== it/es/fr/cs: немецкий разный, старые языки различают, "
+              f"новые (≥{MIN_LANGS}) склеили: {len(only_new)} ===")
+        for a, b, langs in only_new:
+            print(f"{a['word_de']} ({a['id']})  ~  {b['word_de']} ({b['id']})   "
+                  f"{','.join(sorted(langs))}")
+            print(f"    de A: {a['example_de']}")
+            print(f"    de B: {b['example_de']}")
+            for lang in NEW_LANGS:
+                print(f"    {lang}  : {a[f'example_{lang}']}")
     if len(same_de) != EXPECTED_SAME_DE or len(diff_de) != EXPECTED_DIFF_DE:
         print("ВНИМАНИЕ: остаток изменился — разбери и обнови docstring")
         sys.exit(1)

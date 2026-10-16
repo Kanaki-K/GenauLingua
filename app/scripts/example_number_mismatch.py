@@ -49,7 +49,7 @@ from app.services.language_service import LANGUAGES
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 logger = logging.getLogger("number-mismatch")
 
-LANGS = ("ru", "uk", "en", "tr", "pl")
+LANGS = ("ru", "uk", "en", "tr", "pl", "it", "es", "fr", "cs")
 
 DIGITS = re.compile(r"\d+")
 
@@ -83,10 +83,40 @@ NUMERAL_WORDS = {
           r"piętnast|szesnast|siedemnast|osiemnast|dziewiętnast|dwadzieścia|"
           r"dwudziest|trzydziest|czterdziest|pięćdziesiąt|sto|stu|dwieście|"
           r"dwustu|trzysta|tysiąc|milion|pół|połow|południ)",
+    # Новые языки — с границей слова в начале: короткие корни «un», «tre»,
+    # «dos», «sei» без неё совпали бы внутри любого слова
+    "it": r"\b(zero|un|uno|una|prim|due|second|tre|terz|quattr|quart|cinque|"
+          r"quint|sei|sest|sette|settim|otto|ottav|nove|non[oa]\b|dieci|decim|"
+          r"undic|dodic|tredic|quattordic|quindic|sedic|diciasset|diciott|"
+          r"diciannov|vent|trent|quarant|cinquant|sessant|settant|ottant|"
+          r"novant|cent|mille|mila|milion|miliard|mezz|metà|dozzin)",
+    "es": r"\b(cero|un|uno|una|primer|dos|segund|tres|tercer|cuatro|cuart|"
+          r"cinco|quint|seis|sext|siete|séptim|ocho|octav|nueve|noven|diez|"
+          r"décim|once|doce|trece|catorce|quince|dieci|veint|treint|cuarent|"
+          r"cincuent|sesent|setent|ochent|novent|cien|cient|doscient|trescient|"
+          r"quinient|mil|millón|millon|medi|mitad|docena)",
+    "fr": r"\b(zéro|un|une|premi|deux|second|trois|quatr|cinq|six|sept|huit|"
+          r"neuf|neuv|dix|onze|douze|treize|quatorze|quinze|seize|vingt|"
+          r"trente|quarante|cinquante|soixante|cent|mille|million|milliard|"
+          r"demi|moitié|midi|minuit|douzaine)",
+    "cs": r"\b(nul|jed|prv|dva|dvě|dvou|druh|tři|tří|třet|čtyř|čtvrt|pět|pát|"
+          r"šest|šes|sedm|osm|devět|devát|deset|desát|jedenáct|dvanáct|"
+          r"třináct|čtrnáct|patnáct|šestnáct|sedmnáct|osmnáct|devatenáct|"
+          r"dvacet|dvacát|třicet|třicát|čtyřicet|padesát|šedesát|sedmdesát|"
+          r"osmdesát|devadesát|sto|set|tisíc|milion|miliard|půl|polovin|"
+          r"poledn|půlnoc|tucet)",
 }
 
 
+# Века в it, es, fr пишутся римскими цифрами: «Im 19. Jahrhundert» →
+# «Nel XIX secolo», «En el siglo XIX», «Au XIXe siècle». Это то же число.
+ROMAN_LANGS = {"it", "es", "fr"}
+ROMAN = re.compile(r"\b[IVXLC]{2,}(e|ème)?\b")
+
+
 def has_numeral_word(value: str, lang: str) -> bool:
+    if lang in ROMAN_LANGS and ROMAN.search(value):
+        return True
     return bool(re.search(NUMERAL_WORDS[lang], value, re.IGNORECASE))
 
 
@@ -139,6 +169,23 @@ def self_check() -> bool:
     if same_time_other_clock({14}, {18}):
         logger.error("самопроверка: 14 и 18 — разное время, а признано одним")
         return False
+    words_cases = [
+        ("it", "Il treno parte alle sette", True),
+        ("it", "Vado a casa", False),
+        ("es", "Llego a las tres y media", True),
+        ("es", "Hoy hace calor", False),
+        ("fr", "Je pars à huit heures", True),
+        ("fr", "Il fait beau", False),
+        ("cs", "Vlak jede v osm hodin", True),
+        ("cs", "Venku prší", False),
+        ("fr", "Au XIXe siècle, le corset était à la mode", True),
+        ("es", "En el siglo XIX el corsé estaba de moda", True),
+    ]
+    for lang, value, expected in words_cases:
+        if has_numeral_word(value, lang) != expected:
+            logger.error("самопроверка числительных: %s %r дало %s, ожидалось %s",
+                         lang, value, not expected, expected)
+            return False
     return True
 
 
@@ -188,6 +235,10 @@ def main() -> int:
                 if german_numbers & native_numbers:
                     continue
                 if same_time_other_clock(german_numbers, native_numbers):
+                    continue
+                # десятилетие двумя цифрами: «aus den 1960ern» → «ze 60. let»
+                if native_numbers <= {n % 100 for n in german_numbers
+                                      if 1000 <= n <= 2099 and n % 10 == 0}:
                     continue
                 record["kind"] = "числа разные"
                 record["german_numbers"] = sorted(german_numbers)

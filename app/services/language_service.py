@@ -762,7 +762,7 @@ def _names_of(codes: tuple[str, ...], interface_lang: str, *,
     # «i̇ngilizce» — «i» с отдельной точкой сверху: заглавная «İ» разбирается на
     # две кодовые позиции. Это та же турецкая буква, на которой я уже
     # спотыкался в словарной базе.
-    LOWERCASE_IN_TEXT = {"ru", "uk", "pl"}
+    LOWERCASE_IN_TEXT = {"ru", "uk", "pl", "it", "es", "fr", "cs"}
 
     names = []
     for code in codes:

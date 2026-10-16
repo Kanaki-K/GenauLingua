@@ -51,6 +51,12 @@ ALIEN = {
     "de": set("ěščřžýåæøąćęłńśźżçğı"),
     "tr": set("ěščřžýåæøąćęłńśźżäß"),
     "en": set("ěščřžýåæøąćęłńśźżäöüßçğı"),
+    # it: ê и ç не чужие — заимствования «crêpe», как в new_langs_check
+    "it": set("ěščřžýďťňåæøąćęłńśźżäöüßğıñãõâôûëïÿœ"),
+    "es": set("ěščřžýďťňåæøąćęłńśźżäößğıçàèìòùâêîôûëïÿœãõ"),
+    "fr": set("ěščřžýďťňåøąćęłńśźżäößğıñáíóúìòãõ"),
+    # cs: ä, ô, ľ, ĺ, ŕ — словацкие буквы, в чешском их нет
+    "cs": set("àèìòùâêîôûëïÿœæçñåøąćęłńśźżäöüßğıõãľĺŕ"),
 }
 
 COLUMNS = {
@@ -58,6 +64,10 @@ COLUMNS = {
     "de": ("word_de", "example_de"),
     "tr": ("translation_tr", "example_tr"),
     "en": ("translation_en", "example_en"),
+    "it": ("translation_it", "example_it"),
+    "es": ("translation_es", "example_es"),
+    "fr": ("translation_fr", "example_fr"),
+    "cs": ("translation_cs", "example_cs"),
 }
 
 # Законные исключения: чужое имя или заимствование внутри фразы.
@@ -70,6 +80,13 @@ LEGIT = {
     (14936, "example_en"),   # young women Fräulein
     (315, "example_pl"),     # Szanowna Pani Müller
     (400, "example_pl"),     # Pan Müller jest tutaj
+    (315, "example_it"),     # Gentile signora Müller
+    (400, "example_it"),     # Il signor Müller è qui
+    (11745, "example_it"),   # la senape sul würstel — так пишет итальянский
+    (11854, "example_it"),   # i crauti … per i würstel
+    (315, "example_cs"),     # Vážená paní Müller
+    (400, "example_cs"),     # Pan Müller je tady
+    (11879, "example_cs"),   # rozinky v müsli — так пишет чешский
 }
 
 
@@ -90,6 +107,14 @@ def selfcheck() -> None:
         ("tr", "Çağrı güzel Straße söylüyor", ["ß"]),
         ("en", "The street is beautiful", []),
         ("en", "The straße is beautiful", ["ß"]),
+        ("it", "Perché è già così", []),
+        ("it", "Il mañana è bello", ["ñ"]),
+        ("es", "¿El pingüino está aquí? Sí, mañana", []),
+        ("es", "El perro è grande", ["è"]),
+        ("fr", "Le cœur de l'élève à Noël, ça", []),
+        ("fr", "Le garçon está là", ["á"]),
+        ("cs", "Příliš žluťoučký kůň úpěl ďábelské ódy", []),
+        ("cs", "Toto je môj dom", ["ô"]),
     ]
     for lang, value, want in cases:
         got = alien(lang, value)
@@ -97,7 +122,7 @@ def selfcheck() -> None:
             print(f"САМОПРОВЕРКА УПАЛА: {lang} {value!r} дало {got}, "
                   f"а надо {want}")
             sys.exit(1)
-    print(f"самопроверка: {len(cases)} строк на четырёх алфавитах "
+    print(f"самопроверка: {len(cases)} строк на восьми алфавитах "
           f"разобраны верно\n")
 
 

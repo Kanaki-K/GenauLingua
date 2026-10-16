@@ -51,6 +51,7 @@ from app.scripts.scan_de_bare_imperative import (  # noqa: E402
     positions,
     syllabic_el_er,
 )
+from app.scripts.scan_formality import has_formal, has_informal  # noqa: E402
 
 FORMAL_DE = re.compile(r"\b(Sie|Ihnen|Ihre?[mnrs]?)\b")
 
@@ -73,6 +74,35 @@ TR_FORMAL_MAYBE = re.compile(r"\b\w{2,}[ıiuü]n\b")
 # другого без словаря нельзя.
 UK_FORMAL = re.compile(r"\b\w{2,}(?:йте|іть|ьте|мте)\b", re.IGNORECASE)
 UK_INFORMAL = re.compile(r"\b(ти|тебе|тобі|тобою|твій|твоя|твоє|твої)\b", re.IGNORECASE)
+
+# Новые языки. Французское и чешское повелительное на «вы» видно по
+# окончанию, как украинское:
+#   fr  «Tournez», «Appelez» — первое слово на -ez, или «veuillez», «vous»
+#       («rendez-vous» — существительное, не обращение; «Un café, s'il vous
+#       plaît» — формула заказа, немецкое «bitte»; «Allez, on s'y met» —
+#       междометие)
+#   cs  «Odbočte», «Zavolejte», «Přineste» — на -te после согласной или
+#       -ejte/-ujte/-ěte. Окончания «-áte, -íte, -ete» выброшены: это ещё и
+#       настоящее время («děláte», «nesete»), как украинское «-ете»; «jste»
+#       — глагол «быть».
+# Итальянское и испанское вежливое повелительное — сослагательное («Giri»,
+# «Gire») и по окончанию от «Gira» не отличается без словаря; там берутся
+# только явные признаки «Вы» из scan_formality: «Lei, La, Sua», «usted».
+FR_FORMAL = re.compile(
+    r"^\W*(?!(?:assez|chez|nez)\b|allez\s*,)\w{2,}ez\b"
+    r"|(?<![\w-])(?<!s'il )(veuillez|vous|votre|vos)(?![\w])", re.IGNORECASE)
+FR_INFORMAL = re.compile(
+    r"(?<![\w])(tu|te|toi|ton|ta|tes)(?![\w'])|(?<![\w])t'", re.IGNORECASE)
+CS_FORMAL = re.compile(
+    r"\b(?!jste\b)\w{2,}(?:ejte|ujte|ěte|[bcčdďfghjklmnňprřsštťvzž]te)\b",
+    re.IGNORECASE)
+CS_INFORMAL = re.compile(
+    r"\b(ty|tebe|tobě|tě|tvůj|tvoje|tvá|tvé|tvou|jsi)\b", re.IGNORECASE)
+NEW_LANGS = ("it", "es", "fr", "cs")
+NEW_FORMAL = {
+    "fr": (FR_FORMAL, FR_INFORMAL),
+    "cs": (CS_FORMAL, CS_INFORMAL),
+}
 
 
 def all_verb_stems(conn, skip: set[str]) -> set[str]:
@@ -131,6 +161,19 @@ def selfcheck(stems: set[str]) -> None:
         errs.append("tr: «ayır» ложно распознано")
     if not TR_FORMAL_SURE.search("Lütfen bekleyiniz"):
         errs.append("tr: «bekleyiniz» не распознано как вежливое наверняка")
+    for s in ("Tournez à gauche", "Veuillez fermer la porte"):
+        if not FR_FORMAL.search(s):
+            errs.append(f"fr: {s!r} не распознано как вежливое")
+    for s in ("Tourne à gauche", "Note le rendez-vous", "Assez parlé",
+              "Un café, s'il vous plaît", "Allez, on s'y met"):
+        if FR_FORMAL.search(s):
+            errs.append(f"fr: {s!r} ложно распознано как вежливое")
+    for s in ("Odbočte doleva", "Zavolejte správu domu", "Přineste si průkaz"):
+        if not CS_FORMAL.search(s):
+            errs.append(f"cs: {s!r} не распознано как вежливое")
+    for s in ("Odboč doleva", "Kde jste byli", "Co děláte", "Zavolej mi"):
+        if CS_FORMAL.search(s):
+            errs.append(f"cs: {s!r} ложно распознано как вежливое")
     if errs:
         print("САМОПРОВЕРКА НЕ ПРОШЛА:")
         for e in errs:
@@ -146,7 +189,8 @@ def main() -> None:
         selfcheck(stems)
         rows = conn.execute(
             text(
-                "SELECT id, word_de, example_de, example_uk, example_tr FROM words "
+                "SELECT id, word_de, example_de, example_uk, example_tr, "
+                "example_it, example_es, example_fr, example_cs FROM words "
                 "WHERE example_de IS NOT NULL ORDER BY id"
             )
         ).mappings().all()
@@ -155,6 +199,7 @@ def main() -> None:
     tr_sure: list[tuple[int, str, str, str]] = []
     tr_maybe: list[tuple[int, str, str, str]] = []
     imperatives = 0
+    new_hits: dict[str, list[tuple[int, str, str, str]]] = {l: [] for l in NEW_LANGS}
 
     for r in rows:
         de = r["example_de"] or ""
@@ -164,6 +209,17 @@ def main() -> None:
         uk, tr = r["example_uk"] or "", r["example_tr"] or ""
         if UK_FORMAL.search(uk) and not UK_INFORMAL.search(uk):
             uk_hits.append((r["id"], r["word_de"], de, uk))
+        for lang in NEW_LANGS:
+            ex = r[f"example_{lang}"] or ""
+            if not ex:
+                continue
+            if lang in NEW_FORMAL:
+                formal_re, informal_re = NEW_FORMAL[lang]
+                formal = formal_re.search(ex) and not informal_re.search(ex)
+            else:
+                formal = has_formal(lang, ex) and not has_informal(lang, ex)
+            if formal:
+                new_hits[lang].append((r["id"], r["word_de"], de, ex))
         if TR_INFORMAL.search(tr):
             continue
         if TR_FORMAL_SURE.search(tr):
@@ -183,6 +239,16 @@ def main() -> None:
         ("ТУРЕЦКИЙ под вопросом", tr_maybe),
     ):
         print(f"\n── {title} ──────────────────────────────────")
+        for wid, word, de, other in items:
+            print(f"  {wid:>6}  {word:<20} de: {de}")
+            print(f"          {'':<20} ->  {other}")
+
+    print("\nit/es/fr/cs на «вы»: "
+          + ", ".join(f"{l} {len(v)}" for l, v in new_hits.items()))
+    for lang, items in new_hits.items():
+        if not items:
+            continue
+        print(f"\n── {lang} на «вы» ──────────────────────────────────")
         for wid, word, de, other in items:
             print(f"  {wid:>6}  {word:<20} de: {de}")
             print(f"          {'':<20} ->  {other}")

@@ -120,6 +120,10 @@ TEXTS = {
     "lang_tr": "Türkçe",
     "lang_de": "Deutsch",
     "lang_pl": "Polski",
+    "lang_it": "Italiano",
+    "lang_es": "Español",
+    "lang_fr": "Français",
+    "lang_cs": "Čeština",
 
     # Kierunki tłumaczenia
 
@@ -353,6 +357,10 @@ TEXTS.update({
     "langname_uk": "Ukraiński",
     "langname_tr": "Turecki",
     "langname_pl": "Polski",
+    "langname_it": "Włoski",
+    "langname_es": "Hiszpański",
+    "langname_fr": "Francuski",
+    "langname_cs": "Czeski",
     # Spójnik do wyliczania języków w pomocy i powitaniu
     "and_word": "i",
 

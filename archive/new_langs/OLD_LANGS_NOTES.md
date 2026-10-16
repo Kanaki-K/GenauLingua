@@ -124,3 +124,7 @@
 - 7747 wahrscheinlicher: en/ru в положительной степени
 - 1572 «der Jugendlicher» (Jugendliche), 7169 «verwechselt» — не лемма
 - 1031 Westen: de пример «…liegt etwa 500 km von hier» — бессмысленно
+
+## Из проверок scan_* (16.10)
+- aufzählen 14324 — в немецком примере риторический вопрос без «?» («…aber wer hat Zeit dafür»); в it/es/fr/cs знак стоит. Правка — добавить «?» в de.
+- timezones: для de и pl нет строки «неизвестный город» (падает на русскую); на практике не показывается.

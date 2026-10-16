@@ -262,6 +262,72 @@ SIBLINGS: dict[str, tuple[tuple[str, ...], ...]] = {
         ("ne", "neden", "nasıl"),
         ("her", "hiç"),
     ),
+    # Романские: артикли и их слияния с предлогом, местоимения, лица
+    # глагола. «l'uomo» — одно слово («'» внутри не режется), поэтому
+    # усечённого «l'» в списках нет.
+    "it": (
+        ("il", "lo", "la", "i", "gli", "le"),
+        ("un", "uno", "una"),
+        ("del", "dello", "della", "dei", "degli", "delle"),
+        ("al", "allo", "alla", "ai", "agli", "alle"),
+        ("nel", "nello", "nella", "nei", "negli", "nelle"),
+        ("io", "me", "mi"), ("tu", "te", "ti"),
+        ("lui", "lo", "gli"), ("lei", "la", "le"),
+        ("noi", "ci"), ("voi", "vi"), ("loro", "li", "le"),
+        ("sono", "sei", "è", "siamo", "siete"),
+        ("ho", "hai", "ha", "abbiamo", "avete", "hanno"),
+        ("mio", "mia", "miei", "mie"), ("tuo", "tua", "tuoi", "tue"),
+        ("suo", "sua", "suoi", "sue"),
+        ("questo", "questa", "questi", "queste"),
+        ("quello", "quella", "quelli", "quelle"),
+        ("che", "chi", "cui"), ("di", "da"), ("in", "a", "su"),
+        ("non", "né"),
+    ),
+    "es": (
+        ("el", "la", "los", "las"), ("un", "una", "unos", "unas"),
+        ("del", "al"),
+        ("yo", "me", "mí"), ("tú", "te", "ti"),
+        ("él", "lo", "le"), ("ella", "la", "le"),
+        ("nosotros", "nos"), ("ellos", "los", "les"),
+        ("soy", "eres", "es", "somos", "son"),
+        ("estoy", "estás", "está", "estamos", "están"),
+        ("tengo", "tienes", "tiene", "tenemos", "tienen"),
+        ("mi", "mis"), ("tu", "tus"), ("su", "sus"),
+        ("este", "esta", "estos", "estas"), ("ese", "esa", "esos", "esas"),
+        ("que", "quien", "cual"), ("por", "para"), ("en", "a", "de"),
+        ("no", "ni"),
+    ),
+    "fr": (
+        ("le", "la", "les"), ("un", "une", "des"),
+        ("du", "de", "des"), ("au", "aux", "à"),
+        ("je", "me", "moi"), ("tu", "te", "toi"),
+        ("il", "le", "lui"), ("elle", "la", "lui"),
+        ("ils", "elles", "les", "leur", "eux"),
+        ("suis", "es", "est", "sommes", "êtes", "sont"),
+        ("ai", "as", "a", "avons", "avez", "ont"),
+        ("mon", "ma", "mes"), ("ton", "ta", "tes"), ("son", "sa", "ses"),
+        ("ce", "cet", "cette", "ces"),
+        ("qui", "que", "dont"), ("dans", "en", "à"),
+        ("pas", "plus", "jamais"),
+    ),
+    # Чешский — как польский: падежи местоимений, лица быть/мать
+    "cs": (
+        ("já", "mě", "mi", "mně", "mnou"),
+        ("ty", "tě", "ti", "tebe", "tobě"),
+        ("on", "ho", "mu", "jeho", "něj"),
+        ("ona", "ji", "jí", "její"),
+        ("my", "nás", "nám"), ("vy", "vás", "vám"),
+        ("oni", "je", "jim", "jejich"),
+        ("jsem", "jsi", "je", "jsme", "jste", "jsou"),
+        ("byl", "byla", "bylo", "byli"),
+        ("mám", "máš", "má", "máme", "máte", "mají"),
+        ("můj", "moje", "má", "mého", "mé"),
+        ("ten", "ta", "to", "ty", "toho", "té"),
+        ("se", "si"), ("v", "ve", "na"), ("z", "ze", "od"),
+        ("k", "ke", "do"),
+        ("který", "která", "které", "kteří"),
+        ("že", "aby"), ("ne", "ani"),
+    ),
 }
 
 # ВЗАИМОЗАМЕНЯЕМЫЕ: слова, которые в той же фразе часто ОБА верны. Ловушкой
@@ -290,6 +356,16 @@ EQUIVALENT: dict[str, tuple[tuple[str, ...], ...]] = {
     "pl": (("mnie", "mi"), ("cię", "ciebie"), ("ci", "tobie"),
            ("go", "jego"), ("mu", "jemu")),
     "tr": (("bu", "şu"), ("ve", "ile")),
+    # it/es/fr this/that — как в en, из исходной фразы не определить;
+    # es le/lo о человеке (leísmo в Испании верно); cs — краткие и полные
+    # формы местоимений, как в pl
+    "it": (("questo", "quello"), ("questa", "quella"), ("questi", "quelli"),
+           ("queste", "quelle")),
+    "es": (("este", "ese"), ("esta", "esa"), ("estos", "esos"),
+           ("estas", "esas"), ("le", "lo")),
+    "fr": (("ça", "cela"),),
+    "cs": (("mě", "mne"), ("tě", "tebe"), ("mi", "mně"), ("ti", "tobě"),
+           ("ho", "jeho"), ("mu", "jemu"), ("moje", "má")),
 }
 
 # Слова, у которых регистр — часть написания, а не место в предложении:

@@ -50,7 +50,15 @@ from app.config import settings  # noqa: E402
 THOUSANDS = re.compile(r"(?<=\d)[.,  ](?=\d\d\d\b)")
 NUM = re.compile(r"\d+")
 
-LANGS = ("en", "ru", "uk", "tr", "pl")
+LANGS = ("en", "ru", "uk", "tr", "pl", "it", "es", "fr", "cs")
+
+# Законные расхождения — точечно, по языку и строке, а не по числу.
+LEGIT = {
+    # «Ich bin in der 5. Klasse» (1589): CM2 — пятый год школы во Франции
+    # (CP, CE1, CE2, CM1, CM2). Буквальное «classe de cinquième» — это
+    # седьмой год, то есть ДРУГОЙ класс. Решение спорное: см. отчёт.
+    ("fr", "2", "Je suis en classe de CM2"),
+}
 
 
 def numbers(value: str | None) -> list[str]:
@@ -74,6 +82,12 @@ def mismatches(de: str, others: dict[str, str | None]) -> list[tuple]:
             # двенадцатичасовые часы: 15 Uhr -> 3 pm
             if any(str(int(d) - 12) == g or str(int(d) + 12) == g
                    for d in de_nums if len(d) <= 2):
+                continue
+            # десятилетие двумя цифрами: «aus den 1960ern» → cs «ze 60. let»
+            if any(len(d) == 4 and d.endswith("0") and d[2:] == g
+                   for d in de_nums):
+                continue
+            if (lang, g, val) in LEGIT:
                 continue
             out.append((lang, g, val))
     return out
@@ -114,8 +128,8 @@ def main() -> None:
     engine = create_engine(settings.DATABASE_URL_SYNC)
     with engine.connect() as conn:
         rows = conn.execute(text(
-            "SELECT id, word_de, example_de, example_en, example_ru, "
-            "example_uk, example_tr, example_pl FROM words "
+            "SELECT id, word_de, example_de, "
+            + ", ".join(f"example_{lang}" for lang in LANGS) + " FROM words "
             "WHERE example_de IS NOT NULL ORDER BY id")).all()
 
     withnum, found = 0, []

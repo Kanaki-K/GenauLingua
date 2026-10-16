@@ -118,6 +118,10 @@ TEXTS = {
     "lang_tr": "Türkçe",
     "lang_de": "Deutsch",
     "lang_pl": "Polski",
+    "lang_it": "Italiano",
+    "lang_es": "Español",
+    "lang_fr": "Français",
+    "lang_cs": "Čeština",
 
     # Режимы перевода
 
@@ -355,6 +359,10 @@ TEXTS.update({
     "langname_uk": "Украинский",
     "langname_tr": "Турецкий",
     "langname_pl": "Польский",
+    "langname_it": "Итальянский",
+    "langname_es": "Испанский",
+    "langname_fr": "Французский",
+    "langname_cs": "Чешский",
     # Союз для перечисления языков в текстах помощи и приветствия
     "and_word": "и",
 

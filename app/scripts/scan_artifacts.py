@@ -24,7 +24,7 @@ from sqlalchemy import create_engine, text
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from app.config import settings  # noqa: E402
 
-LANGS = ["de", "ru", "uk", "en", "tr", "pl"]
+LANGS = ["de", "ru", "uk", "en", "tr", "pl", "it", "es", "fr", "cs"]
 CYR = re.compile(r"[а-яёіїєґ]", re.IGNORECASE)
 LAT = re.compile(r"[a-z]", re.IGNORECASE)
 
@@ -113,14 +113,16 @@ for r in rows:
         if lang in ("ru", "uk") and len(LAT.findall(ex)) > 3 and not CYR.search(ex):
             found["кириллическая колонка без кириллицы"].append(
                 (r["id"], r["word_de"], lang, ex))
-        if lang in ("en", "tr", "pl", "de") and CYR.search(ex):
+        if lang in ("en", "tr", "pl", "de", "it", "es", "fr", "cs") and CYR.search(ex):
             found["кириллица в латинской колонке"].append(
                 (r["id"], r["word_de"], lang, ex))
         # немецкие служебные слова вне немецкой колонки
         if lang != "de":
             hits = GERMAN_MARKERS.findall(ex)
             # «die» есть и в польском, «ist» нет; требуем два разных маркера
-            if len(set(h.lower() for h in hits)) >= 2 and lang in ("ru", "uk", "tr"):
+            # в it, es, fr, cs ни одно из этих слов не пишется так же
+            if len(set(h.lower() for h in hits)) >= 2 and lang in (
+                    "ru", "uk", "tr", "it", "es", "fr", "cs"):
                 found["немецкие слова в чужой колонке"].append(
                     (r["id"], r["word_de"], lang, ex))
 

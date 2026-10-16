@@ -265,8 +265,12 @@ class TestLegacyCompat:
 
 def test_interface_langs_have_locales():
     from app.locales import LOCALES
+    from app.services.language_service import LEARNABLE_LANGS
 
-    assert set(INTERFACE_LANGS) == set(LOCALES)
+    assert set(INTERFACE_LANGS) <= set(LOCALES)
+    # Локаль может быть готова раньше, чем язык открыт (it/es/fr/cs): лишней
+    # допустима только локаль закрытого языка
+    assert set(LOCALES) - set(INTERFACE_LANGS) <= set(LOCALES) - set(LEARNABLE_LANGS)
 
 
 def test_every_learnable_language_has_an_interface():

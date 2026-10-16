@@ -120,6 +120,10 @@ TEXTS = {
     "lang_tr": "Türkçe",
     "lang_de": "Deutsch",
     "lang_pl": "Polski",
+    "lang_it": "Italiano",
+    "lang_es": "Español",
+    "lang_fr": "Français",
+    "lang_cs": "Čeština",
 
     # Übersetzungsrichtungen
 
@@ -357,6 +361,10 @@ TEXTS.update({
     "langname_uk": "Ukrainisch",
     "langname_tr": "Türkisch",
     "langname_pl": "Polnisch",
+    "langname_it": "Italienisch",
+    "langname_es": "Spanisch",
+    "langname_fr": "Französisch",
+    "langname_cs": "Tschechisch",
     # Bindewort für die Aufzählung der Sprachen in Hilfe und Begrüßung
     "and_word": "und",
 

@@ -64,6 +64,13 @@ from sqlalchemy import create_engine, text
 from app.config import settings
 from app.services.language_service import _VARIANT_SPLIT_RE, fold
 
+# Для новых языков примета задаёт другой вопрос. Решать, какой ряд лишний,
+# по-прежнему не ей; но если оба ряда учат ОДНОМУ (по ru), то и перевод на
+# it, es, fr, cs должен быть общим — правило GUIDE new_langs, п. 19: «одно
+# немецкое слово — один перевод везде, если значение то же». Пара, где
+# русские списки пересекаются, а итальянские нет, — расхождение в переводе.
+NEW_LANGS = ("it", "es", "fr", "cs")
+
 
 def variants(cell: str | None) -> set[str]:
     """Значения из ячейки перевода, со снятым регистром и диакритикой."""
@@ -106,7 +113,9 @@ def main() -> None:
     with engine.connect() as conn:
         rows = conn.execute(text(
             "SELECT id, word_de, pos, level, frequency_rank, example_de, "
-            "translation_ru FROM words"
+            "translation_ru, "
+            + ", ".join(f"translation_{lang}" for lang in NEW_LANGS)
+            + " FROM words"
         )).mappings().all()
 
     by_word: dict[str, list] = defaultdict(list)
@@ -143,6 +152,21 @@ def main() -> None:
         print(f"  {word:24} {a['id']:6} [{a['level']}] / {b['id']:6} [{b['level']}]"
               f"   общих {inter} из {union}")
     print(f"\nвсего: {len(near)}")
+
+    # Новые языки: ряды учат одному (полный дубль или общие значения в ru),
+    # а списки перевода не пересекаются ни в одном значении
+    split = []
+    for word, a, b, *_ in full + teach_same:
+        for lang in NEW_LANGS:
+            ta, tb = a[f"translation_{lang}"], b[f"translation_{lang}"]
+            if ta and tb and not (variants(ta) & variants(tb)):
+                split.append((word, a, b, lang, ta, tb))
+    if any(r[f"translation_{lang}"] for r in rows for lang in NEW_LANGS):
+        print(f"\n--- it/es/fr/cs: ряды учат одному, а переводы не "
+              f"пересекаются: {len(split)} ---")
+        for word, a, b, lang, ta, tb in sorted(split, key=lambda x: (x[0], x[3])):
+            print(f"  {word:24} {a['id']:6} / {b['id']:6} {lang}: "
+                  f"{ta!r}  ~  {tb!r}")
 
 
 if __name__ == "__main__":

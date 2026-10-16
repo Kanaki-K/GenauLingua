@@ -114,6 +114,10 @@ TEXTS = {
     "lang_tr": "Türkçe",
     "lang_de": "Deutsch",
     "lang_pl": "Polski",
+    "lang_it": "Italiano",
+    "lang_es": "Español",
+    "lang_fr": "Français",
+    "lang_cs": "Čeština",
 
 
 
@@ -347,6 +351,10 @@ TEXTS.update({
     "langname_uk": "Ukraynaca",
     "langname_tr": "Türkçe",
     "langname_pl": "Lehçe",
+    "langname_it": "İtalyanca",
+    "langname_es": "İspanyolca",
+    "langname_fr": "Fransızca",
+    "langname_cs": "Çekçe",
     # Союз для перечисления языков в текстах помощи и приветствия
     "and_word": "ve",
 

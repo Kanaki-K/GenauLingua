@@ -9,6 +9,10 @@ import app.locales.en as en
 import app.locales.tr as tr
 import app.locales.de as de
 import app.locales.pl as pl
+import app.locales.it as it
+import app.locales.es as es
+import app.locales.fr as fr
+import app.locales.cs as cs
 
 # Доступные локали.
 #
@@ -24,6 +28,12 @@ LOCALES = {
     "ru": ru.TEXTS,
     "de": de.TEXTS,
     "pl": pl.TEXTS,
+    # Локали it/es/fr/cs подключены, но выбрать их нельзя, пока коды не
+    # внесены в INTERFACE_LANGS
+    "it": it.TEXTS,
+    "es": es.TEXTS,
+    "fr": fr.TEXTS,
+    "cs": cs.TEXTS,
 }
 
 # Язык по умолчанию
@@ -77,8 +87,9 @@ def _plural_index(count: int, lang: str) -> int:
         if 2 <= n % 10 <= 4 and not 12 <= n % 100 <= 14:
             return 1
         return 2
-    if lang == "pl":
-        # В польском «один» — только сама единица: 21 — уже «punktów»
+    if lang in ("pl", "cs"):
+        # В польском и чешском «один» — только сама единица: 21 — уже
+        # «punktów» / «bodů»; 2–4 — своя форма («2 body»), 5+ — третья
         if n == 1:
             return 0
         if 2 <= n % 10 <= 4 and not 12 <= n % 100 <= 14:
@@ -86,7 +97,10 @@ def _plural_index(count: int, lang: str) -> int:
         return 2
     if lang == "tr":
         return 0
-    # en, de: единственное только у единицы
+    if lang == "fr":
+        # Во французском и ноль — единственное число: «0 point», «1 point»
+        return 0 if n in (0, 1) else 1
+    # en, de, it, es: единственное только у единицы
     return 0 if n == 1 else 1
 
 

@@ -74,7 +74,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from app.config import settings  # noqa: E402
 
-LANGS = ("en", "ru", "uk", "tr", "pl")
+LANGS = ("en", "ru", "uk", "tr", "pl", "it", "es", "fr", "cs")
 
 # вдвое короче нормы своего языка И не меньше чем на 2.5 слова.
 # Второе условие нужно, чтобы короткие ряды не шумели: «Das Hemd ist
@@ -99,7 +99,8 @@ def language_norms(rows) -> dict[str, float]:
         for l in LANGS:
             if r[f"example_{l}"]:
                 acc[l].append(words(r[f"example_{l}"]) / nde)
-    return {l: statistics.median(v) for l, v in acc.items()}
+    # язык без единого примера (ещё не переведён) нормы не имеет
+    return {l: statistics.median(v) for l, v in acc.items() if v}
 
 
 def outlier(n: int, nde: int, norm: float) -> bool:
