@@ -1,10 +1,10 @@
 # Privacy Policy for GenauLingua Bot
 
-**Last updated: June 2026**
+**Last updated: 16 October 2026** (version 2.1)
 
 ## Introduction
 
-GenauLingua ("we", "our", "the bot") is a Telegram bot designed to help users learn German through interactive quizzes. We respect your privacy and are committed to protecting your personal data.
+GenauLingua ("we", "our", "the bot") is a Telegram bot that helps users learn vocabulary in six languages (German, English, Ukrainian, Russian, Polish, Turkish) through short lessons. We respect your privacy and are committed to protecting your personal data.
 
 ## Data We Collect
 
@@ -14,16 +14,34 @@ When you use GenauLingua, we automatically collect and store:
 - **Telegram User ID** (unique identifier)
 - **Username** (if public)
 - **First name** (from your Telegram profile)
-- **Interface language preference** (Russian, Ukrainian, English, or Turkish)
+- **Interface language preference** (Ukrainian, English, Turkish, German, Polish or Russian)
 
 ### Learning Data
 - **Selected difficulty level** (A1–C2)
-- **Translation mode preference** (DE↔RU, DE↔UK, DE↔EN, or DE↔TR)
-- **Quiz mode** (by level, by category, all words, or difficult words)
+- **Language pair** (the language you learn and the language you learn it from)
+- **Lesson mode** (by level, by topic, all words, or difficult words) and the games enabled
 - **Quiz statistics**: answers, correct/incorrect counts, completion dates
 - **Learning progress**: words seen, words learned, streak days
 - **Last activity date**
-- **Notification preferences**: time, days, timezone
+- **Notification preferences**: time, days, timezone, and whether you declined messages
+
+### Voice answers (the "I speak" game)
+- Your voice message is downloaded from Telegram and recognised **on our own server**; the
+  audio is processed in memory and **not stored**.
+- We store **the recognised text**, how similar it was to the word, which attempt it was and
+  how long recognition took.
+
+### Usage journal (since version 2.1)
+To understand where lessons become hard or get abandoned, we log **what kind** of action you
+took and when, for example "button: next question", "voice message", "question 3 of 15:
+listening", "skipped", "level changed A1 → A2", together with how long the bot took to
+respond. **The text of your messages is not logged.**
+
+### Messages from the bot
+For every message the bot sends on its own initiative (engagement messages, reminders) we log
+its type, when it was sent and its outcome (delivered, blocked, you came back, you tapped its
+button, you unsubscribed). About 10% of users are in a fixed control group that receives fewer
+of these messages, so we can tell whether they help.
 
 ## How We Use Your Data
 
@@ -32,8 +50,8 @@ Your data is used exclusively to:
 1. **Provide the service**: Track your learning progress and personalize quiz content
 2. **Improve learning experience**: Use SRS (Spaced Repetition System) algorithm to show words based on your performance
 3. **Display statistics**: Show your progress, streaks, and quiz history
-4. **Send reminders**: Deliver notifications at your preferred time (if enabled)
-5. **Maintain service**: Ensure the bot functions correctly
+4. **Send messages**: reminders at your preferred time (if enabled) and occasional messages after a break; you can stop them with one button ("Don't send") or in the settings
+5. **Maintain and improve the service**: ensure the bot works correctly and find where lessons are too hard (usage journal, aggregated)
 
 ## Data Storage
 
@@ -75,10 +93,12 @@ We **do not** collect:
 ## Third-Party Services
 
 GenauLingua uses:
-- **Telegram Bot API** (required for bot functionality)
-- **PostgreSQL Database** (data storage)
+- **Telegram Bot API** (required for bot functionality; voice messages and audio are delivered through Telegram)
+- **PostgreSQL and Redis** on our own server (data storage; Redis keeps the state of a lesson in progress)
+- **Speech recognition** (faster-whisper) runs **on our own server** — your voice is not sent to any speech service
+- **Microsoft Edge text-to-speech** is used to produce pronunciation clips of words and examples; only dictionary text is sent, never any data about you
 
-We do **not** use analytics, advertising, or tracking services.
+We do **not** use third-party analytics, advertising, or tracking services. The usage journal described above is kept in our own database only.
 
 ## Children's Privacy
 
