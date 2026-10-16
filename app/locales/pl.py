@@ -590,15 +590,15 @@ TEXTS.update({
     "reminder_offer_no": "Nie trzeba",
     "reminder_offer_done": "✓ Gotowe: przypomnienie przyjdzie o <b>{time}</b> ({city})\n\nGodzinę, dni i strefę czasową można dostosować",
     "reminder_offer_setup": "Ustawienia przypomnień",
-    "level_offer": "Na poziomie <b>{current}</b> błędów prawie nie ma. Przejść na <b>{following}</b>? Wszystkie postępy zostają.",
+    "level_offer": "Na poziomie <b>{current}</b> błędów prawie nie ma\n\nPrzejść na <b>{following}</b>?\n\nWszystkie postępy zostają",
     "level_offer_yes": "Tak, przejść na {following}",
     "level_offer_no": "Zostaję",
-    "level_offer_done": "Nowy poziom: <b>{following}</b>. Słowa będą trudniejsze.",
-    "level_offer_pick": "Poziom <b>{current}</b> wydaje się łatwy. Proszę wybrać, od którego poziomu kontynuować. Wszystkie postępy zostają.",
+    "level_offer_done": "Nowy poziom: <b>{following}</b>\n\nSłowa będą trudniejsze",
+    "level_offer_pick": "Poziom <b>{current}</b> wydaje się łatwy\n\nProszę wybrać, od którego poziomu kontynuować\n\nWszystkie postępy zostają",
     "level_offer_stay": "Zostaję na {current}",
-    "level_down_offer": "Na poziomie <b>{current}</b> jest na razie sporo błędów. Przejść na <b>{previous}</b>? Słowa będą łatwiejsze, wszystkie postępy zostają.",
+    "level_down_offer": "Na poziomie <b>{current}</b> jest na razie sporo błędów\n\nPrzejść na <b>{previous}</b>?\n\nSłowa będą łatwiejsze, wszystkie postępy zostają",
     "level_down_yes": "Tak, przejść na {previous}",
-    "level_down_done": "Nowy poziom: <b>{previous}</b>. Słowa będą łatwiejsze.",
+    "level_down_done": "Nowy poziom: <b>{previous}</b>\n\nSłowa będą łatwiejsze",
 })
 
 

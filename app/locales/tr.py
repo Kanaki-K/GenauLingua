@@ -582,15 +582,15 @@ TEXTS.update({
     "reminder_offer_no": "Gerek yok",
     "reminder_offer_done": "✓ Tamam: hatırlatıcı saat <b>{time}</b> ({city}) gelecek\n\nSaati, günleri ve saat dilimini ayarlayabilirsiniz",
     "reminder_offer_setup": "Hatırlatıcıları ayarla",
-    "level_offer": "<b>{current}</b> seviyesinde neredeyse hiç hata yapmıyorsunuz. <b>{following}</b> seviyesine geçelim mi? Öğrendikleriniz sizde kalır.",
+    "level_offer": "<b>{current}</b> seviyesinde neredeyse hiç hata yapmıyorsunuz\n\n<b>{following}</b> seviyesine geçelim mi?\n\nÖğrendikleriniz sizde kalır",
     "level_offer_yes": "Evet, {following} seviyesine geç",
     "level_offer_no": "Burada kalayım",
-    "level_offer_done": "Yeni seviye: <b>{following}</b>. Kelimeler artık daha zor olacak.",
-    "level_offer_pick": "<b>{current}</b> seviyesi size kolay geliyor gibi. Hangi seviyeden devam etmek istersiniz? Öğrendikleriniz sizde kalır.",
+    "level_offer_done": "Yeni seviye: <b>{following}</b>\n\nKelimeler artık daha zor olacak",
+    "level_offer_pick": "<b>{current}</b> seviyesi size kolay geliyor gibi\n\nHangi seviyeden devam etmek istersiniz?\n\nÖğrendikleriniz sizde kalır",
     "level_offer_stay": "{current} seviyesinde kalayım",
-    "level_down_offer": "<b>{current}</b> seviyesinde şimdilik hata çok. <b>{previous}</b> seviyesine geçelim mi? Kelimeler daha kolay olur, öğrendikleriniz sizde kalır.",
+    "level_down_offer": "<b>{current}</b> seviyesinde şimdilik hata çok\n\n<b>{previous}</b> seviyesine geçelim mi?\n\nKelimeler daha kolay olur, öğrendikleriniz sizde kalır",
     "level_down_yes": "Evet, {previous} seviyesine geç",
-    "level_down_done": "Yeni seviye: <b>{previous}</b>. Kelimeler artık daha kolay olacak.",
+    "level_down_done": "Yeni seviye: <b>{previous}</b>\n\nKelimeler artık daha kolay olacak",
 })
 
 

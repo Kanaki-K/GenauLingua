@@ -40,6 +40,16 @@ def upgrade() -> None:
             WHERE s.user_id = users.id) >= 7
     """)
     op.add_column("users", sa.Column("reminders_declined_at", sa.DateTime(), nullable=True))
+    # Прежние отказы — в новую отметку, иначе распорядитель счёл бы их «не
+    # включавшими» и повёл по лесенке (проверка перед выкаткой 16.10).
+    # Миграция 2.0 (d9a3f0c7e214, прод 14.10 в 20:12 UTC) включила напоминания
+    # ВСЕМ, кто был тогда в базе: у них «выключено» — значит, выключил сам
+    # или заблокировал бота. У пришедших позже «выключено» — чаще просто не
+    # включали, их не трогаем: в каждом письме лесенки есть «Не присылать»
+    op.execute("""
+        UPDATE users SET reminders_declined_at = now()
+        WHERE notifications_enabled = false AND created_at < '2026-10-14 20:12:00'
+    """)
     op.add_column("quiz_sessions", sa.Column("local_day", sa.Date(), nullable=True))
     op.create_table(
         "nudge_log",

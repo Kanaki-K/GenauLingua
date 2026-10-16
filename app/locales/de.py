@@ -594,15 +594,15 @@ TEXTS.update({
     "reminder_offer_no": "Nein, danke",
     "reminder_offer_done": "✓ Fertig: Die Erinnerung kommt um <b>{time}</b> ({city})\n\nUhrzeit, Tage und Zeitzone können Sie anpassen",
     "reminder_offer_setup": "Erinnerungen anpassen",
-    "level_offer": "Auf <b>{current}</b> machen Sie kaum noch Fehler. Weiter zu <b>{following}</b>? Alles Gelernte bleibt Ihnen erhalten.",
+    "level_offer": "Auf <b>{current}</b> machen Sie kaum noch Fehler\n\nWeiter zu <b>{following}</b>?\n\nAlles Gelernte bleibt Ihnen erhalten",
     "level_offer_yes": "Ja, weiter zu {following}",
     "level_offer_no": "Hier bleiben",
-    "level_offer_done": "Niveau <b>{following}</b>. Die Wörter werden jetzt schwerer.",
-    "level_offer_pick": "<b>{current}</b> scheint Ihnen leichtzufallen. Mit welchem Niveau möchten Sie weitermachen? Alles Gelernte bleibt Ihnen erhalten.",
+    "level_offer_done": "Niveau <b>{following}</b>\n\nDie Wörter werden jetzt schwerer",
+    "level_offer_pick": "<b>{current}</b> scheint Ihnen leichtzufallen\n\nMit welchem Niveau möchten Sie weitermachen?\n\nAlles Gelernte bleibt Ihnen erhalten",
     "level_offer_stay": "Bei {current} bleiben",
-    "level_down_offer": "Auf <b>{current}</b> gibt es noch viele Fehler. Zu <b>{previous}</b> wechseln? Die Wörter werden leichter, alles Gelernte bleibt Ihnen erhalten.",
+    "level_down_offer": "Auf <b>{current}</b> gibt es noch viele Fehler\n\nZu <b>{previous}</b> wechseln?\n\nDie Wörter werden leichter, alles Gelernte bleibt Ihnen erhalten",
     "level_down_yes": "Ja, zu {previous}",
-    "level_down_done": "Niveau <b>{previous}</b>. Die Wörter werden jetzt leichter.",
+    "level_down_done": "Niveau <b>{previous}</b>\n\nDie Wörter werden jetzt leichter",
 })
 
 

@@ -578,15 +578,15 @@ TEXTS.update({
     "reminder_offer_no": "Не треба",
     "reminder_offer_done": "✓ Готово: нагадування приходитиме о <b>{time}</b> ({city})\n\nЧас, дні та часовий пояс можна налаштувати",
     "reminder_offer_setup": "Налаштувати нагадування",
-    "level_offer": "Ви майже не помиляєтеся на рівні <b>{current}</b>. Перейти на <b>{following}</b>? Вивчене залишиться з Вами.",
+    "level_offer": "Ви майже не помиляєтеся на рівні <b>{current}</b>\n\nПерейти на <b>{following}</b>?\n\nВивчене залишиться з Вами",
     "level_offer_yes": "Так, перейти на {following}",
     "level_offer_no": "Залишитися",
-    "level_offer_done": "Рівень <b>{following}</b>. Слова будуть складніші.",
-    "level_offer_pick": "Схоже, рівень <b>{current}</b> для Вас легкий. З якого рівня продовжити? Вивчене залишиться з Вами.",
+    "level_offer_done": "Рівень <b>{following}</b>\n\nСлова будуть складніші",
+    "level_offer_pick": "Схоже, рівень <b>{current}</b> для Вас легкий\n\nЗ якого рівня продовжити?\n\nВивчене залишиться з Вами",
     "level_offer_stay": "Залишитися на {current}",
-    "level_down_offer": "На рівні <b>{current}</b> поки багато помилок. Перейти на <b>{previous}</b>? Слова будуть простіші, вивчене залишиться з Вами.",
+    "level_down_offer": "На рівні <b>{current}</b> поки багато помилок\n\nПерейти на <b>{previous}</b>?\n\nСлова будуть простіші, вивчене залишиться з Вами",
     "level_down_yes": "Так, на {previous}",
-    "level_down_done": "Рівень <b>{previous}</b>. Слова будуть простіші.",
+    "level_down_done": "Рівень <b>{previous}</b>\n\nСлова будуть простіші",
 })
 
 
