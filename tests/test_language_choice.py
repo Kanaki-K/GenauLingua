@@ -151,19 +151,35 @@ async def test_phone_language_hint(session, user, stage, phone, shown):
 # ЗАКРЫТЫЕ ЯЗЫКИ (Н2)
 # ============================================================================
 
-def test_closed_language_is_not_learnable():
-    closed = [c for c in LANGUAGES if c not in LEARNABLE_LANGS]
-    assert closed, "закрытых языков нет — тест проверяет пустоту"
-    assert not any(is_learnable(c) for c in closed)
+@pytest.fixture
+def one_closed(monkeypatch):
+    """
+    Закрыть один язык на время теста. С 16.10 открыты все десять, но
+    правило «закрытый язык не выбрать» нужно и дальше: следующий язык
+    будет добавляться так же — сперва в реестр, потом в открытые.
+    """
+    from app.services import language_service
+
+    monkeypatch.setattr(language_service, "LEARNABLE_LANGS",
+                        tuple(c for c in LEARNABLE_LANGS if c != "cs"))
+    return "cs"
 
 
-async def test_forged_tap_on_closed_language_is_refused(session, user, stage):
+def test_closed_language_is_not_learnable(one_closed):
+    assert one_closed in LANGUAGES and not is_learnable(one_closed)
+
+
+async def test_forged_tap_on_closed_language_is_refused(session, user, stage, one_closed):
     dp, bot, recorder = stage
-    closed = next(c for c in LANGUAGES if c not in LEARNABLE_LANGS)
-    await _feed(dp, bot, press(user.id, f"set_learning_{closed}"))
-    await _feed(dp, bot, press(user.id, f"onboard_learn_{closed}:ru"))
+    await _feed(dp, bot, press(user.id, f"set_learning_{one_closed}"))
+    await _feed(dp, bot, press(user.id, f"onboard_learn_{one_closed}:ru"))
     await session.refresh(user)
     assert user.learning_lang == "de"
+
+
+def test_all_ten_languages_are_open():
+    """16.10: все языки реестра выбираются и для бота, и для изучения."""
+    assert set(LEARNABLE_LANGS) == set(LANGUAGES) == set(INTERFACE_LANGS)
 
 
 # ============================================================================

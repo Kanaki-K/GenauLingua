@@ -28,8 +28,8 @@ LOCALES = {
     "ru": ru.TEXTS,
     "de": de.TEXTS,
     "pl": pl.TEXTS,
-    # Локали it/es/fr/cs подключены, но выбрать их нельзя, пока коды не
-    # внесены в INTERFACE_LANGS
+    # Итальянская, испанская, французская, чешская — с 16.10 выбираются
+    # наравне с остальными (INTERFACE_LANGS)
     "it": it.TEXTS,
     "es": es.TEXTS,
     "fr": fr.TEXTS,

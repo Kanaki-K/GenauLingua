@@ -246,7 +246,7 @@ TEXTS = {
     "praise_streak_30": "¡Un mes seguido! Ya es un hábito de verdad.",
     "praise_new_words": "Palabras nuevas: {count}",
     "praise_returned": "Reconocidas de nuevo: {count}",
-    "praise_progress": "Palabras en estudio: {count} · faltan {left} para {target}",
+    "praise_progress": "Palabras en estudio: {count} · {left} más hasta {target}",
     "praise_progress_top": "Palabras en estudio: {count}",
     "praise_points": "Puntos: +{points}",
 
@@ -336,7 +336,7 @@ Cuanto más activa la comunidad, mejor el bot. ¡Anímese a escribir! """,
     "rating_tab_alltime": "Histórico",
 
     "stats_header": "<b>Sus estadísticas</b>",
-    "stats_in_work_line": "Palabras en estudio: {count} · faltan {left} para {target}",
+    "stats_in_work_line": "Palabras en estudio: {count} · {left} más hasta {target}",
     "stats_in_work_top": "Palabras en estudio: {count}",
     "stats_details": "En estudio: {progress}\nNuevas: {new}\nDifíciles: {difficult}",
     "stats_achievements_title": "<b>Sus logros</b>",

@@ -181,7 +181,7 @@ async def run(boards: int) -> int:
             await session.execute(delete(User).where(User.id == PROBE_ID))
             await session.commit()
 
-    print(f"\nсочетаний проверено: {len(cases)} (пар 30 × 2 направления)")
+    print(f"\nсочетаний проверено: {len(cases)} (пар {len(cases) // 2} × 2 направления)")
     print(f"досок собрано: {built} из {len(cases) * boards} попыток")
     if too_thin:
         total = sum(too_thin.values())
