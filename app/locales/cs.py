@@ -100,15 +100,25 @@ TEXTS = {
     "settings_language": "Jazyk bota: <b>{language}</b>",
 
     "settings_btn_quiz_mode": "Úroveň a témata",
-    "settings_btn_change_language": "Jazyk rozhraní",
+    "settings_btn_change_language": "Jazyk bota",
     "settings_btn_notifications": "Připomínky",
 
     "settings_quiz_mode_line": "Úroveň: <b>{mode}</b>",
-
-
-    "settings_language_title": "<b>Jazyk rozhraní</b>",
-    "settings_language_description": "Vyberte jazyk rozhraní bota:",
-    "start_pick_language": "Vyberte jazyk",
+    "start_pick_language": "Vyberte svůj jazyk",
+    "onboard_your_lang": "✓ Váš jazyk: {language}",
+    "onboard_change_hint": "Změnit ho můžete kdykoli: příkaz /language.",
+    "onboard_phone_hint": "Váš Telegram je v češtině. Pokud jste jazyk zvolili omylem, klepněte na „{back}“.",
+    "lang_confirm_learning": "Učíte se: {language}",
+    "lang_progress_kept": "Pokrok v každém jazyce zůstává uložen.",
+    "btn_done": "Hotovo",
+    "btn_change_learning": "Změnit jazyk, který se učím",
+    "intro_pair": "Učíte se {learning} s překladem do {native}.",
+    "intro_menu_language": "jazyk bota",
+    "plural_languages": "jazyk|jazyky|jazyků",
+    "cmd_start": "Začátek a co bot umí",
+    "cmd_language": "Jazyk bota",
+    "cmd_settings": "Nastavení",
+    "cmd_help": "Nápověda",
 
     "language_changed": "✓ Jazyk změněn na {language}",
     "user_not_found": "✗ Profil nebyl nalezen. Pošlete prosím /start",
@@ -408,7 +418,6 @@ TEXTS.update({
     "btn_rating": "Pořadí",
     "friend_fallback": "příteli",
     "onboarding_learning_title": "<b>Jaký jazyk se budete učit?</b>",
-    "onboarding_learning_desc": "Významy se budou zobrazovat v jazyce: {native}.\nJazyk můžete kdykoli změnit v nastavení.",
 })
 
 
@@ -634,7 +643,7 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "intro_games": "Každé slovo se tu učíte v pěti hrách: přečíst ho, vybavit si ho podle významu, slyšet ho, říct ho nahlas a spojit ho do dvojice.\nKaždá lekce je pro Vás sama promíchá.",
-    "intro_numbers": "12 902 slov · 20 témat · 6 úrovní\nŠest jazyků v libovolné dvojici: klidně se učte polštinu přes angličtinu.",
+    "intro_numbers": "12 902 slov · 20 témat · 6 úrovní\n{languages} v libovolné dvojici: klidně se učte polštinu přes angličtinu.",
     "intro_menu_settings": "jazyk, hry v lekci, připomínky",
     "intro_menu_stats": "Váš pokrok",
     "intro_menu_rating": "žebříček tohoto měsíce",

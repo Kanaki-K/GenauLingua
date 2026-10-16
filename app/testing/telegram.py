@@ -332,7 +332,7 @@ def _next(kind: str) -> int:
     return _counter[kind]
 
 
-def text_update(user_id: int, text: str) -> Update:
+def text_update(user_id: int, text: str, language_code: str | None = None) -> Update:
     """Человек написал или нажал реплай-кнопку."""
     return Update(
         update_id=_next("update"),
@@ -340,7 +340,8 @@ def text_update(user_id: int, text: str) -> Update:
             message_id=_next("message"),
             date=datetime(2026, 10, 12, 12, 0, 0),
             chat=Chat(id=user_id, type="private"),
-            from_user=TgUser(id=user_id, is_bot=False, first_name="Тестовый"),
+            from_user=TgUser(id=user_id, is_bot=False, first_name="Тестовый",
+                             language_code=language_code),
             text=text,
         ),
     )
@@ -372,7 +373,8 @@ def voice_update(user_id: int, duration: int = 2) -> Update:
     )
 
 
-def press(user_id: int, data: str, message_id: int = 500) -> Update:
+def press(user_id: int, data: str, message_id: int = 500,
+          language_code: str | None = None) -> Update:
     """
     Человек нажал инлайн-кнопку.
 
@@ -385,7 +387,8 @@ def press(user_id: int, data: str, message_id: int = 500) -> Update:
         update_id=_next("update"),
         callback_query=CallbackQuery(
             id=str(_next("update")),
-            from_user=TgUser(id=user_id, is_bot=False, first_name="Тестовый"),
+            from_user=TgUser(id=user_id, is_bot=False, first_name="Тестовый",
+                             language_code=language_code),
             chat_instance="test",
             data=data,
             message=Message(

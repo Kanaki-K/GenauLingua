@@ -95,15 +95,25 @@ TEXTS = {
     "settings_language": "Bot dili: <b>{language}</b>",
 
     "settings_btn_quiz_mode": "Seviye ve konular",
-    "settings_btn_change_language": "Arayüz dili",
+    "settings_btn_change_language": "Bot dili",
     "settings_btn_notifications": "Hatırlatıcılar",
 
     "settings_quiz_mode_line": "Seviye: <b>{mode}</b>",
-
-
-    "settings_language_title": "<b>Arayüz dili</b>",
-    "settings_language_description": "Bot arayüz dilini seçin:",
-    "start_pick_language": "Dil seçin",
+    "start_pick_language": "Dilinizi seçin",
+    "onboard_your_lang": "✓ Diliniz: {language}",
+    "onboard_change_hint": "İstediğiniz zaman değiştirebilirsiniz: /language komutu.",
+    "onboard_phone_hint": "Telegram'ınız Türkçe. Dili yanlışlıkla seçtiyseniz «{back}» düğmesine basın.",
+    "lang_confirm_learning": "Öğrendiğiniz dil: {language}",
+    "lang_progress_kept": "Her dildeki ilerlemeniz korunur.",
+    "btn_done": "Tamam",
+    "btn_change_learning": "Öğrendiğim dili değiştir",
+    "intro_pair": "{native} çeviriyle {learning} öğreniyorsunuz.",
+    "intro_menu_language": "bot dili",
+    "plural_languages": "dil",
+    "cmd_start": "Başlangıç ve botun yaptıkları",
+    "cmd_language": "Bot dili",
+    "cmd_settings": "Ayarlar",
+    "cmd_help": "Yardım",
 
     "language_changed": "✓ Dil {language} olarak değiştirildi",
     "user_not_found": "✗ Kullanıcı bulunamadı. /start kullanın",
@@ -403,7 +413,6 @@ TEXTS.update({
     "btn_rating": "Sıralama",
     "friend_fallback": "arkadaş",
     "onboarding_learning_title": "<b>Hangi dili öğreneceksiniz?</b>",
-    "onboarding_learning_desc": "Kelimelerin anlamı şu dilde gösterilecek: {native}\nDili ayarlardan istediğiniz zaman değiştirebilirsiniz.",
 })
 
 
@@ -629,7 +638,7 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "intro_games": "Bir kelime burada beş oyunla öğrenilir: okumak, anlamından hatırlamak, duymak, yüksek sesle söylemek ve tahtada eşini bulmak.\nHer derste bot bunları kendisi karıştırır.",
-    "intro_numbers": "12 902 kelime · 20 konu · 6 seviye\nAltı dil, istediğiniz çiftte: dilerseniz Lehçeyi İngilizce üzerinden öğrenin.",
+    "intro_numbers": "12 902 kelime · 20 konu · 6 seviye\n{languages}, istediğiniz çiftte: dilerseniz Lehçeyi İngilizce üzerinden öğrenin.",
     "intro_menu_settings": "dil, dersteki oyunlar, hatırlatıcılar",
     "intro_menu_stats": "ilerlemeniz",
     "intro_menu_rating": "ayın sıralaması",

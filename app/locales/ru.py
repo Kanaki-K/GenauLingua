@@ -98,15 +98,25 @@ TEXTS = {
     "settings_language": "Язык бота: <b>{language}</b>",
 
     "settings_btn_quiz_mode": "Уровень и темы",
-    "settings_btn_change_language": "Язык интерфейса",
+    "settings_btn_change_language": "Язык бота",
     "settings_btn_notifications": "Напоминания",
 
     "settings_quiz_mode_line": "Уровень: <b>{mode}</b>",
-
-
-    "settings_language_title": "<b>Язык интерфейса</b>",
-    "settings_language_description": "Выберите язык интерфейса бота:",
-    "start_pick_language": "Выберите язык бота",
+    "start_pick_language": "Выберите Ваш язык",
+    "onboard_your_lang": "✓ Ваш язык: {language}",
+    "onboard_change_hint": "Сменить его можно в любое время: команда /language.",
+    "onboard_phone_hint": "Telegram у Вас на русском. Если язык выбран по ошибке, нажмите «{back}».",
+    "lang_confirm_learning": "Учите: {language}",
+    "lang_progress_kept": "Прогресс по каждому языку сохраняется.",
+    "btn_done": "Готово",
+    "btn_change_learning": "Изменить изучаемый",
+    "intro_pair": "Вы учите {learning} с переводом на {native}.",
+    "intro_menu_language": "язык бота",
+    "plural_languages": "язык|языка|языков",
+    "cmd_start": "Начало и что умеет бот",
+    "cmd_language": "Язык бота",
+    "cmd_settings": "Настройки",
+    "cmd_help": "Помощь",
 
     "language_changed": "✓ Язык изменён на {language}",
     "user_not_found": "✗ Профиль не найден. Наберите /start",
@@ -413,7 +423,6 @@ TEXTS.update({
     "btn_rating": "Рейтинг",
     "friend_fallback": "друг",
     "onboarding_learning_title": "<b>Какой язык будете учить?</b>",
-    "onboarding_learning_desc": "Значения слов будут на этом языке: {native}.\nСменить язык можно в настройках в любой момент.",
 })
 
 
@@ -643,7 +652,7 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "intro_games": "Каждое слово здесь учится в пяти играх: прочитать, вспомнить по значению, услышать, сказать вслух и найти пару на доске.\nВ занятии они чередуются сами.",
-    "intro_numbers": "12 902 слова · 20 тем · 6 уровней\nШесть языков в любой паре: учите польский на английском, если хотите.",
+    "intro_numbers": "12 902 слова · 20 тем · 6 уровней\n{languages} в любой паре: учите польский на английском, если хотите.",
     "intro_menu_settings": "язык, игры, напоминания",
     "intro_menu_stats": "Ваш прогресс",
     "intro_menu_rating": "рейтинг месяца",

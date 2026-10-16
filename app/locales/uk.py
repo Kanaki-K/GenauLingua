@@ -95,15 +95,25 @@ TEXTS = {
     "settings_language": "Мова бота: <b>{language}</b>",
 
     "settings_btn_quiz_mode": "Рівень і теми",
-    "settings_btn_change_language": "Мова інтерфейсу",
+    "settings_btn_change_language": "Мова бота",
     "settings_btn_notifications": "Нагадування",
 
     "settings_quiz_mode_line": "Рівень: <b>{mode}</b>",
-
-
-    "settings_language_title": "<b>Мова інтерфейсу</b>",
-    "settings_language_description": "Оберіть мову інтерфейсу бота:",
-    "start_pick_language": "Оберіть мову бота",
+    "start_pick_language": "Оберіть Вашу мову",
+    "onboard_your_lang": "✓ Ваша мова: {language}",
+    "onboard_change_hint": "Змінити її можна будь-коли: команда /language.",
+    "onboard_phone_hint": "Telegram у Вас українською. Якщо мову обрано помилково, натисніть «{back}».",
+    "lang_confirm_learning": "Вивчаєте: {language}",
+    "lang_progress_kept": "Прогрес по кожній мові зберігається.",
+    "btn_done": "Готово",
+    "btn_change_learning": "Змінити мову навчання",
+    "intro_pair": "Ви вивчаєте {learning} з перекладом {native}.",
+    "intro_menu_language": "мова бота",
+    "plural_languages": "мова|мови|мов",
+    "cmd_start": "Початок і що вміє бот",
+    "cmd_language": "Мова бота",
+    "cmd_settings": "Налаштування",
+    "cmd_help": "Допомога",
 
     "language_changed": "✓ Мову змінено на {language}",
     "user_not_found": "✗ Користувача не знайдено. Скористайтеся командою /start",
@@ -399,7 +409,6 @@ TEXTS.update({
     "btn_rating": "Рейтинг",
     "friend_fallback": "друже",
     "onboarding_learning_title": "<b>Яку мову вивчатимете?</b>",
-    "onboarding_learning_desc": "Значення слів показуватимуться цією мовою: {native}\nЗмінити мову можна в налаштуваннях будь-коли.",
 })
 
 
@@ -625,7 +634,7 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "intro_games": "Кожне слово тут вчать п'ятьма іграми: прочитати, згадати за значенням, почути, сказати вголос і знайти пару на дошці.\nУ занятті вони чергуються самі.",
-    "intro_numbers": "12 902 слова · 20 тем · 6 рівнів\nШість мов у будь-якій парі: вчіть польську через англійську, якщо хочете.",
+    "intro_numbers": "12 902 слова · 20 тем · 6 рівнів\n{languages} у будь-якій парі: вчіть польську через англійську, якщо хочете.",
     "intro_menu_settings": "мова, ігри, нагадування",
     "intro_menu_stats": "Ваш прогрес",
     "intro_menu_rating": "рейтинг місяця",

@@ -98,15 +98,25 @@ TEXTS = {
     "settings_language": "Idioma del bot: <b>{language}</b>",
 
     "settings_btn_quiz_mode": "Nivel y temas",
-    "settings_btn_change_language": "Idioma de la interfaz",
+    "settings_btn_change_language": "Idioma del bot",
     "settings_btn_notifications": "Recordatorios",
 
     "settings_quiz_mode_line": "Nivel: <b>{mode}</b>",
-
-
-    "settings_language_title": "<b>Idioma de la interfaz</b>",
-    "settings_language_description": "Elija el idioma de la interfaz del bot:",
-    "start_pick_language": "Elija un idioma",
+    "start_pick_language": "Elija su idioma",
+    "onboard_your_lang": "✓ Su idioma: {language}",
+    "onboard_change_hint": "Puede cambiarlo en cualquier momento: comando /language.",
+    "onboard_phone_hint": "Su Telegram está en español. Si eligió el idioma por error, pulse «{back}».",
+    "lang_confirm_learning": "Aprende: {language}",
+    "lang_progress_kept": "El progreso de cada idioma se conserva.",
+    "btn_done": "Listo",
+    "btn_change_learning": "Cambiar el idioma que aprendo",
+    "intro_pair": "Usted aprende {learning} con traducción al {native}.",
+    "intro_menu_language": "idioma del bot",
+    "plural_languages": "idioma|idiomas",
+    "cmd_start": "Inicio y qué hace el bot",
+    "cmd_language": "Idioma del bot",
+    "cmd_settings": "Ajustes",
+    "cmd_help": "Ayuda",
 
     "language_changed": "✓ Idioma cambiado a {language}",
     "user_not_found": "✗ Perfil no encontrado. Envíe /start, por favor",
@@ -406,7 +416,6 @@ TEXTS.update({
     "btn_rating": "Clasificación",
     "friend_fallback": "amigo",
     "onboarding_learning_title": "<b>¿Qué idioma va a aprender?</b>",
-    "onboarding_learning_desc": "Los significados se mostrarán en {native}.\nPuede cambiar el idioma en los ajustes en cualquier momento.",
 })
 
 
@@ -632,7 +641,7 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "intro_games": "Aquí cada palabra se aprende con cinco juegos: leerla, recordarla a partir del significado, oírla, decirla en voz alta y emparejarla en el tablero.\nCada lección los mezcla por usted.",
-    "intro_numbers": "12 902 palabras · 20 temas · 6 niveles\nSeis idiomas en cualquier combinación: puede aprender polaco a través del inglés, si quiere.",
+    "intro_numbers": "12 902 palabras · 20 temas · 6 niveles\n{languages} en cualquier combinación: puede aprender polaco a través del inglés, si quiere.",
     "intro_menu_settings": "idioma, juegos de la lección, recordatorios",
     "intro_menu_stats": "su progreso",
     "intro_menu_rating": "la clasificación del mes",

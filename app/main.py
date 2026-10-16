@@ -193,6 +193,11 @@ async def main():
     for router in all_routers():
         logger.info("   %s", router.name or type(router).__name__)
 
+    # Меню команд — из кода, на языке телефона (там и /language)
+    from app.bot.commands import setup_commands
+
+    await setup_commands(bot)
+
     scheduler = setup_scheduler(bot)
     logger.info("Планировщик запущен, работ: %d", len(scheduler.get_jobs()))
 

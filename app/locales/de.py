@@ -100,15 +100,25 @@ TEXTS = {
     "settings_language": "Bot-Sprache: <b>{language}</b>",
 
     "settings_btn_quiz_mode": "Niveau und Themen",
-    "settings_btn_change_language": "Oberflächensprache",
+    "settings_btn_change_language": "Bot-Sprache",
     "settings_btn_notifications": "Erinnerungen",
 
     "settings_quiz_mode_line": "Niveau: <b>{mode}</b>",
-
-
-    "settings_language_title": "<b>Oberflächensprache</b>",
-    "settings_language_description": "Wählen Sie die Sprache der Bot-Oberfläche:",
-    "start_pick_language": "Sprache wählen",
+    "start_pick_language": "Wählen Sie Ihre Sprache",
+    "onboard_your_lang": "✓ Ihre Sprache: {language}",
+    "onboard_change_hint": "Sie können sie jederzeit ändern: Befehl /language.",
+    "onboard_phone_hint": "Ihr Telegram ist auf Deutsch. Falls Sie die Sprache versehentlich gewählt haben, tippen Sie auf „{back}“.",
+    "lang_confirm_learning": "Sie lernen: {language}",
+    "lang_progress_kept": "Der Fortschritt bleibt für jede Sprache erhalten.",
+    "btn_done": "Fertig",
+    "btn_change_learning": "Lernsprache ändern",
+    "intro_pair": "Sie lernen {learning} mit Übersetzung ins {native}.",
+    "intro_menu_language": "Bot-Sprache",
+    "plural_languages": "Sprache|Sprachen",
+    "cmd_start": "Start und was der Bot kann",
+    "cmd_language": "Bot-Sprache",
+    "cmd_settings": "Einstellungen",
+    "cmd_help": "Hilfe",
 
     "language_changed": "✓ Sprache geändert: {language}",
     "user_not_found": "✗ Nutzer nicht gefunden. Bitte senden Sie /start.",
@@ -415,7 +425,6 @@ TEXTS.update({
     "btn_rating": "Rangliste",
     "friend_fallback": "Freund",
     "onboarding_learning_title": "<b>Welche Sprache lernen Sie?</b>",
-    "onboarding_learning_desc": "Die Bedeutungen erscheinen auf {native}.\nDie Sprache können Sie jederzeit in den Einstellungen ändern.",
 })
 
 
@@ -641,7 +650,7 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "intro_games": "Jedes Wort lernen Sie hier in fünf Spielen: lesen, aus der Bedeutung erinnern, hören, laut sagen und auf der Tafel zuordnen.\nIn der Lektion wechseln sie sich von selbst ab.",
-    "intro_numbers": "12 902 Wörter · 20 Themen · 6 Niveaus\nSechs Sprachen in jeder Kombination: Lernen Sie zum Beispiel Polnisch über Englisch.",
+    "intro_numbers": "12 902 Wörter · 20 Themen · 6 Niveaus\n{languages} in jeder Kombination: Lernen Sie zum Beispiel Polnisch über Englisch.",
     "intro_menu_settings": "Sprache, Spiele in der Lektion, Erinnerungen",
     "intro_menu_stats": "Ihr Fortschritt",
     "intro_menu_rating": "Rangliste des Monats",

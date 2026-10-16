@@ -95,15 +95,25 @@ TEXTS = {
     "settings_language": "Bot language: <b>{language}</b>",
 
     "settings_btn_quiz_mode": "Level and topics",
-    "settings_btn_change_language": "Interface language",
+    "settings_btn_change_language": "Bot language",
     "settings_btn_notifications": "Reminders",
 
     "settings_quiz_mode_line": "Level: <b>{mode}</b>",
-
-
-    "settings_language_title": "<b>Interface language</b>",
-    "settings_language_description": "Choose the bot interface language:",
-    "start_pick_language": "Choose a language",
+    "start_pick_language": "Choose your language",
+    "onboard_your_lang": "✓ Your language: {language}",
+    "onboard_change_hint": "You can change it at any time: the /language command.",
+    "onboard_phone_hint": "Your Telegram is in English. If you chose the wrong language, tap “{back}”.",
+    "lang_confirm_learning": "Learning: {language}",
+    "lang_progress_kept": "Progress is kept for each language.",
+    "btn_done": "Done",
+    "btn_change_learning": "Change the language I learn",
+    "intro_pair": "You are learning {learning} with translations into {native}.",
+    "intro_menu_language": "bot language",
+    "plural_languages": "language|languages",
+    "cmd_start": "Start and what the bot can do",
+    "cmd_language": "Bot language",
+    "cmd_settings": "Settings",
+    "cmd_help": "Help",
 
     "language_changed": "✓ Language changed to {language}",
     "user_not_found": "✗ Profile not found. Please send /start",
@@ -403,7 +413,6 @@ TEXTS.update({
     "btn_rating": "Rating",
     "friend_fallback": "friend",
     "onboarding_learning_title": "<b>Which language will you learn?</b>",
-    "onboarding_learning_desc": "Meanings will be shown in {native}.\nYou can change the language in settings at any time.",
 })
 
 
@@ -629,7 +638,7 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "intro_games": "Each word is learned through five games here: read it, recall it from the meaning, hear it, say it out loud and match it on the board.\nEach lesson mixes them for you.",
-    "intro_numbers": "12,902 words · 20 topics · 6 levels\nSix languages in any pair: learn Polish through English if you like.",
+    "intro_numbers": "12,902 words · 20 topics · 6 levels\n{languages} in any pair: learn Polish through English if you like.",
     "intro_menu_settings": "language, lesson games, reminders",
     "intro_menu_stats": "your progress",
     "intro_menu_rating": "this month's leaderboard",

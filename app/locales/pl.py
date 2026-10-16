@@ -100,15 +100,25 @@ TEXTS = {
     "settings_language": "Język bota: <b>{language}</b>",
 
     "settings_btn_quiz_mode": "Poziom i tematy",
-    "settings_btn_change_language": "Język interfejsu",
+    "settings_btn_change_language": "Język bota",
     "settings_btn_notifications": "Przypomnienia",
 
     "settings_quiz_mode_line": "Poziom: <b>{mode}</b>",
-
-
-    "settings_language_title": "<b>Język interfejsu</b>",
-    "settings_language_description": "Proszę wybrać język interfejsu bota:",
-    "start_pick_language": "Proszę wybrać język",
+    "start_pick_language": "Proszę wybrać swój język",
+    "onboard_your_lang": "✓ Wybrany język: {language}",
+    "onboard_change_hint": "Można go zmienić w każdej chwili: polecenie /language.",
+    "onboard_phone_hint": "Telegram jest ustawiony po polsku. Jeśli język wybrano przez pomyłkę, proszę nacisnąć „{back}”.",
+    "lang_confirm_learning": "Nauka: {language}",
+    "lang_progress_kept": "Postęp w każdym języku jest zachowany.",
+    "btn_done": "Gotowe",
+    "btn_change_learning": "Zmienić język nauki",
+    "intro_pair": "Nauka: {learning}, tłumaczenie na {native}.",
+    "intro_menu_language": "język bota",
+    "plural_languages": "język|języki|języków",
+    "cmd_start": "Start i co potrafi bot",
+    "cmd_language": "Język bota",
+    "cmd_settings": "Ustawienia",
+    "cmd_help": "Pomoc",
 
     "language_changed": "✓ Język zmieniony na {language}",
     "user_not_found": "✗ Nie znaleziono użytkownika. Proszę użyć /start",
@@ -411,7 +421,6 @@ TEXTS.update({
     "btn_rating": "Ranking",
     "friend_fallback": "przyjacielu",
     "onboarding_learning_title": "<b>Jakiego języka się uczyć?</b>",
-    "onboarding_learning_desc": "Znaczenia będą pokazywane w języku: {native}\nJęzyk można zmienić w ustawieniach w każdej chwili.",
 })
 
 
@@ -637,7 +646,7 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "intro_games": "Każde słowo ćwiczy się tu na kilka sposobów: przeczytać, przypomnieć sobie po znaczeniu, rozpoznać ze słuchu, powiedzieć na głos, dopasować w pary na planszy.\nLekcja sama je miesza.",
-    "intro_numbers": "12 902 słowa · 20 tematów · 6 poziomów\nSześć języków w dowolnej parze: na przykład polski przez angielski.",
+    "intro_numbers": "12 902 słowa · 20 tematów · 6 poziomów\n{languages} w dowolnej parze: na przykład polski przez angielski.",
     "intro_menu_settings": "język, gry w lekcji, przypomnienia",
     "intro_menu_stats": "postępy",
     "intro_menu_rating": "ranking miesiąca",

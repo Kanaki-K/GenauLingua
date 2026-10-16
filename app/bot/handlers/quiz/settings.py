@@ -474,9 +474,11 @@ _STATE_LINES = {
 # Изучаемый язык назван внутри направления («Немецкий → Русский»), и
 # отдельным значением он повторялся: «Немецкий, B1, Немецкий → Русский».
 # Внутри самой группы строка остаётся — там она принадлежит своей кнопке.
-_SUMMARY_SKIP = {
-    "what": ("settings_learning",),
-}
+#
+# ПРОПУСК СНЯТ (Н11, 16.10). Он остался от «Направления», которое называло
+# язык, — пункт давно убран, и верх настроек показывал «Что учу · B1» без
+# самого языка. Таблица оставлена: следующий повтор понадобится снова.
+_SUMMARY_SKIP: dict[str, tuple[str, ...]] = {}
 
 _SUMMARY_VALUES = {
     "settings_learning": lambda user, lang: language_name(
@@ -1475,30 +1477,29 @@ async def noop_handler(callback: CallbackQuery):
 
 @router.callback_query(F.data == "settings_language")
 async def change_interface_language(callback: CallbackQuery, session: AsyncSession):
+    """
+    «Язык бота» в настройках — ТОТ ЖЕ экран, что у /language и первого
+    запуска: подписи на самих языках, после выбора — подтверждение.
+
+    Прежде здесь был свой экран, подписанный на НЫНЕШНЕМ языке человека, а
+    менять язык приходит как раз тот, кто его не понимает. И сам пункт звался
+    «Язык интерфейса», а в строке состояния — «Язык бота»: два имени одной
+    вещи (Н12). Теперь — «Язык бота» везде.
+    """
+    from app.bot.handlers.start import ORIGIN_SETTINGS, change_language_screen
+
     await callback.answer()
-
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or DEFAULT_LOCALE
-
-    text = (
-        f"{get_text('settings_language_title', lang)}\n\n"
-        f"{get_text('settings_language_description', lang)}"
-    )
-
-    buttons = [
-        InlineKeyboardButton(
-            text=get_text(f"lang_{code}", lang),
-            callback_data=f"iface_lang_{code}",
-        )
-        for code in INTERFACE_LANGS
-    ]
-    keyboard = InlineKeyboardMarkup(inline_keyboard=_grid(buttons) + [_back_row(lang, _PARENT_GROUP["settings_language"])])
-
+    text, keyboard = change_language_screen(user, ORIGIN_SETTINGS)
     await callback.message.edit_text(text, reply_markup=keyboard)
 
 
 @router.callback_query(F.data.startswith("iface_lang_"))
 async def set_interface_language(callback: CallbackQuery, session: AsyncSession):
+    """
+    Прежний экран смены языка. Новых кнопок `iface_lang_` бот не рисует, но
+    в чатах они остались, и нажатие на них должно работать.
+    """
     new_lang = callback.data.removeprefix("iface_lang_")
 
     if new_lang not in INTERFACE_LANGS:

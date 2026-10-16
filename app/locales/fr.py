@@ -99,15 +99,25 @@ TEXTS = {
     "settings_language": "Langue du bot : <b>{language}</b>",
 
     "settings_btn_quiz_mode": "Niveau et thèmes",
-    "settings_btn_change_language": "Langue de l’interface",
+    "settings_btn_change_language": "Langue du bot",
     "settings_btn_notifications": "Rappels",
 
     "settings_quiz_mode_line": "Niveau : <b>{mode}</b>",
-
-
-    "settings_language_title": "<b>Langue de l’interface</b>",
-    "settings_language_description": "Choisissez la langue de l’interface du bot :",
-    "start_pick_language": "Choisissez une langue",
+    "start_pick_language": "Choisissez votre langue",
+    "onboard_your_lang": "✓ Votre langue : {language}",
+    "onboard_change_hint": "Vous pouvez la changer à tout moment : commande /language.",
+    "onboard_phone_hint": "Votre Telegram est en français. Si vous avez choisi la mauvaise langue, appuyez sur « {back} ».",
+    "lang_confirm_learning": "Vous apprenez : {language}",
+    "lang_progress_kept": "La progression de chaque langue est conservée.",
+    "btn_done": "Terminé",
+    "btn_change_learning": "Changer la langue apprise",
+    "intro_pair": "Vous apprenez {learning} avec traduction en {native}.",
+    "intro_menu_language": "langue du bot",
+    "plural_languages": "langue|langues",
+    "cmd_start": "Démarrer et ce que fait le bot",
+    "cmd_language": "Langue du bot",
+    "cmd_settings": "Réglages",
+    "cmd_help": "Aide",
 
     "language_changed": "✓ Langue changée : {language}",
     "user_not_found": "✗ Profil introuvable. Envoyez /start, s’il vous plaît",
@@ -407,7 +417,6 @@ TEXTS.update({
     "btn_rating": "Classement",
     "friend_fallback": "ami",
     "onboarding_learning_title": "<b>Quelle langue allez-vous apprendre ?</b>",
-    "onboarding_learning_desc": "Les significations seront affichées dans cette langue : {native}\nVous pouvez changer de langue à tout moment dans les réglages.",
 })
 
 
@@ -633,7 +642,7 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "intro_games": "Ici, chaque mot s’apprend à travers cinq jeux : le lire, le retrouver à partir du sens, l’entendre, le dire à voix haute et l’associer sur le plateau.\nChaque leçon les mélange pour vous.",
-    "intro_numbers": "12 902 mots · 20 thèmes · 6 niveaux\nSix langues dans n’importe quelle paire : apprenez le polonais via l’anglais, si vous voulez.",
+    "intro_numbers": "12 902 mots · 20 thèmes · 6 niveaux\n{languages} dans n’importe quelle paire : apprenez le polonais via l’anglais, si vous voulez.",
     "intro_menu_settings": "langue, jeux de la leçon, rappels",
     "intro_menu_stats": "votre progression",
     "intro_menu_rating": "le classement du mois",

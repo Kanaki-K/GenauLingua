@@ -145,14 +145,29 @@ SUPPORTED_LANGS: tuple[str, ...] = ("de", "en", "ru", "uk", "tr", "pl", "it", "e
 # (`get_language_selection_keyboard` читает её, а не свой список), и
 # перечисление языков в текстах. Один источник — потому и правится в одном
 # месте.
-INTERFACE_LANGS: tuple[str, ...] = ("uk", "en", "tr", "de", "pl", "ru")
+#
+# Порядок от 16.10 — сгруппированный: украинский первым, русский последним,
+# между ними западные языки, затем турецкий. Закрытые языки встают на свои
+# места из LANGUAGE_ORDER, когда открываются: открыть язык = добавить его код
+# в _INTERFACE_OPEN, а не искать ему место в кортеже.
+LANGUAGE_ORDER: tuple[str, ...] = ("uk", "en", "de", "pl", "cs", "es", "fr", "it", "tr", "ru")
+_INTERFACE_OPEN = {"uk", "en", "de", "pl", "tr", "ru"}
+INTERFACE_LANGS: tuple[str, ...] = tuple(c for c in LANGUAGE_ORDER if c in _INTERFACE_OPEN)
 
 DEFAULT_LEARNING_LANG = "de"
 DEFAULT_NATIVE_LANG = "ru"
 
 
 def is_learnable(code: Optional[str]) -> bool:
-    return code in LANGUAGES
+    """
+    Можно ли учить этот язык (и показывать на нём значения) — ОТКРЫТ ли он.
+
+    Прежде проверка шла по LANGUAGES, то есть по реестру. Пока в реестре
+    были одни открытые языки, разницы не было; с приходом it/es/fr/cs
+    поддельное нажатие `set_learning_it` поставило бы закрытый язык — круг
+    без звука, интерфейса и выверенных пар (Н2).
+    """
+    return code in LEARNABLE_LANGS
 
 
 def get_language(code: Optional[str]) -> Language:

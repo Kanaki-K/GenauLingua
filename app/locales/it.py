@@ -98,15 +98,25 @@ TEXTS = {
     "settings_language": "Lingua del bot: <b>{language}</b>",
 
     "settings_btn_quiz_mode": "Livello e argomenti",
-    "settings_btn_change_language": "Lingua dell'interfaccia",
+    "settings_btn_change_language": "Lingua del bot",
     "settings_btn_notifications": "Promemoria",
 
     "settings_quiz_mode_line": "Livello: <b>{mode}</b>",
-
-
-    "settings_language_title": "<b>Lingua dell'interfaccia</b>",
-    "settings_language_description": "Scelga la lingua dell'interfaccia del bot:",
-    "start_pick_language": "Scelga una lingua",
+    "start_pick_language": "Scelga la Sua lingua",
+    "onboard_your_lang": "✓ La Sua lingua: {language}",
+    "onboard_change_hint": "Può cambiarla in qualsiasi momento: comando /language.",
+    "onboard_phone_hint": "Il Suo Telegram è in italiano. Se ha scelto la lingua per errore, tocchi «{back}».",
+    "lang_confirm_learning": "Studia: {language}",
+    "lang_progress_kept": "I progressi di ogni lingua restano salvati.",
+    "btn_done": "Fatto",
+    "btn_change_learning": "Cambiare la lingua che studio",
+    "intro_pair": "Lei studia {learning} con traduzione in {native}.",
+    "intro_menu_language": "lingua del bot",
+    "plural_languages": "lingua|lingue",
+    "cmd_start": "Inizio e cosa fa il bot",
+    "cmd_language": "Lingua del bot",
+    "cmd_settings": "Impostazioni",
+    "cmd_help": "Aiuto",
 
     "language_changed": "✓ Lingua cambiata: {language}",
     "user_not_found": "✗ Profilo non trovato. Invii /start",
@@ -406,7 +416,6 @@ TEXTS.update({
     "btn_rating": "Classifica",
     "friend_fallback": "amico",
     "onboarding_learning_title": "<b>Quale lingua vuole imparare?</b>",
-    "onboarding_learning_desc": "I significati saranno mostrati in {native}.\nPuò cambiare la lingua nelle impostazioni in qualsiasi momento.",
 })
 
 
@@ -632,7 +641,7 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "intro_games": "Qui ogni parola si impara con cinque giochi: leggerla, ricordarla dal significato, sentirla, dirla ad alta voce e abbinarla sulla tavola.\nOgni lezione li mescola per lei.",
-    "intro_numbers": "12.902 parole · 20 argomenti · 6 livelli\nSei lingue in qualsiasi coppia: per esempio il polacco tramite l'inglese.",
+    "intro_numbers": "12.902 parole · 20 argomenti · 6 livelli\n{languages} in qualsiasi coppia: per esempio il polacco tramite l'inglese.",
     "intro_menu_settings": "lingua, giochi della lezione, promemoria",
     "intro_menu_stats": "i suoi progressi",
     "intro_menu_rating": "la classifica del mese",
