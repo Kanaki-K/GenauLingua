@@ -12,6 +12,10 @@
     ru-RU  1 мужской,  1 женский
     uk-UA  1 мужской,  1 женский
     tr-TR  1 мужской,  1 женский
+    it-IT  1 мужской,  2 женских (Giuseppe — многоязычный, не берётся)
+    es-ES  1 мужской,  2 женских
+    fr-FR  1 мужской,  2 женских (Remy и Vivienne — многоязычные, не берутся)
+    cs-CZ  1 мужской,  1 женский
 
 МНОГОЯЗЫЧНЫХ ГОЛОСОВ НЕТ — Серафины и Флориана (`…MultilingualNeural`).
 Такой голос сам угадывает язык каждой фразы и на немецком тексте местами
@@ -102,6 +106,25 @@ VOICES: dict[str, tuple[Voice, ...]] = {
         Voice("tr-TR-EmelNeural", "female", "Эмель"),
         Voice("tr-TR-AhmetNeural", "male", "Ахмет"),
     ),
+    "it": (
+        Voice("it-IT-ElsaNeural", "female", "Эльза"),
+        Voice("it-IT-IsabellaNeural", "female", "Изабелла"),
+        Voice("it-IT-DiegoNeural", "male", "Диего"),
+    ),
+    "es": (
+        Voice("es-ES-ElviraNeural", "female", "Эльвира"),
+        Voice("es-ES-XimenaNeural", "female", "Химена"),
+        Voice("es-ES-AlvaroNeural", "male", "Альваро"),
+    ),
+    "fr": (
+        Voice("fr-FR-DeniseNeural", "female", "Дениз"),
+        Voice("fr-FR-EloiseNeural", "female", "Элоиза"),
+        Voice("fr-FR-HenriNeural", "male", "Анри"),
+    ),
+    "cs": (
+        Voice("cs-CZ-VlastaNeural", "female", "Власта"),
+        Voice("cs-CZ-AntoninNeural", "male", "Антонин"),
+    ),
 }
 
 # Голос по умолчанию — первый в списке языка. Именно он предгенерируется:
@@ -120,6 +143,10 @@ PREVIEW_TEXT: dict[str, str] = {
     "ru": "Добрый день! Я каждый день учу новые слова.",
     "uk": "Добрий день! Я щодня вчу нові слова.",
     "tr": "İyi günler! Her gün yeni kelimeler öğreniyorum.",
+    "it": "Buongiorno! Ogni giorno imparo parole nuove.",
+    "es": "¡Buenos días! Cada día aprendo palabras nuevas.",
+    "fr": "Bonjour! J'apprends de nouveaux mots chaque jour.",
+    "cs": "Dobrý den! Každý den se učím nová slova.",
 }
 
 

@@ -33,6 +33,9 @@ from app.services.language_service import SUPPORTED_LANGS, main_meaning  # noqa:
 # Служебное в начале значения не делает слово редким: «to go», «der Hund»
 _LEADING = re.compile(r"^(to|the|a|an|der|die|das|sich)\s+", re.IGNORECASE)
 _BRACKETS = re.compile(r"\([^)]*\)")
+# Артикль it/es/fr стоит в самом переводе («la casa», «l'uomo») — снимается
+# только у этих языков, у прежних ключ слова не меняется
+_ROMANCE = re.compile(r"^(il|lo|la|i|gli|le|el|los|las|les)\s+|^l'", re.IGNORECASE)
 
 
 def _headword(text: str) -> str:
@@ -42,6 +45,8 @@ def _headword(text: str) -> str:
 
 def frequency(word: Word, lang: str) -> float:
     head = _headword(main_meaning(word, lang))
+    if lang in ("it", "es", "fr"):
+        head = _ROMANCE.sub("", head).strip()
     return zipf_frequency(head, lang) if head else 0.0
 
 

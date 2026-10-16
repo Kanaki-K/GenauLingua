@@ -55,7 +55,7 @@ logging.getLogger("sqlalchemy.engine").setLevel(logging.ERROR)
 logger = logging.getLogger("synth")
 
 # Немецкий доводится до качества первым, на нём отрабатывается схема
-ORDER = ("de", "en", "uk", "ru", "tr", "pl")
+ORDER = ("de", "en", "uk", "ru", "tr", "pl", "es", "it", "fr", "cs")
 
 # Замерено: при 16 потоках 13,9 клипа в секунду, при 8 — 10,4, при 4 — 4,7.
 # Выше 16 движок начинает отказывать, а отказы дороже выигрыша.

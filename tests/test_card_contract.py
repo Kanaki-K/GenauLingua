@@ -40,6 +40,10 @@ WORD = make_word(
     en="man, husband",
     tr="adam, erkek",
     pl="mężczyzna",
+    it="l'uomo, il marito",
+    es="el hombre, el marido",
+    fr="l'homme, le mari",
+    cs="muž, manžel",
 )
 WORD.example_de = "Der Mann arbeitet hier"
 WORD.example_ru = "Мужчина работает здесь"
@@ -47,6 +51,10 @@ WORD.example_uk = "Чоловік працює тут"
 WORD.example_en = "The man works here"
 WORD.example_tr = "Adam burada çalışıyor"
 WORD.example_pl = "Ten mężczyzna tutaj pracuje"
+WORD.example_it = "L'uomo lavora qui"
+WORD.example_es = "El hombre trabaja aquí"
+WORD.example_fr = "L'homme travaille ici"
+WORD.example_cs = "Ten muž tady pracuje"
 
 
 class TestCardHead:

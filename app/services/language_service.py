@@ -85,6 +85,43 @@ LANGUAGES: dict[str, Language] = {
         # В польских словарях глагол даётся инфинитивом без частицы,
         # существительное без артикля — снимать нечего.
     ),
+    # it, es, fr — существительное в переводе стоит с определённым артиклем
+    # («il libro», «la casa», «l'uomo»): род виден только по нему, а ученику
+    # он нужен, как немецкий der/die/das. Для схлопывания артикль снимается.
+    # Word.article — немецкий, поэтому uses_article у них False: свой артикль
+    # уже внутри перевода. Правила перевода — archive/new_langs/GUIDE.md.
+    "it": Language(
+        code="it",
+        flag="🇮🇹",
+        word_attr="translation_it",
+        example_attr="example_it",
+        uses_article=False,
+        leading_particles=("il", "lo", "la", "i", "gli", "le", "l'"),
+    ),
+    "es": Language(
+        code="es",
+        flag="🇪🇸",
+        word_attr="translation_es",
+        example_attr="example_es",
+        uses_article=False,
+        leading_particles=("el", "la", "los", "las"),
+    ),
+    "fr": Language(
+        code="fr",
+        flag="🇫🇷",
+        word_attr="translation_fr",
+        example_attr="example_fr",
+        uses_article=False,
+        leading_particles=("le", "la", "les", "l'"),
+    ),
+    "cs": Language(
+        code="cs",
+        flag="🇨🇿",
+        word_attr="translation_cs",
+        example_attr="example_cs",
+        uses_article=False,
+        # Артиклей нет; возвратное «se/si» стоит после глагола и не снимается
+    ),
 }
 
 # Языки, которые можно изучать.
@@ -96,7 +133,7 @@ LEARNABLE_LANGS: tuple[str, ...] = ("de", "en", "ru", "uk", "tr", "pl")
 
 # Языки, для которых база слов может быть заполнена — включая ещё не
 # открытые. По этому списку строятся группы слов и озвучка.
-SUPPORTED_LANGS: tuple[str, ...] = ("de", "en", "ru", "uk", "tr", "pl")
+SUPPORTED_LANGS: tuple[str, ...] = ("de", "en", "ru", "uk", "tr", "pl", "it", "es", "fr", "cs")
 
 # Языки интерфейса — локали, которые реально существуют в app/locales.
 # Немецкого интерфейса нет, поэтому список короче LEARNABLE_LANGS.
@@ -548,7 +585,8 @@ def normalize_headword(text: Optional[str], code: Optional[str]) -> str:
         # Префикс снимаем только если после него что-то осталось:
         # «to» и «the» сами по себе — полноценные слова.
         for p in particles:
-            prefix = f"{p} "
+            # Элизия пишется слитно: «l'uomo», «l'homme» — без пробела
+            prefix = p if p.endswith("'") else f"{p} "
             if s.startswith(prefix):
                 rest = s[len(prefix):].strip()
                 if rest:

@@ -1,0 +1,42 @@
+# Сомнительное из аудита (аудиторы не записали) — разобрать координатору
+
+- 12769 Kopfweh fr: «J'ai un mal de tête» → «J'ai mal à la tête»
+- 9930 Drogerie fr: «la droguerie» во Франции — хозяйственный магазин
+- 2828 Sorge es: пример «No te preocupes» без слова и без note
+- 14969 Penner cs: «bezdomovec» нейтральнее (оставить?)
+- 12375 Spielzug fr: «la combinaison» — серия ходов, не ход
+- 7614 jeglicher es: «cualquier» — словарная «cualquiera»
+- 2628 krachen it: «scricchiolare» = скрипеть
+- 11322 ignorant cs: «Je opravdu ignorantský» неестественно
+- 10624 Neid fr: «la jalousie» первым вместо «l'envie»
+- 6667 dunkel it: «fondente» четвёртым при примере про шоколад
+- 6558 Mitte: it/es/cs сменилось лицо («давай встретимся»)
+- 1886 speziell it: «specialmente per te» → «apposta per te»
+- 10293 Bewusstsein it: «perso coscienza» → «perso conoscenza»
+- 10419 paranoid cs: «vztahovačný» = обидчивый
+- 12952 Bahre it/es: «feretro/féretro» = гроб
+- 10736 überwältigend fr: «positive de manière écrasante»
+- 2237 es «La selección es enorme» → «variedad»?
+- 18913 Bedenkzeit cs пример неловкий
+- 14120 Klartext fr: пример без «franc-parler»
+- 1206 Babyartikel fr: «la puériculture» — отдел, не товары
+- 18744 rumsitzen fr: «rester assis» теряет «без дела»
+- 341 it «Vuoi una bevanda?» — «qualcosa da bere»?
+- 2196 it «Dipingo la mia camera» → «imbianco»?
+- 1535 fr «par ceci»
+- 7519 es «falló el blanco»
+- 13315 davon es «la mitad de ella», cs «polovinu z toho»
+- 7389 Tick cs «úchylka» (извращение)
+- 12327 Schwertkämpfer fr «l'épéiste»
+- 18086 Testperson fr «le sujet test»
+- 2400 emotional it: первым «emotivo», пример с «emozionante»
+- 15851 Lilie es: «la azucena» для белой лилии
+- 842 Ski: примеры с глаголом без note
+- 13223/ein и др. артикли-слова cs: «Mám jednu knihu» = «одна книга»; «Mám knihu» + note?
+- 8008 abhacken es «talar»
+- 11855 Essig cs калька «udělá salát mnohem lepším»
+- 11283 lieblich (вино) es «abocado», cs «polosladké»?
+- 11184 anflehen cs «prosit» первым — теряет мольбу (implorovat/úpěnlivě prosit)
+- 993 vorbei it: первым «davanti» (впереди) — как вариант теста неверно; первым «passato, oltre» и т.п.
+- 1589 Klasse it: «Sono in quinta classe» → «Faccio la quinta»?
+- mieten/vermieten во всех 4 языках: первое значение и пример должны различать «снимать» и «сдавать» (fr louer/donner en location, es alquilar/arrendar?, cs pronajmout si/pronajmout)

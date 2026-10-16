@@ -358,6 +358,10 @@ class Word(Base):
     translation_en: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     translation_tr: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     translation_pl: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    translation_it: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    translation_es: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    translation_fr: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    translation_cs: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
 
     # Примеры использования
     example_de: Mapped[Optional[str]] = mapped_column(Text)
@@ -366,6 +370,10 @@ class Word(Base):
     example_en: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     example_tr: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     example_pl: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    example_it: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    example_es: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    example_fr: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    example_cs: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
 
     # Старое поле categories — оставляем для обратной совместимости
     categories: Mapped[Optional[List[str]]] = mapped_column(

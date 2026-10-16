@@ -82,7 +82,8 @@ _model_lock = asyncio.Lock()
 _slots = asyncio.Semaphore(MAX_PARALLEL)
 
 # Коды языков, отличающиеся от наших двухбуквенных
-ASR_LANG = {"uk": "uk", "tr": "tr", "pl": "pl", "de": "de", "en": "en", "ru": "ru"}
+ASR_LANG = {"uk": "uk", "tr": "tr", "pl": "pl", "de": "de", "en": "en", "ru": "ru",
+            "it": "it", "es": "es", "fr": "fr", "cs": "cs"}
 
 
 @dataclass(frozen=True)

@@ -42,7 +42,7 @@ from app.database.models import Word, WordLangGroup, WordLevel  # noqa: E402
 from app.database.session import AsyncSessionLocal, engine  # noqa: E402
 from app.services.language_service import main_meaning  # noqa: E402
 
-LANGS = ("en", "pl", "tr", "ru", "uk")
+LANGS = ("en", "pl", "tr", "ru", "uk", "it", "es", "fr", "cs")
 ORDER = ["A1", "A2", "B1", "B2", "C1", "C2"]
 OXFORD = json.loads(
     (pathlib.Path(__file__).resolve().parents[1] / "data" / "oxford_cefr.json").read_text(encoding="utf-8")
@@ -50,6 +50,9 @@ OXFORD = json.loads(
 
 _LEADING = re.compile(r"^(to|the|a|an|der|die|das|sich)\s+", re.IGNORECASE)
 _BRACKETS = re.compile(r"\([^)]*\)")
+# Артикль it/es/fr стоит в самом переводе («la casa», «l'uomo») — снимается
+# только у этих языков, у прежних ключ слова не меняется
+_ROMANCE = re.compile(r"^(il|lo|la|i|gli|le|el|los|las|les)\s+|^l'", re.IGNORECASE)
 
 
 def headword(text: str) -> str:
@@ -60,6 +63,8 @@ def headword(text: str) -> str:
 
 def levels_for(words: list[Word], lang: str) -> tuple[dict[int, str], collections.Counter]:
     heads = {w.id: headword(main_meaning(w, lang)) for w in words}
+    if lang in ("it", "es", "fr"):
+        heads = {i: _ROMANCE.sub("", h).strip() for i, h in heads.items()}
     zipf = {w.id: zipf_frequency(heads[w.id], lang) if heads[w.id] else 0.0 for w in words}
     ranked = sorted(words, key=lambda w: (-zipf[w.id], w.id))
     share = collections.Counter(w.level.value for w in words)
