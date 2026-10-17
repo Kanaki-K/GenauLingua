@@ -493,19 +493,21 @@ async def flow_stats_help(rep, s):
 
 
 async def flow_leaderboard(rep, s):
-    from app.bot.handlers.leaderboard import alltime, leaderboard_table, monthly
+    from app.bot.handlers.leaderboard import leaderboard_table, monthly
 
+    # Один экран на вкладку (17.10): таблица, я под чертой, приз вкладки
     await rep.step("Рейтинг: мой", lambda: _cb(monthly.show_my_rating_callback, s, "show_my_rating"))
-    await rep.step("Рейтинг: таблица (кнопка меню)",
+    await rep.step("Рейтинг: кнопка меню",
                    lambda: _msg(monthly.show_leaderboard, s, text="🏆 Рейтинг"))
-    await rep.step("Рейтинг: месячный", lambda: _cb(monthly.switch_to_monthly, s, "rating_monthly"))
-    await rep.step("Рейтинг: за всё время", lambda: _cb(alltime.switch_to_alltime, s, "rating_alltime"))
-    await rep.step("Таблица: месяц", lambda: _cb(leaderboard_table.show_table_monthly, s, "leaderboard_table_monthly"))
-    await rep.step("Таблица: всё время", lambda: _cb(leaderboard_table.show_table_alltime, s, "leaderboard_table_alltime"))
-    await rep.step("Таблица: переключить на месяц",
-                   lambda: _cb(leaderboard_table.switch_table_to_monthly, s, "table_switch_monthly"))
-    await rep.step("Таблица: переключить на всё время",
-                   lambda: _cb(leaderboard_table.switch_table_to_alltime, s, "table_switch_alltime"))
+    await rep.step("Рейтинг: месяц", lambda: _cb(monthly.switch_to_monthly, s, "rating_monthly"))
+    await rep.step("Рейтинг: язык", lambda: _cb(monthly.switch_to_language, s, "rating_lang"))
+    await rep.step("Рейтинг: за всё время", lambda: _cb(monthly.switch_to_alltime, s, "rating_alltime"))
+    await rep.step("Рейтинг: инфо", lambda: _cb(monthly.show_rating_info, s, "rating_info:monthly"))
+    # Старые кнопки «Таблица лидеров» — на тот же экран вкладки
+    await rep.step("Старая кнопка: таблица месяца",
+                   lambda: _cb(leaderboard_table.legacy_table_monthly, s, "leaderboard_table_monthly"))
+    await rep.step("Старая кнопка: таблица всё время",
+                   lambda: _cb(leaderboard_table.legacy_table_alltime, s, "leaderboard_table_alltime"))
 
 
 async def flow_reminders(rep, s):

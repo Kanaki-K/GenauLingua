@@ -124,9 +124,6 @@ def get_leaderboard_keyboard_text(lang: str, current_tab: str,
 # Вкладка → нажатие. Литералы, а не f-строки: приёмка `verify_buttons`
 # сверяет с обработчиками именно их
 RATING_TABS = {"monthly": "rating_monthly", "alltime": "rating_alltime", "lang": "rating_lang"}
-TABLE_TABS = {"monthly": "table_monthly", "alltime": "table_alltime", "lang": "table_lang"}
-OPEN_TABLE = {"monthly": "leaderboard_table_monthly", "alltime": "leaderboard_table_alltime",
-              "lang": "leaderboard_table_lang"}
 
 
 def tabs_row(lang: str, current_tab: str, learning: str, actions: dict) -> list:

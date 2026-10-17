@@ -77,24 +77,25 @@ async def test_screens_have_three_tabs_and_the_right_tables(session):
     card = recorder.last_text()
     assert "#2" in card and "Anna" in card, card
 
-    await dp.feed_update(bot, press(BORIS, "leaderboard_table_monthly"))
+    await dp.feed_update(bot, press(BORIS, "rating_monthly"))
     month = recorder.last_text()
     assert month.index("Anna") < month.index("Boris"), month
     # Баллов в строках таблицы нет (17.10): «место · звание · имя · серия»
     assert "130" not in month
 
-    await dp.feed_update(bot, press(BORIS, "table_lang"))
+    await dp.feed_update(bot, press(BORIS, "rating_lang"))
     by_lang = recorder.last_text()
     assert "Английский" in by_lang
     assert by_lang.index("Boris") < by_lang.index("Anna"), by_lang
     assert "130" not in by_lang
-    # «Назад» из таблицы языка — на карточку языка
-    assert "rating_lang" in recorder.buttons()
+    # Старая кнопка «Таблица лидеров» ведёт на тот же экран вкладки
+    await dp.feed_update(bot, press(BORIS, "table_lang"))
+    assert recorder.last_text() == by_lang
 
     await dp.feed_update(bot, press(BORIS, "rating_lang"))
     assert "Английский" in recorder.last_text()
-    assert "leaderboard_table_lang" in recorder.buttons()
+    assert "rating_info:lang" in recorder.buttons()
 
-    await dp.feed_update(bot, press(BORIS, "table_alltime"))
+    await dp.feed_update(bot, press(BORIS, "rating_alltime"))
     alltime = recorder.last_text()
     assert alltime.index("Anna") < alltime.index("Boris"), alltime

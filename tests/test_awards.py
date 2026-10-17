@@ -153,11 +153,11 @@ def test_the_leaderboard_shows_medals_instead_of_numbers():
     обилие эмодзи, которые ещё не ясно что значат»). Медали — в карточке
     «За всё время» и в коллекции.
     """
-    from app.bot.handlers.leaderboard.leaderboard_table import build_alltime_table
+    from app.bot.handlers.leaderboard.leaderboard_table import _rows
 
     rows = [{"user_id": i, "rank": i, "display_name": f"N{i}", "lifetime_score": 100 - i}
             for i in range(1, 5)]
-    text = build_alltime_table(rows, {"rank": 1, "total_users": 4}, 1, "ru")
+    text = "\n".join(_rows(rows, 1, None, None)[0])
     assert "1. <b>N1</b>" in text and "4. N4" in text, text
     for medal in ("🥇", "🥈", "🥉"):
         assert medal not in text, text

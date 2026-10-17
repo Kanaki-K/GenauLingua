@@ -132,24 +132,39 @@ async def test_three_cards_and_info(session):
     dp = make_dispatcher(session)
     await reset_state(dp)
 
+    # ОДИН ЭКРАН НА ВКЛАДКУ (17.10): таблица, под чертой — я, и мой приз
     await dp.feed_update(bot, press(12, "rating_monthly"))
     month = recorder.last_text()
-    assert get_text("card_above", "ru", name="Anna", gap="100 баллов") in month, month
-    assert get_text("card_below", "ru", name="Clara", gap="100 баллов") in month
+    assert "1. Anna" in month and "2. <b>Boris</b>" in month and "3. Clara" in month, month
+    assert get_text("rating_you", "ru", rank=2, total=3, points="200 баллов") in month
     # У Бориса два занятия — медали не будет, и это сказано
     assert get_text("card_medal_need", "ru", need=3, have=2) in month
     assert recorder.button_texts()[0] == "✓ Месяц"
 
+    # Под таблицей: строка «Вы», строка приза, тихая строка — и только
+    tail = month.split("\n\n")[-1].split("\n")
+    assert len(tail) <= 3, tail
+
+    # У Анны 5 занятий: она на золоте, и видно отрыв от второго
+    await dp.feed_update(bot, press(11, "rating_monthly"))
+    leader = recorder.last_text()
+    lead = get_text("rating_lead", "ru", name="Boris", gap="100 баллов")
+    assert f"🥇 · {lead}" in leader, leader
+    # Клара третья с 4 занятиями: на бронзе, до серебра 100
+    await dp.feed_update(bot, press(13, "rating_monthly"))
+    third = recorder.last_text()
+    to_silver = get_text("rating_to_medal", "ru", medal="🥈", gap="100 баллов")
+    assert f"🥉 · {to_silver}" in third, third
+
     await dp.feed_update(bot, press(12, "rating_lang"))
     lang_card = recorder.last_text()
-    assert get_text("card_crown_nobody", "ru") in lang_card
-    assert get_text("card_to_leader", "ru", gap="100 баллов") in lang_card
     # В языке трое, но с 3+ занятиями только двое: корона не разыгрывается
     assert get_text("card_crown_small", "ru") in lang_card
 
     await dp.feed_update(bot, press(12, "rating_alltime"))
     alltime = recorder.last_text()
-    assert get_text("card_title_none", "ru", mark="🌱") in alltime
+    assert get_text("rating_title_first", "ru") in alltime
+    assert "🥉 0" not in alltime
     assert "rating_info:alltime" in recorder.buttons()
 
     await dp.feed_update(bot, press(12, "rating_info:alltime"))
@@ -158,18 +173,20 @@ async def test_three_cards_and_info(session):
 
 
 async def test_crown_is_worn_in_the_table_with_a_hint(session):
-    from app.bot.handlers.leaderboard.leaderboard_table import build_monthly_table
+    from app.bot.handlers.leaderboard.leaderboard_table import _rows
+    from app.bot.handlers.leaderboard.monthly import month_screen
 
-    season = await get_or_create_current_season(session)
     rows = [{"user_id": 1, "rank": 1, "display_name": "Olga"},
             {"user_id": 2, "rank": 2, "display_name": "Ivan"}]
     ranks = {1: Standing(user_id=1, crown_lang="de"), 2: Standing(user_id=2)}
-    text = build_monthly_table(rows, {"rank": 2, "total_users": 2}, season, 2, "ru",
-                               ranks=ranks)
-    assert "1. Olga 👑\n" in text and "2. <b>Ivan</b>\n" in text
-    assert get_text("table_crown_hint", "ru") in text
-    plain = build_monthly_table(rows, None, season, 2, "ru", ranks={})
-    assert get_text("table_crown_hint", "ru") not in plain
+    lines, me_in, crown = _rows(rows, 2, None, ranks)
+    assert lines == ["1. Olga 👑", "2. <b>Ivan</b>"] and me_in and crown
+    assert _rows(rows, 2, None, {})[2] is False
+
+    # Подпись к 👑 — в «Инфо», а не на каждом экране (владелец: «наляписто»)
+    from app.bot.handlers.leaderboard.monthly import info_text
+
+    assert "👑" in info_text("ru")
 
 
 # ---------------------------------------------------------------------------
@@ -305,12 +322,12 @@ async def test_place_up_line_and_overtaken_mark(session):
 
 NEW_KEYS = [
     "title_sprout", "title_tree", "title_moon", "title_planet", "title_sun", "title_galaxy",
-    "btn_rating_info", "card_place", "card_above", "card_below", "card_top", "card_month_line",
-    "card_days_left", "card_medal_need", "card_title", "card_title_next", "card_title_secret",
-    "card_title_none", "card_medals", "card_crowns", "card_crown_holder", "card_crown_nobody",
-    "card_to_leader", "card_you_lead", "card_crown_rule", "card_crown_small", "table_crown_hint",
-    "hall_title", "hall_line", "info_title", "info_month", "info_alltime", "info_lang",
-    "info_titles", "info_streak", "summary_place", "summary_gap", "summary_record",
+    "btn_rating_info", "card_medal_need", "card_crown_small",
+    "rating_screen_title", "rating_screen_title_alltime", "rating_you", "rating_to_medal",
+    "rating_lead", "rating_results_in", "rating_crown_race", "rating_crown_lead",
+    "rating_title_line", "rating_title_top", "rating_title_first", "rating_hall",
+    "info_title", "info_month", "info_alltime", "info_lang", "info_signs",
+    "summary_place", "summary_gap", "summary_record",
     "collection_title", "collection_locked", "award_month_header", "award_crown",
     "award_glory", "award_new_title", "nd_overtaken", "nd_finish",
 ] + [f"ach_{a.key}" for a in ACHIEVEMENTS]
@@ -347,8 +364,7 @@ async def test_every_rating_screen_reads_right_in_every_language(session, lang):
     bot, recorder = make_bot()
     dp = make_dispatcher(session)
     await reset_state(dp)
-    for data in ("rating_monthly", "rating_lang", "rating_alltime", "rating_info:monthly",
-                 "leaderboard_table_monthly", "table_lang", "table_alltime"):
+    for data in ("rating_monthly", "rating_lang", "rating_alltime", "rating_info:monthly"):
         await dp.feed_update(bot, press(22, data))
         if data.startswith("rating_") and ":" not in data:
             tabs = recorder.button_texts()[:3]
@@ -361,7 +377,7 @@ async def test_every_rating_screen_reads_right_in_every_language(session, lang):
                                                                "monthly_score": 95}}, lang))
     texts.append(_text("finish", {"mine": mine, "days": 2,
                                   "third": {"monthly_score": 120}}, lang))
-    assert len(texts) >= 9
+    assert len(texts) >= 7
     for text in texts:
         assert "[MISSING" not in text and "[ERROR" not in text, (lang, text)
         if lang not in ("ru", "uk"):

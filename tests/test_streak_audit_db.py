@@ -113,7 +113,7 @@ async def test_admin_finished_never_exceeds_started_across_midnight(session, use
 
 
 async def test_fire_only_for_live_streak_and_name_escaped(session):
-    from app.bot.handlers.leaderboard.leaderboard_table import build_monthly_table, streaks_of
+    from app.bot.handlers.leaderboard.leaderboard_table import _rows, streaks_of
     from app.services.streak_service import user_today
 
     probe = User(id=1, timezone="Europe/Berlin")
@@ -133,8 +133,7 @@ async def test_fire_only_for_live_streak_and_name_escaped(session):
         for i, p in enumerate([gone, alive, tag])
     ]
     streaks = await streaks_of(session, board)
-    text = build_monthly_table(board, None, SimpleNamespace(month=10, year=2026), 3002, "ru",
-                               streaks=streaks)
+    text = "\n".join(_rows(board, 3002, streaks, None)[0])
     print(text)
     assert "Gone 🔥" not in text
     # С 17.10 полужирное — только имя; серия — знак строки игрока

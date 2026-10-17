@@ -693,14 +693,14 @@ def test_the_table_shows_name_and_points_without_titles():
     «DYET ученик — 812 баллов»: звание по словам читалось как часть имени.
     Владелец, 14.10: «убрать длинные дуратские названия».
     """
-    from app.bot.handlers.leaderboard.leaderboard_table import build_alltime_table
+    from app.bot.handlers.leaderboard.leaderboard_table import _rows
 
     rows = [
         {"user_id": i, "rank": i, "display_name": f"Name{i}", "lifetime_score": 1000 - i,
          "words_learned": 2500, "win_streak": {}}
         for i in range(1, 8)
     ]
-    text = build_alltime_table(rows, None, 999, "ru")
+    text = "\n".join(_rows(rows, 999, None, None)[0]) + "\n"
     for word in ("ученик", "эксперт", "профессор", "полиглот"):
         assert word not in text, text
     # С 17.10 баллов в строке нет: «место · звание · имя · серия»

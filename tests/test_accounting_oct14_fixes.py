@@ -117,19 +117,19 @@ async def test_points_without_a_lesson_are_not_a_place(session):
 
 async def test_card_names_the_points_already_credited(session):
     """Карточка не делает вид, что баллов нет: «200 начислены, пройдите занятие»."""
-    from app.bot.handlers.leaderboard.monthly import _monthly_card
+    from app.bot.handlers.leaderboard.monthly import month_screen
     from app.locales import get_text
 
     season = await _month(session)
     lonely = await session.get(User, 1)
     empty = await session.get(User, 5)
 
-    card = await _monthly_card(lonely, session, season, "ru")
+    card = await month_screen(lonely, session, season, "ru")
     assert get_text("rating_join_by_lesson", "ru", score=200) in card, card
     assert get_text("rating_start_quiz", "ru") not in card
 
     # Пустой ряд (0 баллов) — прежний зов на первое занятие
-    card = await _monthly_card(empty, session, season, "ru")
+    card = await month_screen(empty, session, season, "ru")
     assert get_text("rating_start_quiz", "ru") in card, card
 
 
