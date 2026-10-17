@@ -33,6 +33,13 @@ logger = logging.getLogger(__name__)
 # том, что они в одной колонке, обязательно.
 REPEAT_QUIZ_MODE = "error_repeat"
 
+# «ВСЕ ЯЗЫКИ» вместо кода языка (владелец, 17.10): «за месяц со всеми, за всё
+# время со всеми и язык — с теми, кто учит тоже английский». Месяц и всё
+# время теперь общие, по языку — отдельная вкладка. Баллы человека по
+# разным языкам складываются. Награды месяца по-прежнему выдаются по языкам
+# (`finalize_season`) — их и показывает вкладка языка
+ALL_LANGS = "*"
+
 
 def scored_sessions_filter():
     """
@@ -526,6 +533,9 @@ async def get_monthly_leaderboard(
             return []
         season_id = season.id
 
+    if learning_lang == ALL_LANGS:
+        return await _monthly_leaderboard_all(session, season_id, limit)
+
     result = await session.execute(
         select(MonthlyStats, User)
         .join(User, MonthlyStats.user_id == User.id)
@@ -643,6 +653,9 @@ async def get_user_monthly_rank(
     if learning_lang is None:
         learning_lang = await _user_learning_lang(user_id, session)
 
+    if learning_lang == ALL_LANGS:
+        return await _user_monthly_rank_all(user_id, session, season_id)
+
     # Стата пользователя. Ряд без занятий (одни баллы за жалобы) в
     # рейтинге месяца не стоит — `ranked_in_month`; карточка тогда говорит
     # «Вы ещё не в рейтинге / пройдите занятие», как и тому, у кого ряда нет
@@ -691,6 +704,93 @@ async def get_user_monthly_rank(
         'monthly_streak': stat.monthly_streak,
         'monthly_avg_percent': stat.monthly_avg_percent,
         'monthly_reverse': stat.monthly_reverse,
+    }
+
+
+def _month_totals_all(season_id: int):
+    """
+    Подзапрос: месяц человека по ВСЕМ языкам — сумма его рядов.
+
+    Ряд входит, только если сам стоит в рейтинге (`ranked_in_month`): баллы
+    за жалобы без занятий не вводят и в общий месяц. Средний процент —
+    взвешенный по занятиям, серия — лучшая из языков (дни общие).
+    """
+    quizzes = func.coalesce(MonthlyStats.monthly_quizzes, 0)
+    return (
+        select(
+            MonthlyStats.user_id.label("user_id"),
+            func.sum(MonthlyStats.monthly_score).label("score"),
+            func.sum(quizzes).label("quizzes"),
+            func.sum(func.coalesce(MonthlyStats.monthly_words, 0)).label("words"),
+            func.sum(func.coalesce(MonthlyStats.monthly_reverse, 0)).label("reverse"),
+            func.max(func.coalesce(MonthlyStats.monthly_streak, 0)).label("streak"),
+            (func.sum(func.coalesce(MonthlyStats.monthly_avg_percent, 0) * quizzes)
+             / func.nullif(func.sum(quizzes), 0)).label("avg_percent"),
+        )
+        .where(MonthlyStats.season_id == season_id, ranked_in_month())
+        .group_by(MonthlyStats.user_id)
+        .subquery()
+    )
+
+
+async def _monthly_leaderboard_all(session: AsyncSession, season_id: int,
+                                   limit: int) -> List[Dict]:
+    """Таблица месяца по всем языкам; место — «1 + сколько набрали больше»."""
+    totals = _month_totals_all(season_id)
+    rows = (await session.execute(
+        select(User, totals)
+        .join(totals, totals.c.user_id == User.id)
+        .order_by(totals.c.score.desc(), User.id)
+        .limit(limit)
+    )).all()
+
+    leaderboard = []
+    rank, prev = 0, None
+    for position, row in enumerate(rows, 1):
+        user = row[0]
+        score = int(row.score or 0)
+        if score != prev:
+            rank, prev = position, score
+        leaderboard.append({
+            'rank': rank,
+            'user_id': user.id,
+            'username': user.username,
+            'display_name': user.display_name,
+            'monthly_score': score,
+            'monthly_streak': int(row.streak or 0),
+            'monthly_quizzes': int(row.quizzes or 0),
+            'monthly_words': int(row.words or 0),
+            'monthly_reverse': int(row.reverse or 0),
+            'monthly_avg_percent': int(round(float(row.avg_percent or 0))),
+        })
+    return leaderboard
+
+
+async def _user_monthly_rank_all(user_id: int, session: AsyncSession,
+                                 season_id: int) -> Optional[Dict]:
+    """Карточка месяца по всем языкам — тем же расчётом, что таблица."""
+    totals = _month_totals_all(season_id)
+    mine = (await session.execute(
+        select(totals).where(totals.c.user_id == user_id)
+    )).first()
+    if mine is None:
+        return None
+    score = int(mine.score or 0)
+    total_users = int((await session.execute(
+        select(func.count()).select_from(totals))).scalar() or 0)
+    higher = int((await session.execute(
+        select(func.count()).select_from(totals).where(totals.c.score > score)
+    )).scalar() or 0)
+    return {
+        'rank': higher + 1,
+        'total_users': total_users,
+        'learning_lang': ALL_LANGS,
+        'monthly_score': score,
+        'monthly_quizzes': int(mine.quizzes or 0),
+        'monthly_words': int(mine.words or 0),
+        'monthly_streak': int(mine.streak or 0),
+        'monthly_avg_percent': int(round(float(mine.avg_percent or 0))),
+        'monthly_reverse': int(mine.reverse or 0),
     }
 
 
@@ -946,6 +1046,11 @@ async def update_win_streak(user_id: int, season_id: int, session: AsyncSession)
 # награды, победы, выученные слова, число участников — по одному
 # `learning_lang`.
 
+def _lang_is(model, learning_lang: str) -> tuple:
+    """Условие на язык; для `ALL_LANGS` — никакого: все языки сразу."""
+    return () if learning_lang == ALL_LANGS else (model.learning_lang == learning_lang,)
+
+
 def _lifetime_totals(learning_lang: str):
     """
     Подзапрос (user_id, total) — сумма за всё время по одному языку.
@@ -958,7 +1063,7 @@ def _lifetime_totals(learning_lang: str):
             MonthlyStats.user_id.label("user_id"),
             func.sum(MonthlyStats.monthly_score).label("scored"),
         )
-        .where(MonthlyStats.learning_lang == learning_lang)
+        .where(*_lang_is(MonthlyStats, learning_lang))
         .group_by(MonthlyStats.user_id)
         .subquery()
     )
@@ -967,7 +1072,7 @@ def _lifetime_totals(learning_lang: str):
             MonthlyAward.user_id.label("user_id"),
             func.sum(MonthlyAward.lifetime_bonus).label("bonus"),
         )
-        .where(MonthlyAward.learning_lang == learning_lang)
+        .where(*_lang_is(MonthlyAward, learning_lang))
         .group_by(MonthlyAward.user_id)
         .subquery()
     )
@@ -988,7 +1093,7 @@ async def _wins_by_user(session: AsyncSession, user_ids: list,
         select(MonthlyAward.user_id, func.count())
         .where(
             MonthlyAward.user_id.in_(user_ids),
-            MonthlyAward.learning_lang == learning_lang,
+            *_lang_is(MonthlyAward, learning_lang),
             MonthlyAward.award_type == "gold",
         )
         .group_by(MonthlyAward.user_id)
@@ -1011,7 +1116,7 @@ async def _learned_by_user(session: AsyncSession, user_ids: list,
         select(UserWord.user_id, func.count())
         .where(
             UserWord.user_id.in_(user_ids),
-            UserWord.learning_lang == learning_lang,
+            *_lang_is(UserWord, learning_lang),
             UserWord.learned.is_(True),
         )
         .group_by(UserWord.user_id)

@@ -89,7 +89,8 @@ def create_progress_bar(current: int, target: int, length: int = 10) -> str:
 
 
 
-def get_leaderboard_keyboard_text(lang: str, current_tab: str) -> dict:
+def get_leaderboard_keyboard_text(lang: str, current_tab: str,
+                                  learning: "str | None" = None) -> dict:
     """
     Получить тексты кнопок для клавиатуры рейтинга
 
@@ -106,17 +107,39 @@ def get_leaderboard_keyboard_text(lang: str, current_tab: str) -> dict:
     # правила», что и с надписями нижних кнопок.
     from app.locales import get_text
 
-    monthly = get_text("rating_tab_month", lang)
-    alltime = get_text("rating_tab_alltime", lang)
-    if current_tab == "monthly":
-        monthly = f"• {monthly} •"
-    else:
-        alltime = f"• {alltime} •"
-
-    return {
-        'monthly': monthly,
-        'alltime': alltime
+    # ТРИ ВКЛАДКИ (владелец, 17.10): месяц и всё время — со всеми, третья —
+    # месяц среди учащих тот же язык; подписана названием языка
+    texts = {
+        'monthly': get_text("rating_tab_month", lang),
+        'alltime': get_text("rating_tab_alltime", lang),
+        'lang': get_text(f"langname_{learning}", lang) if learning else "",
     }
+    if current_tab in texts:
+        texts[current_tab] = f"• {texts[current_tab]} •"
+    return texts
+
+
+# Вкладка → нажатие. Литералы, а не f-строки: приёмка `verify_buttons`
+# сверяет с обработчиками именно их
+RATING_TABS = {"monthly": "rating_monthly", "alltime": "rating_alltime", "lang": "rating_lang"}
+TABLE_TABS = {"monthly": "table_monthly", "alltime": "table_alltime", "lang": "table_lang"}
+OPEN_TABLE = {"monthly": "leaderboard_table_monthly", "alltime": "leaderboard_table_alltime",
+              "lang": "leaderboard_table_lang"}
+
+
+def tabs_row(lang: str, current_tab: str, learning: str, actions: dict) -> list:
+    from aiogram.types import InlineKeyboardButton
+
+    texts = get_leaderboard_keyboard_text(lang, current_tab, learning)
+    return [InlineKeyboardButton(text=texts[tab], callback_data=actions[tab])
+            for tab in ("monthly", "alltime", "lang")]
+
+
+def lang_suffix(lang: str, learning: str) -> str:
+    """Приписка к заголовку вкладки языка: « · Немецкий»."""
+    from app.locales import get_text
+
+    return f" · {get_text(f'langname_{learning}', lang)}"
 
 
 async def edit_screen(callback, text: str, reply_markup) -> None:

@@ -13,6 +13,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database.models import User
 from app.services.monthly_leaderboard_service import (
+    ALL_LANGS,
     get_monthly_leaderboard,
     get_user_monthly_rank,
     get_current_season,
@@ -20,9 +21,12 @@ from app.services.monthly_leaderboard_service import (
     get_user_lifetime_rank,
 )
 from app.bot.handlers.leaderboard.utils import (
+    RATING_TABS,
+    TABLE_TABS,
     edit_screen,
     format_month_name,
-    get_leaderboard_keyboard_text
+    lang_suffix,
+    tabs_row,
 )
 from app.locales import DEFAULT_LOCALE, get_text, plural
 from app.services.language_service import pair_from_user
@@ -30,22 +34,17 @@ from app.services.language_service import pair_from_user
 router = Router()
 
 
-def get_table_keyboard(lang: str, current_tab: str = "monthly") -> InlineKeyboardMarkup:
-    texts = get_leaderboard_keyboard_text(lang, current_tab)
+def get_table_keyboard(lang: str, current_tab: str = "monthly",
+                       learning: str = "de") -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(
         inline_keyboard=[
-            [
-                InlineKeyboardButton(text=texts['monthly'], callback_data="table_monthly"),
-                InlineKeyboardButton(text=texts['alltime'], callback_data="table_alltime")
-            ],
+            tabs_row(lang, current_tab, learning, TABLE_TABS),
             [
                 InlineKeyboardButton(
                     text=get_text("btn_back_to_rating", lang),
                     # На ТУ ЖЕ вкладку: из таблицы «за всё время» прежде
                     # возвращало на карточку месяца (аудит 14 октября)
-                    # Два литерала, а не f-строка: приёмка `verify_buttons`
-                    # сверяет с обработчиками именно литералы
-                    callback_data="rating_alltime" if current_tab == "alltime" else "rating_monthly"
+                    callback_data=RATING_TABS.get(current_tab, RATING_TABS["monthly"]),
                 )
             ]
         ]
@@ -108,10 +107,14 @@ async def streaks_of(session: AsyncSession, leaderboard: list) -> dict[int, int]
 
 
 def build_monthly_table(leaderboard: list, user_rank: dict, season, user_id: int, lang: str,
-                        streaks: Optional[dict] = None) -> str:
+                        streaks: Optional[dict] = None, learning: Optional[str] = None) -> str:
+    """`learning` — вкладка языка: заголовок с языком; без него — все люди."""
     month_name = format_month_name(season.month, lang)
 
-    text = get_text("table_title_monthly", lang, month=month_name, year=season.year) + "\n\n"
+    text = get_text("table_title_monthly", lang, month=month_name, year=season.year)
+    if learning:
+        text += lang_suffix(lang, learning)
+    text += "\n\n"
 
     if not leaderboard:
         text += get_text("table_empty", lang) + "\n"
@@ -204,7 +207,9 @@ def build_alltime_table(leaderboard: list, user_rank: dict, user_id: int, lang: 
     return text
 
 
-async def _show_monthly_table(callback: CallbackQuery, session: AsyncSession) -> None:
+async def _show_monthly_table(callback: CallbackQuery, session: AsyncSession,
+                              *, by_language: bool = False) -> None:
+    """Месяц: все люди по всем языкам или — вкладкой языка — учащие тот же."""
     await callback.answer()
     user = await session.get(User, callback.from_user.id)
     lang = user.interface_language if user else DEFAULT_LOCALE
@@ -215,32 +220,34 @@ async def _show_monthly_table(callback: CallbackQuery, session: AsyncSession) ->
         return
 
     learning = pair_from_user(user).learning
+    scope = learning if by_language else ALL_LANGS
     leaderboard = await get_monthly_leaderboard(session, season_id=season.id, limit=10,
-                                                learning_lang=learning)
+                                                learning_lang=scope)
     user_rank = await get_user_monthly_rank(user.id, session, season_id=season.id,
-                                            learning_lang=learning)
+                                            learning_lang=scope)
     text = build_monthly_table(leaderboard, user_rank, season, user.id, lang,
-                               streaks=await streaks_of(session, leaderboard))
-    await edit_screen(callback, text, get_table_keyboard(lang, "monthly"))
+                               streaks=await streaks_of(session, leaderboard),
+                               learning=learning if by_language else None)
+    await edit_screen(callback, text, get_table_keyboard(
+        lang, "lang" if by_language else "monthly", learning))
 
 
 async def _show_alltime_table(callback: CallbackQuery, session: AsyncSession) -> None:
     """
-    Таблица за всё время — по изучаемому языку человека, как таблица месяца.
+    Таблица за всё время — СО ВСЕМИ (владелец, 17.10): баллы по всем языкам.
 
-    Прежде язык сюда не передавался вовсе, и таблица была одна на всех:
-    немецкая и английская десятки вперемешку, хотя месяц их разделяет.
+    Сравнение по языку — своя вкладка (месяц среди учащих тот же язык).
     """
     await callback.answer()
     user = await session.get(User, callback.from_user.id)
     lang = user.interface_language if user else DEFAULT_LOCALE
 
-    learning = pair_from_user(user).learning
-    leaderboard = await get_lifetime_leaderboard(session, limit=10, learning_lang=learning)
-    user_rank = await get_user_lifetime_rank(user.id, session, learning_lang=learning)
+    leaderboard = await get_lifetime_leaderboard(session, limit=10, learning_lang=ALL_LANGS)
+    user_rank = await get_user_lifetime_rank(user.id, session, learning_lang=ALL_LANGS)
     text = build_alltime_table(leaderboard, user_rank, user.id, lang,
                                streaks=await streaks_of(session, leaderboard))
-    await edit_screen(callback, text, get_table_keyboard(lang, "alltime"))
+    await edit_screen(callback, text, get_table_keyboard(
+        lang, "alltime", pair_from_user(user).learning))
 
 
 # Две пары обработчиков на один экран: «Таблица лидеров» с карточки и
@@ -264,3 +271,8 @@ async def switch_table_to_monthly(callback: CallbackQuery, session: AsyncSession
 @router.callback_query(F.data == "table_alltime")
 async def switch_table_to_alltime(callback: CallbackQuery, session: AsyncSession):
     await _show_alltime_table(callback, session)
+
+
+@router.callback_query(F.data.in_({"leaderboard_table_lang", "table_lang"}))
+async def show_table_language(callback: CallbackQuery, session: AsyncSession):
+    await _show_monthly_table(callback, session, by_language=True)

@@ -33,7 +33,7 @@ from app.database.enums import CEFRLevel, QuizChannel, QuizMode
 from app.database.models import User
 from app.locales import DEFAULT_LOCALE, get_text
 from app.services.language_service import flag, pair_from_user, language_word
-from app.services.monthly_leaderboard_service import get_user_monthly_rank
+from app.services.monthly_leaderboard_service import ALL_LANGS, get_user_monthly_rank
 from app.services.streak_service import current_streak
 from app.services.quiz_service import (
     CHANNEL_UNLOCK,
@@ -199,7 +199,8 @@ async def build_home(user: User, session: AsyncSession) -> tuple[str, InlineKeyb
     streak = current_streak(user)
     if streak:
         footer.append(get_text("home_streak", lang, days=streak))
-    rank = await get_user_monthly_rank(user.id, session, learning_lang=pair.learning)
+    # Место — как на первой вкладке рейтинга: месяц со всеми (17.10)
+    rank = await get_user_monthly_rank(user.id, session, learning_lang=ALL_LANGS)
     if rank:
         footer.append(get_text("home_rank", lang, rank=rank["rank"]))
     if footer:

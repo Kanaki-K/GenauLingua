@@ -8,7 +8,7 @@ from aiogram.types import CallbackQuery
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database.models import User
-from app.services.monthly_leaderboard_service import get_user_lifetime_rank
+from app.services.monthly_leaderboard_service import ALL_LANGS, get_user_lifetime_rank
 from app.services.language_service import pair_from_user
 from app.bot.handlers.leaderboard.monthly import get_rating_keyboard
 from app.bot.handlers.leaderboard.utils import edit_screen
@@ -81,8 +81,9 @@ async def switch_to_alltime(callback: CallbackQuery, session: AsyncSession):
     user = await session.get(User, callback.from_user.id)
     lang = user.interface_language if user else DEFAULT_LOCALE
 
-    rank_info = await get_user_lifetime_rank(
-        user.id, session, learning_lang=pair_from_user(user).learning)
+    # ЗА ВСЁ ВРЕМЯ — СО ВСЕМИ (владелец, 17.10): баллы по всем языкам
+    rank_info = await get_user_lifetime_rank(user.id, session, learning_lang=ALL_LANGS)
     text = build_alltime_card(user, rank_info, lang)
 
-    await edit_screen(callback, text, get_rating_keyboard(lang, "alltime"))
+    await edit_screen(callback, text, get_rating_keyboard(
+        lang, "alltime", pair_from_user(user).learning))
