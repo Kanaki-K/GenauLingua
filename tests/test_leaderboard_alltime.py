@@ -49,7 +49,7 @@ async def _stats(session, season, rows):
     for uid, lang, score in rows:
         session.add(MonthlyStats(user_id=uid, season_id=season.id,
                                  learning_lang=lang, monthly_score=score,
-                                     monthly_quizzes=1))
+                                     monthly_quizzes=3))
     await session.commit()
 
 
@@ -67,13 +67,14 @@ class TestCurrentMonthCountsForAllTime:
         october = await create_new_season(2026, 10, session)
         await _stats(session, october, [(1, "de", 189)])
 
-        mine = await get_user_lifetime_rank(1, session, learning_lang="de")
+        # Медаль с 17.10 — за общий месяц: бонус лежит в ряду «все языки»
+        mine = await get_user_lifetime_rank(1, session, learning_lang="*")
         assert mine["lifetime_score"] == 189
         # 2: 300 за сентябрь + 100 за золото = 400, он выше
         assert mine["rank"] == 2
         assert mine["total_users"] == 2
 
-        board = await get_lifetime_leaderboard(session, learning_lang="de")
+        board = await get_lifetime_leaderboard(session, learning_lang="*")
         assert [(r["user_id"], r["lifetime_score"], r["rank"]) for r in board] == [
             (2, 400, 1), (1, 189, 2),
         ]
@@ -89,10 +90,10 @@ class TestCurrentMonthCountsForAllTime:
         await _stats(session, october, [(1, "de", 189), (2, "de", 50)])
 
         before = {r["user_id"]: r["lifetime_score"]
-                  for r in await get_lifetime_leaderboard(session, learning_lang="de")}
+                  for r in await get_lifetime_leaderboard(session, learning_lang="*")}
         await finalize_season(october.id, session)
         after = {r["user_id"]: r["lifetime_score"]
-                 for r in await get_lifetime_leaderboard(session, learning_lang="de")}
+                 for r in await get_lifetime_leaderboard(session, learning_lang="*")}
 
         assert before == {1: 189, 2: 50}
         assert after == {1: 189 + 100, 2: 50 + 50}
@@ -157,25 +158,25 @@ class TestScreensAgree:
 
     async def test_tie_gets_one_place_in_month_table_and_you_line(self, session):
         """
-        Равные баллы — равное место. Было: в таблице месяца порядковый номер
-        строки (второй и третий), а «Ты: #N» — «1 + сколько выше» (оба #2):
-        у третьего на одном экране два места.
+        Равные баллы в месяце — РАЗНЫЕ места (владелец, 17.10: «победитель
+        всегда один»), но одно и то же место на всех экранах: строка таблицы
+        и «Ты: #N» не расходятся. За всё время равные по-прежнему делят место.
         """
         october = await create_new_season(2026, 10, session)
         await _users(session, [(1, "de"), (2, "de"), (3, "de")])
         await _stats(session, october, [(1, "de", 100), (2, "de", 40), (3, "de", 40)])
 
         board = await get_monthly_leaderboard(session, october.id, learning_lang="de")
-        for uid in (2, 3):
+        for uid, place in ((2, 2), (3, 3)):
             mine = await get_user_monthly_rank(uid, session, october.id, learning_lang="de")
             row = next(r for r in board if r["user_id"] == uid)
-            assert row["rank"] == mine["rank"] == 2
+            assert row["rank"] == mine["rank"] == place
 
         lifetime = await get_lifetime_leaderboard(session, learning_lang="de")
         assert [r["rank"] for r in lifetime] == [1, 2, 2]
 
         text = build_monthly_table(board, mine, october, 3, "ru")
-        assert get_text("table_you_in_top", "ru", rank=2, total=3) in text
+        assert get_text("table_you_in_top", "ru", rank=3, total=3) in text
 
 
 class TestCardTexts:

@@ -80,7 +80,8 @@ async def test_table_card_and_close_agree_on_places(session):
 
     board = await get_monthly_leaderboard(session, season.id, learning_lang="de")
     shown = {row["user_id"]: row["rank"] for row in board}
-    assert shown == {2: 1, 3: 1, 4: 3, 6: 4}, (
+    # ПОБЕДИТЕЛЬ ОДИН (17.10): равные 100 у 2 и 3 разведены — 2 набрал раньше
+    assert shown == {2: 1, 3: 2, 4: 3, 6: 4}, (
         f"в таблице {shown}: человек без занятий не должен стоять в месяце"
     )
 
@@ -97,9 +98,14 @@ async def test_table_card_and_close_agree_on_places(session):
              (await session.execute(select(MonthlyStats))).scalars()}
     awards = {a.user_id: (a.rank, a.award_type) for a in
               (await session.execute(select(MonthlyAward))).scalars()}
-    assert {uid: stats[uid] for uid in shown} == shown, "итог разошёлся с таблицей"
-    assert stats[1] is None and stats[5] is None
-    assert awards == {2: (1, "gold"), 3: (1, "gold"), 4: (3, "bronze"), 6: (4, "top10")}
+    awards = {(a.user_id, a.rank, a.award_type, a.learning_lang) for a in
+              (await session.execute(select(MonthlyAward))).scalars()}
+    # Медали — с 3 занятий (17.10): 6 с двумя занятиями в таблице стоит, в итогах нет.
+    # У остальных место в итогах то же, что в таблице
+    assert {uid: stats[uid] for uid in (2, 3, 4)} == {2: 1, 3: 2, 4: 3}, "итог разошёлся с таблицей"
+    assert stats[1] is None and stats[5] is None and stats[6] is None
+    assert awards == {(2, 1, "gold", "*"), (3, 2, "silver", "*"), (4, 3, "bronze", "*"),
+                      (2, 1, "crown", "de")}, awards
 
 
 async def test_points_without_a_lesson_are_not_a_place(session):
