@@ -38,41 +38,48 @@
 - [x] 16 примет `scan_*` понимают новые языки (20 полей исправлено).
 - [x] `verify_quiz_channels` при открытых 10 языках (обёртка, без правки кода):
       90 пар, 4 500 вопросов, единственная находка — нет чешских клипов.
-- [!] `verify_quiz_round` даёт TEXT 900 / AUDIO 0 и на старых шести языках —
-      приёмка проходит вхолостую (разбирается).
-- [!] Чешские голоса (Vlasta, Antonin) с 16.10 ~15:00 отвечают NoAudioReceived
-      даже на «Ahoj»; соседние sk/pl работают. Готово 1 438 клипов cs.
-      Повторить `tts_synthesize --lang cs`, когда голос вернётся.
+- [x] `verify_quiz_round --full` при 10 открытых языках: 192 сочетания «ок»,
+      14 400 вопросов (AUDIO 3 527, SPEECH 2 668, BUILD 645). Приёмка шла
+      вхолостую из-за правила 2.1 «первое занятие — только карточки» —
+      подопытный теперь проходит первое занятие.
+- [x] Аудит оставшихся 2 902 рядов — аудитом покрыта вся база (12 902).
+- [x] Озвучка it/es/fr: оба голоса, не хватает 0 (по коду, не по счёту файлов).
+- [x] Распознавание it/es/fr (все клипы с примером, ASR_DEVICE=cuda):
+      it 9 551 / es 9 369 / fr 9 412; 106 несовпадений перепроверены моделью
+      medium — настоящих ошибок 0 (числа цифрами, омофоны fr, повторы).
+- [x] `tts_scan_duration` по всем 190 тыс. клипам: 6 обрубленных (1 it, 5 cs)
+      — it пересинтезирован, cs убраны (лежат в archive/new_langs/truncated/).
+- [x] Чешский (17.10 02:14): оба голоса, не хватает 0 из 20 182. Сервис
+      Microsoft по cs-CZ отвечал урывками (запрос принят, соединение рвётся,
+      код 1006) — лечится повтором; обрывы ловит `tts_scan_duration`.
+      Распознавание cs (Vlasta): 98,47%, 156 несовпадений перепроверены
+      моделью medium — ошибок озвучки 0 (слабость small на ř/ý/ě, числа).
+- [x] Взгляд носителя: 4 000 частых слов × 4 языка — 109 правок.
+- [x] Тесты: 1308 passed, 6 skipped.
+- [x] Распознавание мужских голосов: it Diego 99,60%, es Alvaro 99,82%,
+      fr Henri 99,50%, cs Antonin 97,22%. 385 несовпадений перепроверены
+      medium, чешские остатки — large-v3. Осталось 11 спорных (cs 7, es 1,
+      fr 3: омофоны phoque/à bas). Повторный синтез даёт тот же звук — файлы
+      целые, так произносит голос. Клипы для прослушивания — в
+      archive/new_langs/listen/ (не в git). Длительность всех 197 551 клипа:
+      0 обрезанных.
 
 ## Осталось — по порядку
 
-1. **Довести синтез.** Повторять, пока не останется сорвавшихся:
-   `python -m app.scripts.tts_synthesize --lang XX` (и `tts_synthesize_male`).
-   Счёт: `python -m app.scripts.tts_synthesize --stats`.
-2. **Проверка озвучки распознаванием** по всем клипам:
-   `python -m app.scripts.tts_asr_check --lang XX --all --workers 4`
-   (и `--voice` мужского). Разобрать расхождения; на пробе cs было 1/10 —
-   похоже на слабость распознавателя, проверить.
-3. **Подписи аудиокарточек** — посмотреть `app/services/audio_service.py`
-   (title/performer клипа) для новых языков; сравнить со старыми.
-4. **Интерфейс бота** `app/locales/{it,es,fr,cs}.py` — все 460 ключей
-   (`test_all_locales_have_identical_key_sets`), только на «Вы» (it Lei, es
-   usted, fr vous, cs Vy), «занятие» = lezione/lección/leçon/lekce, вид
-   уведомлений по тесту `test_every_outgoing_message_has_the_same_look`.
-5. **Множественное число** `_plural_index` (`app/locales/__init__.py`):
-   cs как pl (1 / 2–4 / 5+); fr — 0 и 1 единственное; it, es — как en.
-6. **«Собираю»** `app/services/build_service.py` — ловушки: it/es/fr артикли
-   и формы глагола, cs падежи.
-7. **Приметы `scan_*`** с языковыми списками (`scan_formality`,
-   `scan_alien_letter`, `scan_pos`, `example_number_mismatch`, `scan_artifacts`).
-8. `INTERFACE_LANGS` (порядок — решение владельца), города
-   `app/utils/timezones.py`, справка `help_how_to_use_text`.
-9. **Открытие** — коды в `LEARNABLE_LANGS`; перед этим `verify_quiz_channels`,
-   `verify_quiz_round`, полный `pytest`. Сначала на тест-бот @gentestling_bot.
-10. **Прод** (только по слову владельца): миграция → `wordbase_transfer load`
-    (НЕ дамп) → пересчёты (шаг 7 §12, `--no-remap`) → `release_snapshot
-    --compare` → клипы `tts/` по SFTP → `file_id` боевым ботом
-    (`tts_pregenerate`) — клипы тестового бота не годятся.
+1. **Решения владельца:** порядок языков в `INTERFACE_LANGS`; открыть ли
+   на тест-боте @gentestling_bot.
+2. **Тест-бот:** коды в `LEARNABLE_LANGS` и `INTERFACE_LANGS`, полный
+   `pytest`, пройти занятие на каждом новом языке руками.
+3. **Прод** (только по слову владельца): `df -h` на сервере — нужно ~2,8 ГБ
+   под mp3 новых языков (+ запас); миграция `a1c3e5f7b9d2` →
+   `wordbase_transfer load` (НЕ дамп) → пересчёты (`rebuild_word_groups
+   --langs it es fr cs --no-remap`, `fill_word_frequency`, `fill_word_levels`)
+   → `release_snapshot --compare` → клипы `tts/{it,es,fr,cs}` по SFTP →
+   `file_id` боевым ботом (`tts_pregenerate`).
+4. Механизм `new_langs_audit apply` переприменяет ВСЕ патчи по алфавиту:
+   новый патч может быть откатан старым (так было с Kompromiss и двумя
+   сленговыми примерами). Перед каждым apply — холостой прогон и сверка
+   изменённых полей с ожидаемыми (scratchpad extra.py).
 
 ## Решения владельца, ждут ответа
 
