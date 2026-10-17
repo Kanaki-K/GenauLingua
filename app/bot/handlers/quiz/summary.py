@@ -44,8 +44,7 @@ def get_results_keyboard(has_errors: bool, lang: str = "ru") -> InlineKeyboardMa
     предлагать следующее действие первой кнопкой — а не настройки.
 
     Порядок дальше: сперва ошибки (они про только что пройденное), потом
-    режим, и жалоба последней. Жалоба нужна редко и не должна стоять выше
-    того, зачем человек здесь.
+    режим. Жалоба — на разборе каждого слова, не здесь.
     """
     buttons = [[
         InlineKeyboardButton(
@@ -77,12 +76,10 @@ def get_results_keyboard(has_errors: bool, lang: str = "ru") -> InlineKeyboardMa
             callback_data=RESULT_SETTINGS,
         )
     ])
-    buttons.append([
-        InlineKeyboardButton(
-            text=get_text("quiz_btn_report_error", lang),
-            callback_data="report_translation_error",
-        )
-    ])
+    # «Сообщить об ошибке» ЗДЕСЬ БОЛЬШЕ НЕТ (17.10): жалоба переехала на
+    # разбор каждого слова (`report_inline`) — в итоге уже не вспомнить, где
+    # было не так. Обработчики списка (`report.py`) оставлены для кнопок
+    # в старых сообщениях
 
     return InlineKeyboardMarkup(inline_keyboard=buttons)
 

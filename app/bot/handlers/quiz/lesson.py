@@ -43,7 +43,7 @@ from app.bot.handlers.quiz.question import (
     _build_state,
     _question_keyboard,
     _question_text,
-    get_next_question_keyboard,
+    answer_keyboard,
 )
 from app.bot.handlers.quiz.sources import SOURCE_MENU, SOURCE_REPEAT
 from app.bot.handlers.quiz.summary import _finish_quiz
@@ -399,11 +399,12 @@ async def _record_answer(
     # На разборе звучит слово с примером: значение уже известно, и теперь
     # слышно, как слово живёт в живой речи. В вопросе примера в звуке нет —
     # там его было бы не разобрать.
+    clip = await clip_for_user(session, user, correct_word, pair.learning, KIND_FULL)
     await show_card(
         bot, chat_id, state, session,
         text=breakdown or _answer_text(correct_word, pair, lang, is_correct, channel),
-        keyboard=get_next_question_keyboard(lang),
-        clip=await clip_for_user(session, user, correct_word, pair.learning, KIND_FULL),
+        keyboard=answer_keyboard(lang, correct_word, pair, channel, heard=clip is not None),
+        clip=clip,
         word_id=correct_word.id, lang=pair.learning,
         message=card_message,
     )

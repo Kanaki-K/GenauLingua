@@ -26,7 +26,7 @@ from app.bot.handlers.quiz.lesson_state import (
     _release_answer,
     _remember_stray,
 )
-from app.bot.handlers.quiz.question import _answer_text, get_next_question_keyboard
+from app.bot.handlers.quiz.question import _answer_text, answer_keyboard
 from app.bot.states import QuizStates
 from app.core.clock import utcnow
 from app.database.enums import QuizChannel
@@ -247,7 +247,7 @@ async def _give_up(message: Message, state: FSMContext, session: AsyncSession,
     await show_card(
         message.bot, message.chat.id, state, session,
         text=f"{gave_up}\n\n{breakdown}",
-        keyboard=get_next_question_keyboard(lang),
+        keyboard=answer_keyboard(lang, correct_word, pair, channel, heard=True),
         clip=await clip_for_user(session, user, correct_word, pair.learning, KIND_FULL),
         word_id=correct_word.id, lang=pair.learning,
     )
@@ -352,7 +352,7 @@ async def skip_speech(callback: CallbackQuery, state: FSMContext, session: Async
     await show_card(
         callback.bot, callback.message.chat.id, state, session,
         text=f"{skipped}\n\n{breakdown}",
-        keyboard=get_next_question_keyboard(lang),
+        keyboard=answer_keyboard(lang, correct_word, pair, channel, heard=True),
         clip=await clip_for_user(session, user, correct_word, pair.learning, KIND_FULL),
         word_id=correct_word.id, lang=pair.learning,
         message=callback.message,

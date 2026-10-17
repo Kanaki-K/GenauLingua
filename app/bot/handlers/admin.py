@@ -1465,6 +1465,9 @@ async def _build_reports_text_and_keyboard(session: AsyncSession) -> tuple:
             func.count(
                 case((TranslationReport.kind == 'audio', 1))
             ).label('audio_count'),
+            func.count(
+                case((TranslationReport.kind == 'example', 1))
+            ).label('example_count'),
         )
         .join(TranslationReport, Word.id == TranslationReport.word_id)
         .where(TranslationReport.status == 'pending')
@@ -1534,6 +1537,7 @@ async def _build_reports_text_and_keyboard(session: AsyncSession) -> tuple:
     counts_block = admin_ui.table([
         ("Ждут решения", pending),
         ("  на перевод", by_kind.get("text", 0)),
+        ("  на пример", by_kind.get("example", 0)),
         ("  на произношение", by_kind.get("audio", 0)),
         ("Слов под жалобой", unique_words),
         ("Жаловались людей", unique_users),
@@ -1557,14 +1561,13 @@ async def _build_reports_text_and_keyboard(session: AsyncSession) -> tuple:
     if top_words:
         pairs_by_word = await _report_pairs(session, [row[0] for row in top_words])
         lines = []
-        for wid, word_de, article, level, trans_ru, trans_uk, count, audio_count in top_words:
+        for (wid, word_de, article, level, trans_ru, trans_uk, count, audio_count,
+             example_count) in top_words:
             full_word = _full_word(word_de, article)
-            # Видно, что именно править: перевод в базе или клип озвучки
-            kinds = []
-            if count - audio_count:
-                kinds.append(f"перевод {count - audio_count}")
-            if audio_count:
-                kinds.append(f"звук {audio_count}")
+            # Видно, что именно править: перевод, пример в базе или клип озвучки
+            by_word = {"text": count - audio_count - example_count,
+                       "example": example_count, "audio": audio_count}
+            kinds = [f"{REPORT_KIND_LABELS[k]} {n}" for k, n in by_word.items() if n]
             lines.append(f"{full_word} {admin_ui.DOT} {level.value} "
                          f"{admin_ui.DOT} {', '.join(kinds)}")
             # ОБЕ СТОРОНЫ ИМЕННО ТОЙ ПАРЫ, где жаловались (Н5). Прежде здесь
@@ -1575,8 +1578,7 @@ async def _build_reports_text_and_keyboard(session: AsyncSession) -> tuple:
             # Решение по слову И ВИДУ: `✓` и `✗` — из разрешённого набора.
             # Прежде кнопка была одна на слово, и принять перевод значило
             # заодно стереть озвучку, на которую жалобы никто не принимал
-            for kind, kind_count in (("text", count - audio_count),
-                                     ("audio", audio_count)):
+            for kind, kind_count in by_word.items():
                 if not kind_count:
                     continue
                 buttons.append([
@@ -1685,8 +1687,9 @@ async def _reporter_lang(report, session: AsyncSession) -> str:
 # правится в базе слов, произношение — пересборкой клипа, и это разные
 # решения. Прежде кнопка была одна на слово и решала оба вида разом: принять
 # перевод значило заодно стереть озвучку, на которую никто не жаловался
-REPORT_KINDS = ("text", "audio")
-REPORT_KIND_LABELS = {"text": "перевод", "audio": "звук"}
+REPORT_KINDS = ("text", "example", "audio")
+# «Пример» — с 17.10: жалоба с разбора ответа различает перевод и пример
+REPORT_KIND_LABELS = {"text": "перевод", "example": "пример", "audio": "звук"}
 
 
 def _parse_report_callback(data: str, prefix: str) -> tuple[int, tuple[str, ...]]:
@@ -1869,7 +1872,9 @@ async def _tell_reporter(
 
     user = await session.get(User, user_id)
     lang = (user.interface_language if user else None) or DEFAULT_LOCALE
-    key = "report_approved" if "text" in kinds else "report_approved_audio"
+    key = ("report_approved" if "text" in kinds
+           else "report_approved_example" if "example" in kinds
+           else "report_approved_audio")
     shown = (display_text(word, learning_lang) if word else "") or (
         _full_word(word.word_de, word.article) if word else "?"
     )

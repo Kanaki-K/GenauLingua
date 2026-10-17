@@ -274,6 +274,20 @@ def _build_state(question: Optional[dict], channel: QuizChannel) -> dict:
     return initial_state(question["build"], question["correct_word"].id)
 
 
+def answer_keyboard(lang: str, word: Word, pair: LanguagePair, channel: QuizChannel,
+                    *, heard: bool) -> InlineKeyboardMarkup:
+    """
+    Разбор ответа: «Далее» и жалоба на это слово (`report_inline`).
+
+    `heard` — играл ли звук на разборе. На слух и вслух звук был и в самом
+    вопросе (клип, эталон), поэтому озвучку там предлагаем всегда.
+    """
+    from app.bot.handlers.quiz.report_inline import answer_keyboard as with_report, offered
+
+    heard = heard or channel in (QuizChannel.AUDIO, QuizChannel.SPEECH)
+    return with_report(lang, word.id, offered(word, pair, heard=heard))
+
+
 def get_next_question_keyboard(lang: str = DEFAULT_LOCALE) -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(
         inline_keyboard=[
