@@ -59,7 +59,8 @@ async def test_first_screen_has_one_prompt_per_line_in_button_order(session, use
     await _feed(dp, bot, text_update(user.id, "/start"))
     text = recorder.last_text()
     lines = text.split("\n")[2:]
-    assert lines == [LOCALES[c]["start_pick_language"] for c in INTERFACE_LANGS], text
+    assert [line.split(" ", 1)[1] for line in lines] == [
+        LOCALES[c]["start_pick_language"] for c in INTERFACE_LANGS], text
     assert "·" not in text, "призывы снова склеены в ряд"
     assert [b for row in _rows(recorder) for b in row] == [
         f"select_lang_{c}" for c in INTERFACE_LANGS
@@ -226,7 +227,7 @@ async def test_settings_item_opens_the_same_screen(session, user, stage):
     buttons = recorder.buttons()
     assert "chlang_ru:s" in buttons and buttons[-1] == "settings_group_bot"
     # Подписи — на самих языках, а не на языке человека
-    assert "Українська" in recorder.button_texts()
+    assert "🇺🇦 Українська" in recorder.button_texts()
 
 
 async def test_settings_summary_names_the_learning_language(session, user):
@@ -262,3 +263,18 @@ def test_command_menu_has_language_in_every_interface_language():
         commands = {c.command: c.description for c in commands_for(lang)}
         assert "language" in commands, lang
         assert not any(d.startswith("[") for d in commands.values()), (lang, commands)
+
+
+def test_first_screen_lines_and_buttons_carry_the_same_flag():
+    # Флаги — только на выборе своего языка (владелец, 17.10); у русского — чёрный
+    from app.bot.handlers.start import (
+        LANGUAGE_FLAGS, _language_selection_text, get_language_selection_keyboard,
+    )
+
+    text = _language_selection_text()
+    labels = [b.text for row in get_language_selection_keyboard().inline_keyboard for b in row]
+    for code in INTERFACE_LANGS:
+        flag = LANGUAGE_FLAGS[code]
+        assert f"{flag} {LOCALES[code]['start_pick_language']}" in text, code
+        assert f"{flag} {LOCALES[code][f'lang_{code}']}" in labels, code
+    assert LANGUAGE_FLAGS["ru"] == "🏴" and LANGUAGE_FLAGS["en"] == "🇬🇧"

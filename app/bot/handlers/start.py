@@ -61,6 +61,23 @@ def _grid_with_back(buttons: list[InlineKeyboardButton],
 # ЭКРАН 1: ВЫБОР СВОЕГО ЯЗЫКА
 # ============================================================================
 
+# ФЛАГИ — ТОЛЬКО ЗДЕСЬ, на выборе своего языка (исключение из устава,
+# владелец 17.10): «10 строк слишком тяжело вместе читать». Человек ещё не
+# выбрал язык и ищет своё глазами — флаг узнаётся раньше слова. Строка
+# призыва и кнопка помечены одним флагом: нашёл в тексте — нажал то же.
+# Английский — британский, испанский — Испания; у русского чёрный флаг,
+# а не государственный (решение владельца)
+LANGUAGE_FLAGS = {
+    "uk": "🇺🇦", "en": "🇬🇧", "de": "🇩🇪", "pl": "🇵🇱", "cs": "🇨🇿",
+    "es": "🇪🇸", "fr": "🇫🇷", "it": "🇮🇹", "tr": "🇹🇷", "ru": "🏴",
+}
+
+
+def _flagged(code: str, text: str) -> str:
+    flag = LANGUAGE_FLAGS.get(code)
+    return f"{flag} {text}" if flag else text
+
+
 # Пометки «откуда пришёл» в нажатиях смены языка: команда /language или
 # настройки. От неё зависят «Назад» и «Готово»
 ORIGIN_COMMAND = "c"
@@ -85,7 +102,8 @@ def get_language_selection_keyboard(
     """
     buttons = [
         InlineKeyboardButton(
-            text=("✓ " if code == current else "") + LOCALES[code].get(f"lang_{code}", code),
+            text=("✓ " if code == current else "")
+            + _flagged(code, LOCALES[code].get(f"lang_{code}", code)),
             callback_data=f"{prefix}{code}{suffix}",
         )
         for code in INTERFACE_LANGS
@@ -110,7 +128,8 @@ def _language_selection_text() -> str:
 
     Порядок строк — тот же, что у кнопок (INTERFACE_LANGS).
     """
-    lines = "\n".join(LOCALES[code]["start_pick_language"] for code in INTERFACE_LANGS)
+    lines = "\n".join(_flagged(code, LOCALES[code]["start_pick_language"])
+                      for code in INTERFACE_LANGS)
     return f"<b>{BOT_NAME}</b>\n\n{lines}"
 
 
