@@ -301,12 +301,6 @@ Topluluk ne kadar aktif olursa — bot o kadar iyi olur. Çekinmeyin! """,
     "rating_start_quiz": "İlk dersinizi yapın!",
     "rating_join_by_lesson": "Bildirim puanlarınız ({score}) eklendi. Aylık sıralamaya girmek için bir ders tamamlayın.",
     "release_notes_2026_10": "✨ <b>GenauLingua 2.0 — botu sıfırdan yeniden kurduk</b>\n\n<b>Sadece Almanca değil.</b> Ukraynaca, İngilizce, Türkçe, Almanca, Lehçe veya Rusça öğrenin — bunlardan herhangi birinden. Arayüz de altı dilde.\n\n<b>Bir yerine altı oyun.</b> Önceden yalnızca “çeviriyi seç” vardı.\n\nArtık her derste oyunlar sırayla gelir:\n📖 Okuyorum · 💭 Hatırlıyorum · 🎧 Dinliyorum · 🎤 Konuşuyorum · 🧩 Eşleri bulun · 🧱 Kuruyorum\n\n“Konuşuyorum”da sesle cevap verirsiniz, “Kuruyorum”da kelimelerden cümle kurarsınız — bot hangi kelimenin yanlış yerde olduğunu gösterir.\n\n<b>Bot artık konuşuyor.</b> Her kelime ve örnek doğal bir sesle seslendirildi.\n\n<b>Yeni görünüm.</b> Yeni menü, gereksiz mesajlar olmadan temiz sohbet, becerilerinizi gösteren ana ekran, anlaşılır istatistikler, yeni avatar ve karşılama.\n\n<b>Sözlüğün tamamı gözden geçirildi</b> — 12.902 kelimenin hepsi, çeviriler ve örnekler.\n\n<b>Bot kendini size göre ayarlar:</b> kelimeleri unutmanıza az kalmışken geri getirir, işler kolaylaşınca bir üst seviyeyi önerir.\n\n<b>Hatalar düzeltildi:</b> gün seriniz doğru sayılıyor, sıralama puanları adil — emeği ödüllendiriyor. “Öğrenildi” de artık dürüst: bir kelimeyi farklı günlerde üst üste üç kez doğru bildiğinizde öğrenilmiş sayılır; çalıştığınız tüm kelimeler “Üzerinde çalıştığınız kelime” satırında görünür.\n\n<b>Hatırlatıcılar açık</b> — sizin saatinizde. Değiştirmek veya kapatmak için: Ayarlar → Bot → Hatırlatıcılar.\n\n⭐ Bir hata mı buldunuz? Ders özetinden bildirin: onaylanan her bildirim +15 puan getirir.\n\nİlerlemeniz ve puanlarınız korundu. Deneyin — bir ders yalnızca birkaç dakika sürer.",
-    "rating_scoring_title": "<b>Puan nasıl kazanılır:</b>",
-    "rating_scoring_quiz": "• Tamamlanan ders → +10",
-    "rating_scoring_word": "• Öğrenilen kelime → +3",
-    "rating_scoring_streak": "• Seri: üst üste her gün bir öncekinden değerli, günde +10'a kadar",
-    "rating_scoring_bonus": "• %60'ın üstünde doğruluk → bonus; ne kadar yüksekse o kadar çok",
-    "rating_scoring_report": "• Onaylanan hata bildirimi → +{points}",
 
 
     "table_empty": "Henüz katılımcı yok.\nİlk dersi yapan siz olun!",
@@ -319,10 +313,11 @@ Topluluk ne kadar aktif olursa — bot o kadar iyi olur. Çekinmeyin! """,
     "rating_you": "<b>Siz: #{rank} / {total}</b> · {points}",
     "rating_results_in": "Ay sonuçlarına {days}",
     "info_title": "<b>Sıralama nasıl çalışır</b>",
-    "info_month": "<b>Ay</b> — herkes. 3+ dersi olan ilk üç kişi 🥇 🥈 🥉 alır. Puanlar eşitse doğru cevabı fazla olan önde olur.",
-    "info_lang": "<b>Dil</b> — aynı dili öğrenenler. Birinci, sonraki ay boyunca 👑 taşır.",
-    "info_alltime": "<b>Tümü</b> — tüm puanlar. Madalya ve başarılar unvanınızı yükseltir.",
-    "info_signs": "<b>Adın yanındaki işaretler</b>\n🌱 🌳 🌙 🪐 ☀️ — unvan, daha yukarısı da var\n👑 — geçen ay kendi dilinin en iyisi\n🔥 — üst üste gün",
+    "info_month": "<b>Ay</b> — herkes. İlk üç kişi 🥇 🥈 🥉 alır (en az 3 ders).",
+    "info_lang": "<b>Dil</b> — sizin dilinizi öğrenenler. Birinci, sonraki ay için 👑 alır.",
+    "info_alltime": "<b>Tümü</b> — tüm puanlar. Madalyalar unvanınızı yükseltir 🌱 🌳 🌙 🪐 ☀️",
+    "info_points_title": "<b>Puanlar</b>",
+    "info_points": "Cevap +1 · dinleyerek +2 · sesli +3\nDers +10 · öğrenilen kelime +3\nArt arda günler — +10'a kadar · %60 üzeri doğruluk — bonus\nOnaylanan bildirim +{points}",
     "title_sprout": "Filiz",
     "title_tree": "Ağaç",
     "title_moon": "Ay",
@@ -477,11 +472,6 @@ TEXTS.update({
 # три балла, и терять серию было почти не жалко.
 # ============================================================================
 TEXTS.update({
-    "rating_scoring_answer": "• Doğru cevap → +1, kulakla → +2, sesli → +3",
-    "rating_scoring_quiz": "• Tamamlanan ders → +10",
-    "rating_scoring_word": "• Öğrenilen kelime → +3",
-    "rating_scoring_streak": "• Seri: üst üste her gün bir öncekinden değerli, günde +10'a kadar",
-    "rating_scoring_bonus": "• %60'ın üstünde doğruluk → bonus; ne kadar yüksekse o kadar çok",
 })
 
 

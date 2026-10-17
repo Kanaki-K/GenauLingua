@@ -207,20 +207,16 @@ async def alltime_screen(user: User, session: AsyncSession, lang: str) -> str:
 # ---------------------------------------------------------------------------
 
 def info_text(lang: str) -> str:
-    """Правила одним экраном: три вкладки, знаки у имени, за что баллы."""
+    """Правила одним экраном: три вкладки и за что баллы. Коротко (владелец,
+    17.10: «меньше текста, но понятно»): 👑 сказана во вкладке «Язык», серия
+    видна в якоре, ничья — деталь, которую никто не ищет."""
     lines = [
         get_text("info_title", lang), "",
         get_text("info_month", lang),
         get_text("info_lang", lang),
         get_text("info_alltime", lang), "",
-        get_text("info_signs", lang), "",
-        get_text("rating_scoring_title", lang),
-        get_text("rating_scoring_answer", lang),
-        get_text("rating_scoring_quiz", lang),
-        get_text("rating_scoring_word", lang),
-        get_text("rating_scoring_streak", lang),
-        get_text("rating_scoring_bonus", lang),
-        get_text("rating_scoring_report", lang, points=MonthlyStats.POINTS_PER_REPORT),
+        get_text("info_points_title", lang),
+        get_text("info_points", lang, points=MonthlyStats.POINTS_PER_REPORT),
     ]
     return "\n".join(lines)
 

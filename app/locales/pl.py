@@ -307,8 +307,6 @@ Im aktywniejsza społeczność, tym lepszy bot. Serdecznie zapraszamy! """,
     "rating_start_quiz": "Zapraszamy na pierwszą lekcję!",
     "rating_join_by_lesson": "Punkty za zgłoszenia ({score}) zostały przyznane. Proszę ukończyć lekcję, aby dołączyć do rankingu miesiąca.",
     "release_notes_2026_10": "✨ <b>GenauLingua 2.0 — zbudowaliśmy bota od nowa</b>\n\n<b>Nie tylko niemiecki.</b> Można uczyć się ukraińskiego, angielskiego, tureckiego, niemieckiego, polskiego lub rosyjskiego — z każdego z nich. Interfejs też jest w sześciu językach.\n\n<b>Sześć gier zamiast jednej.</b> Wcześniej było tylko „wybierz tłumaczenie”.\n\nTeraz gry w lekcji się zmieniają:\n📖 Czytam · 💭 Przypominam · 🎧 Słucham · 🎤 Mówię · 🧩 Proszę znaleźć pary · 🧱 Układam\n\nW „Mówię” odpowiada się głosem, w „Układam” składa się zdanie ze słów — bot pokaże, które słowo jest nie na miejscu.\n\n<b>Bot mówi.</b> Każde słowo i przykład ma nagranie naturalnym głosem.\n\n<b>Nowy wygląd.</b> Nowe menu, czysty czat bez zbędnych wiadomości, ekran główny z umiejętnościami, czytelne statystyki, nowy awatar i powitanie.\n\n<b>Cały słownik sprawdzony</b> — wszystkie 12 902 słowa, tłumaczenia i przykłady.\n\n<b>Bot sam się dostosowuje:</b> wraca do słów tuż przed tym, jak wylecą z pamięci, i proponuje wyższy poziom, gdy robi się łatwo.\n\n<b>Poprawione błędy:</b> seria dni liczy się prawidłowo, a punkty w rankingu są uczciwe — za wysiłek. „Nauczone” też liczy się teraz uczciwie: słowo jest nauczone, gdy zostało rozpoznane trzy razy z rzędu w różne dni, a wszystkie przerobione słowa widać w wierszu „Słowa w nauce”.\n\n<b>Przypomnienia są włączone</b> — o wybranej porze. Zmienić lub wyłączyć: Ustawienia → Bot → Przypomnienia.\n\n⭐ Błąd w słowniku? Wystarczy zgłosić go z podsumowania lekcji: każde potwierdzone zgłoszenie to +15 punktów.\n\nPostęp i punkty są zachowane. Proszę spróbować — lekcja zajmuje kilka minut.",
-    "rating_scoring_title": "<b>Jak zdobyć punkty:</b>",
-    "rating_scoring_report": "• Potwierdzone zgłoszenie błędu → +{points}",
 
 
     "table_empty": "Na razie nikt nie bierze udziału.\nPierwsze miejsce czeka!",
@@ -321,10 +319,11 @@ Im aktywniejsza społeczność, tym lepszy bot. Serdecznie zapraszamy! """,
     "rating_you": "<b>Moje miejsce: #{rank} z {total}</b> · {points}",
     "rating_results_in": "Wyniki miesiąca za {days}",
     "info_title": "<b>Jak działa ranking</b>",
-    "info_month": "<b>Miesiąc</b> — wszyscy. Trzy najlepsze osoby z 3+ lekcjami dostają 🥇 🥈 🥉. Przy równych punktach wyżej jest ten, kto ma więcej poprawnych odpowiedzi.",
-    "info_lang": "<b>Język</b> — osoby uczące się tego samego języka. Pierwsze miejsce nosi 👑 przez cały następny miesiąc.",
-    "info_alltime": "<b>Ogółem</b> — wszystkie punkty. Medale i osiągnięcia podnoszą tytuł.",
-    "info_signs": "<b>Znaki przy imieniu</b>\n🌱 🌳 🌙 🪐 ☀️ — tytuł, jest też wyżej\n👑 — najlepszy w swoim języku w zeszłym miesiącu\n🔥 — dni z rzędu",
+    "info_month": "<b>Miesiąc</b> — wszyscy. Trzy najlepsze osoby dostają 🥇 🥈 🥉 (od 3 lekcji).",
+    "info_lang": "<b>Język</b> — osoby uczące się Pana/Pani języka. Pierwsze miejsce dostaje 👑 na następny miesiąc.",
+    "info_alltime": "<b>Ogółem</b> — wszystkie punkty. Medale podnoszą tytuł 🌱 🌳 🌙 🪐 ☀️",
+    "info_points_title": "<b>Punkty</b>",
+    "info_points": "Odpowiedź +1 · ze słuchu +2 · na głos +3\nLekcja +10 · nauczone słowo +3\nDni z rzędu — do +10 · trafność powyżej 60% — bonus\nPotwierdzone zgłoszenie +{points}",
     "title_sprout": "Kiełek",
     "title_tree": "Drzewo",
     "title_moon": "Księżyc",
@@ -485,11 +484,6 @@ TEXTS.update({
 # три балла, и терять серию было почти не жалко.
 # ============================================================================
 TEXTS.update({
-    "rating_scoring_answer": "• Poprawna odpowiedź → +1, ze słuchu → +2, na głos → +3",
-    "rating_scoring_quiz": "• Ukończona lekcja → +10",
-    "rating_scoring_word": "• Nauczone słowo → +3",
-    "rating_scoring_streak": "• Każdy kolejny dzień serii jest wart więcej, do +10",
-    "rating_scoring_bonus": "• Celność powyżej 60% — im wyżej, tym więcej",
 })
 
 

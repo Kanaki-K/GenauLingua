@@ -325,7 +325,7 @@ NEW_KEYS = [
     "btn_rating_info", "card_medal_need", "card_crown_small",
     "rating_screen_title", "rating_screen_title_alltime", "rating_you", "rating_results_in",
     "rating_crown_rule",
-    "info_title", "info_month", "info_alltime", "info_lang", "info_signs",
+    "info_title", "info_month", "info_alltime", "info_lang", "info_points_title", "info_points",
     "summary_place", "summary_gap", "summary_record",
     "collection_title", "collection_locked", "award_month_header", "award_crown",
     "award_glory", "award_new_title", "nd_overtaken", "nd_finish",

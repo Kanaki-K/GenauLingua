@@ -306,12 +306,6 @@ Povídání s dalšími studenty
     "rating_start_quiz": "Udělejte svou první lekci!",
     "rating_join_by_lesson": "Body za hlášení ({score}) jsou připsané. Dokončete lekci a zařaďte se do žebříčku tohoto měsíce.",
     "release_notes_2026_10": "✨ <b>GenauLingua 2.0 — bota jsme postavili znovu od základu</b>\n\n<b>Nejen němčina.</b> Učte se ukrajinsky, anglicky, turecky, německy, polsky nebo rusky — z kteréhokoli z těchto jazyků. Rozhraní mluví také všemi šesti.\n\n<b>Šest her místo jedné.</b> Dřív bylo jen „vyberte překlad“.\n\nTeď se hry v každé lekci střídají:\n📖 Čtu · 💭 Vybavuji si · 🎧 Poslouchám · 🎤 Mluvím · 🧩 Najděte dvojice · 🧱 Skládám\n\nV „Mluvím“ odpovídáte hlasem, ve „Skládám“ skládáte větu — bot ukáže, které slovo je na špatném místě.\n\n<b>Bot mluví.</b> Každé slovo i příklad zazní přirozeným hlasem.\n\n<b>Nový vzhled.</b> Nové menu, čistý chat bez zbytečností, domovská obrazovka s Vašimi dovednostmi, přehledné statistiky, nový avatar a pozdrav.\n\n<b>Celý slovník prošel korekturou</b> — všech 12 902 slov, překladů a příkladů.\n\n<b>Přizpůsobí se Vám:</b> slova se vracejí těsně předtím, než by se zapomněla, a když je to snadné, bot nabídne další úroveň.\n\n<b>Opravené chyby:</b> série dní se počítá správně a body v žebříčku jsou férové — odměňují úsilí. I „naučené“ je teď poctivé: slovo je naučené po třech správných odpovědích za sebou v různých dnech a každé procvičené slovo najdete v řádku „Slova v učení“.\n\n<b>Připomínky jsou zapnuté</b> — ve Vámi zvolený čas. Změnit nebo vypnout: Nastavení → Bot → Připomínky.\n\n⭐ Chyba ve slovníku? Nahlaste ji přímo ze shrnutí lekce: každé potvrzené hlášení přinese +15 bodů.\n\nVáš pokrok i body zůstávají. Vyzkoušejte to — lekce zabere pár minut.",
-    "rating_scoring_title": "<b>Jak získat body:</b>",
-    "rating_scoring_quiz": "• Dokončená lekce → +10",
-    "rating_scoring_word": "• Naučené slovo → +3",
-    "rating_scoring_streak": "• Série → každý další den v řadě má vyšší hodnotu, až +10",
-    "rating_scoring_bonus": "• Přesnost nad 60 % → bonus, který roste s přesností",
-    "rating_scoring_report": "• Potvrzené hlášení chyby → +{points}",
 
 
     "table_empty": "Zatím tu nikdo není.\nUdělejte lekci jako první!",
@@ -324,10 +318,11 @@ Povídání s dalšími studenty
     "rating_you": "<b>Vy: #{rank} z {total}</b> · {points}",
     "rating_results_in": "Výsledky měsíce za {days}",
     "info_title": "<b>Jak funguje pořadí</b>",
-    "info_month": "<b>Měsíc</b> — všichni. Tři nejlepší se 3+ lekcemi získají 🥇 🥈 🥉. Při stejných bodech je výš ten, kdo má víc správných odpovědí.",
-    "info_lang": "<b>Jazyk</b> — ti, kdo se učí stejný jazyk. První nosí 👑 celý další měsíc.",
-    "info_alltime": "<b>Celkově</b> — všechny body. Medaile a úspěchy zvyšují hodnost.",
-    "info_signs": "<b>Znaky u jména</b>\n🌱 🌳 🌙 🪐 ☀️ — hodnost, je i výš\n👑 — nejlepší ve svém jazyce za minulý měsíc\n🔥 — dní v řadě",
+    "info_month": "<b>Měsíc</b> — všichni. Tři nejlepší získají 🥇 🥈 🥉 (od 3 lekcí).",
+    "info_lang": "<b>Jazyk</b> — ti, kdo se učí Váš jazyk. První získá 👑 na další měsíc.",
+    "info_alltime": "<b>Celkově</b> — všechny body. Medaile zvyšují hodnost 🌱 🌳 🌙 🪐 ☀️",
+    "info_points_title": "<b>Body</b>",
+    "info_points": "Odpověď +1 · poslechem +2 · nahlas +3\nLekce +10 · naučené slovo +3\nDny v řadě — až +10 · přesnost nad 60% — bonus\nPotvrzené hlášení +{points}",
     "title_sprout": "Klíček",
     "title_tree": "Strom",
     "title_moon": "Měsíc",
@@ -482,11 +477,6 @@ TEXTS.update({
 # три балла, и терять серию было почти не жалко.
 # ============================================================================
 TEXTS.update({
-    "rating_scoring_answer": "• Správná odpověď → +1, poslechem → +2, nahlas → +3",
-    "rating_scoring_quiz": "• Dokončená lekce → +10",
-    "rating_scoring_word": "• Naučené slovo → +3",
-    "rating_scoring_streak": "• Série → každý další den v řadě má vyšší hodnotu, až +10",
-    "rating_scoring_bonus": "• Přesnost nad 60 % → bonus, který roste s přesností",
 })
 
 

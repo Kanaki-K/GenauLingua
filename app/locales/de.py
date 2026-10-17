@@ -307,12 +307,6 @@ Je lebendiger die Community, desto besser wird der Bot. Nur keine Scheu! """,
     "rating_start_quiz": "Machen Sie Ihre erste Lektion!",
     "rating_join_by_lesson": "Ihre Punkte für Meldungen ({score}) sind gutgeschrieben. Absolvieren Sie eine Lektion, um in die Monatsrangliste zu kommen.",
     "release_notes_2026_10": "✨ <b>GenauLingua 2.0 — wir haben den Bot von Grund auf neu gebaut</b>\n\n<b>Nicht nur Deutsch.</b> Lernen Sie Ukrainisch, Englisch, Türkisch, Deutsch, Polnisch oder Russisch — aus jeder dieser Sprachen. Die Oberfläche gibt es ebenfalls in allen sechs.\n\n<b>Sechs Spiele statt einem.</b> Früher gab es nur „Übersetzung wählen“.\n\nJetzt wechseln sich die Spiele in jeder Lektion ab:\n📖 Ich lese · 💭 Ich erinnere · 🎧 Ich höre · 🎤 Ich spreche · 🧩 Finden Sie die Paare · 🧱 Ich baue\n\nBei „Ich spreche“ antworten Sie mit der Stimme, bei „Ich baue“ setzen Sie einen Satz aus Wörtern zusammen — der Bot zeigt, welches Wort nicht passt.\n\n<b>Der Bot spricht.</b> Jedes Wort und jedes Beispiel ist mit natürlicher Stimme vertont.\n\n<b>Neues Aussehen.</b> Neues Menü, ein aufgeräumter Chat ohne überflüssige Nachrichten, ein Startbildschirm mit Ihren Fähigkeiten, übersichtliche Statistik, neuer Avatar und neue Begrüßung.\n\n<b>Das ganze Wörterbuch wurde geprüft</b> — alle 12.902 Wörter, Übersetzungen und Beispiele.\n\n<b>Der Bot passt sich an:</b> Er bringt Wörter zurück, kurz bevor Sie sie vergessen, und schlägt das nächste Niveau vor, wenn es leicht wird.\n\n<b>Fehler behoben:</b> Ihre Tagesserie wird richtig gezählt, und die Ranglistenpunkte sind fair — sie belohnen Einsatz. Auch „gelernt“ ist jetzt ehrlich: Ein Wort gilt als gelernt, wenn Sie es dreimal hintereinander an verschiedenen Tagen richtig hatten; alle geübten Wörter sehen Sie unter „Wörter in Arbeit“.\n\n<b>Erinnerungen sind eingeschaltet</b> — zu Ihrer Zeit. Ändern oder ausschalten: Einstellungen → Bot → Erinnerungen.\n\n⭐ Einen Fehler gefunden? Melden Sie ihn direkt im Ergebnis der Lektion: Jede bestätigte Meldung bringt +15 Punkte.\n\nIhr Fortschritt und Ihre Punkte bleiben erhalten. Probieren Sie es aus — eine Lektion dauert nur ein paar Minuten.",
-    "rating_scoring_title": "<b>So verdienen Sie Punkte:</b>",
-    "rating_scoring_quiz": "• Lektion beendet → +10",
-    "rating_scoring_word": "• Wort gelernt → +3",
-    "rating_scoring_streak": "• Jeder Tag in Folge zählt mehr, bis +10",
-    "rating_scoring_bonus": "• Treffsicherheit über 60% → Bonus, je höher, desto mehr",
-    "rating_scoring_report": "• Bestätigte Fehlermeldung → +{points}",
 
 
     "table_empty": "Noch nimmt niemand teil.\nMachen Sie die erste Lektion und eröffnen Sie die Rangliste!",
@@ -325,10 +319,11 @@ Je lebendiger die Community, desto besser wird der Bot. Nur keine Scheu! """,
     "rating_you": "<b>Sie: #{rank} von {total}</b> · {points}",
     "rating_results_in": "Monatsergebnis in {days}",
     "info_title": "<b>So funktioniert die Rangliste</b>",
-    "info_month": "<b>Monat</b> — alle. Die besten drei mit 3+ Lektionen erhalten 🥇 🥈 🥉. Bei gleichen Punkten liegt vorn, wer mehr richtige Antworten hat.",
-    "info_lang": "<b>Sprache</b> — wer dieselbe Sprache lernt. Platz 1 trägt 👑 den ganzen nächsten Monat.",
-    "info_alltime": "<b>Gesamt</b> — alle Punkte. Medaillen und Erfolge heben Ihren Rang.",
-    "info_signs": "<b>Zeichen am Namen</b>\n🌱 🌳 🌙 🪐 ☀️ — Rang, und es gibt noch mehr\n👑 — Beste der eigenen Sprache im Vormonat\n🔥 — Tage in Folge",
+    "info_month": "<b>Monat</b> — alle. Die besten drei erhalten 🥇 🥈 🥉 (ab 3 Lektionen).",
+    "info_lang": "<b>Sprache</b> — wer Ihre Sprache lernt. Platz 1 erhält 👑 für den nächsten Monat.",
+    "info_alltime": "<b>Gesamt</b> — alle Punkte. Medaillen heben Ihren Rang 🌱 🌳 🌙 🪐 ☀️",
+    "info_points_title": "<b>Punkte</b>",
+    "info_points": "Antwort +1 · nach Gehör +2 · laut +3\nLektion +10 · Wort gelernt +3\nTage in Folge — bis +10 · Treffsicherheit über 60% — Bonus\nBestätigte Meldung +{points}",
     "title_sprout": "Spross",
     "title_tree": "Baum",
     "title_moon": "Mond",
@@ -489,11 +484,6 @@ TEXTS.update({
 # три балла, и терять серию было почти не жалко.
 # ============================================================================
 TEXTS.update({
-    "rating_scoring_answer": "• Richtige Antwort → +1, nach Gehör → +2, laut gesprochen → +3",
-    "rating_scoring_quiz": "• Lektion beendet → +10",
-    "rating_scoring_word": "• Wort gelernt → +3",
-    "rating_scoring_streak": "• Jeder Tag in Folge zählt mehr, bis +10",
-    "rating_scoring_bonus": "• Treffsicherheit über 60% → Bonus, je höher, desto mehr",
 })
 
 

@@ -305,12 +305,6 @@ Plus la communauté est active, meilleur devient le bot. N’hésitez pas ! """
     "rating_start_quiz": "Faites votre première leçon !",
     "rating_join_by_lesson": "Vos points de signalement ({score}) sont crédités. Terminez une leçon pour entrer dans le classement du mois.",
     "release_notes_2026_10": "✨ <b>GenauLingua 2.0 — nous avons reconstruit le bot de zéro</b>\n\n<b>Pas seulement l’allemand.</b> Apprenez l’ukrainien, l’anglais, le turc, l’allemand, le polonais ou le russe — à partir de n’importe laquelle de ces langues. L’interface parle aussi les six.\n\n<b>Six jeux au lieu d’un.</b> Avant, il n’y avait que « choisir la traduction ».\n\nDésormais, les jeux alternent dans chaque leçon :\n📖 Je lis · 💭 Je me souviens · 🎧 J’écoute · 🎤 Je parle · 🧩 Trouvez les paires · 🧱 Je construis\n\nDans « Je parle », vous répondez à voix haute ; dans « Je construis », vous assemblez une phrase — le bot montre quel mot n’est pas à sa place.\n\n<b>Le bot parle.</b> Chaque mot et chaque exemple est lu par une voix naturelle.\n\n<b>Un nouveau look.</b> Un nouveau menu, un chat propre et sans encombrement, un écran d’accueil avec vos compétences, des statistiques claires, un nouvel avatar et un nouveau message d’accueil.\n\n<b>Tout le dictionnaire a été relu</b> — les 12 902 mots, traductions et exemples.\n\n<b>Il s’adapte à vous :</b> les mots reviennent juste avant que vous ne les oubliiez, et le bot propose le niveau suivant quand ça devient facile.\n\n<b>Bugs corrigés :</b> votre série de jours est comptée correctement, et les points du classement sont justes — ils récompensent l’effort. « Appris » est honnête aussi désormais : un mot compte comme appris après trois bonnes réponses d’affilée, à des jours différents, et chaque mot pratiqué apparaît dans « Mots en cours d’apprentissage ».\n\n<b>Les rappels sont activés</b> — à votre heure. Pour les modifier ou les désactiver : Réglages → Bot → Rappels.\n\n⭐ Vous avez repéré une erreur ? Signalez-la directement depuis le bilan de la leçon : chaque signalement confirmé rapporte +15 points.\n\nVotre progression et vos points sont conservés. Essayez — une leçon prend quelques minutes.",
-    "rating_scoring_title": "<b>Comment gagner des points :</b>",
-    "rating_scoring_quiz": "• Leçon terminée → +10",
-    "rating_scoring_word": "• Mot appris → +3",
-    "rating_scoring_streak": "• Série → chaque jour d’affilée rapporte plus, jusqu’à +10",
-    "rating_scoring_bonus": "• Précision au-dessus de 60 % → un bonus qui augmente avec la précision",
-    "rating_scoring_report": "• Signalement d’erreur confirmé → +{points}",
 
 
     "table_empty": "Personne n’a encore participé.\nLa première place vous attend : faites une leçon !",
@@ -323,10 +317,11 @@ Plus la communauté est active, meilleur devient le bot. N’hésitez pas ! """
     "rating_you": "<b>Vous : #{rank} sur {total}</b> · {points}",
     "rating_results_in": "Résultats du mois dans {days}",
     "info_title": "<b>Comment fonctionne le classement</b>",
-    "info_month": "<b>Mois</b> — tout le monde. Les trois meilleurs avec 3+ leçons reçoivent 🥇 🥈 🥉. À points égaux, passe devant celui qui a le plus de bonnes réponses.",
-    "info_lang": "<b>Langue</b> — ceux qui apprennent la même langue. Le premier porte 👑 tout le mois suivant.",
-    "info_alltime": "<b>Toujours</b> — tous les points. Médailles et succès font monter votre rang.",
-    "info_signs": "<b>Signes à côté du nom</b>\n🌱 🌳 🌙 🪐 ☀️ — rang, et il y a plus haut\n👑 — meilleur de sa langue le mois dernier\n🔥 — jours d’affilée",
+    "info_month": "<b>Mois</b> — tout le monde. Les trois meilleurs reçoivent 🥇 🥈 🥉 (dès 3 leçons).",
+    "info_lang": "<b>Langue</b> — ceux qui apprennent votre langue. Le premier reçoit 👑 pour le mois suivant.",
+    "info_alltime": "<b>Toujours</b> — tous les points. Les médailles font monter votre rang 🌱 🌳 🌙 🪐 ☀️",
+    "info_points_title": "<b>Points</b>",
+    "info_points": "Réponse +1 · à l’oreille +2 · à voix haute +3\nLeçon +10 · mot appris +3\nJours d’affilée — jusqu’à +10 · précision au-dessus de 60% — bonus\nSignalement confirmé +{points}",
     "title_sprout": "Pousse",
     "title_tree": "Arbre",
     "title_moon": "Lune",
@@ -481,11 +476,6 @@ TEXTS.update({
 # три балла, и терять серию было почти не жалко.
 # ============================================================================
 TEXTS.update({
-    "rating_scoring_answer": "• Bonne réponse → +1, à l’oreille → +2, à voix haute → +3",
-    "rating_scoring_quiz": "• Leçon terminée → +10",
-    "rating_scoring_word": "• Mot appris → +3",
-    "rating_scoring_streak": "• Série → chaque jour d’affilée rapporte plus, jusqu’à +10",
-    "rating_scoring_bonus": "• Précision au-dessus de 60 % → un bonus qui augmente avec la précision",
 })
 
 

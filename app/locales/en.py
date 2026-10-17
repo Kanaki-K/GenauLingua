@@ -301,12 +301,6 @@ The more active the community — the better the bot gets. Don't be shy! """,
     "rating_start_quiz": "Take your first lesson!",
     "rating_join_by_lesson": "Your report points ({score}) are credited. Complete a lesson to join this month's ranking.",
     "release_notes_2026_10": "✨ <b>GenauLingua 2.0 — we rebuilt the bot from scratch</b>\n\n<b>Not just German.</b> Learn Ukrainian, English, Turkish, German, Polish or Russian — from any of them. The interface speaks all six too.\n\n<b>Six games instead of one.</b> It used to be just “pick the translation”.\n\nNow games alternate within each lesson:\n📖 I read · 💭 I recall · 🎧 I listen · 🎤 I speak · 🧩 Find the pairs · 🧱 I build\n\nIn “I speak” you answer by voice; in “I build” you put a sentence together — the bot shows which word is out of place.\n\n<b>The bot can talk.</b> Every word and example is read aloud in a natural voice.\n\n<b>A new look.</b> A new menu, a clean chat without clutter, a home screen with your skills, clear statistics, a new avatar and greeting.\n\n<b>The whole dictionary has been proofread</b> — all 12,902 words, translations and examples.\n\n<b>It adapts to you:</b> words come back just before you'd forget them, and the bot suggests the next level when things get easy.\n\n<b>Bugs fixed:</b> your day streak is counted correctly, and ranking points are fair — they reward effort. “Learned” is honest now too: a word counts as learned once you've got it right three times in a row on different days, and every word you've practised shows up under “Words you're learning”.\n\n<b>Reminders are on</b> — at your time. To change or turn them off: Settings → Bot → Reminders.\n\n⭐ Spotted a mistake? Report it right from the lesson summary: each confirmed report earns +15 points.\n\nYour progress and points are kept. Give it a try — a lesson takes a couple of minutes.",
-    "rating_scoring_title": "<b>How to earn points:</b>",
-    "rating_scoring_quiz": "• Lesson finished → +10",
-    "rating_scoring_word": "• Word learned → +3",
-    "rating_scoring_streak": "• Streak → each day in a row is worth more, up to +10",
-    "rating_scoring_bonus": "• Accuracy above 60% → a bonus that grows with accuracy",
-    "rating_scoring_report": "• Confirmed error report → +{points}",
 
 
     "table_empty": "No participants yet.\nBe the first to take a lesson!",
@@ -319,10 +313,11 @@ The more active the community — the better the bot gets. Don't be shy! """,
     "rating_you": "<b>You: #{rank} of {total}</b> · {points}",
     "rating_results_in": "Monthly results in {days}",
     "info_title": "<b>How the rating works</b>",
-    "info_month": "<b>Month</b> — everyone. The top three with 3+ lessons get 🥇 🥈 🥉. On equal points, more correct answers rank higher.",
-    "info_lang": "<b>Language</b> — people learning the same language. First place wears 👑 all next month.",
-    "info_alltime": "<b>All time</b> — all points. Medals and achievements raise your title.",
-    "info_signs": "<b>Signs next to a name</b>\n🌱 🌳 🌙 🪐 ☀️ — title, and there is more above\n👑 — best in their language last month\n🔥 — days in a row",
+    "info_month": "<b>Month</b> — everyone. Top three get 🥇 🥈 🥉 (3+ lessons needed).",
+    "info_lang": "<b>Language</b> — people learning your language. First place gets 👑 for next month.",
+    "info_alltime": "<b>All time</b> — all points. Medals raise your title 🌱 🌳 🌙 🪐 ☀️",
+    "info_points_title": "<b>Points</b>",
+    "info_points": "Answer +1 · by ear +2 · out loud +3\nLesson +10 · word learned +3\nDay streak — up to +10 · accuracy above 60% — bonus\nConfirmed report +{points}",
     "title_sprout": "Sprout",
     "title_tree": "Tree",
     "title_moon": "Moon",
@@ -477,11 +472,6 @@ TEXTS.update({
 # три балла, и терять серию было почти не жалко.
 # ============================================================================
 TEXTS.update({
-    "rating_scoring_answer": "• Correct answer → +1, by ear → +2, out loud → +3",
-    "rating_scoring_quiz": "• Lesson finished → +10",
-    "rating_scoring_word": "• Word learned → +3",
-    "rating_scoring_streak": "• Streak → each day in a row is worth more, up to +10",
-    "rating_scoring_bonus": "• Accuracy above 60% → a bonus that grows with accuracy",
 })
 
 
