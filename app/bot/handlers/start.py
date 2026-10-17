@@ -29,6 +29,11 @@ from app.services.language_service import (
 router = Router()
 
 
+# «НАЗАД» СТРЕЛКОЙ на экранах выбора языка (владелец, 17.10): кто ткнул не
+# тот язык, слова «Geri» или «Zpět» не прочтёт, а стрелку поймёт любой
+BACK_ARROW = "←"
+
+
 def _grid(buttons: list[InlineKeyboardButton], per_row: int = 2) -> list[list[InlineKeyboardButton]]:
     return [buttons[i:i + per_row] for i in range(0, len(buttons), per_row)]
 
@@ -88,7 +93,7 @@ def get_language_selection_keyboard(
     rows = _grid(buttons)
     if back:
         rows.append([InlineKeyboardButton(
-            text=get_text("btn_back", current), callback_data=back,
+            text=BACK_ARROW, callback_data=back,
         )])
     return InlineKeyboardMarkup(inline_keyboard=rows)
 
@@ -132,12 +137,11 @@ def phone_hint(phone: str | None, chosen: str) -> str:
     Защита от промаха (решение владельца 16.10): человек ткнул не в ту
     кнопку и видит экран на незнакомом языке. Сказать ему это можно только
     на его языке — а его знает телефон. Нет поля, язык не наш, совпал —
-    строки нет. «Назад» в ней назван так, как подписана кнопка на экране,
-    то есть на ВЫБРАННОМ языке.
+    строки нет. «Назад» в ней назван так, как подписана кнопка: стрелкой.
     """
     if not phone or phone == chosen or phone not in INTERFACE_LANGS:
         return ""
-    return get_text("onboard_phone_hint", phone, back=get_text("btn_back", chosen))
+    return get_text("onboard_phone_hint", phone, back=BACK_ARROW)
 
 
 def learning_screen_text(chosen: str, phone: str | None = None) -> str:
@@ -185,7 +189,7 @@ def get_learning_keyboard(native: str, lang: str, *, prefix: str = "onboard_lear
         if code != native
     ]
     return InlineKeyboardMarkup(inline_keyboard=_grid_with_back(
-        buttons, InlineKeyboardButton(text=get_text("btn_back", lang), callback_data=back),
+        buttons, InlineKeyboardButton(text=BACK_ARROW, callback_data=back),
     ))
 
 

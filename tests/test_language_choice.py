@@ -143,8 +143,10 @@ async def test_phone_language_hint(session, user, stage, phone, shown):
 
     await _feed(dp, bot, press(user.id, "select_lang_ru", language_code=phone))
     text = recorder.last_text()
-    hint = get_text("onboard_phone_hint", "en", back=get_text("btn_back", "ru"))
+    hint = get_text("onboard_phone_hint", "en", back="←")
     assert (hint in text) is shown, text
+    # Назад — стрелкой: язык мог быть выбран по ошибке, слово не прочтут
+    assert "←" in recorder.button_texts()
 
 
 # ============================================================================
