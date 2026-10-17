@@ -34,7 +34,6 @@ from app.database.models import User
 from app.locales import DEFAULT_LOCALE, get_text
 from app.services.language_service import flag, pair_from_user, language_word
 from app.services.monthly_leaderboard_service import ALL_LANGS, get_user_monthly_rank
-from app.services.streak_service import current_streak
 from app.services.quiz_service import (
     CHANNEL_UNLOCK,
     NEEDS_AUDIO,
@@ -179,26 +178,20 @@ async def build_home(user: User, session: AsyncSession) -> tuple[str, InlineKeyb
     # цвету. Флаг при этом работал в боте тремя разными способами на трёх
     # экранах; решение владельца снимает вопрос целиком: языки пишутся
     # словами, и обозначать их символом не надо нигде.
-    learning_name = language_word(pair.learning, lang)
-    answer_name = language_word(pair.answer_lang, lang)
-    header = (
-        f"<b>{learning_name}</b> → {answer_name}"
-        f" · {_mode_label(user, lang)}"
-    )
+    # БЕЗ ПОВТОРА ЯКОРЯ (владелец, 17.10: «если дублируется — убираем,
+    # экономим место»). Якорь прямо над экраном уже говорит пару, уровень и
+    # серию. Заголовок остаётся, только когда занятие ограничено не уровнем
+    # (тема, все слова, трудные) — этого якорь не говорит
+    lines = []
+    if user.quiz_mode != QuizMode.LEVEL:
+        learning_name = language_word(pair.learning, lang)
+        answer_name = language_word(pair.answer_lang, lang)
+        lines += [f"<b>{learning_name}</b> → {answer_name} · {_mode_label(user, lang)}", ""]
+    lines += [scales_block(channels, lang, always=True), ""]
 
-    lines = [header, "", scales_block(channels, lang, always=True), ""]
-
-    # Серия и место — два повода вернуться завтра, и оба показываются только
-    # когда есть что показать: «🔥 0 дней» гасит, а не подгоняет.
+    # Место — повод вернуться завтра; серия — в якоре. Показывается только
+    # когда есть что показать
     footer = []
-    # Серия берётся из `current_streak`, а не из колонки: колонка
-    # пересчитывается только на завершении круга, и у остановившегося в ней
-    # навсегда остаётся последнее значение. Замер 13 октября: устарела у 128
-    # человек из 128, последняя активность 236 дней назад — экран говорил
-    # «1 день подряд» тому, кто не заходил восемь месяцев
-    streak = current_streak(user)
-    if streak:
-        footer.append(get_text("home_streak", lang, days=streak))
     # Место — как на первой вкладке рейтинга: месяц со всеми (17.10)
     rank = await get_user_monthly_rank(user.id, session, learning_lang=ALL_LANGS)
     if rank:
@@ -217,7 +210,7 @@ async def build_home(user: User, session: AsyncSession) -> tuple[str, InlineKeyb
     if hint:
         lines.append(f"<i>{hint}</i>")
 
-    return "\n".join(lines), _home_keyboard(user, lang, channels)
+    return "\n".join(lines).strip(), _home_keyboard(user, lang, channels)
 
 
 def _mode_label(user: User, lang: str) -> str:

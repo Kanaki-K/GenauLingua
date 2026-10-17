@@ -39,7 +39,7 @@ from app.services.monthly_leaderboard_service import (
     get_waiting_month_score,
 )
 from app.services.standing import (
-    CROWN_MIN_PEOPLE, MEDAL_MIN_QUIZZES, Standing, clean_name, next_title, standing_of,
+    CROWN_MIN_PEOPLE, MEDAL_MIN_QUIZZES, clean_name,
 )
 from app.bot.handlers.leaderboard.utils import (
     RATING_TABS,
@@ -178,33 +178,6 @@ async def language_screen(user: User, session: AsyncSession, season, lang: str) 
     return text + _quiet(get_text("rating_crown_rule", lang))
 
 
-def awards_block(standing: Standing, lang: str) -> str:
-    """Звание и путь к следующему одной строкой; медали и короны — второй."""
-    st = standing
-    title = st.title
-    following = next_title(st.glory)
-    if title and following:
-        mark, name = title[1], get_text(title[2], lang)
-        # Следующее — одним знаком: «до 🪐 Планета» не склоняется ни в одном языке
-        nxt = following[1]
-        glory = following[0] - st.glory
-        lines = [get_text("rating_title_line", lang, mark=mark, name=name, next=nxt, glory=glory)]
-    elif title:
-        mark, name = title[1], get_text(title[2], lang)
-        lines = [get_text("rating_title_top", lang, mark=mark, name=name)]
-    else:
-        lines = [get_text("rating_title_first", lang)]
-    # Только то, что есть: «🥉 0» читалось как упрёк
-    m = st.medals
-    shelf = [f"{mark} {m[kind]}" for mark, kind in (("🥇", "gold"), ("🥈", "silver"), ("🥉", "bronze"))
-             if m[kind]]
-    if st.crowns_total:
-        shelf.append(f"👑 {st.crowns_total}")
-    if shelf:
-        lines.append(" · ".join(shelf))
-    return "\n".join(lines)
-
-
 async def alltime_screen(user: User, session: AsyncSession, lang: str) -> str:
     """Всё время — все люди; приз — звание. Здесь же мои медали и короны."""
     text = get_text("rating_screen_title_alltime", lang) + "\n\n"
@@ -221,7 +194,10 @@ async def alltime_screen(user: User, session: AsyncSession, lang: str) -> str:
                      lang) + "\n"
     else:
         text += get_text("table_you_not_ranked", lang) + "\n"
-    text += awards_block(await standing_of(session, user), lang)
+    # Своего звания, пути до следующего и медалей здесь НЕТ (владелец, 17.10:
+    # «и так понятно, что я луна»; «пусть человек играет — его это будет
+    # удивлять»; медали есть в статистике). Звание — у имени в таблице и в якоре
+    text = text.rstrip("\n")
     # Зала славы нет (владелец, 17.10: «за всё время и так явно, кто лучший»)
     return text
 

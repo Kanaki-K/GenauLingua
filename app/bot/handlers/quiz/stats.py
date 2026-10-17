@@ -217,13 +217,19 @@ async def collection_text(user: User, session: AsyncSession, lang: str) -> str:
     m = st.medals
     opened_count, total = len(opened), len(ACHIEVEMENTS)
     lines = [get_text("collection_title", lang, open=opened_count, total=total)]
-    if any(m.values()) or st.crowns_total:
-        lines.append(f"🥇 {m['gold']} · 🥈 {m['silver']} · 🥉 {m['bronze']} · 👑 {st.crowns_total}")
+    # Только то, что есть: «🥉 0» читалось как упрёк
+    shelf = [f"{mark} {m[kind]}" for mark, kind in (("🥇", "gold"), ("🥈", "silver"),
+                                                     ("🥉", "bronze")) if m[kind]]
+    if st.crowns_total:
+        shelf.append(f"👑 {st.crowns_total}")
+    if shelf:
+        lines.append(" · ".join(shelf))
     for ach in ACHIEVEMENTS:
         if ach.key in opened:
             lines.append(f"{ach.mark} {get_text(f'ach_{ach.key}', lang)}")
-    locked = len(ACHIEVEMENTS) - len(opened)
-    lines += [get_text("collection_locked", lang)] * min(locked, 3)
+    # Закрытые — одной строкой: три «▫️ ???» подряд только занимали место
+    if len(opened) < len(ACHIEVEMENTS):
+        lines.append(get_text("collection_locked", lang))
     return "\n".join(lines)
 
 
@@ -251,7 +257,7 @@ async def build_stats_text(user: User, session: AsyncSession) -> str:
     new = progress['new_words']
     difficult = progress['struggling_words']
     overall_learned = overall['learned_words']
-    overall_total = overall['total_words']
+
 
     # Викторины по текущему режиму и изучаемому языку
     quiz_query = select(QuizSession).where(
@@ -282,7 +288,10 @@ async def build_stats_text(user: User, session: AsyncSession) -> str:
     # круговые стрелки не значили ничего, кроме «тут начинается строка», а
     # направление собиралось БЕЗ языка интерфейса и в русском боте
     # показывало украинские названия.
-    text += f"<b>{mode_title}</b> · {mode_arrow}\n\n"
+    # БЕЗ ПОВТОРА ЯКОРЯ (17.10): пару и уровень якорь уже говорит; заголовок
+    # остаётся, только когда занятие ограничено не уровнем (тема, все слова)
+    if user.quiz_mode != QuizMode.LEVEL:
+        text += f"<b>{mode_title}</b> · {mode_arrow}\n\n"
 
     # ШКАЛА СЧИТАЕТСЯ ДО БЛИЖАЙШЕГО РУБЕЖА, А НЕ ДО ВСЕГО УРОВНЯ.
     #
@@ -318,13 +327,11 @@ async def build_stats_text(user: User, session: AsyncSession) -> str:
     text += f"{get_text('stats_achievements_title', lang)}\n"
     text += get_text("stats_words_count", lang, count=overall_learned) + "\n"
 
-    # Серия — только когда она есть. «Серия: 0 дней подряд» занимает строку
-    # ничем и читается как упрёк; у остановившегося она и должна молчать
+    # Текущая серия — в якоре над экраном (17.10); здесь только лучшая, и
+    # только если она длиннее нынешней
     streak = current_streak(user)
-    if streak:
-        text += get_text("stats_streak_line", lang, days=streak) + "\n"
     best = int(getattr(user, "best_streak_days", 0) or 0)
-    if best and best != streak:
+    if best and best > streak:
         text += get_text("stats_best_streak_line", lang, days=best) + "\n"
     # 🧱 ГРАММАТИКА — верные сборки из показанных. Решение владельца: игра
     # «Собираю» проверяет грамматику (порядок слов, формы среди ловушек), и
@@ -352,13 +359,16 @@ async def build_stats_text(user: User, session: AsyncSession) -> str:
         text += f"{get_text('stats_quizzes_header', lang, level=mode_title)}\n"
         text += get_text("stats_quizzes_passed_line", lang, count=total_quizzes) + "\n"
         text += get_text("stats_quizzes_avg_line", lang, percent=f"{avg_percent:.0f}") + "\n"
-        text += get_text("stats_quizzes_best_line", lang, percent=f"{best_result:.0f}") + "\n\n"
+        # Лучший — когда занятий больше одного: иначе он равен среднему
+        if total_quizzes > 1:
+            text += get_text("stats_quizzes_best_line", lang, percent=f"{best_result:.0f}") + "\n"
+        text += "\n"
     else:
         text += f"{get_text('stats_quizzes_header', lang, level=mode_title)}\n"
         text += get_text("stats_quizzes_empty", lang) + "\n\n"
 
-    # Последние викторины
-    if mode_sessions:
+    # Последние занятия — когда их больше одного: одно и так видно строкой выше
+    if len(mode_sessions) > 1:
         text += get_text("stats_recent_header", lang) + "\n"
         for s in mode_sessions[:3]:
             pct = s.accuracy_percent
@@ -370,16 +380,8 @@ async def build_stats_text(user: User, session: AsyncSession) -> str:
                      f" ({pct:.0f}%)\n")
         text += "\n"
 
-    # ОБЩИЙ ПРОГРЕСС БЕЗ ШКАЛЫ. Выученных 9 от 12 376 слов базы — это ноль
-    # процентов, и полоса тут пуста у ВСЕХ, включая самых усердных. Число
-    # остаётся: оно честное и растёт, а рисовать по нему полосу — значит
-    # каждый раз показывать человеку, что он ничего не добился
-    if overall_total > 0:
-        text += f"{get_text('stats_overall_header', lang)}\n"
-        text += get_text(
-            "stats_overall_learned", lang,
-            learned=overall_learned, total=overall_total,
-        ) + "\n\n"
+    # «ОБЩЕГО ПРОГРЕССА» БОЛЬШЕ НЕТ (17.10): «Выучено слов» уже стоит в
+    # достижениях выше, а «из 12 372» к нему ничего не добавляло
 
     # ЧЕТЫРЕ ОБЩИЕ ФРАЗЫ УБРАНЫ. «Отличное начало! Продолжай в том же
     # духе!» выбиралось по доле выученных и не знало о человеке ничего —

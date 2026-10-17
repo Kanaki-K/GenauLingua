@@ -190,7 +190,7 @@ class TestCardTexts:
         not_ranked = get_text("table_you_not_ranked", "ru")
         assert not_ranked not in played
         assert not_ranked in fresh
-        assert get_text("rating_title_first", "ru") in fresh
+
 
     async def test_learned_words_counted_from_progress_of_this_language(self, session):
         """

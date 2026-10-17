@@ -160,8 +160,10 @@ async def test_three_cards_and_info(session):
 
     await dp.feed_update(bot, press(12, "rating_alltime"))
     alltime = recorder.last_text()
-    assert get_text("rating_title_first", "ru") in alltime
-    assert "🥉 0" not in alltime
+    # Своего звания и медалей во «Всё время» нет (17.10): звание у имени,
+    # медали — в статистике; под таблицей только «Вы»
+    assert alltime.rstrip().endswith(get_text("rating_you", "ru", rank=2, total=3,
+                                              points="200 баллов")), alltime
     assert "rating_info:alltime" in recorder.buttons()
 
     await dp.feed_update(bot, press(12, "rating_info:alltime"))
@@ -322,7 +324,7 @@ NEW_KEYS = [
     "title_sprout", "title_tree", "title_moon", "title_planet", "title_sun", "title_galaxy",
     "btn_rating_info", "card_medal_need", "card_crown_small",
     "rating_screen_title", "rating_screen_title_alltime", "rating_you", "rating_results_in",
-    "rating_title_line", "rating_title_top", "rating_title_first", "rating_crown_rule",
+    "rating_crown_rule",
     "info_title", "info_month", "info_alltime", "info_lang", "info_signs",
     "summary_place", "summary_gap", "summary_record",
     "collection_title", "collection_locked", "award_month_header", "award_crown",
