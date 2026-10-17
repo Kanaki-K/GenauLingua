@@ -47,8 +47,9 @@ MAX_DELETE_RANGE = 1000
 # месту — там человек знакомится с ботом.
 BOT_NAME = "GenauLingua"
 
-# Со скольких дней серия попадает в якорь. Один день — не серия.
-ANCHOR_STREAK_MIN = 2
+# Со скольких дней серия попадает в якорь — тот же порог, что в таблице
+# (17.10): вторая строка якоря обязана совпадать со строкой человека в рейтинге
+from app.services.standing import STREAK_FROM_DAYS as ANCHOR_STREAK_MIN  # noqa: E402
 
 
 async def delete_messages_fast(bot, chat_id: int, start_id: int, end_id: int):
@@ -88,7 +89,7 @@ async def delete_messages_fast(bot, chat_id: int, start_id: int, end_id: int):
     logger.debug("Удалено %d/%d сообщений", deleted, len(message_ids))
 
 
-def anchor_text(user: User) -> str:
+def anchor_text(user: User, standing=None) -> str:
     """
     Строка состояния для якоря: что учу, на каком уровне, сколько дней.
 
@@ -129,17 +130,24 @@ def anchor_text(user: User) -> str:
     if user.level:
         parts.append(user.level.value)
 
-    streak = current_streak(user)
-    if streak >= ANCHOR_STREAK_MIN:
-        from app.locales import get_text
-
-        parts.append(get_text("anchor_streak", lang, days=streak))
-
     # ПУСТЫМ ЯКОРЬ БЫТЬ НЕ МОЖЕТ: Telegram не принимает сообщение без
     # текста, и клавиатуре станет негде жить. Случай единственный — ни
-    # языка, ни уровня, ни серии, то есть человек, не дошедший до конца
-    # знакомства. Ему и показывается имя бота: других сведений о нём нет.
-    return " · ".join(parts) or BOT_NAME
+    # языка, ни уровня, то есть человек, не дошедший до конца знакомства.
+    # Ему и показывается имя бота: других сведений о нём нет.
+    if not parts:
+        return BOT_NAME
+
+    # ВТОРАЯ СТРОКА — человек, ровно как в таблице рейтинга (владелец,
+    # 17.10: «ниже, ровно то как он отображается в рейтинге… чтобы всегда
+    # перед глазами было, по сути как в РПГ»): звание · имя · корона · серия.
+    # Серия переехала сюда из первой строки, порог у неё тот же, что в таблице
+    import html
+
+    from app.services.standing import clean_name, player_line
+
+    me = player_line(html.escape(clean_name(user.display_name)), standing,
+                     current_streak(user))
+    return " · ".join(parts) + "\n" + me
 
 
 async def ensure_anchor(message: Message, session: AsyncSession, user: User,
@@ -154,8 +162,17 @@ async def ensure_anchor(message: Message, session: AsyncSession, user: User,
     old_anchor_id = user.anchor_message_id
     lang = user.interface_language or DEFAULT_LOCALE
     try:
+        from app.services.standing import standing_of
+
+        try:
+            standing = await standing_of(session, user)
+        except Exception:
+            # Звание — украшение якоря, а якорь держит клавиатуру: без
+            # звания он нужнее, чем без себя
+            logger.warning("звание для якоря не посчиталось (user=%s)", user.id, exc_info=True)
+            standing = None
         sent = await message.answer(
-            anchor_text(user), reply_markup=get_main_menu_keyboard(lang)
+            anchor_text(user, standing), reply_markup=get_main_menu_keyboard(lang)
         )
         new_anchor_id = sent.message_id
         user.anchor_message_id = new_anchor_id

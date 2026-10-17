@@ -209,10 +209,39 @@ async def send_nudges(bot: Bot, now_utc: Optional[datetime] = None) -> dict[str,
     async with AsyncSessionLocal() as session:
         users = (await session.execute(select(User))).scalars().all()
         done = await _last_done(session, [u.id for u in users])
-        plans = []
+        states = {}
         for user in users:
             state = build_state(user, now, done.get(user.id))
-            if state is None:
+            if state is not None:
+                states[user.id] = state
+
+        # СОРЕВНОВАНИЕ — ВМЕСТО обычного сообщения дня, а не вдобавок к нему
+        # (17.10): у кого есть «Вас обогнали» или финишная прямая, тому в этот
+        # тик напоминание не планируется, а бюджет общий (`may_send`)
+        from app.schedulers import competition
+
+        try:
+            race = await competition.plan(session, users, states, now)
+        except Exception:
+            logger.exception("план сообщений соревнования не собран")
+            await session.rollback()
+            race = {}
+        by_id = {u.id: u for u in users}
+        for user_id, (kind, data) in race.items():
+            try:
+                outcome = await competition.deliver(bot, session, by_id[user_id],
+                                                    states[user_id], kind, data, now)
+            except Exception:
+                logger.exception("сообщение %s не обработано (%s)", kind, user_id)
+                await session.rollback()
+                outcome = "error"
+            if outcome:
+                counts[outcome] = counts.get(outcome, 0) + 1
+
+        plans = []
+        for user in users:
+            state = states.get(user.id)
+            if state is None or user.id in race:
                 continue
             decision = nudge_plan.decide(state)
             if decision:

@@ -73,12 +73,15 @@ async def test_screens_have_three_tabs_and_the_right_tables(session):
     await dp.feed_update(bot, press(BORIS, "show_my_rating"))
     assert recorder.buttons()[:3] == ["rating_monthly", "rating_alltime", "rating_lang"]
     assert "Английский" in recorder.button_texts()[2]
-    assert "#2" in recorder.last_text() or "2" in recorder.last_text()
+    # Карточка месяца: место и баллы со всеми (130 у Анны, 50 у Бориса)
+    card = recorder.last_text()
+    assert "#2" in card and "Anna" in card, card
 
     await dp.feed_update(bot, press(BORIS, "leaderboard_table_monthly"))
     month = recorder.last_text()
     assert month.index("Anna") < month.index("Boris"), month
-    assert "130" in month
+    # Баллов в строках таблицы нет (17.10): «место · звание · имя · серия»
+    assert "130" not in month
 
     await dp.feed_update(bot, press(BORIS, "table_lang"))
     by_lang = recorder.last_text()
@@ -93,4 +96,5 @@ async def test_screens_have_three_tabs_and_the_right_tables(session):
     assert "leaderboard_table_lang" in recorder.buttons()
 
     await dp.feed_update(bot, press(BORIS, "table_alltime"))
-    assert "130" in recorder.last_text()
+    alltime = recorder.last_text()
+    assert alltime.index("Anna") < alltime.index("Boris"), alltime

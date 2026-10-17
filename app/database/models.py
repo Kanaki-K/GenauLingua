@@ -193,6 +193,11 @@ class User(Base):
     # как только человек сам включит, выберет время, дни или пояс
     reminders_auto: Mapped[bool] = mapped_column(Boolean, default=False,
                                                  server_default="false", nullable=False)
+    # «Вас обогнали» (17.10): кто последним обогнал человека в общем месяце и
+    # когда. Пишет конец занятия обогнавшего, читает распорядитель сообщений;
+    # после отправки — пусто
+    overtaken_by_id: Mapped[Optional[int]] = mapped_column(BigInteger, nullable=True)
+    overtaken_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
     total_monthly_wins: Mapped[int] = mapped_column(Integer, default=0)
 
     # Связи

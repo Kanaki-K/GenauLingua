@@ -18,7 +18,7 @@ from app.bot.handlers.quiz.settings import RESULT_SETTINGS, get_level_offer_keyb
 from app.core.clock import utcnow, utctoday
 from app.database.enums import QuizChannel
 from app.database.models import QuizQuestion, QuizSession, User, UserWord, Word
-from app.locales import get_text
+from app.locales import get_text, plural
 from app.services.language_service import LanguagePair, option_label
 from app.services.level_service import (
     should_offer_lower_level, should_offer_next_level,
@@ -292,6 +292,100 @@ async def _season_score(
     return int(row or 0)
 
 
+async def _month_place(session: AsyncSession, user_id: int) -> Optional[dict]:
+    """Место и баллы человека в общем месяце — до и после занятия."""
+    from app.services.monthly_leaderboard_service import ALL_LANGS, get_user_monthly_rank
+
+    try:
+        return await get_user_monthly_rank(user_id, session, learning_lang=ALL_LANGS)
+    except Exception:
+        logger.warning("место месяца не посчиталось (user=%s)", user_id, exc_info=True)
+        return None
+
+
+async def _race_lines(session: AsyncSession, user: User, lang: str,
+                      before: Optional[dict]) -> list[str]:
+    """
+    Рывок в момент усилия (REWARDS.md §Е, К): «↑ Место в месяце: 3 · до Ольги
+    9 баллов» — только когда место выросло; «Новый рекорд месяца» — только
+    когда превзойдён лучший из прошлых ПОЛНЫХ месяцев (в первом месяце иначе
+    каждое занятие было бы рекордом).
+    """
+    import html
+
+    from app.database.models import MonthlySeason, MonthlyStats
+    from app.services.monthly_leaderboard_service import ALL_LANGS, month_neighbours
+    from app.services.standing import clean_name
+
+    after = await _month_place(session, user.id)
+    if not after:
+        return []
+    lines = []
+    if before is None or after["rank"] < before["rank"]:
+        rank = after["rank"]
+        line = get_text("summary_place", lang, rank=rank)
+        season_id = await _season_id(session)
+        above, _ = (await month_neighbours(session, user.id, season_id, ALL_LANGS)
+                    if season_id else (None, None))
+        if above:
+            name = html.escape(clean_name(above["display_name"]))
+            gap = plural(max(0, above["monthly_score"] - after["monthly_score"]), "plural_points", lang)
+            line += " · " + get_text("summary_gap", lang, name=name, gap=gap)
+        lines.append(line)
+
+    by_month = (
+        select(func.sum(MonthlyStats.monthly_score).label("total"))
+        .join(MonthlySeason, MonthlySeason.id == MonthlyStats.season_id)
+        .where(MonthlyStats.user_id == user.id, MonthlySeason.winners_finalized.is_(True))
+        .group_by(MonthlyStats.season_id)
+        .subquery()
+    )
+    best_past = (await session.execute(select(func.max(by_month.c.total)))).scalar()
+    score_before = (before or {}).get("monthly_score", 0)
+    if best_past and score_before <= best_past < after["monthly_score"]:
+        points = plural(after["monthly_score"], "plural_points", lang)
+        lines.append(get_text("summary_record", lang, points=points))
+    return lines
+
+
+async def _mark_overtaken(session: AsyncSession, user_id: int,
+                          before: Optional[dict]) -> None:
+    """
+    Отметить тех, кого человек только что обогнал в общем месяце.
+
+    Сообщение «Вас обогнали» шлёт не этот код, а распорядитель сообщений —
+    в общем бюджете и днём (`nudges.py`). Отметка — только тем, кто теперь
+    в первой десятке: дальше обгон не новость. Ошибка здесь не должна
+    ронять итог занятия.
+    """
+    from app.services.monthly_leaderboard_service import ALL_LANGS, get_monthly_leaderboard
+
+    if not before:
+        return
+    try:
+        after = await _month_place(session, user_id)
+        if not after or after["rank"] >= before["rank"]:
+            return
+        board = await get_monthly_leaderboard(session, learning_lang=ALL_LANGS,
+                                              limit=min(before["rank"], 10))
+        passed = [e["user_id"] for e in board
+                  if after["rank"] < e["rank"] <= before["rank"] and e["user_id"] != user_id]
+        if passed:
+            await session.execute(update(User).where(User.id.in_(passed)).values(
+                overtaken_by_id=user_id, overtaken_at=utcnow()))
+            await session.commit()
+    except Exception:
+        logger.warning("обгон не отмечен (user=%s)", user_id, exc_info=True)
+        await session.rollback()
+
+
+async def _season_id(session: AsyncSession) -> Optional[int]:
+    from app.services.monthly_leaderboard_service import get_current_season
+
+    season = await get_current_season(session)
+    return season.id if season else None
+
+
 async def _praise_lines(
     session: AsyncSession,
     user: User,
@@ -512,7 +606,9 @@ async def _finish_quiz(
 
     await session.commit()
 
+    place_before = None
     if not is_error_repeat:
+        place_before = await _month_place(session, user.id)
         try:
             await update_monthly_stats(
                 user_id=user.id, session=session, quiz_session_id=session_id
@@ -572,6 +668,10 @@ async def _finish_quiz(
         )
         if praise:
             result_text += "\n\n" + "\n".join(praise)
+        race = await _race_lines(session, user, lang, place_before)
+        if race:
+            result_text += "\n\n" + "\n".join(race)
+        await _mark_overtaken(session, user.id, place_before)
 
     # Сначала новое, потом удаление прежнего: иначе между ними на экране
     # один якорь (владелец, 15.10: «пропадает карточка и остаётся якорь,

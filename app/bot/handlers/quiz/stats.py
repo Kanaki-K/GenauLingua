@@ -205,6 +205,28 @@ async def build_totals(user: User, session: AsyncSession) -> tuple[int, int]:
     return int(shown), int(correct)
 
 
+async def collection_text(user: User, session: AsyncSession, lang: str) -> str:
+    """
+    Коллекция (владелец, 17.10): медали, сколько раз была корона, знаки
+    достижений. Закрытые видны как «▫️ ???» — человеку есть что открывать.
+    """
+    from app.services.standing import ACHIEVEMENTS, standing_of
+
+    st = await standing_of(session, user)
+    opened = set(st.achievements)
+    m = st.medals
+    opened_count, total = len(opened), len(ACHIEVEMENTS)
+    lines = [get_text("collection_title", lang, open=opened_count, total=total)]
+    if any(m.values()) or st.crowns_total:
+        lines.append(f"🥇 {m['gold']} · 🥈 {m['silver']} · 🥉 {m['bronze']} · 👑 {st.crowns_total}")
+    for ach in ACHIEVEMENTS:
+        if ach.key in opened:
+            lines.append(f"{ach.mark} {get_text(f'ach_{ach.key}', lang)}")
+    locked = len(ACHIEVEMENTS) - len(opened)
+    lines += [get_text("collection_locked", lang)] * min(locked, 3)
+    return "\n".join(lines)
+
+
 async def build_stats_text(user: User, session: AsyncSession) -> str:
     """
     Подробная статистика одним текстом.
@@ -313,6 +335,7 @@ async def build_stats_text(user: User, session: AsyncSession) -> str:
     if built:
         text += get_text("stats_grammar_line", lang, correct=built_right, shown=built) + "\n"
     text += "\n"
+    text += await collection_text(user, session, lang) + "\n\n"
 
     # Викторины по режиму.
     # Точность считается по фактически отвеченным вопросам: плановое

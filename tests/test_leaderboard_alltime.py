@@ -132,13 +132,11 @@ class TestScreensAgree:
         assert (mine["rank"], mine["total_users"], mine["lifetime_score"]) == (11, 12, 20)
 
         table = build_alltime_table(board, mine, 11, "ru")
-        expected = get_text("table_you_not_in_top", "ru", rank=11, total=12,
-                            score=plural(20, "plural_points", "ru"))
-        assert expected in table
+        assert get_text("table_you_in_top", "ru", rank=11, total=12) in table
 
         card = build_alltime_card(None, mine, "ru")
-        assert get_text("rating_position_alltime", "ru", rank=11) in card
-        assert get_text("rating_points", "ru", score=20) in card
+        assert get_text("card_place", "ru", rank=11, total=12,
+                        points=plural(20, "plural_points", "ru")) in card
 
     async def test_card_table_and_you_line_show_one_number(self, session):
         """В десятке: строка таблицы, «Ты: #N из M» и карточка — одно место."""
@@ -194,7 +192,6 @@ class TestCardTexts:
 
         start = get_text("rating_motivation_start", "ru")
         assert start not in played
-        assert get_text("rating_motivation_continue", "ru") in played
         assert start in fresh
         assert get_text("rating_position_none", "ru") in fresh
 

@@ -1174,58 +1174,73 @@ async def notify_season_awards(
     if not pending:
         return 0
 
-    sent = 0
+    # ОДНО СООБЩЕНИЕ НА ЧЕЛОВЕКА И СЕЗОН (17.10): медаль, корона, слава и
+    # новое звание — вместе. Прежде каждая награда шла своим сообщением, а
+    # 1-го числа к ним добавлялось бы напоминание: три сообщения подряд.
+    # Отправка ЗАНИМАЕТ дневной бюджет распорядителя (`last_notification_sent`)
+    # — напоминания в этот день человек не получит
+    from app.services.standing import AWARD_GLORY, CROWN, standing_of, title_for
+    from app.services.language_service import language_word
+
+    groups: Dict[tuple, list] = {}
     for award in pending:
-        user = await session.get(User, award.user_id)
+        groups.setdefault((award.user_id, award.season_id), []).append(award)
+
+    sent = 0
+    for (user_id, season_id), awards in groups.items():
+        user = await session.get(User, user_id)
         if not user:
             # Человека больше нет — награда остаётся в истории сезона, но
             # сообщать некому; помечаем, чтобы не перебирать её вечно
-            award.notified_at = utcnow()
+            for award in awards:
+                award.notified_at = utcnow()
             continue
 
-        season = await session.get(MonthlySeason, award.season_id)
+        season = await session.get(MonthlySeason, season_id)
         lang = user.interface_language or DEFAULT_LOCALE
-
-        # Значения считаются ДО вызова: выражение с запятыми внутри
-        # `get_text(...)` не разбирается проверкой соответствия параметров
-        # (`test_format_parameters_match`), и ключ с подстановками прошёл бы
-        # мимо неё молча
-        #
-        # У десятки медали нет, и знак остаётся пустым. Прежде на его место
-        # вставал «#5» — и строка выходила «#5 Ты в зачёте за октябрь: место
-        # 5», номер дважды; ровно этот повтор («🥇 1.») снимали в таблице
-        mark = award_mark(award.award_type)
         month = format_month_name(season.month, lang, inline=True) if season else ""
 
+        lines = [get_text("award_month_header", lang), ""]
+        for award in sorted(awards, key=lambda a: (a.award_type == CROWN, a.rank)):
+            if award.award_type == CROWN:
+                language = language_word(award.learning_lang, lang) or award.learning_lang
+                lines.append(get_text("award_crown", lang, language=language))
+                continue
+            # Значения считаются ДО вызова: выражение с запятыми внутри
+            # `get_text(...)` не разбирается проверкой соответствия параметров.
+            # У десятки медали нет, и знак остаётся пустым
+            mark = award_mark(award.award_type)
+            rank, bonus = award.rank, award.lifetime_bonus
+            lines.append(get_text("award_won", lang, mark=mark, rank=rank,
+                                  month=month, bonus=bonus).strip())
+
+        gained = sum(AWARD_GLORY.get(a.award_type, 0) for a in awards)
+        if gained:
+            standing = await standing_of(session, user)
+            lines += ["", get_text("award_glory", lang, glory=gained)]
+            now_title, before = title_for(standing.glory), title_for(standing.glory - gained)
+            if now_title and now_title != before:
+                mark, name = now_title[1], get_text(now_title[2], lang)
+                lines.append(get_text("award_new_title", lang, mark=mark, name=name))
+
         try:
-            await bot.send_message(
-                award.user_id,
-                get_text(
-                    "award_won", lang,
-                    mark=mark,
-                    rank=award.rank,
-                    month=month,
-                    bonus=award.lifetime_bonus,
-                ).strip(),
-            )
-            award.notified_at = utcnow()
+            await bot.send_message(user_id, "\n".join(lines).strip())
+            for award in awards:
+                award.notified_at = utcnow()
+            user.last_notification_sent = now
             sent += 1
         except TelegramForbiddenError:
             # Заблокировал бота — доставить нельзя ни сейчас, ни через час.
             # Без отметки попытка повторялась бы каждый час все трое суток.
-            # `notified_at` здесь значит «извещение закрыто», а не «прочитано»:
-            # отдельной колонки под отказ в схеме нет
-            logger.info(
-                "о награде не сообщить: бот заблокирован (user=%s, сезон=%s)",
-                award.user_id, award.season_id,
-            )
-            award.notified_at = utcnow()
+            # `notified_at` здесь значит «извещение закрыто», а не «прочитано»
+            logger.info("о награде не сообщить: бот заблокирован (user=%s, сезон=%s)",
+                        user_id, season_id)
+            for award in awards:
+                award.notified_at = utcnow()
         except Exception:
-            logger.info(
-                "не удалось сообщить о награде (user=%s, сезон=%s)",
-                award.user_id, award.season_id, exc_info=True,
-            )
+            logger.info("не удалось сообщить о награде (user=%s, сезон=%s)",
+                        user_id, season_id, exc_info=True)
 
     await session.commit()
-    logger.info("о наградах сообщено: %s из %s", sent, len(pending))
+    logger.info("о наградах сообщено: %s из %s", sent, len(groups))
     return sent

@@ -174,9 +174,10 @@ async def test_german_learner_keeps_goethe_levels(session, user):
 
 
 def test_fire_shows_from_three_days():
-    """🔥 у имени в рейтинге — с трёх дней подряд (патч 2.1)."""
-    from app.bot.handlers.leaderboard.leaderboard_table import _with_fire
+    """🔥 у имени в рейтинге и в якоре — с трёх дней подряд (патч 2.1, 17.10)."""
+    from app.services.standing import player_line
 
-    assert _with_fire("Оксана", 1, {1: 12}) == "Оксана 🔥12"
-    assert _with_fire("Оксана", 1, {1: 2}) == "Оксана"
-    assert _with_fire("Оксана", 1, None) == "Оксана"
+    assert player_line("Оксана", None, 12) == "Оксана 🔥12"
+    assert player_line("Оксана", None, 2) == "Оксана"
+    assert player_line("Оксана", None, 0) == "Оксана"
+    assert player_line("Оксана", None, 1234) == "Оксана 🔥1.2k"

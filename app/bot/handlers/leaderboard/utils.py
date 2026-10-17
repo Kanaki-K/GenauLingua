@@ -114,8 +114,10 @@ def get_leaderboard_keyboard_text(lang: str, current_tab: str,
         'alltime': get_text("rating_tab_alltime", lang),
         'lang': get_text(f"langname_{learning}", lang) if learning else "",
     }
+    # ВЫБРАННАЯ — «✓ Месяц», а не «• Месяц •» (17.10): три кнопки в ряд на
+    # телефоне режутся, и четыре лишних знака съедали «За всё вре…»
     if current_tab in texts:
-        texts[current_tab] = f"• {texts[current_tab]} •"
+        texts[current_tab] = f"✓ {texts[current_tab]}"
     return texts
 
 
