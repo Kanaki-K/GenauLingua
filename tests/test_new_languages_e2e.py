@@ -37,6 +37,9 @@ async def _words(session, langs):
 
 
 def _check(texts: list[str], lang: str) -> None:
+    # Имя человека (в тестах — «Тестовый») — данные, а не строка интерфейса:
+    # с 17.10 оно стоит во второй строке якоря
+    texts = [t.replace("Тестовый", "") for t in texts]
     for text in texts:
         assert "[MISSING" not in text and "[ERROR" not in text, (lang, text)
         assert not CYRILLIC.search(text), (lang, text)

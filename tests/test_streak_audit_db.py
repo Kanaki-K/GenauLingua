@@ -124,7 +124,7 @@ async def test_fire_only_for_live_streak_and_name_escaped(session):
     alive = User(id=3002, first_name="Alive", interface_language="ru", learning_lang="de",
                  native_lang="ru", streak_days=12, last_active_date=today - timedelta(days=1),
                  timezone="Europe/Berlin")
-    tag = User(id=3003, first_name="Tom <3", interface_language="ru", learning_lang="de",
+    tag = User(id=3003, first_name="Tom<3", interface_language="ru", learning_lang="de",
                native_lang="ru", streak_days=4, last_active_date=today, timezone="Europe/Berlin")
     session.add_all([gone, alive, tag])
     await session.commit()
@@ -137,6 +137,8 @@ async def test_fire_only_for_live_streak_and_name_escaped(session):
                                streaks=streaks)
     print(text)
     assert "Gone 🔥" not in text
-    assert "<b>Alive 🔥12</b>" in text
-    assert "Tom &lt;3 🔥4" in text, "имя не экранировано — Telegram отвергнет HTML"
+    # С 17.10 полужирное — только имя; серия — знак строки игрока
+    assert "<b>Alive</b> 🔥12" in text
+    # С 17.10 в таблице первое слово имени; «<» в нём по-прежнему экранируется
+    assert "Tom&lt;3 🔥4" in text, "имя не экранировано — Telegram отвергнет HTML"
 

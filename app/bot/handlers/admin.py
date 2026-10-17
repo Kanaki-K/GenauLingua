@@ -127,7 +127,8 @@ def get_admin_keyboard() -> InlineKeyboardMarkup:
     return admin_ui.kb(
         [("Люди", "admin:people"), ("Занятия", "admin:lessons")],
         [("Слова", "admin:words"), ("Жалобы", "admin:reports")],
-        [("Сообщения", "admin:nudges"), ("Выгрузка", "admin:export")],
+        [("Сообщения", "admin:nudges"), ("Рейтинг", "admin:rating")],
+        [("Выгрузка", "admin:export")],
     )
 
 
@@ -275,6 +276,7 @@ async def _get_main_stats(session: AsyncSession) -> str:
         f"Жалобы {admin_ui.DOT} " + (
             f"{admin_ui.num(pending)} ждут решения" if pending else "решены все"
         ),
+        f"Рейтинг {admin_ui.DOT} месяц, медали, короны, звания",
         f"Выгрузка {admin_ui.DOT} люди и занятия в CSV",
     ])
 
@@ -356,7 +358,8 @@ async def admin_nudges(callback: CallbackQuery, session: AsyncSession):
 
     report = await nudge_report(session, utcnow())
     total = report.total()
-    order = ["daily", "back1", "back3", "back7", "back14", "start1", "start3", "start7"]
+    order = ["daily", "back1", "back3", "back7", "back14", "start1", "start3", "start7",
+             "overtaken", "finish"]
     rows = [("вид", "отпр", "верн", "кнопк", "отпис", "блок")]
     for kind in order:
         k = report.kinds.get(kind)
@@ -2213,6 +2216,12 @@ async def admin_user_details(message: Message, session: AsyncSession):
             f"Слова на уровне {user.level.value}",
             admin_ui.table(progress_rows(level_progress)),
         ))
+
+    # РЕЙТИНГ ЧЕЛОВЕКА (17.10): место, звание, медали, короны — тем же
+    # расчётом, что видит он сам
+    from app.bot.handlers.admin_rating import person_rating_block
+
+    blocks.append(await person_rating_block(session, user))
 
     blocks.append(admin_ui.section(
         "Откуда входит",

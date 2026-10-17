@@ -86,17 +86,16 @@ def test_round_result_offers_another_round_first():
     assert starts_lesson(data[0]), f"«ещё круг» не первым: {data}"
 
 
-def test_complaint_never_outranks_continuing():
+def test_complaint_is_not_in_the_result_any_more():
     """
-    Жалоба нужна редко и не должна стоять выше того, зачем человек здесь.
-    Проверяется на обоих видах круга: с ошибками и без.
+    С 17.10 жалоба — на разборе каждого слова (`report_inline`), а не в итоге:
+    «в конце игры уже просто можно не помнить что там было не так». Первой
+    кнопкой итога остаётся продолжение.
     """
     for has_errors in (False, True):
         data = _data(get_results_keyboard(has_errors=has_errors, lang="ru"))
-        lesson = next(i for i, d in enumerate(data) if starts_lesson(d))
-        assert lesson < data.index("report_translation_error"), (
-            f"жалоба выше продолжения при has_errors={has_errors}: {data}"
-        )
+        assert "report_translation_error" not in data, data
+        assert starts_lesson(data[0]), data
 
 
 def test_repeating_errors_stays_right_after_continuing():
