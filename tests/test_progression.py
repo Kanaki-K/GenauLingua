@@ -29,7 +29,7 @@ from app.services.monthly_leaderboard_service import (
 )
 from app.services.standing import (
     ACHIEVEMENTS, TITLES, Standing, clean_name, compact_number, next_title,
-    player_line, standing_of, title_for,
+    anchor_line, standing_of, table_line, title_for,
 )
 from tests.scenario import make_bot, make_dispatcher, press, reset_state
 
@@ -86,8 +86,11 @@ def test_long_streak_does_not_stretch_the_line():
     assert compact_number(27) == "27" and compact_number(1234) == "1.2k"
     assert compact_number(1000) == "1k" and compact_number(15000) == "15k"
     st = Standing(user_id=1, glory=12, crown_lang="de")
-    assert player_line("Kostia", st, 27) == "🌙 Kostia 👑 🔥27"
-    assert player_line("Kostia", None, 2) == "Kostia"
+    # Таблица — звание и имя; корона — только на вкладке языка; серия — в якоре
+    assert table_line("Kostia", st) == "🌙 Kostia"
+    assert table_line("Kostia", st, crown=True) == "🌙 Kostia 👑"
+    assert anchor_line("Kostia", st, 27) == "🌙 Kostia 🔥27"
+    assert anchor_line("Kostia", None, 2) == "Kostia"
 
 
 async def test_glory_from_medals_and_achievements_but_not_crowns(session):
@@ -135,7 +138,7 @@ async def test_three_cards_and_info(session):
     # ОДИН ЭКРАН НА ВКЛАДКУ (17.10): таблица, под чертой — я, и мой приз
     await dp.feed_update(bot, press(12, "rating_monthly"))
     month = recorder.last_text()
-    assert "1. Anna" in month and "2. <b>Boris</b>" in month and "3. Clara" in month, month
+    assert "1. Anna — 300" in month and "2. <b>Boris</b> — 200" in month, month
     assert get_text("rating_you", "ru", rank=2, total=3, points="200 баллов") in month
     # У Бориса два занятия — медали не будет, и это сказано
     assert get_text("card_medal_need", "ru", need=3, have=2) in month
@@ -145,16 +148,10 @@ async def test_three_cards_and_info(session):
     tail = month.split("\n\n")[-1].split("\n")
     assert len(tail) <= 3, tail
 
-    # У Анны 5 занятий: она на золоте, и видно отрыв от второго
+    # Строки приза нет (владелец: «🥈 · до 🥇 — тупо лишнее»): только место и баллы
     await dp.feed_update(bot, press(11, "rating_monthly"))
     leader = recorder.last_text()
-    lead = get_text("rating_lead", "ru", name="Boris", gap="100 баллов")
-    assert f"🥇 · {lead}" in leader, leader
-    # Клара третья с 4 занятиями: на бронзе, до серебра 100
-    await dp.feed_update(bot, press(13, "rating_monthly"))
-    third = recorder.last_text()
-    to_silver = get_text("rating_to_medal", "ru", medal="🥈", gap="100 баллов")
-    assert f"🥉 · {to_silver}" in third, third
+    assert "🥇" not in leader and "🥈" not in leader, leader
 
     await dp.feed_update(bot, press(12, "rating_lang"))
     lang_card = recorder.last_text()
@@ -179,9 +176,10 @@ async def test_crown_is_worn_in_the_table_with_a_hint(session):
     rows = [{"user_id": 1, "rank": 1, "display_name": "Olga"},
             {"user_id": 2, "rank": 2, "display_name": "Ivan"}]
     ranks = {1: Standing(user_id=1, crown_lang="de"), 2: Standing(user_id=2)}
-    lines, me_in, crown = _rows(rows, 2, None, ranks)
+    lines, me_in, crown = _rows(rows, 2, None, ranks, crown=True)
     assert lines == ["1. Olga 👑", "2. <b>Ivan</b>"] and me_in and crown
-    assert _rows(rows, 2, None, {})[2] is False
+    # На «Месяце» и «Всё время» короны в строках нет (владелец: только на языке)
+    assert _rows(rows, 2, None, ranks)[0] == ["1. Olga", "2. <b>Ivan</b>"]
 
     # Подпись к 👑 — в «Инфо», а не на каждом экране (владелец: «наляписто»)
     from app.bot.handlers.leaderboard.monthly import info_text
@@ -323,9 +321,8 @@ async def test_place_up_line_and_overtaken_mark(session):
 NEW_KEYS = [
     "title_sprout", "title_tree", "title_moon", "title_planet", "title_sun", "title_galaxy",
     "btn_rating_info", "card_medal_need", "card_crown_small",
-    "rating_screen_title", "rating_screen_title_alltime", "rating_you", "rating_to_medal",
-    "rating_lead", "rating_results_in", "rating_crown_race", "rating_crown_lead",
-    "rating_title_line", "rating_title_top", "rating_title_first", "rating_hall",
+    "rating_screen_title", "rating_screen_title_alltime", "rating_you", "rating_results_in",
+    "rating_title_line", "rating_title_top", "rating_title_first", "rating_crown_rule",
     "info_title", "info_month", "info_alltime", "info_lang", "info_signs",
     "summary_place", "summary_gap", "summary_record",
     "collection_title", "collection_locked", "award_month_header", "award_crown",

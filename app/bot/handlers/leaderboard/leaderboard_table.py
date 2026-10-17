@@ -20,13 +20,10 @@ from aiogram.types import CallbackQuery
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.database.models import MonthlyAward, MonthlySeason, User
-from app.services.standing import clean_name, player_line, standings
+from app.database.models import User
+from app.services.standing import clean_name, standings, table_line
 
 router = Router()
-
-# Сколько прошлых месяцев показывает зал славы
-HALL_MONTHS = 3
 
 
 async def streaks_of(session: AsyncSession, leaderboard: list) -> dict[int, int]:
@@ -52,9 +49,16 @@ async def people_of(session: AsyncSession, leaderboard: list) -> tuple[dict, dic
 
 
 def _rows(leaderboard: list, user_id: int, streaks: Optional[dict],
-          ranks: Optional[dict]) -> tuple[list[str], bool, bool]:
-    """Строки таблицы; есть ли в ней человек и есть ли на экране корона."""
-    lines, me_in, crown = [], False, False
+          ranks: Optional[dict], *, crown: bool = False) -> tuple[list[str], bool, bool]:
+    """
+    Строки таблицы «1. 🌳 Olga — 455»; есть ли в ней человек и корона.
+
+    `crown` — показывать ли 👑: только на вкладке языка (владелец). Баллы —
+    числом после тире: так они читаются как баллы, а не как уровень.
+    Серии в таблице нет — она в якоре каждого (`streaks` оставлен ради
+    вызывающих).
+    """
+    lines, me_in, crowned = [], False, False
     for entry in leaderboard:
         # Имя — в HTML-сообщении: «Tom <3» Telegram отверг бы целиком.
         # Экранируем ПОСЛЕ обрезки — иначе она резала бы «&lt;» (аудит 2.1)
@@ -64,35 +68,11 @@ def _rows(leaderboard: list, user_id: int, streaks: Optional[dict],
             me_in = True
             name = f"<b>{name}</b>"
         st = (ranks or {}).get(entry["user_id"])
-        crown = crown or bool(st and st.crown_lang)
-        line = player_line(name, st, (streaks or {}).get(entry["user_id"], 0))
-        lines.append(f"{entry['rank']}. {line}")
-    return lines, me_in, crown
-
-
-async def hall_of_fame(session: AsyncSession) -> list[tuple[int, str]]:
-    """
-    Зал славы: победители последних закрытых месяцев — [(месяц, имена)].
-
-    До 17.10 золото раздавалось по языкам, и у старого месяца победителей
-    бывает несколько — они идут через запятую.
-    """
-    seasons = (await session.execute(
-        select(MonthlySeason).where(MonthlySeason.winners_finalized.is_(True))
-        .order_by(MonthlySeason.year.desc(), MonthlySeason.month.desc())
-        .limit(HALL_MONTHS)
-    )).scalars().all()
-    hall = []
-    for season in seasons:
-        winners = (await session.execute(
-            select(User).join(MonthlyAward, MonthlyAward.user_id == User.id)
-            .where(MonthlyAward.season_id == season.id, MonthlyAward.award_type == "gold")
-            .order_by(User.id)
-        )).scalars().all()
-        if winners:
-            hall.append((season.month,
-                         ", ".join(html.escape(clean_name(w.display_name)) for w in winners)))
-    return hall
+        crowned = crowned or bool(crown and st and st.crown_lang)
+        score = entry.get("monthly_score", entry.get("lifetime_score"))
+        tail = f" — {score}" if score is not None else ""
+        lines.append(f"{entry['rank']}. {table_line(name, st, crown=crown)}{tail}")
+    return lines, me_in, crowned
 
 
 # Кнопки прежней версии в старых сообщениях — на экран той же вкладки

@@ -134,10 +134,10 @@ async def test_fire_only_for_live_streak_and_name_escaped(session):
     ]
     streaks = await streaks_of(session, board)
     text = "\n".join(_rows(board, 3002, streaks, None)[0])
-    print(text)
-    assert "Gone 🔥" not in text
-    # С 17.10 полужирное — только имя; серия — знак строки игрока
-    assert "<b>Alive</b> 🔥12" in text
-    # С 17.10 в таблице первое слово имени; «<» в нём по-прежнему экранируется
-    assert "Tom&lt;3 🔥4" in text, "имя не экранировано — Telegram отвергнет HTML"
+    # С 17.10 серии в таблице нет — она в якоре каждого, и там живая
+    assert "🔥" not in text
+    assert streaks == {3001: 0, 3002: 12, 3003: 4}
+    # В таблице первое слово имени; «<» в нём по-прежнему экранируется
+    assert "Tom&lt;3 — 98" in text, "имя не экранировано — Telegram отвергнет HTML"
+    assert "<b>Alive</b> — 99" in text
 

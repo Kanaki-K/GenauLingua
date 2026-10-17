@@ -137,15 +137,14 @@ def anchor_text(user: User, standing=None) -> str:
     if not parts:
         return BOT_NAME
 
-    # ВТОРАЯ СТРОКА — человек, ровно как в таблице рейтинга (владелец,
-    # 17.10: «ниже, ровно то как он отображается в рейтинге… чтобы всегда
-    # перед глазами было, по сути как в РПГ»): звание · имя · корона · серия.
-    # Серия переехала сюда из первой строки, порог у неё тот же, что в таблице
+    # ВТОРАЯ СТРОКА — человек, как в таблице рейтинга, и его серия (владелец,
+    # 17.10: «чтобы всегда перед глазами было, по сути как в РПГ»; «серия —
+    # в якоре, каждому своя»): звание · имя · серия
     import html
 
-    from app.services.standing import clean_name, player_line
+    from app.services.standing import anchor_line, clean_name
 
-    me = player_line(html.escape(clean_name(user.display_name)), standing,
+    me = anchor_line(html.escape(clean_name(user.display_name)), standing,
                      current_streak(user))
     return " · ".join(parts) + "\n" + me
 

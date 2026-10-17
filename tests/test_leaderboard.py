@@ -703,6 +703,5 @@ def test_the_table_shows_name_and_points_without_titles():
     text = "\n".join(_rows(rows, 999, None, None)[0]) + "\n"
     for word in ("ученик", "эксперт", "профессор", "полиглот"):
         assert word not in text, text
-    # С 17.10 баллов в строке нет: «место · звание · имя · серия»
-    assert "5. Name5\n" in text, text
-    assert "995" not in text, text
+    # С 17.10: «место · звание · имя — баллы»
+    assert "5. Name5 — 995\n" in text, text

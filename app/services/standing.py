@@ -167,18 +167,29 @@ def streak_mark(days: int) -> str:
     return f"🔥{compact_number(days)}" if days >= STREAK_FROM_DAYS else ""
 
 
-def player_line(name: str, standing: Optional[Standing], streak_days: int) -> str:
-    """«🌙 Kostia 👑 🔥27» — звание · имя · корона · серия; пустое не пишется."""
-    parts = []
-    if standing and standing.title_mark:
-        parts.append(standing.title_mark)
+def table_line(name: str, standing: Optional[Standing], *, crown: bool = False) -> str:
+    """
+    Человек в таблице рейтинга — ЗВАНИЕ И ИМЯ (баллы ставит таблица).
+
+    Владелец, 17.10: «наляписто в плане эмодзи, перегружено на фоне бота;
+    должно быть аккуратнее и минималистичнее»; «только звание + баллы
+    рейтинга»; «корона — только на языке и в общих наградах за всё время»;
+    «серия — в якоре, каждому своя». Поэтому:
+      * `crown=True` — только на вкладке языка;
+      * серии в таблице нет — она в якоре человека (`anchor_line`).
+    """
+    parts = [standing.title_mark] if standing and standing.title_mark else []
     parts.append(name)
-    if standing and standing.crown_lang:
+    if crown and standing and standing.crown_lang:
         parts.append(CROWN_MARK)
-    fire = streak_mark(streak_days)
-    if fire:
-        parts.append(fire)
     return " ".join(parts)
+
+
+def anchor_line(name: str, standing: Optional[Standing], streak_days: int) -> str:
+    """Вторая строка якоря: моё звание, имя и моя серия — «🌙 Kostia 🔥12»."""
+    line = table_line(name, standing)
+    fire = streak_mark(streak_days)
+    return f"{line} {fire}" if fire else line
 
 
 # ---------------------------------------------------------------------------

@@ -175,9 +175,10 @@ async def test_german_learner_keeps_goethe_levels(session, user):
 
 def test_fire_shows_from_three_days():
     """🔥 у имени в рейтинге и в якоре — с трёх дней подряд (патч 2.1, 17.10)."""
-    from app.services.standing import player_line
+    from app.services.standing import anchor_line
 
-    assert player_line("Оксана", None, 12) == "Оксана 🔥12"
-    assert player_line("Оксана", None, 2) == "Оксана"
-    assert player_line("Оксана", None, 0) == "Оксана"
-    assert player_line("Оксана", None, 1234) == "Оксана 🔥1.2k"
+    # С 17.10 серия — только в якоре человека, не в таблице
+    assert anchor_line("Оксана", None, 12) == "Оксана 🔥12"
+    assert anchor_line("Оксана", None, 2) == "Оксана"
+    assert anchor_line("Оксана", None, 0) == "Оксана"
+    assert anchor_line("Оксана", None, 1234) == "Оксана 🔥1.2k"

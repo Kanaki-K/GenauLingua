@@ -58,7 +58,6 @@ router = Router()
 
 INFO = "rating_info"
 TOP = 10
-MEDALS = {1: "🥇", 2: "🥈", 3: "🥉"}
 
 
 def get_rating_keyboard(lang: str, current_tab: str = "monthly",
@@ -87,23 +86,20 @@ def _points(n: int, lang: str) -> str:
     return plural(max(0, int(n)), "plural_points", lang)
 
 
-async def _table(session: AsyncSession, board: list, user_id: int) -> tuple[list[str], bool]:
-    """Строки десятки (строка игрока) и есть ли на экране корона."""
+async def _table(session: AsyncSession, board: list, user_id: int,
+                 *, crown: bool = False) -> tuple[list[str], bool]:
+    """Строки десятки и есть ли на экране корона (её видно только на вкладке языка)."""
     from app.bot.handlers.leaderboard.leaderboard_table import _rows, people_of
 
     streaks, ranks = await people_of(session, board)
-    lines, _, crown = _rows(board, user_id, streaks, ranks)
-    return lines, crown
+    lines, _, crowned = _rows(board, user_id, streaks, ranks, crown=crown)
+    return lines, crowned
 
 
 def _you(rank: int, total: int, score: int, lang: str) -> str:
     points = _points(score, lang)
     return get_text("rating_you", lang, rank=rank, total=total, points=points)
 
-
-def _line(text: str) -> str:
-    """Строка с заглавной: «до 🥉 12 баллов» → «До 🥉 12 баллов»."""
-    return text[:1].upper() + text[1:] if text else text
 
 
 def _quiet(text: str) -> str:
@@ -139,22 +135,13 @@ async def month_screen(user: User, session: AsyncSession, season, lang: str) -> 
 
     rank, score = mine["rank"], mine["monthly_score"]
     text += _you(rank, len(board), score, lang) + "\n"
+    # СТРОКИ ПРИЗА НЕТ (владелец, 17.10: «🥈 · до 🥇 35 баллов — тупо
+    # лишнее… и так на экране много смайликов»). Под таблицей — место и баллы;
+    # слова — только если без них медали не будет
     if mine["monthly_quizzes"] < MEDAL_MIN_QUIZZES:
         # Таблица показывает и тех, у кого одно занятие, а медаль — с трёх
         have = mine["monthly_quizzes"]
         text += get_text("card_medal_need", lang, need=MEDAL_MIN_QUIZZES, have=have) + "\n"
-    elif rank == 1:
-        if len(board) > 1:
-            name, gap = _name(board[1]), _points(score - board[1]["monthly_score"], lang)
-            text += f"🥇 · {get_text('rating_lead', lang, name=name, gap=gap)}\n"
-        else:
-            text += "🥇\n"
-    else:
-        # Следующая медаль: на место выше в тройке, вне тройки — бронза
-        target = rank - 1 if rank in MEDALS else 3
-        medal, gap = MEDALS[target], _points(board[target - 1]["monthly_score"] - score, lang)
-        prize = get_text("rating_to_medal", lang, medal=medal, gap=gap)
-        text += (f"{MEDALS[rank]} · {prize}" if rank in MEDALS else _line(prize)) + "\n"
     days = _days_left(season)
     if days:
         days = plural(days, "plural_days", lang)
@@ -173,7 +160,7 @@ async def language_screen(user: User, session: AsyncSession, season, lang: str) 
                                           learning_lang=learning)
     if not board:
         return text + get_text("table_empty", lang)
-    lines, _ = await _table(session, board[:TOP], user.id)
+    lines, _ = await _table(session, board[:TOP], user.id, crown=True)
     text += "\n".join(lines) + "\n\n"
 
     mine = next((e for e in board if e["user_id"] == user.id), None)
@@ -186,12 +173,9 @@ async def language_screen(user: User, session: AsyncSession, season, lang: str) 
     if contenders < CROWN_MIN_PEOPLE:
         # Корона только в языке, где учатся хотя бы трое с 3+ занятиями
         return text + _quiet(get_text("card_crown_small", lang))
-    if mine["rank"] == 1:
-        text += get_text("rating_crown_lead", lang)
-    else:
-        gap = _points(board[0]["monthly_score"] - mine["monthly_score"], lang)
-        text += _line(get_text("rating_crown_race", lang, gap=gap))
-    return text
+    # Приз — одной спокойной строкой, без значков (владелец: «за 1-е место
+    # получаете корону на целый месяц»)
+    return text + _quiet(get_text("rating_crown_rule", lang))
 
 
 def awards_block(standing: Standing, lang: str) -> str:
@@ -223,8 +207,6 @@ def awards_block(standing: Standing, lang: str) -> str:
 
 async def alltime_screen(user: User, session: AsyncSession, lang: str) -> str:
     """Всё время — все люди; приз — звание. Здесь же мои медали и короны."""
-    from app.bot.handlers.leaderboard.leaderboard_table import hall_of_fame
-
     text = get_text("rating_screen_title_alltime", lang) + "\n\n"
     board = await get_lifetime_leaderboard(session, limit=TOP, learning_lang=ALL_LANGS)
     if board:
@@ -240,11 +222,7 @@ async def alltime_screen(user: User, session: AsyncSession, lang: str) -> str:
     else:
         text += get_text("table_you_not_ranked", lang) + "\n"
     text += awards_block(await standing_of(session, user), lang)
-
-    hall = await hall_of_fame(session)
-    if hall:
-        listing = " · ".join(f"{format_month_name(month, lang)} — {names}" for month, names in hall)
-        text += "\n\n" + _quiet(get_text("rating_hall", lang, list=listing))
+    # Зала славы нет (владелец, 17.10: «за всё время и так явно, кто лучший»)
     return text
 
 
