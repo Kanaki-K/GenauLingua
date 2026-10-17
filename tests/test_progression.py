@@ -326,3 +326,43 @@ def test_new_texts_exist_in_every_language(lang):
             assert not CYRILLIC.search(value), (lang, key, value)
     # Вкладки помещаются в ряд: «За всё время» и «Depuis le début» резались
     assert len(LOCALES[lang]["rating_tab_alltime"]) <= 10, lang
+
+
+@pytest.mark.parametrize("lang", sorted(LOCALES))
+async def test_every_rating_screen_reads_right_in_every_language(session, lang):
+    """
+    Владелец, 17.10: «нужно убедиться, что на всех языках интерфейс будет
+    выглядеть правильно». Все экраны рейтинга на языке интерфейса: без
+    пропусков, без русских букв в латинских языках, кнопки вкладок короткие.
+    """
+    from app.bot.handlers.quiz.stats import collection_text
+    from app.schedulers.competition import _text
+
+    season = await get_or_create_current_season(session)
+    for uid, name in ((21, "Anna"), (22, "Boris"), (23, "Clara")):
+        session.add(User(id=uid, first_name=name, interface_language=lang, learning_lang="de",
+                         native_lang="en" if lang != "en" else "fr", level=CEFRLevel.A1))
+    await session.commit()
+    await _month(session, season, [(21, "de", 300, 5), (22, "de", 200, 2), (23, "de", 100, 4)])
+    bot, recorder = make_bot()
+    dp = make_dispatcher(session)
+    await reset_state(dp)
+    for data in ("rating_monthly", "rating_lang", "rating_alltime", "rating_info:monthly",
+                 "leaderboard_table_monthly", "table_lang", "table_alltime"):
+        await dp.feed_update(bot, press(22, data))
+        if data.startswith("rating_") and ":" not in data:
+            tabs = recorder.button_texts()[:3]
+            assert all(len(t) <= 14 for t in tabs), (lang, tabs)
+    texts = recorder.sent_texts()
+    boris = await session.get(User, 22)
+    texts.append(await collection_text(boris, session, lang))
+    mine = {"rank": 5, "monthly_score": 80, "display_name": "Boris"}
+    texts.append(_text("overtaken", {"mine": mine, "rival": {"display_name": "Anna",
+                                                               "monthly_score": 95}}, lang))
+    texts.append(_text("finish", {"mine": mine, "days": 2,
+                                  "third": {"monthly_score": 120}}, lang))
+    assert len(texts) >= 9
+    for text in texts:
+        assert "[MISSING" not in text and "[ERROR" not in text, (lang, text)
+        if lang not in ("ru", "uk"):
+            assert not CYRILLIC.search(text), (lang, text)
