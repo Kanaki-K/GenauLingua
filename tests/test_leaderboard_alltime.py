@@ -122,7 +122,7 @@ class TestScreensAgree:
         # 1 → 120 баллов, 2 → 110, …, 12 → 10: одиннадцатый — id 11
         await _stats(session, october, [(uid, "de", 130 - uid * 10) for uid in ids])
 
-        board = await get_lifetime_leaderboard(session, limit=10, learning_lang="de")
+        await get_lifetime_leaderboard(session, limit=10, learning_lang="de")
         mine = await get_user_lifetime_rank(11, session, learning_lang="de")
         assert (mine["rank"], mine["total_users"], mine["lifetime_score"]) == (11, 12, 20)
 

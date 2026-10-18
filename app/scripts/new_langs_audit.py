@@ -121,7 +121,6 @@ def cmd_apply(apply: bool) -> None:
 
 def cmd_stats() -> None:
     patches = load_patches()
-    by_sample = collections.Counter(p["_file"] for p in patches)
     rows_by_sample = collections.defaultdict(set)
     for p in patches:
         rows_by_sample[p["_file"]].add(p["id"])

@@ -1009,6 +1009,9 @@ class WordFrequency(Base):
     """
 
     __tablename__ = "word_frequency"
+    # Индекс создан миграцией — объявлен и здесь, иначе сверка схемы в CI
+    # («модели совпадают со схемой») падала на каждом пуше (18.10)
+    __table_args__ = (Index("ix_word_frequency_lang_zipf", "lang", "zipf"),)
 
     word_id: Mapped[int] = mapped_column(
         ForeignKey("words.id", ondelete="CASCADE"), primary_key=True
@@ -1036,6 +1039,9 @@ class WordLevel(Base):
     """
 
     __tablename__ = "word_levels"
+    # Индекс создан миграцией — объявлен и здесь, иначе сверка схемы в CI
+    # («модели совпадают со схемой») падала на каждом пуше (18.10)
+    __table_args__ = (Index("ix_word_levels_lang_level", "lang", "level"),)
 
     word_id: Mapped[int] = mapped_column(
         ForeignKey("words.id", ondelete="CASCADE"), primary_key=True

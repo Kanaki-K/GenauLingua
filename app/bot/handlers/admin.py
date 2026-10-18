@@ -1646,7 +1646,7 @@ async def _build_reports_text_and_keyboard(session: AsyncSession) -> tuple:
 
 async def _report_pairs(session: AsyncSession, word_ids: list[int]) -> dict[int, list[str]]:
     """Строки «пара: слово — перевод» по ждущим жалобам каждого слова."""
-    from app.services.language_service import LANGUAGES, display_text, language_word
+    from app.services.language_service import display_text, language_word
 
     rows = (await session.execute(
         select(TranslationReport.word_id, TranslationReport.learning_lang,

@@ -65,7 +65,7 @@ async def test_setting_time_by_hand_clears_the_auto_mark(session, user, stage):
     assert user.notification_time == "18:00" and not user.reminders_auto
 
 
-async def test_auto_reminders_keep_a_control_group(session, own_sessions):
+async def test_auto_reminders_keep_a_control_group(session, own_sessions):  # noqa: F811 — фикстура
     """Включённым БОТОМ — контрольные 10% и без ежедневного; включившим сами — всегда."""
     from app.schedulers.nudges import send_nudges
     from tests.test_nudges import FakeBot, _log, _person, utc
@@ -81,7 +81,7 @@ async def test_auto_reminders_keep_a_control_group(session, own_sessions):
     assert await send_nudges(bot, utc(2026, 11, 3, 20, 6)) == {}
 
 
-async def test_first_auto_message_names_the_time_and_offers_to_change(session, own_sessions):
+async def test_first_auto_message_names_the_time_and_offers_to_change(session, own_sessions):  # noqa: F811
     from app.schedulers.nudges import send_nudges
     from tests.test_nudges import FakeBot, _person, utc
 
