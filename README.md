@@ -1,9 +1,11 @@
-# GenauLingua — learn any of six languages from the one you speak
+# GenauLingua — learn any of ten languages from the one you speak
 
-**A production Telegram bot for vocabulary learning (A1–C2)** — six languages in any
+<img src="assets/genaulingua-bot.png" width="160" align="right" alt="The GenauLingua bot">
+
+**A production Telegram bot for vocabulary learning (A1–C2)** — ten languages in any
 pair, six games mixed inside every lesson, natural-voice audio for every word,
-speech recognition, adaptive spaced repetition and monthly leaderboards.
-Free and ad-free.
+speech recognition, adaptive spaced repetition and a monthly competition with medals,
+crowns and titles. Free and ad-free.
 
 🤖 **Live bot:** [t.me/GenauLingua_bot](https://t.me/GenauLingua_bot)
 
@@ -13,7 +15,7 @@ Free and ad-free.
 ![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-2.0%20async-D71F00)
 ![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white)
 ![Redis](https://img.shields.io/badge/Redis-7-DC382D?logo=redis&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-1278-success)
+![Tests](https://img.shields.io/badge/tests-1408-success)
 
 ---
 
@@ -24,33 +26,49 @@ GenauLingua is a real, deployed Telegram bot. Version **2.0** went live on
 languages in any combination, six games, full pronunciation and speech practice.
 Version **2.1 "Retention"** followed on **16 October 2026**: it is about bringing
 people back — 79% of everyone who ever studied had never studied two days in a row.
+Version **2.2 "Ten languages"** went live on **18 October 2026**: Italian, Spanish, French
+and Czech, a new onboarding, reports on every answer and a monthly competition.
 
-| | 1.x (until Oct 2026) | 2.0 (14 Oct) | **2.1 (live, 16 Oct)** |
+| | 2.0 (14 Oct) | 2.1 (16 Oct) | **2.2 (live, 18 Oct)** |
 |---|---|---|---|
-| Languages to learn | German | 6, any pair — 30 directions | same |
-| Interface languages | 4 | 6 | same |
-| Games | 1 (pick the translation) | 6, mixed in every lesson | same; **I build** simpler at A1–A2 |
-| Audio | — | every word and example, natural voice | same |
-| Speech | — | voice answers checked by speech recognition | **+ a hint where to record** |
-| First lesson | like any lesson | 7 questions | **7 easy cards from the 60 most common short words** |
-| Messages from the bot | daily reminder | daily reminder to everyone who has them on | **one dispatcher: about the person, ≤ 1 a day, stops after 14 days, 10% control group** |
-| Day streak | by UTC day | in the learner's time zone | **+ weekly freeze, milestones 3/7/14/30, 🔥 in the ranking** |
-| Restarts | interrupted lessons | interrupted lessons | **lessons survive a restart (Redis)** |
-| Analytics | admin panel | admin panel, cohorts | **+ per-person journey log, message outcomes vs. control group** |
+| Languages to learn | 6, any pair — 30 directions | same | **10, any pair — 90 directions** |
+| Interface languages | 6 | same | **10** |
+| Games | 6, mixed in every lesson | **I build** simpler at A1–A2 | same |
+| Audio | every word and example, natural voice | same | **two voices per new language, female or male by choice** |
+| First lesson | 7 questions | 7 easy cards from the 60 most common short words | **7 questions: I read · I listen · I recall, then a 3-pair board** |
+| Onboarding | — | — | **own language (flags) → language to learn, two taps; `/language`; reminders on by default for newcomers** |
+| Messages from the bot | daily reminder to everyone who has them on | one dispatcher: about the person, ≤ 1 a day, stops after 14 days, 10% control group | same |
+| Day streak | in the learner's time zone | + weekly freeze, milestones 3/7/14/30 | same; 🔥 on the home screen |
+| Ranking | per learning language, medals per language | same | **Month · All time · Your language; medals for the shared month (3+ lessons), a crown per language, titles from glory, a 12-piece collection** |
+| Reports | from the lesson summary | same | **under every answer: translation / example / audio** |
+| Restarts | interrupted lessons | lessons survive a restart (Redis) | same |
 
-### Production numbers (16 Oct 2026, at the 2.1 release)
+### Production numbers (18 Oct 2026, at the 2.2 release)
 
 | Metric | Value |
 |---|---|
-| Registered users | 249 |
-| Active in the last 7 / 30 days | 16 / 23 |
-| Lessons started / completed in the last 7 days | 83 / 50 |
-| Word base | 12,902 words × 6 languages, A1–C2, 20 topics |
-| Pronunciation clips | 121,269 |
-| Test suite | 1,278 tests |
+| Registered users | 255 |
+| Lessons played / questions answered (all time) | 2,513 / 29,932 |
+| Word base | 12,902 entries × 10 languages, A1–C2, 20 topics; 9,159–12,372 distinct words per language after merging duplicates |
+| Pronunciation clips | 197,682 needed by the code, all on disk (153,738 added in 2.2) |
+| Test suite | 1,408 tests |
 
-These are also the **"before" point** for 2.1: the effect of the release is measured against
-them (same queries, a week later).
+The release was rehearsed on a copy of the live database inside the server; on the real run
+19 tables of people's data were fingerprinted before and after — identical. Downtime was
+13 minutes, of which the steps themselves took 2 min 17 s.
+
+---
+
+## What's new in 2.2 — Ten languages
+
+| Change | Why |
+|---|---|
+| **Italian, Spanish, French, Czech** — to learn and as interface languages. All 12,902 entries got a translation and an example in each; each language got two voices (female and male, chosen in Settings → Audio). The 4,000 most frequent words per language and the whole interface were proofread for natural phrasing (109 + 47 fixes). | Requests from learners. |
+| **Onboarding in two taps**: your own language (with flags) → the language to learn, a back arrow on both screens, `/language` and a command menu set from code. | A real learner picked the wrong language and could not change it. |
+| **First lesson**: I read · I listen · I recall, twice each, then a 3-pair board — so a newcomer sees the bot's range at once. Reminders switch on by themselves for newcomers at the hour they joined (10:00–20:00), with the 10% control group kept. | Fewer questions after the first lesson; variety from the first minute. |
+| **Reports under every answer** — translation, example or audio, one or several; +15 points for a confirmed report. | Reporting from the summary meant remembering the word. |
+| **Competition**: tabs Month (everyone) · All time · Your language; medals 🥇🥈🥉 for the shared month with 3+ lessons and a single winner per place; a 👑 crown per language for the next month (when 3+ people have 3+ lessons); titles 🌱 → 🌌 from glory (medals and achievements); a 12-piece collection; "↑ place this month" and a monthly record in the lesson summary. "You were overtaken" exists but is off (`COMPETITION_NUDGES`). | A lone learner of a new language would have taken gold after one lesson; status did not accumulate. |
+| **Release notes page** in all ten languages, linked from the broadcast with the learner's language preselected. | One message, every learner's language. |
 
 ---
 
@@ -90,9 +108,9 @@ inside the lesson — the learner never has to choose:
 | 🧱 **I build** | assemble the example sentence from word tiles with traps | grammar, word order |
 
 Games unlock **per word**: a new word always arrives as a card; recall and listening
-open after one correct answer, speaking and sentence building after two. A beginner's
-first lesson is 7 easy cards (the most common short words); from the second one the other
-games join in.
+open after one correct answer, speaking and sentence building after two. A newcomer's
+first lesson is 7 questions — I read, I listen and I recall twice each, then a 3-pair
+board; from the second lesson the regular mix takes over (15 questions, one of them a 5-pair board).
 
 **I build** adds grammatical twins as traps (`der/den/dem`, `ist/sind`, `er/sie`) — one at
 A1–A2 with phrases of up to 5–6 words, 2–5 at higher levels — never gives the first word away with a capital
@@ -116,22 +134,30 @@ Listening and speaking both have a **Skip** button for when sound is not an opti
   after the lesson.
 
 ### Audio
-Every word and every example sentence is voiced with a natural voice (several voices per
-language). Listening questions use a neutral clip title so the answer is not printed on the
-player. A slow reference clip is one tap away in the speaking game. Clips are cached as
-Telegram `file_id`s — instant playback, no server bandwidth.
+Every word and every example sentence is voiced with a natural voice; the learner can pick
+a female or a male voice (Settings → Audio). All clips the code can ask for are generated in
+advance and stored on the server; on first use a clip is uploaded once and then cached as a
+Telegram `file_id` — instant playback, no server bandwidth. Listening questions use a neutral
+clip title so the answer is not printed on the player. A slow reference clip is one tap away
+in the speaking game.
 
 ### Motivation
-- **Monthly and all-time leaderboards**, per learning language, with medals for places 1–3.
-- **Points reward effort**: listening ×2, speaking ×3, plus lesson, streak, accuracy and
-  learned-word bonuses.
-- **Day streak** counted in the learner's own time zone, with one frozen day a week,
-  milestones at 3 / 7 / 14 / 30 days and 🔥 next to the name in the ranking from 3 days.
+- **A monthly competition** with three tabs: Month (everyone), All time, and Your language.
+  Medals 🥇🥈🥉 go to the top three of the shared month with at least 3 lessons (+100 / +50 / +25
+  all-time points; places 4–10 get +10); a 👑 crown goes to the best learner of each language
+  for the next month when 3+ people have 3+ lessons. Medals and achievements give glory, glory
+  gives a title (🌱 Sprout → 🌳 → 🌙 → 🪐 → ☀️ → a secret sixth). A collection of 12 achievements
+  lives in the statistics; the lesson summary shows "↑ place this month" and a monthly record.
+- **Points reward effort**: answer +1, I recall +1, a board pair at first try +1, listening +2,
+  speaking +3, I build +3, lesson +10, learned word +3, streak up to +10, accuracy bonus above 60%.
+- **Day streak** counted in the learner's own time zone, with one frozen day a week and
+  milestones at 3 / 7 / 14 / 30 days in the lesson summary; 🔥 on the home screen from 3 days.
 - **Engagement messages** — after a break of 1, 3, 7 and 14 days (then silence until the
   learner returns), or daily at the learner's own hour for those who asked. Each one is about
   the person: their streak, their progress, one of their own words as a mini-question. At most
   one a day; "don't send" is final.
-- **Report a mistake** from the lesson summary; each confirmed report earns +15 points.
+- **Report a mistake** under any answer — translation, example or audio; each confirmed
+  report earns +15 points.
 
 ### Statistics
 A home screen with one skill bar per game shows the gap between skills ("I recognise it
@@ -175,18 +201,18 @@ app/
 │                        # nudge_plan / nudge_texts (who gets which message), journal
 ├── database/            # SQLAlchemy 2.0 models (19 tables), enums, async session
 ├── schedulers/          # engagement messages (nudges.py), monthly season rollover
-├── locales/             # uk / en / tr / de / pl / ru
+├── locales/             # uk / en / de / pl / cs / es / fr / it / tr / ru
 ├── testing/             # fake Telegram + the real dispatcher, shared by tests and tooling
-├── scripts/             # 118 tools: acceptance suites, deploy, wordbase, TTS, reports,
+├── scripts/             # 127 tools: acceptance suites, deploy, wordbase, TTS, reports,
 │                        # journey log, message forecast
 └── main.py
 
-alembic/                 # 45 migrations
-tests/                   # 1,278 tests
+alembic/                 # 49 migrations
+tests/                   # 1,408 tests
 deploy/                  # preflight and backup scripts
 ```
 
-About 30k lines of application code, 28k lines of tooling, 20k lines of tests.
+About 36k lines of application code (including ten locales), 30k lines of tooling, 21k lines of tests.
 
 **Design principles**
 - **One source per decision.** Answer channels, their prices and unlock thresholds come from
@@ -208,10 +234,10 @@ play the real dispatcher on the real word base:
 | Suite | What it proves |
 |---|---|
 | `audit_round --full` | 38 lesson compositions played to the end: numbering, counters, mistakes, reports, channels and points agree |
-| `verify_quiz_channels` | every game builds correctly in all 30 language pairs |
-| `verify_quiz_round` | 60 lessons, 900 questions — every question has a word or a sound |
+| `verify_quiz_channels` | every game builds correctly in every language pair |
+| `verify_quiz_round --full` | 960 lessons, 14,400 questions across all ten languages — every question has a word or a sound |
 | `audit_accounting` | 17 checks across five accounting layers: answers ↔ lessons ↔ progress ↔ month ↔ all-time |
-| `verify_buttons` | no button leads nowhere, menus work in all 6 languages |
+| `verify_buttons` | no button leads nowhere, menus work in every interface language |
 | `release_snapshot --compare` | a deploy loses nothing: users, progress, answers, awards |
 | `nudge_forecast` | who would get which engagement message, hour by hour — nothing is sent |
 
@@ -258,17 +284,20 @@ pytest
 ```
 
 ### Releasing to production
-[`DEPLOY.md`](DEPLOY.md) is the step-by-step procedure used for the 2.0 and 2.1 releases: preflight,
-backup, image build while the old bot keeps running, snapshot, migrations, word-base
-transfer, the "nothing lost" comparison **before** the accounting repair, and rollback.
-It was rehearsed on a copy of the production database before the real run. For 2.1 it adds
-a forecast of who gets which message in the next 48 hours (`nudge_forecast`) — run after the
-migration and before the bot starts, so a release never sends a wave of messages.
+[`DEPLOY.md`](DEPLOY.md) is the step-by-step procedure used for the 2.0, 2.1 and 2.2 releases:
+preflight, backup, snapshot, migrations, word-base transfer, the "nothing lost" comparison
+**before** the accounting repair, and rollback. Each release is rehearsed on a copy of the
+production database first; since 2.2 the rehearsal runs inside the server on a temporary
+database, so no copy of people's data ever leaves it. For 2.1 it adds a forecast of who gets
+which message in the next 48 hours (`nudge_forecast`) — run after the migration and before the
+bot starts, so a release never sends a wave of messages. Release notes go out with
+`send_release_notes` — every learner in their interface language, resumable without duplicates.
+Releases are tagged `v2.0`, `v2.1`, `v2.2`.
 
 ### Working notes
 The project notes are in Russian, the owner's language:
 [`STATE.md`](STATE.md) · [`ROADMAP.md`](ROADMAP.md) · [`REWARDS.md`](REWARDS.md)
-(next: status and competition) · [`WORDBASE_REVIEW.md`](WORDBASE_REVIEW.md) ·
+(the competition) · [`LANGUAGES_PLAN.md`](LANGUAGES_PLAN.md) · [`WORDBASE_REVIEW.md`](WORDBASE_REVIEW.md) ·
 [`AUDIO_STORAGE.md`](AUDIO_STORAGE.md) · [`DEPLOY.md`](DEPLOY.md).
 
 ### Configuration
@@ -279,14 +308,15 @@ repository**. See [`.env.example`](.env.example).
 
 ## What This Project Demonstrates
 
-- **Product engineering end to end** — from a one-game bot to a six-game, six-language product,
+- **Product engineering end to end** — from a one-game bot to a six-game, ten-language product,
   deployed to real users with zero data loss (verified row by row).
 - **Learning design** — spaced repetition, per-word game unlocking, a difficulty ladder by CEFR
   level, effort-based scoring.
 - **Speech and audio** — self-hosted speech recognition with word-boundary matching (so "das Ei"
-  is not heard inside "Bleistift"), and a TTS pipeline that produced and verified 121,269 clips.
-- **Internationalisation** — six languages with language-specific correctness (Turkish `İ/ı`,
-  German noun capitalisation, Polish impersonal politeness, formal address everywhere).
+  is not heard inside "Bleistift"), and a TTS pipeline that produced and verified ~198,000 clips in two voices.
+- **Internationalisation** — ten languages with language-specific correctness (Turkish `İ/ı`,
+  German noun capitalisation, Polish impersonal politeness, French non-breaking spaces,
+  formal address everywhere — Sie, vous, usted, Lei, Vy).
 - **Data integrity** — five-layer accounting with an automated audit and an idempotent repair.
 - **Operations** — rehearsed releases, backups, rollback tags, firewall and fail2ban on the
   server, scheduled broadcasts and follow-up reports; lessons survive restarts.
