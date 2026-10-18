@@ -125,10 +125,12 @@ async def test_continue_on_an_unanswered_question_shows_the_same_number(session,
     assert only.answered_questions == 2
 
 
-async def test_continue_clears_a_menu_screen_opened_mid_lesson(session, user, stage):
+@pytest.mark.parametrize("menu", ["btn_stats", "btn_rating", "btn_settings"])
+async def test_continue_clears_a_menu_screen_opened_mid_lesson(session, user, stage, menu):
     """
-    Прод 18.10, владелец: начал занятие, открыл «Статистику», нажал «Учить»
-    → «Продолжить» — экран статистики остался висеть над вопросом.
+    Прод 18.10, владелец: начал занятие, открыл «Статистику» (и так же
+    «Рейтинг»), нажал «Учить» → «Продолжить» — экран меню остался висеть
+    над вопросом.
     """
     from app.database.models import User
 
@@ -138,11 +140,11 @@ async def test_continue_clears_a_menu_screen_opened_mid_lesson(session, user, st
     await _answer(dp, bot, user)
 
     before = rs._next_id
-    await dp.feed_update(bot, text_update(user.id, get_text("btn_stats", "ru")))
+    await dp.feed_update(bot, text_update(user.id, get_text(menu, "ru")))
     fresh = await session.get(User, user.id)
     await session.refresh(fresh)
     screens = set(range(before + 1, rs._next_id + 1)) - {fresh.anchor_message_id}
-    assert screens, "экран статистики не показан"
+    assert screens, "экран меню не показан"
 
     await dp.feed_update(bot, text_update(user.id, LEARN))
     prompt = rs._next_id
