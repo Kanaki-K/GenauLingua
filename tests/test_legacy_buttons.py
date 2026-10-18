@@ -115,6 +115,10 @@ def test_no_locale_value_outside_the_allowed_set_has_marks():
     offenders = []
     for lang, texts in LOCALES.items():
         for key, value in texts.items():
+            # Патчноут — разовое письмо владельца, а не строка интерфейса:
+            # флаги новых языков, 🧊 и 💙 в нём — его текст (18.10, 2.2)
+            if key.startswith("release_notes_"):
+                continue
             for char in value:
                 if char in allowed:
                     continue
