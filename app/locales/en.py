@@ -227,6 +227,10 @@ TEXTS = {
     "lesson_resume_prompt": 'You have an unfinished lesson: {done} of {total}',
     "btn_lesson_resume": 'Continue',
     "btn_lesson_new": 'Start a new one',
+    "speech_offer_text": 'Looks like speaking out loud isn’t convenient right now. Remove “I speak” from lessons? You can bring it back in settings',
+    "btn_speech_off": 'Remove “I speak”',
+    "btn_speech_keep": 'Keep it',
+    "speech_off_done": 'Done: “I speak” won’t appear in lessons. You can bring it back in settings',
 
     "quiz_completed": "<b>Lesson complete</b>",
     "quiz_result_correct": "Correct: <b>{correct}/{total}</b>",

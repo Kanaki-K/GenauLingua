@@ -159,9 +159,12 @@ async def test_a_new_round_after_an_abandoned_one_accepts_its_first_answer(
     await dp.feed_update(bot, press(user.id, _first_option(recorder)))
     first = (await _ctx(dp, bot, user).get_data())["session_id"]
 
-    # Бросил после первого ответа и снова нажал «Учить»
+    # Бросил после первого ответа и снова нажал «Учить». С 2.2.1 при
+    # начатом занятии бот спрашивает «Продолжить / Начать новое» — здесь
+    # выбрано новое, и отметка прежнего круга обязана в него не перейти
     recorder.clear()
     await dp.feed_update(bot, text_update(user.id, LEARN))
+    await dp.feed_update(bot, press(user.id, "lesson_new:menu", message_id=777))
     data = await _ctx(dp, bot, user).get_data()
     second = data["session_id"]
     assert second != first

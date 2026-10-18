@@ -232,6 +232,10 @@ TEXTS = {
     "lesson_resume_prompt": 'Máte nedokončenou lekci: {done} z {total}',
     "btn_lesson_resume": 'Pokračovat',
     "btn_lesson_new": 'Začít novou',
+    "speech_offer_text": 'Zdá se, že mluvit nahlas Vám teď nevyhovuje. Odebrat „Mluvím“ z lekcí? Vrátit to můžete v nastavení',
+    "btn_speech_off": 'Odebrat „Mluvím“',
+    "btn_speech_keep": 'Ponechat',
+    "speech_off_done": 'Hotovo: „Mluvím“ už v lekcích nebude. Vrátit to můžete v nastavení',
 
     "quiz_completed": "<b>Lekce dokončena</b>",
     "quiz_result_correct": "Správně: <b>{correct}/{total}</b>",

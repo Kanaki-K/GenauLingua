@@ -2113,6 +2113,13 @@ def speech_cap(round_length: int) -> int:
 # Одного вопроса хватает, чтобы задать тон; дальше важнее перемежение.
 WARMUP_QUESTIONS = 1
 
+# С какого вопроса круга можно просить голос (2.2.1). Прод 14–18.10: «Говорю»
+# на 1–3 вопросе показан 4 раза — и 3 раза человек ушёл на нём; к четвёртому
+# вопросу занятие уже идёт, и голос — разнообразие, а не порог на входе.
+# Прямой вход «🎤» с главного экрана (`prefer_channel`) правило не трогает:
+# там человек сам попросил говорить.
+SPEECH_FROM_QUESTION = 4
+
 
 def enabled_channels(user: Optional[User]) -> list[QuizChannel]:
     """
@@ -2291,10 +2298,12 @@ def _speech_closed(used: "collections.Counter", position: int,
     """
     Закрыта ли речь на вопросе номер `position` (с единицы): последний
     вопрос круга голосом не задаётся, и больше `speech_cap` голосовых за
-    круг не просят. Одно правило на оба пути выбора игры — `place_in_round`
-    и места отработки (`_rotation`).
+    круг не просят, и на первых вопросах тоже (`SPEECH_FROM_QUESTION`). Одно
+    правило на оба пути выбора игры — `place_in_round` и места отработки
+    (`_rotation`).
     """
     return (position >= round_length
+            or position < SPEECH_FROM_QUESTION
             or used[QuizChannel.SPEECH] >= speech_cap(round_length))
 
 

@@ -231,6 +231,10 @@ TEXTS = {
     "lesson_resume_prompt": 'Vous avez une leçon inachevée\xa0: {done} sur {total}',
     "btn_lesson_resume": 'Continuer',
     "btn_lesson_new": 'En commencer une nouvelle',
+    "speech_offer_text": 'Parler à voix haute ne semble pas pratique en ce moment. Retirer «\xa0Je parle\xa0» des leçons\xa0? Vous pourrez le remettre dans les réglages',
+    "btn_speech_off": 'Retirer «\xa0Je parle\xa0»',
+    "btn_speech_keep": 'Garder',
+    "speech_off_done": 'C’est fait\xa0: «\xa0Je parle\xa0» n’apparaîtra plus dans les leçons. Vous pourrez le remettre dans les réglages',
 
     "quiz_completed": "<b>Leçon terminée</b>",
     "quiz_result_correct": "Bonnes réponses : <b>{correct}/{total}</b>",

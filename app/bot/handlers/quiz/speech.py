@@ -357,6 +357,87 @@ async def skip_speech(callback: CallbackQuery, state: FSMContext, session: Async
         word_id=correct_word.id, lang=pair.learning,
         message=callback.message,
     )
+    if channel is QuizChannel.SPEECH and await _skips_in_a_row(session, user.id):
+        await _offer_speech_off(callback, state, session, user, lang)
+
+
+# ============================================================================
+# «ГОВОРЮ» ПРОПУСКАЮТ ПОДРЯД — СПРОСИТЬ, УБРАТЬ ЛИ (2.2.1)
+# ============================================================================
+
+# Прод 14–18.10: «Говорю» показан 78 раз, пропущен 42; одному человеку — 23
+# показа и 21 пропуск, ещё двоим 6 из 6 и 4 из 4. Бот пропусков не замечал
+# и просил снова. После стольких пропусков ПОДРЯД — один раз спросить.
+SKIPS_BEFORE_OFFER = 3
+CB_SPEECH_OFF = "speech_off"
+CB_SPEECH_KEEP = "speech_keep"
+
+
+async def _skips_in_a_row(session: AsyncSession, user_id: int) -> bool:
+    """
+    Последние `SKIPS_BEFORE_OFFER` событий «Говорю» — все пропуски.
+
+    Считаются пропуск (`skip` по речи), голосовой ответ (`speech`) и само
+    предложение (`speech_offer`): голос между пропусками сбрасывает счёт, а
+    сделанное предложение — откладывает следующее до новых трёх пропусков.
+    """
+    from sqlalchemy import and_, or_, select
+
+    from app.database.models import UserEvent
+
+    kinds = (await session.execute(
+        select(UserEvent.kind).where(
+            UserEvent.user_id == user_id,
+            or_(and_(UserEvent.kind == "skip", UserEvent.channel == QuizChannel.SPEECH.value),
+                UserEvent.kind.in_(("speech", "speech_offer"))),
+        ).order_by(UserEvent.at.desc(), UserEvent.id.desc()).limit(SKIPS_BEFORE_OFFER)
+    )).scalars().all()
+    return len(kinds) == SKIPS_BEFORE_OFFER and all(k == "skip" for k in kinds)
+
+
+async def _offer_speech_off(callback: CallbackQuery, state: FSMContext,
+                            session: AsyncSession, user: User, lang: str) -> None:
+    """Вопрос под карточкой; уходит сам со следующим вопросом, как подсказки голоса."""
+    from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+
+    keyboard = InlineKeyboardMarkup(inline_keyboard=[[
+        InlineKeyboardButton(text=get_text("btn_speech_off", lang), callback_data=CB_SPEECH_OFF),
+        InlineKeyboardButton(text=get_text("btn_speech_keep", lang), callback_data=CB_SPEECH_KEEP),
+    ]])
+    offer = await callback.bot.send_message(
+        callback.message.chat.id, get_text("speech_offer_text", lang), reply_markup=keyboard,
+    )
+    await _remember_stray(state, offer.message_id)
+    journal.note(session, user.id, "speech_offer", "shown")
+
+
+@router.callback_query(F.data == CB_SPEECH_OFF)
+async def speech_off(callback: CallbackQuery, state: FSMContext, session: AsyncSession):
+    """Убрать «Говорю» из набора игр — та же настройка, что в «Игры занятия»."""
+    await callback.answer()
+    user = await session.get(User, callback.from_user.id)
+    if user is None:
+        return
+    lang = user.interface_language or DEFAULT_LOCALE
+    current = user.quiz_channels or "tasrb"
+    user.quiz_channels = "".join(c for c in current if c != QuizChannel.SPEECH.value) or "t"
+    journal.note(session, user.id, "speech_offer", "off")
+    await session.commit()
+    try:
+        await callback.message.edit_text(get_text("speech_off_done", lang))
+    except Exception:
+        logger.debug("предложение не поправилось", exc_info=True)
+
+
+@router.callback_query(F.data == CB_SPEECH_KEEP)
+async def speech_keep(callback: CallbackQuery, state: FSMContext, session: AsyncSession):
+    """Оставить — и не спрашивать, пока не наберутся новые три пропуска подряд."""
+    await callback.answer()
+    journal.note(session, callback.from_user.id, "speech_offer", "keep")
+    try:
+        await callback.message.delete()
+    except Exception:
+        logger.debug("предложение не удалилось", exc_info=True)
 
 
 @router.message(

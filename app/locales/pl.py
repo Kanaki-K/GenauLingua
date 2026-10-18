@@ -233,6 +233,10 @@ TEXTS = {
     "lesson_resume_prompt": 'Jest niedokończona lekcja: {done} z {total}',
     "btn_lesson_resume": 'Kontynuować',
     "btn_lesson_new": 'Zacząć nową',
+    "speech_offer_text": 'Wygląda na to, że mówienie na głos jest teraz niewygodne. Usunąć „Mówię” z lekcji? Można to przywrócić w ustawieniach',
+    "btn_speech_off": 'Usunąć „Mówię”',
+    "btn_speech_keep": 'Zostawić',
+    "speech_off_done": 'Gotowe: „Mówię” nie pojawi się już w lekcjach. Można to przywrócić w ustawieniach',
 
     "quiz_completed": "<b>Lekcja ukończona</b>",
     "quiz_result_correct": "Poprawnie: <b>{correct}/{total}</b>",

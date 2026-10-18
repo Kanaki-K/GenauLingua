@@ -231,6 +231,10 @@ TEXTS = {
     "lesson_resume_prompt": 'У Вас незаконченное занятие: {done} из {total}',
     "btn_lesson_resume": 'Продолжить',
     "btn_lesson_new": 'Начать новое',
+    "speech_offer_text": 'Похоже, говорить вслух сейчас неудобно. Убрать «Говорю» из занятий? Вернуть можно в настройках',
+    "btn_speech_off": 'Убрать «Говорю»',
+    "btn_speech_keep": 'Оставить',
+    "speech_off_done": 'Готово: «Говорю» больше не будет в занятиях. Вернуть можно в настройках',
 
     "quiz_completed": "<b>Занятие завершено</b>",
     "quiz_result_correct": "Верно: <b>{correct}/{total}</b>",

@@ -230,6 +230,10 @@ TEXTS = {
     "lesson_resume_prompt": 'Ha una lezione non finita: {done} su {total}',
     "btn_lesson_resume": 'Continuare',
     "btn_lesson_new": 'Iniziarne una nuova',
+    "speech_offer_text": 'Sembra che ora non sia comodo parlare ad alta voce. Togliere «Parlo» dalle lezioni? Può rimetterlo nelle impostazioni',
+    "btn_speech_off": 'Togliere «Parlo»',
+    "btn_speech_keep": 'Lasciare',
+    "speech_off_done": 'Fatto: «Parlo» non comparirà più nelle lezioni. Può rimetterlo nelle impostazioni',
 
     "quiz_completed": "<b>Lezione completata</b>",
     "quiz_result_correct": "Giuste: <b>{correct}/{total}</b>",

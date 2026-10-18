@@ -233,6 +233,10 @@ TEXTS = {
     "lesson_resume_prompt": 'Sie haben eine nicht beendete Lektion: {done} von {total}',
     "btn_lesson_resume": 'Fortsetzen',
     "btn_lesson_new": 'Neu beginnen',
+    "speech_offer_text": 'Laut sprechen passt gerade wohl nicht. „Ich spreche“ aus den Lektionen entfernen? Zurückholen können Sie es in den Einstellungen',
+    "btn_speech_off": '„Ich spreche“ entfernen',
+    "btn_speech_keep": 'Behalten',
+    "speech_off_done": 'Erledigt: „Ich spreche“ kommt in Lektionen nicht mehr vor. Zurückholen können Sie es in den Einstellungen',
 
     "quiz_completed": "<b>Lektion geschafft</b>",
     "quiz_result_correct": "Richtig: <b>{correct}/{total}</b>",

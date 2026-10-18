@@ -227,6 +227,10 @@ TEXTS = {
     "lesson_resume_prompt": 'Yarım kalan bir dersiniz var: {done}/{total}',
     "btn_lesson_resume": 'Devam et',
     "btn_lesson_new": 'Yeni ders başlat',
+    "speech_offer_text": 'Şu an sesli konuşmak uygun değil gibi görünüyor. “Konuşuyorum” derslerden kaldırılsın mı? Ayarlardan geri açabilirsiniz',
+    "btn_speech_off": '“Konuşuyorum”u kaldır',
+    "btn_speech_keep": 'Kalsın',
+    "speech_off_done": 'Tamam: “Konuşuyorum” artık derslerde çıkmayacak. Ayarlardan geri açabilirsiniz',
 
     "quiz_completed": "<b>Ders tamamlandı</b>",
     "quiz_result_correct": "Doğru: <b>{correct}/{total}</b>",

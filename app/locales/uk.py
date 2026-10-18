@@ -226,6 +226,10 @@ TEXTS = {
     "lesson_resume_prompt": 'У Вас незавершене заняття: {done} з {total}',
     "btn_lesson_resume": 'Продовжити',
     "btn_lesson_new": 'Почати нове',
+    "speech_offer_text": 'Схоже, говорити вголос зараз незручно. Прибрати «Говорю» із занять? Повернути можна в налаштуваннях',
+    "btn_speech_off": 'Прибрати «Говорю»',
+    "btn_speech_keep": 'Залишити',
+    "speech_off_done": 'Готово: «Говорю» більше не буде в заняттях. Повернути можна в налаштуваннях',
 
     "quiz_completed": "<b>Заняття завершено</b>",
     "quiz_result_correct": "Правильно: <b>{correct}/{total}</b>",
