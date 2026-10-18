@@ -229,6 +229,9 @@ TEXTS = {
 
     "quiz_answer_already_counted": "Vaše odpověď už je započítaná. Pokračujeme?",
     "quiz_btn_repeat_errors": "Zopakovat chyby",
+    "lesson_resume_prompt": 'Máte nedokončenou lekci: {done} z {total}',
+    "btn_lesson_resume": 'Pokračovat',
+    "btn_lesson_new": 'Začít novou',
 
     "quiz_completed": "<b>Lekce dokončena</b>",
     "quiz_result_correct": "Správně: <b>{correct}/{total}</b>",

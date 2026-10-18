@@ -228,6 +228,9 @@ TEXTS = {
 
     "quiz_answer_already_counted": "Ответ уже засчитан. Продолжим?",
     "quiz_btn_repeat_errors": "Повторить ошибки",
+    "lesson_resume_prompt": 'У Вас незаконченное занятие: {done} из {total}',
+    "btn_lesson_resume": 'Продолжить',
+    "btn_lesson_new": 'Начать новое',
 
     "quiz_completed": "<b>Занятие завершено</b>",
     "quiz_result_correct": "Верно: <b>{correct}/{total}</b>",

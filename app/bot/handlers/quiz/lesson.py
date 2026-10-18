@@ -16,16 +16,18 @@ from typing import Optional
 from aiogram import F, Router
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
-from aiogram.types import CallbackQuery, Message
+from aiogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup, Message
 from sqlalchemy import func, select
 
 from app.services import journal
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.bot.buttons import BTN_LEARN_WORDS, pressed
-from app.bot.handlers.quiz.card import STATE_CARD_HAS_AUDIO, show_card
+from app.bot.handlers.quiz.card import STATE_CARD_HAS_AUDIO, STATE_CARD_ID, show_card
 from app.bot.handlers.quiz.lesson_state import (
     DEFAULT_QUIZ_LENGTH,
+    S_ADVANCED,
+    S_ANSWERED,
     S_BOARD_DONE,
     lesson_length,
     S_REPEAT_FROM,
@@ -45,7 +47,7 @@ from app.bot.handlers.quiz.question import (
     _question_text,
     answer_keyboard,
 )
-from app.bot.handlers.quiz.sources import SOURCE_MENU, SOURCE_REPEAT
+from app.bot.handlers.quiz.sources import SOURCE_MENU, SOURCE_REPEAT, source_from_callback
 from app.bot.handlers.quiz.summary import _finish_quiz
 from app.bot.keyboards import get_answer_keyboard
 from app.bot.states import QuizStates
@@ -157,6 +159,108 @@ async def start_quiz(message: Message, state: FSMContext, session: AsyncSession)
 
 
 
+# ============================================================================
+# НЕЗАКОНЧЕННОЕ ЗАНЯТИЕ: ПРОДОЛЖИТЬ ИЛИ НАЧАТЬ НОВОЕ
+# ============================================================================
+
+CB_RESUME = "lesson_resume"
+CB_NEW = "lesson_new"
+
+
+async def _open_lesson(state: FSMContext, session: AsyncSession,
+                       user_id: int) -> Optional[tuple[int, int]]:
+    """
+    (пройдено, всего) открытого занятия, если его стоит предложить продолжить.
+
+    Открытое — то, что живёт в состоянии (Redis, двое суток) и в базе ещё не
+    закрыто. Предлагается, только если в нём есть хотя бы один ответ:
+    пустое начинается заново, как раньше. Повтор ошибок не предлагается —
+    он короткий и начинается из итога.
+    """
+    if await state.get_state() != QuizStates.answering.state:
+        return None
+    data = await state.get_data()
+    session_id = data.get("session_id")
+    current = data.get("current_question")
+    total = data.get("total_questions")
+    if not session_id or not current or not total or data.get("is_error_repeat"):
+        return None
+    quiz_session = await session.get(QuizSession, session_id)
+    if (quiz_session is None or quiz_session.user_id != user_id
+            or quiz_session.is_completed or quiz_session.exit_reason is not None
+            or not quiz_session.answered_questions):
+        return None
+    # Текущий вопрос отвечен — пройден и он; нет — пройдено до него
+    done = current if data.get(S_ANSWERED) == current else current - 1
+    return min(max(done, 0), total), total
+
+
+async def _offer_resume(message: Message, user: User, lang: str,
+                        progress: tuple[int, int], source: str) -> None:
+    """
+    «У Вас незаконченное занятие: 5 из 15» и две кнопки. Ничего не закрыто:
+    решает человек. Число вопросов — из самого круга (в «сложных» он короче
+    настройки). Нажатие «Учить» человеком убирается, как и при обычном старте.
+    """
+    done, total = progress
+    keyboard = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text=get_text("btn_lesson_resume", lang), callback_data=CB_RESUME)],
+        [InlineKeyboardButton(text=get_text("btn_lesson_new", lang),
+                              callback_data=f"{CB_NEW}:{source}")],
+    ])
+    await message.bot.send_message(
+        message.chat.id, get_text("lesson_resume_prompt", lang, done=done, total=total),
+        reply_markup=keyboard,
+    )
+    if message.from_user is not None and not message.from_user.is_bot:
+        try:
+            await message.delete()
+        except Exception:
+            logger.debug("Не удалось удалить сообщение пользователя", exc_info=True)
+
+
+@router.callback_query(F.data == CB_RESUME)
+async def resume_lesson(callback: CallbackQuery, state: FSMContext, session: AsyncSession):
+    """
+    «Продолжить» — тот же круг с того же места.
+
+    Текущий вопрос отвечен — следующий; не отвечен — вопрос с тем же номером
+    заново (слово подберётся новое: неотвеченное не в счёт). Прежняя карточка
+    убирается ДО продвижения: её «Далее» иначе сдвинуло бы круг ещё раз.
+    Занятие успело закрыться (двое суток, другой вход) — новое, как обычно.
+    """
+    await callback.answer()
+    user_id = callback.from_user.id
+    if await _open_lesson(state, session, user_id) is None:
+        await start_lesson(callback.message, state, session, offer_resume=False)
+        return
+    data = await state.get_data()
+    current = data["current_question"]
+    old_card = data.get(STATE_CARD_ID)
+    if old_card and old_card != callback.message.message_id:
+        try:
+            await callback.bot.delete_message(callback.message.chat.id, old_card)
+        except Exception:
+            logger.debug("прежняя карточка не удалилась", exc_info=True)
+    if data.get(S_ANSWERED) != current:
+        # Неотвеченный вопрос показывается заново под тем же номером
+        await state.update_data(current_question=current - 1, **{S_ADVANCED: None})
+    if not await _claim_advance(state, callback.message.chat.id):
+        return
+    journal.note(session, user_id, "lesson", "resume", session_id=data.get("session_id"),
+                 n=current)
+    await _advance(callback, state, session)
+
+
+@router.callback_query(F.data.startswith(CB_NEW))
+async def new_lesson_instead(callback: CallbackQuery, state: FSMContext, session: AsyncSession):
+    """«Начать новое» — прежнее закрывается как брошенное, новое с той же двери."""
+    await callback.answer()
+    source = source_from_callback(callback.data or "", default=SOURCE_MENU)
+    journal.note(session, callback.from_user.id, "lesson", "new_instead")
+    await start_lesson(callback.message, state, session, source=source, offer_resume=False)
+
+
 def _build_slots(question: dict) -> int:
     """Сколько мест у фразы 🧱 — для верхней зоны сетки; у других игр 0."""
     puzzle = (question or {}).get("build")
@@ -169,9 +273,17 @@ async def start_lesson(
     *,
     prefer_channel: Optional[QuizChannel] = None,
     source: str = SOURCE_MENU,
+    offer_resume: bool = True,
 ) -> None:
     """
     Начать занятие. Отсюда два входа, и оба нужны.
+
+    НАЧАТОЕ НЕ ПРОПАДАЕТ (2.2.1). Если открыто занятие хотя бы с одним
+    ответом, вместо нового — «Продолжить / Начать новое»: прод 14–18.10,
+    28 из 84 «брошенных» — человек нажал «Учить» и начал заново за две
+    минуты, а начатое пропадало без итога. Без ответов — новое сразу, как
+    было (владелец: «если не было начатого — просто как сейчас»).
+    `offer_resume=False` — это сама кнопка «Начать новое».
 
     Обычный — кнопка «📚 Учить» и команда `/quiz`: каналы смешиваются внутри
     круга по правилу допуска.
@@ -193,6 +305,12 @@ async def start_lesson(
 
     lang = user.interface_language or DEFAULT_LOCALE
     pair = pair_from_user(user)
+
+    if offer_resume:
+        unfinished = await _open_lesson(state, session, user.id)
+        if unfinished is not None:
+            await _offer_resume(message, user, lang, unfinished, source)
+            return
 
     await _close_abandoned_sessions(session, user.id)
 

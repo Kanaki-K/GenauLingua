@@ -227,6 +227,9 @@ TEXTS = {
 
     "quiz_answer_already_counted": "La sua risposta è già stata conteggiata. Continuiamo?",
     "quiz_btn_repeat_errors": "Ripetere gli errori",
+    "lesson_resume_prompt": 'Ha una lezione non finita: {done} su {total}',
+    "btn_lesson_resume": 'Continuare',
+    "btn_lesson_new": 'Iniziarne una nuova',
 
     "quiz_completed": "<b>Lezione completata</b>",
     "quiz_result_correct": "Giuste: <b>{correct}/{total}</b>",

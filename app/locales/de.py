@@ -230,6 +230,9 @@ TEXTS = {
 
     "quiz_answer_already_counted": "Ihre Antwort wurde bereits gewertet. Machen wir weiter?",
     "quiz_btn_repeat_errors": "Fehler wiederholen",
+    "lesson_resume_prompt": 'Sie haben eine nicht beendete Lektion: {done} von {total}',
+    "btn_lesson_resume": 'Fortsetzen',
+    "btn_lesson_new": 'Neu beginnen',
 
     "quiz_completed": "<b>Lektion geschafft</b>",
     "quiz_result_correct": "Richtig: <b>{correct}/{total}</b>",

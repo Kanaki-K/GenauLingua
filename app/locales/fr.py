@@ -228,6 +228,9 @@ TEXTS = {
 
     "quiz_answer_already_counted": "Votre réponse a déjà été prise en compte. On continue ?",
     "quiz_btn_repeat_errors": "Revoir les erreurs",
+    "lesson_resume_prompt": 'Vous avez une leçon inachevée\xa0: {done} sur {total}',
+    "btn_lesson_resume": 'Continuer',
+    "btn_lesson_new": 'En commencer une nouvelle',
 
     "quiz_completed": "<b>Leçon terminée</b>",
     "quiz_result_correct": "Bonnes réponses : <b>{correct}/{total}</b>",

@@ -230,6 +230,9 @@ TEXTS = {
 
     "quiz_answer_already_counted": "Odpowiedź została już zaliczona. Kontynuujemy?",
     "quiz_btn_repeat_errors": "Powtórka błędów",
+    "lesson_resume_prompt": 'Jest niedokończona lekcja: {done} z {total}',
+    "btn_lesson_resume": 'Kontynuować',
+    "btn_lesson_new": 'Zacząć nową',
 
     "quiz_completed": "<b>Lekcja ukończona</b>",
     "quiz_result_correct": "Poprawnie: <b>{correct}/{total}</b>",

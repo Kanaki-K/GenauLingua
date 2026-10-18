@@ -224,6 +224,9 @@ TEXTS = {
 
     "quiz_answer_already_counted": "Your answer has already been counted. Shall we continue?",
     "quiz_btn_repeat_errors": "Retry mistakes",
+    "lesson_resume_prompt": 'You have an unfinished lesson: {done} of {total}',
+    "btn_lesson_resume": 'Continue',
+    "btn_lesson_new": 'Start a new one',
 
     "quiz_completed": "<b>Lesson complete</b>",
     "quiz_result_correct": "Correct: <b>{correct}/{total}</b>",

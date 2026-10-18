@@ -224,6 +224,9 @@ TEXTS = {
 
     "quiz_answer_already_counted": "Cevabınız zaten sayıldı. Devam edelim mi?",
     "quiz_btn_repeat_errors": "Hataları tekrarla",
+    "lesson_resume_prompt": 'Yarım kalan bir dersiniz var: {done}/{total}',
+    "btn_lesson_resume": 'Devam et',
+    "btn_lesson_new": 'Yeni ders başlat',
 
     "quiz_completed": "<b>Ders tamamlandı</b>",
     "quiz_result_correct": "Doğru: <b>{correct}/{total}</b>",
