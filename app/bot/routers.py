@@ -29,6 +29,7 @@ def all_routers() -> list[Router]:
     from app.bot.handlers.leaderboard.leaderboard_table import router as table_router
     from app.bot.handlers.leaderboard.monthly import router as monthly_router
     from app.bot.handlers.admin_rating import router as admin_rating_router
+    from app.bot.handlers.admin_insights import router as admin_insights_router
     from app.bot.handlers.chat_status import router as chat_status_router
     from app.bot.handlers.quiz.build import router as build_router
     from app.bot.handlers.quiz.choice import router as choice_router
@@ -82,6 +83,7 @@ def all_routers() -> list[Router]:
         ("reminders", reminders_router),
         ("admin", admin_router),
         ("admin/rating", admin_rating_router),
+        ("admin/insights", admin_insights_router),
     ]
 
     # Имя ставится здесь, потому что по умолчанию aiogram даёт роутеру

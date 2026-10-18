@@ -90,7 +90,10 @@ async def build_rating_screen(session: AsyncSession) -> str:
                                                learning_lang=lang)
         contenders = sum(1 for e in people if e["monthly_quizzes"] >= MEDAL_MIN_QUIZZES)
         if people:
-            leader = clean_name(people[0]["display_name"])
+            # Лидер — первый С ПРАВОМ на корону (3+ занятия), как в `ordered()`
+            # закрытия: верх доски без порога мог бы не получить корону
+            eligible = [e for e in people if e["monthly_quizzes"] >= MEDAL_MIN_QUIZZES]
+            leader = clean_name((eligible or people)[0]["display_name"])
             lang_rows.append((lang, len(people), contenders,
                               leader if contenders >= CROWN_MIN_PEOPLE else "не разыгр."))
 

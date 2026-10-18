@@ -128,7 +128,8 @@ def get_admin_keyboard() -> InlineKeyboardMarkup:
         [("Люди", "admin:people"), ("Занятия", "admin:lessons")],
         [("Слова", "admin:words"), ("Жалобы", "admin:reports")],
         [("Сообщения", "admin:nudges"), ("Рейтинг", "admin:rating")],
-        [("Выгрузка", "admin:export")],
+        # 2.2.1: путь новичка, уходы, «Говорю», журнал — из журнала пути
+        [("Аналитика", "admin:insights"), ("Выгрузка", "admin:export")],
     )
 
 
@@ -231,7 +232,11 @@ async def _get_main_stats(session: AsyncSession) -> str:
         select(func.count())
         .select_from(QuizSession)
         .where(
-            QuizSession.start_source == SOURCE_REMINDER,
+            # С 2.1 занятие из сообщения бота пишет «nd_<вид>» (распорядитель
+            # nudges), а «reminder» — только кнопки до 2.1: прежняя метрика
+            # застыла на старых нажатиях (аудит админки 18.10)
+            (QuizSession.start_source == SOURCE_REMINDER)
+            | QuizSession.start_source.startswith("nd_", autoescape=True),
             QuizSession.completed_at.isnot(None),
         )
     )
@@ -298,7 +303,7 @@ async def _get_main_stats(session: AsyncSession) -> str:
                 ("Вернулись сегодня из активных за 7 дней",
                  f"{curr_back} из {curr_base} ({admin_ui.pct(curr_back, curr_base)})"),
                 ("Кругов всего", total_quizzes),
-                ("Из напоминаний", notif_sessions),
+                ("Из сообщений бота", notif_sessions),
             ]),
             groups,
         ],
@@ -360,21 +365,38 @@ async def admin_nudges(callback: CallbackQuery, session: AsyncSession):
     total = report.total()
     order = ["daily", "back1", "back3", "back7", "back14", "start1", "start3", "start7",
              "overtaken", "finish"]
-    rows = [("вид", "отпр", "верн", "кнопк", "отпис", "блок")]
+    rows = [("вид", "отпр", "верн", "контр", "кнопк", "отпис", "заблок")]
     for kind in order:
         k = report.kinds.get(kind)
         if k and (k.sent or k.holdout or k.blocked):
-            rows.append((kind, k.sent, share(k.returned, k.sent), k.via_button, k.stopped, k.blocked))
-    lead = (f"вернулись за сутки: с сообщением {share(total.returned, total.sent)} "
-            f"из {admin_ui.num(total.sent)}, контроль {share(total.holdout_returned, total.holdout)} "
-            f"из {admin_ui.num(total.holdout)}")
+            rows.append((kind, k.sent, share(k.returned, k.sent),
+                         share(k.holdout_returned, k.holdout) if k.holdout else "—",
+                         k.via_button, k.stopped, k.blocked))
+    # ЧЕСТНОЕ СРАВНЕНИЕ (аудит 18.10): контроль бывает только у лесенки и
+    # приглашений — «daily» тем, кто включил напоминания сам, уходит всегда.
+    # Прежде главная строка сравнивала ВСЕ отправленные (с самыми
+    # мотивированными) с контролем без них — и льстила сообщениям
+    ladder = [report.kinds[k] for k in order
+              if k in report.kinds and k not in ("daily", "overtaken", "finish")]
+    sent = sum(k.sent for k in ladder)
+    returned = sum(k.returned for k in ladder)
+    held = sum(k.holdout for k in ladder)
+    held_back = sum(k.holdout_returned for k in ladder)
+    daily = report.kinds.get("daily")
+    lead = (f"лесенка и приглашения, вернулись за сутки: с сообщением {share(returned, sent)} "
+            f"из {admin_ui.num(sent)}, контроль {share(held_back, held)} из {admin_ui.num(held)}")
+    if daily and daily.sent:
+        lead += (f"; ежедневные (включили сами) — {share(daily.returned, daily.sent)} "
+                 f"из {admin_ui.num(daily.sent)}")
     text = admin_ui.screen(
         "Сообщения · 14 дней",
         lead=lead if (total.sent or total.holdout) else "сообщений ещё не было",
         blocks=[admin_ui.columns(rows) if len(rows) > 1 else None,
                 "<i>верн — закончили занятие за сутки; кнопк — начали кнопкой из "
-                "сообщения; отпис — нажали «Не присылать» или выключили; контроль — "
-                "10% людей, которым сообщение не отправлялось</i>"],
+                "сообщения; отпис — нажали «Не присылать» или выключили; контр — вернулись "
+                "из контрольной группы (10%, сообщение не отправлялось); заблок — сообщение "
+                "не дошло: бот уже был заблокирован. Блокировки в момент события — "
+                "Аналитика → Журнал</i>"],
     )
     await callback.message.edit_text(text, reply_markup=admin_ui.kb(back="admin:back"))
 
@@ -581,6 +603,11 @@ async def admin_games(callback: CallbackQuery, session: AsyncSession):
         for letter in (channels or "t"):
             if letter in counts:
                 counts[letter] += int(n)
+    # «Говорю» по желанию (2.2.1): играет тот, кто согласился, — буква в
+    # составе есть у всех по умолчанию и ничего не значит
+    counts[QuizChannel.SPEECH.value] = (await session.execute(
+        select(func.count()).select_from(User).where(User.speech_choice == "on")
+    )).scalar() or 0
     board_on = (await session.execute(
         select(func.count()).select_from(User).where(User.match_in_round.is_(True))
     )).scalar() or 0
@@ -639,7 +666,7 @@ async def admin_games(callback: CallbackQuery, session: AsyncSession):
 
     text = admin_ui.screen(
         "Игры",
-        lead="пять игр: читаю, вспоминаю, слушаю, говорю, доска",
+        lead="шесть игр: читаю, вспоминаю, слушаю, говорю, собираю, доска",
         blocks=[channels_block, setup_block, doors_block, pairs_block],
     )
     await callback.message.edit_text(
@@ -1642,7 +1669,10 @@ async def _report_pairs(session: AsyncSession, word_ids: list[int]) -> dict[int,
         # Две строки: экран админки режет длинные, а перевод — главное
         out.setdefault(wid, []).extend([
             f"  {language_word(learning, 'ru')} → {language_word(native, 'ru')} · {count}",
-            f"    {display_text(word, native) or '—'}",
+            # Обе стороны пары: на что жалуются (изучаемое слово) и перевод.
+            # Прежде шёл только перевод, и жалоба на чешское слово показывала
+            # немецкую лемму в заголовке и перевод — без самого слова (аудит 18.10)
+            f"    {display_text(word, learning) or '—'} — {display_text(word, native) or '—'}",
         ])
     return out
 
@@ -2156,12 +2186,15 @@ async def admin_user_details(message: Message, session: AsyncSession):
         .order_by(func.count().desc())
     )).all()
 
-    channels = user.quiz_channels or "t"
-    ways = ", ".join(filter(None, [
-        "карточка" if "t" in channels else None,
-        "слух" if "a" in channels else None,
-        "речь" if "s" in channels else None,
-    ])) or "—"
+    # Игры — по тому же правилу, что собирает занятие (`enabled_channels`):
+    # и озвучка, и «Говорю» по желанию учтены. Имена — как у человека
+    from app.services.quiz_service import enabled_channels
+
+    game_names = {"t": "Читаю", "r": "Вспоминаю", "a": "Слушаю", "s": "Говорю", "b": "Собираю"}
+    speech_choice = {"on": "да", "off": "убрал", "later": "не сейчас"}.get(
+        user.speech_choice or "", "не спрашивали")
+    ways = (", ".join(game_names.get(c.value, c.value) for c in enabled_channels(user)) or "—")
+    ways += f"; «Говорю»: {speech_choice}"
 
     def progress_rows(stats: dict) -> list[tuple[str, object]]:
         return [
@@ -2228,6 +2261,12 @@ async def admin_user_details(message: Message, session: AsyncSession):
         admin_ui.table([(source_label(door), n) for door, n in doors]),
         empty="пометок нет: они появились 13 октября",
     ))
+
+    # ПУТЬ ЧЕЛОВЕКА (2.2.1): бросал, блокировал, ошибки, сообщения бота,
+    # последние события журнала — прежде журнал в карточке не читался вовсе
+    from app.bot.handlers.admin_insights import person_journey_block
+
+    blocks.append(await person_journey_block(session, user.id))
 
     blocks.append(admin_ui.section(
         "Последние занятия",

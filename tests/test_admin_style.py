@@ -209,6 +209,8 @@ def test_every_button_on_the_main_screen_has_a_handler():
     source = ADMIN_PATH.read_text(encoding="utf-8")
     # Раздел «Рейтинг» (17.10) живёт своим модулем рядом
     source += (ADMIN_PATH.parent / "admin_rating.py").read_text(encoding="utf-8")
+    # «Аналитика» (2.2.1) — свой модуль: путь, уходы, «Говорю», журнал
+    source += (ADMIN_PATH.parent / "admin_insights.py").read_text(encoding="utf-8")
     handled = set(re.findall(r'F\.data == "(admin:[a-z_]+)"', source))
 
     drawn = {
