@@ -129,3 +129,12 @@ async def test_settings_toggle_is_a_choice(session, ready):
     await dp.feed_update(bot, press(ready.id, "channel_toggle_s", message_id=903))
     await session.refresh(ready)
     assert ready.speech_choice == "off"
+
+
+async def test_an_unanswered_invite_waits_a_week_too(session, ready):
+    # Прод 18.10: 3 приглашения двоим — без ответа выбор пуст, и бот звал снова
+    ready.speech_choice = None
+    ready.speech_asked_at = utcnow() - timedelta(hours=1)
+    assert not await should_invite(session, ready)
+    ready.speech_asked_at = utcnow() - timedelta(days=8)
+    assert await should_invite(session, ready)

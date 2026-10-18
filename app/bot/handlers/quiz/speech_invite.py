@@ -48,11 +48,13 @@ async def should_invite(session: AsyncSession, user: User,
     if not getattr(user, "audio_enabled", True):
         return False
     choice = user.speech_choice
-    if choice == SPEECH_LATER:
-        asked = user.speech_asked_at
-        if asked is not None and (now or utcnow()) - asked < ASK_AGAIN:
-            return False
-    elif choice is not None:
+    if choice not in (None, SPEECH_LATER):
+        return False
+    # Показанное без ответа — то же «не сейчас» (прод 18.10: приглашение
+    # пришло 3 раза двоим — выбор оставался пустым, и бот звал после
+    # каждого занятия). Спрашиваем не чаще раза в `ASK_AGAIN`
+    asked = user.speech_asked_at
+    if asked is not None and (now or utcnow()) - asked < ASK_AGAIN:
         return False
     if (user.quizzes_passed or 0) < MIN_LESSONS:
         return False
