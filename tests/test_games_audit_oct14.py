@@ -104,6 +104,7 @@ async def test_difficult_count_sees_only_what_can_be_asked(session, user):
 
 async def test_a_round_that_runs_out_of_words_ends_with_a_result(session, user, stage):
     dp, bot, recorder = stage
+    user.quizzes_passed = 2  # не новичок: у новичка первое занятие короче (7)
     words = await _words(session, user, mode=QuizMode.DIFFICULT)
     for w in words[:8]:
         session.add(_progress(user, w))

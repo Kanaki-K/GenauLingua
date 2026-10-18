@@ -382,10 +382,14 @@ async def test_repeating_errors_goes_all_the_way_through(session, user, stage):
         await _feed(dp, bot, press(user.id, "next_question"))
 
 
-async def test_reminders_are_offered_after_the_first_finished_round(session, user, stage):
+async def test_reminders_are_not_offered_after_the_first_finished_round(session, user, stage):
     """
-    Предложение напоминаний — единственный замеренный рычаг возврата, и
-    показывается он ровно один раз в жизни, после первого круга.
+    Предложения «Напоминать раз в день?» после круга БОЛЬШЕ НЕТ (16.10):
+    новичку напоминания включаются сами при знакомстве. Владелец: «мы не
+    должны его ещё 500 раз спрашивать».
+
+    Прежде этот тест требовал предложения — то есть держал ровно то, что
+    теперь убрано.
     """
     from app.locales import get_text
 
@@ -401,22 +405,20 @@ async def test_reminders_are_offered_after_the_first_finished_round(session, use
         await _feed(dp, bot, press(user.id, options[0]))
         await _feed(dp, bot, press(user.id, "next_question"))
 
-    assert "reminder_offer_yes" in recorder.all_buttons(), (
-        "после первого круга напоминания не предложены"
+    assert "reminder_offer_yes" not in recorder.all_buttons(), (
+        "после круга снова спрашивают про напоминания"
     )
 
-    recorder.clear()
+
+async def test_old_reminder_offer_button_still_works(session, user, stage):
+    """Старые кнопки предложения лежат в чатах — нажатие на них не падает."""
+    dp, bot, recorder = stage
+    user.notifications_enabled = False
+    await session.commit()
     await _feed(dp, bot, press(user.id, "reminder_offer_yes"))
     await session.refresh(user)
-    assert user.notifications_enabled, "согласие не включило напоминания"
-    assert user.notification_time, "час напоминания не выставлен"
-
-    # Владелец: «предложить гибкие настройки — с переходом в настройки».
-    # Ответ называет поставленное время и ведёт кнопкой в настройки
-    assert user.notification_time in recorder.last_text(), (
-        f"время не названо: {recorder.last_text()!r}"
-    )
-    assert "settings:notifications" in recorder.buttons(), "нет кнопки в настройки"
+    assert user.notifications_enabled and not user.reminders_auto
+    assert user.notification_time in recorder.last_text()
 
 
 # ============================================================================
@@ -762,7 +764,7 @@ async def _long_round_ready(session, user) -> None:
     user.audio_enabled = False
     user.quiz_channels = "t"
     user.match_in_round = True
-    user.quizzes_passed = 0          # чётное — доска положена
+    user.quizzes_passed = 2  # чётное — доска положена; не 0: у новичка первое занятие короче (7)
     await session.commit()
 
     # Знакомыми делаем ПОЛОВИНУ: доске нужны отвеченные верно, а кругу —
@@ -930,3 +932,92 @@ async def test_board_is_skipped_when_switched_off(session, user, stage):
     assert [b for b in recorder.buttons() if b.startswith("answer_")], (
         "вместо доски не пришёл обычный вопрос"
     )
+
+
+async def test_the_end_and_the_repeat_never_leave_only_the_anchor(session, user, stage):
+    """
+    Владелец, 15.10: «пропадает карточка и остаётся якорь, а потом появляется
+    новая — как в начале, так и в конце». Итог занятия и первый вопрос
+    повтора ошибок приходят РАНЬШЕ, чем удаляется прежнее сообщение.
+    """
+    from app.locales import get_text
+
+    dp, bot, recorder = stage
+    await _ready(session, user)
+    await _feed(dp, bot, text_update(user.id, get_text("btn_learn_words", "ru")))
+
+    for number in range(ROUND_LENGTH):
+        await _feed(dp, bot, press(user.id, await _wrong_answer(dp, bot, user.id, recorder)))
+        if number == ROUND_LENGTH - 1:
+            recorder.clear()
+        await _feed(dp, bot, press(user.id, "next_question"))
+
+    def first(names):
+        return next(i for i, (n, _) in enumerate(recorder.calls) if n in names)
+
+    sends = {"SendMessage", "SendAudio"}
+    assert first(sends) < first({"DeleteMessage"}), (
+        f"итог пришёл после удаления вопроса: {[n for n, _ in recorder.calls]}"
+    )
+
+    recorder.clear()
+    await _feed(dp, bot, press(user.id, "repeat_errors"))
+    assert first(sends) < first({"DeleteMessage"}), (
+        f"повтор пришёл после удаления итога: {[n for n, _ in recorder.calls]}"
+    )
+
+
+@pytest.mark.parametrize("button", ["btn_learn_words", "btn_stats", "btn_rating", "btn_settings"])
+async def test_menu_buttons_show_the_new_screen_before_removing_the_old(
+    session, user, stage, button
+):
+    """
+    Владелец, 15.10: «рейтинг и настройки более плавно работают… чтобы ты
+    убедился, что работает всё очень приятно и правильно». Прежние сообщения
+    (от старого якоря до нажатия) убираются ПОСЛЕ нового экрана: иначе, пока
+    экран готовится, в чате остаётся один якорь.
+    """
+    from app.locales import get_text
+    from app.services.monthly_leaderboard_service import get_or_create_current_season
+
+    dp, bot, recorder = stage
+    await _ready(session, user)
+    await get_or_create_current_season(session)
+    user.anchor_message_id = 1          # прежний якорь где-то выше
+    await session.commit()
+
+    update = text_update(user.id, get_text(button, "ru"))
+    pressed_id = update.message.message_id
+    recorder.clear()
+    await _feed(dp, bot, update)
+
+    names = [n for n, _ in recorder.calls]
+    sends = [i for i, (n, _) in enumerate(recorder.calls) if n in ("SendMessage", "SendAudio")]
+    old = [i for i, (n, p) in enumerate(recorder.calls)
+           if n == "DeleteMessage" and p.get("message_id") != pressed_id]
+    assert len(sends) >= 2, f"{button}: нет якоря и экрана — {names}"
+    assert old, f"{button}: прежние сообщения не убраны — {names}"
+    assert sends[1] < old[0], f"{button}: экран пришёл после удаления — {names}"
+
+
+@pytest.mark.parametrize("door", ["learn_now:home", "learn_now:again", "learn_now:reminder"])
+async def test_starting_from_a_screen_removes_it_after_the_first_card(session, user, stage, door):
+    """Домашний экран, итог, напоминание: занятие встаёт на их место без пустого чата."""
+    dp, bot, recorder = stage
+    await _ready(session, user)
+    user.anchor_message_id = 1
+    await session.commit()
+
+    recorder.clear()
+    await _feed(dp, bot, press(user.id, door, message_id=50))
+
+    names = [n for n, _ in recorder.calls]
+    card = next(i for i, (n, _) in enumerate(recorder.calls)
+                if n in ("SendMessage", "SendAudio")
+                and any((b.get("callback_data") or "").startswith("answer_")
+                        for row in ((recorder.calls[i][1].get("reply_markup") or {})
+                                    .get("inline_keyboard") or []) for b in row))
+    gone = [i for i, (n, p) in enumerate(recorder.calls)
+            if n == "DeleteMessage" and p.get("message_id") == 50]
+    assert gone, f"{door}: экран не убран — {names}"
+    assert card < gone[0], f"{door}: экран убран раньше карточки — {names}"

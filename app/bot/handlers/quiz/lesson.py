@@ -10,13 +10,16 @@
 """
 
 import logging
+from datetime import timedelta
 from typing import Optional
 
 from aiogram import F, Router
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery, Message
-from sqlalchemy import select
+from sqlalchemy import func, select
+
+from app.services import journal
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.bot.buttons import BTN_LEARN_WORDS, pressed
@@ -24,6 +27,7 @@ from app.bot.handlers.quiz.card import STATE_CARD_HAS_AUDIO, show_card
 from app.bot.handlers.quiz.lesson_state import (
     DEFAULT_QUIZ_LENGTH,
     S_BOARD_DONE,
+    lesson_length,
     S_REPEAT_FROM,
     S_SPEECH_TRIES,
     _claim_advance,
@@ -39,7 +43,7 @@ from app.bot.handlers.quiz.question import (
     _build_state,
     _question_keyboard,
     _question_text,
-    get_next_question_keyboard,
+    answer_keyboard,
 )
 from app.bot.handlers.quiz.sources import SOURCE_MENU, SOURCE_REPEAT
 from app.bot.handlers.quiz.summary import _finish_quiz
@@ -53,6 +57,7 @@ from app.locales import DEFAULT_LOCALE, get_text
 from app.services.audio_service import KIND_FULL, clip_for_user
 from app.services.language_service import LanguagePair, legacy_mode_name, pair_from_user
 from app.services.quiz_service import (
+    FIRST_LESSON_LENGTH,
     OPTIONS_TOTAL,
     build_options,
     count_difficult_words,
@@ -75,6 +80,10 @@ QUESTION_ATTEMPTS = 10
 # ============================================================================
 
 
+# Пустое занятие моложе этого при новом старте — перезапуск, а не отвал
+RESTART_WINDOW = timedelta(minutes=10)
+
+
 async def _close_abandoned_sessions(session: AsyncSession, user_id: int) -> None:
     """
     Помечать незавершённые сессии как брошенные при старте новой.
@@ -91,7 +100,19 @@ async def _close_abandoned_sessions(session: AsyncSession, user_id: int) -> None
         )
     )
     for stale in result.scalars():
-        stale.exit_reason = "abandoned"
+        # БЕЗ ЕДИНОГО ОТВЕТА — НЕ ОТВАЛ, А ПЕРЕЗАПУСК. Прод 15.10: занятия,
+        # начатые повторно через 1–4 секунды (карточка грузилась, человек
+        # нажал ещё раз), считались брошенными на нулевом вопросе и
+        # завышали отвалы новичков втрое. Блокировать второе нажатие нельзя:
+        # человек мог уйти в меню и вернуться — владелец: «по логике верно,
+        # новая игра». Поэтому новое занятие начинается как всегда, а
+        # прежнее пустое помечается честно
+        # Свежее — моложе десяти минут: открыл первую карточку и ушёл на
+        # три дня — это настоящий отвал на нулевом вопросе, а не перезапуск
+        fresh = stale.started_at and stale.started_at >= utcnow() - RESTART_WINDOW
+        stale.exit_reason = (
+            "restarted" if not stale.answered_questions and fresh else "abandoned"
+        )
         stale.exit_at_question = stale.answered_questions
     await session.commit()
 
@@ -175,7 +196,7 @@ async def start_lesson(
 
     await _close_abandoned_sessions(session, user.id)
 
-    quiz_total = user.quiz_word_count or DEFAULT_QUIZ_LENGTH
+    quiz_total = lesson_length(user)
 
     if user.quiz_mode == QuizMode.DIFFICULT:
         difficult = await count_difficult_words(user.id, session, pair)
@@ -238,15 +259,10 @@ async def start_lesson(
         **_build_state(question, channel),
     )
 
-    try:
-        await message.delete()
-    except Exception:
-        logger.debug("Не удалось удалить сообщение пользователя", exc_info=True)
-
     old_anchor_id, _ = await ensure_anchor(message, session, user, emoji="")
-    if old_anchor_id:
-        await delete_messages_fast(message.bot, message.chat.id, old_anchor_id, message.message_id)
 
+    journal.note(session, user.id, "question", channel.value, session_id=quiz_session.id,
+                 word_id=word.id, channel=channel.value, n=1, total=quiz_total)
     await show_card(
         message.bot, message.chat.id, state, session,
         text=_question_text(word, pair, lang, 1, quiz_total, channel=channel),
@@ -258,6 +274,19 @@ async def start_lesson(
             session, user, word, pair, state, lang, 1, quiz_total, channel
         ),
     )
+    # Прежние сообщения убираются ПОСЛЕДНИМИ, когда новый экран уже на
+    # месте: иначе, пока он готовится (статистика — запросы к базе,
+    # занятие — загрузка звука), на экране один якорь. Владелец, 15.10:
+    # «рейтинг и настройки более плавно работают». Диапазон удаления —
+    # от прежнего якоря до нажатия человека, новых сообщений он не задевает
+    if old_anchor_id:
+        await delete_messages_fast(message.bot, message.chat.id, old_anchor_id, message.message_id)
+    # И само сообщение, с которого начали: нажатие «Учить» или домашний
+    # экран / напоминание, на месте которого встаёт занятие, — тоже после
+    try:
+        await message.delete()
+    except Exception:
+        logger.debug("Не удалось удалить сообщение пользователя", exc_info=True)
     await state.set_state(QuizStates.answering)
 
 
@@ -315,6 +344,18 @@ async def _record_answer(
         if is_correct:
             quiz_session.correct_answers = (quiz_session.correct_answers or 0) + 1
 
+    # ПЕРВЫЙ УРОК КОНЧАЕТСЯ И БЕЗ ЗАКОНЧЕННОГО ЗАНЯТИЯ — на 7-м ответе всего,
+    # в каких бы занятиях они ни были. Владелец: «даже если он его сбросит —
+    # чтобы открывалась полноценная игра после первого круга»
+    if getattr(user, "onboarded_at", None) is None:
+        answered = (await session.execute(
+            select(func.count()).select_from(QuizQuestion)
+            .join(QuizSession, QuizSession.id == QuizQuestion.session_id)
+            .where(QuizSession.user_id == user.id)
+        )).scalar() or 0
+        if answered >= FIRST_LESSON_LENGTH:
+            user.onboarded_at = utcnow()
+
     await session.commit()
 
     try:
@@ -358,11 +399,12 @@ async def _record_answer(
     # На разборе звучит слово с примером: значение уже известно, и теперь
     # слышно, как слово живёт в живой речи. В вопросе примера в звуке нет —
     # там его было бы не разобрать.
+    clip = await clip_for_user(session, user, correct_word, pair.learning, KIND_FULL)
     await show_card(
         bot, chat_id, state, session,
         text=breakdown or _answer_text(correct_word, pair, lang, is_correct, channel),
-        keyboard=get_next_question_keyboard(lang),
-        clip=await clip_for_user(session, user, correct_word, pair.learning, KIND_FULL),
+        keyboard=answer_keyboard(lang, correct_word, pair, channel, heard=clip is not None),
+        clip=clip,
         word_id=correct_word.id, lang=pair.learning,
         message=card_message,
     )
@@ -381,13 +423,17 @@ async def _show_board_in_round(
     from app.bot.handlers.quiz.match import S_ROUND_AT, start_board
 
     await state.update_data(**{S_BOARD_DONE: True})
-    try:
-        await callback.message.delete()
-    except Exception:
-        logger.debug("карточка перед доской не удалилась", exc_info=True)
 
-    shown = await start_board(callback.message, state, session, user, quiet=True)
+    # Сначала новое, потом удаление прежнего: иначе между ними на экране
+    # один якорь (владелец, 15.10: «пропадает карточка и остаётся якорь,
+    # как в начале, так и в конце»)
+    shown = await start_board(callback.message, state, session, user, quiet=True,
+                              in_round=True)
     if shown:
+        try:
+            await callback.message.delete()
+        except Exception:
+            logger.debug("карточка перед доской не удалилась", exc_info=True)
         # Номер вопроса, на котором доска встала: по нему она и вернёт круг
         await state.update_data(**{S_ROUND_AT: current_question})
         return
@@ -401,6 +447,23 @@ async def _show_board_in_round(
 # ============================================================================
 # СЛЕДУЮЩИЙ ВОПРОС / ЗАВЕРШЕНИЕ
 # ============================================================================
+
+
+async def _errors_of_last_lesson(session: AsyncSession, user_id: int) -> list[int]:
+    """Слова с неверным ответом в последнем законченном занятии, по порядку."""
+    last = (await session.execute(
+        select(QuizSession.id).where(QuizSession.user_id == user_id,
+                                     QuizSession.is_completed.is_(True))
+        .order_by(QuizSession.completed_at.desc()).limit(1)
+    )).scalar()
+    if last is None:
+        return []
+    rows = (await session.execute(
+        select(QuizQuestion.word_id).where(QuizQuestion.session_id == last,
+                                           QuizQuestion.is_correct.is_(False))
+        .order_by(QuizQuestion.id)
+    )).scalars().all()
+    return list(dict.fromkeys(rows))
 
 
 @router.callback_query(F.data == "next_question", QuizStates.answering)
@@ -570,6 +633,9 @@ async def _advance(callback: CallbackQuery, state: FSMContext, session: AsyncSes
             **_build_state(question, channel),
         )
 
+    journal.note(session, user.id, "question", channel.value, session_id=data.get("session_id"),
+                 word_id=word.id, channel=channel.value, n=current_question,
+                 total=total_questions, repeat=is_error_repeat or None)
     await show_card(
         callback.bot, callback.message.chat.id, state, session,
         text=_question_text(
@@ -606,7 +672,12 @@ async def repeat_errors(callback: CallbackQuery, state: FSMContext, session: Asy
             return
         await state.update_data(**{S_REPEAT_FROM: callback.message.message_id})
     data = await state.get_data()
-    errors = data.get("saved_errors", [])
+    errors = data.get("saved_errors")
+    if errors is None:
+        # Состояния нет (Redis хранит его 2 дня, итог мог быть старше) —
+        # ошибки берутся из базы, из последнего законченного занятия.
+        # Прежде отвечалось «У Вас не было ошибок!» — неправда (аудит 2.1)
+        errors = await _errors_of_last_lesson(session, callback.from_user.id)
 
     user = await session.get(User, callback.from_user.id)
     lang = user.interface_language or DEFAULT_LOCALE
@@ -654,13 +725,14 @@ async def repeat_errors(callback: CallbackQuery, state: FSMContext, session: Asy
         report_session_id=data.get("report_session_id"),
     )
 
-    try:
-        await callback.message.delete()
-    except Exception:
-        logger.debug("Не удалось удалить сообщение с итогами", exc_info=True)
-
-    # Карточка с итогами уже удалена, поэтому message не передаём:
-    # повтор ошибок начинается с новой карточки
+    # Повтор ошибок начинается с новой карточки (message не передаём), и
+    # итог удаляется ПОСЛЕ неё.
+    # Сначала новое, потом удаление прежнего: иначе между ними на экране
+    # один якорь (владелец, 15.10: «пропадает карточка и остаётся якорь,
+    # как в начале, так и в конце»)
+    journal.note(session, user.id, "question", QuizChannel.TEXT.value, session_id=quiz_session.id,
+                 word_id=first_word.id, channel=QuizChannel.TEXT.value, n=1,
+                 total=len(errors), repeat=True)
     await show_card(
         callback.bot, callback.message.chat.id, state, session,
         text=_question_text(first_word, pair, lang, 1, len(errors), is_repeat=True),
@@ -668,6 +740,10 @@ async def repeat_errors(callback: CallbackQuery, state: FSMContext, session: Asy
         clip=await _question_clip(session, user, first_word, pair, QuizChannel.TEXT),
         word_id=first_word.id, lang=pair.learning,
     )
+    try:
+        await callback.message.delete()
+    except Exception:
+        logger.debug("Не удалось удалить сообщение с итогами", exc_info=True)
 
     await state.set_state(QuizStates.answering)
     await callback.answer()

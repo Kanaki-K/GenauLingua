@@ -1,0 +1,131 @@
+# Замечания агентов к утверждённым языкам (ru/uk/en/pl/tr) — НЕ правлено
+
+Владелец: старые языки не трогать. Здесь только список на его решение.
+
+- Bulle: ru/uk первым «мент» — грубее немецкого (разговорное «коп»)
+- Mittag: en пример «We eat around noon», а «zu Mittag essen» — «обедать»
+- dicht: en «The fabric is tight» — по смыслу «dense»
+- Klamotten: ru/uk «шмотки (разг.)», «шмотки (розм.)» — скобки внутри значения
+- Немецкие заголовки не леммой: «dreh», «ergibt», «selben» (блок 0012) — данные, не перевод
+- peinlich: ru «щепетильный» — редкое/устаревшее значение
+- fern: pos ADVERB, а ru/uk/en — прилагательные
+- 12492 Stich: uk «хабар у картах» — «хабар» = взятка (подкуп), не карточный термин
+- 6527 komplett: немецкий пример «Ich bin komplett müde» неестествен
+- Protokoll: en «I write the protocol» — по смыслу «minutes»
+- feige: ru «подлый, низкий» — второстепенные значения рядом с «трусливый»
+- vielmals: ru первым «большое» — без контекста странно
+- 16043 Geisel: немецкий пример про Geiselnehmer, не про само слово
+- 12143 Verlierer: pl «frajer» — это «лох/пижон», не «проигравший»; tr «ezik» — грубый сленг
+- 10322 Spinner: ru «прядильщик» — лишнее значение для этого примера
+- de заголовки склонённые: «miese» (mies), «jenem» (jener)
+- Kasse: ru «наличные» сомнительно; minus: ru «без» сомнительно
+- 7046 abziehen: de пример «Die Soldaten ziehen sich aus der Stadt ab» — лишнее «sich»
+- 15035 füreinander: de пример «Wir kümmern uns füreinander» — правильно «umeinander»
+- Hamburger: ru «житель Гамбурга» при примере про еду
+- saufen: en первым «to booze», а пример про животных, пьющих воду
+- 11723 «Äpfel»: de мн.ч. с art der, переводы ед.ч. — лемма Apfel
+- 10482 «Bedürfnisse»: art das при мн.ч.; переводы ед.ч.
+- 11712 «rühr»: усечённый императив вместо rühren
+- 7114 wenig: ru «меньше всего, наименьший» — переводит превосходную степень, не лемму
+- 14020 übrig: ru/uk/en/pl/tr переводят «im Übrigen» (впрочем), не «übrig»
+- Пояснения внутри значения в ru: «удовлетворительно как оценка» (1192), «род в грамматике» (1480), «развалина о человеке» (17144), «коробочка растения» (12613)
+- 9482 Erziehung: en пример «Good education» — по смыслу upbringing
+- 16184 Attentat: en пример «The assassination» — слово = покушение
+- Hausarrest: en «under house arrest» — по смыслу «наказан, сидит дома»
+- Freiwillige: ru первым мн.ч. «добровольцы»
+- umzingelt (VERB — причастие), geheimnisvolle (склонённая форма) — заголовки не леммой
+- 7230 versammeln: de пример «Lass uns um 7 Uhr versammeln» — пропущено второе «uns»
+- Komplize: de пример «Der Polizist sucht seinen Komplizen» — сообщник полицейского; en «The police are looking for his accomplice»
+- 11788 Abendbrot: ru «вечерний бутерброд» — неверно (ужин)
+- 10797 seufzen: ru «тяжело дышать от усталости» — не то значение (вздыхать)
+- Пояснения вместо перевода: Spatz ru «ласковое обращение милый» (15591), Subjekt ru «субъект о человеке» (13553), belegen ru «намазать хлеб чем-то сверху» (1241), Brenner ru «пишущий привод» (18280), Zerstörer en «one who destroys» (16372), Takt en «bar in music» (14555)
+- 10683 Gunst: de пример «Er bat mich um Gunst» неестественен («um einen Gefallen»)
+- 7361 Poltern: NOUN, а de пример с глаголом «Es poltert»
+- 7337 veranlasst: заголовок словоформой (veranlassen)
+- 13555 beide: ru «обоим, обоими», uk — словоформы, не лемма «оба»
+- 7517 via: ru «с пересадкой в» — странно
+- 7516 durchschauen: ru «посмотреть насквозь» — калька
+- 8996 Bäcker: en «bakery», ru «булочная» — это пекарня, не пекарь
+- 17603 Nippel: ru «сосок груди» последним — обиходное значение
+- 9012 Gefreiter: de пример «Der Gefreiter» — правильно «Der Gefreite»
+- 11811 sauer: ADJECTIVE, а пример про «Saures» (сущ.), ru/en — как сущ.
+- 2777 rutschen: пример на деле про «ausrutschen»
+- 17984 Titan: de пример «mit hoher Dichte» — титан лёгкий металл
+- 16437 Verbot: de пример с «Rauchverbot», не само слово
+- 7668 anstrengen: пример с причастием «angestrengt aussehen»
+- 11829 Pastete: пример «schmeckt köstlich mit Fleisch» странный
+- 7664 verwischen: «Verwische deine Fußspuren nicht» — смысл необычен
+- 18314 Auffahrt: ru «съезд», uk «з'їзд на автостраду» — это въезд (съезд = Ausfahrt)
+- 2215 aufkommen: de пример «Es kommen hohe Kosten auf uns zu» — это zukommen
+- 18854: de «ständiger» вместо леммы «ständig»
+- 15202 Popo: ru «задница» грубее детского немецкого слова
+- 8033 haargenau: ADJECTIVE, а en — наречия
+- Заголовки не леммой: 16505 entsichert (entsichern), 9865 beglichen (begleichen), 16508 Decknamen (Deckname)
+- 12295 Sporn: en «spore», ru «спора» — путаница со Spore; Sporn = шпора
+- 18335 Trockner: ru «фен для рук» — натянуто (Händetrockner)
+- Ersatzteile: art das при мн.ч.
+- Aberglaube: de пример «glauben an Aberglauben» неуклюж
+- 15194 Individuen: мн.ч. с art das, en/ru в ед.ч.
+- 9563 Fünfer: ru первым «неудовлетворительно», а не «пятёрка»
+- 11008 «heiterem» — падежная форма, лемма heiter
+- 7825 ziemlich, 7842 eigentlich: pos ADJECTIVE, в примере наречие
+- 12831 Genitale, 12835 Pupillen, 14173 Instruktionen: de мн.ч., ru/uk ед.ч.
+- 16582 Bundesstaat: «Kalifornien ist der größte Bundesstaat» — по площади больше Аляска
+- 7979 verkörpert: VERB причастием (verkörpern)
+- 12894 Infusion: пример про травяной настой, ru/en — капельница?
+- Trauzeugin: en первым «bridesmaid», по смыслу — witness
+- 8167 zurückdrehen: пример — убавить громкость, ru/en «повернуть назад»
+- 11310 Hintergedanken: art der при мн.ч. (Hintergedanke)
+- 8161 festgebunden: de пример раздельно «fest gebunden»
+- 11492 «Lieblings-»: en «favorite restaurant» — должно «favorite»
+- 11498 ausfressen: de пример без «etwas» — неграмматично
+- 8516 unweigerlich: en наречием, пример с прилагательным
+- Артикль ед.ч. у мн.ч.: Wertpapiere (das), Ställe (der), Extras (das)
+- Geldstrafe: de пример «Verkehrsverletzung» — нет такого слова (Verkehrsverstoß)
+- abhanden: de «abhanden gekommen» → «abhandengekommen»
+- Sonntagmorgen: uk пример «У неділю ранку» — неграмотно («У неділю вранці»)
+- Trüffel: ex_de «Die Trüffel», art der
+- Fliese: en «tiles» мн.ч.
+- 1885 spezial: de пример «spezielles Angebot» — про speziell
+- 8458 vergönnen: en «granted, destined», ru «суждено, дано» — не глагол
+- 9239 Dienstboten, 13091 Augäpfel: мн.ч. с артиклем ед.ч.
+- 9617 Schulleiter: ru «завуч» неверно (директор)
+- 8493 bizarre: лемма склонённая (bizarr)
+- 9897 Besitztum: pl «dobytek» — сейчас «скот»
+- 18389 Einzug: en «move-in, moving into a place» — одно значение дважды
+- 16759 «schmuggel» — обрывок, лемма schmuggeln
+- 8301 nieder: ADJECTIVE, в примере наречие/междометие
+- 8309: de пример «das wir erhoffen» — «erhofft hatten»
+- 11372 Gewissen: de пример с «Gewissenskonflikt»
+- 14744 Tänze: мн.ч., en/ru ед.ч.
+- 9214 Untergebene: art der, пример мн.ч.
+- !! 18963 Unglückstag: ru/uk/pl/tr — запятая ВНУТРИ значения («день, когда всё валится из рук») — бот разрежет на куски
+- 16794 Einsatzkommando: en/ru «death squad / карательный отряд» — пример про спецназ
+- 16791 Gesetzlose: ru «преступник» неточно
+- 8363 ungeschoren: de пример корявый
+- 11963 Sellerie: art der, пример «die Sellerie»
+- Trunk: ru первым «глоток», пример про пьянство
+- Словоформы вместо лемм: «sog», «aufständischen»; «stumpfen» — пример про abstumpfen
+- Nikotin: de пример «sehr süchtig machend» корявый
+- 2153 abwechslungsreich: uk «нудним не назвеш» — фраза вместо слова
+- 11538 «loyale» — не лемма (loyal)
+- Jahreszahl: ru «дата года, число года» неуклюже
+- 869 Sprechstundenhilfe: ru «медсестра в регистратуре» неточно
+- 8672 nachstellen: de пример «stellt die Katze nach» — «der Katze»
+- 8655 «rätselhafte» — не лемма
+- Gelenke, Stimmbänder, Augenlider: мн.ч. с art das, переводы ед.ч.
+- 772 räumen: en «tidying up», ru «убирать», uk «прибирати», pl «sprzątać» — без auf это «освободить»
+- 11087 schinden: de пример «schindete» — норма «schund»
+- 9276 Kuli: de пример про носильщика-кули, а в быту Kuli = ручка (A2) — пример стоит заменить
+- 10391 «der Geliebter», 8601 «der Mängel» — заголовки не леммой
+- 16317 Konsul: de пример про посольство, не консульство
+- 8432 «gegebenen» — не лемма
+- 11563 Nimmerwiedersehen: de пример противоречит смыслу формулы
+- 7747 wahrscheinlicher: en/ru в положительной степени
+- 1572 «der Jugendlicher» (Jugendliche), 7169 «verwechselt» — не лемма
+- 1031 Westen: de пример «…liegt etwa 500 km von hier» — бессмысленно
+
+## Из проверок scan_* (16.10)
+- aufzählen 14324 — в немецком примере риторический вопрос без «?» («…aber wer hat Zeit dafür»); в it/es/fr/cs знак стоит. Правка — добавить «?» в de.
+- timezones: для de и pl нет строки «неизвестный город» (падает на русскую); на практике не показывается.
+- Немецкие леммы с артиклем ед. ч. при форме мн. ч. / неверной формой (из аудита 16.10): 9928 «das Wertpapiere», 13091 «der Augäpfel» (в ряду уже есть note), 8921 «der Beamter» (пример — «Der Beamte»).

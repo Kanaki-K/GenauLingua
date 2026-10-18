@@ -148,18 +148,19 @@ def test_medals_belong_to_the_first_three_only():
 
 def test_the_leaderboard_shows_medals_instead_of_numbers():
     """
-    В таблице лидеров медаль стоит ВМЕСТО номера, а не рядом.
-
-    «🥇 1.» — это одно и то же дважды. Дальше третьего места идут числа, и
-    сравнивать их ничто не мешает.
+    С 17.10 в таблице МЕСТО — ЧИСЛОМ, медалей нет: 🥇 в таблице текущего
+    месяца путала бы — медаль выдают в конце месяца (владелец: «не нравится
+    обилие эмодзи, которые ещё не ясно что значат»). Медали — в карточке
+    «За всё время» и в коллекции.
     """
-    from app.bot.handlers.leaderboard.leaderboard_table import _rank_emoji
+    from app.bot.handlers.leaderboard.leaderboard_table import _rows
 
-    assert _rank_emoji(1) == "🥇"
-    assert _rank_emoji(2) == "🥈"
-    assert _rank_emoji(3) == "🥉"
-    assert _rank_emoji(4) == "4."
-    assert _rank_emoji(10) == "10."
+    rows = [{"user_id": i, "rank": i, "display_name": f"N{i}", "lifetime_score": 100 - i}
+            for i in range(1, 5)]
+    text = "\n".join(_rows(rows, 1, None, None)[0])
+    assert "1. <b>N1</b> — 99" in text and "4. N4 — 96" in text, text
+    for medal in ("🥇", "🥈", "🥉"):
+        assert medal not in text, text
 
 
 def test_month_is_named_in_every_interface_language():

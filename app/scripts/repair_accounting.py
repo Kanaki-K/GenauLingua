@@ -375,10 +375,10 @@ async def repair_user_totals(session, apply: bool) -> int:
     # UTC, после — по поясу человека, и на переходе разрыв в один день
     # прощается. Своё правило здесь — «разница ровно в сутки по UTC» —
     # оборвало бы серию тем, кого бот на переходе не обрывал.
-    from app.services.streak_service import next_streak, user_day
+    from app.services.streak_service import advance, session_day, user_day
 
     rows_days = (await session.execute(
-        select(User, QuizSession.completed_at)
+        select(User, QuizSession.completed_at, QuizSession.local_day)
         .join(QuizSession, QuizSession.user_id == User.id)
         .where(QuizSession.completed_at.isnot(None), scored_sessions_filter())
     )).all()
@@ -386,19 +386,21 @@ async def repair_user_totals(session, apply: bool) -> int:
     history_best: dict[int, int] = {}
     history_last: dict[int, tuple] = {}
     active_days: dict[int, set] = {}
-    for person, completed_at in rows_days:
-        active_days.setdefault(person.id, set()).add(user_day(person, completed_at))
+    for person, completed_at, local_day in rows_days:
+        active_days.setdefault(person.id, set()).add(session_day(person, local_day, completed_at))
     for user_id, day_set in active_days.items():
         dates = sorted(day_set)
         best = run = 1
+        freeze = None
         for before, after in zip(dates, dates[1:]):
-            run = next_streak(run, before, after)
+            # Заморозка — тем же правилом, что у бота (`advance`)
+            run, freeze, _ = advance(run, before, after, freeze)
             best = max(best, run)
         history_best[user_id] = best
         # Серия на последний активный день — это череда, которая им
         # оканчивается. Вместе с самим днём это и есть то, что хранят
         # `streak_days` и `last_active_date`
-        history_last[user_id] = (run, dates[-1])
+        history_last[user_id] = (run, dates[-1], freeze)
 
     learned = (
         select(UserWord.user_id, func.count().label("n"))
@@ -434,17 +436,19 @@ async def repair_user_totals(session, apply: bool) -> int:
         # пересчитывает. У выученных слов выдуманное снимается (там живой
         # код считает заново каждый круг) — правило должно быть то же.
         if user.id in history_last:
-            streak_n, last_day = history_last[user.id]
+            streak_n, last_day, freeze_on = history_last[user.id]
             best = max(streak_n, history_best[user.id])
         else:
             streak_n, last_day = int(user.streak_days or 0), user.last_active_date
+            freeze_on = getattr(user, "streak_freeze_on", None)
             best = max(int(user.best_streak_days or 0), streak_n)
 
         gaps = {
             "выучено": abs(int(user.words_learned or 0) - learned_n),
             "кругов": abs(int(user.quizzes_passed or 0) - rounds_n),
             "серия": abs(int(user.streak_days or 0) - streak_n)
-                     + (user.last_active_date != last_day),
+                     + (user.last_active_date != last_day)
+                     + (getattr(user, "streak_freeze_on", None) != freeze_on),
             "лучшая серия": abs(int(user.best_streak_days or 0) - best),
         }
         if not any(gaps.values()):
@@ -466,6 +470,7 @@ async def repair_user_totals(session, apply: bool) -> int:
             user.quizzes_passed = rounds_n
             user.streak_days = streak_n
             user.last_active_date = last_day
+            user.streak_freeze_on = freeze_on
             user.best_streak_days = best
 
     for column, count in by_column.items():

@@ -190,9 +190,14 @@ def test_no_locale_key_is_dead():
     prefixes = _dynamic_prefixes()
     everything = set().union(*(set(t) for t in LOCALES.values()))
 
+    # Варианты текста `prefix_1`, `prefix_2` берёт `nudge_texts.variants` на
+    # ходу (патч 2.1): вариант жив, если его приставка есть в коде
+    def base(key: str) -> str:
+        return re.sub(r"_\d+$", "", key)
+
     dead = sorted(
         key for key in everything
-        if key not in literal
+        if key not in literal and base(key) not in literal
         and key not in DYNAMIC_KEYS
         and not any(key.startswith(prefix) for prefix in prefixes)
     )
@@ -214,3 +219,4 @@ def test_day_counts_agree_with_the_number(lang, one, many):
 
     assert one in get_text("praise_streak", lang, days=1) + " "
     assert many in get_text("praise_streak", lang, days=5)
+

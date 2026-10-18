@@ -14,14 +14,19 @@ from typing import Optional
 
 from sqlalchemy import and_, case, func, literal_column, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import aliased
 
 from app.database.enums import CEFRLevel, QuizChannel, QuizMode, counted_channels
-from app.database.models import PartOfSpeech, User, UserWord, Word, WordLangGroup
+from app.database.models import (
+    PartOfSpeech, User, UserWord, Word, WordFrequency, WordLangGroup,
+)
 from app.services import build_service
+from app.services.word_level import level_expr, level_of
 from app.services.goal_service import categories_for
 from app.services.language_service import (
     LanguagePair,
     fold,
+    get_language,
     pair_for_channel,
     display_text,
     main_meaning,
@@ -34,6 +39,17 @@ from app.services.language_service import (
 
 # ==================== КОНСТАНТЫ SRS ====================
 MIN_ATTEMPTS_FOR_LEARNED = 3
+
+# УЖЕ ИЗВЕСТНОЕ СЛОВО — ДВАЖДЫ, А НЕ ТРИЖДЫ (патч 2.1). Отзыв 15.10: «если
+# я прохожу уровень без ошибок, мне не надо доказывать тремя проходами,
+# что всё запомнил»; владелец: «если с первого раза правильно — сократить
+# повтор». Новое слово, отвеченное верно при первой же встрече, начинает
+# серию с двух: следующий повтор — через 3 дня, и одного верного ответа там
+# хватает до «выучено». Угадывание (25% при четырёх вариантах) отсекает
+# эта проверка: угаданное слово на ней чаще всего ломается и идёт заново.
+# Кнопки «знаю это слово» нет — решение владельца: «случайно тыкнешь — то
+# же угадывание».
+FIRST_SIGHT_STREAK = 2
 LEARNED_SUCCESS_RATE = 90
 LEARNED_SHOW_PROBABILITY = 0.01
 
@@ -124,6 +140,45 @@ NEW_WORDS_PER_ROUND = 3
 # вызов из приёмки, первый вопрос до создания занятия).
 DEFAULT_ROUND_LENGTH = 15
 
+# ПЕРВОЕ ЗАНЯТИЕ КОРОЧЕ. Прод 15.10: новички уходили на втором-пятом
+# вопросе из пятнадцати, не увидев ни итога, ни зачем это всё. Семь —
+# короткое знакомство: итог и первая победа приходят через пару минут, а
+# доска (ей нужно не меньше пяти вопросов в круге) в нём ещё помещается
+FIRST_LESSON_LENGTH = 7
+
+
+def in_first_lesson(user) -> bool:
+    """
+    Человек ещё на ПЕРВОМ УРОКЕ (патч 2.1): не закончил ни одного занятия и
+    не ответил на 7 вопросов всего (`users.onboarded_at` пусто).
+
+    ЗАЧЕМ. Прод 15.10: 21 из 32 брошенных занятий брошены на 0–2-м вопросе;
+    польский новичок первым словом получил многозначное «mieć na myśli» и
+    ушёл после первого ответа. Владелец: «первые 7 с лёгкими вопросами,
+    чтобы юзер как можно прошёл первый круг… и получил дофамин». И: «даже
+    если по какой-то причине он его сбросит — чтобы открывалась полноценная
+    игра после первого круга» — поэтому отметка ставится и после 7 ответов
+    в брошенных занятиях: лёгкий режим не держит вечно.
+    """
+    if user is None:
+        return False
+    if getattr(user, "onboarded_at", None) is not None:
+        return False
+    return not (getattr(user, "quizzes_passed", 0) or 0)
+
+
+def lesson_length(user) -> int:
+    """
+    Сколько вопросов в занятии. Первое — короче, пока человек на первом
+    уроке (`in_first_lesson`); дальше — его настройка. Одно место для всех,
+    кто это число показывает: кнопки «Учить N слов», вступление, напоминание.
+    """
+    chosen = (getattr(user, "quiz_word_count", None) if user is not None else None) or DEFAULT_ROUND_LENGTH
+    if in_first_lesson(user):
+        # Короче, но не длиннее выбранного: первое занятие не растягивается
+        return min(FIRST_LESSON_LENGTH, chosen)
+    return chosen
+
 # Сколько кандидатов тянуть из БД, чтобы набрать 3 различных дистрактора.
 # С запасом: часть кандидатов отсеется как совпадающие по тексту.
 DISTRACTOR_CANDIDATES = 16
@@ -181,7 +236,7 @@ def _apply_quiz_mode_filter(query, user: User):
     if user.quiz_mode == QuizMode.CATEGORY:
         if user.quiz_category:
             return query.where(Word.category == user.quiz_category)
-        return query.where(Word.level == user.level)
+        return query.where(level_expr(user.learning_lang) == user.level)
 
     if user.quiz_mode == QuizMode.ALL_WORDS:
         return query
@@ -189,8 +244,8 @@ def _apply_quiz_mode_filter(query, user: User):
     if user.quiz_mode == QuizMode.DIFFICULT:
         return query
 
-    # LEVEL и всё неизвестное
-    return query.where(Word.level == user.level)
+    # LEVEL и всё неизвестное. Уровень — В ИЗУЧАЕМОМ ЯЗЫКЕ (`word_level`)
+    return query.where(level_expr(user.learning_lang) == user.level)
 
 
 def _exclude(query, exclude_ids: Optional[list[int]]):
@@ -206,6 +261,65 @@ async def _pick_one(session: AsyncSession, query) -> Optional[Word]:
     на каждый вопрос) и random.choice применялся в Python.
     """
     result = await session.execute(query.order_by(func.random()).limit(1))
+    return result.scalars().first()
+
+
+# Из скольких самых ходовых невиденных слов уровня выбирать новое. Не из
+# десяти: верх частотного списка — служебные слова (der, und, in, ich), и
+# первое занятие новичка состояло бы из них. Сто пятьдесят смешивают их с
+# Haus, Mutter, gut, fahren, а редкое экзаменационное (Familienstand,
+# buchstabieren) приходит позже
+COMMON_POOL = 150
+# Первый урок: из 60 самых частых — однословные существительные, глаголы,
+# прилагательные не длиннее 10 букв (`get_new_words`)
+EASY_POOL = 60
+EASY_MAX_LETTERS = 10
+
+
+# На сколько служебное слово «реже» в очереди новых: der, von, zwischen, but
+# занимали половину первого занятия (замер 15.10: bei, von, zwischen, nun,
+# mal из 15). Они не пропадают — просто содержательные идут чаще раньше
+#
+# Второй замер, после уровней по языкам (15.10): у английского, польского,
+# украинского уровень A1 стал частотным, и первое занятие снова состояло из
+# you, a, the, with it / na, ten, do / з, для, в. Штраф поднят: служебные —
+# на 2.5, наречия — на 1.0; в начале — существительные, глаголы, признаки
+FUNCTION_WORD_PENALTY = 2.5
+ADVERB_PENALTY = 1.0
+EASY_POS = (PartOfSpeech.NOUN, PartOfSpeech.VERB, PartOfSpeech.ADJECTIVE)
+_FUNCTION_POS = (PartOfSpeech.PRONOUN, PartOfSpeech.PREPOSITION,
+                 PartOfSpeech.CONJUNCTION, PartOfSpeech.OTHER)
+
+
+def _function_word_penalty():
+    return case(
+        (Word.pos.in_(_FUNCTION_POS), FUNCTION_WORD_PENALTY),
+        (Word.pos == PartOfSpeech.ADVERB, ADVERB_PENALTY),
+        else_=0.0,
+    )
+
+
+async def _pick_common(session: AsyncSession, query, lang: str,
+                       pool: Optional[int] = None) -> Optional[Word]:
+    """
+    Новое слово — случайное среди самых ходовых на изучаемом языке.
+
+    Прежде — случайное из всего уровня: новичок A1 получал Strumpf (22 385-е
+    по частоте) раньше Haus. Прод 15.10: новички уходили после первых
+    слов, отвечая на всё верно. Частота — по ИЗУЧАЕМОМУ языку
+    (`WordFrequency`); слово без частоты идёт последним, но не пропадает.
+    """
+    pool = (
+        query.outerjoin(
+            WordFrequency,
+            and_(WordFrequency.word_id == Word.id, WordFrequency.lang == lang),
+        )
+        .order_by((WordFrequency.zipf - _function_word_penalty()).desc().nulls_last(), Word.id)
+        .limit(pool or COMMON_POOL)
+        .subquery()
+    )
+    picked = aliased(Word, pool)
+    result = await session.execute(select(picked).order_by(func.random()).limit(1))
     return result.scalars().first()
 
 
@@ -318,6 +432,27 @@ def _scoped(query, user: Optional[User], level: Optional[CEFRLevel]):
     return query
 
 
+def _review_scoped(query, user: Optional[User], level: Optional[CEFRLevel]):
+    """
+    Ограничить выборку УЖЕ НАЧАТЫХ слов: повторение, трудные, закрепление.
+
+    УРОВЕНЬ РЕШАЕТ, КАКИЕ НОВЫЕ СЛОВА ДАВАТЬ, — НЕ КАКИЕ ПОВТОРЯТЬ. Начатое
+    слово возвращается в срок, на каком бы уровне оно ни числилось. Прежде
+    повторение шло только по словам текущего уровня, и это ломало прогресс
+    дважды: при подъёме уровня слова прежнего переставали возвращаться и
+    забывались, а при переуровнении словаря 15.10 по спискам Goethe у 165
+    человек ушло бы с уровня 4 317 слов в работе — у половины людей
+    половина их слов перестала бы повторяться.
+
+    Режим «по теме» с темой и прочие — как прежде (`_scoped`).
+    """
+    if user is not None and user.quiz_mode in (QuizMode.LEVEL, None):
+        return query
+    if user is not None and user.quiz_mode == QuizMode.CATEGORY and not user.quiz_category:
+        return query
+    return _scoped(query, user, level)
+
+
 def _progress_join(query, user_id: int, pair: LanguagePair):
     """Присоединить прогресс пользователя по этому языку."""
     return query.join(
@@ -424,7 +559,7 @@ async def get_due_words(
     query = _progress_join(_usable_words(pair), user_id, pair).where(
         _due_condition()
     )
-    query = _exclude(_scoped(query, user, level), exclude_ids)
+    query = _exclude(_review_scoped(query, user, level), exclude_ids)
     # Выученные НЕ отсеиваются: их срок — 21 и 60 дней, и возвращаются они
     # ровно затем, чтобы не забылись. Прежде выученному доставался 1%
     # подбора, то есть забывались они тихо.
@@ -445,7 +580,7 @@ async def count_due_words(
     query = _progress_join(
         select(func.count()).select_from(Word), user_id, pair
     ).where(_due_condition())
-    query = _scoped(query, user, level)
+    query = _review_scoped(query, user, level)
     return int((await session.execute(query)).scalar() or 0)
 
 
@@ -498,7 +633,7 @@ async def get_practice_words(
         _answered_before(user_id, pair, cutoff),
         ~_due_condition(),
     )
-    query = _exclude(_scoped(query, user, level), exclude_ids)
+    query = _exclude(_review_scoped(query, user, level), exclude_ids)
     # Показы ВО ВСЕХ ИГРАХ, кроме карточки, — правилом, а не списком:
     # шестая игра, забытая здесь, не считалась бы отработкой, и одно и то
     # же слово собиралось бы снова и снова
@@ -553,7 +688,7 @@ async def get_ready_for(
         query = query.where(*build_service.sql_prefilter(pair))
         level = getattr(user, "level", None)
         if level is not None:
-            query = query.where(Word.level.in_(
+            query = query.where(level_expr(pair.learning).in_(
                 [lv for lv in CEFRLevel if _LEVEL_RANK[lv] <= _LEVEL_RANK[level]]))
     if gap is not None:
         # Пауза — от последнего ОТВЕТА (`_answered_before`): досрочный ответ
@@ -583,7 +718,8 @@ FIT_CANDIDATES = 20
 
 
 def channel_fits(channel: QuizChannel, word: Word, pair: LanguagePair,
-                 level: Optional[CEFRLevel] = None) -> bool:
+                 level: Optional[CEFRLevel] = None,
+                 word_level: Optional[CEFRLevel] = None) -> bool:
     """
     Годится ли слово для этой игры ПО СВОИМ ДАННЫМ, а не по прогрессу.
 
@@ -597,7 +733,14 @@ def channel_fits(channel: QuizChannel, word: Word, pair: LanguagePair,
     (`build_level_fits`). Без уровня (приёмки) — без этого условия.
     """
     if channel is QuizChannel.BUILD:
-        return build_level_fits(word, level) and build_service.fits(word, pair)
+        # Уровень СЛОВА — в изучаемом языке (`word_level`). `Word.level` —
+        # немецкий (Goethe), и у учащего английский сборка сверялась с чужим
+        # уровнем (аудит подбора 15.10). Не передан и язык не немецкий —
+        # проверки нет: подбор (`get_ready_for`) уже отсеял по `level_expr`
+        if word_level is None and pair.learning == "de":
+            word_level = word.level
+        return (build_level_fits(word_level, level)
+                and build_service.fits(word, pair, level))
     return True
 
 
@@ -605,7 +748,7 @@ def channel_fits(channel: QuizChannel, word: Word, pair: LanguagePair,
 _LEVEL_RANK = {level: rank for rank, level in enumerate(CEFRLevel)}
 
 
-def build_level_fits(word: Word, level: Optional[CEFRLevel]) -> bool:
+def build_level_fits(word_level: Optional[CEFRLevel], level: Optional[CEFRLevel]) -> bool:
     """
     Сборка — только по словам НЕ ВЫШЕ уровня человека.
 
@@ -616,9 +759,9 @@ def build_level_fits(word: Word, level: Optional[CEFRLevel]) -> bool:
     этого выглядит сложным вдвойне». Узнавать такое слово — посильно,
     собирать его фразу на A2 — нет. Оно придёт остальными играми.
     """
-    if level is None or word.level is None:
+    if level is None or word_level is None:
         return True
-    return _LEVEL_RANK[word.level] <= _LEVEL_RANK[level]
+    return _LEVEL_RANK[word_level] <= _LEVEL_RANK[level]
 
 
 def _rotation(user: User, exclude_ids: list[int],
@@ -696,7 +839,52 @@ async def get_struggling_words(
         _cooled_down(),
         _due_condition(),
     )
-    return await _pick_one(session, _exclude(_scoped(query, user, level), exclude_ids))
+    return await _pick_one(session, _exclude(_review_scoped(query, user, level), exclude_ids))
+
+
+def _unseen_query(user_id: int, pair: LanguagePair, exclude_ids: list[int],
+                  user: Optional[User], level: Optional[CEFRLevel]):
+    """Слова, которых человек на этом языке ещё не видел (NOT EXISTS)."""
+    seen = (
+        select(UserWord.word_id)
+        .where(
+            UserWord.user_id == user_id,
+            UserWord.learning_lang == pair.learning,
+            UserWord.word_id == Word.id,
+        )
+        .exists()
+    )
+    return _exclude(_scoped(_usable_words(pair).where(~seen), user, level), exclude_ids)
+
+
+def _easy(query, pair: LanguagePair):
+    """Лёгкие: знаменательные, однословные, короткие (первый урок)."""
+    first = func.split_part(word_column(pair.learning), ",", 1)
+    return query.where(
+        Word.pos.in_(EASY_POS),
+        ~func.btrim(first).like("% %"),
+        func.length(func.btrim(first)) <= EASY_MAX_LETTERS,
+    )
+
+
+async def easy_new_words(session: AsyncSession, user: User, pair: LanguagePair,
+                         exclude_ids: list[int], limit: int = EASY_POOL) -> list[Word]:
+    """
+    Новые лёгкие слова, самые частые первыми, — список, а не одно.
+
+    Нужен первому уроку (`first_lesson`): похожее на родное слово ищется
+    перебором пула, а доске на три пары нужно три слова сразу.
+    """
+    query = _easy(_unseen_query(user.id, pair, exclude_ids, user, user.level), pair)
+    rows = await session.execute(
+        query.outerjoin(
+            WordFrequency,
+            and_(WordFrequency.word_id == Word.id, WordFrequency.lang == pair.learning),
+        )
+        .order_by((WordFrequency.zipf - _function_word_penalty()).desc().nulls_last(), Word.id)
+        .limit(limit)
+    )
+    return list(rows.scalars().all())
 
 
 async def get_new_words(
@@ -713,16 +901,19 @@ async def get_new_words(
     NOT EXISTS вместо прежнего NOT IN со списком всех виденных id: у активного
     пользователя это тысячи идентификаторов, гонявшихся в каждом из 25 запросов.
     """
-    seen = (
-        select(UserWord.word_id)
-        .where(
-            UserWord.user_id == user_id,
-            UserWord.learning_lang == pair.learning,
-            UserWord.word_id == Word.id,
-        )
-        .exists()
-    )
-    query = _exclude(_scoped(_usable_words(pair).where(~seen), user, level), exclude_ids)
+    query = _unseen_query(user_id, pair, exclude_ids, user, level)
+
+    # ПЕРВЫЙ УРОК — САМЫЕ ЛЁГКИЕ: частые, однословные, знаменательные.
+    # «mieć na myśli» первым словом (прод 15.10) — ровно то, чего не надо
+    categories = categories_for(getattr(user, "learning_goal", None))
+    if in_first_lesson(user):
+        easy = _easy(query, pair)
+        # И тема, если человек её назвал: лёгкие слова — из неё же
+        tries = ([easy.where(Word.category.in_(categories))] if categories else []) + [easy]
+        for candidates in tries:
+            picked = await _pick_common(session, candidates, pair.learning, pool=EASY_POOL)
+            if picked is not None:
+                return picked
 
     # СЛОВА ТЕМЫ ВПЕРЁД, ЕСЛИ ЧЕЛОВЕК НАЗВАЛ ЦЕЛЬ.
     #
@@ -736,13 +927,14 @@ async def get_new_words(
     #
     # Кончились слова темы — берём любые. Пустой круг хуже нетематического,
     # и запас этот не теоретический: в «Wirtschaft» слов уровня A1 всего два.
-    categories = categories_for(getattr(user, "learning_goal", None))
     if categories:
-        themed = await _pick_one(session, query.where(Word.category.in_(categories)))
+        themed = await _pick_common(
+            session, query.where(Word.category.in_(categories)), pair.learning
+        )
         if themed is not None:
             return themed
 
-    return await _pick_one(session, query)
+    return await _pick_common(session, query, pair.learning)
 
 
 async def get_review_words(
@@ -760,7 +952,7 @@ async def get_review_words(
         _accuracy_below(REVIEW_THRESHOLD),
         _cooled_down(),
     )
-    return await _pick_one(session, _exclude(_scoped(query, user, level), exclude_ids))
+    return await _pick_one(session, _exclude(_review_scoped(query, user, level), exclude_ids))
 
 
 async def get_learned_words(
@@ -776,7 +968,7 @@ async def get_learned_words(
         UserWord.times_shown >= MIN_ATTEMPTS_FOR_LEARNED,
         (UserWord.times_correct * 100.0 / UserWord.times_shown) >= LEARNED_SUCCESS_RATE,
     )
-    return await _pick_one(session, _exclude(_scoped(query, user, level), exclude_ids))
+    return await _pick_one(session, _exclude(_review_scoped(query, user, level), exclude_ids))
 
 
 async def get_any_word(
@@ -890,13 +1082,35 @@ async def get_distractors(
 
     base = _usable_words(pair)
 
-    # 1. Та же часть речи и тот же уровень; для существительных — иной артикль
-    # (в режимах по категории и по всей базе уровень не ограничиваем).
+    # 1. Та же часть речи и тот же уровень (в режимах по категории и по всей
+    # базе уровень не ограничиваем).
+    #
+    # УРОВЕНЬ — В ИЗУЧАЕМОМ ЯЗЫКЕ (`level_expr`), а не немецкий `Word.level`:
+    # у учащего английский A1 все 60 вариантов из 60 приходили уровня C1
+    # (аудит подбора 15.10) — та же ошибка, что была с подбором слов.
     same_level = not (user and user.quiz_mode in (QuizMode.CATEGORY, QuizMode.ALL_WORDS))
     strict = base.where(Word.pos == correct_word.pos)
     if same_level:
-        strict = strict.where(Word.level == correct_word.level)
-    if correct_word.pos == PartOfSpeech.NOUN and correct_word.article:
+        own_level = await level_of(session, correct_word, pair.learning)
+        strict = strict.where(level_expr(pair.learning) == own_level)
+
+    # АРТИКЛЬ. Когда варианты — слова С АРТИКЛЕМ («Вспоминаю»: ответ на
+    # изучаемом немецком), артикль у всех вариантов ТОТ ЖЕ, что у верного.
+    # Прежде требовался ИНОЙ — и артикль верного ответа всегда был
+    # единственным среди четырёх: стратегия «бери непохожий артикль»
+    # угадывала 63–65% вместо 25% (аудит подбора 15.10). Когда варианты —
+    # значения на родном языке, артикль не виден, и прежнее условие
+    # безвредно: оно лишь разводит варианты.
+    noun = correct_word.pos == PartOfSpeech.NOUN and correct_word.article
+    article_shown = bool(noun) and get_language(answer_lang).uses_article
+    same_article = []
+    if article_shown:
+        strict = strict.where(Word.article == correct_word.article)
+        # 1б. Та же часть речи и артикль, любой уровень — прежде чем
+        # ослабить артикль
+        same_article = [base.where(Word.pos == correct_word.pos,
+                                   Word.article == correct_word.article)]
+    elif noun:
         strict = strict.where(
             or_(Word.article.is_(None), Word.article != correct_word.article)
         )
@@ -907,7 +1121,7 @@ async def get_distractors(
     # 3. Любое слово — лишь бы вариантов было четыре
     anything = base
 
-    for stage in (strict, by_pos, anything):
+    for stage in (strict, *same_article, by_pos, anything):
         if len(picked) >= count:
             break
 
@@ -1032,6 +1246,17 @@ async def generate_question(
     pair = pair or pair_from_user(user)
     length = round_length or user.quiz_word_count or DEFAULT_ROUND_LENGTH
     place = (question_number - 1) if question_number else len(exclude_ids)
+    # ПЕРВЫЙ УРОК — ИГРА ПО НОМЕРУ ВОПРОСА (16.10, `first_lesson`): Читаю,
+    # Слышу, Вспоминаю, по кругу. Прежде — семь карточек подряд. Слышу и
+    # Вспоминаю берут новое слово, ПОХОЖЕЕ на родное: правило допуска здесь
+    # обойдено, и решаемой игру делает выбор слова
+    first_game: Optional[QuizChannel] = None
+    if channel is None and in_first_lesson(user):
+        from app.services import first_lesson
+
+        first_game = first_lesson.planned_game(place + 1, enabled_channels(user))
+        channel = QuizChannel.TEXT
+        prefer_channel = None
 
     # ЗНАЧЕНИЯ, УЖЕ СПРОШЕННЫЕ В ЭТОМ КРУГЕ, — чтобы не спросить второе
     # слово с тем же переводом.
@@ -1051,6 +1276,17 @@ async def generate_question(
 
     correct_word = None
     skipped: list[int] = []
+
+    preset: Optional[Word] = None
+    if first_game in (QuizChannel.AUDIO, QuizChannel.REVERSE):
+        from app.services import first_lesson
+
+        preset = await first_lesson.similar_new_word(
+            session, user, pair, exclude_ids, taken_meanings,
+        )
+        if preset is not None:
+            channel = first_game
+            correct_word = preset
     # Попыток немного: столкновение редкое, а круг важнее чистоты. Не нашли
     # за пять подборов — берём как есть: повтор значения неприятен, а
     # оборванный круг хуже.
@@ -1073,7 +1309,7 @@ async def generate_question(
     )
     rotated: Optional[QuizChannel] = None
 
-    for _ in range(MEANING_RETRIES):
+    for _ in range(0 if preset is not None else MEANING_RETRIES):
         candidate = None
         rotated = None
         if wanted is not None:
@@ -1149,7 +1385,8 @@ async def generate_question(
     # негодное слово и так не выбирает; откат — для навязанного канала и
     # для данных, поменявшихся между подбором и сборкой.
     if channel is QuizChannel.BUILD:
-        puzzle = await build_service.make_puzzle(session, correct_word, pair)
+        puzzle = await build_service.make_puzzle(
+            session, correct_word, pair, learner_level=getattr(user, "level", None))
         if puzzle is not None:
             return {
                 "correct_word": correct_word,
@@ -1259,8 +1496,9 @@ async def update_word_progress(
             user_id=user_id,
             word_id=word_id,
             learning_lang=learning_lang,
-            # Засчитанное по попыткам серию не начинает (см. ниже, «досрочно»)
-            correct_streak=1 if is_correct and advance_schedule else 0,
+            # Засчитанное по попыткам серию не начинает (см. ниже, «досрочно»).
+            # С ПЕРВОГО РАЗА ВЕРНО — сразу на ступень выше (патч 2.1)
+            correct_streak=(FIRST_SIGHT_STREAK if is_correct and advance_schedule else 0),
             times_shown=1,
             times_correct=1 if is_correct else 0,
             last_seen_at=now,
@@ -1408,7 +1646,7 @@ async def get_user_progress_stats(
     """
     def scoped(query):
         if level is not None:
-            query = query.where(Word.level == level)
+            query = query.where(level_expr(pair.learning) == level)
         if category is not None:
             query = query.where(Word.category == category)
         return query
@@ -1521,7 +1759,7 @@ async def get_channel_progress(
 
     def scoped(query):
         if level is not None:
-            query = query.where(Word.level == level)
+            query = query.where(level_expr(pair.learning) == level)
         if category is not None:
             query = query.where(Word.category == category)
         return query
@@ -1980,11 +2218,13 @@ async def pick_channel(
     # Годность по данным слова (`channel_fits`): сборке нужен пример в 3–10
     # слов с переводом. Пара — человека: на его родном показан пример
     pair = pair_from_user(user) if user is not None else None
+    word_level = await level_of(session, word, pair.learning) if pair is not None else None
 
     def open_for_word(channel: QuizChannel) -> bool:
         return (times_correct >= CHANNEL_UNLOCK.get(channel, 0)
                 and (pair is None or channel_fits(channel, word, pair,
-                                                  getattr(user, "level", None))))
+                                                  getattr(user, "level", None),
+                                                  word_level=word_level)))
 
     if prefer is not None:
         # Без озвучки закрыты ТОЛЬКО слух и речь. Прежде условие было «всё,

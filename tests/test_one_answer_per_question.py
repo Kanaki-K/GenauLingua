@@ -56,7 +56,7 @@ async def _ready(session, user, *, questions=15, familiar=30, words=60) -> None:
     user.audio_enabled = False
     user.quiz_channels = "t"
     user.match_in_round = True
-    user.quizzes_passed = 0
+    user.quizzes_passed = 2  # чётное — доска положена; не 0: у новичка первое занятие короче (7)
     await session.commit()
 
     rows = (await session.execute(select(Word).order_by(Word.id))).scalars().all()

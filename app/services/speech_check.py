@@ -82,7 +82,8 @@ _model_lock = asyncio.Lock()
 _slots = asyncio.Semaphore(MAX_PARALLEL)
 
 # Коды языков, отличающиеся от наших двухбуквенных
-ASR_LANG = {"uk": "uk", "tr": "tr", "pl": "pl", "de": "de", "en": "en", "ru": "ru"}
+ASR_LANG = {"uk": "uk", "tr": "tr", "pl": "pl", "de": "de", "en": "en", "ru": "ru",
+            "it": "it", "es": "es", "fr": "fr", "cs": "cs"}
 
 
 @dataclass(frozen=True)
@@ -123,9 +124,27 @@ def _strip_article(text: str, lang: Optional[str]) -> str:
     отношения не имеет.
     """
     parts = text.split(None, 1)
-    if len(parts) == 2 and parts[0] in {"der", "die", "das", "the", "a", "an"}:
+    if len(parts) == 2 and parts[0] in articles_for(lang):
         return parts[1]
     return text
+
+
+def articles_for(lang: Optional[str]) -> frozenset[str]:
+    """
+    Ведущие служебные слова языка — из реестра (`leading_particles`), в том
+    виде, какой они принимают после `_normalize`.
+
+    Н3 (16.10): прежде здесь стояли только der/die/das/the/a/an, и
+    итальянское «il libro», сказанное как «libro», могло не засчитаться.
+    Элизия — отдельная ловушка: `_normalize` снимает апостроф, и «l'uomo»
+    приходит как «l uomo». Поэтому «l'» из реестра хранится как «l».
+    """
+    from app.services.language_service import LANGUAGES
+
+    base = {"der", "die", "das", "the", "a", "an"}
+    language = LANGUAGES.get(lang or "")
+    extra = language.leading_particles if language else ()
+    return frozenset(base | {_normalize(p.rstrip("'’"), lang) for p in extra})
 
 
 async def _get_model():
@@ -156,13 +175,18 @@ def _transcribe_blocking(model, audio, lang: str, hint: Optional[str] = None) ->
 # Артикли, которые распознаватель приклеивает к слову: «Derstreit»
 _ARTICLES = ("der", "die", "das", "the", "a", "an")
 
+
+def _glue_articles(lang: Optional[str]) -> tuple[str, ...]:
+    """Артикли для склейки: прежние плюс артикли языка («luomo», «illibro»)."""
+    return tuple(sorted(set(_ARTICLES) | articles_for(lang)))
+
 # Короткое слово сверяется ТОЛЬКО ЦЕЛИКОМ. Доля совпадения у него ничего не
 # говорит: «Eis» и «Reise» дают ровно 0.75, «Ohr» и «Rohr» — 0.86, то есть
 # порог «узнано» проходит чужое слово. Таких целей в немецкой базе 191.
 SHORT_WORD = 4
 
 
-def _contains(want: str, got: str) -> bool:
+def _contains(want: str, got: str, lang: Optional[str] = None) -> bool:
     """
     Есть ли искомое в услышанном ЦЕЛЫМИ СЛОВАМИ.
 
@@ -189,7 +213,7 @@ def _contains(want: str, got: str) -> bool:
             return True
 
     bare = want.replace(" ", "")
-    glued = {bare} | {article + bare for article in _ARTICLES}
+    glued = {bare} | {article + bare for article in _glue_articles(lang)}
     longest = max(len(g) for g in glued)
     for i in range(len(g_tokens)):
         joined = ""
@@ -207,8 +231,8 @@ def _threshold(want: str) -> float:
     return 1.0 if len(want.replace(" ", "")) <= SHORT_WORD else MATCH_THRESHOLD
 
 
-def _similarity(want: str, got: str) -> float:
-    if _contains(want, got):
+def _similarity(want: str, got: str, lang: Optional[str] = None) -> float:
+    if _contains(want, got, lang):
         return 1.0
     return SequenceMatcher(None, want, got).ratio()
 
@@ -249,7 +273,7 @@ async def check_pronunciation(
     if not want:
         return SpeechVerdict(heard=heard, matched=False, similarity=0.0, failed=True)
 
-    ratio = _similarity(want, got)
+    ratio = _similarity(want, got, lang)
     threshold = _threshold(want)
 
     if NEAR_MISS <= ratio < threshold:
@@ -261,7 +285,7 @@ async def check_pronunciation(
         except Exception:
             logger.exception("второй проход распознавания не удался")
             second = ""
-        second_ratio = _similarity(want, _strip_article(_normalize(second, lang), lang))
+        second_ratio = _similarity(want, _strip_article(_normalize(second, lang), lang), lang)
         logger.info("созвучный промах %r → со второго прохода %r (%.2f → %.2f)",
                     heard, second, ratio, second_ratio)
         if second_ratio > ratio:

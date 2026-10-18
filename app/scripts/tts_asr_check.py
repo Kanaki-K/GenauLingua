@@ -117,8 +117,20 @@ class Recognizer:
         from faster_whisper import WhisperModel
 
         # int8 на процессоре: втрое быстрее float32, разницы на коротких
-        # фразах не даёт
-        self.model = WhisperModel(model_size, device="cpu", compute_type="int8")
+        # фразах не даёт. ASR_DEVICE=cuda — на видеокарте (float16): на
+        # процессоре 9 500 клипов одного языка шли ~11 часов. Библиотеки
+        # cuBLAS/cuDNN — пакеты nvidia-cublas-cu12, nvidia-cudnn-cu12
+        device = os.environ.get("ASR_DEVICE", "cpu")
+        if device == "cuda":
+            import site
+            for base in site.getsitepackages():
+                for sub in ("cublas", "cudnn"):
+                    dll = pathlib.Path(base) / "nvidia" / sub / "bin"
+                    if dll.is_dir():
+                        os.add_dll_directory(str(dll))
+                        os.environ["PATH"] = f"{dll}{os.pathsep}{os.environ['PATH']}"
+        self.model = WhisperModel(model_size, device=device,
+                                  compute_type="float16" if device == "cuda" else "int8")
 
     def transcribe(self, data: bytes, lang: str) -> str:
         audio = decode_mp3(data)

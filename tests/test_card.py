@@ -353,3 +353,44 @@ class TestFailureDegradation:
         assert message.deleted is True
         assert [m for m, _ in bot.calls] == ["send_message"]
         assert bot.calls[0][1]["text"] == TEXT
+
+
+async def test_switching_text_to_audio_shows_the_new_card_before_removing_the_old():
+    """
+    Владелец, 15.10: «при реверс-режиме пропадает карточка и остаётся якорь,
+    а потом появляется новая». Вопрос «Вспоминаю» — текст, разбор — со
+    звуком: правка невозможна, карточка пересоздаётся. Прежде старая
+    удалялась ДО отправки новой, и пока звук грузился, на экране был один
+    якорь. Теперь новая появляется первой.
+    """
+    bot = FakeBot()
+
+    class OrderedMessage(FakeMessage):
+        async def delete(self):
+            bot.calls.append(("delete", {}))
+            self.deleted = True
+
+    old = OrderedMessage()
+    state = FakeState({STATE_CARD_HAS_AUDIO: False, STATE_CARD_ID: old.message_id})
+    await show_card(bot, CHAT_ID, state, FakeSession(), text=TEXT, keyboard=KEYBOARD,
+                    clip=make_clip(), word_id=WORD_ID, lang="de", message=old)
+
+    order = [name for name, _ in bot.calls]
+    assert order == ["send_audio", "delete"], f"порядок: {order}"
+    assert old.deleted
+
+
+async def test_switching_audio_to_text_also_sends_first():
+    bot = FakeBot()
+
+    class OrderedMessage(FakeMessage):
+        async def delete(self):
+            bot.calls.append(("delete", {}))
+            self.deleted = True
+
+    old = OrderedMessage()
+    state = FakeState({STATE_CARD_HAS_AUDIO: True, STATE_CARD_ID: old.message_id})
+    await show_card(bot, CHAT_ID, state, FakeSession(), text=TEXT, keyboard=KEYBOARD,
+                    clip=None, word_id=WORD_ID, lang="de", message=old)
+
+    assert [name for name, _ in bot.calls] == ["send_message", "delete"]

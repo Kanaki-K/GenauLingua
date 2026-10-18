@@ -65,6 +65,8 @@ class RoundFacts:
     days_away: int = 0           # сколько дней не заходил до этого круга
     first_audio: bool = False    # первый в жизни верный ответ на слух
     first_speech: bool = False   # первый в жизни верный ответ голосом
+    first_round_today: bool = False   # первое законченное занятие за день
+    freeze_used_today: bool = False   # заморозка простила вчерашний пропуск
 
     @property
     def learned_now_count(self) -> int:
@@ -109,6 +111,17 @@ def pick_event(facts: RoundFacts) -> Optional[tuple[str, dict]]:
     # сейчас полезно знать: дальше слова начнут возвращаться
     if facts.rounds_total == 1:
         return "praise_first_round", {}
+
+    # ПАТЧ 2.1. Заморозка сработала — сказать сразу: иначе человек не узнает,
+    # что пропуск простили, и что следующий — только через неделю
+    if facts.first_round_today and facts.freeze_used_today:
+        return "praise_freeze_saved", {"days": facts.streak_days}
+
+    # Рубежи серии: 3, 7, 14, 30 дней. Седьмой — главный: у Duolingo кто
+    # прошёл неделю, остаётся надолго. Только в первое занятие дня — когда
+    # серия и выросла, а не при каждом повторе за день
+    if facts.first_round_today and facts.streak_days in STREAK_MILESTONES:
+        return f"praise_streak_{facts.streak_days}", {"days": facts.streak_days}
 
     # Первое выученное слово — событие, которого у 156 человек из 199 не
     # было ни разу. Молчать о нём нельзя
@@ -195,7 +208,15 @@ def progress_line(facts: RoundFacts) -> tuple[str, dict]:
 # Это не событие, а то, что бывает почти всегда: новые слова или
 # вернувшиеся есть в каждом втором круге. Знак, который виден всегда, не
 # отмечает ничего — ровно по этой причине мы и сняли 68 прежних.
+# Рубежи серии для праздника под итогом (патч 2.1)
+STREAK_MILESTONES = (3, 7, 14, 30)
+
 PRAISE_MARKS = {
+    "praise_freeze_saved": "❄️",
+    "praise_streak_3": "🔥",
+    "praise_streak_7": "🔥",
+    "praise_streak_14": "🔥",
+    "praise_streak_30": "🏆",
     "praise_first_round": "✨",
     "praise_first_learned": "⭐",
     "praise_learned": "⭐",

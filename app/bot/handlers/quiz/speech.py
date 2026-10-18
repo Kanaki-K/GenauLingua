@@ -4,7 +4,9 @@
 Вынесено из `game.py` переносом, без правок поведения.
 """
 
+import asyncio
 import html
+import time
 import logging
 
 from aiogram import F, Router
@@ -16,6 +18,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.bot.buttons import menu_texts
 from app.bot.handlers.quiz.card import STATE_CARD_HAS_AUDIO, STATE_CARD_ID, show_card
 from app.bot.handlers.quiz.lesson import _record_answer
+from app.services import journal
 from app.bot.handlers.quiz.lesson_state import (
     S_SPEECH_TRIES,
     SPEECH_ATTEMPTS,
@@ -23,7 +26,7 @@ from app.bot.handlers.quiz.lesson_state import (
     _release_answer,
     _remember_stray,
 )
-from app.bot.handlers.quiz.question import _answer_text, get_next_question_keyboard
+from app.bot.handlers.quiz.question import _answer_text, answer_keyboard
 from app.bot.states import QuizStates
 from app.core.clock import utcnow
 from app.database.enums import QuizChannel
@@ -90,7 +93,7 @@ async def process_voice_answer(message: Message, state: FSMContext, session: Asy
     # ОДИН ВОПРОС — ОДИН ОТВЕТ, и для голоса это нужно не меньше: две
     # записи подряд посчитались бы обе. Проверка стоит ДО распознавания —
     # оно занимает секунды и стоит денег
-    if not await _claim_answer(state, message.chat.id):
+    if not await _claim_answer(state, message.chat.id, session):
         # Лишняя запись — после засчитанного ответа или пока распознаётся
         # прежняя — не считается, но и висеть в чате не должна: уйдёт с
         # остальными при переходе дальше
@@ -112,11 +115,39 @@ async def process_voice_answer(message: Message, state: FSMContext, session: Asy
     thinking = await message.answer(get_text("speech_listening", lang))
 
     verdict = None
+    started = time.perf_counter()
+    downloaded = started
     try:
         audio = await message.bot.download(message.voice.file_id)
+        downloaded = time.perf_counter()
         verdict = await check_pronunciation(audio.read(), target, pair.learning)
+    except asyncio.CancelledError:
+        # Остановка бота посреди распознавания (выкатка): вопрос занят, а
+        # ответа нет. Состояние в Redis переживёт процесс — без возврата
+        # вопрос остался бы запертым на двое суток (аудит 2.1)
+        await _release_answer(state, message.chat.id)
+        raise
     except Exception:
         logger.exception("не удалось обработать голосовой ответ")
+    # Разбивка времени: прод 15.10 — один голосовой ответ шёл 21,5 с при
+    # обычных пяти, и по журналу было не понять, на что ушло время
+    recognized = time.perf_counter() - downloaded
+    logger.info("голосовой ответ: скачивание %.1f с, распознавание %.1f с",
+                downloaded - started, recognized)
+
+    # КАЖДАЯ ПОПЫТКА — В ЖУРНАЛ (владелец 16.10: «записывать попытки про
+    # голосовое — это важно для анализа»). Прежде в базу шёл только
+    # засчитанный ответ, и с какой попытки бот понял человека, было не
+    # узнать; неразобранные записи и пропуски не оставляли следа вовсе
+    def attempt_note(outcome: str, attempt_no: int) -> None:
+        journal.note(
+            session, user.id, "speech", outcome, session_id=data.get("session_id"),
+            word_id=correct_word.id, channel=QuizChannel.SPEECH.value,
+            attempt=attempt_no, heard=getattr(verdict, "heard", None) or None,
+            similarity=(round(verdict.similarity, 2)
+                        if getattr(verdict, "similarity", None) is not None else None),
+            target=target, recognize_s=round(recognized, 1),
+        )
 
     try:
         await thinking.delete()
@@ -127,6 +158,7 @@ async def process_voice_answer(message: Message, state: FSMContext, session: Asy
     # засчитывать это промахом значит наказывать за чужую беду, и человек
     # бросит игру. Предлагаем записать ещё раз, вопрос остаётся прежним.
     if verdict is None or verdict.failed or verdict.empty:
+        attempt_note("not_understood", int(data.get(S_SPEECH_TRIES) or 0) + 1)
         await _release_answer(state, message.chat.id)
         retry = await message.answer(get_text("speech_not_understood", lang))
         await _remember_stray(state, message.message_id, retry.message_id)
@@ -145,6 +177,8 @@ async def process_voice_answer(message: Message, state: FSMContext, session: Asy
     # показывается со звуком, расписание не трогается, занятие идёт дальше.
     # Неразобранная запись (выше) попытку не тратит: там нечего сравнивать.
     attempt = int(data.get(S_SPEECH_TRIES) or 0) + 1
+    attempt_note("matched" if verdict.matched
+                 else ("retry" if attempt < SPEECH_ATTEMPTS else "give_up"), attempt)
     if not verdict.matched and attempt < SPEECH_ATTEMPTS:
         # Счёт попыток — ДО освобождения вопроса: иначе следующая запись,
         # успевшая занять вопрос в этот промежуток, прочла бы старый счёт
@@ -213,7 +247,7 @@ async def _give_up(message: Message, state: FSMContext, session: AsyncSession,
     await show_card(
         message.bot, message.chat.id, state, session,
         text=f"{gave_up}\n\n{breakdown}",
-        keyboard=get_next_question_keyboard(lang),
+        keyboard=answer_keyboard(lang, correct_word, pair, channel, heard=True),
         clip=await clip_for_user(session, user, correct_word, pair.learning, KIND_FULL),
         word_id=correct_word.id, lang=pair.learning,
     )
@@ -303,9 +337,13 @@ async def skip_speech(callback: CallbackQuery, state: FSMContext, session: Async
     # неверным. Иначе остаётся дыра: пропуск ПОКАЗЫВАЕТ правильный ответ, и
     # записанное после него голосовое пришло бы на вопрос с ответом на
     # экране — то есть на даровой балл.
-    if not await _claim_answer(state, callback.message.chat.id):
+    if not await _claim_answer(state, callback.message.chat.id, session):
         return
 
+    data = await state.get_data()
+    journal.note(session, user.id, "skip", callback.data, session_id=data.get("session_id"),
+                 word_id=correct_word.id, channel=channel.value,
+                 attempt=int(data.get(S_SPEECH_TRIES) or 0) or None)
     lang = user.interface_language or DEFAULT_LOCALE
     pair = pair_from_user(user)
     skipped = get_text("speech_skipped", lang)
@@ -314,7 +352,7 @@ async def skip_speech(callback: CallbackQuery, state: FSMContext, session: Async
     await show_card(
         callback.bot, callback.message.chat.id, state, session,
         text=f"{skipped}\n\n{breakdown}",
-        keyboard=get_next_question_keyboard(lang),
+        keyboard=answer_keyboard(lang, correct_word, pair, channel, heard=True),
         clip=await clip_for_user(session, user, correct_word, pair.learning, KIND_FULL),
         word_id=correct_word.id, lang=pair.learning,
         message=callback.message,

@@ -32,6 +32,9 @@ async def _ready(session, user, *, correct=1, speech_shown=0, seen_ago=timedelta
     user.quiz_mode = QuizMode.LEVEL
     user.quiz_word_count = 15
     user.audio_enabled = True
+    # Первый урок пройден: в нём только карточки (патч 2.1), а здесь
+    # проверяется полная игра
+    user.onboarded_at = utcnow()
     user.quiz_channels = "tasr"
     await session.commit()
 
@@ -131,6 +134,9 @@ async def test_a_newcomer_round_is_cards(session, user):
     user.quiz_mode = QuizMode.LEVEL
     user.quiz_word_count = 15
     user.audio_enabled = True
+    # Первый урок пройден: в нём только карточки (патч 2.1), а здесь
+    # проверяется полная игра
+    user.onboarded_at = utcnow()
     user.quiz_channels = "tasr"
     await session.commit()
 

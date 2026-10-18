@@ -33,6 +33,16 @@ logger = logging.getLogger(__name__)
 # том, что они в одной колонке, обязательно.
 REPEAT_QUIZ_MODE = "error_repeat"
 
+# «ВСЕ ЯЗЫКИ» вместо кода языка (владелец, 17.10): «за месяц со всеми, за всё
+# время со всеми и язык — с теми, кто учит тоже английский». Месяц и всё
+# время теперь общие, по языку — отдельная вкладка. Баллы человека по
+# разным языкам складываются. Медали месяца — по общему месяцу, а лучший в
+# своём языке получает 👑 корону на следующий месяц (`finalize_season`)
+ALL_LANGS = "*"
+
+# Правила медалей и корон — одни для закрытия месяца и для карточек
+from app.services.standing import CROWN, CROWN_MIN_PEOPLE, MEDAL_MIN_QUIZZES  # noqa: E402
+
 
 def scored_sessions_filter():
     """
@@ -436,7 +446,7 @@ def month_streak(user, month_quizzes: list) -> tuple[int, Optional[date]]:
     Дни — дни человека (`user_day`), правило продолжения — `next_streak`.
     """
     days = sorted({
-        user_day(user, quiz.completed_at or quiz.started_at)
+        quiz.local_day or user_day(user, quiz.completed_at or quiz.started_at)
         for quiz in month_quizzes
     })
     streak, last = 0, None
@@ -508,6 +518,67 @@ def _award_type_to_emoji(award_type: str) -> str:
 # ПОЛУЧЕНИЕ МЕСЯЧНОГО РЕЙТИНГА (для таблицы лидеров)
 # ============================================================================
 
+def _month_totals(season_id: int, learning_lang: str):
+    """
+    Подзапрос: месяц человека — сумма его рядов (по всем языкам или по одному).
+
+    Ряд входит, только если сам стоит в рейтинге (`ranked_in_month`): баллы
+    за жалобы без занятий не вводят в месяц. Средний процент — взвешенный по
+    занятиям, серия — лучшая из языков (дни общие). `reached` — когда ряд
+    менялся последний раз: кто набрал свои баллы раньше.
+    """
+    quizzes = func.coalesce(MonthlyStats.monthly_quizzes, 0)
+    return (
+        select(
+            MonthlyStats.user_id.label("user_id"),
+            func.sum(MonthlyStats.monthly_score).label("score"),
+            func.sum(quizzes).label("quizzes"),
+            func.sum(func.coalesce(MonthlyStats.monthly_words, 0)).label("words"),
+            func.sum(func.coalesce(MonthlyStats.monthly_reverse, 0)).label("reverse"),
+            func.max(func.coalesce(MonthlyStats.monthly_streak, 0)).label("streak"),
+            func.sum(func.coalesce(MonthlyStats.total_correct, 0)).label("correct"),
+            (func.sum(func.coalesce(MonthlyStats.monthly_avg_percent, 0) * quizzes)
+             / func.nullif(func.sum(quizzes), 0)).label("avg_percent"),
+            func.max(MonthlyStats.updated_at).label("reached"),
+        )
+        .where(MonthlyStats.season_id == season_id, ranked_in_month(),
+               *_lang_is(MonthlyStats, learning_lang))
+        .group_by(MonthlyStats.user_id)
+        .subquery()
+    )
+
+
+def month_order(totals):
+    """
+    ПОБЕДИТЕЛЬ ВСЕГДА ОДИН (владелец, 17.10: «победитель всегда один. Значит
+    нужно более тонко посчитать и выбрать лидера»). Равных мест нет: при
+    равных баллах выше тот, у кого больше верных ответов, затем выше
+    точность, затем кто набрал свои баллы раньше. Последний ключ — номер
+    человека: чтобы порядок не менялся от запроса к запросу.
+
+    Одно правило на таблицу, карточку и закрытие месяца: место в таблице
+    обязано совпасть с медалью.
+    """
+    return (totals.c.score.desc(), totals.c.correct.desc(),
+            func.coalesce(totals.c.avg_percent, 0).desc(),
+            totals.c.reached.asc(), totals.c.user_id.asc())
+
+
+def _month_entry(user: User, row, rank: int) -> Dict:
+    return {
+        'rank': rank,
+        'user_id': user.id,
+        'username': user.username,
+        'display_name': user.display_name,
+        'monthly_score': int(row.score or 0),
+        'monthly_streak': int(row.streak or 0),
+        'monthly_quizzes': int(row.quizzes or 0),
+        'monthly_words': int(row.words or 0),
+        'monthly_reverse': int(row.reverse or 0),
+        'monthly_avg_percent': int(round(float(row.avg_percent or 0))),
+    }
+
+
 async def get_monthly_leaderboard(
         session: AsyncSession,
         season_id: Optional[int] = None,
@@ -515,10 +586,9 @@ async def get_monthly_leaderboard(
         learning_lang: str = DEFAULT_LEARNING_LANG,
 ) -> List[Dict]:
     """
-    Месячный рейтинг по конкретному изучаемому языку.
+    Таблица месяца: по одному языку или по всем (`ALL_LANGS`).
 
-    Сравнивать учащих разные языки в одной таблице некорректно: объём базы,
-    частотность и сложность у языков разные.
+    Место — номер в порядке `month_order`: равных мест нет.
     """
     if season_id is None:
         season = await get_current_season(session)
@@ -526,71 +596,14 @@ async def get_monthly_leaderboard(
             return []
         season_id = season.id
 
-    result = await session.execute(
-        select(MonthlyStats, User)
-        .join(User, MonthlyStats.user_id == User.id)
-        .where(
-            MonthlyStats.season_id == season_id,
-            MonthlyStats.learning_lang == learning_lang,
-            ranked_in_month(),
-        )
-        # Второй ключ — чтобы равные не менялись местами от запроса к запросу
-        .order_by(MonthlyStats.monthly_score.desc(), User.id)
+    totals = _month_totals(season_id, learning_lang)
+    rows = (await session.execute(
+        select(User, totals)
+        .join(totals, totals.c.user_id == User.id)
+        .order_by(*month_order(totals))
         .limit(limit)
-    )
-
-    stats_users = result.all()
-
-    # МЕСТО — «1 + сколько набрали больше», как в `get_user_monthly_rank`.
-    # Прежде здесь стоял порядковый номер строки: двое с равными 40 баллами
-    # стояли в таблице вторым и третьим, а строка «Ты: #N» под ней говорила
-    # обоим «#2» — один и тот же человек на одном экране с двумя местами
-    leaderboard = []
-    rank = 0
-    prev_score = None
-    for position, (stat, user) in enumerate(stats_users, 1):
-        if stat.monthly_score != prev_score:
-            rank, prev_score = position, stat.monthly_score
-        awards_result = await session.execute(
-            select(MonthlyAward)
-            .where(MonthlyAward.user_id == user.id)
-            .order_by(MonthlyAward.created_at.desc())
-            .limit(5)
-        )
-        user_awards = awards_result.scalars().all()
-
-        win_streak_result = await session.execute(
-            select(WinStreak).where(WinStreak.user_id == user.id)
-        )
-        win_streak = win_streak_result.scalar_one_or_none()
-
-        leaderboard.append({
-            'rank': rank,
-            'user_id': user.id,
-            'username': user.username,
-            'display_name': user.display_name,
-            'monthly_score': stat.monthly_score,
-            'monthly_streak': stat.monthly_streak,
-            'monthly_quizzes': stat.monthly_quizzes,
-            'monthly_words': stat.monthly_words,
-            'monthly_reverse': stat.monthly_reverse,
-            'monthly_avg_percent': stat.monthly_avg_percent,
-            'awards': [
-                {
-                    'type': a.award_type,
-                    'emoji': _award_type_to_emoji(a.award_type),
-                    'season_id': a.season_id
-                }
-                for a in user_awards
-            ],
-            'win_streak': {
-                'current': win_streak.current_streak if win_streak else 0,
-                'emoji': win_streak.streak_emoji if win_streak else '',
-                'title': win_streak.streak_title if win_streak else ''
-            } if win_streak else None
-        })
-
-    return leaderboard
+    )).all()
+    return [_month_entry(row[0], row, position) for position, row in enumerate(rows, 1)]
 
 
 # ============================================================================
@@ -622,6 +635,23 @@ async def get_waiting_month_score(
     return int(result.scalar() or 0)
 
 
+async def month_neighbours(session: AsyncSession, user_id: int, season_id: int,
+                           learning_lang: str) -> tuple[Optional[Dict], Optional[Dict]]:
+    """Кто прямо выше и прямо ниже человека в месяце: (выше, ниже) — для «соперника»."""
+    totals = _month_totals(season_id, learning_lang)
+    rows = (await session.execute(
+        select(User, totals).join(totals, totals.c.user_id == User.id)
+        .order_by(*month_order(totals))
+    )).all()
+    ids = [row[0].id for row in rows]
+    if user_id not in ids:
+        return None, None
+    i = ids.index(user_id)
+    above = _month_entry(rows[i - 1][0], rows[i - 1], i) if i > 0 else None
+    below = _month_entry(rows[i + 1][0], rows[i + 1], i + 2) if i + 1 < len(rows) else None
+    return above, below
+
+
 async def get_user_monthly_rank(
         user_id: int,
         session: AsyncSession,
@@ -629,10 +659,9 @@ async def get_user_monthly_rank(
         learning_lang: Optional[str] = None,
 ) -> Optional[Dict]:
     """
-    Получить позицию пользователя + все его месячные данные.
-    Не зависит от leaderboard limit — всегда точные данные.
-
-    Ранг считается среди учащих тот же язык.
+    Место человека и его месячные данные — тем же порядком, что таблица.
+    Не зависит от размера таблицы. None — человека в месяце нет (ряд без
+    занятий, одни баллы за жалобы, в рейтинге не стоит).
     """
     if season_id is None:
         season = await get_current_season(session)
@@ -643,54 +672,28 @@ async def get_user_monthly_rank(
     if learning_lang is None:
         learning_lang = await _user_learning_lang(user_id, session)
 
-    # Стата пользователя. Ряд без занятий (одни баллы за жалобы) в
-    # рейтинге месяца не стоит — `ranked_in_month`; карточка тогда говорит
-    # «Вы ещё не в рейтинге / пройдите занятие», как и тому, у кого ряда нет
-    stat_result = await session.execute(
-        select(MonthlyStats).where(
-            MonthlyStats.user_id == user_id,
-            MonthlyStats.season_id == season_id,
-            MonthlyStats.learning_lang == learning_lang,
-            ranked_in_month(),
-        )
-    )
-    stat = stat_result.scalar_one_or_none()
-    if not stat:
+    totals = _month_totals(season_id, learning_lang)
+    ranked = select(
+        totals,
+        func.row_number().over(order_by=month_order(totals)).label("place"),
+    ).subquery()
+    mine = (await session.execute(
+        select(ranked).where(ranked.c.user_id == user_id)
+    )).first()
+    if mine is None:
         return None
-
-    # Всего участников по этому языку — тех же, что стоят в таблице
-    total_result = await session.execute(
-        select(func.count()).select_from(MonthlyStats).where(
-            MonthlyStats.season_id == season_id,
-            MonthlyStats.learning_lang == learning_lang,
-            ranked_in_month(),
-        )
-    )
-    total_users = int(total_result.scalar() or 0)
-    if total_users == 0:
-        return None
-
-    # Ранг
-    higher_result = await session.execute(
-        select(func.count()).select_from(MonthlyStats).where(
-            MonthlyStats.season_id == season_id,
-            MonthlyStats.learning_lang == learning_lang,
-            ranked_in_month(),
-            MonthlyStats.monthly_score > stat.monthly_score
-        )
-    )
-    rank = int(higher_result.scalar() or 0) + 1
-
+    total_users = int((await session.execute(
+        select(func.count()).select_from(totals))).scalar() or 0)
     return {
-        'rank': rank,
+        'rank': int(mine.place),
         'total_users': total_users,
         'learning_lang': learning_lang,
-        'monthly_score': stat.monthly_score,
-        'monthly_quizzes': stat.monthly_quizzes,
-        'monthly_words': stat.monthly_words,
-        'monthly_streak': stat.monthly_streak,
-        'monthly_avg_percent': stat.monthly_avg_percent,
-        'monthly_reverse': stat.monthly_reverse,
+        'monthly_score': int(mine.score or 0),
+        'monthly_quizzes': int(mine.quizzes or 0),
+        'monthly_words': int(mine.words or 0),
+        'monthly_streak': int(mine.streak or 0),
+        'monthly_avg_percent': int(round(float(mine.avg_percent or 0))),
+        'monthly_reverse': int(mine.reverse or 0),
     }
 
 
@@ -712,8 +715,8 @@ async def finalize_season(season_id: int, session: AsyncSession):
     ПОБЕДА СЧИТАЕТСЯ ПО СЕЗОНУ, А НЕ ПО ЯЗЫКУ. Первое место в двух языках
     одного месяца прежде дважды звало серию побед: второй вызов видел
     «прошлая победа — этот же сезон, не предыдущий» и сбрасывал серию на 1
-    (было 3 → 4 → 1), а `total_wins` рос на два. Награды остаются по
-    языкам — медаль за каждый, — а месяц побед один.
+    (было 3 → 4 → 1), а `total_wins` рос на два. С 17.10 медали и так
+    общие (одна на месяц), а короны языков побед не дают.
     """
     season = await session.get(MonthlySeason, season_id)
     if not season:
@@ -724,28 +727,34 @@ async def finalize_season(season_id: int, session: AsyncSession):
         logger.warning(f"Сезон {season_id} уже завершён")
         return
 
-    results = await session.execute(
-        select(MonthlyStats)
-        .where(MonthlyStats.season_id == season_id)
-        .order_by(MonthlyStats.learning_lang, MonthlyStats.monthly_score.desc())
-    )
-    results = results.scalars().all()
-
-    # Итоги подводятся отдельно по каждому изучаемому языку: в каждом свой
-    # топ-10 и свои награды
-    by_lang: Dict[str, list] = {}
+    results = (await session.execute(
+        select(MonthlyStats).where(MonthlyStats.season_id == season_id)
+    )).scalars().all()
     for stat in results:
-        by_lang.setdefault(stat.learning_lang, []).append(stat)
+        stat.final_rank = None
 
-    # Кто стоит в итогах — тем же условием, что таблица и карточка
-    # (`ranked_in_month`), а не своей копией его на Python
-    in_ranking = set((await session.execute(
-        select(MonthlyStats.id).where(
-            MonthlyStats.season_id == season_id, ranked_in_month())
-    )).scalars())
+    async def ordered(lang: str) -> list:
+        """Люди месяца в порядке таблицы (`month_order`), с 3+ занятиями."""
+        totals = _month_totals(season_id, lang)
+        rows = (await session.execute(
+            select(totals).order_by(*month_order(totals))
+        )).all()
+        return [row for row in rows if (row.quizzes or 0) >= MEDAL_MIN_QUIZZES]
+
+    # ИТОГИ — ПО ОБЩЕМУ МЕСЯЦУ (владелец, 17.10): «главное соревнование
+    # месяц как ни крути. Язык — это чисто визуал». Прежде у каждого языка
+    # был свой топ-10, и единственный учащий чешский после одного занятия
+    # брал 🥇 и +100 навсегда. Теперь человек стоит в итогах один раз, с
+    # суммой своих рядов (как вкладка «Месяц»), и только с MEDAL_MIN_QUIZZES
+    # занятиями в зачёт за месяц.
+    #
+    # ПОБЕДИТЕЛЬ ВСЕГДА ОДИН: место — номер в порядке таблицы
+    # (`month_order`: баллы, верные ответы, точность, кто раньше). Прежде
+    # равные баллы давали «1, 1, 3» и два золота
+    eligible = await ordered(ALL_LANGS)
 
     logger.info(f"Подводим итоги сезона {season.month}/{season.year}")
-    logger.info(f"Участников: {len(results)} в {len(by_lang)} языках")
+    logger.info(f"Рядов: {len(results)}, в итогах людей: {len(eligible)}")
 
     awards_config = {
         1: ('gold', 100),
@@ -764,59 +773,45 @@ async def finalize_season(season_id: int, session: AsyncSession):
     }
     winners: set[int] = set()
 
-    for lang, lang_stats in by_lang.items():
-        # В ИТОГАХ — ТОЛЬКО ТЕ, КТО ЗАНИМАЛСЯ. Прежде место и медаль получал
-        # любой ряд месяца, включая ноль баллов и ни одного занятия: из двух
-        # учащих язык второй, не открывавший бота, получал «серебро» за
-        # присутствие. Владелец: «проверь логику, должно быть адекватно»
-        ranked = [s for s in lang_stats if s.id in in_ranking]
-        logger.info(f"  {lang}: {len(ranked)} в итогах из {len(lang_stats)}")
+    rows_by_user: Dict[int, list] = {}
+    for stat in results:
+        rows_by_user.setdefault(stat.user_id, []).append(stat)
 
-        # РАВНЫЕ БАЛЛЫ — РАВНОЕ МЕСТО И РАВНАЯ НАГРАДА («1, 1, 3»). Прежде
-        # место было номером строки: при равенстве таблица показывала двух
-        # 🥇, а золото доставалось одному — тому, кого база отдала первым.
-        # Таблица считает место так же (`get_monthly_leaderboard`)
-        scores = [s.monthly_score for s in ranked]
-        for stat in lang_stats:
-            stat.final_rank = None
-        places = []
-        for stat in ranked:
-            rank = 1 + sum(1 for other in scores if other > stat.monthly_score)
+    for rank, row in enumerate(eligible, 1):
+        user_id = row.user_id
+        for stat in rows_by_user.get(user_id, []):
             stat.final_rank = rank
-            places.append((rank, stat))
+        if rank > 10:
+            continue
+        user = await session.get(User, user_id)
+        if not user or (user_id, ALL_LANGS) in already:
+            continue
+        award_type, lifetime_bonus = awards_config.get(rank, ('top10', 10))
+        # Язык награды — «все»: место взято в общем месяце
+        session.add(MonthlyAward(user_id=user_id, season_id=season_id,
+                                 learning_lang=ALL_LANGS, rank=rank,
+                                 award_type=award_type, lifetime_bonus=lifetime_bonus))
+        user.lifetime_score = (user.lifetime_score or 0) + lifetime_bonus
+        if rank == 1:
+            winners.add(user_id)
+        logger.info(f"  #{rank} {user.display_name} — {row.score} баллов — {award_type}")
 
-        for rank, stat in places:
-            if rank > 10:
-                continue
-            user = await session.get(User, stat.user_id)
-            if not user:
-                continue
-
-            if rank <= 3:
-                award_type, lifetime_bonus = awards_config[rank]
-            else:
-                award_type, lifetime_bonus = ('top10', 10)
-
-            if (stat.user_id, lang) in already:
-                continue
-
-            session.add(MonthlyAward(
-                user_id=stat.user_id,
-                season_id=season_id,
-                learning_lang=lang,
-                rank=rank,
-                award_type=award_type,
-                lifetime_bonus=lifetime_bonus
-            ))
-
-            user.lifetime_score = (user.lifetime_score or 0) + lifetime_bonus
-
-            if rank == 1:
-                winners.add(stat.user_id)
-
-            logger.info(
-                f"  #{rank} [{lang}] {user.display_name} — {stat.monthly_score} баллов — {award_type}"
-            )
+    # 👑 КОРОНА ЯЗЫКА — лучшему в своём языке; носит её весь следующий
+    # месяц. Только если в языке не меньше CROWN_MIN_PEOPLE участников с
+    # MEDAL_MIN_QUIZZES занятиями. Корона ОДНА: при равных баллах — тот же
+    # порядок, что в таблице. Ни баллов, ни славы: только запись в истории
+    for lang in sorted({stat.learning_lang for stat in results}):
+        people = await ordered(lang)
+        if len(people) < CROWN_MIN_PEOPLE:
+            logger.info(f"  👑 [{lang}] не разыгрывается: участников {len(people)}")
+            continue
+        best = people[0]
+        if (best.user_id, lang) in already:
+            continue
+        session.add(MonthlyAward(user_id=best.user_id, season_id=season_id,
+                                 learning_lang=lang, rank=1,
+                                 award_type=CROWN, lifetime_bonus=0))
+        logger.info(f"  👑 [{lang}] user={best.user_id} — {best.score} баллов")
 
     for user_id in winners:
         if await update_win_streak(user_id, season_id, session):
@@ -946,6 +941,11 @@ async def update_win_streak(user_id: int, season_id: int, session: AsyncSession)
 # награды, победы, выученные слова, число участников — по одному
 # `learning_lang`.
 
+def _lang_is(model, learning_lang: str) -> tuple:
+    """Условие на язык; для `ALL_LANGS` — никакого: все языки сразу."""
+    return () if learning_lang == ALL_LANGS else (model.learning_lang == learning_lang,)
+
+
 def _lifetime_totals(learning_lang: str):
     """
     Подзапрос (user_id, total) — сумма за всё время по одному языку.
@@ -958,7 +958,7 @@ def _lifetime_totals(learning_lang: str):
             MonthlyStats.user_id.label("user_id"),
             func.sum(MonthlyStats.monthly_score).label("scored"),
         )
-        .where(MonthlyStats.learning_lang == learning_lang)
+        .where(*_lang_is(MonthlyStats, learning_lang))
         .group_by(MonthlyStats.user_id)
         .subquery()
     )
@@ -967,7 +967,7 @@ def _lifetime_totals(learning_lang: str):
             MonthlyAward.user_id.label("user_id"),
             func.sum(MonthlyAward.lifetime_bonus).label("bonus"),
         )
-        .where(MonthlyAward.learning_lang == learning_lang)
+        .where(*_lang_is(MonthlyAward, learning_lang))
         .group_by(MonthlyAward.user_id)
         .subquery()
     )
@@ -988,7 +988,7 @@ async def _wins_by_user(session: AsyncSession, user_ids: list,
         select(MonthlyAward.user_id, func.count())
         .where(
             MonthlyAward.user_id.in_(user_ids),
-            MonthlyAward.learning_lang == learning_lang,
+            *_lang_is(MonthlyAward, learning_lang),
             MonthlyAward.award_type == "gold",
         )
         .group_by(MonthlyAward.user_id)
@@ -1011,7 +1011,7 @@ async def _learned_by_user(session: AsyncSession, user_ids: list,
         select(UserWord.user_id, func.count())
         .where(
             UserWord.user_id.in_(user_ids),
-            UserWord.learning_lang == learning_lang,
+            *_lang_is(UserWord, learning_lang),
             UserWord.learned.is_(True),
         )
         .group_by(UserWord.user_id)
@@ -1174,58 +1174,73 @@ async def notify_season_awards(
     if not pending:
         return 0
 
-    sent = 0
+    # ОДНО СООБЩЕНИЕ НА ЧЕЛОВЕКА И СЕЗОН (17.10): медаль, корона, слава и
+    # новое звание — вместе. Прежде каждая награда шла своим сообщением, а
+    # 1-го числа к ним добавлялось бы напоминание: три сообщения подряд.
+    # Отправка ЗАНИМАЕТ дневной бюджет распорядителя (`last_notification_sent`)
+    # — напоминания в этот день человек не получит
+    from app.services.standing import AWARD_GLORY, CROWN, standing_of, title_for
+    from app.services.language_service import language_word
+
+    groups: Dict[tuple, list] = {}
     for award in pending:
-        user = await session.get(User, award.user_id)
+        groups.setdefault((award.user_id, award.season_id), []).append(award)
+
+    sent = 0
+    for (user_id, season_id), awards in groups.items():
+        user = await session.get(User, user_id)
         if not user:
             # Человека больше нет — награда остаётся в истории сезона, но
             # сообщать некому; помечаем, чтобы не перебирать её вечно
-            award.notified_at = utcnow()
+            for award in awards:
+                award.notified_at = utcnow()
             continue
 
-        season = await session.get(MonthlySeason, award.season_id)
+        season = await session.get(MonthlySeason, season_id)
         lang = user.interface_language or DEFAULT_LOCALE
-
-        # Значения считаются ДО вызова: выражение с запятыми внутри
-        # `get_text(...)` не разбирается проверкой соответствия параметров
-        # (`test_format_parameters_match`), и ключ с подстановками прошёл бы
-        # мимо неё молча
-        #
-        # У десятки медали нет, и знак остаётся пустым. Прежде на его место
-        # вставал «#5» — и строка выходила «#5 Ты в зачёте за октябрь: место
-        # 5», номер дважды; ровно этот повтор («🥇 1.») снимали в таблице
-        mark = award_mark(award.award_type)
         month = format_month_name(season.month, lang, inline=True) if season else ""
 
+        lines = [get_text("award_month_header", lang), ""]
+        for award in sorted(awards, key=lambda a: (a.award_type == CROWN, a.rank)):
+            if award.award_type == CROWN:
+                language = language_word(award.learning_lang, lang) or award.learning_lang
+                lines.append(get_text("award_crown", lang, language=language))
+                continue
+            # Значения считаются ДО вызова: выражение с запятыми внутри
+            # `get_text(...)` не разбирается проверкой соответствия параметров.
+            # У десятки медали нет, и знак остаётся пустым
+            mark = award_mark(award.award_type)
+            rank, bonus = award.rank, award.lifetime_bonus
+            lines.append(get_text("award_won", lang, mark=mark, rank=rank,
+                                  month=month, bonus=bonus).strip())
+
+        gained = sum(AWARD_GLORY.get(a.award_type, 0) for a in awards)
+        if gained:
+            standing = await standing_of(session, user)
+            lines += ["", get_text("award_glory", lang, glory=gained)]
+            now_title, before = title_for(standing.glory), title_for(standing.glory - gained)
+            if now_title and now_title != before:
+                mark, name = now_title[1], get_text(now_title[2], lang)
+                lines.append(get_text("award_new_title", lang, mark=mark, name=name))
+
         try:
-            await bot.send_message(
-                award.user_id,
-                get_text(
-                    "award_won", lang,
-                    mark=mark,
-                    rank=award.rank,
-                    month=month,
-                    bonus=award.lifetime_bonus,
-                ).strip(),
-            )
-            award.notified_at = utcnow()
+            await bot.send_message(user_id, "\n".join(lines).strip())
+            for award in awards:
+                award.notified_at = utcnow()
+            user.last_notification_sent = now
             sent += 1
         except TelegramForbiddenError:
             # Заблокировал бота — доставить нельзя ни сейчас, ни через час.
             # Без отметки попытка повторялась бы каждый час все трое суток.
-            # `notified_at` здесь значит «извещение закрыто», а не «прочитано»:
-            # отдельной колонки под отказ в схеме нет
-            logger.info(
-                "о награде не сообщить: бот заблокирован (user=%s, сезон=%s)",
-                award.user_id, award.season_id,
-            )
-            award.notified_at = utcnow()
+            # `notified_at` здесь значит «извещение закрыто», а не «прочитано»
+            logger.info("о награде не сообщить: бот заблокирован (user=%s, сезон=%s)",
+                        user_id, season_id)
+            for award in awards:
+                award.notified_at = utcnow()
         except Exception:
-            logger.info(
-                "не удалось сообщить о награде (user=%s, сезон=%s)",
-                award.user_id, award.season_id, exc_info=True,
-            )
+            logger.info("не удалось сообщить о награде (user=%s, сезон=%s)",
+                        user_id, season_id, exc_info=True)
 
     await session.commit()
-    logger.info("о наградах сообщено: %s из %s", sent, len(pending))
+    logger.info("о наградах сообщено: %s из %s", sent, len(groups))
     return sent

@@ -17,12 +17,7 @@
   * «Таблица лидеров» с вкладки «За всё время» ведёт в таблицу за всё время.
 """
 
-from app.bot.handlers.leaderboard.alltime import build_alltime_card
-from app.bot.handlers.leaderboard.leaderboard_table import (
-    build_alltime_table,
-    build_monthly_table,
-)
-from app.bot.handlers.leaderboard.monthly import get_rating_keyboard
+from app.bot.handlers.leaderboard.monthly import alltime_screen, get_rating_keyboard, month_screen
 from app.database.models import MonthlyStats, User, UserWord
 from app.locales import get_text, plural
 from app.services.monthly_leaderboard_service import (
@@ -49,7 +44,7 @@ async def _stats(session, season, rows):
     for uid, lang, score in rows:
         session.add(MonthlyStats(user_id=uid, season_id=season.id,
                                  learning_lang=lang, monthly_score=score,
-                                     monthly_quizzes=1))
+                                     monthly_quizzes=3))
     await session.commit()
 
 
@@ -67,13 +62,14 @@ class TestCurrentMonthCountsForAllTime:
         october = await create_new_season(2026, 10, session)
         await _stats(session, october, [(1, "de", 189)])
 
-        mine = await get_user_lifetime_rank(1, session, learning_lang="de")
+        # Медаль с 17.10 — за общий месяц: бонус лежит в ряду «все языки»
+        mine = await get_user_lifetime_rank(1, session, learning_lang="*")
         assert mine["lifetime_score"] == 189
         # 2: 300 за сентябрь + 100 за золото = 400, он выше
         assert mine["rank"] == 2
         assert mine["total_users"] == 2
 
-        board = await get_lifetime_leaderboard(session, learning_lang="de")
+        board = await get_lifetime_leaderboard(session, learning_lang="*")
         assert [(r["user_id"], r["lifetime_score"], r["rank"]) for r in board] == [
             (2, 400, 1), (1, 189, 2),
         ]
@@ -89,10 +85,10 @@ class TestCurrentMonthCountsForAllTime:
         await _stats(session, october, [(1, "de", 189), (2, "de", 50)])
 
         before = {r["user_id"]: r["lifetime_score"]
-                  for r in await get_lifetime_leaderboard(session, learning_lang="de")}
+                  for r in await get_lifetime_leaderboard(session, learning_lang="*")}
         await finalize_season(october.id, session)
         after = {r["user_id"]: r["lifetime_score"]
-                 for r in await get_lifetime_leaderboard(session, learning_lang="de")}
+                 for r in await get_lifetime_leaderboard(session, learning_lang="*")}
 
         assert before == {1: 189, 2: 50}
         assert after == {1: 189 + 100, 2: 50 + 50}
@@ -130,14 +126,10 @@ class TestScreensAgree:
         mine = await get_user_lifetime_rank(11, session, learning_lang="de")
         assert (mine["rank"], mine["total_users"], mine["lifetime_score"]) == (11, 12, 20)
 
-        table = build_alltime_table(board, mine, 11, "ru")
-        expected = get_text("table_you_not_in_top", "ru", rank=11, total=12,
-                            score=plural(20, "plural_points", "ru"))
-        assert expected in table
-
-        card = build_alltime_card(None, mine, "ru")
-        assert get_text("rating_position_alltime", "ru", rank=11) in card
-        assert get_text("rating_points", "ru", score=20) in card
+        # Один экран вкладки (17.10): одиннадцатый — под чертой, со своим местом
+        screen = await alltime_screen(await session.get(User, 11), session, "ru")
+        assert get_text("rating_you", "ru", rank=11, total=12,
+                        points=plural(20, "plural_points", "ru")) in screen
 
     async def test_card_table_and_you_line_show_one_number(self, session):
         """В десятке: строка таблицы, «Ты: #N из M» и карточка — одно место."""
@@ -151,51 +143,54 @@ class TestScreensAgree:
 
         assert row["rank"] == mine["rank"] == 2
         assert row["lifetime_score"] == mine["lifetime_score"] == 189
-        table = build_alltime_table(board, mine, 2, "ru")
-        assert get_text("table_you_in_top", "ru", rank=2, total=3) in table
-        assert get_text("table_you_not_ranked", "ru") not in table
+        screen = await alltime_screen(await session.get(User, 2), session, "ru")
+        assert "2. <b>U2</b>" in screen
+        assert get_text("rating_you", "ru", rank=2, total=3,
+                        points=plural(189, "plural_points", "ru")) in screen
+        assert get_text("table_you_not_ranked", "ru") not in screen
 
     async def test_tie_gets_one_place_in_month_table_and_you_line(self, session):
         """
-        Равные баллы — равное место. Было: в таблице месяца порядковый номер
-        строки (второй и третий), а «Ты: #N» — «1 + сколько выше» (оба #2):
-        у третьего на одном экране два места.
+        Равные баллы в месяце — РАЗНЫЕ места (владелец, 17.10: «победитель
+        всегда один»), но одно и то же место на всех экранах: строка таблицы
+        и «Ты: #N» не расходятся. За всё время равные по-прежнему делят место.
         """
         october = await create_new_season(2026, 10, session)
         await _users(session, [(1, "de"), (2, "de"), (3, "de")])
         await _stats(session, october, [(1, "de", 100), (2, "de", 40), (3, "de", 40)])
 
         board = await get_monthly_leaderboard(session, october.id, learning_lang="de")
-        for uid in (2, 3):
+        for uid, place in ((2, 2), (3, 3)):
             mine = await get_user_monthly_rank(uid, session, october.id, learning_lang="de")
             row = next(r for r in board if r["user_id"] == uid)
-            assert row["rank"] == mine["rank"] == 2
+            assert row["rank"] == mine["rank"] == place
 
         lifetime = await get_lifetime_leaderboard(session, learning_lang="de")
         assert [r["rank"] for r in lifetime] == [1, 2, 2]
 
-        text = build_monthly_table(board, mine, october, 3, "ru")
-        assert get_text("table_you_in_top", "ru", rank=2, total=3) in text
+        text = await month_screen(await session.get(User, 3), session, october, "ru")
+        assert "3. <b>U3</b>" in text
+        assert get_text("rating_you", "ru", rank=3, total=3,
+                        points=plural(40, "plural_points", "ru")) in text
 
 
 class TestCardTexts:
-    async def test_no_beginner_advice_to_who_has_played(self, session):
+    async def test_who_has_not_played_is_told_so(self, session):
         """
-        «Начни учить слова — первый шаг самый важный!» человеку со 189
-        баллами — не по адресу. Совет новичку — только без месячной строки.
+        Сыгравший видит своё место за всё время; не сыгравший — «ещё не в
+        рейтинге» и первое звание, к которому идти.
         """
         october = await create_new_season(2026, 10, session)
         await _users(session, [(1, "de"), (2, "de")])
         await _stats(session, october, [(1, "de", 189)])
 
-        played = build_alltime_card(None, await get_user_lifetime_rank(1, session, "de"), "ru")
-        fresh = build_alltime_card(None, await get_user_lifetime_rank(2, session, "de"), "ru")
+        played = await alltime_screen(await session.get(User, 1), session, "ru")
+        fresh = await alltime_screen(await session.get(User, 2), session, "ru")
 
-        start = get_text("rating_motivation_start", "ru")
-        assert start not in played
-        assert get_text("rating_motivation_continue", "ru") in played
-        assert start in fresh
-        assert get_text("rating_position_none", "ru") in fresh
+        not_ranked = get_text("table_you_not_ranked", "ru")
+        assert not_ranked not in played
+        assert not_ranked in fresh
+
 
     async def test_learned_words_counted_from_progress_of_this_language(self, session):
         """
@@ -222,14 +217,12 @@ class TestCardTexts:
 
 
 class TestTableButtonFollowsTab:
-    def test_table_button_opens_the_open_tab(self):
+    def test_one_screen_per_tab_and_info_follows_the_tab(self):
         """
-        Было: с вкладки «За всё время» кнопка «Таблица лидеров» вела в
-        таблицу месяца («Таблица лидеров — Октябрь 2026»).
+        С 17.10 «Таблицы лидеров» нет (владелец: «таблица лидеров значит
+        лишнее»): таблица — часть экрана вкладки. «Инфо» возвращает на ту же.
         """
-        def table_cb(tab):
+        for tab in ("monthly", "alltime", "lang"):
             kb = get_rating_keyboard("ru", tab)
-            return kb.inline_keyboard[1][0].callback_data
-
-        assert table_cb("alltime") == "leaderboard_table_alltime"
-        assert table_cb("monthly") == "leaderboard_table_monthly"
+            data = [b.callback_data for row in kb.inline_keyboard for b in row]
+            assert data == ["rating_monthly", "rating_alltime", "rating_lang", f"rating_info:{tab}"]

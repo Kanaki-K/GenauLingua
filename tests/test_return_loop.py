@@ -23,8 +23,9 @@ import pytest
 from app.testing import starts_lesson
 
 from app.bot.handlers.quiz.summary import get_results_keyboard
-from app.bot.handlers.reminders import get_reminder_offer_keyboard
-from app.bot.keyboards.notifications import get_reminder_keyboard
+from datetime import datetime
+
+from app.schedulers.nudges import keyboard as nudge_keyboard
 from app.core.clock import utcnow
 from app.database.enums import CEFRLevel
 from app.database.models import User
@@ -32,7 +33,6 @@ from app.locales import LOCALES
 from app.services.reminder_service import (
     FALLBACK_HOUR_UTC,
     MIN_ROUNDS_FOR_OWN_TIME,
-    should_offer_reminders,
     suggest_reminder_time,
 )
 
@@ -54,7 +54,7 @@ def test_reminder_offers_a_way_to_start_and_a_way_to_stop():
     только найдя их в настройках, а человек, которому они надоели, в
     настройки не идёт — он блокирует бота.
     """
-    data = _data(get_reminder_keyboard("ru"))
+    data = _data(nudge_keyboard("ru", "daily", True, datetime(2026, 11, 2, 18, 0)))
 
     assert starts_lesson(data[0]), f"первая кнопка не ведёт к занятию: {data}"
     assert "notif_off" in data, f"нечем отказаться от напоминаний: {data}"
@@ -63,9 +63,10 @@ def test_reminder_offers_a_way_to_start_and_a_way_to_stop():
 @pytest.mark.parametrize("lang", sorted(LOCALES))
 def test_reminder_keyboard_speaks_every_language(lang):
     """Пропущенный ключ не падает — он уезжает человеку как «[MISSING: …]»."""
-    texts = [b.text for row in get_reminder_keyboard(lang).inline_keyboard for b in row]
+    keyboard = nudge_keyboard(lang, "back1", False, datetime(2026, 11, 2, 18, 0))
+    texts = [b.text for row in keyboard.inline_keyboard for b in row]
 
-    assert len(texts) == 2
+    assert len(texts) == 3   # занятие, «напоминать в это время», «не присылать»
     for text in texts:
         assert "[MISSING:" not in text and "[ERROR:" not in text, f"{lang}: {text}"
 
@@ -85,17 +86,16 @@ def test_round_result_offers_another_round_first():
     assert starts_lesson(data[0]), f"«ещё круг» не первым: {data}"
 
 
-def test_complaint_never_outranks_continuing():
+def test_complaint_is_not_in_the_result_any_more():
     """
-    Жалоба нужна редко и не должна стоять выше того, зачем человек здесь.
-    Проверяется на обоих видах круга: с ошибками и без.
+    С 17.10 жалоба — на разборе каждого слова (`report_inline`), а не в итоге:
+    «в конце игры уже просто можно не помнить что там было не так». Первой
+    кнопкой итога остаётся продолжение.
     """
     for has_errors in (False, True):
         data = _data(get_results_keyboard(has_errors=has_errors, lang="ru"))
-        lesson = next(i for i, d in enumerate(data) if starts_lesson(d))
-        assert lesson < data.index("report_translation_error"), (
-            f"жалоба выше продолжения при has_errors={has_errors}: {data}"
-        )
+        assert "report_translation_error" not in data, data
+        assert starts_lesson(data[0]), data
 
 
 def test_repeating_errors_stays_right_after_continuing():
@@ -124,53 +124,9 @@ def _user(**kwargs) -> User:
     return user
 
 
-def test_not_offered_before_the_first_round_is_finished():
-    """
-    В онбординге спрашивать нельзя: человек ещё не знает, нужен ли ему бот,
-    и ответит «нет» — а второго раза правило уже не даст.
-    """
-    assert not should_offer_reminders(_user(quizzes_passed=0))
-
-
-def test_offered_right_after_the_first_round():
-    assert should_offer_reminders(_user(quizzes_passed=1))
-
-
-def test_never_offered_twice():
-    """
-    Второе предложение того же самого человек воспринимает не как заботу, а
-    как навязывание, и уходит не от напоминаний, а от бота.
-    """
-    asked = _user(quizzes_passed=5, reminder_offered_at=utcnow())
-
-    assert not should_offer_reminders(asked)
-
-
-def test_not_offered_when_already_on():
-    assert not should_offer_reminders(
-        _user(quizzes_passed=1, notifications_enabled=True)
-    )
-
-
-def test_old_users_with_many_rounds_are_still_offered_once():
-    """
-    112 человек с выключенными напоминаниями и десятками кругов за спиной —
-    ровно те, кого мы потеряли. Условие «после первого круга» не должно
-    читаться как «только новичкам».
-    """
-    veteran = _user(quizzes_passed=40)
-
-    assert should_offer_reminders(veteran), "ветеран не получит предложения"
-
-
-def test_offer_keyboard_lets_you_say_no_in_one_tap():
-    """
-    Предложение, от которого нельзя отказаться одним нажатием, читается как
-    навязывание.
-    """
-    data = _data(get_reminder_offer_keyboard("ru"))
-
-    assert data == ["reminder_offer_yes", "reminder_offer_no"], data
+# Проверки «когда ПРЕДЛАГАТЬ напоминания» удалены 16.10 вместе с самим
+# предложением: новичку напоминания включаются сами при знакомстве
+# (`tests/test_reminders_default.py`).
 
 
 # ============================================================================
@@ -255,56 +211,6 @@ async def test_measured_hour_is_translated_into_the_persons_timezone(session, us
 # Прежде там висели четыре счётчика: «Викторин пройдено: 12 · Слов изучено:
 # 47 · Точность: 88%». Ни одно из этих чисел не говорит, ЧЕГО человеку не
 # хватает. Три шкалы говорят.
-# ============================================================================
-
-@pytest.mark.asyncio
-async def test_reminder_shows_the_scales_when_there_is_progress(session, user):
-    from app.database.enums import QuizMode
-    from app.schedulers.reminder_scheduler import build_reminder_text
-    from tests.test_home import _progress, _seed
-
-    user.level = CEFRLevel.A1
-    user.quiz_mode = QuizMode.LEVEL
-    user.streak_days = 3
-    await _seed(session, user, words_a1=3, words_b1=0)
-
-    from sqlalchemy import select
-    from app.database.models import Word
-
-    word = (await session.execute(select(Word))).scalars().first()
-    session.add(_progress(user.id, word.id, times_shown=5, times_correct=3))
-    await session.commit()
-
-    text = await build_reminder_text(user, session)
-
-    assert "<code>" in text, "шкал в напоминании нет"
-    assert "▓" in text, "ни одна полоса не закрашена"
-
-
-@pytest.mark.asyncio
-async def test_reminder_without_progress_shows_no_empty_bars(session, user):
-    """
-    У новичка все три полосы пусты, и показывать их — значит встретить его
-    тремя нулями. Напоминание пришло звать заниматься, а не отчитываться.
-    """
-    from app.database.enums import QuizMode
-    from app.schedulers.reminder_scheduler import build_reminder_text
-    from tests.test_home import _seed
-
-    user.level = CEFRLevel.A1
-    user.quiz_mode = QuizMode.LEVEL
-    await _seed(session, user, words_a1=2, words_b1=0)
-    await session.commit()
-
-    text = await build_reminder_text(user, session)
-
-    assert "░" not in text, "новичку показали пустые полосы"
-    assert "<code>" not in text
-    assert len(text.strip()) > 20, "осталось пустое сообщение"
-
-
-# ============================================================================
-# ВСТУПИТЕЛЬНЫЙ БЛОК НЕ ПЕРЕСКАЗЫВАЕТ МЕНЮ
 # ============================================================================
 
 @pytest.mark.parametrize("lang", sorted(LOCALES))

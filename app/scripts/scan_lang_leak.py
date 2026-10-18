@@ -194,17 +194,97 @@ def selfcheck() -> None:
           f"{len(BAD_UK) + len(BAD_RU)} испорченных строк разобраны верно\n")
 
 
+# Новые языки — та же пара соседей, что ru и uk: итальянский и испанский
+# близки и путаются друг с другом, чешский — со словацким и польским.
+# Буквы чужого алфавита ловит scan_alien_letter («ñ» в итальянском, «ľ», «ô»
+# в чешском); здесь — ЦЕЛЫЕ СЛОВА, которые написаны буквами своего языка, но
+# в нём не существуют. Списки короткие и поимённые, как RU_ONLY_WORDS: слово
+# попадает сюда, только если в языке ячейки его нет вовсе.
+#
+# Чего здесь нет нарочно: «pero» (в итальянском — «груша»), «di» (в
+# испанском — «дал», «скажи»), «tengo», «tiene» (итальянское «tenere»:
+# «si tiene a Monaco»), «non», «il», «y», «las» и «perché» (во французском
+# свои: «un faucon perché» — «сидящий»), «je», «už», «dnes» (общие у чешского
+# со словацким).
+OTHER_LANG_WORDS = {
+    "it": ("испанское", re.compile(
+        r"(?<![\w'])(el|los|las|muy|también|está|están|estoy|hay|y|usted|"
+        r"puedo|quiero|ahora|aquí|hoy|nosotros|pequeño)(?![\w'])",
+        re.IGNORECASE)),
+    "es": ("итальянское", re.compile(
+        r"(?<![\w'])(il|gli|sono|della|nella|molto|anche|perché|questo|questa|"
+        r"quello|quella|sempre|oggi|adesso|non|sei|siamo|piccolo)(?![\w'])",
+        re.IGNORECASE)),
+    "fr": ("испанское или итальянское", re.compile(
+        r"(?<![\w'])(el|los|gli|muy|molto|está|sono|della|questo|también|"
+        r"pero)(?![\w'])",
+        re.IGNORECASE)),
+    "cs": ("словацкое или польское", re.compile(
+        r"(?<![\w'])(som|sme|ste|nie|ako|čo|tiež|teraz|bol|bola|bolo|boli|"
+        r"jest|sa|ja|aj|ktorý|ktorá|ktoré|alebo)(?![\w'])",
+        re.IGNORECASE)),
+}
+
+
+def other_lang_hit(lang: str, s: str) -> str | None:
+    name, pattern = OTHER_LANG_WORDS[lang]
+    m = pattern.search(s)
+    if m:
+        return f"{name} слово «{m.group()}»"
+    return None
+
+
+GOOD_NEW = [
+    ("it", "Vado a casa con il mio amico, ma non è qui"),
+    ("it", "Sono molto stanco oggi"),
+    ("it", "La festa si tiene ogni anno"),
+    ("fr", "Un faucon était perché dans l'arbre"),
+    ("es", "Voy a casa con mi amigo, pero no está aquí"),
+    ("es", "Hoy estoy muy cansado"),
+    ("fr", "Il y a un problème, non?"),
+    ("fr", "Je suis très fatigué aujourd'hui"),
+    ("cs", "Je to můj dům a už tam bydlím"),
+    ("cs", "Jsem dnes velmi unavený"),
+]
+BAD_NEW = [
+    ("it", "Sono muy stanco"),
+    ("it", "Vado a casa y torno"),
+    ("es", "Estoy molto cansado"),
+    ("es", "Hoy sono cansado"),
+    ("fr", "Je suis muy fatigué"),
+    ("cs", "Ja som unavený"),
+    ("cs", "To nie je pravda"),
+]
+
+
+def selfcheck_new() -> None:
+    for lang, s in GOOD_NEW:
+        if other_lang_hit(lang, s):
+            print(f"САМОПРОВЕРКА УПАЛА: ложное срабатывание на {lang} {s!r}")
+            sys.exit(1)
+    for lang, s in BAD_NEW:
+        if not other_lang_hit(lang, s):
+            print(f"САМОПРОВЕРКА УПАЛА: пропущено {lang} {s!r}")
+            sys.exit(1)
+    print(f"самопроверка it/es/fr/cs: {len(GOOD_NEW)} правильных и "
+          f"{len(BAD_NEW)} испорченных строк разобраны верно\n")
+
+
 def main() -> None:
     selfcheck()
+    selfcheck_new()
     engine = create_engine(settings.DATABASE_URL_SYNC)
+    new_cols = [f"{kind}_{lang}" for lang in OTHER_LANG_WORDS
+                for kind in ("translation", "example")]
     with engine.connect() as conn:
         rows = conn.execute(text(
             "SELECT id, word_de, translation_uk, example_uk, "
-            "translation_ru, example_ru FROM words ORDER BY id"
+            "translation_ru, example_ru, " + ", ".join(new_cols)
+            + " FROM words ORDER BY id"
         )).all()
 
     found = []
-    for i, w, t_uk, e_uk, t_ru, e_ru in rows:
+    for i, w, t_uk, e_uk, t_ru, e_ru, *new_vals in rows:
         for col, val, probe in (("translation_uk", t_uk, uk_hit),
                                 ("example_uk", e_uk, uk_hit),
                                 ("translation_ru", t_ru, ru_hit),
@@ -212,6 +292,12 @@ def main() -> None:
             if not val:
                 continue
             mark = probe(val)
+            if mark:
+                found.append((i, w, col, mark, val))
+        for col, val in zip(new_cols, new_vals):
+            if not val:
+                continue
+            mark = other_lang_hit(col.rsplit("_", 1)[1], val)
             if mark:
                 found.append((i, w, col, mark, val))
 

@@ -83,7 +83,7 @@ from sqlalchemy import create_engine, text
 
 from app.config import settings
 
-LANGS = ("en", "ru", "uk", "tr", "pl")
+LANGS = ("en", "ru", "uk", "tr", "pl", "it", "es", "fr", "cs")
 DIGIT = re.compile(r"\d")
 ORDINAL = re.compile(r"\d+\.")
 DECADE = re.compile(r"\d+ern")
@@ -133,9 +133,9 @@ def main() -> None:
     engine = create_engine(settings.DATABASE_URL_SYNC)
     with engine.connect() as conn:
         rows = conn.execute(text(
-            "SELECT id, word_de, example_de, example_en, example_ru, "
-            "example_uk, example_tr, example_pl FROM words "
-            "WHERE example_de ~ '[0-9]'"
+            "SELECT id, word_de, example_de, "
+            + ", ".join(f"example_{lang}" for lang in LANGS)
+            + " FROM words WHERE example_de ~ '[0-9]'"
         )).mappings().all()
 
     counts = {"порядковое/десятилетие": 0, "время": 0, "измерение": 0}
@@ -144,7 +144,9 @@ def main() -> None:
     for row in rows:
         missing = [
             lang for lang in LANGS
-            if not DIGIT.search(row[f"example_{lang}"] or "")
+            # пустая ячейка — не «число словом», а непереведённый ряд
+            if row[f"example_{lang}"]
+            and not DIGIT.search(row[f"example_{lang}"])
         ]
         if not missing:
             continue
@@ -163,7 +165,9 @@ def main() -> None:
 
     print(f"\nрядов с цифрой в немецком: {len(rows)}")
     print(f"по виду числа: {counts}")
-    print(f"в каком языке нет цифры: {per_lang}")
+    old = ("en", "ru", "uk", "tr", "pl")
+    print(f"в каком языке нет цифры: { {k: per_lang[k] for k in old} }")
+    print(f"   новые языки: { {k: v for k, v in per_lang.items() if k not in old} }")
     print(f"\nвсего дефектов (измерение/количество): {len(defects)}")
     print(f"ожидаемый остаток: {EXPECTED} — номера платформы, см. docstring")
     if len(defects) != EXPECTED:

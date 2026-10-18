@@ -50,8 +50,21 @@ def _get_word_label(word: Word, pair: LanguagePair) -> str:
     return f"{display_text(word, pair.learning)} — {display_text(word, pair.native)}"
 
 
+async def report_pair(session: AsyncSession, user: User, quiz_session_id):
+    """Пара жалобы: из занятия, где ошибку видели; нет занятия — нынешняя."""
+    from app.database.models import QuizSession
+    from app.services.language_service import LanguagePair
+
+    if quiz_session_id:
+        quiz = await session.get(QuizSession, quiz_session_id)
+        if quiz is not None and quiz.learning_lang and quiz.native_lang:
+            return LanguagePair(learning=quiz.learning_lang, native=quiz.native_lang,
+                                reverse=False)
+    return pair_from_user(user)
+
+
 async def _get_already_reported_ids(
-    user_id: int, session: AsyncSession, *, audio_enabled: bool = False
+    user_id: int, session: AsyncSession, *, audio_enabled: bool = False, pair=None,
 ) -> set[int]:
     """
     Слова, по которым человеку больше нечего сказать.
@@ -66,7 +79,12 @@ async def _get_already_reported_ids(
     """
     result = await session.execute(
         select(TranslationReport.word_id, TranslationReport.kind)
-        .where(TranslationReport.user_id == user_id)
+        .where(TranslationReport.user_id == user_id,
+               # В ЭТОЙ ПАРЕ: жалоба на русский перевод не закрывает чешский
+               *(() if pair is None else (
+                   TranslationReport.learning_lang == pair.learning,
+                   TranslationReport.native_lang == pair.native,
+               )))
     )
 
     kinds_by_word: dict[int, set[str]] = {}
@@ -231,7 +249,7 @@ async def report_start(callback: CallbackQuery, state: FSMContext, session: Asyn
 
     user = await session.get(User, callback.from_user.id)
     lang = user.interface_language or DEFAULT_LOCALE
-    pair = pair_from_user(user)
+    pair = await report_pair(session, user, data.get("report_session_id"))
 
     if not report_word_ids:
         await callback.answer(get_text("report_no_words", lang), show_alert=True)
@@ -246,7 +264,7 @@ async def report_start(callback: CallbackQuery, state: FSMContext, session: Asyn
     # Получаем уже зарепорченные
     already_reported = await _get_already_reported_ids(
         callback.from_user.id, session,
-        audio_enabled=bool(getattr(user, "audio_enabled", False)),
+        audio_enabled=bool(getattr(user, "audio_enabled", False)), pair=pair,
     )
 
     # Проверяем есть ли хоть одно новое слово для репорта
@@ -502,10 +520,13 @@ async def report_send(
     # Ограничиваем количество если лимит близко
     words_to_report = selected[:remaining]
 
+    # ПАРА — ТА, В КОТОРОЙ ОШИБКУ ВИДЕЛИ: из занятия, а не нынешняя (Н4).
+    # Человек мог сменить язык между занятием и жалобой
+    pair = await report_pair(session, user, report_session_id)
+
     # Голос нужен только для жалобы на произношение: по тексту он ни при чём
     voice = None
     if kind == "audio":
-        pair = pair_from_user(user)
         voice = await voice_for_user(session, user.id, pair.learning)
 
     # Создаём записи (пропускаем дубликаты)
@@ -517,6 +538,8 @@ async def report_send(
                 TranslationReport.user_id == callback.from_user.id,
                 TranslationReport.word_id == word_id,
                 TranslationReport.kind == kind,
+                TranslationReport.learning_lang == pair.learning,
+                TranslationReport.native_lang == pair.native,
             )
         )
         if existing.scalar_one_or_none():
@@ -528,6 +551,8 @@ async def report_send(
             quiz_session_id=report_session_id,
             kind=kind,
             voice=voice,
+            learning_lang=pair.learning,
+            native_lang=pair.native,
             status="pending",
         )
         session.add(report)

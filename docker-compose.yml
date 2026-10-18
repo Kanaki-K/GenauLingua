@@ -24,20 +24,44 @@ services:
       timeout: 3s
       retries: 30
 
+  # Занятия (состояние FSM) — патч 2.1: выкатка бота не обрывает уроки.
+  # Без портов наружу: боту он доступен по docker-сети как `redis`.
+  # appendonly — переживает и перезапуск самого Redis. Боту нужен
+  # REDIS_URL=redis://redis:6379/0 в .env, иначе занятия в памяти, как прежде
+  redis:
+    image: redis:7-alpine
+    container_name: genaulingua_redis
+    command: redis-server --appendonly yes
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+
   app:
     build: .
     container_name: genaulingua_app
     depends_on:
       postgres:
         condition: service_healthy
+      redis:
+        condition: service_healthy
     env_file:
       - .env
+    # exec — чтобы сигнал остановки получил Python, а не sh: без него
+    # docker stop через 10 с убивал бота по SIGKILL посреди ответов (аудит 2.1)
     command: >
       sh -c "alembic upgrade head &&
-             python app/main.py"
+             exec python app/main.py"
+    # Бот дожидается начатых ответов до 25 с (распознавание голоса — до 21 с)
+    stop_grace_period: 40s
     volumes:
       - .:/app
     restart: unless-stopped
 
 volumes:
   postgres_data:
+  redis_data:

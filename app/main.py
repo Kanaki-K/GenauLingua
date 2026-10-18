@@ -10,13 +10,17 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
 import asyncio
+import time
 import logging
 
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.types import ErrorEvent
-from aiogram.fsm.storage.memory import MemoryStorage
+from aiogram.fsm.storage.memory import SimpleEventIsolation
+
+from app.bot.fsm_storage import make_storage
+from app.bot.slow_log import install_slow_log
 
 from app.bot.routers import all_routers, attach_routers
 from app.config import settings
@@ -143,7 +147,13 @@ async def main():
         default=DefaultBotProperties(parse_mode=ParseMode.HTML),
     )
 
-    dp = Dispatcher(storage=MemoryStorage())
+    # Занятие — в Redis, если он задан: выкатка не обрывает уроки
+    # Нажатия одного человека — по очереди (SimpleEventIsolation): в Redis
+    # между чтением и записью состояния есть настоящее ожидание, и два
+    # быстрых нажатия по сетке «Собираю» могли бы потерять одно обновление
+    dp = Dispatcher(storage=make_storage(settings.REDIS_URL),
+                    events_isolation=SimpleEventIsolation())
+    logger.info("Хранилище занятий: %s", type(dp.storage).__name__)
 
     @dp.errors()
     async def global_error_handler(event: ErrorEvent):
@@ -158,6 +168,9 @@ async def main():
     # её кнопку мёртвой — обработчик есть, просто не в её копии списка.
     attach_routers(dp)
 
+    # Медленные нажатия — в журнал с видом действия (патч 2.1, `slow_log`)
+    install_slow_log(dp)
+
     @dp.update.middleware()
     async def db_session_middleware(handler, event, data):
         async with AsyncSessionLocal() as session:
@@ -168,6 +181,11 @@ async def main():
                 await session.rollback()
                 raise
 
+    # Журнал пути человека (патч 2.1) — после сессии: пишет в неё же
+    from app.services.journal import install_journal
+
+    install_journal(dp)
+
     # Список в логе ТОЖЕ собирается из источника, а не выписан рядом.
     # Выписанный отставал: в нём не было ни домашнего экрана, ни
     # доски — четвёртый список об одном и том же.
@@ -175,11 +193,56 @@ async def main():
     for router in all_routers():
         logger.info("   %s", router.name or type(router).__name__)
 
+    # Меню команд — из кода, на языке телефона (там и /language)
+    from app.bot.commands import setup_commands
+
+    await setup_commands(bot)
+
     scheduler = setup_scheduler(bot)
     logger.info("Планировщик запущен, работ: %d", len(scheduler.get_jobs()))
 
+    # Модель распознавания речи — в память СРАЗУ, в фоне. Прежде она
+    # грузилась при первом голосовом ответе после каждого перезапуска, и
+    # этот человек ждал загрузку сверх распознавания (прод 15.10: 3 с).
+    # Владелец: «проверки голосовых ответов достаточно долгие»
+    from app.services.speech_check import _get_model
+
+    preload = asyncio.create_task(_get_model())
+    preload.add_done_callback(
+        lambda t: t.cancelled() or t.exception() is None
+        or logger.warning("модель распознавания не загружена заранее: %s", t.exception())
+    )
+
+    dp.shutdown.register(waiter_for(dp))
     await dp.start_polling(bot)
 
+
+SHUTDOWN_WAIT_SECONDS = 25
+
+
+def waiter_for(dispatcher: Dispatcher):
+    """Обработчик `shutdown` для этого диспетчера (aiogram не передаёт его сам)."""
+    async def wait_in_flight() -> None:
+        await _wait_in_flight(dispatcher)
+    return wait_in_flight
+
+
+async def _wait_in_flight(dispatcher: Dispatcher) -> None:
+    """
+    ДОЖДАТЬСЯ НАЧАТЫХ ОТВЕТОВ при остановке (выкатка).
+
+    Остановка прекращает опрос, а обработчики в пути отменялись вместе с
+    циклом. С 2.1 их отметки живут в Redis, и оборванный посреди
+    распознавания ответ запирал вопрос (аудит 2.1). Ждём здесь — в
+    `shutdown`, — потому что после него aiogram закрывает соединение с
+    Telegram, и дождавшиеся обработчики уже не смогли бы ответить. До 25 с:
+    голосовой ответ на проде шёл до 21,5 с.
+    """
+    in_flight = {task for task in getattr(dispatcher, "_handle_update_tasks", ())
+                 if task is not asyncio.current_task()}
+    if in_flight:
+        logger.info("Остановка: жду начатых ответов: %d", len(in_flight))
+        await asyncio.wait(in_flight, timeout=SHUTDOWN_WAIT_SECONDS)
 
 if __name__ == "__main__":
     asyncio.run(main())

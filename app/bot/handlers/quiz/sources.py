@@ -59,6 +59,13 @@ SOURCE_LABELS: dict[str, str] = {
 }
 
 
+# Сообщения по инициативе бота (патч 2.1, `nudges`): пометка «nd_<вид>» —
+# по ней отчёт считает, сколько занятий начато прямо из сообщения
+NUDGE_KINDS = ("daily", "back1", "back3", "back7", "back14", "start1", "start3", "start7")
+NUDGE_SOURCES = frozenset(f"nd_{kind}" for kind in NUDGE_KINDS)
+SOURCE_LABELS.update({f"nd_{kind}": f"сообщение {kind}" for kind in NUDGE_KINDS})
+
+
 def source_label(source: Optional[str]) -> str:
     """Подпись двери. Незнакомая пометка показывается как есть, а не прячется."""
     if not source:
@@ -75,4 +82,6 @@ def source_from_callback(data: str, default: str = SOURCE_HOME) -> str:
     незнакомой пометки нельзя.
     """
     _, _, tail = data.partition(":")
-    return tail if tail in KNOWN_SOURCES else default
+    if tail in KNOWN_SOURCES or tail in NUDGE_SOURCES:
+        return tail
+    return default

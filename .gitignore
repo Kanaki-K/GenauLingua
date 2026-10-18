@@ -170,3 +170,20 @@ asr_check.jsonl
 *.batch.done
 batch_cancel_*.json
 lemma_intra_collisions.json
+
+# Переводы it/es/fr/cs — результат работы, хранится в git (src — выгрузка из базы, нет)
+!archive/new_langs/out/*.jsonl
+archive/new_langs/in/
+archive/new_langs/slang/
+archive/new_langs/cross/
+archive/new_langs/backtrans/blind_*
+archive/new_langs/backtrans/pairs_*
+archive/new_langs/audit/sample_*.txt
+archive/new_langs/all_src.jsonl
+archive/new_langs/tts_run.log
+
+# результаты распознавания озвучки — пересобираются
+archive/new_langs/asr_*
+archive/new_langs/truncated/
+asr_check.jsonl
+archive/new_langs/listen/

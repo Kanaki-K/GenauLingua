@@ -474,9 +474,11 @@ _STATE_LINES = {
 # Изучаемый язык назван внутри направления («Немецкий → Русский»), и
 # отдельным значением он повторялся: «Немецкий, B1, Немецкий → Русский».
 # Внутри самой группы строка остаётся — там она принадлежит своей кнопке.
-_SUMMARY_SKIP = {
-    "what": ("settings_learning",),
-}
+#
+# ПРОПУСК СНЯТ (Н11, 16.10). Он остался от «Направления», которое называло
+# язык, — пункт давно убран, и верх настроек показывал «Что учу · B1» без
+# самого языка. Таблица оставлена: следующий повтор понадобится снова.
+_SUMMARY_SKIP: dict[str, tuple[str, ...]] = {}
 
 _SUMMARY_VALUES = {
     "settings_learning": lambda user, lang: language_name(
@@ -523,7 +525,9 @@ def _channels_short(user: User, lang: str) -> str:
         return get_text("settings_channels_short_all", lang)
     if enabled == 1:
         return get_text("settings_channels_short_one", lang)
-    return get_text("settings_channels_short_some", lang, count=enabled)
+    # Всего — из перечня игр, а не словом в тексте: «из четырёх» пережило
+    # пятую и шестую игру, и владелец 15.10 увидел «все четыре игры»
+    return get_text("settings_channels_short_some", lang, count=enabled, total=len(QuizChannel))
 
 def _settings_state(user: User, lang: str, only: tuple[str, ...] | None = None) -> str:
     """
@@ -603,10 +607,14 @@ async def show_settings(message: Message, session: AsyncSession):
         logger.debug("Не удалось удалить сообщение пользователя", exc_info=True)
 
     old_anchor_id, _ = await ensure_anchor(message, session, user, emoji="")
+    await message.answer(_settings_text(user, lang), reply_markup=get_settings_keyboard(lang))
+    # Прежние сообщения убираются ПОСЛЕДНИМИ, когда новый экран уже на
+    # месте: иначе, пока он готовится (статистика — запросы к базе,
+    # занятие — загрузка звука), на экране один якорь. Владелец, 15.10:
+    # «рейтинг и настройки более плавно работают». Диапазон удаления —
+    # от прежнего якоря до нажатия человека, новых сообщений он не задевает
     if old_anchor_id:
         await delete_messages_fast(message.bot, message.chat.id, old_anchor_id, message.message_id)
-
-    await message.answer(_settings_text(user, lang), reply_markup=get_settings_keyboard(lang))
 
 
 async def show_settings_callback(callback: CallbackQuery, session: AsyncSession):
@@ -950,6 +958,111 @@ def get_level_offer_keyboard(following: CEFRLevel, lang: str) -> InlineKeyboardM
     ])
 
 
+# До какого уровня новичку предлагается прыгнуть сразу. C2 не предлагается:
+# его выбирают осознанно, в настройках, а не одним нажатием под итогом
+PICK_UP_TO = CEFRLevel.C1
+
+
+def get_level_pick_keyboard(current: CEFRLevel, lang: str) -> InlineKeyboardMarkup:
+    """Новичку: уровни выше текущего до C1 в ряд и «Остаться»."""
+    from app.services.level_service import LEVEL_ORDER, next_level
+
+    above = LEVEL_ORDER[LEVEL_ORDER.index(current) + 1:LEVEL_ORDER.index(PICK_UP_TO) + 1]
+    following = next_level(current)
+    return InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text=level.value, callback_data=f"level_jump_{level.value}")
+         for level in above],
+        [InlineKeyboardButton(
+            text=get_text("level_offer_stay", lang, current=current.value),
+            callback_data=f"level_up_no_{following.value}",
+        )],
+    ])
+
+
+def get_level_down_keyboard(current: CEFRLevel, previous: CEFRLevel,
+                            lang: str) -> InlineKeyboardMarkup:
+    """Понижение: согласие и «Остаться на X»."""
+    return InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(
+            text=get_text("level_down_yes", lang, previous=previous.value),
+            callback_data=f"level_down_{previous.value}",
+        )],
+        [InlineKeyboardButton(
+            text=get_text("level_offer_stay", lang, current=current.value),
+            callback_data=f"level_down_no_{previous.value}",
+        )],
+    ])
+
+
+@router.callback_query(F.data.startswith("level_down_"))
+async def answer_level_down(callback: CallbackQuery, session: AsyncSession):
+    """Ответ на предложение уровня ниже: согласие или «остаться»."""
+    from app.services.level_service import decline_lower_level, lower_level
+
+    user = await session.get(User, callback.from_user.id)
+    lang = (user.interface_language if user else None) or DEFAULT_LOCALE
+    if not user:
+        await callback.answer("Error", show_alert=True)
+        return
+    code = callback.data.removeprefix("level_down_")
+    staying = code.startswith("no_")
+    try:
+        target = CEFRLevel(code.removeprefix("no_"))
+    except ValueError:
+        await callback.answer("Error", show_alert=True)
+        return
+
+    if staying:
+        await decline_lower_level(user, session, offered=target)
+        await callback.answer()
+        try:
+            await callback.message.delete()
+        except Exception:
+            pass
+        return
+
+    if not await lower_level(user, session, target):
+        # Устаревшая кнопка: уровень уже другой — ничего не меняем
+        await callback.answer()
+        try:
+            await callback.message.delete()
+        except Exception:
+            pass
+        return
+    await callback.answer()
+    done = get_text("level_down_done", lang, previous=target.value)
+    await _show_done_after_result(callback, session, user, done)
+
+
+@router.callback_query(F.data.startswith("level_jump_"))
+async def answer_level_pick(callback: CallbackQuery, session: AsyncSession):
+    """Новичок выбрал уровень под итогом — сразу на него."""
+    from app.services.level_service import jump_to_level
+
+    user = await session.get(User, callback.from_user.id)
+    lang = (user.interface_language if user else None) or DEFAULT_LOCALE
+    if not user:
+        await callback.answer("Error", show_alert=True)
+        return
+    try:
+        target = CEFRLevel(callback.data.removeprefix("level_jump_"))
+    except ValueError:
+        await callback.answer("Error", show_alert=True)
+        return
+
+    if not await jump_to_level(user, session, target):
+        # Устаревшая кнопка: человек уже на этом уровне или выше
+        await callback.answer()
+        try:
+            await callback.message.delete()
+        except Exception:
+            pass
+        return
+    await callback.answer()
+    done = get_text("level_offer_done", lang, following=target.value)
+    await _show_done_after_result(callback, session, user, done)
+
+
 @router.callback_query(F.data.startswith("level_up_"))
 async def answer_level_offer(callback: CallbackQuery, session: AsyncSession):
     """
@@ -1010,6 +1123,12 @@ async def answer_level_offer(callback: CallbackQuery, session: AsyncSession):
     # правки из итога
     done = get_text("level_offer_done", lang, following=following.value)
     await _show_done_after_result(callback, session, user, done)
+
+
+# ПРЕДЛОЖЕНИЯ НАПОМИНАНИЙ ПОСЛЕ УРОВНЯ БОЛЬШЕ НЕТ (16.10). Напоминания
+# новичку включаются сами при знакомстве (`reminder_service.enable_by_default`),
+# и спрашивать про включённое незачем. Владелец: «мы не должны его ещё 500
+# раз спрашивать».
 
 
 # ============================================================================
@@ -1174,11 +1293,18 @@ async def set_quiz_mode_level(callback: CallbackQuery, session: AsyncSession):
     user = await session.get(User, callback.from_user.id)
     lang = user.interface_language or DEFAULT_LOCALE
 
+    was = user.level
     try:
         user.level = CEFRLevel(level_str)
     except ValueError:
         await callback.answer("Error", show_alert=True)
         return
+    # Смена уровня — в журнал пути: по разбору 15.10 нельзя было отличить,
+    # сам человек сменил уровень или принял предложение бота
+    from app.services import journal
+
+    journal.note(session, user.id, "level", "settings",
+                 frm=getattr(was, "value", was), to=level_str)
 
     user.quiz_mode = QuizMode.LEVEL
     user.quiz_category = None
@@ -1325,30 +1451,29 @@ async def noop_handler(callback: CallbackQuery):
 
 @router.callback_query(F.data == "settings_language")
 async def change_interface_language(callback: CallbackQuery, session: AsyncSession):
+    """
+    «Язык бота» в настройках — ТОТ ЖЕ экран, что у /language и первого
+    запуска: подписи на самих языках, после выбора — подтверждение.
+
+    Прежде здесь был свой экран, подписанный на НЫНЕШНЕМ языке человека, а
+    менять язык приходит как раз тот, кто его не понимает. И сам пункт звался
+    «Язык интерфейса», а в строке состояния — «Язык бота»: два имени одной
+    вещи (Н12). Теперь — «Язык бота» везде.
+    """
+    from app.bot.handlers.start import ORIGIN_SETTINGS, change_language_screen
+
     await callback.answer()
-
     user = await session.get(User, callback.from_user.id)
-    lang = user.interface_language or DEFAULT_LOCALE
-
-    text = (
-        f"{get_text('settings_language_title', lang)}\n\n"
-        f"{get_text('settings_language_description', lang)}"
-    )
-
-    buttons = [
-        InlineKeyboardButton(
-            text=get_text(f"lang_{code}", lang),
-            callback_data=f"iface_lang_{code}",
-        )
-        for code in INTERFACE_LANGS
-    ]
-    keyboard = InlineKeyboardMarkup(inline_keyboard=_grid(buttons) + [_back_row(lang, _PARENT_GROUP["settings_language"])])
-
+    text, keyboard = change_language_screen(user, ORIGIN_SETTINGS)
     await callback.message.edit_text(text, reply_markup=keyboard)
 
 
 @router.callback_query(F.data.startswith("iface_lang_"))
 async def set_interface_language(callback: CallbackQuery, session: AsyncSession):
+    """
+    Прежний экран смены языка. Новых кнопок `iface_lang_` бот не рисует, но
+    в чатах они остались, и нажатие на них должно работать.
+    """
     new_lang = callback.data.removeprefix("iface_lang_")
 
     if new_lang not in INTERFACE_LANGS:
@@ -1541,6 +1666,14 @@ async def _voices_screen(
     chosen = await voice_for_user(session, user.id, pair.learning)
     probes = await _voice_probes(session, pair.learning)
 
+    ready = {v.name: voice_is_ready(pair.learning, v.name, probes)
+             for v in voices_for(pair.learning)}
+    # Точка различает голоса, только когда часть из них готова. На проде
+    # 15.10 предсинтеза не было ни у одного: точка стояла у всех шести
+    # немецких, включая основную Катю, и ничего не сообщала — владелец
+    # прислал снимок с «✓ Катя ·» и шестью точками
+    mark_unready = any(ready.values())
+
     rows: list[list[InlineKeyboardButton]] = []
     for gender, header_key in (("female", "voice_female"), ("male", "voice_male")):
         group = by_gender(pair.learning, gender)
@@ -1560,7 +1693,7 @@ async def _voices_screen(
                     text=("✓ " if v.name == chosen
                           else "🎧 " if v.name == listening else "")
                          + v.shown(lang)
-                         + ("" if voice_is_ready(pair.learning, v.name, probes) else " ·"),
+                         + (" ·" if mark_unready and not ready[v.name] else ""),
                     callback_data=f"audio_voice_{v.name}",
                 )
                 for v in group
@@ -1623,8 +1756,14 @@ async def audio_voices(callback: CallbackQuery, session: AsyncSession):
 
 @router.callback_query(F.data.startswith("voice_use_"))
 async def audio_voice_use(callback: CallbackQuery, session: AsyncSession):
-    """ВЫБОР голоса — единственное место, где он сохраняется."""
-    voice_name = callback.data.removeprefix("voice_use_")
+    """
+    ВЫБОР голоса — единственное место, где он сохраняется.
+
+    Нажимают с экрана голосов (`voice_use_<голос>`) или из-под образца
+    (`voice_use_<голос>:<номер экрана>`). Во втором случае перерисовывается
+    экран по номеру, а у образца кнопка снимается: выбор сделан.
+    """
+    voice_name, _, screen_id = callback.data.removeprefix("voice_use_").partition(":")
 
     user = await session.get(User, callback.from_user.id)
     lang = user.interface_language or DEFAULT_LOCALE
@@ -1639,7 +1778,21 @@ async def audio_voice_use(callback: CallbackQuery, session: AsyncSession):
 
     label = _voice_label(pair.learning, voice_name, lang)
     await callback.answer(get_text("voice_set", lang, voice=label))
-    await _show_voices(callback, session)
+    if not screen_id.isdigit():
+        await _show_voices(callback, session)
+        return
+    text, keyboard = await _voices_screen(session, user, lang, pair)
+    for call in (
+        callback.bot.edit_message_text(text=text, chat_id=callback.message.chat.id,
+                                       message_id=int(screen_id), reply_markup=keyboard),
+        callback.message.edit_reply_markup(reply_markup=None),
+    ):
+        try:
+            await call
+        except TelegramBadRequest:
+            # Экран мог быть уже удалён или не изменился — выбор сохранён,
+            # а ответ «✓ Голос: …» человек уже увидел
+            pass
 
 
 @router.callback_query(F.data.startswith("audio_voice_"))
@@ -1670,10 +1823,23 @@ async def audio_voice_preview(callback: CallbackQuery, session: AsyncSession):
     if sample is None:
         await callback.message.answer(get_text("voice_preview_failed", lang))
     else:
+        # Кнопка выбора — и ПОД ОБРАЗЦОМ. Образец приходит ниже экрана, туда
+        # и смотрит человек; кнопка на экране оставалась выше, над «Назад».
+        # Владелец 15.10 послушал Серафину, кнопки не увидел, и в базе у него
+        # голоса не оказалось вовсе — «не меняется, галочка не ставится».
+        # В данных — номер экрана голосов, чтобы перерисовать его галочкой
+        chosen = await voice_for_user(session, user.id, pair.learning)
+        markup = None
+        if voice_name != chosen:
+            markup = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(
+                text=get_text("voice_use", lang, voice=label),
+                callback_data=f"voice_use_{voice_name}:{callback.message.message_id}",
+            )]])
         await callback.bot.send_audio(
             callback.message.chat.id,
             BufferedInputFile(sample, filename=f"{label}.mp3"),
             title=label,
+            reply_markup=markup,
         )
     # Экран уже перерисован ВЫШЕ, до синтеза: пометка 🎧 должна появиться
     # сразу по нажатию, а образец приходит через секунду. Повторная

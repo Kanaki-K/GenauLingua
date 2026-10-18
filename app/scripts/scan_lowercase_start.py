@@ -47,11 +47,13 @@ from sqlalchemy import create_engine, text
 
 from app.config import settings
 
-LANGS = ("de", "en", "ru", "uk", "tr", "pl")
+LANGS = ("de", "en", "ru", "uk", "tr", "pl", "it", "es", "fr", "cs")
 
 
 def starts_lowercase(sentence: str | None) -> bool:
-    text_value = (sentence or "").strip()
+    # Испанские «¿» и «¡» открывают фразу, и буква после них — первая:
+    # «¿dónde está?» начинается со строчной так же, как «dónde está?»
+    text_value = (sentence or "").strip().lstrip("¿¡")
     if not text_value:
         return False
     first = text_value[0]
@@ -70,6 +72,9 @@ def selfcheck() -> None:
         # ХОРОШО: обычное начало
         ("Dünyanın her yerinde birçok hayranı var", False),
         ("Ich gehe nach Hause", False),
+        ("¿dónde está la estación?", True),
+        ("¿Dónde está la estación?", False),
+        ("¡Qué bonito!", False),
     ]
     bad = 0
     for sentence, want in cases:
@@ -79,7 +84,7 @@ def selfcheck() -> None:
             print(f"САМОПРОВЕРКА ПРОВАЛЕНА: {sentence!r} -> {got}, ждали {want}")
     if bad:
         sys.exit(1)
-    print("самопроверка правила: 7 из 7")
+    print(f"самопроверка правила: {len(cases)} из {len(cases)}")
 
 
 def main() -> None:
@@ -90,8 +95,9 @@ def main() -> None:
     engine = create_engine(settings.DATABASE_URL_SYNC)
     with engine.connect() as conn:
         rows = conn.execute(text(
-            "SELECT id, word_de, example_de, example_en, example_ru, "
-            "example_uk, example_tr, example_pl FROM words ORDER BY id"
+            "SELECT id, word_de, "
+            + ", ".join(f"example_{lang}" for lang in LANGS)
+            + " FROM words ORDER BY id"
         )).mappings().all()
 
     hits = []

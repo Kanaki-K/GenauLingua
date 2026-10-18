@@ -232,8 +232,10 @@ class TestJudge:
 # ============================================================================
 
 def _fit(word: Word, n: int) -> Word:
-    word.example_de = f"Der Hund {word.word_de} spielt heute im Garten"
-    word.example_ru = f"Собака {n} играет сегодня в саду"
+    # Пять слов: человек сценариев — A1, а на A1 сборка берёт фразы до пяти
+    # слов (`build_service.EASY_MAX_WORDS`, патч 2.1)
+    word.example_de = f"Der Hund {word.word_de} spielt heute"
+    word.example_ru = f"Собака {n} играет сегодня"
     return word
 
 
@@ -248,6 +250,7 @@ async def _seed(session, user, *, n=60, fit=True, correct=2, channels="tasrb",
     user.quiz_word_count = 15
     user.audio_enabled = audio
     user.quiz_channels = channels
+    user.quizzes_passed = 2  # не новичок: у новичка первое занятие короче (7)
     await session.commit()
     words = (await session.execute(select(Word).order_by(Word.id))).scalars().all()
     if correct:
@@ -713,5 +716,101 @@ async def test_the_full_check_only_comes_when_slots_are_full(session, user, stag
 def test_build_takes_words_not_above_the_learners_level(word_level, user_level, fits):
     from app.services.quiz_service import channel_fits
 
-    word = _W("Die Kritik an seinem Plan war berechtigt", level=word_level)
+    # Четыре слова: на A1–A2 сборка берёт фразы до 5–6 слов (патч 2.1) —
+    # здесь проверяется уровень слова, а не длина
+    word = _W("Die Kritik war berechtigt", level=word_level)
     assert channel_fits(QuizChannel.BUILD, word, PAIR, user_level) is fits
+
+
+# ============================================================================
+# ПАТЧ 2.1: A1–A2 — короче и без падежных ловушек
+# ============================================================================
+
+async def _puzzle_words(session):
+    from app.database.models import Word as W
+
+    target = make_word("Garten", level=CEFRLevel.A1)
+    target.example_de = "Der Hund spielt im Garten"
+    target.example_ru = "Собака играет в саду"
+    other = make_word("Katze", level=CEFRLevel.A1)
+    other.example_de = "Meine Katze schläft sehr gern"
+    other.example_ru = "Моя кошка очень любит спать"
+    long_one = make_word("Wohnung", level=CEFRLevel.A1)
+    long_one.example_de = "Wir suchen seit Monaten eine neue Wohnung in Berlin"
+    long_one.example_ru = "Мы уже несколько месяцев ищем новую квартиру в Берлине"
+    session.add_all([target, other, long_one])
+    await build_groups(session, ["de"])
+    return target, long_one
+
+
+async def test_a1_gets_one_trap_and_not_a_grammar_twin(session, user):
+    from app.services import build_service as bs
+    from app.services.language_service import pair_from_user
+
+    target, _ = await _puzzle_words(session)
+    pair = pair_from_user(user)
+    for seed in range(10):
+        import random
+        puzzle = await bs.make_puzzle(session, target, pair, random.Random(seed),
+                                      learner_level=CEFRLevel.A1)
+        assert puzzle is not None
+        assert len(puzzle.distractors) == 1, puzzle.distractors
+        twins = {s.lower() for t in puzzle.target for s in bs._siblings(t, "de")}
+        assert puzzle.distractors[0].lower() not in twins, (
+            f"новичку попалась падежная ловушка: {puzzle.distractors}"
+        )
+
+
+async def test_a1_long_sentence_goes_to_another_game(session, user):
+    from app.services import build_service as bs
+    from app.services.language_service import pair_from_user
+
+    _, long_one = await _puzzle_words(session)
+    assert await bs.make_puzzle(session, long_one, pair_from_user(user),
+                                learner_level=CEFRLevel.A1) is None
+
+
+async def test_b1_keeps_the_harder_build(session, user):
+    from app.services import build_service as bs
+    from app.services.language_service import pair_from_user
+
+    _, long_one = await _puzzle_words(session)
+    puzzle = await bs.make_puzzle(session, long_one, pair_from_user(user),
+                                  learner_level=CEFRLevel.B1)
+    assert puzzle is not None and len(puzzle.distractors) >= 1
+
+
+def test_easy_trap_skips_twins_from_foreign_words():
+    """«in» из чужого примера — двойник «im»: новичку такую ловушку не давать."""
+    import random
+
+    from app.services import build_service as bs
+
+    target = ["der", "Hund", "spielt", "im", "Garten"]
+    for seed in range(20):
+        picked, _ = bs.pick_distractors(target, "de", ["in", "Katze"], random.Random(seed), 1, easy=True)
+        assert picked == ["Katze"], f"двойник в ловушках новичка: {picked}"
+
+
+def test_selection_knows_the_easy_length():
+    """Подбор не выбирает сборке слово, чья фраза длинна для A1 (проверка 2.1)."""
+    from app.services.quiz_service import channel_fits
+    from app.services.language_service import LanguagePair
+
+    pair = LanguagePair(learning="de", native="ru", reverse=False)
+    long_one = _W("Wir suchen seit Monaten eine neue Wohnung", level=CEFRLevel.A1)
+    assert not channel_fits(QuizChannel.BUILD, long_one, pair, CEFRLevel.A1)
+    assert channel_fits(QuizChannel.BUILD, long_one, pair, CEFRLevel.B1)
+
+
+def test_easy_never_takes_a_twin_even_without_foreign_words():
+    """Чужих слов нет — двойник «den» к «der» всё равно не берётся."""
+    import random
+
+    from app.services import build_service as bs
+
+    target = ["der", "Hund", "spielt", "heute"]
+    twins = {s.lower() for t in target for s in bs._siblings(t, "de")}
+    for seed in range(30):
+        picked, _ = bs.pick_distractors(target, "de", [], random.Random(seed), 1, easy=True)
+        assert not ({p.lower() for p in picked} & twins), f"двойник: {picked}"

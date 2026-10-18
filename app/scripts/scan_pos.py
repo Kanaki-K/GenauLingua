@@ -10,6 +10,10 @@
   tr — на -mak/-mek
   pl — на -ć (есть исключения вроде «być», но они тоже на -ć)
   ru/uk — на -ть/-ти/-чь/-ся/-ся
+  it — на -are/-ere/-ire/-rre, возвратный -rsi, с местоимением -rla/-rne/-rcela
+  es — на -ar/-er/-ir, возвратный -arse, с местоимением -arlo, -írselo
+  fr — на -er/-ir/-re/-oir («se laver», «s'asseoir» — частица отдельно)
+  cs — на -t/-ti/-ci («jít», «moci», «říct»), «se/si» отдельно
 
 Проверяется только ПЕРВОЕ значение: именно оно показывается на карточке и
 звучит в клипе. Если первое значение не того рода, человек видит не то.
@@ -75,12 +79,39 @@ def is_verb_ru(s: str) -> bool:
         s, lambda w: bool(re.search(r"(ть|ться|ти|тися|чь|чься)$", w, re.IGNORECASE)))
 
 
+# Признаки новых языков так же широки, как польский «-c»: «il fiore» тоже
+# кончается на -re и пройдёт за глагол. Ловится главное — причастие и
+# существительное вместо инфинитива: «raccolto», «colhido», «cueilli».
+def is_verb_it(s: str) -> bool:
+    return _any_word(s, lambda w: bool(re.search(
+        r"(are|ere|ire|rre)(ne)?$|r(si|la|le|lo|li|ne|ci|vi|gli)$"
+        r"|r(sene|cela|sela|gliela|vela)$", w, re.IGNORECASE)))
+
+
+def is_verb_es(s: str) -> bool:
+    return _any_word(s, lambda w: bool(re.search(
+        r"[aeiáéí]r(se|la|las|lo|los|le|les|me|te|nos|selo|sela|selas|selos)?$",
+        w, re.IGNORECASE)))
+
+
+def is_verb_fr(s: str) -> bool:
+    return _any_word(s, lambda w: bool(re.search(r"(er|ir|re|oir)$", w, re.IGNORECASE)))
+
+
+def is_verb_cs(s: str) -> bool:
+    return _any_word(s, lambda w: bool(re.search(r"(t|ti|ci)$", w, re.IGNORECASE)))
+
+
 VERB_CHECK = {
     "en": is_verb_en,
     "tr": is_verb_tr,
     "pl": is_verb_pl,
     "ru": is_verb_ru,
     "uk": is_verb_ru,
+    "it": is_verb_it,
+    "es": is_verb_es,
+    "fr": is_verb_fr,
+    "cs": is_verb_cs,
 }
 
 # (язык, строка, должно ли считаться глаголом)
@@ -95,6 +126,16 @@ CASES = [
     ("pl", "móc", True), ("pl", "uciec", True), ("pl", "piec", True),
     ("tr", "para çekmek", True), ("tr", "kitap okumak", True),
     ("uk", "зривати", True), ("uk", "зірваний", False), ("uk", "книга", False),
+    ("it", "cogliere", True), ("it", "colto", False), ("it", "lavarsi", True),
+    ("it", "andarsene", True), ("it", "farcela", True), ("it", "tradurre", True),
+    ("it", "raccolto", False), ("it", "il libro", False),
+    ("es", "recoger", True), ("es", "recogido", False), ("es", "lavarse", True),
+    ("es", "reírse", True), ("es", "llevarlo", True), ("es", "el libro", False),
+    ("es", "arreglárselas", True),
+    ("fr", "cueillir", True), ("fr", "cueilli", False), ("fr", "se laver", True),
+    ("fr", "s'asseoir", True), ("fr", "prendre", True), ("fr", "la maison", False),
+    ("cs", "trhat", True), ("cs", "utržený", False), ("cs", "mýt se", True),
+    ("cs", "moci", True), ("cs", "říct", True), ("cs", "kniha", False),
 ]
 
 print("=== самопроверка ===")

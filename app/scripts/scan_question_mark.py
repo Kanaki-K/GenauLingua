@@ -83,7 +83,25 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from app.config import settings  # noqa: E402
 
-LANGS = ["en", "ru", "uk", "tr", "pl"]
+LANGS = ["en", "ru", "uk", "tr", "pl", "it", "es", "fr", "cs"]
+
+
+# Ряды, где пример перевода НАРОЧНО другой фразой, и сверять знак не с чем.
+# Sau (15459): «Du dumme Sau, was machst du denn da?» — ругань; по правилу
+# владельца о сленге (патч 2.1) в it, es, fr, cs пример заменён нейтральным
+# «Свинья спит в хлеву» (archive/new_langs/audit/patch_slang_005.jsonl).
+OTHER_SENTENCE = {(15459, lang) for lang in ("it", "es", "fr", "cs")}
+
+
+# Испанский открывает вопрос и восклицание перевёрнутым знаком (GUIDE
+# new_langs: «¿…?», «¡…!»). Знак в конце без пары в начале — ошибка письма,
+# и правило формальное: каждый «?» и «!» должен иметь свой «¿» и «¡».
+def es_unpaired(s: str) -> str | None:
+    if s.count("?") != s.count("¿"):
+        return "?"
+    if s.count("!") != s.count("¡"):
+        return "!"
+    return None
 
 # Немецкие вопросительные слова, однозначные в начале фразы. «Was für ein
 # Tag» бывает и восклицанием, поэтому восклицательный знак в конце снимает
@@ -214,9 +232,22 @@ MUST_NOT_BE_QUESTION = [
 ]
 
 
+ES_UNPAIRED = ["Dónde está la estación?", "Hola!", "¿Vienes? Te espero!"]
+ES_PAIRED = ["¿Dónde está la estación?", "¡Hola!", "Pues, ¿vienes?",
+             "¡Dios mío! ¿Qué ha pasado?", "Vamos a casa"]
+
+
 def selfcheck() -> None:
     print("=== самопроверка шаблонов ===")
     bad = False
+    for s in ES_UNPAIRED:
+        if not es_unpaired(s):
+            print(f"  ПРОВАЛ: es {s!r} — непарный знак не найден")
+            bad = True
+    for s in ES_PAIRED:
+        if es_unpaired(s):
+            print(f"  ПРОВАЛ: es {s!r} — знаки парные, а признано ошибкой")
+            bad = True
     for s in MUST_BE_QUESTION:
         if not looks_like_question(s):
             print(f"  ПРОВАЛ: не распознан вопрос {s!r}")
@@ -271,11 +302,16 @@ def main() -> int:
             ex = (r[f"example_{lang}"] or "").strip()
             if not ex:
                 continue
+            if (r["id"], lang) in OTHER_SENTENCE:
+                continue
             if de_q and not is_question(ex):
                 found["в немецком знак есть, в переводе нет"].append(
                     (r["id"], r["word_de"], lang, ex))
             elif not de_q and is_question(ex):
                 found["в переводе знак есть, в немецком нет"].append(
+                    (r["id"], r["word_de"], lang, ex))
+            if lang == "es" and es_unpaired(ex):
+                found["es: «?» или «!» без пары «¿» «¡»"].append(
                     (r["id"], r["word_de"], lang, ex))
 
     if args.pairs:

@@ -97,6 +97,30 @@ def _zone(user):
     return ZoneInfo(DEFAULT_TIMEZONE)
 
 
+def lesson_day(user, done_at: datetime) -> date:
+    """
+    День, которым засчитывается законченное сейчас занятие: день человека,
+    но не раньше прошлого засчитанного. При переезде на запад «сегодня»
+    бывает раньше вчерашнего дня занятий — последний день уезжал назад, и
+    следующий день засчитывался второй раз (аудит 2.1). Пишется в
+    `quiz_sessions.local_day` и идёт в серию — история и живой путь читают
+    одно и то же.
+    """
+    day = user_day(user, done_at)
+    last = getattr(user, "last_active_date", None)
+    return last if last and last > day else day
+
+
+def session_day(user, local_day: Optional[date], completed_at: datetime) -> date:
+    """
+    День занятия: записанный при завершении (`quiz_sessions.local_day`), а
+    для строк до 2.1 — по `completed_at` и нынешнему поясу. Так история
+    читается тем днём, каким его засчитал живой путь, и смена пояса не
+    разводит их (аудит 2.1).
+    """
+    return local_day or user_day(user, completed_at)
+
+
 def user_day(user, moment: datetime) -> date:
     """
     Какой день был у человека в момент `moment`.
@@ -142,6 +166,57 @@ def next_streak(streak: int, last: Optional[date], today: date) -> int:
     return 1
 
 
+# ============================================================================
+# ЗАМОРОЗКА — патч 2.1
+# ============================================================================
+#
+# Один пропущенный день в неделю прощается: серия продолжается, день
+# заморозки запоминается (`users.streak_freeze_on`). Следующая — не раньше
+# чем через семь дней. Пропущено два дня и больше — серия заново, как прежде.
+#
+# ПОЧЕМУ В ПРАВИЛЕ, А НЕ РЯДОМ. Серию по истории занятий восстанавливают
+# приёмка (`audit_accounting`) и починка (`repair_accounting`). Заморозка —
+# чистая функция дат: какой день пропущен и когда прощали прошлый — видно из
+# той же истории, и все трое считают одно и то же через `advance`.
+#
+# Месячная серия в рейтинге заморозки НЕ знает (`next_streak`): она входит
+# в баллы сезона, и менять их счёт посреди месяца было бы нечестно.
+FREEZE_EVERY_DAYS = 7
+
+# С КАКОГО ДНЯ ДЕЙСТВУЕТ ЗАМОРОЗКА — день выкатки 2.1. Раньше пропуск рвал
+# серию, и история обязана читаться тем правилом, каким писалась: без этой
+# даты приёмка восстановила бы по старой истории «воскресшие» серии (на
+# рабочей копии 15.10 — 6 человек из 128) и расходилась бы с записанным.
+# ДАТА — ДЕНЬ ПОСЛЕ ВЫКАТКИ 2.1 на рабочий бот. Не день выкатки: утренние
+# занятия того дня старый код уже засчитал без заморозки, и приёмка через
+# `advance` «воскресила» бы их серии (независимая проверка 2.1).
+FREEZE_FROM = date(2026, 10, 17)
+
+
+def _freeze_ready(last_freeze: Optional[date], today: date) -> bool:
+    """Можно ли простить пропуск сегодня: прошлая заморозка — неделю назад и раньше."""
+    if today < FREEZE_FROM:
+        return False
+    return last_freeze is None or (today - last_freeze).days >= FREEZE_EVERY_DAYS
+
+
+def advance(
+    streak: int, last: Optional[date], today: date, last_freeze: Optional[date] = None,
+) -> tuple[int, Optional[date], bool]:
+    """
+    Серия после занятия в день `today` — с заморозкой.
+
+    Возвращает (серия, день последней заморозки, заморозка сработала сейчас).
+    Без пропуска — ровно `next_streak`.
+    """
+    streak = int(streak or 0)
+    if last is not None:
+        gap = (today - last).days
+        if gap > _gap_allowed(last, today) and gap == 2 and _freeze_ready(last_freeze, today):
+            return streak + 1, today, True
+    return next_streak(streak, last, today), last_freeze, False
+
+
 def current_streak(user, today: Optional[date] = None) -> int:
     """
     Серия, какая она СЕЙЧАС. Ноль, если прервана.
@@ -166,7 +241,14 @@ def current_streak(user, today: Optional[date] = None) -> int:
         return 0
 
     today = today or user_today(user)
-    return streak if (today - last).days <= _gap_allowed(last, today) else 0
+    gap = (today - last).days
+    if gap <= _gap_allowed(last, today):
+        return streak
+    # Вчера пропустил, а заморозка свободна — серия жива, пока он успевает
+    # позаниматься сегодня: занятие её и продолжит (`advance`)
+    if gap == 2 and _freeze_ready(getattr(user, "streak_freeze_on", None), today):
+        return streak
+    return 0
 
 
 def register_activity(user, today: Optional[date] = None) -> int:
@@ -194,7 +276,11 @@ def register_activity(user, today: Optional[date] = None) -> int:
             user.last_quiz_date = today
         return int(user.streak_days or 0)
 
-    user.streak_days = next_streak(user.streak_days, last, today)
+    user.streak_days, freeze_on, _ = advance(
+        user.streak_days, last, today, getattr(user, "streak_freeze_on", None)
+    )
+    if hasattr(user, "streak_freeze_on"):
+        user.streak_freeze_on = freeze_on
     user.last_active_date = today
     if hasattr(user, "last_quiz_date"):
         user.last_quiz_date = today

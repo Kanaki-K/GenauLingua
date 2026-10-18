@@ -25,6 +25,8 @@ from app.services.level_service import (
     EASY_ACCURACY,
     LEVEL_ORDER,
     MIN_ANSWERS,
+    NEWCOMER_LESSONS,
+    NEWCOMER_MIN_ANSWERS,
     RECENT_ANSWERS,
     decline_level,
     next_level,
@@ -67,11 +69,18 @@ async def _answers(session, user: User, correct: int, wrong: int) -> None:
     """
     from sqlalchemy import select
 
-    word = (await session.execute(select(Word))).scalars().first()
+    # Слово ТЕКУЩЕГО уровня: точность считается только по словам уровня
+    # человека (`recent_accuracy`), и ответы на слово прежнего уровня
+    # честно не в счёт
+    word = (await session.execute(
+        select(Word).where(Word.level == user.level)
+    )).scalars().first()
     if word is None:
         session.add(make_word("Haus", level=user.level))
         await build_groups(session, ["de"])
-        word = (await session.execute(select(Word))).scalars().first()
+        word = (await session.execute(
+            select(Word).where(Word.level == user.level)
+        )).scalars().first()
     quiz = QuizSession(
         user_id=user.id, learning_lang=user.learning_lang, level=user.level,
         total_questions=correct + wrong,
@@ -107,6 +116,7 @@ async def test_too_few_answers_to_judge(session, user):
     При малом числе ответов одна ошибка двигает точность на пять пунктов, и
     предложение превращается в лотерею.
     """
+    user.quizzes_passed = NEWCOMER_LESSONS + 1  # обычное правило — два занятия
     user.level = CEFRLevel.A1
     await _answers(session, user, correct=MIN_ANSWERS - 1, wrong=0)
 
@@ -127,6 +137,7 @@ async def test_not_offered_while_the_level_still_bites(session, user):
     Порог обязан РАЗЛИЧАТЬ. Проверка на точности заведомо ниже порога: если
     и она пройдёт, правило метит во всех подряд, а не в тех, кому легко.
     """
+    user.quizzes_passed = NEWCOMER_LESSONS + 1  # обычное правило — два занятия
     user.level = CEFRLevel.A1
     wrong = max(1, int(MIN_ANSWERS * (1 - EASY_ACCURACY)) + 2)
     await _answers(session, user, correct=MIN_ANSWERS, wrong=wrong)
@@ -295,3 +306,149 @@ async def test_a_second_refusal_restarts_the_count(session, user):
 
     await decline_level(user, session)
     assert await should_offer_next_level(user, session) is None
+
+
+# ============================================================================
+# БЫСТРЫЙ ПУТЬ НОВИЧКА (15.10)
+# ============================================================================
+#
+# Прод 15.10: новички, знающие язык, отвечали верно на всё и уходили после
+# первых слов, не дождавшись двадцати ответов. Владелец: «2 круга с высокой
+# точностью — явно знает», «сделай по-умному». Первые занятия судятся по
+# одному: шесть ответов, не больше одной ошибки на семь.
+
+
+@pytest.mark.asyncio
+async def test_newcomer_is_offered_after_one_short_lesson(session, user):
+    user.level = CEFRLevel.A1
+    user.quizzes_passed = 1
+    await _answers(session, user, correct=NEWCOMER_MIN_ANSWERS, wrong=1)
+
+    assert await should_offer_next_level(user, session) == CEFRLevel.A2, (
+        "новичок ответил 6 из 7 — A1 ему явно легко, а предложения нет"
+    )
+
+
+@pytest.mark.asyncio
+async def test_newcomer_with_two_mistakes_stays(session, user):
+    user.level = CEFRLevel.A1
+    user.quizzes_passed = 1
+    await _answers(session, user, correct=NEWCOMER_MIN_ANSWERS - 1, wrong=2)
+
+    assert await should_offer_next_level(user, session) is None, (
+        "две ошибки из семи — уровень ещё по силам, предлагать рано"
+    )
+
+
+@pytest.mark.asyncio
+async def test_regular_user_needs_two_lessons(session, user):
+    """После первых занятий — правило владельца: два занятия с высокой точностью."""
+    user.level = CEFRLevel.A1
+    user.quizzes_passed = NEWCOMER_LESSONS + 1
+    await _answers(session, user, correct=NEWCOMER_MIN_ANSWERS + 1, wrong=0)
+
+    assert await should_offer_next_level(user, session) is None, (
+        "одного короткого занятия хватило обычному человеку — быстрый путь протёк"
+    )
+
+
+@pytest.mark.asyncio
+async def test_first_lesson_is_short():
+    from app.services.quiz_service import FIRST_LESSON_LENGTH, lesson_length
+
+    class Person:
+        quizzes_passed = 0
+        quiz_word_count = 15
+
+    assert lesson_length(Person()) == FIRST_LESSON_LENGTH == 7
+    Person.quizzes_passed = 1
+    assert lesson_length(Person()) == 15, "второе занятие — обычной длины"
+    Person.quizzes_passed, Person.quiz_word_count = 0, 5
+    assert lesson_length(Person()) == 5, "первое не длиннее выбранного"
+
+
+# ============================================================================
+# ВЫБОР УРОВНЯ ДЛЯ НОВИЧКА (15.10)
+# ============================================================================
+#
+# Владелец: «нужно угодить и новичкам и более продвинутым. Людям не очень
+# интересно несколько кругов гонять, и скорее всего не полезут в настройки».
+
+
+def test_newcomer_picks_any_level_up_to_c1():
+    from app.bot.handlers.quiz.settings import get_level_pick_keyboard
+
+    kb = get_level_pick_keyboard(CEFRLevel.A1, "ru")
+    jumps = [b.callback_data for b in kb.inline_keyboard[0]]
+    assert jumps == ["level_jump_A2", "level_jump_B1", "level_jump_B2", "level_jump_C1"]
+    stay = kb.inline_keyboard[1][0]
+    assert stay.callback_data == "level_up_no_A2" and "A1" in stay.text
+
+
+@pytest.mark.asyncio
+async def test_jump_goes_straight_to_the_chosen_level(session, user):
+    from app.services.level_service import jump_to_level
+
+    user.level = CEFRLevel.A1
+    user.level_offer_declined = "A1"
+    await session.commit()
+
+    assert await jump_to_level(user, session, CEFRLevel.B2)
+    assert user.level == CEFRLevel.B2
+    assert user.level_offer_declined is None
+
+
+@pytest.mark.asyncio
+async def test_stale_jump_never_lowers_the_level(session, user):
+    """Кнопка B1, нажатая уже на B2, не должна опустить человека."""
+    from app.services.level_service import jump_to_level
+
+    user.level = CEFRLevel.B2
+    await session.commit()
+
+    assert not await jump_to_level(user, session, CEFRLevel.B1)
+    assert not await jump_to_level(user, session, CEFRLevel.B2)
+    assert user.level == CEFRLevel.B2
+
+
+@pytest.mark.asyncio
+async def test_newcomer_gets_the_level_choice_under_the_result(session, user):
+    """Под итогом первого занятия, где почти всё верно, — выбор уровня, а не «да/нет»."""
+    from app.bot.handlers.quiz.summary import _offer_what_fits
+    from app.testing import make_bot, press
+
+    user.level = CEFRLevel.A1
+    user.quizzes_passed = 1
+    user.notifications_enabled = False
+    await _answers(session, user, correct=NEWCOMER_MIN_ANSWERS + 1, wrong=0)
+    bot, recorder = make_bot()
+    callback = press(user.id, "next_question").callback_query.as_(bot)
+
+    await _offer_what_fits(callback, session, user, "ru")
+
+    buttons = [b["callback_data"] for _, p in recorder.calls if p.get("reply_markup")
+               for row in p["reply_markup"]["inline_keyboard"] for b in row]
+    assert "level_jump_B2" in buttons, f"новичку не предложен выбор уровня: {buttons}"
+    assert not any(b.startswith("reminder") for b in buttons), (
+        "уровень и напоминания пришли разом — два вопроса подряд"
+    )
+
+
+@pytest.mark.asyncio
+async def test_longtime_user_also_gets_the_level_choice(session, user):
+    """Давние «первую семёрку» не увидят — выбор уровня и им, после двух занятий."""
+    from app.bot.handlers.quiz.summary import _offer_what_fits
+    from app.testing import make_bot, press
+
+    user.level = CEFRLevel.A1
+    user.quizzes_passed = 40
+    user.notifications_enabled = True
+    await _answers(session, user, correct=MIN_ANSWERS, wrong=0)
+    bot, recorder = make_bot()
+    callback = press(user.id, "next_question").callback_query.as_(bot)
+
+    await _offer_what_fits(callback, session, user, "ru")
+
+    buttons = [b["callback_data"] for _, p in recorder.calls if p.get("reply_markup")
+               for row in p["reply_markup"]["inline_keyboard"] for b in row]
+    assert "level_jump_B2" in buttons, f"давнему не предложен выбор уровня: {buttons}"

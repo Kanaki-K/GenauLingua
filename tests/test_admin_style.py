@@ -207,6 +207,8 @@ def test_back_goes_where_you_came_from():
 def test_every_button_on_the_main_screen_has_a_handler():
     """Кнопка в пустоту — это тупик, который видно только нажатием."""
     source = ADMIN_PATH.read_text(encoding="utf-8")
+    # Раздел «Рейтинг» (17.10) живёт своим модулем рядом
+    source += (ADMIN_PATH.parent / "admin_rating.py").read_text(encoding="utf-8")
     handled = set(re.findall(r'F\.data == "(admin:[a-z_]+)"', source))
 
     drawn = {

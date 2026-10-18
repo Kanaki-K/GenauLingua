@@ -271,72 +271,113 @@ class TestPerLanguageSeasons:
         assert rank["learning_lang"] == "de"
 
 
+async def _month_rows(session, season, rows):
+    """rows: [(id, язык, баллы, занятий, верных)]"""
+    for uid, lang, *_ in rows:
+        if await session.get(User, uid) is None:
+            session.add(User(id=uid, first_name=f"U{uid}", learning_lang=lang,
+                             native_lang="ru", interface_language="ru"))
+    await session.commit()
+    for uid, lang, score, lessons, correct in rows:
+        session.add(MonthlyStats(user_id=uid, season_id=season.id, learning_lang=lang,
+                                 monthly_score=score, monthly_quizzes=lessons,
+                                 total_correct=correct))
+    await session.commit()
+
+
+async def _awards(session):
+    from app.database.models import MonthlyAward
+
+    return {(a.user_id, a.rank, a.award_type, a.learning_lang)
+            for a in (await session.execute(select(MonthlyAward))).scalars()}
+
+
 class TestFinalizeSeason:
-    async def test_awards_given_per_language(self, session):
+    """
+    Итоги месяца — по ОБЩЕМУ месяцу (владелец, 17.10: «главное соревнование
+    месяц как ни крути. Язык — это чисто визуал»). Прежде у каждого языка
+    был свой топ-10, и единственный учащий чешский брал 🥇 за одно занятие.
+    """
+
+    async def test_medals_go_by_the_whole_month(self, session):
         season = await create_new_season(2026, 3, session)
-
-        users = [(1, "de", 300), (2, "de", 200), (3, "en", 150), (4, "en", 100)]
-        for uid, lang, _ in users:
-            session.add(User(id=uid, first_name=f"U{uid}", learning_lang=lang,
-                             native_lang="ru", interface_language="ru"))
-        await session.commit()
-
-        for uid, lang, score in users:
-            session.add(MonthlyStats(user_id=uid, season_id=season.id,
-                                     learning_lang=lang, monthly_score=score,
-                                     monthly_quizzes=1))
-        await session.commit()
-
+        await _month_rows(session, season, [(1, "de", 300, 3, 0), (2, "de", 200, 3, 0),
+                                            (3, "en", 150, 3, 0), (4, "en", 100, 3, 0)])
         await finalize_season(season.id, session)
+        medals = {a for a in await _awards(session) if a[2] != "crown"}
+        assert medals == {(1, 1, "gold", "*"), (2, 2, "silver", "*"),
+                          (3, 3, "bronze", "*"), (4, 4, "top10", "*")}, medals
 
-        # В каждом языке должен быть свой золотой призёр
-        from app.database.models import MonthlyAward
-
-        awards = (await session.execute(select(MonthlyAward))).scalars().all()
-        golds = {a.user_id for a in awards if a.award_type == "gold"}
-        assert golds == {1, 3}, "золото должно быть в каждом языке своё"
-
-    async def test_final_ranks_restart_per_language(self, session):
+    async def test_final_rank_is_one_for_the_whole_month(self, session):
         season = await create_new_season(2026, 3, session)
-
-        users = [(1, "de", 300), (2, "de", 200), (3, "en", 150)]
-        for uid, lang, _ in users:
-            session.add(User(id=uid, first_name=f"U{uid}", learning_lang=lang,
-                             native_lang="ru", interface_language="ru"))
-        await session.commit()
-        for uid, lang, score in users:
-            session.add(MonthlyStats(user_id=uid, season_id=season.id,
-                                     learning_lang=lang, monthly_score=score,
-                                     monthly_quizzes=1))
-        await session.commit()
-
+        await _month_rows(session, season, [(1, "de", 300, 3, 0), (2, "de", 200, 3, 0),
+                                            (3, "en", 150, 3, 0)])
         await finalize_season(season.id, session)
+        stats = {s.user_id: s.final_rank
+                 for s in (await session.execute(select(MonthlyStats))).scalars()}
+        assert stats == {1: 1, 2: 2, 3: 3}
 
-        stats = {
-            s.user_id: s
-            for s in (await session.execute(select(MonthlyStats))).scalars().all()
-        }
-        assert stats[1].final_rank == 1
-        assert stats[2].final_rank == 2
-        assert stats[3].final_rank == 1, "нумерация должна начинаться заново в каждом языке"
+    async def test_two_languages_add_up(self, session):
+        season = await create_new_season(2026, 3, session)
+        # 1: 150 немецкого + 150 английского = 300 больше, чем 250 у 2
+        await _month_rows(session, season, [(1, "de", 150, 2, 0), (1, "en", 150, 2, 0),
+                                            (2, "de", 250, 3, 0)])
+        await finalize_season(season.id, session)
+        assert (1, 1, "gold", "*") in await _awards(session)
+
+    async def test_no_medal_below_three_lessons(self, session):
+        season = await create_new_season(2026, 3, session)
+        await _month_rows(session, season, [(1, "de", 500, 2, 0), (2, "de", 100, 3, 0)])
+        await finalize_season(season.id, session)
+        assert {a[0] for a in await _awards(session)} == {2}
 
     async def test_finalize_is_not_repeated(self, session):
         season = await create_new_season(2026, 3, session)
-        session.add(User(id=1, first_name="A", learning_lang="de",
-                         native_lang="ru", interface_language="ru"))
-        await session.commit()
-        session.add(MonthlyStats(user_id=1, season_id=season.id,
-                                 learning_lang="de", monthly_score=100,
-                                 monthly_quizzes=1))
-        await session.commit()
-
+        await _month_rows(session, season, [(1, "de", 100, 3, 0)])
         await finalize_season(season.id, session)
         await finalize_season(season.id, session)
+        assert len(await _awards(session)) == 1
 
-        from app.database.models import MonthlyAward
 
-        awards = (await session.execute(select(MonthlyAward))).scalars().all()
-        assert len(awards) == 1
+class TestCrown:
+    """
+    👑 — лучшему в своём языке: носит весь следующий месяц, славы не даёт,
+    записывается в историю. Только если в языке 3+ человека с 3+ занятиями.
+    """
+
+    async def test_crown_goes_to_the_best_of_each_big_enough_language(self, session):
+        season = await create_new_season(2026, 3, session)
+        await _month_rows(session, season, [
+            (1, "de", 300, 3, 0), (2, "de", 200, 3, 0), (3, "de", 100, 3, 0),
+            (4, "en", 900, 3, 0), (5, "en", 50, 3, 0),          # английский — двое
+        ])
+        await finalize_season(season.id, session)
+        crowns = {a for a in await _awards(session) if a[2] == "crown"}
+        assert crowns == {(1, 1, "crown", "de")}, crowns
+
+    async def test_one_crown_even_on_equal_points(self, session):
+        """Владелец: «победитель всегда один» — равные баллы решают верные ответы."""
+        season = await create_new_season(2026, 3, session)
+        await _month_rows(session, season, [
+            (1, "de", 200, 3, 40), (2, "de", 200, 3, 55), (3, "de", 100, 3, 0),
+        ])
+        await finalize_season(season.id, session)
+        crowns = {a for a in await _awards(session) if a[2] == "crown"}
+        assert crowns == {(2, 1, "crown", "de")}, crowns
+
+    async def test_crown_is_worn_next_month_and_counted(self, session):
+        from app.services.standing import current_crowns, standing_of
+
+        season = await create_new_season(2026, 3, session)
+        await _month_rows(session, season, [
+            (1, "de", 300, 3, 0), (2, "de", 200, 3, 0), (3, "de", 100, 3, 0),
+        ])
+        await finalize_season(season.id, session)
+        assert await current_crowns(session) == {1: "de"}
+        me = await standing_of(session, await session.get(User, 1))
+        assert me.crowns_total == 1 and me.crown_lang == "de"
+        # Корона славы не даёт: у 1 только золото — 5
+        assert me.glory == 5
 
 
 class TestWilson:
@@ -478,7 +519,7 @@ async def _two_language_winner(session, season):
                              (1, "en", 250), (3, "en", 100)):
         session.add(MonthlyStats(user_id=uid, season_id=season.id,
                                  learning_lang=lang, monthly_score=score,
-                                     monthly_quizzes=1))
+                                     monthly_quizzes=3))
     await session.commit()
 
 
@@ -486,7 +527,7 @@ class TestSeasonWinsPerSeason:
     async def test_first_place_in_two_languages_is_one_won_month(self, session):
         """
         Прежде второй вызов серии побед за тот же сезон сбрасывал её: 3 → 4 → 1,
-        а `total_wins` рос на два. Медали — по языкам, победный месяц — один.
+        а `total_wins` рос на два. С 17.10 медаль и так одна — за общий месяц.
         """
         from app.database.models import MonthlyAward, WinStreak
 
@@ -510,8 +551,7 @@ class TestSeasonWinsPerSeason:
             select(MonthlyAward).where(MonthlyAward.user_id == 1,
                                        MonthlyAward.award_type == "gold")
         )).scalars().all()
-        assert len(golds) == 2, "медаль положена за каждый язык"
-        assert {g.learning_lang for g in golds} == {"de", "en"}
+        assert [g.learning_lang for g in golds] == ["*"], "золото — одно, за общий месяц"
         assert streak.current_streak == 4, f"серия побед сброшена: {streak.current_streak}"
         assert streak.total_wins == 4
         assert user.total_monthly_wins == 1
@@ -544,10 +584,11 @@ class TestSeasonWinsPerSeason:
         monkeypatch.undo()
         await finalize_season(season.id, session)
         awards = (await session.execute(select(MonthlyAward))).scalars().all()
-        assert len(awards) == 4, f"после повтора наград {len(awards)}, ждали 4"
+        # Общий месяц: 1 — золото, 2 — серебро, 3 — бронза; корон нет (в языках по двое)
+        assert len(awards) == 3, f"после повтора наград {len(awards)}, ждали 3"
         user = await session.get(User, 1)
         await session.refresh(user)
-        assert user.lifetime_score == 200, "бонус за два золота начислен не один раз"
+        assert user.lifetime_score == 100, "бонус за золото начислен не один раз"
 
     async def test_award_is_unique_per_person_season_language(self, session):
         from sqlalchemy.exc import IntegrityError
@@ -615,7 +656,7 @@ class TestMonthlyResultsAreFair:
     первых, а медаль давалась и тому, кто за месяц не занимался вовсе.
     """
 
-    async def _close(self, session, rows):
+    async def _close(self, session, rows, correct=None):
         from app.database.models import MonthlyAward
 
         season = await create_new_season(2026, 4, session)
@@ -625,16 +666,22 @@ class TestMonthlyResultsAreFair:
         await session.commit()
         for uid, score, lessons in rows:
             session.add(MonthlyStats(user_id=uid, season_id=season.id, learning_lang="de",
-                                     monthly_score=score, monthly_quizzes=lessons))
+                                     monthly_score=score, monthly_quizzes=lessons,
+                                     total_correct=(correct or {}).get(uid, 0)))
         await session.commit()
         await finalize_season(season.id, session)
         awards = (await session.execute(select(MonthlyAward))).scalars().all()
-        return {a.user_id: (a.rank, a.award_type) for a in awards}
+        return {a.user_id: (a.rank, a.award_type) for a in awards if a.award_type != "crown"}
 
-    async def test_equal_scores_share_the_place_and_the_medal(self, session):
-        got = await self._close(session, [(1, 200, 3), (2, 200, 2), (3, 150, 1)])
-        assert got[1] == (1, "gold") and got[2] == (1, "gold"), got
-        assert got[3] == (3, "bronze"), f"после двух первых — третье место: {got}"
+    async def test_equal_scores_still_one_winner(self, session):
+        """
+        Владелец, 17.10: «победитель всегда один. Значит нужно более тонко
+        посчитать и выбрать лидера». Прежде равные 200 давали два золота.
+        Теперь решают верные ответы, затем точность, затем кто раньше.
+        """
+        got = await self._close(session, [(1, 200, 3), (2, 200, 3), (3, 150, 3)],
+                                correct={1: 40, 2: 60})
+        assert got == {2: (1, "gold"), 1: (2, "silver"), 3: (3, "bronze")}, got
 
     async def test_no_medal_without_a_lesson_this_month(self, session):
         got = await self._close(session, [(1, 200, 3), (2, 15, 0), (3, 0, 0)])
@@ -646,14 +693,15 @@ def test_the_table_shows_name_and_points_without_titles():
     «DYET ученик — 812 баллов»: звание по словам читалось как часть имени.
     Владелец, 14.10: «убрать длинные дуратские названия».
     """
-    from app.bot.handlers.leaderboard.leaderboard_table import build_alltime_table
+    from app.bot.handlers.leaderboard.leaderboard_table import _rows
 
     rows = [
         {"user_id": i, "rank": i, "display_name": f"Name{i}", "lifetime_score": 1000 - i,
          "words_learned": 2500, "win_streak": {}}
         for i in range(1, 8)
     ]
-    text = build_alltime_table(rows, None, 999, "ru")
+    text = "\n".join(_rows(rows, 999, None, None)[0]) + "\n"
     for word in ("ученик", "эксперт", "профессор", "полиглот"):
         assert word not in text, text
-    assert "Name5 — " in text, text
+    # С 17.10: «место · звание · имя — баллы»
+    assert "5. Name5 — 995\n" in text, text

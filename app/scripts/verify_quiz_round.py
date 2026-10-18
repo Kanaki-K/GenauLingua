@@ -62,7 +62,7 @@ PROBE_ID = -1001
 
 
 async def _probe(session, learning: str, native: str, reverse: bool,
-                 audio_on: bool, channels: str) -> User:
+                 audio_on: bool, channels: str, onboarded: bool = True) -> User:
     user = await session.get(User, PROBE_ID)
     if user is None:
         user = User(id=PROBE_ID, first_name="приёмка")
@@ -75,6 +75,16 @@ async def _probe(session, learning: str, native: str, reverse: bool,
     user.audio_enabled = audio_on
     user.quiz_channels = channels
     user.interface_language = "ru"
+    # ПЕРВЫЙ УРОК ПРОЙДЕН. С патча 2.1 (`in_first_lesson`) человек без
+    # `onboarded_at` и без законченного занятия получает ТОЛЬКО карточки.
+    # Отметку ставит обработчик ответа (7-й ответ) и итог занятия, а приёмка
+    # зовёт `update_word_progress` мимо них — и подопытный навсегда оставался
+    # на первом уроке: 900 вопросов, все TEXT, «ПРОВЕРКА ПРОШЛА ВХОЛОСТУЮ».
+    # Сам первый урок проверяется отдельным случаем (`onboarded=False`)
+    from app.core.clock import utcnow
+
+    user.onboarded_at = utcnow() if onboarded else None
+    user.quizzes_passed = 1 if onboarded else 0
     await session.commit()
     return user
 
@@ -300,6 +310,22 @@ async def run(rounds: int, length: int, full: bool) -> int:
                     delete(UserWord).where(UserWord.user_id == PROBE_ID)
                 )
                 await session.commit()
+            # ПЕРВЫЙ УРОК: все игры включены, но новичку — только Читаю,
+            # Слышу и Вспоминаю (`first_lesson`, 16.10); речи и «Собираю» нет
+            user = await _probe(session, "de", "ru", False, True, "tasrb",
+                                onboarded=False)
+            await _seed_progress(session, "de")
+            first: collections.Counter = collections.Counter()
+            before = len(problems)
+            await play_round(session, user, LanguagePair(learning="de", native="ru", reverse=False),
+                             length, problems, first)
+            allowed = {QuizChannel.TEXT.name, QuizChannel.AUDIO.name, QuizChannel.REVERSE.name}
+            if not set(first) <= allowed:
+                problems.append(f"первый урок: лишние игры — {dict(first)}")
+            if QuizChannel.TEXT.name not in first:
+                problems.append(f"первый урок без карточки — {dict(first)}")
+            mark = "ок" if len(problems) == before else f"СБОЙ ({len(problems) - before})"
+            print(f"  {'первый урок: Читаю · Слышу · Вспоминаю':42s} {mark} {dict(first)}")
         finally:
             await _cleanup(session)
 

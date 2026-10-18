@@ -28,6 +28,7 @@ def all_routers() -> list[Router]:
     from app.bot.handlers.leaderboard.alltime import router as alltime_router
     from app.bot.handlers.leaderboard.leaderboard_table import router as table_router
     from app.bot.handlers.leaderboard.monthly import router as monthly_router
+    from app.bot.handlers.admin_rating import router as admin_rating_router
     from app.bot.handlers.quiz.build import router as build_router
     from app.bot.handlers.quiz.choice import router as choice_router
     from app.bot.handlers.quiz.help import router as help_router
@@ -35,6 +36,7 @@ def all_routers() -> list[Router]:
     from app.bot.handlers.quiz.lesson import router as lesson_router
     from app.bot.handlers.quiz.match import router as match_router
     from app.bot.handlers.quiz.report import router as report_router
+    from app.bot.handlers.quiz.report_inline import router as report_inline_router
     from app.bot.handlers.quiz.settings import router as settings_router
     from app.bot.handlers.quiz.speech import router as speech_router
     from app.bot.handlers.quiz.expired import router as expired_router
@@ -49,6 +51,8 @@ def all_routers() -> list[Router]:
         ("leaderboard/table", table_router),
         # Репорт ПЕРЕД игрой: иначе `report_translation_error` не доходит
         ("quiz/report", report_router),
+        # Жалоба на разборе ответа: свои нажатия `rp:`, в любом состоянии
+        ("quiz/report_inline", report_inline_router),
         # Дальше всё остальное. Домашний экран, доска и сборка — перед игрой: у них
         # свои нажатия, и перехватывать их не должен никто
         ("start", start_router),
@@ -71,6 +75,7 @@ def all_routers() -> list[Router]:
         ("quiz/help", help_router),
         ("reminders", reminders_router),
         ("admin", admin_router),
+        ("admin/rating", admin_rating_router),
     ]
 
     # Имя ставится здесь, потому что по умолчанию aiogram даёт роутеру

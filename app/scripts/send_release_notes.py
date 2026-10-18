@@ -27,6 +27,14 @@
 Заблокировавшим бота — ни повторов, ни ошибок в итог.
 
 Под сообщением — кнопка «Учить слова»: прочитал — сразу попробовал.
+
+ССЫЛКА НА ЯЗЫКЕ ЧЕЛОВЕКА (`--link`, патчноут 2.2). Текст пишет `{url}`,
+скрипт подставляет `<link>#<язык>`: страница сама открывается на языке
+бота человека. Над «Учить слова» встаёт кнопка «Что нового →» с той же
+ссылкой. Текст с `{url}` без `--link` не уйдёт.
+
+    python -m app.scripts.send_release_notes --key release_notes_2026_10_22
+        --link https://claude.ai/artifact/1BxHZpCRz82ZxjFTjDkJxY --to-admin
 """
 from __future__ import annotations
 
@@ -56,18 +64,32 @@ PAUSE = 0.1
 RETRY_AFTER_CAP = 60
 
 
-def _keyboard(lang: str) -> InlineKeyboardMarkup:
-    return InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(
+def _link(link: str | None, lang: str) -> str | None:
+    return f"{link}#{lang}" if link else None
+
+
+def _keyboard(lang: str, link: str | None = None) -> InlineKeyboardMarkup:
+    rows = []
+    if link:
+        rows.append([InlineKeyboardButton(
+            text=get_text("btn_release_news", lang), url=_link(link, lang),
+        )])
+    rows.append([InlineKeyboardButton(
         text=get_text("btn_learn_words", lang),
         # Своя дверь: замер покажет, сколько людей пришло именно с патчноута
         callback_data="learn_now:release",
-    )]])
+    )])
+    return InlineKeyboardMarkup(inline_keyboard=rows)
 
 
-async def _deliver(bot: Bot, chat_id: int, text: str, lang: str) -> str:
+def _text(key: str, lang: str, link: str | None = None) -> str:
+    return get_text(key, lang, url=_link(link, lang)) if link else get_text(key, lang)
+
+
+async def _deliver(bot: Bot, chat_id: int, text: str, lang: str, link: str | None = None) -> str:
     for attempt in (1, 2):
         try:
-            await bot.send_message(chat_id, text, reply_markup=_keyboard(lang))
+            await bot.send_message(chat_id, text, reply_markup=_keyboard(lang, link))
             return "ok"
         except TelegramRetryAfter as exc:
             if attempt == 2:
@@ -106,6 +128,13 @@ async def run(args) -> int:
     if missing:
         print(f"СТОП: ключа {args.key} нет в языках {missing}")
         return 1
+    if any("{url}" in LOCALES[lang][args.key] for lang in LOCALES) and not args.link:
+        print(f"СТОП: в тексте {args.key} есть ссылка {{url}} — нужен --link")
+        return 1
+    broken = [lang for lang in LOCALES if _text(args.key, lang, args.link).startswith("[")]
+    if broken:
+        print(f"СТОП: текст не собирается в языках {broken}")
+        return 1
 
     journal = pathlib.Path(settings.LOG_DIR or "logs") / f"{args.key}.sent"
     journal.parent.mkdir(parents=True, exist_ok=True)
@@ -126,7 +155,8 @@ async def run(args) -> int:
         if args.to_admin:
             admin = settings.ADMIN_USER
             for lang in LOCALES:
-                result = await _deliver(bot, admin, f"[{lang}]\n\n" + get_text(args.key, lang), lang)
+                result = await _deliver(bot, admin, f"[{lang}]\n\n" + _text(args.key, lang, args.link),
+                                        lang, args.link)
                 print(f"  {lang}: {result}")
             return 0
 
@@ -137,7 +167,7 @@ async def run(args) -> int:
         counts = collections.Counter()
         with journal.open("a", encoding="utf-8") as log:
             for index, (uid, lang) in enumerate(pending, start=1):
-                result = await _deliver(bot, uid, get_text(args.key, lang), lang)
+                result = await _deliver(bot, uid, _text(args.key, lang, args.link), lang, args.link)
                 counts[result] += 1
                 # Помечается и заблокировавший: стучаться к нему снова незачем.
                 # Исход — рядом с номером: по нему отчёт (`release_report`)
@@ -162,6 +192,8 @@ def main() -> int:
                     help="ключ текста в локалях (по умолчанию — патчноут 2.0, октябрь 2026)")
     ap.add_argument("--send", action="store_true", help="отправить всем")
     ap.add_argument("--to-admin", action="store_true", help="прислать себе на всех языках")
+    ap.add_argument("--link", help="ссылка на патчноут: подставится в {url} и в кнопку «Что нового» "
+                                   "с #<язык> человека")
     return asyncio.run(run(ap.parse_args()))
 
 

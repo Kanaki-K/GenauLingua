@@ -49,7 +49,14 @@ class Settings(BaseSettings):
     SQL_ECHO: bool = False
     LOG_LEVEL: Optional[str] = None
     LOG_DIR: Optional[str] = None
+    # Хранилище занятий (FSM). Задан — занятие живёт в Redis и переживает
+    # перезапуск бота; не задан — в памяти, как до 2.1 (тесты, старые .env)
+    REDIS_URL: Optional[str] = None
     SENTRY_DSN: Optional[str] = None
+    # Сообщения соревнования — «Вас обогнали» и финишная прямая (17.10).
+    # ВЫКЛЮЧЕНЫ, пока владелец не скажет «отправляй»: новые сообщения людям —
+    # только с его разрешения. Включаются строкой COMPETITION_NUDGES=true
+    COMPETITION_NUDGES: bool = False
 
     # Docker / Postgres service vars (если лежат в .env — не должны ломать Settings)
     POSTGRES_USER: Optional[str] = None

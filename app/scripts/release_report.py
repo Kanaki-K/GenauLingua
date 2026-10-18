@@ -76,12 +76,14 @@ async def build_report(session, journal: dict[int, str], since: datetime,
 
     rows = (await session.execute(
         select(QuizSession.user_id, QuizSession.started_at,
-               QuizSession.completed_at, QuizSession.start_source)
+               QuizSession.completed_at, QuizSession.start_source,
+               QuizSession.exit_reason)
         .where(QuizSession.started_at >= since - timedelta(days=ASLEEP_DAYS))
     )).all()
 
     after = [r for r in rows if r.started_at >= since]
-    report.lessons = len(after)
+    # Перезапуски (пустое занятие, тут же начатое заново) — не занятия
+    report.lessons = sum(1 for r in after if r.exit_reason != "restarted")
     report.active_after = len({r.user_id for r in after})
     report.active_week_before = len({
         r.user_id for r in rows if since - timedelta(days=7) <= r.started_at < since

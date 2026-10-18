@@ -127,8 +127,51 @@ def get_admin_keyboard() -> InlineKeyboardMarkup:
     return admin_ui.kb(
         [("Люди", "admin:people"), ("Занятия", "admin:lessons")],
         [("Слова", "admin:words"), ("Жалобы", "admin:reports")],
+        [("Сообщения", "admin:nudges"), ("Рейтинг", "admin:rating")],
         [("Выгрузка", "admin:export")],
     )
+
+
+async def retention_today(session: AsyncSession) -> tuple[int, int, int, int]:
+    """
+    (начали сегодня, закончили сегодня, вернулись сегодня из активных за 7
+    дней, активных за 7 дней). Все четыре — по зачётным занятиям и дню UTC:
+    одно правило, иначе «закончили» могло бы оказаться больше «начали».
+
+    «Активный» — закончил занятие. Активные за 7 дней — закончившие хоть
+    одно в шесть предыдущих дней и вчера (сегодня не в счёт); вернулись —
+    те из них, кто закончил занятие сегодня. Это CURR — у Duolingo главная
+    метрика роста (патч 2.1). Дни — UTC, как остальная панель.
+    """
+    today = utctoday()
+    since = datetime.combine(today, datetime.min.time())
+    week = since - timedelta(days=LAST_DAYS)
+
+    from app.services.monthly_leaderboard_service import scored_sessions_filter
+
+    started_ids = set((await session.execute(
+        select(distinct(QuizSession.user_id)).where(
+            QuizSession.started_at >= since,
+            scored_sessions_filter(),
+            # Пустой перезапуск (`restarted`) — не приход, а повторное нажатие
+            or_(QuizSession.exit_reason.is_(None), QuizSession.exit_reason != "restarted"),
+        )
+    )).scalars())
+
+    def finished(start, end=None):
+        q = select(distinct(QuizSession.user_id)).where(
+            QuizSession.is_completed.is_(True), QuizSession.completed_at >= start,
+            scored_sessions_filter())
+        if end is not None:
+            q = q.where(QuizSession.completed_at < end)
+        return q
+
+    base = set((await session.execute(finished(week, since))).scalars())
+    today_done = set((await session.execute(finished(since))).scalars())
+    # Закончивший сегодня — тоже пришёл сегодня, даже если начал в 23:58
+    # вчера: иначе «закончили» бывало больше «начали» (аудит 2.1)
+    started = len(started_ids | today_done)
+    return started, len(today_done), len(base & today_done), len(base)
 
 
 async def _get_main_stats(session: AsyncSession) -> str:
@@ -211,6 +254,8 @@ async def _get_main_stats(session: AsyncSession) -> str:
     )
     answered, correct = totals.one()
 
+    started_today, finished_today, curr_back, curr_base = await retention_today(session)
+
     words_total = (await session.execute(
         select(func.count()).select_from(Word)
     )).scalar() or 0
@@ -231,6 +276,7 @@ async def _get_main_stats(session: AsyncSession) -> str:
         f"Жалобы {admin_ui.DOT} " + (
             f"{admin_ui.num(pending)} ждут решения" if pending else "решены все"
         ),
+        f"Рейтинг {admin_ui.DOT} месяц, медали, короны, звания",
         f"Выгрузка {admin_ui.DOT} люди и занятия в CSV",
     ])
 
@@ -242,8 +288,15 @@ async def _get_main_stats(session: AsyncSession) -> str:
             admin_ui.table([
                 ("Людей", total_users),
                 ("Играли хоть раз", active_ever),
-                ("Сегодня", active_24h),
+                # «Сегодня» прежде считало только ЗАКОНЧИВШИХ занятие (дата
+                # ставится при завершении): 15.10 админка показала 9, а
+                # занимались 22 — владелец решил, что пришли девять
+                ("Сегодня начали", started_today),
+                ("Сегодня закончили", finished_today),
                 ("За 7 дней", active_7d),
+                # Главный ежедневный индикатор удержания (как CURR у Duolingo)
+                ("Вернулись сегодня из активных за 7 дней",
+                 f"{curr_back} из {curr_base} ({admin_ui.pct(curr_back, curr_base)})"),
                 ("Кругов всего", total_quizzes),
                 ("Из напоминаний", notif_sessions),
             ]),
@@ -289,6 +342,42 @@ async def admin_panel(message: Message, session: AsyncSession):
 # ============================================================================
 # ГРУППЫ: ЛЮДИ И ЗАНЯТИЯ
 # ============================================================================
+
+@router.callback_query(F.data == "admin:nudges")
+async def admin_nudges(callback: CallbackQuery, session: AsyncSession):
+    """
+    Сообщения вовлечения за 14 дней: работают или вредят (патч 2.1).
+
+    Главная строка — «вернулись за сутки» у получивших и у контрольной
+    группы (ей сообщение не ушло): разница и есть действие сообщения. Вред —
+    отписки и блокировки после сообщения. Разбор — `nudge_report`.
+    """
+    if not await _guard(callback):
+        return
+    from app.services.nudge_report import nudge_report, share
+
+    report = await nudge_report(session, utcnow())
+    total = report.total()
+    order = ["daily", "back1", "back3", "back7", "back14", "start1", "start3", "start7",
+             "overtaken", "finish"]
+    rows = [("вид", "отпр", "верн", "кнопк", "отпис", "блок")]
+    for kind in order:
+        k = report.kinds.get(kind)
+        if k and (k.sent or k.holdout or k.blocked):
+            rows.append((kind, k.sent, share(k.returned, k.sent), k.via_button, k.stopped, k.blocked))
+    lead = (f"вернулись за сутки: с сообщением {share(total.returned, total.sent)} "
+            f"из {admin_ui.num(total.sent)}, контроль {share(total.holdout_returned, total.holdout)} "
+            f"из {admin_ui.num(total.holdout)}")
+    text = admin_ui.screen(
+        "Сообщения · 14 дней",
+        lead=lead if (total.sent or total.holdout) else "сообщений ещё не было",
+        blocks=[admin_ui.columns(rows) if len(rows) > 1 else None,
+                "<i>верн — закончили занятие за сутки; кнопк — начали кнопкой из "
+                "сообщения; отпис — нажали «Не присылать» или выключили; контроль — "
+                "10% людей, которым сообщение не отправлялось</i>"],
+    )
+    await callback.message.edit_text(text, reply_markup=admin_ui.kb(back="admin:back"))
+
 
 @router.callback_query(F.data == "admin:people")
 async def admin_people(callback: CallbackQuery, session: AsyncSession):
@@ -1379,6 +1468,9 @@ async def _build_reports_text_and_keyboard(session: AsyncSession) -> tuple:
             func.count(
                 case((TranslationReport.kind == 'audio', 1))
             ).label('audio_count'),
+            func.count(
+                case((TranslationReport.kind == 'example', 1))
+            ).label('example_count'),
         )
         .join(TranslationReport, Word.id == TranslationReport.word_id)
         .where(TranslationReport.status == 'pending')
@@ -1448,6 +1540,7 @@ async def _build_reports_text_and_keyboard(session: AsyncSession) -> tuple:
     counts_block = admin_ui.table([
         ("Ждут решения", pending),
         ("  на перевод", by_kind.get("text", 0)),
+        ("  на пример", by_kind.get("example", 0)),
         ("  на произношение", by_kind.get("audio", 0)),
         ("Слов под жалобой", unique_words),
         ("Жаловались людей", unique_users),
@@ -1469,25 +1562,26 @@ async def _build_reports_text_and_keyboard(session: AsyncSession) -> tuple:
     queue_block = None
 
     if top_words:
+        pairs_by_word = await _report_pairs(session, [row[0] for row in top_words])
         lines = []
-        for wid, word_de, article, level, trans_ru, trans_uk, count, audio_count in top_words:
+        for (wid, word_de, article, level, trans_ru, trans_uk, count, audio_count,
+             example_count) in top_words:
             full_word = _full_word(word_de, article)
-            trans = trans_ru or trans_uk or "—"
-            # Видно, что именно править: перевод в базе или клип озвучки
-            kinds = []
-            if count - audio_count:
-                kinds.append(f"перевод {count - audio_count}")
-            if audio_count:
-                kinds.append(f"звук {audio_count}")
+            # Видно, что именно править: перевод, пример в базе или клип озвучки
+            by_word = {"text": count - audio_count - example_count,
+                       "example": example_count, "audio": audio_count}
+            kinds = [f"{REPORT_KIND_LABELS[k]} {n}" for k, n in by_word.items() if n]
             lines.append(f"{full_word} {admin_ui.DOT} {level.value} "
                          f"{admin_ui.DOT} {', '.join(kinds)}")
-            lines.append(f"  {trans}")
+            # ОБЕ СТОРОНЫ ИМЕННО ТОЙ ПАРЫ, где жаловались (Н5). Прежде здесь
+            # стоял русский или украинский перевод при любой паре: жалоба на
+            # чешский показывалась с русским, и править было нечего
+            lines.extend(pairs_by_word.get(wid, ()))
 
             # Решение по слову И ВИДУ: `✓` и `✗` — из разрешённого набора.
             # Прежде кнопка была одна на слово, и принять перевод значило
             # заодно стереть озвучку, на которую жалобы никто не принимал
-            for kind, kind_count in (("text", count - audio_count),
-                                     ("audio", audio_count)):
+            for kind, kind_count in by_word.items():
                 if not kind_count:
                     continue
                 buttons.append([
@@ -1523,6 +1617,36 @@ async def _build_reports_text_and_keyboard(session: AsyncSession) -> tuple:
     return text, InlineKeyboardMarkup(inline_keyboard=buttons)
 
 
+async def _report_pairs(session: AsyncSession, word_ids: list[int]) -> dict[int, list[str]]:
+    """Строки «пара: слово — перевод» по ждущим жалобам каждого слова."""
+    from app.services.language_service import LANGUAGES, display_text, language_word
+
+    rows = (await session.execute(
+        select(TranslationReport.word_id, TranslationReport.learning_lang,
+               TranslationReport.native_lang, func.count())
+        .where(TranslationReport.status == "pending",
+               TranslationReport.word_id.in_(word_ids))
+        .group_by(TranslationReport.word_id, TranslationReport.learning_lang,
+                  TranslationReport.native_lang)
+        .order_by(TranslationReport.word_id, desc(func.count()))
+    )).all()
+    words = {w.id: w for w in (await session.execute(
+        select(Word).where(Word.id.in_(word_ids)))).scalars()}
+    out: dict[int, list[str]] = {}
+    for wid, learning, native, count in rows:
+        word = words.get(wid)
+        if word is None:
+            continue
+        learning = learning if learning in LANGUAGES else "de"
+        native = native if native in LANGUAGES else "ru"
+        # Две строки: экран админки режет длинные, а перевод — главное
+        out.setdefault(wid, []).extend([
+            f"  {language_word(learning, 'ru')} → {language_word(native, 'ru')} · {count}",
+            f"    {display_text(word, native) or '—'}",
+        ])
+    return out
+
+
 @router.callback_query(F.data == "admin:reports")
 async def admin_reports(callback: CallbackQuery, session: AsyncSession):
     """Показать жалобы с кнопками решения"""
@@ -1549,6 +1673,10 @@ async def _reporter_lang(report, session: AsyncSession) -> str:
     Принимает и жалобу, и строку из `RETURNING`: нужны только
     `quiz_session_id` и `user_id`.
     """
+    # С 16.10 язык записан в самой жалобе (Н4) — он и главный
+    if getattr(report, "learning_lang", None):
+        return report.learning_lang
+
     if report.quiz_session_id:
         quiz = await session.get(QuizSession, report.quiz_session_id)
         if quiz and quiz.learning_lang:
@@ -1562,8 +1690,9 @@ async def _reporter_lang(report, session: AsyncSession) -> str:
 # правится в базе слов, произношение — пересборкой клипа, и это разные
 # решения. Прежде кнопка была одна на слово и решала оба вида разом: принять
 # перевод значило заодно стереть озвучку, на которую никто не жаловался
-REPORT_KINDS = ("text", "audio")
-REPORT_KIND_LABELS = {"text": "перевод", "audio": "звук"}
+REPORT_KINDS = ("text", "example", "audio")
+# «Пример» — с 17.10: жалоба с разбора ответа различает перевод и пример
+REPORT_KIND_LABELS = {"text": "перевод", "example": "пример", "audio": "звук"}
 
 
 def _parse_report_callback(data: str, prefix: str) -> tuple[int, tuple[str, ...]]:
@@ -1614,6 +1743,7 @@ async def _claim_reports(
             TranslationReport.user_id,
             TranslationReport.kind,
             TranslationReport.quiz_session_id,
+            TranslationReport.learning_lang,
         )
         .execution_options(synchronize_session=False)
     )
@@ -1745,7 +1875,9 @@ async def _tell_reporter(
 
     user = await session.get(User, user_id)
     lang = (user.interface_language if user else None) or DEFAULT_LOCALE
-    key = "report_approved" if "text" in kinds else "report_approved_audio"
+    key = ("report_approved" if "text" in kinds
+           else "report_approved_example" if "example" in kinds
+           else "report_approved_audio")
     shown = (display_text(word, learning_lang) if word else "") or (
         _full_word(word.word_de, word.article) if word else "?"
     )
@@ -2084,6 +2216,12 @@ async def admin_user_details(message: Message, session: AsyncSession):
             f"Слова на уровне {user.level.value}",
             admin_ui.table(progress_rows(level_progress)),
         ))
+
+    # РЕЙТИНГ ЧЕЛОВЕКА (17.10): место, звание, медали, короны — тем же
+    # расчётом, что видит он сам
+    from app.bot.handlers.admin_rating import person_rating_block
+
+    blocks.append(await person_rating_block(session, user))
 
     blocks.append(admin_ui.section(
         "Откуда входит",

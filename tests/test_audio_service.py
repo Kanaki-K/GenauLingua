@@ -295,10 +295,17 @@ class TestVoices:
             assert by_gender(lang, "male"), lang
             assert by_gender(lang, "female"), lang
 
-    def test_german_has_three_of_each(self):
-        # Ровно то, что просили: три мужских и три женских
-        assert len(by_gender("de", "male")) == 3
-        assert len(by_gender("de", "female")) == 3
+    def test_german_has_two_of_each(self):
+        # Просили три и три; многоязычные Серафина и Флориан убраны 15.10 —
+        # читали немецкое местами по-английски
+        assert len(by_gender("de", "male")) == 2
+        assert len(by_gender("de", "female")) == 2
+
+    def test_no_multilingual_voices(self):
+        """Многоязычный голос сам выбирает язык фразы — и ошибается."""
+        for lang, voices in VOICES.items():
+            for v in voices:
+                assert "Multilingual" not in v.name, (lang, v.name)
 
     def test_one_region_per_language(self):
         # Немецкий — Германия, английский — Британия, без выбора акцента
@@ -417,3 +424,140 @@ class TestBlindClip:
         assert calls and all("KIND_BLIND" in c for c in calls), (
             f"вопрос на слух снова получит клип с названием-ответом: {calls}"
         )
+
+
+class TestWarmClip:
+    """
+    Звук разбора готовится заранее, пока человек думает над вопросом.
+
+    Прод, 15.10: из 57 нажатий 18 шли дольше двух секунд, 24 раза синтез
+    не успел — разбор выходил без звука примера. Владелец: «подвисает после
+    ответов», «аудио с примером не всегда или вообще нету».
+    """
+
+    async def test_answer_takes_the_warmed_clip_without_second_synthesis(
+        self, session, user, monkeypatch, tmp_path
+    ):
+        import asyncio
+
+        from app.services import audio_service as svc
+
+        monkeypatch.setattr(svc.audio_store, "DEFAULT_ROOT", tmp_path / "tts")
+        calls = []
+
+        async def slow(text, voice, timeout=None, rate=None):
+            calls.append(text)
+            await asyncio.sleep(0.2)
+            return b"ID3" + b"x" * 3000
+
+        monkeypatch.setattr(svc, "_synthesize_once", slow)
+        monkeypatch.setattr(svc, "_trimmed", lambda data: data)
+        user.audio_enabled = True
+        word = make_word("Fahrrad", article="das")
+        session.add(word)
+        await session.commit()
+
+        await svc.warm_clip(session, user, word, "de", svc.KIND_FULL)
+        await asyncio.sleep(0)          # фоновая задача стартует на следующем шаге
+        assert calls, "подготовка не началась"
+
+        # Ответ пришёл, пока клип ещё готовится: ждём его, второй синтез не нужен
+        clip = await svc.clip_for_user(session, user, word, "de", svc.KIND_FULL)
+        assert clip is not None and clip.data, "разбор без звука"
+        assert len(calls) == 1, f"синтез дважды: {calls}"
+        await asyncio.gather(*svc._WARMING.values())
+        assert not svc._WARMING, "задача подготовки не убралась за собой"
+
+    async def test_nothing_to_warm_when_the_clip_is_on_disk(
+        self, session, user, monkeypatch, tmp_path
+    ):
+        from app.services import audio_service as svc
+
+        monkeypatch.setattr(svc.audio_store, "DEFAULT_ROOT", tmp_path / "tts")
+        calls = []
+
+        async def note(text, voice, timeout=None, rate=None):
+            calls.append(text)
+            return b"ID3" + b"x" * 3000
+
+        monkeypatch.setattr(svc, "_synthesize_once", note)
+        user.audio_enabled = True
+        word = make_word("Tisch", article="der")
+        session.add(word)
+        await session.commit()
+        voice = await svc.voice_for_user(session, user.id, "de")
+        spoken = svc.spoken_for(word, "de", svc.KIND_FULL)
+        svc.audio_store.write("de", voice, svc.KIND_FULL, spoken, b"ID3" + b"y" * 3000)
+
+        await svc.warm_clip(session, user, word, "de", svc.KIND_FULL)
+
+        assert calls == [] and not svc._WARMING
+
+
+async def test_speech_question_warms_the_slow_clip(session, user, monkeypatch):
+    """
+    «Говорю»: медленный клип (кнопка «Медленно») готовится уже при показе
+    вопроса. Прежде он синтезировался по нажатию — готовых медленных у Кати
+    70 на 12 тысяч слов, у Полины ни одного.
+    """
+    from app.bot.handlers.quiz import listen
+    from app.database.enums import QuizChannel
+    from app.services.audio_service import KIND_FULL, KIND_SLOW
+    from app.services.language_service import pair_from_user
+
+    warmed = []
+
+    async def note(session, user, word, lang, kind):
+        warmed.append(kind)
+
+    async def no_clip(*args, **kwargs):
+        return None
+
+    monkeypatch.setattr(listen, "warm_clip", note)
+    monkeypatch.setattr(listen, "clip_for_user", no_clip)
+    word = make_word("Fahrrad", article="das")
+    session.add(word)
+    await session.commit()
+
+    await listen._question_clip(session, user, word, pair_from_user(user), QuizChannel.SPEECH)
+    assert warmed == [KIND_FULL, KIND_SLOW], warmed
+
+    warmed.clear()
+    await listen._question_clip(session, user, word, pair_from_user(user), QuizChannel.TEXT)
+    assert warmed == [KIND_FULL], "медленный клип нужен только «Говорю»"
+
+
+async def test_human_path_does_not_synthesize_twice_after_a_slow_warmup(session, user, monkeypatch, tmp_path):
+    """
+    Прогрев не успел — разбор не синтезирует второй раз (было до 5–6 с на
+    проде 15.10), а прогрев сам допишет клип.
+    """
+    import asyncio
+
+    from app.services import audio_service as svc
+
+    monkeypatch.setattr(svc.audio_store, "DEFAULT_ROOT", tmp_path / "tts")
+    monkeypatch.setattr(svc, "LIVE_SYNTH_TIMEOUT", 0.05)
+    calls = []
+
+    async def slow(text, voice, timeout=None, rate=None):
+        calls.append(text)
+        await asyncio.sleep(0.3)
+        return b"ID3" + b"x" * 3000
+
+    monkeypatch.setattr(svc, "_synthesize_once", slow)
+    monkeypatch.setattr(svc, "_trimmed", lambda data: data)
+    user.audio_enabled = True
+    word = make_word("Fenster", article="das")
+    session.add(word)
+    await session.commit()
+
+    await svc.warm_clip(session, user, word, "de", svc.KIND_FULL)
+    await asyncio.sleep(0)
+    voice = await svc.voice_for_user(session, user.id, "de")
+    spoken = svc.spoken_for(word, "de", svc.KIND_FULL)
+    data = await svc.obtain_audio(spoken, "de", svc.KIND_FULL, voice, live=True)
+
+    assert data is None and len(calls) == 1, f"синтезов {len(calls)}"
+    await asyncio.gather(*svc._WARMING.values())
+    assert svc.audio_store.exists("de", voice, svc.KIND_FULL, spoken), "прогрев не дописал клип"

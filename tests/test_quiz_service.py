@@ -216,7 +216,8 @@ class TestProgressIsolation:
                 UserWord.learning_lang == "de",
             )
         )).scalar_one()
-        assert de_row.correct_streak == 3
+        # Первый верный ответ на новое слово начинает серию с FIRST_SIGHT_STREAK (2.1)
+        assert de_row.correct_streak == qs.FIRST_SIGHT_STREAK + 2
 
         en_row = (await session.execute(
             select(UserWord).where(
@@ -295,7 +296,7 @@ class TestLearnedRequiresSpacing:
         row = (await session.execute(
             select(UserWord).where(UserWord.word_id == word.id, UserWord.user_id == user.id)
         )).scalar_one()
-        assert row.correct_streak == 5
+        assert row.correct_streak == qs.FIRST_SIGHT_STREAK + 4
 
         await qs.update_word_progress(user.id, word.id, False, session, learning_lang="de")
         await session.refresh(row)
@@ -325,7 +326,7 @@ class TestEarlyAnswersKeepTheSchedule:
         row = (await session.execute(
             select(UserWord).where(UserWord.word_id == word.id, UserWord.user_id == user.id)
         )).scalar_one()
-        assert row.correct_streak == 1, "досрочные ответы накрутили серию"
+        assert row.correct_streak == qs.FIRST_SIGHT_STREAK, "досрочные ответы накрутили серию"
         assert row.times_correct == 4, "досрочный ответ обязан засчитываться"
         assert row.times_shown == 4
 
@@ -448,3 +449,55 @@ class TestPolysemy:
         assert meaning_variants("to stop", "en") == {"stop"}
         assert meaning_variants("", "ru") == frozenset()
         assert meaning_variants(None, "ru") == frozenset()
+
+
+
+class TestFirstSightKnownWord:
+    """
+    Патч 2.1: известное слово — дважды, а не трижды. Отзыв 15.10: «если я
+    прохожу уровень без ошибок, мне не надо доказывать тремя проходами».
+    """
+
+    async def test_correct_at_first_sight_then_one_check_is_learned(self, session, user):
+        words = await _seed_distinct(session, 5)
+        await build_groups(session)
+        word = words[0]
+
+        await _answer_when_due(session, user, word, True)      # первая встреча — верно
+        row = (await session.execute(
+            select(UserWord).where(UserWord.word_id == word.id, UserWord.user_id == user.id)
+        )).scalar_one()
+        assert row.correct_streak == 2 and not row.learned
+
+        # Проверка — через срок серии (3 дня): знакомство тоже в прошлом
+        row.created_at = utcnow() - timedelta(days=3, minutes=5)
+        await session.commit()
+        await _answer_when_due(session, user, word, True)      # проверка через срок
+        await session.refresh(row)
+        assert row.learned, "известное слово не засчитано после одной проверки"
+
+    async def test_a_guess_breaks_on_the_check(self, session, user):
+        """Угадал с первого раза — на проверке промах, и всё заново."""
+        words = await _seed_distinct(session, 5)
+        await build_groups(session)
+        word = words[0]
+
+        await _answer_when_due(session, user, word, True)
+        await _answer_when_due(session, user, word, False)
+        row = (await session.execute(
+            select(UserWord).where(UserWord.word_id == word.id, UserWord.user_id == user.id)
+        )).scalar_one()
+        assert row.correct_streak == 0 and not row.learned
+
+    async def test_wrong_at_first_sight_learns_the_usual_way(self, session, user):
+        words = await _seed_distinct(session, 5)
+        await build_groups(session)
+        word = words[0]
+
+        await _answer_when_due(session, user, word, False)
+        for _ in range(2):
+            await _answer_when_due(session, user, word, True)
+        row = (await session.execute(
+            select(UserWord).where(UserWord.word_id == word.id, UserWord.user_id == user.id)
+        )).scalar_one()
+        assert row.correct_streak == 2 and not row.learned, "незнакомое слово засчитано быстро"

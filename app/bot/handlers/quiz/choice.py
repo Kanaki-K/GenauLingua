@@ -14,11 +14,12 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.bot.states import QuizStates
 from app.bot.handlers.quiz.lesson import _record_answer
-from app.bot.handlers.quiz.lesson_state import _claim_answer
+from app.bot.handlers.quiz.lesson_state import _claim_answer, answered_by_dead_process
 from app.core.clock import utcnow
 from app.database.enums import QuizChannel
 from app.database.models import User, Word
-from app.locales import DEFAULT_LOCALE
+from app.locales import DEFAULT_LOCALE, get_text
+from app.bot.handlers.quiz.question import get_next_question_keyboard
 from app.services.language_service import (
     pair_for_channel,
     option_label,
@@ -39,8 +40,14 @@ async def process_answer(callback: CallbackQuery, state: FSMContext, session: As
     # ОДИН ВОПРОС — ОДИН ОТВЕТ. Разбор у `_claim_answer`: двойной тык и
     # нажатие по не перерисовавшейся карточке записывали вопрос дважды, и
     # балл начислялся дважды
-    if not await _claim_answer(state, callback.message.chat.id):
+    if not await _claim_answer(state, callback.message.chat.id, session):
         await callback.answer()
+        # Ответ записан процессом, умершим до разбора: «Далее» на экране нет
+        if await answered_by_dead_process(state, session):
+            user = await session.get(User, callback.from_user.id)
+            lang = (user.interface_language if user else None) or DEFAULT_LOCALE
+            await callback.message.answer(get_text("quiz_answer_already_counted", lang),
+                                          reply_markup=get_next_question_keyboard(lang))
         return
 
     data = await state.get_data()

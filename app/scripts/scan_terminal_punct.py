@@ -39,7 +39,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from app.config import settings  # noqa: E402
 
-LANGS = ("en", "ru", "uk", "tr", "pl")
+LANGS = ("en", "ru", "uk", "tr", "pl", "it", "es", "fr", "cs")
 
 
 def mark(sentence: str | None) -> str:
@@ -100,6 +100,8 @@ def main() -> None:
         de_mark = mark(r["example_de"])
         off_bang, off_quest = [], []
         for lg in LANGS:
+            if not r[f"example_{lg}"]:
+                continue          # язык ещё не переведён — сверять нечего
             m = mark(r[f"example_{lg}"])
             if (m == "!") != (de_mark == "!"):
                 off_bang.append(f"{lg}{'+' if m == '!' else '-'}")

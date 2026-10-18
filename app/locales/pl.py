@@ -75,8 +75,6 @@ TEXTS = {
     "notif_toggle_on": "Przypomnienia włączone!",
     "notif_toggle_off": "Przypomnienia wyłączone",
 
-    "notif_message_btn_disable": "Wyłączyć przypomnienia",
-
     "day_mon": "Pn",
     "day_tue": "Wt",
     "day_wed": "Śr",
@@ -89,22 +87,9 @@ TEXTS = {
 
     "notif_default_name": "przyjacielu",
 
-    "anchor_streak": "🔥 {days}",
-    "notif_message_greeting": "<b>Czas na naukę, {name}!</b>",
 
 
     # JEDEN POWÓD, BY WRÓCIĆ — i musi być prawdziwy
-    "remind_streak_risk": "{days_word} z rzędu · dziś jeszcze nie",
-    "remind_due": "Słowa czekają na powtórkę: {count} — terminy bot liczy sam",
-    "remind_due_many": "Do powtórki zebrało się sporo słów. Najlepiej zacząć od jednej lekcji, a resztę odłożyć na później.",
-    "remind_streak_lost": "Najlepsza seria to {days_word}. Nowa zaczyna się od jednej lekcji.",
-    "remind_milestone_close": "Słowa w nauce: {count} · do {target} jeszcze {left}, to jedna lekcja",
-    "remind_almost_learned": "Do pierwszego nauczonego słowa brakuje jednej poprawnej odpowiedzi. Takich słów: {count}",
-    "remind_rank": "Miejsce {rank} z {total} w rankingu tego języka",
-    "remind_fact_1": "Słowo zostaje w pamięci, gdy wraca: po dniu, po trzech dniach, po tygodniu. Terminów pilnuje bot.",
-    "remind_fact_2": "Odpowiedź ze słuchu liczy się podwójnie: nie ma zapisu, na którym można się oprzeć.",
-    "remind_fact_3": "Wypowiedzieć słowo na głos trudniej niż je rozpoznać — i jest to warte trzy razy tyle.",
-    "remind_fact_4": "Piętnaście pytań to cztery minuty. Krócej niż kolejka po kawę.",
 
     # ============================================================================
     # USTAWIENIA
@@ -114,15 +99,25 @@ TEXTS = {
     "settings_language": "Język bota: <b>{language}</b>",
 
     "settings_btn_quiz_mode": "Poziom i tematy",
-    "settings_btn_change_language": "Język interfejsu",
+    "settings_btn_change_language": "Język bota",
     "settings_btn_notifications": "Przypomnienia",
 
     "settings_quiz_mode_line": "Poziom: <b>{mode}</b>",
-
-
-    "settings_language_title": "<b>Język interfejsu</b>",
-    "settings_language_description": "Proszę wybrać język interfejsu bota:",
-    "start_pick_language": "Proszę wybrać język",
+    "start_pick_language": "Proszę wybrać swój język",
+    "onboard_your_lang": "✓ Wybrany język: {language}",
+    "onboard_change_hint": "Można go zmienić w każdej chwili: polecenie /language.",
+    "onboard_phone_hint": "Telegram jest ustawiony po polsku. Jeśli język wybrano przez pomyłkę, proszę nacisnąć „{back}”.",
+    "lang_confirm_learning": "Nauka: {language}",
+    "lang_progress_kept": "Postęp w każdym języku jest zachowany.",
+    "btn_done": "Gotowe",
+    "btn_change_learning": "Zmienić język nauki",
+    "intro_pair": "Nauka: {learning}, tłumaczenie na {native}.",
+    "intro_menu_language": "język bota",
+    "plural_languages": "język|języki|języków",
+    "cmd_start": "Start i co potrafi bot",
+    "cmd_language": "Język bota",
+    "cmd_settings": "Ustawienia",
+    "cmd_help": "Pomoc",
 
     "language_changed": "✓ Język zmieniony na {language}",
     "user_not_found": "✗ Nie znaleziono użytkownika. Proszę użyć /start",
@@ -134,6 +129,10 @@ TEXTS = {
     "lang_tr": "Türkçe",
     "lang_de": "Deutsch",
     "lang_pl": "Polski",
+    "lang_it": "Italiano",
+    "lang_es": "Español",
+    "lang_fr": "Français",
+    "lang_cs": "Čeština",
 
     # Kierunki tłumaczenia
 
@@ -194,6 +193,13 @@ TEXTS = {
     "quiz_btn_report_error": "Zgłosić błąd",
     "report_btn_confirm": "✓ Potwierdzam ({count})",
     "report_btn_send": "Wysłać",
+    "report_kind_text": "Tłumaczenie",
+    "report_kind_example": "Przykład",
+    "report_kind_audio": "Wymowa",
+    "report_pick_hint": "Co jest nie tak? Proszę zaznaczyć i nacisnąć „Wysłać”",
+    "report_btn_sent": "✓ Zgłoszenie wysłane",
+    "report_sent_one": "✓ Dziękujemy!\nJeśli błąd się potwierdzi, przyznamy +{points}.",
+    "report_approved_example": "✓ Zgłoszenie dotyczące przykładu przyjęte: <b>{word}</b>\n\nPoprawimy przykład\n\n+{points} punktów do wyniku miesiąca - dziękujemy",
     "report_no_words": "Brak słów do zgłoszenia",
     "report_none_selected": "Proszę wybrać przynajmniej jedno słowo",
     "report_pick_kind": "Wybrano słów: {count}. Teraz proszę wskazać, co jest nie tak — tłumaczenie czy wymowa.",
@@ -204,10 +210,9 @@ TEXTS = {
     "report_btn_kind_text": "Błędne tłumaczenie",
     "report_btn_kind_audio": "Błędna wymowa",
     "report_sent_audio": "✓ Wysłano zgłoszeń: {count} — dziękujemy!\nZgłoszenia wymowy są szczególnie cenne: automatyczna kontrola nie słyszy akcentu.\nJeśli błąd się potwierdzi — +{points}",
-    "report_approved": "✓ Zgłoszenie dotyczące <b>{word}</b> zostało przyjęte — poprawimy tłumaczenie.\n+{points} punktów do wyniku miesiąca — dziękujemy, słownik będzie lepszy dla wszystkich.",
-    "award_won": "{mark} {month}: miejsce {rank} w rankingu miesiąca.\nDo wyniku ogólnego dodano {bonus} pkt.",
-    "report_approved_audio": "✓ Zgłoszenie wymowy przyjęte: <b>{word}</b>.\nNagranie zostanie przygotowane na nowo. +{points} punktów do wyniku miesiąca — dziękujemy.",
-
+    "report_approved": "✓ Zgłoszenie dotyczące <b>{word}</b> zostało przyjęte - poprawimy tłumaczenie\n\n+{points} punktów do wyniku miesiąca - dziękujemy, słownik będzie lepszy dla wszystkich",
+    "award_won": "{mark} {month}: miejsce {rank} w rankingu miesiąca\n\nDo wyniku ogólnego dodano {bonus} pkt",
+    "report_approved_audio": "✓ Zgłoszenie wymowy przyjęte: <b>{word}</b>\n\nNagranie zostanie przygotowane na nowo\n\n+{points} punktów do wyniku miesiąca - dziękujemy",
     # ============================================================================
     # QUIZ
     # ============================================================================
@@ -222,6 +227,8 @@ TEXTS = {
     "quiz_correct_answer": "Prawidłowa odpowiedź:",
 
     "quiz_btn_next": "Dalej →",
+
+    "quiz_answer_already_counted": "Odpowiedź została już zaliczona. Kontynuujemy?",
     "quiz_btn_repeat_errors": "Powtórka błędów",
 
     "quiz_completed": "<b>Lekcja ukończona</b>",
@@ -241,6 +248,11 @@ TEXTS = {
     "praise_comeback": "Witamy z powrotem. Przerwa trwała {days_word}.",
     "praise_perfect": "Lekcja bez błędu",
     "praise_streak": "Seria: {days_word} z rzędu",
+    "praise_freeze_saved": "Wczoraj była przerwa, ale ochrona serii ją uratowała: {days_word} z rzędu. Kolejna ochrona będzie dostępna za tydzień.",
+    "praise_streak_3": "Trzy dni z rzędu — nawyk się zaczyna.",
+    "praise_streak_7": "Cały tydzień z rzędu! To najważniejszy próg: dalej nawyk trzyma się sam.",
+    "praise_streak_14": "Dwa tygodnie z rzędu — świetne tempo.",
+    "praise_streak_30": "Miesiąc z rzędu! To już prawdziwy nawyk.",
     "praise_new_words": "Nowe słowa: {count}",
     "praise_returned": "Rozpoznane ponownie: {count}",
     "praise_progress": "Słowa w nauce: {count} · do {target} jeszcze {left}",
@@ -290,43 +302,62 @@ Im aktywniejsza społeczność, tym lepszy bot. Serdecznie zapraszamy! """,
     # ============================================================================
     # RANKING
     # ============================================================================
-    "rating_title_monthly": "<b>Moja pozycja — {month} {year}</b>",
     "rating_not_active": "✗ Ranking nie jest jeszcze aktywny.",
     "rating_not_in_ranking": "Brak jeszcze pozycji w rankingu",
     "rating_start_quiz": "Zapraszamy na pierwszą lekcję!",
     "rating_join_by_lesson": "Punkty za zgłoszenia ({score}) zostały przyznane. Proszę ukończyć lekcję, aby dołączyć do rankingu miesiąca.",
     "release_notes_2026_10": "✨ <b>GenauLingua 2.0 — zbudowaliśmy bota od nowa</b>\n\n<b>Nie tylko niemiecki.</b> Można uczyć się ukraińskiego, angielskiego, tureckiego, niemieckiego, polskiego lub rosyjskiego — z każdego z nich. Interfejs też jest w sześciu językach.\n\n<b>Sześć gier zamiast jednej.</b> Wcześniej było tylko „wybierz tłumaczenie”.\n\nTeraz gry w lekcji się zmieniają:\n📖 Czytam · 💭 Przypominam · 🎧 Słucham · 🎤 Mówię · 🧩 Proszę znaleźć pary · 🧱 Układam\n\nW „Mówię” odpowiada się głosem, w „Układam” składa się zdanie ze słów — bot pokaże, które słowo jest nie na miejscu.\n\n<b>Bot mówi.</b> Każde słowo i przykład ma nagranie naturalnym głosem.\n\n<b>Nowy wygląd.</b> Nowe menu, czysty czat bez zbędnych wiadomości, ekran główny z umiejętnościami, czytelne statystyki, nowy awatar i powitanie.\n\n<b>Cały słownik sprawdzony</b> — wszystkie 12 902 słowa, tłumaczenia i przykłady.\n\n<b>Bot sam się dostosowuje:</b> wraca do słów tuż przed tym, jak wylecą z pamięci, i proponuje wyższy poziom, gdy robi się łatwo.\n\n<b>Poprawione błędy:</b> seria dni liczy się prawidłowo, a punkty w rankingu są uczciwe — za wysiłek. „Nauczone” też liczy się teraz uczciwie: słowo jest nauczone, gdy zostało rozpoznane trzy razy z rzędu w różne dni, a wszystkie przerobione słowa widać w wierszu „Słowa w nauce”.\n\n<b>Przypomnienia są włączone</b> — o wybranej porze. Zmienić lub wyłączyć: Ustawienia → Bot → Przypomnienia.\n\n⭐ Błąd w słowniku? Wystarczy zgłosić go z podsumowania lekcji: każde potwierdzone zgłoszenie to +15 punktów.\n\nPostęp i punkty są zachowane. Proszę spróbować — lekcja zajmuje kilka minut.",
-    "rating_position": "Pozycja: <b>#{rank}</b> z {total}",
-    "rating_points": "Punkty: <b>{score}</b>",
-    "rating_your_month": "<b>Wyniki — {month}:</b>",
-    "rating_quizzes": "Lekcje: {count}",
-    "rating_words_learned": "Nauczone słowa: {count}",
-    "rating_streak": "Seria: {days_word}",
-    "rating_avg_result": "Średni wynik: {percent}%",
-    "rating_scoring_title": "<b>Jak zdobyć punkty:</b>",
-    "rating_scoring_report": "• Potwierdzone zgłoszenie błędu → +{points}",
+    "release_notes_2026_10_22": '✨ <b>GenauLingua 2.2 - teraz dziesięć języków</b>\n\nDzień dobry!\n\nMamy dużą aktualizację:\n\n<b>4 nowe języki</b>\n\n🇮🇹 Włoski, 🇪🇸 hiszpański, 🇫🇷 francuski i 🇨🇿 czeski - można się ich uczyć w dowolnym języku bota\nW każdym ponad 12 000 słów z przykładami, wszystko z nagraniami\n\n<b>Ranking, w którym jest o co walczyć</b>\n\nMedale miesiąca 🥇🥈🥉, korona 👑 dla najlepszej osoby wśród uczących się tego samego języka i tytuły, które rosną razem z postępami. Pierwsze wyniki według nowych zasad - 1 listopada\n\n<b>Seria wybacza przerwę</b>\n\nRaz w tygodniu ochrona serii 🧊 uratuje serię, jeśli zdarzy się opuszczony dzień\n\n<b>Poza tym:</b> zgłoszenie błędu w tłumaczeniu, przykładzie lub nagraniu - prosto pod odpowiedzią (+15 punktów za potwierdzone)\n\nZnane słowa szybciej trafiają do nauczonych, a aktualizacja bota nie przerywa już lekcji\n\nDziękujemy za naukę z nami i zgłaszanie błędów - dzięki temu bot jest lepszy dla wszystkich 💙\n\nWszystko o nowościach - krótko i przejrzyście: <a href="{url}">co nowego w 2.2</a>',
+    "btn_release_news": 'Co nowego →',
 
-    "rating_title_alltime": "<b>Moja pozycja — ogółem</b>",
-    "rating_position_alltime": "Pozycja: <b>#{rank}</b>",
-    "rating_position_none": "Pozycja: <b>—</b>",
-    "rating_achievements": "<b>Osiągnięcia:</b>",
-    "rating_wins": "Zwycięstwa (1. miejsce): {count}",
-    "rating_total_words": "Nauczone słowa: {count}",
-    "rating_motivation_start": "Wszystko zaczyna się od pierwszej lekcji — pierwszy krok jest najważniejszy.",
-    "rating_motivation_continue": "Tak dalej — pierwsze zwycięstwo blisko!",
-    "rating_motivation_champion": "Prawdziwe mistrzostwo!",
 
-    "table_title_monthly": "<b>Tabela liderów — {month} {year}</b>",
-    "table_title_alltime": "<b>Tabela liderów — ogółem</b>",
     "table_empty": "Na razie nikt nie bierze udziału.\nPierwsze miejsce czeka!",
-    "table_you_in_top": "Moje miejsce: <b>#{rank}</b> z {total}",
-    "table_you_not_in_top": "Moje miejsce: <b>#{rank}</b> z {total} — {score}",
-    "table_you_outside": "Moje miejsce: poza pierwszą dziesiątką — {score}",
     "table_you_not_ranked": "Brak jeszcze pozycji w rankingu",
-    "btn_leaderboard_table": "Tabela liderów",
-    "btn_back_to_rating": "Powrót do pozycji",
     "rating_tab_month": "Miesiąc",
     "rating_tab_alltime": "Ogółem",
+    "rating_crown_rule": "Pierwsze miejsce dostaje koronę na cały następny miesiąc",
+    "rating_screen_title": "<b>Ranking · {month} {year}</b>",
+    "rating_screen_title_alltime": "<b>Ranking · ogółem</b>",
+    "rating_you": "<b>Moje miejsce: #{rank} z {total}</b> · {points}",
+    "rating_results_in": "Wyniki miesiąca za {days}",
+    "info_title": "<b>Jak działa ranking</b>",
+    "info_month": "<b>Miesiąc</b> — wszyscy. Trzy najlepsze osoby dostają 🥇 🥈 🥉 (od 3 lekcji).",
+    "info_lang": "<b>Język</b> — osoby uczące się Pana/Pani języka. Pierwsze miejsce dostaje 👑 na następny miesiąc.",
+    "info_alltime": "<b>Ogółem</b> — wszystkie punkty. Medale podnoszą tytuł 🌱 🌳 🌙 🪐 ☀️",
+    "info_points_title": "<b>Punkty</b>",
+    "info_points": "Odpowiedź +1 · ze słuchu +2 · na głos +3\nLekcja +10 · nauczone słowo +3\nDni z rzędu — do +10 · trafność powyżej 60% — bonus\nPotwierdzone zgłoszenie +{points}",
+    "title_sprout": "Kiełek",
+    "title_tree": "Drzewo",
+    "title_moon": "Księżyc",
+    "title_planet": "Planeta",
+    "title_sun": "Słońce",
+    "title_galaxy": "Galaktyka",
+    "btn_rating_info": "Info",
+    "card_medal_need": "Lekcji potrzebnych do medalu: {need} · ma Pan/Pani {have}",
+    "card_crown_small": "O koronę gra się, gdy w języku są 3+ osoby z 3+ lekcjami",
+    "summary_place": "↑ Miejsce w miesiącu: {rank}",
+    "summary_gap": "do {name} {gap}",
+    "summary_record": "Nowy rekord miesiąca: {points}",
+    "collection_title": "<b>Kolekcja</b> · odblokowano {open} z {total}",
+    "collection_locked": "▫️ ???",
+    "ach_streak_7": "Seria 7 dni",
+    "ach_streak_30": "Seria 30 dni",
+    "ach_streak_100": "Seria 100 dni",
+    "ach_streak_365": "Seria 365 dni",
+    "ach_streak_1000": "Seria 1000 dni",
+    "ach_words_100": "100 nauczonych słów",
+    "ach_words_1000": "1000 nauczonych słów",
+    "ach_words_3000": "3000 nauczonych słów",
+    "ach_perfect_10": "10 lekcji bez błędów",
+    "ach_voice_1000": "1000 poprawnych odpowiedzi na głos",
+    "ach_editor": "Redaktor słownika: 5 przyjętych zgłoszeń",
+    "ach_polyglot": "Poliglota: 100 słów w dwóch językach",
+    "award_month_header": "<b>Wyniki miesiąca</b>",
+    "award_crown": "👑 Korona: jest Pan/Pani najlepszy w języku {language}. Proszę nosić ją przez cały następny miesiąc",
+    "award_glory": "+{glory} chwały",
+    "award_new_title": "Nowy tytuł: {mark} {name}",
+    "nd_overtaken": "Ktoś wyprzedził Pana/Panią w rankingu miesiąca.\nMiejsce: {rank} · do {name} {gap}.",
+    "nd_finish": "Do końca miesiąca: {days}.\nMiejsce: {rank} · do medalu {gap}.",
 
     # ============================================================================
     # STATYSTYKI (NOWE)
@@ -337,7 +368,6 @@ Im aktywniejsza społeczność, tym lepszy bot. Serdecznie zapraszamy! """,
     "stats_details": "W toku: {progress}\nNowe: {new}\nTrudne: {difficult}",
     "stats_achievements_title": "<b>Osiągnięcia</b>",
     "stats_words_count": "Nauczone słowa: <b>{count}</b>",
-    "stats_streak_line": "Seria: {days_word} z rzędu",
     "stats_best_streak_line": "Najlepsza seria: {days_word}",
     "stats_quizzes_header": "<b>Lekcje · {level}</b>",
     "stats_quizzes_passed_line": "Ukończone: <b>{count}</b>",
@@ -345,8 +375,6 @@ Im aktywniejsza społeczność, tym lepszy bot. Serdecznie zapraszamy! """,
     "stats_quizzes_best_line": "Najlepszy wynik: <b>{percent}%</b>",
     "stats_quizzes_empty": "Na razie brak ukończonych lekcji",
     "stats_recent_header": "<b>Ostatnie lekcje</b>",
-    "stats_overall_header": "<b>Postęp ogólny</b>",
-    "stats_overall_learned": "Nauczone słowa: <b>{learned}</b> z {total}",
     "stats_explanation": "Słowo nauczone = trzy poprawne odpowiedzi z rzędu, w różne dni",
 }
 
@@ -361,6 +389,10 @@ TEXTS.update({
     "langname_uk": "Ukraiński",
     "langname_tr": "Turecki",
     "langname_pl": "Polski",
+    "langname_it": "Włoski",
+    "langname_es": "Hiszpański",
+    "langname_fr": "Francuski",
+    "langname_cs": "Czeski",
     # Spójnik do wyliczania języków w pomocy i powitaniu
     "and_word": "i",
 
@@ -411,7 +443,6 @@ TEXTS.update({
     "btn_rating": "Ranking",
     "friend_fallback": "przyjacielu",
     "onboarding_learning_title": "<b>Jakiego języka się uczyć?</b>",
-    "onboarding_learning_desc": "Znaczenia będą pokazywane w języku: {native}\nJęzyk można zmienić w ustawieniach w każdej chwili.",
 })
 
 
@@ -424,7 +455,7 @@ TEXTS.update({
 # экране, и оставлено то, чего из интерфейса не видно.
 # ============================================================================
 TEXTS.update({
-    "help_how_to_use_text": "<b>Lekcja</b>\n{words}, cztery warianty odpowiedzi. Gry zmieniają się same: „Czytam”, „Przypominam”, „Słucham”, „Mówię” i plansza do łączenia w pary. Bot zapamiętuje błędy i częściej wraca do trudnych słów. Po lekcji można od razu powtórzyć pytania z błędami.\n\n<b>Wymowa</b>\nW pytaniu brzmi słowo, po odpowiedzi — słowo razem z przykładem. Głos można wybrać w ustawieniach, męski albo żeński.\n\n<b>Języki</b>\n{languages} — w każdej parze. Postępy i ranking liczą się osobno dla każdego języka.\n\n\nSłowo jest <b>nauczone</b> po trzech poprawnych odpowiedziach z rzędu, w różne dni.\n<b>Seria</b> to kolejne dni, w których była co najmniej jedna lekcja.\nBłąd w tłumaczeniu lub wymowie — przycisk „Zgłosić błąd” po lekcji.",
+    "help_how_to_use_text": "<b>Lekcja</b>\n{words}, cztery warianty odpowiedzi. Gry zmieniają się same: „Czytam”, „Przypominam”, „Słucham”, „Mówię”, „Układam” i plansza do łączenia w pary. Bot zapamiętuje błędy i częściej wraca do trudnych słów. Po lekcji można od razu powtórzyć pytania z błędami.\n\n<b>Wymowa</b>\nW pytaniu brzmi słowo, po odpowiedzi — słowo razem z przykładem. Głos można wybrać w ustawieniach, męski albo żeński.\n\n<b>Języki</b>\n{languages} — w każdej parze. Postępy liczą się osobno dla każdego języka, a ranking ma zakładki „Miesiąc”, „Ogółem” i „Język”.\n\n\nSłowo jest <b>nauczone</b> po trzech poprawnych odpowiedziach z rzędu, w różne dni. Jeśli pierwsza odpowiedź na nowe słowo jest poprawna, wystarczy jeszcze jedna.\n<b>Seria</b> to kolejne dni, w których była co najmniej jedna lekcja. Jeden dzień przerwy w tygodniu jej nie przerywa — chroni ją ochrona serii.\nBłąd w tłumaczeniu lub wymowie — przycisk „Zgłosić błąd” pod odpowiedzią.",
     "help_community_title": "<b>O bocie i społeczności</b>",
     "help_community_text": "<b>GenauLingua</b> — {language_count} języków w każdej parze: {languages}\n12 900 słów A1–C2, każde z przykładem i naturalnie brzmiącą wymową.\nInterfejs: {interface_languages}\n\n<b>t.me/genaulingua_chat</b>\nBłędy, pomyłki w tłumaczeniu, pomysły — czytamy wszystko. Zgłoszenia o wymowie są szczególnie cenne: maszyna nie słyszy akcentu.",
 })
@@ -455,11 +486,6 @@ TEXTS.update({
 # три балла, и терять серию было почти не жалко.
 # ============================================================================
 TEXTS.update({
-    "rating_scoring_answer": "• Poprawna odpowiedź → +1, ze słuchu → +2, na głos → +3",
-    "rating_scoring_quiz": "• Ukończona lekcja → +10",
-    "rating_scoring_word": "• Nauczone słowo → +3",
-    "rating_scoring_streak": "• Każdy kolejny dzień serii jest wart więcej, do +10",
-    "rating_scoring_bonus": "• Celność powyżej 60% — im wyżej, tym więcej",
 })
 
 
@@ -532,7 +558,7 @@ TEXTS.update({
 # судить не умеет — он обучен ПОНИМАТЬ акцент, а не замечать его.
 # ============================================================================
 TEXTS.update({
-    "quiz_question_speak": "🎤 Proszę wypowiedzieć to słowo na głos — w wiadomości głosowej",
+    "quiz_question_speak": "🎤 Proszę wypowiedzieć to słowo na głos w wiadomości głosowej: nacisnąć i przytrzymać ikonę mikrofonu w polu wpisywania Telegrama, w prawym dolnym rogu",
     "speech_btn_reference": "Odsłuchać wolniej",
     "speech_btn_skip": "Pominąć",
     "speech_listening": "🎧 Słucham…",
@@ -554,7 +580,6 @@ TEXTS.update({
     "home_scale_audio": "Słucham",
     "home_scale_speech": "Mówię",
     "home_btn_learn": "Nauka słów",
-    "home_streak": "seria: {days_word}",
     "home_rank": "miejsce {rank}",
     "home_hint": "",
     "home_channel_not_ready": "{channel}: jeszcze za wcześnie. Słów gotowych do tej gry: {ready}, potrzeba co najmniej {minimum}. Warto poćwiczyć na kartach — to one otwierają pozostałe gry.",
@@ -593,15 +618,17 @@ TEXTS.update({
     "quiz_btn_one_more": "Jeszcze jedna lekcja",
     "home_btn_stats": "Szczegóły",
     "notif_off_how_to_return": "Włączyć ponownie: Ustawienia → Bot → Przypomnienia",
-    "reminder_offer": "Przypominać raz dziennie? Łatwiej wtedy utrzymać to, co już nauczone, i nie przerwać serii.",
-    "reminder_offer_yes": "Tak, proszę przypominać",
-    "reminder_offer_no": "Nie trzeba",
-    "reminder_offer_done": "✓ Gotowe: przypomnienie przyjdzie o <b>{time}</b> ({city}). Godzinę, dni i strefę czasową można dostosować.",
+    "reminder_offer_done": "✓ Gotowe: przypomnienie przyjdzie o <b>{time}</b> ({city})\n\nGodzinę, dni i strefę czasową można dostosować",
     "reminder_offer_setup": "Ustawienia przypomnień",
-    "level_offer": "Na poziomie <b>{current}</b> błędów prawie nie ma. Przejść na <b>{following}</b>? Wszystkie postępy zostają.",
+    "level_offer": "Na poziomie <b>{current}</b> błędów prawie nie ma\n\nPrzejść na <b>{following}</b>?\n\nWszystkie postępy zostają",
     "level_offer_yes": "Tak, przejść na {following}",
     "level_offer_no": "Zostaję",
-    "level_offer_done": "Nowy poziom: <b>{following}</b>. Słowa będą trudniejsze.",
+    "level_offer_done": "Nowy poziom: <b>{following}</b>\n\nSłowa będą trudniejsze",
+    "level_offer_pick": "Poziom <b>{current}</b> wydaje się łatwy\n\nProszę wybrać, od którego poziomu kontynuować\n\nWszystkie postępy zostają",
+    "level_offer_stay": "Zostaję na {current}",
+    "level_down_offer": "Na poziomie <b>{current}</b> jest na razie sporo błędów\n\nPrzejść na <b>{previous}</b>?\n\nSłowa będą łatwiejsze, wszystkie postępy zostają",
+    "level_down_yes": "Tak, przejść na {previous}",
+    "level_down_done": "Nowy poziom: <b>{previous}</b>\n\nSłowa będą łatwiejsze",
 })
 
 
@@ -632,7 +659,7 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "intro_games": "Każde słowo ćwiczy się tu na kilka sposobów: przeczytać, przypomnieć sobie po znaczeniu, rozpoznać ze słuchu, powiedzieć na głos, dopasować w pary na planszy.\nLekcja sama je miesza.",
-    "intro_numbers": "12 902 słowa · 20 tematów · 6 poziomów\nSześć języków w dowolnej parze: na przykład polski przez angielski.",
+    "intro_numbers": "12 902 słowa · 20 tematów · 6 poziomów\n{languages} w dowolnej parze: na przykład polski przez angielski.",
     "intro_menu_settings": "język, gry w lekcji, przypomnienia",
     "intro_menu_stats": "postępy",
     "intro_menu_rating": "ranking miesiąca",
@@ -688,8 +715,8 @@ TEXTS.update({
     "match_state_on": "Plansza włączona: pojawi się w środku lekcji.",
     "settings_match_short_on": "z planszą",
     "settings_channels_short_one": "tylko „Czytam”",
-    "settings_channels_short_some": "{count} gry z czterech",
-    "settings_channels_short_all": "wszystkie cztery gry",
+    "settings_channels_short_some": "{count} z {total} gier",
+    "settings_channels_short_all": "wszystkie gry",
     "plural_words": "słowo|słowa|słów",
     "plural_points": "punkt|punkty|punktów",
     "plural_days": "dzień|dni|dni",
@@ -697,4 +724,87 @@ TEXTS.update({
     "settings_audio_short_on": "z dźwiękiem",
     "settings_match_short_off": "bez planszy",
     "match_state_off": "Plansza wyłączona: lekcja to same pytania.",
+})
+
+# ============================================================================
+# СООБЩЕНИЯ ПО ИНИЦИАТИВЕ БОТА — патч 2.1 «Вовлечение» (`nudge_texts`).
+# Голос и запрет значков — в ru.py; номера вариантов `_N` те же (тест).
+# ============================================================================
+TEXTS.update({
+    "plural_lessons": "lekcja|lekcje|lekcji",
+    "nd_teaser_quiz_1": "Co znaczy {word}? {meaning}",
+    "nd_teaser_quiz_2": "Sprawdźmy: {word} - {meaning}",
+    "nd_teaser_quiz_3": "Jedno ze słów w nauce: {word} - {meaning}",
+    "nd_teaser_quiz_4": "Jak przetłumaczyć {word}? {meaning}",
+    "nd_teaser_new_1": "Na przykład: {word} - {meaning}",
+    "nd_teaser_new_2": "Pierwsze słowo: {word} - {meaning}",
+    "nd_teaser_new_3": "Jak przetłumaczyć {word}? Tłumaczenie jest ukryte - wystarczy je dotknąć: {meaning}",
+    "nd_streak_head_1": "<b>{name}, seria: {days} z rzędu</b>",
+    "nd_streak_head_2": "<b>{name}, {days} z rzędu. Kontynuujemy?</b>",
+    "nd_streak_head_3": "<b>{name}, już {days} z rzędu</b>",
+    "nd_streak_head_4": "<b>{name}, {days} bez przerwy</b>",
+    "nd_streak_head_5": "<b>{name}, jeszcze jedna lekcja, i będzie {next_days} z rzędu</b>",
+    "nd_streak_head_6": "<b>{name}, seria czeka na ciąg dalszy: {days}</b>",
+    "nd_streak_head_7": "<b>{days} z rzędu, {name}</b>",
+    "nd_streak_head_8": "<b>{name}, {days} z rzędu. Dziś jeszcze jedna lekcja?</b>",
+    "nd_body_learned_1": "Znane słowa: {known_n} · nauczone: {learned}",
+    "nd_body_learned_2": "Słowa w nauce: {in_work} · nauczone: {learned}",
+    "nd_body_learned_3": "Znane słowa: {known_n}, z tego nauczone: {learned}.",
+    "nd_body_known_1": "Znane słowa: {known_n}. Każda lekcja dodaje nowe.",
+    "nd_body_known_2": "Słowa w nauce: {in_work}. Pierwsze nauczone już blisko.",
+    "nd_body_known_3": "Znane słowa: {known_n}.",
+    "nd_streak_close_1": "Małymi krokami do dużego celu.",
+    "nd_streak_close_2": "Codziennie po trochu: tak słowa zostają w pamięci.",
+    "nd_streak_close_3": "Jedna lekcja dziś przedłuży serię.",
+    "nd_streak_close_4": "Lekcja to około {minutes_n} minut.",
+    "nd_streak_close_5": "Regularność jest ważniejsza niż długość lekcji.",
+    "nd_progress_head_known": "<b>{name}, znane słowa: {known_n}</b>",
+    "nd_progress_head_1": "<b>{name}, słowa czekają na powtórkę</b>",
+    "nd_progress_head_2": "<b>{name}, znajdzie się kilka minut?</b>",
+    "nd_progress_head_3": "<b>{name}, kontynuujemy od tego samego miejsca?</b>",
+    "nd_progress_head_4": "<b>{name}, wracamy do słów?</b>",
+    "nd_progress_head_5": "<b>{name}, dobry moment, by odświeżyć słowa</b>",
+    "nd_due_1": "Słowa do powtórki: {due_n}. Terminy bot liczy sam.",
+    "nd_due_2": "Pora powtórzyć: {due}, zanim wylecą z pamięci.",
+    "nd_due_3": "Słów do powtórki: {due_n}. Bot już wybrał, od których zacząć.",
+    "nd_due_many_1": "Słów do powtórki uzbierało się sporo: lekcja sama zacznie od najważniejszych.",
+    "nd_due_many_2": "Powtórki się nazbierały. Wystarczy jedna lekcja dziennie, reszta poczeka.",
+    "nd_praise_1": "Ukończone lekcje: {lessons_n}. Po trochu, ale regularnie.",
+    "nd_praise_2": "Ukończone lekcje: {lessons_n}. Małymi krokami do dużego celu.",
+    "nd_praise_3": "Ukończone lekcje: {lessons_n}, i każda dodała słów.",
+    "nd_short_1": "Jedna lekcja to około {minutes_n} minut.",
+    "nd_short_2": "To kilka minut.",
+    "nd_first_head_words": "<b>{name}, wczoraj nowe słowa: {first_n}</b>",
+    "nd_first_head_1": "<b>{name}, dobry początek</b>",
+    "nd_first_head_2": "<b>{name}, sprawdzimy wczorajsze słowa?</b>",
+    "nd_first_body_1": "Powtórka następnego dnia pomaga utrwalić słowa.",
+    "nd_first_body_2": "Drugi dzień to najlepszy moment, by utrwalić nowe słowa.",
+    "nd_first_close_1": "To kilka minut.",
+    "nd_first_close_2": "Lekcja to około {minutes_n} minut.",
+    "nd_kept_head_1": "<b>{name}, wszystko jest na miejscu</b>",
+    "nd_kept_head_2": "<b>{name}, słowa są zapisane</b>",
+    "nd_kept_head_3": "<b>{name}, dawno się nie widzieliśmy</b>",
+    "nd_kept_body_1": "Znane słowa: {known_n} · nauczone: {learned}. Nic nie przepadło - lekcja zacznie od tych, które warto odświeżyć.",
+    "nd_kept_body_2": "Cały postęp jest zapisany. Lekcja zacznie od słów, które warto odświeżyć.",
+    "nd_kept_body_3": "Przerwy zdarzają się każdemu. Zacząć można od jednej krótkiej lekcji.",
+    "nd_kept_best": "Najlepsza seria: {best} z rzędu. Nowa zaczyna się od jednej lekcji.",
+    "nd_farewell_head_1": "<b>{name}, przypomnień już nie będzie</b>",
+    "nd_farewell_head_2": "<b>{name}, ostatnie przypomnienie</b>",
+    "nd_farewell_body_1": "Bot nie będzie już pisać aż do powrotu. Wszystko jest zapisane: znane słowa {known_n}, nauczone {learned}. Kontynuować można w każdej chwili przyciskiem poniżej.",
+    "nd_farewell_body_2": "Wygląda na to, że teraz nie ma czasu na naukę - to normalne. Przypomnień już nie będzie. Słowa i postęp są zapisane.",
+    "nd_start_head_1": "<b>{name}, pierwsze słowa już czekają</b>",
+    "nd_start_head_2": "<b>{name}, zaczynamy?</b>",
+    "nd_start_head_3": "<b>{name}, pierwsza lekcja to około {minutes_n} minut</b>",
+    "nd_start_body_1": "Bot dobierze najpotrzebniejsze słowa do poziomu i sam będzie pilnować, kiedy je powtórzyć.",
+    "nd_start_body_2": "Zaczniemy od najczęstszych słów, tych, które słychać codziennie.",
+    "nd_start_body_3": "Nic nie trzeba przygotowywać: {questions} pytań, a potem bot podpowie, co i kiedy powtórzyć.",
+    "nd_start3_head_1": "<b>{name}, spróbujemy?</b>",
+    "nd_start3_head_2": "<b>{name}, pierwsze słowa wciąż czekają</b>",
+    "nd_start_last_head": "<b>{name}, ostatnie zaproszenie</b>",
+    "nd_start_last_body": "Przypomnień już nie będzie. Pierwsza lekcja to około {minutes_n} minut - przycisk jest poniżej.",
+    "nd_btn_optin": "Przypomnienie o {time}",
+    "nd_btn_stop": "Nie wysyłać",
+    "nd_auto_time": "Przypomnienie codziennie o {time}. Godzinę można zmienić",
+    "nd_btn_change_time": "Zmienić godzinę",
+    "nd_optin_done": "✓ Gotowe: przypomnienie będzie przychodzić o <b>{time}</b>\n\nGodzinę można zmienić w ustawieniach",
 })

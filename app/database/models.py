@@ -9,7 +9,7 @@ from sqlalchemy import (
     UniqueConstraint, Index, true as sa_true
 )
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
-from sqlalchemy.dialects.postgresql import ARRAY
+from sqlalchemy.dialects.postgresql import ARRAY, JSONB
 from app.database.enums import (
     CEFRLevel, TranslationMode, PartOfSpeech, QuizMode, WordCategory,
     counted_channels,
@@ -171,6 +171,33 @@ class User(Base):
     # === МЕСЯЧНАЯ СИСТЕМА РЕЙТИНГА ===
     lifetime_score: Mapped[int] = mapped_column(Integer, default=0)
     best_streak_days: Mapped[int] = mapped_column(Integer, default=0)
+    # День, когда заморозка простила пропуск (патч 2.1): следующая — не
+    # раньше чем через неделю (`streak_service.advance`)
+    streak_freeze_on: Mapped[Optional[date]] = mapped_column(Date, nullable=True)
+    # Лесенка возврата (патч 2.1, `nudge_plan`): к какому перерыву она
+    # относится — его последний день занятий (у не занимавшегося — день
+    # /start) — и какая ступень (день перерыва) по нему уже была. Новый
+    # перерыв — новый день — лесенка начинается заново
+    nudge_anchor: Mapped[Optional[date]] = mapped_column(Date, nullable=True)
+    # Когда кончился «первый урок» (патч 2.1): первое законченное занятие
+    # ИЛИ 7 ответов всего, даже в брошенных. До этого — лёгкое занятие из 7
+    # карточек частых однословных слов (`quiz_service.in_first_lesson`)
+    nudge_step: Mapped[int] = mapped_column(Integer, default=0, server_default="0", nullable=False)
+    onboarded_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
+    # Когда человек ЯВНО отказался от напоминаний («Не надо» под
+    # предложением или «Не напоминать»). Молчание отказом не считается:
+    # `reminder_offered_at` ставится при отправке предложения (патч 2.1)
+    reminders_declined_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
+    # Напоминания включил БОТ при знакомстве, а не человек (16.10). Нужна
+    # контрольной группе: у таких 10% сообщений не получают. Снимается,
+    # как только человек сам включит, выберет время, дни или пояс
+    reminders_auto: Mapped[bool] = mapped_column(Boolean, default=False,
+                                                 server_default="false", nullable=False)
+    # «Вас обогнали» (17.10): кто последним обогнал человека в общем месяце и
+    # когда. Пишет конец занятия обогнавшего, читает распорядитель сообщений;
+    # после отправки — пусто
+    overtaken_by_id: Mapped[Optional[int]] = mapped_column(BigInteger, nullable=True)
+    overtaken_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
     total_monthly_wins: Mapped[int] = mapped_column(Integer, default=0)
 
     # Связи
@@ -341,6 +368,10 @@ class Word(Base):
     translation_en: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     translation_tr: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     translation_pl: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    translation_it: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    translation_es: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    translation_fr: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    translation_cs: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
 
     # Примеры использования
     example_de: Mapped[Optional[str]] = mapped_column(Text)
@@ -349,6 +380,10 @@ class Word(Base):
     example_en: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     example_tr: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     example_pl: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    example_it: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    example_es: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    example_fr: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    example_cs: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
 
     # Старое поле categories — оставляем для обратной совместимости
     categories: Mapped[Optional[List[str]]] = mapped_column(
@@ -456,6 +491,11 @@ class QuizSession(Base):
         default=utcnow
     )
     completed_at: Mapped[Optional[datetime]] = mapped_column(DateTime)
+    # День человека (по его поясу НА МОМЕНТ завершения). Серия из истории
+    # прежде пересчитывалась нынешним поясом, и после смены пояса живой
+    # путь и восстановление расходились (аудит 2.1: 503 истории из 1971).
+    # У строк до 2.1 пусто — для них день считается по `completed_at`
+    local_day: Mapped[Optional[date]] = mapped_column(Date, nullable=True)
 
     # Relationships
     user: Mapped["User"] = relationship(back_populates="quiz_sessions")
@@ -860,8 +900,11 @@ class TranslationReport(Base):
     """
     __tablename__ = "translation_reports"
     __table_args__ = (
+        # С ПАРОЙ (16.10): на одно слово жалуются в каждой паре отдельно —
+        # неверным бывает чешский перевод при верном русском
         UniqueConstraint(
-            "user_id", "word_id", "kind", name="uq_translation_reports_user_word_kind"
+            "user_id", "word_id", "kind", "learning_lang", "native_lang",
+            name="uq_translation_reports_user_word_kind_pair",
         ),
         Index("ix_translation_reports_status", "status"),
         Index("ix_translation_reports_kind", "kind"),
@@ -885,6 +928,12 @@ class TranslationReport(Base):
     # Каким голосом человек слышал слово. Без этого жалобу на произношение
     # нечем проверить: голосов на язык до шести, и звучат они по-разному.
     voice: Mapped[Optional[str]] = mapped_column(String(64), nullable=True)
+    # ПАРА ЯЗЫКОВ, в которой замечена ошибка (Н4, 16.10). Прежде угадывалась
+    # по занятию, а без него — по нынешнему языку человека; вторая сторона
+    # пары не была известна вовсе. С десятью языками без неё не понять,
+    # какую из колонок перевода править и в чей рейтинг класть балл
+    learning_lang: Mapped[Optional[str]] = mapped_column(String(2), nullable=True)
+    native_lang: Mapped[Optional[str]] = mapped_column(String(2), nullable=True)
     status: Mapped[str] = mapped_column(
         String(20), nullable=False, default="pending"
     )  # pending / reviewed / fixed / rejected
@@ -934,6 +983,57 @@ class WordLangGroup(Base):
     # Нормализованный headword — ключ группировки. Хранится для отладки
     # и для показа синонимов.
     norm_key: Mapped[str] = mapped_column(String(255), nullable=False)
+
+
+class WordFrequency(Base):
+    """
+    Насколько ходовое слово на каждом языке — частота zipf по wordfreq.
+
+    ЗАЧЕМ. Новое слово внутри уровня бралось случайно, и новичок A1 получал
+    Strumpf (22 385-е по частоте) раньше Haus. Прод 15.10: новички уходили
+    после первых слов, отвечая на всё верно. Теперь новое берётся среди
+    самых ходовых невиденных (`quiz_service.get_new_words`).
+
+    СВОЯ ТАБЛИЦА, А НЕ КОЛОНКА В ГРУППАХ: `rebuild_word_groups` пересобирает
+    word_lang_groups целиком и стёр бы частоты. Частота — по ИЗУЧАЕМОМУ
+    языку: учащему английский ходовое по-английски, а не по-немецки.
+    Заполняет `app.scripts.fill_word_frequency`.
+    """
+
+    __tablename__ = "word_frequency"
+
+    word_id: Mapped[int] = mapped_column(
+        ForeignKey("words.id", ondelete="CASCADE"), primary_key=True
+    )
+    lang: Mapped[str] = mapped_column(String(2), primary_key=True)
+    zipf: Mapped[float] = mapped_column(Float, nullable=False)
+
+
+class WordLevel(Base):
+    """
+    Уровень слова В ИЗУЧАЕМОМ ЯЗЫКЕ — для всех, кроме немецкого.
+
+    ЗАЧЕМ. `Word.level` — уровень немецкого слова по спискам Goethe, и
+    учащий английский получал немецкие уровни: сверка 15.10 с Oxford —
+    точно совпадает 32%, на два уровня и больше расходится 22%, треть
+    английских A1 (cold, only, check) стояла на B1 и выше. Владелец: «В
+    английском быстро дошёл до C2», «бот должен быть правильный в своей
+    выдаче, уровнях… на всех языках».
+
+    Английский — по официальному Oxford 3000/5000 by CEFR; слова вне списка
+    и польский, турецкий, русский, украинский — среднее уровня понятия
+    (Goethe) и места слова по частоте в своём языке. Строки нет — берётся
+    `Word.level` (`quiz_service.level_expr`). Заполняет
+    `app.scripts.fill_word_levels`.
+    """
+
+    __tablename__ = "word_levels"
+
+    word_id: Mapped[int] = mapped_column(
+        ForeignKey("words.id", ondelete="CASCADE"), primary_key=True
+    )
+    lang: Mapped[str] = mapped_column(String(2), primary_key=True)
+    level: Mapped[CEFRLevel] = mapped_column(SQLEnum(CEFRLevel), nullable=False)
 
 
 class UserTtsVoice(Base):
@@ -1070,3 +1170,78 @@ class WordAudio(Base):
     duration_seconds: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
 
     created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
+
+
+class NudgeLog(Base):
+    """
+    Каждое сообщение по инициативе бота — и каждое НЕотправленное контрольной
+    группе (патч 2.1, `app/schedulers/nudges.py`).
+
+    Владелец 15.10: «нужно внимательно трекать, чтобы точно понимать, что
+    это либо работает, либо вредит». Без журнала не узнать ни того, ни
+    другого: возврат после сообщения ничего не доказывает, пока не видно,
+    сколько вернулось бы и без него (контрольная группа, исход `holdout`),
+    и сколько людей после сообщения отписались или заблокировали бота.
+
+    Возврат, нажатие кнопки и отписка не хранятся здесь — они считаются в
+    отчёте по занятиям (`start_source = "nd_<вид>"`) и отметкам отказа:
+    так журнал не врёт, если отчёт поправят.
+    """
+    __tablename__ = "nudge_log"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    user_id: Mapped[int] = mapped_column(
+        BigInteger, ForeignKey("users.id", ondelete="CASCADE"), nullable=False
+    )
+    # daily, back1/3/7/14, start1/3/7
+    kind: Mapped[str] = mapped_column(String(16), nullable=False)
+    # Набор частей текста: streak, progress, first, kept, farewell, start…
+    situation: Mapped[Optional[str]] = mapped_column(String(16), nullable=True)
+    # sent / holdout / forbidden / failed
+    outcome: Mapped[str] = mapped_column(String(12), nullable=False)
+    sent_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow, nullable=False)
+
+    __table_args__ = (
+        Index("ix_nudge_log_sent", "sent_at"),
+        Index("ix_nudge_log_user", "user_id", "sent_at"),
+    )
+
+
+class UserEvent(Base):
+    """
+    Журнал пути человека: нажатия, показанные вопросы, попытки голосом.
+
+    Владелец 16.10: «мы должны иметь возможность разбирать весь путь, чтобы
+    быть лучше после анализа»; «записывать попытки про голосовое — это
+    важно». Разбор дня 15.10 упёрся в то, чего бот не писал: польский
+    новичок нажал 4 раза и ушёл — что именно, не узнать; с какой попытки
+    распознан голос — тоже: в базу шёл только итоговый ответ.
+
+    ТЕКСТА ЛЮДЕЙ ЗДЕСЬ НЕТ: у нажатия — только вид действия (`slow_log.
+    describe`), у голосового — распознанное слово изучаемого языка (это
+    ответ на задание, а не переписка). Номер человека — как во всех
+    таблицах. Разбор пути — `app/scripts/journey.py`.
+    """
+    __tablename__ = "user_events"
+
+    id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=True)
+    # Без внешнего ключа: первое нажатие /start приходит раньше, чем
+    # человек записан в users
+    user_id: Mapped[int] = mapped_column(BigInteger, nullable=False)
+    at: Mapped[datetime] = mapped_column(DateTime, default=utcnow, nullable=False)
+    # tap / msg / question / speech / skip
+    kind: Mapped[str] = mapped_column(String(16), nullable=False)
+    # Действие: «кнопка answer», «голосовое»; исход попытки голосом
+    action: Mapped[Optional[str]] = mapped_column(String(64), nullable=True)
+    session_id: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
+    word_id: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
+    channel: Mapped[Optional[str]] = mapped_column(String(1), nullable=True)
+    ms: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
+    # Подробности: номер вопроса, попытка, услышанное, похожесть…
+    data: Mapped[Optional[dict]] = mapped_column(JSONB, nullable=True)
+
+    __table_args__ = (
+        Index("ix_user_events_user_at", "user_id", "at"),
+        Index("ix_user_events_at", "at"),
+    )
+

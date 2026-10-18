@@ -35,11 +35,13 @@ from __future__ import annotations
 
 import logging
 import random
+from datetime import timedelta
 from typing import Optional
 
-from sqlalchemy import and_, func, select
+from sqlalchemy import and_, case, func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.services.word_level import level_expr
 from app.database.enums import CEFRLevel
 from app.database.models import User, UserWord, Word, WordLangGroup
 from app.services.language_service import LanguagePair, option_label, word_column
@@ -94,6 +96,9 @@ UNLOCK_CORRECT = 1
 # длине идёт уже в Python — она считается по ВЫБРАННОМУ значению, а не по
 # ячейке, и в SQL это условие не выразить.
 CANDIDATES = 120
+
+# Слово, отвеченное за последние 12 ч, доска берёт только когда других нет
+FRESH_FOR = timedelta(hours=12)
 
 
 async def pick_words(
@@ -180,11 +185,25 @@ async def pick_words(
     if getattr(user, "quiz_mode", None) == QuizMode.DIFFICULT:
         query = query.where(*_difficult_conditions())
     if level is not None:
-        query = query.where(Word.level == level)
+        query = query.where(level_expr(getattr(user, "learning_lang", None)) == level)
     if exclude_ids:
         query = query.where(Word.id.notin_(exclude_ids))
 
-    query = query.order_by(func.random()).limit(CANDIDATES)
+    # ПОРЯДОК: сперва слова, которых сегодня ещё не было, потом подошедшие
+    # по сроку, потом реже всего показанные, внутри — случайно. Прежде было
+    # просто random(): аудит подбора 15.10 — 92–96% показов на доске
+    # досрочные, у владельца 14.10 во всех 9 досках все 5 слов уже
+    # встречались в тот же день; слово, отвеченное на 3-й день, доска
+    # давала на 4-й, 5-й и 6-й подряд. И пауза после ответа — та же, что у
+    # отработки (`PRACTICE_GAP`): только что отвеченное слово доска не берёт
+    from app.core.clock import utcnow
+    from app.services.quiz_service import PRACTICE_GAP, _answered_before, _due_condition
+
+    query = query.where(_answered_before(user.id, pair, utcnow() - PRACTICE_GAP))
+    not_today = case((_answered_before(user.id, pair, utcnow() - FRESH_FOR), 0), else_=1)
+    due_first = case((_due_condition(), 0), else_=1)
+    query = query.order_by(not_today, due_first, UserWord.times_shown.asc(),
+                           func.random()).limit(CANDIDATES)
     candidates = (await session.execute(query)).scalars().all()
 
     # ЗНАЧЕНИЯ, УЖЕ СПРОШЕННЫЕ В КРУГЕ, доска тоже не берёт — тем же
@@ -337,3 +356,43 @@ def scored_pairs(first_try: set[int], matched_order: list[int]) -> set[int]:
     if not matched_order:
         return set()
     return set(first_try) & set(matched_order)
+
+
+async def pick_first_lesson_words(
+    user: User, session: AsyncSession, pair: LanguagePair,
+    size: int, exclude_ids: Optional[list[int]] = None,
+) -> list[Word]:
+    """
+    Доска первого урока (16.10): НОВЫЕ лёгкие слова, а не знакомые.
+
+    Обычная доска берёт только слова с верным ответом — у новичка их нет, и
+    в первый урок она не попадала никогда. Владелец: «сделай 3 пары лёгких».
+    Три пары, а не пять, и слова самые частые и короткие: найти пару
+    незнакомых слов из трёх — посильно, из пяти — лотерея. Подписи и
+    значения отбираются тем же правилом, что у обычной доски.
+    """
+    from app.services.quiz_service import _meaning_key, _meanings_asked, easy_new_words
+
+    candidates = await easy_new_words(session, user, pair, list(exclude_ids or []))
+    taken = await _meanings_asked(session, list(exclude_ids or []), pair.native)
+    picked: list[Word] = []
+    lefts: set[str] = set()
+    rights: set[str] = set()
+    for word in candidates:
+        meaning = _meaning_key(word, pair.native)
+        if meaning and meaning in taken:
+            continue
+        left = option_label(word, pair.prompt_lang)
+        right = option_label(word, pair.answer_lang)
+        if not left or not right or len(left) > LABEL_LIMIT or len(right) > LABEL_LIMIT:
+            continue
+        if left.casefold() in lefts or right.casefold() in rights:
+            continue
+        lefts.add(left.casefold())
+        rights.add(right.casefold())
+        if meaning:
+            taken.add(meaning)
+        picked.append(word)
+        if len(picked) == size:
+            break
+    return picked

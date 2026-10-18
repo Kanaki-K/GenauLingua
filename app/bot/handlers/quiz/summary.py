@@ -5,7 +5,7 @@
 """
 
 import logging
-from datetime import date
+from datetime import date, datetime, timedelta
 from typing import Optional
 
 from aiogram.fsm.context import FSMContext
@@ -15,16 +15,16 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.bot.handlers.quiz.question import _CHANNEL_MARKS
 from app.bot.handlers.quiz.settings import RESULT_SETTINGS, get_level_offer_keyboard
-from app.bot.handlers.reminders import get_reminder_offer_keyboard
 from app.core.clock import utcnow, utctoday
 from app.database.enums import QuizChannel
 from app.database.models import QuizQuestion, QuizSession, User, UserWord, Word
-from app.locales import get_text
+from app.locales import get_text, plural
 from app.services.language_service import LanguagePair, option_label
-from app.services.level_service import should_offer_next_level
+from app.services.level_service import (
+    should_offer_lower_level, should_offer_next_level,
+)
 from app.services.monthly_leaderboard_service import update_monthly_stats
 from app.services.quiz_service import get_user_progress_stats
-from app.services.reminder_service import mark_reminders_offered, should_offer_reminders
 
 logger = logging.getLogger(__name__)
 
@@ -44,8 +44,7 @@ def get_results_keyboard(has_errors: bool, lang: str = "ru") -> InlineKeyboardMa
     предлагать следующее действие первой кнопкой — а не настройки.
 
     Порядок дальше: сперва ошибки (они про только что пройденное), потом
-    режим, и жалоба последней. Жалоба нужна редко и не должна стоять выше
-    того, зачем человек здесь.
+    режим. Жалоба — на разборе каждого слова, не здесь.
     """
     buttons = [[
         InlineKeyboardButton(
@@ -77,17 +76,16 @@ def get_results_keyboard(has_errors: bool, lang: str = "ru") -> InlineKeyboardMa
             callback_data=RESULT_SETTINGS,
         )
     ])
-    buttons.append([
-        InlineKeyboardButton(
-            text=get_text("quiz_btn_report_error", lang),
-            callback_data="report_translation_error",
-        )
-    ])
+    # «Сообщить об ошибке» ЗДЕСЬ БОЛЬШЕ НЕТ (17.10): жалоба переехала на
+    # разбор каждого слова (`report_inline`) — в итоге уже не вспомнить, где
+    # было не так. Обработчики списка (`report.py`) оставлены для кнопок
+    # в старых сообщениях
 
     return InlineKeyboardMarkup(inline_keyboard=buttons)
 
 
-async def update_user_activity(session: AsyncSession, user_id: int) -> None:
+async def update_user_activity(session: AsyncSession, user_id: int,
+                               day: Optional[date]) -> None:
     """
     Отметить день занятий. Правило и лучшая серия — в `streak_service`.
 
@@ -101,7 +99,11 @@ async def update_user_activity(session: AsyncSession, user_id: int) -> None:
     from app.services.streak_service import register_activity
 
     user = await session.get(User, user_id)
-    register_activity(user)
+    # День — тот, что записан в занятие при завершении (`local_day`), а не
+    # часы в момент отметки: занятие, законченное в 23:59:59.8, отмечалось
+    # через полсекунды уже следующим днём, сжигало заморозку и расходилось
+    # с восстановлением по истории (аудит 2.1)
+    register_activity(user, today=day)
     await session.commit()
 
 
@@ -177,44 +179,69 @@ async def _offer_what_fits(
     """
     Предложить человеку одно — и не больше одного за круг.
 
-    После круга у бота бывает что сказать сверх результата: включить
-    напоминания, поднять уровень. Два предложения подряд превращают конец
-    круга в допрос, и человек отмахивается от обоих — поэтому здесь
-    очередь, а не список.
+    После круга у бота бывает что сказать сверх результата: поднять или
+    опустить уровень. Два предложения подряд превращают конец круга в
+    допрос, поэтому здесь очередь, а не список.
 
-    ПОРЯДОК НЕ ПРОИЗВОЛЕН. Напоминания идут первыми, потому что это
-    единственный замеренный рычаг возврата (6.85 дней против 1.59) и
-    предлагаются они ровно один раз в жизни — упустив этот круг, второго
-    случая не будет. Уровень подождёт: признак, по которому он предлагается,
-    никуда не денется и к следующему кругу будет тот же.
+    НАПОМИНАНИЙ ЗДЕСЬ БОЛЬШЕ НЕТ (16.10). Прежде они шли первыми, кроме
+    случая, когда новичку явно легко. Теперь они включаются сами при
+    знакомстве (`reminder_service.enable_by_default`), и после первого
+    урока предлагается ОДНО — уровень, по прежней логике (владелец: «это
+    может быть человек более высокого уровня… её я бы не трогал»).
     """
-    if should_offer_reminders(user):
-        try:
-            await callback.bot.send_message(
-                chat_id=callback.message.chat.id,
-                text=get_text("reminder_offer", lang),
-                reply_markup=get_reminder_offer_keyboard(lang),
-            )
-            # Отметка ТОЛЬКО после удачной отправки: не дошло — предложим в
-            # следующий раз, а не потеряем единственную попытку
-            await mark_reminders_offered(user, session)
-        except Exception:
-            logger.warning("не удалось предложить напоминания", exc_info=True)
-        return
-
     following = await should_offer_next_level(user, session)
     if following is not None:
+        await _send_level_offer(callback, user, lang, following)
+        return
+
+    # Слишком трудно — уровень ниже. Никогда вместе с подъёмом: оба
+    # смотрят на одну точность, и выше 90% и ниже 60% разом не бывает
+    previous = await should_offer_lower_level(user, session)
+    if previous is not None:
+        from app.bot.handlers.quiz.settings import get_level_down_keyboard
+
         try:
             await callback.bot.send_message(
                 chat_id=callback.message.chat.id,
-                text=get_text(
-                    "level_offer", lang,
-                    current=user.level.value, following=following.value,
-                ),
-                reply_markup=get_level_offer_keyboard(following, lang),
+                text=get_text("level_down_offer", lang,
+                              current=user.level.value, previous=previous.value),
+                reply_markup=get_level_down_keyboard(user.level, previous, lang),
             )
         except Exception:
-            logger.warning("не удалось предложить уровень", exc_info=True)
+            logger.warning("не удалось предложить уровень ниже", exc_info=True)
+
+
+async def _send_level_offer(callback: CallbackQuery, user: User, lang: str, following) -> None:
+    """
+    Выбор уровня (A2 / B1 / B2 / C1) — всем, когда пора предложить подъём.
+
+    Сильный человек встаёт на свой уровень одним нажатием, а не тремя
+    скучными занятиями подряд (`level_service.jump_to_level`). Не только
+    новичку: владелец, 15.10 — «у нас так же есть те, кто первую семёрку
+    никогда не увидят». Многие давние стоят на A1 — старая версия ставила
+    его всем. Новичок и давний различаются лишь тем, КОГДА пора
+    (`level_service._thresholds`): после одного занятия или после двух.
+    """
+    from app.bot.handlers.quiz.settings import PICK_UP_TO, get_level_pick_keyboard
+
+    # Выбор — пока выше есть что выбрать до C1; с C1 остаётся только C2, и
+    # пустой ряд кнопок Telegram не примет — тогда обычный вопрос
+    from app.services.level_service import LEVEL_ORDER
+
+    if LEVEL_ORDER.index(following) <= LEVEL_ORDER.index(PICK_UP_TO):
+
+        text = get_text("level_offer_pick", lang, current=user.level.value)
+        keyboard = get_level_pick_keyboard(user.level, lang)
+    else:
+        text = get_text("level_offer", lang,
+                        current=user.level.value, following=following.value)
+        keyboard = get_level_offer_keyboard(following, lang)
+    try:
+        await callback.bot.send_message(
+            chat_id=callback.message.chat.id, text=text, reply_markup=keyboard,
+        )
+    except Exception:
+        logger.warning("не удалось предложить уровень", exc_info=True)
 
 
 # ============================================================================
@@ -263,6 +290,100 @@ async def _season_score(
         )
     )).scalar()
     return int(row or 0)
+
+
+async def _month_place(session: AsyncSession, user_id: int) -> Optional[dict]:
+    """Место и баллы человека в общем месяце — до и после занятия."""
+    from app.services.monthly_leaderboard_service import ALL_LANGS, get_user_monthly_rank
+
+    try:
+        return await get_user_monthly_rank(user_id, session, learning_lang=ALL_LANGS)
+    except Exception:
+        logger.warning("место месяца не посчиталось (user=%s)", user_id, exc_info=True)
+        return None
+
+
+async def _race_lines(session: AsyncSession, user: User, lang: str,
+                      before: Optional[dict]) -> list[str]:
+    """
+    Рывок в момент усилия (REWARDS.md §Е, К): «↑ Место в месяце: 3 · до Ольги
+    9 баллов» — только когда место выросло; «Новый рекорд месяца» — только
+    когда превзойдён лучший из прошлых ПОЛНЫХ месяцев (в первом месяце иначе
+    каждое занятие было бы рекордом).
+    """
+    import html
+
+    from app.database.models import MonthlySeason, MonthlyStats
+    from app.services.monthly_leaderboard_service import ALL_LANGS, month_neighbours
+    from app.services.standing import clean_name
+
+    after = await _month_place(session, user.id)
+    if not after:
+        return []
+    lines = []
+    if before is None or after["rank"] < before["rank"]:
+        rank = after["rank"]
+        line = get_text("summary_place", lang, rank=rank)
+        season_id = await _season_id(session)
+        above, _ = (await month_neighbours(session, user.id, season_id, ALL_LANGS)
+                    if season_id else (None, None))
+        if above:
+            name = html.escape(clean_name(above["display_name"]))
+            gap = plural(max(0, above["monthly_score"] - after["monthly_score"]), "plural_points", lang)
+            line += " · " + get_text("summary_gap", lang, name=name, gap=gap)
+        lines.append(line)
+
+    by_month = (
+        select(func.sum(MonthlyStats.monthly_score).label("total"))
+        .join(MonthlySeason, MonthlySeason.id == MonthlyStats.season_id)
+        .where(MonthlyStats.user_id == user.id, MonthlySeason.winners_finalized.is_(True))
+        .group_by(MonthlyStats.season_id)
+        .subquery()
+    )
+    best_past = (await session.execute(select(func.max(by_month.c.total)))).scalar()
+    score_before = (before or {}).get("monthly_score", 0)
+    if best_past and score_before <= best_past < after["monthly_score"]:
+        points = plural(after["monthly_score"], "plural_points", lang)
+        lines.append(get_text("summary_record", lang, points=points))
+    return lines
+
+
+async def _mark_overtaken(session: AsyncSession, user_id: int,
+                          before: Optional[dict]) -> None:
+    """
+    Отметить тех, кого человек только что обогнал в общем месяце.
+
+    Сообщение «Вас обогнали» шлёт не этот код, а распорядитель сообщений —
+    в общем бюджете и днём (`nudges.py`). Отметка — только тем, кто теперь
+    в первой десятке: дальше обгон не новость. Ошибка здесь не должна
+    ронять итог занятия.
+    """
+    from app.services.monthly_leaderboard_service import ALL_LANGS, get_monthly_leaderboard
+
+    if not before:
+        return
+    try:
+        after = await _month_place(session, user_id)
+        if not after or after["rank"] >= before["rank"]:
+            return
+        board = await get_monthly_leaderboard(session, learning_lang=ALL_LANGS,
+                                              limit=min(before["rank"], 10))
+        passed = [e["user_id"] for e in board
+                  if after["rank"] < e["rank"] <= before["rank"] and e["user_id"] != user_id]
+        if passed:
+            await session.execute(update(User).where(User.id.in_(passed)).values(
+                overtaken_by_id=user_id, overtaken_at=utcnow()))
+            await session.commit()
+    except Exception:
+        logger.warning("обгон не отмечен (user=%s)", user_id, exc_info=True)
+        await session.rollback()
+
+
+async def _season_id(session: AsyncSession) -> Optional[int]:
+    from app.services.monthly_leaderboard_service import get_current_season
+
+    season = await get_current_season(session)
+    return season.id if season else None
 
 
 async def _praise_lines(
@@ -345,7 +466,25 @@ async def _praise_lines(
     # Серия читается через `streak_service`, а не из колонки: колонка
     # пересчитывается только на завершении круга, и у остановившегося в ней
     # навсегда остаётся последнее значение
-    from app.services.streak_service import current_streak
+    from app.services.streak_service import current_streak, user_day, user_today
+
+    # Первое ли это законченное занятие за день человека: рубеж серии и
+    # заморозка празднуются один раз — в занятие, которое серию и сдвинуло
+    # Тот же день, что у отметки серии: по моменту завершения занятия
+    today = getattr(quiz_session, "local_day", None) or user_today(user)
+    from app.services.monthly_leaderboard_service import scored_sessions_filter
+
+    # Только зачётные занятия: повтор ошибок в 00:05 не делает настоящее
+    # первое занятие дня «вторым» (независимая проверка 2.1)
+    recent = (await session.execute(
+        select(QuizSession.completed_at).where(
+            QuizSession.user_id == user.id,
+            QuizSession.completed_at.isnot(None),
+            QuizSession.completed_at >= utcnow() - timedelta(days=2),
+            scored_sessions_filter(),
+        )
+    )).scalars().all()
+    rounds_today = sum(1 for moment in recent if user_day(user, moment) == today)
 
     facts = RoundFacts(
         points=max(0, await _season_score(
@@ -365,6 +504,8 @@ async def _praise_lines(
         days_away=days_away,
         first_audio=first_audio,
         first_speech=first_speech,
+        first_round_today=rounds_today <= 1,
+        freeze_used_today=getattr(user, "streak_freeze_on", None) == today,
     )
     return build_lines(facts, lang)
 
@@ -389,11 +530,17 @@ async def _finish_quiz(
     # не переживает двух экземпляров бота или повтора обновления после
     # перезапуска. Условное обновление атомарно: второй вызов не получит
     # строки и уйдёт, не прибавив `quizzes_passed` и не прислав второй итог.
+    from app.services.streak_service import lesson_day
+
+    done_at = utcnow()
+    # День занятия пишется в занятие и тот же идёт в серию (`lesson_day`)
+    done_day = lesson_day(user, done_at)
     claimed = await session.execute(
         update(QuizSession)
         .where(QuizSession.id == session_id, QuizSession.is_completed.isnot(True))
         .values(
-            completed_at=utcnow(), is_completed=True, exit_reason="completed",
+            completed_at=done_at, local_day=done_day,
+            is_completed=True, exit_reason="completed",
             exit_at_question=QuizSession.answered_questions,
         )
         .returning(QuizSession.id)
@@ -423,6 +570,9 @@ async def _finish_quiz(
 
     if not is_error_repeat:
         user.quizzes_passed = (user.quizzes_passed or 0) + 1
+        # Первый урок кончился (патч 2.1, `quiz_service.in_first_lesson`)
+        if getattr(user, "onboarded_at", None) is None:
+            user.onboarded_at = utcnow()
         user.last_quiz_date = utctoday()
         if user.first_quiz_at is None:
             user.first_quiz_at = utcnow()
@@ -456,7 +606,9 @@ async def _finish_quiz(
 
     await session.commit()
 
+    place_before = None
     if not is_error_repeat:
+        place_before = await _month_place(session, user.id)
         try:
             await update_monthly_stats(
                 user_id=user.id, session=session, quiz_session_id=session_id
@@ -464,7 +616,7 @@ async def _finish_quiz(
         except Exception:
             logger.exception("Ошибка обновления месячной статистики (user=%s)", user.id)
 
-        await update_user_activity(session, user.id)
+        await update_user_activity(session, user.id, day=getattr(quiz_session, "local_day", None))
 
     # Разбор по словам
     result_items = await session.execute(
@@ -516,17 +668,23 @@ async def _finish_quiz(
         )
         if praise:
             result_text += "\n\n" + "\n".join(praise)
+        race = await _race_lines(session, user, lang, place_before)
+        if race:
+            result_text += "\n\n" + "\n".join(race)
+        await _mark_overtaken(session, user.id, place_before)
 
-    try:
-        await callback.message.delete()
-    except Exception:
-        logger.debug("Не удалось удалить сообщение с вопросом", exc_info=True)
-
+    # Сначала новое, потом удаление прежнего: иначе между ними на экране
+    # один якорь (владелец, 15.10: «пропадает карточка и остаётся якорь,
+    # как в начале, так и в конце»)
     await callback.bot.send_message(
         chat_id=callback.message.chat.id,
         text=result_text,
         reply_markup=get_results_keyboard(has_errors=bool(errors), lang=lang),
     )
+    try:
+        await callback.message.delete()
+    except Exception:
+        logger.debug("Не удалось удалить сообщение с вопросом", exc_info=True)
 
     # ПРЕДЛОЖИТЬ НАПОМИНАНИЯ — ЗДЕСЬ И БОЛЬШЕ НИГДЕ.
     #

@@ -49,7 +49,7 @@ from aiogram.types import (
 )
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.bot.handlers.quiz.lesson_state import S_BOARD_DONE, _recover
+from app.bot.handlers.quiz.lesson_state import S_BOARD_DONE, _recover, lesson_length
 from app.core.clock import utcnow
 from app.database.enums import QuizChannel
 from app.database.models import QuizQuestion, QuizSession, User, Word
@@ -150,7 +150,7 @@ def _board_text(lang: str, matched: int, total: int, errors: int) -> str:
 
 async def start_board(
     message: Message, state: FSMContext, session: AsyncSession, user: User,
-    *, quiet: bool = False,
+    *, quiet: bool = False, in_round: bool = False,
 ) -> bool:
     """
     Собрать и показать доску. Возвращает False, если собирать было не из чего.
@@ -178,8 +178,16 @@ async def start_board(
     # Уровень и режим НЕ передаются: `pick_words` берёт их сама, тем же
     # фильтром, которым отбирает слова сам круг. Передай их отдельно — и
     # появится второе место, решающее «какие слова учит этот человек».
-    words = await pick_words(user, session, pair, exclude_ids=used)
-    if len(words) < BOARD_SIZE:
+    # ПЕРВЫЙ УРОК — СВОЯ ДОСКА: три пары новых лёгких слов (`first_lesson`)
+    from app.services import first_lesson
+    from app.services.match_service import pick_first_lesson_words
+    from app.services.quiz_service import in_first_lesson
+
+    first = in_round and in_first_lesson(user)
+    size = first_lesson.BOARD_PAIRS if first else BOARD_SIZE
+    words = (await pick_first_lesson_words(user, session, pair, size, exclude_ids=used)
+             if first else await pick_words(user, session, pair, exclude_ids=used))
+    if len(words) < size:
         # Внутри круга отказ молчит: круг продолжит обычным вопросом, а
         # «поучи карточками» посреди карточек читалось бы как насмешка
         if not quiet:
@@ -249,13 +257,14 @@ async def match_from_button(
         return
 
     message = callback.message
+    await state.update_data(**{S_ROUND_AT: None})
+    # Сначала доска, потом удаление прежнего экрана: иначе между ними на
+    # экране один якорь (владелец, 15.10)
+    await start_board(message, state, session, user)
     try:
         await message.delete()
     except Exception:
         logger.debug("прежний экран не удалился", exc_info=True)
-
-    await state.update_data(**{S_ROUND_AT: None})
-    await start_board(message, state, session, user)
 
 
 @router.callback_query(F.data == CB_SPENT)
@@ -474,7 +483,7 @@ async def _finish(
             text=get_text("match_btn_again", lang), callback_data="match_start"
         )],
         [InlineKeyboardButton(
-            text=get_text("home_btn_learn", lang, count=user.quiz_word_count or 15),
+            text=get_text("home_btn_learn", lang, count=lesson_length(user)),
             # С итога отдельно открытой доски
             callback_data="learn_now:board",
         )],
@@ -620,6 +629,26 @@ async def _board_due(
     data = await state.get_data()
     if data.get(S_BOARD_DONE):
         return False
+
+    # Первый урок: доска ПОСЛЕДНИМ вопросом и на три пары новых слов
+    from app.services import first_lesson
+    from app.services.match_service import pick_first_lesson_words
+    from app.services.quiz_service import in_first_lesson
+
+    if in_first_lesson(user):
+        # Доска — седьмой шаг плана из семи; в укороченном уроке её нет,
+        # иначе она съела бы один из шести вопросов трёх игр
+        if total_questions < len(first_lesson.PLAN) + 1:
+            return False
+        if current_question != first_lesson.board_slot(total_questions):
+            return False
+        if not getattr(user, "match_in_round", True):
+            return False
+        words = await pick_first_lesson_words(
+            user, session, pair, first_lesson.BOARD_PAIRS,
+            exclude_ids=list(data.get("used_word_ids") or []),
+        )
+        return len(words) == first_lesson.BOARD_PAIRS
 
     if current_question != board_slot(total_questions):
         return False

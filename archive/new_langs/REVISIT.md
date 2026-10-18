@@ -1,0 +1,54 @@
+# На повторную вычитку (правила уточнены после перевода)
+
+- «l'uccellino» вместо «l'uccello» — блоки 0000 (sehen), 0009 (Vogel, jagen): GUIDE п.13 — uccello норма [0009 — закрыто t0008: uccello на месте]
+- Существительное-междометие оформлено существительным, а не по п.15:
+  0003 Entschuldigung, Wiedersehen («l'au revoir»); 0005 Mist, Verzeihung
+- it «Lei» в начале фразы в значении «она» (п.16) — блоки до 0006 проверить поиском
+- 0008 übel: es «Estoy mareado» — это «кружится голова», нужно «Tengo náuseas» [закрыто t0008: «Tengo náuseas»]
+- 0008 übrig: es «Todavía hay pastel sobrante» — натянуто [закрыто t0008: «Todavía queda pastel» + note]
+- 0008 melden: «Comunico che sono malato…» — суше живой речи; искать живое со словом [закрыто t0008: it «Avviso che sono in malattia», es «Aviso de que estoy enfermo»]
+- 0006 Weile: it «il tempo, il momento» — слабо как ответ теста
+- 0002 Herr: в примерах it/cs «Mueller» — вернуть «Müller» (проверка теперь пускает)
+- 0001 Gott: «il dio» со строчной — дать «Dio» по п.17
+- 0002 dran/gern/lieber/Uhr — пример без слова, note; посмотреть, нет ли живой фразы со словом
+- 0016 Mitternacht fr «le minuit» → «minuit» + note (п.17) — ЗАКРЫТО: id 18646 (лежит в block_0015) уже «minuit» + note, проверено t0016
+- 0019 räumen: выбрано «освободить/вынести», en «tidying up» — решить значение — ЗАКРЫТО: решено в DECISIONS (v0017), id 772 в block_0020 соответствует, t0016
+- 0017/0018 April и др. месяцы: «l'aprile», «el abril», «l'avril» → без артикля по п.19; Internet — «internet» без артикля — ЗАКРЫТО для 0016–0023: April, Mai, Juli, August, September и Internet без артикля + note, t0016
+- 0013 Prozent: «il percento», «le pour-cent» натянуто → «per cento», «pour cent» без артикля + note (п.17) [закрыто t0008: так в 17914]
+- 0021/22 Verständnis: it/es/fr «Ho comprensione per questo» тяжело — искать живое со словом — ЗАКРЫТО (id 2972): «Ho molta comprensione per questo», «Lo veo con comprensión», «J'ai de la compréhension pour ça», t0016
+- 0021/22 gefälligst: fr «veux-tu bien, donc» неуклюже — ЗАКРЫТО (id 13934): fr «veux-tu, s'il te plaît», пример «Arrête ça, veux-tu!», t0016
+- 0023/0024 месяцы September, Juni с артиклем → без (п. о месяцах); исправить все месяцы скриптом в конце — ЗАКРЫТО для 0024–0031 (Juni, Oktober, November, Dezember, März, Januar — без артикля + note), третий круг t0024; September (832, 0023) — без артикля + note, t0016
+- 0029/30 versorgen: it «Provvedo a sfamare la mia famiglia» натянуто — «Mantengo la mia famiglia»? — ЗАКРЫТО (2970): «sfamare» уже нет, «Provvedo io al cibo per la mia famiglia» — живо и со словом, оставлено; третий круг t0024
+- 0032 Mahlzeit: убрано «buon appetito / buen provecho / bon appétit / dobrou chuť» — это главное бытовое употребление; вернуть с note — ЗАКРЫТО (11693, блок 0031): вторым значением с note, третий круг t0024
+- 0032 Feierabend: «la fine del lavoro» натянуто — ЗАКРЫТО (260, блок 0031): it «la fine della giornata lavorativa», пример «Si stacca!» + note; третий круг t0024
+- 0031/0014/0011: «cómo, como», «vymýšlet, vymyslet», «el vídeo, el video», «praktický, prakticky» убраны из-за прежней проверки — вернуть, где нужно [0011/0014 — закрыто t0008: «praktický, prakticky», «el vídeo, el video» на месте]
+- 7266 schaffen «Gott schuf die Welt»: первым «creare/crear/créer/stvořit», не «farcela» (п.19) — закрыто t0040: в 0044 уже так
+- 0055/56 Gummi: первым «презерватив»? — сверить с примером; основное значение резина/резинка — ЗАКРЫТО t0048: первым резинка (elastico/goma/élastique/gumička), как в примере
+- 0053/54 verstopft: cs «Jsem zacpaný» — о запоре «Mám zácpu» — ЗАКРЫТО t0048: cs «Mám zácpu» + note; it/es/fr первым stitico/estreñido/constipé (п.19)
+- 0051/52 Bekanntschaft: es «hice una amistad interesante» — посмотреть — ЗАКРЫТО t0048: es «Ayer conocí a alguien interesante» + note, оставлено
+- 0059/60 befinden («Der Arzt befand» — счесть), dringend (прил.): первым значение из примера (п.19) — закрыто t0056: 12749 уже «ritenere / considerar / juger / shledat» первым; 18792 dringend — прилагательное «urgente / urgent / naléhavý»
+- 8996 Bäcker: убрать «la panadería / la boulangerie / pekárna» (это пекарня, не пекарь) — закрыто t0056: в 8996 уже только пекарь
+- 10849 brav «brave Leistung»: fr «une prestation sage» неверно; по п.19 первым значение из примера (добротный) — закрыто t0056: уже fr «correct» первым, «Une prestation correcte»; it «buono», cs «slušný»
+- 0063/64 enttäuschend: cs «zklamávající» книжно — посмотреть — закрыто t0056 (10876): оставлено, пример с «zklamání» + note — так говорят
+- 0067/68 Bohrer(?): вернуть fr «le foret» (сверло) — проверка больше не путает с forêt — ЗАКРЫТО v0064: в 9036 fr «la mèche, le foret, la perceuse»
+- 0067/68 zurück: примеры «facciamo ritorno», «hacemos el viaje de vuelta», «prenons le chemin du retour» натянуты — живая фраза важнее — ЗАКРЫТО v0064: 7707 — живые «Domani torniamo a casa» и т.п. + note (назад входит в глагол)
+- 0071/72 flüssig: пример про беглую речь — первым «fluente/fluido/couramment/plynule» (п.19) — закрыто t0072: в 7785 уже «fluente / fluido / couramment»
+- 0075/76 Veilchen: пример — синяк под глазом; первым «l'occhio nero / el ojo morado / l'œil au beurre noir / monokl» (п.19) — закрыто t0072: в 15688 уже «l'occhio nero / el ojo morado / l'œil au beurre noir» первым
+- 0073/74 begeistern: cs «nadchýnat» книжно — посмотреть — закрыто t0072: в 2254 cs «nadchnout, uchvátit», «nadchýnat» нет
+- 0104/05 Mineralwasser: переведено как газированная — первым должно быть «l'acqua minerale / el agua mineral / l'eau minérale / minerálka» — ЗАКРЫТО t0104: в 11969 still (0105) примеры «acqua minerale frizzante / agua mineral con gas / eau minérale gazeuse», cs «minerálku»; сам ряд Mineralwasser 1689 (0073) — «l'acqua minerale…» первым
+- 0108 Nudel: it «la tagliatella» узко — «la pasta»? — ЗАКРЫТО t0104: в 662 уже «la pasta, la tagliatella», пример с «pasta»
+- 0128 Zeitmangel: it «Soffro di mancanza di tempo» книжно — ЗАКРЫТО t0120 (3038): it «Mi manca il tempo» + note, книжного нет
+- 0126 Esser: es «Soy un buen comedor» — «comedor» ещё и столовая; «Soy de buen comer»? — ЗАКРЫТО t0120 (2440): es «el comilón, la comilona», пример «Soy muy comilón» (как DECISIONS v0125)
+- 0113/14 früh (18941, прил. «ein frühes Aufstehen»): дано наречие presto/temprano/tôt — первым прилагательное (п.19) — ЗАКРЫТО t0112: в 18941 прилагательные первыми (по DECISIONS v0113)
+- 0113/14 entbinden: cs «odrodit» сомнительно (odrodit se = выродиться); «porodit, pomoci při porodu»? — ЗАКРЫТО t0112: в 13136 cs «vést porod, porodit, zprostit», «odrodit» нет
+- 0123/24 Leser (14099, др. блок): cs «čtečka» — прибор, убрать — ЗАКРЫТО t0120: «čtečka» нет ни в 14099 (0056), ни в 1653 (0123) — «čtenář»
+- 0117/18 Schaft: cs «holínka» — посмотреть — ЗАКРЫТО t0112: holínka = голенище сапога (норма), пример 8669 уточнён «Holínka mé vysoké boty je roztržená»
+- 0085 berechtigt (16619): es опечатка «autorizzado» → «autorizado» [закрыто t0080: уже «autorizado»]
+- 0062: es «autorizzado» → «autorizado» — закрыто t0056: 16389 es «autorizado, facultado»
+- 0061–64 buchstabieren: it «Come si fa lo spelling?» — «Come si scrive?» — закрыто t0056 (143): оставлено — «fare lo spelling» бытовое, «Come si scrive?» теряет слово
+- 0061–64 abhören: cs «poslechnout» = послушаться; «odposlouchávat, poslechnout si» — закрыто t0056: 14136 cs «odposlouchávat, poslechnout si, zkoušet»
+- 0061–64 Riegel: cs «závora» — для дверного засова «petlice, zástrčka» — закрыто t0056: 18303 cs «zástrčka, petlice, tyčinka», пример «zasunu zástrčku»
+- 16569 Schutzhaft: fr «la détention préventive» = предварительное заключение, не защитное; it/es вторые значения так же — ЗАКРЫТО координатор: fr «la détention de protection» первым
+- 0081–84 Jahrbuch: fr «l'annuaire» читается как справочник — «le recueil annuel / l'almanach»? [закрыто t0080 (9576): оставлено «l'annuaire, l'almanach» — первое значение annuaire по Larousse «ежегодное издание»; пример «chercher dans l'annuaire» = справиться в ежегоднике]
+- 0115 Gesandte: it «l'ambasciatore» (посол), cs «posel» — как в 0119: «l'inviato, l'emissario», «vyslanec» — ЗАКРЫТО t0112: 16936 выровнен с 16987
+- 16077 kriminell: cs «Policie hledá toho zločinného muže» натянуто — лучше живая фраза без слова + note — ЗАКРЫТО координатор: «Policie hledá toho zločince» + note

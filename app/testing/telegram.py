@@ -77,6 +77,13 @@ class RecordingSession(BaseSession):
     ) -> Any:
         name = type(method).__name__
         payload = method.model_dump(warnings=False)
+        if name == "DeleteMessages":
+            # Пачка записывается поштучно: проверкам важно, КАКИЕ сообщения
+            # удалены, а не сколькими запросами
+            for mid in payload["message_ids"]:
+                self.calls.append(("DeleteMessage",
+                                   {"chat_id": payload["chat_id"], "message_id": mid}))
+            return True
         self.calls.append((name, payload))
 
         if name in ("SendMessage", "EditMessageText", "EditMessageCaption"):
@@ -263,7 +270,13 @@ def make_dispatcher(db_session=None) -> Dispatcher:
     # не сообщая.
     from app.bot.routers import attach_routers
 
-    dp = attach_routers(Dispatcher(storage=MemoryStorage()))
+    # Приёмки можно гонять и на Redis (FSM_TEST_REDIS_URL) — так проверяется,
+    # что всё состояние занятия переживает сериализацию в JSON
+    import os
+
+    from app.bot.fsm_storage import make_storage
+
+    dp = attach_routers(Dispatcher(storage=make_storage(os.environ.get("FSM_TEST_REDIS_URL"))))
 
     @dp.update.middleware()
     async def inject_session(handler, event, data):
@@ -271,6 +284,11 @@ def make_dispatcher(db_session=None) -> Dispatcher:
         assert session is not None, "сессия базы не подставлена: use_session()"
         data["session"] = session
         return await handler(event, data)
+
+    # Журнал пути — так же, как в app.main: иначе приёмки его не проверят
+    from app.services.journal import install_journal
+
+    install_journal(dp)
 
     _DISPATCHER = dp
     return dp
@@ -291,6 +309,15 @@ async def reset_state(dp: Dispatcher) -> None:
     states = getattr(storage, "states", None)
     if isinstance(states, dict):
         states.clear()
+    redis = getattr(storage, "redis", None)
+    if redis is not None:
+        # Соединения пула привязаны к циклу событий, в котором открыты, а у
+        # pytest-asyncio цикл свой на каждый тест: старое соединение падает
+        # «Event loop is closed» (прогон 15.10 — 11 падений и 53 ошибки только
+        # под FSM_TEST_REDIS_URL). Бросаем их, не закрывая: закрывать нечем —
+        # их цикл уже мёртв.
+        redis.connection_pool.reset()
+        await redis.flushdb()
 
 
 # ============================================================================
@@ -305,7 +332,7 @@ def _next(kind: str) -> int:
     return _counter[kind]
 
 
-def text_update(user_id: int, text: str) -> Update:
+def text_update(user_id: int, text: str, language_code: str | None = None) -> Update:
     """Человек написал или нажал реплай-кнопку."""
     return Update(
         update_id=_next("update"),
@@ -313,7 +340,8 @@ def text_update(user_id: int, text: str) -> Update:
             message_id=_next("message"),
             date=datetime(2026, 10, 12, 12, 0, 0),
             chat=Chat(id=user_id, type="private"),
-            from_user=TgUser(id=user_id, is_bot=False, first_name="Тестовый"),
+            from_user=TgUser(id=user_id, is_bot=False, first_name="Тестовый",
+                             language_code=language_code),
             text=text,
         ),
     )
@@ -345,7 +373,8 @@ def voice_update(user_id: int, duration: int = 2) -> Update:
     )
 
 
-def press(user_id: int, data: str, message_id: int = 500) -> Update:
+def press(user_id: int, data: str, message_id: int = 500,
+          language_code: str | None = None) -> Update:
     """
     Человек нажал инлайн-кнопку.
 
@@ -358,7 +387,8 @@ def press(user_id: int, data: str, message_id: int = 500) -> Update:
         update_id=_next("update"),
         callback_query=CallbackQuery(
             id=str(_next("update")),
-            from_user=TgUser(id=user_id, is_bot=False, first_name="Тестовый"),
+            from_user=TgUser(id=user_id, is_bot=False, first_name="Тестовый",
+                             language_code=language_code),
             chat_instance="test",
             data=data,
             message=Message(

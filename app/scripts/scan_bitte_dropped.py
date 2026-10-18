@@ -79,6 +79,18 @@ POLITE = {
     "uk": r"\b(ласка|будьте\s+добрі)\b",
     "tr": r"\b(lütfen|rica\s+ederim|m[iıuü]s[iıuü]n(?:iz)?|m[iıuü]s[iıuü]n[iı]z)\b",
     "pl": r"\b(proszę|poproszę)\b",
+    # Голого «prego» и «gentilmente» здесь нет: «Prego che Dio esaudisca» —
+    # «молюсь», «mi ha gentilmente prestato» — перевод «freundlicherweise».
+    # Вежливая просьба — «La prego», «si prega di»: «La preghiamo di pagare».
+    "it": r"\b(per\s+favore|per\s+piacere|cortesemente|la\s+prego|la\s+preghiamo|"
+          r"ti\s+prego|si\s+prega)\b",
+    "es": r"\b(por\s+favor|haz\s+el\s+favor|haga\s+el\s+favor|tenga\s+la\s+bondad)\b",
+    # «Veuillez» и «Merci de» — вежливая просьба сами по себе: «Veuillez
+    # indiquer votre adresse», «Merci de ne pas toucher» (так пишут таблички);
+    # но «à la merci de» — «во власти», не просьба
+    "fr": r"\b(s'il\s+te\s+pla[iî]t|s'il\s+vous\s+pla[iî]t|veuillez|je\s+vous\s+prie|"
+          r"je\s+te\s+prie|(?<!la )merci\s+de|(?<!la )merci\s+d')",
+    "cs": r"\b(prosím|poprosím|buď\s+tak\s+hodný|buďte\s+tak\s+laskav)\w*",
 }
 POLITE = {k: re.compile(v, re.IGNORECASE) for k, v in POLITE.items()}
 LANGS = tuple(POLITE)
@@ -142,6 +154,17 @@ def selfcheck() -> None:
         errs.append("tr: вежливость через «misin» не распознана")
     if dropped("tr", "Lütfen kapıyı kilitle"):
         errs.append("tr: «Lütfen» не распознано")
+    for lang, s in (("it", "Chiudi la porta, per favore"),
+                    ("es", "Cierra la puerta, por favor"),
+                    ("fr", "Ferme la porte, s'il te plaît"),
+                    ("fr", "Veuillez fermer la porte"),
+                    ("cs", "Zavři prosím dveře")):
+        if dropped(lang, s):
+            errs.append(f"{lang}: вежливость не распознана: {s!r}")
+    for lang, s in (("it", "Chiudi la porta"), ("es", "Cierra la puerta"),
+                    ("fr", "Ferme la porte"), ("cs", "Zavři dveře")):
+        if not dropped(lang, s):
+            errs.append(f"{lang}: голый приказ не признан потерей: {s!r}")
 
     # Обратное направление. Главное — не трогать польский формальный
     # императив: он ТАК И ОБРАЗУЕТСЯ через «Proszę + инфинитив».

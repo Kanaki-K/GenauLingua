@@ -85,6 +85,43 @@ LANGUAGES: dict[str, Language] = {
         # В польских словарях глагол даётся инфинитивом без частицы,
         # существительное без артикля — снимать нечего.
     ),
+    # it, es, fr — существительное в переводе стоит с определённым артиклем
+    # («il libro», «la casa», «l'uomo»): род виден только по нему, а ученику
+    # он нужен, как немецкий der/die/das. Для схлопывания артикль снимается.
+    # Word.article — немецкий, поэтому uses_article у них False: свой артикль
+    # уже внутри перевода. Правила перевода — archive/new_langs/GUIDE.md.
+    "it": Language(
+        code="it",
+        flag="🇮🇹",
+        word_attr="translation_it",
+        example_attr="example_it",
+        uses_article=False,
+        leading_particles=("il", "lo", "la", "i", "gli", "le", "l'"),
+    ),
+    "es": Language(
+        code="es",
+        flag="🇪🇸",
+        word_attr="translation_es",
+        example_attr="example_es",
+        uses_article=False,
+        leading_particles=("el", "la", "los", "las"),
+    ),
+    "fr": Language(
+        code="fr",
+        flag="🇫🇷",
+        word_attr="translation_fr",
+        example_attr="example_fr",
+        uses_article=False,
+        leading_particles=("le", "la", "les", "l'"),
+    ),
+    "cs": Language(
+        code="cs",
+        flag="🇨🇿",
+        word_attr="translation_cs",
+        example_attr="example_cs",
+        uses_article=False,
+        # Артиклей нет; возвратное «se/si» стоит после глагола и не снимается
+    ),
 }
 
 # Языки, которые можно изучать.
@@ -92,11 +129,17 @@ LANGUAGES: dict[str, Language] = {
 # Польский открыт 2026-10-01, когда его колонки заполнились: 12 747 слов из
 # 12 902. Оставшиеся 155 в викторину не попадают сами — отбор идёт через
 # word_lang_groups, а туда слово без перевода на изучаемый язык не заносится.
-LEARNABLE_LANGS: tuple[str, ...] = ("de", "en", "ru", "uk", "tr", "pl")
+#
+# Итальянский, испанский, французский, чешский открыты 16.10 (решение
+# владельца: «полностью интегрировать варианты новых 4 языков»): словарь
+# 12 902 из 12 902 по каждому, проверен вычиткой и аудитом всех рядов,
+# интерфейс — 464 ключа на «Вы». Звук синтезируется при первом показе и
+# дальше живёт файлом (`audio_service.obtain_audio`).
+LEARNABLE_LANGS: tuple[str, ...] = ("de", "en", "ru", "uk", "tr", "pl", "it", "es", "fr", "cs")
 
 # Языки, для которых база слов может быть заполнена — включая ещё не
 # открытые. По этому списку строятся группы слов и озвучка.
-SUPPORTED_LANGS: tuple[str, ...] = ("de", "en", "ru", "uk", "tr", "pl")
+SUPPORTED_LANGS: tuple[str, ...] = ("de", "en", "ru", "uk", "tr", "pl", "it", "es", "fr", "cs")
 
 # Языки интерфейса — локали, которые реально существуют в app/locales.
 # Немецкого интерфейса нет, поэтому список короче LEARNABLE_LANGS.
@@ -108,14 +151,29 @@ SUPPORTED_LANGS: tuple[str, ...] = ("de", "en", "ru", "uk", "tr", "pl")
 # (`get_language_selection_keyboard` читает её, а не свой список), и
 # перечисление языков в текстах. Один источник — потому и правится в одном
 # месте.
-INTERFACE_LANGS: tuple[str, ...] = ("uk", "en", "tr", "de", "pl", "ru")
+#
+# Порядок от 16.10 — сгруппированный: украинский первым, русский последним,
+# между ними западные языки, затем турецкий. Закрытые языки встают на свои
+# места из LANGUAGE_ORDER, когда открываются: открыть язык = добавить его код
+# в _INTERFACE_OPEN, а не искать ему место в кортеже.
+LANGUAGE_ORDER: tuple[str, ...] = ("uk", "en", "de", "pl", "cs", "es", "fr", "it", "tr", "ru")
+_INTERFACE_OPEN = {"uk", "en", "de", "pl", "cs", "es", "fr", "it", "tr", "ru"}
+INTERFACE_LANGS: tuple[str, ...] = tuple(c for c in LANGUAGE_ORDER if c in _INTERFACE_OPEN)
 
 DEFAULT_LEARNING_LANG = "de"
 DEFAULT_NATIVE_LANG = "ru"
 
 
 def is_learnable(code: Optional[str]) -> bool:
-    return code in LANGUAGES
+    """
+    Можно ли учить этот язык (и показывать на нём значения) — ОТКРЫТ ли он.
+
+    Прежде проверка шла по LANGUAGES, то есть по реестру. Пока в реестре
+    были одни открытые языки, разницы не было; с приходом it/es/fr/cs
+    поддельное нажатие `set_learning_it` поставило бы закрытый язык — круг
+    без звука, интерфейса и выверенных пар (Н2).
+    """
+    return code in LEARNABLE_LANGS
 
 
 def get_language(code: Optional[str]) -> Language:
@@ -548,7 +606,8 @@ def normalize_headword(text: Optional[str], code: Optional[str]) -> str:
         # Префикс снимаем только если после него что-то осталось:
         # «to» и «the» сами по себе — полноценные слова.
         for p in particles:
-            prefix = f"{p} "
+            # Элизия пишется слитно: «l'uomo», «l'homme» — без пробела
+            prefix = p if p.endswith("'") else f"{p} "
             if s.startswith(prefix):
                 rest = s[len(prefix):].strip()
                 if rest:
@@ -724,7 +783,7 @@ def _names_of(codes: tuple[str, ...], interface_lang: str, *,
     # «i̇ngilizce» — «i» с отдельной точкой сверху: заглавная «İ» разбирается на
     # две кодовые позиции. Это та же турецкая буква, на которой я уже
     # спотыкался в словарной базе.
-    LOWERCASE_IN_TEXT = {"ru", "uk", "pl"}
+    LOWERCASE_IN_TEXT = {"ru", "uk", "pl", "it", "es", "fr", "cs"}
 
     names = []
     for code in codes:

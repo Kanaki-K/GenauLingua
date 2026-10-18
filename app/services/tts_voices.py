@@ -6,12 +6,23 @@
 а не «выбери, какой английский правильнее».
 
 Сколько голосов есть на самом деле (проверено перечислением у движка):
-    de-DE  3 мужских, 3 женских
+    de-DE  2 мужских, 2 женских (из 3 и 3 — см. ниже о многоязычных)
     en-GB  2 мужских, 3 женских
     pl-PL  1 мужской,  1 женский
     ru-RU  1 мужской,  1 женский
     uk-UA  1 мужской,  1 женский
     tr-TR  1 мужской,  1 женский
+    it-IT  1 мужской,  2 женских (Giuseppe — многоязычный, не берётся)
+    es-ES  1 мужской,  2 женских
+    fr-FR  1 мужской,  2 женских (Remy и Vivienne — многоязычные, не берутся)
+    cs-CZ  1 мужской,  1 женский
+
+МНОГОЯЗЫЧНЫХ ГОЛОСОВ НЕТ — Серафины и Флориана (`…MultilingualNeural`).
+Такой голос сам угадывает язык каждой фразы и на немецком тексте местами
+переходит на английское произношение; задать язык жёстко движок не даёт.
+Владелец слышал это дважды: «будто английским читает немецкие» и 15.10 на
+«Die Lieferung ist versandkostenfrei» — «как по-английски читает некоторые
+звуки». Выбравшим их `resolve_voice` молча даёт голос по умолчанию.
 
 Просили три и три на каждый язык. Для немецкого это выполнимо ровно,
 для английского почти, для остальных — нет: у движка больше голосов не
@@ -69,10 +80,8 @@ VOICES: dict[str, tuple[Voice, ...]] = {
     "de": (
         Voice("de-DE-KatjaNeural", "female", "Катя"),
         Voice("de-DE-AmalaNeural", "female", "Амала"),
-        Voice("de-DE-SeraphinaMultilingualNeural", "female", "Серафина"),
         Voice("de-DE-ConradNeural", "male", "Конрад"),
         Voice("de-DE-KillianNeural", "male", "Килиан"),
-        Voice("de-DE-FlorianMultilingualNeural", "male", "Флориан"),
     ),
     "en": (
         Voice("en-GB-SoniaNeural", "female", "Соня"),
@@ -97,6 +106,25 @@ VOICES: dict[str, tuple[Voice, ...]] = {
         Voice("tr-TR-EmelNeural", "female", "Эмель"),
         Voice("tr-TR-AhmetNeural", "male", "Ахмет"),
     ),
+    "it": (
+        Voice("it-IT-ElsaNeural", "female", "Эльза"),
+        Voice("it-IT-IsabellaNeural", "female", "Изабелла"),
+        Voice("it-IT-DiegoNeural", "male", "Диего"),
+    ),
+    "es": (
+        Voice("es-ES-ElviraNeural", "female", "Эльвира"),
+        Voice("es-ES-XimenaNeural", "female", "Химена"),
+        Voice("es-ES-AlvaroNeural", "male", "Альваро"),
+    ),
+    "fr": (
+        Voice("fr-FR-DeniseNeural", "female", "Дениз"),
+        Voice("fr-FR-EloiseNeural", "female", "Элоиза"),
+        Voice("fr-FR-HenriNeural", "male", "Анри"),
+    ),
+    "cs": (
+        Voice("cs-CZ-VlastaNeural", "female", "Власта"),
+        Voice("cs-CZ-AntoninNeural", "male", "Антонин"),
+    ),
 }
 
 # Голос по умолчанию — первый в списке языка. Именно он предгенерируется:
@@ -115,6 +143,10 @@ PREVIEW_TEXT: dict[str, str] = {
     "ru": "Добрый день! Я каждый день учу новые слова.",
     "uk": "Добрий день! Я щодня вчу нові слова.",
     "tr": "İyi günler! Her gün yeni kelimeler öğreniyorum.",
+    "it": "Buongiorno! Ogni giorno imparo parole nuove.",
+    "es": "¡Buenos días! Cada día aprendo palabras nuevas.",
+    "fr": "Bonjour! J'apprends de nouveaux mots chaque jour.",
+    "cs": "Dobrý den! Každý den se učím nová slova.",
 }
 
 

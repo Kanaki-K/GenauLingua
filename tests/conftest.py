@@ -71,7 +71,7 @@ _TRUNCATE_SQL = text(
     "TRUNCATE TABLE "
     "  monthly_quiz_events, monthly_awards, monthly_stats, monthly_seasons,"
     "  win_streaks, translation_reports, quiz_questions, quiz_sessions,"
-    "  user_words, word_lang_groups, words, users "
+    "  user_words, word_lang_groups, words, users, user_events, nudge_log "
     "RESTART IDENTITY CASCADE"
 )
 
@@ -139,6 +139,10 @@ def make_word(
     pl: str | None = None,
     translation_pl: str | None = None,
     example_pl: str | None = None,
+    it: str | None = None,
+    es: str | None = None,
+    fr: str | None = None,
+    cs: str | None = None,
     frequency_rank: int | None = None,
     category: str | None = None,
 ) -> Word:
@@ -163,4 +167,12 @@ def make_word(
         example_en=f"example {word_de}",
         example_tr=f"ornek {word_de}",
         example_pl=example_pl if example_pl is not None else f"przyklad {word_de}",
+        translation_it=it if it is not None else f"{word_de}_it",
+        translation_es=es if es is not None else f"{word_de}_es",
+        translation_fr=fr if fr is not None else f"{word_de}_fr",
+        translation_cs=cs if cs is not None else f"{word_de}_cs",
+        example_it=f"esempio {word_de}",
+        example_es=f"ejemplo {word_de}",
+        example_fr=f"exemple {word_de}",
+        example_cs=f"příklad {word_de}",
     )

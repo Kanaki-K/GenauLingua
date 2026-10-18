@@ -4,9 +4,9 @@
 
 from aiogram import Router, F
 from aiogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
-from aiogram.utils.keyboard import InlineKeyboardBuilder
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.core.clock import utcnow
 from app.database.models import User
 from app.services.reminder_service import enable_reminders, mark_reminders_offered
 from app.bot.keyboards.notifications import (
@@ -94,25 +94,9 @@ async def show_notifications_settings(callback: CallbackQuery, session: AsyncSes
 # ВКЛЮЧИТЬ/ВЫКЛЮЧИТЬ НАПОМИНАНИЯ
 # ============================================================================
 
-def get_reminder_offer_keyboard(lang: str) -> InlineKeyboardMarkup:
-    """
-    Предложение напоминаний после первого круга: два ответа, оба одним тапом.
-
-    «Не надо» стоит рядом с «да» нарочно и не спрятано. Предложение, от
-    которого нельзя отказаться одним нажатием, читается как навязывание — а
-    спросить второй раз правило всё равно не позволит, так что честный
-    отказ здесь ничего не стоит.
-    """
-    builder = InlineKeyboardBuilder()
-    builder.row(InlineKeyboardButton(
-        text=get_text("reminder_offer_yes", lang),
-        callback_data="reminder_offer_yes",
-    ))
-    builder.row(InlineKeyboardButton(
-        text=get_text("reminder_offer_no", lang),
-        callback_data="reminder_offer_no",
-    ))
-    return builder.as_markup()
+# КЛАВИАТУРЫ ПРЕДЛОЖЕНИЯ БОЛЬШЕ НЕТ (16.10): напоминания новичку включаются
+# сами (`reminder_service.enable_by_default`). Обработчики ниже оставлены —
+# кнопки прежнего предложения лежат в чатах, и нажатие на них должно работать.
 
 
 @router.callback_query(F.data == "reminder_offer_yes")
@@ -156,6 +140,8 @@ async def decline_reminder_offer(callback: CallbackQuery, session: AsyncSession)
     """
     user = await session.get(User, callback.from_user.id)
     if user:
+        # Явный отказ — отдельно от «предлагали»: молчание отказом не считается
+        user.reminders_declined_at = utcnow()
         await mark_reminders_offered(user, session)
 
     await callback.answer()
@@ -184,6 +170,7 @@ async def disable_from_reminder(callback: CallbackQuery, session: AsyncSession):
 
     if user:
         user.notifications_enabled = False
+        user.reminders_declined_at = utcnow()
         await session.commit()
 
     await callback.answer(get_text("notif_toggle_off", lang), show_alert=False)
@@ -206,8 +193,11 @@ async def toggle_notifications(callback: CallbackQuery, session: AsyncSession):
     lang = user.interface_language or DEFAULT_LOCALE
 
     if user.notifications_enabled:
-        # Выключаем напоминания
+        # Выключаем напоминания. Это такой же явный отказ, как «Не надо» и
+        # «Не напоминать»: без отметки сообщение второго дня всё равно
+        # приходило выключившему (аудит 2.1)
         user.notifications_enabled = False
+        user.reminders_declined_at = utcnow()
         await session.commit()
         await callback.answer(get_text("notif_toggle_off", lang), show_alert=False)
     else:
@@ -222,6 +212,7 @@ async def toggle_notifications(callback: CallbackQuery, session: AsyncSession):
         else:
             # Timezone уже настроен - просто включаем
             user.notifications_enabled = True
+            user.reminders_auto = False
             await session.commit()
             await callback.answer(get_text("notif_toggle_on", lang), show_alert=False)
 
@@ -300,6 +291,8 @@ async def set_timezone(callback: CallbackQuery, session: AsyncSession):
     # Сохраняем в базу
     user.timezone = timezone
     user.utc_offset = utc_offset
+    # Настроил сам — напоминания уже не «по умолчанию» (контрольная группа)
+    user.reminders_auto = False
 
     # Если это первая настройка - включаем напоминания
     if not user.notifications_enabled:
@@ -364,6 +357,7 @@ async def set_notification_time(callback: CallbackQuery, session: AsyncSession):
         time_str = "20:00"  # Странный формат → дефолт
 
     user.notification_time = time_str
+    user.reminders_auto = False
     await session.commit()
 
     await callback.answer(get_text("notif_time_set", lang, time=time_str), show_alert=False)
@@ -456,7 +450,45 @@ async def save_notification_days(callback: CallbackQuery, session: AsyncSession)
         await callback.answer(get_text("notif_days_none", lang), show_alert=True)
         return
 
+    user.reminders_auto = False
+    await session.commit()
     await callback.answer(get_text("notif_days_saved", lang), show_alert=False)
 
     # Возвращаемся к настройкам напоминаний
     await show_notifications_settings(callback, session)
+
+
+@router.callback_query(F.data.startswith("nd_optin:"))
+async def optin_from_nudge(callback: CallbackQuery, session: AsyncSession):
+    """
+    «⏰ Напоминать в 18:00» из сообщения вовлечения (патч 2.1, `nudges`).
+
+    Напоминания — единственный замеренный рычаг возврата (дни занятий в 4.3
+    раза больше), а предлагались они один раз, после первого занятия. Кнопка
+    ставит то время, когда человеку пришло сообщение, — он его и открыл.
+    Отказ, если был, снимается: человек передумал сам.
+    """
+    at = callback.data.partition(":")[2]
+    user = await session.get(User, callback.from_user.id)
+    if user is None or len(at) != 5:
+        await callback.answer()
+        return
+    lang = user.interface_language or DEFAULT_LOCALE
+    user.notifications_enabled = True
+    user.notification_time = at
+    user.reminders_auto = False
+    user.reminders_declined_at = None
+    user.reminder_offered_at = user.reminder_offered_at or utcnow()
+    await session.commit()
+
+    await callback.answer()
+    # Кнопку согласия убираем: второй раз нажимать незачем
+    markup = callback.message.reply_markup
+    if markup:
+        rows = [row for row in markup.inline_keyboard
+                if not any((b.callback_data or "").startswith("nd_optin:") for b in row)]
+        try:
+            await callback.message.edit_reply_markup(reply_markup=InlineKeyboardMarkup(inline_keyboard=rows))
+        except Exception:
+            pass
+    await callback.message.answer(get_text("nd_optin_done", lang, time=at))

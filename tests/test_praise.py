@@ -503,3 +503,35 @@ def test_praise_block_shows_at_most_one_mark():
     marks = [c for c in text
              if unicodedata.category(c) in ("So", "Sk") and c not in "·→—–…"]
     assert len(marks) <= 1, f"знаков в блоке {len(marks)}: {text!r}"
+
+
+# ============================================================================
+# ПАТЧ 2.1: рубежи серии и заморозка
+# ============================================================================
+
+def test_week_streak_is_celebrated_once_a_day():
+    """7-й день — главный рубеж; празднуется в первое занятие дня, не в каждое."""
+    from app.services.praise_service import RoundFacts, pick_event
+
+    first = RoundFacts(rounds_total=9, streak_days=7, best_streak=7, first_round_today=True)
+    assert pick_event(first) == ("praise_streak_7", {"days": 7})
+    again = RoundFacts(rounds_total=10, streak_days=7, best_streak=7, first_round_today=False)
+    assert pick_event(again)[0] != "praise_streak_7", "праздник недели повторился за день"
+
+
+def test_freeze_is_told_when_it_saved_the_streak():
+    from app.services.praise_service import RoundFacts, pick_event
+
+    facts = RoundFacts(rounds_total=20, streak_days=8, best_streak=8,
+                       first_round_today=True, freeze_used_today=True)
+    assert pick_event(facts) == ("praise_freeze_saved", {"days": 8})
+
+
+def test_milestone_texts_exist_in_every_language():
+    from app.locales import get_text
+
+    for lang in ("ru", "uk", "en", "de", "pl", "tr"):
+        for key in ("praise_freeze_saved", "praise_streak_3", "praise_streak_7",
+                    "praise_streak_14", "praise_streak_30"):
+            text = get_text(key, lang, days=8)
+            assert text and "{" not in text and "[MISSING" not in text, (lang, key, text)

@@ -88,6 +88,18 @@ LEVEL_DISTRACTORS: dict[CEFRLevel, int] = {
     CEFRLevel.C2: 5,
 }
 MIN_DISTRACTORS = 1
+
+# A1–A2 — ПРОЩЕ (патч 2.1). Прод 15.10: «Собираю» — 38% верных против
+# 87–100% у остальных игр; ошибки ровно на грамматических двойниках
+# («Bitte Sie Ihrer Unterschrift…», «Wie ist deinem Handynummer»), человек
+# A1 провалил оба задания. Решение владельца: сложность растёт с уровнем —
+# для A1–A2 короче фраза и без падежных ловушек; ошибку не прятать.
+# Поэтому по уровню ЧЕЛОВЕКА: фраза до 5 слов на A1 и до 6 на A2, одна
+# ловушка — и та другим словом из чужого примера, не формой (dem вместо
+# den): проверяется порядок и смысл, а не окончания. Фраза длиннее — слово
+# уйдёт другой игрой (откат `make_puzzle` → None). С B1 — как прежде.
+EASY_MAX_WORDS: dict[CEFRLevel, int] = {CEFRLevel.A1: 5, CEFRLevel.A2: 6}
+EASY_DISTRACTORS = 1
 MAX_DISTRACTORS = max(LEVEL_DISTRACTORS.values())
 
 # Ширина сетки. В ряд по четыре на телефоне влезает слово около семи букв;
@@ -250,6 +262,72 @@ SIBLINGS: dict[str, tuple[tuple[str, ...], ...]] = {
         ("ne", "neden", "nasıl"),
         ("her", "hiç"),
     ),
+    # Романские: артикли и их слияния с предлогом, местоимения, лица
+    # глагола. «l'uomo» — одно слово («'» внутри не режется), поэтому
+    # усечённого «l'» в списках нет.
+    "it": (
+        ("il", "lo", "la", "i", "gli", "le"),
+        ("un", "uno", "una"),
+        ("del", "dello", "della", "dei", "degli", "delle"),
+        ("al", "allo", "alla", "ai", "agli", "alle"),
+        ("nel", "nello", "nella", "nei", "negli", "nelle"),
+        ("io", "me", "mi"), ("tu", "te", "ti"),
+        ("lui", "lo", "gli"), ("lei", "la", "le"),
+        ("noi", "ci"), ("voi", "vi"), ("loro", "li", "le"),
+        ("sono", "sei", "è", "siamo", "siete"),
+        ("ho", "hai", "ha", "abbiamo", "avete", "hanno"),
+        ("mio", "mia", "miei", "mie"), ("tuo", "tua", "tuoi", "tue"),
+        ("suo", "sua", "suoi", "sue"),
+        ("questo", "questa", "questi", "queste"),
+        ("quello", "quella", "quelli", "quelle"),
+        ("che", "chi", "cui"), ("di", "da"), ("in", "a", "su"),
+        ("non", "né"),
+    ),
+    "es": (
+        ("el", "la", "los", "las"), ("un", "una", "unos", "unas"),
+        ("del", "al"),
+        ("yo", "me", "mí"), ("tú", "te", "ti"),
+        ("él", "lo", "le"), ("ella", "la", "le"),
+        ("nosotros", "nos"), ("ellos", "los", "les"),
+        ("soy", "eres", "es", "somos", "son"),
+        ("estoy", "estás", "está", "estamos", "están"),
+        ("tengo", "tienes", "tiene", "tenemos", "tienen"),
+        ("mi", "mis"), ("tu", "tus"), ("su", "sus"),
+        ("este", "esta", "estos", "estas"), ("ese", "esa", "esos", "esas"),
+        ("que", "quien", "cual"), ("por", "para"), ("en", "a", "de"),
+        ("no", "ni"),
+    ),
+    "fr": (
+        ("le", "la", "les"), ("un", "une", "des"),
+        ("du", "de", "des"), ("au", "aux", "à"),
+        ("je", "me", "moi"), ("tu", "te", "toi"),
+        ("il", "le", "lui"), ("elle", "la", "lui"),
+        ("ils", "elles", "les", "leur", "eux"),
+        ("suis", "es", "est", "sommes", "êtes", "sont"),
+        ("ai", "as", "a", "avons", "avez", "ont"),
+        ("mon", "ma", "mes"), ("ton", "ta", "tes"), ("son", "sa", "ses"),
+        ("ce", "cet", "cette", "ces"),
+        ("qui", "que", "dont"), ("dans", "en", "à"),
+        ("pas", "plus", "jamais"),
+    ),
+    # Чешский — как польский: падежи местоимений, лица быть/мать
+    "cs": (
+        ("já", "mě", "mi", "mně", "mnou"),
+        ("ty", "tě", "ti", "tebe", "tobě"),
+        ("on", "ho", "mu", "jeho", "něj"),
+        ("ona", "ji", "jí", "její"),
+        ("my", "nás", "nám"), ("vy", "vás", "vám"),
+        ("oni", "je", "jim", "jejich"),
+        ("jsem", "jsi", "je", "jsme", "jste", "jsou"),
+        ("byl", "byla", "bylo", "byli"),
+        ("mám", "máš", "má", "máme", "máte", "mají"),
+        ("můj", "moje", "má", "mého", "mé"),
+        ("ten", "ta", "to", "ty", "toho", "té"),
+        ("se", "si"), ("v", "ve", "na"), ("z", "ze", "od"),
+        ("k", "ke", "do"),
+        ("který", "která", "které", "kteří"),
+        ("že", "aby"), ("ne", "ani"),
+    ),
 }
 
 # ВЗАИМОЗАМЕНЯЕМЫЕ: слова, которые в той же фразе часто ОБА верны. Ловушкой
@@ -278,6 +356,16 @@ EQUIVALENT: dict[str, tuple[tuple[str, ...], ...]] = {
     "pl": (("mnie", "mi"), ("cię", "ciebie"), ("ci", "tobie"),
            ("go", "jego"), ("mu", "jemu")),
     "tr": (("bu", "şu"), ("ve", "ile")),
+    # it/es/fr this/that — как в en, из исходной фразы не определить;
+    # es le/lo о человеке (leísmo в Испании верно); cs — краткие и полные
+    # формы местоимений, как в pl
+    "it": (("questo", "quello"), ("questa", "quella"), ("questi", "quelli"),
+           ("queste", "quelle")),
+    "es": (("este", "ese"), ("esta", "esa"), ("estos", "esos"),
+           ("estas", "esas"), ("le", "lo")),
+    "fr": (("ça", "cela"),),
+    "cs": (("mě", "mne"), ("tě", "tebe"), ("mi", "mně"), ("ti", "tobě"),
+           ("ho", "jeho"), ("mu", "jemu"), ("moje", "má")),
 }
 
 # Слова, у которых регистр — часть написания, а не место в предложении:
@@ -328,9 +416,19 @@ def sentence_tokens(word, pair: LanguagePair) -> Optional[list[str]]:
     return found
 
 
-def fits(word, pair: LanguagePair) -> bool:
-    """Можно ли спросить это слово сборкой. Одно правило для всего бота."""
-    return sentence_tokens(word, pair) is not None
+def fits(word, pair: LanguagePair, learner_level: Optional[CEFRLevel] = None) -> bool:
+    """
+    Можно ли спросить это слово сборкой. Одно правило для всего бота.
+
+    С уровнем человека — и длиной для A1–A2 (`EASY_MAX_WORDS`): иначе
+    подбор выбирал бы сборке слово с длинной фразой, а `make_puzzle`
+    отправлял бы его карточкой (независимая проверка 2.1).
+    """
+    found = sentence_tokens(word, pair)
+    if found is None:
+        return False
+    limit = EASY_MAX_WORDS.get(learner_level)
+    return limit is None or len(found) <= limit
 
 
 def sql_prefilter(pair: LanguagePair) -> tuple:
@@ -431,9 +529,28 @@ def first_on_tile(target: list[str], lang: str) -> list[str]:
     return [_lower(first, lang), *target[1:]]
 
 
+def same_stem(a: str, b: str) -> bool:
+    """
+    Две формы одного слова на глаз новичка: общее начало не короче трёх
+    букв и на всю длину короткого, кроме разве что последней буквы —
+    «gehe/geht», «Hund/Hunde», «gute/guten». Лишний отказ (Mut/Mutter)
+    дешевле: у новичка просто будет на ловушку меньше.
+    """
+    fa, fb = fold(a), fold(b)
+    if fa == fb:
+        return True
+    prefix = 0
+    for x, y in zip(fa, fb):
+        if x != y:
+            break
+        prefix += 1
+    return prefix >= 3 and prefix >= min(len(fa), len(fb)) - 1
+
+
 def pick_distractors(
     target: list[str], lang: str, foreign: list[str],
     rng: Optional[random.Random] = None, count: Optional[int] = None,
+    easy: bool = False,
 ) -> tuple[list[str], dict[str, int]]:
     """
     Слова-ловушки и откуда они взяты.
@@ -475,6 +592,25 @@ def pick_distractors(
         picked.append(word)
         sources[source] += 1
         return True
+
+    # Для A1–A2 — ловушки БЕЗ ДВОЙНИКОВ (`EASY_MAX_WORDS`): чужие слова,
+    # потом закрытые списки, оба без форм слов фразы. «Похожие» не
+    # берутся вовсе: это и есть падежные ловушки. Не хватило — лучше
+    # меньше ловушек, чем двойник (независимая проверка 2.1)
+    if easy:
+        twins = {fold(s) for token in target for s in _siblings(token, lang)}
+        # Чужое слово той же основы — тоже форма: к «gehe» — «geht», к
+        # «Hund» — «Hunde». Закрытые списки этого не ловят (аудит 2.1)
+        pool = [w for w in foreign if fold(w) not in twins
+                and not any(same_stem(w, token) for token in target)]
+        rng.shuffle(pool)
+        closed = [w for w in _closed_list(lang) if fold(w) not in twins]
+        rng.shuffle(closed)
+        for word, source in [(w, "foreign") for w in pool] + [(w, "closed") for w in closed]:
+            if len(picked) >= count:
+                break
+            take(word, source)
+        return picked, dict(sources)
 
     # 1. ПОХОЖИЕ — по кругу от разных слов фразы
     pools = []
@@ -523,11 +659,14 @@ async def foreign_words(
     Слишком длинные — тоже: они расширили бы сетку ради ловушки.
     """
     from app.database.models import Word
+    from app.services.word_level import level_expr, level_of
 
     column = example_column(pair.learning)
+    # Уровень — в изучаемом языке, не немецкий `Word.level` (аудит подбора 15.10)
+    own_level = await level_of(session, word, pair.learning)
     rows = (await session.execute(
         select(column)
-        .where(Word.id != word.id, Word.level == word.level,
+        .where(Word.id != word.id, level_expr(pair.learning) == own_level,
                column.isnot(None), func.btrim(column) != "")
         .order_by(func.random())
         .limit(limit)
@@ -576,6 +715,7 @@ def shuffle_tiles(target: list[str], distractors: list[str],
 async def make_puzzle(
     session: Optional[AsyncSession], word, pair: LanguagePair,
     rng: Optional[random.Random] = None,
+    learner_level: Optional[CEFRLevel] = None,
 ) -> Optional[Puzzle]:
     """
     Сборка по примеру слова или None, если пример не годится.
@@ -590,7 +730,25 @@ async def make_puzzle(
     # закрытых списков (`first_on_tile`). Ловушки к нему берутся тоже
     # строчными (`_like`), и ни одна кнопка не выдаёт начало фразы
     target = first_on_tile(target, pair.learning)
-    count = distractor_count(len(target), getattr(word, "level", None))
+    easy = learner_level in EASY_MAX_WORDS
+    if easy and len(target) > EASY_MAX_WORDS[learner_level]:
+        return None
+    count = (EASY_DISTRACTORS if easy
+             else distractor_count(len(target), getattr(word, "level", None)))
+
+    if easy:
+        # Новичку — ловушка другим словом: чужие примеры нужны сразу
+        foreign = await foreign_words(session, word, pair) if session is not None else []
+        distractors, sources = pick_distractors(
+            target, pair.learning, foreign, rng, count, easy=True)
+        return Puzzle(
+            target=target,
+            tiles=shuffle_tiles(target, distractors, rng),
+            distractors=distractors,
+            sentence=example_text(word, pair.learning),
+            translation=example_text(word, pair.native),
+            sources=sources,
+        )
 
     # Чужие примеры — только если закрытых списков не хватило: запрос к
     # базе на каждую сборку незачем, когда ловушки уже набраны

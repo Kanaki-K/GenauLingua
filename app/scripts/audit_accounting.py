@@ -261,30 +261,35 @@ async def _check_streaks(session, rep: Report) -> None:
     """
     from app.database.models import QuizSession, User
     from app.services.monthly_leaderboard_service import scored_sessions_filter
-    from app.services.streak_service import next_streak, user_day
+    from app.services.streak_service import advance, session_day, user_day
 
     rows = (await session.execute(
-        select(User, QuizSession.completed_at)
+        select(User, QuizSession.completed_at, QuizSession.local_day)
         .join(QuizSession, QuizSession.user_id == User.id)
         .where(QuizSession.completed_at.isnot(None), scored_sessions_filter())
     )).all()
 
     days: dict[int, set] = {}
     people: dict[int, object] = {}
-    for user, completed_at in rows:
+    for user, completed_at, local_day in rows:
         people[user.id] = user
-        days.setdefault(user.id, set()).add(user_day(user, completed_at))
+        days.setdefault(user.id, set()).add(session_day(user, local_day, completed_at))
 
     bad = []
     for user_id, active in days.items():
-        streak, last = 0, None
+        streak, last, freeze = 0, None, None
         for day in sorted(active):
-            streak = next_streak(streak, last, day)
+            # Заморозка — тем же правилом, что у бота (`advance`)
+            streak, freeze, _ = advance(streak, last, day, freeze)
             last = day
         user = people[user_id]
-        if int(user.streak_days or 0) != streak or user.last_active_date != last:
-            bad.append(f"{user_id}: записано {user.streak_days} · {user.last_active_date}, "
-                       f"по истории {streak} · {last}")
+        # День последней заморозки — тоже из истории: битая колонка дала бы
+        # вторую заморозку раньше недели (независимая проверка 2.1)
+        frozen = getattr(user, "streak_freeze_on", None)
+        if (int(user.streak_days or 0) != streak or user.last_active_date != last
+                or frozen != freeze):
+            bad.append(f"{user_id}: записано {user.streak_days} · {user.last_active_date} · "
+                       f"заморозка {frozen}, по истории {streak} · {last} · {freeze}")
 
     title = "серия и последний день = истории занятий"
     rep.line(not bad, title,
@@ -376,18 +381,19 @@ async def _check_lifetime(session, rep: Report) -> None:
     """
     from app.services.monthly_leaderboard_service import get_lifetime_leaderboard
 
+    # «*» — все языки сразу: так считает вкладка «За всё время» с 17.10
     langs = [lang for (lang,) in (await session.execute(text(
-        "SELECT DISTINCT learning_lang FROM monthly_stats"))).all()]
+        "SELECT DISTINCT learning_lang FROM monthly_stats"))).all()] + ["*"]
     bad, checked = [], 0
     for lang in langs:
         truth = {
             uid: int(total) for uid, total in (await session.execute(text("""
                 SELECT s.user_id, s.scored + COALESCE(a.bonus, 0)
                 FROM (SELECT user_id, SUM(monthly_score) AS scored
-                      FROM monthly_stats WHERE learning_lang = :lang
+                      FROM monthly_stats WHERE :lang = '*' OR learning_lang = :lang
                       GROUP BY user_id) s
                 LEFT JOIN (SELECT user_id, SUM(lifetime_bonus) AS bonus
-                           FROM monthly_awards WHERE learning_lang = :lang
+                           FROM monthly_awards WHERE :lang = '*' OR learning_lang = :lang
                            GROUP BY user_id) a ON a.user_id = s.user_id
             """), {"lang": lang})).all()
         }
@@ -432,16 +438,25 @@ async def _check_awards(session, rep: Report) -> None:
     хранит баллы, а не число жалоб. Вывести ожидаемое число надёжно не из
     чего — проверка лгала бы на каждом старом ряду.
     """
+    # С 17.10 медали — за общий месяц (язык награды «*»): её ряд — любой ряд
+    # человека в этом сезоне, у всех них один `final_rank`. Корона — по языку,
+    # место 1, без бонуса, и `final_rank` (общее место) с ней не сверяется
     rows = (await session.execute(text("""
         SELECT a.user_id, a.season_id, a.learning_lang, a.rank, a.award_type,
-               a.lifetime_bonus, ms.final_rank, ms.id IS NULL AS no_row
+               a.lifetime_bonus, MIN(ms.final_rank), COUNT(ms.id) = 0 AS no_row
         FROM monthly_awards a
         LEFT JOIN monthly_stats ms
           ON ms.user_id = a.user_id AND ms.season_id = a.season_id
-         AND ms.learning_lang = a.learning_lang
+         AND (a.learning_lang = '*' OR ms.learning_lang = a.learning_lang)
+        GROUP BY a.id, a.user_id, a.season_id, a.learning_lang, a.rank,
+                 a.award_type, a.lifetime_bonus
     """))).all()
     bad = []
     for uid, sid, lang, rank, kind, bonus, final_rank, no_row in rows:
+        if kind == "crown":
+            if no_row or rank != 1 or bonus:
+                bad.append(f"{uid} сезон {sid} [{lang}]: корона {rank}/{bonus}, ряд {not no_row}")
+            continue
         expected = _AWARD_BY_RANK.get(rank, ("top10", 10))
         if no_row:
             bad.append(f"{uid} сезон {sid} [{lang}]: награда без ряда месяца")
@@ -456,7 +471,8 @@ async def _check_awards(session, rep: Report) -> None:
         JOIN monthly_seasons se ON se.id = ms.season_id AND se.winners_finalized
         LEFT JOIN monthly_awards a
           ON a.user_id = ms.user_id AND a.season_id = ms.season_id
-         AND a.learning_lang = ms.learning_lang
+         AND a.award_type <> 'crown'
+         AND (a.learning_lang = '*' OR a.learning_lang = ms.learning_lang)
         WHERE ms.final_rank <= 10 AND a.id IS NULL
     """))).all()
     bad += [f"{uid} сезон {sid} [{lang}]: место {r} без награды"
