@@ -59,6 +59,20 @@ def setup_scheduler(bot: Bot) -> AsyncIOScheduler:
         replace_existing=True,
     )
 
+    # ═══════════════ ВИСЯЩИЕ ЗАНЯТИЯ (2.2.1) ═══════════════
+    # Раз в сутки, ночью по UTC: незаконченные без движения двое суток —
+    # брошенные (`app/services/lesson_cleanup.py`). Людям не пишет ничего
+    from app.services.lesson_cleanup import close_stale_lessons_job
+
+    scheduler.add_job(
+        close_stale_lessons_job,
+        trigger="cron",
+        hour=3,
+        minute=15,
+        id="close_stale_lessons",
+        replace_existing=True,
+    )
+
     scheduler.start()
     logger.info("Планировщик запущен: сообщения вовлечения + сезоны рейтинга")
     return scheduler
