@@ -81,7 +81,9 @@ PROBE_USER_ID = -999
 
 
 def _probe_user(channels: str) -> User:
-    user = User(id=PROBE_USER_ID, level=CEFRLevel.B1, quiz_mode=QuizMode.LEVEL)
+    # «Говорю» по желанию (2.2.1): приёмка проверяет саму игру — согласна
+    user = User(id=PROBE_USER_ID, level=CEFRLevel.B1, quiz_mode=QuizMode.LEVEL,
+                speech_choice="on")
     user.quiz_channels = channels
     return user
 

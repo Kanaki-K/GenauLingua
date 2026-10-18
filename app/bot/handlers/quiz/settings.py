@@ -817,6 +817,11 @@ async def toggle_channel(callback: CallbackQuery, session: AsyncSession):
     current.add(QuizChannel.TEXT.value)
 
     user.quiz_channels = "".join(c.value for c in QuizChannel if c.value in current)
+    if channel is QuizChannel.SPEECH:
+        # Включил или убрал сам — это и есть его выбор (2.2.1, «по желанию»)
+        from app.services.quiz_service import SPEECH_OFF, SPEECH_ON
+
+        user.speech_choice = SPEECH_ON if channel.value in current else SPEECH_OFF
     await session.commit()
 
     await show_channels(callback, session)

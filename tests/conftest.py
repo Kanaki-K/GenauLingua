@@ -106,6 +106,10 @@ async def user(session):
         learning_lang="de",
         native_lang="ru",
         reverse_mode=False,
+        # «Говорю» по желанию (2.2.1): тестовый человек согласился — проверки
+        # игр ждут её в составе. Само правило «пока не согласился — игры
+        # нет» проверяется в test_speech_choice с пустым выбором
+        speech_choice="on",
     )
     session.add(u)
     await session.commit()

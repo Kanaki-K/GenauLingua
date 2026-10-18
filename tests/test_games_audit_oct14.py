@@ -146,7 +146,8 @@ async def test_a_round_that_runs_out_of_words_ends_with_a_result(session, user, 
 # ============================================================================
 
 def _person(channels="tasr", length=15):
-    return User(id=1, quiz_channels=channels, audio_enabled=True, quiz_word_count=length)
+    return User(id=1, quiz_channels=channels, audio_enabled=True, quiz_word_count=length,
+                speech_choice="on")
 
 
 def test_practice_slot_respects_the_speech_cap():

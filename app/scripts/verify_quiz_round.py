@@ -65,9 +65,10 @@ async def _probe(session, learning: str, native: str, reverse: bool,
                  audio_on: bool, channels: str, onboarded: bool = True) -> User:
     user = await session.get(User, PROBE_ID)
     if user is None:
-        user = User(id=PROBE_ID, first_name="приёмка")
+        user = User(id=PROBE_ID, first_name="приёмка", speech_choice="on")
         session.add(user)
     user.level = CEFRLevel.B1
+    user.speech_choice = "on"   # «Говорю» по желанию (2.2.1) — приёмка проверяет игру
     user.quiz_mode = QuizMode.LEVEL
     user.learning_lang = learning
     user.native_lang = native

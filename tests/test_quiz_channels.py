@@ -294,10 +294,14 @@ async def test_a_fresh_person_gets_every_game(session):
     assert person.quiz_channels == DEFAULT_COMPOSITION
     # Сверяется с ПЕРЕЧИСЛЕНИЕМ, а не со списком руками: пятый канал,
     # забытый в составе по умолчанию, не дошёл бы ни до кого
-    assert set(enabled_channels(person)) == set(QuizChannel), (
-        "у нового человека открыты не все игры: "
+    # «Говорю» — по желанию (2.2.1, владелец): в составе она есть, но до
+    # согласия на приглашение под итогом занятия не приходит
+    assert set(enabled_channels(person)) == set(QuizChannel) - {QuizChannel.SPEECH}, (
+        "у нового человека открыты не те игры: "
         f"{[c.value for c in enabled_channels(person)]}"
     )
+    person.speech_choice = "on"
+    assert set(enabled_channels(person)) == set(QuizChannel)
 
 
 def test_turning_audio_off_still_cancels_both_sound_channels():

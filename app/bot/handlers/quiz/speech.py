@@ -50,6 +50,21 @@ logger = logging.getLogger(__name__)
 
 router = Router()
 
+TYPING_EVERY = 4.0
+
+
+async def _keep_typing(bot, chat_id: int) -> None:
+    """«печатает…», пока бот слушает голосовое. Сбой знака ничему не мешает."""
+    try:
+        while True:
+            try:
+                await bot.send_chat_action(chat_id, "typing")
+            except Exception:
+                return
+            await asyncio.sleep(TYPING_EVERY)
+    except asyncio.CancelledError:
+        return
+
 
 # ============================================================================
 # ОТВЕТ ГОЛОСОМ
@@ -117,6 +132,10 @@ async def process_voice_answer(message: Message, state: FSMContext, session: Asy
     verdict = None
     started = time.perf_counter()
     downloaded = started
+    # Пока бот слушает — «печатает…» в шапке чата (2.2.1): распознавание
+    # идёт 5 с обычно и до 18 с, и неподвижное «Проверяю…» читалось как
+    # зависание. Telegram держит знак 5 секунд — обновляем каждые четыре
+    typing = asyncio.create_task(_keep_typing(message.bot, message.chat.id))
     try:
         audio = await message.bot.download(message.voice.file_id)
         downloaded = time.perf_counter()
@@ -129,6 +148,8 @@ async def process_voice_answer(message: Message, state: FSMContext, session: Asy
         raise
     except Exception:
         logger.exception("не удалось обработать голосовой ответ")
+    finally:
+        typing.cancel()
     # Разбивка времени: прод 15.10 — один голосовой ответ шёл 21,5 с при
     # обычных пяти, и по журналу было не понять, на что ушло время
     recognized = time.perf_counter() - downloaded
@@ -357,7 +378,8 @@ async def skip_speech(callback: CallbackQuery, state: FSMContext, session: Async
         word_id=correct_word.id, lang=pair.learning,
         message=callback.message,
     )
-    if channel is QuizChannel.SPEECH and await _skips_in_a_row(session, user.id):
+    if (channel is QuizChannel.SPEECH and _may_ask_again(user)
+            and await _skips_in_a_row(session, user.id)):
         await _offer_speech_off(callback, state, session, user, lang)
 
 
@@ -369,6 +391,15 @@ async def skip_speech(callback: CallbackQuery, state: FSMContext, session: Async
 # показа и 21 пропуск, ещё двоим 6 из 6 и 4 из 4. Бот пропусков не замечал
 # и просил снова. После стольких пропусков ПОДРЯД — один раз спросить.
 SKIPS_BEFORE_OFFER = 3
+# «Убрать?» — не чаще раза в две недели: «Оставить» — тоже ответ (2.2.1)
+ASK_OFF_AGAIN_DAYS = 14
+
+
+def _may_ask_again(user) -> bool:
+    from datetime import timedelta
+
+    asked = getattr(user, "speech_asked_at", None)
+    return asked is None or utcnow() - asked >= timedelta(days=ASK_OFF_AGAIN_DAYS)
 CB_SPEECH_OFF = "speech_off"
 CB_SPEECH_KEEP = "speech_keep"
 
@@ -408,7 +439,9 @@ async def _offer_speech_off(callback: CallbackQuery, state: FSMContext,
         callback.message.chat.id, get_text("speech_offer_text", lang), reply_markup=keyboard,
     )
     await _remember_stray(state, offer.message_id)
+    user.speech_asked_at = utcnow()
     journal.note(session, user.id, "speech_offer", "shown")
+    await session.commit()
 
 
 @router.callback_query(F.data == CB_SPEECH_OFF)
@@ -421,6 +454,7 @@ async def speech_off(callback: CallbackQuery, state: FSMContext, session: AsyncS
     lang = user.interface_language or DEFAULT_LOCALE
     current = user.quiz_channels or "tasrb"
     user.quiz_channels = "".join(c for c in current if c != QuizChannel.SPEECH.value) or "t"
+    user.speech_choice = "off"
     journal.note(session, user.id, "speech_offer", "off")
     await session.commit()
     try:
@@ -433,7 +467,11 @@ async def speech_off(callback: CallbackQuery, state: FSMContext, session: AsyncS
 async def speech_keep(callback: CallbackQuery, state: FSMContext, session: AsyncSession):
     """Оставить — и не спрашивать, пока не наберутся новые три пропуска подряд."""
     await callback.answer()
+    user = await session.get(User, callback.from_user.id)
+    if user is not None:
+        user.speech_asked_at = utcnow()
     journal.note(session, callback.from_user.id, "speech_offer", "keep")
+    await session.commit()
     try:
         await callback.message.delete()
     except Exception:

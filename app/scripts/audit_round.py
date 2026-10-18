@@ -184,6 +184,7 @@ async def _make_probe(session, case: Case, index: int) -> User:
     user = User(
         id=probe_id,
         first_name=f"Приёмка {index}",
+        speech_choice="on",       # «Говорю» по желанию (2.2.1): приёмка проверяет игру
         interface_language="ru",
         learning_lang=case.learning,
         native_lang=case.native,

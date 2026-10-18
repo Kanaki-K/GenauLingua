@@ -390,6 +390,13 @@ async def home_learn_channel(
 
     lang = user.interface_language or DEFAULT_LOCALE
 
+    # Сам нажал «🎤» — сам и выбрал говорить (2.2.1, «Говорю» по желанию)
+    if channel is QuizChannel.SPEECH and user.speech_choice != "on":
+        user.speech_choice = "on"
+        if "s" not in (user.quiz_channels or ""):
+            user.quiz_channels = (user.quiz_channels or "t") + "s"
+        await session.commit()
+
     # Слух и речь обойтись без озвучки не могут: у вопроса на слух самого
     # слова на экране нет, а у вопроса вслух нечем послушать эталон.
     # ПРИПОМИНАНИЕ ЗВУКА НЕ ТРЕБУЕТ: оно текстовое, просто в другую сторону.

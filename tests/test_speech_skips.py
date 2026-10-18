@@ -125,3 +125,15 @@ async def test_keep_leaves_the_games_as_they_are(session, user, stage):
     assert user.quiz_channels == before
     deleted = {p["message_id"] for n, p in recorder.calls if n == "DeleteMessage"}
     assert 881 in deleted
+
+
+def test_remove_question_not_more_often_than_every_two_weeks():
+    from datetime import timedelta
+    from types import SimpleNamespace
+
+    from app.bot.handlers.quiz.speech import ASK_OFF_AGAIN_DAYS, _may_ask_again
+
+    assert _may_ask_again(SimpleNamespace(speech_asked_at=None))
+    assert not _may_ask_again(SimpleNamespace(speech_asked_at=utcnow() - timedelta(days=3)))
+    assert _may_ask_again(SimpleNamespace(
+        speech_asked_at=utcnow() - timedelta(days=ASK_OFF_AGAIN_DAYS + 1)))

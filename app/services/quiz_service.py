@@ -2145,7 +2145,16 @@ def enabled_channels(user: Optional[User]) -> list[QuizChannel]:
     picked = [c for c in QuizChannel if c.value in raw]
     if not getattr(user, "audio_enabled", True):
         picked = [c for c in picked if c not in NEEDS_AUDIO]
+    # «ГОВОРЮ» — ПО ЖЕЛАНИЮ (2.2.1, владелец): только у согласившихся.
+    # Пока не спрашивали, «не сейчас» или «убрать» — игры нет; приглашение —
+    # под итогом занятия (`speech_invite`). Объект без поля (симуляции,
+    # приёмки) считается согласившимся — у них проверяется сама игра
+    if getattr(user, "speech_choice", SPEECH_ON) != SPEECH_ON:
+        picked = [c for c in picked if c is not QuizChannel.SPEECH]
     return picked or [QuizChannel.TEXT]
+
+
+SPEECH_ON, SPEECH_OFF, SPEECH_LATER = "on", "off", "later"
 
 
 async def pick_channel(

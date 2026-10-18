@@ -209,6 +209,17 @@ async def _offer_what_fits(
             )
         except Exception:
             logger.warning("не удалось предложить уровень ниже", exc_info=True)
+        return
+
+    # «Говорю» ПО ЖЕЛАНИЮ (2.2.1) — третьим в очереди: только когда об
+    # уровне сказать нечего, чтобы конец занятия не стал допросом
+    from app.bot.handlers.quiz.speech_invite import send_invite, should_invite
+
+    try:
+        if await should_invite(session, user):
+            await send_invite(callback.bot, callback.message.chat.id, session, user, lang)
+    except Exception:
+        logger.warning("не удалось предложить «Говорю»", exc_info=True)
 
 
 async def _send_level_offer(callback: CallbackQuery, user: User, lang: str, following) -> None:
