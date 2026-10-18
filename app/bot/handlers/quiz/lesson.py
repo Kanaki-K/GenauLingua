@@ -379,6 +379,11 @@ async def start_lesson(
 
     old_anchor_id, _ = await ensure_anchor(message, session, user, emoji="")
 
+    # Начало занятия — отдельной строкой (2.2.1): с какой двери и какой длины
+    # круг, первый ли это урок. Пара к «finished» в итоге
+    journal.note(session, user.id, "lesson", "started", session_id=quiz_session.id,
+                 source=source, total=quiz_total,
+                 first=quiz_total == FIRST_LESSON_LENGTH and not user.onboarded_at or None)
     journal.note(session, user.id, "question", channel.value, session_id=quiz_session.id,
                  word_id=word.id, channel=channel.value, n=1, total=quiz_total)
     await show_card(

@@ -84,3 +84,28 @@ def install_journal(dp) -> None:
     и в `app.main`, и в `app.testing` (иначе приёмки его не проверят).
     """
     dp.update.middleware()(journal_update)
+
+
+async def journal_error(event, session_factory=None) -> None:
+    """
+    Необработанная ошибка — в журнал пути человека (2.2.1): вид исключения и
+    действие, на котором оно случилось, без текста ошибки. Иначе по журналу не
+    узнать, кто наткнулся на сбой и ушёл ли после. Сессия своя: сессия
+    обработчика к этому моменту откатана. Сбой записи не мешает ничему.
+    """
+    try:
+        if session_factory is None:
+            from app.database.session import AsyncSessionLocal as session_factory
+        update = getattr(event, "update", None)
+        user_id = _user_id(update) if update is not None else None
+        if not user_id:
+            return
+        async with session_factory() as session:
+            session.add(UserEvent(
+                user_id=user_id, at=utcnow(), kind="error",
+                action=type(event.exception).__name__[:64],
+                data={"where": describe(update)[:64]},
+            ))
+            await session.commit()
+    except Exception:
+        logger.warning("журнал: ошибка не записана", exc_info=True)

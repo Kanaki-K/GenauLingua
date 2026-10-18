@@ -556,6 +556,18 @@ async def _finish_quiz(
 
     answered = quiz_session.answered_questions if quiz_session else 0
 
+    # Конец занятия — в журнал пути (2.2.1): итог, длина и дверь входа одной
+    # строкой, рядом с нажатиями и вопросами этого же занятия
+    if quiz_session is not None:
+        from app.services import journal
+
+        started = quiz_session.started_at
+        journal.note(session, user.id, "lesson", "finished", session_id=session_id,
+                     answered=answered, correct=quiz_session.correct_answers,
+                     total=quiz_session.total_questions, source=quiz_session.start_source,
+                     repeat=is_error_repeat or None,
+                     seconds=int((done_at - started).total_seconds()) if started else None)
+
     # ЧТО БЫЛО ДО КРУГА. Поощрение должно хвалить за то, что случилось
     # ИМЕННО СЕЙЧАС, а оба числа — накопительные: «выучено» пересчитывается
     # целиком, месячный балл считается по формуле от всех занятий сезона.

@@ -32,10 +32,33 @@ def describe(update) -> str:
     if message is not None:
         if getattr(message, "voice", None) is not None:
             return "голосовое"
-        if getattr(message, "text", None):
-            return "команда" if message.text.startswith("/") else "сообщение"
+        text = getattr(message, "text", None)
+        if text:
+            # КОМАНДА — С ИМЕНЕМ, КНОПКА МЕНЮ — СВОИМ КЛЮЧОМ (2.2.1). Прежде
+            # и то и другое писалось общим словом, и разбор 18.10 не мог
+            # отличить «/start» от «/language», а «Учить» от «Рейтинга»:
+            # кнопки меню приходят текстом. Аргументы команды не пишутся
+            if text.startswith("/"):
+                name = text.split()[0].split("@")[0].lower()[:24]
+                return f"команда {name}"
+            key = _menu_key(text)
+            return f"меню {key}" if key else "сообщение"
         return "сообщение (другое)"
+    if getattr(update, "my_chat_member", None) is not None:
+        return "статус бота"
     return "другое"
+
+
+def _menu_key(text: str):
+    """Ключ кнопки главного меню по надписи на любом языке (и прежним), иначе None."""
+    from app.bot.buttons import (
+        BTN_HELP, BTN_LEARN_WORDS, BTN_RATING, BTN_SETTINGS, BTN_STATS, button_texts,
+    )
+
+    for key in (BTN_LEARN_WORDS, BTN_STATS, BTN_RATING, BTN_SETTINGS, BTN_HELP):
+        if text in button_texts(key):
+            return key.removeprefix("btn_")
+    return None
 
 
 logger = logging.getLogger("app.main")

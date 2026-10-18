@@ -21,6 +21,7 @@ from aiogram.fsm.storage.memory import SimpleEventIsolation
 
 from app.bot.fsm_storage import make_storage
 from app.bot.slow_log import install_slow_log
+from app.services.journal import journal_error
 
 from app.bot.routers import all_routers, attach_routers
 from app.config import settings
@@ -158,6 +159,7 @@ async def main():
     @dp.errors()
     async def global_error_handler(event: ErrorEvent):
         logger.exception("Unhandled error: %s", event.exception)
+        await journal_error(event)
         return True
 
     # ПОРЯДОК РЕГИСТРАЦИИ ЖИВЁТ В ОДНОМ МЕСТЕ — `app.bot.routers`.
