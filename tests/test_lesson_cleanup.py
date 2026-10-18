@@ -53,3 +53,28 @@ async def test_second_run_changes_nothing(session, user):
     await _lesson(session, user, started_ago=timedelta(days=4))
     assert await close_stale_lessons(session) == 1
     assert await close_stale_lessons(session) == 0
+
+
+async def test_learned_counter_follows_the_words_even_without_a_finished_lesson(session, user):
+    # Репетиция 2.2.1: 5 незаконченных занятий, 6 выученных слов, счётчик 0
+    from app.database.models import UserWord
+    from app.services.lesson_cleanup import sync_words_learned
+
+    for i in range(3):
+        word = make_word(f"L{i}", ru="с")
+        session.add(word)
+        await session.flush()
+        session.add(UserWord(user_id=user.id, word_id=word.id, learning_lang="de",
+                             learned=True, times_shown=3, times_correct=3, correct_streak=3))
+    other = make_word("Fremd", ru="ч")
+    session.add(other)
+    await session.flush()
+    session.add(UserWord(user_id=user.id, word_id=other.id, learning_lang="en", learned=True,
+                         times_shown=3, times_correct=3, correct_streak=3))   # другой язык — не в счёт
+    user.words_learned = 0
+    await session.commit()
+
+    assert await sync_words_learned(session) == 1
+    await session.refresh(user)
+    assert user.words_learned == 3
+    assert await sync_words_learned(session) == 0

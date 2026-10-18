@@ -49,8 +49,39 @@ async def close_stale_lessons(session: AsyncSession, now: Optional[datetime] = N
     return closed
 
 
+# «ВЫУЧЕНО» У ЧЕЛОВЕКА СВЕРЯЕТСЯ С ЕГО СЛОВАМИ (репетиция 2.2.1 на копии прода).
+# Счётчик `users.words_learned` пересчитывается только в конце ЗАКОНЧЕННОГО
+# занятия, а слово становится выученным прямо при ответе. Двое людей 18.10
+# начали по пять занятий, не закончили ни одного и выучили 6 и 2 слова —
+# в статистике у них стоял ноль, и приёмка учёта поймала расхождение.
+# Правило — то же, что у приёмки (`audit_accounting`): выученные слова в
+# изучаемом языке человека.
+SYNC_WORDS_LEARNED = """
+    update users u set words_learned = coalesce(r.n, 0)
+    from users x left join (
+        select uw.user_id, count(*) n from user_words uw join users v on v.id = uw.user_id
+        where uw.learned and uw.learning_lang = v.learning_lang group by uw.user_id
+    ) r on r.user_id = x.id
+    where u.id = x.id and coalesce(u.words_learned, 0) <> coalesce(r.n, 0)
+"""
+
+
+async def sync_words_learned(session: AsyncSession) -> int:
+    """Поправить «выучено» у тех, у кого счётчик разошёлся со словами. Сколько поправлено."""
+    from sqlalchemy import text
+
+    result = await session.execute(text(SYNC_WORDS_LEARNED))
+    await session.commit()
+    fixed = result.rowcount or 0
+    if fixed:
+        logger.info("«выучено» сверено с словами: поправлено у %s", fixed)
+    return fixed
+
+
 async def close_stale_lessons_job() -> int:
     from app.database.session import AsyncSessionLocal
 
     async with AsyncSessionLocal() as session:
-        return await close_stale_lessons(session)
+        closed = await close_stale_lessons(session)
+        await sync_words_learned(session)
+        return closed
