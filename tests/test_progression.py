@@ -16,6 +16,14 @@ import re
 from datetime import datetime, time, timedelta
 
 import pytest
+
+@pytest.fixture(autouse=True)
+def _always_daytime(monkeypatch):
+    """Время суток извещения проверяется в test_award_daytime; здесь — всегда день,
+    иначе эти проверки зависели бы от часа запуска."""
+    from app.services import monthly_leaderboard_service as mls
+    monkeypatch.setattr(mls, "_daytime_for", lambda user, now: True)
+
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import async_sessionmaker
 

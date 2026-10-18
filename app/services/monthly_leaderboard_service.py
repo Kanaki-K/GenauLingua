@@ -1126,6 +1126,22 @@ async def get_user_lifetime_rank(
 # и сбой сети, но не следующий сезон
 AWARD_NOTICE_WINDOW = timedelta(days=3)
 
+# ИТОГИ — ДНЁМ (2.2.1). Сезон закрывается 1-го в 00:05 UTC, и извещение
+# уходило сразу: 01:05 Берлин, 02:05 Киев. Теперь оно ждёт дня у самого
+# человека; почасовая досылка (:30) отправит его в первый же дневной час.
+AWARD_NOTICE_HOURS = (10, 20)
+
+
+def _daytime_for(user, now: datetime) -> bool:
+    """Сейчас у человека день: [10:00, 20:00) по его поясу."""
+    from datetime import timezone as _tz
+
+    from app.services.streak_service import _zone
+
+    local = now.replace(tzinfo=_tz.utc).astimezone(_zone(user))
+    start, end = AWARD_NOTICE_HOURS
+    return start <= local.hour < end
+
 
 async def notify_season_awards(
     bot, session: AsyncSession, now: Optional[datetime] = None,
@@ -1194,6 +1210,11 @@ async def notify_season_awards(
             # сообщать некому; помечаем, чтобы не перебирать её вечно
             for award in awards:
                 award.notified_at = utcnow()
+            continue
+
+        if not _daytime_for(user, now):
+            # Ночь у человека — награда остаётся неизвещённой, досылка
+            # отправит её, когда у него наступит день
             continue
 
         season = await session.get(MonthlySeason, season_id)

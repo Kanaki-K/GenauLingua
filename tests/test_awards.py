@@ -19,6 +19,14 @@
 
 import pytest
 
+@pytest.fixture(autouse=True)
+def _always_daytime(monkeypatch):
+    """Время суток извещения проверяется в test_award_daytime; здесь — всегда день,
+    иначе эти проверки зависели бы от часа запуска."""
+    from app.services import monthly_leaderboard_service as mls
+    monkeypatch.setattr(mls, "_daytime_for", lambda user, now: True)
+
+
 from app.database.models import MonthlyAward, MonthlySeason, MonthlyStats
 from app.services.monthly_leaderboard_service import (
     AWARD_MARKS, award_mark, notify_season_awards,
