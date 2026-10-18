@@ -40,9 +40,14 @@ from typing import Optional
 
 logger = logging.getLogger(__name__)
 
-# Модель распознавания. «small» — та же, на которой проверялась вся озвучка
-# (7 176 клипов из 7 200 совпали), то есть её поведение здесь известно.
-MODEL_SIZE = os.environ.get("ASR_MODEL", "small")
+# Модель распознавания — «base» (2.2.1, владелец: «скорость важнее, больше
+# 5 секунд ждать нельзя»). Прод 14–18.10 на «small»: медиана 4,8 с, у
+# каждого десятого 9,4 с, максимум 18,2 с — сверх пяти секунд. Замер 18.10
+# на 80 клипах четырёх языков, 2 потока как на сервере: «base» с подсказкой
+# слова — в 3,3 раза быстрее, 78 из 80 верно (у «small» с подсказкой 79),
+# ложных засчитываний 0. Не понял дважды — вопрос и так проходит пропуском,
+# а не ошибкой. Переопределяется `ASR_MODEL` (образ кладёт её же).
+MODEL_SIZE = os.environ.get("ASR_MODEL", "base")
 
 # Сколько распознаваний пускать одновременно. Работа процессорная: третий
 # поток отбирает время у первых двух, а не добавляет пропускной способности.
@@ -55,21 +60,19 @@ MAX_PARALLEL = 2
 # произнёс. Требовать точного совпадения значило бы браковать верные ответы.
 MATCH_THRESHOLD = 0.75
 
-# С какой доли совпадения первый проход считается «созвучным промахом», и
-# тогда слушаем второй раз — с подсказкой ожидаемого слова.
+# ПОДСКАЗКА ОЖИДАЕМОГО СЛОВА — СРАЗУ, ОДНИМ ПРОХОДОМ (2.2.1).
 #
-# ЗАЧЕМ ВТОРОЙ ПРОХОД. Живой тест владельца 14 октября: сказал «der Streit»,
-# распознаватель услышал «Verstrahlt!» и засчитал ошибку. Короткое слово
-# без контекста маленькая модель путает с созвучным, а мы-то ЗНАЕМ, какое
-# слово ждём. Замер на синтезе: голос с английским акцентом и быстрым
-# темпом — без подсказки «Derstreit», с подсказкой «der Streit».
+# Зачем подсказка. Живой тест владельца 14 октября: сказал «der Streit»,
+# распознаватель услышал «Verstrahlt!». Короткое слово без контекста модель
+# путает с созвучным, а мы ЗНАЕМ, какое слово ждём.
 #
-# ПОЧЕМУ ТОЛЬКО ДЛЯ СОЗВУЧНЫХ. Подсказка сдвигает модель к ожидаемому, и
-# дать её на любую запись значило бы засчитывать что попало. Порог отсекает
-# чужие слова: «Katze» вместо «Hund» — сходство 0.0, второго прохода нет.
-# И сама подсказка чужое слово в нужное не превращает — проверено: «die
-# Stadt» и «der Stern» с подсказкой «der Streit» остались собой.
-NEAR_MISS = 0.4
+# Прежде она давалась ВТОРЫМ проходом и только «созвучному промаху» (сходство
+# 0.4–0.75): боялись, что подсказка заставит засчитывать что попало. Второй
+# проход удваивал время — 8 голосовых из 44 на проде, отсюда хвосты до 18 с.
+# Замер 18.10 этот страх снял: клип слова A с подсказкой слова B — 0 ложных
+# засчитываний на всех трёх моделях, а верных с подсказкой больше (78 против
+# 68 из 80 у «base»). И раньше проверено: «die Stadt» и «der Stern» с
+# подсказкой «der Streit» остались собой.
 
 # Короче этого распознавать нечего: человек нажал и отпустил.
 MIN_DURATION_SECONDS = 0.3
@@ -155,9 +158,19 @@ async def _get_model():
                 from faster_whisper import WhisperModel
 
                 logger.info("загружаю модель распознавания речи (%s)", MODEL_SIZE)
-                _model = await asyncio.to_thread(
+                model = await asyncio.to_thread(
                     WhisperModel, MODEL_SIZE, device="cpu", compute_type="int8"
                 )
+                # ПРОГРЕВ: первое распознавание после загрузки медленнее
+                # остальных — его платит бот при старте, а не первый человек
+                try:
+                    import numpy as np
+
+                    await asyncio.to_thread(
+                        _transcribe_blocking, model, np.zeros(16000, dtype=np.float32), "de")
+                except Exception:
+                    logger.debug("прогрев распознавания не удался", exc_info=True)
+                _model = model
     return _model
 
 
@@ -263,7 +276,8 @@ async def check_pronunciation(
     try:
         model = await _get_model()
         async with _slots:
-            heard = await asyncio.to_thread(_transcribe_blocking, model, audio, lang)
+            # Один проход с подсказкой ожидаемого слова (см. выше)
+            heard = await asyncio.to_thread(_transcribe_blocking, model, audio, lang, target)
     except Exception:
         logger.exception("распознавание речи не удалось")
         return SpeechVerdict(heard="", matched=False, similarity=0.0, failed=True)
@@ -275,21 +289,6 @@ async def check_pronunciation(
 
     ratio = _similarity(want, got, lang)
     threshold = _threshold(want)
-
-    if NEAR_MISS <= ratio < threshold:
-        try:
-            async with _slots:
-                second = await asyncio.to_thread(
-                    _transcribe_blocking, model, audio, lang, target
-                )
-        except Exception:
-            logger.exception("второй проход распознавания не удался")
-            second = ""
-        second_ratio = _similarity(want, _strip_article(_normalize(second, lang), lang), lang)
-        logger.info("созвучный промах %r → со второго прохода %r (%.2f → %.2f)",
-                    heard, second, ratio, second_ratio)
-        if second_ratio > ratio:
-            heard, ratio = second, second_ratio
 
     return SpeechVerdict(
         heard=heard, matched=ratio >= threshold, similarity=ratio

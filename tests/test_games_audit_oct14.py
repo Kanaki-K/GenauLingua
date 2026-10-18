@@ -648,3 +648,24 @@ async def test_a_listening_question_can_be_skipped_without_a_mistake(
     assert data["correct_word_id"] not in after.get("errors", []), "пропуск ушёл в ошибки"
     assert get_text("speech_skipped", "ru") in recorder.last_text()
     assert "next_question" in recorder.buttons()
+
+
+async def test_one_pass_and_always_with_the_expected_word(monkeypatch):
+    # 2.2.1: скорость — один проход, подсказка сразу (второй удваивал время)
+    from app.services import mp3_trim
+
+    monkeypatch.setattr(mp3_trim, "decode", lambda _data: _Audio())
+    calls = []
+
+    async def model():
+        return object()
+
+    def transcribe(_model, _audio, _lang, hint=None):
+        calls.append(hint)
+        return "Verstrahlt!"
+
+    monkeypatch.setattr(sc, "_get_model", model)
+    monkeypatch.setattr(sc, "_transcribe_blocking", transcribe)
+    verdict = await sc.check_pronunciation(b"x", "der Streit", "de")
+    assert calls == ["der Streit"], calls
+    assert not verdict.matched
