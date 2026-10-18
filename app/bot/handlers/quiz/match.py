@@ -49,7 +49,7 @@ from aiogram.types import (
 )
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.bot.handlers.quiz.lesson_state import S_BOARD_DONE, _recover, lesson_length
+from app.bot.handlers.quiz.lesson_state import S_ANSWERED, S_BOARD_DONE, _recover, lesson_length
 from app.core.clock import utcnow
 from app.database.enums import QuizChannel
 from app.database.models import QuizQuestion, QuizSession, User, Word
@@ -462,9 +462,12 @@ async def _finish(
         # `show_next_question` сам прибавит единицу и даст следующий по
         # порядку. Прежняя редакция перепрыгивала пять, и человек видел
         # счёт 5 → 11.
+        # И вопрос доски — ОТВЕЧЕН: «Далее» идёт только с отвеченного
+        # (`show_next_question`), иначе кнопка ниже не сработала бы
         await state.update_data(**{
             "current_question": int(round_at),
             S_ROUND_AT: None,
+            S_ANSWERED: int(round_at),
         })
         text += "\n\n" + get_text("match_back_to_round", lang)
         keyboard = InlineKeyboardMarkup(inline_keyboard=[[

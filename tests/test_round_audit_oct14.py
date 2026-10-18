@@ -266,6 +266,36 @@ async def test_next_advances_from_one_number_only_once(session, user, stage):
     assert await LS._claim_advance(ctx, user.id) is True
 
 
+async def test_a_stale_next_does_not_skip_the_question_it_brought(session, user, stage):
+    """
+    Прод 18.10, владелец: «Далее» грузилось 5,6 с, он нажал ещё раз — и
+    вопрос «Говорю» пропустился. Не гонка: второе нажатие пришло ПОСЛЕ
+    первого, когда номер уже стал следующим, и замок «с этого номера уже
+    шли» его не узнал. «Далее» с неотвеченного вопроса не продвигает круг.
+    """
+    dp, bot, recorder = stage
+    await _ready(session, user)
+
+    await dp.feed_update(bot, text_update(user.id, LEARN))
+    ctx = _ctx(dp, bot, user)
+    await dp.feed_update(bot, press(user.id, _first_option(recorder)))
+    await dp.feed_update(bot, press(user.id, "next_question"))
+    data = await ctx.get_data()
+    assert data["current_question"] == 2
+    second_word = data["correct_word_id"]
+
+    # Та же старая кнопка ещё раз — вопрос 2 не отвечен
+    await dp.feed_update(bot, press(user.id, "next_question"))
+    data = await ctx.get_data()
+    assert data["current_question"] == 2
+    assert data["correct_word_id"] == second_word
+
+    # Ответ на него — и «Далее» снова работает
+    await dp.feed_update(bot, press(user.id, _first_option(recorder)))
+    await dp.feed_update(bot, press(user.id, "next_question"))
+    assert (await ctx.get_data())["current_question"] == 3
+
+
 async def test_a_round_is_finished_once_however_many_times_finish_is_called(
     session, user, stage
 ):
