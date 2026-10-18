@@ -209,7 +209,7 @@ TEXTS = {
     "report_btn_kind_audio": "Prononciation erronée",
     "report_sent_audio": "✓ Signalements envoyés : {count} — merci !\nLes signalements de prononciation sont particulièrement précieux : la vérification automatique n’entend pas l’accent tonique.\nChaque signalement confirmé rapporte +{points}.",
     "report_approved": "✓ Votre signalement sur <b>{word}</b> a été accepté, nous corrigerons la traduction\n\n+{points} points à votre score du mois. Merci, le dictionnaire s’améliore pour tout le monde",
-    "award_won": "{mark} {month} : vous avez terminé à la place {rank} du classement du mois\n\n{bonus} points ajoutés à votre score total",
+    "award_won": "{mark} Classement du mois ({month}) : place {rank}\n\n{bonus} points ajoutés à votre score total",
     "report_approved_audio": "✓ Votre signalement de prononciation sur <b>{word}</b> a été accepté\n\nL’enregistrement sera corrigé\n\n+{points} points à votre score du mois, merci",
     # ============================================================================
     # QUIZ
@@ -310,7 +310,7 @@ Plus la communauté est active, meilleur devient le bot. N’hésitez pas ! """
     "table_empty": "Personne n’a encore participé.\nLa première place vous attend : faites une leçon !",
     "table_you_not_ranked": "Pas encore de place au classement",
     "rating_tab_month": "Mois",
-    "rating_tab_alltime": "Toujours",
+    "rating_tab_alltime": "Global",
     "rating_crown_rule": "La première place reçoit la couronne pour tout le mois suivant",
     "rating_screen_title": "<b>Classement · {month} {year}</b>",
     "rating_screen_title_alltime": "<b>Classement · depuis le début</b>",
@@ -319,7 +319,7 @@ Plus la communauté est active, meilleur devient le bot. N’hésitez pas ! """
     "info_title": "<b>Comment fonctionne le classement</b>",
     "info_month": "<b>Mois</b> — tout le monde. Les trois meilleurs reçoivent 🥇 🥈 🥉 (dès 3 leçons).",
     "info_lang": "<b>Langue</b> — ceux qui apprennent votre langue. Le premier reçoit 👑 pour le mois suivant.",
-    "info_alltime": "<b>Toujours</b> — tous les points. Les médailles font monter votre rang 🌱 🌳 🌙 🪐 ☀️",
+    "info_alltime": "<b>Global</b> — tous les points. Les médailles font évoluer votre titre 🌱 🌳 🌙 🪐 ☀️",
     "info_points_title": "<b>Points</b>",
     "info_points": "Réponse +1 · à l’oreille +2 · à voix haute +3\nLeçon +10 · mot appris +3\nJours d’affilée — jusqu’à +10 · précision au-dessus de 60% — bonus\nSignalement confirmé +{points}",
     "title_sprout": "Pousse",
@@ -332,7 +332,7 @@ Plus la communauté est active, meilleur devient le bot. N’hésitez pas ! """
     "card_medal_need": "Leçons nécessaires pour une médaille : {need} · vous en avez {have}",
     "card_crown_small": "La couronne se joue quand la langue compte 3+ personnes avec 3+ leçons",
     "summary_place": "↑ Place du mois : {rank}",
-    "summary_gap": "jusqu’à {name} {gap}",
+    "summary_gap": "{gap} de retard sur {name}",
     "summary_record": "Nouveau record du mois : {points}",
     "collection_title": "<b>Collection</b> · {open} sur {total} débloqués",
     "collection_locked": "▫️ ???",
@@ -349,11 +349,11 @@ Plus la communauté est active, meilleur devient le bot. N’hésitez pas ! """
     "ach_editor": "Éditeur du dictionnaire : 5 signalements acceptés",
     "ach_polyglot": "Polyglotte : 100 mots dans deux langues",
     "award_month_header": "<b>Résultats du mois</b>",
-    "award_crown": "👑 Couronne : vous êtes le meilleur en {language}. Portez-la tout le mois suivant",
+    "award_crown": "👑 Couronne — {language} : première place. Portez-la tout le mois suivant",
     "award_glory": "+{glory} de gloire",
-    "award_new_title": "Nouveau rang : {mark} {name}",
-    "nd_overtaken": "On vous a dépassé dans le classement du mois.\nVotre place : {rank} · jusqu’à {name} {gap}.",
-    "nd_finish": "Jusqu’à la fin du mois : {days}.\nVotre place : {rank} · jusqu’à une médaille {gap}.",
+    "award_new_title": "Nouveau titre : {mark} {name}",
+    "nd_overtaken": "On vous a dépassé dans le classement du mois.\nVotre place : {rank} · {gap} de retard sur {name}.",
+    "nd_finish": "Jusqu’à la fin du mois : {days}.\nVotre place : {rank} · il vous manque {gap} pour une médaille.",
 
     "stats_header": "<b>Vos statistiques</b>",
     "stats_in_work_line": "Mots en cours d’apprentissage : {count} · encore {left} pour atteindre {target}",
@@ -445,7 +445,7 @@ TEXTS.update({
 # экране, и оставлено то, чего из интерфейса не видно.
 # ============================================================================
 TEXTS.update({
-    "help_how_to_use_text": "<b>Leçon</b>\n{words}, quatre options à chaque fois. Une leçon mélange six jeux : « Je lis », « Je me souviens », « J’écoute », « Je parle », « Je construis » et le plateau « Trouvez les paires ». Le bot retient vos erreurs et ramène plus souvent les mots difficiles. Après la leçon, vous pouvez revoir ceux que vous avez manqués.\n\n<b>Son</b>\nLa question fait entendre le mot ; après votre réponse, vous entendez le mot avec son exemple. Choisissez une voix d’homme ou de femme dans les réglages.\n\n<b>Langues</b>\n{languages} — dans n’importe quelle paire. La progression est suivie séparément pour chaque langue ; le classement a les onglets « Mois », « Toujours » et « Langue ».\n\n\nUn mot compte comme <b>appris</b> après trois bonnes réponses d’affilée, à des jours différents. Si vous répondez juste à un nouveau mot du premier coup, une seule bonne réponse de plus suffit.\nVotre <b>série</b> grandit chaque jour où vous faites au moins une leçon. Un jour manqué par semaine ne la casse pas — une protection de série le couvre.\nTraduction ou prononciation erronée ? Utilisez le bouton « Signaler une erreur » sous la réponse.",
+    "help_how_to_use_text": "<b>Leçon</b>\n{words}, quatre options à chaque fois. Une leçon mélange six jeux : « Je lis », « Je me souviens », « J’écoute », « Je parle », « Je construis » et le plateau « Trouvez les paires ». Le bot retient vos erreurs et ramène plus souvent les mots difficiles. Après la leçon, vous pouvez revoir ceux que vous avez manqués.\n\n<b>Son</b>\nLa question fait entendre le mot ; après votre réponse, vous entendez le mot avec son exemple. Choisissez une voix d’homme ou de femme dans les réglages.\n\n<b>Langues</b>\n{languages} — dans n’importe quelle paire. La progression est suivie séparément pour chaque langue ; le classement a les onglets « Mois », « Global » et « Langue ».\n\n\nUn mot compte comme <b>appris</b> après trois bonnes réponses d’affilée, à des jours différents. Si vous répondez juste à un nouveau mot du premier coup, une seule bonne réponse de plus suffit.\nVotre <b>série</b> grandit chaque jour où vous faites au moins une leçon. Un jour manqué par semaine ne la casse pas — une protection de série le couvre.\nTraduction ou prononciation erronée ? Utilisez le bouton « Signaler une erreur » sous la réponse.",
     "help_community_title": "<b>À propos du bot et de la communauté</b>",
     "help_community_text": "<b>GenauLingua</b> — {language_count} langues dans n’importe quelle paire : {languages}\n12 900 mots A1–C2, chacun avec un exemple et un son naturel.\nInterface : {interface_languages}\n\n<b>t.me/genaulingua_chat</b>\nBugs, erreurs de traduction, idées — nous lisons tout. Les signalements de prononciation sont particulièrement bienvenus : une machine n’entend pas l’accent tonique.",
 })
@@ -794,7 +794,7 @@ TEXTS.update({
     "nd_start_last_body": "Il n’y aura plus de rappels. Si vous voulez commencer, la première leçon prend environ {minutes_n} minutes - le bouton est ci-dessous.",
     "nd_btn_optin": "Me le rappeler à {time}",
     "nd_btn_stop": "Ne plus envoyer",
-    "nd_auto_time": "Je vous le rappelle chaque jour à {time}. Vous pouvez changer l’heure",
+    "nd_auto_time": "Je vous enverrai un rappel chaque jour à {time}. Vous pouvez changer l’heure",
     "nd_btn_change_time": "Changer l’heure",
     "nd_optin_done": "✓ C’est fait : le rappel arrivera à <b>{time}</b>\n\nVous pouvez changer l’heure dans les réglages",
 })
