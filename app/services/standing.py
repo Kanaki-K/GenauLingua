@@ -22,7 +22,8 @@ from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database.models import (
-    MonthlyAward, MonthlySeason, MonthlyStats, QuizSession, TranslationReport, User, UserWord,
+    MonthlyAward, MonthlySeason, MonthlyStats, QuizQuestion, QuizSession, TranslationReport, User,
+    UserWord,
 )
 
 # ---------------------------------------------------------------------------
@@ -266,11 +267,23 @@ async def standings(session: AsyncSession, users: Iterable[User]) -> dict[int, S
         .group_by(TranslationReport.user_id)
     )).all())
 
+    # БЕЗ ОШИБОК — ЭТО НИ ОДНОГО НЕВЕРНОГО ОТВЕТА (2.2.1). Прежде условие
+    # было «верных ≥ запланированных»: доска пар добавляет 5 ответов к 15
+    # вопросам (итог «X/19»), и проходили занятия с четырьмя ошибками; повтор
+    # ошибок тоже шёл в счёт. Пропуск «Говорю» ошибкой не записывается.
+    # Импорт здесь: monthly_leaderboard_service сам импортирует этот модуль
+    from app.services.monthly_leaderboard_service import REPEAT_QUIZ_MODE
+
+    wrong = (select(QuizQuestion.id)
+             .where(QuizQuestion.session_id == QuizSession.id,
+                    QuizQuestion.is_correct.is_(False))
+             .exists())
     perfect = dict((await session.execute(
         select(QuizSession.user_id, func.count())
         .where(QuizSession.user_id.in_(ids), QuizSession.is_completed.is_(True),
-               QuizSession.total_questions > 0,
-               QuizSession.correct_answers >= QuizSession.total_questions)
+               QuizSession.answered_questions > 0,
+               func.coalesce(QuizSession.quiz_mode, "") != REPEAT_QUIZ_MODE,
+               ~wrong)
         .group_by(QuizSession.user_id)
     )).all())
 
