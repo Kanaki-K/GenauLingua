@@ -125,6 +125,35 @@ async def test_continue_on_an_unanswered_question_shows_the_same_number(session,
     assert only.answered_questions == 2
 
 
+async def test_continue_clears_a_menu_screen_opened_mid_lesson(session, user, stage):
+    """
+    Прод 18.10, владелец: начал занятие, открыл «Статистику», нажал «Учить»
+    → «Продолжить» — экран статистики остался висеть над вопросом.
+    """
+    from app.database.models import User
+
+    dp, bot, recorder = stage
+    rs = bot.session
+    await dp.feed_update(bot, text_update(user.id, LEARN))
+    await _answer(dp, bot, user)
+
+    before = rs._next_id
+    await dp.feed_update(bot, text_update(user.id, get_text("btn_stats", "ru")))
+    fresh = await session.get(User, user.id)
+    await session.refresh(fresh)
+    screens = set(range(before + 1, rs._next_id + 1)) - {fresh.anchor_message_id}
+    assert screens, "экран статистики не показан"
+
+    await dp.feed_update(bot, text_update(user.id, LEARN))
+    prompt = rs._next_id
+    await dp.feed_update(bot, press(user.id, CB_RESUME, message_id=prompt))
+
+    deleted = {p["message_id"] for n, p in recorder.calls if n == "DeleteMessage"}
+    assert screens <= deleted, f"остались на экране: {sorted(screens - deleted)}"
+    assert fresh.anchor_message_id not in deleted, "якорь с клавиатурой удалён"
+    assert (await _ctx(dp, bot, user).get_data())["current_question"] == 2
+
+
 async def test_double_continue_moves_the_lesson_once(session, user, stage):
     dp, bot, recorder = stage
     await dp.feed_update(bot, text_update(user.id, LEARN))

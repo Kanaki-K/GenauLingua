@@ -242,6 +242,17 @@ async def resume_lesson(callback: CallbackQuery, state: FSMContext, session: Asy
             await callback.bot.delete_message(callback.message.chat.id, old_card)
         except Exception:
             logger.debug("прежняя карточка не удалилась", exc_info=True)
+    # И ЭКРАНЫ МЕНЮ, ОТКРЫТЫЕ ПОСРЕДИ ЗАНЯТИЯ. Прод 18.10, владелец: начал
+    # занятие, открыл «Статистику», нажал «Учить» → «Продолжить» — экран
+    # статистики остался висеть над вопросом. Новое занятие убирает всё от
+    # якоря до нажатия (`start_lesson`), продолжение не убирало ничего,
+    # кроме своей карточки. Якорь остаётся: на нём живёт нижняя клавиатура;
+    # «Продолжить?» — тоже: на его месте встанет вопрос
+    user = await session.get(User, user_id)
+    anchor_id = getattr(user, "anchor_message_id", None)
+    if anchor_id:
+        await delete_messages_fast(callback.bot, callback.message.chat.id,
+                                   anchor_id + 1, callback.message.message_id)
     if data.get(S_ANSWERED) != current:
         # Неотвеченный вопрос показывается заново под тем же номером
         await state.update_data(current_question=current - 1, **{S_ADVANCED: None})
@@ -592,6 +603,18 @@ async def _errors_of_last_lesson(session: AsyncSession, user_id: int) -> list[in
 @router.callback_query(F.data == "next_question", QuizStates.answering)
 async def show_next_question(callback: CallbackQuery, state: FSMContext, session: AsyncSession):
     await callback.answer()
+    # «ДАЛЕЕ» — ТОЛЬКО С ОТВЕЧЕННОГО ВОПРОСА. Прод 18.10, владелец: «Далее»
+    # грузилось 5,6 с (карточка «Говорю»), он нажал ещё раз — и вопрос 12
+    # пропустился, не показавшись. Номер вопроса в состоянии уже стал 12, а
+    # `_claim_advance` помнил лишь «с 11 уже шли», и второе нажатие той же
+    # старой кнопки продвинуло круг с 12. Кнопка «Далее» бывает только под
+    # разбором, то есть после ответа, пропуска или доски — все они отмечают
+    # вопрос (`S_ANSWERED`); неотвеченный текущий значит, что нажата
+    # прежняя кнопка. «Продолжить» сюда не ходит: у него своя проверка
+    data = await state.get_data()
+    current = data.get("current_question")
+    if current is not None and data.get(S_ANSWERED) != current:
+        return
     if not await _claim_advance(state, callback.message.chat.id):
         return
     await _advance(callback, state, session)
