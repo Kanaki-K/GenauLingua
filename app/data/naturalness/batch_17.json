@@ -1,0 +1,777 @@
+{
+ "about": "2.3, A1: совпадающие примеры",
+ "edits": [
+  {
+   "id": 520,
+   "col": "example_de",
+   "old": "Ich mache einen Deutschkurs",
+   "new": "Wie viele Leute sind in deinem Kurs?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — Deutschkurs (внесено мной в блоке 11)"
+  },
+  {
+   "id": 520,
+   "col": "example_ru",
+   "old": "Я хожу на курсы немецкого",
+   "new": "Сколько человек у тебя на курсах?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — Deutschkurs (внесено мной в блоке 11)"
+  },
+  {
+   "id": 520,
+   "col": "example_uk",
+   "old": "Я ходжу на курси німецької",
+   "new": "Скільки людей у тебе на курсах?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — Deutschkurs (внесено мной в блоке 11)"
+  },
+  {
+   "id": 520,
+   "col": "example_en",
+   "old": "I'm doing a German course",
+   "new": "How many people are in your class?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — Deutschkurs (внесено мной в блоке 11)"
+  },
+  {
+   "id": 520,
+   "col": "example_tr",
+   "old": "Almanca kursuna gidiyorum",
+   "new": "Kursunda kaç kişi var?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — Deutschkurs (внесено мной в блоке 11)"
+  },
+  {
+   "id": 520,
+   "col": "example_pl",
+   "old": "Chodzę na kurs niemieckiego",
+   "new": "Ile osób jest na twoim kursie?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — Deutschkurs (внесено мной в блоке 11)"
+  },
+  {
+   "id": 520,
+   "col": "example_it",
+   "old": "Faccio un corso di tedesco",
+   "new": "Quante persone ci sono nel tuo corso?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — Deutschkurs (внесено мной в блоке 11)"
+  },
+  {
+   "id": 520,
+   "col": "example_es",
+   "old": "Hago un curso de alemán",
+   "new": "¿Cuántas personas hay en tu curso?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — Deutschkurs (внесено мной в блоке 11)"
+  },
+  {
+   "id": 520,
+   "col": "example_fr",
+   "old": "Je suis un cours d'allemand",
+   "new": "Combien de personnes il y a dans ton cours?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — Deutschkurs (внесено мной в блоке 11)"
+  },
+  {
+   "id": 520,
+   "col": "example_cs",
+   "old": "Chodím na kurz němčiny",
+   "new": "Kolik lidí je ve tvém kurzu?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — Deutschkurs (внесено мной в блоке 11)"
+  },
+  {
+   "id": 6296,
+   "col": "example_de",
+   "old": "Mach bitte das Licht an",
+   "new": "Mach bitte das Licht aus, wenn du gehst",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — anmachen (внесено мной в блоке 8)"
+  },
+  {
+   "id": 6296,
+   "col": "example_ru",
+   "old": "Включи, пожалуйста, свет",
+   "new": "Выключай свет, когда уходишь",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — anmachen (внесено мной в блоке 8)"
+  },
+  {
+   "id": 6296,
+   "col": "example_uk",
+   "old": "Увімкни, будь ласка, світло",
+   "new": "Вимикай світло, коли йдеш",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — anmachen (внесено мной в блоке 8)"
+  },
+  {
+   "id": 6296,
+   "col": "example_en",
+   "old": "Turn on the light, please",
+   "new": "Turn off the light when you leave",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — anmachen (внесено мной в блоке 8)"
+  },
+  {
+   "id": 6296,
+   "col": "example_tr",
+   "old": "Işığı açar mısın lütfen?",
+   "new": "Çıkarken ışığı kapat",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — anmachen (внесено мной в блоке 8)"
+  },
+  {
+   "id": 6296,
+   "col": "example_pl",
+   "old": "Włącz, proszę, światło",
+   "new": "Wyłączaj światło, kiedy wychodzisz",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — anmachen (внесено мной в блоке 8)"
+  },
+  {
+   "id": 6296,
+   "col": "example_it",
+   "old": "Accendi la luce, per favore",
+   "new": "Spegni la luce quando esci",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — anmachen (внесено мной в блоке 8)"
+  },
+  {
+   "id": 6296,
+   "col": "example_es",
+   "old": "Enciende la luz, por favor",
+   "new": "Apaga la luz cuando salgas",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — anmachen (внесено мной в блоке 8)"
+  },
+  {
+   "id": 6296,
+   "col": "example_fr",
+   "old": "Allume la lumière, s'il te plaît",
+   "new": "Éteins la lumière quand tu pars",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — anmachen (внесено мной в блоке 8)"
+  },
+  {
+   "id": 6296,
+   "col": "example_cs",
+   "old": "Rozsviť prosím světlo",
+   "new": "Zhasni světlo, až budeš odcházet",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — anmachen (внесено мной в блоке 8)"
+  },
+  {
+   "id": 732,
+   "col": "example_de",
+   "old": "Das ist kein Problem",
+   "new": "Wir haben ein kleines Problem",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — kein («Das ist kein Problem»)"
+  },
+  {
+   "id": 732,
+   "col": "example_ru",
+   "old": "Это не проблема",
+   "new": "У нас небольшая проблема",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — kein («Das ist kein Problem»)"
+  },
+  {
+   "id": 732,
+   "col": "example_uk",
+   "old": "Це не проблема",
+   "new": "У нас невелика проблема",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — kein («Das ist kein Problem»)"
+  },
+  {
+   "id": 732,
+   "col": "example_en",
+   "old": "That's no problem",
+   "new": "We have a small problem",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — kein («Das ist kein Problem»)"
+  },
+  {
+   "id": 732,
+   "col": "example_tr",
+   "old": "Bu sorun değil",
+   "new": "Küçük bir sorunumuz var",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — kein («Das ist kein Problem»)"
+  },
+  {
+   "id": 732,
+   "col": "example_pl",
+   "old": "To żaden problem",
+   "new": "Mamy mały problem",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — kein («Das ist kein Problem»)"
+  },
+  {
+   "id": 732,
+   "col": "example_it",
+   "old": "Non è un problema",
+   "new": "Abbiamo un piccolo problema",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — kein («Das ist kein Problem»)"
+  },
+  {
+   "id": 732,
+   "col": "example_es",
+   "old": "No es ningún problema",
+   "new": "Tenemos un pequeño problema",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — kein («Das ist kein Problem»)"
+  },
+  {
+   "id": 732,
+   "col": "example_fr",
+   "old": "Ce n'est pas un problème",
+   "new": "On a un petit problème",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — kein («Das ist kein Problem»)"
+  },
+  {
+   "id": 732,
+   "col": "example_cs",
+   "old": "To není žádný problém",
+   "new": "Máme malý problém",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — kein («Das ist kein Problem»)"
+  },
+  {
+   "id": 382,
+   "col": "example_de",
+   "old": "Ich bin zu Hause",
+   "new": "Unser Haus hat einen großen Garten",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — zu Hause («Ich bin zu Hause»)"
+  },
+  {
+   "id": 382,
+   "col": "example_ru",
+   "old": "Я дома",
+   "new": "У нашего дома большой сад",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — zu Hause («Ich bin zu Hause»)"
+  },
+  {
+   "id": 382,
+   "col": "example_uk",
+   "old": "Я вдома",
+   "new": "У нашого будинку великий сад",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — zu Hause («Ich bin zu Hause»)"
+  },
+  {
+   "id": 382,
+   "col": "example_en",
+   "old": "I'm at home",
+   "new": "Our house has a big garden",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — zu Hause («Ich bin zu Hause»)"
+  },
+  {
+   "id": 382,
+   "col": "example_tr",
+   "old": "Ben evdeyim",
+   "new": "Evimizin büyük bir bahçesi var",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — zu Hause («Ich bin zu Hause»)"
+  },
+  {
+   "id": 382,
+   "col": "example_pl",
+   "old": "Jestem w domu",
+   "new": "Nasz dom ma duży ogród",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — zu Hause («Ich bin zu Hause»)"
+  },
+  {
+   "id": 382,
+   "col": "example_it",
+   "old": "Sono a casa",
+   "new": "La nostra casa ha un grande giardino",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — zu Hause («Ich bin zu Hause»)"
+  },
+  {
+   "id": 382,
+   "col": "example_es",
+   "old": "Estoy en casa",
+   "new": "Nuestra casa tiene un jardín grande",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — zu Hause («Ich bin zu Hause»)"
+  },
+  {
+   "id": 382,
+   "col": "example_fr",
+   "old": "Je suis à la maison",
+   "new": "Notre maison a un grand jardin",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — zu Hause («Ich bin zu Hause»)"
+  },
+  {
+   "id": 382,
+   "col": "example_cs",
+   "old": "Jsem doma",
+   "new": "Náš dům má velkou zahradu",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — zu Hause («Ich bin zu Hause»)"
+  },
+  {
+   "id": 319,
+   "col": "example_de",
+   "old": "Ich gehe spazieren",
+   "new": "Gehst du heute noch zum Supermarkt?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — spazieren («Ich gehe spazieren»)"
+  },
+  {
+   "id": 319,
+   "col": "example_ru",
+   "old": "Я иду гулять",
+   "new": "Ты сегодня ещё пойдёшь в магазин?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — spazieren («Ich gehe spazieren»)"
+  },
+  {
+   "id": 319,
+   "col": "example_uk",
+   "old": "Я йду гуляти",
+   "new": "Ти сьогодні ще підеш до магазину?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — spazieren («Ich gehe spazieren»)"
+  },
+  {
+   "id": 319,
+   "col": "example_en",
+   "old": "I'm going for a walk",
+   "new": "Are you going to the supermarket today?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — spazieren («Ich gehe spazieren»)"
+  },
+  {
+   "id": 319,
+   "col": "example_tr",
+   "old": "Yürüyüşe çıkıyorum",
+   "new": "Bugün markete gidecek misin?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — spazieren («Ich gehe spazieren»)"
+  },
+  {
+   "id": 319,
+   "col": "example_pl",
+   "old": "Idę na spacer",
+   "new": "Idziesz dziś jeszcze do sklepu?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — spazieren («Ich gehe spazieren»)"
+  },
+  {
+   "id": 319,
+   "col": "example_it",
+   "old": "Vado a fare una passeggiata",
+   "new": "Vai ancora al supermercato oggi?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — spazieren («Ich gehe spazieren»)"
+  },
+  {
+   "id": 319,
+   "col": "example_es",
+   "old": "Voy a dar un paseo",
+   "new": "¿Vas a ir hoy al supermercado?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — spazieren («Ich gehe spazieren»)"
+  },
+  {
+   "id": 319,
+   "col": "example_fr",
+   "old": "Je vais me promener",
+   "new": "Tu vas encore au supermarché aujourd'hui?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — spazieren («Ich gehe spazieren»)"
+  },
+  {
+   "id": 319,
+   "col": "example_cs",
+   "old": "Jdu se projít",
+   "new": "Půjdeš dnes ještě do obchodu?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — spazieren («Ich gehe spazieren»)"
+  },
+  {
+   "id": 1071,
+   "col": "example_de",
+   "old": "Ich habe keine Zeit",
+   "new": "Hast du morgen Zeit?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — keine («Ich habe keine Zeit»)"
+  },
+  {
+   "id": 1071,
+   "col": "example_ru",
+   "old": "У меня нет времени",
+   "new": "У тебя завтра есть время?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — keine («Ich habe keine Zeit»)"
+  },
+  {
+   "id": 1071,
+   "col": "example_uk",
+   "old": "У мене немає часу",
+   "new": "У тебе завтра є час?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — keine («Ich habe keine Zeit»)"
+  },
+  {
+   "id": 1071,
+   "col": "example_en",
+   "old": "I don't have time",
+   "new": "Do you have time tomorrow?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — keine («Ich habe keine Zeit»)"
+  },
+  {
+   "id": 1071,
+   "col": "example_tr",
+   "old": "Zamanım yok",
+   "new": "Yarın vaktin var mı?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — keine («Ich habe keine Zeit»)"
+  },
+  {
+   "id": 1071,
+   "col": "example_pl",
+   "old": "Nie mam czasu",
+   "new": "Masz jutro czas?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — keine («Ich habe keine Zeit»)"
+  },
+  {
+   "id": 1071,
+   "col": "example_it",
+   "old": "Non ho tempo",
+   "new": "Hai tempo domani?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — keine («Ich habe keine Zeit»)"
+  },
+  {
+   "id": 1071,
+   "col": "example_es",
+   "old": "No tengo tiempo",
+   "new": "¿Tienes tiempo mañana?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — keine («Ich habe keine Zeit»)"
+  },
+  {
+   "id": 1071,
+   "col": "example_fr",
+   "old": "Je n'ai pas le temps",
+   "new": "Tu as le temps demain?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — keine («Ich habe keine Zeit»)"
+  },
+  {
+   "id": 1071,
+   "col": "example_cs",
+   "old": "Nemám čas",
+   "new": "Máš zítra čas?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — keine («Ich habe keine Zeit»)"
+  },
+  {
+   "id": 421,
+   "col": "example_de",
+   "old": "Ich höre gern Musik",
+   "new": "Hörst du mich?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — Musik («Ich höre gern Musik»)"
+  },
+  {
+   "id": 421,
+   "col": "example_ru",
+   "old": "Я люблю слушать музыку",
+   "new": "Ты меня слышишь?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — Musik («Ich höre gern Musik»)"
+  },
+  {
+   "id": 421,
+   "col": "example_uk",
+   "old": "Я люблю слухати музику",
+   "new": "Ти мене чуєш?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — Musik («Ich höre gern Musik»)"
+  },
+  {
+   "id": 421,
+   "col": "example_en",
+   "old": "I like to listen to music",
+   "new": "Can you hear me?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — Musik («Ich höre gern Musik»)"
+  },
+  {
+   "id": 421,
+   "col": "example_tr",
+   "old": "Müzik dinlemeyi seviyorum",
+   "new": "Beni duyuyor musun?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — Musik («Ich höre gern Musik»)"
+  },
+  {
+   "id": 421,
+   "col": "example_pl",
+   "old": "Lubię słuchać muzyki",
+   "new": "Słyszysz mnie?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — Musik («Ich höre gern Musik»)"
+  },
+  {
+   "id": 421,
+   "col": "example_it",
+   "old": "Mi piace ascoltare la musica",
+   "new": "Mi senti?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — Musik («Ich höre gern Musik»)"
+  },
+  {
+   "id": 421,
+   "col": "example_es",
+   "old": "Me gusta escuchar música",
+   "new": "¿Me oyes?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — Musik («Ich höre gern Musik»)"
+  },
+  {
+   "id": 421,
+   "col": "example_fr",
+   "old": "J'aime écouter de la musique",
+   "new": "Tu m'entends?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — Musik («Ich höre gern Musik»)"
+  },
+  {
+   "id": 421,
+   "col": "example_cs",
+   "old": "Rád poslouchám hudbu",
+   "new": "Slyšíš mě?",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — Musik («Ich höre gern Musik»)"
+  },
+  {
+   "id": 135,
+   "col": "example_de",
+   "old": "Ich schreibe einen Brief",
+   "new": "Ich habe einen Brief von meiner Oma bekommen",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — schreiben («Ich schreibe einen Brief»)"
+  },
+  {
+   "id": 135,
+   "col": "example_ru",
+   "old": "Я пишу письмо",
+   "new": "Я получил письмо от бабушки",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — schreiben («Ich schreibe einen Brief»)"
+  },
+  {
+   "id": 135,
+   "col": "example_uk",
+   "old": "Я пишу лист",
+   "new": "Я отримав листа від бабусі",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — schreiben («Ich schreibe einen Brief»)"
+  },
+  {
+   "id": 135,
+   "col": "example_en",
+   "old": "I'm writing a letter",
+   "new": "I got a letter from my grandma",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — schreiben («Ich schreibe einen Brief»)"
+  },
+  {
+   "id": 135,
+   "col": "example_tr",
+   "old": "Bir mektup yazıyorum",
+   "new": "Büyükannemden bir mektup aldım",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — schreiben («Ich schreibe einen Brief»)"
+  },
+  {
+   "id": 135,
+   "col": "example_pl",
+   "old": "Piszę list",
+   "new": "Dostałem list od babci",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — schreiben («Ich schreibe einen Brief»)"
+  },
+  {
+   "id": 135,
+   "col": "example_it",
+   "old": "Scrivo una lettera",
+   "new": "Ho ricevuto una lettera da mia nonna",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — schreiben («Ich schreibe einen Brief»)"
+  },
+  {
+   "id": 135,
+   "col": "example_es",
+   "old": "Escribo una carta",
+   "new": "He recibido una carta de mi abuela",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — schreiben («Ich schreibe einen Brief»)"
+  },
+  {
+   "id": 135,
+   "col": "example_fr",
+   "old": "J'écris une lettre",
+   "new": "J'ai reçu une lettre de ma grand-mère",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — schreiben («Ich schreibe einen Brief»)"
+  },
+  {
+   "id": 135,
+   "col": "example_cs",
+   "old": "Píšu dopis",
+   "new": "Dostal jsem dopis od babičky",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — schreiben («Ich schreibe einen Brief»)"
+  },
+  {
+   "id": 1043,
+   "col": "example_de",
+   "old": "Im Winter ist es kalt",
+   "new": "Im Winter fahren wir Ski",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — kalt («Im Winter ist es kalt»)"
+  },
+  {
+   "id": 1043,
+   "col": "example_ru",
+   "old": "Зимой холодно",
+   "new": "Зимой мы катаемся на лыжах",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — kalt («Im Winter ist es kalt»)"
+  },
+  {
+   "id": 1043,
+   "col": "example_uk",
+   "old": "Взимку холодно",
+   "new": "Взимку ми катаємося на лижах",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — kalt («Im Winter ist es kalt»)"
+  },
+  {
+   "id": 1043,
+   "col": "example_en",
+   "old": "It's cold in winter",
+   "new": "In winter we go skiing",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — kalt («Im Winter ist es kalt»)"
+  },
+  {
+   "id": 1043,
+   "col": "example_tr",
+   "old": "Kışın hava soğuk",
+   "new": "Kışın kayak yaparız",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — kalt («Im Winter ist es kalt»)"
+  },
+  {
+   "id": 1043,
+   "col": "example_pl",
+   "old": "Zimą jest zimno",
+   "new": "Zimą jeździmy na nartach",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — kalt («Im Winter ist es kalt»)"
+  },
+  {
+   "id": 1043,
+   "col": "example_it",
+   "old": "D'inverno fa freddo",
+   "new": "D'inverno andiamo a sciare",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — kalt («Im Winter ist es kalt»)"
+  },
+  {
+   "id": 1043,
+   "col": "example_es",
+   "old": "En invierno hace frío",
+   "new": "En invierno vamos a esquiar",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — kalt («Im Winter ist es kalt»)"
+  },
+  {
+   "id": 1043,
+   "col": "example_fr",
+   "old": "En hiver, il fait froid",
+   "new": "En hiver, on fait du ski",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — kalt («Im Winter ist es kalt»)"
+  },
+  {
+   "id": 1043,
+   "col": "example_cs",
+   "old": "V zimě je chladno",
+   "new": "V zimě jezdíme lyžovat",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — kalt («Im Winter ist es kalt»)"
+  },
+  {
+   "id": 1091,
+   "col": "example_de",
+   "old": "Wir reden über das Problem",
+   "new": "Das Bild hängt über dem Sofa",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — reden («Wir reden über das Problem»)"
+  },
+  {
+   "id": 1091,
+   "col": "example_ru",
+   "old": "Мы говорим об этой проблеме",
+   "new": "Картина висит над диваном",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — reden («Wir reden über das Problem»)"
+  },
+  {
+   "id": 1091,
+   "col": "example_uk",
+   "old": "Ми говоримо про цю проблему",
+   "new": "Картина висить над диваном",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — reden («Wir reden über das Problem»)"
+  },
+  {
+   "id": 1091,
+   "col": "example_en",
+   "old": "We're talking about the problem",
+   "new": "The picture hangs over the sofa",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — reden («Wir reden über das Problem»)"
+  },
+  {
+   "id": 1091,
+   "col": "example_tr",
+   "old": "Bu problem hakkında konuşuyoruz",
+   "new": "Resim kanepenin üstünde asılı",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — reden («Wir reden über das Problem»)"
+  },
+  {
+   "id": 1091,
+   "col": "example_pl",
+   "old": "Rozmawiamy o tym problemie",
+   "new": "Obraz wisi nad kanapą",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — reden («Wir reden über das Problem»)"
+  },
+  {
+   "id": 1091,
+   "col": "example_it",
+   "old": "Parliamo del problema",
+   "new": "Il quadro è appeso sopra il divano",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — reden («Wir reden über das Problem»)"
+  },
+  {
+   "id": 1091,
+   "col": "example_es",
+   "old": "Hablamos sobre el problema",
+   "new": "El cuadro está colgado encima del sofá",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — reden («Wir reden über das Problem»)"
+  },
+  {
+   "id": 1091,
+   "col": "example_fr",
+   "old": "Nous parlons du problème",
+   "new": "Le tableau est accroché au-dessus du canapé",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — reden («Wir reden über das Problem»)"
+  },
+  {
+   "id": 1091,
+   "col": "example_cs",
+   "old": "Mluvíme o problému",
+   "new": "Obraz visí nad gaučem",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — reden («Wir reden über das Problem»)"
+  },
+  {
+   "id": 19,
+   "col": "example_de",
+   "old": "Das Bild hängt an der Wand",
+   "new": "Wir treffen uns an der Haltestelle",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — hängen, Wand («Das Bild hängt an der Wand»)"
+  },
+  {
+   "id": 19,
+   "col": "example_ru",
+   "old": "Картина висит на стене",
+   "new": "Встретимся на остановке",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — hängen, Wand («Das Bild hängt an der Wand»)"
+  },
+  {
+   "id": 19,
+   "col": "example_uk",
+   "old": "Картина висить на стіні",
+   "new": "Зустрінемося на зупинці",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — hängen, Wand («Das Bild hängt an der Wand»)"
+  },
+  {
+   "id": 19,
+   "col": "example_en",
+   "old": "The picture is hanging on the wall",
+   "new": "Let's meet at the bus stop",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — hängen, Wand («Das Bild hängt an der Wand»)"
+  },
+  {
+   "id": 19,
+   "col": "example_tr",
+   "old": "Resim duvarda asılı",
+   "new": "Durakta buluşalım",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — hängen, Wand («Das Bild hängt an der Wand»)"
+  },
+  {
+   "id": 19,
+   "col": "example_pl",
+   "old": "Obraz wisi na ścianie",
+   "new": "Spotkajmy się na przystanku",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — hängen, Wand («Das Bild hängt an der Wand»)"
+  },
+  {
+   "id": 19,
+   "col": "example_it",
+   "old": "Il quadro è appeso al muro",
+   "new": "Ci vediamo alla fermata",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — hängen, Wand («Das Bild hängt an der Wand»)"
+  },
+  {
+   "id": 19,
+   "col": "example_es",
+   "old": "El cuadro está colgado en la pared",
+   "new": "Nos vemos en la parada",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — hängen, Wand («Das Bild hängt an der Wand»)"
+  },
+  {
+   "id": 19,
+   "col": "example_fr",
+   "old": "Le tableau est accroché au mur",
+   "new": "On se retrouve à l'arrêt",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — hängen, Wand («Das Bild hängt an der Wand»)"
+  },
+  {
+   "id": 19,
+   "col": "example_cs",
+   "old": "Obraz visí na zdi",
+   "new": "Sejdeme se na zastávce",
+   "why": "пример совпадал с примером другого слова (проверка всей базы 21.10) — hängen, Wand («Das Bild hängt an der Wand»)"
+  }
+ ],
+ "replace": [],
+ "split_later": {}
+}
