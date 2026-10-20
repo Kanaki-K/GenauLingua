@@ -71,6 +71,16 @@ def _check(conn, block: dict) -> tuple[list[dict], list[str]]:
         elif (current[0] or "") != (e.get("old") or ""):
             problems.append(f"{wid}.{col}: в базе {current[0]!r}, ждали {e.get('old')!r}")
         else:
+            # ОДИН ПРИМЕР — ОДНОМУ СЛОВУ. Проверка всей базы 21.10 нашла 28
+            # фраз у разных слов, две из них внесла сама вычитка: человек
+            # видит ту же фразу на разных карточках и перестаёт её читать
+            if col == "example_de":
+                twin = conn.execute(text(
+                    "select id from words where example_de = :x and id <> :id limit 1"),
+                    {"x": e.get("new"), "id": wid}).scalar()
+                if twin is not None:
+                    problems.append(f"{wid}.example_de: такой пример уже у слова {twin}")
+                    continue
             ready.append(e)
     for r in block.get("replace", []):
         ids = [r.get("id"), r.get("by")]
