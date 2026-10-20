@@ -1119,6 +1119,11 @@ class WordLemmaOverride(Base):
     )
     # Почему указание поставлено: чтобы через полгода было понятно
     reason: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    # ДЛЯ КАКОГО ИЗУЧАЕМОГО ЯЗЫКА (2.3). Пусто — для всех, как у форм:
+    # «komm» — форма «kommen» на любом языке. Замена книжного разговорным
+    # (Checkpoint → Kontrolle) верна только для немецкого: английское
+    # «checkpoint» — живое слово, и учащему английский его не выключить.
+    lang: Mapped[Optional[str]] = mapped_column(String(2), nullable=True)
 
     created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
 

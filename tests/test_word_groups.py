@@ -202,13 +202,34 @@ class TestLemmaOverrides:
     quiz_questions — вместе со словом исчезли бы исторические ответы.
     """
 
-    async def _override(self, session, form_id: int, lemma_id: int) -> None:
+    async def _override(self, session, form_id: int, lemma_id: int, lang=None) -> None:
         from app.database.models import WordLemmaOverride
 
         session.add(WordLemmaOverride(
-            word_id=form_id, lemma_word_id=lemma_id, reason="тест",
+            word_id=form_id, lemma_word_id=lemma_id, reason="тест", lang=lang,
         ))
         await session.flush()
+
+    async def test_a_language_override_touches_only_that_language(self, session):
+        """
+        Замена книжного немецкого (2.3): Checkpoint → Kontrolle выключает
+        Checkpoint у учащих немецкий, но английское «checkpoint» — живое
+        слово, и у учащих английский оно остаётся своим.
+        """
+        bookish = make_word("Checkpoint", en="checkpoint", frequency_rank=5)
+        everyday = make_word("Kontrolle", en="check", frequency_rank=50)
+        session.add_all([bookish, everyday])
+        await session.flush()
+
+        await self._override(session, bookish.id, everyday.id, lang="de")
+        await rebuild(session, ["de", "en"])
+
+        de = await _groups(session, "de")
+        assert de[bookish.id].canonical_id == everyday.id
+        assert de[bookish.id].is_canonical is False
+        en = await _groups(session, "en")
+        assert en[bookish.id].is_canonical is True, "английское checkpoint выключено зря"
+        assert en[bookish.id].canonical_id != en[everyday.id].canonical_id
 
     async def test_form_joins_the_lemma_group(self, session):
         # Переводы взяты русские и заведомо разные: английские «come» и

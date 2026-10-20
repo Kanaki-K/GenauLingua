@@ -116,7 +116,7 @@ def _representative(rows: list[dict], prefer: Optional[set[int]] = None) -> dict
     return winner
 
 
-def _load_overrides(connection: Connection) -> dict[int, int]:
+def _load_overrides(connection: Connection) -> dict[int, tuple[int, Optional[str]]]:
     """
     Ручные указания «эта строка — форма, а лемма вот эта».
 
@@ -129,16 +129,23 @@ def _load_overrides(connection: Connection) -> dict[int, int]:
     Прежде здесь стоял широкий except, и он спрятал настоящую причину, когда
     указания не применялись: пришлось искать её отладкой вместо чтения лога.
     Теперь «таблицы нет» — это одно, а любая другая ошибка выходит наружу.
+
+    Значение — (лемма, язык): язык пуст, если указание для всех языков
+    (форма слова), и задан, если только для одного (замена книжного
+    немецкого разговорным, 2.3).
     """
     if not sa.inspect(connection).has_table("word_lemma_overrides"):
         logger.debug("таблицы указаний лемм нет — схема старее нужной")
         return {}
 
-    rows = connection.execute(
-        sa.text("SELECT word_id, lemma_word_id FROM word_lemma_overrides")
-    ).all()
+    has_lang = "lang" in {c["name"] for c in sa.inspect(connection).get_columns("word_lemma_overrides")}
+    rows = connection.execute(sa.text(
+        "SELECT word_id, lemma_word_id, " + ("lang" if has_lang else "NULL")
+        + " FROM word_lemma_overrides"
+    )).all()
 
-    overrides = {word_id: lemma_id for word_id, lemma_id in rows if word_id != lemma_id}
+    overrides = {word_id: (lemma_id, lang) for word_id, lemma_id, lang in rows
+                 if word_id != lemma_id}
     if overrides:
         logger.info("ручных указаний леммы: %d", len(overrides))
     return overrides
@@ -202,6 +209,9 @@ def build_groups(
 
         attr = LANGUAGES[lang].word_attr
         groups: dict[tuple, list[dict]] = {}
+        # Указания ЭТОГО языка: общие и заданные именно для него
+        lang_overrides = {w: lemma for w, (lemma, only) in overrides.items()
+                          if only in (None, lang)}
 
         # Ключ группы по слову: нужен, чтобы форма могла присоединиться к
         # группе своей леммы, а не образовать свою
@@ -221,7 +231,7 @@ def build_groups(
 
             # Форма присоединяется к группе леммы, если на неё есть указание
             # и лемма пригодна для этого языка
-            lemma_id = overrides.get(row["id"])
+            lemma_id = lang_overrides.get(row["id"])
             if lemma_id is not None and lemma_id in key_of:
                 key = key_of[lemma_id]
 
@@ -235,7 +245,7 @@ def build_groups(
             })
 
         # Леммы из указаний обязаны быть каноническими в своих группах
-        lemma_ids = set(overrides.values())
+        lemma_ids = set(lang_overrides.values())
 
         payload: list[dict] = []
         for key, members in groups.items():

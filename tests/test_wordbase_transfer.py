@@ -60,3 +60,29 @@ async def test_dump_without_new_columns_is_refused(session, tmp_path):
     dump.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
 
     assert wt.load(str(dump), apply=True) == 1
+
+
+async def test_an_override_keeps_its_language_on_the_way(session, tmp_path):
+    """
+    Замена книжного (2.3) — указание только для немецкого. Потеряй перенос
+    язык — и на проде оно стало бы «для всех», выключив живое английское
+    «checkpoint» у учащих английский.
+    """
+    from app.database.models import WordLemmaOverride
+
+    bookish, everyday = make_word("Checkpoint"), make_word("Kontrolle")
+    session.add_all([bookish, everyday])
+    await session.flush()
+    session.add(WordLemmaOverride(word_id=bookish.id, lemma_word_id=everyday.id,
+                                  reason="замена", lang="de"))
+    await session.commit()
+
+    dump = str(tmp_path / "wordbase.json")
+    assert wt.export(dump) == 0
+    await session.execute(text("update word_lemma_overrides set lang = null"))
+    await session.commit()
+
+    assert wt.load(dump, apply=True) == 0
+    lang = (await session.execute(text(
+        "select lang from word_lemma_overrides where word_id = :id"), {"id": bookish.id})).scalar()
+    assert lang == "de"

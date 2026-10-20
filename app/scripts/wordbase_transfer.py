@@ -94,7 +94,7 @@ def export(out: str) -> int:
         words = [dict(r._mapping) for r in c.execute(
             text(f"select id, {cols} from words order by id"))]
         overrides = [dict(r._mapping) for r in c.execute(text(
-            "select word_id, lemma_word_id, reason from word_lemma_overrides "
+            "select word_id, lemma_word_id, reason, lang from word_lemma_overrides "
             "order by word_id"))]
     body = json.dumps({"words": words, "overrides": overrides},
                       ensure_ascii=False, sort_keys=True, default=str)
@@ -184,10 +184,12 @@ def load(path: str, apply: bool) -> int:
                 f"values ({vals}, 0, 0, now())"), _params(incoming[wid]))
         for o in overrides:
             c.execute(text(
-                "insert into word_lemma_overrides (word_id, lemma_word_id, reason, created_at) "
-                "values (:word_id, :lemma_word_id, :reason, now()) "
+                "insert into word_lemma_overrides (word_id, lemma_word_id, reason, lang, created_at) "
+                "values (:word_id, :lemma_word_id, :reason, :lang, now()) "
                 "on conflict (word_id) do update set lemma_word_id = excluded.lemma_word_id, "
-                "reason = excluded.reason"), o)
+                "reason = excluded.reason, lang = excluded.lang"),
+                # Файл до 2.3 языка указаний не знал — значит, «для всех»
+                {"lang": None, **o})
 
         # ПРАВИЛО 3: прогресс людей обязан сойтись до единицы
         after = c.execute(text(PROGRESS_SUMS)).one()
