@@ -1,0 +1,1792 @@
+{
+ "about": "2.3, A1 блок 16: слова 601–640",
+ "edits": [
+  {
+   "id": 18185,
+   "col": "translation_ru",
+   "old": "зал, павильон, ангар, цех",
+   "new": "зал, павильон",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18185,
+   "col": "translation_uk",
+   "old": "зал, павільйон, ангар, цех",
+   "new": "зал, павільйон",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18185,
+   "col": "translation_en",
+   "old": "hall, arena, warehouse, shed",
+   "new": "hall",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18185,
+   "col": "translation_tr",
+   "old": "salon, hol, hangar",
+   "new": "salon",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18185,
+   "col": "translation_pl",
+   "old": "hala, sala, hangar",
+   "new": "hala, sala",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18185,
+   "col": "translation_it",
+   "old": "la sala, il padiglione, il capannone",
+   "new": "la sala, il padiglione",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18185,
+   "col": "translation_es",
+   "old": "la sala, el pabellón, la nave",
+   "new": "la sala, el pabellón",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18185,
+   "col": "translation_fr",
+   "old": "la salle, le hall, le hangar",
+   "new": "la salle, le hall",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 398,
+   "col": "example_de",
+   "old": "Im Herbst wird es kühl",
+   "new": "Im Herbst fallen die Blätter",
+   "why": "пример почти повторял пример другого слова — у каждого свой (November: «Im November ist es kühl»)"
+  },
+  {
+   "id": 398,
+   "col": "example_ru",
+   "old": "Осенью становится прохладно",
+   "new": "Осенью опадают листья",
+   "why": "пример почти повторял пример другого слова — у каждого свой (November: «Im November ist es kühl»)"
+  },
+  {
+   "id": 398,
+   "col": "example_uk",
+   "old": "Восени стає прохолодно",
+   "new": "Восени опадає листя",
+   "why": "пример почти повторял пример другого слова — у каждого свой (November: «Im November ist es kühl»)"
+  },
+  {
+   "id": 398,
+   "col": "example_en",
+   "old": "In autumn it gets cool",
+   "new": "In autumn the leaves fall",
+   "why": "пример почти повторял пример другого слова — у каждого свой (November: «Im November ist es kühl»)"
+  },
+  {
+   "id": 398,
+   "col": "example_tr",
+   "old": "Sonbaharda hava serinler",
+   "new": "Sonbaharda yapraklar dökülür",
+   "why": "пример почти повторял пример другого слова — у каждого свой (November: «Im November ist es kühl»)"
+  },
+  {
+   "id": 398,
+   "col": "example_pl",
+   "old": "Jesienią robi się chłodno",
+   "new": "Jesienią spadają liście",
+   "why": "пример почти повторял пример другого слова — у каждого свой (November: «Im November ist es kühl»)"
+  },
+  {
+   "id": 398,
+   "col": "example_it",
+   "old": "In autunno fa fresco",
+   "new": "In autunno cadono le foglie",
+   "why": "пример почти повторял пример другого слова — у каждого свой (November: «Im November ist es kühl»)"
+  },
+  {
+   "id": 398,
+   "col": "example_es",
+   "old": "En otoño hace fresco",
+   "new": "En otoño caen las hojas",
+   "why": "пример почти повторял пример другого слова — у каждого свой (November: «Im November ist es kühl»)"
+  },
+  {
+   "id": 398,
+   "col": "example_fr",
+   "old": "En automne, il fait frais",
+   "new": "En automne, les feuilles tombent",
+   "why": "пример почти повторял пример другого слова — у каждого свой (November: «Im November ist es kühl»)"
+  },
+  {
+   "id": 398,
+   "col": "example_cs",
+   "old": "Na podzim se ochladí",
+   "new": "Na podzim padá listí",
+   "why": "пример почти повторял пример другого слова — у каждого свой (November: «Im November ist es kühl»)"
+  },
+  {
+   "id": 447,
+   "col": "example_de",
+   "old": "Im Januar ist es sehr kalt",
+   "new": "Im Januar fängt das neue Jahr an",
+   "why": "пример почти повторял пример другого слова — у каждого свой (Februar, Winter — «… ist es kalt»)"
+  },
+  {
+   "id": 447,
+   "col": "example_ru",
+   "old": "В январе очень холодно",
+   "new": "В январе начинается новый год",
+   "why": "пример почти повторял пример другого слова — у каждого свой (Februar, Winter — «… ist es kalt»)"
+  },
+  {
+   "id": 447,
+   "col": "example_uk",
+   "old": "У січні дуже холодно",
+   "new": "У січні починається новий рік",
+   "why": "пример почти повторял пример другого слова — у каждого свой (Februar, Winter — «… ist es kalt»)"
+  },
+  {
+   "id": 447,
+   "col": "example_en",
+   "old": "In January it is very cold",
+   "new": "The new year starts in January",
+   "why": "пример почти повторял пример другого слова — у каждого свой (Februar, Winter — «… ist es kalt»)"
+  },
+  {
+   "id": 447,
+   "col": "example_tr",
+   "old": "Ocak ayında çok soğuk olur",
+   "new": "Yeni yıl ocakta başlar",
+   "why": "пример почти повторял пример другого слова — у каждого свой (Februar, Winter — «… ist es kalt»)"
+  },
+  {
+   "id": 447,
+   "col": "example_pl",
+   "old": "W styczniu jest bardzo zimno",
+   "new": "W styczniu zaczyna się nowy rok",
+   "why": "пример почти повторял пример другого слова — у каждого свой (Februar, Winter — «… ist es kalt»)"
+  },
+  {
+   "id": 447,
+   "col": "example_it",
+   "old": "A gennaio fa molto freddo",
+   "new": "A gennaio comincia l'anno nuovo",
+   "why": "пример почти повторял пример другого слова — у каждого свой (Februar, Winter — «… ist es kalt»)"
+  },
+  {
+   "id": 447,
+   "col": "example_es",
+   "old": "En enero hace mucho frío",
+   "new": "En enero empieza el año nuevo",
+   "why": "пример почти повторял пример другого слова — у каждого свой (Februar, Winter — «… ist es kalt»)"
+  },
+  {
+   "id": 447,
+   "col": "example_fr",
+   "old": "En janvier, il fait très froid",
+   "new": "En janvier, la nouvelle année commence",
+   "why": "пример почти повторял пример другого слова — у каждого свой (Februar, Winter — «… ist es kalt»)"
+  },
+  {
+   "id": 447,
+   "col": "example_cs",
+   "old": "V lednu je velká zima",
+   "new": "V lednu začíná nový rok",
+   "why": "пример почти повторял пример другого слова — у каждого свой (Februar, Winter — «… ist es kalt»)"
+  },
+  {
+   "id": 12167,
+   "col": "translation_ru",
+   "old": "лук, дуга, арка, лист бумаги, смычок",
+   "new": "лук, дуга",
+   "why": "пять значений → главные два"
+  },
+  {
+   "id": 12167,
+   "col": "translation_uk",
+   "old": "лук, дуга, арка, аркуш паперу, смичок",
+   "new": "лук, дуга",
+   "why": "пять значений → главные два"
+  },
+  {
+   "id": 12167,
+   "col": "translation_en",
+   "old": "bow, arch, curve, sheet of paper",
+   "new": "bow, arch",
+   "why": "пять значений → главные два"
+  },
+  {
+   "id": 12167,
+   "col": "translation_tr",
+   "old": "yay, kemer, kavis, kâğıt tabakası",
+   "new": "yay, kemer",
+   "why": "пять значений → главные два"
+  },
+  {
+   "id": 12167,
+   "col": "translation_pl",
+   "old": "łuk, kabłąk, arkusz, smyczek",
+   "new": "łuk",
+   "why": "пять значений → главные два"
+  },
+  {
+   "id": 12167,
+   "col": "translation_it",
+   "old": "l'arco, la curva, il foglio",
+   "new": "l'arco",
+   "why": "пять значений → главные два"
+  },
+  {
+   "id": 12167,
+   "col": "translation_es",
+   "old": "el arco, la curva, la hoja",
+   "new": "el arco",
+   "why": "пять значений → главные два"
+  },
+  {
+   "id": 12167,
+   "col": "translation_fr",
+   "old": "l'arc, la courbe, la feuille",
+   "new": "l'arc",
+   "why": "пять значений → главные два"
+  },
+  {
+   "id": 12167,
+   "col": "translation_cs",
+   "old": "luk, oblouk, arch",
+   "new": "luk, oblouk",
+   "why": "пять значений → главные два"
+  },
+  {
+   "id": 16112,
+   "col": "translation_ru",
+   "old": "судить, оценивать, выносить приговор",
+   "new": "судить, оценивать",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16112,
+   "col": "translation_uk",
+   "old": "судити, оцінювати, виносити вирок",
+   "new": "судити, оцінювати",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16112,
+   "col": "translation_en",
+   "old": "to judge, to pass judgment, to assess",
+   "new": "to judge",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16112,
+   "col": "translation_tr",
+   "old": "yargılamak, hüküm vermek, değerlendirmek",
+   "new": "yargılamak",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16112,
+   "col": "translation_pl",
+   "old": "oceniać, sądzić, wydawać wyrok",
+   "new": "oceniać, sądzić",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 894,
+   "col": "translation_ru",
+   "old": "учёба в вузе, высшее образование, изучение",
+   "new": "учёба, высшее образование",
+   "why": "список → главное слово и не больше одной альтернативы; «учёба очень требовательна» — калька"
+  },
+  {
+   "id": 894,
+   "col": "translation_uk",
+   "old": "навчання у вузі, вища освіта, вивчення",
+   "new": "навчання, вища освіта",
+   "why": "список → главное слово и не больше одной альтернативы; «учёба очень требовательна» — калька"
+  },
+  {
+   "id": 894,
+   "col": "translation_en",
+   "old": "studies, university studies, degree course",
+   "new": "studies, degree",
+   "why": "список → главное слово и не больше одной альтернативы; «учёба очень требовательна» — калька"
+  },
+  {
+   "id": 894,
+   "col": "translation_tr",
+   "old": "üniversite eğitimi, öğrenim, lisans eğitimi",
+   "new": "üniversite eğitimi",
+   "why": "список → главное слово и не больше одной альтернативы; «учёба очень требовательна» — калька"
+  },
+  {
+   "id": 894,
+   "col": "translation_pl",
+   "old": "studia, nauka na uczelni",
+   "new": "studia",
+   "why": "список → главное слово и не больше одной альтернативы; «учёба очень требовательна» — калька"
+  },
+  {
+   "id": 894,
+   "col": "translation_it",
+   "old": "gli studi, l'università",
+   "new": "gli studi",
+   "why": "список → главное слово и не больше одной альтернативы; «учёба очень требовательна» — калька"
+  },
+  {
+   "id": 894,
+   "col": "example_ru",
+   "old": "Моя учёба в университете очень требовательна",
+   "new": "Учёба в университете у меня очень сложная",
+   "why": "список → главное слово и не больше одной альтернативы; «учёба очень требовательна» — калька"
+  },
+  {
+   "id": 894,
+   "col": "example_uk",
+   "old": "Моє навчання в університеті дуже складне",
+   "new": "Моє навчання дуже складне",
+   "why": "список → главное слово и не больше одной альтернативы; «учёба очень требовательна» — калька"
+  },
+  {
+   "id": 2793,
+   "col": "translation_ru",
+   "old": "выключатель, переключатель, окошко в банке или на почте",
+   "new": "выключатель, окошко",
+   "why": "список → главное слово и не больше одной альтернативы; «окошко в банке или на почте» — описание; пример неживой"
+  },
+  {
+   "id": 2793,
+   "col": "translation_uk",
+   "old": "вимикач, перемикач, віконце в банку чи на пошті",
+   "new": "вимикач, віконце",
+   "why": "список → главное слово и не больше одной альтернативы; «окошко в банке или на почте» — описание; пример неживой"
+  },
+  {
+   "id": 2793,
+   "col": "translation_en",
+   "old": "switch, counter, ticket window",
+   "new": "switch, counter",
+   "why": "список → главное слово и не больше одной альтернативы; «окошко в банке или на почте» — описание; пример неживой"
+  },
+  {
+   "id": 2793,
+   "col": "translation_tr",
+   "old": "anahtar, düğme, gişe",
+   "new": "anahtar, gişe",
+   "why": "список → главное слово и не больше одной альтернативы; «окошко в банке или на почте» — описание; пример неживой"
+  },
+  {
+   "id": 2793,
+   "col": "translation_pl",
+   "old": "włącznik, przełącznik, okienko",
+   "new": "włącznik, okienko",
+   "why": "список → главное слово и не больше одной альтернативы; «окошко в банке или на почте» — описание; пример неживой"
+  },
+  {
+   "id": 2793,
+   "col": "translation_cs",
+   "old": "vypínač, přepínač, přepážka",
+   "new": "vypínač, přepážka",
+   "why": "список → главное слово и не больше одной альтернативы; «окошко в банке или на почте» — описание; пример неживой"
+  },
+  {
+   "id": 2793,
+   "col": "example_de",
+   "old": "Der Schalter an der Wand ist ausgeschaltet",
+   "new": "Der Schalter ist neben der Tür",
+   "why": "список → главное слово и не больше одной альтернативы; «окошко в банке или на почте» — описание; пример неживой"
+  },
+  {
+   "id": 2793,
+   "col": "example_ru",
+   "old": "Выключатель на стене выключен",
+   "new": "Выключатель возле двери",
+   "why": "список → главное слово и не больше одной альтернативы; «окошко в банке или на почте» — описание; пример неживой"
+  },
+  {
+   "id": 2793,
+   "col": "example_uk",
+   "old": "Вимикач на стіні вимкнений",
+   "new": "Вимикач біля дверей",
+   "why": "список → главное слово и не больше одной альтернативы; «окошко в банке или на почте» — описание; пример неживой"
+  },
+  {
+   "id": 2793,
+   "col": "example_en",
+   "old": "The switch on the wall is off",
+   "new": "The switch is next to the door",
+   "why": "список → главное слово и не больше одной альтернативы; «окошко в банке или на почте» — описание; пример неживой"
+  },
+  {
+   "id": 2793,
+   "col": "example_tr",
+   "old": "Duvardaki anahtar kapalı",
+   "new": "Anahtar kapının yanında",
+   "why": "список → главное слово и не больше одной альтернативы; «окошко в банке или на почте» — описание; пример неживой"
+  },
+  {
+   "id": 2793,
+   "col": "example_pl",
+   "old": "Włącznik na ścianie jest wyłączony",
+   "new": "Włącznik jest obok drzwi",
+   "why": "список → главное слово и не больше одной альтернативы; «окошко в банке или на почте» — описание; пример неживой"
+  },
+  {
+   "id": 2793,
+   "col": "example_it",
+   "old": "L'interruttore sulla parete è spento",
+   "new": "L'interruttore è accanto alla porta",
+   "why": "список → главное слово и не больше одной альтернативы; «окошко в банке или на почте» — описание; пример неживой"
+  },
+  {
+   "id": 2793,
+   "col": "example_es",
+   "old": "El interruptor de la pared está apagado",
+   "new": "El interruptor está al lado de la puerta",
+   "why": "список → главное слово и не больше одной альтернативы; «окошко в банке или на почте» — описание; пример неживой"
+  },
+  {
+   "id": 2793,
+   "col": "example_fr",
+   "old": "L'interrupteur au mur est éteint",
+   "new": "L'interrupteur est à côté de la porte",
+   "why": "список → главное слово и не больше одной альтернативы; «окошко в банке или на почте» — описание; пример неживой"
+  },
+  {
+   "id": 2793,
+   "col": "example_cs",
+   "old": "Vypínač na zdi je vypnutý",
+   "new": "Vypínač je vedle dveří",
+   "why": "список → главное слово и не больше одной альтернативы; «окошко в банке или на почте» — описание; пример неживой"
+  },
+  {
+   "id": 11696,
+   "col": "example_en",
+   "old": "I like to eat ham for breakfast",
+   "new": "I like ham for breakfast",
+   "why": "английский пример: так не говорят"
+  },
+  {
+   "id": 15019,
+   "col": "translation_ru",
+   "old": "родственник, родственница, родня",
+   "new": "родственник, родня",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15019,
+   "col": "translation_uk",
+   "old": "родич, родичка, родина",
+   "new": "родич, родина",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15019,
+   "col": "translation_en",
+   "old": "relative, family member, relatives",
+   "new": "relative",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15019,
+   "col": "translation_tr",
+   "old": "akraba, hısım, aile üyesi",
+   "new": "akraba",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15019,
+   "col": "translation_pl",
+   "old": "krewny, krewna, rodzina",
+   "new": "krewny",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15019,
+   "col": "translation_it",
+   "old": "i parenti, il parente, la parente",
+   "new": "il parente",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15019,
+   "col": "translation_es",
+   "old": "los parientes, los familiares, el pariente",
+   "new": "el pariente",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15019,
+   "col": "translation_fr",
+   "old": "la famille, les parents, le parent",
+   "new": "le parent",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15019,
+   "col": "translation_cs",
+   "old": "příbuzní, příbuzný, příbuzná",
+   "new": "příbuzný",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10420,
+   "col": "translation_ru",
+   "old": "чужой, незнакомый, иностранный",
+   "new": "чужой, незнакомый",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10420,
+   "col": "translation_uk",
+   "old": "чужий, незнайомий, іноземний",
+   "new": "чужий, незнайомий",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10420,
+   "col": "translation_en",
+   "old": "strange, unfamiliar, foreign, someone else's",
+   "new": "strange, foreign",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10420,
+   "col": "translation_tr",
+   "old": "yabancı, tanımadık, başkasına ait",
+   "new": "yabancı",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10420,
+   "col": "translation_pl",
+   "old": "obcy, nieznany, cudzy, zagraniczny",
+   "new": "obcy, cudzy",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10420,
+   "col": "translation_it",
+   "old": "estraneo, sconosciuto, straniero, altrui",
+   "new": "estraneo, straniero",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10420,
+   "col": "translation_es",
+   "old": "ajeno, extraño, desconocido, extranjero",
+   "new": "ajeno, extraño",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10420,
+   "col": "translation_cs",
+   "old": "cizí, neznámý",
+   "new": "cizí",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10420,
+   "col": "example_en",
+   "old": "That's strange to me",
+   "new": "That's unfamiliar to me",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2084,
+   "col": "translation_ru",
+   "old": "ходить в походы, гулять по горам, бродить, кочевать",
+   "new": "ходить в походы, гулять",
+   "why": "список → главное слово и не больше одной альтернативы; «кочевать» — другое значение"
+  },
+  {
+   "id": 2084,
+   "col": "translation_uk",
+   "old": "ходити в походи, мандрувати пішки, блукати, кочувати",
+   "new": "ходити в походи, мандрувати",
+   "why": "список → главное слово и не больше одной альтернативы; «кочевать» — другое значение"
+  },
+  {
+   "id": 2084,
+   "col": "translation_en",
+   "old": "to hike, to ramble, to wander, to migrate",
+   "new": "to hike",
+   "why": "список → главное слово и не больше одной альтернативы; «кочевать» — другое значение"
+  },
+  {
+   "id": 2084,
+   "col": "translation_tr",
+   "old": "doğa yürüyüşü yapmak, gezinmek, göç etmek",
+   "new": "doğa yürüyüşü yapmak",
+   "why": "список → главное слово и не больше одной альтернативы; «кочевать» — другое значение"
+  },
+  {
+   "id": 2084,
+   "col": "translation_pl",
+   "old": "wędrować, chodzić po górach, włóczyć się",
+   "new": "wędrować, chodzić po górach",
+   "why": "список → главное слово и не больше одной альтернативы; «кочевать» — другое значение"
+  },
+  {
+   "id": 2084,
+   "col": "translation_it",
+   "old": "fare escursioni, camminare, vagare, migrare",
+   "new": "fare escursioni",
+   "why": "список → главное слово и не больше одной альтернативы; «кочевать» — другое значение"
+  },
+  {
+   "id": 2084,
+   "col": "translation_es",
+   "old": "hacer senderismo, caminar, vagar, migrar",
+   "new": "hacer senderismo",
+   "why": "список → главное слово и не больше одной альтернативы; «кочевать» — другое значение"
+  },
+  {
+   "id": 2084,
+   "col": "translation_fr",
+   "old": "faire de la randonnée, randonner, errer, migrer",
+   "new": "faire de la randonnée",
+   "why": "список → главное слово и не больше одной альтернативы; «кочевать» — другое значение"
+  },
+  {
+   "id": 2084,
+   "col": "translation_cs",
+   "old": "chodit na túry, putovat, toulat se, stěhovat se",
+   "new": "chodit na túry",
+   "why": "список → главное слово и не больше одной альтернативы; «кочевать» — другое значение"
+  },
+  {
+   "id": 2084,
+   "col": "example_en",
+   "old": "We hike on weekends",
+   "new": "We go hiking at the weekend",
+   "why": "список → главное слово и не больше одной альтернативы; «кочевать» — другое значение"
+  },
+  {
+   "id": 408,
+   "col": "translation_ru",
+   "old": "хобби, увлечение",
+   "new": "хобби",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 408,
+   "col": "translation_uk",
+   "old": "хобі, захоплення",
+   "new": "хобі",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 298,
+   "col": "example_uk",
+   "old": "Ми снідаємо о восьмій годині",
+   "new": "Ми снідаємо о восьмій",
+   "why": "uk «о восьмій годині» — лишнее"
+  },
+  {
+   "id": 11702,
+   "col": "translation_ru",
+   "old": "заведение, кафе, бар, помещение",
+   "new": "кафе, заведение",
+   "why": "список → главное слово и не больше одной альтернативы; «в нашем любимом заведении» — канцелярски"
+  },
+  {
+   "id": 11702,
+   "col": "translation_uk",
+   "old": "заклад, кафе, бар, приміщення",
+   "new": "кафе, заклад",
+   "why": "список → главное слово и не больше одной альтернативы; «в нашем любимом заведении» — канцелярски"
+  },
+  {
+   "id": 11702,
+   "col": "translation_en",
+   "old": "restaurant, pub, bar, venue, premises",
+   "new": "pub, restaurant",
+   "why": "список → главное слово и не больше одной альтернативы; «в нашем любимом заведении» — канцелярски"
+  },
+  {
+   "id": 11702,
+   "col": "translation_tr",
+   "old": "mekan, lokanta, bar, işyeri",
+   "new": "mekan",
+   "why": "список → главное слово и не больше одной альтернативы; «в нашем любимом заведении» — канцелярски"
+  },
+  {
+   "id": 11702,
+   "col": "translation_pl",
+   "old": "lokal, knajpa, pomieszczenie",
+   "new": "lokal, knajpa",
+   "why": "список → главное слово и не больше одной альтернативы; «в нашем любимом заведении» — канцелярски"
+  },
+  {
+   "id": 11702,
+   "col": "translation_it",
+   "old": "il locale, il ristorante, il bar",
+   "new": "il locale",
+   "why": "список → главное слово и не больше одной альтернативы; «в нашем любимом заведении» — канцелярски"
+  },
+  {
+   "id": 11702,
+   "col": "translation_es",
+   "old": "el bar, el restaurante, el local",
+   "new": "el bar, el local",
+   "why": "список → главное слово и не больше одной альтернативы; «в нашем любимом заведении» — канцелярски"
+  },
+  {
+   "id": 11702,
+   "col": "translation_fr",
+   "old": "le café, le bistrot, le restaurant, le local",
+   "new": "le café, le bistrot",
+   "why": "список → главное слово и не больше одной альтернативы; «в нашем любимом заведении» — канцелярски"
+  },
+  {
+   "id": 11702,
+   "col": "translation_cs",
+   "old": "podnik, hospoda, restaurace, prostory",
+   "new": "podnik, hospoda",
+   "why": "список → главное слово и не больше одной альтернативы; «в нашем любимом заведении» — канцелярски"
+  },
+  {
+   "id": 11702,
+   "col": "example_ru",
+   "old": "Мы встречаемся в нашем любимом заведении",
+   "new": "Встретимся в нашем любимом кафе",
+   "why": "список → главное слово и не больше одной альтернативы; «в нашем любимом заведении» — канцелярски"
+  },
+  {
+   "id": 11702,
+   "col": "example_uk",
+   "old": "Ми зустрічаємось у нашому улюбленому закладі",
+   "new": "Зустрінемося в нашому улюбленому кафе",
+   "why": "список → главное слово и не больше одной альтернативы; «в нашем любимом заведении» — канцелярски"
+  },
+  {
+   "id": 11702,
+   "col": "example_en",
+   "old": "We meet at our favorite place",
+   "new": "Let's meet at our favourite place",
+   "why": "список → главное слово и не больше одной альтернативы; «в нашем любимом заведении» — канцелярски"
+  },
+  {
+   "id": 10438,
+   "col": "example_ru",
+   "old": "Поздравляю тебя с твоим успехом",
+   "new": "Поздравляю с успехом!",
+   "why": "«Поздравляю тебя с твоим успехом» — калька"
+  },
+  {
+   "id": 10438,
+   "col": "example_uk",
+   "old": "Вітаю тебе з твоїм успіхом",
+   "new": "Вітаю з успіхом!",
+   "why": "«Поздравляю тебя с твоим успехом» — калька"
+  },
+  {
+   "id": 10438,
+   "col": "example_en",
+   "old": "I congratulate you on your success",
+   "new": "Congratulations on your success!",
+   "why": "«Поздравляю тебя с твоим успехом» — калька"
+  },
+  {
+   "id": 8855,
+   "col": "translation_ru",
+   "old": "чиновник, госслужащий, должностное лицо",
+   "new": "чиновник, госслужащий",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8855,
+   "col": "translation_uk",
+   "old": "чиновник, держслужбовець, посадова особа",
+   "new": "чиновник, держслужбовець",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8855,
+   "col": "translation_tr",
+   "old": "memur, devlet görevlisi",
+   "new": "memur",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8855,
+   "col": "translation_pl",
+   "old": "urzędnik, funkcjonariusz",
+   "new": "urzędnik",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8855,
+   "col": "translation_it",
+   "old": "il funzionario, l'impiegato statale",
+   "new": "il funzionario",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8855,
+   "col": "translation_cs",
+   "old": "úředník, státní zaměstnanec",
+   "new": "úředník",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15029,
+   "col": "translation_ru",
+   "old": "партнёрша, спутница",
+   "new": "партнёрша",
+   "why": "список → главное слово и не больше одной альтернативы; «спутница» — книжно"
+  },
+  {
+   "id": 15029,
+   "col": "translation_uk",
+   "old": "партнерка, супутниця",
+   "new": "партнерка",
+   "why": "список → главное слово и не больше одной альтернативы; «спутница» — книжно"
+  },
+  {
+   "id": 15029,
+   "col": "translation_en",
+   "old": "partner, girlfriend",
+   "new": "partner",
+   "why": "список → главное слово и не больше одной альтернативы; «спутница» — книжно"
+  },
+  {
+   "id": 15029,
+   "col": "translation_tr",
+   "old": "partner, eş, ortak",
+   "new": "partner, eş",
+   "why": "список → главное слово и не больше одной альтернативы; «спутница» — книжно"
+  },
+  {
+   "id": 15029,
+   "col": "translation_pl",
+   "old": "partnerka, towarzyszka",
+   "new": "partnerka",
+   "why": "список → главное слово и не больше одной альтернативы; «спутница» — книжно"
+  },
+  {
+   "id": 15029,
+   "col": "translation_it",
+   "old": "la compagna, la socia",
+   "new": "la compagna",
+   "why": "список → главное слово и не больше одной альтернативы; «спутница» — книжно"
+  },
+  {
+   "id": 15029,
+   "col": "translation_es",
+   "old": "la compañera, la pareja, la socia",
+   "new": "la pareja, la compañera",
+   "why": "список → главное слово и не больше одной альтернативы; «спутница» — книжно"
+  },
+  {
+   "id": 15029,
+   "col": "translation_cs",
+   "old": "partnerka, přítelkyně, společnice",
+   "new": "partnerka, přítelkyně",
+   "why": "список → главное слово и не больше одной альтернативы; «спутница» — книжно"
+  },
+  {
+   "id": 18198,
+   "col": "translation_ru",
+   "old": "снимать, арендовать, брать в аренду",
+   "new": "снимать, арендовать",
+   "why": "пример почти повторял пример другого слова — у каждого свой (Apartment: «…ein kleines Apartment gemietet»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18198,
+   "col": "translation_uk",
+   "old": "орендувати, знімати, брати в найм",
+   "new": "орендувати, знімати",
+   "why": "пример почти повторял пример другого слова — у каждого свой (Apartment: «…ein kleines Apartment gemietet»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18198,
+   "col": "translation_en",
+   "old": "to rent, to hire, to lease",
+   "new": "to rent",
+   "why": "пример почти повторял пример другого слова — у каждого свой (Apartment: «…ein kleines Apartment gemietet»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18198,
+   "col": "translation_tr",
+   "old": "kiralamak, kira ile tutmak",
+   "new": "kiralamak",
+   "why": "пример почти повторял пример другого слова — у каждого свой (Apartment: «…ein kleines Apartment gemietet»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18198,
+   "col": "translation_pl",
+   "old": "wynajmować, wypożyczać",
+   "new": "wynajmować",
+   "why": "пример почти повторял пример другого слова — у каждого свой (Apartment: «…ein kleines Apartment gemietet»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18198,
+   "col": "translation_it",
+   "old": "affittare, prendere in affitto, noleggiare",
+   "new": "affittare, noleggiare",
+   "why": "пример почти повторял пример другого слова — у каждого свой (Apartment: «…ein kleines Apartment gemietet»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18198,
+   "col": "translation_es",
+   "old": "alquilar, rentar",
+   "new": "alquilar",
+   "why": "пример почти повторял пример другого слова — у каждого свой (Apartment: «…ein kleines Apartment gemietet»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18198,
+   "col": "translation_cs",
+   "old": "pronajmout si, najmout si",
+   "new": "pronajmout si",
+   "why": "пример почти повторял пример другого слова — у каждого свой (Apartment: «…ein kleines Apartment gemietet»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18198,
+   "col": "example_de",
+   "old": "Wir mieten eine Wohnung in der Innenstadt",
+   "new": "Wir mieten im Urlaub ein Auto",
+   "why": "пример почти повторял пример другого слова — у каждого свой (Apartment: «…ein kleines Apartment gemietet»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18198,
+   "col": "example_ru",
+   "old": "Мы снимаем квартиру в центре города",
+   "new": "В отпуске мы арендуем машину",
+   "why": "пример почти повторял пример другого слова — у каждого свой (Apartment: «…ein kleines Apartment gemietet»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18198,
+   "col": "example_uk",
+   "old": "Ми орендуємо квартиру в центрі міста",
+   "new": "У відпустці ми орендуємо машину",
+   "why": "пример почти повторял пример другого слова — у каждого свой (Apartment: «…ein kleines Apartment gemietet»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18198,
+   "col": "example_en",
+   "old": "We're renting an apartment in the city center",
+   "new": "We're renting a car on holiday",
+   "why": "пример почти повторял пример другого слова — у каждого свой (Apartment: «…ein kleines Apartment gemietet»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18198,
+   "col": "example_tr",
+   "old": "Şehir merkezinde bir daire kiralıyoruz",
+   "new": "Tatilde araba kiralıyoruz",
+   "why": "пример почти повторял пример другого слова — у каждого свой (Apartment: «…ein kleines Apartment gemietet»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18198,
+   "col": "example_pl",
+   "old": "Wynajmujemy mieszkanie w centrum",
+   "new": "Na urlopie wynajmujemy samochód",
+   "why": "пример почти повторял пример другого слова — у каждого свой (Apartment: «…ein kleines Apartment gemietet»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18198,
+   "col": "example_it",
+   "old": "Affittiamo un appartamento in centro",
+   "new": "In vacanza noleggiamo una macchina",
+   "why": "пример почти повторял пример другого слова — у каждого свой (Apartment: «…ein kleines Apartment gemietet»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18198,
+   "col": "example_es",
+   "old": "Alquilamos un apartamento en el centro",
+   "new": "En vacaciones alquilamos un coche",
+   "why": "пример почти повторял пример другого слова — у каждого свой (Apartment: «…ein kleines Apartment gemietet»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18198,
+   "col": "example_fr",
+   "old": "Nous louons un appartement en centre-ville",
+   "new": "En vacances, on loue une voiture",
+   "why": "пример почти повторял пример другого слова — у каждого свой (Apartment: «…ein kleines Apartment gemietet»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18198,
+   "col": "example_cs",
+   "old": "Pronajímáme si byt v centru",
+   "new": "Na dovolené si pronajímáme auto",
+   "why": "пример почти повторял пример другого слова — у каждого свой (Apartment: «…ein kleines Apartment gemietet»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15037,
+   "col": "translation_ru",
+   "old": "происхождение, родом откуда-то",
+   "new": "происхождение",
+   "why": "«родом откуда-то» — пояснение; «Er ist unbekannter Herkunft» — книжно"
+  },
+  {
+   "id": 15037,
+   "col": "translation_en",
+   "old": "origin, background, descent",
+   "new": "origin",
+   "why": "«родом откуда-то» — пояснение; «Er ist unbekannter Herkunft» — книжно"
+  },
+  {
+   "id": 15037,
+   "col": "translation_tr",
+   "old": "köken, soy, geldiği yer",
+   "new": "köken",
+   "why": "«родом откуда-то» — пояснение; «Er ist unbekannter Herkunft» — книжно"
+  },
+  {
+   "id": 15037,
+   "col": "example_de",
+   "old": "Er ist unbekannter Herkunft",
+   "new": "Die Herkunft spielt keine Rolle",
+   "why": "«родом откуда-то» — пояснение; «Er ist unbekannter Herkunft» — книжно"
+  },
+  {
+   "id": 15037,
+   "col": "example_ru",
+   "old": "Он неизвестного происхождения",
+   "new": "Происхождение не имеет значения",
+   "why": "«родом откуда-то» — пояснение; «Er ist unbekannter Herkunft» — книжно"
+  },
+  {
+   "id": 15037,
+   "col": "example_uk",
+   "old": "Він невідомого походження",
+   "new": "Походження не має значення",
+   "why": "«родом откуда-то» — пояснение; «Er ist unbekannter Herkunft» — книжно"
+  },
+  {
+   "id": 15037,
+   "col": "example_en",
+   "old": "He is of unknown origin",
+   "new": "Origin doesn't matter",
+   "why": "«родом откуда-то» — пояснение; «Er ist unbekannter Herkunft» — книжно"
+  },
+  {
+   "id": 15037,
+   "col": "example_tr",
+   "old": "Bilinmeyen kökenden geliyor",
+   "new": "Kökenin önemi yok",
+   "why": "«родом откуда-то» — пояснение; «Er ist unbekannter Herkunft» — книжно"
+  },
+  {
+   "id": 15037,
+   "col": "example_pl",
+   "old": "Jest nieznanego pochodzenia",
+   "new": "Pochodzenie nie ma znaczenia",
+   "why": "«родом откуда-то» — пояснение; «Er ist unbekannter Herkunft» — книжно"
+  },
+  {
+   "id": 15037,
+   "col": "example_it",
+   "old": "È di origine sconosciuta",
+   "new": "L'origine non ha importanza",
+   "why": "«родом откуда-то» — пояснение; «Er ist unbekannter Herkunft» — книжно"
+  },
+  {
+   "id": 15037,
+   "col": "example_es",
+   "old": "Es de origen desconocido",
+   "new": "El origen no importa",
+   "why": "«родом откуда-то» — пояснение; «Er ist unbekannter Herkunft» — книжно"
+  },
+  {
+   "id": 15037,
+   "col": "example_fr",
+   "old": "Il est d'origine inconnue",
+   "new": "L'origine n'a pas d'importance",
+   "why": "«родом откуда-то» — пояснение; «Er ist unbekannter Herkunft» — книжно"
+  },
+  {
+   "id": 15037,
+   "col": "example_cs",
+   "old": "Je neznámého původu",
+   "new": "Na původu nezáleží",
+   "why": "«родом откуда-то» — пояснение; «Er ist unbekannter Herkunft» — книжно"
+  },
+  {
+   "id": 981,
+   "col": "translation_ru",
+   "old": "разный, различный, непохожий",
+   "new": "разный, различный",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 981,
+   "col": "translation_uk",
+   "old": "різний, відмінний, несхожий",
+   "new": "різний",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 981,
+   "col": "translation_en",
+   "old": "different, various, diverse",
+   "new": "different, various",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 981,
+   "col": "translation_tr",
+   "old": "farklı, çeşitli, değişik",
+   "new": "farklı, çeşitli",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 981,
+   "col": "translation_pl",
+   "old": "różny, rozmaity, odmienny",
+   "new": "różny",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 981,
+   "col": "translation_es",
+   "old": "diferente, distinto, varios",
+   "new": "diferente, distinto",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1360,
+   "col": "translation_ru",
+   "old": "вход, входная плата, вступление",
+   "new": "вход, входная плата",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1360,
+   "col": "translation_uk",
+   "old": "вхід, плата за вхід, вступ",
+   "new": "вхід, плата за вхід",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1360,
+   "col": "translation_en",
+   "old": "admission, entry, entrance fee",
+   "new": "admission, entry",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1360,
+   "col": "translation_tr",
+   "old": "giriş, giriş ücreti, katılım",
+   "new": "giriş, giriş ücreti",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1360,
+   "col": "translation_pl",
+   "old": "wstęp, wejście, opłata za wejście",
+   "new": "wstęp",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1360,
+   "col": "translation_it",
+   "old": "l'ingresso, l'entrata, l'adesione",
+   "new": "l'ingresso",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1360,
+   "col": "translation_es",
+   "old": "la entrada, el ingreso",
+   "new": "la entrada",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1360,
+   "col": "translation_fr",
+   "old": "l'entrée, l'adhésion",
+   "new": "l'entrée",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 75,
+   "col": "example_de",
+   "old": "Der Balkon ist sehr groß",
+   "new": "Im Sommer frühstücken wir auf dem Balkon",
+   "why": "пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 75,
+   "col": "example_ru",
+   "old": "Балкон очень большой",
+   "new": "Летом мы завтракаем на балконе",
+   "why": "пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 75,
+   "col": "example_uk",
+   "old": "Балкон дуже великий",
+   "new": "Улітку ми снідаємо на балконі",
+   "why": "пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 75,
+   "col": "example_en",
+   "old": "The balcony is very large",
+   "new": "In summer we have breakfast on the balcony",
+   "why": "пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 75,
+   "col": "example_tr",
+   "old": "Balkon çok geniş",
+   "new": "Yazın balkonda kahvaltı yaparız",
+   "why": "пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 75,
+   "col": "example_pl",
+   "old": "Balkon jest bardzo duży",
+   "new": "Latem jemy śniadanie na balkonie",
+   "why": "пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 75,
+   "col": "example_it",
+   "old": "Il balcone è molto grande",
+   "new": "D'estate facciamo colazione sul balcone",
+   "why": "пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 75,
+   "col": "example_es",
+   "old": "El balcón es muy grande",
+   "new": "En verano desayunamos en el balcón",
+   "why": "пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 75,
+   "col": "example_fr",
+   "old": "Le balcon est très grand",
+   "new": "L'été, on prend le petit-déjeuner sur le balcon",
+   "why": "пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 75,
+   "col": "example_cs",
+   "old": "Balkon je velmi velký",
+   "new": "V létě snídáme na balkoně",
+   "why": "пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 8870,
+   "col": "translation_ru",
+   "old": "безработный, без работы",
+   "new": "безработный",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8870,
+   "col": "translation_uk",
+   "old": "безробітний, без роботи",
+   "new": "безробітний",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8870,
+   "col": "translation_en",
+   "old": "unemployed, out of work",
+   "new": "unemployed",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8870,
+   "col": "translation_tr",
+   "old": "işsiz, iş bulamayan",
+   "new": "işsiz",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8870,
+   "col": "translation_pl",
+   "old": "bezrobotny, bez pracy",
+   "new": "bezrobotny",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 3051,
+   "col": "translation_ru",
+   "old": "таможня, пошлина, дюйм",
+   "new": "таможня, пошлина",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («дюйм» — омоним, своя строка)"
+  },
+  {
+   "id": 3051,
+   "col": "translation_uk",
+   "old": "митниця, мито, дюйм",
+   "new": "митниця, мито",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («дюйм» — омоним, своя строка)"
+  },
+  {
+   "id": 3051,
+   "col": "translation_en",
+   "old": "customs, duty, tariff, inch",
+   "new": "customs, duty",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («дюйм» — омоним, своя строка)"
+  },
+  {
+   "id": 3051,
+   "col": "translation_tr",
+   "old": "gümrük, gümrük vergisi, inç",
+   "new": "gümrük",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («дюйм» — омоним, своя строка)"
+  },
+  {
+   "id": 3051,
+   "col": "translation_pl",
+   "old": "odprawa celna, cło, cal",
+   "new": "cło, odprawa celna",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («дюйм» — омоним, своя строка)"
+  },
+  {
+   "id": 3051,
+   "col": "translation_it",
+   "old": "la dogana, il dazio, il pollice",
+   "new": "la dogana, il dazio",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («дюйм» — омоним, своя строка)"
+  },
+  {
+   "id": 3051,
+   "col": "translation_es",
+   "old": "la aduana, el arancel, la pulgada",
+   "new": "la aduana, el arancel",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («дюйм» — омоним, своя строка)"
+  },
+  {
+   "id": 3051,
+   "col": "translation_fr",
+   "old": "la douane, les droits de douane, le pouce",
+   "new": "la douane",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («дюйм» — омоним, своя строка)"
+  },
+  {
+   "id": 3051,
+   "col": "translation_cs",
+   "old": "celnice, clo, palec",
+   "new": "celnice, clo",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («дюйм» — омоним, своя строка)"
+  },
+  {
+   "id": 16165,
+   "col": "translation_ru",
+   "old": "иностранец, чужеземец",
+   "new": "иностранец",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16165,
+   "col": "translation_uk",
+   "old": "іноземець, чужинець",
+   "new": "іноземець",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16165,
+   "col": "translation_en",
+   "old": "foreigner, alien",
+   "new": "foreigner",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16165,
+   "col": "translation_tr",
+   "old": "yabancı, yabancı uyruklu",
+   "new": "yabancı",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17535,
+   "col": "translation_ru",
+   "old": "автоматический, автоматически, непроизвольный",
+   "new": "автоматический, автоматически",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17535,
+   "col": "translation_uk",
+   "old": "автоматичний, автоматично, несвідомий",
+   "new": "автоматичний, автоматично",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 753,
+   "col": "translation_ru",
+   "old": "идти дождь, дождить",
+   "new": "идёт дождь",
+   "why": "пример почти повторял пример другого слова — у каждого свой (draußen: «Draußen regnet es…»)"
+  },
+  {
+   "id": 753,
+   "col": "translation_uk",
+   "old": "дощити, іти дощ",
+   "new": "іде дощ",
+   "why": "пример почти повторял пример другого слова — у каждого свой (draußen: «Draußen regnet es…»)"
+  },
+  {
+   "id": 753,
+   "col": "translation_tr",
+   "old": "yağmak, yağmur yağmak",
+   "new": "yağmur yağmak",
+   "why": "пример почти повторял пример другого слова — у каждого свой (draußen: «Draußen regnet es…»)"
+  },
+  {
+   "id": 753,
+   "col": "translation_pl",
+   "old": "padać, padać deszcz",
+   "new": "padać",
+   "why": "пример почти повторял пример другого слова — у каждого свой (draußen: «Draußen regnet es…»)"
+  },
+  {
+   "id": 753,
+   "col": "example_de",
+   "old": "Es regnet draußen",
+   "new": "Es regnet schon den ganzen Tag",
+   "why": "пример почти повторял пример другого слова — у каждого свой (draußen: «Draußen regnet es…»)"
+  },
+  {
+   "id": 753,
+   "col": "example_ru",
+   "old": "На улице идёт дождь",
+   "new": "Дождь идёт уже весь день",
+   "why": "пример почти повторял пример другого слова — у каждого свой (draußen: «Draußen regnet es…»)"
+  },
+  {
+   "id": 753,
+   "col": "example_uk",
+   "old": "Надворі дощить",
+   "new": "Дощ іде вже цілий день",
+   "why": "пример почти повторял пример другого слова — у каждого свой (draußen: «Draußen regnet es…»)"
+  },
+  {
+   "id": 753,
+   "col": "example_en",
+   "old": "It is raining outside",
+   "new": "It's been raining all day",
+   "why": "пример почти повторял пример другого слова — у каждого свой (draußen: «Draußen regnet es…»)"
+  },
+  {
+   "id": 753,
+   "col": "example_tr",
+   "old": "Dışarıda yağmur yağıyor",
+   "new": "Bütün gün yağmur yağıyor",
+   "why": "пример почти повторял пример другого слова — у каждого свой (draußen: «Draußen regnet es…»)"
+  },
+  {
+   "id": 753,
+   "col": "example_pl",
+   "old": "Na dworze pada deszcz",
+   "new": "Pada już cały dzień",
+   "why": "пример почти повторял пример другого слова — у каждого свой (draußen: «Draußen regnet es…»)"
+  },
+  {
+   "id": 753,
+   "col": "example_it",
+   "old": "Fuori piove",
+   "new": "Piove da tutto il giorno",
+   "why": "пример почти повторял пример другого слова — у каждого свой (draußen: «Draußen regnet es…»)"
+  },
+  {
+   "id": 753,
+   "col": "example_es",
+   "old": "Está lloviendo afuera",
+   "new": "Lleva lloviendo todo el día",
+   "why": "пример почти повторял пример другого слова — у каждого свой (draußen: «Draußen regnet es…»)"
+  },
+  {
+   "id": 753,
+   "col": "example_fr",
+   "old": "Il pleut dehors",
+   "new": "Il pleut depuis toute la journée",
+   "why": "пример почти повторял пример другого слова — у каждого свой (draußen: «Draußen regnet es…»)"
+  },
+  {
+   "id": 753,
+   "col": "example_cs",
+   "old": "Venku prší",
+   "new": "Prší už celý den",
+   "why": "пример почти повторял пример другого слова — у каждого свой (draußen: «Draußen regnet es…»)"
+  },
+  {
+   "id": 1673,
+   "col": "translation_ru",
+   "old": "мужской, мужественный",
+   "new": "мужской",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1673,
+   "col": "translation_uk",
+   "old": "чоловічий, мужній",
+   "new": "чоловічий",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1673,
+   "col": "translation_en",
+   "old": "male, masculine",
+   "new": "male",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1673,
+   "col": "translation_tr",
+   "old": "erkek, eril, erkeksi",
+   "new": "erkek",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1673,
+   "col": "translation_pl",
+   "old": "męski, płci męskiej",
+   "new": "męski",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 399,
+   "col": "translation_ru",
+   "old": "плита, печка, очаг, источник",
+   "new": "плита",
+   "why": "список → главное слово и не больше одной альтернативы; «источник, очаг» — другие значения; английский пример: так не говорят"
+  },
+  {
+   "id": 399,
+   "col": "translation_uk",
+   "old": "плита, пічка, вогнище, осередок",
+   "new": "плита",
+   "why": "список → главное слово и не больше одной альтернативы; «источник, очаг» — другие значения; английский пример: так не говорят"
+  },
+  {
+   "id": 399,
+   "col": "translation_en",
+   "old": "stove, cooker, hearth, focus, source",
+   "new": "stove, cooker",
+   "why": "список → главное слово и не больше одной альтернативы; «источник, очаг» — другие значения; английский пример: так не говорят"
+  },
+  {
+   "id": 399,
+   "col": "translation_tr",
+   "old": "ocak, fırın, kuzine, odak, kaynak",
+   "new": "ocak",
+   "why": "список → главное слово и не больше одной альтернативы; «источник, очаг» — другие значения; английский пример: так не говорят"
+  },
+  {
+   "id": 399,
+   "col": "translation_pl",
+   "old": "kuchenka, piec, ognisko",
+   "new": "kuchenka",
+   "why": "список → главное слово и не больше одной альтернативы; «источник, очаг» — другие значения; английский пример: так не говорят"
+  },
+  {
+   "id": 399,
+   "col": "translation_it",
+   "old": "il fornello, la cucina, il focolare",
+   "new": "il fornello",
+   "why": "список → главное слово и не больше одной альтернативы; «источник, очаг» — другие значения; английский пример: так не говорят"
+  },
+  {
+   "id": 399,
+   "col": "translation_es",
+   "old": "la cocina, la estufa, el fogón, el hogar",
+   "new": "la cocina, el fogón",
+   "why": "список → главное слово и не больше одной альтернативы; «источник, очаг» — другие значения; английский пример: так не говорят"
+  },
+  {
+   "id": 399,
+   "col": "translation_fr",
+   "old": "la cuisinière, le fourneau, le foyer",
+   "new": "la cuisinière",
+   "why": "список → главное слово и не больше одной альтернативы; «источник, очаг» — другие значения; английский пример: так не говорят"
+  },
+  {
+   "id": 399,
+   "col": "translation_cs",
+   "old": "sporák, plotna, ohnisko",
+   "new": "sporák",
+   "why": "список → главное слово и не больше одной альтернативы; «источник, очаг» — другие значения; английский пример: так не говорят"
+  },
+  {
+   "id": 399,
+   "col": "example_en",
+   "old": "She cooks at the stove",
+   "new": "She's cooking at the stove",
+   "why": "список → главное слово и не больше одной альтернативы; «источник, очаг» — другие значения; английский пример: так не говорят"
+  },
+  {
+   "id": 117,
+   "col": "translation_ru",
+   "old": "груша, лампочка",
+   "new": "груша",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («лампочка» — разговорное значение, своя строка)"
+  },
+  {
+   "id": 117,
+   "col": "translation_uk",
+   "old": "груша, лампочка",
+   "new": "груша",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («лампочка» — разговорное значение, своя строка)"
+  },
+  {
+   "id": 117,
+   "col": "translation_en",
+   "old": "pear, light bulb",
+   "new": "pear",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («лампочка» — разговорное значение, своя строка)"
+  },
+  {
+   "id": 117,
+   "col": "translation_tr",
+   "old": "armut, ampul",
+   "new": "armut",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («лампочка» — разговорное значение, своя строка)"
+  },
+  {
+   "id": 117,
+   "col": "translation_pl",
+   "old": "gruszka, żarówka",
+   "new": "gruszka",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («лампочка» — разговорное значение, своя строка)"
+  },
+  {
+   "id": 117,
+   "col": "translation_it",
+   "old": "la pera, la lampadina",
+   "new": "la pera",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («лампочка» — разговорное значение, своя строка)"
+  },
+  {
+   "id": 117,
+   "col": "translation_es",
+   "old": "la pera, la bombilla, el foco",
+   "new": "la pera",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («лампочка» — разговорное значение, своя строка)"
+  },
+  {
+   "id": 117,
+   "col": "translation_fr",
+   "old": "la poire, l'ampoule",
+   "new": "la poire",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («лампочка» — разговорное значение, своя строка)"
+  },
+  {
+   "id": 117,
+   "col": "translation_cs",
+   "old": "hruška, žárovka",
+   "new": "hruška",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («лампочка» — разговорное значение, своя строка)"
+  },
+  {
+   "id": 14032,
+   "col": "translation_ru",
+   "old": "объявление, сообщение по громкой связи",
+   "new": "объявление",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14032,
+   "col": "translation_uk",
+   "old": "оголошення, повідомлення по гучномовцю",
+   "new": "оголошення",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14032,
+   "col": "translation_en",
+   "old": "announcement, public address",
+   "new": "announcement",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14032,
+   "col": "translation_tr",
+   "old": "anons, duyuru",
+   "new": "anons",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14032,
+   "col": "translation_pl",
+   "old": "komunikat, zapowiedź",
+   "new": "komunikat",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1339,
+   "col": "translation_ru",
+   "old": "печатать, распечатывать, издавать",
+   "new": "печатать, распечатать",
+   "why": "порча знаний: uk «розпечатувати» — это «вскрывать конверт», печатать на принтере — «роздрукувати»"
+  },
+  {
+   "id": 1339,
+   "col": "translation_uk",
+   "old": "друкувати, розпечатувати, видавати",
+   "new": "друкувати, роздрукувати",
+   "why": "порча знаний: uk «розпечатувати» — это «вскрывать конверт», печатать на принтере — «роздрукувати»"
+  },
+  {
+   "id": 1339,
+   "col": "example_uk",
+   "old": "Я маю надрукувати документ",
+   "new": "Мені треба роздрукувати документ",
+   "why": "порча знаний: uk «розпечатувати» — это «вскрывать конверт», печатать на принтере — «роздрукувати»"
+  },
+  {
+   "id": 141,
+   "col": "translation_en",
+   "old": "bread roll, bun",
+   "new": "bread roll",
+   "why": "английский пример: так не говорят"
+  },
+  {
+   "id": 358,
+   "col": "translation_ru",
+   "old": "привет, приветствие, поклон",
+   "new": "привет, приветствие",
+   "why": "список → главное слово и не больше одной альтернативы; «Greetings to your family» — так не говорят"
+  },
+  {
+   "id": 358,
+   "col": "translation_tr",
+   "old": "selam, selamlama",
+   "new": "selam",
+   "why": "список → главное слово и не больше одной альтернативы; «Greetings to your family» — так не говорят"
+  },
+  {
+   "id": 358,
+   "col": "translation_pl",
+   "old": "pozdrowienie, powitanie",
+   "new": "pozdrowienie",
+   "why": "список → главное слово и не больше одной альтернативы; «Greetings to your family» — так не говорят"
+  },
+  {
+   "id": 358,
+   "col": "translation_fr",
+   "old": "la salutation, le salut, les amitiés",
+   "new": "le salut, les amitiés",
+   "why": "список → главное слово и не больше одной альтернативы; «Greetings to your family» — так не говорят"
+  },
+  {
+   "id": 358,
+   "col": "example_en",
+   "old": "Greetings to your family",
+   "new": "Give my regards to your family",
+   "why": "список → главное слово и не больше одной альтернативы; «Greetings to your family» — так не говорят"
+  }
+ ],
+ "replace": [],
+ "split_later": {
+  "3051": [
+   "der Zoll = дюйм"
+  ],
+  "117": [
+   "die Birne = лампочка (разг.)"
+  ]
+ }
+}
