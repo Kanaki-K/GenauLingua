@@ -95,6 +95,9 @@ async def process_voice_answer(message: Message, state: FSMContext, session: Asy
     показывается то, что бот действительно услышал, и эталон для сравнения —
     этого хватает, чтобы услышать разницу самому.
     """
+    # Отсчёт — с прихода голосового: разбивка 2.2.4 ищет, куда уходят
+    # 5 с ответа при распознавании за 1,5 с (прод 18–20.10)
+    entered = time.perf_counter()
     ctx = await _speech_context(message, state, session)
     if ctx is None:
         return
@@ -168,6 +171,8 @@ async def process_voice_answer(message: Message, state: FSMContext, session: Asy
             similarity=(round(verdict.similarity, 2)
                         if getattr(verdict, "similarity", None) is not None else None),
             target=target, recognize_s=round(recognized, 1),
+            # До скачивания (состояние, замок, «Проверяю…») и само скачивание
+            before_s=round(started - entered, 2), download_s=round(downloaded - started, 2),
         )
 
     try:
@@ -236,6 +241,16 @@ async def process_voice_answer(message: Message, state: FSMContext, session: Asy
         session_id=data["session_id"], correct_answers=data["correct_answers"],
         errors=data["errors"], response_seconds=response_seconds,
         card_message_id=data.get(STATE_CARD_ID),
+    )
+    # Хвост после распознавания: запись ответа, прогресс, разбор с клипом
+    finished = time.perf_counter()
+    journal.note(
+        session, user.id, "speech_time", "matched", session_id=data.get("session_id"),
+        word_id=correct_word.id, channel=QuizChannel.SPEECH.value,
+        before_s=round(started - entered, 2), download_s=round(downloaded - started, 2),
+        recognize_s=round(recognized, 1),
+        reply_s=round(finished - downloaded - recognized, 2),
+        total_s=round(finished - entered, 2),
     )
 
 

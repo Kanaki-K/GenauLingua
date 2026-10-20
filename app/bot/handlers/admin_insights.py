@@ -76,11 +76,13 @@ async def insights_hub(callback: CallbackQuery, session: AsyncSession):
             f"Уходы {admin_ui.DOT} где и после чего бросают, перезапуски, «Продолжить»",
             f"Говорю {admin_ui.DOT} выбор людей, приглашения, пропуски, распознавание",
             f"Журнал {admin_ui.DOT} блокировки, ошибки, кнопки меню и команды",
+            f"Ошибки людей {admin_ui.DOT} что выбирают вместо, перепутанные пары, чужой уровень",
         ]), "Полный разбор — <code>sh deploy/product_report.sh</code> на сервере"],
     )
     await callback.message.edit_text(text_, reply_markup=admin_ui.kb(
         [("Путь", "admin:ins_path:7"), ("Уходы", "admin:ins_leave:7")],
         [("Говорю", "admin:ins_speech:7"), ("Журнал", "admin:ins_log:7")],
+        [("Ошибки людей", "admin:ins_mist:7")],
         back="admin:back",
     ))
 
@@ -213,6 +215,15 @@ select kind, action, count(*), count(distinct user_id) from user_events
 where user_id <> :admin and at >= :since and kind in ('speech_invite', 'speech_offer')
 group by 1, 2 order by 1, 2
 """
+# Разбивка времени ответа голосом (2.2.4): медианы и худшие 10%, секунды
+SPEECH_TIMING_SQL = """
+select part, count(*),
+       percentile_cont(0.5) within group (order by v), percentile_cont(0.9) within group (order by v)
+from (select key part, value::text::float v from user_events, jsonb_each(data)
+      where user_id <> :admin and at >= :since and kind = 'speech_time'
+        and key in ('before_s', 'download_s', 'recognize_s', 'reply_s', 'total_s')) x
+group by 1
+"""
 SPEECH_PLAY_SQL = """
 select count(*) filter (where kind = 'question' and channel = 's'),
        count(*) filter (where kind = 'skip' and channel = 's'),
@@ -232,6 +243,10 @@ async def insights_speech(callback: CallbackQuery, session: AsyncSession):
     choices = await _rows(session, CHOICE_SQL, days)
     events = await _rows(session, SPEECH_EVENTS_SQL, days)
     shown, skipped, voiced, first_try, speakers = (await _rows(session, SPEECH_PLAY_SQL, days))[0]
+    timing = {part: (n, med, p90) for part, n, med, p90 in await _rows(session, SPEECH_TIMING_SQL, days)}
+    timing_names = [("before_s", "до скачивания"), ("download_s", "скачивание"),
+                    ("recognize_s", "распознавание"), ("reply_s", "запись и разбор"),
+                    ("total_s", "весь ответ")]
     event_names = {("speech_invite", "shown"): "приглашение показано",
                    ("speech_invite", "try"): "→ «Попробовать»",
                    ("speech_invite", "later"): "→ «Не сейчас»",
@@ -250,11 +265,113 @@ async def insights_speech(callback: CallbackQuery, session: AsyncSession):
         admin_ui.section("Вопросы бота", admin_ui.table(
             [(event_names.get((k, a), f"{k} {a}"), f"{admin_ui.num(n)} у {admin_ui.people(p)}")
              for k, a, n, p in events]), note="с 2.2.1: по желанию, приглашение под итогом"),
+        admin_ui.section("Время засчитанного ответа, с", admin_ui.columns(
+            [("", "медиана", "90%")] + [
+                (name, f"{timing[key][1]:.1f}", f"{timing[key][2]:.1f}")
+                for key, name in timing_names if key in timing]) if timing else None,
+            note="с 2.2.4", empty="пока нет засчитанных ответов"),
     ]
     await callback.message.edit_text(
         admin_ui.screen(f"Говорю · {days} дней", lead="по желанию с 2.2.1, без владельца",
                         blocks=blocks),
         reply_markup=admin_ui.kb(_period_row("speech", days), back="admin:insights"))
+
+
+# ============================================================================
+# ОШИБКИ ЛЮДЕЙ (2.2.4)
+# ============================================================================
+#
+# Владелец 20.10: «ошибки юзеров — наше топливо роста». С 2.2.4 у ответа есть
+# показанные варианты и выбранное слово (`quiz_questions.options`,
+# `chosen_word_id`). Здесь — первое чтение: что выбирают вместо, какие пары
+# путают, какие слова трудны многим. Одна ошибка — шум: пары и слова только
+# от двух людей.
+
+def _word_sql(alias: str) -> str:
+    return f"coalesce({alias}.article || ' ', '') || {alias}.word_de"
+
+
+MIST_BY_GAME_SQL = """
+select coalesce(q.channel, 't'), count(*) filter (where not coalesce(q.is_correct, false)), count(*),
+       count(*) filter (where not coalesce(q.is_correct, false) and q.chosen_word_id is not null)
+from quiz_questions q join quiz_sessions s on s.id = q.session_id
+where s.user_id <> :admin and q.answered_at >= :since
+group by 1 order by 2 desc
+"""
+MIST_PAIRS_SQL = f"""
+select {_word_sql('w')}, {_word_sql('c')}, s.learning_lang || '←' || s.native_lang,
+       count(*), count(distinct s.user_id)
+from quiz_questions q join quiz_sessions s on s.id = q.session_id
+join words w on w.id = q.word_id join words c on c.id = q.chosen_word_id
+where s.user_id <> :admin and q.answered_at >= :since and not coalesce(q.is_correct, false)
+  and q.chosen_word_id <> q.word_id
+group by 1, 2, 3 having count(distinct s.user_id) >= 2 order by 5 desc, 4 desc limit 10
+"""
+MIST_WORDS_SQL = f"""
+select {_word_sql('w')}, s.learning_lang || '←' || s.native_lang,
+       count(*) filter (where not coalesce(q.is_correct, false)), count(*),
+       count(distinct s.user_id) filter (where not coalesce(q.is_correct, false))
+from quiz_questions q join quiz_sessions s on s.id = q.session_id join words w on w.id = q.word_id
+where s.user_id <> :admin and q.answered_at >= :since
+group by 1, 2 having count(distinct s.user_id) filter (where not coalesce(q.is_correct, false)) >= 2
+order by 5 desc, 3 desc limit 10
+"""
+MIST_LAST_SQL = f"""
+select to_char(q.answered_at, 'DD.MM HH24:MI'), coalesce(q.channel, 't'), {_word_sql('w')},
+       coalesce(q.user_answer, '—')
+from quiz_questions q join quiz_sessions s on s.id = q.session_id join words w on w.id = q.word_id
+where s.user_id <> :admin and q.answered_at >= :since and not coalesce(q.is_correct, false)
+order by q.answered_at desc limit 10
+"""
+# Слова чужого уровня: уровень слова и человека — у вопроса в журнале (2.2.4).
+# Сравнение строк годится: A1 < A2 < B1 < B2 < C1 < C2 и по алфавиту
+LEVEL_FIT_SQL = """
+select case when data->>'lvl' = data->>'ulvl' then 'свой уровень'
+            when data->>'lvl' > data->>'ulvl' then 'выше уровня человека'
+            else 'ниже уровня человека' end, count(*)
+from user_events where user_id <> :admin and at >= :since and kind = 'question'
+  and data ? 'lvl' and data ? 'ulvl'
+group by 1 order by 2 desc
+"""
+
+
+@router.callback_query(F.data.startswith("admin:ins_mist"))
+async def insights_mistakes(callback: CallbackQuery, session: AsyncSession):
+    if not await _guard(callback):
+        return
+    days = _days(callback.data)
+    by_game = await _rows(session, MIST_BY_GAME_SQL, days)
+    pairs = await _rows(session, MIST_PAIRS_SQL, days)
+    words = await _rows(session, MIST_WORDS_SQL, days)
+    last = await _rows(session, MIST_LAST_SQL, days)
+    fit = await _rows(session, LEVEL_FIT_SQL, days)
+    fit_total = sum(n for _, n in fit)
+    blocks = [
+        admin_ui.section("По играм", admin_ui.columns(
+            [("", "ошибок", "из", "с выбором")] + [
+                (GAME_NAMES.get(ch, ch), wrong, total, chosen) for ch, wrong, total, chosen in by_game])
+            if by_game else None, note="«с выбором» — известно, какое слово выбрали (с 2.2.4)"),
+        # Строка экрана — 32 знака (телефон): слово, выбранное и цифры — на
+        # своих строках, иначе обрезается как раз выбранный ответ
+        admin_ui.section("Путают пары", admin_ui.listing(
+            [line for a, b, lp, n, p in pairs
+             for line in (a, f"  → {b}", f"  {lp} · {n} раз, {admin_ui.people(p)}")]),
+            note="верное → выбранное; только у 2+ людей", empty="пока нет пар у двух людей"),
+        admin_ui.section("Трудны многим", admin_ui.listing(
+            [line for w, lp, e, n, p in words
+             for line in (w, f"  {lp} · ошибок {e} из {n}, {admin_ui.people(p)}")]),
+            note="ошибались 2+ человека", empty="пока нет слов с ошибками у двух людей"),
+        admin_ui.section("Уровень слов в вопросах", admin_ui.table(
+            [(name, f"{admin_ui.num(n)} ({admin_ui.pct(n, fit_total)})") for name, n in fit])
+            if fit else None, note="с 2.2.4", empty="пока нет вопросов с уровнем"),
+        admin_ui.section("Последние ошибки", admin_ui.listing(
+            [line for at, ch, w, answer in last
+             for line in (f"{w} · {GAME_NAMES.get(ch, ch)} {at}", f"  → {answer}")]),
+            empty="ни одной"),
+    ]
+    await callback.message.edit_text(
+        admin_ui.screen(f"Ошибки людей · {days} дней", lead="без владельца", blocks=blocks),
+        reply_markup=admin_ui.kb(_period_row("mist", days), back="admin:insights"))
 
 
 # ============================================================================

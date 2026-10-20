@@ -2,7 +2,8 @@
 -- Переменные psql: :admin (владелец, исключается), :since (начало периода, в кавычках SQL).
 -- Разделы: A люди и занятия · B игры · C уходы · D журнал · E сообщения · F жалобы · G прогресс ·
 -- P глубже (перезапуски, путь новичка, «Говорю», «Собираю», часы, контрольная группа) ·
--- N события 2.2.1 (двери, «Продолжить», «убрать Говорю?», блокировки, ошибки, меню).
+-- N события 2.2.1 (двери, «Продолжить», «убрать Говорю?», блокировки, ошибки, меню) ·
+-- M ошибки людей 2.2.4 (выбранное слово, перепутанные пары, время «Говорю», уровень вопроса).
 -- Собран из разбора 18.10.2026 (IMPROVEMENT_PLAN.md). Новый SQL — сначала на dev-базе.
 \pset footer off
 \pset format unaligned
@@ -319,4 +320,26 @@ where user_id<>:admin and kind='error' and at >= :since group by 1,2 order by 3 
 \echo ## N7 кнопки меню и команды | действие | раз | людей
 select action, count(*), count(distinct user_id) from user_events
 where user_id<>:admin and kind='msg' and (action like 'меню %' or action like 'команда %') and at >= :since group by 1 order by 2 desc;
+
+\echo ## M1 ошибки по играм (2.2.4) | канал | ошибок | ответов | ошибок с выбранным словом
+select coalesce(q.channel,'t'), count(*) filter (where not coalesce(q.is_correct,false)), count(*),
+  count(*) filter (where not coalesce(q.is_correct,false) and q.chosen_word_id is not null)
+from quiz_questions q join quiz_sessions s on s.id=q.session_id
+where s.user_id<>:admin and q.answered_at >= :since group by 1 order by 2 desc;
+
+\echo ## M2 перепутанные пары (2.2.4) | верное | выбранное | пара | раз | людей
+select coalesce(w.article||' ','')||w.word_de, coalesce(c.article||' ','')||c.word_de, s.learning_lang||'<-'||s.native_lang,
+  count(*), count(distinct s.user_id)
+from quiz_questions q join quiz_sessions s on s.id=q.session_id join words w on w.id=q.word_id join words c on c.id=q.chosen_word_id
+where s.user_id<>:admin and q.answered_at >= :since and not coalesce(q.is_correct,false) and q.chosen_word_id<>q.word_id
+group by 1,2,3 order by 5 desc, 4 desc limit 20;
+
+\echo ## M3 «Говорю»: время засчитанного ответа (2.2.4) | часть | раз | медиана с | p90 с
+select key, count(*), percentile_cont(0.5) within group (order by value::text::float),
+  percentile_cont(0.9) within group (order by value::text::float)
+from user_events, jsonb_each(data) where user_id<>:admin and at >= :since and kind='speech_time' group by 1 order by 1;
+
+\echo ## M4 уровень слова против уровня человека (2.2.4) | слово | человек | вопросов
+select data->>'lvl', data->>'ulvl', count(*) from user_events
+where user_id<>:admin and at >= :since and kind='question' and data ? 'lvl' group by 1,2 order by 2,1;
 ROLLBACK;

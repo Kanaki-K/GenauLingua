@@ -71,6 +71,7 @@ S_MATCHED = "match_matched"      # индексы сошедшихся, в по�
 S_SELECTED = "match_selected"    # «l:2» / «r:4» или пусто
 S_ERRORS = "match_errors"        # промахов всего
 S_MISSED = "match_missed"        # индексы, по которым промахивались
+S_CONFUSED = "match_confused"    # промахи парами [индекс, с каким свели] (2.2.4)
 S_VERSION = "match_version"      # защита от устаревших нажатий
 
 # Номер вопроса круга, на котором доска встала. Пусто — доска открыта сама
@@ -213,6 +214,7 @@ async def start_board(
         S_SELECTED: "",
         S_ERRORS: 0,
         S_MISSED: [],
+        S_CONFUSED: [],
         S_VERSION: 0,
     })
 
@@ -333,6 +335,7 @@ async def _tap(callback: CallbackQuery, state: FSMContext, session: AsyncSession
     order: list[int] = list(data.get(S_RIGHT) or [])
     matched: list[int] = list(data.get(S_MATCHED) or [])
     missed: list[int] = list(data.get(S_MISSED) or [])
+    confused: list = list(data.get(S_CONFUSED) or [])
     errors = int(data.get(S_ERRORS) or 0)
     selected: str = data.get(S_SELECTED) or ""
 
@@ -367,6 +370,8 @@ async def _tap(callback: CallbackQuery, state: FSMContext, session: AsyncSession
             for idx in (pair_index, other_pair):
                 if idx not in missed:
                     missed.append(idx)
+            # С КЕМ свели — для разбора перепутанных пар (2.2.4)
+            confused.append([pair_index, other_pair])
             alert = get_text("match_wrong", lang)
         selected = ""
 
@@ -376,6 +381,7 @@ async def _tap(callback: CallbackQuery, state: FSMContext, session: AsyncSession
         S_SELECTED: selected,
         S_ERRORS: errors,
         S_MISSED: missed,
+        S_CONFUSED: confused,
         S_VERSION: version,
     })
 
@@ -549,6 +555,16 @@ async def record_board_answers(
     # Номера слов — заранее: после отката (ниже) объекты слов просрочены, а
     # подгрузить их лениво асинхронная сессия не умеет
     word_ids = [w.id for w in words]
+    # Доска целиком — «варианты» каждой пары: из них человек и выбирал
+    board = [{"id": w.id, "t": option_label(w, pair.answer_lang)[:120]} for w in words]
+    confused = data.get(S_CONFUSED) or []
+
+    def confused_with(index: int):
+        """Первое слово, с которым эту пару ошибочно свели; пусто — не путал."""
+        for a, b in confused:
+            if index in (a, b):
+                return word_ids[b if a == index else a]
+        return None
 
     for index in matched:
         word = words[index]
@@ -565,6 +581,8 @@ async def record_board_answers(
             is_correct=is_correct,
             answered_at=utcnow(),
             channel=BOARD_CHANNEL,
+            options=board,
+            chosen_word_id=confused_with(index),
         ))
 
         if quiz_session:

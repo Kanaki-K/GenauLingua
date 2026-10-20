@@ -37,6 +37,8 @@ from app.bot.handlers.quiz.lesson_state import (
     _recover,
     _reset_round_state,
     _sweep_stray,
+    shown_for,
+    shown_state,
 )
 from app.bot.handlers.quiz.listen import _as_text_question, _clip_or_text, _question_clip
 from app.bot.handlers.quiz.match import _board_due
@@ -67,8 +69,22 @@ from app.services.quiz_service import (
     get_distractors,
     update_word_progress,
 )
+from app.services.word_level import level_of
 
 logger = logging.getLogger(__name__)
+
+
+async def _level_note(session: AsyncSession, user: User, word: Word, pair: LanguagePair) -> dict:
+    """
+    Уровень слова в изучаемом языке и уровень человека — к вопросу в журнал.
+
+    2.2.4: разбор 20.10 нашёл людям уровня A2 слова вроде verblüfft и
+    Schlitzohr (38–50% верных против 88% у соседей). Как часто приходят слова
+    чужого уровня, без этой пары не измерить.
+    """
+    own = await level_of(session, word, pair.learning)
+    return {"lvl": getattr(own, "value", own),
+            "ulvl": getattr(user.level, "value", user.level)}
 
 
 router = Router()
@@ -386,6 +402,9 @@ async def start_lesson(
         prefer_channel=prefer_channel.value if prefer_channel else None,
         # 🧱 Сборке — своё состояние сетки (пусто для остальных игр)
         **_build_state(question, channel),
+        # Варианты, как их видел человек; у «Говорю» вариантов на экране нет
+        **shown_state(word.id, question["options"] if channel is not QuizChannel.SPEECH else None,
+                      ids=channel is not QuizChannel.BUILD),
     )
 
     old_anchor_id, _ = await ensure_anchor(message, session, user, emoji="")
@@ -396,7 +415,8 @@ async def start_lesson(
                  source=source, total=quiz_total,
                  first=quiz_total == FIRST_LESSON_LENGTH and not user.onboarded_at or None)
     journal.note(session, user.id, "question", channel.value, session_id=quiz_session.id,
-                 word_id=word.id, channel=channel.value, n=1, total=quiz_total)
+                 word_id=word.id, channel=channel.value, n=1, total=quiz_total,
+                 **await _level_note(session, user, word, pair))
     await show_card(
         message.bot, message.chat.id, state, session,
         text=_question_text(word, pair, lang, 1, quiz_total, channel=channel),
@@ -430,6 +450,7 @@ async def _record_answer(
     session_id, correct_answers, errors, response_seconds,
     card_message=None, card_message_id=None, forgiven: bool = False,
     breakdown: Optional[str] = None,
+    chosen_word_id: Optional[int] = None,
 ) -> None:
     """
     Общая часть любого ответа: запись, прогресс, показ разбора.
@@ -454,12 +475,16 @@ async def _record_answer(
     общий разбор «слово — значение» с примерами.
     """
     correct_word_id = correct_word.id
+    # Варианты — из состояния ЭТОГО вопроса: `shown_for` сверяет номер слова
+    shown = shown_for(await state.get_data(), correct_word_id)
 
     session.add(
         QuizQuestion(
             session_id=session_id,
             word_id=correct_word_id,
             user_answer=(answer_text or "")[:255] or None,
+            options=shown,
+            chosen_word_id=chosen_word_id,
             is_correct=is_correct,
             answered_at=utcnow(),
             response_time_seconds=response_seconds,
@@ -708,6 +733,7 @@ async def _advance(callback: CallbackQuery, state: FSMContext, session: AsyncSes
             current_error_index=current_error_index,
             asked_at=utcnow().timestamp(),
             channel=channel.value,
+            **shown_state(word.id, options),
         )
     else:
         question = None
@@ -777,11 +803,15 @@ async def _advance(callback: CallbackQuery, state: FSMContext, session: AsyncSes
             channel=channel.value,
             recent_channels=recent_channels,
             **_build_state(question, channel),
+            # Варианты, как их видел человек; у «Говорю» вариантов на экране нет
+        **shown_state(word.id, options if channel is not QuizChannel.SPEECH else None,
+                      ids=channel is not QuizChannel.BUILD),
         )
 
     journal.note(session, user.id, "question", channel.value, session_id=data.get("session_id"),
                  word_id=word.id, channel=channel.value, n=current_question,
-                 total=total_questions, repeat=is_error_repeat or None)
+                 total=total_questions, repeat=is_error_repeat or None,
+                 **await _level_note(session, user, word, pair))
     await show_card(
         callback.bot, callback.message.chat.id, state, session,
         text=_question_text(
@@ -869,6 +899,7 @@ async def repeat_errors(callback: CallbackQuery, state: FSMContext, session: Asy
         # Данные основной викторины нужны для репорта после повтора
         report_word_ids=data.get("report_word_ids", []),
         report_session_id=data.get("report_session_id"),
+        **shown_state(first_word.id, options),
     )
 
     # Повтор ошибок начинается с новой карточки (message не передаём), и
@@ -878,7 +909,8 @@ async def repeat_errors(callback: CallbackQuery, state: FSMContext, session: Asy
     # как в начале, так и в конце»)
     journal.note(session, user.id, "question", QuizChannel.TEXT.value, session_id=quiz_session.id,
                  word_id=first_word.id, channel=QuizChannel.TEXT.value, n=1,
-                 total=len(errors), repeat=True)
+                 total=len(errors), repeat=True,
+                 **await _level_note(session, user, first_word, pair))
     await show_card(
         callback.bot, callback.message.chat.id, state, session,
         text=_question_text(first_word, pair, lang, 1, len(errors), is_repeat=True),

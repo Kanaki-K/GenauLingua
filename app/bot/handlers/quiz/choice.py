@@ -110,6 +110,7 @@ async def process_answer(callback: CallbackQuery, state: FSMContext, session: As
         session=session, user=user, pair=pair, lang=lang,
         correct_word=correct_word, is_correct=is_correct, channel=channel,
         answer_text=selected_text, card_message=callback.message,
+        chosen_word_id=selected_word_id,
         session_id=session_id, correct_answers=correct_answers, errors=errors,
         response_seconds=response_seconds,
     )

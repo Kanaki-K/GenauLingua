@@ -245,6 +245,36 @@ from app.services.quiz_service import FIRST_LESSON_LENGTH, lesson_length  # noqa
 S_BOARD_DONE = "board_shown"
 
 
+# ПОКАЗАННЫЕ ВАРИАНТЫ ТЕКУЩЕГО ВОПРОСА (2.2.4) — чтобы ответ записал, из чего
+# выбирали. Хранятся вместе с номером слова: ответ сверяет его со своим и не
+# возьмёт варианты чужого вопроса, если состояние почему-то не обновилось.
+S_SHOWN = "shown_options"
+
+
+def shown_state(word_id: int, options, *, ids: bool = True) -> dict:
+    """
+    Ключ состояния с вариантами, как их видел человек.
+
+    `options` — пары (номер, надпись). У карточек номер — слово; у сборки —
+    номер кнопки (`ids=False`), и тогда он не пишется: это не слово.
+    """
+    shown = []
+    for key, label in options or []:
+        item = {"t": str(label)[:120]}
+        if ids:
+            item["id"] = key
+        shown.append(item)
+    return {S_SHOWN: {"w": word_id, "o": shown}}
+
+
+def shown_for(data: dict, word_id: int) -> Optional[list]:
+    """Варианты вопроса про это слово; пусто, если в состоянии другой вопрос."""
+    shown = data.get(S_SHOWN) or {}
+    if shown.get("w") != word_id:
+        return None
+    return shown.get("o") or None
+
+
 # С какого номера круг уже продвинут кнопкой «Далее»
 S_ADVANCED = "advanced_from"
 S_ADVANCE_BOOT = "advanced_boot"
