@@ -1,0 +1,1817 @@
+{
+ "about": "2.3, A1 блок 7: слова 241–280",
+ "edits": [
+  {
+   "id": 1736,
+   "col": "translation_ru",
+   "old": "номер, цифра, номер выступления",
+   "new": "номер",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1736,
+   "col": "translation_uk",
+   "old": "номер, цифра, номер виступу",
+   "new": "номер",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1736,
+   "col": "translation_en",
+   "old": "number, figure, act",
+   "new": "number",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1736,
+   "col": "translation_tr",
+   "old": "numara, sayı",
+   "new": "numara",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1736,
+   "col": "translation_pl",
+   "old": "numer, liczba",
+   "new": "numer",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 250,
+   "col": "translation_ru",
+   "old": "неправильный, ошибочный, не тот, поддельный, фальшивый",
+   "new": "неправильный, не тот",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 250,
+   "col": "translation_uk",
+   "old": "неправильний, помилковий, не той, підроблений, фальшивий",
+   "new": "неправильний, не той",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 250,
+   "col": "translation_en",
+   "old": "wrong, incorrect, false, fake",
+   "new": "wrong, false",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 250,
+   "col": "translation_tr",
+   "old": "yanlış, hatalı, sahte",
+   "new": "yanlış",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 250,
+   "col": "translation_pl",
+   "old": "błędny, zły, nieprawdziwy, fałszywy",
+   "new": "błędny, zły",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 250,
+   "col": "translation_it",
+   "old": "sbagliato, falso",
+   "new": "sbagliato",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 250,
+   "col": "translation_es",
+   "old": "incorrecto, equivocado, falso",
+   "new": "incorrecto, equivocado",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 250,
+   "col": "translation_fr",
+   "old": "faux, erroné",
+   "new": "faux",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 250,
+   "col": "translation_cs",
+   "old": "špatný, chybný, falešný",
+   "new": "špatný, chybný",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 250,
+   "col": "example_en",
+   "old": "That is unfortunately wrong",
+   "new": "Unfortunately, that's wrong",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 295,
+   "col": "translation_ru",
+   "old": "раньше, прежде, когда-то",
+   "new": "раньше",
+   "why": "список → главное слово и не больше одной альтернативы; «He lived in Berlin earlier» — так не говорят"
+  },
+  {
+   "id": 295,
+   "col": "translation_uk",
+   "old": "раніше, колись, давніше",
+   "new": "раніше",
+   "why": "список → главное слово и не больше одной альтернативы; «He lived in Berlin earlier» — так не говорят"
+  },
+  {
+   "id": 295,
+   "col": "translation_en",
+   "old": "earlier, in the past, formerly",
+   "new": "in the past, earlier",
+   "why": "список → главное слово и не больше одной альтернативы; «He lived in Berlin earlier» — так не говорят"
+  },
+  {
+   "id": 295,
+   "col": "translation_tr",
+   "old": "eskiden, önceden, daha erken",
+   "new": "eskiden",
+   "why": "список → главное слово и не больше одной альтернативы; «He lived in Berlin earlier» — так не говорят"
+  },
+  {
+   "id": 295,
+   "col": "translation_pl",
+   "old": "wcześniej, kiedyś, dawniej",
+   "new": "wcześniej, kiedyś",
+   "why": "список → главное слово и не больше одной альтернативы; «He lived in Berlin earlier» — так не говорят"
+  },
+  {
+   "id": 295,
+   "col": "translation_it",
+   "old": "prima, una volta, in passato",
+   "new": "prima, una volta",
+   "why": "список → главное слово и не больше одной альтернативы; «He lived in Berlin earlier» — так не говорят"
+  },
+  {
+   "id": 295,
+   "col": "translation_es",
+   "old": "antes, antiguamente",
+   "new": "antes",
+   "why": "список → главное слово и не больше одной альтернативы; «He lived in Berlin earlier» — так не говорят"
+  },
+  {
+   "id": 295,
+   "col": "translation_fr",
+   "old": "avant, autrefois, plus tôt",
+   "new": "avant, autrefois",
+   "why": "список → главное слово и не больше одной альтернативы; «He lived in Berlin earlier» — так не говорят"
+  },
+  {
+   "id": 295,
+   "col": "example_en",
+   "old": "He lived in Berlin earlier",
+   "new": "He used to live in Berlin",
+   "why": "список → главное слово и не больше одной альтернативы; «He lived in Berlin earlier» — так не говорят"
+  },
+  {
+   "id": 1041,
+   "col": "translation_ru",
+   "old": "добро пожаловать, желанный",
+   "new": "добро пожаловать",
+   "why": "«Willkommen hier» — так не говорят; «к нам» — лишнее"
+  },
+  {
+   "id": 1041,
+   "col": "translation_uk",
+   "old": "ласкаво просимо, бажаний",
+   "new": "ласкаво просимо",
+   "why": "«Willkommen hier» — так не говорят; «к нам» — лишнее"
+  },
+  {
+   "id": 1041,
+   "col": "translation_tr",
+   "old": "hoş geldiniz, makbul",
+   "new": "hoş geldiniz",
+   "why": "«Willkommen hier» — так не говорят; «к нам» — лишнее"
+  },
+  {
+   "id": 1041,
+   "col": "translation_pl",
+   "old": "witamy, mile widziany",
+   "new": "witamy",
+   "why": "«Willkommen hier» — так не говорят; «к нам» — лишнее"
+  },
+  {
+   "id": 1041,
+   "col": "translation_cs",
+   "old": "vítejte, vítaný",
+   "new": "vítejte",
+   "why": "«Willkommen hier» — так не говорят; «к нам» — лишнее"
+  },
+  {
+   "id": 1041,
+   "col": "example_de",
+   "old": "Willkommen hier",
+   "new": "Herzlich willkommen!",
+   "why": "«Willkommen hier» — так не говорят; «к нам» — лишнее"
+  },
+  {
+   "id": 1041,
+   "col": "example_ru",
+   "old": "Добро пожаловать к нам",
+   "new": "Добро пожаловать!",
+   "why": "«Willkommen hier» — так не говорят; «к нам» — лишнее"
+  },
+  {
+   "id": 1041,
+   "col": "example_uk",
+   "old": "Ласкаво просимо до нас",
+   "new": "Ласкаво просимо!",
+   "why": "«Willkommen hier» — так не говорят; «к нам» — лишнее"
+  },
+  {
+   "id": 1041,
+   "col": "example_en",
+   "old": "Welcome here",
+   "new": "Welcome!",
+   "why": "«Willkommen hier» — так не говорят; «к нам» — лишнее"
+  },
+  {
+   "id": 1041,
+   "col": "example_tr",
+   "old": "Buraya hoş geldiniz",
+   "new": "Hoş geldiniz!",
+   "why": "«Willkommen hier» — так не говорят; «к нам» — лишнее"
+  },
+  {
+   "id": 1041,
+   "col": "example_pl",
+   "old": "Witamy tutaj",
+   "new": "Serdecznie witamy!",
+   "why": "«Willkommen hier» — так не говорят; «к нам» — лишнее"
+  },
+  {
+   "id": 1041,
+   "col": "example_it",
+   "old": "Benvenuti qui",
+   "new": "Benvenuti!",
+   "why": "«Willkommen hier» — так не говорят; «к нам» — лишнее"
+  },
+  {
+   "id": 1041,
+   "col": "example_es",
+   "old": "Bienvenidos aquí",
+   "new": "¡Bienvenidos!",
+   "why": "«Willkommen hier» — так не говорят; «к нам» — лишнее"
+  },
+  {
+   "id": 1041,
+   "col": "example_fr",
+   "old": "Bienvenue ici",
+   "new": "Bienvenue!",
+   "why": "«Willkommen hier» — так не говорят; «к нам» — лишнее"
+  },
+  {
+   "id": 1041,
+   "col": "example_cs",
+   "old": "Vítejte tady",
+   "new": "Srdečně vítáme!",
+   "why": "«Willkommen hier» — так не говорят; «к нам» — лишнее"
+  },
+  {
+   "id": 200,
+   "col": "translation_ru",
+   "old": "можно, иметь разрешение, сметь",
+   "new": "можно, иметь право",
+   "why": "список → главное слово и не больше одной альтернативы; uk «нам дозволено» — канцелярски"
+  },
+  {
+   "id": 200,
+   "col": "translation_uk",
+   "old": "можна, мати дозвіл, сміти",
+   "new": "можна, мати право",
+   "why": "список → главное слово и не больше одной альтернативы; uk «нам дозволено» — канцелярски"
+  },
+  {
+   "id": 200,
+   "col": "translation_en",
+   "old": "to be allowed, may, to be permitted",
+   "new": "may, to be allowed",
+   "why": "список → главное слово и не больше одной альтернативы; uk «нам дозволено» — канцелярски"
+  },
+  {
+   "id": 200,
+   "col": "translation_tr",
+   "old": "izinli olmak, -ebilmek, izni olmak",
+   "new": "izni olmak",
+   "why": "список → главное слово и не больше одной альтернативы; uk «нам дозволено» — канцелярски"
+  },
+  {
+   "id": 200,
+   "col": "translation_pl",
+   "old": "móc, mieć pozwolenie, wolno",
+   "new": "móc, wolno",
+   "why": "список → главное слово и не больше одной альтернативы; uk «нам дозволено» — канцелярски"
+  },
+  {
+   "id": 200,
+   "col": "translation_it",
+   "old": "potere, avere il permesso",
+   "new": "potere",
+   "why": "список → главное слово и не больше одной альтернативы; uk «нам дозволено» — канцелярски"
+  },
+  {
+   "id": 200,
+   "col": "translation_es",
+   "old": "poder, tener permiso",
+   "new": "poder",
+   "why": "список → главное слово и не больше одной альтернативы; uk «нам дозволено» — канцелярски"
+  },
+  {
+   "id": 200,
+   "col": "translation_cs",
+   "old": "smět, moci",
+   "new": "smět",
+   "why": "список → главное слово и не больше одной альтернативы; uk «нам дозволено» — канцелярски"
+  },
+  {
+   "id": 200,
+   "col": "example_uk",
+   "old": "Нам дозволено сьогодні залишитися довше",
+   "new": "Сьогодні нам можна залишитися довше",
+   "why": "список → главное слово и не больше одной альтернативы; uk «нам дозволено» — канцелярски"
+  },
+  {
+   "id": 715,
+   "col": "translation_ru",
+   "old": "план, замысел, схема",
+   "new": "план",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 715,
+   "col": "translation_uk",
+   "old": "план, задум, схема",
+   "new": "план",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 715,
+   "col": "translation_en",
+   "old": "plan, scheme, map",
+   "new": "plan",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 715,
+   "col": "translation_tr",
+   "old": "plan, tasarı, kroki",
+   "new": "plan",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 715,
+   "col": "translation_pl",
+   "old": "plan, zamiar, schemat",
+   "new": "plan",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 715,
+   "col": "translation_it",
+   "old": "il piano, il progetto, la pianta",
+   "new": "il piano, il progetto",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 715,
+   "col": "translation_es",
+   "old": "el plan, el plano",
+   "new": "el plan",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 715,
+   "col": "example_en",
+   "old": "What is the plan?",
+   "new": "What's the plan?",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6277,
+   "col": "translation_ru",
+   "old": "ошибка, неисправность, недостаток",
+   "new": "ошибка",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6277,
+   "col": "translation_uk",
+   "old": "помилка, несправність, недолік",
+   "new": "помилка",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6277,
+   "col": "translation_en",
+   "old": "mistake, error, fault, defect",
+   "new": "mistake, error",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6277,
+   "col": "translation_tr",
+   "old": "hata, yanlış, kusur, arıza",
+   "new": "hata",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6277,
+   "col": "translation_pl",
+   "old": "błąd, pomyłka, wada",
+   "new": "błąd",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6277,
+   "col": "translation_it",
+   "old": "l'errore, lo sbaglio, il difetto",
+   "new": "l'errore, lo sbaglio",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6277,
+   "col": "translation_es",
+   "old": "el error, el fallo, el defecto",
+   "new": "el error, el fallo",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6277,
+   "col": "translation_fr",
+   "old": "l'erreur, la faute, le défaut",
+   "new": "l'erreur, la faute",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6277,
+   "col": "translation_cs",
+   "old": "chyba, vada",
+   "new": "chyba",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13375,
+   "col": "example_en",
+   "old": "I am ten years old",
+   "new": "I'm ten years old",
+   "why": "английский пример: так не говорят о том, что происходит сейчас"
+  },
+  {
+   "id": 537,
+   "col": "translation_pl",
+   "old": "wolno, powoli, wolny",
+   "new": "powoli, wolno",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 537,
+   "col": "translation_it",
+   "old": "lentamente, piano, lento",
+   "new": "lentamente, piano",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 537,
+   "col": "translation_es",
+   "old": "despacio, lentamente, lento",
+   "new": "despacio, lento",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 537,
+   "col": "translation_fr",
+   "old": "lentement, doucement, lent",
+   "new": "lentement, lent",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 896,
+   "col": "translation_ru",
+   "old": "час, урок, занятие",
+   "new": "час, урок",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 896,
+   "col": "translation_uk",
+   "old": "година, урок, заняття",
+   "new": "година, урок",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 896,
+   "col": "translation_en",
+   "old": "hour, lesson, class",
+   "new": "hour, lesson",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 270,
+   "col": "translation_ru",
+   "old": "фильм, кино, плёнка",
+   "new": "фильм",
+   "why": "список → главное слово и не больше одной альтернативы; английский пример: так не говорят о том, что происходит сейчас"
+  },
+  {
+   "id": 270,
+   "col": "translation_uk",
+   "old": "фільм, кіно, плівка",
+   "new": "фільм",
+   "why": "список → главное слово и не больше одной альтернативы; английский пример: так не говорят о том, что происходит сейчас"
+  },
+  {
+   "id": 270,
+   "col": "translation_en",
+   "old": "movie, film",
+   "new": "film, movie",
+   "why": "список → главное слово и не больше одной альтернативы; английский пример: так не говорят о том, что происходит сейчас"
+  },
+  {
+   "id": 270,
+   "col": "translation_tr",
+   "old": "film, sinema filmi",
+   "new": "film",
+   "why": "список → главное слово и не больше одной альтернативы; английский пример: так не говорят о том, что происходит сейчас"
+  },
+  {
+   "id": 270,
+   "col": "translation_pl",
+   "old": "film, kino",
+   "new": "film",
+   "why": "список → главное слово и не больше одной альтернативы; английский пример: так не говорят о том, что происходит сейчас"
+  },
+  {
+   "id": 270,
+   "col": "example_en",
+   "old": "We watch a movie",
+   "new": "We're watching a film",
+   "why": "список → главное слово и не больше одной альтернативы; английский пример: так не говорят о том, что происходит сейчас"
+  },
+  {
+   "id": 551,
+   "col": "translation_ru",
+   "old": "любить, обожать",
+   "new": "любить",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 551,
+   "col": "translation_en",
+   "old": "to love, to adore",
+   "new": "to love",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 551,
+   "col": "translation_tr",
+   "old": "sevmek, çok sevmek",
+   "new": "sevmek",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 551,
+   "col": "translation_pl",
+   "old": "kochać, uwielbiać",
+   "new": "kochać",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 551,
+   "col": "translation_it",
+   "old": "amare, adorare",
+   "new": "amare",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 551,
+   "col": "translation_es",
+   "old": "amar, querer, adorar",
+   "new": "amar, querer",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 551,
+   "col": "translation_fr",
+   "old": "aimer, adorer",
+   "new": "aimer",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15370,
+   "col": "translation_ru",
+   "old": "огонь, пожар, костёр",
+   "new": "огонь, пожар",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 15370,
+   "col": "translation_uk",
+   "old": "вогонь, пожежа, полум'я",
+   "new": "вогонь, пожежа",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 15370,
+   "col": "translation_en",
+   "old": "fire, flame, light",
+   "new": "fire",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 15370,
+   "col": "translation_tr",
+   "old": "ateş, yangın, alev",
+   "new": "ateş, yangın",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 15370,
+   "col": "translation_pl",
+   "old": "ogień, pożar, płomień",
+   "new": "ogień, pożar",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 15370,
+   "col": "example_de",
+   "old": "Das Feuer ist heiß",
+   "new": "Lass uns ein Feuer machen",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 15370,
+   "col": "example_ru",
+   "old": "Огонь горячий",
+   "new": "Давай разведём огонь",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 15370,
+   "col": "example_uk",
+   "old": "Вогонь гарячий",
+   "new": "Давай розпалимо вогонь",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 15370,
+   "col": "example_en",
+   "old": "The fire is hot",
+   "new": "Let's make a fire",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 15370,
+   "col": "example_tr",
+   "old": "Ateş sıcak",
+   "new": "Hadi ateş yakalım",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 15370,
+   "col": "example_pl",
+   "old": "Ogień jest gorący",
+   "new": "Rozpalmy ogień",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 15370,
+   "col": "example_it",
+   "old": "Il fuoco è caldo",
+   "new": "Accendiamo un fuoco",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 15370,
+   "col": "example_es",
+   "old": "El fuego está caliente",
+   "new": "Hagamos un fuego",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 15370,
+   "col": "example_fr",
+   "old": "Le feu est chaud",
+   "new": "Faisons un feu",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 15370,
+   "col": "example_cs",
+   "old": "Oheň je horký",
+   "new": "Rozdělejme oheň",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 546,
+   "col": "translation_es",
+   "old": "por desgracia, lamentablemente, desafortunadamente",
+   "new": "por desgracia, lamentablemente",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 547,
+   "col": "translation_ru",
+   "old": "учить, учиться, изучать, узнавать",
+   "new": "учить, учиться",
+   "why": "список → главное слово и не больше одной альтернативы; английский пример: так не говорят о том, что происходит сейчас"
+  },
+  {
+   "id": 547,
+   "col": "translation_uk",
+   "old": "вчити, вчитися, вивчати",
+   "new": "вчити, вчитися",
+   "why": "список → главное слово и не больше одной альтернативы; английский пример: так не говорят о том, что происходит сейчас"
+  },
+  {
+   "id": 547,
+   "col": "translation_tr",
+   "old": "öğrenmek, ders çalışmak",
+   "new": "öğrenmek",
+   "why": "список → главное слово и не больше одной альтернативы; английский пример: так не говорят о том, что происходит сейчас"
+  },
+  {
+   "id": 547,
+   "col": "example_en",
+   "old": "I learn German",
+   "new": "I'm learning German",
+   "why": "список → главное слово и не больше одной альтернативы; английский пример: так не говорят о том, что происходит сейчас"
+  },
+  {
+   "id": 1642,
+   "col": "translation_ru",
+   "old": "бегать, бежать, идти пешком, работать, идти",
+   "new": "бегать, ходить",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («работать» о машине, «идти» о фильме — свои строки)"
+  },
+  {
+   "id": 1642,
+   "col": "translation_uk",
+   "old": "бігати, бігти, йти пішки, працювати",
+   "new": "бігати, ходити",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («работать» о машине, «идти» о фильме — свои строки)"
+  },
+  {
+   "id": 1642,
+   "col": "translation_en",
+   "old": "to run, to walk, to work, to be showing",
+   "new": "to run, to walk",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («работать» о машине, «идти» о фильме — свои строки)"
+  },
+  {
+   "id": 1642,
+   "col": "translation_tr",
+   "old": "koşmak, yürümek, çalışmak, oynamak",
+   "new": "koşmak, yürümek",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («работать» о машине, «идти» о фильме — свои строки)"
+  },
+  {
+   "id": 1642,
+   "col": "translation_pl",
+   "old": "biegać, iść, chodzić, działać",
+   "new": "biegać, chodzić",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («работать» о машине, «идти» о фильме — свои строки)"
+  },
+  {
+   "id": 1642,
+   "col": "translation_it",
+   "old": "correre, camminare, andare, funzionare",
+   "new": "correre, camminare",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («работать» о машине, «идти» о фильме — свои строки)"
+  },
+  {
+   "id": 1642,
+   "col": "translation_es",
+   "old": "correr, caminar, andar, funcionar",
+   "new": "correr, caminar",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («работать» о машине, «идти» о фильме — свои строки)"
+  },
+  {
+   "id": 1642,
+   "col": "translation_fr",
+   "old": "courir, marcher, fonctionner",
+   "new": "courir, marcher",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («работать» о машине, «идти» о фильме — свои строки)"
+  },
+  {
+   "id": 1642,
+   "col": "translation_cs",
+   "old": "běhat, běžet, chodit, fungovat",
+   "new": "běhat, chodit",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («работать» о машине, «идти» о фильме — свои строки)"
+  },
+  {
+   "id": 1909,
+   "col": "translation_ru",
+   "old": "место, должность, вакансия, отрывок, ведомство",
+   "new": "место, должность",
+   "why": "список → главное слово и не больше одной альтернативы; «Я ищу должность» — канцелярски"
+  },
+  {
+   "id": 1909,
+   "col": "translation_uk",
+   "old": "місце, посада, вакансія, уривок",
+   "new": "місце, посада",
+   "why": "список → главное слово и не больше одной альтернативы; «Я ищу должность» — канцелярски"
+  },
+  {
+   "id": 1909,
+   "col": "translation_en",
+   "old": "place, spot, job, position, passage",
+   "new": "place, job",
+   "why": "список → главное слово и не больше одной альтернативы; «Я ищу должность» — канцелярски"
+  },
+  {
+   "id": 1909,
+   "col": "translation_tr",
+   "old": "yer, iş, pozisyon, bölüm",
+   "new": "yer, iş",
+   "why": "список → главное слово и не больше одной альтернативы; «Я ищу должность» — канцелярски"
+  },
+  {
+   "id": 1909,
+   "col": "translation_pl",
+   "old": "miejsce, posada, praca, fragment",
+   "new": "miejsce, posada",
+   "why": "список → главное слово и не больше одной альтернативы; «Я ищу должность» — канцелярски"
+  },
+  {
+   "id": 1909,
+   "col": "translation_it",
+   "old": "il posto, il punto, l'impiego, il passo",
+   "new": "il posto, il punto",
+   "why": "список → главное слово и не больше одной альтернативы; «Я ищу должность» — канцелярски"
+  },
+  {
+   "id": 1909,
+   "col": "translation_es",
+   "old": "el puesto, el empleo, el lugar, el sitio",
+   "new": "el puesto, el lugar",
+   "why": "список → главное слово и не больше одной альтернативы; «Я ищу должность» — канцелярски"
+  },
+  {
+   "id": 1909,
+   "col": "translation_fr",
+   "old": "le poste, l'emploi, l'endroit, la place",
+   "new": "le poste, l'endroit",
+   "why": "список → главное слово и не больше одной альтернативы; «Я ищу должность» — канцелярски"
+  },
+  {
+   "id": 1909,
+   "col": "translation_cs",
+   "old": "místo, pracovní místo, pasáž",
+   "new": "místo",
+   "why": "список → главное слово и не больше одной альтернативы; «Я ищу должность» — канцелярски"
+  },
+  {
+   "id": 1909,
+   "col": "example_de",
+   "old": "Ich suche eine Stelle",
+   "new": "Ich suche eine neue Stelle",
+   "why": "список → главное слово и не больше одной альтернативы; «Я ищу должность» — канцелярски"
+  },
+  {
+   "id": 1909,
+   "col": "example_ru",
+   "old": "Я ищу должность",
+   "new": "Я ищу новое место работы",
+   "why": "список → главное слово и не больше одной альтернативы; «Я ищу должность» — канцелярски"
+  },
+  {
+   "id": 1909,
+   "col": "example_uk",
+   "old": "Я шукаю посаду",
+   "new": "Я шукаю нове місце роботи",
+   "why": "список → главное слово и не больше одной альтернативы; «Я ищу должность» — канцелярски"
+  },
+  {
+   "id": 1909,
+   "col": "example_en",
+   "old": "I'm looking for a job",
+   "new": "I'm looking for a new job",
+   "why": "список → главное слово и не больше одной альтернативы; «Я ищу должность» — канцелярски"
+  },
+  {
+   "id": 1909,
+   "col": "example_tr",
+   "old": "İş arıyorum",
+   "new": "Yeni bir iş arıyorum",
+   "why": "список → главное слово и не больше одной альтернативы; «Я ищу должность» — канцелярски"
+  },
+  {
+   "id": 1909,
+   "col": "example_pl",
+   "old": "Szukam pracy",
+   "new": "Szukam nowej pracy",
+   "why": "список → главное слово и не больше одной альтернативы; «Я ищу должность» — канцелярски"
+  },
+  {
+   "id": 1909,
+   "col": "example_it",
+   "old": "Cerco un posto di lavoro",
+   "new": "Cerco un nuovo posto di lavoro",
+   "why": "список → главное слово и не больше одной альтернативы; «Я ищу должность» — канцелярски"
+  },
+  {
+   "id": 1909,
+   "col": "example_es",
+   "old": "Busco un puesto de trabajo",
+   "new": "Busco un nuevo puesto de trabajo",
+   "why": "список → главное слово и не больше одной альтернативы; «Я ищу должность» — канцелярски"
+  },
+  {
+   "id": 1909,
+   "col": "example_fr",
+   "old": "Je cherche un poste",
+   "new": "Je cherche un nouveau poste",
+   "why": "список → главное слово и не больше одной альтернативы; «Я ищу должность» — канцелярски"
+  },
+  {
+   "id": 1909,
+   "col": "example_cs",
+   "old": "Hledám místo",
+   "new": "Hledám nové místo",
+   "why": "список → главное слово и не больше одной альтернативы; «Я ищу должность» — канцелярски"
+  },
+  {
+   "id": 6287,
+   "col": "translation_en",
+   "old": "to fetch, to get, to bring",
+   "new": "to fetch, to get",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6287,
+   "col": "translation_pl",
+   "old": "przynosić, przynieść, iść po coś",
+   "new": "przynieść, iść po coś",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6287,
+   "col": "translation_it",
+   "old": "prendere, andare a prendere, portare",
+   "new": "andare a prendere",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6287,
+   "col": "translation_es",
+   "old": "ir a buscar, traer, recoger",
+   "new": "ir a buscar, traer",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6287,
+   "col": "translation_fr",
+   "old": "aller chercher, apporter",
+   "new": "aller chercher",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6287,
+   "col": "translation_cs",
+   "old": "přinést, dojít pro, vyzvednout",
+   "new": "přinést, dojít pro",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 885,
+   "col": "translation_ru",
+   "old": "улица, дорога, шоссе",
+   "new": "улица, дорога",
+   "why": "список → главное слово и не больше одной альтернативы; «What is the name of this street?» — книжно"
+  },
+  {
+   "id": 885,
+   "col": "translation_uk",
+   "old": "вулиця, дорога, шосе",
+   "new": "вулиця, дорога",
+   "why": "список → главное слово и не больше одной альтернативы; «What is the name of this street?» — книжно"
+  },
+  {
+   "id": 885,
+   "col": "translation_tr",
+   "old": "sokak, cadde, yol",
+   "new": "sokak, cadde",
+   "why": "список → главное слово и не больше одной альтернативы; «What is the name of this street?» — книжно"
+  },
+  {
+   "id": 885,
+   "col": "example_en",
+   "old": "What is the name of this street?",
+   "new": "What's this street called?",
+   "why": "список → главное слово и не больше одной альтернативы; «What is the name of this street?» — книжно"
+  },
+  {
+   "id": 356,
+   "col": "translation_ru",
+   "old": "большой, высокий, взрослый, старший, великий",
+   "new": "большой, высокий",
+   "why": "пять значений → главные два"
+  },
+  {
+   "id": 356,
+   "col": "translation_uk",
+   "old": "великий, високий, дорослий, старший, визначний",
+   "new": "великий, високий",
+   "why": "пять значений → главные два"
+  },
+  {
+   "id": 356,
+   "col": "translation_en",
+   "old": "big, large, tall, grown-up, great",
+   "new": "big, tall",
+   "why": "пять значений → главные два"
+  },
+  {
+   "id": 356,
+   "col": "translation_tr",
+   "old": "büyük, uzun boylu, yetişkin, önemli",
+   "new": "büyük, uzun boylu",
+   "why": "пять значений → главные два"
+  },
+  {
+   "id": 356,
+   "col": "translation_pl",
+   "old": "duży, wielki, wysoki, dorosły",
+   "new": "duży, wysoki",
+   "why": "пять значений → главные два"
+  },
+  {
+   "id": 356,
+   "col": "translation_it",
+   "old": "grande, alto, adulto",
+   "new": "grande, alto",
+   "why": "пять значений → главные два"
+  },
+  {
+   "id": 356,
+   "col": "translation_es",
+   "old": "grande, alto, mayor",
+   "new": "grande, alto",
+   "why": "пять значений → главные два"
+  },
+  {
+   "id": 356,
+   "col": "translation_fr",
+   "old": "grand, gros, adulte",
+   "new": "grand, gros",
+   "why": "пять значений → главные два"
+  },
+  {
+   "id": 356,
+   "col": "translation_cs",
+   "old": "velký, vysoký, dospělý",
+   "new": "velký, vysoký",
+   "why": "пять значений → главные два"
+  },
+  {
+   "id": 142,
+   "col": "example_en",
+   "old": "I read an interesting book",
+   "new": "I'm reading an interesting book",
+   "why": "английский пример: так не говорят о том, что происходит сейчас"
+  },
+  {
+   "id": 1172,
+   "col": "translation_ru",
+   "old": "переставать, прекращать, заканчиваться, бросать",
+   "new": "переставать, прекращать",
+   "why": "список → главное слово и не больше одной альтернативы; «прекратить это» — калька"
+  },
+  {
+   "id": 1172,
+   "col": "translation_uk",
+   "old": "переставати, припиняти, закінчуватися, кидати",
+   "new": "переставати, припиняти",
+   "why": "список → главное слово и не больше одной альтернативы; «прекратить это» — калька"
+  },
+  {
+   "id": 1172,
+   "col": "translation_en",
+   "old": "to stop, to quit, to cease, to come to an end",
+   "new": "to stop, to quit",
+   "why": "список → главное слово и не больше одной альтернативы; «прекратить это» — калька"
+  },
+  {
+   "id": 1172,
+   "col": "translation_tr",
+   "old": "durmak, bırakmak, son bulmak, vazgeçmek",
+   "new": "bırakmak, durmak",
+   "why": "список → главное слово и не больше одной альтернативы; «прекратить это» — калька"
+  },
+  {
+   "id": 1172,
+   "col": "translation_pl",
+   "old": "przestawać, kończyć się, rzucać",
+   "new": "przestawać, kończyć się",
+   "why": "список → главное слово и не больше одной альтернативы; «прекратить это» — калька"
+  },
+  {
+   "id": 1172,
+   "col": "translation_it",
+   "old": "smettere, finire, cessare",
+   "new": "smettere, finire",
+   "why": "список → главное слово и не больше одной альтернативы; «прекратить это» — калька"
+  },
+  {
+   "id": 1172,
+   "col": "translation_es",
+   "old": "dejar de, parar, terminar",
+   "new": "dejar de, parar",
+   "why": "список → главное слово и не больше одной альтернативы; «прекратить это» — калька"
+  },
+  {
+   "id": 1172,
+   "col": "example_ru",
+   "old": "Можешь, пожалуйста, прекратить это?",
+   "new": "Ты можешь, пожалуйста, перестать?",
+   "why": "список → главное слово и не больше одной альтернативы; «прекратить это» — калька"
+  },
+  {
+   "id": 1172,
+   "col": "example_pl",
+   "old": "Czy możesz z tym przestać, proszę?",
+   "new": "Możesz przestać, proszę?",
+   "why": "список → главное слово и не больше одной альтернативы; «прекратить это» — калька"
+  },
+  {
+   "id": 763,
+   "col": "translation_ru",
+   "old": "правильный, верный, настоящий, подходящий, совсем, по-настоящему",
+   "new": "правильный, настоящий",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («по-настоящему» — наречие richtig, своя строка)"
+  },
+  {
+   "id": 763,
+   "col": "translation_uk",
+   "old": "правильний, вірний, справжній, відповідний, дуже, справді",
+   "new": "правильний, справжній",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («по-настоящему» — наречие richtig, своя строка)"
+  },
+  {
+   "id": 763,
+   "col": "translation_en",
+   "old": "right, correct, proper, real, really, quite",
+   "new": "right, correct",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («по-настоящему» — наречие richtig, своя строка)"
+  },
+  {
+   "id": 763,
+   "col": "translation_tr",
+   "old": "doğru, yerinde, uygun, gerçek, iyice, gerçekten",
+   "new": "doğru",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («по-настоящему» — наречие richtig, своя строка)"
+  },
+  {
+   "id": 763,
+   "col": "translation_pl",
+   "old": "poprawny, właściwy, prawdziwy, naprawdę",
+   "new": "poprawny, właściwy",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («по-настоящему» — наречие richtig, своя строка)"
+  },
+  {
+   "id": 763,
+   "col": "translation_it",
+   "old": "giusto, corretto, vero",
+   "new": "giusto, corretto",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («по-настоящему» — наречие richtig, своя строка)"
+  },
+  {
+   "id": 763,
+   "col": "translation_es",
+   "old": "correcto, adecuado, verdadero",
+   "new": "correcto",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («по-настоящему» — наречие richtig, своя строка)"
+  },
+  {
+   "id": 763,
+   "col": "translation_fr",
+   "old": "juste, correct, bon, vrai",
+   "new": "juste, bon",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («по-настоящему» — наречие richtig, своя строка)"
+  },
+  {
+   "id": 763,
+   "col": "translation_cs",
+   "old": "správný, pravý, skutečný",
+   "new": "správný",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («по-настоящему» — наречие richtig, своя строка)"
+  },
+  {
+   "id": 763,
+   "col": "example_en",
+   "old": "This is the right answer",
+   "new": "That's the right answer",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («по-настоящему» — наречие richtig, своя строка)"
+  },
+  {
+   "id": 509,
+   "col": "translation_ru",
+   "old": "больной, заболевший",
+   "new": "больной",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12469,
+   "col": "example_de",
+   "old": "Ich gehe zum Arzt",
+   "new": "Der Arzt sagt, ich soll im Bett bleiben",
+   "why": "у Arzt и zum был один пример «Ich gehe zum Arzt» — у каждого свой"
+  },
+  {
+   "id": 12469,
+   "col": "example_ru",
+   "old": "Я иду к врачу",
+   "new": "Врач говорит, что мне нужно лежать в постели",
+   "why": "у Arzt и zum был один пример «Ich gehe zum Arzt» — у каждого свой"
+  },
+  {
+   "id": 12469,
+   "col": "example_uk",
+   "old": "Я йду до лікаря",
+   "new": "Лікар каже, що мені треба лежати в ліжку",
+   "why": "у Arzt и zum был один пример «Ich gehe zum Arzt» — у каждого свой"
+  },
+  {
+   "id": 12469,
+   "col": "example_en",
+   "old": "I'm going to the doctor",
+   "new": "The doctor says I should stay in bed",
+   "why": "у Arzt и zum был один пример «Ich gehe zum Arzt» — у каждого свой"
+  },
+  {
+   "id": 12469,
+   "col": "example_tr",
+   "old": "Doktora gidiyorum",
+   "new": "Doktor yatakta kalmam gerektiğini söylüyor",
+   "why": "у Arzt и zum был один пример «Ich gehe zum Arzt» — у каждого свой"
+  },
+  {
+   "id": 12469,
+   "col": "example_pl",
+   "old": "Idę do lekarza",
+   "new": "Lekarz mówi, że mam leżeć w łóżku",
+   "why": "у Arzt и zum был один пример «Ich gehe zum Arzt» — у каждого свой"
+  },
+  {
+   "id": 12469,
+   "col": "example_it",
+   "old": "Vado dal medico",
+   "new": "Il medico dice che devo stare a letto",
+   "why": "у Arzt и zum был один пример «Ich gehe zum Arzt» — у каждого свой"
+  },
+  {
+   "id": 12469,
+   "col": "example_es",
+   "old": "Voy al médico",
+   "new": "El médico dice que tengo que quedarme en la cama",
+   "why": "у Arzt и zum был один пример «Ich gehe zum Arzt» — у каждого свой"
+  },
+  {
+   "id": 12469,
+   "col": "example_fr",
+   "old": "Je vais chez le médecin",
+   "new": "Le médecin dit que je dois rester au lit",
+   "why": "у Arzt и zum был один пример «Ich gehe zum Arzt» — у каждого свой"
+  },
+  {
+   "id": 12469,
+   "col": "example_cs",
+   "old": "Jdu k lékaři",
+   "new": "Lékař říká, že mám zůstat v posteli",
+   "why": "у Arzt и zum был один пример «Ich gehe zum Arzt» — у каждого свой"
+  },
+  {
+   "id": 391,
+   "col": "translation_ru",
+   "old": "жениться, выходить замуж, вступать в брак",
+   "new": "жениться, выходить замуж",
+   "why": "список → главное слово и не больше одной альтернативы; английский пример: так не говорят о том, что происходит сейчас"
+  },
+  {
+   "id": 391,
+   "col": "translation_uk",
+   "old": "одружуватися, виходити заміж, брати шлюб",
+   "new": "одружуватися, виходити заміж",
+   "why": "список → главное слово и не больше одной альтернативы; английский пример: так не говорят о том, что происходит сейчас"
+  },
+  {
+   "id": 391,
+   "col": "translation_pl",
+   "old": "żenić się, wychodzić za mąż, brać ślub",
+   "new": "brać ślub, żenić się",
+   "why": "список → главное слово и не больше одной альтернативы; английский пример: так не говорят о том, что происходит сейчас"
+  },
+  {
+   "id": 391,
+   "col": "example_en",
+   "old": "They get married in June",
+   "new": "They're getting married in June",
+   "why": "список → главное слово и не больше одной альтернативы; английский пример: так не говорят о том, что происходит сейчас"
+  },
+  {
+   "id": 6292,
+   "col": "translation_ru",
+   "old": "лёгкий, простой, нетрудный, слабый, несильный, легко",
+   "new": "лёгкий, простой",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6292,
+   "col": "translation_uk",
+   "old": "легкий, простий, нескладний, слабкий, легко",
+   "new": "легкий, простий",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6292,
+   "col": "translation_en",
+   "old": "light, easy, slight, mild, easily",
+   "new": "light, easy",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6292,
+   "col": "translation_tr",
+   "old": "hafif, kolay, az, hafifçe, kolayca",
+   "new": "hafif, kolay",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6292,
+   "col": "translation_pl",
+   "old": "lekki, łatwy, niewielki, łatwo",
+   "new": "lekki, łatwy",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6292,
+   "col": "translation_it",
+   "old": "leggero, facile, lieve",
+   "new": "leggero, facile",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6292,
+   "col": "translation_es",
+   "old": "ligero, fácil, leve",
+   "new": "ligero, fácil",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 293,
+   "col": "translation_ru",
+   "old": "рад, довольный, весёлый",
+   "new": "рад, довольный",
+   "why": "список → главное слово и не больше одной альтернативы; «Ich bin froh» без продолжения — так не говорят"
+  },
+  {
+   "id": 293,
+   "col": "translation_uk",
+   "old": "радий, задоволений, веселий",
+   "new": "радий, задоволений",
+   "why": "список → главное слово и не больше одной альтернативы; «Ich bin froh» без продолжения — так не говорят"
+  },
+  {
+   "id": 293,
+   "col": "translation_en",
+   "old": "glad, happy, pleased",
+   "new": "glad, happy",
+   "why": "список → главное слово и не больше одной альтернативы; «Ich bin froh» без продолжения — так не говорят"
+  },
+  {
+   "id": 293,
+   "col": "translation_tr",
+   "old": "memnun, mutlu, sevinçli",
+   "new": "memnun, mutlu",
+   "why": "список → главное слово и не больше одной альтернативы; «Ich bin froh» без продолжения — так не говорят"
+  },
+  {
+   "id": 293,
+   "col": "translation_pl",
+   "old": "zadowolony, rad, wesoły",
+   "new": "zadowolony, rad",
+   "why": "список → главное слово и не больше одной альтернативы; «Ich bin froh» без продолжения — так не говорят"
+  },
+  {
+   "id": 293,
+   "col": "translation_it",
+   "old": "contento, felice, lieto",
+   "new": "contento, felice",
+   "why": "список → главное слово и не больше одной альтернативы; «Ich bin froh» без продолжения — так не говорят"
+  },
+  {
+   "id": 293,
+   "col": "translation_es",
+   "old": "contento, alegre",
+   "new": "contento",
+   "why": "список → главное слово и не больше одной альтернативы; «Ich bin froh» без продолжения — так не говорят"
+  },
+  {
+   "id": 293,
+   "col": "translation_cs",
+   "old": "rád, spokojený, veselý",
+   "new": "rád",
+   "why": "список → главное слово и не больше одной альтернативы; «Ich bin froh» без продолжения — так не говорят"
+  },
+  {
+   "id": 293,
+   "col": "example_de",
+   "old": "Ich bin froh",
+   "new": "Ich bin froh, dass du da bist",
+   "why": "список → главное слово и не больше одной альтернативы; «Ich bin froh» без продолжения — так не говорят"
+  },
+  {
+   "id": 293,
+   "col": "example_ru",
+   "old": "Я рад",
+   "new": "Я рад, что ты здесь",
+   "why": "список → главное слово и не больше одной альтернативы; «Ich bin froh» без продолжения — так не говорят"
+  },
+  {
+   "id": 293,
+   "col": "example_uk",
+   "old": "Я радий",
+   "new": "Я радий, що ти тут",
+   "why": "список → главное слово и не больше одной альтернативы; «Ich bin froh» без продолжения — так не говорят"
+  },
+  {
+   "id": 293,
+   "col": "example_en",
+   "old": "I am glad",
+   "new": "I'm glad you're here",
+   "why": "список → главное слово и не больше одной альтернативы; «Ich bin froh» без продолжения — так не говорят"
+  },
+  {
+   "id": 293,
+   "col": "example_tr",
+   "old": "Mutluyum",
+   "new": "Burada olduğun için mutluyum",
+   "why": "список → главное слово и не больше одной альтернативы; «Ich bin froh» без продолжения — так не говорят"
+  },
+  {
+   "id": 293,
+   "col": "example_pl",
+   "old": "Jestem zadowolony",
+   "new": "Cieszę się, że tu jesteś",
+   "why": "список → главное слово и не больше одной альтернативы; «Ich bin froh» без продолжения — так не говорят"
+  },
+  {
+   "id": 293,
+   "col": "example_it",
+   "old": "Sono contento",
+   "new": "Sono contento che tu sia qui",
+   "why": "список → главное слово и не больше одной альтернативы; «Ich bin froh» без продолжения — так не говорят"
+  },
+  {
+   "id": 293,
+   "col": "example_es",
+   "old": "Estoy contento",
+   "new": "Estoy contento de que estés aquí",
+   "why": "список → главное слово и не больше одной альтернативы; «Ich bin froh» без продолжения — так не говорят"
+  },
+  {
+   "id": 293,
+   "col": "example_fr",
+   "old": "Je suis content",
+   "new": "Je suis content que tu sois là",
+   "why": "список → главное слово и не больше одной альтернативы; «Ich bin froh» без продолжения — так не говорят"
+  },
+  {
+   "id": 293,
+   "col": "example_cs",
+   "old": "Jsem rád",
+   "new": "Jsem rád, že jsi tady",
+   "why": "список → главное слово и не больше одной альтернативы; «Ich bin froh» без продолжения — так не говорят"
+  },
+  {
+   "id": 624,
+   "col": "translation_ru",
+   "old": "хотел бы, хотеть, желать",
+   "new": "хотел бы, хотеть",
+   "why": "список → главное слово и не больше одной альтернативы; «Я хотел бы кофе» — калька"
+  },
+  {
+   "id": 624,
+   "col": "translation_en",
+   "old": "would like, to want",
+   "new": "would like",
+   "why": "список → главное слово и не больше одной альтернативы; «Я хотел бы кофе» — калька"
+  },
+  {
+   "id": 624,
+   "col": "translation_tr",
+   "old": "istemek, arzu etmek",
+   "new": "istemek",
+   "why": "список → главное слово и не больше одной альтернативы; «Я хотел бы кофе» — калька"
+  },
+  {
+   "id": 624,
+   "col": "translation_pl",
+   "old": "chcieć, chciałbym",
+   "new": "chciałbym, chcieć",
+   "why": "список → главное слово и не больше одной альтернативы; «Я хотел бы кофе» — калька"
+  },
+  {
+   "id": 624,
+   "col": "translation_es",
+   "old": "querer, gustar",
+   "new": "querer",
+   "why": "список → главное слово и не больше одной альтернативы; «Я хотел бы кофе» — калька"
+  },
+  {
+   "id": 624,
+   "col": "translation_fr",
+   "old": "vouloir, aimer",
+   "new": "vouloir",
+   "why": "список → главное слово и не больше одной альтернативы; «Я хотел бы кофе» — калька"
+  },
+  {
+   "id": 624,
+   "col": "example_ru",
+   "old": "Я хотел бы кофе",
+   "new": "Я бы хотел кофе",
+   "why": "список → главное слово и не больше одной альтернативы; «Я хотел бы кофе» — калька"
+  },
+  {
+   "id": 624,
+   "col": "example_uk",
+   "old": "Я хотів би каву",
+   "new": "Я б хотів каву",
+   "why": "список → главное слово и не больше одной альтернативы; «Я хотел бы кофе» — калька"
+  },
+  {
+   "id": 624,
+   "col": "example_en",
+   "old": "I would like a coffee",
+   "new": "I'd like a coffee",
+   "why": "список → главное слово и не больше одной альтернативы; «Я хотел бы кофе» — калька"
+  },
+  {
+   "id": 467,
+   "col": "translation_en",
+   "old": "to buy, to purchase",
+   "new": "to buy",
+   "why": "список → главное слово и не больше одной альтернативы; английский пример: так не говорят о том, что происходит сейчас"
+  },
+  {
+   "id": 467,
+   "col": "example_en",
+   "old": "I buy bread",
+   "new": "I'm buying bread",
+   "why": "список → главное слово и не больше одной альтернативы; английский пример: так не говорят о том, что происходит сейчас"
+  },
+  {
+   "id": 467,
+   "col": "example_tr",
+   "old": "Ekmek satın alıyorum",
+   "new": "Ekmek alıyorum",
+   "why": "список → главное слово и не больше одной альтернативы; английский пример: так не говорят о том, что происходит сейчас"
+  },
+  {
+   "id": 6296,
+   "col": "translation_ru",
+   "old": "свет, лампа, освещение",
+   "new": "свет",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 6296,
+   "col": "translation_uk",
+   "old": "світло, лампа, освітлення",
+   "new": "світло",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 6296,
+   "col": "translation_en",
+   "old": "light, lamp",
+   "new": "light",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 6296,
+   "col": "translation_tr",
+   "old": "ışık, lamba, aydınlık",
+   "new": "ışık",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 6296,
+   "col": "translation_pl",
+   "old": "światło, lampa",
+   "new": "światło",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 6296,
+   "col": "translation_it",
+   "old": "la luce, la lampada",
+   "new": "la luce",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 6296,
+   "col": "translation_es",
+   "old": "la luz, la lámpara",
+   "new": "la luz",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 6296,
+   "col": "translation_fr",
+   "old": "la lumière, la lampe",
+   "new": "la lumière",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 6296,
+   "col": "translation_cs",
+   "old": "světlo, lampa",
+   "new": "světlo",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 6296,
+   "col": "example_de",
+   "old": "Das Licht ist sehr hell",
+   "new": "Mach bitte das Licht an",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 6296,
+   "col": "example_ru",
+   "old": "Свет очень яркий",
+   "new": "Включи, пожалуйста, свет",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 6296,
+   "col": "example_uk",
+   "old": "Світло дуже яскраве",
+   "new": "Увімкни, будь ласка, світло",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 6296,
+   "col": "example_en",
+   "old": "The light is very bright",
+   "new": "Turn on the light, please",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 6296,
+   "col": "example_tr",
+   "old": "Işık çok parlak",
+   "new": "Işığı açar mısın lütfen?",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 6296,
+   "col": "example_pl",
+   "old": "To światło jest bardzo jasne",
+   "new": "Włącz, proszę, światło",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 6296,
+   "col": "example_it",
+   "old": "La luce è molto forte",
+   "new": "Accendi la luce, per favore",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 6296,
+   "col": "example_es",
+   "old": "La luz es muy fuerte",
+   "new": "Enciende la luz, por favor",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 6296,
+   "col": "example_fr",
+   "old": "La lumière est très vive",
+   "new": "Allume la lumière, s'il te plaît",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 6296,
+   "col": "example_cs",
+   "old": "Světlo je velmi jasné",
+   "new": "Rozsviť prosím světlo",
+   "why": "список → главное слово и не больше одной альтернативы; пример ни о чём («X ist Y») → фраза из жизни"
+  },
+  {
+   "id": 229,
+   "col": "translation_ru",
+   "old": "объяснять, разъяснять, заявлять",
+   "new": "объяснять, объяснить",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («заявлять» — своя строка)"
+  },
+  {
+   "id": 229,
+   "col": "translation_uk",
+   "old": "пояснювати, роз'яснювати, заявляти",
+   "new": "пояснювати, пояснити",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («заявлять» — своя строка)"
+  },
+  {
+   "id": 229,
+   "col": "translation_en",
+   "old": "to explain, to declare",
+   "new": "to explain",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («заявлять» — своя строка)"
+  },
+  {
+   "id": 229,
+   "col": "translation_tr",
+   "old": "açıklamak, anlatmak, ilan etmek",
+   "new": "açıklamak, anlatmak",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («заявлять» — своя строка)"
+  },
+  {
+   "id": 229,
+   "col": "translation_pl",
+   "old": "wyjaśniać, tłumaczyć, oświadczać",
+   "new": "wyjaśniać, tłumaczyć",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («заявлять» — своя строка)"
+  },
+  {
+   "id": 229,
+   "col": "translation_it",
+   "old": "spiegare, dichiarare",
+   "new": "spiegare",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («заявлять» — своя строка)"
+  },
+  {
+   "id": 229,
+   "col": "translation_es",
+   "old": "explicar, declarar",
+   "new": "explicar",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («заявлять» — своя строка)"
+  },
+  {
+   "id": 229,
+   "col": "translation_fr",
+   "old": "expliquer, déclarer",
+   "new": "expliquer",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («заявлять» — своя строка)"
+  },
+  {
+   "id": 229,
+   "col": "translation_cs",
+   "old": "vysvětlit, vysvětlovat, prohlásit",
+   "new": "vysvětlit",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («заявлять» — своя строка)"
+  },
+  {
+   "id": 798,
+   "col": "translation_ru",
+   "old": "ключ, разгадка",
+   "new": "ключ",
+   "why": "список → главное слово и не больше одной альтернативы; английский пример: так не говорят о том, что происходит сейчас"
+  },
+  {
+   "id": 798,
+   "col": "translation_uk",
+   "old": "ключ, розгадка",
+   "new": "ключ",
+   "why": "список → главное слово и не больше одной альтернативы; английский пример: так не говорят о том, что происходит сейчас"
+  },
+  {
+   "id": 798,
+   "col": "translation_es",
+   "old": "la llave, la clave",
+   "new": "la llave",
+   "why": "список → главное слово и не больше одной альтернативы; английский пример: так не говорят о том, что происходит сейчас"
+  },
+  {
+   "id": 798,
+   "col": "example_en",
+   "old": "I look for my key",
+   "new": "I'm looking for my key",
+   "why": "список → главное слово и не больше одной альтернативы; английский пример: так не говорят о том, что происходит сейчас"
+  }
+ ],
+ "replace": [],
+ "split_later": {
+  "1642": [
+   "laufen = работать (Die Maschine läuft)",
+   "laufen = идти (Was läuft im Kino?)"
+  ],
+  "763": [
+   "richtig = по-настоящему (richtig gut)"
+  ],
+  "229": [
+   "erklären = заявлять"
+  ]
+ }
+}
