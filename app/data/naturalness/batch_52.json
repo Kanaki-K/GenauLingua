@@ -1,0 +1,952 @@
+{
+ "about": "2.3, B1 блок 7",
+ "edits": [
+  {
+   "id": 18124,
+   "col": "example_de",
+   "old": "Das Dach ist neu",
+   "new": "Wir wohnen direkt unterm Dach",
+   "why": "пример-скелет («Das Dach ist neu», «Der Stein ist sehr schwer») — пусто"
+  },
+  {
+   "id": 18124,
+   "col": "example_ru",
+   "old": "Крыша новая",
+   "new": "Мы живём прямо под крышей",
+   "why": "пример-скелет («Das Dach ist neu», «Der Stein ist sehr schwer») — пусто"
+  },
+  {
+   "id": 18124,
+   "col": "example_uk",
+   "old": "Дах новий",
+   "new": "Ми живемо просто під дахом",
+   "why": "пример-скелет («Das Dach ist neu», «Der Stein ist sehr schwer») — пусто"
+  },
+  {
+   "id": 18124,
+   "col": "example_en",
+   "old": "The roof is new",
+   "new": "We live right under the roof",
+   "why": "пример-скелет («Das Dach ist neu», «Der Stein ist sehr schwer») — пусто"
+  },
+  {
+   "id": 18124,
+   "col": "example_tr",
+   "old": "Çatı yeni",
+   "new": "Tam çatı katında oturuyoruz",
+   "why": "пример-скелет («Das Dach ist neu», «Der Stein ist sehr schwer») — пусто"
+  },
+  {
+   "id": 18124,
+   "col": "example_pl",
+   "old": "Dach jest nowy",
+   "new": "Mieszkamy tuż pod dachem",
+   "why": "пример-скелет («Das Dach ist neu», «Der Stein ist sehr schwer») — пусто"
+  },
+  {
+   "id": 18124,
+   "col": "example_it",
+   "old": "Il tetto è nuovo",
+   "new": "Abitiamo proprio sotto il tetto",
+   "why": "пример-скелет («Das Dach ist neu», «Der Stein ist sehr schwer») — пусто"
+  },
+  {
+   "id": 18124,
+   "col": "example_es",
+   "old": "El tejado es nuevo",
+   "new": "Vivimos justo debajo del tejado",
+   "why": "пример-скелет («Das Dach ist neu», «Der Stein ist sehr schwer») — пусто"
+  },
+  {
+   "id": 18124,
+   "col": "example_fr",
+   "old": "Le toit est neuf",
+   "new": "On habite juste sous le toit",
+   "why": "пример-скелет («Das Dach ist neu», «Der Stein ist sehr schwer») — пусто"
+  },
+  {
+   "id": 18124,
+   "col": "example_cs",
+   "old": "Střecha je nová",
+   "new": "Bydlíme přímo pod střechou",
+   "why": "пример-скелет («Das Dach ist neu», «Der Stein ist sehr schwer») — пусто"
+  },
+  {
+   "id": 12481,
+   "col": "example_de",
+   "old": "Das Gehirn ist sehr wichtig",
+   "new": "Schalt mal dein Gehirn ein!",
+   "why": "«Das Gehirn ist sehr wichtig» — школьный плакат"
+  },
+  {
+   "id": 12481,
+   "col": "example_ru",
+   "old": "Мозг очень важен",
+   "new": "Включи мозги!",
+   "why": "«Das Gehirn ist sehr wichtig» — школьный плакат"
+  },
+  {
+   "id": 12481,
+   "col": "example_uk",
+   "old": "Мозок дуже важливий",
+   "new": "Увімкни мізки!",
+   "why": "«Das Gehirn ist sehr wichtig» — школьный плакат"
+  },
+  {
+   "id": 12481,
+   "col": "example_en",
+   "old": "The brain is very important",
+   "new": "Use your brain!",
+   "why": "«Das Gehirn ist sehr wichtig» — школьный плакат"
+  },
+  {
+   "id": 12481,
+   "col": "example_tr",
+   "old": "Beyin çok önemli",
+   "new": "Biraz beynini kullan!",
+   "why": "«Das Gehirn ist sehr wichtig» — школьный плакат"
+  },
+  {
+   "id": 12481,
+   "col": "example_pl",
+   "old": "Mózg jest bardzo ważny",
+   "new": "Włącz mózg!",
+   "why": "«Das Gehirn ist sehr wichtig» — школьный плакат"
+  },
+  {
+   "id": 12481,
+   "col": "example_it",
+   "old": "Il cervello è molto importante",
+   "new": "Accendi il cervello!",
+   "why": "«Das Gehirn ist sehr wichtig» — школьный плакат"
+  },
+  {
+   "id": 12481,
+   "col": "example_es",
+   "old": "El cerebro es muy importante",
+   "new": "¡Usa el cerebro!",
+   "why": "«Das Gehirn ist sehr wichtig» — школьный плакат"
+  },
+  {
+   "id": 12481,
+   "col": "example_fr",
+   "old": "Le cerveau est très important",
+   "new": "Fais marcher ton cerveau!",
+   "why": "«Das Gehirn ist sehr wichtig» — школьный плакат"
+  },
+  {
+   "id": 12481,
+   "col": "example_cs",
+   "old": "Mozek je velmi důležitý",
+   "new": "Zapni mozek!",
+   "why": "«Das Gehirn ist sehr wichtig» — школьный плакат"
+  },
+  {
+   "id": 2034,
+   "col": "example_de",
+   "old": "Ich verbringe viel Zeit hier",
+   "new": "Wo verbringt ihr den Urlaub?",
+   "why": "«Ich verbringe viel Zeit hier» — пусто"
+  },
+  {
+   "id": 2034,
+   "col": "example_ru",
+   "old": "Я провожу здесь много времени",
+   "new": "Где вы проводите отпуск?",
+   "why": "«Ich verbringe viel Zeit hier» — пусто"
+  },
+  {
+   "id": 2034,
+   "col": "example_uk",
+   "old": "Я проводжу тут багато часу",
+   "new": "Де ви проводите відпустку?",
+   "why": "«Ich verbringe viel Zeit hier» — пусто"
+  },
+  {
+   "id": 2034,
+   "col": "example_en",
+   "old": "I spend a lot of time here",
+   "new": "Where are you spending your holiday?",
+   "why": "«Ich verbringe viel Zeit hier» — пусто"
+  },
+  {
+   "id": 2034,
+   "col": "example_tr",
+   "old": "Burada çok zaman geçiriyorum",
+   "new": "Tatili nerede geçiriyorsunuz?",
+   "why": "«Ich verbringe viel Zeit hier» — пусто"
+  },
+  {
+   "id": 2034,
+   "col": "example_pl",
+   "old": "Spędzam tu dużo czasu",
+   "new": "Gdzie spędzacie urlop?",
+   "why": "«Ich verbringe viel Zeit hier» — пусто"
+  },
+  {
+   "id": 2034,
+   "col": "example_it",
+   "old": "Passo molto tempo qui",
+   "new": "Dove passate le vacanze?",
+   "why": "«Ich verbringe viel Zeit hier» — пусто"
+  },
+  {
+   "id": 2034,
+   "col": "example_es",
+   "old": "Paso mucho tiempo aquí",
+   "new": "¿Dónde pasáis las vacaciones?",
+   "why": "«Ich verbringe viel Zeit hier» — пусто"
+  },
+  {
+   "id": 2034,
+   "col": "example_fr",
+   "old": "Je passe beaucoup de temps ici",
+   "new": "Où est-ce que vous passez les vacances?",
+   "why": "«Ich verbringe viel Zeit hier» — пусто"
+  },
+  {
+   "id": 2034,
+   "col": "example_cs",
+   "old": "Trávím tady hodně času",
+   "new": "Kde trávíte dovolenou?",
+   "why": "«Ich verbringe viel Zeit hier» — пусто"
+  },
+  {
+   "id": 6432,
+   "col": "example_de",
+   "old": "Das ist ja Wahnsinn!",
+   "new": "Bei dieser Hitze joggen? Das ist Wahnsinn!",
+   "why": "ru «Это же безумие!» — тот же пример, что у irre"
+  },
+  {
+   "id": 6432,
+   "col": "example_ru",
+   "old": "Это же безумие!",
+   "new": "Бегать в такую жару? Это безумие!",
+   "why": "ru «Это же безумие!» — тот же пример, что у irre"
+  },
+  {
+   "id": 6432,
+   "col": "example_uk",
+   "old": "Це ж божевілля!",
+   "new": "Бігати в таку спеку? Це божевілля!",
+   "why": "ru «Это же безумие!» — тот же пример, что у irre"
+  },
+  {
+   "id": 6432,
+   "col": "example_en",
+   "old": "That's madness!",
+   "new": "Jogging in this heat? That's madness!",
+   "why": "ru «Это же безумие!» — тот же пример, что у irre"
+  },
+  {
+   "id": 6432,
+   "col": "example_tr",
+   "old": "Bu delilik!",
+   "new": "Bu sıcakta koşmak mı? Bu delilik!",
+   "why": "ru «Это же безумие!» — тот же пример, что у irre"
+  },
+  {
+   "id": 6432,
+   "col": "example_pl",
+   "old": "To przecież szaleństwo!",
+   "new": "Biegać w taki upał? To szaleństwo!",
+   "why": "ru «Это же безумие!» — тот же пример, что у irre"
+  },
+  {
+   "id": 6432,
+   "col": "example_it",
+   "old": "Ma è una follia!",
+   "new": "Correre con questo caldo? È una follia!",
+   "why": "ru «Это же безумие!» — тот же пример, что у irre"
+  },
+  {
+   "id": 6432,
+   "col": "example_es",
+   "old": "¡Es una locura!",
+   "new": "¿Correr con este calor? ¡Es una locura!",
+   "why": "ru «Это же безумие!» — тот же пример, что у irre"
+  },
+  {
+   "id": 6432,
+   "col": "example_fr",
+   "old": "C'est de la folie!",
+   "new": "Courir par cette chaleur? C'est de la folie!",
+   "why": "ru «Это же безумие!» — тот же пример, что у irre"
+  },
+  {
+   "id": 6432,
+   "col": "example_cs",
+   "old": "To je ale šílenství!",
+   "new": "Běhat v tomhle vedru? To je šílenství!",
+   "why": "ru «Это же безумие!» — тот же пример, что у irre"
+  },
+  {
+   "id": 2696,
+   "col": "translation_ru",
+   "old": "видимо, по-видимому, очевидно, судя по всему",
+   "new": "видимо, очевидно",
+   "why": "«Das ist offenbar ein Fehler» — шаблон offensichtlich («Das ist offensichtlich falsch»)"
+  },
+  {
+   "id": 2696,
+   "col": "translation_uk",
+   "old": "мабуть, очевидно, видно, судячи з усього",
+   "new": "мабуть, очевидно",
+   "why": "«Das ist offenbar ein Fehler» — шаблон offensichtlich («Das ist offensichtlich falsch»)"
+  },
+  {
+   "id": 2696,
+   "col": "translation_en",
+   "old": "apparently, evidently, obviously",
+   "new": "apparently, evidently",
+   "why": "«Das ist offenbar ein Fehler» — шаблон offensichtlich («Das ist offensichtlich falsch»)"
+  },
+  {
+   "id": 2696,
+   "col": "translation_tr",
+   "old": "anlaşılan, görünüşe göre, belli ki",
+   "new": "anlaşılan, görünüşe göre",
+   "why": "«Das ist offenbar ein Fehler» — шаблон offensichtlich («Das ist offensichtlich falsch»)"
+  },
+  {
+   "id": 2696,
+   "col": "translation_pl",
+   "old": "najwyraźniej, widocznie, najwidoczniej",
+   "new": "najwyraźniej, widocznie",
+   "why": "«Das ist offenbar ein Fehler» — шаблон offensichtlich («Das ist offensichtlich falsch»)"
+  },
+  {
+   "id": 2696,
+   "col": "translation_it",
+   "old": "evidentemente, a quanto pare",
+   "new": "a quanto pare, evidentemente",
+   "why": "«Das ist offenbar ein Fehler» — шаблон offensichtlich («Das ist offensichtlich falsch»)"
+  },
+  {
+   "id": 2696,
+   "col": "translation_es",
+   "old": "evidentemente, al parecer",
+   "new": "al parecer, evidentemente",
+   "why": "«Das ist offenbar ein Fehler» — шаблон offensichtlich («Das ist offensichtlich falsch»)"
+  },
+  {
+   "id": 2696,
+   "col": "translation_fr",
+   "old": "manifestement, visiblement, apparemment",
+   "new": "apparemment, manifestement",
+   "why": "«Das ist offenbar ein Fehler» — шаблон offensichtlich («Das ist offensichtlich falsch»)"
+  },
+  {
+   "id": 2696,
+   "col": "example_de",
+   "old": "Das ist offenbar ein Fehler",
+   "new": "Er hat offenbar keine Lust",
+   "why": "«Das ist offenbar ein Fehler» — шаблон offensichtlich («Das ist offensichtlich falsch»)"
+  },
+  {
+   "id": 2696,
+   "col": "example_ru",
+   "old": "Видимо, это ошибка",
+   "new": "У него, видимо, нет желания",
+   "why": "«Das ist offenbar ein Fehler» — шаблон offensichtlich («Das ist offensichtlich falsch»)"
+  },
+  {
+   "id": 2696,
+   "col": "example_uk",
+   "old": "Це, мабуть, помилка",
+   "new": "Він, мабуть, не хоче",
+   "why": "«Das ist offenbar ein Fehler» — шаблон offensichtlich («Das ist offensichtlich falsch»)"
+  },
+  {
+   "id": 2696,
+   "col": "example_en",
+   "old": "That is apparently a mistake",
+   "new": "He apparently doesn't feel like it",
+   "why": "«Das ist offenbar ein Fehler» — шаблон offensichtlich («Das ist offensichtlich falsch»)"
+  },
+  {
+   "id": 2696,
+   "col": "example_tr",
+   "old": "Anlaşılan bu bir hata",
+   "new": "Anlaşılan canı istemiyor",
+   "why": "«Das ist offenbar ein Fehler» — шаблон offensichtlich («Das ist offensichtlich falsch»)"
+  },
+  {
+   "id": 2696,
+   "col": "example_pl",
+   "old": "To najwyraźniej błąd",
+   "new": "Najwyraźniej nie ma ochoty",
+   "why": "«Das ist offenbar ein Fehler» — шаблон offensichtlich («Das ist offensichtlich falsch»)"
+  },
+  {
+   "id": 2696,
+   "col": "example_it",
+   "old": "Evidentemente è un errore",
+   "new": "A quanto pare non ne ha voglia",
+   "why": "«Das ist offenbar ein Fehler» — шаблон offensichtlich («Das ist offensichtlich falsch»)"
+  },
+  {
+   "id": 2696,
+   "col": "example_es",
+   "old": "Evidentemente es un error",
+   "new": "Al parecer no tiene ganas",
+   "why": "«Das ist offenbar ein Fehler» — шаблон offensichtlich («Das ist offensichtlich falsch»)"
+  },
+  {
+   "id": 2696,
+   "col": "example_fr",
+   "old": "C'est manifestement une erreur",
+   "new": "Apparemment, il n'a pas envie",
+   "why": "«Das ist offenbar ein Fehler» — шаблон offensichtlich («Das ist offensichtlich falsch»)"
+  },
+  {
+   "id": 2696,
+   "col": "example_cs",
+   "old": "To je zřejmě chyba",
+   "new": "Zřejmě se mu nechce",
+   "why": "«Das ist offenbar ein Fehler» — шаблон offensichtlich («Das ist offensichtlich falsch»)"
+  },
+  {
+   "id": 15390,
+   "col": "translation_ru",
+   "old": "хвост, член",
+   "new": "хвост",
+   "why": "второе значение — непристойность, учебной карточке не нужно"
+  },
+  {
+   "id": 15390,
+   "col": "translation_uk",
+   "old": "хвіст, член",
+   "new": "хвіст",
+   "why": "второе значение — непристойность, учебной карточке не нужно"
+  },
+  {
+   "id": 15390,
+   "col": "translation_en",
+   "old": "tail, penis",
+   "new": "tail",
+   "why": "второе значение — непристойность, учебной карточке не нужно"
+  },
+  {
+   "id": 15390,
+   "col": "translation_tr",
+   "old": "kuyruk, penis",
+   "new": "kuyruk",
+   "why": "второе значение — непристойность, учебной карточке не нужно"
+  },
+  {
+   "id": 15390,
+   "col": "translation_pl",
+   "old": "ogon, penis",
+   "new": "ogon",
+   "why": "второе значение — непристойность, учебной карточке не нужно"
+  },
+  {
+   "id": 18619,
+   "col": "example_en",
+   "old": "He was still here earlier",
+   "new": "He was here just a moment ago",
+   "why": "en «He was still here earlier» — «только что» потеряно"
+  },
+  {
+   "id": 15393,
+   "col": "translation_ru",
+   "old": "камень, косточка плода, драгоценный камень",
+   "new": "камень, косточка",
+   "why": "пример-скелет («Das Dach ist neu», «Der Stein ist sehr schwer») — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15393,
+   "col": "translation_uk",
+   "old": "камінь, кісточка плоду, дорогоцінний камінь",
+   "new": "камінь, кісточка",
+   "why": "пример-скелет («Das Dach ist neu», «Der Stein ist sehr schwer») — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15393,
+   "col": "translation_en",
+   "old": "stone, rock, gem",
+   "new": "stone, rock",
+   "why": "пример-скелет («Das Dach ist neu», «Der Stein ist sehr schwer») — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15393,
+   "col": "translation_tr",
+   "old": "taş, kaya, değerli taş",
+   "new": "taş",
+   "why": "пример-скелет («Das Dach ist neu», «Der Stein ist sehr schwer») — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15393,
+   "col": "translation_pl",
+   "old": "kamień, pestka, klejnot",
+   "new": "kamień, pestka",
+   "why": "пример-скелет («Das Dach ist neu», «Der Stein ist sehr schwer») — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15393,
+   "col": "example_de",
+   "old": "Der Stein ist sehr schwer",
+   "new": "Ich habe einen Stein im Schuh",
+   "why": "пример-скелет («Das Dach ist neu», «Der Stein ist sehr schwer») — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15393,
+   "col": "example_ru",
+   "old": "Камень очень тяжёлый",
+   "new": "У меня камешек в ботинке",
+   "why": "пример-скелет («Das Dach ist neu», «Der Stein ist sehr schwer») — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15393,
+   "col": "example_uk",
+   "old": "Камінь дуже важкий",
+   "new": "У мене камінь у черевику",
+   "why": "пример-скелет («Das Dach ist neu», «Der Stein ist sehr schwer») — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15393,
+   "col": "example_en",
+   "old": "The stone is very heavy",
+   "new": "I've got a stone in my shoe",
+   "why": "пример-скелет («Das Dach ist neu», «Der Stein ist sehr schwer») — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15393,
+   "col": "example_tr",
+   "old": "Taş çok ağır",
+   "new": "Ayakkabımda taş var",
+   "why": "пример-скелет («Das Dach ist neu», «Der Stein ist sehr schwer») — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15393,
+   "col": "example_pl",
+   "old": "Ten kamień jest bardzo ciężki",
+   "new": "Mam kamień w bucie",
+   "why": "пример-скелет («Das Dach ist neu», «Der Stein ist sehr schwer») — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15393,
+   "col": "example_it",
+   "old": "La pietra è molto pesante",
+   "new": "Ho un sasso nella scarpa",
+   "why": "пример-скелет («Das Dach ist neu», «Der Stein ist sehr schwer») — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15393,
+   "col": "example_es",
+   "old": "La piedra es muy pesada",
+   "new": "Tengo una piedra en el zapato",
+   "why": "пример-скелет («Das Dach ist neu», «Der Stein ist sehr schwer») — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15393,
+   "col": "example_fr",
+   "old": "La pierre est très lourde",
+   "new": "J'ai un caillou dans la chaussure",
+   "why": "пример-скелет («Das Dach ist neu», «Der Stein ist sehr schwer») — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15393,
+   "col": "example_cs",
+   "old": "Ten kámen je velmi těžký",
+   "new": "Mám v botě kámen",
+   "why": "пример-скелет («Das Dach ist neu», «Der Stein ist sehr schwer») — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1770,
+   "col": "example_de",
+   "old": "Das ist prima",
+   "new": "Das Essen war prima!",
+   "why": "«Das ist prima» — пусто; «Prima, dann sehen wir uns morgen» — шаблон super"
+  },
+  {
+   "id": 1770,
+   "col": "example_ru",
+   "old": "Это отлично",
+   "new": "Еда была отличная!",
+   "why": "«Das ist prima» — пусто; «Prima, dann sehen wir uns morgen» — шаблон super"
+  },
+  {
+   "id": 1770,
+   "col": "example_uk",
+   "old": "Це чудово",
+   "new": "Їжа була чудова!",
+   "why": "«Das ist prima» — пусто; «Prima, dann sehen wir uns morgen» — шаблон super"
+  },
+  {
+   "id": 1770,
+   "col": "example_en",
+   "old": "That's great",
+   "new": "The food was great!",
+   "why": "«Das ist prima» — пусто; «Prima, dann sehen wir uns morgen» — шаблон super"
+  },
+  {
+   "id": 1770,
+   "col": "example_tr",
+   "old": "Bu harika",
+   "new": "Yemek harikaydı!",
+   "why": "«Das ist prima» — пусто; «Prima, dann sehen wir uns morgen» — шаблон super"
+  },
+  {
+   "id": 1770,
+   "col": "example_pl",
+   "old": "To jest świetnie",
+   "new": "Jedzenie było świetne!",
+   "why": "«Das ist prima» — пусто; «Prima, dann sehen wir uns morgen» — шаблон super"
+  },
+  {
+   "id": 1770,
+   "col": "example_it",
+   "old": "È ottimo",
+   "new": "Il cibo era ottimo!",
+   "why": "«Das ist prima» — пусто; «Prima, dann sehen wir uns morgen» — шаблон super"
+  },
+  {
+   "id": 1770,
+   "col": "example_es",
+   "old": "Eso es genial",
+   "new": "¡La comida estaba genial!",
+   "why": "«Das ist prima» — пусто; «Prima, dann sehen wir uns morgen» — шаблон super"
+  },
+  {
+   "id": 1770,
+   "col": "example_fr",
+   "old": "C'est super",
+   "new": "Le repas était super!",
+   "why": "«Das ist prima» — пусто; «Prima, dann sehen wir uns morgen» — шаблон super"
+  },
+  {
+   "id": 1770,
+   "col": "example_cs",
+   "old": "To je prima",
+   "new": "Jídlo bylo prima!",
+   "why": "«Das ist prima» — пусто; «Prima, dann sehen wir uns morgen» — шаблон super"
+  },
+  {
+   "id": 6442,
+   "col": "translation_ru",
+   "old": "шар, пуля, шарик мороженого",
+   "new": "шар, шарик (мороженого)",
+   "why": "«Шар катится по полу» — пусто; в жизни Kugel — шарик мороженого"
+  },
+  {
+   "id": 6442,
+   "col": "translation_uk",
+   "old": "куля, набій, кулька морозива",
+   "new": "куля, кулька",
+   "why": "«Шар катится по полу» — пусто; в жизни Kugel — шарик мороженого"
+  },
+  {
+   "id": 6442,
+   "col": "translation_en",
+   "old": "ball, sphere, bullet, scoop of ice cream",
+   "new": "ball, scoop",
+   "why": "«Шар катится по полу» — пусто; в жизни Kugel — шарик мороженого"
+  },
+  {
+   "id": 6442,
+   "col": "translation_tr",
+   "old": "küre, top, kurşun, bir top dondurma",
+   "new": "küre, top",
+   "why": "«Шар катится по полу» — пусто; в жизни Kugel — шарик мороженого"
+  },
+  {
+   "id": 6442,
+   "col": "translation_pl",
+   "old": "kula, kulka, pocisk, gałka lodów",
+   "new": "kula, gałka",
+   "why": "«Шар катится по полу» — пусто; в жизни Kugel — шарик мороженого"
+  },
+  {
+   "id": 6442,
+   "col": "translation_it",
+   "old": "la palla, la sfera, il proiettile",
+   "new": "la palla, la pallina",
+   "why": "«Шар катится по полу» — пусто; в жизни Kugel — шарик мороженого"
+  },
+  {
+   "id": 6442,
+   "col": "translation_es",
+   "old": "la bola, la esfera, la bala",
+   "new": "la bola",
+   "why": "«Шар катится по полу» — пусто; в жизни Kugel — шарик мороженого"
+  },
+  {
+   "id": 6442,
+   "col": "translation_fr",
+   "old": "la boule, la balle, la sphère",
+   "new": "la boule",
+   "why": "«Шар катится по полу» — пусто; в жизни Kugel — шарик мороженого"
+  },
+  {
+   "id": 6442,
+   "col": "translation_cs",
+   "old": "koule, kulka, kulička",
+   "new": "koule, kulička",
+   "why": "«Шар катится по полу» — пусто; в жизни Kugel — шарик мороженого"
+  },
+  {
+   "id": 6442,
+   "col": "example_de",
+   "old": "Die Kugel rollt über den Boden",
+   "new": "Zwei Kugeln Vanille, bitte",
+   "why": "«Шар катится по полу» — пусто; в жизни Kugel — шарик мороженого"
+  },
+  {
+   "id": 6442,
+   "col": "example_ru",
+   "old": "Шар катится по полу",
+   "new": "Два шарика ванильного, пожалуйста",
+   "why": "«Шар катится по полу» — пусто; в жизни Kugel — шарик мороженого"
+  },
+  {
+   "id": 6442,
+   "col": "example_uk",
+   "old": "Куля котиться по підлозі",
+   "new": "Дві кульки ванільного, будь ласка",
+   "why": "«Шар катится по полу» — пусто; в жизни Kugel — шарик мороженого"
+  },
+  {
+   "id": 6442,
+   "col": "example_en",
+   "old": "The ball rolls across the floor",
+   "new": "Two scoops of vanilla, please",
+   "why": "«Шар катится по полу» — пусто; в жизни Kugel — шарик мороженого"
+  },
+  {
+   "id": 6442,
+   "col": "example_tr",
+   "old": "Top yerde yuvarlanıyor",
+   "new": "İki top vanilya lütfen",
+   "why": "«Шар катится по полу» — пусто; в жизни Kugel — шарик мороженого"
+  },
+  {
+   "id": 6442,
+   "col": "example_pl",
+   "old": "Kula toczy się po podłodze",
+   "new": "Dwie gałki waniliowych poproszę",
+   "why": "«Шар катится по полу» — пусто; в жизни Kugel — шарик мороженого"
+  },
+  {
+   "id": 6442,
+   "col": "example_it",
+   "old": "La palla rotola sul pavimento",
+   "new": "Due palline di vaniglia, per favore",
+   "why": "«Шар катится по полу» — пусто; в жизни Kugel — шарик мороженого"
+  },
+  {
+   "id": 6442,
+   "col": "example_es",
+   "old": "La bola rueda por el suelo",
+   "new": "Dos bolas de vainilla, por favor",
+   "why": "«Шар катится по полу» — пусто; в жизни Kugel — шарик мороженого"
+  },
+  {
+   "id": 6442,
+   "col": "example_fr",
+   "old": "La boule roule par terre",
+   "new": "Deux boules de vanille, s'il vous plaît",
+   "why": "«Шар катится по полу» — пусто; в жизни Kugel — шарик мороженого"
+  },
+  {
+   "id": 6442,
+   "col": "example_cs",
+   "old": "Koule se kutálí po podlaze",
+   "new": "Dvě kuličky vanilkové, prosím",
+   "why": "«Шар катится по полу» — пусто; в жизни Kugel — шарик мороженого"
+  },
+  {
+   "id": 1447,
+   "col": "example_de",
+   "old": "Die Maschine funktioniert nicht",
+   "new": "Wie funktioniert das?",
+   "why": "«Die Maschine funktioniert nicht» — шаблон System, Heizung"
+  },
+  {
+   "id": 1447,
+   "col": "example_ru",
+   "old": "Машина не работает",
+   "new": "Как это работает?",
+   "why": "«Die Maschine funktioniert nicht» — шаблон System, Heizung"
+  },
+  {
+   "id": 1447,
+   "col": "example_uk",
+   "old": "Машина не працює",
+   "new": "Як це працює?",
+   "why": "«Die Maschine funktioniert nicht» — шаблон System, Heizung"
+  },
+  {
+   "id": 1447,
+   "col": "example_en",
+   "old": "The machine doesn't work",
+   "new": "How does it work?",
+   "why": "«Die Maschine funktioniert nicht» — шаблон System, Heizung"
+  },
+  {
+   "id": 1447,
+   "col": "example_tr",
+   "old": "Makine çalışmıyor",
+   "new": "Bu nasıl çalışıyor?",
+   "why": "«Die Maschine funktioniert nicht» — шаблон System, Heizung"
+  },
+  {
+   "id": 1447,
+   "col": "example_pl",
+   "old": "Ta maszyna nie działa",
+   "new": "Jak to działa?",
+   "why": "«Die Maschine funktioniert nicht» — шаблон System, Heizung"
+  },
+  {
+   "id": 1447,
+   "col": "example_it",
+   "old": "La macchina non funziona",
+   "new": "Come funziona?",
+   "why": "«Die Maschine funktioniert nicht» — шаблон System, Heizung"
+  },
+  {
+   "id": 1447,
+   "col": "example_es",
+   "old": "La máquina no funciona",
+   "new": "¿Cómo funciona?",
+   "why": "«Die Maschine funktioniert nicht» — шаблон System, Heizung"
+  },
+  {
+   "id": 1447,
+   "col": "example_fr",
+   "old": "La machine ne fonctionne pas",
+   "new": "Comment ça marche?",
+   "why": "«Die Maschine funktioniert nicht» — шаблон System, Heizung"
+  },
+  {
+   "id": 1447,
+   "col": "example_cs",
+   "old": "Ten stroj nefunguje",
+   "new": "Jak to funguje?",
+   "why": "«Die Maschine funktioniert nicht» — шаблон System, Heizung"
+  },
+  {
+   "id": 1908,
+   "col": "translation_ru",
+   "old": "подниматься, расти, увеличиваться, садиться в транспорт, взбираться",
+   "new": "подниматься, расти",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1908,
+   "col": "translation_uk",
+   "old": "підніматися, зростати, збільшуватися, сідати в транспорт",
+   "new": "підніматися, зростати",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1908,
+   "col": "translation_en",
+   "old": "to rise, to climb, to increase, to get on",
+   "new": "to rise, to climb",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1908,
+   "col": "translation_tr",
+   "old": "yükselmek, artmak, tırmanmak, binmek",
+   "new": "yükselmek, artmak",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1908,
+   "col": "translation_pl",
+   "old": "wzrastać, rosnąć, wspinać się, wsiadać",
+   "new": "wzrastać, rosnąć",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1908,
+   "col": "translation_it",
+   "old": "aumentare, salire",
+   "new": "salire, aumentare",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1908,
+   "col": "translation_fr",
+   "old": "augmenter, monter",
+   "new": "monter, augmenter",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14377,
+   "col": "example_de",
+   "old": "Der Prinz lebt im Schloss",
+   "new": "Sie wartet auf ihren Prinzen",
+   "why": "«Der Prinz lebt im Schloss» — сказка"
+  },
+  {
+   "id": 14377,
+   "col": "example_ru",
+   "old": "Принц живёт в замке",
+   "new": "Она ждёт своего принца",
+   "why": "«Der Prinz lebt im Schloss» — сказка"
+  },
+  {
+   "id": 14377,
+   "col": "example_uk",
+   "old": "Принц живе в замку",
+   "new": "Вона чекає свого принца",
+   "why": "«Der Prinz lebt im Schloss» — сказка"
+  },
+  {
+   "id": 14377,
+   "col": "example_en",
+   "old": "The prince lives in the castle",
+   "new": "She's waiting for her prince",
+   "why": "«Der Prinz lebt im Schloss» — сказка"
+  },
+  {
+   "id": 14377,
+   "col": "example_tr",
+   "old": "Prens şatoda yaşıyor",
+   "new": "Prensini bekliyor",
+   "why": "«Der Prinz lebt im Schloss» — сказка"
+  },
+  {
+   "id": 14377,
+   "col": "example_pl",
+   "old": "Książę mieszka w zamku",
+   "new": "Czeka na swojego księcia",
+   "why": "«Der Prinz lebt im Schloss» — сказка"
+  },
+  {
+   "id": 14377,
+   "col": "example_it",
+   "old": "Il principe vive nel castello",
+   "new": "Aspetta il suo principe",
+   "why": "«Der Prinz lebt im Schloss» — сказка"
+  },
+  {
+   "id": 14377,
+   "col": "example_es",
+   "old": "El príncipe vive en el castillo",
+   "new": "Espera a su príncipe",
+   "why": "«Der Prinz lebt im Schloss» — сказка"
+  },
+  {
+   "id": 14377,
+   "col": "example_fr",
+   "old": "Le prince vit au château",
+   "new": "Elle attend son prince",
+   "why": "«Der Prinz lebt im Schloss» — сказка"
+  },
+  {
+   "id": 14377,
+   "col": "example_cs",
+   "old": "Princ žije na zámku",
+   "new": "Čeká na svého prince",
+   "why": "«Der Prinz lebt im Schloss» — сказка"
+  }
+ ],
+ "replace": [],
+ "split_later": {}
+}
