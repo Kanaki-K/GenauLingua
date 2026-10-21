@@ -1,0 +1,1533 @@
+{
+ "about": "2.3, B1 блок 47",
+ "edits": [
+  {
+   "id": 7004,
+   "col": "translation_ru",
+   "old": "металлолом, хлам, рухлядь, барахло",
+   "new": "металлолом, хлам",
+   "why": "убрать пометку (fam.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7004,
+   "col": "translation_uk",
+   "old": "металобрухт, мотлох, непотріб",
+   "new": "металобрухт, мотлох",
+   "why": "убрать пометку (fam.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7004,
+   "col": "translation_fr",
+   "old": "la ferraille, la camelote (fam.)",
+   "new": "la ferraille, la camelote",
+   "why": "убрать пометку (fam.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7004,
+   "col": "translation_it",
+   "old": "il rottame, la ferraglia, la robaccia",
+   "new": "il rottame, la robaccia",
+   "why": "убрать пометку (fam.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10418,
+   "col": "translation_en",
+   "old": "distraction, diversion, something to take your mind off things",
+   "new": "distraction, diversion",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10418,
+   "col": "translation_tr",
+   "old": "dikkat dağıtma, oyalanma, kafa dağıtma",
+   "new": "dikkat dağıtma, kafa dağıtma",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10418,
+   "col": "translation_pl",
+   "old": "rozproszenie uwagi, rozrywka, oderwanie się od myśli",
+   "new": "rozproszenie uwagi, rozrywka",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7005,
+   "col": "translation_ru",
+   "old": "грубый, невежливый, приблизительный, крупный",
+   "new": "грубый, приблизительный",
+   "why": "«eine grobe Beleidigung» — книжно; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7005,
+   "col": "translation_uk",
+   "old": "грубий, нечемний, приблизний, великий",
+   "new": "грубий, приблизний",
+   "why": "«eine grobe Beleidigung» — книжно; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7005,
+   "col": "translation_en",
+   "old": "rude, coarse, rough, approximate",
+   "new": "rude, rough",
+   "why": "«eine grobe Beleidigung» — книжно; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7005,
+   "col": "translation_tr",
+   "old": "kaba, nezaketsiz, ham, kabaca",
+   "new": "kaba, kabaca",
+   "why": "«eine grobe Beleidigung» — книжно; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7005,
+   "col": "translation_pl",
+   "old": "grubiański, ordynarny, zgrubny, gruboziarnisty",
+   "new": "grubiański, zgrubny",
+   "why": "«eine grobe Beleidigung» — книжно; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7005,
+   "col": "translation_it",
+   "old": "grossolano, rozzo, sgarbato, approssimativo",
+   "new": "sgarbato, approssimativo",
+   "why": "«eine grobe Beleidigung» — книжно; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7005,
+   "col": "translation_es",
+   "old": "grosero, tosco, burdo, aproximado",
+   "new": "grosero, aproximado",
+   "why": "«eine grobe Beleidigung» — книжно; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7005,
+   "col": "translation_fr",
+   "old": "grossier, rude, approximatif",
+   "new": "grossier, approximatif",
+   "why": "«eine grobe Beleidigung» — книжно; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7005,
+   "col": "translation_cs",
+   "old": "hrubý, neomalený, přibližný",
+   "new": "hrubý, přibližný",
+   "why": "«eine grobe Beleidigung» — книжно; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7005,
+   "col": "example_de",
+   "old": "Das war eine grobe Beleidigung",
+   "new": "Grob geschätzt kostet das 100 Euro",
+   "why": "«eine grobe Beleidigung» — книжно; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7005,
+   "col": "example_ru",
+   "old": "Это было грубое оскорбление",
+   "new": "Это стоит приблизительно 100 евро",
+   "why": "«eine grobe Beleidigung» — книжно; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7005,
+   "col": "example_uk",
+   "old": "Це була груба образа",
+   "new": "Це коштує приблизно 100 євро",
+   "why": "«eine grobe Beleidigung» — книжно; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7005,
+   "col": "example_en",
+   "old": "That was a rude insult",
+   "new": "At a rough guess it costs 100 euros",
+   "why": "«eine grobe Beleidigung» — книжно; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7005,
+   "col": "example_tr",
+   "old": "Bu kaba bir hakaretti",
+   "new": "Kabaca tahminle 100 euro tutar",
+   "why": "«eine grobe Beleidigung» — книжно; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7005,
+   "col": "example_pl",
+   "old": "To była grubiańska obraza",
+   "new": "Zgrubnie licząc, to kosztuje 100 euro",
+   "why": "«eine grobe Beleidigung» — книжно; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7005,
+   "col": "example_it",
+   "old": "È stato un insulto grossolano",
+   "new": "A stima approssimativa costa 100 euro",
+   "why": "«eine grobe Beleidigung» — книжно; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7005,
+   "col": "example_es",
+   "old": "Fue un insulto muy grosero",
+   "new": "Cuesta aproximadamente 100 euros",
+   "why": "«eine grobe Beleidigung» — книжно; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7005,
+   "col": "example_fr",
+   "old": "C'était une insulte grossière",
+   "new": "Ça coûte approximativement 100 euros",
+   "why": "«eine grobe Beleidigung» — книжно; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7005,
+   "col": "example_cs",
+   "old": "To byla hrubá urážka",
+   "new": "Stojí to přibližně 100 eur",
+   "why": "«eine grobe Beleidigung» — книжно; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10419,
+   "col": "translation_fr",
+   "old": "paranoïaque, parano (fam.)",
+   "new": "paranoïaque, parano",
+   "why": "убрать пометку (fam.)"
+  },
+  {
+   "id": 7006,
+   "col": "example_en",
+   "old": "I suspect he'll come soon",
+   "new": "I assume he'll be here soon",
+   "why": "английский пример: так не говорят («I suspect he'll come soon»)"
+  },
+  {
+   "id": 8846,
+   "col": "example_de",
+   "old": "Die Konferenz findet nächste Woche statt",
+   "new": "Ich bin die ganze Woche auf einer Konferenz in Wien",
+   "why": "«Die Konferenz findet nächste Woche statt» — шаблон Kongress"
+  },
+  {
+   "id": 8846,
+   "col": "example_ru",
+   "old": "Конференция пройдёт на следующей неделе",
+   "new": "Я всю неделю на конференции в Вене",
+   "why": "«Die Konferenz findet nächste Woche statt» — шаблон Kongress"
+  },
+  {
+   "id": 8846,
+   "col": "example_uk",
+   "old": "Конференція проходить наступного тижня",
+   "new": "Я весь тиждень на конференції у Відні",
+   "why": "«Die Konferenz findet nächste Woche statt» — шаблон Kongress"
+  },
+  {
+   "id": 8846,
+   "col": "example_en",
+   "old": "The conference takes place next week",
+   "new": "I'm at a conference in Vienna all week",
+   "why": "«Die Konferenz findet nächste Woche statt» — шаблон Kongress"
+  },
+  {
+   "id": 8846,
+   "col": "example_tr",
+   "old": "Konferans gelecek hafta yapılacak",
+   "new": "Bütün hafta Viyana'da bir konferanstayım",
+   "why": "«Die Konferenz findet nächste Woche statt» — шаблон Kongress"
+  },
+  {
+   "id": 8846,
+   "col": "example_pl",
+   "old": "Konferencja odbywa się w przyszłym tygodniu",
+   "new": "Cały tydzień jestem na konferencji w Wiedniu",
+   "why": "«Die Konferenz findet nächste Woche statt» — шаблон Kongress"
+  },
+  {
+   "id": 8846,
+   "col": "example_it",
+   "old": "La conferenza si tiene la settimana prossima",
+   "new": "Sono a una conferenza a Vienna tutta la settimana",
+   "why": "«Die Konferenz findet nächste Woche statt» — шаблон Kongress"
+  },
+  {
+   "id": 8846,
+   "col": "example_es",
+   "old": "La conferencia tiene lugar la próxima semana",
+   "new": "Estoy toda la semana en una conferencia en Viena",
+   "why": "«Die Konferenz findet nächste Woche statt» — шаблон Kongress"
+  },
+  {
+   "id": 8846,
+   "col": "example_fr",
+   "old": "La conférence a lieu la semaine prochaine",
+   "new": "Je suis à une conférence à Vienne toute la semaine",
+   "why": "«Die Konferenz findet nächste Woche statt» — шаблон Kongress"
+  },
+  {
+   "id": 8846,
+   "col": "example_cs",
+   "old": "Konference se koná příští týden",
+   "new": "Celý týden jsem na konferenci ve Vídni",
+   "why": "«Die Konferenz findet nächste Woche statt» — шаблон Kongress"
+  },
+  {
+   "id": 8847,
+   "col": "translation_ru",
+   "old": "занимать, заниматься чем-то, тревожить, давать работу",
+   "new": "занимать, тревожить",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8847,
+   "col": "translation_uk",
+   "old": "займати, займатися чимось, турбувати, давати роботу",
+   "new": "займати, турбувати",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8847,
+   "col": "translation_en",
+   "old": "to occupy, to deal with, to concern, to employ",
+   "new": "to occupy, to concern",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8847,
+   "col": "translation_tr",
+   "old": "meşgul etmek, ilgilenmek, düşündürmek, istihdam etmek",
+   "new": "meşgul etmek, düşündürmek",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8847,
+   "col": "translation_pl",
+   "old": "zajmować, zajmować się, zaprzątać, zatrudniać",
+   "new": "zajmować, zaprzątać",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8847,
+   "col": "translation_it",
+   "old": "preoccupare, occupare, occuparsi, impiegare",
+   "new": "preoccupare, occupare",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8847,
+   "col": "translation_es",
+   "old": "preocupar, ocupar, ocuparse, emplear",
+   "new": "preocupar, ocupar",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8847,
+   "col": "translation_fr",
+   "old": "préoccuper, occuper, s'occuper, employer",
+   "new": "préoccuper, occuper",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8847,
+   "col": "translation_cs",
+   "old": "zaměstnávat, zabývat se, trápit",
+   "new": "zaměstnávat, trápit",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11698,
+   "col": "translation_cs",
+   "old": "slanina, sádlo, špek (hovor.)",
+   "new": "slanina, špek",
+   "why": "убрать пометку (hovor.)"
+  },
+  {
+   "id": 12576,
+   "col": "example_en",
+   "old": "My grandfather sits in a wheelchair",
+   "new": "My grandad uses a wheelchair",
+   "why": "английский пример: так не говорят («sits in a wheelchair»)"
+  },
+  {
+   "id": 9776,
+   "col": "example_de",
+   "old": "Die Bezahlung erfolgt nach Abschluss der Arbeit",
+   "new": "Die Bezahlung ist hier echt schlecht",
+   "why": "«Die Bezahlung erfolgt nach Abschluss der Arbeit» — договор"
+  },
+  {
+   "id": 9776,
+   "col": "example_ru",
+   "old": "Оплата происходит после завершения работы",
+   "new": "Оплата здесь реально плохая",
+   "why": "«Die Bezahlung erfolgt nach Abschluss der Arbeit» — договор"
+  },
+  {
+   "id": 9776,
+   "col": "example_uk",
+   "old": "Оплата відбувається після завершення роботи",
+   "new": "Оплата тут справді погана",
+   "why": "«Die Bezahlung erfolgt nach Abschluss der Arbeit» — договор"
+  },
+  {
+   "id": 9776,
+   "col": "example_en",
+   "old": "Payment is made after the work is completed",
+   "new": "The pay here is really bad",
+   "why": "«Die Bezahlung erfolgt nach Abschluss der Arbeit» — договор"
+  },
+  {
+   "id": 9776,
+   "col": "example_tr",
+   "old": "Ödeme işin tamamlanmasından sonra yapılır",
+   "new": "Burada ücret gerçekten kötü",
+   "why": "«Die Bezahlung erfolgt nach Abschluss der Arbeit» — договор"
+  },
+  {
+   "id": 9776,
+   "col": "example_pl",
+   "old": "Zapłata nastąpi po zakończeniu pracy",
+   "new": "Wynagrodzenie jest tu naprawdę kiepskie",
+   "why": "«Die Bezahlung erfolgt nach Abschluss der Arbeit» — договор"
+  },
+  {
+   "id": 9776,
+   "col": "example_it",
+   "old": "Il pagamento avviene a lavoro concluso",
+   "new": "La paga qui è davvero bassa",
+   "why": "«Die Bezahlung erfolgt nach Abschluss der Arbeit» — договор"
+  },
+  {
+   "id": 9776,
+   "col": "example_es",
+   "old": "El pago se realiza al terminar el trabajo",
+   "new": "Aquí la paga es muy mala",
+   "why": "«Die Bezahlung erfolgt nach Abschluss der Arbeit» — договор"
+  },
+  {
+   "id": 9776,
+   "col": "example_fr",
+   "old": "Le paiement s'effectue une fois le travail terminé",
+   "new": "La paie est vraiment nulle ici",
+   "why": "«Die Bezahlung erfolgt nach Abschluss der Arbeit» — договор"
+  },
+  {
+   "id": 9776,
+   "col": "example_cs",
+   "old": "Platba proběhne po dokončení práce",
+   "new": "Plat je tady fakt mizerný",
+   "why": "«Die Bezahlung erfolgt nach Abschluss der Arbeit» — договор"
+  },
+  {
+   "id": 2999,
+   "col": "example_de",
+   "old": "Die Wärme der Sonne ist heute angenehm",
+   "new": "Sie strahlt so viel Wärme aus",
+   "why": "«Die Wärme der Sonne ist heute angenehm» — снова погода"
+  },
+  {
+   "id": 2999,
+   "col": "example_ru",
+   "old": "Тепло солнца сегодня приятное",
+   "new": "От неё исходит столько тепла",
+   "why": "«Die Wärme der Sonne ist heute angenehm» — снова погода"
+  },
+  {
+   "id": 2999,
+   "col": "example_uk",
+   "old": "Тепло сонця сьогодні приємне",
+   "new": "Від неї йде стільки тепла",
+   "why": "«Die Wärme der Sonne ist heute angenehm» — снова погода"
+  },
+  {
+   "id": 2999,
+   "col": "example_en",
+   "old": "The warmth of the sun is pleasant today",
+   "new": "She radiates so much warmth",
+   "why": "«Die Wärme der Sonne ist heute angenehm» — снова погода"
+  },
+  {
+   "id": 2999,
+   "col": "example_tr",
+   "old": "Güneşin sıcaklığı bugün hoş",
+   "new": "Etrafına o kadar çok sıcaklık yayıyor ki",
+   "why": "«Die Wärme der Sonne ist heute angenehm» — снова погода"
+  },
+  {
+   "id": 2999,
+   "col": "example_pl",
+   "old": "Ciepło słońca jest dziś przyjemne",
+   "new": "Emanuje z niej tyle ciepła",
+   "why": "«Die Wärme der Sonne ist heute angenehm» — снова погода"
+  },
+  {
+   "id": 2999,
+   "col": "example_it",
+   "old": "Oggi il calore del sole è piacevole",
+   "new": "Trasmette così tanto calore",
+   "why": "«Die Wärme der Sonne ist heute angenehm» — снова погода"
+  },
+  {
+   "id": 2999,
+   "col": "example_es",
+   "old": "Hoy el calor del sol es agradable",
+   "new": "Transmite tanta calidez",
+   "why": "«Die Wärme der Sonne ist heute angenehm» — снова погода"
+  },
+  {
+   "id": 2999,
+   "col": "example_fr",
+   "old": "La chaleur du soleil est agréable aujourd'hui",
+   "new": "Elle dégage tellement de chaleur",
+   "why": "«Die Wärme der Sonne ist heute angenehm» — снова погода"
+  },
+  {
+   "id": 2999,
+   "col": "example_cs",
+   "old": "Sluneční teplo je dnes příjemné",
+   "new": "Vyzařuje z ní tolik vřelosti",
+   "why": "«Die Wärme der Sonne ist heute angenehm» — снова погода"
+  },
+  {
+   "id": 2142,
+   "col": "translation_fr",
+   "old": "dépendant, accro (fam.)",
+   "new": "dépendant, accro",
+   "why": "убрать пометку (fam.)"
+  },
+  {
+   "id": 12578,
+   "col": "example_de",
+   "old": "Der Arzt verschreibt eine Dosis von 500 mg",
+   "new": "Die Dosis macht das Gift",
+   "why": "«Der Arzt verschreibt eine Dosis von 500 mg» — рецепт"
+  },
+  {
+   "id": 12578,
+   "col": "example_ru",
+   "old": "Врач назначает дозу 500 мг",
+   "new": "Яд делает доза",
+   "why": "«Der Arzt verschreibt eine Dosis von 500 mg» — рецепт"
+  },
+  {
+   "id": 12578,
+   "col": "example_uk",
+   "old": "Лікар призначає дозу 500 мг",
+   "new": "Отруту робить доза",
+   "why": "«Der Arzt verschreibt eine Dosis von 500 mg» — рецепт"
+  },
+  {
+   "id": 12578,
+   "col": "example_en",
+   "old": "The doctor prescribes a dose of 500 mg",
+   "new": "It's the dose that makes the poison",
+   "why": "«Der Arzt verschreibt eine Dosis von 500 mg» — рецепт"
+  },
+  {
+   "id": 12578,
+   "col": "example_tr",
+   "old": "Doktor 500 mg doz reçete ediyor",
+   "new": "Zehri yapan dozdur",
+   "why": "«Der Arzt verschreibt eine Dosis von 500 mg» — рецепт"
+  },
+  {
+   "id": 12578,
+   "col": "example_pl",
+   "old": "Lekarz przepisuje dawkę 500 mg",
+   "new": "Dawka czyni truciznę",
+   "why": "«Der Arzt verschreibt eine Dosis von 500 mg» — рецепт"
+  },
+  {
+   "id": 12578,
+   "col": "example_it",
+   "old": "Il medico prescrive una dose da 500 mg",
+   "new": "È la dose che fa il veleno",
+   "why": "«Der Arzt verschreibt eine Dosis von 500 mg» — рецепт"
+  },
+  {
+   "id": 12578,
+   "col": "example_es",
+   "old": "El médico receta una dosis de 500 mg",
+   "new": "La dosis hace el veneno",
+   "why": "«Der Arzt verschreibt eine Dosis von 500 mg» — рецепт"
+  },
+  {
+   "id": 12578,
+   "col": "example_fr",
+   "old": "Le médecin prescrit une dose de 500 mg",
+   "new": "C'est la dose qui fait le poison",
+   "why": "«Der Arzt verschreibt eine Dosis von 500 mg» — рецепт"
+  },
+  {
+   "id": 12578,
+   "col": "example_cs",
+   "old": "Lékař předepisuje dávku 500 mg",
+   "new": "Jed dělá dávka",
+   "why": "«Der Arzt verschreibt eine Dosis von 500 mg» — рецепт"
+  },
+  {
+   "id": 17128,
+   "col": "translation_ru",
+   "old": "тележка, тачка, развалюха (разг. о машине)",
+   "new": "развалюха, тачка",
+   "why": "«Ich schiebe die Karre zum Markt» — пусто; убрать пометки (разг.)/(colloq.)/(fam.)/(hovor.)"
+  },
+  {
+   "id": 17128,
+   "col": "translation_uk",
+   "old": "візок, тачка, драндулет",
+   "new": "драндулет, тачка",
+   "why": "«Ich schiebe die Karre zum Markt» — пусто; убрать пометки (разг.)/(colloq.)/(fam.)/(hovor.)"
+  },
+  {
+   "id": 17128,
+   "col": "translation_en",
+   "old": "cart, barrow, old banger",
+   "new": "old banger, cart",
+   "why": "«Ich schiebe die Karre zum Markt» — пусто; убрать пометки (разг.)/(colloq.)/(fam.)/(hovor.)"
+  },
+  {
+   "id": 17128,
+   "col": "translation_tr",
+   "old": "el arabası, külüstür araba",
+   "new": "külüstür araba, el arabası",
+   "why": "«Ich schiebe die Karre zum Markt» — пусто; убрать пометки (разг.)/(colloq.)/(fam.)/(hovor.)"
+  },
+  {
+   "id": 17128,
+   "col": "translation_pl",
+   "old": "taczka, wózek, gruchot",
+   "new": "gruchot, taczka",
+   "why": "«Ich schiebe die Karre zum Markt» — пусто; убрать пометки (разг.)/(colloq.)/(fam.)/(hovor.)"
+  },
+  {
+   "id": 17128,
+   "col": "translation_it",
+   "old": "il carretto, la carriola, il macinino (colloq.)",
+   "new": "il macinino, il carretto",
+   "why": "«Ich schiebe die Karre zum Markt» — пусто; убрать пометки (разг.)/(colloq.)/(fam.)/(hovor.)"
+  },
+  {
+   "id": 17128,
+   "col": "translation_es",
+   "old": "la carretilla, el carro",
+   "new": "el carro, la carretilla",
+   "why": "«Ich schiebe die Karre zum Markt» — пусто; убрать пометки (разг.)/(colloq.)/(fam.)/(hovor.)"
+  },
+  {
+   "id": 17128,
+   "col": "translation_fr",
+   "old": "la charrette, la brouette, la bagnole (fam.)",
+   "new": "la bagnole, la brouette",
+   "why": "«Ich schiebe die Karre zum Markt» — пусто; убрать пометки (разг.)/(colloq.)/(fam.)/(hovor.)"
+  },
+  {
+   "id": 17128,
+   "col": "translation_cs",
+   "old": "kára, trakař, kraksna (hovor.)",
+   "new": "kraksna, trakař",
+   "why": "«Ich schiebe die Karre zum Markt» — пусто; убрать пометки (разг.)/(colloq.)/(fam.)/(hovor.)"
+  },
+  {
+   "id": 17128,
+   "col": "example_de",
+   "old": "Ich schiebe die Karre zum Markt",
+   "new": "Die alte Karre springt nicht an",
+   "why": "«Ich schiebe die Karre zum Markt» — пусто; убрать пометки (разг.)/(colloq.)/(fam.)/(hovor.)"
+  },
+  {
+   "id": 17128,
+   "col": "example_ru",
+   "old": "Я толкаю тачку на рынок",
+   "new": "Эта старая развалюха не заводится",
+   "why": "«Ich schiebe die Karre zum Markt» — пусто; убрать пометки (разг.)/(colloq.)/(fam.)/(hovor.)"
+  },
+  {
+   "id": 17128,
+   "col": "example_uk",
+   "old": "Я штовхаю візок до ринку",
+   "new": "Цей старий драндулет не заводиться",
+   "why": "«Ich schiebe die Karre zum Markt» — пусто; убрать пометки (разг.)/(colloq.)/(fam.)/(hovor.)"
+  },
+  {
+   "id": 17128,
+   "col": "example_en",
+   "old": "I push the cart to the market",
+   "new": "The old banger won't start",
+   "why": "«Ich schiebe die Karre zum Markt» — пусто; убрать пометки (разг.)/(colloq.)/(fam.)/(hovor.)"
+  },
+  {
+   "id": 17128,
+   "col": "example_tr",
+   "old": "El arabasını pazara doğru itiyorum",
+   "new": "Külüstür araba çalışmıyor",
+   "why": "«Ich schiebe die Karre zum Markt» — пусто; убрать пометки (разг.)/(colloq.)/(fam.)/(hovor.)"
+  },
+  {
+   "id": 17128,
+   "col": "example_pl",
+   "old": "Pcham taczkę na targ",
+   "new": "Stary gruchot nie chce zapalić",
+   "why": "«Ich schiebe die Karre zum Markt» — пусто; убрать пометки (разг.)/(colloq.)/(fam.)/(hovor.)"
+  },
+  {
+   "id": 17128,
+   "col": "example_it",
+   "old": "Spingo il carretto fino al mercato",
+   "new": "Il vecchio macinino non parte",
+   "why": "«Ich schiebe die Karre zum Markt» — пусто; убрать пометки (разг.)/(colloq.)/(fam.)/(hovor.)"
+  },
+  {
+   "id": 17128,
+   "col": "example_es",
+   "old": "Empujo la carretilla hasta el mercado",
+   "new": "El viejo carro no arranca",
+   "why": "«Ich schiebe die Karre zum Markt» — пусто; убрать пометки (разг.)/(colloq.)/(fam.)/(hovor.)"
+  },
+  {
+   "id": 17128,
+   "col": "example_fr",
+   "old": "Je pousse la charrette jusqu'au marché",
+   "new": "La vieille bagnole ne démarre pas",
+   "why": "«Ich schiebe die Karre zum Markt» — пусто; убрать пометки (разг.)/(colloq.)/(fam.)/(hovor.)"
+  },
+  {
+   "id": 17128,
+   "col": "example_cs",
+   "old": "Tlačím káru na trh",
+   "new": "Ta stará kraksna nechce naskočit",
+   "why": "«Ich schiebe die Karre zum Markt» — пусто; убрать пометки (разг.)/(colloq.)/(fam.)/(hovor.)"
+  },
+  {
+   "id": 7010,
+   "col": "example_de",
+   "old": "Nichts hindert uns, unsere Ziele zu erreichen",
+   "new": "Der Lärm hindert mich am Schlafen",
+   "why": "«Nichts hindert uns, unsere Ziele zu erreichen» — лозунг"
+  },
+  {
+   "id": 7010,
+   "col": "example_ru",
+   "old": "Ничто не мешает нам достичь наших целей",
+   "new": "Шум мешает мне спать",
+   "why": "«Nichts hindert uns, unsere Ziele zu erreichen» — лозунг"
+  },
+  {
+   "id": 7010,
+   "col": "example_uk",
+   "old": "Ніщо не перешкоджає нам досягти наших цілей",
+   "new": "Шум заважає мені спати",
+   "why": "«Nichts hindert uns, unsere Ziele zu erreichen» — лозунг"
+  },
+  {
+   "id": 7010,
+   "col": "example_en",
+   "old": "Nothing hinders us from reaching our goals",
+   "new": "The noise stops me from sleeping",
+   "why": "«Nichts hindert uns, unsere Ziele zu erreichen» — лозунг"
+  },
+  {
+   "id": 7010,
+   "col": "example_tr",
+   "old": "Hiçbir şey bizi hedeflerimize ulaşmaktan engellemiyor",
+   "new": "Gürültü uyumamı engelliyor",
+   "why": "«Nichts hindert uns, unsere Ziele zu erreichen» — лозунг"
+  },
+  {
+   "id": 7010,
+   "col": "example_pl",
+   "old": "Nic nam nie przeszkadza w osiągnięciu naszych celów",
+   "new": "Hałas przeszkadza mi spać",
+   "why": "«Nichts hindert uns, unsere Ziele zu erreichen» — лозунг"
+  },
+  {
+   "id": 7010,
+   "col": "example_it",
+   "old": "Niente ci impedisce di raggiungere i nostri obiettivi",
+   "new": "Il rumore mi impedisce di dormire",
+   "why": "«Nichts hindert uns, unsere Ziele zu erreichen» — лозунг"
+  },
+  {
+   "id": 7010,
+   "col": "example_es",
+   "old": "Nada nos impide alcanzar nuestros objetivos",
+   "new": "El ruido me impide dormir",
+   "why": "«Nichts hindert uns, unsere Ziele zu erreichen» — лозунг"
+  },
+  {
+   "id": 7010,
+   "col": "example_fr",
+   "old": "Rien ne nous empêche d'atteindre nos objectifs",
+   "new": "Le bruit m'empêche de dormir",
+   "why": "«Nichts hindert uns, unsere Ziele zu erreichen» — лозунг"
+  },
+  {
+   "id": 7010,
+   "col": "example_cs",
+   "old": "Nic nám nebrání dosáhnout našich cílů",
+   "new": "Hluk mi brání spát",
+   "why": "«Nichts hindert uns, unsere Ziele zu erreichen» — лозунг"
+  },
+  {
+   "id": 2687,
+   "col": "example_de",
+   "old": "Das war eine Niederlage",
+   "new": "Nach der Niederlage war die Stimmung im Keller",
+   "why": "«Das war eine Niederlage» — пусто"
+  },
+  {
+   "id": 2687,
+   "col": "example_ru",
+   "old": "Это было поражение",
+   "new": "После поражения настроение было ниже плинтуса",
+   "why": "«Das war eine Niederlage» — пусто"
+  },
+  {
+   "id": 2687,
+   "col": "example_uk",
+   "old": "Це була поразка",
+   "new": "Після поразки настрій був на нулі",
+   "why": "«Das war eine Niederlage» — пусто"
+  },
+  {
+   "id": 2687,
+   "col": "example_en",
+   "old": "That was a defeat",
+   "new": "After the defeat everyone was really down",
+   "why": "«Das war eine Niederlage» — пусто"
+  },
+  {
+   "id": 2687,
+   "col": "example_tr",
+   "old": "Bu bir yenilgiydi",
+   "new": "Yenilgiden sonra moraller bozuktu",
+   "why": "«Das war eine Niederlage» — пусто"
+  },
+  {
+   "id": 2687,
+   "col": "example_pl",
+   "old": "To była porażka",
+   "new": "Po porażce nastroje były fatalne",
+   "why": "«Das war eine Niederlage» — пусто"
+  },
+  {
+   "id": 2687,
+   "col": "example_it",
+   "old": "È stata una sconfitta",
+   "new": "Dopo la sconfitta l'umore era a terra",
+   "why": "«Das war eine Niederlage» — пусто"
+  },
+  {
+   "id": 2687,
+   "col": "example_es",
+   "old": "Fue una derrota",
+   "new": "Tras la derrota el ánimo estaba por los suelos",
+   "why": "«Das war eine Niederlage» — пусто"
+  },
+  {
+   "id": 2687,
+   "col": "example_fr",
+   "old": "C'était une défaite",
+   "new": "Après la défaite, le moral était au plus bas",
+   "why": "«Das war eine Niederlage» — пусто"
+  },
+  {
+   "id": 2687,
+   "col": "example_cs",
+   "old": "To byla porážka",
+   "new": "Po porážce byla nálada pod psa",
+   "why": "«Das war eine Niederlage» — пусто"
+  },
+  {
+   "id": 17524,
+   "col": "translation_ru",
+   "old": "рубить, колоть, мелко нарезать, взламывать",
+   "new": "рубить, взламывать",
+   "why": "«Der Hacker versucht … zu hacken» — масло масляное; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17524,
+   "col": "translation_uk",
+   "old": "рубати, колоти, дрібно сікти, зламувати",
+   "new": "рубати, зламувати",
+   "why": "«Der Hacker versucht … zu hacken» — масло масляное; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17524,
+   "col": "translation_en",
+   "old": "to chop, to hack, to mince, to hack into a computer",
+   "new": "to chop, to hack",
+   "why": "«Der Hacker versucht … zu hacken» — масло масляное; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17524,
+   "col": "translation_tr",
+   "old": "kesmek, doğramak, yarmak, bilgisayar korsanlığı yapmak",
+   "new": "doğramak, bilgisayar korsanlığı yapmak",
+   "why": "«Der Hacker versucht … zu hacken» — масло масляное; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17524,
+   "col": "translation_pl",
+   "old": "rąbać, siekać, włamywać się do systemu",
+   "new": "siekać, włamywać się",
+   "why": "«Der Hacker versucht … zu hacken» — масло масляное; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17524,
+   "col": "translation_it",
+   "old": "hackerare, spaccare, tritare",
+   "new": "tritare, hackerare",
+   "why": "«Der Hacker versucht … zu hacken» — масло масляное; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17524,
+   "col": "translation_es",
+   "old": "hackear, picar, cortar",
+   "new": "picar, hackear",
+   "why": "«Der Hacker versucht … zu hacken» — масло масляное; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17524,
+   "col": "translation_fr",
+   "old": "pirater, hacher, couper",
+   "new": "hacher, pirater",
+   "why": "«Der Hacker versucht … zu hacken» — масло масляное; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17524,
+   "col": "translation_cs",
+   "old": "hacknout, sekat, štípat",
+   "new": "sekat, hacknout",
+   "why": "«Der Hacker versucht … zu hacken» — масло масляное; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17524,
+   "col": "example_de",
+   "old": "Der Hacker versucht, die Website zu hacken",
+   "new": "Ich hacke die Zwiebeln klein",
+   "why": "«Der Hacker versucht … zu hacken» — масло масляное; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17524,
+   "col": "example_ru",
+   "old": "Хакер пытается взломать сайт",
+   "new": "Я мелко рублю лук",
+   "why": "«Der Hacker versucht … zu hacken» — масло масляное; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17524,
+   "col": "example_uk",
+   "old": "Хакер намагається зламати сайт",
+   "new": "Я дрібно січу цибулю",
+   "why": "«Der Hacker versucht … zu hacken» — масло масляное; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17524,
+   "col": "example_en",
+   "old": "The hacker is trying to hack the website",
+   "new": "I'm chopping the onions finely",
+   "why": "«Der Hacker versucht … zu hacken» — масло масляное; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17524,
+   "col": "example_tr",
+   "old": "Hacker web sitesini hacklemeye çalışıyor",
+   "new": "Soğanları ince ince doğruyorum",
+   "why": "«Der Hacker versucht … zu hacken» — масло масляное; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17524,
+   "col": "example_pl",
+   "old": "Haker próbuje włamać się na stronę internetową",
+   "new": "Siekam drobno cebulę",
+   "why": "«Der Hacker versucht … zu hacken» — масло масляное; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17524,
+   "col": "example_it",
+   "old": "L'hacker cerca di hackerare il sito web",
+   "new": "Trito finemente le cipolle",
+   "why": "«Der Hacker versucht … zu hacken» — масло масляное; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17524,
+   "col": "example_es",
+   "old": "El hacker intenta hackear la página web",
+   "new": "Pico la cebolla muy fina",
+   "why": "«Der Hacker versucht … zu hacken» — масло масляное; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17524,
+   "col": "example_fr",
+   "old": "Le hacker essaie de pirater le site web",
+   "new": "Je hache les oignons finement",
+   "why": "«Der Hacker versucht … zu hacken» — масло масляное; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17524,
+   "col": "example_cs",
+   "old": "Hacker se snaží hacknout ten web",
+   "new": "Nasekám cibuli najemno",
+   "why": "«Der Hacker versucht … zu hacken» — масло масляное; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7011,
+   "col": "example_de",
+   "old": "Sitz aufrecht und nicht gekrümmt",
+   "new": "Sitz bitte aufrecht!",
+   "why": "«Sitz aufrecht und nicht gekrümmt» — так не говорят"
+  },
+  {
+   "id": 7011,
+   "col": "example_ru",
+   "old": "Сиди прямо, не сгибайся",
+   "new": "Сиди, пожалуйста, прямо!",
+   "why": "«Sitz aufrecht und nicht gekrümmt» — так не говорят"
+  },
+  {
+   "id": 7011,
+   "col": "example_uk",
+   "old": "Сидь прямо, не згинайся",
+   "new": "Сиди, будь ласка, прямо!",
+   "why": "«Sitz aufrecht und nicht gekrümmt» — так не говорят"
+  },
+  {
+   "id": 7011,
+   "col": "example_en",
+   "old": "Sit upright and not bent",
+   "new": "Sit up straight, please!",
+   "why": "«Sitz aufrecht und nicht gekrümmt» — так не говорят"
+  },
+  {
+   "id": 7011,
+   "col": "example_tr",
+   "old": "Dik otur, kamburunu çıkarma",
+   "new": "Lütfen dik otur!",
+   "why": "«Sitz aufrecht und nicht gekrümmt» — так не говорят"
+  },
+  {
+   "id": 7011,
+   "col": "example_pl",
+   "old": "Siedź wyprostowany, a nie zgarbiony",
+   "new": "Siedź, proszę, prosto!",
+   "why": "«Sitz aufrecht und nicht gekrümmt» — так не говорят"
+  },
+  {
+   "id": 7011,
+   "col": "example_it",
+   "old": "Siediti dritto, non stare gobbo",
+   "new": "Stai seduto dritto, per favore!",
+   "why": "«Sitz aufrecht und nicht gekrümmt» — так не говорят"
+  },
+  {
+   "id": 7011,
+   "col": "example_es",
+   "old": "Siéntate derecho y no te encorves",
+   "new": "¡Siéntate derecho, por favor!",
+   "why": "«Sitz aufrecht und nicht gekrümmt» — так не говорят"
+  },
+  {
+   "id": 7011,
+   "col": "example_fr",
+   "old": "Assieds-toi bien droit, ne sois pas voûté",
+   "new": "Tiens-toi droit, s'il te plaît!",
+   "why": "«Sitz aufrecht und nicht gekrümmt» — так не говорят"
+  },
+  {
+   "id": 7011,
+   "col": "example_cs",
+   "old": "Seď rovně, ne shrbeně",
+   "new": "Seď prosím zpříma!",
+   "why": "«Sitz aufrecht und nicht gekrümmt» — так не говорят"
+  },
+  {
+   "id": 15023,
+   "col": "example_de",
+   "old": "Die Gestalt des Mannes war groß und schlank",
+   "new": "Im Nebel sehe ich eine dunkle Gestalt",
+   "why": "«Die Gestalt des Mannes war groß und schlank» — роман"
+  },
+  {
+   "id": 15023,
+   "col": "example_ru",
+   "old": "Фигура мужчины была высокая и стройная",
+   "new": "В тумане я вижу тёмную фигуру",
+   "why": "«Die Gestalt des Mannes war groß und schlank» — роман"
+  },
+  {
+   "id": 15023,
+   "col": "example_uk",
+   "old": "Фігура чоловіка була висока і струнка",
+   "new": "У тумані я бачу темну постать",
+   "why": "«Die Gestalt des Mannes war groß und schlank» — роман"
+  },
+  {
+   "id": 15023,
+   "col": "example_en",
+   "old": "The man's figure was tall and slender",
+   "new": "I can see a dark figure in the fog",
+   "why": "«Die Gestalt des Mannes war groß und schlank» — роман"
+  },
+  {
+   "id": 15023,
+   "col": "example_tr",
+   "old": "Adamın figürü uzun ve inceydi",
+   "new": "Siste karanlık bir siluet görüyorum",
+   "why": "«Die Gestalt des Mannes war groß und schlank» — роман"
+  },
+  {
+   "id": 15023,
+   "col": "example_pl",
+   "old": "Postać mężczyzny była wysoka i szczupła",
+   "new": "We mgle widzę ciemną postać",
+   "why": "«Die Gestalt des Mannes war groß und schlank» — роман"
+  },
+  {
+   "id": 15023,
+   "col": "example_it",
+   "old": "La figura dell'uomo era alta e snella",
+   "new": "Nella nebbia vedo una figura scura",
+   "why": "«Die Gestalt des Mannes war groß und schlank» — роман"
+  },
+  {
+   "id": 15023,
+   "col": "example_es",
+   "old": "La figura del hombre era alta y delgada",
+   "new": "En la niebla veo una figura oscura",
+   "why": "«Die Gestalt des Mannes war groß und schlank» — роман"
+  },
+  {
+   "id": 15023,
+   "col": "example_fr",
+   "old": "La silhouette de l'homme était grande et mince",
+   "new": "Dans le brouillard, je vois une silhouette sombre",
+   "why": "«Die Gestalt des Mannes war groß und schlank» — роман"
+  },
+  {
+   "id": 15023,
+   "col": "example_cs",
+   "old": "Postava toho muže byla vysoká a štíhlá",
+   "new": "V mlze vidím tmavou postavu",
+   "why": "«Die Gestalt des Mannes war groß und schlank» — роман"
+  },
+  {
+   "id": 10422,
+   "col": "example_de",
+   "old": "Du musst dich nicht so aufregen",
+   "new": "Reg dich doch nicht so auf!",
+   "why": "ru «Тебе не нужно так волноваться» — калька"
+  },
+  {
+   "id": 10422,
+   "col": "example_ru",
+   "old": "Тебе не нужно так волноваться",
+   "new": "Не волнуйся ты так!",
+   "why": "ru «Тебе не нужно так волноваться» — калька"
+  },
+  {
+   "id": 10422,
+   "col": "example_uk",
+   "old": "Тобі не треба так хвилюватися",
+   "new": "Не хвилюйся ти так!",
+   "why": "ru «Тебе не нужно так волноваться» — калька"
+  },
+  {
+   "id": 10422,
+   "col": "example_en",
+   "old": "You don't need to get so worked up",
+   "new": "Don't get so worked up!",
+   "why": "ru «Тебе не нужно так волноваться» — калька"
+  },
+  {
+   "id": 10422,
+   "col": "example_tr",
+   "old": "Bu kadar sinirlenmene gerek yok",
+   "new": "Bu kadar sinirlenme!",
+   "why": "ru «Тебе не нужно так волноваться» — калька"
+  },
+  {
+   "id": 10422,
+   "col": "example_pl",
+   "old": "Nie musisz się tak denerwować",
+   "new": "Nie denerwuj się tak!",
+   "why": "ru «Тебе не нужно так волноваться» — калька"
+  },
+  {
+   "id": 10422,
+   "col": "example_it",
+   "old": "Non ti devi agitare così",
+   "new": "Non agitarti così!",
+   "why": "ru «Тебе не нужно так волноваться» — калька"
+  },
+  {
+   "id": 10422,
+   "col": "example_es",
+   "old": "No tienes que alterarte tanto",
+   "new": "¡No te alteres tanto!",
+   "why": "ru «Тебе не нужно так волноваться» — калька"
+  },
+  {
+   "id": 10422,
+   "col": "example_fr",
+   "old": "Tu n'as pas à t'énerver comme ça",
+   "new": "Ne t'énerve pas comme ça!",
+   "why": "ru «Тебе не нужно так волноваться» — калька"
+  },
+  {
+   "id": 10422,
+   "col": "example_cs",
+   "old": "Nemusíš se tak rozčilovat",
+   "new": "Nerozčiluj se tak!",
+   "why": "ru «Тебе не нужно так волноваться» — калька"
+  },
+  {
+   "id": 15487,
+   "col": "translation_en",
+   "old": "rooster, tap, faucet",
+   "new": "rooster, tap",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16122,
+   "col": "example_de",
+   "old": "Die Armee erobert die Stadt",
+   "new": "Er hat ihr Herz im Sturm erobert",
+   "why": "«Die Armee erobert die Stadt» — учебник истории"
+  },
+  {
+   "id": 16122,
+   "col": "example_ru",
+   "old": "Армия завоевывает город",
+   "new": "Он быстро покорил её сердце",
+   "why": "«Die Armee erobert die Stadt» — учебник истории"
+  },
+  {
+   "id": 16122,
+   "col": "example_uk",
+   "old": "Армія завойовує місто",
+   "new": "Він швидко підкорив її серце",
+   "why": "«Die Armee erobert die Stadt» — учебник истории"
+  },
+  {
+   "id": 16122,
+   "col": "example_en",
+   "old": "The army conquers the city",
+   "new": "He won her heart in no time",
+   "why": "«Die Armee erobert die Stadt» — учебник истории"
+  },
+  {
+   "id": 16122,
+   "col": "example_tr",
+   "old": "Ordu şehri fethediyor",
+   "new": "Kısa sürede onun gönlünü kazandı",
+   "why": "«Die Armee erobert die Stadt» — учебник истории"
+  },
+  {
+   "id": 16122,
+   "col": "example_pl",
+   "old": "Armia zdobywa miasto",
+   "new": "Szybko zdobył jej serce",
+   "why": "«Die Armee erobert die Stadt» — учебник истории"
+  },
+  {
+   "id": 16122,
+   "col": "example_it",
+   "old": "L'esercito conquista la città",
+   "new": "Ha conquistato il suo cuore in un attimo",
+   "why": "«Die Armee erobert die Stadt» — учебник истории"
+  },
+  {
+   "id": 16122,
+   "col": "example_es",
+   "old": "El ejército conquista la ciudad",
+   "new": "Conquistó su corazón enseguida",
+   "why": "«Die Armee erobert die Stadt» — учебник истории"
+  },
+  {
+   "id": 16122,
+   "col": "example_fr",
+   "old": "L'armée s'empare de la ville",
+   "new": "Il a conquis son cœur en un rien de temps",
+   "why": "«Die Armee erobert die Stadt» — учебник истории"
+  },
+  {
+   "id": 16122,
+   "col": "example_cs",
+   "old": "Armáda dobývá město",
+   "new": "Hned si získal její srdce",
+   "why": "«Die Armee erobert die Stadt» — учебник истории"
+  },
+  {
+   "id": 1826,
+   "col": "translation_ru",
+   "old": "купюра, видимость, свет, сияние, справка, свидетельство",
+   "new": "купюра, видимость",
+   "why": "список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 1826,
+   "col": "translation_uk",
+   "old": "купюра, видимість, сяйво, світло, довідка",
+   "new": "купюра, видимість",
+   "why": "список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 1826,
+   "col": "translation_en",
+   "old": "banknote, appearance, semblance, glow, light, certificate",
+   "new": "note, appearance",
+   "why": "список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 1826,
+   "col": "translation_tr",
+   "old": "banknot, görünüş, ışık, parıltı, belge",
+   "new": "banknot, görünüş",
+   "why": "список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 1826,
+   "col": "translation_pl",
+   "old": "banknot, pozór, blask, zaświadczenie",
+   "new": "banknot, pozór",
+   "why": "список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 1826,
+   "col": "translation_it",
+   "old": "la banconota, il biglietto, l'apparenza, la luce, il certificato",
+   "new": "la banconota, l'apparenza",
+   "why": "список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 1826,
+   "col": "translation_es",
+   "old": "el billete, la apariencia, el resplandor, el certificado",
+   "new": "el billete, la apariencia",
+   "why": "список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 1826,
+   "col": "translation_fr",
+   "old": "le billet, l'apparence, la lueur, le certificat",
+   "new": "le billet, l'apparence",
+   "why": "список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 1826,
+   "col": "translation_cs",
+   "old": "bankovka, zdání, svit, potvrzení",
+   "new": "bankovka, zdání",
+   "why": "список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 7013,
+   "col": "translation_ru",
+   "old": "точный, именно, ровно, верно",
+   "new": "точный",
+   "why": "наречие «точно» — у ряда A2 (325); здесь прилагательное"
+  },
+  {
+   "id": 7013,
+   "col": "translation_uk",
+   "old": "точний, саме, рівно, авжеж",
+   "new": "точний",
+   "why": "наречие «точно» — у ряда A2 (325); здесь прилагательное"
+  },
+  {
+   "id": 7013,
+   "col": "translation_en",
+   "old": "exact, precise, exactly, right",
+   "new": "exact, precise",
+   "why": "наречие «точно» — у ряда A2 (325); здесь прилагательное"
+  },
+  {
+   "id": 7013,
+   "col": "translation_tr",
+   "old": "tam, kesin, aynen, tamamen",
+   "new": "kesin, tam",
+   "why": "наречие «точно» — у ряда A2 (325); здесь прилагательное"
+  },
+  {
+   "id": 7013,
+   "col": "translation_pl",
+   "old": "dokładny, ścisły, właśnie, dokładnie",
+   "new": "dokładny",
+   "why": "наречие «точно» — у ряда A2 (325); здесь прилагательное"
+  },
+  {
+   "id": 7013,
+   "col": "translation_it",
+   "old": "esatto, preciso, esattamente",
+   "new": "esatto, preciso",
+   "why": "наречие «точно» — у ряда A2 (325); здесь прилагательное"
+  },
+  {
+   "id": 7013,
+   "col": "translation_es",
+   "old": "exacto, preciso, exactamente",
+   "new": "exacto, preciso",
+   "why": "наречие «точно» — у ряда A2 (325); здесь прилагательное"
+  },
+  {
+   "id": 7013,
+   "col": "translation_fr",
+   "old": "exact, précis, exactement",
+   "new": "exact, précis",
+   "why": "наречие «точно» — у ряда A2 (325); здесь прилагательное"
+  },
+  {
+   "id": 7013,
+   "col": "translation_cs",
+   "old": "přesný, přesně",
+   "new": "přesný",
+   "why": "наречие «точно» — у ряда A2 (325); здесь прилагательное"
+  },
+  {
+   "id": 10423,
+   "col": "example_de",
+   "old": "Ihr Lächeln war bezaubernd",
+   "new": "Was für ein bezauberndes kleines Dorf!",
+   "why": "«Ihr Lächeln war bezaubernd» — претерит"
+  },
+  {
+   "id": 10423,
+   "col": "example_ru",
+   "old": "Её улыбка была очаровательной",
+   "new": "Какая очаровательная деревушка!",
+   "why": "«Ihr Lächeln war bezaubernd» — претерит"
+  },
+  {
+   "id": 10423,
+   "col": "example_uk",
+   "old": "Її посмішка була чарівною",
+   "new": "Яке чарівне селище!",
+   "why": "«Ihr Lächeln war bezaubernd» — претерит"
+  },
+  {
+   "id": 10423,
+   "col": "example_en",
+   "old": "Her smile was charming",
+   "new": "What a charming little village!",
+   "why": "«Ihr Lächeln war bezaubernd» — претерит"
+  },
+  {
+   "id": 10423,
+   "col": "example_tr",
+   "old": "Gülümsemesi büyüleyiciydi",
+   "new": "Ne büyüleyici küçük bir köy!",
+   "why": "«Ihr Lächeln war bezaubernd» — претерит"
+  },
+  {
+   "id": 10423,
+   "col": "example_pl",
+   "old": "Jej uśmiech był czarujący",
+   "new": "Co za urocza mała wioska!",
+   "why": "«Ihr Lächeln war bezaubernd» — претерит"
+  },
+  {
+   "id": 10423,
+   "col": "example_it",
+   "old": "Il suo sorriso era incantevole",
+   "new": "Che paesino incantevole!",
+   "why": "«Ihr Lächeln war bezaubernd» — претерит"
+  },
+  {
+   "id": 10423,
+   "col": "example_es",
+   "old": "Su sonrisa era encantadora",
+   "new": "¡Qué pueblecito tan encantador!",
+   "why": "«Ihr Lächeln war bezaubernd» — претерит"
+  },
+  {
+   "id": 10423,
+   "col": "example_fr",
+   "old": "Son sourire était ravissant",
+   "new": "Quel charmant petit village!",
+   "why": "«Ihr Lächeln war bezaubernd» — претерит"
+  },
+  {
+   "id": 10423,
+   "col": "example_cs",
+   "old": "Její úsměv byl okouzlující",
+   "new": "To je ale kouzelná vesnička!",
+   "why": "«Ihr Lächeln war bezaubernd» — претерит"
+  },
+  {
+   "id": 10424,
+   "col": "example_de",
+   "old": "Sie zeigte ihre Zuneigung durch kleine Gesten",
+   "new": "Kinder brauchen viel Zuneigung",
+   "why": "«Sie zeigte ihre Zuneigung …» — претерит"
+  },
+  {
+   "id": 10424,
+   "col": "example_ru",
+   "old": "Она проявляла привязанность маленькими жестами",
+   "new": "Детям нужно много нежности",
+   "why": "«Sie zeigte ihre Zuneigung …» — претерит"
+  },
+  {
+   "id": 10424,
+   "col": "example_uk",
+   "old": "Вона виявляла прихильність маленькими жестами",
+   "new": "Дітям потрібно багато ніжності",
+   "why": "«Sie zeigte ihre Zuneigung …» — претерит"
+  },
+  {
+   "id": 10424,
+   "col": "example_en",
+   "old": "She showed her affection through small gestures",
+   "new": "Children need lots of affection",
+   "why": "«Sie zeigte ihre Zuneigung …» — претерит"
+  },
+  {
+   "id": 10424,
+   "col": "example_tr",
+   "old": "Küçük jestlerle yakınlığını gösterdi",
+   "new": "Çocukların çok sevgiye ihtiyacı var",
+   "why": "«Sie zeigte ihre Zuneigung …» — претерит"
+  },
+  {
+   "id": 10424,
+   "col": "example_pl",
+   "old": "Okazywała czułość drobnymi gestami",
+   "new": "Dzieci potrzebują dużo czułości",
+   "why": "«Sie zeigte ihre Zuneigung …» — претерит"
+  },
+  {
+   "id": 10424,
+   "col": "example_it",
+   "old": "Mostrava il suo affetto con piccoli gesti",
+   "new": "I bambini hanno bisogno di tanto affetto",
+   "why": "«Sie zeigte ihre Zuneigung …» — претерит"
+  },
+  {
+   "id": 10424,
+   "col": "example_es",
+   "old": "Mostraba su cariño con pequeños gestos",
+   "new": "Los niños necesitan mucho cariño",
+   "why": "«Sie zeigte ihre Zuneigung …» — претерит"
+  },
+  {
+   "id": 10424,
+   "col": "example_fr",
+   "old": "Elle montrait son affection par de petits gestes",
+   "new": "Les enfants ont besoin de beaucoup d'affection",
+   "why": "«Sie zeigte ihre Zuneigung …» — претерит"
+  },
+  {
+   "id": 10424,
+   "col": "example_cs",
+   "old": "Svou náklonnost dávala najevo drobnými gesty",
+   "new": "Děti potřebují hodně něhy",
+   "why": "«Sie zeigte ihre Zuneigung …» — претерит"
+  }
+ ],
+ "replace": [
+  {
+   "id": 7014,
+   "by": 6382,
+   "lang": "de",
+   "why": "geteilt — причастие от teilen"
+  }
+ ],
+ "split_later": {}
+}
