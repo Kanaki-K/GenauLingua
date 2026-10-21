@@ -1,0 +1,1464 @@
+{
+ "about": "2.3, B1 блок 24",
+ "edits": [
+  {
+   "id": 10273,
+   "col": "example_ru",
+   "old": "После долгого похода я совершенно измучен",
+   "new": "После долгого похода я совсем без сил",
+   "why": "ru «совершенно измучен» — книжно"
+  },
+  {
+   "id": 6714,
+   "col": "example_en",
+   "old": "That's possibly too expensive for us",
+   "new": "That might be too expensive for us",
+   "why": "английский пример: так не говорят («That's possibly too expensive»)"
+  },
+  {
+   "id": 9749,
+   "col": "translation_ru",
+   "old": "без денег, на мели, разорившийся, банкрот",
+   "new": "на мели, без денег",
+   "why": "список → главное слово и не больше одной альтернативы; убрать пометки (colloq.)"
+  },
+  {
+   "id": 9749,
+   "col": "translation_uk",
+   "old": "без грошей, на мілині, розорений, банкрут",
+   "new": "на мілині, без грошей",
+   "why": "список → главное слово и не больше одной альтернативы; убрать пометки (colloq.)"
+  },
+  {
+   "id": 9749,
+   "col": "translation_en",
+   "old": "broke, out of money, bankrupt",
+   "new": "broke, bankrupt",
+   "why": "список → главное слово и не больше одной альтернативы; убрать пометки (colloq.)"
+  },
+  {
+   "id": 9749,
+   "col": "translation_tr",
+   "old": "beş parasız, parasız, iflas etmiş",
+   "new": "beş parasız, iflas etmiş",
+   "why": "список → главное слово и не больше одной альтернативы; убрать пометки (colloq.)"
+  },
+  {
+   "id": 9749,
+   "col": "translation_pl",
+   "old": "spłukany, bez pieniędzy, zbankrutowany",
+   "new": "spłukany, zbankrutowany",
+   "why": "список → главное слово и не больше одной альтернативы; убрать пометки (colloq.)"
+  },
+  {
+   "id": 9749,
+   "col": "translation_it",
+   "old": "senza soldi, squattrinato, al verde (colloq.), fallito",
+   "new": "al verde, squattrinato",
+   "why": "список → главное слово и не больше одной альтернативы; убрать пометки (colloq.)"
+  },
+  {
+   "id": 9749,
+   "col": "translation_es",
+   "old": "sin dinero, sin blanca (coloq.), sin plata, en quiebra",
+   "new": "sin blanca, en quiebra",
+   "why": "список → главное слово и не больше одной альтернативы; убрать пометки (colloq.)"
+  },
+  {
+   "id": 9749,
+   "col": "translation_fr",
+   "old": "sans argent, ruiné, fauché (fam.)",
+   "new": "fauché, ruiné",
+   "why": "список → главное слово и не больше одной альтернативы; убрать пометки (colloq.)"
+  },
+  {
+   "id": 14410,
+   "col": "example_de",
+   "old": "Das Drehbuch für den Film ist fertig",
+   "new": "Er schreibt Drehbücher für Serien",
+   "why": "«Das Drehbuch für den Film ist fertig» — пусто"
+  },
+  {
+   "id": 14410,
+   "col": "example_ru",
+   "old": "Сценарий для фильма готов",
+   "new": "Он пишет сценарии для сериалов",
+   "why": "«Das Drehbuch für den Film ist fertig» — пусто"
+  },
+  {
+   "id": 14410,
+   "col": "example_uk",
+   "old": "Сценарій для фільму готовий",
+   "new": "Він пише сценарії для серіалів",
+   "why": "«Das Drehbuch für den Film ist fertig» — пусто"
+  },
+  {
+   "id": 14410,
+   "col": "example_en",
+   "old": "The screenplay for the movie is finished",
+   "new": "He writes scripts for TV series",
+   "why": "«Das Drehbuch für den Film ist fertig» — пусто"
+  },
+  {
+   "id": 14410,
+   "col": "example_tr",
+   "old": "Filmin senaryosu hazır",
+   "new": "Diziler için senaryo yazıyor",
+   "why": "«Das Drehbuch für den Film ist fertig» — пусто"
+  },
+  {
+   "id": 14410,
+   "col": "example_pl",
+   "old": "Scenariusz do filmu jest gotowy",
+   "new": "Pisze scenariusze do seriali",
+   "why": "«Das Drehbuch für den Film ist fertig» — пусто"
+  },
+  {
+   "id": 14410,
+   "col": "example_it",
+   "old": "La sceneggiatura del film è pronta",
+   "new": "Scrive sceneggiature per serie TV",
+   "why": "«Das Drehbuch für den Film ist fertig» — пусто"
+  },
+  {
+   "id": 14410,
+   "col": "example_es",
+   "old": "El guion de la película está terminado",
+   "new": "Escribe guiones para series",
+   "why": "«Das Drehbuch für den Film ist fertig» — пусто"
+  },
+  {
+   "id": 14410,
+   "col": "example_fr",
+   "old": "Le scénario du film est terminé",
+   "new": "Il écrit des scénarios pour des séries",
+   "why": "«Das Drehbuch für den Film ist fertig» — пусто"
+  },
+  {
+   "id": 14410,
+   "col": "example_cs",
+   "old": "Scénář k filmu je hotový",
+   "new": "Píše scénáře k seriálům",
+   "why": "«Das Drehbuch für den Film ist fertig» — пусто"
+  },
+  {
+   "id": 2650,
+   "col": "example_de",
+   "old": "Ich habe gute Laune",
+   "new": "Der Chef hat heute schlechte Laune",
+   "why": "«Ich habe gute Laune» — пусто"
+  },
+  {
+   "id": 2650,
+   "col": "example_ru",
+   "old": "У меня хорошее настроение",
+   "new": "У шефа сегодня плохое настроение",
+   "why": "«Ich habe gute Laune» — пусто"
+  },
+  {
+   "id": 2650,
+   "col": "example_uk",
+   "old": "У мене гарний настрій",
+   "new": "У шефа сьогодні поганий настрій",
+   "why": "«Ich habe gute Laune» — пусто"
+  },
+  {
+   "id": 2650,
+   "col": "example_en",
+   "old": "I'm in a good mood",
+   "new": "The boss is in a bad mood today",
+   "why": "«Ich habe gute Laune» — пусто"
+  },
+  {
+   "id": 2650,
+   "col": "example_tr",
+   "old": "Keyfim yerinde",
+   "new": "Patronun bugün keyfi yok",
+   "why": "«Ich habe gute Laune» — пусто"
+  },
+  {
+   "id": 2650,
+   "col": "example_pl",
+   "old": "Mam dobry nastrój",
+   "new": "Szef ma dziś zły humor",
+   "why": "«Ich habe gute Laune» — пусто"
+  },
+  {
+   "id": 2650,
+   "col": "example_it",
+   "old": "Sono di buon umore",
+   "new": "Il capo oggi è di cattivo umore",
+   "why": "«Ich habe gute Laune» — пусто"
+  },
+  {
+   "id": 2650,
+   "col": "example_es",
+   "old": "Estoy de buen humor",
+   "new": "El jefe está hoy de mal humor",
+   "why": "«Ich habe gute Laune» — пусто"
+  },
+  {
+   "id": 2650,
+   "col": "example_fr",
+   "old": "Je suis de bonne humeur",
+   "new": "Le chef est de mauvaise humeur aujourd'hui",
+   "why": "«Ich habe gute Laune» — пусто"
+  },
+  {
+   "id": 2650,
+   "col": "example_cs",
+   "old": "Mám dobrou náladu",
+   "new": "Šéf má dneska špatnou náladu",
+   "why": "«Ich habe gute Laune» — пусто"
+  },
+  {
+   "id": 16023,
+   "col": "example_de",
+   "old": "Die Polizei legte ihm Handschellen an",
+   "new": "Die Polizei hat ihm Handschellen angelegt",
+   "why": "«Die Polizei legte ihm Handschellen an» — претерит"
+  },
+  {
+   "id": 13926,
+   "col": "example_de",
+   "old": "Das ist ein interessanter Ausdruck",
+   "new": "Den Ausdruck kenne ich nicht",
+   "why": "«Das ist ein interessanter Ausdruck» — пусто"
+  },
+  {
+   "id": 13926,
+   "col": "example_ru",
+   "old": "Это интересное выражение",
+   "new": "Я не знаю этого выражения",
+   "why": "«Das ist ein interessanter Ausdruck» — пусто"
+  },
+  {
+   "id": 13926,
+   "col": "example_uk",
+   "old": "Це цікавий вираз",
+   "new": "Я не знаю цього виразу",
+   "why": "«Das ist ein interessanter Ausdruck» — пусто"
+  },
+  {
+   "id": 13926,
+   "col": "example_en",
+   "old": "That's an interesting expression",
+   "new": "I don't know that expression",
+   "why": "«Das ist ein interessanter Ausdruck» — пусто"
+  },
+  {
+   "id": 13926,
+   "col": "example_tr",
+   "old": "Bu ilginç bir ifade",
+   "new": "Bu ifadeyi bilmiyorum",
+   "why": "«Das ist ein interessanter Ausdruck» — пусто"
+  },
+  {
+   "id": 13926,
+   "col": "example_pl",
+   "old": "To ciekawe wyrażenie",
+   "new": "Nie znam tego wyrażenia",
+   "why": "«Das ist ein interessanter Ausdruck» — пусто"
+  },
+  {
+   "id": 13926,
+   "col": "example_it",
+   "old": "È un'espressione interessante",
+   "new": "Non conosco questa espressione",
+   "why": "«Das ist ein interessanter Ausdruck» — пусто"
+  },
+  {
+   "id": 13926,
+   "col": "example_es",
+   "old": "Es una expresión interesante",
+   "new": "No conozco esa expresión",
+   "why": "«Das ist ein interessanter Ausdruck» — пусто"
+  },
+  {
+   "id": 13926,
+   "col": "example_fr",
+   "old": "C'est une expression intéressante",
+   "new": "Je ne connais pas cette expression",
+   "why": "«Das ist ein interessanter Ausdruck» — пусто"
+  },
+  {
+   "id": 13926,
+   "col": "example_cs",
+   "old": "To je zajímavý výraz",
+   "new": "Ten výraz neznám",
+   "why": "«Das ist ein interessanter Ausdruck» — пусто"
+  },
+  {
+   "id": 18669,
+   "col": "example_de",
+   "old": "Die heutige Welt ist sehr schnell",
+   "new": "Hast du die heutige Zeitung gesehen?",
+   "why": "«Die heutige Welt ist sehr schnell» — газета"
+  },
+  {
+   "id": 18669,
+   "col": "example_ru",
+   "old": "Сегодняшний мир очень быстрый",
+   "new": "Ты видел сегодняшнюю газету?",
+   "why": "«Die heutige Welt ist sehr schnell» — газета"
+  },
+  {
+   "id": 18669,
+   "col": "example_uk",
+   "old": "Сьогоднішній світ дуже швидкий",
+   "new": "Ти бачив сьогоднішню газету?",
+   "why": "«Die heutige Welt ist sehr schnell» — газета"
+  },
+  {
+   "id": 18669,
+   "col": "example_en",
+   "old": "Today's world moves very fast",
+   "new": "Have you seen today's paper?",
+   "why": "«Die heutige Welt ist sehr schnell» — газета"
+  },
+  {
+   "id": 18669,
+   "col": "example_tr",
+   "old": "Bugünkü dünya çok hızlı",
+   "new": "Bugünkü gazeteyi gördün mü?",
+   "why": "«Die heutige Welt ist sehr schnell» — газета"
+  },
+  {
+   "id": 18669,
+   "col": "example_pl",
+   "old": "Dzisiejszy świat jest bardzo szybki",
+   "new": "Widziałeś dzisiejszą gazetę?",
+   "why": "«Die heutige Welt ist sehr schnell» — газета"
+  },
+  {
+   "id": 18669,
+   "col": "example_it",
+   "old": "Il mondo di oggi va molto veloce",
+   "new": "Hai visto il giornale di oggi?",
+   "why": "«Die heutige Welt ist sehr schnell» — газета"
+  },
+  {
+   "id": 18669,
+   "col": "example_es",
+   "old": "El mundo actual va muy rápido",
+   "new": "¿Has visto el periódico de hoy?",
+   "why": "«Die heutige Welt ist sehr schnell» — газета"
+  },
+  {
+   "id": 18669,
+   "col": "example_fr",
+   "old": "Le monde d'aujourd'hui va très vite",
+   "new": "Tu as vu le journal d'aujourd'hui?",
+   "why": "«Die heutige Welt ist sehr schnell» — газета"
+  },
+  {
+   "id": 18669,
+   "col": "example_cs",
+   "old": "Dnešní svět je velmi rychlý",
+   "new": "Viděl jsi dnešní noviny?",
+   "why": "«Die heutige Welt ist sehr schnell» — газета"
+  },
+  {
+   "id": 71,
+   "col": "example_de",
+   "old": "Das Badezimmer ist klein",
+   "new": "Das Badezimmer ist gerade besetzt",
+   "why": "«Das Badezimmer ist klein» — пусто"
+  },
+  {
+   "id": 71,
+   "col": "example_ru",
+   "old": "Ванная комната маленькая",
+   "new": "Ванная сейчас занята",
+   "why": "«Das Badezimmer ist klein» — пусто"
+  },
+  {
+   "id": 71,
+   "col": "example_uk",
+   "old": "Ванна кімната мала",
+   "new": "Ванна кімната зараз зайнята",
+   "why": "«Das Badezimmer ist klein» — пусто"
+  },
+  {
+   "id": 71,
+   "col": "example_en",
+   "old": "The bathroom is small",
+   "new": "The bathroom's busy right now",
+   "why": "«Das Badezimmer ist klein» — пусто"
+  },
+  {
+   "id": 71,
+   "col": "example_tr",
+   "old": "Banyo küçük",
+   "new": "Banyo şu an dolu",
+   "why": "«Das Badezimmer ist klein» — пусто"
+  },
+  {
+   "id": 71,
+   "col": "example_pl",
+   "old": "Łazienka jest mała",
+   "new": "Łazienka jest teraz zajęta",
+   "why": "«Das Badezimmer ist klein» — пусто"
+  },
+  {
+   "id": 71,
+   "col": "example_it",
+   "old": "Il bagno è piccolo",
+   "new": "Il bagno adesso è occupato",
+   "why": "«Das Badezimmer ist klein» — пусто"
+  },
+  {
+   "id": 71,
+   "col": "example_es",
+   "old": "El baño es pequeño",
+   "new": "El baño está ocupado ahora mismo",
+   "why": "«Das Badezimmer ist klein» — пусто"
+  },
+  {
+   "id": 71,
+   "col": "example_fr",
+   "old": "La salle de bains est petite",
+   "new": "La salle de bains est occupée",
+   "why": "«Das Badezimmer ist klein» — пусто"
+  },
+  {
+   "id": 71,
+   "col": "example_cs",
+   "old": "Koupelna je malá",
+   "new": "Koupelna je teď obsazená",
+   "why": "«Das Badezimmer ist klein» — пусто"
+  },
+  {
+   "id": 17500,
+   "col": "translation_ru",
+   "old": "сеть, сетка, интернет, связь",
+   "new": "сеть, связь",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17500,
+   "col": "translation_uk",
+   "old": "мережа, сітка, інтернет, зв'язок",
+   "new": "мережа, зв'язок",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17500,
+   "col": "translation_en",
+   "old": "network, net, the internet, signal",
+   "new": "network, signal",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17500,
+   "col": "translation_tr",
+   "old": "ağ, file, şebeke, internet",
+   "new": "şebeke, ağ",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17500,
+   "col": "translation_pl",
+   "old": "sieć, siatka, internet",
+   "new": "sieć, zasięg",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8796,
+   "col": "translation_ru",
+   "old": "натворить, вытворять, включать, ставить, нанимать, брать на работу, становиться в очередь",
+   "new": "натворить, включить",
+   "why": "список → главное слово и не больше одной альтернативы; нанимать — другое значение"
+  },
+  {
+   "id": 8796,
+   "col": "translation_uk",
+   "old": "накоїти, витворяти, включати, вмикати, наймати на роботу, ставати в чергу",
+   "new": "накоїти, увімкнути",
+   "why": "список → главное слово и не больше одной альтернативы; нанимать — другое значение"
+  },
+  {
+   "id": 8796,
+   "col": "translation_en",
+   "old": "to get up to, to do something bad, to turn on, to switch on, to hire, to employ, to queue up",
+   "new": "to get up to, to switch on",
+   "why": "список → главное слово и не больше одной альтернативы; нанимать — другое значение"
+  },
+  {
+   "id": 8796,
+   "col": "translation_tr",
+   "old": "yapmak, karıştırmak, çalıştırmak, açmak, işe almak, kuyruğa girmek",
+   "new": "karıştırmak, açmak",
+   "why": "список → главное слово и не больше одной альтернативы; нанимать — другое значение"
+  },
+  {
+   "id": 8796,
+   "col": "translation_pl",
+   "old": "narobić, wyczyniać, włączać, zatrudniać, stawać w kolejce",
+   "new": "narobić, włączyć",
+   "why": "список → главное слово и не больше одной альтернативы; нанимать — другое значение"
+  },
+  {
+   "id": 8796,
+   "col": "translation_it",
+   "old": "combinare, accendere, assumere",
+   "new": "combinare, accendere",
+   "why": "список → главное слово и не больше одной альтернативы; нанимать — другое значение"
+  },
+  {
+   "id": 8796,
+   "col": "translation_es",
+   "old": "hacer, encender, contratar",
+   "new": "hacer, encender",
+   "why": "список → главное слово и не больше одной альтернативы; нанимать — другое значение"
+  },
+  {
+   "id": 8796,
+   "col": "translation_fr",
+   "old": "faire, allumer, embaucher",
+   "new": "faire, allumer",
+   "why": "список → главное слово и не больше одной альтернативы; нанимать — другое значение"
+  },
+  {
+   "id": 8796,
+   "col": "translation_cs",
+   "old": "vyvádět, provést, zapnout, zaměstnat",
+   "new": "vyvádět, zapnout",
+   "why": "список → главное слово и не больше одной альтернативы; нанимать — другое значение"
+  },
+  {
+   "id": 505,
+   "col": "example_de",
+   "old": "Sie hat Kopfschmerzen",
+   "new": "Von dem Lärm bekomme ich Kopfschmerzen",
+   "why": "«Sie hat Kopfschmerzen» — пусто; ru «у неё головная боль» — калька"
+  },
+  {
+   "id": 505,
+   "col": "example_ru",
+   "old": "У неё головная боль",
+   "new": "От этого шума у меня болит голова",
+   "why": "«Sie hat Kopfschmerzen» — пусто; ru «у неё головная боль» — калька"
+  },
+  {
+   "id": 505,
+   "col": "example_uk",
+   "old": "У неї головний біль",
+   "new": "Від цього шуму в мене болить голова",
+   "why": "«Sie hat Kopfschmerzen» — пусто; ru «у неё головная боль» — калька"
+  },
+  {
+   "id": 505,
+   "col": "example_en",
+   "old": "She has a headache",
+   "new": "That noise is giving me a headache",
+   "why": "«Sie hat Kopfschmerzen» — пусто; ru «у неё головная боль» — калька"
+  },
+  {
+   "id": 505,
+   "col": "example_tr",
+   "old": "Onun başı ağrıyor",
+   "new": "Bu gürültüden başım ağrıyor",
+   "why": "«Sie hat Kopfschmerzen» — пусто; ru «у неё головная боль» — калька"
+  },
+  {
+   "id": 505,
+   "col": "example_pl",
+   "old": "Ona ma ból głowy",
+   "new": "Od tego hałasu boli mnie głowa",
+   "why": "«Sie hat Kopfschmerzen» — пусто; ru «у неё головная боль» — калька"
+  },
+  {
+   "id": 505,
+   "col": "example_it",
+   "old": "Ha mal di testa",
+   "new": "Questo rumore mi fa venire mal di testa",
+   "why": "«Sie hat Kopfschmerzen» — пусто; ru «у неё головная боль» — калька"
+  },
+  {
+   "id": 505,
+   "col": "example_es",
+   "old": "Tiene dolor de cabeza",
+   "new": "Este ruido me da dolor de cabeza",
+   "why": "«Sie hat Kopfschmerzen» — пусто; ru «у неё головная боль» — калька"
+  },
+  {
+   "id": 505,
+   "col": "example_fr",
+   "old": "Elle a des maux de tête",
+   "new": "Ce bruit me donne mal à la tête",
+   "why": "«Sie hat Kopfschmerzen» — пусто; ru «у неё головная боль» — калька"
+  },
+  {
+   "id": 505,
+   "col": "example_cs",
+   "old": "Má bolesti hlavy",
+   "new": "Z toho hluku mě bolí hlava",
+   "why": "«Sie hat Kopfschmerzen» — пусто; ru «у неё головная боль» — калька"
+  },
+  {
+   "id": 1095,
+   "col": "example_de",
+   "old": "Die Übung ist wichtig",
+   "new": "Mir fehlt noch die Übung",
+   "why": "«Die Übung ist wichtig» — пусто"
+  },
+  {
+   "id": 1095,
+   "col": "example_ru",
+   "old": "Упражнение важно",
+   "new": "Мне ещё не хватает практики",
+   "why": "«Die Übung ist wichtig» — пусто"
+  },
+  {
+   "id": 1095,
+   "col": "example_uk",
+   "old": "Вправа важлива",
+   "new": "Мені ще бракує практики",
+   "why": "«Die Übung ist wichtig» — пусто"
+  },
+  {
+   "id": 1095,
+   "col": "example_en",
+   "old": "The exercise is important",
+   "new": "I still need more practice",
+   "why": "«Die Übung ist wichtig» — пусто"
+  },
+  {
+   "id": 1095,
+   "col": "example_tr",
+   "old": "Egzersiz önemli",
+   "new": "Daha pratiğe ihtiyacım var",
+   "why": "«Die Übung ist wichtig» — пусто"
+  },
+  {
+   "id": 1095,
+   "col": "example_pl",
+   "old": "Ćwiczenie jest ważne",
+   "new": "Brakuje mi jeszcze wprawy",
+   "why": "«Die Übung ist wichtig» — пусто"
+  },
+  {
+   "id": 1095,
+   "col": "example_it",
+   "old": "L'esercizio è importante",
+   "new": "Mi manca ancora la pratica",
+   "why": "«Die Übung ist wichtig» — пусто"
+  },
+  {
+   "id": 1095,
+   "col": "example_es",
+   "old": "El ejercicio es importante",
+   "new": "Todavía me falta práctica",
+   "why": "«Die Übung ist wichtig» — пусто"
+  },
+  {
+   "id": 1095,
+   "col": "example_fr",
+   "old": "L'exercice est important",
+   "new": "Je manque encore de pratique",
+   "why": "«Die Übung ist wichtig» — пусто"
+  },
+  {
+   "id": 1095,
+   "col": "example_cs",
+   "old": "Cvičení je důležité",
+   "new": "Ještě mi chybí praxe",
+   "why": "«Die Übung ist wichtig» — пусто"
+  },
+  {
+   "id": 2818,
+   "col": "example_de",
+   "old": "Das ist sinnlos",
+   "new": "Es ist sinnlos, mit ihm zu streiten",
+   "why": "«Das ist sinnlos» — пусто"
+  },
+  {
+   "id": 2818,
+   "col": "example_ru",
+   "old": "Это бессмысленно",
+   "new": "С ним бессмысленно спорить",
+   "why": "«Das ist sinnlos» — пусто"
+  },
+  {
+   "id": 2818,
+   "col": "example_uk",
+   "old": "Це безглуздо",
+   "new": "З ним безглуздо сперечатися",
+   "why": "«Das ist sinnlos» — пусто"
+  },
+  {
+   "id": 2818,
+   "col": "example_en",
+   "old": "That's pointless",
+   "new": "It's pointless arguing with him",
+   "why": "«Das ist sinnlos» — пусто"
+  },
+  {
+   "id": 2818,
+   "col": "example_tr",
+   "old": "Bu anlamsız",
+   "new": "Onunla tartışmak anlamsız",
+   "why": "«Das ist sinnlos» — пусто"
+  },
+  {
+   "id": 2818,
+   "col": "example_pl",
+   "old": "To jest bezsensowne",
+   "new": "Kłótnia z nim nie ma sensu",
+   "why": "«Das ist sinnlos» — пусто"
+  },
+  {
+   "id": 2818,
+   "col": "example_it",
+   "old": "È senza senso",
+   "new": "È inutile litigare con lui",
+   "why": "«Das ist sinnlos» — пусто"
+  },
+  {
+   "id": 2818,
+   "col": "example_es",
+   "old": "Es inútil",
+   "new": "Es inútil discutir con él",
+   "why": "«Das ist sinnlos» — пусто"
+  },
+  {
+   "id": 2818,
+   "col": "example_fr",
+   "old": "C'est inutile",
+   "new": "C'est inutile de se disputer avec lui",
+   "why": "«Das ist sinnlos» — пусто"
+  },
+  {
+   "id": 2818,
+   "col": "example_cs",
+   "old": "To je nesmyslné",
+   "new": "Je nesmyslné se s ním hádat",
+   "why": "«Das ist sinnlos» — пусто"
+  },
+  {
+   "id": 1293,
+   "col": "translation_ru",
+   "old": "гореть, жечь, печь, быть включённым",
+   "new": "гореть, жечь",
+   "why": "«Das Haus brennt» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1293,
+   "col": "translation_uk",
+   "old": "горіти, пекти, світитися",
+   "new": "горіти, пекти",
+   "why": "«Das Haus brennt» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1293,
+   "col": "translation_en",
+   "old": "to burn, to be on fire, to sting, to be lit",
+   "new": "to burn, to be on",
+   "why": "«Das Haus brennt» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1293,
+   "col": "translation_tr",
+   "old": "yanmak, yakmak, acımak",
+   "new": "yanmak, acımak",
+   "why": "«Das Haus brennt» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1293,
+   "col": "translation_pl",
+   "old": "palić się, piec, świecić się",
+   "new": "palić się, piec",
+   "why": "«Das Haus brennt» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1293,
+   "col": "translation_it",
+   "old": "bruciare, ardere, essere acceso",
+   "new": "bruciare, essere acceso",
+   "why": "«Das Haus brennt» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1293,
+   "col": "translation_es",
+   "old": "arder, quemarse, picar",
+   "new": "arder, estar encendido",
+   "why": "«Das Haus brennt» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1293,
+   "col": "translation_fr",
+   "old": "brûler",
+   "new": "brûler, être allumé",
+   "why": "«Das Haus brennt» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1293,
+   "col": "example_de",
+   "old": "Das Haus brennt",
+   "new": "Im Keller brennt noch Licht",
+   "why": "«Das Haus brennt» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1293,
+   "col": "example_ru",
+   "old": "Дом горит",
+   "new": "В подвале ещё горит свет",
+   "why": "«Das Haus brennt» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1293,
+   "col": "example_uk",
+   "old": "Будинок горить",
+   "new": "У підвалі ще горить світло",
+   "why": "«Das Haus brennt» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1293,
+   "col": "example_en",
+   "old": "The house is burning",
+   "new": "The light's still on in the cellar",
+   "why": "«Das Haus brennt» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1293,
+   "col": "example_tr",
+   "old": "Ev yanıyor",
+   "new": "Bodrumda ışık hâlâ yanıyor",
+   "why": "«Das Haus brennt» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1293,
+   "col": "example_pl",
+   "old": "Dom się pali",
+   "new": "W piwnicy jeszcze pali się światło",
+   "why": "«Das Haus brennt» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1293,
+   "col": "example_it",
+   "old": "La casa brucia",
+   "new": "In cantina c'è ancora la luce accesa",
+   "why": "«Das Haus brennt» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1293,
+   "col": "example_es",
+   "old": "La casa está ardiendo",
+   "new": "En el sótano todavía hay una luz encendida",
+   "why": "«Das Haus brennt» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1293,
+   "col": "example_fr",
+   "old": "La maison brûle",
+   "new": "Il y a encore de la lumière allumée à la cave",
+   "why": "«Das Haus brennt» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1293,
+   "col": "example_cs",
+   "old": "Dům hoří",
+   "new": "Ve sklepě ještě hoří světlo",
+   "why": "«Das Haus brennt» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17501,
+   "col": "translation_ru",
+   "old": "телеканал, радиостанция, передатчик, отправитель",
+   "new": "телеканал, радиостанция",
+   "why": "«Welcher Sender läuft denn heute Abend?» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17501,
+   "col": "translation_uk",
+   "old": "канал, телеканал, радіостанція, передавач, відправник",
+   "new": "телеканал, радіостанція",
+   "why": "«Welcher Sender läuft denn heute Abend?» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17501,
+   "col": "translation_en",
+   "old": "channel, station, transmitter, sender",
+   "new": "channel, station",
+   "why": "«Welcher Sender läuft denn heute Abend?» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17501,
+   "col": "translation_tr",
+   "old": "kanal, istasyon, verici, gönderen",
+   "new": "kanal, istasyon",
+   "why": "«Welcher Sender läuft denn heute Abend?» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17501,
+   "col": "translation_pl",
+   "old": "kanał, kanał telewizyjny, stacja radiowa, nadajnik, nadawca",
+   "new": "kanał, stacja",
+   "why": "«Welcher Sender läuft denn heute Abend?» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17501,
+   "col": "translation_it",
+   "old": "il canale, l'emittente, il trasmettitore",
+   "new": "il canale, l'emittente",
+   "why": "«Welcher Sender läuft denn heute Abend?» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17501,
+   "col": "example_de",
+   "old": "Welcher Sender läuft denn heute Abend?",
+   "new": "Auf welchem Sender kommt das Spiel?",
+   "why": "«Welcher Sender läuft denn heute Abend?» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17501,
+   "col": "example_ru",
+   "old": "Какой телеканал идёт сегодня вечером?",
+   "new": "На каком канале показывают матч?",
+   "why": "«Welcher Sender läuft denn heute Abend?» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17501,
+   "col": "example_uk",
+   "old": "Який канал йде сьогодні ввечері?",
+   "new": "На якому каналі показують матч?",
+   "why": "«Welcher Sender läuft denn heute Abend?» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17501,
+   "col": "example_en",
+   "old": "Which channel is on tonight?",
+   "new": "Which channel is the match on?",
+   "why": "«Welcher Sender läuft denn heute Abend?» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17501,
+   "col": "example_tr",
+   "old": "Bu akşam hangi kanal var?",
+   "new": "Maç hangi kanalda?",
+   "why": "«Welcher Sender läuft denn heute Abend?» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17501,
+   "col": "example_pl",
+   "old": "Jaki kanał nadaje dziś wieczorem?",
+   "new": "Na którym kanale jest mecz?",
+   "why": "«Welcher Sender läuft denn heute Abend?» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17501,
+   "col": "example_it",
+   "old": "Che canale c'è stasera?",
+   "new": "Su che canale danno la partita?",
+   "why": "«Welcher Sender läuft denn heute Abend?» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17501,
+   "col": "example_es",
+   "old": "¿Qué canal ponen esta noche?",
+   "new": "¿En qué canal echan el partido?",
+   "why": "«Welcher Sender läuft denn heute Abend?» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17501,
+   "col": "example_fr",
+   "old": "On est sur quelle chaîne ce soir?",
+   "new": "Le match passe sur quelle chaîne?",
+   "why": "«Welcher Sender läuft denn heute Abend?» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17501,
+   "col": "example_cs",
+   "old": "Který kanál dnes večer běží?",
+   "new": "Na jakém kanálu dávají zápas?",
+   "why": "«Welcher Sender läuft denn heute Abend?» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2379,
+   "col": "translation_ru",
+   "old": "поступать, приходить, садиться, погибать, засыхать, вдаваться, вникать, идти на риск, заключать",
+   "new": "засыхать, садиться (о ткани)",
+   "why": "«Die Bewerbung ist eingegangen» — канцелярит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2379,
+   "col": "translation_uk",
+   "old": "надходити, сідати, гинути, засихати, вдаватися в щось, укладати",
+   "new": "засихати, сідати (про тканину)",
+   "why": "«Die Bewerbung ist eingegangen» — канцелярит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2379,
+   "col": "translation_en",
+   "old": "to be received, to come in, to shrink, to die, to wither, to go into, to address something, to enter into",
+   "new": "to die, to shrink",
+   "why": "«Die Bewerbung ist eingegangen» — канцелярит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2379,
+   "col": "translation_tr",
+   "old": "ulaşmak, gelmek, çekmek, kurumak, ölmek, bir konuya girmek, anlaşmaya girmek",
+   "new": "kurumak, çekmek",
+   "why": "«Die Bewerbung ist eingegangen» — канцелярит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2379,
+   "col": "translation_pl",
+   "old": "nadchodzić, wpływać, kurczyć się, usychać, ginąć, wchodzić w coś, poruszać temat",
+   "new": "usychać, kurczyć się",
+   "why": "«Die Bewerbung ist eingegangen» — канцелярит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2379,
+   "col": "translation_it",
+   "old": "arrivare, restringersi, morire",
+   "new": "morire, restringersi",
+   "why": "«Die Bewerbung ist eingegangen» — канцелярит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2379,
+   "col": "translation_es",
+   "old": "llegar, encogerse, morirse",
+   "new": "morirse, encogerse",
+   "why": "«Die Bewerbung ist eingegangen» — канцелярит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2379,
+   "col": "translation_fr",
+   "old": "arriver, rétrécir, dépérir",
+   "new": "dépérir, rétrécir",
+   "why": "«Die Bewerbung ist eingegangen» — канцелярит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2379,
+   "col": "translation_cs",
+   "old": "dojít, srazit se, uschnout",
+   "new": "uschnout, srazit se",
+   "why": "«Die Bewerbung ist eingegangen» — канцелярит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2379,
+   "col": "example_de",
+   "old": "Die Bewerbung ist eingegangen",
+   "new": "Ohne Wasser geht die Pflanze ein",
+   "why": "«Die Bewerbung ist eingegangen» — канцелярит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2379,
+   "col": "example_ru",
+   "old": "Заявка поступила",
+   "new": "Без воды растение засохнет",
+   "why": "«Die Bewerbung ist eingegangen» — канцелярит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2379,
+   "col": "example_uk",
+   "old": "Заявка надійшла",
+   "new": "Без води рослина засохне",
+   "why": "«Die Bewerbung ist eingegangen» — канцелярит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2379,
+   "col": "example_en",
+   "old": "The application has been received",
+   "new": "Without water the plant will die",
+   "why": "«Die Bewerbung ist eingegangen» — канцелярит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2379,
+   "col": "example_tr",
+   "old": "Başvuru ulaştı",
+   "new": "Su olmadan bitki kurur",
+   "why": "«Die Bewerbung ist eingegangen» — канцелярит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2379,
+   "col": "example_pl",
+   "old": "Podanie już wpłynęło",
+   "new": "Bez wody roślina uschnie",
+   "why": "«Die Bewerbung ist eingegangen» — канцелярит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2379,
+   "col": "example_it",
+   "old": "La candidatura è arrivata",
+   "new": "Senz'acqua la pianta muore",
+   "why": "«Die Bewerbung ist eingegangen» — канцелярит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2379,
+   "col": "example_es",
+   "old": "La solicitud ha llegado",
+   "new": "Sin agua la planta se muere",
+   "why": "«Die Bewerbung ist eingegangen» — канцелярит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2379,
+   "col": "example_fr",
+   "old": "La candidature est arrivée",
+   "new": "Sans eau, la plante dépérit",
+   "why": "«Die Bewerbung ist eingegangen» — канцелярит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2379,
+   "col": "example_cs",
+   "old": "Přihláška došla",
+   "new": "Bez vody kytka uschne",
+   "why": "«Die Bewerbung ist eingegangen» — канцелярит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8798,
+   "col": "example_de",
+   "old": "Das Meeting ist um drei Uhr",
+   "new": "Ich muss jetzt in ein Meeting",
+   "why": "«Das Meeting ist um drei Uhr» — пусто"
+  },
+  {
+   "id": 8798,
+   "col": "example_ru",
+   "old": "Собрание в три часа",
+   "new": "Мне пора на совещание",
+   "why": "«Das Meeting ist um drei Uhr» — пусто"
+  },
+  {
+   "id": 8798,
+   "col": "example_uk",
+   "old": "Нарада о третій годині",
+   "new": "Мені вже треба на нараду",
+   "why": "«Das Meeting ist um drei Uhr» — пусто"
+  },
+  {
+   "id": 8798,
+   "col": "example_en",
+   "old": "The meeting is at three o'clock",
+   "new": "I've got to go to a meeting now",
+   "why": "«Das Meeting ist um drei Uhr» — пусто"
+  },
+  {
+   "id": 8798,
+   "col": "example_tr",
+   "old": "Toplantı saat üçte",
+   "new": "Şimdi bir toplantıya girmem lazım",
+   "why": "«Das Meeting ist um drei Uhr» — пусто"
+  },
+  {
+   "id": 8798,
+   "col": "example_pl",
+   "old": "Spotkanie jest o trzeciej",
+   "new": "Muszę teraz iść na spotkanie",
+   "why": "«Das Meeting ist um drei Uhr» — пусто"
+  },
+  {
+   "id": 8798,
+   "col": "example_it",
+   "old": "La riunione è alle tre",
+   "new": "Adesso devo andare a una riunione",
+   "why": "«Das Meeting ist um drei Uhr» — пусто"
+  },
+  {
+   "id": 8798,
+   "col": "example_es",
+   "old": "La reunión es a las tres",
+   "new": "Ahora tengo una reunión",
+   "why": "«Das Meeting ist um drei Uhr» — пусто"
+  },
+  {
+   "id": 8798,
+   "col": "example_fr",
+   "old": "La réunion est à trois heures",
+   "new": "Là, je dois aller en réunion",
+   "why": "«Das Meeting ist um drei Uhr» — пусто"
+  },
+  {
+   "id": 8798,
+   "col": "example_cs",
+   "old": "Schůzka je ve tři hodiny",
+   "new": "Teď musím na poradu",
+   "why": "«Das Meeting ist um drei Uhr» — пусто"
+  },
+  {
+   "id": 11667,
+   "col": "translation_ru",
+   "old": "очень вкусный, восхитительный, забавный",
+   "new": "очень вкусный, восхитительный",
+   "why": "«Das Essen war wirklich köstlich» — шаблон Essen; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11667,
+   "col": "translation_uk",
+   "old": "дуже смачний, чудовий, потішний",
+   "new": "дуже смачний, чудовий",
+   "why": "«Das Essen war wirklich köstlich» — шаблон Essen; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11667,
+   "col": "translation_en",
+   "old": "delicious, delightful, amusing",
+   "new": "delicious, delightful",
+   "why": "«Das Essen war wirklich köstlich» — шаблон Essen; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11667,
+   "col": "translation_tr",
+   "old": "nefis, çok lezzetli, hoş, çok eğlenceli",
+   "new": "nefis, çok lezzetli",
+   "why": "«Das Essen war wirklich köstlich» — шаблон Essen; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11667,
+   "col": "translation_pl",
+   "old": "wyśmienity, przepyszny, uroczy",
+   "new": "przepyszny, wyśmienity",
+   "why": "«Das Essen war wirklich köstlich» — шаблон Essen; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11667,
+   "col": "example_de",
+   "old": "Das Essen war wirklich köstlich",
+   "new": "Das riecht ja köstlich!",
+   "why": "«Das Essen war wirklich köstlich» — шаблон Essen; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11667,
+   "col": "example_ru",
+   "old": "Еда была действительно вкусной",
+   "new": "Как вкусно пахнет!",
+   "why": "«Das Essen war wirklich köstlich» — шаблон Essen; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11667,
+   "col": "example_uk",
+   "old": "Їжа була справді смачною",
+   "new": "Як смачно пахне!",
+   "why": "«Das Essen war wirklich köstlich» — шаблон Essen; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11667,
+   "col": "example_en",
+   "old": "The food was really delicious",
+   "new": "That smells delicious!",
+   "why": "«Das Essen war wirklich köstlich» — шаблон Essen; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11667,
+   "col": "example_tr",
+   "old": "Yemek gerçekten lezzetliydi",
+   "new": "Çok nefis kokuyor!",
+   "why": "«Das Essen war wirklich köstlich» — шаблон Essen; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11667,
+   "col": "example_pl",
+   "old": "Jedzenie było naprawdę wyśmienite",
+   "new": "Ale przepysznie pachnie!",
+   "why": "«Das Essen war wirklich köstlich» — шаблон Essen; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11667,
+   "col": "example_it",
+   "old": "Il cibo era davvero delizioso",
+   "new": "Che profumo delizioso!",
+   "why": "«Das Essen war wirklich köstlich» — шаблон Essen; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11667,
+   "col": "example_es",
+   "old": "La comida estaba realmente deliciosa",
+   "new": "¡Qué olor tan delicioso!",
+   "why": "«Das Essen war wirklich köstlich» — шаблон Essen; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11667,
+   "col": "example_fr",
+   "old": "Le repas était vraiment délicieux",
+   "new": "Ça sent délicieux!",
+   "why": "«Das Essen war wirklich köstlich» — шаблон Essen; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11667,
+   "col": "example_cs",
+   "old": "Jídlo bylo opravdu výborné",
+   "new": "To voní výborně!",
+   "why": "«Das Essen war wirklich köstlich» — шаблон Essen; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13488,
+   "col": "example_en",
+   "old": "I bought that in some store",
+   "new": "I bought it in some shop",
+   "why": "английский пример: так не говорят («some store»)"
+  },
+  {
+   "id": 17087,
+   "col": "translation_ru",
+   "old": "груз, партия, порция, заряд, вызов в суд",
+   "new": "груз, заряд",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17087,
+   "col": "translation_uk",
+   "old": "вантаж, партія, порція, заряд, виклик до суду",
+   "new": "вантаж, заряд",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17087,
+   "col": "translation_en",
+   "old": "load, cargo, batch, charge, summons",
+   "new": "load, charge",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17087,
+   "col": "translation_tr",
+   "old": "yük, kargo, parti, dolu, elektrik yükü, mahkeme çağrısı",
+   "new": "yük",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17087,
+   "col": "translation_pl",
+   "old": "ładunek, towar, partia, ładunek elektryczny",
+   "new": "ładunek, towar",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17087,
+   "col": "translation_fr",
+   "old": "le chargement, la cargaison, la charge",
+   "new": "le chargement, la charge",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17087,
+   "col": "translation_cs",
+   "old": "náklad, náboj, předvolání",
+   "new": "náklad, náboj",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10280,
+   "col": "example_ru",
+   "old": "Ты должен стыдиться своего поведения",
+   "new": "Постыдился бы своего поведения!",
+   "why": "ru «Ты должен стыдиться» — калька müssen/sollen"
+  },
+  {
+   "id": 10280,
+   "col": "example_uk",
+   "old": "Ти повинен соромитися своєї поведінки",
+   "new": "Посоромився б своєї поведінки!",
+   "why": "ru «Ты должен стыдиться» — калька müssen/sollen"
+  },
+  {
+   "id": 10280,
+   "col": "example_en",
+   "old": "You should be ashamed of your behavior",
+   "new": "You should be ashamed of your behaviour",
+   "why": "ru «Ты должен стыдиться» — калька müssen/sollen"
+  },
+  {
+   "id": 1890,
+   "col": "example_de",
+   "old": "Das Kind spielt mit Spielzeug",
+   "new": "Räum dein Spielzeug auf!",
+   "why": "«Das Kind spielt mit Spielzeug» — пусто"
+  },
+  {
+   "id": 1890,
+   "col": "example_ru",
+   "old": "Ребёнок играет с игрушками",
+   "new": "Убери свои игрушки!",
+   "why": "«Das Kind spielt mit Spielzeug» — пусто"
+  },
+  {
+   "id": 1890,
+   "col": "example_uk",
+   "old": "Дитина грається іграшками",
+   "new": "Прибери свої іграшки!",
+   "why": "«Das Kind spielt mit Spielzeug» — пусто"
+  },
+  {
+   "id": 1890,
+   "col": "example_en",
+   "old": "The child plays with a toy",
+   "new": "Tidy up your toys!",
+   "why": "«Das Kind spielt mit Spielzeug» — пусто"
+  },
+  {
+   "id": 1890,
+   "col": "example_tr",
+   "old": "Çocuk oyuncakla oynuyor",
+   "new": "Oyuncaklarını topla!",
+   "why": "«Das Kind spielt mit Spielzeug» — пусто"
+  },
+  {
+   "id": 1890,
+   "col": "example_pl",
+   "old": "Dziecko bawi się zabawką",
+   "new": "Posprzątaj zabawki!",
+   "why": "«Das Kind spielt mit Spielzeug» — пусто"
+  },
+  {
+   "id": 1890,
+   "col": "example_it",
+   "old": "Il bambino gioca con i giocattoli",
+   "new": "Metti a posto i tuoi giocattoli!",
+   "why": "«Das Kind spielt mit Spielzeug» — пусто"
+  },
+  {
+   "id": 1890,
+   "col": "example_es",
+   "old": "El niño juega con juguetes",
+   "new": "¡Recoge tus juguetes!",
+   "why": "«Das Kind spielt mit Spielzeug» — пусто"
+  },
+  {
+   "id": 1890,
+   "col": "example_fr",
+   "old": "L'enfant joue avec des jouets",
+   "new": "Range tes jouets!",
+   "why": "«Das Kind spielt mit Spielzeug» — пусто"
+  },
+  {
+   "id": 1890,
+   "col": "example_cs",
+   "old": "Dítě si hraje s hračkami",
+   "new": "Ukliď si hračky!",
+   "why": "«Das Kind spielt mit Spielzeug» — пусто"
+  }
+ ],
+ "replace": [
+  {
+   "id": 10275,
+   "by": 11969,
+   "lang": "de",
+   "why": "stille — форма слова still"
+  },
+  {
+   "id": 10278,
+   "by": 10161,
+   "lang": "de",
+   "why": "verfluchte — форма слова verflucht"
+  },
+  {
+   "id": 10279,
+   "by": 1136,
+   "lang": "de",
+   "why": "Furcht — книжный вариант Angst"
+  }
+ ],
+ "split_later": {
+  "8796": [
+   "anstellen = нанимать (Die Firma stellt neue Leute an)"
+  ],
+  "2379": [
+   "eingehen = поступать (Die Bewerbung ist eingegangen); eingehen auf = вникать"
+  ],
+  "13488": [
+   "irgendeinem — форма; нет леммы irgendein (есть только irgendeiner = кто-нибудь)"
+  ]
+ }
+}
