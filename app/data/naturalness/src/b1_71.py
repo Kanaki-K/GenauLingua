@@ -1,0 +1,228 @@
+"""B1, блок 71: следующие 40 по частоте. Вычитано вручную 21.10."""
+
+LIST = "список → главное слово и не больше одной альтернативы"
+EN = "английский пример: так не говорят"
+
+
+def all_x(de, ru, uk, en, tr, pl, it, es, fr, cs):
+    return {"x_de": de, "x_ru": ru, "x_uk": uk, "x_en": en, "x_tr": tr, "x_pl": pl,
+            "x_it": it, "x_es": es, "x_fr": fr, "x_cs": cs}
+
+
+FIXES = {
+    2644: ("«Wir machen ein Lagerfeuer» — пусто", {
+        "t_es": "la hoguera, la fogata", "t_cs": "táborák",
+        **all_x("Abends sitzen wir am Lagerfeuer und singen", "По вечерам мы сидим у костра и поём",
+                "Увечері ми сидимо біля багаття й співаємо", "In the evenings we sit round the campfire and sing",
+                "Akşamları kamp ateşinin başında oturup şarkı söylüyoruz", "Wieczorami siedzimy przy ognisku i śpiewamy",
+                "La sera stiamo intorno al falò e cantiamo", "Por las noches nos sentamos alrededor de la hoguera y cantamos",
+                "Le soir, on s'assoit autour du feu de camp et on chante", "Večer sedíme u táboráku a zpíváme")}),
+    17986: ("«… bei der Entscheidung» — планёрка; " + LIST, {
+        "t_ru": "фактор", "t_uk": "фактор, чинник", "t_en": "factor", "t_tr": "faktör, etken", "t_pl": "czynnik",
+        **all_x("Der Preis ist für mich der wichtigste Faktor", "Для меня цена — самый важный фактор",
+                "Для мене ціна — найважливіший чинник", "For me, price is the most important factor",
+                "Benim için en önemli faktör fiyat", "Dla mnie cena to najważniejszy czynnik",
+                "Per me il prezzo è il fattore più importante", "Para mí, el precio es el factor más importante",
+                "Pour moi, le prix est le facteur le plus important", "Pro mě je cena nejdůležitější faktor")}),
+    15149: ("«mein kleines Brüderchen» — тавтология", {
+        "t_ru": "братишка", "t_uk": "братик", "t_en": "baby brother, little brother", "t_tr": "küçük kardeş",
+        **all_x("Ich bekomme ein Brüderchen!", "У меня будет братишка!", "У мене буде братик!", "I'm getting a baby brother!",
+                "Küçük bir kardeşim olacak!", "Będę miał braciszka!", "Avrò un fratellino!", "¡Voy a tener un hermanito!",
+                "Je vais avoir un petit frère!", "Budu mít bratříčka!")}),
+    816: ("«Wir kochen Schweinefleisch» — пусто", {**all_x(
+        "Ich esse kein Schweinefleisch", "Я не ем свинину", "Я не їм свинину", "I don't eat pork", "Domuz eti yemem",
+        "Nie jem wieprzowiny", "Non mangio carne di maiale", "No como carne de cerdo", "Je ne mange pas de porc",
+        "Nejím vepřové maso")}),
+    10930: ("пометка (fam.); " + LIST, {
+        "t_ru": "скупой, жадный", "t_en": "stingy, tight-fisted", "t_fr": "avare, radin",
+        **all_x("Sei nicht so geizig, gib mir auch ein Stück!", "Не будь таким жадным, дай и мне кусочек!",
+                "Не будь таким скупим, дай і мені шматочок!", "Don't be so stingy, give me a piece too!",
+                "Bu kadar cimri olma, bana da bir parça ver!", "Nie bądź taki skąpy, daj mi też kawałek!",
+                "Non essere così tirchio, dammene un pezzo!", "¡No seas tan tacaño, dame un trozo a mí también!",
+                "Ne sois pas si radin, donne-m'en un morceau aussi!", "Nebuď tak lakomý, dej mi taky kousek!")}),
+    2940: ("«Ich verdränge diese Erinnerung» — так не говорят в настоящем; " + LIST, {
+        "t_ru": "вытеснять (из памяти), подавлять", "t_uk": "витісняти, заглушувати", "t_en": "to suppress, to block out",
+        "t_tr": "bastırmak, yerinden etmek", "t_pl": "wypierać, tłumić", "t_it": "rimuovere, reprimere",
+        "t_es": "reprimir, desplazar", "t_fr": "refouler, évincer", "t_cs": "vytěsňovat, potlačovat",
+        **all_x("Das habe ich einfach verdrängt", "Я это просто вытеснил из памяти", "Я це просто витіснив із пам'яті",
+                "I just blocked it out", "Bunu aklımdan tamamen bastırdım", "Po prostu to wyparłem", "L'ho semplicemente rimosso",
+                "Lo he reprimido sin más", "J'ai tout simplement refoulé ça", "Prostě jsem to vytěsnil")}),
+    1459: ("«Ich brauche meine Geburtsurkunde» — пусто; " + LIST, {
+        "t_tr": "doğum belgesi", "t_pl": "akt urodzenia", "t_it": "il certificato di nascita", "t_es": "la partida de nacimiento",
+        **all_x("Für die Hochzeit brauchen wir eine beglaubigte Geburtsurkunde",
+                "Для свадьбы нам нужно заверенное свидетельство о рождении",
+                "Для весілля нам потрібне засвідчене свідоцтво про народження",
+                "We need a certified birth certificate for the wedding", "Düğün için onaylı bir doğum belgesi lazım",
+                "Do ślubu potrzebujemy uwierzytelnionego aktu urodzenia",
+                "Per il matrimonio ci serve un certificato di nascita autenticato",
+                "Para la boda necesitamos una partida de nacimiento legalizada",
+                "Pour le mariage, il nous faut un acte de naissance certifié", "Na svatbu potřebujeme ověřený rodný list")}),
+    2876: ("«Das sind tierische Produkte» — этикетка; в речи tierisch — «зверски, страшно»; " + LIST, {
+        "t_ru": "животный, зверский", "t_uk": "тваринний, страшний", "t_en": "animal, awful", "t_tr": "hayvansal, aşırı",
+        "t_pl": "zwierzęcy, okropny", "t_it": "animale, tremendo", "t_es": "animal, tremendo", "t_fr": "animal, terrible",
+        "t_cs": "živočišný, hrozný",
+        **all_x("Ich habe tierischen Hunger", "Я зверски голоден", "Я страшенно голодний", "I'm awfully hungry", "Aşırı açım",
+                "Jestem okropnie głodny", "Ho una fame tremenda", "Tengo un hambre tremenda", "J'ai terriblement faim",
+                "Mám hrozný hlad")}),
+    9536: (LIST, {"t_ru": "циркуль, кружок", "t_uk": "циркуль, гурток", "t_en": "pair of compasses, circle",
+                  "t_tr": "pergel, grup", "t_pl": "cyrkiel, koło", "x_en": "I draw a circle with the compasses"}),
+    17615: ("«Ich installiere das Programm» — пусто; " + LIST, {
+        "t_ru": "устанавливать", "t_uk": "встановлювати", "t_tr": "kurmak, yüklemek", "t_pl": "instalować, montować",
+        "t_cs": "instalovat, nainstalovat",
+        **all_x("Kannst du mir die App aufs Handy installieren?", "Можешь установить мне приложение на телефон?",
+                "Можеш встановити мені додаток на телефон?", "Can you install the app on my phone for me?",
+                "Telefonuma uygulamayı kurabilir misin?", "Możesz mi zainstalować aplikację na telefonie?",
+                "Mi puoi installare l'app sul telefono?", "¿Me puedes instalar la aplicación en el móvil?",
+                "Tu peux m'installer l'appli sur mon portable?", "Můžeš mi nainstalovat tu aplikaci do mobilu?")}),
+    9027: ("«Die Leiterin des Projekts …» — шаблон Projekt; " + LIST, {
+        "t_ru": "руководительница, заведующая", "t_uk": "керівниця, завідувачка", "t_en": "head, manager",
+        "t_tr": "müdür, yönetici", "t_pl": "kierowniczka, dyrektorka", "t_it": "la responsabile, la direttrice",
+        "t_es": "la directora, la responsable", "t_fr": "la responsable, la directrice", "t_cs": "vedoucí, ředitelka",
+        **all_x("Die Leiterin vom Kindergarten ist sehr nett", "Заведующая детским садом очень милая",
+                "Завідувачка дитячого садка дуже мила", "The head of the nursery is very nice",
+                "Anaokulunun müdürü çok nazik", "Dyrektorka przedszkola jest bardzo miła",
+                "La direttrice dell'asilo è molto gentile", "La directora de la guardería es muy simpática",
+                "La directrice de la crèche est très gentille", "Ředitelka školky je moc milá")}),
+    1600: ("en «dresser» — американское", {"t_en": "chest of drawers", "x_en": "The socks are in the chest of drawers"}),
+    1152: ("«Diese App ist sehr nützlich» — реклама; пометка (fam.)", {
+        "t_ru": "приложение", "t_uk": "застосунок, додаток", "t_en": "app", "t_fr": "l'application, l'appli",
+        **all_x("Lad dir die App runter, dann kannst du das Ticket kaufen", "Скачай приложение, тогда сможешь купить билет",
+                "Завантаж застосунок, тоді зможеш купити квиток", "Download the app, then you can buy the ticket",
+                "Uygulamayı indir, o zaman bileti alabilirsin", "Ściągnij aplikację, wtedy kupisz bilet",
+                "Scaricati l'app, così puoi comprare il biglietto", "Descárgate la aplicación y así puedes comprar el billete",
+                "Télécharge l'appli, comme ça tu peux acheter le billet", "Stáhni si aplikaci, pak si můžeš koupit jízdenku")}),
+    15645: ("пример длинный; pl «dziś w nocy» — не то время", {**all_x(
+        "Mich hat eine Mücke gestochen, das juckt total", "Меня укусил комар, ужасно чешется", "Мене вкусив комар, страшенно свербить",
+        "A mosquito's bitten me, it's really itchy", "Beni sivrisinek ısırdı, çok kaşınıyor", "Ugryzł mnie komar, strasznie swędzi",
+        "Mi ha punto una zanzara, mi prude da morire", "Me ha picado un mosquito, me pica muchísimo",
+        "Un moustique m'a piqué, ça me démange trop", "Štípl mě komár, strašně to svědí")}),
+    15646: ("«Der Farmer sitzt auf seinem alten Gaul …» — так не говорят; Gaul живёт в поговорке; пометки (coloq.)/(fam.); " + LIST, {
+        "t_ru": "кляча, конь", "t_uk": "шкапа, кінь", "t_en": "nag, horse", "t_tr": "beygir, at", "t_pl": "szkapa, koń",
+        "t_it": "il ronzino, il cavallo", "t_es": "el jamelgo, el caballo", "t_fr": "le canasson, le cheval", "t_cs": "herka, kůň",
+        **all_x("Einem geschenkten Gaul schaut man nicht ins Maul", "Дарёному коню в зубы не смотрят",
+                "Дарованому коню в зуби не дивляться", "Don't look a gift horse in the mouth", "Hediye atın dişine bakılmaz",
+                "Darowanemu koniowi nie zagląda się w zęby", "A caval donato non si guarda in bocca",
+                "A caballo regalado no se le mira el diente", "À cheval donné, on ne regarde pas les dents",
+                "Darovanému koni na zuby nehleď")}),
+    9030: (LIST, {"t_en": "author, writer", "t_tr": "yazar"}),
+    12267: (EN + "; " + LIST, {
+        "t_ru": "качаться, качать", "t_uk": "гойдатися, гойдати", "t_en": "to swing, to rock", "t_tr": "sallanmak, sallamak",
+        "t_pl": "huśtać się, kołysać", "t_it": "dondolarsi, andare in altalena", "t_es": "columpiarse, mecer",
+        "t_cs": "houpat se, kolébat", "x_en": "The children are swinging in the park",
+        "x_tr": "Çocuklar parkta salıncakta sallanıyor"}),
+    15649: ("«Das Kamel kann lange ohne Wasser leben» — энциклопедия; «дурак» — не по-русски", {
+        "t_ru": "верблюд", "t_uk": "верблюд", "t_en": "camel", "t_tr": "deve", "t_pl": "wielbłąd",
+        **all_x("In Ägypten sind wir auf einem Kamel geritten", "В Египте мы катались на верблюде", "У Єгипті ми каталися на верблюді",
+                "We rode a camel in Egypt", "Mısır'da deveye bindik", "W Egipcie jeździliśmy na wielbłądzie",
+                "In Egitto siamo andati sul cammello", "En Egipto montamos en camello", "En Égypte, on est montés sur un chameau",
+                "V Egyptě jsme jeli na velbloudovi")}),
+    14615: ("«Der Pinsel ist schmutzig geworden …» — пусто; " + LIST, {
+        "t_ru": "кисть, кисточка", "t_uk": "пензель, пензлик", "t_en": "paintbrush, brush", "t_tr": "fırça", "t_pl": "pędzel, pędzelek",
+        **all_x("Hast du einen dünneren Pinsel?", "У тебя есть кисточка потоньше?", "У тебе є тонший пензлик?",
+                "Have you got a thinner brush?", "Daha ince bir fırçan var mı?", "Masz cieńszy pędzel?",
+                "Hai un pennello più sottile?", "¿Tienes un pincel más fino?", "Tu as un pinceau plus fin?", "Nemáš tenčí štětec?")}),
+    7689: ("«Der glänzende Boden sieht wunderschön aus» — реклама; " + LIST, {
+        "t_ru": "блестящий, сверкающий", "t_uk": "блискучий, чудовий", "t_en": "shiny, brilliant", "t_tr": "parlak, mükemmel",
+        "t_pl": "błyszczący, znakomity", "t_it": "lucido, brillante", "t_es": "brillante, excelente", "t_fr": "brillant, luisant",
+        "t_cs": "lesklý, skvělý",
+        **all_x("Das hast du glänzend gemacht!", "Ты сделал это блестяще!", "Ти зробив це блискуче!", "You did that brilliantly!",
+                "Bunu mükemmel yaptın!", "Zrobiłeś to znakomicie!", "L'hai fatto in modo brillante!",
+                "¡Te ha salido excelente!", "Tu t'en es sorti de façon brillante!", "To jsi udělal skvěle!")}),
+    13716: ("en «the shoelace is broken» — так не говорят", {**all_x(
+        "Dein Schnürsenkel ist offen!", "У тебя шнурок развязался!", "У тебе шнурок розв'язався!", "Your shoelace is undone!",
+        "Ayakkabı bağın çözülmüş!", "Rozwiązała ci się sznurówka!", "Hai il laccio slacciato!", "¡Llevas el cordón desatado!",
+        "Ton lacet est défait!", "Rozvázala se ti tkanička!")}),
+    11834: ("пример длинный; en «candy bar» — американское", {
+        "t_en": "chocolate bar",
+        **all_x("Für unterwegs nehme ich immer einen Schokoriegel mit", "В дорогу я всегда беру шоколадный батончик",
+                "У дорогу я завжди беру шоколадний батончик", "I always take a chocolate bar with me for the journey",
+                "Yola çıkarken hep yanıma bir çikolata barı alırım", "W drogę zawsze biorę batonik",
+                "Per il viaggio porto sempre una barretta di cioccolato", "Para el camino siempre llevo una chocolatina",
+                "Pour la route, je prends toujours une barre chocolatée", "Na cestu si vždycky beru čokoládovou tyčinku")}),
+    18315: ("en «backyard» — американское; ru «в заднем дворе» — так не говорят; " + LIST, {
+        "t_ru": "двор, задний двор", "t_uk": "двір, задній двір", "t_en": "courtyard, back yard", "t_tr": "avlu, arka bahçe",
+        "t_es": "el patio interior, el patio trasero", "t_fr": "la cour, l'arrière-cour", "t_cs": "dvůr, dvorek",
+        "x_ru": "Во дворе играют дети", "x_uk": "У дворі грають діти", "x_en": "The children are playing in the courtyard",
+        "x_tr": "Avluda çocuklar oynuyor", "x_es": "Los niños juegan en el patio interior", "x_fr": "Les enfants jouent dans la cour"}),
+    2534: (LIST, {"t_ru": "в принципе, принципиально", "t_uk": "загалом, принципово", "t_en": "in principle, basically",
+                  "t_tr": "prensip olarak, genel olarak", "t_pl": "w zasadzie, zasadniczo", "t_it": "in linea di principio, di norma",
+                  "t_es": "en principio, por regla general", "t_fr": "en principe, par principe", "t_cs": "v zásadě, zásadně",
+                  "x_tr": "Prensip olarak katılıyorum"}),
+    9032: ("«Der Zimmermann baut das Dach» — пусто", {
+        "t_ru": "плотник", "t_uk": "тесля", "t_en": "carpenter",
+        **all_x("Mein Bruder macht eine Ausbildung zum Zimmermann", "Мой брат учится на плотника", "Мій брат вчиться на теслю",
+                "My brother is training to be a carpenter", "Kardeşim marangozluk eğitimi alıyor", "Mój brat uczy się na cieślę",
+                "Mio fratello sta facendo l'apprendistato da carpentiere", "Mi hermano se está formando como carpintero",
+                "Mon frère fait un apprentissage de charpentier", "Můj bratr se učí tesařem")}),
+    9539: ("«Die Einführung des neuen Systems …» — планёрка; " + LIST, {
+        "t_ru": "введение, внедрение", "t_uk": "вступ, впровадження", "t_en": "introduction, launch", "t_tr": "giriş, tanıtım",
+        "t_it": "l'introduzione, il lancio", "t_es": "la introducción, el lanzamiento", "t_fr": "l'introduction, le lancement",
+        **all_x("Zur Einführung gibt es einen kurzen Film", "В качестве введения покажут короткий фильм",
+                "Як вступ покажуть короткий фільм", "There's a short film by way of introduction",
+                "Giriş olarak kısa bir film gösterilecek", "Na wprowadzenie będzie krótki film",
+                "Come introduzione c'è un breve film", "Como introducción hay una película corta",
+                "En introduction, il y a un petit film", "Na úvod bude krátký film")}),
+    9034: ("в детском саду — Erzieher; Betreuer — вожатый, опекун; en «counselor» — американское; " + LIST, {
+        "t_ru": "вожатый, опекун", "t_uk": "вожатий, опікун", "t_en": "group leader, carer", "t_tr": "sorumlu, bakıcı",
+        "t_pl": "opiekun, wychowawca", "t_it": "l'accompagnatore, l'educatore", "t_es": "el monitor, el cuidador",
+        "t_fr": "l'animateur, l'accompagnateur", "t_cs": "vedoucí, pečovatel",
+        **all_x("Im Ferienlager haben wir zwei Betreuer", "В летнем лагере у нас два вожатых", "У літньому таборі в нас двоє вожатих",
+                "We've got two group leaders at the summer camp", "Yaz kampında iki sorumlumuz var", "Na obozie mamy dwóch opiekunów",
+                "Al campo estivo abbiamo due accompagnatori", "En el campamento tenemos dos monitores",
+                "En colonie, on a deux animateurs", "Na táboře máme dva vedoucí")}),
+    14150: (LIST, {"t_es": "elogiar, alabar", "t_fr": "féliciter, louer"}),
+    18317: (LIST, {"t_ru": "задний вход, чёрный ход", "t_en": "back entrance, back door", "t_pl": "tylne wejście"}),
+    11835: ("пример длинный", {
+        "t_ru": "крошка", "t_uk": "крихта", "t_en": "crumb", "t_tr": "kırıntı",
+        **all_x("Mach keine Krümel aufs Sofa!", "Не сыпь крошки на диван!", "Не сип крихти на диван!",
+                "Don't get crumbs on the sofa!", "Kanepeye kırıntı dökme!", "Nie rób okruszków na kanapie!",
+                "Non fare briciole sul divano!", "¡No llenes el sofá de migas!", "Ne mets pas de miettes sur le canapé!",
+                "Nedělej drobky na gauči!")}),
+    7696: ("«krumm und schief gewachsen» — тавтология; " + LIST, {
+        "t_ru": "кривой, сутулый", "t_uk": "кривий, сутулий", "t_en": "crooked, hunched", "t_tr": "eğri, kambur",
+        "t_pl": "krzywy, zgarbiony", "t_it": "storto, curvo", "t_es": "torcido, curvo", "t_fr": "tordu, courbé",
+        "t_cs": "křivý, zahnutý",
+        **all_x("Sitz nicht so krumm!", "Не сиди так сутуло!", "Не сиди так сутуло!", "Don't sit so hunched!",
+                "Öyle kambur oturma!", "Nie siedź tak zgarbiony!", "Non stare seduto così storto!",
+                "¡No te sientes tan torcido!", "Ne te tiens pas tout courbé!", "Neseď tak křivě!")}),
+    17988: ("«Das Kupfer ist ein weiches Metall …» — учебник химии", {**all_x(
+        "Die alten Töpfe meiner Oma sind aus Kupfer", "Старые кастрюли моей бабушки из меди", "Старі каструлі моєї бабусі з міді",
+        "My grandma's old pans are made of copper", "Anneannemin eski tencereleri bakırdan", "Stare garnki mojej babci są z miedzi",
+        "Le vecchie pentole di mia nonna sono di rame", "Las ollas viejas de mi abuela son de cobre",
+        "Les vieilles casseroles de ma grand-mère sont en cuivre", "Babiččiny staré hrnce jsou z mědi")}),
+    1413: ("«Alle Familienmitglieder sind hier» — пусто; " + LIST, {
+        "t_ru": "член семьи", "t_uk": "член родини", "t_en": "family member", "t_it": "il membro della famiglia, il familiare",
+        "t_es": "el miembro de la familia, el familiar",
+        **all_x("Unser Hund ist ein richtiges Familienmitglied", "Наша собака — настоящий член семьи", "Наш пес — справжній член родини",
+                "Our dog is a real member of the family", "Köpeğimiz gerçek bir aile üyesi", "Nasz pies to prawdziwy członek rodziny",
+                "Il nostro cane è un vero membro della famiglia", "Nuestro perro es un miembro más de la familia",
+                "Notre chien est un vrai membre de la famille", "Náš pes je opravdový člen rodiny")}),
+    2378: ("«Wir führen neue Regeln ein» — пусто; " + LIST + " (было пять значений)", {
+        "t_ru": "вводить, внедрять", "t_uk": "запроваджувати, вводити", "t_en": "to introduce, to import",
+        "t_tr": "getirmek, ithal etmek", "t_pl": "wprowadzać, importować", "t_it": "introdurre, importare",
+        "t_es": "introducir, importar", "t_fr": "introduire, importer", "t_cs": "zavádět, dovážet",
+        **all_x("Ab nächstem Jahr wird Informatik als Fach eingeführt", "Со следующего года вводят информатику как предмет",
+                "З наступного року запроваджують інформатику як предмет", "Computer science is being introduced as a subject next year",
+                "Seneye bilgisayar dersi getiriliyor", "Od przyszłego roku wprowadzają informatykę jako przedmiot",
+                "Dal prossimo anno introducono l'informatica come materia",
+                "A partir del año que viene introducen la informática como asignatura",
+                "À partir de l'année prochaine, on introduit l'informatique comme matière",
+                "Od příštího roku zavádějí informatiku jako předmět")}),
+    2590: ("«Ein ganzes Jahrzehnt ist vergangen» — книжно; " + LIST, {
+        "t_ru": "десятилетие", "t_tr": "on yıl", "t_pl": "dekada, dziesięciolecie",
+        **all_x("Wir haben uns seit einem Jahrzehnt nicht gesehen", "Мы не виделись целое десятилетие",
+                "Ми не бачилися ціле десятиліття", "We haven't seen each other for a decade", "On yıldır birbirimizi görmedik",
+                "Nie widzieliśmy się od dekady", "Non ci vediamo da un decennio", "Hace una década que no nos vemos",
+                "On ne s'est pas vus depuis une décennie", "Neviděli jsme se celé desetiletí")}),
+    11836: (LIST, {"t_ru": "выпечка, печенье", "t_uk": "випічка, печиво", "t_en": "pastries, biscuits",
+                   "t_tr": "hamur işi, kurabiye", "t_pl": "ciastka, wypieki", "t_it": "i pasticcini, i biscotti",
+                   "t_es": "la bollería, las pastas", "t_fr": "les viennoiseries, les biscuits"}),
+    1333: (LIST, {"t_ru": "диплом", "t_en": "degree, diploma", "t_tr": "diploma", "x_en": "He has a degree in physics"}),
+    14619: ("«Der Poet schrieb …» — претерит, книжно; в речи Poet — ирония", {
+        "t_ru": "поэт", "t_uk": "поет", "t_tr": "şair", "t_pl": "poeta",
+        **all_x("Du bist ja ein richtiger Poet!", "Да ты настоящий поэт!", "Та ти справжній поет!", "You're a real poet!",
+                "Sen gerçek bir şairsin!", "Ty to prawdziwy poeta!", "Sei proprio un poeta!", "¡Eres todo un poeta!",
+                "Tu es un vrai poète!", "Ty jsi ale básník!")}),
+}
+
+SPLIT_LATER = {}
