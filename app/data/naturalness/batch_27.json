@@ -1,0 +1,777 @@
+{
+ "about": "2.3: почти-повторы примеров, внесённые вычиткой",
+ "edits": [
+  {
+   "id": 362,
+   "col": "example_de",
+   "old": "Das ist eine gute Idee",
+   "new": "Du sprichst schon gut Deutsch!",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Ansicht («… eine gute Idee»)"
+  },
+  {
+   "id": 362,
+   "col": "example_ru",
+   "old": "Это хорошая идея",
+   "new": "Ты уже хорошо говоришь по-немецки!",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Ansicht («… eine gute Idee»)"
+  },
+  {
+   "id": 362,
+   "col": "example_uk",
+   "old": "Це добра ідея",
+   "new": "Ти вже добре говориш німецькою!",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Ansicht («… eine gute Idee»)"
+  },
+  {
+   "id": 362,
+   "col": "example_en",
+   "old": "That's a good idea",
+   "new": "You already speak good German!",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Ansicht («… eine gute Idee»)"
+  },
+  {
+   "id": 362,
+   "col": "example_tr",
+   "old": "Bu iyi bir fikir",
+   "new": "Zaten iyi Almanca konuşuyorsun!",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Ansicht («… eine gute Idee»)"
+  },
+  {
+   "id": 362,
+   "col": "example_pl",
+   "old": "To dobry pomysł",
+   "new": "Już dobrze mówisz po niemiecku!",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Ansicht («… eine gute Idee»)"
+  },
+  {
+   "id": 362,
+   "col": "example_it",
+   "old": "È una buona idea",
+   "new": "Parli già bene il tedesco!",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Ansicht («… eine gute Idee»)"
+  },
+  {
+   "id": 362,
+   "col": "example_es",
+   "old": "Es una buena idea",
+   "new": "¡Ya hablas bien alemán!",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Ansicht («… eine gute Idee»)"
+  },
+  {
+   "id": 362,
+   "col": "example_fr",
+   "old": "C'est une bonne idée",
+   "new": "Tu parles déjà bien allemand!",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Ansicht («… eine gute Idee»)"
+  },
+  {
+   "id": 362,
+   "col": "example_cs",
+   "old": "To je dobrý nápad",
+   "new": "Už mluvíš dobře německy!",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Ansicht («… eine gute Idee»)"
+  },
+  {
+   "id": 251,
+   "col": "example_de",
+   "old": "Am Sonntag isst die ganze Familie zusammen",
+   "new": "Meine Familie wohnt in Polen",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — zusammenkommen («Am Sonntag … die ganze Familie zusammen»)"
+  },
+  {
+   "id": 251,
+   "col": "example_ru",
+   "old": "В воскресенье вся семья обедает вместе",
+   "new": "Моя семья живёт в Польше",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — zusammenkommen («Am Sonntag … die ganze Familie zusammen»)"
+  },
+  {
+   "id": 251,
+   "col": "example_uk",
+   "old": "У неділю вся родина обідає разом",
+   "new": "Моя родина живе в Польщі",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — zusammenkommen («Am Sonntag … die ganze Familie zusammen»)"
+  },
+  {
+   "id": 251,
+   "col": "example_en",
+   "old": "On Sundays the whole family eats together",
+   "new": "My family lives in Poland",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — zusammenkommen («Am Sonntag … die ganze Familie zusammen»)"
+  },
+  {
+   "id": 251,
+   "col": "example_tr",
+   "old": "Pazar günleri bütün aile birlikte yemek yer",
+   "new": "Ailem Polonya'da yaşıyor",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — zusammenkommen («Am Sonntag … die ganze Familie zusammen»)"
+  },
+  {
+   "id": 251,
+   "col": "example_pl",
+   "old": "W niedzielę cała rodzina je razem obiad",
+   "new": "Moja rodzina mieszka w Polsce",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — zusammenkommen («Am Sonntag … die ganze Familie zusammen»)"
+  },
+  {
+   "id": 251,
+   "col": "example_it",
+   "old": "La domenica tutta la famiglia mangia insieme",
+   "new": "La mia famiglia vive in Polonia",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — zusammenkommen («Am Sonntag … die ganze Familie zusammen»)"
+  },
+  {
+   "id": 251,
+   "col": "example_es",
+   "old": "Los domingos toda la familia come junta",
+   "new": "Mi familia vive en Polonia",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — zusammenkommen («Am Sonntag … die ganze Familie zusammen»)"
+  },
+  {
+   "id": 251,
+   "col": "example_fr",
+   "old": "Le dimanche, toute la famille mange ensemble",
+   "new": "Ma famille habite en Pologne",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — zusammenkommen («Am Sonntag … die ganze Familie zusammen»)"
+  },
+  {
+   "id": 251,
+   "col": "example_cs",
+   "old": "V neděli jí celá rodina spolu",
+   "new": "Moje rodina bydlí v Polsku",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — zusammenkommen («Am Sonntag … die ganze Familie zusammen»)"
+  },
+  {
+   "id": 1534,
+   "col": "example_de",
+   "old": "Vielen Dank für den herzlichen Empfang!",
+   "new": "Sie hat uns herzlich begrüßt",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Dank («Vielen Dank…»)"
+  },
+  {
+   "id": 1534,
+   "col": "example_ru",
+   "old": "Спасибо за тёплый приём!",
+   "new": "Она тепло нас встретила",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Dank («Vielen Dank…»)"
+  },
+  {
+   "id": 1534,
+   "col": "example_uk",
+   "old": "Дякую за теплий прийом!",
+   "new": "Вона тепло нас привітала",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Dank («Vielen Dank…»)"
+  },
+  {
+   "id": 1534,
+   "col": "example_en",
+   "old": "Thank you for the warm welcome!",
+   "new": "She greeted us warmly",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Dank («Vielen Dank…»)"
+  },
+  {
+   "id": 1534,
+   "col": "example_tr",
+   "old": "Sıcak karşılamanız için teşekkürler!",
+   "new": "Bizi sıcak karşıladı",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Dank («Vielen Dank…»)"
+  },
+  {
+   "id": 1534,
+   "col": "example_pl",
+   "old": "Dziękuję za serdeczne przyjęcie!",
+   "new": "Serdecznie nas przywitała",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Dank («Vielen Dank…»)"
+  },
+  {
+   "id": 1534,
+   "col": "example_it",
+   "old": "Grazie per la calorosa accoglienza!",
+   "new": "Ci ha accolti calorosamente",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Dank («Vielen Dank…»)"
+  },
+  {
+   "id": 1534,
+   "col": "example_es",
+   "old": "¡Gracias por el caluroso recibimiento!",
+   "new": "Nos recibió con mucho cariño",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Dank («Vielen Dank…»)"
+  },
+  {
+   "id": 1534,
+   "col": "example_fr",
+   "old": "Merci pour l'accueil chaleureux!",
+   "new": "Elle nous a accueillis chaleureusement",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Dank («Vielen Dank…»)"
+  },
+  {
+   "id": 1534,
+   "col": "example_cs",
+   "old": "Děkujeme za srdečné přijetí!",
+   "new": "Srdečně nás přivítala",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Dank («Vielen Dank…»)"
+  },
+  {
+   "id": 942,
+   "col": "example_de",
+   "old": "Was möchtest du trinken?",
+   "new": "Du musst mehr Wasser trinken",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — etwas («Möchtest du etwas trinken?»)"
+  },
+  {
+   "id": 942,
+   "col": "example_ru",
+   "old": "Что ты будешь пить?",
+   "new": "Тебе нужно пить больше воды",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — etwas («Möchtest du etwas trinken?»)"
+  },
+  {
+   "id": 942,
+   "col": "example_uk",
+   "old": "Що ти питимеш?",
+   "new": "Тобі треба пити більше води",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — etwas («Möchtest du etwas trinken?»)"
+  },
+  {
+   "id": 942,
+   "col": "example_en",
+   "old": "What would you like to drink?",
+   "new": "You need to drink more water",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — etwas («Möchtest du etwas trinken?»)"
+  },
+  {
+   "id": 942,
+   "col": "example_tr",
+   "old": "Ne içmek istersin?",
+   "new": "Daha fazla su içmelisin",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — etwas («Möchtest du etwas trinken?»)"
+  },
+  {
+   "id": 942,
+   "col": "example_pl",
+   "old": "Czego się napijesz?",
+   "new": "Musisz pić więcej wody",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — etwas («Möchtest du etwas trinken?»)"
+  },
+  {
+   "id": 942,
+   "col": "example_it",
+   "old": "Cosa vuoi bere?",
+   "new": "Devi bere più acqua",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — etwas («Möchtest du etwas trinken?»)"
+  },
+  {
+   "id": 942,
+   "col": "example_es",
+   "old": "¿Qué quieres beber?",
+   "new": "Tienes que beber más agua",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — etwas («Möchtest du etwas trinken?»)"
+  },
+  {
+   "id": 942,
+   "col": "example_fr",
+   "old": "Qu'est-ce que tu veux boire?",
+   "new": "Tu dois boire plus d'eau",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — etwas («Möchtest du etwas trinken?»)"
+  },
+  {
+   "id": 942,
+   "col": "example_cs",
+   "old": "Co chceš pít?",
+   "new": "Musíš pít víc vody",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — etwas («Möchtest du etwas trinken?»)"
+  },
+  {
+   "id": 6296,
+   "col": "example_de",
+   "old": "Mach bitte das Licht aus, wenn du gehst",
+   "new": "Hier ist zu wenig Licht zum Lesen",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — anmachen («Mach bitte das Licht an»)"
+  },
+  {
+   "id": 6296,
+   "col": "example_ru",
+   "old": "Выключай свет, когда уходишь",
+   "new": "Здесь слишком мало света для чтения",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — anmachen («Mach bitte das Licht an»)"
+  },
+  {
+   "id": 6296,
+   "col": "example_uk",
+   "old": "Вимикай світло, коли йдеш",
+   "new": "Тут замало світла для читання",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — anmachen («Mach bitte das Licht an»)"
+  },
+  {
+   "id": 6296,
+   "col": "example_en",
+   "old": "Turn off the light when you leave",
+   "new": "There isn't enough light here to read",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — anmachen («Mach bitte das Licht an»)"
+  },
+  {
+   "id": 6296,
+   "col": "example_tr",
+   "old": "Çıkarken ışığı kapat",
+   "new": "Burada okumak için yeterince ışık yok",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — anmachen («Mach bitte das Licht an»)"
+  },
+  {
+   "id": 6296,
+   "col": "example_pl",
+   "old": "Wyłączaj światło, kiedy wychodzisz",
+   "new": "Jest tu za mało światła do czytania",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — anmachen («Mach bitte das Licht an»)"
+  },
+  {
+   "id": 6296,
+   "col": "example_it",
+   "old": "Spegni la luce quando esci",
+   "new": "Qui c'è poca luce per leggere",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — anmachen («Mach bitte das Licht an»)"
+  },
+  {
+   "id": 6296,
+   "col": "example_es",
+   "old": "Apaga la luz cuando salgas",
+   "new": "Aquí hay poca luz para leer",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — anmachen («Mach bitte das Licht an»)"
+  },
+  {
+   "id": 6296,
+   "col": "example_fr",
+   "old": "Éteins la lumière quand tu pars",
+   "new": "Il n'y a pas assez de lumière ici pour lire",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — anmachen («Mach bitte das Licht an»)"
+  },
+  {
+   "id": 6296,
+   "col": "example_cs",
+   "old": "Zhasni světlo, až budeš odcházet",
+   "new": "Je tu málo světla na čtení",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — anmachen («Mach bitte das Licht an»)"
+  },
+  {
+   "id": 497,
+   "col": "example_de",
+   "old": "Heute koche ich Suppe",
+   "new": "Wer kocht heute?",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Topf («Ich koche Suppe…»)"
+  },
+  {
+   "id": 497,
+   "col": "example_ru",
+   "old": "Сегодня я варю суп",
+   "new": "Кто сегодня готовит?",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Topf («Ich koche Suppe…»)"
+  },
+  {
+   "id": 497,
+   "col": "example_uk",
+   "old": "Сьогодні я варю суп",
+   "new": "Хто сьогодні готує?",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Topf («Ich koche Suppe…»)"
+  },
+  {
+   "id": 497,
+   "col": "example_en",
+   "old": "I'm making soup today",
+   "new": "Who's cooking today?",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Topf («Ich koche Suppe…»)"
+  },
+  {
+   "id": 497,
+   "col": "example_tr",
+   "old": "Bugün çorba pişiriyorum",
+   "new": "Bugün yemeği kim yapıyor?",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Topf («Ich koche Suppe…»)"
+  },
+  {
+   "id": 497,
+   "col": "example_pl",
+   "old": "Dziś gotuję zupę",
+   "new": "Kto dziś gotuje?",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Topf («Ich koche Suppe…»)"
+  },
+  {
+   "id": 497,
+   "col": "example_it",
+   "old": "Oggi cucino la zuppa",
+   "new": "Chi cucina oggi?",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Topf («Ich koche Suppe…»)"
+  },
+  {
+   "id": 497,
+   "col": "example_es",
+   "old": "Hoy cocino sopa",
+   "new": "¿Quién cocina hoy?",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Topf («Ich koche Suppe…»)"
+  },
+  {
+   "id": 497,
+   "col": "example_fr",
+   "old": "Aujourd'hui, je cuisine une soupe",
+   "new": "Qui fait la cuisine aujourd'hui?",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Topf («Ich koche Suppe…»)"
+  },
+  {
+   "id": 497,
+   "col": "example_cs",
+   "old": "Dnes vařím polévku",
+   "new": "Kdo dnes vaří?",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Topf («Ich koche Suppe…»)"
+  },
+  {
+   "id": 695,
+   "col": "example_de",
+   "old": "Hast du ein Blatt Papier für mich?",
+   "new": "Der Drucker hat kein Papier mehr",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Blatt («Gib mir ein Blatt Papier»)"
+  },
+  {
+   "id": 695,
+   "col": "example_ru",
+   "old": "У тебя есть для меня лист бумаги?",
+   "new": "В принтере закончилась бумага",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Blatt («Gib mir ein Blatt Papier»)"
+  },
+  {
+   "id": 695,
+   "col": "example_uk",
+   "old": "Маєш для мене аркуш паперу?",
+   "new": "У принтері закінчився папір",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Blatt («Gib mir ein Blatt Papier»)"
+  },
+  {
+   "id": 695,
+   "col": "example_en",
+   "old": "Do you have a sheet of paper for me?",
+   "new": "The printer is out of paper",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Blatt («Gib mir ein Blatt Papier»)"
+  },
+  {
+   "id": 695,
+   "col": "example_tr",
+   "old": "Bana bir kağıt verebilir misin?",
+   "new": "Yazıcıda kağıt kalmadı",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Blatt («Gib mir ein Blatt Papier»)"
+  },
+  {
+   "id": 695,
+   "col": "example_pl",
+   "old": "Masz dla mnie kartkę papieru?",
+   "new": "W drukarce skończył się papier",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Blatt («Gib mir ein Blatt Papier»)"
+  },
+  {
+   "id": 695,
+   "col": "example_it",
+   "old": "Hai un foglio di carta per me?",
+   "new": "La stampante è senza carta",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Blatt («Gib mir ein Blatt Papier»)"
+  },
+  {
+   "id": 695,
+   "col": "example_es",
+   "old": "¿Tienes una hoja de papel para mí?",
+   "new": "La impresora se ha quedado sin papel",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Blatt («Gib mir ein Blatt Papier»)"
+  },
+  {
+   "id": 695,
+   "col": "example_fr",
+   "old": "Tu as une feuille de papier pour moi?",
+   "new": "L'imprimante n'a plus de papier",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Blatt («Gib mir ein Blatt Papier»)"
+  },
+  {
+   "id": 695,
+   "col": "example_cs",
+   "old": "Máš pro mě list papíru?",
+   "new": "V tiskárně došel papír",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — Blatt («Gib mir ein Blatt Papier»)"
+  },
+  {
+   "id": 965,
+   "col": "example_de",
+   "old": "Heute fällt der Unterricht aus",
+   "new": "Der Unterricht macht mir Spaß",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — ausfallen («Der Unterricht fällt heute aus»: та же фраза)"
+  },
+  {
+   "id": 965,
+   "col": "example_ru",
+   "old": "Сегодня занятия отменяются",
+   "new": "Мне нравятся занятия",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — ausfallen («Der Unterricht fällt heute aus»: та же фраза)"
+  },
+  {
+   "id": 965,
+   "col": "example_uk",
+   "old": "Сьогодні заняття скасовуються",
+   "new": "Мені подобаються заняття",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — ausfallen («Der Unterricht fällt heute aus»: та же фраза)"
+  },
+  {
+   "id": 965,
+   "col": "example_en",
+   "old": "There's no class today",
+   "new": "I enjoy the lessons",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — ausfallen («Der Unterricht fällt heute aus»: та же фраза)"
+  },
+  {
+   "id": 965,
+   "col": "example_tr",
+   "old": "Bugün ders yok",
+   "new": "Dersler hoşuma gidiyor",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — ausfallen («Der Unterricht fällt heute aus»: та же фраза)"
+  },
+  {
+   "id": 965,
+   "col": "example_pl",
+   "old": "Dziś nie ma lekcji",
+   "new": "Lekcje sprawiają mi przyjemność",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — ausfallen («Der Unterricht fällt heute aus»: та же фраза)"
+  },
+  {
+   "id": 965,
+   "col": "example_it",
+   "old": "Oggi la lezione è annullata",
+   "new": "Le lezioni mi piacciono",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — ausfallen («Der Unterricht fällt heute aus»: та же фраза)"
+  },
+  {
+   "id": 965,
+   "col": "example_es",
+   "old": "Hoy no hay clase",
+   "new": "Me gustan las clases",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — ausfallen («Der Unterricht fällt heute aus»: та же фраза)"
+  },
+  {
+   "id": 965,
+   "col": "example_fr",
+   "old": "Aujourd'hui, le cours est annulé",
+   "new": "J'aime bien les cours",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — ausfallen («Der Unterricht fällt heute aus»: та же фраза)"
+  },
+  {
+   "id": 965,
+   "col": "example_cs",
+   "old": "Dnes odpadá vyučování",
+   "new": "Výuka mě baví",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — ausfallen («Der Unterricht fällt heute aus»: та же фраза)"
+  },
+  {
+   "id": 398,
+   "col": "example_de",
+   "old": "Im Herbst fallen die Blätter",
+   "new": "Im Herbst gehen wir gern in den Wald",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — abfallen («Die Blätter fallen jetzt im Herbst ab»)"
+  },
+  {
+   "id": 398,
+   "col": "example_ru",
+   "old": "Осенью опадают листья",
+   "new": "Осенью мы любим ходить в лес",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — abfallen («Die Blätter fallen jetzt im Herbst ab»)"
+  },
+  {
+   "id": 398,
+   "col": "example_uk",
+   "old": "Восени опадає листя",
+   "new": "Восени ми любимо ходити до лісу",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — abfallen («Die Blätter fallen jetzt im Herbst ab»)"
+  },
+  {
+   "id": 398,
+   "col": "example_en",
+   "old": "In autumn the leaves fall",
+   "new": "In autumn we like going to the forest",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — abfallen («Die Blätter fallen jetzt im Herbst ab»)"
+  },
+  {
+   "id": 398,
+   "col": "example_tr",
+   "old": "Sonbaharda yapraklar dökülür",
+   "new": "Sonbaharda ormana gitmeyi severiz",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — abfallen («Die Blätter fallen jetzt im Herbst ab»)"
+  },
+  {
+   "id": 398,
+   "col": "example_pl",
+   "old": "Jesienią spadają liście",
+   "new": "Jesienią lubimy chodzić do lasu",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — abfallen («Die Blätter fallen jetzt im Herbst ab»)"
+  },
+  {
+   "id": 398,
+   "col": "example_it",
+   "old": "In autunno cadono le foglie",
+   "new": "In autunno ci piace andare nel bosco",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — abfallen («Die Blätter fallen jetzt im Herbst ab»)"
+  },
+  {
+   "id": 398,
+   "col": "example_es",
+   "old": "En otoño caen las hojas",
+   "new": "En otoño nos gusta ir al bosque",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — abfallen («Die Blätter fallen jetzt im Herbst ab»)"
+  },
+  {
+   "id": 398,
+   "col": "example_fr",
+   "old": "En automne, les feuilles tombent",
+   "new": "En automne, on aime aller en forêt",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — abfallen («Die Blätter fallen jetzt im Herbst ab»)"
+  },
+  {
+   "id": 398,
+   "col": "example_cs",
+   "old": "Na podzim padá listí",
+   "new": "Na podzim rádi chodíme do lesa",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — abfallen («Die Blätter fallen jetzt im Herbst ab»)"
+  },
+  {
+   "id": 753,
+   "col": "example_de",
+   "old": "Es regnet schon den ganzen Tag",
+   "new": "Nimm einen Schirm mit, es regnet",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — zuweilen («… regnet es den ganzen Tag»)"
+  },
+  {
+   "id": 753,
+   "col": "example_ru",
+   "old": "Дождь идёт уже весь день",
+   "new": "Возьми зонт, идёт дождь",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — zuweilen («… regnet es den ganzen Tag»)"
+  },
+  {
+   "id": 753,
+   "col": "example_uk",
+   "old": "Дощ іде вже цілий день",
+   "new": "Візьми парасольку, йде дощ",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — zuweilen («… regnet es den ganzen Tag»)"
+  },
+  {
+   "id": 753,
+   "col": "example_en",
+   "old": "It's been raining all day",
+   "new": "Take an umbrella, it's raining",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — zuweilen («… regnet es den ganzen Tag»)"
+  },
+  {
+   "id": 753,
+   "col": "example_tr",
+   "old": "Bütün gün yağmur yağıyor",
+   "new": "Şemsiye al, yağmur yağıyor",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — zuweilen («… regnet es den ganzen Tag»)"
+  },
+  {
+   "id": 753,
+   "col": "example_pl",
+   "old": "Pada już cały dzień",
+   "new": "Weź parasol, pada deszcz",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — zuweilen («… regnet es den ganzen Tag»)"
+  },
+  {
+   "id": 753,
+   "col": "example_it",
+   "old": "Piove da tutto il giorno",
+   "new": "Prendi l'ombrello, piove",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — zuweilen («… regnet es den ganzen Tag»)"
+  },
+  {
+   "id": 753,
+   "col": "example_es",
+   "old": "Lleva lloviendo todo el día",
+   "new": "Llévate un paraguas, que llueve",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — zuweilen («… regnet es den ganzen Tag»)"
+  },
+  {
+   "id": 753,
+   "col": "example_fr",
+   "old": "Il pleut depuis toute la journée",
+   "new": "Prends un parapluie, il pleut",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — zuweilen («… regnet es den ganzen Tag»)"
+  },
+  {
+   "id": 753,
+   "col": "example_cs",
+   "old": "Prší už celý den",
+   "new": "Vezmi si deštník, prší",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — zuweilen («… regnet es den ganzen Tag»)"
+  },
+  {
+   "id": 539,
+   "col": "example_de",
+   "old": "Lass mich in Ruhe!",
+   "new": "Lass die Tür bitte offen",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — erstmal («Lass mich erstmal in Ruhe…»)"
+  },
+  {
+   "id": 539,
+   "col": "example_ru",
+   "old": "Оставь меня в покое!",
+   "new": "Оставь, пожалуйста, дверь открытой",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — erstmal («Lass mich erstmal in Ruhe…»)"
+  },
+  {
+   "id": 539,
+   "col": "example_uk",
+   "old": "Залиш мене в спокої!",
+   "new": "Залиш, будь ласка, двері відчиненими",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — erstmal («Lass mich erstmal in Ruhe…»)"
+  },
+  {
+   "id": 539,
+   "col": "example_en",
+   "old": "Leave me alone!",
+   "new": "Leave the door open, please",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — erstmal («Lass mich erstmal in Ruhe…»)"
+  },
+  {
+   "id": 539,
+   "col": "example_tr",
+   "old": "Beni rahat bırak!",
+   "new": "Kapıyı açık bırak lütfen",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — erstmal («Lass mich erstmal in Ruhe…»)"
+  },
+  {
+   "id": 539,
+   "col": "example_pl",
+   "old": "Zostaw mnie w spokoju!",
+   "new": "Zostaw, proszę, otwarte drzwi",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — erstmal («Lass mich erstmal in Ruhe…»)"
+  },
+  {
+   "id": 539,
+   "col": "example_it",
+   "old": "Lasciami in pace!",
+   "new": "Lascia la porta aperta, per favore",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — erstmal («Lass mich erstmal in Ruhe…»)"
+  },
+  {
+   "id": 539,
+   "col": "example_es",
+   "old": "¡Déjame en paz!",
+   "new": "Deja la puerta abierta, por favor",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — erstmal («Lass mich erstmal in Ruhe…»)"
+  },
+  {
+   "id": 539,
+   "col": "example_fr",
+   "old": "Laisse-moi tranquille!",
+   "new": "Laisse la porte ouverte, s'il te plaît",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — erstmal («Lass mich erstmal in Ruhe…»)"
+  },
+  {
+   "id": 539,
+   "col": "example_cs",
+   "old": "Nech mě být!",
+   "new": "Nech prosím dveře otevřené",
+   "why": "мой новый пример почти повторял пример другого слова (проверка near_twins 21.10) — erstmal («Lass mich erstmal in Ruhe…»)"
+  }
+ ],
+ "replace": [],
+ "split_later": {}
+}
