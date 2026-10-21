@@ -1,0 +1,889 @@
+{
+ "about": "2.3, B1 блок 17",
+ "edits": [
+  {
+   "id": 9733,
+   "col": "example_en",
+   "old": "I receive a check for 100 euros",
+   "new": "I'm getting a cheque for 100 euros",
+   "why": "английский пример: так не говорят («I receive a check»)"
+  },
+  {
+   "id": 18140,
+   "col": "example_de",
+   "old": "Die Mauer ist sehr hoch",
+   "new": "Die Berliner Mauer ist 1989 gefallen",
+   "why": "«Die Mauer ist sehr hoch» — скелет; Mauer у немца — прежде всего Берлинская стена"
+  },
+  {
+   "id": 18140,
+   "col": "example_ru",
+   "old": "Стена очень высокая",
+   "new": "Берлинская стена пала в 1989 году",
+   "why": "«Die Mauer ist sehr hoch» — скелет; Mauer у немца — прежде всего Берлинская стена"
+  },
+  {
+   "id": 18140,
+   "col": "example_uk",
+   "old": "Стіна дуже висока",
+   "new": "Берлінська стіна впала в 1989 році",
+   "why": "«Die Mauer ist sehr hoch» — скелет; Mauer у немца — прежде всего Берлинская стена"
+  },
+  {
+   "id": 18140,
+   "col": "example_en",
+   "old": "The wall is very high",
+   "new": "The Berlin Wall came down in 1989",
+   "why": "«Die Mauer ist sehr hoch» — скелет; Mauer у немца — прежде всего Берлинская стена"
+  },
+  {
+   "id": 18140,
+   "col": "example_tr",
+   "old": "Duvar çok yüksek",
+   "new": "Berlin Duvarı 1989'da yıkıldı",
+   "why": "«Die Mauer ist sehr hoch» — скелет; Mauer у немца — прежде всего Берлинская стена"
+  },
+  {
+   "id": 18140,
+   "col": "example_pl",
+   "old": "Mur jest bardzo wysoki",
+   "new": "Mur berliński upadł w 1989 roku",
+   "why": "«Die Mauer ist sehr hoch» — скелет; Mauer у немца — прежде всего Берлинская стена"
+  },
+  {
+   "id": 18140,
+   "col": "example_it",
+   "old": "Il muro è molto alto",
+   "new": "Il Muro di Berlino è caduto nel 1989",
+   "why": "«Die Mauer ist sehr hoch» — скелет; Mauer у немца — прежде всего Берлинская стена"
+  },
+  {
+   "id": 18140,
+   "col": "example_es",
+   "old": "El muro es muy alto",
+   "new": "El Muro de Berlín cayó en 1989",
+   "why": "«Die Mauer ist sehr hoch» — скелет; Mauer у немца — прежде всего Берлинская стена"
+  },
+  {
+   "id": 18140,
+   "col": "example_fr",
+   "old": "Le mur est très haut",
+   "new": "Le mur de Berlin est tombé en 1989",
+   "why": "«Die Mauer ist sehr hoch» — скелет; Mauer у немца — прежде всего Берлинская стена"
+  },
+  {
+   "id": 18140,
+   "col": "example_cs",
+   "old": "Zeď je velmi vysoká",
+   "new": "Berlínská zeď padla v roce 1989",
+   "why": "«Die Mauer ist sehr hoch» — скелет; Mauer у немца — прежде всего Берлинская стена"
+  },
+  {
+   "id": 15990,
+   "col": "example_de",
+   "old": "Der Verbrecher ist im Gefängnis",
+   "new": "Er sieht nicht aus wie ein Verbrecher",
+   "why": "«Der Verbrecher ist im Gefängnis» — пусто, шаблон Gefängnis"
+  },
+  {
+   "id": 15990,
+   "col": "example_ru",
+   "old": "Преступник в тюрьме",
+   "new": "Он не похож на преступника",
+   "why": "«Der Verbrecher ist im Gefängnis» — пусто, шаблон Gefängnis"
+  },
+  {
+   "id": 15990,
+   "col": "example_uk",
+   "old": "Злочинець у в'язниці",
+   "new": "Він не схожий на злочинця",
+   "why": "«Der Verbrecher ist im Gefängnis» — пусто, шаблон Gefängnis"
+  },
+  {
+   "id": 15990,
+   "col": "example_en",
+   "old": "The criminal is in prison",
+   "new": "He doesn't look like a criminal",
+   "why": "«Der Verbrecher ist im Gefängnis» — пусто, шаблон Gefängnis"
+  },
+  {
+   "id": 15990,
+   "col": "example_tr",
+   "old": "Suçlu hapiste",
+   "new": "Bir suçluya benzemiyor",
+   "why": "«Der Verbrecher ist im Gefängnis» — пусто, шаблон Gefängnis"
+  },
+  {
+   "id": 15990,
+   "col": "example_pl",
+   "old": "Przestępca jest w więzieniu",
+   "new": "Nie wygląda na przestępcę",
+   "why": "«Der Verbrecher ist im Gefängnis» — пусто, шаблон Gefängnis"
+  },
+  {
+   "id": 15990,
+   "col": "example_it",
+   "old": "Il criminale è in prigione",
+   "new": "Non sembra un criminale",
+   "why": "«Der Verbrecher ist im Gefängnis» — пусто, шаблон Gefängnis"
+  },
+  {
+   "id": 15990,
+   "col": "example_es",
+   "old": "El delincuente está en la cárcel",
+   "new": "No parece un delincuente",
+   "why": "«Der Verbrecher ist im Gefängnis» — пусто, шаблон Gefängnis"
+  },
+  {
+   "id": 15990,
+   "col": "example_fr",
+   "old": "Le criminel est en prison",
+   "new": "Il n'a pas l'air d'un criminel",
+   "why": "«Der Verbrecher ist im Gefängnis» — пусто, шаблон Gefängnis"
+  },
+  {
+   "id": 15990,
+   "col": "example_cs",
+   "old": "Zločinec je ve vězení",
+   "new": "Nevypadá jako zločinec",
+   "why": "«Der Verbrecher ist im Gefängnis» — пусто, шаблон Gefängnis"
+  },
+  {
+   "id": 2004,
+   "col": "example_de",
+   "old": "Er trägt eine Uniform",
+   "new": "Ohne Uniform erkenne ich ihn gar nicht",
+   "why": "«Er trägt eine Uniform» — шаблон одежды"
+  },
+  {
+   "id": 2004,
+   "col": "example_ru",
+   "old": "Он носит форму",
+   "new": "Без формы я его даже не узнаю",
+   "why": "«Er trägt eine Uniform» — шаблон одежды"
+  },
+  {
+   "id": 2004,
+   "col": "example_uk",
+   "old": "Він носить форму",
+   "new": "Без форми я його навіть не впізнаю",
+   "why": "«Er trägt eine Uniform» — шаблон одежды"
+  },
+  {
+   "id": 2004,
+   "col": "example_en",
+   "old": "He wears a uniform",
+   "new": "I don't even recognise him without his uniform",
+   "why": "«Er trägt eine Uniform» — шаблон одежды"
+  },
+  {
+   "id": 2004,
+   "col": "example_tr",
+   "old": "O bir üniforma giyiyor",
+   "new": "Üniforması olmadan onu tanımıyorum bile",
+   "why": "«Er trägt eine Uniform» — шаблон одежды"
+  },
+  {
+   "id": 2004,
+   "col": "example_pl",
+   "old": "On nosi mundur",
+   "new": "Bez munduru w ogóle go nie poznaję",
+   "why": "«Er trägt eine Uniform» — шаблон одежды"
+  },
+  {
+   "id": 2004,
+   "col": "example_it",
+   "old": "Indossa una divisa",
+   "new": "Senza divisa non lo riconosco nemmeno",
+   "why": "«Er trägt eine Uniform» — шаблон одежды"
+  },
+  {
+   "id": 2004,
+   "col": "example_es",
+   "old": "Lleva uniforme",
+   "new": "Sin uniforme ni lo reconozco",
+   "why": "«Er trägt eine Uniform» — шаблон одежды"
+  },
+  {
+   "id": 2004,
+   "col": "example_fr",
+   "old": "Il porte un uniforme",
+   "new": "Sans uniforme, je ne le reconnais même pas",
+   "why": "«Er trägt eine Uniform» — шаблон одежды"
+  },
+  {
+   "id": 2004,
+   "col": "example_cs",
+   "old": "Nosí uniformu",
+   "new": "Bez uniformy ho vůbec nepoznám",
+   "why": "«Er trägt eine Uniform» — шаблон одежды"
+  },
+  {
+   "id": 2973,
+   "col": "example_en",
+   "old": "We need support",
+   "new": "We need backup",
+   "why": "английский пример: так не говорят («We need support»)"
+  },
+  {
+   "id": 10218,
+   "col": "example_ru",
+   "old": "Ты должен лучше себя вести",
+   "new": "Тебе надо лучше себя вести",
+   "why": "«Ты должен лучше себя вести» — калька с sollst"
+  },
+  {
+   "id": 10218,
+   "col": "example_uk",
+   "old": "Ти маєш краще поводитися",
+   "new": "Тобі треба краще поводитися",
+   "why": "«Ты должен лучше себя вести» — калька с sollst"
+  },
+  {
+   "id": 813,
+   "col": "example_de",
+   "old": "Die Schulter tut weh",
+   "new": "Er legt mir die Hand auf die Schulter",
+   "why": "«Die Schulter tut weh» — шаблон Bauch, Ohr, Knie"
+  },
+  {
+   "id": 813,
+   "col": "example_ru",
+   "old": "Плечо болит",
+   "new": "Он кладёт мне руку на плечо",
+   "why": "«Die Schulter tut weh» — шаблон Bauch, Ohr, Knie"
+  },
+  {
+   "id": 813,
+   "col": "example_uk",
+   "old": "Болить плече",
+   "new": "Він кладе мені руку на плече",
+   "why": "«Die Schulter tut weh» — шаблон Bauch, Ohr, Knie"
+  },
+  {
+   "id": 813,
+   "col": "example_en",
+   "old": "My shoulder hurts",
+   "new": "He puts his hand on my shoulder",
+   "why": "«Die Schulter tut weh» — шаблон Bauch, Ohr, Knie"
+  },
+  {
+   "id": 813,
+   "col": "example_tr",
+   "old": "Omuz ağrıyor",
+   "new": "Elini omzuma koyuyor",
+   "why": "«Die Schulter tut weh» — шаблон Bauch, Ohr, Knie"
+  },
+  {
+   "id": 813,
+   "col": "example_pl",
+   "old": "Boli mnie ramię",
+   "new": "Kładzie mi rękę na ramieniu",
+   "why": "«Die Schulter tut weh» — шаблон Bauch, Ohr, Knie"
+  },
+  {
+   "id": 813,
+   "col": "example_it",
+   "old": "Mi fa male la spalla",
+   "new": "Mi mette una mano sulla spalla",
+   "why": "«Die Schulter tut weh» — шаблон Bauch, Ohr, Knie"
+  },
+  {
+   "id": 813,
+   "col": "example_es",
+   "old": "Me duele el hombro",
+   "new": "Me pone la mano en el hombro",
+   "why": "«Die Schulter tut weh» — шаблон Bauch, Ohr, Knie"
+  },
+  {
+   "id": 813,
+   "col": "example_fr",
+   "old": "J'ai mal à l'épaule",
+   "new": "Il me met la main sur l'épaule",
+   "why": "«Die Schulter tut weh» — шаблон Bauch, Ohr, Knie"
+  },
+  {
+   "id": 813,
+   "col": "example_cs",
+   "old": "Bolí mě rameno",
+   "new": "Položí mi ruku na rameno",
+   "why": "«Die Schulter tut weh» — шаблон Bauch, Ohr, Knie"
+  },
+  {
+   "id": 14966,
+   "col": "example_de",
+   "old": "Die Scheidung ist sehr schwer",
+   "new": "Nach der Scheidung ist sie nach Berlin gezogen",
+   "why": "«Die Scheidung ist sehr schwer» — пусто"
+  },
+  {
+   "id": 14966,
+   "col": "example_ru",
+   "old": "Развод — это очень тяжело",
+   "new": "После развода она переехала в Берлин",
+   "why": "«Die Scheidung ist sehr schwer» — пусто"
+  },
+  {
+   "id": 14966,
+   "col": "example_uk",
+   "old": "Розлучення дуже важке",
+   "new": "Після розлучення вона переїхала до Берліна",
+   "why": "«Die Scheidung ist sehr schwer» — пусто"
+  },
+  {
+   "id": 14966,
+   "col": "example_en",
+   "old": "The divorce is very difficult",
+   "new": "After the divorce she moved to Berlin",
+   "why": "«Die Scheidung ist sehr schwer» — пусто"
+  },
+  {
+   "id": 14966,
+   "col": "example_tr",
+   "old": "Boşanma çok zor",
+   "new": "Boşandıktan sonra Berlin'e taşındı",
+   "why": "«Die Scheidung ist sehr schwer» — пусто"
+  },
+  {
+   "id": 14966,
+   "col": "example_pl",
+   "old": "Rozwód jest bardzo trudny",
+   "new": "Po rozwodzie przeprowadziła się do Berlina",
+   "why": "«Die Scheidung ist sehr schwer» — пусто"
+  },
+  {
+   "id": 14966,
+   "col": "example_it",
+   "old": "Il divorzio è molto difficile",
+   "new": "Dopo il divorzio si è trasferita a Berlino",
+   "why": "«Die Scheidung ist sehr schwer» — пусто"
+  },
+  {
+   "id": 14966,
+   "col": "example_es",
+   "old": "El divorcio es muy difícil",
+   "new": "Después del divorcio se mudó a Berlín",
+   "why": "«Die Scheidung ist sehr schwer» — пусто"
+  },
+  {
+   "id": 14966,
+   "col": "example_fr",
+   "old": "Le divorce est très difficile",
+   "new": "Après le divorce, elle a déménagé à Berlin",
+   "why": "«Die Scheidung ist sehr schwer» — пусто"
+  },
+  {
+   "id": 14966,
+   "col": "example_cs",
+   "old": "Rozvod je velmi těžký",
+   "new": "Po rozvodu se přestěhovala do Berlína",
+   "why": "«Die Scheidung ist sehr schwer» — пусто"
+  },
+  {
+   "id": 10219,
+   "col": "example_de",
+   "old": "Ich bin von dem Film begeistert",
+   "new": "Die Kinder waren total begeistert vom Zoo",
+   "why": "снова Film; en «excited about the movie» — смысл другой"
+  },
+  {
+   "id": 10219,
+   "col": "example_ru",
+   "old": "Я в восторге от этого фильма",
+   "new": "Дети были в полном восторге от зоопарка",
+   "why": "снова Film; en «excited about the movie» — смысл другой"
+  },
+  {
+   "id": 10219,
+   "col": "example_uk",
+   "old": "Я захоплений цим фільмом",
+   "new": "Діти були в повному захваті від зоопарку",
+   "why": "снова Film; en «excited about the movie» — смысл другой"
+  },
+  {
+   "id": 10219,
+   "col": "example_en",
+   "old": "I'm excited about the movie",
+   "new": "The kids were really excited about the zoo",
+   "why": "снова Film; en «excited about the movie» — смысл другой"
+  },
+  {
+   "id": 10219,
+   "col": "example_tr",
+   "old": "Filme hayran kaldım",
+   "new": "Çocuklar hayvanat bahçesine hayran kaldı",
+   "why": "снова Film; en «excited about the movie» — смысл другой"
+  },
+  {
+   "id": 10219,
+   "col": "example_pl",
+   "old": "Jestem zachwycony tym filmem",
+   "new": "Dzieci były zachwycone zoo",
+   "why": "снова Film; en «excited about the movie» — смысл другой"
+  },
+  {
+   "id": 10219,
+   "col": "example_it",
+   "old": "Sono entusiasta del film",
+   "new": "I bambini erano entusiasti dello zoo",
+   "why": "снова Film; en «excited about the movie» — смысл другой"
+  },
+  {
+   "id": 10219,
+   "col": "example_es",
+   "old": "Estoy encantado con la película",
+   "new": "Los niños estaban encantados con el zoo",
+   "why": "снова Film; en «excited about the movie» — смысл другой"
+  },
+  {
+   "id": 10219,
+   "col": "example_fr",
+   "old": "Je suis ravi du film",
+   "new": "Les enfants étaient ravis du zoo",
+   "why": "снова Film; en «excited about the movie» — смысл другой"
+  },
+  {
+   "id": 10219,
+   "col": "example_cs",
+   "old": "Jsem z toho filmu nadšený",
+   "new": "Děti byly ze zoo nadšené",
+   "why": "снова Film; en «excited about the movie» — смысл другой"
+  },
+  {
+   "id": 18652,
+   "col": "example_en",
+   "old": "I don't have time currently",
+   "new": "I don't have time at the moment",
+   "why": "английский пример: так не говорят («I don't have time currently»)"
+  },
+  {
+   "id": 10221,
+   "col": "example_de",
+   "old": "Das war eine clevere Idee von dir",
+   "new": "Er ist ein cleverer Geschäftsmann",
+   "why": "«clevere Idee von dir» — шаблон klug, schlau («… von dir»)"
+  },
+  {
+   "id": 10221,
+   "col": "example_ru",
+   "old": "Это была умная идея с твоей стороны",
+   "new": "Он смекалистый бизнесмен",
+   "why": "«clevere Idee von dir» — шаблон klug, schlau («… von dir»)"
+  },
+  {
+   "id": 10221,
+   "col": "example_uk",
+   "old": "Це була розумна ідея з твого боку",
+   "new": "Він кмітливий бізнесмен",
+   "why": "«clevere Idee von dir» — шаблон klug, schlau («… von dir»)"
+  },
+  {
+   "id": 10221,
+   "col": "example_en",
+   "old": "That was a clever idea of yours",
+   "new": "He's a shrewd businessman",
+   "why": "«clevere Idee von dir» — шаблон klug, schlau («… von dir»)"
+  },
+  {
+   "id": 10221,
+   "col": "example_tr",
+   "old": "Bu senin akıllı bir fikrindi",
+   "new": "Kurnaz bir iş adamı",
+   "why": "«clevere Idee von dir» — шаблон klug, schlau («… von dir»)"
+  },
+  {
+   "id": 10221,
+   "col": "example_pl",
+   "old": "To był sprytny pomysł z twojej strony",
+   "new": "To sprytny biznesmen",
+   "why": "«clevere Idee von dir» — шаблон klug, schlau («… von dir»)"
+  },
+  {
+   "id": 10221,
+   "col": "example_it",
+   "old": "È stata un'idea intelligente da parte tua",
+   "new": "È un uomo d'affari furbo",
+   "why": "«clevere Idee von dir» — шаблон klug, schlau («… von dir»)"
+  },
+  {
+   "id": 10221,
+   "col": "example_es",
+   "old": "Fue una idea inteligente por tu parte",
+   "new": "Es un hombre de negocios astuto",
+   "why": "«clevere Idee von dir» — шаблон klug, schlau («… von dir»)"
+  },
+  {
+   "id": 10221,
+   "col": "example_fr",
+   "old": "C'était une idée astucieuse de ta part",
+   "new": "C'est un homme d'affaires astucieux",
+   "why": "«clevere Idee von dir» — шаблон klug, schlau («… von dir»)"
+  },
+  {
+   "id": 10221,
+   "col": "example_cs",
+   "old": "To byl od tebe chytrý nápad",
+   "new": "Je to mazaný obchodník",
+   "why": "«clevere Idee von dir» — шаблон klug, schlau («… von dir»)"
+  },
+  {
+   "id": 10224,
+   "col": "example_de",
+   "old": "Sein Hass gegen ihn ist groß",
+   "new": "Ich verstehe diesen Hass nicht",
+   "why": "«Sein Hass gegen ihn ist groß» — неживо"
+  },
+  {
+   "id": 10224,
+   "col": "example_ru",
+   "old": "Его ненависть к нему велика",
+   "new": "Я не понимаю этой ненависти",
+   "why": "«Sein Hass gegen ihn ist groß» — неживо"
+  },
+  {
+   "id": 10224,
+   "col": "example_uk",
+   "old": "Його ненависть до нього велика",
+   "new": "Я не розумію цієї ненависті",
+   "why": "«Sein Hass gegen ihn ist groß» — неживо"
+  },
+  {
+   "id": 10224,
+   "col": "example_en",
+   "old": "His hatred for him is great",
+   "new": "I don't understand this hatred",
+   "why": "«Sein Hass gegen ihn ist groß» — неживо"
+  },
+  {
+   "id": 10224,
+   "col": "example_tr",
+   "old": "Ona karşı olan nefreti büyük",
+   "new": "Bu nefreti anlamıyorum",
+   "why": "«Sein Hass gegen ihn ist groß» — неживо"
+  },
+  {
+   "id": 10224,
+   "col": "example_pl",
+   "old": "Jego nienawiść do niego jest wielka",
+   "new": "Nie rozumiem tej nienawiści",
+   "why": "«Sein Hass gegen ihn ist groß» — неживо"
+  },
+  {
+   "id": 10224,
+   "col": "example_it",
+   "old": "Il suo odio verso di lui è grande",
+   "new": "Non capisco quest'odio",
+   "why": "«Sein Hass gegen ihn ist groß» — неживо"
+  },
+  {
+   "id": 10224,
+   "col": "example_es",
+   "old": "Su odio hacia él es grande",
+   "new": "No entiendo este odio",
+   "why": "«Sein Hass gegen ihn ist groß» — неживо"
+  },
+  {
+   "id": 10224,
+   "col": "example_fr",
+   "old": "Sa haine envers lui est grande",
+   "new": "Je ne comprends pas cette haine",
+   "why": "«Sein Hass gegen ihn ist groß» — неживо"
+  },
+  {
+   "id": 10224,
+   "col": "example_cs",
+   "old": "Jeho nenávist vůči němu je velká",
+   "new": "Nechápu tu nenávist",
+   "why": "«Sein Hass gegen ihn ist groß» — неживо"
+  },
+  {
+   "id": 12511,
+   "col": "example_de",
+   "old": "Streng dein Hirn mal an",
+   "new": "Mein Hirn funktioniert heute überhaupt nicht",
+   "why": "«Streng dein Hirn mal an» — шаблон Gehirn («Schalt mal dein Gehirn ein!»)"
+  },
+  {
+   "id": 12511,
+   "col": "example_ru",
+   "old": "Да напряги же свой мозг",
+   "new": "У меня сегодня мозг совсем не работает",
+   "why": "«Streng dein Hirn mal an» — шаблон Gehirn («Schalt mal dein Gehirn ein!»)"
+  },
+  {
+   "id": 12511,
+   "col": "example_uk",
+   "old": "Та напружи ж свій мозок",
+   "new": "У мене сьогодні мозок зовсім не працює",
+   "why": "«Streng dein Hirn mal an» — шаблон Gehirn («Schalt mal dein Gehirn ein!»)"
+  },
+  {
+   "id": 12511,
+   "col": "example_en",
+   "old": "Use your brain for once",
+   "new": "My brain's not working at all today",
+   "why": "«Streng dein Hirn mal an» — шаблон Gehirn («Schalt mal dein Gehirn ein!»)"
+  },
+  {
+   "id": 12511,
+   "col": "example_tr",
+   "old": "Biraz beynini kullan",
+   "new": "Bugün beynim hiç çalışmıyor",
+   "why": "«Streng dein Hirn mal an» — шаблон Gehirn («Schalt mal dein Gehirn ein!»)"
+  },
+  {
+   "id": 12511,
+   "col": "example_pl",
+   "old": "Rusz wreszcie mózgiem",
+   "new": "Mój mózg dziś w ogóle nie działa",
+   "why": "«Streng dein Hirn mal an» — шаблон Gehirn («Schalt mal dein Gehirn ein!»)"
+  },
+  {
+   "id": 12511,
+   "col": "example_it",
+   "old": "Usa un po' il cervello",
+   "new": "Oggi il cervello non mi funziona",
+   "why": "«Streng dein Hirn mal an» — шаблон Gehirn («Schalt mal dein Gehirn ein!»)"
+  },
+  {
+   "id": 12511,
+   "col": "example_es",
+   "old": "Usa un poco el cerebro",
+   "new": "Hoy el cerebro no me funciona",
+   "why": "«Streng dein Hirn mal an» — шаблон Gehirn («Schalt mal dein Gehirn ein!»)"
+  },
+  {
+   "id": 12511,
+   "col": "example_fr",
+   "old": "Fais un peu marcher ton cerveau",
+   "new": "Aujourd'hui, mon cerveau ne marche pas du tout",
+   "why": "«Streng dein Hirn mal an» — шаблон Gehirn («Schalt mal dein Gehirn ein!»)"
+  },
+  {
+   "id": 12511,
+   "col": "example_cs",
+   "old": "Zapoj trochu mozek",
+   "new": "Mozek mi dneska vůbec nefunguje",
+   "why": "«Streng dein Hirn mal an» — шаблон Gehirn («Schalt mal dein Gehirn ein!»)"
+  },
+  {
+   "id": 6625,
+   "col": "example_de",
+   "old": "Er kommt sicherlich zu spät",
+   "new": "Du hast sicherlich Hunger nach der Reise",
+   "why": "«Er kommt sicherlich zu spät» — шаблон vermutlich («Er kommt vermutlich zu spät»)"
+  },
+  {
+   "id": 6625,
+   "col": "example_ru",
+   "old": "Он наверняка опоздает",
+   "new": "Ты наверняка проголодался после поездки",
+   "why": "«Er kommt sicherlich zu spät» — шаблон vermutlich («Er kommt vermutlich zu spät»)"
+  },
+  {
+   "id": 6625,
+   "col": "example_uk",
+   "old": "Він напевно запізниться",
+   "new": "Ти напевно зголоднів після поїздки",
+   "why": "«Er kommt sicherlich zu spät» — шаблон vermutlich («Er kommt vermutlich zu spät»)"
+  },
+  {
+   "id": 6625,
+   "col": "example_en",
+   "old": "He'll surely be late",
+   "new": "You're surely hungry after the journey",
+   "why": "«Er kommt sicherlich zu spät» — шаблон vermutlich («Er kommt vermutlich zu spät»)"
+  },
+  {
+   "id": 6625,
+   "col": "example_tr",
+   "old": "Kesinlikle geç kalacak",
+   "new": "Yolculuktan sonra kesinlikle acıkmışsındır",
+   "why": "«Er kommt sicherlich zu spät» — шаблон vermutlich («Er kommt vermutlich zu spät»)"
+  },
+  {
+   "id": 6625,
+   "col": "example_pl",
+   "old": "On pewnie się spóźni",
+   "new": "Pewnie jesteś głodny po podróży",
+   "why": "«Er kommt sicherlich zu spät» — шаблон vermutlich («Er kommt vermutlich zu spät»)"
+  },
+  {
+   "id": 6625,
+   "col": "example_it",
+   "old": "Arriverà sicuramente in ritardo",
+   "new": "Sicuramente hai fame dopo il viaggio",
+   "why": "«Er kommt sicherlich zu spät» — шаблон vermutlich («Er kommt vermutlich zu spät»)"
+  },
+  {
+   "id": 6625,
+   "col": "example_es",
+   "old": "Seguramente llegará tarde",
+   "new": "Seguramente tienes hambre después del viaje",
+   "why": "«Er kommt sicherlich zu spät» — шаблон vermutlich («Er kommt vermutlich zu spät»)"
+  },
+  {
+   "id": 6625,
+   "col": "example_fr",
+   "old": "Il va sûrement arriver en retard",
+   "new": "Tu as sûrement faim après le voyage",
+   "why": "«Er kommt sicherlich zu spät» — шаблон vermutlich («Er kommt vermutlich zu spät»)"
+  },
+  {
+   "id": 6625,
+   "col": "example_cs",
+   "old": "Určitě přijde pozdě",
+   "new": "Určitě máš po cestě hlad",
+   "why": "«Er kommt sicherlich zu spät» — шаблон vermutlich («Er kommt vermutlich zu spät»)"
+  },
+  {
+   "id": 6627,
+   "col": "example_de",
+   "old": "Wir schauen einen amerikanischen Film",
+   "new": "Das ist ein typisch amerikanisches Frühstück",
+   "why": "«einen amerikanischen Film» — шаблон englisch («einen englischen Film»)"
+  },
+  {
+   "id": 6627,
+   "col": "example_ru",
+   "old": "Мы смотрим американский фильм",
+   "new": "Это типично американский завтрак",
+   "why": "«einen amerikanischen Film» — шаблон englisch («einen englischen Film»)"
+  },
+  {
+   "id": 6627,
+   "col": "example_uk",
+   "old": "Ми дивимося американський фільм",
+   "new": "Це типово американський сніданок",
+   "why": "«einen amerikanischen Film» — шаблон englisch («einen englischen Film»)"
+  },
+  {
+   "id": 6627,
+   "col": "example_en",
+   "old": "We're watching an American movie",
+   "new": "That's a typical American breakfast",
+   "why": "«einen amerikanischen Film» — шаблон englisch («einen englischen Film»)"
+  },
+  {
+   "id": 6627,
+   "col": "example_tr",
+   "old": "Amerikan filmi izliyoruz",
+   "new": "Bu tipik bir Amerikan kahvaltısı",
+   "why": "«einen amerikanischen Film» — шаблон englisch («einen englischen Film»)"
+  },
+  {
+   "id": 6627,
+   "col": "example_pl",
+   "old": "Oglądamy amerykański film",
+   "new": "To typowo amerykańskie śniadanie",
+   "why": "«einen amerikanischen Film» — шаблон englisch («einen englischen Film»)"
+  },
+  {
+   "id": 6627,
+   "col": "example_it",
+   "old": "Guardiamo un film americano",
+   "new": "È una colazione tipicamente americana",
+   "why": "«einen amerikanischen Film» — шаблон englisch («einen englischen Film»)"
+  },
+  {
+   "id": 6627,
+   "col": "example_es",
+   "old": "Vemos una película americana",
+   "new": "Es un desayuno típicamente americano",
+   "why": "«einen amerikanischen Film» — шаблон englisch («einen englischen Film»)"
+  },
+  {
+   "id": 6627,
+   "col": "example_fr",
+   "old": "Nous regardons un film américain",
+   "new": "C'est un petit-déjeuner typiquement américain",
+   "why": "«einen amerikanischen Film» — шаблон englisch («einen englischen Film»)"
+  },
+  {
+   "id": 6627,
+   "col": "example_cs",
+   "old": "Díváme se na americký film",
+   "new": "To je typicky americká snídaně",
+   "why": "«einen amerikanischen Film» — шаблон englisch («einen englischen Film»)"
+  },
+  {
+   "id": 14397,
+   "col": "example_de",
+   "old": "Das Publikum klatscht Applaus",
+   "new": "Am Ende gab es viel Applaus",
+   "why": "«Das Publikum klatscht Applaus» — масло масляное, шаблон Publikum"
+  },
+  {
+   "id": 14397,
+   "col": "example_ru",
+   "old": "Публика аплодирует",
+   "new": "В конце долго аплодировали",
+   "why": "«Das Publikum klatscht Applaus» — масло масляное, шаблон Publikum"
+  },
+  {
+   "id": 14397,
+   "col": "example_uk",
+   "old": "Публіка аплодує",
+   "new": "Наприкінці довго аплодували",
+   "why": "«Das Publikum klatscht Applaus» — масло масляное, шаблон Publikum"
+  },
+  {
+   "id": 14397,
+   "col": "example_en",
+   "old": "The audience applauds",
+   "new": "There was a lot of applause at the end",
+   "why": "«Das Publikum klatscht Applaus» — масло масляное, шаблон Publikum"
+  },
+  {
+   "id": 14397,
+   "col": "example_tr",
+   "old": "Seyirciler alkışlıyor",
+   "new": "Sonunda uzun uzun alkışlandı",
+   "why": "«Das Publikum klatscht Applaus» — масло масляное, шаблон Publikum"
+  },
+  {
+   "id": 14397,
+   "col": "example_pl",
+   "old": "Publiczność bije oklaski",
+   "new": "Na koniec były gromkie oklaski",
+   "why": "«Das Publikum klatscht Applaus» — масло масляное, шаблон Publikum"
+  },
+  {
+   "id": 14397,
+   "col": "example_it",
+   "old": "Il pubblico scoppia in un applauso",
+   "new": "Alla fine c'è stato un lungo applauso",
+   "why": "«Das Publikum klatscht Applaus» — масло масляное, шаблон Publikum"
+  },
+  {
+   "id": 14397,
+   "col": "example_es",
+   "old": "El público rompe en aplausos",
+   "new": "Al final hubo muchos aplausos",
+   "why": "«Das Publikum klatscht Applaus» — масло масляное, шаблон Publikum"
+  },
+  {
+   "id": 14397,
+   "col": "example_fr",
+   "old": "Le public éclate en applaudissements",
+   "new": "À la fin, il y a eu beaucoup d'applaudissements",
+   "why": "«Das Publikum klatscht Applaus» — масло масляное, шаблон Publikum"
+  },
+  {
+   "id": 14397,
+   "col": "example_cs",
+   "old": "Z publika se ozývá potlesk",
+   "new": "Na konci byl velký potlesk",
+   "why": "«Das Publikum klatscht Applaus» — масло масляное, шаблон Publikum"
+  },
+  {
+   "id": 2024,
+   "col": "example_en",
+   "old": "I'm saying goodbye",
+   "new": "I'll say goodbye then",
+   "why": "английский пример: так не говорят («I'm saying goodbye»)"
+  }
+ ],
+ "replace": [],
+ "split_later": {}
+}
