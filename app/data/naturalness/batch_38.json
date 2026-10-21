@@ -1,0 +1,2335 @@
+{
+ "about": "2.3, A2 блок 14: слова 521–560",
+ "edits": [
+  {
+   "id": 122,
+   "col": "translation_ru",
+   "old": "лист, лист бумаги, лист растения, газета, издание",
+   "new": "лист",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 122,
+   "col": "translation_uk",
+   "old": "аркуш, аркуш паперу, листок рослини, газета, видання",
+   "new": "аркуш, листок",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 122,
+   "col": "translation_en",
+   "old": "sheet, leaf, newspaper",
+   "new": "sheet, leaf",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 122,
+   "col": "translation_tr",
+   "old": "yaprak, kağıt yaprağı, sayfa, gazete",
+   "new": "yaprak, kağıt",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 122,
+   "col": "translation_pl",
+   "old": "kartka, kartka papieru, liść, gazeta",
+   "new": "kartka, liść",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1342,
+   "col": "translation_ru",
+   "old": "тонкий, худой, жидкий",
+   "new": "тонкий, худой",
+   "why": "пример-скелет («X ist dünn/gelb/lila») — так о вещи не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1342,
+   "col": "translation_uk",
+   "old": "тонкий, худий, рідкий",
+   "new": "тонкий, худий",
+   "why": "пример-скелет («X ist dünn/gelb/lila») — так о вещи не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1342,
+   "col": "translation_en",
+   "old": "thin, slim, watery",
+   "new": "thin",
+   "why": "пример-скелет («X ist dünn/gelb/lila») — так о вещи не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1342,
+   "col": "translation_tr",
+   "old": "ince, zayıf, sulu",
+   "new": "ince, zayıf",
+   "why": "пример-скелет («X ist dünn/gelb/lila») — так о вещи не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1342,
+   "col": "translation_pl",
+   "old": "cienki, chudy, rzadki",
+   "new": "cienki, chudy",
+   "why": "пример-скелет («X ist dünn/gelb/lila») — так о вещи не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1342,
+   "col": "example_de",
+   "old": "Das Papier ist dünn",
+   "new": "Du bist aber dünn geworden!",
+   "why": "пример-скелет («X ist dünn/gelb/lila») — так о вещи не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1342,
+   "col": "example_ru",
+   "old": "Бумага тонкая",
+   "new": "Как ты похудел!",
+   "why": "пример-скелет («X ist dünn/gelb/lila») — так о вещи не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1342,
+   "col": "example_uk",
+   "old": "Папір тонкий",
+   "new": "Як ти схуд!",
+   "why": "пример-скелет («X ist dünn/gelb/lila») — так о вещи не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1342,
+   "col": "example_en",
+   "old": "The paper is thin",
+   "new": "You've got so thin!",
+   "why": "пример-скелет («X ist dünn/gelb/lila») — так о вещи не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1342,
+   "col": "example_tr",
+   "old": "Kağıt ince",
+   "new": "Ne kadar zayıflamışsın!",
+   "why": "пример-скелет («X ist dünn/gelb/lila») — так о вещи не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1342,
+   "col": "example_pl",
+   "old": "Ten papier jest cienki",
+   "new": "Ale schudłeś!",
+   "why": "пример-скелет («X ist dünn/gelb/lila») — так о вещи не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1342,
+   "col": "example_it",
+   "old": "La carta è sottile",
+   "new": "Come sei dimagrito!",
+   "why": "пример-скелет («X ist dünn/gelb/lila») — так о вещи не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1342,
+   "col": "example_es",
+   "old": "El papel es fino",
+   "new": "¡Qué delgado te has quedado!",
+   "why": "пример-скелет («X ist dünn/gelb/lila») — так о вещи не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1342,
+   "col": "example_fr",
+   "old": "Le papier est mince",
+   "new": "Tu es devenu tout mince!",
+   "why": "пример-скелет («X ist dünn/gelb/lila») — так о вещи не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1342,
+   "col": "example_cs",
+   "old": "Papír je tenký",
+   "new": "Ty jsi ale zhubnul!",
+   "why": "пример-скелет («X ist dünn/gelb/lila») — так о вещи не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17926,
+   "col": "translation_ru",
+   "old": "развитие, разработка, эволюция, проявка плёнки",
+   "new": "развитие, разработка",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17926,
+   "col": "translation_uk",
+   "old": "розвиток, розробка, еволюція, проявлення плівки",
+   "new": "розвиток, розробка",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17926,
+   "col": "translation_en",
+   "old": "development, progress, evolution, film developing",
+   "new": "development",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17926,
+   "col": "translation_tr",
+   "old": "gelişim, geliştirme, evrim, film banyosu",
+   "new": "gelişim, geliştirme",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17926,
+   "col": "translation_pl",
+   "old": "rozwój, rozwijanie, opracowanie, ewolucja",
+   "new": "rozwój",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2509,
+   "col": "translation_ru",
+   "old": "зарплата, оклад, жалованье",
+   "new": "зарплата, оклад",
+   "why": "«Mein Gehalt wurde erhöht» — пассив, так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2509,
+   "col": "translation_uk",
+   "old": "зарплата, оклад, платня",
+   "new": "зарплата, оклад",
+   "why": "«Mein Gehalt wurde erhöht» — пассив, так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2509,
+   "col": "translation_en",
+   "old": "salary, pay, wage",
+   "new": "salary, pay",
+   "why": "«Mein Gehalt wurde erhöht» — пассив, так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2509,
+   "col": "translation_tr",
+   "old": "maaş, aylık, ücret",
+   "new": "maaş",
+   "why": "«Mein Gehalt wurde erhöht» — пассив, так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2509,
+   "col": "translation_pl",
+   "old": "pensja, wynagrodzenie, wypłata",
+   "new": "pensja, wypłata",
+   "why": "«Mein Gehalt wurde erhöht» — пассив, так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2509,
+   "col": "example_de",
+   "old": "Mein Gehalt wurde erhöht",
+   "new": "Das Gehalt kommt immer am Monatsende",
+   "why": "«Mein Gehalt wurde erhöht» — пассив, так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2509,
+   "col": "example_ru",
+   "old": "Мне повысили зарплату",
+   "new": "Зарплата всегда приходит в конце месяца",
+   "why": "«Mein Gehalt wurde erhöht» — пассив, так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2509,
+   "col": "example_uk",
+   "old": "Мою зарплату підвищили",
+   "new": "Зарплата завжди приходить наприкінці місяця",
+   "why": "«Mein Gehalt wurde erhöht» — пассив, так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2509,
+   "col": "example_en",
+   "old": "My salary was increased",
+   "new": "My salary always comes at the end of the month",
+   "why": "«Mein Gehalt wurde erhöht» — пассив, так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2509,
+   "col": "example_tr",
+   "old": "Maaşım artırıldı",
+   "new": "Maaş hep ay sonunda yatıyor",
+   "why": "«Mein Gehalt wurde erhöht» — пассив, так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2509,
+   "col": "example_pl",
+   "old": "Moja pensja została podwyższona",
+   "new": "Pensja zawsze przychodzi pod koniec miesiąca",
+   "why": "«Mein Gehalt wurde erhöht» — пассив, так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2509,
+   "col": "example_it",
+   "old": "Il mio stipendio è stato aumentato",
+   "new": "Lo stipendio arriva sempre a fine mese",
+   "why": "«Mein Gehalt wurde erhöht» — пассив, так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2509,
+   "col": "example_es",
+   "old": "Me han subido el sueldo",
+   "new": "El sueldo siempre llega a final de mes",
+   "why": "«Mein Gehalt wurde erhöht» — пассив, так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2509,
+   "col": "example_fr",
+   "old": "Mon salaire a été augmenté",
+   "new": "Le salaire tombe toujours en fin de mois",
+   "why": "«Mein Gehalt wurde erhöht» — пассив, так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2509,
+   "col": "example_cs",
+   "old": "Zvýšili mi plat",
+   "new": "Plat chodí vždycky na konci měsíce",
+   "why": "«Mein Gehalt wurde erhöht» — пассив, так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17515,
+   "col": "translation_ru",
+   "old": "СМИ, медиа, средства массовой информации",
+   "new": "СМИ, медиа",
+   "why": "пятый пример про политику; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17515,
+   "col": "translation_uk",
+   "old": "ЗМІ, медіа, засоби масової інформації",
+   "new": "ЗМІ, медіа",
+   "why": "пятый пример про политику; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17515,
+   "col": "translation_en",
+   "old": "media, mass media, news outlets",
+   "new": "media",
+   "why": "пятый пример про политику; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17515,
+   "col": "translation_tr",
+   "old": "medya, basın, kitle iletişim araçları",
+   "new": "medya, basın",
+   "why": "пятый пример про политику; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17515,
+   "col": "translation_pl",
+   "old": "media, środki masowego przekazu, prasa i telewizja",
+   "new": "media",
+   "why": "пятый пример про политику; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17515,
+   "col": "example_de",
+   "old": "Die Medien berichten täglich über Politik",
+   "new": "Das stand gestern in allen Medien",
+   "why": "пятый пример про политику; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17515,
+   "col": "example_ru",
+   "old": "СМИ ежедневно сообщают о политике",
+   "new": "Вчера об этом писали все СМИ",
+   "why": "пятый пример про политику; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17515,
+   "col": "example_uk",
+   "old": "ЗМІ щодня повідомляють про політику",
+   "new": "Учора про це писали всі ЗМІ",
+   "why": "пятый пример про политику; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17515,
+   "col": "example_en",
+   "old": "The media report daily on politics",
+   "new": "It was all over the media yesterday",
+   "why": "пятый пример про политику; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17515,
+   "col": "example_tr",
+   "old": "Medya her gün politika hakkında haber yapıyor",
+   "new": "Dün bütün medyada bu vardı",
+   "why": "пятый пример про политику; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17515,
+   "col": "example_pl",
+   "old": "Media codziennie informują o polityce",
+   "new": "Wczoraj pisały o tym wszystkie media",
+   "why": "пятый пример про политику; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17515,
+   "col": "example_it",
+   "old": "I media parlano di politica ogni giorno",
+   "new": "Ieri ne parlavano tutti i media",
+   "why": "пятый пример про политику; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17515,
+   "col": "example_es",
+   "old": "Los medios informan a diario sobre política",
+   "new": "Ayer salió en todos los medios",
+   "why": "пятый пример про политику; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17515,
+   "col": "example_fr",
+   "old": "Les médias parlent de politique tous les jours",
+   "new": "Hier, c'était dans tous les médias",
+   "why": "пятый пример про политику; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17515,
+   "col": "example_cs",
+   "old": "Média denně informují o politice",
+   "new": "Včera o tom psala všechna média",
+   "why": "пятый пример про политику; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12155,
+   "col": "translation_ru",
+   "old": "соревнование, конкурс, конкуренция",
+   "new": "соревнование, конкурс",
+   "why": "английский пример: так не говорят («A big competition takes place»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12155,
+   "col": "translation_uk",
+   "old": "змагання, конкурс, конкуренція",
+   "new": "змагання, конкурс",
+   "why": "английский пример: так не говорят («A big competition takes place»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12155,
+   "col": "translation_tr",
+   "old": "yarışma, müsabaka, rekabet",
+   "new": "yarışma, rekabet",
+   "why": "английский пример: так не говорят («A big competition takes place»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12155,
+   "col": "translation_pl",
+   "old": "konkurs, zawody, konkurencja",
+   "new": "konkurs, zawody",
+   "why": "английский пример: так не говорят («A big competition takes place»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12155,
+   "col": "example_ru",
+   "old": "На следующей неделе проходит большое соревнование",
+   "new": "На следующей неделе пройдёт большое соревнование",
+   "why": "английский пример: так не говорят («A big competition takes place»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12155,
+   "col": "example_uk",
+   "old": "Наступного тижня відбувається велике змагання",
+   "new": "Наступного тижня відбудеться велике змагання",
+   "why": "английский пример: так не говорят («A big competition takes place»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12155,
+   "col": "example_en",
+   "old": "A big competition takes place next week",
+   "new": "There's a big competition next week",
+   "why": "английский пример: так не говорят («A big competition takes place»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1029,
+   "col": "translation_ru",
+   "old": "мастерская, автосервис, цех",
+   "new": "мастерская, автосервис",
+   "why": "«в мастерской» — о машине говорят «в автосервисе»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1029,
+   "col": "translation_uk",
+   "old": "майстерня, автосервіс, цех",
+   "new": "майстерня, автосервіс",
+   "why": "«в мастерской» — о машине говорят «в автосервисе»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1029,
+   "col": "translation_en",
+   "old": "workshop, garage, repair shop",
+   "new": "workshop, garage",
+   "why": "«в мастерской» — о машине говорят «в автосервисе»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1029,
+   "col": "translation_tr",
+   "old": "tamirhane, atölye, servis",
+   "new": "tamirhane, atölye",
+   "why": "«в мастерской» — о машине говорят «в автосервисе»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1029,
+   "col": "translation_pl",
+   "old": "warsztat, serwis samochodowy",
+   "new": "warsztat",
+   "why": "«в мастерской» — о машине говорят «в автосервисе»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1029,
+   "col": "example_ru",
+   "old": "Машина в мастерской",
+   "new": "Машина в автосервисе",
+   "why": "«в мастерской» — о машине говорят «в автосервисе»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1029,
+   "col": "example_uk",
+   "old": "Авто в майстерні",
+   "new": "Машина в автосервісі",
+   "why": "«в мастерской» — о машине говорят «в автосервисе»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1029,
+   "col": "example_en",
+   "old": "The car is in the workshop",
+   "new": "The car's at the garage",
+   "why": "«в мастерской» — о машине говорят «в автосервисе»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2263,
+   "col": "example_en",
+   "old": "That is an acquaintance of mine",
+   "new": "She's someone I know",
+   "why": "английский пример: так не говорят («an acquaintance of mine» — книжно)"
+  },
+  {
+   "id": 18178,
+   "col": "example_en",
+   "old": "Can you give me the towel?",
+   "new": "Can you pass me the towel?",
+   "why": "английский пример: так не говорят"
+  },
+  {
+   "id": 13501,
+   "col": "translation_ru",
+   "old": "причём, при этом, хотя, при котором",
+   "new": "причём, хотя",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13501,
+   "col": "translation_uk",
+   "old": "причому, при цьому, хоча, при якому",
+   "new": "причому, хоча",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13501,
+   "col": "translation_en",
+   "old": "whereby, although, while, in which",
+   "new": "although, while",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13501,
+   "col": "translation_tr",
+   "old": "gerçi, bununla birlikte, ki bu sırada, üstelik",
+   "new": "gerçi",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13501,
+   "col": "translation_pl",
+   "old": "przy czym, choć, podczas gdy",
+   "new": "przy czym, choć",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13501,
+   "col": "translation_it",
+   "old": "anche se, mentre",
+   "new": "anche se",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13501,
+   "col": "translation_es",
+   "old": "aunque, si bien",
+   "new": "aunque",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13501,
+   "col": "translation_fr",
+   "old": "même si, bien que",
+   "new": "même si",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8822,
+   "col": "translation_ru",
+   "old": "организованный, собранный, упорядоченный",
+   "new": "организованный, собранный",
+   "why": "шаблон intelligent («Meine Schwester ist sehr …»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8822,
+   "col": "translation_uk",
+   "old": "організований, зібраний, упорядкований",
+   "new": "організований",
+   "why": "шаблон intelligent («Meine Schwester ist sehr …»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8822,
+   "col": "translation_en",
+   "old": "organized, well-ordered, efficient",
+   "new": "organised",
+   "why": "шаблон intelligent («Meine Schwester ist sehr …»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8822,
+   "col": "translation_tr",
+   "old": "düzenli, organize, tertipli",
+   "new": "düzenli, organize",
+   "why": "шаблон intelligent («Meine Schwester ist sehr …»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8822,
+   "col": "translation_pl",
+   "old": "zorganizowany, poukładany",
+   "new": "zorganizowany",
+   "why": "шаблон intelligent («Meine Schwester ist sehr …»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8822,
+   "col": "example_de",
+   "old": "Meine Schwester ist sehr organisiert, sie hat für alles einen Plan",
+   "new": "Er ist sehr organisiert, er hat für alles einen Plan",
+   "why": "шаблон intelligent («Meine Schwester ist sehr …»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8822,
+   "col": "example_ru",
+   "old": "Моя сестра очень организованная, у неё на всё есть план",
+   "new": "Он очень организованный, у него на всё есть план",
+   "why": "шаблон intelligent («Meine Schwester ist sehr …»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8822,
+   "col": "example_uk",
+   "old": "Моя сестра дуже організована, у неї на все є план",
+   "new": "Він дуже організований, у нього на все є план",
+   "why": "шаблон intelligent («Meine Schwester ist sehr …»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8822,
+   "col": "example_en",
+   "old": "My sister is very organized, she has a plan for everything",
+   "new": "He's very organised, he has a plan for everything",
+   "why": "шаблон intelligent («Meine Schwester ist sehr …»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8822,
+   "col": "example_tr",
+   "old": "Kız kardeşim çok organize, her şey için bir planı var",
+   "new": "Çok düzenli biri, her şey için bir planı var",
+   "why": "шаблон intelligent («Meine Schwester ist sehr …»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8822,
+   "col": "example_pl",
+   "old": "Moja siostra jest bardzo zorganizowana, na wszystko ma plan",
+   "new": "Jest bardzo zorganizowany, na wszystko ma plan",
+   "why": "шаблон intelligent («Meine Schwester ist sehr …»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8822,
+   "col": "example_it",
+   "old": "Mia sorella è molto organizzata, ha un piano per tutto",
+   "new": "È molto organizzato, ha un piano per tutto",
+   "why": "шаблон intelligent («Meine Schwester ist sehr …»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8822,
+   "col": "example_es",
+   "old": "Mi hermana es muy organizada, tiene un plan para todo",
+   "new": "Es muy organizado, tiene un plan para todo",
+   "why": "шаблон intelligent («Meine Schwester ist sehr …»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8822,
+   "col": "example_fr",
+   "old": "Ma sœur est très organisée, elle a un plan pour tout",
+   "new": "Il est très organisé, il a un plan pour tout",
+   "why": "шаблон intelligent («Meine Schwester ist sehr …»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8822,
+   "col": "example_cs",
+   "old": "Moje sestra je velmi organizovaná, má na všechno plán",
+   "new": "Je velmi organizovaný, má na všechno plán",
+   "why": "шаблон intelligent («Meine Schwester ist sehr …»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10362,
+   "col": "translation_ru",
+   "old": "опыт, переживание, случай из жизни",
+   "new": "опыт, переживание",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10362,
+   "col": "translation_uk",
+   "old": "досвід, переживання, випадок із життя",
+   "new": "досвід, переживання",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10362,
+   "col": "translation_en",
+   "old": "experience, know-how, something you went through",
+   "new": "experience",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10362,
+   "col": "translation_tr",
+   "old": "deneyim, tecrübe, yaşantı",
+   "new": "deneyim, tecrübe",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10362,
+   "col": "translation_pl",
+   "old": "doświadczenie, przeżycie, praktyka",
+   "new": "doświadczenie, przeżycie",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 343,
+   "col": "example_de",
+   "old": "Mein Bruder spielt Gitarre",
+   "new": "Kannst du Gitarre spielen?",
+   "why": "«Mein Bruder spielt …» — шаблон erwachsen, Klavier"
+  },
+  {
+   "id": 343,
+   "col": "example_ru",
+   "old": "Мой брат играет на гитаре",
+   "new": "Ты умеешь играть на гитаре?",
+   "why": "«Mein Bruder spielt …» — шаблон erwachsen, Klavier"
+  },
+  {
+   "id": 343,
+   "col": "example_uk",
+   "old": "Мій брат грає на гітарі",
+   "new": "Ти вмієш грати на гітарі?",
+   "why": "«Mein Bruder spielt …» — шаблон erwachsen, Klavier"
+  },
+  {
+   "id": 343,
+   "col": "example_en",
+   "old": "My brother plays the guitar",
+   "new": "Can you play the guitar?",
+   "why": "«Mein Bruder spielt …» — шаблон erwachsen, Klavier"
+  },
+  {
+   "id": 343,
+   "col": "example_tr",
+   "old": "Erkek kardeşim gitar çalıyor",
+   "new": "Gitar çalabiliyor musun?",
+   "why": "«Mein Bruder spielt …» — шаблон erwachsen, Klavier"
+  },
+  {
+   "id": 343,
+   "col": "example_pl",
+   "old": "Mój brat gra na gitarze",
+   "new": "Umiesz grać na gitarze?",
+   "why": "«Mein Bruder spielt …» — шаблон erwachsen, Klavier"
+  },
+  {
+   "id": 343,
+   "col": "example_it",
+   "old": "Mio fratello suona la chitarra",
+   "new": "Sai suonare la chitarra?",
+   "why": "«Mein Bruder spielt …» — шаблон erwachsen, Klavier"
+  },
+  {
+   "id": 343,
+   "col": "example_es",
+   "old": "Mi hermano toca la guitarra",
+   "new": "¿Sabes tocar la guitarra?",
+   "why": "«Mein Bruder spielt …» — шаблон erwachsen, Klavier"
+  },
+  {
+   "id": 343,
+   "col": "example_fr",
+   "old": "Mon frère joue de la guitare",
+   "new": "Tu sais jouer de la guitare?",
+   "why": "«Mein Bruder spielt …» — шаблон erwachsen, Klavier"
+  },
+  {
+   "id": 343,
+   "col": "example_cs",
+   "old": "Můj bratr hraje na kytaru",
+   "new": "Umíš hrát na kytaru?",
+   "why": "«Mein Bruder spielt …» — шаблон erwachsen, Klavier"
+  },
+  {
+   "id": 2548,
+   "col": "translation_ru",
+   "old": "часто, нередко, частый",
+   "new": "часто, нередко",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2548,
+   "col": "translation_uk",
+   "old": "часто, нерідко, частий",
+   "new": "часто, нерідко",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2548,
+   "col": "translation_en",
+   "old": "often, frequently, frequent",
+   "new": "often, frequently",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2548,
+   "col": "translation_tr",
+   "old": "sık sık, sıklıkla, sık",
+   "new": "sık sık",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2548,
+   "col": "translation_pl",
+   "old": "często, częsty",
+   "new": "często",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2157,
+   "col": "example_de",
+   "old": "Er ist sehr aktiv",
+   "new": "Mein Opa ist mit 80 noch sehr aktiv",
+   "why": "«Er ist sehr aktiv» — пусто"
+  },
+  {
+   "id": 2157,
+   "col": "example_ru",
+   "old": "Он очень активный",
+   "new": "Мой дедушка и в 80 лет очень активный",
+   "why": "«Er ist sehr aktiv» — пусто"
+  },
+  {
+   "id": 2157,
+   "col": "example_uk",
+   "old": "Він дуже активний",
+   "new": "Мій дідусь і у 80 років дуже активний",
+   "why": "«Er ist sehr aktiv» — пусто"
+  },
+  {
+   "id": 2157,
+   "col": "example_en",
+   "old": "He is very active",
+   "new": "My grandad is still very active at 80",
+   "why": "«Er ist sehr aktiv» — пусто"
+  },
+  {
+   "id": 2157,
+   "col": "example_tr",
+   "old": "O çok aktif",
+   "new": "Dedem 80 yaşında hâlâ çok aktif",
+   "why": "«Er ist sehr aktiv» — пусто"
+  },
+  {
+   "id": 2157,
+   "col": "example_pl",
+   "old": "On jest bardzo aktywny",
+   "new": "Mój dziadek w wieku 80 lat jest wciąż bardzo aktywny",
+   "why": "«Er ist sehr aktiv» — пусто"
+  },
+  {
+   "id": 2157,
+   "col": "example_it",
+   "old": "È molto attivo",
+   "new": "Mio nonno a 80 anni è ancora molto attivo",
+   "why": "«Er ist sehr aktiv» — пусто"
+  },
+  {
+   "id": 2157,
+   "col": "example_es",
+   "old": "Es muy activo",
+   "new": "Mi abuelo, con 80 años, sigue muy activo",
+   "why": "«Er ist sehr aktiv» — пусто"
+  },
+  {
+   "id": 2157,
+   "col": "example_fr",
+   "old": "Il est très actif",
+   "new": "À 80 ans, mon grand-père est encore très actif",
+   "why": "«Er ist sehr aktiv» — пусто"
+  },
+  {
+   "id": 2157,
+   "col": "example_cs",
+   "old": "Je velmi aktivní",
+   "new": "Můj děda je i v osmdesáti pořád velmi aktivní",
+   "why": "«Er ist sehr aktiv» — пусто"
+  },
+  {
+   "id": 630,
+   "col": "example_de",
+   "old": "Sie trägt eine Mütze",
+   "new": "Ich habe meine Mütze im Bus vergessen",
+   "why": "«Sie trägt eine Mütze» — шаблон одежды"
+  },
+  {
+   "id": 630,
+   "col": "example_ru",
+   "old": "Она носит шапку",
+   "new": "Я забыл шапку в автобусе",
+   "why": "«Sie trägt eine Mütze» — шаблон одежды"
+  },
+  {
+   "id": 630,
+   "col": "example_uk",
+   "old": "Вона носить шапку",
+   "new": "Я забув шапку в автобусі",
+   "why": "«Sie trägt eine Mütze» — шаблон одежды"
+  },
+  {
+   "id": 630,
+   "col": "example_en",
+   "old": "She is wearing a cap",
+   "new": "I left my hat on the bus",
+   "why": "«Sie trägt eine Mütze» — шаблон одежды"
+  },
+  {
+   "id": 630,
+   "col": "example_tr",
+   "old": "Bir şapka giyiyor",
+   "new": "Beremi otobüste unuttum",
+   "why": "«Sie trägt eine Mütze» — шаблон одежды"
+  },
+  {
+   "id": 630,
+   "col": "example_pl",
+   "old": "Ona nosi czapkę",
+   "new": "Zapomniałem czapki w autobusie",
+   "why": "«Sie trägt eine Mütze» — шаблон одежды"
+  },
+  {
+   "id": 630,
+   "col": "example_it",
+   "old": "Porta un berretto",
+   "new": "Ho dimenticato il berretto sull'autobus",
+   "why": "«Sie trägt eine Mütze» — шаблон одежды"
+  },
+  {
+   "id": 630,
+   "col": "example_es",
+   "old": "Lleva un gorro",
+   "new": "Me he dejado el gorro en el autobús",
+   "why": "«Sie trägt eine Mütze» — шаблон одежды"
+  },
+  {
+   "id": 630,
+   "col": "example_fr",
+   "old": "Elle porte un bonnet",
+   "new": "J'ai oublié mon bonnet dans le bus",
+   "why": "«Sie trägt eine Mütze» — шаблон одежды"
+  },
+  {
+   "id": 630,
+   "col": "example_cs",
+   "old": "Nosí čepici",
+   "new": "Zapomněl jsem čepici v autobuse",
+   "why": "«Sie trägt eine Mütze» — шаблон одежды"
+  },
+  {
+   "id": 13503,
+   "col": "translation_ru",
+   "old": "как... так и, и то и другое",
+   "new": "как… так и",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13503,
+   "col": "translation_uk",
+   "old": "як... так і, і те",
+   "new": "як… так і",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13503,
+   "col": "translation_en",
+   "old": "both, both ... and, as well as",
+   "new": "both … and",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13503,
+   "col": "translation_tr",
+   "old": "hem, hem ... hem de, gerek ... gerek",
+   "new": "hem … hem de",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13503,
+   "col": "translation_pl",
+   "old": "zarówno, zarówno... jak i, i to",
+   "new": "zarówno… jak i",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13503,
+   "col": "translation_es",
+   "old": "tanto, tanto como",
+   "new": "tanto… como",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13503,
+   "col": "translation_fr",
+   "old": "aussi bien, à la fois",
+   "new": "aussi bien… que",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13503,
+   "col": "translation_cs",
+   "old": "jak, i",
+   "new": "jak… tak",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6915,
+   "col": "translation_ru",
+   "old": "зарезервированный, забронированный, сдержанный",
+   "new": "забронированный, сдержанный",
+   "why": "«Стол зарезервирован» — о ресторане говорят «столик забронирован»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6915,
+   "col": "translation_uk",
+   "old": "зарезервований, забронований, стриманий",
+   "new": "заброньований, стриманий",
+   "why": "«Стол зарезервирован» — о ресторане говорят «столик забронирован»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6915,
+   "col": "translation_en",
+   "old": "reserved, booked, aloof",
+   "new": "reserved, booked",
+   "why": "«Стол зарезервирован» — о ресторане говорят «столик забронирован»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6915,
+   "col": "translation_tr",
+   "old": "rezerve, ayrılmış, mesafeli",
+   "new": "rezerve",
+   "why": "«Стол зарезервирован» — о ресторане говорят «столик забронирован»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6915,
+   "col": "translation_pl",
+   "old": "zarezerwowany, zamówiony, powściągliwy",
+   "new": "zarezerwowany",
+   "why": "«Стол зарезервирован» — о ресторане говорят «столик забронирован»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6915,
+   "col": "example_ru",
+   "old": "Стол в ресторане зарезервирован",
+   "new": "Столик в ресторане забронирован",
+   "why": "«Стол зарезервирован» — о ресторане говорят «столик забронирован»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6915,
+   "col": "example_uk",
+   "old": "Стіл у ресторані зарезервований",
+   "new": "Столик у ресторані заброньований",
+   "why": "«Стол зарезервирован» — о ресторане говорят «столик забронирован»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17783,
+   "col": "translation_ru",
+   "old": "продукт, товар, изделие",
+   "new": "продукт, товар",
+   "why": "«популярен у клиентов» — язык рекламы; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17783,
+   "col": "translation_uk",
+   "old": "продукт, товар, виріб",
+   "new": "продукт, товар",
+   "why": "«популярен у клиентов» — язык рекламы; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17783,
+   "col": "translation_en",
+   "old": "product, item",
+   "new": "product",
+   "why": "«популярен у клиентов» — язык рекламы; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17783,
+   "col": "translation_tr",
+   "old": "ürün, mamul",
+   "new": "ürün",
+   "why": "«популярен у клиентов» — язык рекламы; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17783,
+   "col": "translation_pl",
+   "old": "produkt, wyrób, towar",
+   "new": "produkt, wyrób",
+   "why": "«популярен у клиентов» — язык рекламы; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17783,
+   "col": "example_de",
+   "old": "Dieses Produkt ist sehr beliebt bei Kunden",
+   "new": "Dieses Produkt gibt es nur online",
+   "why": "«популярен у клиентов» — язык рекламы; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17783,
+   "col": "example_ru",
+   "old": "Этот продукт очень популярен у клиентов",
+   "new": "Этот товар продаётся только онлайн",
+   "why": "«популярен у клиентов» — язык рекламы; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17783,
+   "col": "example_uk",
+   "old": "Цей продукт дуже популярний у клієнтів",
+   "new": "Цей товар продається лише онлайн",
+   "why": "«популярен у клиентов» — язык рекламы; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17783,
+   "col": "example_en",
+   "old": "This product is very popular with customers",
+   "new": "This product is only available online",
+   "why": "«популярен у клиентов» — язык рекламы; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17783,
+   "col": "example_tr",
+   "old": "Bu ürün müşteriler arasında çok popüler",
+   "new": "Bu ürün sadece internette satılıyor",
+   "why": "«популярен у клиентов» — язык рекламы; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17783,
+   "col": "example_pl",
+   "old": "Ten produkt jest bardzo popularny wśród klientów",
+   "new": "Ten produkt jest dostępny tylko online",
+   "why": "«популярен у клиентов» — язык рекламы; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17783,
+   "col": "example_it",
+   "old": "Questo prodotto piace molto ai clienti",
+   "new": "Questo prodotto si trova solo online",
+   "why": "«популярен у клиентов» — язык рекламы; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17783,
+   "col": "example_es",
+   "old": "Este producto es muy popular entre los clientes",
+   "new": "Este producto solo se vende por internet",
+   "why": "«популярен у клиентов» — язык рекламы; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17783,
+   "col": "example_fr",
+   "old": "Ce produit est très apprécié des clients",
+   "new": "Ce produit n'existe qu'en ligne",
+   "why": "«популярен у клиентов» — язык рекламы; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17783,
+   "col": "example_cs",
+   "old": "Tento výrobek je mezi zákazníky velmi oblíbený",
+   "new": "Tenhle výrobek je jen online",
+   "why": "«популярен у клиентов» — язык рекламы; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1165,
+   "col": "translation_ru",
+   "old": "злить, раздражать, злиться, сердиться",
+   "new": "злить, сердиться",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1165,
+   "col": "translation_uk",
+   "old": "злити, дратувати, злитися, сердитися",
+   "new": "злити, сердитися",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1165,
+   "col": "translation_en",
+   "old": "to annoy, to irritate, to be annoyed, to be angry",
+   "new": "to annoy, to be annoyed",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1165,
+   "col": "translation_tr",
+   "old": "sinirlendirmek, kızdırmak, kızmak, sinirlenmek",
+   "new": "kızdırmak, kızmak",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1165,
+   "col": "translation_pl",
+   "old": "złościć, denerwować, złościć się, irytować się",
+   "new": "złościć, złościć się",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1165,
+   "col": "translation_it",
+   "old": "arrabbiarsi, far arrabbiare, irritare",
+   "new": "far arrabbiare, arrabbiarsi",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1165,
+   "col": "translation_es",
+   "old": "enfadarse, enojarse, molestar",
+   "new": "molestar, enfadarse",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1165,
+   "col": "translation_fr",
+   "old": "s'énerver, énerver, agacer",
+   "new": "énerver, s'énerver",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1165,
+   "col": "translation_cs",
+   "old": "rozčilovat se, zlobit, rozčilovat",
+   "new": "zlobit, rozčilovat se",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 679,
+   "col": "example_de",
+   "old": "Das Hemd ist orange",
+   "new": "Im Herbst werden die Blätter gelb und orange",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза"
+  },
+  {
+   "id": 679,
+   "col": "example_ru",
+   "old": "Рубашка оранжевая",
+   "new": "Осенью листья становятся жёлтыми и оранжевыми",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза"
+  },
+  {
+   "id": 679,
+   "col": "example_uk",
+   "old": "Сорочка помаранчева",
+   "new": "Восени листя стає жовтим і помаранчевим",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза"
+  },
+  {
+   "id": 679,
+   "col": "example_en",
+   "old": "The shirt is orange",
+   "new": "In autumn the leaves turn yellow and orange",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза"
+  },
+  {
+   "id": 679,
+   "col": "example_tr",
+   "old": "Gömlek turuncu",
+   "new": "Sonbaharda yapraklar sarı ve turuncu olur",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза"
+  },
+  {
+   "id": 679,
+   "col": "example_pl",
+   "old": "Ta koszula jest pomarańczowa",
+   "new": "Jesienią liście robią się żółte i pomarańczowe",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза"
+  },
+  {
+   "id": 679,
+   "col": "example_it",
+   "old": "La camicia è arancione",
+   "new": "In autunno le foglie diventano gialle e arancioni",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза"
+  },
+  {
+   "id": 679,
+   "col": "example_es",
+   "old": "La camisa es naranja",
+   "new": "En otoño las hojas se vuelven amarillas y naranjas",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза"
+  },
+  {
+   "id": 679,
+   "col": "example_fr",
+   "old": "La chemise est orange",
+   "new": "En automne, les feuilles deviennent jaunes et orange",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза"
+  },
+  {
+   "id": 679,
+   "col": "example_cs",
+   "old": "Košile je oranžová",
+   "new": "Na podzim jsou listy žluté a oranžové",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза"
+  },
+  {
+   "id": 320,
+   "col": "example_de",
+   "old": "Die Blume ist gelb",
+   "new": "Er hat die gelbe Karte bekommen",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза"
+  },
+  {
+   "id": 320,
+   "col": "example_ru",
+   "old": "Цветок жёлтый",
+   "new": "Он получил жёлтую карточку",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза"
+  },
+  {
+   "id": 320,
+   "col": "example_uk",
+   "old": "Квітка жовта",
+   "new": "Він отримав жовту картку",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза"
+  },
+  {
+   "id": 320,
+   "col": "example_en",
+   "old": "The flower is yellow",
+   "new": "He got a yellow card",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза"
+  },
+  {
+   "id": 320,
+   "col": "example_tr",
+   "old": "Çiçek sarı",
+   "new": "Sarı kart gördü",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза"
+  },
+  {
+   "id": 320,
+   "col": "example_pl",
+   "old": "Ten kwiat jest żółty",
+   "new": "Dostał żółtą kartkę",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза"
+  },
+  {
+   "id": 320,
+   "col": "example_it",
+   "old": "Il fiore è giallo",
+   "new": "Ha preso il cartellino giallo",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза"
+  },
+  {
+   "id": 320,
+   "col": "example_es",
+   "old": "La flor es amarilla",
+   "new": "Le sacaron tarjeta amarilla",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза"
+  },
+  {
+   "id": 320,
+   "col": "example_fr",
+   "old": "La fleur est jaune",
+   "new": "Il a pris un carton jaune",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза"
+  },
+  {
+   "id": 320,
+   "col": "example_cs",
+   "old": "Ta květina je žlutá",
+   "new": "Dostal žlutou kartu",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза"
+  },
+  {
+   "id": 555,
+   "col": "example_de",
+   "old": "Die Blume ist lila",
+   "new": "Sie hat sich die Haare lila gefärbt",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза"
+  },
+  {
+   "id": 555,
+   "col": "example_ru",
+   "old": "Цветок фиолетовый",
+   "new": "Она покрасила волосы в фиолетовый",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза"
+  },
+  {
+   "id": 555,
+   "col": "example_uk",
+   "old": "Квітка фіолетова",
+   "new": "Вона пофарбувала волосся у фіолетовий",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза"
+  },
+  {
+   "id": 555,
+   "col": "example_en",
+   "old": "The flower is purple",
+   "new": "She's dyed her hair purple",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза"
+  },
+  {
+   "id": 555,
+   "col": "example_tr",
+   "old": "Çiçek mor",
+   "new": "Saçını mora boyatmış",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза"
+  },
+  {
+   "id": 555,
+   "col": "example_pl",
+   "old": "Ten kwiat jest fioletowy",
+   "new": "Ufarbowała włosy na fioletowo",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза"
+  },
+  {
+   "id": 555,
+   "col": "example_it",
+   "old": "Il fiore è viola",
+   "new": "Si è tinta i capelli di viola",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза"
+  },
+  {
+   "id": 555,
+   "col": "example_es",
+   "old": "La flor es morada",
+   "new": "Se ha teñido el pelo de morado",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза"
+  },
+  {
+   "id": 555,
+   "col": "example_fr",
+   "old": "La fleur est violette",
+   "new": "Elle s'est teint les cheveux en violet",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза"
+  },
+  {
+   "id": 555,
+   "col": "example_cs",
+   "old": "Ta květina je fialová",
+   "new": "Obarvila si vlasy na fialovo",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза"
+  },
+  {
+   "id": 132,
+   "col": "example_de",
+   "old": "Sein Mantel ist braun",
+   "new": "Ich hätte gern die braunen Schuhe in Größe 40",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза; «Sein Mantel ist braun»"
+  },
+  {
+   "id": 132,
+   "col": "example_ru",
+   "old": "Его пальто коричневое",
+   "new": "Мне, пожалуйста, коричневые туфли сорокового размера",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза; «Sein Mantel ist braun»"
+  },
+  {
+   "id": 132,
+   "col": "example_uk",
+   "old": "Його пальто коричневе",
+   "new": "Мені, будь ласка, коричневі туфлі сорокового розміру",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза; «Sein Mantel ist braun»"
+  },
+  {
+   "id": 132,
+   "col": "example_en",
+   "old": "His coat is brown",
+   "new": "I'd like the brown shoes in size 40, please",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза; «Sein Mantel ist braun»"
+  },
+  {
+   "id": 132,
+   "col": "example_tr",
+   "old": "Onun paltosu kahverengi",
+   "new": "Kahverengi ayakkabıların 40 numarasını alabilir miyim?",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза; «Sein Mantel ist braun»"
+  },
+  {
+   "id": 132,
+   "col": "example_pl",
+   "old": "Jego płaszcz jest brązowy",
+   "new": "Poproszę te brązowe buty w rozmiarze 40",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза; «Sein Mantel ist braun»"
+  },
+  {
+   "id": 132,
+   "col": "example_it",
+   "old": "Il suo cappotto è marrone",
+   "new": "Vorrei le scarpe marroni nel 40",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза; «Sein Mantel ist braun»"
+  },
+  {
+   "id": 132,
+   "col": "example_es",
+   "old": "Su abrigo es marrón",
+   "new": "Quería los zapatos marrones en el 40",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза; «Sein Mantel ist braun»"
+  },
+  {
+   "id": 132,
+   "col": "example_fr",
+   "old": "Son manteau est marron",
+   "new": "Je voudrais les chaussures marron en 40",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза; «Sein Mantel ist braun»"
+  },
+  {
+   "id": 132,
+   "col": "example_cs",
+   "old": "Jeho kabát je hnědý",
+   "new": "Prosím ty hnědé boty ve velikosti 40",
+   "why": "цвета: «Die Blume ist gelb/lila», «Das Hemd ist orange» — один шаблон на все; у каждого цвета своя фраза; «Sein Mantel ist braun»"
+  },
+  {
+   "id": 6936,
+   "col": "translation_ru",
+   "old": "крепкий, твёрдый, прочный, плотный, постоянный",
+   "new": "крепкий, постоянный",
+   "why": "«Это крепкий хват» — так не говорят; «Halt dich fest» — пример festhalten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6936,
+   "col": "translation_uk",
+   "old": "міцний, твердий, тривкий, щільний, постійний",
+   "new": "міцний, постійний",
+   "why": "«Это крепкий хват» — так не говорят; «Halt dich fest» — пример festhalten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6936,
+   "col": "translation_en",
+   "old": "firm, solid, tight, fixed, permanent",
+   "new": "firm, permanent",
+   "why": "«Это крепкий хват» — так не говорят; «Halt dich fest» — пример festhalten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6936,
+   "col": "translation_tr",
+   "old": "sıkı, sağlam, katı, sabit, kalıcı",
+   "new": "sıkı, sabit",
+   "why": "«Это крепкий хват» — так не говорят; «Halt dich fest» — пример festhalten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6936,
+   "col": "translation_pl",
+   "old": "mocny, twardy, solidny, stały",
+   "new": "mocny, stały",
+   "why": "«Это крепкий хват» — так не говорят; «Halt dich fest» — пример festhalten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6936,
+   "col": "translation_it",
+   "old": "saldo, solido, fisso, stabile",
+   "new": "saldo, fisso",
+   "why": "«Это крепкий хват» — так не говорят; «Halt dich fest» — пример festhalten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6936,
+   "col": "translation_es",
+   "old": "firme, sólido, fijo",
+   "new": "firme, fijo",
+   "why": "«Это крепкий хват» — так не говорят; «Halt dich fest» — пример festhalten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6936,
+   "col": "translation_fr",
+   "old": "ferme, solide, fixe",
+   "new": "ferme, fixe",
+   "why": "«Это крепкий хват» — так не говорят; «Halt dich fest» — пример festhalten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6936,
+   "col": "translation_cs",
+   "old": "pevný, tvrdý, stálý",
+   "new": "pevný, stálý",
+   "why": "«Это крепкий хват» — так не говорят; «Halt dich fest» — пример festhalten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6936,
+   "col": "example_de",
+   "old": "Das ist ein fester Griff",
+   "new": "Er hat jetzt eine feste Stelle",
+   "why": "«Это крепкий хват» — так не говорят; «Halt dich fest» — пример festhalten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6936,
+   "col": "example_ru",
+   "old": "Это крепкий хват",
+   "new": "У него теперь постоянная работа",
+   "why": "«Это крепкий хват» — так не говорят; «Halt dich fest» — пример festhalten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6936,
+   "col": "example_uk",
+   "old": "Це міцний захват",
+   "new": "У нього тепер постійна робота",
+   "why": "«Это крепкий хват» — так не говорят; «Halt dich fest» — пример festhalten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6936,
+   "col": "example_en",
+   "old": "That is a firm grip",
+   "new": "He's got a permanent job now",
+   "why": "«Это крепкий хват» — так не говорят; «Halt dich fest» — пример festhalten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6936,
+   "col": "example_tr",
+   "old": "Bu sıkı bir tutuş",
+   "new": "Artık sabit bir işi var",
+   "why": "«Это крепкий хват» — так не говорят; «Halt dich fest» — пример festhalten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6936,
+   "col": "example_pl",
+   "old": "To mocny uścisk",
+   "new": "Ma teraz stałą pracę",
+   "why": "«Это крепкий хват» — так не говорят; «Halt dich fest» — пример festhalten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6936,
+   "col": "example_it",
+   "old": "È una presa salda",
+   "new": "Adesso ha un lavoro fisso",
+   "why": "«Это крепкий хват» — так не говорят; «Halt dich fest» — пример festhalten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6936,
+   "col": "example_es",
+   "old": "Es un agarre firme",
+   "new": "Ahora tiene un trabajo fijo",
+   "why": "«Это крепкий хват» — так не говорят; «Halt dich fest» — пример festhalten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6936,
+   "col": "example_fr",
+   "old": "C'est une prise ferme",
+   "new": "Il a maintenant un emploi fixe",
+   "why": "«Это крепкий хват» — так не говорят; «Halt dich fest» — пример festhalten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6936,
+   "col": "example_cs",
+   "old": "To je pevný stisk",
+   "new": "Má teď stálou práci",
+   "why": "«Это крепкий хват» — так не говорят; «Halt dich fest» — пример festhalten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1111,
+   "col": "translation_ru",
+   "old": "запирать, запирать на ключ, завершать, заключать договор",
+   "new": "запирать, завершать",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1111,
+   "col": "translation_uk",
+   "old": "зачиняти на ключ, завершувати, укладати договір",
+   "new": "зачиняти на ключ, завершувати",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1111,
+   "col": "translation_en",
+   "old": "to lock, to finish, to complete, to sign a contract",
+   "new": "to lock, to finish",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1111,
+   "col": "translation_tr",
+   "old": "kilitlemek, bitirmek, tamamlamak, sözleşme yapmak",
+   "new": "kilitlemek, bitirmek",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1111,
+   "col": "translation_pl",
+   "old": "zamykać na klucz, kończyć, podpisywać umowę",
+   "new": "zamykać na klucz, kończyć",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1111,
+   "col": "translation_it",
+   "old": "chiudere a chiave, concludere, stipulare",
+   "new": "chiudere a chiave, concludere",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1111,
+   "col": "translation_es",
+   "old": "cerrar con llave, terminar, firmar",
+   "new": "cerrar con llave, terminar",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1111,
+   "col": "translation_fr",
+   "old": "fermer à clé, terminer, conclure",
+   "new": "fermer à clé, terminer",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1111,
+   "col": "translation_cs",
+   "old": "zamknout, dokončit, uzavřít",
+   "new": "zamknout, dokončit",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8839,
+   "col": "translation_ru",
+   "old": "организовывать, устраивать, доставать, раздобывать",
+   "new": "организовывать, доставать",
+   "why": "английский пример: так не говорят («We organize a party»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8839,
+   "col": "translation_uk",
+   "old": "організовувати, влаштовувати, діставати",
+   "new": "організовувати, діставати",
+   "why": "английский пример: так не говорят («We organize a party»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8839,
+   "col": "translation_en",
+   "old": "to organize, to arrange, to get hold of",
+   "new": "to organise, to get hold of",
+   "why": "английский пример: так не говорят («We organize a party»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8839,
+   "col": "translation_tr",
+   "old": "düzenlemek, organize etmek, ayarlamak",
+   "new": "düzenlemek, ayarlamak",
+   "why": "английский пример: так не говорят («We organize a party»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8839,
+   "col": "translation_pl",
+   "old": "organizować, urządzać, załatwiać",
+   "new": "organizować, załatwiać",
+   "why": "английский пример: так не говорят («We organize a party»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8839,
+   "col": "translation_cs",
+   "old": "organizovat, pořádat, sehnat",
+   "new": "organizovat, sehnat",
+   "why": "английский пример: так не говорят («We organize a party»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8839,
+   "col": "example_ru",
+   "old": "Мы организуем вечеринку",
+   "new": "Мы устраиваем вечеринку",
+   "why": "английский пример: так не говорят («We organize a party»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8839,
+   "col": "example_en",
+   "old": "We organize a party",
+   "new": "We're organising a party",
+   "why": "английский пример: так не говорят («We organize a party»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 909,
+   "col": "translation_ru",
+   "old": "доска, классная доска, плитка шоколада, табличка",
+   "new": "доска, плитка",
+   "why": "«Du schreibst an die Tafel» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 909,
+   "col": "translation_uk",
+   "old": "дошка, класна дошка, плитка шоколаду, табличка",
+   "new": "дошка, плитка",
+   "why": "«Du schreibst an die Tafel» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 909,
+   "col": "translation_en",
+   "old": "board, blackboard, bar of chocolate, plaque",
+   "new": "board, bar (of chocolate)",
+   "why": "«Du schreibst an die Tafel» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 909,
+   "col": "translation_tr",
+   "old": "tahta, kara tahta, çikolata tableti, levha",
+   "new": "tahta, tablet",
+   "why": "«Du schreibst an die Tafel» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 909,
+   "col": "translation_pl",
+   "old": "tablica, tabliczka czekolady",
+   "new": "tablica, tabliczka",
+   "why": "«Du schreibst an die Tafel» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 909,
+   "col": "translation_it",
+   "old": "la lavagna, la tavoletta, la targa",
+   "new": "la lavagna, la tavoletta",
+   "why": "«Du schreibst an die Tafel» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 909,
+   "col": "translation_es",
+   "old": "la pizarra, la tableta, la placa",
+   "new": "la pizarra, la tableta",
+   "why": "«Du schreibst an die Tafel» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 909,
+   "col": "translation_fr",
+   "old": "le tableau, la tablette, la plaque",
+   "new": "le tableau, la tablette",
+   "why": "«Du schreibst an die Tafel» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 909,
+   "col": "example_de",
+   "old": "Du schreibst an die Tafel",
+   "new": "Kannst du das an die Tafel schreiben?",
+   "why": "«Du schreibst an die Tafel» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 909,
+   "col": "example_ru",
+   "old": "Ты пишешь на доске",
+   "new": "Можешь написать это на доске?",
+   "why": "«Du schreibst an die Tafel» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 909,
+   "col": "example_uk",
+   "old": "Ти пишеш на дошці",
+   "new": "Можеш написати це на дошці?",
+   "why": "«Du schreibst an die Tafel» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 909,
+   "col": "example_en",
+   "old": "You write on the board",
+   "new": "Could you write it on the board?",
+   "why": "«Du schreibst an die Tafel» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 909,
+   "col": "example_tr",
+   "old": "Tahtaya yazıyorsun",
+   "new": "Bunu tahtaya yazabilir misin?",
+   "why": "«Du schreibst an die Tafel» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 909,
+   "col": "example_pl",
+   "old": "Piszesz na tablicy",
+   "new": "Możesz to napisać na tablicy?",
+   "why": "«Du schreibst an die Tafel» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 909,
+   "col": "example_it",
+   "old": "Scrivi alla lavagna",
+   "new": "Puoi scriverlo alla lavagna?",
+   "why": "«Du schreibst an die Tafel» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 909,
+   "col": "example_es",
+   "old": "Escribes en la pizarra",
+   "new": "¿Puedes escribirlo en la pizarra?",
+   "why": "«Du schreibst an die Tafel» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 909,
+   "col": "example_fr",
+   "old": "Tu écris au tableau",
+   "new": "Tu peux l'écrire au tableau?",
+   "why": "«Du schreibst an die Tafel» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 909,
+   "col": "example_cs",
+   "old": "Píšeš na tabuli",
+   "new": "Můžeš to napsat na tabuli?",
+   "why": "«Du schreibst an die Tafel» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17521,
+   "col": "example_ru",
+   "old": "Не забудь свой пароль, иначе ты не сможешь войти",
+   "new": "Не забудь пароль, а то не войдёшь",
+   "why": "перевод длиннее и книжнее немецкого"
+  },
+  {
+   "id": 17521,
+   "col": "example_uk",
+   "old": "Не забудь свій пароль, інакше ти не зможеш увійти",
+   "new": "Не забудь пароль, бо не зайдеш",
+   "why": "перевод длиннее и книжнее немецкого"
+  },
+  {
+   "id": 17521,
+   "col": "example_it",
+   "old": "Non dimenticare la tua password, altrimenti non riesci a entrare",
+   "new": "Non dimenticare la password, sennò non entri",
+   "why": "перевод длиннее и книжнее немецкого"
+  },
+  {
+   "id": 17521,
+   "col": "example_cs",
+   "old": "Nezapomeň své heslo, jinak se nedostaneš dovnitř",
+   "new": "Nezapomeň heslo, jinak se nepřihlásíš",
+   "why": "перевод длиннее и книжнее немецкого"
+  },
+  {
+   "id": 2105,
+   "col": "translation_ru",
+   "old": "экономика, хозяйство, трактир",
+   "new": "экономика, хозяйство",
+   "why": "«Die Wirtschaft wächst» — шаблон Bevölkerung («Die Bevölkerung wächst»); «трактир» — другое значение"
+  },
+  {
+   "id": 2105,
+   "col": "translation_uk",
+   "old": "економіка, господарство, шинок",
+   "new": "економіка, господарство",
+   "why": "«Die Wirtschaft wächst» — шаблон Bevölkerung («Die Bevölkerung wächst»); «трактир» — другое значение"
+  },
+  {
+   "id": 2105,
+   "col": "translation_en",
+   "old": "economy, business, pub",
+   "new": "economy, economics",
+   "why": "«Die Wirtschaft wächst» — шаблон Bevölkerung («Die Bevölkerung wächst»); «трактир» — другое значение"
+  },
+  {
+   "id": 2105,
+   "col": "translation_tr",
+   "old": "ekonomi, iktisat, meyhane",
+   "new": "ekonomi",
+   "why": "«Die Wirtschaft wächst» — шаблон Bevölkerung («Die Bevölkerung wächst»); «трактир» — другое значение"
+  },
+  {
+   "id": 2105,
+   "col": "translation_pl",
+   "old": "gospodarka, ekonomia, gospodarstwo",
+   "new": "gospodarka, ekonomia",
+   "why": "«Die Wirtschaft wächst» — шаблон Bevölkerung («Die Bevölkerung wächst»); «трактир» — другое значение"
+  },
+  {
+   "id": 2105,
+   "col": "translation_it",
+   "old": "l'economia, l'osteria",
+   "new": "l'economia",
+   "why": "«Die Wirtschaft wächst» — шаблон Bevölkerung («Die Bevölkerung wächst»); «трактир» — другое значение"
+  },
+  {
+   "id": 2105,
+   "col": "translation_es",
+   "old": "la economía, la taberna",
+   "new": "la economía",
+   "why": "«Die Wirtschaft wächst» — шаблон Bevölkerung («Die Bevölkerung wächst»); «трактир» — другое значение"
+  },
+  {
+   "id": 2105,
+   "col": "translation_fr",
+   "old": "l'économie, le bistrot",
+   "new": "l'économie",
+   "why": "«Die Wirtschaft wächst» — шаблон Bevölkerung («Die Bevölkerung wächst»); «трактир» — другое значение"
+  },
+  {
+   "id": 2105,
+   "col": "translation_cs",
+   "old": "ekonomika, hospodářství, hospoda",
+   "new": "ekonomika, hospodářství",
+   "why": "«Die Wirtschaft wächst» — шаблон Bevölkerung («Die Bevölkerung wächst»); «трактир» — другое значение"
+  },
+  {
+   "id": 2105,
+   "col": "example_de",
+   "old": "Die Wirtschaft wächst",
+   "new": "Er studiert Wirtschaft",
+   "why": "«Die Wirtschaft wächst» — шаблон Bevölkerung («Die Bevölkerung wächst»); «трактир» — другое значение"
+  },
+  {
+   "id": 2105,
+   "col": "example_ru",
+   "old": "Экономика растёт",
+   "new": "Он изучает экономику",
+   "why": "«Die Wirtschaft wächst» — шаблон Bevölkerung («Die Bevölkerung wächst»); «трактир» — другое значение"
+  },
+  {
+   "id": 2105,
+   "col": "example_uk",
+   "old": "Економіка зростає",
+   "new": "Він вивчає економіку",
+   "why": "«Die Wirtschaft wächst» — шаблон Bevölkerung («Die Bevölkerung wächst»); «трактир» — другое значение"
+  },
+  {
+   "id": 2105,
+   "col": "example_en",
+   "old": "The economy is growing",
+   "new": "He's studying economics",
+   "why": "«Die Wirtschaft wächst» — шаблон Bevölkerung («Die Bevölkerung wächst»); «трактир» — другое значение"
+  },
+  {
+   "id": 2105,
+   "col": "example_tr",
+   "old": "Ekonomi büyüyor",
+   "new": "Ekonomi okuyor",
+   "why": "«Die Wirtschaft wächst» — шаблон Bevölkerung («Die Bevölkerung wächst»); «трактир» — другое значение"
+  },
+  {
+   "id": 2105,
+   "col": "example_pl",
+   "old": "Gospodarka rośnie",
+   "new": "Studiuje ekonomię",
+   "why": "«Die Wirtschaft wächst» — шаблон Bevölkerung («Die Bevölkerung wächst»); «трактир» — другое значение"
+  },
+  {
+   "id": 2105,
+   "col": "example_it",
+   "old": "L'economia cresce",
+   "new": "Studia economia",
+   "why": "«Die Wirtschaft wächst» — шаблон Bevölkerung («Die Bevölkerung wächst»); «трактир» — другое значение"
+  },
+  {
+   "id": 2105,
+   "col": "example_es",
+   "old": "La economía crece",
+   "new": "Estudia economía",
+   "why": "«Die Wirtschaft wächst» — шаблон Bevölkerung («Die Bevölkerung wächst»); «трактир» — другое значение"
+  },
+  {
+   "id": 2105,
+   "col": "example_fr",
+   "old": "L'économie est en croissance",
+   "new": "Il fait des études d'économie",
+   "why": "«Die Wirtschaft wächst» — шаблон Bevölkerung («Die Bevölkerung wächst»); «трактир» — другое значение"
+  },
+  {
+   "id": 2105,
+   "col": "example_cs",
+   "old": "Ekonomika roste",
+   "new": "Studuje ekonomii",
+   "why": "«Die Wirtschaft wächst» — шаблон Bevölkerung («Die Bevölkerung wächst»); «трактир» — другое значение"
+  },
+  {
+   "id": 2285,
+   "col": "translation_ru",
+   "old": "жаловаться, подавать жалобу, утяжелять, обременять",
+   "new": "жаловаться",
+   "why": "список → главное слово и не больше одной альтернативы; «Я жалуюсь менеджеру» — о намерении говорят «пожалуюсь»"
+  },
+  {
+   "id": 2285,
+   "col": "translation_uk",
+   "old": "скаржитися, подавати скаргу, обтяжувати",
+   "new": "скаржитися",
+   "why": "список → главное слово и не больше одной альтернативы; «Я жалуюсь менеджеру» — о намерении говорят «пожалуюсь»"
+  },
+  {
+   "id": 2285,
+   "col": "translation_en",
+   "old": "to complain, to file a complaint, to weigh down",
+   "new": "to complain",
+   "why": "список → главное слово и не больше одной альтернативы; «Я жалуюсь менеджеру» — о намерении говорят «пожалуюсь»"
+  },
+  {
+   "id": 2285,
+   "col": "translation_tr",
+   "old": "şikâyet etmek, yakınmak, ağırlaştırmak",
+   "new": "şikâyet etmek",
+   "why": "список → главное слово и не больше одной альтернативы; «Я жалуюсь менеджеру» — о намерении говорят «пожалуюсь»"
+  },
+  {
+   "id": 2285,
+   "col": "translation_pl",
+   "old": "skarżyć się, narzekać, składać skargę, obciążać",
+   "new": "skarżyć się, narzekać",
+   "why": "список → главное слово и не больше одной альтернативы; «Я жалуюсь менеджеру» — о намерении говорят «пожалуюсь»"
+  },
+  {
+   "id": 2285,
+   "col": "translation_it",
+   "old": "lamentarsi, reclamare, appesantire",
+   "new": "lamentarsi, reclamare",
+   "why": "список → главное слово и не больше одной альтернативы; «Я жалуюсь менеджеру» — о намерении говорят «пожалуюсь»"
+  },
+  {
+   "id": 2285,
+   "col": "translation_es",
+   "old": "quejarse, reclamar, cargar",
+   "new": "quejarse, reclamar",
+   "why": "список → главное слово и не больше одной альтернативы; «Я жалуюсь менеджеру» — о намерении говорят «пожалуюсь»"
+  },
+  {
+   "id": 2285,
+   "col": "translation_fr",
+   "old": "se plaindre, réclamer, alourdir",
+   "new": "se plaindre, réclamer",
+   "why": "список → главное слово и не больше одной альтернативы; «Я жалуюсь менеджеру» — о намерении говорят «пожалуюсь»"
+  },
+  {
+   "id": 2285,
+   "col": "translation_cs",
+   "old": "stěžovat si, zatížit",
+   "new": "stěžovat si",
+   "why": "список → главное слово и не больше одной альтернативы; «Я жалуюсь менеджеру» — о намерении говорят «пожалуюсь»"
+  },
+  {
+   "id": 2285,
+   "col": "example_ru",
+   "old": "Я жалуюсь менеджеру",
+   "new": "Я пожалуюсь менеджеру",
+   "why": "список → главное слово и не больше одной альтернативы; «Я жалуюсь менеджеру» — о намерении говорят «пожалуюсь»"
+  },
+  {
+   "id": 2285,
+   "col": "example_uk",
+   "old": "Я скаржуся менеджеру",
+   "new": "Я поскаржуся менеджеру",
+   "why": "список → главное слово и не больше одной альтернативы; «Я жалуюсь менеджеру» — о намерении говорят «пожалуюсь»"
+  },
+  {
+   "id": 2285,
+   "col": "example_en",
+   "old": "I'm complaining to the manager",
+   "new": "I'm going to complain to the manager",
+   "why": "список → главное слово и не больше одной альтернативы; «Я жалуюсь менеджеру» — о намерении говорят «пожалуюсь»"
+  },
+  {
+   "id": 18701,
+   "col": "example_de",
+   "old": "Ich wasche meine Hände mit Seife",
+   "new": "Wasch dir die Hände mit Seife!",
+   "why": "«Ich wasche meine Hände mit Seife» — так о себе не рассказывают"
+  },
+  {
+   "id": 18701,
+   "col": "example_ru",
+   "old": "Я мою руки мылом",
+   "new": "Помой руки с мылом!",
+   "why": "«Ich wasche meine Hände mit Seife» — так о себе не рассказывают"
+  },
+  {
+   "id": 18701,
+   "col": "example_uk",
+   "old": "Я мию руки милом",
+   "new": "Помий руки з милом!",
+   "why": "«Ich wasche meine Hände mit Seife» — так о себе не рассказывают"
+  },
+  {
+   "id": 18701,
+   "col": "example_en",
+   "old": "I wash my hands with soap",
+   "new": "Wash your hands with soap!",
+   "why": "«Ich wasche meine Hände mit Seife» — так о себе не рассказывают"
+  },
+  {
+   "id": 18701,
+   "col": "example_tr",
+   "old": "Ellerimi sabunla yıkıyorum",
+   "new": "Ellerini sabunla yıka!",
+   "why": "«Ich wasche meine Hände mit Seife» — так о себе не рассказывают"
+  },
+  {
+   "id": 18701,
+   "col": "example_pl",
+   "old": "Myję ręce mydłem",
+   "new": "Umyj ręce mydłem!",
+   "why": "«Ich wasche meine Hände mit Seife» — так о себе не рассказывают"
+  },
+  {
+   "id": 18701,
+   "col": "example_it",
+   "old": "Mi lavo le mani con il sapone",
+   "new": "Lavati le mani col sapone!",
+   "why": "«Ich wasche meine Hände mit Seife» — так о себе не рассказывают"
+  },
+  {
+   "id": 18701,
+   "col": "example_es",
+   "old": "Me lavo las manos con jabón",
+   "new": "¡Lávate las manos con jabón!",
+   "why": "«Ich wasche meine Hände mit Seife» — так о себе не рассказывают"
+  },
+  {
+   "id": 18701,
+   "col": "example_fr",
+   "old": "Je me lave les mains avec du savon",
+   "new": "Lave-toi les mains avec du savon!",
+   "why": "«Ich wasche meine Hände mit Seife» — так о себе не рассказывают"
+  },
+  {
+   "id": 18701,
+   "col": "example_cs",
+   "old": "Myju si ruce mýdlem",
+   "new": "Umyj si ruce mýdlem!",
+   "why": "«Ich wasche meine Hände mit Seife» — так о себе не рассказывают"
+  },
+  {
+   "id": 977,
+   "col": "translation_ru",
+   "old": "сравнивать, сопоставлять",
+   "new": "сравнивать",
+   "why": "английский пример: так не говорят («the prices of the stores»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 977,
+   "col": "translation_uk",
+   "old": "порівнювати, зіставляти",
+   "new": "порівнювати",
+   "why": "английский пример: так не говорят («the prices of the stores»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 977,
+   "col": "translation_en",
+   "old": "to compare, to contrast",
+   "new": "to compare",
+   "why": "английский пример: так не говорят («the prices of the stores»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 977,
+   "col": "translation_tr",
+   "old": "karşılaştırmak, kıyaslamak",
+   "new": "karşılaştırmak",
+   "why": "английский пример: так не говорят («the prices of the stores»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 977,
+   "col": "translation_pl",
+   "old": "porównywać, zestawiać",
+   "new": "porównywać",
+   "why": "английский пример: так не говорят («the prices of the stores»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 977,
+   "col": "translation_it",
+   "old": "confrontare, paragonare",
+   "new": "confrontare",
+   "why": "английский пример: так не говорят («the prices of the stores»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 977,
+   "col": "example_ru",
+   "old": "Мы сравниваем цены магазинов",
+   "new": "Мы сравниваем цены в магазинах",
+   "why": "английский пример: так не говорят («the prices of the stores»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 977,
+   "col": "example_en",
+   "old": "We compare the prices of the stores",
+   "new": "We're comparing prices in different shops",
+   "why": "английский пример: так не говорят («the prices of the stores»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1094,
+   "col": "example_en",
+   "old": "I'll come to you the day after tomorrow",
+   "new": "I'll come and see you the day after tomorrow",
+   "why": "английский пример: так не говорят («I'll come to you»)"
+  },
+  {
+   "id": 2845,
+   "col": "example_de",
+   "old": "Das Konzert findet am Freitag statt",
+   "new": "Die Party findet bei mir statt",
+   "why": "снова Konzert — у двадцати слов пример про концерт"
+  },
+  {
+   "id": 2845,
+   "col": "example_ru",
+   "old": "Концерт состоится в пятницу",
+   "new": "Вечеринка пройдёт у меня",
+   "why": "снова Konzert — у двадцати слов пример про концерт"
+  },
+  {
+   "id": 2845,
+   "col": "example_uk",
+   "old": "Концерт відбудеться у п'ятницю",
+   "new": "Вечірка відбудеться в мене",
+   "why": "снова Konzert — у двадцати слов пример про концерт"
+  },
+  {
+   "id": 2845,
+   "col": "example_en",
+   "old": "The concert takes place on Friday",
+   "new": "The party's being held at my place",
+   "why": "снова Konzert — у двадцати слов пример про концерт"
+  },
+  {
+   "id": 2845,
+   "col": "example_tr",
+   "old": "Konser Cuma günü gerçekleşiyor",
+   "new": "Parti bende yapılacak",
+   "why": "снова Konzert — у двадцати слов пример про концерт"
+  },
+  {
+   "id": 2845,
+   "col": "example_pl",
+   "old": "Koncert odbywa się w piątek",
+   "new": "Impreza odbędzie się u mnie",
+   "why": "снова Konzert — у двадцати слов пример про концерт"
+  },
+  {
+   "id": 2845,
+   "col": "example_it",
+   "old": "Il concerto si svolge venerdì",
+   "new": "La festa si tiene a casa mia",
+   "why": "снова Konzert — у двадцати слов пример про концерт"
+  },
+  {
+   "id": 2845,
+   "col": "example_es",
+   "old": "El concierto tiene lugar el viernes",
+   "new": "La fiesta se celebra en mi casa",
+   "why": "снова Konzert — у двадцати слов пример про концерт"
+  },
+  {
+   "id": 2845,
+   "col": "example_fr",
+   "old": "Le concert a lieu vendredi",
+   "new": "La fête a lieu chez moi",
+   "why": "снова Konzert — у двадцати слов пример про концерт"
+  },
+  {
+   "id": 2845,
+   "col": "example_cs",
+   "old": "Koncert se koná v pátek",
+   "new": "Večírek se koná u mě",
+   "why": "снова Konzert — у двадцати слов пример про концерт"
+  }
+ ],
+ "replace": [],
+ "split_later": {
+  "2105": [
+   "die Wirtschaft = трактир, пивная"
+  ]
+ }
+}
