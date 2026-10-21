@@ -1,0 +1,2555 @@
+{
+ "about": "2.3, B2 блок 02",
+ "edits": [
+  {
+   "id": 17794,
+   "col": "translation_ru",
+   "old": "ресурс, запас, средства",
+   "new": "ресурс, средства",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17794,
+   "col": "translation_uk",
+   "old": "ресурс, запас, засоби",
+   "new": "ресурс, засоби",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17794,
+   "col": "translation_en",
+   "old": "resource, supply",
+   "new": "resource",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17794,
+   "col": "translation_pl",
+   "old": "zasób, środki, surowce",
+   "new": "zasób, środki",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16147,
+   "col": "example_de",
+   "old": "Die Invasion war ein wichtiges historisches Ereignis",
+   "new": "Jeden Sommer gibt es am See eine richtige Invasion von Mücken",
+   "why": "«… war ein wichtiges historisches Ereignis» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16147,
+   "col": "example_ru",
+   "old": "Вторжение было важным историческим событием",
+   "new": "Каждое лето на озере настоящее нашествие комаров",
+   "why": "«… war ein wichtiges historisches Ereignis» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16147,
+   "col": "example_uk",
+   "old": "Вторгнення було важливою історичною подією",
+   "new": "Щоліта на озері справжня навала комарів",
+   "why": "«… war ein wichtiges historisches Ereignis» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16147,
+   "col": "example_en",
+   "old": "The invasion was an important historical event",
+   "new": "Every summer there's a real invasion of mosquitoes at the lake",
+   "why": "«… war ein wichtiges historisches Ereignis» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16147,
+   "col": "example_tr",
+   "old": "İşgal önemli bir tarihi olay oldu",
+   "new": "Her yaz gölde gerçek bir sivrisinek istilası oluyor",
+   "why": "«… war ein wichtiges historisches Ereignis» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16147,
+   "col": "example_pl",
+   "old": "Inwazja była ważnym wydarzeniem historycznym",
+   "new": "Każdego lata nad jeziorem jest prawdziwa inwazja komarów",
+   "why": "«… war ein wichtiges historisches Ereignis» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16147,
+   "col": "example_it",
+   "old": "L'invasione è stata un importante evento storico",
+   "new": "Ogni estate al lago c'è una vera invasione di zanzare",
+   "why": "«… war ein wichtiges historisches Ereignis» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16147,
+   "col": "example_es",
+   "old": "La invasión fue un acontecimiento histórico importante",
+   "new": "Cada verano en el lago hay una auténtica invasión de mosquitos",
+   "why": "«… war ein wichtiges historisches Ereignis» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16147,
+   "col": "example_fr",
+   "old": "L'invasion a été un événement historique important",
+   "new": "Chaque été, il y a une vraie invasion de moustiques au lac",
+   "why": "«… war ein wichtiges historisches Ereignis» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16147,
+   "col": "example_cs",
+   "old": "Invaze byla důležitou historickou událostí",
+   "new": "Každé léto je u jezera skutečná invaze komárů",
+   "why": "«… war ein wichtiges historisches Ereignis» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11716,
+   "col": "translation_ru",
+   "old": "индейка, индюк",
+   "new": "индейка",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7086,
+   "col": "translation_ru",
+   "old": "ползать, ползти, еле двигаться, тащиться",
+   "new": "ползать, ползти",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7086,
+   "col": "translation_uk",
+   "old": "повзати, повзти, ледве сунутися",
+   "new": "повзати, повзти",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7086,
+   "col": "translation_en",
+   "old": "to crawl, to creep, to move very slowly",
+   "new": "to crawl, to creep",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7086,
+   "col": "translation_tr",
+   "old": "emeklemek, sürünmek, çok yavaş ilerlemek",
+   "new": "emeklemek, sürünmek",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7086,
+   "col": "translation_pl",
+   "old": "czołgać się, raczkować, pełzać",
+   "new": "raczkować, czołgać się",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7086,
+   "col": "translation_it",
+   "old": "gattonare, strisciare, trascinarsi",
+   "new": "gattonare, strisciare",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7086,
+   "col": "translation_es",
+   "old": "gatear, arrastrarse, avanzar muy despacio",
+   "new": "gatear, arrastrarse",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7086,
+   "col": "translation_fr",
+   "old": "ramper, marcher à quatre pattes, se traîner",
+   "new": "ramper, se traîner",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7086,
+   "col": "translation_cs",
+   "old": "lézt, plazit se, vléct se",
+   "new": "lézt, plazit se",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7087,
+   "col": "translation_ru",
+   "old": "остановиться, встать, стоять на месте, остаться",
+   "new": "остановиться",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7087,
+   "col": "translation_uk",
+   "old": "зупинитися, стати, стояти на місці",
+   "new": "зупинитися",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7087,
+   "col": "translation_en",
+   "old": "to stop, to stand still, to come to a halt",
+   "new": "to stop, to stand still",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7087,
+   "col": "translation_tr",
+   "old": "durmak, olduğu yerde kalmak",
+   "new": "durmak",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7087,
+   "col": "translation_es",
+   "old": "parar, detenerse, quedarse quieto",
+   "new": "parar, detenerse",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7088,
+   "col": "translation_ru",
+   "old": "проникать, проникнуть, вторгаться, врываться",
+   "new": "проникать, вторгаться",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7088,
+   "col": "translation_uk",
+   "old": "проникати, проникнути, вторгатися, вриватися",
+   "new": "проникати, вторгатися",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7088,
+   "col": "translation_en",
+   "old": "to penetrate, to get inside, to break into, to invade",
+   "new": "to break into, to penetrate",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7088,
+   "col": "translation_tr",
+   "old": "sızmak, içine girmek, zorla girmek",
+   "new": "zorla girmek, sızmak",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7088,
+   "col": "translation_pl",
+   "old": "wnikać, przenikać, wdzierać się",
+   "new": "wdzierać się, wnikać",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7088,
+   "col": "translation_it",
+   "old": "introdursi, penetrare, irrompere, invadere",
+   "new": "introdursi, penetrare",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7088,
+   "col": "translation_es",
+   "old": "entrar a la fuerza, penetrar, irrumpir, invadir",
+   "new": "entrar a la fuerza, penetrar",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7088,
+   "col": "translation_fr",
+   "old": "s'introduire, pénétrer, envahir",
+   "new": "s'introduire, pénétrer",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7088,
+   "col": "translation_cs",
+   "old": "vniknout, proniknout, vloupat se",
+   "new": "vniknout, proniknout",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12594,
+   "col": "translation_ru",
+   "old": "калека, инвалид",
+   "new": "калека",
+   "why": "слово грубое: пример теперь говорит об этом"
+  },
+  {
+   "id": 12594,
+   "col": "translation_uk",
+   "old": "каліка, інвалід",
+   "new": "каліка",
+   "why": "слово грубое: пример теперь говорит об этом"
+  },
+  {
+   "id": 12594,
+   "col": "translation_en",
+   "old": "cripple, disabled person",
+   "new": "cripple",
+   "why": "слово грубое: пример теперь говорит об этом"
+  },
+  {
+   "id": 12594,
+   "col": "translation_tr",
+   "old": "sakat, kötürüm",
+   "new": "sakat",
+   "why": "слово грубое: пример теперь говорит об этом"
+  },
+  {
+   "id": 12594,
+   "col": "translation_pl",
+   "old": "kaleka, inwalida",
+   "new": "kaleka",
+   "why": "слово грубое: пример теперь говорит об этом"
+  },
+  {
+   "id": 12594,
+   "col": "translation_it",
+   "old": "l'invalido, lo storpio",
+   "new": "lo storpio",
+   "why": "слово грубое: пример теперь говорит об этом"
+  },
+  {
+   "id": 12594,
+   "col": "translation_es",
+   "old": "el lisiado, el tullido",
+   "new": "el lisiado",
+   "why": "слово грубое: пример теперь говорит об этом"
+  },
+  {
+   "id": 12594,
+   "col": "translation_fr",
+   "old": "l'infirme, l'estropié",
+   "new": "l'estropié",
+   "why": "слово грубое: пример теперь говорит об этом"
+  },
+  {
+   "id": 12594,
+   "col": "translation_cs",
+   "old": "invalida, mrzák",
+   "new": "mrzák",
+   "why": "слово грубое: пример теперь говорит об этом"
+  },
+  {
+   "id": 12594,
+   "col": "example_de",
+   "old": "Nach dem Unfall war er ein Krüppel und konnte nicht mehr laufen",
+   "new": "Früher hat man Krüppel gesagt, heute sagt man Mensch mit Behinderung",
+   "why": "слово грубое: пример теперь говорит об этом"
+  },
+  {
+   "id": 12594,
+   "col": "example_ru",
+   "old": "После аварии он стал калекой и больше не мог ходить",
+   "new": "Раньше говорили «калека», сегодня говорят «человек с инвалидностью»",
+   "why": "слово грубое: пример теперь говорит об этом"
+  },
+  {
+   "id": 12594,
+   "col": "example_uk",
+   "old": "Після аварії він став калікою і більше не міг ходити",
+   "new": "Раніше казали «каліка», сьогодні кажуть «людина з інвалідністю»",
+   "why": "слово грубое: пример теперь говорит об этом"
+  },
+  {
+   "id": 12594,
+   "col": "example_en",
+   "old": "After the accident he was a cripple and could no longer walk",
+   "new": "People used to say cripple, today we say person with a disability",
+   "why": "слово грубое: пример теперь говорит об этом"
+  },
+  {
+   "id": 12594,
+   "col": "example_tr",
+   "old": "Kazadan sonra sakat kaldı ve artık yürüyemedi",
+   "new": "Eskiden sakat denirdi, bugün engelli birey deniyor",
+   "why": "слово грубое: пример теперь говорит об этом"
+  },
+  {
+   "id": 12594,
+   "col": "example_pl",
+   "old": "Po wypadku został kaleką i nie mógł już chodzić",
+   "new": "Kiedyś mówiło się kaleka, dziś mówi się osoba z niepełnosprawnością",
+   "why": "слово грубое: пример теперь говорит об этом"
+  },
+  {
+   "id": 12594,
+   "col": "example_it",
+   "old": "Dopo l'incidente era un invalido e non poteva più camminare",
+   "new": "Una volta si diceva storpio, oggi si dice persona con disabilità",
+   "why": "слово грубое: пример теперь говорит об этом"
+  },
+  {
+   "id": 12594,
+   "col": "example_es",
+   "old": "Después del accidente era un lisiado y ya no podía caminar",
+   "new": "Antes se decía lisiado, hoy se dice persona con discapacidad",
+   "why": "слово грубое: пример теперь говорит об этом"
+  },
+  {
+   "id": 12594,
+   "col": "example_fr",
+   "old": "Après l'accident, c'était un infirme et il ne pouvait plus marcher",
+   "new": "Autrefois on disait estropié, aujourd'hui on dit personne en situation de handicap",
+   "why": "слово грубое: пример теперь говорит об этом"
+  },
+  {
+   "id": 12594,
+   "col": "example_cs",
+   "old": "Po nehodě byl invalida a nemohl už chodit",
+   "new": "Dřív se říkalo mrzák, dnes se říká člověk s postižením",
+   "why": "слово грубое: пример теперь говорит об этом"
+  },
+  {
+   "id": 7089,
+   "col": "translation_ru",
+   "old": "разбитый, сломанный, разрушенный",
+   "new": "разбитый, сломанный",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7089,
+   "col": "translation_uk",
+   "old": "розбитий, зламаний, зруйнований",
+   "new": "розбитий, зламаний",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7089,
+   "col": "translation_pl",
+   "old": "stłuczony, rozbity, zbity",
+   "new": "stłuczony, rozbity",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7089,
+   "col": "translation_it",
+   "old": "rotto, spezzato, frantumato",
+   "new": "rotto, frantumato",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15039,
+   "col": "translation_uk",
+   "old": "наречений, жених",
+   "new": "наречений",
+   "why": "претерит wartete; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15039,
+   "col": "translation_en",
+   "old": "groom, bridegroom",
+   "new": "bridegroom, groom",
+   "why": "претерит wartete; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15039,
+   "col": "translation_tr",
+   "old": "damat, güvey",
+   "new": "damat",
+   "why": "претерит wartete; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15039,
+   "col": "translation_pl",
+   "old": "pan młody, narzeczony",
+   "new": "pan młody",
+   "why": "претерит wartete; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15039,
+   "col": "example_de",
+   "old": "Der Bräutigam wartete auf die Braut",
+   "new": "Der Bräutigam war so nervös, dass er beim Jawort fast die Ringe fallen gelassen hat",
+   "why": "претерит wartete; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15039,
+   "col": "example_ru",
+   "old": "Жених ждал невесту",
+   "new": "Жених так нервничал, что чуть не уронил кольца, когда говорил «да»",
+   "why": "претерит wartete; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15039,
+   "col": "example_uk",
+   "old": "Наречений чекав на наречену",
+   "new": "Наречений так нервував, що мало не впустив обручки, коли казав «так»",
+   "why": "претерит wartete; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15039,
+   "col": "example_en",
+   "old": "The groom waited for the bride",
+   "new": "The bridegroom was so nervous he nearly dropped the rings when he said I do",
+   "why": "претерит wartete; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15039,
+   "col": "example_tr",
+   "old": "Damat gelini bekliyordu",
+   "new": "Damat o kadar heyecanlıydı ki evet derken neredeyse yüzükleri düşürüyordu",
+   "why": "претерит wartete; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15039,
+   "col": "example_pl",
+   "old": "Pan młody czekał na pannę młodą",
+   "new": "Pan młody tak się denerwował, że przy przysiędze prawie upuścił obrączki",
+   "why": "претерит wartete; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15039,
+   "col": "example_it",
+   "old": "Lo sposo aspettava la sposa",
+   "new": "Lo sposo era così nervoso che al sì ha quasi fatto cadere gli anelli",
+   "why": "претерит wartete; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15039,
+   "col": "example_es",
+   "old": "El novio esperaba a la novia",
+   "new": "El novio estaba tan nervioso que al dar el sí casi se le caen los anillos",
+   "why": "претерит wartete; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15039,
+   "col": "example_fr",
+   "old": "Le marié attendait la mariée",
+   "new": "Le marié était si nerveux qu'il a failli faire tomber les alliances au moment du oui",
+   "why": "претерит wartete; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15039,
+   "col": "example_cs",
+   "old": "Ženich čekal na nevěstu",
+   "new": "Ženich byl tak nervózní, že při ano málem upustil prstýnky",
+   "why": "претерит wartete; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14464,
+   "col": "translation_ru",
+   "old": "ритм, такт",
+   "new": "ритм",
+   "why": "«… ist toll» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14464,
+   "col": "translation_uk",
+   "old": "ритм, такт",
+   "new": "ритм",
+   "why": "«… ist toll» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14464,
+   "col": "translation_en",
+   "old": "rhythm, beat",
+   "new": "rhythm",
+   "why": "«… ist toll» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14464,
+   "col": "translation_tr",
+   "old": "ritim, tempo",
+   "new": "ritim",
+   "why": "«… ist toll» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14464,
+   "col": "translation_pl",
+   "old": "rytm, tempo",
+   "new": "rytm",
+   "why": "«… ist toll» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14464,
+   "col": "translation_es",
+   "old": "el ritmo, el compás",
+   "new": "el ritmo",
+   "why": "«… ist toll» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14464,
+   "col": "translation_cs",
+   "old": "rytmus, takt",
+   "new": "rytmus",
+   "why": "«… ist toll» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14464,
+   "col": "example_de",
+   "old": "Der Rhythmus der Musik ist toll",
+   "new": "Nach drei Wochen Nachtschicht ist mein ganzer Rhythmus durcheinander",
+   "why": "«… ist toll» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14464,
+   "col": "example_ru",
+   "old": "Ритм музыки отличный",
+   "new": "После трёх недель ночных смен весь мой ритм сбился",
+   "why": "«… ist toll» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14464,
+   "col": "example_uk",
+   "old": "Ритм музики чудовий",
+   "new": "Після трьох тижнів нічних змін увесь мій ритм збився",
+   "why": "«… ist toll» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14464,
+   "col": "example_en",
+   "old": "The rhythm of the music is great",
+   "new": "After three weeks of night shifts my whole rhythm is upside down",
+   "why": "«… ist toll» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14464,
+   "col": "example_tr",
+   "old": "Müziğin ritmi harika",
+   "new": "Üç hafta gece vardiyasından sonra bütün ritmim bozuldu",
+   "why": "«… ist toll» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14464,
+   "col": "example_pl",
+   "old": "Rytm tej muzyki jest super",
+   "new": "Po trzech tygodniach nocnych zmian cały mój rytm się rozregulował",
+   "why": "«… ist toll» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14464,
+   "col": "example_it",
+   "old": "Il ritmo della musica è fantastico",
+   "new": "Dopo tre settimane di turni di notte tutto il mio ritmo è sballato",
+   "why": "«… ist toll» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14464,
+   "col": "example_es",
+   "old": "El ritmo de la música es genial",
+   "new": "Después de tres semanas de turnos de noche tengo todo el ritmo descolocado",
+   "why": "«… ist toll» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14464,
+   "col": "example_fr",
+   "old": "Le rythme de la musique est génial",
+   "new": "Après trois semaines de nuits, tout mon rythme est déréglé",
+   "why": "«… ist toll» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14464,
+   "col": "example_cs",
+   "old": "Rytmus té hudby je skvělý",
+   "new": "Po třech týdnech nočních směn mám celý rytmus rozházený",
+   "why": "«… ist toll» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7090,
+   "col": "translation_ru",
+   "old": "бесконечный, безграничный, бесконечно, очень",
+   "new": "бесконечный, бесконечно",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7090,
+   "col": "translation_uk",
+   "old": "нескінченний, безмежний, нескінченно, дуже",
+   "new": "нескінченний, нескінченно",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7090,
+   "col": "translation_en",
+   "old": "infinite, endless, infinitely, extremely",
+   "new": "infinite, endless",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7090,
+   "col": "translation_tr",
+   "old": "sonsuz, sınırsız, son derece",
+   "new": "sonsuz",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7090,
+   "col": "translation_pl",
+   "old": "nieskończony, bezkresny, niezmiernie",
+   "new": "nieskończony, niezmiernie",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7090,
+   "col": "translation_it",
+   "old": "infinito, sconfinato, infinitamente",
+   "new": "infinito",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7090,
+   "col": "translation_es",
+   "old": "infinito, interminable, infinitamente",
+   "new": "infinito, interminable",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7090,
+   "col": "translation_fr",
+   "old": "infini, sans fin, infiniment",
+   "new": "infini, sans fin",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7090,
+   "col": "translation_cs",
+   "old": "nekonečný, bezmezný, nekonečně",
+   "new": "nekonečný",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7090,
+   "col": "example_de",
+   "old": "Das Universum ist unendlich",
+   "new": "Ich bin dir unendlich dankbar, dass du auf die Kinder aufgepasst hast",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7090,
+   "col": "example_ru",
+   "old": "Вселенная бесконечна",
+   "new": "Я тебе бесконечно благодарна, что ты присмотрел за детьми",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7090,
+   "col": "example_uk",
+   "old": "Всесвіт нескінченний",
+   "new": "Я тобі нескінченно вдячна, що ти доглянув дітей",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7090,
+   "col": "example_en",
+   "old": "The universe is infinite",
+   "new": "I'm endlessly grateful to you for looking after the kids",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7090,
+   "col": "example_tr",
+   "old": "Evren sonsuzdur",
+   "new": "Çocuklara baktığın için sana sonsuz minnettarım",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7090,
+   "col": "example_pl",
+   "old": "Wszechświat jest nieskończony",
+   "new": "Jestem ci niezmiernie wdzięczna, że zająłeś się dziećmi",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7090,
+   "col": "example_it",
+   "old": "L'universo è infinito",
+   "new": "Ti sono infinitamente grata che hai badato ai bambini",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7090,
+   "col": "example_es",
+   "old": "El universo es infinito",
+   "new": "Te estoy infinitamente agradecida por cuidar a los niños",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7090,
+   "col": "example_fr",
+   "old": "L'univers est infini",
+   "new": "Je te suis infiniment reconnaissante d'avoir gardé les enfants",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7090,
+   "col": "example_cs",
+   "old": "Vesmír je nekonečný",
+   "new": "Jsem ti nekonečně vděčná, žes pohlídal děti",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10470,
+   "col": "translation_ru",
+   "old": "эго, самолюбие, собственное я",
+   "new": "эго, самолюбие",
+   "why": "«… ist ein Problem» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10470,
+   "col": "translation_uk",
+   "old": "его, самолюбство, власне я",
+   "new": "его, самолюбство",
+   "why": "«… ist ein Problem» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10470,
+   "col": "translation_en",
+   "old": "ego, self-esteem",
+   "new": "ego",
+   "why": "«… ist ein Problem» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10470,
+   "col": "translation_tr",
+   "old": "ego, benlik",
+   "new": "ego",
+   "why": "«… ist ein Problem» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10470,
+   "col": "translation_pl",
+   "old": "ego, własne ja",
+   "new": "ego",
+   "why": "«… ist ein Problem» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10470,
+   "col": "example_de",
+   "old": "Sein großes Ego ist ein Problem",
+   "new": "Nach dem verlorenen Spiel war sein Ego so verletzt, dass er den ganzen Abend kein Wort gesagt hat",
+   "why": "«… ist ein Problem» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10470,
+   "col": "example_ru",
+   "old": "Его большое эго — это проблема",
+   "new": "После проигранной игры его самолюбие было так задето, что он весь вечер не сказал ни слова",
+   "why": "«… ist ein Problem» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10470,
+   "col": "example_uk",
+   "old": "Його велике его — це проблема",
+   "new": "Після програної гри його самолюбство було так зачеплене, що він увесь вечір не сказав ні слова",
+   "why": "«… ist ein Problem» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10470,
+   "col": "example_en",
+   "old": "His big ego is a problem",
+   "new": "After losing the game his ego was so bruised that he didn't say a word all evening",
+   "why": "«… ist ein Problem» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10470,
+   "col": "example_tr",
+   "old": "Onun büyük egosu bir sorun",
+   "new": "Kaybedilen oyundan sonra egosu o kadar incindi ki bütün akşam tek kelime etmedi",
+   "why": "«… ist ein Problem» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10470,
+   "col": "example_pl",
+   "old": "Jego wielkie ego to problem",
+   "new": "Po przegranej jego ego było tak urażone, że przez cały wieczór nie odezwał się ani słowem",
+   "why": "«… ist ein Problem» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10470,
+   "col": "example_it",
+   "old": "Il suo grande ego è un problema",
+   "new": "Dopo la partita persa il suo ego era così ferito che non ha detto una parola per tutta la sera",
+   "why": "«… ist ein Problem» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10470,
+   "col": "example_es",
+   "old": "Su gran ego es un problema",
+   "new": "Después de perder el partido tenía el ego tan herido que no dijo ni una palabra en toda la noche",
+   "why": "«… ist ein Problem» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10470,
+   "col": "example_fr",
+   "old": "Son gros ego est un problème",
+   "new": "Après le match perdu, son ego était tellement blessé qu'il n'a pas dit un mot de la soirée",
+   "why": "«… ist ein Problem» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10470,
+   "col": "example_cs",
+   "old": "Jeho velké ego je problém",
+   "new": "Po prohraném zápase měl tak pošramocené ego, že celý večer nepromluvil ani slovo",
+   "why": "«… ist ein Problem» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10471,
+   "col": "translation_ru",
+   "old": "визжать, пронзительно кричать, скрежетать",
+   "new": "визжать, кричать",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10471,
+   "col": "translation_uk",
+   "old": "верещати, вищати, скрипіти",
+   "new": "верещати, вищати",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10471,
+   "col": "translation_en",
+   "old": "to shriek, to squeal, to screech",
+   "new": "to shriek, to squeal",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10471,
+   "col": "translation_tr",
+   "old": "çığlık atmak, ciyaklamak, cırlamak",
+   "new": "çığlık atmak",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10471,
+   "col": "translation_pl",
+   "old": "piszczeć, wrzeszczeć, zgrzytać",
+   "new": "piszczeć, wrzeszczeć",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10471,
+   "col": "translation_it",
+   "old": "strillare, urlare, stridere",
+   "new": "strillare, urlare",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10471,
+   "col": "translation_fr",
+   "old": "hurler, crier, crisser",
+   "new": "hurler, crier",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10471,
+   "col": "translation_cs",
+   "old": "ječet, vřískat, skřípat",
+   "new": "ječet, vřískat",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16148,
+   "col": "translation_ru",
+   "old": "лицензия, разрешение, права",
+   "new": "лицензия",
+   "why": "«Lizenz zum Fahren» — ошибка (это Führerschein); en «license» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16148,
+   "col": "translation_uk",
+   "old": "ліцензія, дозвіл",
+   "new": "ліцензія",
+   "why": "«Lizenz zum Fahren» — ошибка (это Führerschein); en «license» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16148,
+   "col": "translation_en",
+   "old": "license, permit",
+   "new": "licence",
+   "why": "«Lizenz zum Fahren» — ошибка (это Führerschein); en «license» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16148,
+   "col": "translation_tr",
+   "old": "lisans, ruhsat, izin",
+   "new": "lisans, ruhsat",
+   "why": "«Lizenz zum Fahren» — ошибка (это Führerschein); en «license» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16148,
+   "col": "translation_pl",
+   "old": "licencja, zezwolenie",
+   "new": "licencja",
+   "why": "«Lizenz zum Fahren» — ошибка (это Führerschein); en «license» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16148,
+   "col": "translation_it",
+   "old": "la licenza, il permesso",
+   "new": "la licenza",
+   "why": "«Lizenz zum Fahren» — ошибка (это Führerschein); en «license» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16148,
+   "col": "translation_es",
+   "old": "la licencia, el permiso",
+   "new": "la licencia",
+   "why": "«Lizenz zum Fahren» — ошибка (это Führerschein); en «license» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16148,
+   "col": "translation_fr",
+   "old": "le permis, la licence",
+   "new": "la licence",
+   "why": "«Lizenz zum Fahren» — ошибка (это Führerschein); en «license» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16148,
+   "col": "translation_cs",
+   "old": "licence, povolení",
+   "new": "licence",
+   "why": "«Lizenz zum Fahren» — ошибка (это Führerschein); en «license» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16148,
+   "col": "example_de",
+   "old": "Ich brauche eine Lizenz zum Fahren",
+   "new": "Für das Programm braucht jeder Mitarbeiter eine eigene Lizenz, das kostet die Firma viel Geld",
+   "why": "«Lizenz zum Fahren» — ошибка (это Führerschein); en «license» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16148,
+   "col": "example_ru",
+   "old": "Мне нужна лицензия для вождения",
+   "new": "На эту программу каждому сотруднику нужна своя лицензия, и это стоит фирме больших денег",
+   "why": "«Lizenz zum Fahren» — ошибка (это Führerschein); en «license» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16148,
+   "col": "example_uk",
+   "old": "Мені потрібна ліцензія для водіння",
+   "new": "На цю програму кожному працівникові потрібна своя ліцензія, і це коштує фірмі великих грошей",
+   "why": "«Lizenz zum Fahren» — ошибка (это Führerschein); en «license» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16148,
+   "col": "example_en",
+   "old": "I need a license to drive",
+   "new": "Every employee needs their own licence for the software, which costs the company a lot of money",
+   "why": "«Lizenz zum Fahren» — ошибка (это Führerschein); en «license» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16148,
+   "col": "example_tr",
+   "old": "Araba kullanmak için lisans gerekli",
+   "new": "Bu program için her çalışanın kendi lisansı gerekiyor, bu da şirkete çok pahalıya mal oluyor",
+   "why": "«Lizenz zum Fahren» — ошибка (это Führerschein); en «license» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16148,
+   "col": "example_pl",
+   "old": "Potrzebuję licencji na prowadzenie pojazdu",
+   "new": "Do tego programu każdy pracownik potrzebuje własnej licencji, co kosztuje firmę dużo pieniędzy",
+   "why": "«Lizenz zum Fahren» — ошибка (это Führerschein); en «license» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16148,
+   "col": "example_it",
+   "old": "Ho bisogno di una licenza per guidare",
+   "new": "Per il programma ogni dipendente ha bisogno di una propria licenza, e all'azienda costa un sacco",
+   "why": "«Lizenz zum Fahren» — ошибка (это Führerschein); en «license» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16148,
+   "col": "example_es",
+   "old": "Necesito una licencia para conducir",
+   "new": "Para el programa cada empleado necesita su propia licencia, y eso le cuesta mucho dinero a la empresa",
+   "why": "«Lizenz zum Fahren» — ошибка (это Führerschein); en «license» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16148,
+   "col": "example_fr",
+   "old": "J'ai besoin d'un permis pour conduire",
+   "new": "Pour le logiciel, chaque employé a besoin de sa propre licence, ça coûte cher à l'entreprise",
+   "why": "«Lizenz zum Fahren» — ошибка (это Führerschein); en «license» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16148,
+   "col": "example_cs",
+   "old": "Potřebuji licenci k řízení",
+   "new": "Na ten program potřebuje každý zaměstnanec vlastní licenci, a to firmu stojí hodně peněz",
+   "why": "«Lizenz zum Fahren» — ошибка (это Führerschein); en «license» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10472,
+   "col": "translation_ru",
+   "old": "торопить, настаивать, подталкивать, напирать, толкаться",
+   "new": "торопить, настаивать",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10472,
+   "col": "translation_uk",
+   "old": "підганяти, наполягати, штовхати, тиснути",
+   "new": "підганяти, наполягати",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10472,
+   "col": "translation_en",
+   "old": "to urge, to push, to press, to crowd",
+   "new": "to urge, to push",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10472,
+   "col": "translation_tr",
+   "old": "acele ettirmek, ısrar etmek, itmek",
+   "new": "ısrar etmek, acele ettirmek",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10472,
+   "col": "translation_pl",
+   "old": "naciskać, ponaglać, przepychać się",
+   "new": "naciskać, ponaglać",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10472,
+   "col": "translation_it",
+   "old": "sollecitare, spingere, insistere, premere",
+   "new": "sollecitare, spingere",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10472,
+   "col": "translation_es",
+   "old": "presionar, apremiar, insistir, empujar",
+   "new": "presionar, insistir",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10472,
+   "col": "translation_fr",
+   "old": "pousser, presser, insister, se bousculer",
+   "new": "pousser, presser",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10472,
+   "col": "translation_cs",
+   "old": "naléhat, pobízet, tlačit, tlačit se",
+   "new": "naléhat, pobízet",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10473,
+   "col": "translation_ru",
+   "old": "везунчик, счастливчик, баловень судьбы",
+   "new": "везунчик, счастливчик",
+   "why": "пометки (coloq./fam./hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10473,
+   "col": "translation_uk",
+   "old": "щасливчик, везунчик, улюбленець долі",
+   "new": "щасливчик, везунчик",
+   "why": "пометки (coloq./fam./hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10473,
+   "col": "translation_en",
+   "old": "lucky person, lucky devil",
+   "new": "lucky devil, lucky so-and-so",
+   "why": "пометки (coloq./fam./hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10473,
+   "col": "translation_tr",
+   "old": "şanslı kişi, talihli",
+   "new": "şanslı kişi",
+   "why": "пометки (coloq./fam./hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10473,
+   "col": "translation_it",
+   "old": "il fortunato, il fortunello",
+   "new": "il fortunato",
+   "why": "пометки (coloq./fam./hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10473,
+   "col": "translation_es",
+   "old": "el afortunado, el suertudo (coloq.)",
+   "new": "el afortunado, el suertudo",
+   "why": "пометки (coloq./fam./hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10473,
+   "col": "translation_fr",
+   "old": "le chanceux, le veinard (fam.)",
+   "new": "le veinard, le chanceux",
+   "why": "пометки (coloq./fam./hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10473,
+   "col": "translation_cs",
+   "old": "šťastlivec, klikař (hovor.)",
+   "new": "šťastlivec, klikař",
+   "why": "пометки (coloq./fam./hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10473,
+   "col": "example_tr",
+   "old": "Piyangoyu kazandığın için gerçekten şanslısın",
+   "new": "Piyangoyu kazandın, gerçekten şanslı kişisin",
+   "why": "пометки (coloq./fam./hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7092,
+   "col": "translation_ru",
+   "old": "отрезать, отрезать путь, показать результат, выступить",
+   "new": "отрезать, выступить",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7092,
+   "col": "translation_uk",
+   "old": "відрізати, обрізати, показати результат, виступити",
+   "new": "відрізати, виступити",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7092,
+   "col": "translation_en",
+   "old": "to cut off, to perform, to do in a test",
+   "new": "to cut off, to do",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7092,
+   "col": "translation_tr",
+   "old": "kesmek, sonuç almak, başarı göstermek",
+   "new": "kesmek",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7092,
+   "col": "translation_pl",
+   "old": "odcinać, odciąć, wypaść w czymś",
+   "new": "odciąć, wypaść",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7092,
+   "col": "translation_it",
+   "old": "tagliare, recidere, cavarsela",
+   "new": "tagliare, cavarsela",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7092,
+   "col": "translation_es",
+   "old": "cortar, recortar, salir",
+   "new": "cortar, salir",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7092,
+   "col": "translation_fr",
+   "old": "couper, découper, s'en sortir",
+   "new": "couper, s'en sortir",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7092,
+   "col": "translation_cs",
+   "old": "odříznout, odstřihnout, dopadnout",
+   "new": "odstřihnout, dopadnout",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12596,
+   "col": "translation_ru",
+   "old": "болезненный, причиняющий боль, мучительный",
+   "new": "болезненный",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12596,
+   "col": "translation_uk",
+   "old": "болісний, болючий, нестерпний",
+   "new": "болісний",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12596,
+   "col": "translation_en",
+   "old": "painful, aching, hurtful",
+   "new": "painful",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12596,
+   "col": "translation_tr",
+   "old": "ağrılı, acı veren, sancılı",
+   "new": "ağrılı, acı veren",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7093,
+   "col": "translation_ru",
+   "old": "настоящий, действительный, действительно, на самом деле",
+   "new": "настоящий, действительно",
+   "why": "en «behavior» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7093,
+   "col": "translation_uk",
+   "old": "справжній, дійсний, справді, насправді",
+   "new": "справжній, справді",
+   "why": "en «behavior» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7093,
+   "col": "translation_en",
+   "old": "real, actual, true, really",
+   "new": "real, really",
+   "why": "en «behavior» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7093,
+   "col": "translation_tr",
+   "old": "gerçek, asıl, gerçekten",
+   "new": "gerçek, gerçekten",
+   "why": "en «behavior» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7093,
+   "col": "translation_pl",
+   "old": "prawdziwy, rzeczywisty, naprawdę",
+   "new": "prawdziwy, naprawdę",
+   "why": "en «behavior» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7093,
+   "col": "example_en",
+   "old": "That's the real reason for his behavior",
+   "new": "That's the real reason for his behaviour",
+   "why": "en «behavior» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7095,
+   "col": "translation_ru",
+   "old": "туда, на другую сторону, испорченный",
+   "new": "туда, на другую сторону",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7095,
+   "col": "translation_uk",
+   "old": "туди, на інший бік, зіпсований",
+   "new": "туди, на інший бік",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7095,
+   "col": "translation_en",
+   "old": "over there, across, to the other side, done for",
+   "new": "over, across",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7095,
+   "col": "translation_tr",
+   "old": "karşı tarafa, öteye, şuraya",
+   "new": "karşı tarafa",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7095,
+   "col": "translation_it",
+   "old": "di là, dall'altra parte, andato",
+   "new": "di là, dall'altra parte",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7095,
+   "col": "translation_es",
+   "old": "al otro lado, hacia allá, estropeado",
+   "new": "al otro lado, hacia allá",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7095,
+   "col": "translation_fr",
+   "old": "de l'autre côté, là-bas, fichu (fam.)",
+   "new": "de l'autre côté, là-bas",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7095,
+   "col": "translation_cs",
+   "old": "tam, na druhou stranu, rozbitý",
+   "new": "tam, na druhou stranu",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12597,
+   "col": "translation_uk",
+   "old": "потонути, тонути, утопитися",
+   "new": "потонути, тонути",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12597,
+   "col": "translation_tr",
+   "old": "boğulmak, suda boğulmak",
+   "new": "boğulmak",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12597,
+   "col": "translation_cs",
+   "old": "utonout, utopit se",
+   "new": "utonout",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12598,
+   "col": "translation_ru",
+   "old": "жёсткий, негнущийся, онемевший, чопорный, затёкший",
+   "new": "затёкший, жёсткий",
+   "why": "«Das Material ist steif» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12598,
+   "col": "translation_uk",
+   "old": "жорсткий, негнучкий, задубілий, манірний",
+   "new": "задубілий, жорсткий",
+   "why": "«Das Material ist steif» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12598,
+   "col": "translation_en",
+   "old": "stiff, rigid, formal",
+   "new": "stiff",
+   "why": "«Das Material ist steif» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12598,
+   "col": "translation_tr",
+   "old": "sert, katı, tutulmuş, resmi",
+   "new": "tutulmuş, sert",
+   "why": "«Das Material ist steif» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12598,
+   "col": "translation_pl",
+   "old": "sztywny, zesztywniały, nienaturalnie oficjalny",
+   "new": "sztywny",
+   "why": "«Das Material ist steif» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12598,
+   "col": "translation_it",
+   "old": "rigido, duro, intorpidito, formale",
+   "new": "rigido, intorpidito",
+   "why": "«Das Material ist steif» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12598,
+   "col": "translation_es",
+   "old": "rígido, tieso, entumecido, formal",
+   "new": "rígido, entumecido",
+   "why": "«Das Material ist steif» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12598,
+   "col": "translation_fr",
+   "old": "rigide, raide, guindé",
+   "new": "raide, rigide",
+   "why": "«Das Material ist steif» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12598,
+   "col": "translation_cs",
+   "old": "tuhý, ztuhlý, strnulý, upjatý",
+   "new": "ztuhlý, tuhý",
+   "why": "«Das Material ist steif» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12598,
+   "col": "example_de",
+   "old": "Das Material ist steif",
+   "new": "Nach zehn Stunden im Bus war mein Rücken ganz steif",
+   "why": "«Das Material ist steif» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12598,
+   "col": "example_ru",
+   "old": "Материал жёсткий",
+   "new": "После десяти часов в автобусе спина у меня совсем затекла",
+   "why": "«Das Material ist steif» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12598,
+   "col": "example_uk",
+   "old": "Матеріал жорсткий",
+   "new": "Після десяти годин в автобусі спина в мене зовсім задубіла",
+   "why": "«Das Material ist steif» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12598,
+   "col": "example_en",
+   "old": "The material is stiff",
+   "new": "After ten hours on the coach my back was really stiff",
+   "why": "«Das Material ist steif» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12598,
+   "col": "example_tr",
+   "old": "Malzeme sertti",
+   "new": "Otobüste on saatten sonra sırtım tamamen tutulmuştu",
+   "why": "«Das Material ist steif» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12598,
+   "col": "example_pl",
+   "old": "Ten materiał jest sztywny",
+   "new": "Po dziesięciu godzinach w autobusie miałem całkiem sztywne plecy",
+   "why": "«Das Material ist steif» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12598,
+   "col": "example_it",
+   "old": "Il materiale è rigido",
+   "new": "Dopo dieci ore in pullman avevo la schiena tutta rigida",
+   "why": "«Das Material ist steif» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12598,
+   "col": "example_es",
+   "old": "El material es rígido",
+   "new": "Después de diez horas en el autobús tenía la espalda totalmente entumecida",
+   "why": "«Das Material ist steif» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12598,
+   "col": "example_fr",
+   "old": "Le matériau est rigide",
+   "new": "Après dix heures de car, j'avais le dos tout raide",
+   "why": "«Das Material ist steif» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12598,
+   "col": "example_cs",
+   "old": "Materiál je tuhý",
+   "new": "Po deseti hodinách v autobuse jsem měl záda úplně ztuhlá",
+   "why": "«Das Material ist steif» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10476,
+   "col": "translation_ru",
+   "old": "раскаяние, сожаление, угрызения совести",
+   "new": "раскаяние, сожаление",
+   "why": "претерит bat; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10476,
+   "col": "translation_uk",
+   "old": "розкаяння, жаль, каяття",
+   "new": "розкаяння, жаль",
+   "why": "претерит bat; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10476,
+   "col": "translation_en",
+   "old": "remorse, regret, repentance",
+   "new": "remorse, regret",
+   "why": "претерит bat; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10476,
+   "col": "translation_tr",
+   "old": "pişmanlık, vicdan azabı",
+   "new": "pişmanlık",
+   "why": "претерит bat; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10476,
+   "col": "translation_pl",
+   "old": "skrucha, żal, wyrzuty sumienia",
+   "new": "skrucha, żal",
+   "why": "претерит bat; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10476,
+   "col": "translation_fr",
+   "old": "le remords, le repentir, le regret",
+   "new": "le remords, le regret",
+   "why": "претерит bat; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10476,
+   "col": "translation_cs",
+   "old": "lítost, výčitky svědomí, pokání",
+   "new": "lítost, výčitky svědomí",
+   "why": "претерит bat; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10476,
+   "col": "example_de",
+   "old": "Aus echter Reue bat er um Vergebung",
+   "new": "Der Angeklagte hat vor Gericht keine Reue gezeigt",
+   "why": "претерит bat; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10476,
+   "col": "example_ru",
+   "old": "Из искреннего раскаяния он попросил прощения",
+   "new": "Обвиняемый в суде не проявил раскаяния",
+   "why": "претерит bat; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10476,
+   "col": "example_uk",
+   "old": "З щирого розкаяння він попросив пробачення",
+   "new": "Обвинувачений у суді не виявив розкаяння",
+   "why": "претерит bat; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10476,
+   "col": "example_en",
+   "old": "Out of genuine remorse he asked for forgiveness",
+   "new": "The defendant showed no remorse in court",
+   "why": "претерит bat; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10476,
+   "col": "example_tr",
+   "old": "Gerçek pişmanlıkla af diledi",
+   "new": "Sanık mahkemede hiç pişmanlık göstermedi",
+   "why": "претерит bat; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10476,
+   "col": "example_pl",
+   "old": "Ze szczerej skruchy poprosił o przebaczenie",
+   "new": "Oskarżony nie okazał w sądzie skruchy",
+   "why": "претерит bat; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10476,
+   "col": "example_it",
+   "old": "Per sincero pentimento chiese perdono",
+   "new": "L'imputato non ha mostrato alcun pentimento in tribunale",
+   "why": "претерит bat; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10476,
+   "col": "example_es",
+   "old": "Pidió perdón con verdadero arrepentimiento",
+   "new": "El acusado no mostró arrepentimiento en el juicio",
+   "why": "претерит bat; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10476,
+   "col": "example_fr",
+   "old": "Pris d'un sincère remords, il a demandé pardon",
+   "new": "L'accusé n'a montré aucun remords au tribunal",
+   "why": "претерит bat; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10476,
+   "col": "example_cs",
+   "old": "Z upřímné lítosti požádal o odpuštění",
+   "new": "Obžalovaný u soudu neprojevil žádnou lítost",
+   "why": "претерит bat; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13664,
+   "col": "translation_ru",
+   "old": "помада, губная помада",
+   "new": "помада",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13664,
+   "col": "translation_uk",
+   "old": "помада, губна помада",
+   "new": "помада",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13664,
+   "col": "translation_pl",
+   "old": "szminka, pomadka do ust",
+   "new": "szminka",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13664,
+   "col": "translation_es",
+   "old": "el pintalabios, el labial",
+   "new": "el pintalabios",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12600,
+   "col": "translation_es",
+   "old": "el puro, el cigarro",
+   "new": "el puro",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15502,
+   "col": "translation_tr",
+   "old": "güney, güneydeki, güneyinde",
+   "new": "güney, güneyinde",
+   "why": "en «traveling» — американское; пример пустой; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15502,
+   "col": "translation_it",
+   "old": "del sud, meridionale, a sud di",
+   "new": "del sud, a sud di",
+   "why": "en «traveling» — американское; пример пустой; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15502,
+   "col": "translation_es",
+   "old": "del sur, meridional, al sur de",
+   "new": "del sur, al sur de",
+   "why": "en «traveling» — американское; пример пустой; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15502,
+   "col": "translation_fr",
+   "old": "du sud, méridional, au sud de",
+   "new": "du sud, au sud de",
+   "why": "en «traveling» — американское; пример пустой; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15502,
+   "col": "example_de",
+   "old": "Wir fahren in die südliche Region",
+   "new": "Unser Campingplatz liegt zwanzig Kilometer südlich von Verona",
+   "why": "en «traveling» — американское; пример пустой; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15502,
+   "col": "example_ru",
+   "old": "Мы едем в южный регион",
+   "new": "Наш кемпинг находится в двадцати километрах к югу от Вероны",
+   "why": "en «traveling» — американское; пример пустой; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15502,
+   "col": "example_uk",
+   "old": "Ми їдемо в південний регіон",
+   "new": "Наш кемпінг розташований за двадцять кілометрів на південь від Верони",
+   "why": "en «traveling» — американское; пример пустой; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15502,
+   "col": "example_en",
+   "old": "We are traveling to the southern region",
+   "new": "Our campsite is twenty kilometres south of Verona",
+   "why": "en «traveling» — американское; пример пустой; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15502,
+   "col": "example_tr",
+   "old": "Biz güney bölgesine gidiyoruz",
+   "new": "Kamp yerimiz Verona'nın yirmi kilometre güneyinde",
+   "why": "en «traveling» — американское; пример пустой; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15502,
+   "col": "example_pl",
+   "old": "Jedziemy do południowego regionu",
+   "new": "Nasz kemping leży dwadzieścia kilometrów na południe od Werony",
+   "why": "en «traveling» — американское; пример пустой; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15502,
+   "col": "example_it",
+   "old": "Andiamo nella regione del sud",
+   "new": "Il nostro campeggio è venti chilometri a sud di Verona",
+   "why": "en «traveling» — американское; пример пустой; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15502,
+   "col": "example_es",
+   "old": "Vamos a la región del sur",
+   "new": "Nuestro camping está a veinte kilómetros al sur de Verona",
+   "why": "en «traveling» — американское; пример пустой; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15502,
+   "col": "example_fr",
+   "old": "Nous allons dans la région du sud",
+   "new": "Notre camping est à vingt kilomètres au sud de Vérone",
+   "why": "en «traveling» — американское; пример пустой; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15502,
+   "col": "example_cs",
+   "old": "Jedeme do jižní oblasti",
+   "new": "Náš kemp leží dvacet kilometrů na jih od Verony",
+   "why": "en «traveling» — американское; пример пустой; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12181,
+   "col": "translation_ru",
+   "old": "разнообразие, перемена, смена обстановки",
+   "new": "разнообразие, смена обстановки",
+   "why": "претерит brauchten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12181,
+   "col": "translation_uk",
+   "old": "різноманітність, зміна, розрада",
+   "new": "різноманітність, зміна",
+   "why": "претерит brauchten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12181,
+   "col": "translation_en",
+   "old": "variety, change, a change of pace",
+   "new": "change, variety",
+   "why": "претерит brauchten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12181,
+   "col": "translation_tr",
+   "old": "çeşitlilik, değişiklik",
+   "new": "değişiklik",
+   "why": "претерит brauchten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12181,
+   "col": "translation_pl",
+   "old": "odmiana, różnorodność, zmiana",
+   "new": "odmiana, zmiana",
+   "why": "претерит brauchten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12181,
+   "col": "translation_it",
+   "old": "la varietà, il cambiamento, il diversivo",
+   "new": "il cambiamento, il diversivo",
+   "why": "претерит brauchten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12181,
+   "col": "translation_es",
+   "old": "la variedad, el cambio",
+   "new": "el cambio, la variedad",
+   "why": "претерит brauchten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12181,
+   "col": "translation_fr",
+   "old": "le changement, la variété, la diversité",
+   "new": "le changement",
+   "why": "претерит brauchten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12181,
+   "col": "translation_cs",
+   "old": "změna, rozptýlení, pestrost",
+   "new": "změna, rozptýlení",
+   "why": "претерит brauchten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12181,
+   "col": "example_de",
+   "old": "Wir brauchten etwas Abwechslung",
+   "new": "Zur Abwechslung kochen wir heute mal indisch statt immer Nudeln",
+   "why": "претерит brauchten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12181,
+   "col": "example_ru",
+   "old": "Нам нужно было разнообразие",
+   "new": "Для разнообразия сегодня готовим индийское, а не вечные макароны",
+   "why": "претерит brauchten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12181,
+   "col": "example_uk",
+   "old": "Нам потрібна була різноманітність",
+   "new": "Для різноманітності сьогодні готуємо індійське, а не вічні макарони",
+   "why": "претерит brauchten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12181,
+   "col": "example_en",
+   "old": "We needed some variety",
+   "new": "For a change we're cooking Indian today instead of pasta as always",
+   "why": "претерит brauchten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12181,
+   "col": "example_tr",
+   "old": "Biraz çeşitliliğe ihtiyacımız vardı",
+   "new": "Değişiklik olsun diye bugün hep makarna yerine Hint yemeği yapıyoruz",
+   "why": "претерит brauchten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12181,
+   "col": "example_pl",
+   "old": "Potrzebowaliśmy trochę odmiany",
+   "new": "Dla odmiany gotujemy dziś po indyjsku zamiast wiecznego makaronu",
+   "why": "претерит brauchten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12181,
+   "col": "example_it",
+   "old": "Avevamo bisogno di un po' di varietà",
+   "new": "Per cambiamento oggi cuciniamo indiano invece della solita pasta",
+   "why": "претерит brauchten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12181,
+   "col": "example_es",
+   "old": "Necesitábamos algo de variedad",
+   "new": "Para variar hoy cocinamos comida india en vez de pasta como siempre",
+   "why": "претерит brauchten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12181,
+   "col": "example_fr",
+   "old": "Nous avions besoin d'un peu de changement",
+   "new": "Pour changer, on cuisine indien aujourd'hui au lieu des éternelles pâtes",
+   "why": "претерит brauchten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12181,
+   "col": "example_cs",
+   "old": "Potřebovali jsme trochu změny",
+   "new": "Pro změnu dnes vaříme indicky místo věčných těstovin",
+   "why": "претерит brauchten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7099,
+   "col": "translation_ru",
+   "old": "начинать, приступать, браться за дело",
+   "new": "начинать, браться за дело",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7099,
+   "col": "translation_en",
+   "old": "to get going, to start, to get down to it",
+   "new": "to get going, to get started",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7099,
+   "col": "translation_pl",
+   "old": "zaczynać, brać się do roboty, ruszać z miejsca",
+   "new": "zaczynać, brać się do roboty",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7099,
+   "col": "translation_it",
+   "old": "cominciare, iniziare, mettersi all'opera",
+   "new": "cominciare, mettersi all'opera",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7099,
+   "col": "translation_es",
+   "old": "empezar, arrancar, ponerse manos a la obra",
+   "new": "empezar, arrancar",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7099,
+   "col": "translation_fr",
+   "old": "commencer, s'y mettre, démarrer",
+   "new": "commencer, s'y mettre",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7099,
+   "col": "translation_cs",
+   "old": "začít, pustit se do toho, dát se do toho",
+   "new": "začít, pustit se do toho",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14465,
+   "col": "translation_ru",
+   "old": "дракон, воздушный змей, злая женщина",
+   "new": "дракон, воздушный змей",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14465,
+   "col": "translation_uk",
+   "old": "дракон, повітряний змій, сварлива жінка",
+   "new": "дракон, повітряний змій",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14465,
+   "col": "translation_en",
+   "old": "dragon, kite, shrew",
+   "new": "dragon, kite",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14465,
+   "col": "translation_fr",
+   "old": "le cerf-volant, le dragon, la mégère",
+   "new": "le cerf-volant, le dragon",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11720,
+   "col": "translation_uk",
+   "old": "шеррі, херес",
+   "new": "херес, шеррі",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11720,
+   "col": "translation_tr",
+   "old": "şeri, şeri şarabı",
+   "new": "şeri",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16150,
+   "col": "translation_ru",
+   "old": "флаг, знамя, перегар",
+   "new": "флаг, перегар",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16150,
+   "col": "translation_uk",
+   "old": "прапор, знамено, запах алкоголю з рота",
+   "new": "прапор, перегар",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16150,
+   "col": "translation_en",
+   "old": "flag, banner, smell of alcohol on the breath",
+   "new": "flag, boozy breath",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16150,
+   "col": "translation_tr",
+   "old": "bayrak, sancak, ağızdaki alkol kokusu",
+   "new": "bayrak",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16150,
+   "col": "translation_pl",
+   "old": "flaga, chorągiew, zapach alkoholu z ust",
+   "new": "flaga, chorągiew",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16151,
+   "col": "translation_ru",
+   "old": "убегать, спасаться, скрываться, бежать от опасности",
+   "new": "убегать, спасаться",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16151,
+   "col": "translation_uk",
+   "old": "утікати, рятуватися, ховатися",
+   "new": "утікати, рятуватися",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16151,
+   "col": "translation_en",
+   "old": "to flee, to escape, to take refuge",
+   "new": "to flee, to escape",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16151,
+   "col": "translation_tr",
+   "old": "kaçmak, sığınmak, firar etmek",
+   "new": "kaçmak",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16151,
+   "col": "translation_pl",
+   "old": "uciekać, ratować się, schronić się",
+   "new": "uciekać",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16151,
+   "col": "translation_it",
+   "old": "fuggire, scappare, rifugiarsi",
+   "new": "fuggire, scappare",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16151,
+   "col": "translation_es",
+   "old": "huir, escapar, refugiarse",
+   "new": "huir, escapar",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16151,
+   "col": "translation_fr",
+   "old": "fuir, s'enfuir, se réfugier",
+   "new": "fuir, s'enfuir",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16151,
+   "col": "translation_cs",
+   "old": "utíkat, utéct, uprchnout",
+   "new": "utéct, uprchnout",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14009,
+   "col": "translation_ru",
+   "old": "зависящий, зависящий от кого-то, нуждающийся в чём-то",
+   "new": "зависящий, нуждающийся",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14009,
+   "col": "translation_uk",
+   "old": "залежний, залежний від когось, такий, що потребує чогось",
+   "new": "залежний",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14009,
+   "col": "translation_en",
+   "old": "dependent, dependent on, reliant on",
+   "new": "dependent on, reliant on",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14009,
+   "col": "translation_tr",
+   "old": "bağımlı, muhtaç",
+   "new": "muhtaç, bağımlı",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14009,
+   "col": "translation_pl",
+   "old": "zależny, zdany na kogoś, potrzebujący czyjejś pomocy",
+   "new": "zdany na, zależny",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11722,
+   "col": "example_de",
+   "old": "Wir trinken Tequila auf der Party",
+   "new": "Nach zwei Gläsern Tequila hat mein Onkel auf dem Tisch getanzt",
+   "why": "«Wir trinken Tequila auf der Party» — пусто"
+  },
+  {
+   "id": 11722,
+   "col": "example_ru",
+   "old": "Мы пьём текилу на вечеринке",
+   "new": "После двух рюмок текилы мой дядя танцевал на столе",
+   "why": "«Wir trinken Tequila auf der Party» — пусто"
+  },
+  {
+   "id": 11722,
+   "col": "example_uk",
+   "old": "Ми п'ємо текілу на вечірці",
+   "new": "Після двох чарок текіли мій дядько танцював на столі",
+   "why": "«Wir trinken Tequila auf der Party» — пусто"
+  },
+  {
+   "id": 11722,
+   "col": "example_en",
+   "old": "We drink tequila at the party",
+   "new": "After two glasses of tequila my uncle danced on the table",
+   "why": "«Wir trinken Tequila auf der Party» — пусто"
+  },
+  {
+   "id": 11722,
+   "col": "example_tr",
+   "old": "Partide tekila içiyoruz",
+   "new": "İki kadeh tekiladan sonra amcam masanın üstünde dans etti",
+   "why": "«Wir trinken Tequila auf der Party» — пусто"
+  },
+  {
+   "id": 11722,
+   "col": "example_pl",
+   "old": "Na imprezie pijemy tequilę",
+   "new": "Po dwóch kieliszkach tequili mój wujek tańczył na stole",
+   "why": "«Wir trinken Tequila auf der Party» — пусто"
+  },
+  {
+   "id": 11722,
+   "col": "example_it",
+   "old": "Alla festa beviamo tequila",
+   "new": "Dopo due bicchierini di tequila mio zio ha ballato sul tavolo",
+   "why": "«Wir trinken Tequila auf der Party» — пусто"
+  },
+  {
+   "id": 11722,
+   "col": "example_es",
+   "old": "Bebemos tequila en la fiesta",
+   "new": "Después de dos chupitos de tequila mi tío bailó encima de la mesa",
+   "why": "«Wir trinken Tequila auf der Party» — пусто"
+  },
+  {
+   "id": 11722,
+   "col": "example_fr",
+   "old": "Nous buvons de la tequila à la fête",
+   "new": "Après deux verres de tequila, mon oncle a dansé sur la table",
+   "why": "«Wir trinken Tequila auf der Party» — пусто"
+  },
+  {
+   "id": 11722,
+   "col": "example_cs",
+   "old": "Na večírku pijeme tequilu",
+   "new": "Po dvou panácích tequily tancoval strejda na stole",
+   "why": "«Wir trinken Tequila auf der Party» — пусто"
+  },
+  {
+   "id": 8867,
+   "col": "translation_it",
+   "old": "il contabile, il ragioniere",
+   "new": "il contabile",
+   "why": "en «bills» — двусмысленно; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8867,
+   "col": "translation_es",
+   "old": "el contable, el contador",
+   "new": "el contable",
+   "why": "en «bills» — двусмысленно; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8867,
+   "col": "example_en",
+   "old": "The accountant checks the bills",
+   "new": "The bookkeeper checks the invoices",
+   "why": "en «bills» — двусмысленно; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10479,
+   "col": "translation_ru",
+   "old": "бессмертный, безумно влюблённый",
+   "new": "бессмертный, по уши",
+   "why": "«Die Liebe in diesem Film ist unsterblich» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10479,
+   "col": "translation_uk",
+   "old": "безсмертний, шалено закоханий",
+   "new": "безсмертний, по вуха",
+   "why": "«Die Liebe in diesem Film ist unsterblich» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10479,
+   "col": "translation_en",
+   "old": "immortal, undying, head over heels",
+   "new": "immortal, madly",
+   "why": "«Die Liebe in diesem Film ist unsterblich» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10479,
+   "col": "translation_pl",
+   "old": "nieśmiertelny, zakochany po uszy",
+   "new": "nieśmiertelny, po uszy",
+   "why": "«Die Liebe in diesem Film ist unsterblich» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10479,
+   "col": "example_de",
+   "old": "Die Liebe in diesem Film ist unsterblich",
+   "new": "Mit sechzehn war meine Schwester unsterblich in ihren Gitarrenlehrer verliebt",
+   "why": "«Die Liebe in diesem Film ist unsterblich» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10479,
+   "col": "example_ru",
+   "old": "Любовь в этом фильме бессмертна",
+   "new": "В шестнадцать моя сестра была по уши влюблена в своего учителя гитары",
+   "why": "«Die Liebe in diesem Film ist unsterblich» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10479,
+   "col": "example_uk",
+   "old": "Любов у цьому фільмі безсмертна",
+   "new": "У шістнадцять моя сестра була по вуха закохана у свого вчителя гітари",
+   "why": "«Die Liebe in diesem Film ist unsterblich» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10479,
+   "col": "example_en",
+   "old": "The love in this film is immortal",
+   "new": "At sixteen my sister was madly in love with her guitar teacher",
+   "why": "«Die Liebe in diesem Film ist unsterblich» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10479,
+   "col": "example_tr",
+   "old": "Bu filmdeki aşk ölümsüzdür",
+   "new": "On altı yaşındayken kız kardeşim gitar öğretmenine sırılsıklam âşıktı",
+   "why": "«Die Liebe in diesem Film ist unsterblich» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10479,
+   "col": "example_pl",
+   "old": "Miłość w tym filmie jest nieśmiertelna",
+   "new": "W wieku szesnastu lat moja siostra była po uszy zakochana w swoim nauczycielu gitary",
+   "why": "«Die Liebe in diesem Film ist unsterblich» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10479,
+   "col": "example_it",
+   "old": "L'amore in questo film è immortale",
+   "new": "A sedici anni mia sorella era perdutamente innamorata del suo insegnante di chitarra",
+   "why": "«Die Liebe in diesem Film ist unsterblich» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10479,
+   "col": "example_es",
+   "old": "El amor en esta película es inmortal",
+   "new": "A los dieciséis años mi hermana estaba perdidamente enamorada de su profesor de guitarra",
+   "why": "«Die Liebe in diesem Film ist unsterblich» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10479,
+   "col": "example_fr",
+   "old": "L'amour dans ce film est immortel",
+   "new": "À seize ans, ma sœur était éperdument amoureuse de son prof de guitare",
+   "why": "«Die Liebe in diesem Film ist unsterblich» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10479,
+   "col": "example_cs",
+   "old": "Láska v tomto filmu je nesmrtelná",
+   "new": "V šestnácti byla sestra až po uši zamilovaná do svého učitele kytary",
+   "why": "«Die Liebe in diesem Film ist unsterblich» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16153,
+   "col": "translation_ru",
+   "old": "эвакуировать, вывозить в безопасное место",
+   "new": "эвакуировать",
+   "why": "ru/uk «должны/повинні» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16153,
+   "col": "translation_uk",
+   "old": "евакуювати, вивозити в безпечне місце",
+   "new": "евакуювати",
+   "why": "ru/uk «должны/повинні» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16153,
+   "col": "translation_en",
+   "old": "to evacuate, to clear a building",
+   "new": "to evacuate",
+   "why": "ru/uk «должны/повинні» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16153,
+   "col": "translation_tr",
+   "old": "tahliye etmek, boşaltmak",
+   "new": "tahliye etmek",
+   "why": "ru/uk «должны/повинні» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16153,
+   "col": "translation_pl",
+   "old": "ewakuować, wyprowadzać w bezpieczne miejsce",
+   "new": "ewakuować",
+   "why": "ru/uk «должны/повинні» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16153,
+   "col": "example_de",
+   "old": "Die Menschen müssen das Gebäude evakuieren",
+   "new": "Wegen einer alten Bombe aus dem Krieg haben sie gestern das ganze Viertel evakuiert",
+   "why": "ru/uk «должны/повинні» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16153,
+   "col": "example_ru",
+   "old": "Люди должны эвакуировать здание",
+   "new": "Из-за старой бомбы времён войны вчера эвакуировали весь район",
+   "why": "ru/uk «должны/повинні» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16153,
+   "col": "example_uk",
+   "old": "Люди повинні евакуювати будинок",
+   "new": "Через стару бомбу часів війни вчора евакуювали весь район",
+   "why": "ru/uk «должны/повинні» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16153,
+   "col": "example_en",
+   "old": "The people must evacuate the building",
+   "new": "Because of an old bomb from the war they evacuated the whole area yesterday",
+   "why": "ru/uk «должны/повинні» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16153,
+   "col": "example_tr",
+   "old": "İnsanlar binayı tahliye etmelidir",
+   "new": "Savaştan kalma eski bir bomba yüzünden dün bütün mahalleyi tahliye ettiler",
+   "why": "ru/uk «должны/повинні» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16153,
+   "col": "example_pl",
+   "old": "Ludzie muszą ewakuować budynek",
+   "new": "Z powodu starej bomby z czasów wojny wczoraj ewakuowali całą dzielnicę",
+   "why": "ru/uk «должны/повинні» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16153,
+   "col": "example_it",
+   "old": "Le persone devono evacuare l'edificio",
+   "new": "Per una vecchia bomba della guerra ieri hanno evacuato tutto il quartiere",
+   "why": "ru/uk «должны/повинні» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16153,
+   "col": "example_es",
+   "old": "La gente tiene que evacuar el edificio",
+   "new": "Por una bomba antigua de la guerra ayer evacuaron todo el barrio",
+   "why": "ru/uk «должны/повинні» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16153,
+   "col": "example_fr",
+   "old": "Les gens doivent évacuer le bâtiment",
+   "new": "À cause d'une vieille bombe de la guerre, ils ont évacué tout le quartier hier",
+   "why": "ru/uk «должны/повинні» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16153,
+   "col": "example_cs",
+   "old": "Lidé se musí z budovy evakuovat",
+   "new": "Kvůli staré bombě z války včera evakuovali celou čtvrť",
+   "why": "ru/uk «должны/повинні» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16154,
+   "col": "translation_ru",
+   "old": "федерация, союз государств, объединение организаций",
+   "new": "федерация, союз",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16154,
+   "col": "translation_uk",
+   "old": "федерація, союз держав, об'єднання організацій",
+   "new": "федерація, союз",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16154,
+   "col": "translation_en",
+   "old": "federation, union of states, association",
+   "new": "federation",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16154,
+   "col": "translation_tr",
+   "old": "federasyon, devletler birliği, birlik",
+   "new": "federasyon",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16154,
+   "col": "translation_pl",
+   "old": "federacja, związek państw, zrzeszenie",
+   "new": "federacja",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16154,
+   "col": "example_de",
+   "old": "Die Föderation besteht aus vielen Ländern",
+   "new": "Die Föderation der Fußballvereine hat neue Regeln für Jugendspieler beschlossen",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16154,
+   "col": "example_ru",
+   "old": "Федерация состоит из многих стран",
+   "new": "Федерация футбольных клубов приняла новые правила для юных игроков",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16154,
+   "col": "example_uk",
+   "old": "Федерація складається з багатьох країн",
+   "new": "Федерація футбольних клубів ухвалила нові правила для юних гравців",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16154,
+   "col": "example_en",
+   "old": "The federation consists of many countries",
+   "new": "The federation of football clubs has agreed new rules for youth players",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16154,
+   "col": "example_tr",
+   "old": "Federasyon birçok ülkeden oluşur",
+   "new": "Futbol kulüpleri federasyonu genç oyuncular için yeni kurallar kabul etti",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16154,
+   "col": "example_pl",
+   "old": "Federacja składa się z wielu krajów",
+   "new": "Federacja klubów piłkarskich przyjęła nowe zasady dla młodych zawodników",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16154,
+   "col": "example_it",
+   "old": "La federazione è composta da molti paesi",
+   "new": "La federazione delle società calcistiche ha approvato nuove regole per i giovani giocatori",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16154,
+   "col": "example_es",
+   "old": "La federación está formada por muchos países",
+   "new": "La federación de clubes de fútbol ha aprobado nuevas normas para los jugadores jóvenes",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16154,
+   "col": "example_fr",
+   "old": "La fédération est composée de nombreux pays",
+   "new": "La fédération des clubs de football a adopté de nouvelles règles pour les jeunes joueurs",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16154,
+   "col": "example_cs",
+   "old": "Federace se skládá z mnoha zemí",
+   "new": "Federace fotbalových klubů schválila nová pravidla pro mladé hráče",
+   "why": "список → главное слово и не больше одной альтернативы"
+  }
+ ],
+ "replace": [],
+ "split_later": {}
+}
