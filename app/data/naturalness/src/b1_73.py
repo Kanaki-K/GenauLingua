@@ -1,0 +1,252 @@
+"""B1, блок 73: следующие 40 по частоте. Вычитано вручную 21.10."""
+
+LIST = "список → главное слово и не больше одной альтернативы"
+EN = "английский пример: так не говорят"
+
+
+def all_x(de, ru, uk, en, tr, pl, it, es, fr, cs):
+    return {"x_de": de, "x_ru": ru, "x_uk": uk, "x_en": en, "x_tr": tr, "x_pl": pl,
+            "x_it": it, "x_es": es, "x_fr": fr, "x_cs": cs}
+
+
+FIXES = {
+    7735: (LIST, {"t_ru": "годиться, быть пригодным", "t_uk": "годитися, бути придатним", "t_en": "to be any good, to be suitable",
+                  "t_tr": "işe yaramak, uygun olmak", "t_it": "valere, servire", "x_en": "That guy's no good as a friend"}),
+    17242: ("pl — другое предложение; «privates Abteil» — так не говорят; " + LIST, {
+        "t_ru": "купе", "t_uk": "купе", "t_en": "compartment", "t_tr": "kompartıman", "t_pl": "przedział",
+        **all_x("Ist in Ihrem Abteil noch ein Platz frei?", "В вашем купе есть ещё свободное место?",
+                "У вашому купе ще є вільне місце?", "Is there a free seat left in your compartment?",
+                "Kompartımanınızda boş yer var mı?", "Czy w Państwa przedziale jest jeszcze wolne miejsce?",
+                "C'è ancora un posto libero nel vostro scompartimento?", "¿Queda algún sitio libre en su compartimento?",
+                "Il reste une place libre dans votre compartiment?", "Je ve vašem kupé ještě volné místo?")}),
+    17992: ("«Der Radius des Kreises beträgt 5 Zentimeter» — учебник; " + LIST, {
+        "t_ru": "радиус", "t_uk": "радіус", "t_en": "radius", "t_tr": "yarıçap", "t_pl": "promień, zasięg",
+        "t_cs": "poloměr, okruh",
+        **all_x("Im Radius von zehn Kilometern findet man keinen Supermarkt",
+                "В радиусе десяти километров нет ни одного супермаркета",
+                "У радіусі десяти кілометрів немає жодного супермаркету",
+                "There's no supermarket within a ten-kilometre radius", "On kilometrelik yarıçapta hiç süpermarket yok",
+                "W promieniu dziesięciu kilometrów nie ma żadnego supermarketu",
+                "Nel raggio di dieci chilometri non c'è nessun supermercato",
+                "En un radio de diez kilómetros no hay ningún supermercado",
+                "Dans un rayon de dix kilomètres, il n'y a aucun supermarché", "V okruhu deseti kilometrů není žádný supermarket")}),
+    2598: ("«Ich schaue den Katalog an» — пусто; " + LIST, {
+        "t_ru": "каталог", "t_uk": "каталог", "t_en": "catalogue", "t_tr": "katalog", "t_pl": "katalog",
+        **all_x("Die Küche haben wir aus dem Katalog bestellt", "Кухню мы заказали по каталогу", "Кухню ми замовили за каталогом",
+                "We ordered the kitchen from the catalogue", "Mutfağı katalogdan sipariş ettik", "Kuchnię zamówiliśmy z katalogu",
+                "La cucina l'abbiamo ordinata dal catalogo", "La cocina la pedimos por catálogo",
+                "La cuisine, on l'a commandée sur catalogue", "Kuchyň jsme objednali z katalogu")}),
+    2431: ("ru «справляюсь о цене» — книжно; " + LIST, {
+        "t_ru": "узнавать, расспрашивать", "t_uk": "дізнаватися, розпитувати", "t_en": "to enquire, to find out",
+        "t_tr": "bilgi almak, sormak", "t_pl": "dowiadywać się, pytać", "t_cs": "informovat se, ptát se",
+        **all_x("Ich erkundige mich mal, wann der nächste Zug fährt", "Сейчас узнаю, когда следующий поезд",
+                "Зараз дізнаюся, коли наступний потяг", "I'll find out when the next train leaves",
+                "Bir sonraki trenin ne zaman kalktığını sorayım", "Dowiem się, kiedy jest następny pociąg",
+                "Mi informo su quando parte il prossimo treno", "Voy a informarme de cuándo sale el próximo tren",
+                "Je vais me renseigner sur l'heure du prochain train", "Zeptám se, kdy jede další vlak")}),
+    1930: ("«Die Taste funktioniert nicht mehr» — шаблон «… funktioniert nicht»", {**all_x(
+        "Drück einfach die grüne Taste", "Просто нажми зелёную кнопку", "Просто натисни зелену кнопку",
+        "Just press the green button", "Yeşil tuşa bas yeter", "Po prostu naciśnij zielony przycisk",
+        "Premi semplicemente il tasto verde", "Pulsa el botón verde y ya está", "Appuie simplement sur la touche verte",
+        "Prostě zmáčkni zelené tlačítko")}),
+    2181: ("«Die Firma will die Preise anheben» — новости; " + LIST, {
+        "t_ru": "поднимать, повышать", "t_uk": "піднімати, підвищувати", "t_en": "to lift, to raise", "t_tr": "kaldırmak, yükseltmek",
+        "t_pl": "unosić, podnosić", "t_it": "sollevare, aumentare", "t_es": "levantar, subir", "t_fr": "soulever, augmenter",
+        "t_cs": "nadzvednout, zvýšit",
+        **all_x("Kannst du mal kurz das Sofa anheben?", "Можешь чуть приподнять диван?", "Можеш трохи підняти диван?",
+                "Can you lift the sofa up for a second?", "Kanepeyi bir saniye kaldırabilir misin?",
+                "Możesz na chwilę unieść kanapę?", "Puoi sollevare un attimo il divano?", "¿Puedes levantar un momento el sofá?",
+                "Tu peux soulever le canapé une seconde?", "Můžeš na chvilku nadzvednout gauč?")}),
+    2988: ("«Ich gehe am Laden vorbei» — пусто; в речи — «заскочить»; " + LIST, {
+        "t_ru": "проходить мимо, заходить", "t_uk": "проходити повз, заходити", "t_en": "to walk past, to drop by",
+        "t_tr": "önünden geçmek, uğramak", "t_pl": "przechodzić obok, wpadać", "t_cs": "jít kolem, zastavit se",
+        **all_x("Ich gehe nachher noch beim Bäcker vorbei", "Я потом ещё зайду в булочную", "Я потім ще зайду до пекарні",
+                "I'll drop by the bakery later", "Sonra fırına da uğrayacağım", "Potem jeszcze wpadnę do piekarni",
+                "Più tardi passo dal fornaio", "Luego paso por la panadería", "Je passerai à la boulangerie tout à l'heure",
+                "Pak se ještě zastavím v pekárně")}),
+    12804: ("«… deckt die Kosten ab» — шаблон страховки; " + LIST, {
+        "t_ru": "медицинская страховка, больничная касса", "t_pl": "ubezpieczenie zdrowotne",
+        "t_cs": "zdravotní pojištění, zdravotní pojišťovna",
+        **all_x("Bei welcher Krankenversicherung bist du?", "В какой больничной кассе ты застрахован?",
+                "Яка в тебе медична страховка?", "Who's your health insurance with?", "Sağlık sigortan hangi şirkette?",
+                "Gdzie masz ubezpieczenie zdrowotne?", "Con quale assicurazione sanitaria sei?", "¿Con qué seguro médico estás?",
+                "Tu es à quelle assurance maladie?", "U které zdravotní pojišťovny jsi?")}),
+    18320: ("«Die Kanne mit Kaffee steht auf dem Tisch» — пусто; " + LIST, {
+        "t_ru": "кувшин, чайник", "t_uk": "глек, чайник", "t_en": "pot, jug", "t_tr": "sürahi, demlik", "t_pl": "dzbanek",
+        "t_it": "la caraffa, la teiera", "t_es": "la jarra, la tetera", "t_fr": "la cafetière, la théière",
+        **all_x("Ich koche uns eine Kanne Tee", "Сделаю нам чайник чая", "Зроблю нам чайник чаю", "I'll make us a pot of tea",
+                "Bize bir demlik çay yapayım", "Zrobię nam dzbanek herbaty", "Ci preparo una teiera di tè",
+                "Voy a hacer una tetera de té", "Je nous fais une théière", "Uvařím nám konvici čaje")}),
+    15663: ("en «his wheel» — о хомяке говорят its", {"x_en": "My hamster runs on its wheel every night"}),
+    7748: ("en «truck» — американское; " + LIST, {
+        "t_ru": "разгружать, разряжать", "t_uk": "розвантажувати, розряджати", "t_en": "to unload, to discharge",
+        "t_tr": "boşaltmak, indirmek", "x_en": "We still have to unload the lorry"}),
+    9050: (LIST, {"t_ru": "деятельность, работа"}),
+    15163: ("«Sie wickelte das Baby …» — претерит; " + LIST, {
+        "t_ru": "заворачивать, пеленать", "t_uk": "загортати, сповивати", "t_en": "to wrap, to change (a baby)",
+        "t_tr": "sarmak, bebeğin altını değiştirmek", "t_pl": "owijać, przewijać", "t_it": "avvolgere, cambiare",
+        "t_es": "envolver, cambiar el pañal", "t_fr": "envelopper, changer", "t_cs": "zabalit, přebalit",
+        **all_x("Ich wickle das Geschenk in buntes Papier", "Я заворачиваю подарок в яркую бумагу",
+                "Я загортаю подарунок у яскравий папір", "I'm wrapping the present in colourful paper",
+                "Hediyeyi renkli kağıda sarıyorum", "Owijam prezent w kolorowy papier", "Avvolgo il regalo nella carta colorata",
+                "Envuelvo el regalo en papel de colores", "J'enveloppe le cadeau dans du papier coloré",
+                "Balím dárek do barevného papíru")}),
+    18322: ("ru «Мусор должен быть» — калька; en «trash can» — американское; " + LIST, {
+        "t_ru": "мусорный бак", "t_uk": "сміттєвий бак", "t_en": "wheelie bin, bin", "t_tr": "çöp konteyneri", "t_pl": "śmietnik",
+        "t_it": "il bidone della spazzatura", "t_es": "el contenedor, el cubo de la basura", "t_fr": "la poubelle",
+        **all_x("Die Mülltonnen werden immer am Dienstag geleert", "Мусорные баки опорожняют по вторникам",
+                "Сміттєві баки спорожнюють щовівторка", "The bins are emptied every Tuesday",
+                "Çöp konteynerleri her salı boşaltılıyor", "Śmietniki opróżniają we wtorki",
+                "I bidoni della spazzatura vengono svuotati ogni martedì", "Los contenedores se vacían todos los martes",
+                "Les poubelles sont vidées tous les mardis", "Popelnice se vyvážejí každé úterý")}),
+    10977: ("en «after vacation … cheerier» — так не говорят; " + LIST, {
+        "t_ru": "весёлый, радостный", "t_uk": "веселий, радісний", "t_en": "cheerful, happy", "t_tr": "neşeli, mutlu",
+        **all_x("Sie ist immer so fröhlich, auch am Montagmorgen", "Она всегда такая весёлая, даже в понедельник утром",
+                "Вона завжди така весела, навіть у понеділок зранку", "She's always so cheerful, even on Monday mornings",
+                "Pazartesi sabahları bile hep çok neşeli", "Zawsze jest taka wesoła, nawet w poniedziałek rano",
+                "È sempre così allegra, anche il lunedì mattina", "Siempre está tan alegre, incluso los lunes por la mañana",
+                "Elle est toujours si joyeuse, même le lundi matin", "Je pořád tak veselá, i v pondělí ráno")}),
+    2858: ("«Die Arbeiter streiken für bessere Arbeitsbedingungen» — новости; tr — обрезано", {
+        "t_ru": "бастовать", "t_uk": "страйкувати", "t_en": "to strike, to go on strike",
+        **all_x("Morgen streiken die Busfahrer, ich muss laufen", "Завтра бастуют водители автобусов, придётся идти пешком",
+                "Завтра страйкують водії автобусів, доведеться йти пішки",
+                "The bus drivers are on strike tomorrow, I'll have to walk",
+                "Yarın otobüs şoförleri grev yapıyor, yürümek zorundayım",
+                "Jutro strajkują kierowcy autobusów, będę musiał iść pieszo",
+                "Domani scioperano gli autisti degli autobus, devo andare a piedi",
+                "Mañana hacen huelga los conductores de autobús, tendré que ir andando",
+                "Demain, les chauffeurs de bus font grève, je vais devoir marcher",
+                "Zítra stávkují řidiči autobusů, budu muset jít pěšky")}),
+    2664: ("«Das lohnt sich wirklich» — пусто; uk — другое; " + LIST, {
+        "t_ru": "стоить того, окупаться", "t_uk": "бути вартим, окупатися", "t_en": "to be worth it, to pay off",
+        "t_tr": "değmek, kârlı olmak", "t_pl": "opłacać się, warto", "t_es": "valer la pena, compensar",
+        **all_x("Der Film lohnt sich, geh unbedingt hin!", "Фильм того стоит, обязательно сходи!",
+                "Фільм вартий того, обов'язково сходи!", "The film is worth it, you must go!",
+                "Film izlemeye değer, mutlaka git!", "Na ten film warto pójść, koniecznie idź!",
+                "Il film vale la pena, vai assolutamente!", "La película vale la pena, ¡no te la pierdas!",
+                "Le film vaut la peine, vas-y absolument!", "Ten film stojí za to, určitě na něj jdi!")}),
+    14161: ("«Ich bin telefonisch erreichbar» — автоответчик; " + LIST, {
+        "t_uk": "телефоном, телефонний", "t_en": "by phone",
+        **all_x("Kann ich den Termin auch telefonisch absagen?", "Можно отменить запись по телефону?",
+                "Можна скасувати запис по телефону?", "Can I cancel the appointment by phone?",
+                "Randevuyu telefonla iptal edebilir miyim?", "Czy mogę odwołać wizytę telefonicznie?",
+                "Posso disdire l'appuntamento per telefono?", "¿Puedo cancelar la cita por teléfono?",
+                "Je peux annuler le rendez-vous par téléphone?", "Můžu termín zrušit telefonicky?")}),
+    7759: ("пример повторяет beieinander; " + LIST, {
+        "t_ru": "вместе, в сборе", "t_uk": "разом, у зборі", "t_en": "together", "t_tr": "bir arada, beraber",
+        "t_pl": "razem, w komplecie", "t_fr": "ensemble, réunis",
+        **all_x("Endlich sind wir mal wieder alle beisammen!", "Наконец-то мы снова все вместе!", "Нарешті ми знову всі разом!",
+                "At last we're all together again!", "Sonunda yine hep bir aradayız!", "Nareszcie znowu jesteśmy wszyscy razem!",
+                "Finalmente siamo di nuovo tutti insieme!", "¡Por fin estamos todos juntos otra vez!",
+                "Enfin, nous sommes de nouveau tous réunis!", "Konečně jsme zase všichni pohromadě!")}),
+    9052: ("шаблон «Mein Bruder ist … und arbeitet …»; " + LIST, {
+        "t_ru": "химик", "t_uk": "хімік", "t_en": "chemist", "t_tr": "kimyager", "t_pl": "chemik",
+        **all_x("Für den Job suchen sie einen Chemiker mit Erfahrung", "На эту работу ищут химика с опытом",
+                "На цю роботу шукають хіміка з досвідом", "They're looking for an experienced chemist for the job",
+                "Bu iş için deneyimli bir kimyager arıyorlar", "Do tej pracy szukają chemika z doświadczeniem",
+                "Per questo lavoro cercano un chimico con esperienza", "Para el puesto buscan un químico con experiencia",
+                "Pour ce poste, ils cherchent un chimiste expérimenté", "Na tu práci hledají chemika se zkušenostmi")}),
+    7760: ("«du wirst es kaputtmachen» — так не говорят; " + LIST, {
+        "t_ru": "сломать, испортить", "t_uk": "зламати, зіпсувати", "t_en": "to break, to ruin", "t_tr": "kırmak, bozmak",
+        "t_pl": "zepsuć, zniszczyć",
+        **all_x("Pass auf, du machst es noch kaputt!", "Осторожно, ты так его сломаешь!", "Обережно, ти так його зламаєш!",
+                "Careful, you'll break it!", "Dikkat et, kıracaksın!", "Uważaj, bo to zepsujesz!", "Attento, così lo rompi!",
+                "¡Cuidado, que lo vas a romper!", "Fais attention, tu vas le casser!", "Dávej pozor, rozbiješ to!")}),
+    17627: ("пример длинный; " + LIST, {
+        "t_ru": "компьютер, калькулятор", "t_uk": "комп'ютер, калькулятор", "t_es": "el ordenador, la calculadora",
+        **all_x("Mein Rechner hängt sich ständig auf", "Мой компьютер постоянно зависает", "Мій комп'ютер постійно зависає",
+                "My computer keeps freezing", "Bilgisayarım sürekli donuyor", "Mój komputer ciągle się zawiesza",
+                "Il mio computer si blocca continuamente", "Mi ordenador se cuelga todo el rato", "Mon ordinateur plante tout le temps",
+                "Počítač se mi pořád sekne")}),
+    9053: ("«… war sehr freundlich und hilfsbereit» — отзыв о магазине", {
+        "t_uk": "продавчиня", "t_en": "shop assistant, saleswoman", "t_tr": "satış görevlisi",
+        **all_x("Die Verkäuferin hat mir eine kleinere Größe gebracht", "Продавщица принесла мне размер поменьше",
+                "Продавчиня принесла мені менший розмір", "The shop assistant brought me a smaller size",
+                "Satış görevlisi bana daha küçük bir beden getirdi", "Ekspedientka przyniosła mi mniejszy rozmiar",
+                "La commessa mi ha portato una taglia più piccola", "La dependienta me ha traído una talla más pequeña",
+                "La vendeuse m'a apporté une taille plus petite", "Prodavačka mi přinesla menší velikost")}),
+    11846: ("пример длинный; en «favorite» — американское", {**all_x(
+        "Was ist dein Lieblingsessen?", "Какое у тебя любимое блюдо?", "Яка твоя улюблена страва?", "What's your favourite food?",
+        "En sevdiğin yemek ne?", "Jakie jest twoje ulubione jedzenie?", "Qual è il tuo piatto preferito?",
+        "¿Cuál es tu comida favorita?", "C'est quoi, ton plat préféré?", "Jaké je tvoje oblíbené jídlo?")}),
+    18815: ("ru «дети должны ложиться» — калька; " + LIST, {
+        "t_ru": "время сна, пора спать", "t_tr": "yatma vakti", "t_it": "l'ora di dormire", "t_cs": "čas jít spát",
+        **all_x("So, Schlafenszeit! Ab ins Bett!", "Так, пора спать! Марш в кровать!", "Так, пора спати! Марш до ліжка!",
+                "Right, bedtime! Off to bed!", "Tamam, yatma vakti! Hadi yatağa!", "No, pora snu! Do łóżka!",
+                "Allora, ora di dormire! Tutti a letto!", "¡Venga, hora de dormir! ¡A la cama!",
+                "Allez, c'est l'heure d'aller au lit!", "Tak, čas jít spát! Hajdy do postele!")}),
+    15166: (LIST, {"t_ru": "бедро", "t_uk": "стегно", "t_en": "thigh", "t_tr": "uyluk"}),
+    14629: ("«… war wirklich beeindruckend und emotional» — рецензия; " + LIST, {
+        "t_ru": "пьеса, спектакль", "t_en": "play", "t_tr": "tiyatro oyunu", "t_pl": "sztuka teatralna",
+        "t_it": "lo spettacolo teatrale", "t_cs": "divadelní hra",
+        **all_x("Die Klasse spielt am Freitag ein Theaterstück", "В пятницу класс показывает спектакль",
+                "У п'ятницю клас показує виставу", "The class is putting on a play on Friday",
+                "Sınıf cuma günü bir tiyatro oyunu sergiliyor", "W piątek klasa wystawia sztukę teatralną",
+                "Venerdì la classe mette in scena uno spettacolo teatrale", "El viernes la clase representa una obra de teatro",
+                "Vendredi, la classe joue une pièce de théâtre", "V pátek třída hraje divadelní hru")}),
+    1637: ("ru «Мы должны» — калька; " + LIST, {
+        "t_ru": "сокращать, укорачивать", "t_uk": "скорочувати, вкорочувати", "t_en": "to shorten, to cut",
+        "t_tr": "kısaltmak, azaltmak", "t_pl": "skracać, obcinać", "t_it": "accorciare, ridurre", "t_es": "acortar, recortar",
+        "t_fr": "raccourcir, réduire", "t_cs": "zkrátit, snížit",
+        **all_x("Kannst du mir die Hose ein bisschen kürzen?", "Можешь немного укоротить мне брюки?",
+                "Можеш трохи вкоротити мені штани?", "Can you shorten my trousers a bit?", "Pantolonumu biraz kısaltabilir misin?",
+                "Możesz mi trochę skrócić spodnie?", "Mi puoi accorciare un po' i pantaloni?",
+                "¿Me puedes acortar un poco los pantalones?", "Tu peux me raccourcir un peu le pantalon?",
+                "Můžeš mi trochu zkrátit kalhoty?")}),
+    9054: ("«Der Unternehmer gründete …» — претерит; " + LIST, {
+        "t_ru": "предприниматель, бизнесмен", "t_uk": "підприємець, бізнесмен", "t_en": "entrepreneur, businessman",
+        "t_tr": "girişimci, iş adamı", "t_pl": "przedsiębiorca, biznesmen",
+        **all_x("Mein Onkel ist Unternehmer und hat nie Zeit", "Мой дядя — предприниматель, и у него никогда нет времени",
+                "Мій дядько — підприємець, і в нього ніколи немає часу", "My uncle is an entrepreneur and never has any time",
+                "Amcam girişimci ve hiç vakti olmuyor", "Mój wujek jest przedsiębiorcą i nigdy nie ma czasu",
+                "Mio zio è imprenditore e non ha mai tempo", "Mi tío es empresario y nunca tiene tiempo",
+                "Mon oncle est chef d'entreprise et n'a jamais le temps", "Můj strýc je podnikatel a nikdy nemá čas")}),
+    18323: ("ru «наконец» — нет в немецком", {**all_x(
+        "Mach mal den Mixer aus, man versteht ja nichts!", "Выключи блендер, ничего же не слышно!",
+        "Вимкни блендер, нічого ж не чути!", "Turn the blender off, I can't hear a thing!",
+        "Blenderi kapat, hiçbir şey duyulmuyor!", "Wyłącz blender, nic nie słychać!",
+        "Spegni il frullatore, non si sente niente!", "¡Apaga la batidora, que no se oye nada!",
+        "Éteins le mixeur, on n'entend rien!", "Vypni ten mixér, není nic slyšet!")}),
+    1926: ("«Was steht auf der Tagesordnung?» — протокол; в речи — «an der Tagesordnung»", {
+        "t_ru": "повестка дня, обычное дело", "t_uk": "порядок денний, звичайна справа", "t_en": "agenda, everyday occurrence",
+        "t_tr": "gündem, olağan durum", "t_pl": "porządek obrad, codzienność", "t_es": "el orden del día, a la orden del día",
+        "t_cs": "program jednání, na denním pořádku",
+        **all_x("Staus sind hier an der Tagesordnung", "Пробки здесь — обычное дело", "Затори тут — звичайна справа",
+                "Traffic jams are an everyday occurrence here", "Burada trafik sıkışıklığı olağan durum", "Korki to tu codzienność",
+                "Qui gli ingorghi sono all'ordine del giorno", "Aquí los atascos están a la orden del día",
+                "Ici, les embouteillages sont à l'ordre du jour", "Zácpy jsou tady na denním pořádku")}),
+    7764: ("«Ich durfte diese Chance nicht versäumen» — так не говорят; " + LIST, {
+        "t_ru": "упустить, пропустить", "t_en": "to miss, to neglect", "t_pl": "przegapić, zaniedbać", "t_it": "perdere, mancare",
+        "t_es": "perder, descuidar", "t_fr": "manquer, négliger", "t_cs": "zmeškat, zanedbat",
+        **all_x("Ich habe den Termin leider versäumt", "Я, к сожалению, пропустил приём", "Я, на жаль, пропустив прийом",
+                "Unfortunately I missed the appointment", "Maalesef randevuyu kaçırdım", "Niestety przegapiłem wizytę",
+                "Purtroppo ho mancato l'appuntamento", "Por desgracia me he perdido la cita",
+                "Malheureusement, j'ai manqué le rendez-vous", "Bohužel jsem zmeškal termín")}),
+    9057: ("«… ist in dieser Region sehr wichtig» — учебник географии", {**all_x(
+        "In der Landwirtschaft fehlen überall Arbeitskräfte", "В сельском хозяйстве везде не хватает рабочих рук",
+        "У сільському господарстві скрізь бракує робочих рук", "There's a shortage of workers everywhere in farming",
+        "Tarımda her yerde işgücü eksik", "W rolnictwie wszędzie brakuje rąk do pracy",
+        "Nell'agricoltura mancano lavoratori ovunque", "En la agricultura faltan trabajadores en todas partes",
+        "Dans l'agriculture, on manque de main-d'œuvre partout", "V zemědělství všude chybí pracovní síly")}),
+    9058: ("«Der Moderator stellte gute Fragen» — претерит; " + LIST, {
+        "t_ru": "ведущий, модератор", "t_uk": "ведучий, модератор", "t_en": "presenter, host", "t_tr": "sunucu, moderatör",
+        "t_pl": "prowadzący, prezenter", "t_it": "il conduttore, il presentatore", "t_fr": "le présentateur, l'animateur",
+        **all_x("Der Moderator von der Sendung ist echt witzig", "Ведущий этой передачи очень смешной",
+                "Ведучий цієї передачі дуже кумедний", "The presenter of that show is really funny",
+                "Bu programın sunucusu çok komik", "Prowadzący ten program jest naprawdę zabawny",
+                "Il conduttore di quel programma è davvero simpatico", "El presentador de ese programa es muy gracioso",
+                "Le présentateur de cette émission est vraiment drôle", "Moderátor toho pořadu je fakt vtipný")}),
+    10982: ("«Das reizt die Haut» — этикетка крема; " + LIST, {
+        "t_ru": "раздражать, привлекать", "t_uk": "подразнювати, приваблювати", "t_en": "to irritate, to appeal to",
+        "t_tr": "tahriş etmek, ilgisini çekmek", "t_pl": "drażnić, kusić", "t_it": "irritare, attirare",
+        "t_es": "irritar, atraer", "t_fr": "irriter, attirer", "t_cs": "dráždit, lákat",
+        **all_x("Das reizt mich überhaupt nicht", "Меня это совсем не привлекает", "Мене це зовсім не приваблює",
+                "That doesn't appeal to me at all", "Bu hiç ilgimi çekmiyor", "To mnie w ogóle nie kusi",
+                "Non mi attira per niente", "No me atrae nada", "Ça ne m'attire pas du tout", "To mě vůbec neláká")}),
+}
+
+REPLACE = [
+    {"id": 7747, "by": 2994, "lang": "de", "why": "wahrscheinlicher — сравнительная степень слова wahrscheinlich"},
+]
+
+SPLIT_LATER = {}
