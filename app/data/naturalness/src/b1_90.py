@@ -1,0 +1,206 @@
+"""B1, блок 90: следующие 40 по частоте. Вычитано вручную 21.10."""
+
+LIST = "список → главное слово и не больше одной альтернативы"
+
+
+def all_x(de, ru, uk, en, tr, pl, it, es, fr, cs):
+    return {"x_de": de, "x_ru": ru, "x_uk": uk, "x_en": en, "x_tr": tr, "x_pl": pl,
+            "x_it": it, "x_es": es, "x_fr": fr, "x_cs": cs}
+
+
+FIXES = {
+    2633: (LIST, {"t_ru": "ясли, кормушка", "t_uk": "ясла, годівниця", "t_en": "nursery, manger", "t_tr": "kreş, yemlik",
+                  "t_pl": "żłobek, szopka", "t_it": "l'asilo nido, il presepe", "t_es": "la guardería, el belén",
+                  "t_cs": "jesle, betlém"}),
+    9605: ("шаблон «gerne»", {
+        "t_en": "schoolyard, playground", "t_es": "el patio del colegio",
+        **all_x("In der Pause spielen die Kinder auf dem Schulhof Fußball", "На перемене дети играют в футбол на школьном дворе",
+                "На перерві діти грають у футбол на шкільному дворі", "At break the children play football in the playground",
+                "Teneffüste çocuklar okul bahçesinde futbol oynuyor", "Na przerwie dzieci grają w piłkę na boisku szkolnym",
+                "Durante l'intervallo i bambini giocano a calcio nel cortile della scuola",
+                "En el recreo los niños juegan al fútbol en el patio del colegio",
+                "À la récré, les enfants jouent au foot dans la cour de récréation", "O přestávce hrají děti fotbal na školním dvoře")}),
+    8256: ("«… funktioniert aber noch» — «aber» без начала", {
+        "t_ru": "поцарапанный", "t_uk": "подряпаний", "t_en": "scratched", "t_tr": "çizik, çizilmiş",
+        **all_x("Das Display ist total zerkratzt, aber das Handy funktioniert noch", "Экран весь поцарапан, но телефон ещё работает",
+                "Екран увесь подряпаний, але телефон ще працює", "The screen is all scratched, but the phone still works",
+                "Ekran baştan aşağı çizik ama telefon hâlâ çalışıyor", "Ekran jest cały porysowany, ale telefon jeszcze działa",
+                "Lo schermo è tutto graffiato, ma il telefono funziona ancora", "La pantalla está toda rayada, pero el móvil todavía funciona",
+                "L'écran est tout rayé, mais le téléphone marche encore", "Displej je celý poškrábaný, ale mobil ještě funguje")}),
+    9606: (LIST, {"t_ru": "одноклассник", "t_uk": "однокласник", "t_en": "classmate", "t_tr": "sınıf arkadaşı"}),
+    18054: ("мешок муки в килограмм не бывает", {**all_x(
+        "Für den Kuchen brauche ich ein Kilogramm Äpfel", "Для пирога мне нужен килограмм яблок", "Для пирога мені потрібен кілограм яблук",
+        "I need a kilogram of apples for the cake", "Kek için bir kilogram elma lazım", "Do ciasta potrzebuję kilogram jabłek",
+        "Per la torta mi serve un chilogrammo di mele", "Para la tarta necesito un kilogramo de manzanas",
+        "Pour le gâteau, il me faut un kilogramme de pommes", "Na koláč potřebuju kilogram jablek")}),
+    8257: ("«ideal zum Schwimmen» — реклама; " + LIST, {
+        "t_ru": "плоский, мелкий", "t_uk": "плаский, мілкий", "t_en": "flat, shallow", "t_tr": "düz, sığ", "t_pl": "płaski, płytki",
+        "t_it": "poco profondo, piatto", "t_es": "poco profundo, plano", "t_cs": "mělký, plochý",
+        **all_x("Der See ist schön flach, da können auch die Kinder baden", "Озеро мелкое, там могут купаться и дети",
+                "Озеро мілке, там можуть купатися й діти", "The lake is nice and shallow, so the kids can swim there too",
+                "Göl sığ, çocuklar da orada yüzebilir", "Jezioro jest płytkie, więc dzieci też mogą się tam kąpać",
+                "Il lago è poco profondo, ci possono fare il bagno anche i bambini",
+                "El lago es poco profundo, así que también pueden bañarse los niños",
+                "Le lac est peu profond, les enfants aussi peuvent s'y baigner", "Jezero je mělké, můžou se tam koupat i děti")}),
+    12354: (LIST, {"t_es": "el monopatín"}),
+    11942: ("ru «смешиваю смузи» — так не говорят; en «yogurt» — американское", {
+        "t_ru": "смешивать, взбивать", "t_uk": "змішувати, збивати",
+        "x_ru": "Я взбиваю смузи из фруктов и йогурта", "x_uk": "Я збиваю смузі з фруктів і йогурту",
+        "x_en": "I'm blending a smoothie with fruit and yoghurt", "t_en": "to mix, to blend",
+        "x_tr": "Meyveyle yoğurdu blenderdan geçirip smoothie yapıyorum", "x_cs": "Mixuju smoothie z ovoce a jogurtu"}),
+    2396: ("шаблон «gern»; en/tr потеряли «gern»", {**all_x(
+        "Mein Sohn spielt seit drei Jahren Eishockey", "Мой сын уже три года играет в хоккей", "Мій син уже три роки грає в хокей",
+        "My son has been playing ice hockey for three years", "Oğlum üç yıldır buz hokeyi oynuyor", "Mój syn od trzech lat gra w hokeja",
+        "Mio figlio gioca a hockey su ghiaccio da tre anni", "Mi hijo juega al hockey sobre hielo desde hace tres años",
+        "Mon fils joue au hockey sur glace depuis trois ans", "Můj syn hraje lední hokej už tři roky")}),
+    11943: ("пометки (colloq./coloq./hovor.); en «candy», «grandma» — американское; " + LIST, {
+        "t_ru": "слопать, соблазнить", "t_uk": "злопати, спокусити", "t_en": "to polish off, to seduce",
+        "t_tr": "silip süpürmek, baştan çıkarmak", "t_pl": "pochłonąć, uwieść", "t_it": "divorare, sedurre",
+        "t_es": "devorar, seducir", "t_fr": "dévorer, séduire", "t_cs": "zbaštit, svést",
+        "x_en": "The kids polished off all the sweets their gran brought",
+        "x_cs": "Děti zbaštily všechny sladkosti, které přinesla babička"}),
+    8258: ("пометка (hovor.); " + LIST, {
+        "t_ru": "закрыть, закрыться", "t_uk": "закрити, закритися", "t_en": "to close down, to shut", "t_tr": "kapatmak, kapanmak",
+        "t_pl": "zamknąć, zwinąć interes", "t_it": "chiudere", "t_es": "cerrar, echar el cierre",
+        "t_fr": "fermer, mettre la clé sous la porte", "t_cs": "zavřít, zabalit to"}),
+    13011: (LIST, {"t_ru": "хромать, прихрамывать", "t_en": "to limp, to be flawed", "t_tr": "topallamak, aksamak",
+                   "t_pl": "kuleć, utykać", "t_it": "zoppicare", "t_fr": "boiter, clocher",
+                   "x_en": "He's been limping a bit since the accident, but it's getting better"}),
+    18418: ("«im Schlafsaal … in einem Raum» — повтор; " + LIST, {
+        "t_ru": "общая спальня", "t_uk": "спільна спальня", "t_en": "dormitory", "t_tr": "yatakhane", "t_pl": "wspólna sypialnia",
+        "t_it": "il dormitorio, la camerata", "t_es": "el dormitorio común", "t_fr": "le dortoir", "t_cs": "společná ložnice",
+        **all_x("In der Jugendherberge schlafen wir alle zusammen im Schlafsaal", "В хостеле мы все спим вместе в общей спальне",
+                "У хостелі ми всі спимо разом у спільній спальні", "At the youth hostel we all sleep together in the dormitory",
+                "Gençlik hostelinde hep birlikte yatakhanede uyuyoruz", "W schronisku młodzieżowym śpimy wszyscy razem we wspólnej sypialni",
+                "All'ostello dormiamo tutti insieme nel dormitorio", "En el albergue juvenil dormimos todos juntos en el dormitorio común",
+                "À l'auberge de jeunesse, on dort tous ensemble dans le dortoir", "V hostelu spíme všichni spolu ve společné ložnici")}),
+    16469: (LIST, {"t_ru": "юридический, правовой", "t_uk": "правовий, юридичний", "t_en": "legal", "t_tr": "hukuki, yasal",
+                   "t_it": "giuridico, legale", "t_es": "jurídico, legal", "t_fr": "juridique, légal", "t_cs": "právní"}),
+    15778: (LIST, {"t_tr": "hayvan bölmesi, kafes"}),
+    2625: ("шаблон «kaputt»", {
+        "t_en": "photocopier, copier",
+        **all_x("Der Kopierer im Büro hat schon wieder kein Papier", "В ксероксе в офисе опять нет бумаги",
+                "У ксероксі в офісі знову немає паперу", "The photocopier in the office is out of paper again",
+                "Ofisteki fotokopi makinesinde yine kâğıt yok", "W kopiarce w biurze znowu nie ma papieru",
+                "Nella fotocopiatrice dell'ufficio manca di nuovo la carta",
+                "La fotocopiadora de la oficina se ha quedado otra vez sin papel",
+                "La photocopieuse du bureau n'a encore plus de papier", "V kopírce v kanceláři zase došel papír")}),
+    8262: ("en «candies» — американское", {"t_en": "sticky", "x_en": "The sweets are sticky and taste of strawberry"}),
+    11944: (LIST, {"t_ru": "трактир, пивная", "t_uk": "корчма, пивна", "t_en": "pub, inn", "t_tr": "meyhane, birahane",
+                   "t_pl": "karczma, gospoda", "t_it": "l'osteria, la locanda", "t_es": "la taberna, el mesón",
+                   "t_fr": "le bistrot, l'auberge", "x_en": "We're going to the pub for a beer tonight"}),
+    17338: ("«im Alltag» — учебник", {
+        "t_en": "means of transport",
+        **all_x("In der Stadt ist das Fahrrad oft das schnellste Transportmittel", "В городе велосипед часто самый быстрый вид транспорта",
+                "У місті велосипед часто найшвидший вид транспорту", "In town the bike is often the quickest means of transport",
+                "Şehirde bisiklet çoğu zaman en hızlı ulaşım aracıdır", "W mieście rower to często najszybszy środek transportu",
+                "In città la bici è spesso il mezzo di trasporto più veloce",
+                "En la ciudad la bici suele ser el medio de transporte más rápido",
+                "En ville, le vélo est souvent le moyen de transport le plus rapide", "Ve městě je kolo často nejrychlejší dopravní prostředek")}),
+    15779: (LIST, {"t_ru": "гусеница", "t_uk": "гусениця", "t_en": "caterpillar", "t_tr": "tırtıl", "t_it": "il bruco",
+                   "t_cs": "housenka"}),
+    11945: ("английский пример: так не говорят", {"x_en": "After the cinema we're going to the bistro for a coffee"}),
+    15780: ("«… ist ein süßes Haustier» — пусто", {
+        "t_tr": "gelincik",
+        **all_x("Meine Nachbarin hält zwei Frettchen in der Wohnung", "Моя соседка держит в квартире двух хорьков",
+                "Моя сусідка тримає в квартирі двох тхорів", "My neighbour keeps two ferrets in her flat",
+                "Komşum evde iki gelincik besliyor", "Moja sąsiadka trzyma w mieszkaniu dwie fretki",
+                "La mia vicina tiene due furetti in casa", "Mi vecina tiene dos hurones en casa",
+                "Ma voisine a deux furets dans son appartement", "Sousedka chová v bytě dvě fretky")}),
+    9916: ("en «bookstore» — американское", {"t_en": "bookshop", "x_en": "I buy new books at the bookshop"}),
+    11946: ("en «oatmeal» — американское", {"t_en": "porridge", "t_es": "las gachas de avena",
+                                            "x_en": "Warm porridge is especially nice in winter"}),
+    11947: ("«… ist sehr gesund und schmeckt lecker» — пусто", {**all_x(
+        "Mein Sohn isst Brokkoli nur mit viel Käse", "Мой сын ест брокколи только с большим количеством сыра",
+        "Мій син їсть брокколі лише з великою кількістю сиру", "My son only eats broccoli with lots of cheese",
+        "Oğlum brokoliyi sadece bol peynirle yiyor", "Mój syn je brokuły tylko z dużą ilością sera",
+        "Mio figlio mangia i broccoli solo con tanto formaggio", "Mi hijo solo come brócoli con mucho queso",
+        "Mon fils ne mange le brocoli qu'avec beaucoup de fromage", "Můj syn jí brokolici jen s hodně sýrem")}),
+    13758: ("en «sunscreen» → британское «sun cream»; " + LIST, {
+        "t_ru": "солнцезащитный крем", "t_uk": "сонцезахисний крем", "t_en": "sun cream, sunscreen", "t_tr": "güneş kremi",
+        "x_en": "Don't forget the sun cream when we go to the seaside"}),
+    8270: ("«keiner klaren Kategorie zuordnen» — канцелярит; " + LIST + " (было пять значений)", {
+        "t_ru": "отнести, сопоставить", "t_uk": "віднести, зіставити", "t_en": "to assign, to match", "t_tr": "eşleştirmek, sınıflandırmak",
+        "t_pl": "przyporządkować, dopasować", "t_it": "assegnare, abbinare", "t_es": "asignar, clasificar", "t_fr": "classer, associer",
+        "t_cs": "zařadit, přiřadit",
+        **all_x("Ordne die Wörter den richtigen Bildern zu", "Сопоставь слова с правильными картинками",
+                "Зістав слова з правильними картинками", "Match the words to the right pictures",
+                "Kelimeleri doğru resimlerle eşleştir", "Dopasuj słowa do właściwych obrazków",
+                "Abbina le parole alle immagini giuste", "Asigna cada palabra a la imagen correcta",
+                "Associe les mots aux bonnes images", "Přiřaď slova ke správným obrázkům")}),
+    9607: ("en «at the university» — так не говорят; " + LIST, {
+        "t_ru": "вуз, институт", "t_uk": "вищий навчальний заклад, вуз", "t_en": "university, college", "t_it": "l'università",
+        "t_es": "la universidad", "t_fr": "l'université", "x_en": "She's studying at university"}),
+    8285: ("«Sie flötete …» — претерит; " + LIST, {
+        "t_ru": "насвистывать, играть на флейте", "t_uk": "насвистувати, грати на флейті", "t_en": "to whistle, to play the flute",
+        "t_tr": "ıslık çalmak, flüt çalmak", "t_pl": "pogwizdywać, grać na flecie", "t_it": "fischiettare, suonare il flauto",
+        "t_es": "silbar, tocar la flauta", "t_fr": "siffloter, jouer de la flûte", "t_cs": "pohvizdovat si, hrát na flétnu",
+        **all_x("Mein Opa flötet bei der Gartenarbeit immer vor sich hin", "Мой дед, работая в саду, всегда что-то насвистывает",
+                "Мій дід, працюючи в саду, завжди щось насвистує", "My grandad always whistles away to himself while he does the garden",
+                "Dedem bahçede çalışırken hep ıslık çalar", "Mój dziadek, pracując w ogrodzie, zawsze sobie pogwizduje",
+                "Mio nonno fischietta sempre mentre lavora in giardino", "Mi abuelo siempre silba mientras trabaja en el jardín",
+                "Mon grand-père sifflote toujours en travaillant au jardin", "Děda si při práci na zahradě vždycky pohvizduje")}),
+    11948: ("tr «onu» — лишнее", {"x_tr": "Çorba çok tuzlu, yiyemiyorum"}),
+    18419: ("en «underground parking» — так не говорят; " + LIST, {
+        "t_ru": "подземная парковка, подземный гараж", "t_uk": "підземний паркінг, підземний гараж",
+        "t_en": "underground car park", "t_tr": "yeraltı otoparkı", "t_it": "il parcheggio sotterraneo, il garage sotterraneo",
+        "t_es": "el aparcamiento subterráneo",
+        **all_x("Wir parken immer in der Tiefgarage unter dem Einkaufszentrum",
+                "Мы всегда паркуемся на подземной парковке под торговым центром",
+                "Ми завжди паркуємося на підземному паркінгу під торговим центром",
+                "We always park in the underground car park under the shopping centre",
+                "Hep alışveriş merkezinin altındaki yeraltı otoparkına park ediyoruz",
+                "Zawsze parkujemy na parkingu podziemnym pod centrum handlowym",
+                "Parcheggiamo sempre nel parcheggio sotterraneo sotto il centro commerciale",
+                "Siempre aparcamos en el aparcamiento subterráneo del centro comercial",
+                "On se gare toujours dans le parking souterrain sous le centre commercial",
+                "Vždycky parkujeme v podzemní garáži pod obchodním centrem")}),
+    18420: ("«sehr schön und blau» — пусто; en «tiles» — во множественном", {
+        "t_en": "tile", "t_tr": "fayans",
+        **all_x("Wir wollen im Bad neue Fliesen legen lassen", "Мы хотим положить в ванной новую плитку",
+                "Ми хочемо покласти у ванній нову плитку", "We want to have new tiles put in the bathroom",
+                "Banyoya yeni fayans döşetmek istiyoruz", "Chcemy położyć w łazience nowe płytki",
+                "Vogliamo far mettere piastrelle nuove in bagno", "Queremos poner azulejos nuevos en el baño",
+                "On veut faire poser de nouveaux carreaux dans la salle de bains",
+                "Chceme si nechat v koupelně položit nové dlaždice")}),
+    2854: ("«ist beim Unfall beschädigt» — неграмотно", {**all_x(
+        "Beim Einparken habe ich mit der Stoßstange einen Pfosten gestreift", "При парковке я задел бампером столбик",
+        "Під час паркування я зачепив бампером стовпчик", "I clipped a post with the bumper while I was parking",
+        "Park ederken tamponla bir direğe sürttüm", "Przy parkowaniu zahaczyłem zderzakiem o słupek",
+        "Parcheggiando ho urtato un paletto con il paraurti", "Al aparcar he rozado un poste con el parachoques",
+        "En me garant, j'ai accroché un poteau avec le pare-chocs", "Při parkování jsem nárazníkem škrtl o sloupek")}),
+    11950: ("«Die Krabbe ist ein leckeres Meeresfrüchte-Gericht» — неверно", {**all_x(
+        "Am Strand haben die Kinder eine kleine Krabbe gefunden", "На пляже дети нашли маленького краба",
+        "На пляжі діти знайшли маленького краба", "The kids found a little crab on the beach",
+        "Çocuklar plajda küçük bir yengeç buldu", "Dzieci znalazły na plaży małego kraba",
+        "Sulla spiaggia i bambini hanno trovato un piccolo granchio", "En la playa los niños han encontrado un cangrejo pequeño",
+        "Sur la plage, les enfants ont trouvé un petit crabe", "Děti našly na pláži malého kraba")}),
+    2376: ("«Ich checke mich … ein» — так не говорят; " + LIST, {
+        "t_ru": "регистрироваться, заселяться", "t_uk": "реєструватися, заселятися", "t_tr": "check-in yapmak, otele giriş yapmak",
+        "t_es": "registrarse, facturar", "t_cs": "ubytovat se, odbavit se",
+        **all_x("Wir können erst ab drei Uhr im Hotel einchecken", "Мы можем заселиться в отель только с трёх часов",
+                "Ми можемо заселитися в готель лише з третьої години", "We can't check in at the hotel until three o'clock",
+                "Otele ancak saat üçten sonra giriş yapabiliyoruz", "Możemy zameldować się w hotelu dopiero od piętnastej",
+                "Possiamo fare il check-in in albergo solo dalle tre", "No podemos registrarnos en el hotel hasta las tres",
+                "On ne peut faire le check-in à l'hôtel qu'à partir de 15 heures", "Ubytovat se v hotelu můžeme až od tří")}),
+    15784: ("«… lief hinter …» — претерит", {
+        "t_uk": "ягня, ягнятко", "t_en": "little lamb, lamb",
+        **all_x("Im Frühling gibt es auf dem Bauernhof viele Lämmchen", "Весной на ферме много ягнят", "Навесні на фермі багато ягнят",
+                "In spring there are lots of little lambs on the farm", "İlkbaharda çiftlikte bir sürü kuzu oluyor",
+                "Wiosną na farmie jest mnóstwo jagniątek", "In primavera alla fattoria ci sono tanti agnellini",
+                "En primavera hay muchos corderitos en la granja", "Au printemps, il y a plein de petits agneaux à la ferme",
+                "Na jaře je na statku spousta jehňátek")}),
+    13761: ("«Ich zog … an» — претерит; en «pantyhose» — американское", {
+        "t_en": "tights",
+        **all_x("Bei der Kälte ziehe ich unter die Hose eine Strumpfhose an", "В такой холод я надеваю под брюки колготки",
+                "У такий холод я вдягаю під штани колготки", "In this cold I wear tights under my trousers",
+                "Bu soğukta pantolonun altına külotlu çorap giyiyorum", "W taki mróz zakładam pod spodnie rajstopy",
+                "Con questo freddo metto i collant sotto i pantaloni", "Con este frío me pongo unas medias debajo del pantalón",
+                "Par ce froid, je mets un collant sous mon pantalon", "V téhle zimě si pod kalhoty oblékám punčocháče")}),
+}
+
+REPLACE = [
+    {"id": 13759, "by": 18341, "lang": "de", "why": "gebügelt — форма слова bügeln"},
+]
+
+SPLIT_LATER = {}
