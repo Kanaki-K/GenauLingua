@@ -1,0 +1,1610 @@
+{
+ "about": "2.3, B1 блок 49",
+ "edits": [
+  {
+   "id": 190,
+   "col": "translation_ru",
+   "old": "банка, жестянка, розетка",
+   "new": "банка, жестянка",
+   "why": "список → главное слово и не больше одной альтернативы; «розетка» — это Steckdose"
+  },
+  {
+   "id": 190,
+   "col": "translation_uk",
+   "old": "банка, консервна бляшанка, розетка",
+   "new": "банка, бляшанка",
+   "why": "список → главное слово и не больше одной альтернативы; «розетка» — это Steckdose"
+  },
+  {
+   "id": 190,
+   "col": "translation_en",
+   "old": "can, tin, socket",
+   "new": "can, tin",
+   "why": "список → главное слово и не больше одной альтернативы; «розетка» — это Steckdose"
+  },
+  {
+   "id": 190,
+   "col": "translation_tr",
+   "old": "kutu, teneke kutu, priz",
+   "new": "kutu, teneke kutu",
+   "why": "список → главное слово и не больше одной альтернативы; «розетка» — это Steckdose"
+  },
+  {
+   "id": 190,
+   "col": "translation_pl",
+   "old": "puszka, konserwa, gniazdko",
+   "new": "puszka, konserwa",
+   "why": "список → главное слово и не больше одной альтернативы; «розетка» — это Steckdose"
+  },
+  {
+   "id": 190,
+   "col": "translation_it",
+   "old": "la scatoletta, la lattina, la presa",
+   "new": "la scatoletta, la lattina",
+   "why": "список → главное слово и не больше одной альтернативы; «розетка» — это Steckdose"
+  },
+  {
+   "id": 190,
+   "col": "translation_es",
+   "old": "la lata, el enchufe",
+   "new": "la lata",
+   "why": "список → главное слово и не больше одной альтернативы; «розетка» — это Steckdose"
+  },
+  {
+   "id": 190,
+   "col": "translation_fr",
+   "old": "la boîte, la canette, la prise",
+   "new": "la boîte, la canette",
+   "why": "список → главное слово и не больше одной альтернативы; «розетка» — это Steckdose"
+  },
+  {
+   "id": 190,
+   "col": "translation_cs",
+   "old": "konzerva, plechovka, zásuvka",
+   "new": "konzerva, plechovka",
+   "why": "список → главное слово и не больше одной альтернативы; «розетка» — это Steckdose"
+  },
+  {
+   "id": 7029,
+   "col": "translation_ru",
+   "old": "огромный, громадный, мощный, чрезвычайный",
+   "new": "огромный, мощный",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7029,
+   "col": "translation_uk",
+   "old": "величезний, велетенський, потужний, надзвичайний",
+   "new": "величезний, потужний",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7029,
+   "col": "translation_en",
+   "old": "huge, enormous, mighty, tremendous",
+   "new": "huge, tremendous",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7029,
+   "col": "translation_tr",
+   "old": "muazzam, kocaman, çok büyük, güçlü",
+   "new": "muazzam, kocaman",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7029,
+   "col": "translation_pl",
+   "old": "ogromny, potężny, olbrzymi",
+   "new": "ogromny, potężny",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7030,
+   "col": "example_de",
+   "old": "Es gibt einen Mangel an Lebensmitteln",
+   "new": "Aus Mangel an Zeit kann ich nicht kommen",
+   "why": "«Es gibt einen Mangel an Lebensmitteln» — хроника"
+  },
+  {
+   "id": 7030,
+   "col": "example_ru",
+   "old": "Наблюдается нехватка продуктов питания",
+   "new": "Из-за нехватки времени я не смогу прийти",
+   "why": "«Es gibt einen Mangel an Lebensmitteln» — хроника"
+  },
+  {
+   "id": 7030,
+   "col": "example_uk",
+   "old": "Є нестача продуктів",
+   "new": "Через нестачу часу я не зможу прийти",
+   "why": "«Es gibt einen Mangel an Lebensmitteln» — хроника"
+  },
+  {
+   "id": 7030,
+   "col": "example_en",
+   "old": "There is a shortage of food",
+   "new": "I can't come for lack of time",
+   "why": "«Es gibt einen Mangel an Lebensmitteln» — хроника"
+  },
+  {
+   "id": 7030,
+   "col": "example_tr",
+   "old": "Gıda eksikliği var",
+   "new": "Zaman eksikliğinden gelemem",
+   "why": "«Es gibt einen Mangel an Lebensmitteln» — хроника"
+  },
+  {
+   "id": 7030,
+   "col": "example_pl",
+   "old": "Jest brak żywności",
+   "new": "Z braku czasu nie mogę przyjść",
+   "why": "«Es gibt einen Mangel an Lebensmitteln» — хроника"
+  },
+  {
+   "id": 7030,
+   "col": "example_it",
+   "old": "C'è una carenza di cibo",
+   "new": "Per mancanza di tempo non posso venire",
+   "why": "«Es gibt einen Mangel an Lebensmitteln» — хроника"
+  },
+  {
+   "id": 7030,
+   "col": "example_es",
+   "old": "Hay escasez de alimentos",
+   "new": "Por falta de tiempo no puedo ir",
+   "why": "«Es gibt einen Mangel an Lebensmitteln» — хроника"
+  },
+  {
+   "id": 7030,
+   "col": "example_fr",
+   "old": "Il y a une pénurie de nourriture",
+   "new": "Par manque de temps, je ne peux pas venir",
+   "why": "«Es gibt einen Mangel an Lebensmitteln» — хроника"
+  },
+  {
+   "id": 7030,
+   "col": "example_cs",
+   "old": "Je nedostatek potravin",
+   "new": "Z nedostatku času nemůžu přijít",
+   "why": "«Es gibt einen Mangel an Lebensmitteln» — хроника"
+  },
+  {
+   "id": 10433,
+   "col": "example_de",
+   "old": "Ich verfluchte meinen Mangel an Glück",
+   "new": "Ich verfluche den Tag, an dem ich ihn getroffen habe",
+   "why": "«Ich verfluchte meinen Mangel an Glück» — претерит, калька"
+  },
+  {
+   "id": 10433,
+   "col": "example_ru",
+   "old": "Я проклинал своё невезение",
+   "new": "Я проклинаю тот день, когда его встретила",
+   "why": "«Ich verfluchte meinen Mangel an Glück» — претерит, калька"
+  },
+  {
+   "id": 10433,
+   "col": "example_uk",
+   "old": "Я проклинав своє невезіння",
+   "new": "Я проклинаю той день, коли його зустріла",
+   "why": "«Ich verfluchte meinen Mangel an Glück» — претерит, калька"
+  },
+  {
+   "id": 10433,
+   "col": "example_en",
+   "old": "I cursed my lack of luck",
+   "new": "I curse the day I met him",
+   "why": "«Ich verfluchte meinen Mangel an Glück» — претерит, калька"
+  },
+  {
+   "id": 10433,
+   "col": "example_tr",
+   "old": "Şanssızlığımı lanetledim",
+   "new": "Onunla tanıştığım günü lanetliyorum",
+   "why": "«Ich verfluchte meinen Mangel an Glück» — претерит, калька"
+  },
+  {
+   "id": 10433,
+   "col": "example_pl",
+   "old": "Przeklinałem swój brak szczęścia",
+   "new": "Przeklinam dzień, w którym go poznałam",
+   "why": "«Ich verfluchte meinen Mangel an Glück» — претерит, калька"
+  },
+  {
+   "id": 10433,
+   "col": "example_it",
+   "old": "Maledicevo la mia sfortuna",
+   "new": "Maledico il giorno in cui l'ho conosciuto",
+   "why": "«Ich verfluchte meinen Mangel an Glück» — претерит, калька"
+  },
+  {
+   "id": 10433,
+   "col": "example_es",
+   "old": "Maldecía mi mala suerte",
+   "new": "Maldigo el día en que lo conocí",
+   "why": "«Ich verfluchte meinen Mangel an Glück» — претерит, калька"
+  },
+  {
+   "id": 10433,
+   "col": "example_fr",
+   "old": "Je maudissais mon manque de chance",
+   "new": "Je maudis le jour où je l'ai rencontré",
+   "why": "«Ich verfluchte meinen Mangel an Glück» — претерит, калька"
+  },
+  {
+   "id": 10433,
+   "col": "example_cs",
+   "old": "Proklínal jsem svou smůlu",
+   "new": "Proklínám den, kdy jsem ho potkala",
+   "why": "«Ich verfluchte meinen Mangel an Glück» — претерит, калька"
+  },
+  {
+   "id": 12581,
+   "col": "example_de",
+   "old": "Die Autopsie zeigte die wahre Ursache",
+   "new": "Die Autopsie hat die wahre Ursache gezeigt",
+   "why": "«Die Autopsie zeigte …» — претерит"
+  },
+  {
+   "id": 12581,
+   "col": "example_tr",
+   "old": "Otopsi gerçek sebebi ortaya çıkardı",
+   "new": "Otopsi gerçek nedeni ortaya çıkardı",
+   "why": "«Die Autopsie zeigte …» — претерит"
+  },
+  {
+   "id": 12581,
+   "col": "example_pl",
+   "old": "Autopsja wykazała prawdziwą przyczynę",
+   "new": "Sekcja zwłok wykazała prawdziwą przyczynę",
+   "why": "«Die Autopsie zeigte …» — претерит"
+  },
+  {
+   "id": 12581,
+   "col": "example_fr",
+   "old": "L'autopsie a révélé la véritable cause",
+   "new": "L'autopsie a révélé la vraie cause",
+   "why": "«Die Autopsie zeigte …» — претерит"
+  },
+  {
+   "id": 14453,
+   "col": "example_de",
+   "old": "Pop ist eine beliebte Musikrichtung",
+   "new": "Ich höre am liebsten Pop",
+   "why": "«Pop ist eine beliebte Musikrichtung» — учебник"
+  },
+  {
+   "id": 14453,
+   "col": "example_ru",
+   "old": "Поп — популярное музыкальное направление",
+   "new": "Я больше всего люблю слушать поп",
+   "why": "«Pop ist eine beliebte Musikrichtung» — учебник"
+  },
+  {
+   "id": 14453,
+   "col": "example_uk",
+   "old": "Поп — популярний музичний напрям",
+   "new": "Я найбільше люблю слухати поп",
+   "why": "«Pop ist eine beliebte Musikrichtung» — учебник"
+  },
+  {
+   "id": 14453,
+   "col": "example_en",
+   "old": "Pop is a popular music genre",
+   "new": "I like listening to pop best",
+   "why": "«Pop ist eine beliebte Musikrichtung» — учебник"
+  },
+  {
+   "id": 14453,
+   "col": "example_tr",
+   "old": "Pop popüler bir müzik türüdür",
+   "new": "En çok pop dinlemeyi seviyorum",
+   "why": "«Pop ist eine beliebte Musikrichtung» — учебник"
+  },
+  {
+   "id": 14453,
+   "col": "example_pl",
+   "old": "Pop to popularny gatunek muzyczny",
+   "new": "Najbardziej lubię słuchać popu",
+   "why": "«Pop ist eine beliebte Musikrichtung» — учебник"
+  },
+  {
+   "id": 14453,
+   "col": "example_it",
+   "old": "Il pop è un genere musicale popolare",
+   "new": "Preferisco ascoltare il pop",
+   "why": "«Pop ist eine beliebte Musikrichtung» — учебник"
+  },
+  {
+   "id": 14453,
+   "col": "example_es",
+   "old": "El pop es un género musical popular",
+   "new": "Lo que más me gusta escuchar es pop",
+   "why": "«Pop ist eine beliebte Musikrichtung» — учебник"
+  },
+  {
+   "id": 14453,
+   "col": "example_fr",
+   "old": "La pop est un genre musical populaire",
+   "new": "Ce que je préfère écouter, c'est la pop",
+   "why": "«Pop ist eine beliebte Musikrichtung» — учебник"
+  },
+  {
+   "id": 14453,
+   "col": "example_cs",
+   "old": "Pop je oblíbený hudební žánr",
+   "new": "Nejradši poslouchám pop",
+   "why": "«Pop ist eine beliebte Musikrichtung» — учебник"
+  },
+  {
+   "id": 7031,
+   "col": "example_de",
+   "old": "Das Konzert war überaus gelungen",
+   "new": "Er ist ein überaus begabter Musiker",
+   "why": "«Das Konzert war überaus gelungen» — шаблон «Das Konzert war …»"
+  },
+  {
+   "id": 7031,
+   "col": "example_ru",
+   "old": "Концерт был чрезвычайно удачным",
+   "new": "Он чрезвычайно талантливый музыкант",
+   "why": "«Das Konzert war überaus gelungen» — шаблон «Das Konzert war …»"
+  },
+  {
+   "id": 7031,
+   "col": "example_uk",
+   "old": "Концерт був надзвичайно вдалим",
+   "new": "Він надзвичайно талановитий музикант",
+   "why": "«Das Konzert war überaus gelungen» — шаблон «Das Konzert war …»"
+  },
+  {
+   "id": 7031,
+   "col": "example_en",
+   "old": "The concert was extremely successful",
+   "new": "He's an exceedingly gifted musician",
+   "why": "«Das Konzert war überaus gelungen» — шаблон «Das Konzert war …»"
+  },
+  {
+   "id": 7031,
+   "col": "example_tr",
+   "old": "Konser son derece başarılı oldu",
+   "new": "Son derece yetenekli bir müzisyen",
+   "why": "«Das Konzert war überaus gelungen» — шаблон «Das Konzert war …»"
+  },
+  {
+   "id": 7031,
+   "col": "example_pl",
+   "old": "Koncert był niezwykle udany",
+   "new": "To niezwykle utalentowany muzyk",
+   "why": "«Das Konzert war überaus gelungen» — шаблон «Das Konzert war …»"
+  },
+  {
+   "id": 7031,
+   "col": "example_it",
+   "old": "Il concerto è riuscito estremamente bene",
+   "new": "È un musicista estremamente dotato",
+   "why": "«Das Konzert war überaus gelungen» — шаблон «Das Konzert war …»"
+  },
+  {
+   "id": 7031,
+   "col": "example_es",
+   "old": "El concierto salió sumamente bien",
+   "new": "Es un músico sumamente talentoso",
+   "why": "«Das Konzert war überaus gelungen» — шаблон «Das Konzert war …»"
+  },
+  {
+   "id": 7031,
+   "col": "example_fr",
+   "old": "Le concert était extrêmement réussi",
+   "new": "C'est un musicien extrêmement doué",
+   "why": "«Das Konzert war überaus gelungen» — шаблон «Das Konzert war …»"
+  },
+  {
+   "id": 7031,
+   "col": "example_cs",
+   "old": "Koncert se nesmírně vydařil",
+   "new": "Je to nesmírně nadaný hudebník",
+   "why": "«Das Konzert war überaus gelungen» — шаблон «Das Konzert war …»"
+  },
+  {
+   "id": 11703,
+   "col": "example_en",
+   "old": "I want a portion of fries with ketchup",
+   "new": "I'd like a portion of chips with ketchup",
+   "why": "английский пример: так не говорят («fries» — американское)"
+  },
+  {
+   "id": 11703,
+   "col": "translation_en",
+   "old": "fries, French fries, chips",
+   "new": "chips, fries",
+   "why": "английский пример: так не говорят («fries» — американское)"
+  },
+  {
+   "id": 17787,
+   "col": "translation_ru",
+   "old": "рота, воинское подразделение, торговая компания",
+   "new": "рота",
+   "why": "«Die Kompanie war sehr erfolgreich» — не тот смысл; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17787,
+   "col": "translation_uk",
+   "old": "рота, військовий підрозділ, торгова компанія",
+   "new": "рота",
+   "why": "«Die Kompanie war sehr erfolgreich» — не тот смысл; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17787,
+   "col": "translation_en",
+   "old": "company, company of soldiers, military unit, trading company",
+   "new": "company (of soldiers)",
+   "why": "«Die Kompanie war sehr erfolgreich» — не тот смысл; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17787,
+   "col": "translation_tr",
+   "old": "bölük, askeri birlik, ticaret şirketi",
+   "new": "bölük",
+   "why": "«Die Kompanie war sehr erfolgreich» — не тот смысл; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17787,
+   "col": "translation_pl",
+   "old": "kompania, oddział wojskowy",
+   "new": "kompania",
+   "why": "«Die Kompanie war sehr erfolgreich» — не тот смысл; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17787,
+   "col": "translation_cs",
+   "old": "rota, společnost",
+   "new": "rota",
+   "why": "«Die Kompanie war sehr erfolgreich» — не тот смысл; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17787,
+   "col": "example_de",
+   "old": "Die Kompanie war sehr erfolgreich",
+   "new": "Er dient in der dritten Kompanie",
+   "why": "«Die Kompanie war sehr erfolgreich» — не тот смысл; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17787,
+   "col": "example_ru",
+   "old": "Рота была очень успешной",
+   "new": "Он служит в третьей роте",
+   "why": "«Die Kompanie war sehr erfolgreich» — не тот смысл; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17787,
+   "col": "example_uk",
+   "old": "Рота була дуже успішною",
+   "new": "Він служить у третій роті",
+   "why": "«Die Kompanie war sehr erfolgreich» — не тот смысл; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17787,
+   "col": "example_en",
+   "old": "The company was very successful",
+   "new": "He serves in the third company",
+   "why": "«Die Kompanie war sehr erfolgreich» — не тот смысл; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17787,
+   "col": "example_tr",
+   "old": "Bölük çok başarılı oldu",
+   "new": "Üçüncü bölükte görev yapıyor",
+   "why": "«Die Kompanie war sehr erfolgreich» — не тот смысл; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17787,
+   "col": "example_pl",
+   "old": "Kompania odniosła duży sukces",
+   "new": "Służy w trzeciej kompanii",
+   "why": "«Die Kompanie war sehr erfolgreich» — не тот смысл; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17787,
+   "col": "example_it",
+   "old": "La compagnia ha avuto molto successo",
+   "new": "Presta servizio nella terza compagnia",
+   "why": "«Die Kompanie war sehr erfolgreich» — не тот смысл; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17787,
+   "col": "example_es",
+   "old": "La compañía tuvo mucho éxito",
+   "new": "Sirve en la tercera compañía",
+   "why": "«Die Kompanie war sehr erfolgreich» — не тот смысл; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17787,
+   "col": "example_fr",
+   "old": "La compagnie a eu beaucoup de succès",
+   "new": "Il sert dans la troisième compagnie",
+   "why": "«Die Kompanie war sehr erfolgreich» — не тот смысл; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17787,
+   "col": "example_cs",
+   "old": "Rota byla velmi úspěšná",
+   "new": "Slouží u třetí roty",
+   "why": "«Die Kompanie war sehr erfolgreich» — не тот смысл; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10434,
+   "col": "translation_ru",
+   "old": "любящий, нежный, с удовольствием",
+   "new": "любящий, с удовольствием",
+   "why": "«Sie ist eine liebende Mutter» — книжно; живое — «liebend gern»"
+  },
+  {
+   "id": 10434,
+   "col": "translation_uk",
+   "old": "люблячий, ніжний, з радістю",
+   "new": "люблячий, з радістю",
+   "why": "«Sie ist eine liebende Mutter» — книжно; живое — «liebend gern»"
+  },
+  {
+   "id": 10434,
+   "col": "translation_en",
+   "old": "loving, affectionate, gladly",
+   "new": "loving, gladly",
+   "why": "«Sie ist eine liebende Mutter» — книжно; живое — «liebend gern»"
+  },
+  {
+   "id": 10434,
+   "col": "translation_tr",
+   "old": "sevgi dolu, sevecen, büyük bir zevkle",
+   "new": "sevgi dolu, büyük bir zevkle",
+   "why": "«Sie ist eine liebende Mutter» — книжно; живое — «liebend gern»"
+  },
+  {
+   "id": 10434,
+   "col": "translation_pl",
+   "old": "kochający, czuły, z przyjemnością",
+   "new": "kochający, z przyjemnością",
+   "why": "«Sie ist eine liebende Mutter» — книжно; живое — «liebend gern»"
+  },
+  {
+   "id": 10434,
+   "col": "translation_it",
+   "old": "amorevole, affettuoso",
+   "new": "amorevole, volentieri",
+   "why": "«Sie ist eine liebende Mutter» — книжно; живое — «liebend gern»"
+  },
+  {
+   "id": 10434,
+   "col": "translation_es",
+   "old": "amoroso, cariñoso",
+   "new": "cariñoso, con gusto",
+   "why": "«Sie ist eine liebende Mutter» — книжно; живое — «liebend gern»"
+  },
+  {
+   "id": 10434,
+   "col": "translation_fr",
+   "old": "aimant, affectueux",
+   "new": "aimant, volontiers",
+   "why": "«Sie ist eine liebende Mutter» — книжно; живое — «liebend gern»"
+  },
+  {
+   "id": 10434,
+   "col": "translation_cs",
+   "old": "milující",
+   "new": "milující, rád",
+   "why": "«Sie ist eine liebende Mutter» — книжно; живое — «liebend gern»"
+  },
+  {
+   "id": 10434,
+   "col": "example_de",
+   "old": "Sie ist eine liebende Mutter",
+   "new": "Das mache ich liebend gern",
+   "why": "«Sie ist eine liebende Mutter» — книжно; живое — «liebend gern»"
+  },
+  {
+   "id": 10434,
+   "col": "example_ru",
+   "old": "Она любящая мать",
+   "new": "Я с огромным удовольствием это сделаю",
+   "why": "«Sie ist eine liebende Mutter» — книжно; живое — «liebend gern»"
+  },
+  {
+   "id": 10434,
+   "col": "example_uk",
+   "old": "Вона любляча мати",
+   "new": "Я з радістю це зроблю",
+   "why": "«Sie ist eine liebende Mutter» — книжно; живое — «liebend gern»"
+  },
+  {
+   "id": 10434,
+   "col": "example_en",
+   "old": "She is a loving mother",
+   "new": "I'll gladly do that",
+   "why": "«Sie ist eine liebende Mutter» — книжно; живое — «liebend gern»"
+  },
+  {
+   "id": 10434,
+   "col": "example_tr",
+   "old": "O sevgi dolu bir anne",
+   "new": "Bunu büyük bir zevkle yaparım",
+   "why": "«Sie ist eine liebende Mutter» — книжно; живое — «liebend gern»"
+  },
+  {
+   "id": 10434,
+   "col": "example_pl",
+   "old": "Jest kochającą matką",
+   "new": "Zrobię to z przyjemnością",
+   "why": "«Sie ist eine liebende Mutter» — книжно; живое — «liebend gern»"
+  },
+  {
+   "id": 10434,
+   "col": "example_it",
+   "old": "È una madre amorevole",
+   "new": "Lo faccio molto volentieri",
+   "why": "«Sie ist eine liebende Mutter» — книжно; живое — «liebend gern»"
+  },
+  {
+   "id": 10434,
+   "col": "example_es",
+   "old": "Es una madre amorosa",
+   "new": "Lo hago con mucho gusto",
+   "why": "«Sie ist eine liebende Mutter» — книжно; живое — «liebend gern»"
+  },
+  {
+   "id": 10434,
+   "col": "example_fr",
+   "old": "C'est une mère aimante",
+   "new": "Je le fais très volontiers",
+   "why": "«Sie ist eine liebende Mutter» — книжно; живое — «liebend gern»"
+  },
+  {
+   "id": 10434,
+   "col": "example_cs",
+   "old": "Je to milující matka",
+   "new": "To udělám moc rád",
+   "why": "«Sie ist eine liebende Mutter» — книжно; живое — «liebend gern»"
+  },
+  {
+   "id": 7032,
+   "col": "example_de",
+   "old": "Die Soldaten marschieren in die Stadt",
+   "new": "Wir sind zwei Stunden durch den Wald marschiert",
+   "why": "«Die Soldaten marschieren in die Stadt» — война"
+  },
+  {
+   "id": 7032,
+   "col": "example_ru",
+   "old": "Солдаты маршируют в город",
+   "new": "Мы два часа шагали по лесу",
+   "why": "«Die Soldaten marschieren in die Stadt» — война"
+  },
+  {
+   "id": 7032,
+   "col": "example_uk",
+   "old": "Солдати маршують у місто",
+   "new": "Ми дві години крокували лісом",
+   "why": "«Die Soldaten marschieren in die Stadt» — война"
+  },
+  {
+   "id": 7032,
+   "col": "example_en",
+   "old": "The soldiers march into the city",
+   "new": "We marched through the forest for two hours",
+   "why": "«Die Soldaten marschieren in die Stadt» — война"
+  },
+  {
+   "id": 7032,
+   "col": "example_tr",
+   "old": "Askerler şehre doğru yürüyor",
+   "new": "İki saat ormanda yürüdük",
+   "why": "«Die Soldaten marschieren in die Stadt» — война"
+  },
+  {
+   "id": 7032,
+   "col": "example_pl",
+   "old": "Żołnierze maszerują do miasta",
+   "new": "Maszerowaliśmy dwie godziny przez las",
+   "why": "«Die Soldaten marschieren in die Stadt» — война"
+  },
+  {
+   "id": 7032,
+   "col": "example_it",
+   "old": "I soldati marciano verso la città",
+   "new": "Abbiamo marciato due ore nel bosco",
+   "why": "«Die Soldaten marschieren in die Stadt» — война"
+  },
+  {
+   "id": 7032,
+   "col": "example_es",
+   "old": "Los soldados marchan hacia la ciudad",
+   "new": "Marchamos dos horas por el bosque",
+   "why": "«Die Soldaten marschieren in die Stadt» — война"
+  },
+  {
+   "id": 7032,
+   "col": "example_fr",
+   "old": "Les soldats marchent au pas vers la ville",
+   "new": "On a marché deux heures dans la forêt",
+   "why": "«Die Soldaten marschieren in die Stadt» — война"
+  },
+  {
+   "id": 7032,
+   "col": "example_cs",
+   "old": "Vojáci pochodují do města",
+   "new": "Dvě hodiny jsme pochodovali lesem",
+   "why": "«Die Soldaten marschieren in die Stadt» — война"
+  },
+  {
+   "id": 17788,
+   "col": "translation_ru",
+   "old": "производство, выпуск, постановка, съёмки",
+   "new": "производство, съёмки",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17788,
+   "col": "translation_uk",
+   "old": "виробництво, випуск, постановка, зйомки",
+   "new": "виробництво, зйомки",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17788,
+   "col": "translation_en",
+   "old": "production, manufacturing, output, staging",
+   "new": "production, output",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17788,
+   "col": "translation_tr",
+   "old": "üretim, imalat, yapım",
+   "new": "üretim, yapım",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17788,
+   "col": "translation_pl",
+   "old": "produkcja, wytwarzanie, realizacja filmu",
+   "new": "produkcja, realizacja filmu",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10435,
+   "col": "example_de",
+   "old": "Ich sah die Verzweiflung in seinen Augen",
+   "new": "Aus Verzweiflung hat er alles verkauft",
+   "why": "«Ich sah die Verzweiflung in seinen Augen» — претерит"
+  },
+  {
+   "id": 10435,
+   "col": "example_ru",
+   "old": "Я видел отчаяние в его глазах",
+   "new": "От отчаяния он всё продал",
+   "why": "«Ich sah die Verzweiflung in seinen Augen» — претерит"
+  },
+  {
+   "id": 10435,
+   "col": "example_uk",
+   "old": "Я бачив відчай в його очах",
+   "new": "Від відчаю він усе продав",
+   "why": "«Ich sah die Verzweiflung in seinen Augen» — претерит"
+  },
+  {
+   "id": 10435,
+   "col": "example_en",
+   "old": "I saw despair in his eyes",
+   "new": "Out of desperation he sold everything",
+   "why": "«Ich sah die Verzweiflung in seinen Augen» — претерит"
+  },
+  {
+   "id": 10435,
+   "col": "example_tr",
+   "old": "Onun gözlerinde umutsuzluğu gördüm",
+   "new": "Çaresizlikten her şeyi sattı",
+   "why": "«Ich sah die Verzweiflung in seinen Augen» — претерит"
+  },
+  {
+   "id": 10435,
+   "col": "example_pl",
+   "old": "Widziałem rozpacz w jego oczach",
+   "new": "Z rozpaczy sprzedał wszystko",
+   "why": "«Ich sah die Verzweiflung in seinen Augen» — претерит"
+  },
+  {
+   "id": 10435,
+   "col": "example_it",
+   "old": "Ho visto la disperazione nei suoi occhi",
+   "new": "Per disperazione ha venduto tutto",
+   "why": "«Ich sah die Verzweiflung in seinen Augen» — претерит"
+  },
+  {
+   "id": 10435,
+   "col": "example_es",
+   "old": "Vi la desesperación en sus ojos",
+   "new": "Por desesperación lo vendió todo",
+   "why": "«Ich sah die Verzweiflung in seinen Augen» — претерит"
+  },
+  {
+   "id": 10435,
+   "col": "example_fr",
+   "old": "J'ai vu le désespoir dans ses yeux",
+   "new": "Par désespoir, il a tout vendu",
+   "why": "«Ich sah die Verzweiflung in seinen Augen» — претерит"
+  },
+  {
+   "id": 10435,
+   "col": "example_cs",
+   "old": "Viděl jsem v jeho očích zoufalství",
+   "new": "Ze zoufalství všechno prodal",
+   "why": "«Ich sah die Verzweiflung in seinen Augen» — претерит"
+  },
+  {
+   "id": 11704,
+   "col": "translation_ru",
+   "old": "смешивать, перемешивать, тасовать карты, вмешиваться",
+   "new": "смешивать, тасовать",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11704,
+   "col": "translation_uk",
+   "old": "змішувати, перемішувати, тасувати карти, втручатися",
+   "new": "змішувати, тасувати",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11704,
+   "col": "translation_en",
+   "old": "to mix, to blend, to shuffle cards, to get involved",
+   "new": "to mix, to shuffle",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11704,
+   "col": "translation_tr",
+   "old": "karıştırmak, harmanlamak, iskambil karmak, karışmak",
+   "new": "karıştırmak, iskambil karmak",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11704,
+   "col": "translation_pl",
+   "old": "mieszać, tasować, wtrącać się",
+   "new": "mieszać, tasować",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7034,
+   "col": "translation_ru",
+   "old": "давать, давать поручение, выдавать разрешение, предоставлять слово, делать замечание",
+   "new": "давать, выдавать",
+   "why": "«Der Chef erteilte uns eine neue Aufgabe» — претерит; список → главное слово и не больше одной альтернативы (было пять значений)"
+  },
+  {
+   "id": 7034,
+   "col": "translation_uk",
+   "old": "давати, давати доручення, видавати дозвіл, надавати слово, робити зауваження",
+   "new": "давати, видавати",
+   "why": "«Der Chef erteilte uns eine neue Aufgabe» — претерит; список → главное слово и не больше одной альтернативы (было пять значений)"
+  },
+  {
+   "id": 7034,
+   "col": "translation_en",
+   "old": "to give, to give an order, to grant permission, to issue, to assign",
+   "new": "to give, to grant",
+   "why": "«Der Chef erteilte uns eine neue Aufgabe» — претерит; список → главное слово и не больше одной альтернативы (было пять значений)"
+  },
+  {
+   "id": 7034,
+   "col": "translation_tr",
+   "old": "vermek, emir vermek, izin vermek, söz vermek, ders vermek",
+   "new": "vermek",
+   "why": "«Der Chef erteilte uns eine neue Aufgabe» — претерит; список → главное слово и не больше одной альтернативы (было пять значений)"
+  },
+  {
+   "id": 7034,
+   "col": "translation_pl",
+   "old": "udzielać, wydawać polecenie, przyznawać",
+   "new": "udzielać, wydawać",
+   "why": "«Der Chef erteilte uns eine neue Aufgabe» — претерит; список → главное слово и не больше одной альтернативы (было пять значений)"
+  },
+  {
+   "id": 7034,
+   "col": "example_de",
+   "old": "Der Chef erteilte uns eine neue Aufgabe",
+   "new": "Wer hat dir die Erlaubnis erteilt?",
+   "why": "«Der Chef erteilte uns eine neue Aufgabe» — претерит; список → главное слово и не больше одной альтернативы (было пять значений)"
+  },
+  {
+   "id": 7034,
+   "col": "example_ru",
+   "old": "Начальник поручил нам новое задание",
+   "new": "Кто дал тебе разрешение?",
+   "why": "«Der Chef erteilte uns eine neue Aufgabe» — претерит; список → главное слово и не больше одной альтернативы (было пять значений)"
+  },
+  {
+   "id": 7034,
+   "col": "example_uk",
+   "old": "Шеф видав нам нове завдання",
+   "new": "Хто дав тобі дозвіл?",
+   "why": "«Der Chef erteilte uns eine neue Aufgabe» — претерит; список → главное слово и не больше одной альтернативы (было пять значений)"
+  },
+  {
+   "id": 7034,
+   "col": "example_en",
+   "old": "The boss assigned us a new task",
+   "new": "Who gave you permission?",
+   "why": "«Der Chef erteilte uns eine neue Aufgabe» — претерит; список → главное слово и не больше одной альтернативы (было пять значений)"
+  },
+  {
+   "id": 7034,
+   "col": "example_tr",
+   "old": "Patron bize yeni bir görev verdi",
+   "new": "Sana kim izin verdi?",
+   "why": "«Der Chef erteilte uns eine neue Aufgabe» — претерит; список → главное слово и не больше одной альтернативы (было пять значений)"
+  },
+  {
+   "id": 7034,
+   "col": "example_pl",
+   "old": "Szef udzielił nam nowego zlecenia",
+   "new": "Kto udzielił ci pozwolenia?",
+   "why": "«Der Chef erteilte uns eine neue Aufgabe» — претерит; список → главное слово и не больше одной альтернативы (было пять значений)"
+  },
+  {
+   "id": 7034,
+   "col": "example_it",
+   "old": "Il capo ci ha dato un nuovo compito",
+   "new": "Chi ti ha dato il permesso?",
+   "why": "«Der Chef erteilte uns eine neue Aufgabe» — претерит; список → главное слово и не больше одной альтернативы (было пять значений)"
+  },
+  {
+   "id": 7034,
+   "col": "example_es",
+   "old": "El jefe nos dio una nueva tarea",
+   "new": "¿Quién te ha dado permiso?",
+   "why": "«Der Chef erteilte uns eine neue Aufgabe» — претерит; список → главное слово и не больше одной альтернативы (было пять значений)"
+  },
+  {
+   "id": 7034,
+   "col": "example_fr",
+   "old": "Le chef nous a donné une nouvelle tâche",
+   "new": "Qui t'a donné la permission?",
+   "why": "«Der Chef erteilte uns eine neue Aufgabe» — претерит; список → главное слово и не больше одной альтернативы (было пять значений)"
+  },
+  {
+   "id": 7034,
+   "col": "example_cs",
+   "old": "Šéf nám dal nový úkol",
+   "new": "Kdo ti dal svolení?",
+   "why": "«Der Chef erteilte uns eine neue Aufgabe» — претерит; список → главное слово и не больше одной альтернативы (было пять значений)"
+  },
+  {
+   "id": 10436,
+   "col": "example_de",
+   "old": "Die Fans jubelten, als das Tor fiel",
+   "new": "Die Kinder jubeln über den ersten Schnee",
+   "why": "«Die Fans jubelten, als das Tor fiel» — претерит, шаблон Jubel"
+  },
+  {
+   "id": 10436,
+   "col": "example_ru",
+   "old": "Болельщики ликовали, когда забили гол",
+   "new": "Дети ликуют, увидев первый снег",
+   "why": "«Die Fans jubelten, als das Tor fiel» — претерит, шаблон Jubel"
+  },
+  {
+   "id": 10436,
+   "col": "example_uk",
+   "old": "Фанати раділи, коли забили гол",
+   "new": "Діти радіють першому снігу",
+   "why": "«Die Fans jubelten, als das Tor fiel» — претерит, шаблон Jubel"
+  },
+  {
+   "id": 10436,
+   "col": "example_en",
+   "old": "The fans cheered when the goal was scored",
+   "new": "The kids are cheering at the first snow",
+   "why": "«Die Fans jubelten, als das Tor fiel» — претерит, шаблон Jubel"
+  },
+  {
+   "id": 10436,
+   "col": "example_tr",
+   "old": "Taraftarlar gol atıldığında sevinç çığlığı attılar",
+   "new": "Çocuklar ilk kar için sevinç çığlıkları atıyor",
+   "why": "«Die Fans jubelten, als das Tor fiel» — претерит, шаблон Jubel"
+  },
+  {
+   "id": 10436,
+   "col": "example_pl",
+   "old": "Kibice wiwatowali, gdy padł gol",
+   "new": "Dzieci radują się z pierwszego śniegu",
+   "why": "«Die Fans jubelten, als das Tor fiel» — претерит, шаблон Jubel"
+  },
+  {
+   "id": 10436,
+   "col": "example_it",
+   "old": "I tifosi hanno esultato quando è stato segnato il gol",
+   "new": "I bambini esultano per la prima neve",
+   "why": "«Die Fans jubelten, als das Tor fiel» — претерит, шаблон Jubel"
+  },
+  {
+   "id": 10436,
+   "col": "example_es",
+   "old": "Los aficionados celebraron cuando marcaron el gol",
+   "new": "Los niños celebran la primera nieve",
+   "why": "«Die Fans jubelten, als das Tor fiel» — претерит, шаблон Jubel"
+  },
+  {
+   "id": 10436,
+   "col": "example_fr",
+   "old": "Les supporters ont exulté quand le but a été marqué",
+   "new": "Les enfants exultent devant la première neige",
+   "why": "«Die Fans jubelten, als das Tor fiel» — претерит, шаблон Jubel"
+  },
+  {
+   "id": 10436,
+   "col": "example_cs",
+   "old": "Fanoušci jásali, když padl gól",
+   "new": "Děti jásají nad prvním sněhem",
+   "why": "«Die Fans jubelten, als das Tor fiel» — претерит, шаблон Jubel"
+  },
+  {
+   "id": 6707,
+   "col": "translation_cs",
+   "old": "mohutný, mocný, obrovský",
+   "new": "mocný, velmi",
+   "why": "«eine mächtige Explosion» — хроника; живое — «mächtig stolz»"
+  },
+  {
+   "id": 6707,
+   "col": "example_de",
+   "old": "Das war eine mächtige Explosion",
+   "new": "Er ist mächtig stolz auf seinen Sohn",
+   "why": "«eine mächtige Explosion» — хроника; живое — «mächtig stolz»"
+  },
+  {
+   "id": 6707,
+   "col": "example_ru",
+   "old": "Это был мощный взрыв",
+   "new": "Он очень гордится сыном",
+   "why": "«eine mächtige Explosion» — хроника; живое — «mächtig stolz»"
+  },
+  {
+   "id": 6707,
+   "col": "example_uk",
+   "old": "Це був могутній вибух",
+   "new": "Він дуже пишається сином",
+   "why": "«eine mächtige Explosion» — хроника; живое — «mächtig stolz»"
+  },
+  {
+   "id": 6707,
+   "col": "example_en",
+   "old": "That was a powerful explosion",
+   "new": "He's mighty proud of his son",
+   "why": "«eine mächtige Explosion» — хроника; живое — «mächtig stolz»"
+  },
+  {
+   "id": 6707,
+   "col": "example_tr",
+   "old": "O güçlü bir patlamaydı",
+   "new": "Oğluyla çok gurur duyuyor",
+   "why": "«eine mächtige Explosion» — хроника; живое — «mächtig stolz»"
+  },
+  {
+   "id": 6707,
+   "col": "example_pl",
+   "old": "To był potężny wybuch",
+   "new": "Jest ogromnie dumny z syna",
+   "why": "«eine mächtige Explosion» — хроника; живое — «mächtig stolz»"
+  },
+  {
+   "id": 6707,
+   "col": "example_it",
+   "old": "È stata un'esplosione potente",
+   "new": "È enormemente orgoglioso di suo figlio",
+   "why": "«eine mächtige Explosion» — хроника; живое — «mächtig stolz»"
+  },
+  {
+   "id": 6707,
+   "col": "example_es",
+   "old": "Fue una explosión potente",
+   "new": "Está enormemente orgulloso de su hijo",
+   "why": "«eine mächtige Explosion» — хроника; живое — «mächtig stolz»"
+  },
+  {
+   "id": 6707,
+   "col": "example_fr",
+   "old": "C'était une explosion puissante",
+   "new": "Il est énormément fier de son fils",
+   "why": "«eine mächtige Explosion» — хроника; живое — «mächtig stolz»"
+  },
+  {
+   "id": 6707,
+   "col": "example_cs",
+   "old": "To byl mohutný výbuch",
+   "new": "Je na syna velmi pyšný",
+   "why": "«eine mächtige Explosion» — хроника; живое — «mächtig stolz»"
+  },
+  {
+   "id": 8850,
+   "col": "example_de",
+   "old": "Die Feuerwehr kam schnell zum Einsatz",
+   "new": "Ruf die Feuerwehr, es brennt!",
+   "why": "«Die Feuerwehr kam schnell zum Einsatz» — претерит, протокол"
+  },
+  {
+   "id": 8850,
+   "col": "example_ru",
+   "old": "Пожарная служба прибыла быстро",
+   "new": "Звони пожарным, пожар!",
+   "why": "«Die Feuerwehr kam schnell zum Einsatz» — претерит, протокол"
+  },
+  {
+   "id": 8850,
+   "col": "example_uk",
+   "old": "Пожежна служба прибула швидко",
+   "new": "Дзвони пожежникам, пожежа!",
+   "why": "«Die Feuerwehr kam schnell zum Einsatz» — претерит, протокол"
+  },
+  {
+   "id": 8850,
+   "col": "example_en",
+   "old": "The fire department arrived quickly",
+   "new": "Call the fire brigade, there's a fire!",
+   "why": "«Die Feuerwehr kam schnell zum Einsatz» — претерит, протокол"
+  },
+  {
+   "id": 8850,
+   "col": "example_tr",
+   "old": "İtfaiye hızla geldi",
+   "new": "İtfaiyeyi ara, yangın var!",
+   "why": "«Die Feuerwehr kam schnell zum Einsatz» — претерит, протокол"
+  },
+  {
+   "id": 8850,
+   "col": "example_pl",
+   "old": "Straż pożarna szybko przyjechała na miejsce",
+   "new": "Dzwoń po straż pożarną, pali się!",
+   "why": "«Die Feuerwehr kam schnell zum Einsatz» — претерит, протокол"
+  },
+  {
+   "id": 8850,
+   "col": "example_it",
+   "old": "I vigili del fuoco sono intervenuti rapidamente",
+   "new": "Chiama i pompieri, c'è un incendio!",
+   "why": "«Die Feuerwehr kam schnell zum Einsatz» — претерит, протокол"
+  },
+  {
+   "id": 8850,
+   "col": "example_es",
+   "old": "Los bomberos intervinieron rápidamente",
+   "new": "¡Llama a los bomberos, hay un incendio!",
+   "why": "«Die Feuerwehr kam schnell zum Einsatz» — претерит, протокол"
+  },
+  {
+   "id": 8850,
+   "col": "example_fr",
+   "old": "Les pompiers sont intervenus rapidement",
+   "new": "Appelle les pompiers, il y a le feu!",
+   "why": "«Die Feuerwehr kam schnell zum Einsatz» — претерит, протокол"
+  },
+  {
+   "id": 8850,
+   "col": "example_cs",
+   "old": "Hasiči rychle zasáhli",
+   "new": "Zavolej hasiče, hoří!",
+   "why": "«Die Feuerwehr kam schnell zum Einsatz» — претерит, протокол"
+  },
+  {
+   "id": 17790,
+   "col": "example_de",
+   "old": "Die Waren sind im Lagerhaus",
+   "new": "Er arbeitet nachts in einem Lagerhaus",
+   "why": "«Die Waren sind im Lagerhaus» — шаблон Lager («Die Ware ist im Lager»)"
+  },
+  {
+   "id": 17790,
+   "col": "example_ru",
+   "old": "Товары хранятся на складе",
+   "new": "Он работает по ночам на складе",
+   "why": "«Die Waren sind im Lagerhaus» — шаблон Lager («Die Ware ist im Lager»)"
+  },
+  {
+   "id": 17790,
+   "col": "example_uk",
+   "old": "Товари зберігаються на складі",
+   "new": "Він працює вночі на складі",
+   "why": "«Die Waren sind im Lagerhaus» — шаблон Lager («Die Ware ist im Lager»)"
+  },
+  {
+   "id": 17790,
+   "col": "example_en",
+   "old": "The goods are in the warehouse",
+   "new": "He works nights in a warehouse",
+   "why": "«Die Waren sind im Lagerhaus» — шаблон Lager («Die Ware ist im Lager»)"
+  },
+  {
+   "id": 17790,
+   "col": "example_tr",
+   "old": "Mallar depoda saklanıyor",
+   "new": "Geceleri bir depoda çalışıyor",
+   "why": "«Die Waren sind im Lagerhaus» — шаблон Lager («Die Ware ist im Lager»)"
+  },
+  {
+   "id": 17790,
+   "col": "example_pl",
+   "old": "Towary są w magazynie",
+   "new": "Pracuje nocami w magazynie",
+   "why": "«Die Waren sind im Lagerhaus» — шаблон Lager («Die Ware ist im Lager»)"
+  },
+  {
+   "id": 17790,
+   "col": "example_it",
+   "old": "Le merci sono nel magazzino",
+   "new": "Lavora di notte in un magazzino",
+   "why": "«Die Waren sind im Lagerhaus» — шаблон Lager («Die Ware ist im Lager»)"
+  },
+  {
+   "id": 17790,
+   "col": "example_es",
+   "old": "Las mercancías están en el almacén",
+   "new": "Trabaja de noche en un almacén",
+   "why": "«Die Waren sind im Lagerhaus» — шаблон Lager («Die Ware ist im Lager»)"
+  },
+  {
+   "id": 17790,
+   "col": "example_fr",
+   "old": "Les marchandises sont dans l'entrepôt",
+   "new": "Il travaille la nuit dans un entrepôt",
+   "why": "«Die Waren sind im Lagerhaus» — шаблон Lager («Die Ware ist im Lager»)"
+  },
+  {
+   "id": 17790,
+   "col": "example_cs",
+   "old": "Zboží je ve skladu",
+   "new": "V noci pracuje ve skladu",
+   "why": "«Die Waren sind im Lagerhaus» — шаблон Lager («Die Ware ist im Lager»)"
+  },
+  {
+   "id": 7039,
+   "col": "translation_ru",
+   "old": "зависеть, зависеть от, снимать, отделаться от кого-то, тусоваться",
+   "new": "зависеть, тусоваться",
+   "why": "список → главное слово и не больше одной альтернативы (было пять значений)"
+  },
+  {
+   "id": 7039,
+   "col": "translation_uk",
+   "old": "залежати, залежати від, знімати з гачка, відірватися від когось, тусуватися",
+   "new": "залежати, тусуватися",
+   "why": "список → главное слово и не больше одной альтернативы (было пять значений)"
+  },
+  {
+   "id": 7039,
+   "col": "translation_en",
+   "old": "to depend, to depend on, to take down, to shake off, to hang out",
+   "new": "to depend, to hang out",
+   "why": "список → главное слово и не больше одной альтернативы (было пять значений)"
+  },
+  {
+   "id": 7039,
+   "col": "translation_tr",
+   "old": "bağlı olmak, indirmek, ekip kurtulmak, takılmak",
+   "new": "bağlı olmak, takılmak",
+   "why": "список → главное слово и не больше одной альтернативы (было пять значений)"
+  },
+  {
+   "id": 7039,
+   "col": "translation_pl",
+   "old": "zależeć, zależeć od, zdejmować, urwać się komuś",
+   "new": "zależeć, urwać się komuś",
+   "why": "список → главное слово и не больше одной альтернативы (было пять значений)"
+  },
+  {
+   "id": 7039,
+   "col": "translation_it",
+   "old": "dipendere, togliere, seminare",
+   "new": "dipendere, togliere",
+   "why": "список → главное слово и не больше одной альтернативы (было пять значений)"
+  },
+  {
+   "id": 7039,
+   "col": "translation_fr",
+   "old": "dépendre, décrocher, semer",
+   "new": "dépendre, décrocher",
+   "why": "список → главное слово и не больше одной альтернативы (было пять значений)"
+  },
+  {
+   "id": 16128,
+   "col": "example_de",
+   "old": "Er saß drei Jahre in Haft",
+   "new": "Er sitzt seit zwei Jahren in Haft",
+   "why": "«Er saß drei Jahre in Haft» — претерит"
+  },
+  {
+   "id": 16128,
+   "col": "example_ru",
+   "old": "Он сидел три года в заключении",
+   "new": "Он уже два года в заключении",
+   "why": "«Er saß drei Jahre in Haft» — претерит"
+  },
+  {
+   "id": 16128,
+   "col": "example_uk",
+   "old": "Він сидів три роки у в'язниці",
+   "new": "Він уже два роки в ув'язненні",
+   "why": "«Er saß drei Jahre in Haft» — претерит"
+  },
+  {
+   "id": 16128,
+   "col": "example_en",
+   "old": "He spent three years in prison",
+   "new": "He's been in prison for two years",
+   "why": "«Er saß drei Jahre in Haft» — претерит"
+  },
+  {
+   "id": 16128,
+   "col": "example_tr",
+   "old": "Üç yıl hapis yattı",
+   "new": "İki yıldır hapiste",
+   "why": "«Er saß drei Jahre in Haft» — претерит"
+  },
+  {
+   "id": 16128,
+   "col": "example_pl",
+   "old": "Siedział trzy lata w areszcie",
+   "new": "Od dwóch lat siedzi w areszcie",
+   "why": "«Er saß drei Jahre in Haft» — претерит"
+  },
+  {
+   "id": 16128,
+   "col": "example_it",
+   "old": "È stato in carcere tre anni",
+   "new": "È in carcere da due anni",
+   "why": "«Er saß drei Jahre in Haft» — претерит"
+  },
+  {
+   "id": 16128,
+   "col": "example_es",
+   "old": "Estuvo tres años en la cárcel",
+   "new": "Lleva dos años en la cárcel",
+   "why": "«Er saß drei Jahre in Haft» — претерит"
+  },
+  {
+   "id": 16128,
+   "col": "example_fr",
+   "old": "Il a fait trois ans de prison",
+   "new": "Il est en prison depuis deux ans",
+   "why": "«Er saß drei Jahre in Haft» — претерит"
+  },
+  {
+   "id": 16128,
+   "col": "example_cs",
+   "old": "Seděl tři roky ve vězení",
+   "new": "Už dva roky sedí ve vězení",
+   "why": "«Er saß drei Jahre in Haft» — претерит"
+  },
+  {
+   "id": 10437,
+   "col": "translation_ru",
+   "old": "напряжение, напряжённость, интрига в фильме, электрическое напряжение",
+   "new": "напряжение, интрига",
+   "why": "список → главное слово и не больше одной альтернативы; ru «Напряжение в фильме было отличным» — калька; en «movie»"
+  },
+  {
+   "id": 10437,
+   "col": "translation_uk",
+   "old": "напруга, напруженість, інтрига, електрична напруга",
+   "new": "напруга, інтрига",
+   "why": "список → главное слово и не больше одной альтернативы; ru «Напряжение в фильме было отличным» — калька; en «movie»"
+  },
+  {
+   "id": 10437,
+   "col": "translation_en",
+   "old": "tension, suspense, voltage, excitement",
+   "new": "tension, suspense",
+   "why": "список → главное слово и не больше одной альтернативы; ru «Напряжение в фильме было отличным» — калька; en «movie»"
+  },
+  {
+   "id": 10437,
+   "col": "translation_tr",
+   "old": "gerilim, merak, voltaj, heyecan",
+   "new": "gerilim, merak",
+   "why": "список → главное слово и не больше одной альтернативы; ru «Напряжение в фильме было отличным» — калька; en «movie»"
+  },
+  {
+   "id": 10437,
+   "col": "translation_pl",
+   "old": "napięcie, napięcie elektryczne, niepewność",
+   "new": "napięcie, niepewność",
+   "why": "список → главное слово и не больше одной альтернативы; ru «Напряжение в фильме было отличным» — калька; en «movie»"
+  },
+  {
+   "id": 10437,
+   "col": "example_ru",
+   "old": "Напряжение в фильме было отличным",
+   "new": "Фильм держал в напряжении до конца",
+   "why": "список → главное слово и не больше одной альтернативы; ru «Напряжение в фильме было отличным» — калька; en «movie»"
+  },
+  {
+   "id": 10437,
+   "col": "example_en",
+   "old": "The suspense in the movie was great",
+   "new": "The film had great suspense",
+   "why": "список → главное слово и не больше одной альтернативы; ru «Напряжение в фильме было отличным» — калька; en «movie»"
+  },
+  {
+   "id": 8851,
+   "col": "example_en",
+   "old": "The janitor takes care of the heating in the building",
+   "new": "The caretaker looks after the heating in the building",
+   "why": "английский пример: так не говорят («janitor» — американское)"
+  },
+  {
+   "id": 8851,
+   "col": "translation_en",
+   "old": "caretaker, janitor, building superintendent",
+   "new": "caretaker, janitor",
+   "why": "английский пример: так не говорят («janitor» — американское)"
+  },
+  {
+   "id": 1335,
+   "col": "example_de",
+   "old": "Ich brauche dieses Dokument",
+   "new": "Speicher das Dokument, bevor du den Computer ausmachst",
+   "why": "«Ich brauche dieses Dokument» — пусто"
+  },
+  {
+   "id": 1335,
+   "col": "example_ru",
+   "old": "Мне нужен этот документ",
+   "new": "Сохрани документ, прежде чем выключишь компьютер",
+   "why": "«Ich brauche dieses Dokument» — пусто"
+  },
+  {
+   "id": 1335,
+   "col": "example_uk",
+   "old": "Мені потрібен цей документ",
+   "new": "Збережи документ, перш ніж вимкнеш комп'ютер",
+   "why": "«Ich brauche dieses Dokument» — пусто"
+  },
+  {
+   "id": 1335,
+   "col": "example_en",
+   "old": "I need this document",
+   "new": "Save the document before you turn off the computer",
+   "why": "«Ich brauche dieses Dokument» — пусто"
+  },
+  {
+   "id": 1335,
+   "col": "example_tr",
+   "old": "Bu belgeye ihtiyacım var",
+   "new": "Bilgisayarı kapatmadan önce belgeyi kaydet",
+   "why": "«Ich brauche dieses Dokument» — пусто"
+  },
+  {
+   "id": 1335,
+   "col": "example_pl",
+   "old": "Potrzebuję tego dokumentu",
+   "new": "Zapisz dokument, zanim wyłączysz komputer",
+   "why": "«Ich brauche dieses Dokument» — пусто"
+  },
+  {
+   "id": 1335,
+   "col": "example_it",
+   "old": "Ho bisogno di questo documento",
+   "new": "Salva il documento prima di spegnere il computer",
+   "why": "«Ich brauche dieses Dokument» — пусто"
+  },
+  {
+   "id": 1335,
+   "col": "example_es",
+   "old": "Necesito este documento",
+   "new": "Guarda el documento antes de apagar el ordenador",
+   "why": "«Ich brauche dieses Dokument» — пусто"
+  },
+  {
+   "id": 1335,
+   "col": "example_fr",
+   "old": "J'ai besoin de ce document",
+   "new": "Enregistre le document avant d'éteindre l'ordinateur",
+   "why": "«Ich brauche dieses Dokument» — пусто"
+  },
+  {
+   "id": 1335,
+   "col": "example_cs",
+   "old": "Potřebuji tento dokument",
+   "new": "Ulož dokument, než vypneš počítač",
+   "why": "«Ich brauche dieses Dokument» — пусто"
+  },
+  {
+   "id": 12175,
+   "col": "example_ru",
+   "old": "Хочешь играть вместе с нами?",
+   "new": "Хочешь поиграть с нами?",
+   "why": "ru «играть вместе с нами» — калька"
+  },
+  {
+   "id": 7040,
+   "col": "example_de",
+   "old": "Er starrte auf die Wand",
+   "new": "Starr mich nicht so an!",
+   "why": "«Er starrte auf die Wand» — претерит"
+  },
+  {
+   "id": 7040,
+   "col": "example_ru",
+   "old": "Он уставился на стену",
+   "new": "Не смотри на меня так пристально!",
+   "why": "«Er starrte auf die Wand» — претерит"
+  },
+  {
+   "id": 7040,
+   "col": "example_uk",
+   "old": "Він пильно дивився на стіну",
+   "new": "Не витріщайся так на мене!",
+   "why": "«Er starrte auf die Wand» — претерит"
+  },
+  {
+   "id": 7040,
+   "col": "example_en",
+   "old": "He stared at the wall",
+   "new": "Stop staring at me like that!",
+   "why": "«Er starrte auf die Wand» — претерит"
+  },
+  {
+   "id": 7040,
+   "col": "example_tr",
+   "old": "Duvara dik dik bakıyordu",
+   "new": "Bana öyle dik dik bakma!",
+   "why": "«Er starrte auf die Wand» — претерит"
+  },
+  {
+   "id": 7040,
+   "col": "example_pl",
+   "old": "Gapił się na ścianę",
+   "new": "Nie gap się tak na mnie!",
+   "why": "«Er starrte auf die Wand» — претерит"
+  },
+  {
+   "id": 7040,
+   "col": "example_it",
+   "old": "Fissava il muro",
+   "new": "Non fissarmi così!",
+   "why": "«Er starrte auf die Wand» — претерит"
+  },
+  {
+   "id": 7040,
+   "col": "example_es",
+   "old": "Miraba fijamente la pared",
+   "new": "¡No me mires tan fijamente!",
+   "why": "«Er starrte auf die Wand» — претерит"
+  },
+  {
+   "id": 7040,
+   "col": "example_fr",
+   "old": "Il fixait le mur",
+   "new": "Arrête de me fixer comme ça!",
+   "why": "«Er starrte auf die Wand» — претерит"
+  },
+  {
+   "id": 7040,
+   "col": "example_cs",
+   "old": "Zíral na zeď",
+   "new": "Nezírej na mě tak!",
+   "why": "«Er starrte auf die Wand» — претерит"
+  }
+ ],
+ "replace": [
+  {
+   "id": 7038,
+   "by": 6576,
+   "lang": "de",
+   "why": "überlass — повелительная форма überlassen"
+  }
+ ],
+ "split_later": {}
+}
