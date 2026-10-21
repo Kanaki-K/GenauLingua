@@ -49,7 +49,7 @@ EDITABLE = {"word_de", "article", "level"} | {
 _STOP = set("""der die das den dem des ein eine einen einem einer ist sind war bin bist hat habe hast haben
 ich du er sie es wir ihr mir dir mich dich uns euch und oder aber nicht kein keine mit auf aus bei nach von zu
 zum zur im in am an für über unter vor sehr noch schon auch nur mal bitte heute ja nein so wie was wer wo dann
-denn doch man""".split())
+denn doch man mein meine meinen meinem meiner dein deine deinen deinem deiner unser unsere""".split())
 
 
 def _words(text_: str) -> set[str]:
