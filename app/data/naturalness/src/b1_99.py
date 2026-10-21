@@ -1,0 +1,238 @@
+"""B1, блок 99: следующие 40 по частоте. Вычитано вручную 21.10."""
+
+LIST = "список → главное слово и не больше одной альтернативы"
+EN = "английский пример: так не говорят"
+
+
+def all_x(de, ru, uk, en, tr, pl, it, es, fr, cs):
+    return {"x_de": de, "x_ru": ru, "x_uk": uk, "x_en": en, "x_tr": tr, "x_pl": pl,
+            "x_it": it, "x_es": es, "x_fr": fr, "x_cs": cs}
+
+
+FIXES = {
+    8586: ("«Der Hund attackierte …» — претерит; " + LIST, {
+        "t_ru": "атаковать, нападать", "t_uk": "атакувати, нападати", "t_en": "to attack", "t_tr": "saldırmak", "t_pl": "atakować",
+        "t_it": "attaccare", "t_es": "atacar", "t_fr": "attaquer", "t_cs": "útočit, napadnout",
+        **all_x("Unsere Katze attackiert jeden Morgen meine Füße", "Наша кошка каждое утро атакует мои ноги",
+                "Наша кішка щоранку атакує мої ноги", "Our cat attacks my feet every morning",
+                "Kedimiz her sabah ayaklarıma saldırıyor", "Nasz kot co rano atakuje moje stopy",
+                "La nostra gatta ogni mattina attacca i miei piedi", "Nuestra gata me ataca los pies cada mañana",
+                "Notre chat attaque mes pieds tous les matins", "Naše kočka mi každé ráno útočí na nohy")}),
+    15315: ("«Sie hat viele Sommersprossen» — пусто", {**all_x(
+        "Im Sommer bekommt sie immer mehr Sommersprossen", "Летом у неё появляется всё больше веснушек",
+        "Улітку в неї з'являється все більше веснянок", "In summer she gets more and more freckles",
+        "Yazın yüzünde gittikçe daha çok çil çıkıyor", "Latem ma coraz więcej piegów",
+        "D'estate le vengono sempre più lentiggini", "En verano le salen cada vez más pecas",
+        "En été, elle a de plus en plus de taches de rousseur", "V létě má čím dál víc pih")}),
+    15851: ("«Die weiße Lilie ist sehr schön» — пусто", {
+        "t_es": "el lirio",
+        **all_x("Lilien riechen schön, aber für Katzen sind sie giftig", "Лилии красиво пахнут, но для кошек они ядовиты",
+                "Лілії гарно пахнуть, але для котів вони отруйні", "Lilies smell lovely, but they're poisonous to cats",
+                "Zambaklar güzel kokar ama kediler için zehirlidir", "Lilie ładnie pachną, ale dla kotów są trujące",
+                "I gigli profumano, ma per i gatti sono velenosi", "Los lirios huelen bien, pero son venenosos para los gatos",
+                "Les lys sentent bon, mais ils sont toxiques pour les chats", "Lilie krásně voní, ale pro kočky jsou jedovaté")}),
+    9944: ("«Das Platin ist sehr wertvoll» — пусто", {**all_x(
+        "Ihr Ehering ist aus Platin", "Её обручальное кольцо из платины", "Її обручка з платини",
+        "Her wedding ring is made of platinum", "Alyansı platinden", "Jej obrączka jest z platyny",
+        "La sua fede nuziale è di platino", "Su alianza es de platino", "Son alliance est en platine",
+        "Její snubní prsten je z platiny")}),
+    14806: ("«Das Kruzifix hängt an der Wand» — пусто; " + LIST, {
+        "t_ru": "распятие", "t_uk": "розп'яття", "t_tr": "haç", "t_cs": "krucifix",
+        **all_x("In der Küche von meiner Oma hängt ein Kruzifix", "На кухне у моей бабушки висит распятие",
+                "На кухні в моєї бабусі висить розп'яття", "There's a crucifix hanging in my gran's kitchen",
+                "Anneannemin mutfağında bir haç asılı", "W kuchni u mojej babci wisi krucyfiks",
+                "Nella cucina di mia nonna è appeso un crocifisso", "En la cocina de mi abuela cuelga un crucifijo",
+                "Dans la cuisine de ma grand-mère, il y a un crucifix au mur", "V kuchyni u babičky visí krucifix")}),
+    17728: ("«… ist sehr hoch» — пусто; " + LIST, {
+        "t_en": "phone bill",
+        **all_x("Diesen Monat ist die Telefonrechnung doppelt so hoch wie sonst",
+                "В этом месяце счёт за телефон вдвое больше обычного", "Цього місяця рахунок за телефон удвічі більший, ніж зазвичай",
+                "This month the phone bill is twice as high as usual", "Bu ay telefon faturası her zamankinin iki katı",
+                "W tym miesiącu rachunek za telefon jest dwa razy wyższy niż zwykle",
+                "Questo mese la bolletta del telefono è il doppio del solito",
+                "Este mes la factura del teléfono es el doble de lo normal",
+                "Ce mois-ci, la facture de téléphone est deux fois plus élevée que d'habitude",
+                "Tento měsíc je účet za telefon dvakrát vyšší než obvykle")}),
+    15852: (LIST, {"t_es": "piar, gorjear"}),
+    17729: ("en «airs» — американское; " + LIST, {
+        "t_ru": "телепередача", "t_uk": "телепередача", "t_en": "TV programme, TV show", "t_tr": "televizyon programı",
+        "t_pl": "program telewizyjny", "t_it": "il programma televisivo", "t_fr": "l'émission de télévision",
+        "x_en": "This TV programme is on every Sunday"}),
+    8589: (LIST, {"t_ru": "ловец, кетчер", "t_uk": "ловець, кетчер", "t_en": "catcher", "t_tr": "yakalayıcı", "t_pl": "łapacz",
+                  "t_it": "il ricevitore", "t_es": "el receptor", "t_fr": "le receveur", "t_cs": "chytač"}),
+    8592: ("«Die maskierte Person kam …» — претерит; " + LIST, {
+        "t_ru": "в маске, замаскированный", "t_uk": "у масці, замаскований", "t_en": "masked", "t_tr": "maskeli",
+        "t_pl": "w masce, zamaskowany", "t_cs": "maskovaný",
+        **all_x("Zum Faschingsfest kommen alle maskiert", "На карнавал все приходят в масках", "На карнавал усі приходять у масках",
+                "Everyone comes masked to the carnival party", "Karnaval partisine herkes maskeli geliyor",
+                "Na bal karnawałowy wszyscy przychodzą w maskach", "Alla festa di Carnevale vengono tutti mascherati",
+                "A la fiesta de carnaval todos van enmascarados", "À la fête de carnaval, tout le monde vient masqué",
+                "Na karneval chodí všichni maskovaní")}),
+    12005: ("шаблон «gern»", {
+        "t_en": "oats",
+        **all_x("Mein Pferd bekommt morgens Hafer und Heu", "Моя лошадь получает утром овёс и сено", "Мій кінь уранці отримує овес і сіно",
+                "My horse gets oats and hay in the morning", "Atım sabahları yulaf ve saman yiyor", "Mój koń dostaje rano owies i siano",
+                "Il mio cavallo la mattina mangia avena e fieno", "Mi caballo come por la mañana avena y heno",
+                "Le matin, mon cheval a de l'avoine et du foin", "Můj kůň dostává ráno oves a seno")}),
+    8595: ("пометка (fam.); " + LIST, {
+        "t_ru": "бегать туда-сюда, носиться", "t_uk": "бігати туди-сюди, носитися", "t_en": "to run around", "t_tr": "koşturup durmak",
+        "t_pl": "biegać w kółko, latać", "t_it": "correre in giro, scorrazzare", "t_es": "corretear", "t_fr": "courir partout, cavaler",
+        "t_cs": "pobíhat"}),
+    2677: ("шаблон «gerne»; " + LIST, {
+        "t_ru": "лакомиться, таскать сладости", "t_uk": "ласувати", "t_en": "to nibble, to snack on sweets",
+        "t_tr": "tatlı atıştırmak, aşırmak", "t_pl": "podjadać", "t_it": "spiluccare, mangiucchiare", "t_es": "picar",
+        "t_fr": "grignoter", "t_cs": "mlsat",
+        **all_x("Wer hat schon wieder vom Kuchen genascht?", "Кто опять полакомился пирогом?", "Хто знову поласував пирогом?",
+                "Who's been nibbling at the cake again?", "Pastadan yine kim aşırdı?", "Kto znowu podjadał ciasto?",
+                "Chi ha di nuovo spiluccato la torta?", "¿Quién ha vuelto a picar del pastel?",
+                "Qui a encore grignoté le gâteau?", "Kdo zase mlsal z koláče?")}),
+    3012: ("«… findet in Deutschland statt» — пусто; " + LIST, {
+        "t_ru": "чемпионат мира", "t_uk": "чемпіонат світу", "t_en": "World Cup, world championship",
+        "t_tr": "Dünya Kupası, dünya şampiyonası", "t_pl": "mistrzostwa świata", "t_it": "i Mondiali, il campionato mondiale",
+        "t_es": "el Mundial, el campeonato mundial", "t_fr": "la Coupe du monde, le championnat du monde",
+        **all_x("Bei der Weltmeisterschaft schauen wir jedes Spiel zusammen",
+                "Во время чемпионата мира мы вместе смотрим каждый матч",
+                "Під час чемпіонату світу ми разом дивимося кожен матч", "During the World Cup we watch every match together",
+                "Dünya Kupası'nda her maçı birlikte izliyoruz", "Podczas mistrzostw świata oglądamy razem każdy mecz",
+                "Durante i Mondiali guardiamo ogni partita insieme", "Durante el Mundial vemos todos los partidos juntos",
+                "Pendant la Coupe du monde, on regarde chaque match ensemble",
+                "Během mistrovství světa se díváme na každý zápas spolu")}),
+    18473: ("en «sleeping place» — так не говорят; " + LIST, {
+        "t_ru": "спальное место, лежанка", "t_uk": "місце для сну, лежанка", "t_en": "place to sleep, bed", "t_tr": "yatacak yer",
+        "t_pl": "miejsce do spania, legowisko", "t_it": "il posto per dormire, la cuccia", "t_es": "el sitio para dormir",
+        "t_fr": "le coin pour dormir", "t_cs": "místo na spaní, pelíšek",
+        "x_en": "The dog has its place to sleep under the table"}),
+    2149: ("«Wir sprechen den Termin ab» — пусто; " + LIST, {
+        "t_ru": "договориться, согласовать", "t_uk": "домовитися, узгодити", "t_en": "to agree on, to arrange",
+        "t_tr": "kararlaştırmak", "t_pl": "ustalić, uzgodnić", "t_it": "mettersi d'accordo, concordare", "t_es": "acordar",
+        "t_fr": "se mettre d'accord, convenir", "t_cs": "domluvit se",
+        **all_x("Lass uns kurz absprechen, wer was mitbringt", "Давай быстро договоримся, кто что принесёт",
+                "Давай швидко домовимося, хто що принесе", "Let's quickly agree on who's bringing what",
+                "Kimin ne getireceğini hemen kararlaştıralım", "Ustalmy szybko, kto co przynosi",
+                "Mettiamoci d'accordo su chi porta cosa", "Vamos a acordar rápido quién trae qué",
+                "Mettons-nous d'accord sur qui apporte quoi", "Domluvme se rychle, kdo co přinese")}),
+    17391: ("«Das Flugzeug rollte …» — претерит; " + LIST, {
+        "t_ru": "взлётная полоса", "t_uk": "злітна смуга", "t_en": "runway", "t_tr": "pist", "t_pl": "pas startowy",
+        "t_it": "la pista di decollo, la pista", "t_es": "la pista de despegue", "t_fr": "la piste", "t_cs": "vzletová dráha",
+        **all_x("Wegen Nebel ist die Startbahn heute gesperrt", "Из-за тумана взлётная полоса сегодня закрыта",
+                "Через туман злітна смуга сьогодні закрита", "The runway is closed today because of fog",
+                "Sis yüzünden pist bugün kapalı", "Z powodu mgły pas startowy jest dziś zamknięty",
+                "Per la nebbia oggi la pista è chiusa", "Por la niebla la pista de despegue está cerrada hoy",
+                "À cause du brouillard, la piste est fermée aujourd'hui", "Kvůli mlze je dnes vzletová dráha uzavřená")}),
+    17392: ("pl «kupiłem» — другое время; пример пустой; " + LIST, {
+        "t_ru": "билет, проездной", "t_uk": "квиток", "t_en": "ticket", "t_tr": "bilet", "t_es": "el billete", "t_fr": "le billet, le ticket",
+        **all_x("Ohne gültigen Fahrschein zahlt man sechzig Euro Strafe", "Без действительного билета платишь штраф шестьдесят евро",
+                "Без дійсного квитка платиш штраф шістдесят євро", "Without a valid ticket you pay a sixty-euro fine",
+                "Geçerli bileti olmayan altmış euro ceza ödüyor", "Bez ważnego biletu płaci się sześćdziesiąt euro kary",
+                "Senza un biglietto valido si pagano sessanta euro di multa", "Sin un billete válido se pagan sesenta euros de multa",
+                "Sans billet valable, on paie soixante euros d'amende", "Bez platné jízdenky se platí pokuta šedesát eur")}),
+    18087: ("«… sind wichtig» — учебник", {
+        "t_en": "science, natural sciences",
+        **all_x("Unsere Tochter interessiert sich mehr für Naturwissenschaften als für Sprachen",
+                "Наша дочь больше интересуется естественными науками, чем языками",
+                "Наша донька більше цікавиться природничими науками, ніж мовами",
+                "Our daughter is more interested in science than languages",
+                "Kızımız dillerden çok fen bilimleriyle ilgileniyor",
+                "Nasza córka bardziej interesuje się naukami przyrodniczymi niż językami",
+                "Nostra figlia si interessa più alle scienze naturali che alle lingue",
+                "A nuestra hija le interesan más las ciencias naturales que los idiomas",
+                "Notre fille s'intéresse plus aux sciences naturelles qu'aux langues",
+                "Naše dcera se víc zajímá o přírodní vědy než o jazyky")}),
+    16914: (LIST, {"t_ru": "гражданка", "t_uk": "громадянка", "t_en": "citizen", "t_tr": "vatandaş", "t_pl": "obywatelka",
+                   "x_en": "She's a German citizen and works here as a teacher"}),
+    12007: ("пометка (hovor.); " + LIST + " (было четыре значения)", {
+        "t_ru": "приправа, изюминка", "t_uk": "приправа, родзинка", "t_en": "seasoning, spice", "t_tr": "baharat, çeşni",
+        "t_pl": "przyprawa, smaczek", "t_it": "il condimento, la spezia", "t_es": "el condimento, la especia",
+        "t_fr": "l'assaisonnement, le piquant", "t_cs": "koření, šmrnc",
+        "x_ru": "Немного приправы — и еда сразу интереснее"}),
+    8603: ("«Der Einlass ist ab 19 Uhr» — текст афиши; " + LIST, {
+        "t_ru": "вход, впуск", "t_uk": "вхід, впуск", "t_en": "admission, entry", "t_tr": "giriş, içeri alınma",
+        "t_pl": "wpuszczanie, wejście", "t_it": "l'ingresso", "t_es": "la entrada", "t_fr": "l'entrée", "t_cs": "vpouštění, vstup",
+        **all_x("Beim Konzert war der Einlass erst um acht, wir mussten lange warten",
+                "На концерте впуск начался только в восемь, нам пришлось долго ждать",
+                "На концерті впуск почався лише о восьмій, нам довелося довго чекати",
+                "At the concert admission wasn't until eight, so we had to wait ages",
+                "Konserde içeri alınma ancak sekizde başladı, uzun süre beklemek zorunda kaldık",
+                "Na koncercie wpuszczanie zaczęło się dopiero o ósmej, musieliśmy długo czekać",
+                "Al concerto l'ingresso era solo alle otto, abbiamo dovuto aspettare tanto",
+                "En el concierto la entrada no era hasta las ocho, tuvimos que esperar mucho",
+                "Au concert, l'entrée n'était qu'à huit heures, on a dû attendre longtemps",
+                "Na koncertě začalo vpouštění až v osm, museli jsme dlouho čekat")}),
+    2611: ("en «cookbook» — американское; " + LIST, {
+        "t_ru": "кулинарная книга", "t_uk": "кулінарна книга", "t_en": "cookery book, cookbook", "t_tr": "yemek kitabı",
+        "t_pl": "książka kucharska", "t_it": "il libro di cucina", "t_es": "el libro de cocina", "t_cs": "kuchařka",
+        "x_en": "I'm looking for a cookery book with Italian recipes"}),
+    9265: ("en «cabinet» — не тот предмет; " + LIST, {
+        "t_ru": "столяр", "t_uk": "столяр", "t_en": "joiner, carpenter", "t_tr": "marangoz", "t_pl": "stolarz", "t_it": "il falegname",
+        "t_es": "el carpintero", "t_fr": "le menuisier", "t_cs": "truhlář",
+        "x_en": "The joiner built us a beautiful wardrobe"}),
+    8604: ("«Der primäre Grund ist die schlechte Kommunikation» — офисный канцелярит; " + LIST, {
+        "t_ru": "основной, прежде всего", "t_uk": "основний, насамперед", "t_en": "primary, primarily", "t_tr": "öncelikle, birincil",
+        "t_pl": "przede wszystkim, podstawowy", "t_it": "principale, principalmente", "t_es": "principal, principalmente",
+        "t_fr": "principal, principalement", "t_cs": "primární, primárně",
+        **all_x("Mir geht es primär um die Kinder", "Для меня речь прежде всего о детях", "Для мене йдеться насамперед про дітей",
+                "For me it's primarily about the children", "Benim için öncelikle çocuklar önemli",
+                "Mnie chodzi przede wszystkim o dzieci", "Per me si tratta principalmente dei bambini",
+                "Para mí se trata principalmente de los niños", "Pour moi, il s'agit principalement des enfants",
+                "Mně jde primárně o děti")}),
+    9267: ("tr «benim iş arkadaşlarım» — лишнее местоимение; " + LIST, {
+        "t_ru": "коллега по работе", "t_uk": "колега по роботі", "t_en": "work colleague", "t_tr": "iş arkadaşı",
+        "t_pl": "kolega z pracy", "t_it": "il collega di lavoro", "t_es": "el compañero de trabajo", "t_fr": "le collègue de travail",
+        "t_cs": "kolega z práce", "x_tr": "İş arkadaşlarım çok nazik ve yardımsever"}),
+    15317: ("«Der Typ schnitt …» — претерит; пометки (coloq./fam./hovor.); " + LIST, {
+        "t_ru": "гримаса, рожа", "t_uk": "гримаса, пика", "t_en": "grimace, face", "t_tr": "surat, yüz buruşturma",
+        "t_pl": "grymas, mina", "t_it": "la smorfia, la boccaccia", "t_es": "la mueca, la jeta", "t_fr": "la grimace, la trogne",
+        "t_cs": "grimasa, ksicht",
+        **all_x("Hör auf, Fratzen zu schneiden, wir machen ein Foto!", "Хватит корчить рожи, мы фотографируемся!",
+                "Годі корчити пики, ми фотографуємося!", "Stop pulling faces, we're taking a photo!",
+                "Surat yapmayı bırak, fotoğraf çekiyoruz!", "Przestań stroić miny, robimy zdjęcie!",
+                "Smettila di fare smorfie, facciamo una foto!", "¡Deja de hacer muecas, que vamos a hacer una foto!",
+                "Arrête de faire des grimaces, on prend une photo!", "Přestaň dělat grimasy, fotíme se!")}),
+    12009: (LIST, {"t_tr": "tirbuşon, şişe açacağı"}),
+    8607: (LIST, {"t_ru": "плёнка, фольга", "t_uk": "плівка, фольга", "t_en": "foil, cling film", "t_tr": "folyo, streç film",
+                  "t_pl": "folia", "t_it": "la stagnola, la pellicola", "t_es": "el papel de aluminio, el film transparente",
+                  "t_fr": "le papier aluminium, le film plastique", "t_cs": "fólie, alobal"}),
+    13134: ("«… brauchte er …» — претерит", {
+        "t_uk": "костиль, милиця", "t_pl": "kula",
+        **all_x("Mit dem Gips muss ich sechs Wochen an Krücken gehen", "С гипсом мне шесть недель ходить на костылях",
+                "З гіпсом мені шість тижнів ходити на милицях", "With the cast I've got to walk on crutches for six weeks",
+                "Alçıyla altı hafta koltuk değnekleriyle yürümem gerekiyor", "Z gipsem muszę przez sześć tygodni chodzić o kulach",
+                "Con il gesso devo camminare con le stampelle per sei settimane",
+                "Con la escayola tengo que andar con muletas seis semanas",
+                "Avec le plâtre, je dois marcher avec des béquilles pendant six semaines",
+                "Se sádrou musím šest týdnů chodit o berlích")}),
+    15860: ("в примере другое слово (Nerzmantel); претерит; " + LIST, {
+        "t_ru": "норка", "t_uk": "норка", "t_en": "mink", "t_tr": "vizon", "t_pl": "norka", "t_it": "il visone", "t_es": "el visón",
+        "t_fr": "le vison", "t_cs": "norek",
+        **all_x("Früher hatte jede reiche Dame einen Mantel aus Nerz", "Раньше у каждой богатой дамы было пальто из норки",
+                "Раніше в кожної багатої пані було пальто з норки", "In the old days every rich lady had a mink coat",
+                "Eskiden her zengin hanımın vizon bir paltosu vardı", "Kiedyś każda bogata dama miała płaszcz z norek",
+                "Una volta ogni signora ricca aveva una pelliccia di visone", "Antes cada señora rica tenía un abrigo de visón",
+                "Autrefois, chaque dame riche avait un manteau de vison", "Dřív měla každá bohatá dáma kožich z norka")}),
+    15861: ("«… kam durchs Fenster» — претерит", {**all_x(
+        "Die ersten Sonnenstrahlen wecken mich jeden Morgen", "Первые солнечные лучи будят меня каждое утро",
+        "Перші сонячні промені будять мене щоранку", "The first rays of sunshine wake me every morning",
+        "İlk güneş ışınları her sabah beni uyandırıyor", "Pierwsze promienie słońca budzą mnie każdego ranka",
+        "I primi raggi di sole mi svegliano ogni mattina", "Los primeros rayos de sol me despiertan cada mañana",
+        "Les premiers rayons de soleil me réveillent tous les matins", "První sluneční paprsky mě každé ráno budí")}),
+    14811: ("en «color» — американское; " + LIST + " (было четыре значения)", {
+        "t_ru": "раскрашивать, представлять себе", "t_uk": "розфарбовувати, уявляти собі", "t_en": "to colour in, to imagine",
+        "t_tr": "boyamak, hayalinde canlandırmak", "t_pl": "kolorować, wyobrażać sobie", "t_it": "colorare, immaginarsi",
+        "t_es": "colorear, imaginarse", "t_fr": "colorier, s'imaginer", "t_cs": "vybarvit, představit si",
+        "x_en": "The children are colouring in the pictures with bright colours"}),
+    15862: ("«Der Hammel graste …» — претерит; en «wether» — редкое; " + LIST, {
+        "t_ru": "баран", "t_uk": "баран", "t_en": "ram, wether", "t_tr": "koç", "t_pl": "baran, skop", "t_it": "il montone",
+        "t_es": "el carnero", "t_fr": "le mouton", "t_cs": "skopec",
+        **all_x("Auf der Weide stehen ein paar Hammel und Schafe", "На пастбище стоят несколько баранов и овец",
+                "На пасовищі стоять кілька баранів і овець", "There are a few rams and ewes in the field",
+                "Merada birkaç koç ve koyun var", "Na pastwisku stoi kilka baranów i owiec",
+                "Al pascolo ci sono alcuni montoni e pecore", "En el prado hay unos cuantos carneros y ovejas",
+                "Dans le pré, il y a quelques moutons et des brebis", "Na pastvině je pár skopců a ovcí")}),
+}
+
+REPLACE = [
+    {"id": 11538, "by": 10449, "lang": "de", "why": "loyale — форма слова loyal"},
+    {"id": 8601, "by": 7030, "lang": "de", "why": "Mängel — множественное от Mangel"},
+]
+
+SPLIT_LATER = {}
