@@ -1,0 +1,4529 @@
+{
+ "about": "2.3, B1 блок 120",
+ "edits": [
+  {
+   "id": 2717,
+   "col": "translation_ru",
+   "old": "медработник по уходу, медсестра, сиделка, персонал по уходу",
+   "new": "медработник по уходу, медсестра",
+   "why": "«Wir suchen Pflegekräfte» — объявление; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2717,
+   "col": "translation_uk",
+   "old": "працівник із догляду, медсестра, сиділка, медичний персонал",
+   "new": "працівник із догляду, медсестра",
+   "why": "«Wir suchen Pflegekräfte» — объявление; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2717,
+   "col": "translation_en",
+   "old": "caregiver, nurse, nursing staff member",
+   "new": "nurse, carer",
+   "why": "«Wir suchen Pflegekräfte» — объявление; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2717,
+   "col": "translation_tr",
+   "old": "bakım personeli, hasta bakıcı, hemşire",
+   "new": "bakım personeli, hemşire",
+   "why": "«Wir suchen Pflegekräfte» — объявление; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2717,
+   "col": "translation_pl",
+   "old": "opiekun, pielęgniarka, personel opiekuńczy",
+   "new": "pielęgniarka, opiekun",
+   "why": "«Wir suchen Pflegekräfte» — объявление; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2717,
+   "col": "translation_it",
+   "old": "l'operatore sanitario, l'infermiere",
+   "new": "l'infermiere, l'operatore sanitario",
+   "why": "«Wir suchen Pflegekräfte» — объявление; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2717,
+   "col": "translation_es",
+   "old": "el profesional de enfermería, el cuidador",
+   "new": "el profesional de enfermería",
+   "why": "«Wir suchen Pflegekräfte» — объявление; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2717,
+   "col": "example_de",
+   "old": "Wir suchen Pflegekräfte",
+   "new": "Auf der Station sind nachts nur zwei Pflegekräfte für dreißig Patienten da",
+   "why": "«Wir suchen Pflegekräfte» — объявление; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2717,
+   "col": "example_ru",
+   "old": "Мы ищем работников по уходу",
+   "new": "Ночью в отделении всего две медсестры на тридцать пациентов",
+   "why": "«Wir suchen Pflegekräfte» — объявление; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2717,
+   "col": "example_uk",
+   "old": "Ми шукаємо медичний персонал",
+   "new": "Уночі у відділенні лише дві медсестри на тридцять пацієнтів",
+   "why": "«Wir suchen Pflegekräfte» — объявление; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2717,
+   "col": "example_en",
+   "old": "We're looking for nursing staff",
+   "new": "At night there are only two nurses on the ward for thirty patients",
+   "why": "«Wir suchen Pflegekräfte» — объявление; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2717,
+   "col": "example_tr",
+   "old": "Bakım personeli arıyoruz",
+   "new": "Geceleri serviste otuz hastaya sadece iki bakım personeli var",
+   "why": "«Wir suchen Pflegekräfte» — объявление; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2717,
+   "col": "example_pl",
+   "old": "Szukamy opiekunów medycznych",
+   "new": "W nocy na oddziale są tylko dwie pielęgniarki na trzydziestu pacjentów",
+   "why": "«Wir suchen Pflegekräfte» — объявление; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2717,
+   "col": "example_it",
+   "old": "Cerchiamo operatori sanitari",
+   "new": "Di notte nel reparto ci sono solo due infermieri per trenta pazienti",
+   "why": "«Wir suchen Pflegekräfte» — объявление; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2717,
+   "col": "example_es",
+   "old": "Buscamos profesionales de enfermería",
+   "new": "Por la noche en la planta solo hay dos profesionales de enfermería para treinta pacientes",
+   "why": "«Wir suchen Pflegekräfte» — объявление; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2717,
+   "col": "example_fr",
+   "old": "Nous recherchons des soignants",
+   "new": "La nuit, il n'y a que deux soignants pour trente patients dans le service",
+   "why": "«Wir suchen Pflegekräfte» — объявление; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2717,
+   "col": "example_cs",
+   "old": "Hledáme ošetřovatele",
+   "new": "V noci jsou na oddělení jen dva ošetřovatelé na třicet pacientů",
+   "why": "«Wir suchen Pflegekräfte» — объявление; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2720,
+   "col": "example_de",
+   "old": "Es gibt einen Pilotenstreik",
+   "new": "Wegen des Pilotenstreiks sitzen wir seit gestern in Madrid fest",
+   "why": "«Es gibt einen Pilotenstreik» — пусто"
+  },
+  {
+   "id": 2720,
+   "col": "example_ru",
+   "old": "Идёт забастовка пилотов",
+   "new": "Из-за забастовки пилотов мы со вчерашнего дня застряли в Мадриде",
+   "why": "«Es gibt einen Pilotenstreik» — пусто"
+  },
+  {
+   "id": 2720,
+   "col": "example_uk",
+   "old": "Відбувається страйк пілотів",
+   "new": "Через страйк пілотів ми з учорашнього дня застрягли в Мадриді",
+   "why": "«Es gibt einen Pilotenstreik» — пусто"
+  },
+  {
+   "id": 2720,
+   "col": "example_en",
+   "old": "There is a pilots' strike",
+   "new": "Because of the pilots' strike we've been stuck in Madrid since yesterday",
+   "why": "«Es gibt einen Pilotenstreik» — пусто"
+  },
+  {
+   "id": 2720,
+   "col": "example_tr",
+   "old": "Pilot grevi var",
+   "new": "Pilot grevi yüzünden dünden beri Madrid'de mahsur kaldık",
+   "why": "«Es gibt einen Pilotenstreik» — пусто"
+  },
+  {
+   "id": 2720,
+   "col": "example_pl",
+   "old": "Trwa strajk pilotów",
+   "new": "Przez strajk pilotów od wczoraj utknęliśmy w Madrycie",
+   "why": "«Es gibt einen Pilotenstreik» — пусто"
+  },
+  {
+   "id": 2720,
+   "col": "example_it",
+   "old": "C'è uno sciopero dei piloti",
+   "new": "Per lo sciopero dei piloti da ieri siamo bloccati a Madrid",
+   "why": "«Es gibt einen Pilotenstreik» — пусто"
+  },
+  {
+   "id": 2720,
+   "col": "example_es",
+   "old": "Hay una huelga de pilotos",
+   "new": "Por la huelga de pilotos estamos atrapados en Madrid desde ayer",
+   "why": "«Es gibt einen Pilotenstreik» — пусто"
+  },
+  {
+   "id": 2720,
+   "col": "example_fr",
+   "old": "Il y a une grève des pilotes",
+   "new": "À cause de la grève des pilotes, on est coincés à Madrid depuis hier",
+   "why": "«Es gibt einen Pilotenstreik» — пусто"
+  },
+  {
+   "id": 2720,
+   "col": "example_cs",
+   "old": "Je stávka pilotů",
+   "new": "Kvůli stávce pilotů trčíme od včerejška v Madridu",
+   "why": "«Es gibt einen Pilotenstreik» — пусто"
+  },
+  {
+   "id": 2725,
+   "col": "translation_ru",
+   "old": "почтовый сбор, стоимость пересылки, плата за доставку",
+   "new": "почтовый сбор, стоимость пересылки",
+   "why": "«Das Porto beträgt 1 Euro» — прайс; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2725,
+   "col": "translation_en",
+   "old": "postage, shipping cost",
+   "new": "postage",
+   "why": "«Das Porto beträgt 1 Euro» — прайс; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2725,
+   "col": "translation_tr",
+   "old": "posta ücreti, gönderim ücreti",
+   "new": "posta ücreti",
+   "why": "«Das Porto beträgt 1 Euro» — прайс; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2725,
+   "col": "translation_pl",
+   "old": "opłata pocztowa, koszt przesyłki",
+   "new": "opłata pocztowa",
+   "why": "«Das Porto beträgt 1 Euro» — прайс; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2725,
+   "col": "translation_it",
+   "old": "l'affrancatura, le spese postali",
+   "new": "l'affrancatura",
+   "why": "«Das Porto beträgt 1 Euro» — прайс; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2725,
+   "col": "translation_es",
+   "old": "el franqueo, los gastos de envío",
+   "new": "el franqueo",
+   "why": "«Das Porto beträgt 1 Euro» — прайс; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2725,
+   "col": "translation_fr",
+   "old": "l'affranchissement, les frais de port",
+   "new": "l'affranchissement",
+   "why": "«Das Porto beträgt 1 Euro» — прайс; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2725,
+   "col": "example_de",
+   "old": "Das Porto beträgt 1 Euro",
+   "new": "Für den Brief nach Kanada hat das Porto mehr gekostet als die Karte selbst",
+   "why": "«Das Porto beträgt 1 Euro» — прайс; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2725,
+   "col": "example_ru",
+   "old": "Почтовый сбор составляет 1 евро",
+   "new": "Почтовый сбор за письмо в Канаду обошёлся дороже самой открытки",
+   "why": "«Das Porto beträgt 1 Euro» — прайс; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2725,
+   "col": "example_uk",
+   "old": "Поштовий збір становить 1 євро",
+   "new": "Поштовий збір за лист до Канади коштував більше, ніж сама листівка",
+   "why": "«Das Porto beträgt 1 Euro» — прайс; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2725,
+   "col": "example_en",
+   "old": "The postage is 1 euro",
+   "new": "The postage for the letter to Canada cost more than the card itself",
+   "why": "«Das Porto beträgt 1 Euro» — прайс; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2725,
+   "col": "example_tr",
+   "old": "Posta ücreti 1 euro",
+   "new": "Kanada'ya giden mektubun posta ücreti kartın kendisinden pahalıya geldi",
+   "why": "«Das Porto beträgt 1 Euro» — прайс; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2725,
+   "col": "example_pl",
+   "old": "Opłata pocztowa wynosi 1 euro",
+   "new": "Opłata pocztowa za list do Kanady kosztowała więcej niż sama kartka",
+   "why": "«Das Porto beträgt 1 Euro» — прайс; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2725,
+   "col": "example_it",
+   "old": "L'affrancatura costa 1 euro",
+   "new": "Per la lettera in Canada l'affrancatura è costata più del biglietto",
+   "why": "«Das Porto beträgt 1 Euro» — прайс; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2725,
+   "col": "example_es",
+   "old": "El franqueo cuesta 1 euro",
+   "new": "El franqueo de la carta a Canadá costó más que la propia tarjeta",
+   "why": "«Das Porto beträgt 1 Euro» — прайс; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2725,
+   "col": "example_fr",
+   "old": "L'affranchissement coûte 1 euro",
+   "new": "Pour la lettre au Canada, l'affranchissement a coûté plus cher que la carte",
+   "why": "«Das Porto beträgt 1 Euro» — прайс; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2725,
+   "col": "example_cs",
+   "old": "Poštovné činí 1 euro",
+   "new": "Poštovné za dopis do Kanady stálo víc než samotné přání",
+   "why": "«Das Porto beträgt 1 Euro» — прайс; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2726,
+   "col": "translation_ru",
+   "old": "без оплаты доставки, с бесплатной пересылкой",
+   "new": "с бесплатной доставкой",
+   "why": "«Die Lieferung ist portofrei» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2726,
+   "col": "translation_uk",
+   "old": "без оплати доставки, з безкоштовною пересилкою",
+   "new": "з безкоштовною доставкою",
+   "why": "«Die Lieferung ist portofrei» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2726,
+   "col": "translation_en",
+   "old": "postage-free, with free shipping",
+   "new": "post-free, with free delivery",
+   "why": "«Die Lieferung ist portofrei» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2726,
+   "col": "translation_tr",
+   "old": "kargo ücretsiz, posta ücreti alınmadan",
+   "new": "kargo ücretsiz",
+   "why": "«Die Lieferung ist portofrei» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2726,
+   "col": "translation_pl",
+   "old": "bez opłaty pocztowej, z darmową przesyłką",
+   "new": "z darmową wysyłką",
+   "why": "«Die Lieferung ist portofrei» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2726,
+   "col": "translation_it",
+   "old": "senza spese di spedizione, franco di porto",
+   "new": "senza spese di spedizione",
+   "why": "«Die Lieferung ist portofrei» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2726,
+   "col": "translation_es",
+   "old": "sin gastos de envío, con envío gratuito",
+   "new": "sin gastos de envío",
+   "why": "«Die Lieferung ist portofrei» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2726,
+   "col": "translation_fr",
+   "old": "sans frais de port, franco de port",
+   "new": "sans frais de port",
+   "why": "«Die Lieferung ist portofrei» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2726,
+   "col": "translation_cs",
+   "old": "bez poštovného, s dopravou zdarma",
+   "new": "s dopravou zdarma",
+   "why": "«Die Lieferung ist portofrei» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2726,
+   "col": "example_de",
+   "old": "Die Lieferung ist portofrei",
+   "new": "Ab fünfzig Euro bekommt man die Bücher portofrei, also bestelle ich gleich drei",
+   "why": "«Die Lieferung ist portofrei» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2726,
+   "col": "example_ru",
+   "old": "Доставка без оплаты пересылки",
+   "new": "От пятидесяти евро книги приходят с бесплатной доставкой, так что я сразу закажу три",
+   "why": "«Die Lieferung ist portofrei» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2726,
+   "col": "example_uk",
+   "old": "Доставка без оплати пересилання",
+   "new": "Від п'ятдесяти євро книжки приходять із безкоштовною доставкою, тож я одразу замовлю три",
+   "why": "«Die Lieferung ist portofrei» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2726,
+   "col": "example_en",
+   "old": "Delivery is postage-free",
+   "new": "Over fifty euros the books come post-free, so I'm ordering three at once",
+   "why": "«Die Lieferung ist portofrei» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2726,
+   "col": "example_tr",
+   "old": "Bu siparişte kargo ücretsiz",
+   "new": "Elli euronun üstünde kitaplar kargo ücretsiz geliyor, o yüzden hemen üç tane sipariş ediyorum",
+   "why": "«Die Lieferung ist portofrei» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2726,
+   "col": "example_pl",
+   "old": "Dostawa jest bez opłaty pocztowej",
+   "new": "Od pięćdziesięciu euro książki są z darmową wysyłką, więc zamawiam od razu trzy",
+   "why": "«Die Lieferung ist portofrei» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2726,
+   "col": "example_it",
+   "old": "La consegna è senza spese di spedizione",
+   "new": "Sopra i cinquanta euro i libri arrivano senza spese di spedizione, quindi ne ordino subito tre",
+   "why": "«Die Lieferung ist portofrei» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2726,
+   "col": "example_es",
+   "old": "La entrega es sin gastos de envío",
+   "new": "A partir de cincuenta euros los libros llegan sin gastos de envío, así que pido tres de golpe",
+   "why": "«Die Lieferung ist portofrei» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2726,
+   "col": "example_fr",
+   "old": "La livraison est sans frais de port",
+   "new": "À partir de cinquante euros, les livres sont envoyés sans frais de port, alors j'en commande trois",
+   "why": "«Die Lieferung ist portofrei» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2726,
+   "col": "example_cs",
+   "old": "Dodání je bez poštovného",
+   "new": "Od padesáti eur jsou knihy s dopravou zdarma, tak objednám rovnou tři",
+   "why": "«Die Lieferung ist portofrei» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2727,
+   "col": "translation_ru",
+   "old": "почтовые расходы, стоимость пересылки",
+   "new": "почтовые расходы",
+   "why": "«… sind hoch» — повторяет Versandkosten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2727,
+   "col": "translation_uk",
+   "old": "поштові витрати, вартість пересилання",
+   "new": "поштові витрати",
+   "why": "«… sind hoch» — повторяет Versandkosten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2727,
+   "col": "translation_en",
+   "old": "postage costs, shipping charges",
+   "new": "postage",
+   "why": "«… sind hoch» — повторяет Versandkosten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2727,
+   "col": "translation_tr",
+   "old": "posta masrafları, gönderim ücretleri",
+   "new": "posta masrafları",
+   "why": "«… sind hoch» — повторяет Versandkosten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2727,
+   "col": "translation_pl",
+   "old": "koszty przesyłki, opłaty pocztowe",
+   "new": "koszty przesyłki",
+   "why": "«… sind hoch» — повторяет Versandkosten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2727,
+   "col": "translation_it",
+   "old": "le spese postali, le spese di spedizione",
+   "new": "le spese postali",
+   "why": "«… sind hoch» — повторяет Versandkosten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2727,
+   "col": "translation_es",
+   "old": "los gastos de envío, los gastos de franqueo",
+   "new": "los gastos de franqueo",
+   "why": "«… sind hoch» — повторяет Versandkosten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2727,
+   "col": "translation_fr",
+   "old": "les frais de port, les frais d'envoi",
+   "new": "les frais de port",
+   "why": "«… sind hoch» — повторяет Versandkosten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2727,
+   "col": "translation_cs",
+   "old": "poštovné, náklady na poštovné",
+   "new": "poštovné",
+   "why": "«… sind hoch» — повторяет Versandkosten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2727,
+   "col": "example_de",
+   "old": "Die Portokosten sind hoch",
+   "new": "Die Portokosten für das Weihnachtspaket an meine Familie in Polen teilen wir uns",
+   "why": "«… sind hoch» — повторяет Versandkosten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2727,
+   "col": "example_ru",
+   "old": "Почтовые расходы высокие",
+   "new": "Почтовые расходы на рождественскую посылку семье в Польшу мы делим пополам",
+   "why": "«… sind hoch» — повторяет Versandkosten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2727,
+   "col": "example_uk",
+   "old": "Поштові витрати високі",
+   "new": "Поштові витрати на різдвяну посилку родині в Польщу ми ділимо навпіл",
+   "why": "«… sind hoch» — повторяет Versandkosten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2727,
+   "col": "example_en",
+   "old": "The postage costs are high",
+   "new": "We split the postage for the Christmas parcel to my family in Poland",
+   "why": "«… sind hoch» — повторяет Versandkosten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2727,
+   "col": "example_tr",
+   "old": "Posta masrafları yüksek",
+   "new": "Polonya'daki aileme gönderdiğimiz Noel paketinin posta masraflarını paylaşıyoruz",
+   "why": "«… sind hoch» — повторяет Versandkosten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2727,
+   "col": "example_pl",
+   "old": "Koszty przesyłki są wysokie",
+   "new": "Koszty przesyłki świątecznej paczki do rodziny w Polsce dzielimy na pół",
+   "why": "«… sind hoch» — повторяет Versandkosten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2727,
+   "col": "example_it",
+   "old": "Le spese postali sono alte",
+   "new": "Le spese postali del pacco di Natale per la mia famiglia in Polonia le dividiamo",
+   "why": "«… sind hoch» — повторяет Versandkosten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2727,
+   "col": "example_es",
+   "old": "Los gastos de envío son altos",
+   "new": "Los gastos de franqueo del paquete de Navidad para mi familia en Polonia los pagamos a medias",
+   "why": "«… sind hoch» — повторяет Versandkosten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2727,
+   "col": "example_fr",
+   "old": "Les frais de port sont élevés",
+   "new": "Les frais de port du colis de Noël pour ma famille en Pologne, on les partage",
+   "why": "«… sind hoch» — повторяет Versandkosten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2727,
+   "col": "example_cs",
+   "old": "Poštovné je vysoké",
+   "new": "Poštovné za vánoční balík rodině do Polska si dělíme",
+   "why": "«… sind hoch» — повторяет Versandkosten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2736,
+   "col": "translation_cs",
+   "old": "koňská síla, koně (hovor.)",
+   "new": "koňská síla",
+   "why": "пометка (hovor.)"
+  },
+  {
+   "id": 2736,
+   "col": "example_de",
+   "old": "Das Auto hat 100 PS",
+   "new": "Mit seinen 300 PS ist das Auto für die Stadt völlig übertrieben",
+   "why": "пометка (hovor.)"
+  },
+  {
+   "id": 2736,
+   "col": "example_ru",
+   "old": "У машины 100 лошадиных сил",
+   "new": "Со своими 300 лошадиными силами эта машина для города совершенно избыточна",
+   "why": "пометка (hovor.)"
+  },
+  {
+   "id": 2736,
+   "col": "example_uk",
+   "old": "Автомобіль має 100 кінських сил",
+   "new": "Зі своїми 300 кінськими силами ця машина для міста зовсім надмірна",
+   "why": "пометка (hovor.)"
+  },
+  {
+   "id": 2736,
+   "col": "example_en",
+   "old": "The car has 100 horsepower",
+   "new": "With 300 horsepower the car is completely over the top for the city",
+   "why": "пометка (hovor.)"
+  },
+  {
+   "id": 2736,
+   "col": "example_tr",
+   "old": "Arabanın 100 beygir gücü var",
+   "new": "300 beygir gücüyle bu araba şehir için tamamen abartı",
+   "why": "пометка (hovor.)"
+  },
+  {
+   "id": 2736,
+   "col": "example_pl",
+   "old": "To auto ma 100 koni mechanicznych",
+   "new": "Ze swoimi 300 końmi mechanicznymi to auto jest do miasta zupełnie przesadzone",
+   "why": "пометка (hovor.)"
+  },
+  {
+   "id": 2736,
+   "col": "example_it",
+   "old": "L'auto ha 100 cavalli",
+   "new": "Con i suoi 300 cavalli la macchina per la città è del tutto esagerata",
+   "why": "пометка (hovor.)"
+  },
+  {
+   "id": 2736,
+   "col": "example_es",
+   "old": "El coche tiene 100 caballos",
+   "new": "Con sus 300 caballos, el coche es totalmente exagerado para la ciudad",
+   "why": "пометка (hovor.)"
+  },
+  {
+   "id": 2736,
+   "col": "example_fr",
+   "old": "La voiture a 100 chevaux",
+   "new": "Avec ses 300 chevaux, la voiture est complètement démesurée pour la ville",
+   "why": "пометка (hovor.)"
+  },
+  {
+   "id": 2736,
+   "col": "example_cs",
+   "old": "Auto má výkon 100 koňských sil",
+   "new": "S 300 koňskými silami je to auto do města úplně zbytečné",
+   "why": "пометка (hovor.)"
+  },
+  {
+   "id": 2741,
+   "col": "translation_ru",
+   "old": "телевикторина, шоу-викторина",
+   "new": "телевикторина",
+   "why": "«Ich schaue eine Quizshow» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2741,
+   "col": "translation_uk",
+   "old": "телевікторина, шоу-вікторина",
+   "new": "телевікторина",
+   "why": "«Ich schaue eine Quizshow» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2741,
+   "col": "translation_en",
+   "old": "quiz show, game show",
+   "new": "quiz show",
+   "why": "«Ich schaue eine Quizshow» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2741,
+   "col": "translation_tr",
+   "old": "bilgi yarışması, yarışma programı",
+   "new": "bilgi yarışması",
+   "why": "«Ich schaue eine Quizshow» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2741,
+   "col": "translation_pl",
+   "old": "teleturniej, program z pytaniami",
+   "new": "teleturniej",
+   "why": "«Ich schaue eine Quizshow» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2741,
+   "col": "translation_it",
+   "old": "il quiz televisivo, il quiz",
+   "new": "il quiz televisivo",
+   "why": "«Ich schaue eine Quizshow» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2741,
+   "col": "translation_es",
+   "old": "el concurso televisivo, el concurso de preguntas",
+   "new": "el concurso televisivo",
+   "why": "«Ich schaue eine Quizshow» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2741,
+   "col": "translation_fr",
+   "old": "le jeu télévisé, le quiz",
+   "new": "le jeu télévisé",
+   "why": "«Ich schaue eine Quizshow» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2741,
+   "col": "translation_cs",
+   "old": "televizní soutěž, kvíz",
+   "new": "televizní soutěž",
+   "why": "«Ich schaue eine Quizshow» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2741,
+   "col": "example_de",
+   "old": "Ich schaue eine Quizshow",
+   "new": "Bei der Quizshow im Fernsehen weiß mein Opa jede Antwort vor den Kandidaten",
+   "why": "«Ich schaue eine Quizshow» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2741,
+   "col": "example_ru",
+   "old": "Я смотрю телевикторину",
+   "new": "В телевикторине мой дед знает каждый ответ раньше участников",
+   "why": "«Ich schaue eine Quizshow» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2741,
+   "col": "example_uk",
+   "old": "Я дивлюся телевікторину",
+   "new": "У телевікторині мій дід знає кожну відповідь раніше за учасників",
+   "why": "«Ich schaue eine Quizshow» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2741,
+   "col": "example_en",
+   "old": "I watch a quiz show",
+   "new": "On the TV quiz show my grandad knows every answer before the contestants",
+   "why": "«Ich schaue eine Quizshow» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2741,
+   "col": "example_tr",
+   "old": "Bir bilgi yarışması izliyorum",
+   "new": "Televizyondaki bilgi yarışmasında dedem her cevabı yarışmacılardan önce biliyor",
+   "why": "«Ich schaue eine Quizshow» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2741,
+   "col": "example_pl",
+   "old": "Oglądam teleturniej",
+   "new": "W teleturnieju mój dziadek zna każdą odpowiedź przed uczestnikami",
+   "why": "«Ich schaue eine Quizshow» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2741,
+   "col": "example_it",
+   "old": "Guardo un quiz televisivo",
+   "new": "Al quiz televisivo mio nonno sa ogni risposta prima dei concorrenti",
+   "why": "«Ich schaue eine Quizshow» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2741,
+   "col": "example_es",
+   "old": "Veo un concurso televisivo",
+   "new": "En el concurso televisivo mi abuelo sabe todas las respuestas antes que los concursantes",
+   "why": "«Ich schaue eine Quizshow» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2741,
+   "col": "example_fr",
+   "old": "Je regarde un jeu télévisé",
+   "new": "Au jeu télévisé, mon grand-père connaît chaque réponse avant les candidats",
+   "why": "«Ich schaue eine Quizshow» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2741,
+   "col": "example_cs",
+   "old": "Dívám se na televizní soutěž",
+   "new": "V televizní soutěži zná děda každou odpověď dřív než soutěžící",
+   "why": "«Ich schaue eine Quizshow» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2742,
+   "col": "translation_ru",
+   "old": "велогонка, велосипедные соревнования",
+   "new": "велогонка",
+   "why": "«… ist spannend» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2742,
+   "col": "translation_uk",
+   "old": "велогонка, велоперегони",
+   "new": "велогонка",
+   "why": "«… ist spannend» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2742,
+   "col": "translation_en",
+   "old": "bike race, cycling race",
+   "new": "cycle race",
+   "why": "«… ist spannend» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2742,
+   "col": "translation_pl",
+   "old": "wyścig kolarski, wyścig rowerowy",
+   "new": "wyścig kolarski",
+   "why": "«… ist spannend» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2742,
+   "col": "translation_it",
+   "old": "la gara ciclistica, la corsa ciclistica",
+   "new": "la gara ciclistica",
+   "why": "«… ist spannend» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2742,
+   "col": "translation_es",
+   "old": "la carrera ciclista, la carrera de bicicletas",
+   "new": "la carrera ciclista",
+   "why": "«… ist spannend» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2742,
+   "col": "example_de",
+   "old": "Das Radrennen ist spannend",
+   "new": "Am Sonntag ist die Hauptstraße gesperrt, weil ein Radrennen durch die Stadt fährt",
+   "why": "«… ist spannend» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2742,
+   "col": "example_ru",
+   "old": "Велогонка захватывающая",
+   "new": "В воскресенье главную улицу перекроют, потому что через город пройдёт велогонка",
+   "why": "«… ist spannend» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2742,
+   "col": "example_uk",
+   "old": "Велоперегони захопливі",
+   "new": "У неділю головну вулицю перекриють, бо через місто пройде велогонка",
+   "why": "«… ist spannend» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2742,
+   "col": "example_en",
+   "old": "The cycling race is exciting",
+   "new": "On Sunday the high street is closed because a cycle race is going through the town",
+   "why": "«… ist spannend» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2742,
+   "col": "example_tr",
+   "old": "Bisiklet yarışı heyecanlı",
+   "new": "Pazar günü şehirden bisiklet yarışı geçeceği için ana cadde kapalı",
+   "why": "«… ist spannend» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2742,
+   "col": "example_pl",
+   "old": "Wyścig kolarski jest emocjonujący",
+   "new": "W niedzielę główna ulica jest zamknięta, bo przez miasto przejeżdża wyścig kolarski",
+   "why": "«… ist spannend» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2742,
+   "col": "example_it",
+   "old": "La gara ciclistica è emozionante",
+   "new": "Domenica la strada principale è chiusa perché passa in città una gara ciclistica",
+   "why": "«… ist spannend» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2742,
+   "col": "example_es",
+   "old": "La carrera ciclista es emocionante",
+   "new": "El domingo cortan la calle principal porque pasa una carrera ciclista por la ciudad",
+   "why": "«… ist spannend» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2742,
+   "col": "example_fr",
+   "old": "La course cycliste est passionnante",
+   "new": "Dimanche, la grande rue est fermée parce qu'une course cycliste traverse la ville",
+   "why": "«… ist spannend» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2742,
+   "col": "example_cs",
+   "old": "Cyklistický závod je napínavý",
+   "new": "V neděli je hlavní ulice uzavřená, protože městem projíždí cyklistický závod",
+   "why": "«… ist spannend» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2743,
+   "col": "translation_ru",
+   "old": "рейтинг, таблица результатов, список по порядку",
+   "new": "рейтинг, таблица результатов",
+   "why": "«Ich bin in der Rangliste» — пусто; рядом Tabelle; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2743,
+   "col": "translation_tr",
+   "old": "sıralama, puan tablosu",
+   "new": "sıralama",
+   "why": "«Ich bin in der Rangliste» — пусто; рядом Tabelle; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2743,
+   "col": "translation_pl",
+   "old": "ranking, tabela wyników",
+   "new": "ranking",
+   "why": "«Ich bin in der Rangliste» — пусто; рядом Tabelle; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2743,
+   "col": "translation_es",
+   "old": "la clasificación, el ranking",
+   "new": "la clasificación",
+   "why": "«Ich bin in der Rangliste» — пусто; рядом Tabelle; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2743,
+   "col": "example_de",
+   "old": "Ich bin in der Rangliste",
+   "new": "In der Rangliste der Schulen in unserer Stadt ist die Grundschule meiner Tochter ganz oben",
+   "why": "«Ich bin in der Rangliste» — пусто; рядом Tabelle; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2743,
+   "col": "example_ru",
+   "old": "Я в рейтинге",
+   "new": "В рейтинге школ нашего города начальная школа моей дочери на самом верху",
+   "why": "«Ich bin in der Rangliste» — пусто; рядом Tabelle; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2743,
+   "col": "example_uk",
+   "old": "Я в рейтингу",
+   "new": "У рейтингу шкіл нашого міста початкова школа моєї доньки на самій вершині",
+   "why": "«Ich bin in der Rangliste» — пусто; рядом Tabelle; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2743,
+   "col": "example_en",
+   "old": "I'm on the leaderboard",
+   "new": "My daughter's primary school is right at the top of the ranking of schools in our town",
+   "why": "«Ich bin in der Rangliste» — пусто; рядом Tabelle; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2743,
+   "col": "example_tr",
+   "old": "Sıralamadayım",
+   "new": "Şehrimizdeki okulların sıralamasında kızımın ilkokulu en üstte",
+   "why": "«Ich bin in der Rangliste» — пусто; рядом Tabelle; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2743,
+   "col": "example_pl",
+   "old": "Jestem w rankingu",
+   "new": "W rankingu szkół w naszym mieście podstawówka mojej córki jest na samej górze",
+   "why": "«Ich bin in der Rangliste» — пусто; рядом Tabelle; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2743,
+   "col": "example_it",
+   "old": "Sono in classifica",
+   "new": "Nella classifica delle scuole della nostra città la scuola elementare di mia figlia è in cima",
+   "why": "«Ich bin in der Rangliste» — пусто; рядом Tabelle; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2743,
+   "col": "example_es",
+   "old": "Estoy en la clasificación",
+   "new": "En la clasificación de colegios de nuestra ciudad, el colegio de mi hija está arriba del todo",
+   "why": "«Ich bin in der Rangliste» — пусто; рядом Tabelle; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2743,
+   "col": "example_fr",
+   "old": "Je suis dans le classement",
+   "new": "Dans le classement des écoles de notre ville, l'école primaire de ma fille est tout en haut",
+   "why": "«Ich bin in der Rangliste» — пусто; рядом Tabelle; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2743,
+   "col": "example_cs",
+   "old": "Jsem v žebříčku",
+   "new": "V žebříčku škol v našem městě je základka mé dcery úplně nahoře",
+   "why": "«Ich bin in der Rangliste» — пусто; рядом Tabelle; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2747,
+   "col": "translation_ru",
+   "old": "перерабатывать, сдавать на переработку",
+   "new": "перерабатывать",
+   "why": "«Wir recyceln Papier» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2747,
+   "col": "translation_uk",
+   "old": "переробляти, здавати на переробку",
+   "new": "переробляти",
+   "why": "«Wir recyceln Papier» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2747,
+   "col": "translation_pl",
+   "old": "poddawać recyklingowi, przetwarzać odpady",
+   "new": "poddawać recyklingowi",
+   "why": "«Wir recyceln Papier» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2747,
+   "col": "example_de",
+   "old": "Wir recyceln Papier",
+   "new": "Aus alten Glasflaschen werden neue gemacht, Glas kann man fast unendlich recyceln",
+   "why": "«Wir recyceln Papier» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2747,
+   "col": "example_ru",
+   "old": "Мы перерабатываем бумагу",
+   "new": "Из старых стеклянных бутылок делают новые: стекло можно перерабатывать почти бесконечно",
+   "why": "«Wir recyceln Papier» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2747,
+   "col": "example_uk",
+   "old": "Ми переробляємо папір",
+   "new": "Зі старих скляних пляшок роблять нові: скло можна переробляти майже нескінченно",
+   "why": "«Wir recyceln Papier» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2747,
+   "col": "example_en",
+   "old": "We recycle paper",
+   "new": "Old glass bottles are made into new ones, you can recycle glass almost endlessly",
+   "why": "«Wir recyceln Papier» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2747,
+   "col": "example_tr",
+   "old": "Kağıdı geri dönüştürüyoruz",
+   "new": "Eski cam şişelerden yenileri yapılıyor, cam neredeyse sonsuza kadar geri dönüştürülebilir",
+   "why": "«Wir recyceln Papier» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2747,
+   "col": "example_pl",
+   "old": "Poddajemy papier recyklingowi",
+   "new": "Ze starych szklanych butelek robi się nowe, szkło można poddawać recyklingowi prawie bez końca",
+   "why": "«Wir recyceln Papier» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2747,
+   "col": "example_it",
+   "old": "Ricicliamo la carta",
+   "new": "Con le vecchie bottiglie di vetro se ne fanno di nuove, il vetro si può riciclare quasi all'infinito",
+   "why": "«Wir recyceln Papier» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2747,
+   "col": "example_es",
+   "old": "Reciclamos papel",
+   "new": "Con las botellas de vidrio viejas se hacen nuevas, el vidrio se puede reciclar casi sin fin",
+   "why": "«Wir recyceln Papier» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2747,
+   "col": "example_fr",
+   "old": "Nous recyclons le papier",
+   "new": "Avec les vieilles bouteilles en verre, on en fait des neuves, on peut recycler le verre presque à l'infini",
+   "why": "«Wir recyceln Papier» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2747,
+   "col": "example_cs",
+   "old": "Recyklujeme papír",
+   "new": "Ze starých skleněných lahví se dělají nové, sklo se dá recyklovat skoro donekonečna",
+   "why": "«Wir recyceln Papier» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2751,
+   "col": "translation_ru",
+   "old": "регулировать, настраивать, упорядочивать",
+   "new": "регулировать",
+   "why": "«Wir regulieren den Verkehr» — роль полиции; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2751,
+   "col": "translation_uk",
+   "old": "регулювати, налаштовувати, впорядковувати",
+   "new": "регулювати",
+   "why": "«Wir regulieren den Verkehr» — роль полиции; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2751,
+   "col": "translation_en",
+   "old": "to regulate, to adjust, to control",
+   "new": "to regulate, to adjust",
+   "why": "«Wir regulieren den Verkehr» — роль полиции; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2751,
+   "col": "translation_tr",
+   "old": "düzenlemek, ayarlamak, kontrol etmek",
+   "new": "düzenlemek, ayarlamak",
+   "why": "«Wir regulieren den Verkehr» — роль полиции; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2751,
+   "col": "translation_pl",
+   "old": "regulować, ustawiać, kontrolować",
+   "new": "regulować",
+   "why": "«Wir regulieren den Verkehr» — роль полиции; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2751,
+   "col": "translation_it",
+   "old": "regolare, regolamentare",
+   "new": "regolare",
+   "why": "«Wir regulieren den Verkehr» — роль полиции; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2751,
+   "col": "translation_es",
+   "old": "regular, controlar, ajustar",
+   "new": "regular",
+   "why": "«Wir regulieren den Verkehr» — роль полиции; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2751,
+   "col": "translation_fr",
+   "old": "réguler, régler, réglementer",
+   "new": "régler, réguler",
+   "why": "«Wir regulieren den Verkehr» — роль полиции; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2751,
+   "col": "translation_cs",
+   "old": "regulovat, řídit, nastavovat",
+   "new": "regulovat",
+   "why": "«Wir regulieren den Verkehr» — роль полиции; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2751,
+   "col": "example_de",
+   "old": "Wir regulieren den Verkehr in der Stadt",
+   "new": "Die Temperatur kann man in jedem Zimmer einzeln regulieren",
+   "why": "«Wir regulieren den Verkehr» — роль полиции; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2751,
+   "col": "example_ru",
+   "old": "Мы регулируем дорожное движение в городе",
+   "new": "Температуру можно регулировать в каждой комнате отдельно",
+   "why": "«Wir regulieren den Verkehr» — роль полиции; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2751,
+   "col": "example_uk",
+   "old": "Ми регулюємо рух у місті",
+   "new": "Температуру можна регулювати в кожній кімнаті окремо",
+   "why": "«Wir regulieren den Verkehr» — роль полиции; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2751,
+   "col": "example_en",
+   "old": "We regulate traffic in the city",
+   "new": "You can regulate the temperature in each room separately",
+   "why": "«Wir regulieren den Verkehr» — роль полиции; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2751,
+   "col": "example_tr",
+   "old": "Şehirdeki trafiği düzenliyoruz",
+   "new": "Sıcaklığı her odada ayrı ayrı ayarlayabilirsin",
+   "why": "«Wir regulieren den Verkehr» — роль полиции; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2751,
+   "col": "example_pl",
+   "old": "Regulujemy ruch w mieście",
+   "new": "Temperaturę można regulować w każdym pokoju osobno",
+   "why": "«Wir regulieren den Verkehr» — роль полиции; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2751,
+   "col": "example_it",
+   "old": "Regoliamo il traffico in città",
+   "new": "La temperatura si può regolare in ogni stanza separatamente",
+   "why": "«Wir regulieren den Verkehr» — роль полиции; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2751,
+   "col": "example_es",
+   "old": "Regulamos el tráfico en la ciudad",
+   "new": "La temperatura se puede regular en cada habitación por separado",
+   "why": "«Wir regulieren den Verkehr» — роль полиции; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2751,
+   "col": "example_fr",
+   "old": "Nous régulons la circulation en ville",
+   "new": "On peut régler la température dans chaque pièce séparément",
+   "why": "«Wir regulieren den Verkehr» — роль полиции; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2751,
+   "col": "example_cs",
+   "old": "Regulujeme dopravu ve městě",
+   "new": "Teplotu se dá regulovat v každém pokoji zvlášť",
+   "why": "«Wir regulieren den Verkehr» — роль полиции; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2752,
+   "col": "translation_ru",
+   "old": "регулирование, настройка, правила",
+   "new": "регулирование, правила",
+   "why": "«Die Regulierung ist streng» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2752,
+   "col": "translation_uk",
+   "old": "регулювання, налаштування, правила",
+   "new": "регулювання, правила",
+   "why": "«Die Regulierung ist streng» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2752,
+   "col": "translation_en",
+   "old": "regulation, adjustment",
+   "new": "regulation",
+   "why": "«Die Regulierung ist streng» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2752,
+   "col": "translation_tr",
+   "old": "düzenleme, ayarlama",
+   "new": "düzenleme",
+   "why": "«Die Regulierung ist streng» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2752,
+   "col": "translation_pl",
+   "old": "regulacja, przepisy",
+   "new": "regulacja",
+   "why": "«Die Regulierung ist streng» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2752,
+   "col": "translation_it",
+   "old": "la regolamentazione, la regolazione",
+   "new": "la regolamentazione",
+   "why": "«Die Regulierung ist streng» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2752,
+   "col": "translation_es",
+   "old": "la regulación, el ajuste",
+   "new": "la regulación",
+   "why": "«Die Regulierung ist streng» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2752,
+   "col": "translation_fr",
+   "old": "la réglementation, la régulation, le réglage",
+   "new": "la réglementation",
+   "why": "«Die Regulierung ist streng» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2752,
+   "col": "example_de",
+   "old": "Die Regulierung ist streng",
+   "new": "Seit der neuen Regulierung dürfen Vermieter die Miete nicht mehr so stark erhöhen",
+   "why": "«Die Regulierung ist streng» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2752,
+   "col": "example_ru",
+   "old": "Регулирование строгое",
+   "new": "После нового регулирования арендодатели больше не могут так сильно повышать аренду",
+   "why": "«Die Regulierung ist streng» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2752,
+   "col": "example_uk",
+   "old": "Регулювання суворе",
+   "new": "Після нового регулювання орендодавці більше не можуть так сильно підвищувати оренду",
+   "why": "«Die Regulierung ist streng» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2752,
+   "col": "example_en",
+   "old": "The regulation is strict",
+   "new": "Since the new regulation landlords can't put the rent up so much any more",
+   "why": "«Die Regulierung ist streng» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2752,
+   "col": "example_tr",
+   "old": "Düzenleme sıkı",
+   "new": "Yeni düzenlemeden beri ev sahipleri kirayı o kadar çok artıramıyor",
+   "why": "«Die Regulierung ist streng» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2752,
+   "col": "example_pl",
+   "old": "Ta regulacja jest surowa",
+   "new": "Od nowej regulacji wynajmujący nie mogą już tak mocno podnosić czynszu",
+   "why": "«Die Regulierung ist streng» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2752,
+   "col": "example_it",
+   "old": "La regolamentazione è severa",
+   "new": "Con la nuova regolamentazione i proprietari non possono più aumentare tanto l'affitto",
+   "why": "«Die Regulierung ist streng» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2752,
+   "col": "example_es",
+   "old": "La regulación es estricta",
+   "new": "Desde la nueva regulación los caseros ya no pueden subir tanto el alquiler",
+   "why": "«Die Regulierung ist streng» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2752,
+   "col": "example_fr",
+   "old": "La réglementation est stricte",
+   "new": "Depuis la nouvelle réglementation, les propriétaires ne peuvent plus augmenter autant le loyer",
+   "why": "«Die Regulierung ist streng» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2752,
+   "col": "example_cs",
+   "old": "Regulace je přísná",
+   "new": "Od nové regulace nesmějí pronajímatelé zvyšovat nájem tolik",
+   "why": "«Die Regulierung ist streng» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2755,
+   "col": "translation_ru",
+   "old": "клининговая компания, фирма по уборке",
+   "new": "клининговая компания",
+   "why": "«… kommt morgen vorbei» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2755,
+   "col": "translation_uk",
+   "old": "клінінгова компанія, фірма з прибирання",
+   "new": "клінінгова компанія",
+   "why": "«… kommt morgen vorbei» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2755,
+   "col": "translation_tr",
+   "old": "temizlik firması, temizlik şirketi",
+   "new": "temizlik firması",
+   "why": "«… kommt morgen vorbei» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2755,
+   "col": "translation_it",
+   "old": "l'impresa di pulizie, la ditta di pulizie",
+   "new": "l'impresa di pulizie",
+   "why": "«… kommt morgen vorbei» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2755,
+   "col": "translation_fr",
+   "old": "l'entreprise de nettoyage, la société de nettoyage",
+   "new": "l'entreprise de nettoyage",
+   "why": "«… kommt morgen vorbei» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2755,
+   "col": "example_de",
+   "old": "Die Reinigungsfirma kommt morgen vorbei",
+   "new": "Nach dem Auszug haben wir eine Reinigungsfirma bestellt, damit wir die Kaution zurückbekommen",
+   "why": "«… kommt morgen vorbei» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2755,
+   "col": "example_ru",
+   "old": "Клининговая компания приедет завтра",
+   "new": "После выезда мы вызвали клининговую компанию, чтобы получить обратно залог",
+   "why": "«… kommt morgen vorbei» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2755,
+   "col": "example_uk",
+   "old": "Клінінгова компанія прийде завтра",
+   "new": "Після виїзду ми викликали клінінгову компанію, щоб отримати назад заставу",
+   "why": "«… kommt morgen vorbei» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2755,
+   "col": "example_en",
+   "old": "The cleaning company is coming tomorrow",
+   "new": "After moving out we booked a cleaning company so we'd get the deposit back",
+   "why": "«… kommt morgen vorbei» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2755,
+   "col": "example_tr",
+   "old": "Temizlik firması yarın geliyor",
+   "new": "Taşındıktan sonra depozitoyu geri alabilmek için bir temizlik firması çağırdık",
+   "why": "«… kommt morgen vorbei» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2755,
+   "col": "example_pl",
+   "old": "Firma sprzątająca przyjdzie jutro",
+   "new": "Po wyprowadzce zamówiliśmy firmę sprzątającą, żeby odzyskać kaucję",
+   "why": "«… kommt morgen vorbei» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2755,
+   "col": "example_it",
+   "old": "L'impresa di pulizie passa domani",
+   "new": "Dopo il trasloco abbiamo chiamato un'impresa di pulizie per riavere la cauzione",
+   "why": "«… kommt morgen vorbei» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2755,
+   "col": "example_es",
+   "old": "La empresa de limpieza viene mañana",
+   "new": "Al dejar el piso contratamos una empresa de limpieza para recuperar la fianza",
+   "why": "«… kommt morgen vorbei» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2755,
+   "col": "example_fr",
+   "old": "L'entreprise de nettoyage passe demain",
+   "new": "Après le déménagement, on a fait venir une entreprise de nettoyage pour récupérer la caution",
+   "why": "«… kommt morgen vorbei» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2755,
+   "col": "example_cs",
+   "old": "Úklidová firma přijde zítra",
+   "new": "Po vystěhování jsme objednali úklidovou firmu, abychom dostali zpátky kauci",
+   "why": "«… kommt morgen vorbei» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2756,
+   "col": "translation_ru",
+   "old": "договор на уборку, контракт на клининг",
+   "new": "договор на уборку",
+   "why": "«Wir haben einen Reinigungsvertrag» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2756,
+   "col": "translation_cs",
+   "old": "smlouva na úklid, smlouva o úklidu",
+   "new": "smlouva na úklid",
+   "why": "«Wir haben einen Reinigungsvertrag» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2756,
+   "col": "example_de",
+   "old": "Wir haben einen Reinigungsvertrag",
+   "new": "Der Reinigungsvertrag fürs Büro läuft Ende des Jahres aus, wir suchen eine neue Firma",
+   "why": "«Wir haben einen Reinigungsvertrag» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2756,
+   "col": "example_ru",
+   "old": "У нас есть договор на уборку",
+   "new": "Договор на уборку офиса заканчивается в конце года, мы ищем новую фирму",
+   "why": "«Wir haben einen Reinigungsvertrag» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2756,
+   "col": "example_uk",
+   "old": "У нас є договір на прибирання",
+   "new": "Договір на прибирання офісу закінчується наприкінці року, ми шукаємо нову фірму",
+   "why": "«Wir haben einen Reinigungsvertrag» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2756,
+   "col": "example_en",
+   "old": "We have a cleaning contract",
+   "new": "The cleaning contract for the office runs out at the end of the year, we're looking for a new firm",
+   "why": "«Wir haben einen Reinigungsvertrag» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2756,
+   "col": "example_tr",
+   "old": "Bir temizlik sözleşmemiz var",
+   "new": "Ofisin temizlik sözleşmesi yıl sonunda bitiyor, yeni bir firma arıyoruz",
+   "why": "«Wir haben einen Reinigungsvertrag» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2756,
+   "col": "example_pl",
+   "old": "Mamy umowę na sprzątanie",
+   "new": "Umowa na sprzątanie biura kończy się z końcem roku, szukamy nowej firmy",
+   "why": "«Wir haben einen Reinigungsvertrag» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2756,
+   "col": "example_it",
+   "old": "Abbiamo un contratto di pulizia",
+   "new": "Il contratto di pulizia dell'ufficio scade a fine anno, cerchiamo una nuova ditta",
+   "why": "«Wir haben einen Reinigungsvertrag» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2756,
+   "col": "example_es",
+   "old": "Tenemos un contrato de limpieza",
+   "new": "El contrato de limpieza de la oficina vence a final de año, buscamos otra empresa",
+   "why": "«Wir haben einen Reinigungsvertrag» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2756,
+   "col": "example_fr",
+   "old": "Nous avons un contrat de nettoyage",
+   "new": "Le contrat de nettoyage du bureau se termine à la fin de l'année, on cherche une nouvelle entreprise",
+   "why": "«Wir haben einen Reinigungsvertrag» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2756,
+   "col": "example_cs",
+   "old": "Máme smlouvu na úklid",
+   "new": "Smlouva na úklid kanceláře končí na konci roku, hledáme novou firmu",
+   "why": "«Wir haben einen Reinigungsvertrag» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2758,
+   "col": "translation_ru",
+   "old": "план поездки, маршрут путешествия",
+   "new": "план поездки",
+   "why": "«Mein Reiseplan ist fertig» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2758,
+   "col": "translation_uk",
+   "old": "план подорожі, маршрут",
+   "new": "план подорожі",
+   "why": "«Mein Reiseplan ist fertig» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2758,
+   "col": "translation_en",
+   "old": "travel plan, itinerary",
+   "new": "itinerary, travel plan",
+   "why": "«Mein Reiseplan ist fertig» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2758,
+   "col": "translation_tr",
+   "old": "seyahat planı, gezi programı",
+   "new": "seyahat planı",
+   "why": "«Mein Reiseplan ist fertig» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2758,
+   "col": "translation_pl",
+   "old": "plan podróży, trasa wyjazdu",
+   "new": "plan podróży",
+   "why": "«Mein Reiseplan ist fertig» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2758,
+   "col": "translation_it",
+   "old": "il programma di viaggio, l'itinerario",
+   "new": "il programma di viaggio",
+   "why": "«Mein Reiseplan ist fertig» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2758,
+   "col": "translation_es",
+   "old": "el plan de viaje, el itinerario",
+   "new": "el plan de viaje",
+   "why": "«Mein Reiseplan ist fertig» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2758,
+   "col": "translation_fr",
+   "old": "l'itinéraire, le programme de voyage",
+   "new": "le programme de voyage",
+   "why": "«Mein Reiseplan ist fertig» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2758,
+   "col": "translation_cs",
+   "old": "plán cesty, itinerář",
+   "new": "plán cesty",
+   "why": "«Mein Reiseplan ist fertig» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2758,
+   "col": "example_de",
+   "old": "Mein Reiseplan ist fertig",
+   "new": "Unser Reiseplan war perfekt, bis der Zug in Wien ausgefallen ist",
+   "why": "«Mein Reiseplan ist fertig» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2758,
+   "col": "example_ru",
+   "old": "Мой план путешествия готов",
+   "new": "Наш план поездки был идеальным, пока в Вене не отменили поезд",
+   "why": "«Mein Reiseplan ist fertig» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2758,
+   "col": "example_uk",
+   "old": "Мій план подорожі готовий",
+   "new": "Наш план подорожі був ідеальним, доки у Відні не скасували поїзд",
+   "why": "«Mein Reiseplan ist fertig» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2758,
+   "col": "example_en",
+   "old": "My travel plan is ready",
+   "new": "Our itinerary was perfect until the train in Vienna was cancelled",
+   "why": "«Mein Reiseplan ist fertig» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2758,
+   "col": "example_tr",
+   "old": "Seyahat planım hazır",
+   "new": "Seyahat planımız Viyana'daki tren iptal olana kadar mükemmeldi",
+   "why": "«Mein Reiseplan ist fertig» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2758,
+   "col": "example_pl",
+   "old": "Mój plan podróży jest gotowy",
+   "new": "Nasz plan podróży był idealny, dopóki w Wiedniu nie odwołali pociągu",
+   "why": "«Mein Reiseplan ist fertig» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2758,
+   "col": "example_it",
+   "old": "Il mio programma di viaggio è pronto",
+   "new": "Il nostro programma di viaggio era perfetto finché a Vienna non hanno cancellato il treno",
+   "why": "«Mein Reiseplan ist fertig» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2758,
+   "col": "example_es",
+   "old": "Mi plan de viaje está listo",
+   "new": "Nuestro plan de viaje era perfecto hasta que en Viena cancelaron el tren",
+   "why": "«Mein Reiseplan ist fertig» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2758,
+   "col": "example_fr",
+   "old": "Mon itinéraire est prêt",
+   "new": "Notre programme de voyage était parfait jusqu'à ce que le train à Vienne soit annulé",
+   "why": "«Mein Reiseplan ist fertig» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2758,
+   "col": "example_cs",
+   "old": "Můj plán cesty je hotový",
+   "new": "Náš plán cesty byl dokonalý, dokud ve Vídni nezrušili vlak",
+   "why": "«Mein Reiseplan ist fertig» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2759,
+   "col": "translation_ru",
+   "old": "планирование поездки, подготовка путешествия",
+   "new": "планирование поездки",
+   "why": "«… macht Spaß» — пусто; рядом Reiseplan; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2759,
+   "col": "translation_uk",
+   "old": "планування подорожі, підготовка поїздки",
+   "new": "планування подорожі",
+   "why": "«… macht Spaß» — пусто; рядом Reiseplan; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2759,
+   "col": "translation_en",
+   "old": "travel planning, trip planning",
+   "new": "trip planning",
+   "why": "«… macht Spaß» — пусто; рядом Reiseplan; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2759,
+   "col": "translation_it",
+   "old": "l'organizzazione del viaggio, la pianificazione del viaggio",
+   "new": "l'organizzazione del viaggio",
+   "why": "«… macht Spaß» — пусто; рядом Reiseplan; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2759,
+   "col": "translation_es",
+   "old": "la planificación del viaje, la organización del viaje",
+   "new": "la organización del viaje",
+   "why": "«… macht Spaß» — пусто; рядом Reiseplan; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2759,
+   "col": "translation_fr",
+   "old": "la préparation du voyage, la planification du voyage",
+   "new": "la préparation du voyage",
+   "why": "«… macht Spaß» — пусто; рядом Reiseplan; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2759,
+   "col": "example_de",
+   "old": "Die Reiseplanung macht Spaß",
+   "new": "Bei uns ist meine Frau für die Reiseplanung zuständig, ich trage nur die Koffer",
+   "why": "«… macht Spaß» — пусто; рядом Reiseplan; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2759,
+   "col": "example_ru",
+   "old": "Планирование поездки доставляет удовольствие",
+   "new": "У нас за планирование поездки отвечает жена, а я только ношу чемоданы",
+   "why": "«… macht Spaß» — пусто; рядом Reiseplan; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2759,
+   "col": "example_uk",
+   "old": "Планування подорожі приносить задоволення",
+   "new": "У нас за планування подорожі відповідає дружина, а я тільки ношу валізи",
+   "why": "«… macht Spaß» — пусто; рядом Reiseplan; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2759,
+   "col": "example_en",
+   "old": "Planning the trip is fun",
+   "new": "In our house my wife is in charge of trip planning, I just carry the suitcases",
+   "why": "«… macht Spaß» — пусто; рядом Reiseplan; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2759,
+   "col": "example_tr",
+   "old": "Seyahat planlaması eğlenceli",
+   "new": "Bizde seyahat planlamasından karım sorumlu, ben sadece valizleri taşıyorum",
+   "why": "«… macht Spaß» — пусто; рядом Reiseplan; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2759,
+   "col": "example_pl",
+   "old": "Planowanie podróży sprawia przyjemność",
+   "new": "U nas za planowanie podróży odpowiada żona, ja tylko noszę walizki",
+   "why": "«… macht Spaß» — пусто; рядом Reiseplan; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2759,
+   "col": "example_it",
+   "old": "L'organizzazione del viaggio è divertente",
+   "new": "Da noi dell'organizzazione del viaggio si occupa mia moglie, io porto solo le valigie",
+   "why": "«… macht Spaß» — пусто; рядом Reiseplan; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2759,
+   "col": "example_es",
+   "old": "La planificación del viaje es divertida",
+   "new": "En casa mi mujer se encarga de la organización del viaje, yo solo llevo las maletas",
+   "why": "«… macht Spaß» — пусто; рядом Reiseplan; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2759,
+   "col": "example_fr",
+   "old": "La préparation du voyage, c'est amusant",
+   "new": "Chez nous, c'est ma femme qui s'occupe de la préparation du voyage, moi je porte juste les valises",
+   "why": "«… macht Spaß» — пусто; рядом Reiseplan; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2759,
+   "col": "example_cs",
+   "old": "Plánování cesty je zábava",
+   "new": "U nás má plánování cesty na starosti manželka, já jen nosím kufry",
+   "why": "«… macht Spaß» — пусто; рядом Reiseplan; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2761,
+   "col": "translation_ru",
+   "old": "претензия, рекламация, жалоба на товар",
+   "new": "претензия, рекламация",
+   "why": "«Ich mache eine Reklamation» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2761,
+   "col": "translation_uk",
+   "old": "претензія, рекламація, скарга на товар",
+   "new": "претензія, рекламація",
+   "why": "«Ich mache eine Reklamation» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2761,
+   "col": "translation_en",
+   "old": "complaint, claim about faulty goods",
+   "new": "complaint",
+   "why": "«Ich mache eine Reklamation» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2761,
+   "col": "translation_tr",
+   "old": "şikayet, ürün itirazı, iade talebi",
+   "new": "şikâyet",
+   "why": "«Ich mache eine Reklamation» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2761,
+   "col": "translation_pl",
+   "old": "reklamacja, skarga na towar",
+   "new": "reklamacja",
+   "why": "«Ich mache eine Reklamation» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2761,
+   "col": "example_de",
+   "old": "Ich mache eine Reklamation",
+   "new": "Meine Reklamation wegen der kaputten Waschmaschine liegt schon seit drei Wochen beim Händler",
+   "why": "«Ich mache eine Reklamation» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2761,
+   "col": "example_ru",
+   "old": "Я подаю рекламацию",
+   "new": "Моя претензия по сломанной стиральной машине уже три недели лежит у продавца",
+   "why": "«Ich mache eine Reklamation» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2761,
+   "col": "example_uk",
+   "old": "Я подаю рекламацію",
+   "new": "Моя претензія щодо зламаної пральної машини вже три тижні лежить у продавця",
+   "why": "«Ich mache eine Reklamation» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2761,
+   "col": "example_en",
+   "old": "I'm filing a complaint",
+   "new": "My complaint about the broken washing machine has been with the dealer for three weeks",
+   "why": "«Ich mache eine Reklamation» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2761,
+   "col": "example_tr",
+   "old": "Şikayet bildiriyorum",
+   "new": "Bozuk çamaşır makinesiyle ilgili şikâyetim üç haftadır satıcıda bekliyor",
+   "why": "«Ich mache eine Reklamation» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2761,
+   "col": "example_pl",
+   "old": "Składam reklamację",
+   "new": "Moja reklamacja zepsutej pralki od trzech tygodni leży u sprzedawcy",
+   "why": "«Ich mache eine Reklamation» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2761,
+   "col": "example_it",
+   "old": "Faccio un reclamo",
+   "new": "Il mio reclamo per la lavatrice rotta è da tre settimane dal rivenditore",
+   "why": "«Ich mache eine Reklamation» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2761,
+   "col": "example_es",
+   "old": "Hago una reclamación",
+   "new": "Mi reclamación por la lavadora rota lleva tres semanas en la tienda",
+   "why": "«Ich mache eine Reklamation» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2761,
+   "col": "example_fr",
+   "old": "Je fais une réclamation",
+   "new": "Ma réclamation pour la machine à laver cassée est chez le vendeur depuis trois semaines",
+   "why": "«Ich mache eine Reklamation» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2761,
+   "col": "example_cs",
+   "old": "Podávám reklamaci",
+   "new": "Moje reklamace rozbité pračky leží u prodejce už tři týdny",
+   "why": "«Ich mache eine Reklamation» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2765,
+   "col": "translation_ru",
+   "old": "возврат товара, возвращённая посылка",
+   "new": "возврат товара",
+   "why": "«Ich mache eine Retoure» — пусто; пометка (hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2765,
+   "col": "translation_uk",
+   "old": "повернення товару, повернена посилка",
+   "new": "повернення товару",
+   "why": "«Ich mache eine Retoure» — пусто; пометка (hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2765,
+   "col": "translation_en",
+   "old": "return, return of goods, returned parcel",
+   "new": "return",
+   "why": "«Ich mache eine Retoure» — пусто; пометка (hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2765,
+   "col": "translation_tr",
+   "old": "iade, geri gönderim",
+   "new": "iade",
+   "why": "«Ich mache eine Retoure» — пусто; пометка (hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2765,
+   "col": "translation_pl",
+   "old": "zwrot towaru, odesłana paczka",
+   "new": "zwrot towaru",
+   "why": "«Ich mache eine Retoure» — пусто; пометка (hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2765,
+   "col": "translation_fr",
+   "old": "le retour, le colis retourné",
+   "new": "le retour",
+   "why": "«Ich mache eine Retoure» — пусто; пометка (hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2765,
+   "col": "translation_cs",
+   "old": "vrácení zboží, vratka (hovor.)",
+   "new": "vrácení zboží",
+   "why": "«Ich mache eine Retoure» — пусто; пометка (hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2765,
+   "col": "example_de",
+   "old": "Ich mache eine Retoure",
+   "new": "Fast jede zweite Bestellung bei Kleidung wird zur Retoure, weil die Größen nicht passen",
+   "why": "«Ich mache eine Retoure» — пусто; пометка (hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2765,
+   "col": "example_ru",
+   "old": "Я оформляю возврат товара",
+   "new": "Почти каждый второй заказ одежды превращается в возврат товара, потому что не подходит размер",
+   "why": "«Ich mache eine Retoure» — пусто; пометка (hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2765,
+   "col": "example_uk",
+   "old": "Я роблю повернення товару",
+   "new": "Майже кожне друге замовлення одягу стає поверненням товару, бо не підходить розмір",
+   "why": "«Ich mache eine Retoure» — пусто; пометка (hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2765,
+   "col": "example_en",
+   "old": "I'm making a return",
+   "new": "Almost every other clothes order ends up as a return because the sizes don't fit",
+   "why": "«Ich mache eine Retoure» — пусто; пометка (hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2765,
+   "col": "example_tr",
+   "old": "İade yapıyorum",
+   "new": "Kıyafet siparişlerinin neredeyse yarısı beden uymadığı için iade oluyor",
+   "why": "«Ich mache eine Retoure» — пусто; пометка (hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2765,
+   "col": "example_pl",
+   "old": "Robię zwrot towaru",
+   "new": "Prawie co drugie zamówienie ubrań kończy się zwrotem towaru, bo rozmiar nie pasuje",
+   "why": "«Ich mache eine Retoure» — пусто; пометка (hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2765,
+   "col": "example_it",
+   "old": "Faccio un reso",
+   "new": "Quasi un ordine di vestiti su due diventa un reso perché la taglia non va bene",
+   "why": "«Ich mache eine Retoure» — пусто; пометка (hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2765,
+   "col": "example_es",
+   "old": "Hago una devolución",
+   "new": "Casi uno de cada dos pedidos de ropa acaba en devolución porque la talla no vale",
+   "why": "«Ich mache eine Retoure» — пусто; пометка (hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2765,
+   "col": "example_fr",
+   "old": "Je fais un retour",
+   "new": "Presque une commande de vêtements sur deux finit en retour parce que la taille ne va pas",
+   "why": "«Ich mache eine Retoure» — пусто; пометка (hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2765,
+   "col": "example_cs",
+   "old": "Vracím zboží",
+   "new": "Skoro každá druhá objednávka oblečení skončí vrácením zboží, protože nesedí velikost",
+   "why": "«Ich mache eine Retoure» — пусто; пометка (hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2766,
+   "col": "translation_ru",
+   "old": "бланк возврата, накладная на возврат, квитанция на возврат посылки",
+   "new": "бланк возврата",
+   "why": "«Hier ist der Retourenschein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2766,
+   "col": "translation_uk",
+   "old": "бланк повернення, накладна на повернення, наліпка для повернення посилки",
+   "new": "бланк повернення",
+   "why": "«Hier ist der Retourenschein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2766,
+   "col": "translation_en",
+   "old": "return slip, return label, return form",
+   "new": "returns label, return slip",
+   "why": "«Hier ist der Retourenschein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2766,
+   "col": "translation_tr",
+   "old": "iade formu, iade etiketi, iade belgesi",
+   "new": "iade etiketi",
+   "why": "«Hier ist der Retourenschein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2766,
+   "col": "translation_pl",
+   "old": "formularz zwrotu, etykieta zwrotna, druk zwrotu",
+   "new": "etykieta zwrotna",
+   "why": "«Hier ist der Retourenschein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2766,
+   "col": "translation_it",
+   "old": "il modulo di reso, l'etichetta di reso",
+   "new": "l'etichetta di reso",
+   "why": "«Hier ist der Retourenschein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2766,
+   "col": "translation_es",
+   "old": "el formulario de devolución, la etiqueta de devolución",
+   "new": "la etiqueta de devolución",
+   "why": "«Hier ist der Retourenschein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2766,
+   "col": "translation_fr",
+   "old": "le bon de retour, l'étiquette de retour",
+   "new": "le bon de retour",
+   "why": "«Hier ist der Retourenschein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2766,
+   "col": "translation_cs",
+   "old": "formulář pro vrácení, štítek pro vrácení",
+   "new": "štítek pro vrácení",
+   "why": "«Hier ist der Retourenschein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2766,
+   "col": "example_de",
+   "old": "Hier ist der Retourenschein",
+   "new": "Den Retourenschein habe ich weggeworfen, jetzt muss ich ihn online neu ausdrucken",
+   "why": "«Hier ist der Retourenschein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2766,
+   "col": "example_ru",
+   "old": "Вот бланк возврата",
+   "new": "Бланк возврата я выбросил, теперь придётся заново распечатать его онлайн",
+   "why": "«Hier ist der Retourenschein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2766,
+   "col": "example_uk",
+   "old": "Ось бланк повернення",
+   "new": "Бланк повернення я викинув, тепер доведеться знову роздрукувати його онлайн",
+   "why": "«Hier ist der Retourenschein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2766,
+   "col": "example_en",
+   "old": "Here is the return slip",
+   "new": "I threw away the returns label, now I have to print a new one online",
+   "why": "«Hier ist der Retourenschein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2766,
+   "col": "example_tr",
+   "old": "İşte iade formu",
+   "new": "İade etiketini attım, şimdi internetten yenisini yazdırmam lazım",
+   "why": "«Hier ist der Retourenschein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2766,
+   "col": "example_pl",
+   "old": "Tutaj jest formularz zwrotu",
+   "new": "Etykietę zwrotną wyrzuciłem, teraz muszę wydrukować nową z internetu",
+   "why": "«Hier ist der Retourenschein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2766,
+   "col": "example_it",
+   "old": "Ecco il modulo di reso",
+   "new": "L'etichetta di reso l'ho buttata, adesso devo ristamparla online",
+   "why": "«Hier ist der Retourenschein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2766,
+   "col": "example_es",
+   "old": "Aquí está el formulario de devolución",
+   "new": "Tiré la etiqueta de devolución y ahora tengo que imprimirla otra vez por internet",
+   "why": "«Hier ist der Retourenschein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2766,
+   "col": "example_fr",
+   "old": "Voici le bon de retour",
+   "new": "J'ai jeté le bon de retour, maintenant je dois le réimprimer en ligne",
+   "why": "«Hier ist der Retourenschein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2766,
+   "col": "example_cs",
+   "old": "Tady je formulář pro vrácení",
+   "new": "Štítek pro vrácení jsem vyhodil, teď si ho musím znovu vytisknout online",
+   "why": "«Hier ist der Retourenschein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2770,
+   "col": "translation_ru",
+   "old": "задний фонарь, задний габаритный огонь",
+   "new": "задний фонарь",
+   "why": "«Das Rücklicht ist kaputt» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2770,
+   "col": "translation_uk",
+   "old": "задній ліхтар, заднє габаритне світло",
+   "new": "задній ліхтар",
+   "why": "«Das Rücklicht ist kaputt» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2770,
+   "col": "translation_en",
+   "old": "tail light, rear light",
+   "new": "rear light, tail light",
+   "why": "«Das Rücklicht ist kaputt» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2770,
+   "col": "translation_tr",
+   "old": "arka lamba, arka stop lambası",
+   "new": "arka lamba",
+   "why": "«Das Rücklicht ist kaputt» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2770,
+   "col": "translation_pl",
+   "old": "tylne światło, tylna lampa",
+   "new": "tylne światło",
+   "why": "«Das Rücklicht ist kaputt» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2770,
+   "col": "translation_it",
+   "old": "il fanale posteriore, la luce posteriore",
+   "new": "il fanale posteriore",
+   "why": "«Das Rücklicht ist kaputt» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2770,
+   "col": "translation_es",
+   "old": "la luz trasera, el piloto trasero",
+   "new": "la luz trasera",
+   "why": "«Das Rücklicht ist kaputt» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2770,
+   "col": "translation_cs",
+   "old": "zadní světlo, koncové světlo",
+   "new": "zadní světlo",
+   "why": "«Das Rücklicht ist kaputt» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2770,
+   "col": "example_de",
+   "old": "Das Rücklicht ist kaputt",
+   "new": "Die Polizei hat mich angehalten, weil an meinem Fahrrad das Rücklicht nicht geht",
+   "why": "«Das Rücklicht ist kaputt» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2770,
+   "col": "example_ru",
+   "old": "Задний фонарь сломан",
+   "new": "Полиция остановила меня, потому что на моём велосипеде не горит задний фонарь",
+   "why": "«Das Rücklicht ist kaputt» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2770,
+   "col": "example_uk",
+   "old": "Задній ліхтар зламаний",
+   "new": "Поліція зупинила мене, бо на моєму велосипеді не світить задній ліхтар",
+   "why": "«Das Rücklicht ist kaputt» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2770,
+   "col": "example_en",
+   "old": "The tail light is broken",
+   "new": "The police stopped me because the rear light on my bike isn't working",
+   "why": "«Das Rücklicht ist kaputt» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2770,
+   "col": "example_tr",
+   "old": "Arka lamba bozuk",
+   "new": "Bisikletimin arka lambası yanmadığı için polis beni durdurdu",
+   "why": "«Das Rücklicht ist kaputt» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2770,
+   "col": "example_pl",
+   "old": "Tylne światło jest zepsute",
+   "new": "Policja mnie zatrzymała, bo w moim rowerze nie działa tylne światło",
+   "why": "«Das Rücklicht ist kaputt» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2770,
+   "col": "example_it",
+   "old": "Il fanale posteriore è rotto",
+   "new": "La polizia mi ha fermato perché la luce posteriore della mia bici non funziona",
+   "why": "«Das Rücklicht ist kaputt» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2770,
+   "col": "example_es",
+   "old": "La luz trasera está rota",
+   "new": "La policía me paró porque la luz trasera de mi bici no funciona",
+   "why": "«Das Rücklicht ist kaputt» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2770,
+   "col": "example_fr",
+   "old": "Le feu arrière est cassé",
+   "new": "La police m'a arrêté parce que le feu arrière de mon vélo ne marche pas",
+   "why": "«Das Rücklicht ist kaputt» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2770,
+   "col": "example_cs",
+   "old": "Zadní světlo je rozbité",
+   "new": "Policie mě zastavila, protože mi na kole nesvítí zadní světlo",
+   "why": "«Das Rücklicht ist kaputt» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2771,
+   "col": "translation_ru",
+   "old": "заднее стекло, заднее стекло автомобиля",
+   "new": "заднее стекло",
+   "why": "«Die Rückscheibe ist schmutzig» — пусто; en «windshield» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2771,
+   "col": "translation_uk",
+   "old": "заднє скло, заднє скло автомобіля",
+   "new": "заднє скло",
+   "why": "«Die Rückscheibe ist schmutzig» — пусто; en «windshield» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2771,
+   "col": "translation_en",
+   "old": "rear window, rear windshield",
+   "new": "rear window",
+   "why": "«Die Rückscheibe ist schmutzig» — пусто; en «windshield» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2771,
+   "col": "translation_tr",
+   "old": "arka cam, aracın arka camı",
+   "new": "arka cam",
+   "why": "«Die Rückscheibe ist schmutzig» — пусто; en «windshield» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2771,
+   "col": "translation_pl",
+   "old": "tylna szyba, tylna szyba samochodu",
+   "new": "tylna szyba",
+   "why": "«Die Rückscheibe ist schmutzig» — пусто; en «windshield» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2771,
+   "col": "translation_es",
+   "old": "la luna trasera, el vidrio trasero",
+   "new": "la luna trasera",
+   "why": "«Die Rückscheibe ist schmutzig» — пусто; en «windshield» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2771,
+   "col": "translation_fr",
+   "old": "la lunette arrière, la vitre arrière",
+   "new": "la lunette arrière",
+   "why": "«Die Rückscheibe ist schmutzig» — пусто; en «windshield» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2771,
+   "col": "translation_cs",
+   "old": "zadní sklo, zadní okno",
+   "new": "zadní sklo",
+   "why": "«Die Rückscheibe ist schmutzig» — пусто; en «windshield» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2771,
+   "col": "example_de",
+   "old": "Die Rückscheibe ist schmutzig",
+   "new": "Im Winter muss ich jeden Morgen erst das Eis von der Rückscheibe kratzen",
+   "why": "«Die Rückscheibe ist schmutzig» — пусто; en «windshield» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2771,
+   "col": "example_ru",
+   "old": "Заднее стекло грязное",
+   "new": "Зимой мне каждое утро сначала приходится соскребать лёд с заднего стекла",
+   "why": "«Die Rückscheibe ist schmutzig» — пусто; en «windshield» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2771,
+   "col": "example_uk",
+   "old": "Заднє скло брудне",
+   "new": "Узимку мені щоранку спершу доводиться зішкрябувати лід із заднього скла",
+   "why": "«Die Rückscheibe ist schmutzig» — пусто; en «windshield» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2771,
+   "col": "example_en",
+   "old": "The rear window is dirty",
+   "new": "In winter I have to scrape the ice off the rear window every morning first",
+   "why": "«Die Rückscheibe ist schmutzig» — пусто; en «windshield» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2771,
+   "col": "example_tr",
+   "old": "Arka cam kirli",
+   "new": "Kışın her sabah önce arka camdaki buzu kazımam gerekiyor",
+   "why": "«Die Rückscheibe ist schmutzig» — пусто; en «windshield» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2771,
+   "col": "example_pl",
+   "old": "Tylna szyba jest brudna",
+   "new": "Zimą każdego ranka muszę najpierw zeskrobać lód z tylnej szyby",
+   "why": "«Die Rückscheibe ist schmutzig» — пусто; en «windshield» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2771,
+   "col": "example_it",
+   "old": "Il lunotto è sporco",
+   "new": "D'inverno ogni mattina devo prima grattare il ghiaccio dal lunotto",
+   "why": "«Die Rückscheibe ist schmutzig» — пусто; en «windshield» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2771,
+   "col": "example_es",
+   "old": "La luna trasera está sucia",
+   "new": "En invierno cada mañana tengo que rascar primero el hielo de la luna trasera",
+   "why": "«Die Rückscheibe ist schmutzig» — пусто; en «windshield» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2771,
+   "col": "example_fr",
+   "old": "La lunette arrière est sale",
+   "new": "En hiver, je dois d'abord gratter la glace sur la lunette arrière tous les matins",
+   "why": "«Die Rückscheibe ist schmutzig» — пусто; en «windshield» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2771,
+   "col": "example_cs",
+   "old": "Zadní sklo je špinavé",
+   "new": "V zimě musím každé ráno nejdřív seškrábat led ze zadního skla",
+   "why": "«Die Rückscheibe ist schmutzig» — пусто; en «windshield» — американское; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2772,
+   "col": "translation_ru",
+   "old": "возврат товара, обратная отправка, возвратная посылка",
+   "new": "отправка обратно, возврат",
+   "why": "«Die Rücksendung ist kostenlos» — реклама; рядом Retoure; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2772,
+   "col": "translation_uk",
+   "old": "повернення товару, зворотна відправка, зворотна посилка",
+   "new": "відправлення назад, повернення",
+   "why": "«Die Rücksendung ist kostenlos» — реклама; рядом Retoure; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2772,
+   "col": "translation_en",
+   "old": "return, return shipment, sending back",
+   "new": "sending back, return",
+   "why": "«Die Rücksendung ist kostenlos» — реклама; рядом Retoure; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2772,
+   "col": "translation_tr",
+   "old": "iade, geri gönderim, geri gönderme",
+   "new": "geri gönderme",
+   "why": "«Die Rücksendung ist kostenlos» — реклама; рядом Retoure; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2772,
+   "col": "translation_pl",
+   "old": "zwrot, zwrot towaru, odesłanie przesyłki",
+   "new": "odesłanie",
+   "why": "«Die Rücksendung ist kostenlos» — реклама; рядом Retoure; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2772,
+   "col": "translation_it",
+   "old": "il reso, la restituzione",
+   "new": "la restituzione",
+   "why": "«Die Rücksendung ist kostenlos» — реклама; рядом Retoure; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2772,
+   "col": "translation_es",
+   "old": "la devolución",
+   "new": "el envío de vuelta",
+   "why": "«Die Rücksendung ist kostenlos» — реклама; рядом Retoure; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2772,
+   "col": "translation_fr",
+   "old": "le retour, le renvoi",
+   "new": "le renvoi",
+   "why": "«Die Rücksendung ist kostenlos» — реклама; рядом Retoure; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2772,
+   "col": "translation_cs",
+   "old": "vrácení zboží, zpětná zásilka",
+   "new": "zpětná zásilka",
+   "why": "«Die Rücksendung ist kostenlos» — реклама; рядом Retoure; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2772,
+   "col": "example_de",
+   "old": "Die Rücksendung ist kostenlos",
+   "new": "Für die Rücksendung des Fernsehers brauche ich den Originalkarton, aber den habe ich nicht mehr",
+   "why": "«Die Rücksendung ist kostenlos» — реклама; рядом Retoure; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2772,
+   "col": "example_ru",
+   "old": "Возврат бесплатный",
+   "new": "Для отправки телевизора обратно нужна оригинальная коробка, а её у меня уже нет",
+   "why": "«Die Rücksendung ist kostenlos» — реклама; рядом Retoure; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2772,
+   "col": "example_uk",
+   "old": "Повернення товару безкоштовне",
+   "new": "Для відправлення телевізора назад потрібна оригінальна коробка, а її в мене вже немає",
+   "why": "«Die Rücksendung ist kostenlos» — реклама; рядом Retoure; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2772,
+   "col": "example_en",
+   "old": "The return is free of charge",
+   "new": "For sending back the TV I need the original box, but I don't have it any more",
+   "why": "«Die Rücksendung ist kostenlos» — реклама; рядом Retoure; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2772,
+   "col": "example_tr",
+   "old": "Geri gönderim ücretsiz",
+   "new": "Televizyonu geri göndermek için orijinal kutusu lazım ama artık bende yok",
+   "why": "«Die Rücksendung ist kostenlos» — реклама; рядом Retoure; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2772,
+   "col": "example_pl",
+   "old": "Zwrot towaru jest bezpłatny",
+   "new": "Do odesłania telewizora potrzebuję oryginalnego kartonu, ale już go nie mam",
+   "why": "«Die Rücksendung ist kostenlos» — реклама; рядом Retoure; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2772,
+   "col": "example_it",
+   "old": "Il reso è gratuito",
+   "new": "Per la restituzione del televisore mi serve la scatola originale, ma non ce l'ho più",
+   "why": "«Die Rücksendung ist kostenlos» — реклама; рядом Retoure; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2772,
+   "col": "example_es",
+   "old": "La devolución es gratuita",
+   "new": "Para el envío de vuelta de la tele necesito la caja original, pero ya no la tengo",
+   "why": "«Die Rücksendung ist kostenlos» — реклама; рядом Retoure; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2772,
+   "col": "example_fr",
+   "old": "Le retour est gratuit",
+   "new": "Pour le renvoi de la télé, il me faut le carton d'origine, mais je ne l'ai plus",
+   "why": "«Die Rücksendung ist kostenlos» — реклама; рядом Retoure; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2772,
+   "col": "example_cs",
+   "old": "Vrácení zboží je zdarma",
+   "new": "Na zpětnou zásilku televize potřebuji původní krabici, ale tu už nemám",
+   "why": "«Die Rücksendung ist kostenlos» — реклама; рядом Retoure; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2775,
+   "col": "translation_ru",
+   "old": "время отдыха, тихий час, часы тишины, период покоя",
+   "new": "часы тишины, время отдыха",
+   "why": "«Das ist meine Ruhezeit» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2775,
+   "col": "translation_uk",
+   "old": "час відпочинку, тиха година, години тиші",
+   "new": "години тиші, час відпочинку",
+   "why": "«Das ist meine Ruhezeit» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2775,
+   "col": "translation_en",
+   "old": "rest period, quiet hours, downtime",
+   "new": "quiet hours, rest period",
+   "why": "«Das ist meine Ruhezeit» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2775,
+   "col": "translation_tr",
+   "old": "dinlenme zamanı, sessizlik saatleri, mola süresi",
+   "new": "sessizlik saatleri, dinlenme zamanı",
+   "why": "«Das ist meine Ruhezeit» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2775,
+   "col": "translation_pl",
+   "old": "czas odpoczynku, godziny ciszy, cisza nocna",
+   "new": "godziny ciszy, czas odpoczynku",
+   "why": "«Das ist meine Ruhezeit» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2775,
+   "col": "translation_it",
+   "old": "il tempo di riposo, le ore di silenzio",
+   "new": "le ore di silenzio",
+   "why": "«Das ist meine Ruhezeit» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2775,
+   "col": "translation_es",
+   "old": "el tiempo de descanso, las horas de silencio",
+   "new": "las horas de silencio",
+   "why": "«Das ist meine Ruhezeit» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2775,
+   "col": "translation_fr",
+   "old": "le temps de repos, les heures de calme",
+   "new": "les heures de calme",
+   "why": "«Das ist meine Ruhezeit» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2775,
+   "col": "translation_cs",
+   "old": "čas odpočinku, doba klidu",
+   "new": "doba klidu",
+   "why": "«Das ist meine Ruhezeit» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2775,
+   "col": "example_de",
+   "old": "Das ist meine Ruhezeit",
+   "new": "Während der Ruhezeit am Sonntag darf man im Haus nicht bohren",
+   "why": "«Das ist meine Ruhezeit» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2775,
+   "col": "example_ru",
+   "old": "Это моё время отдыха",
+   "new": "Во время часов тишины в воскресенье в доме нельзя сверлить",
+   "why": "«Das ist meine Ruhezeit» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2775,
+   "col": "example_uk",
+   "old": "Це мій час відпочинку",
+   "new": "Під час годин тиші в неділю в будинку не можна свердлити",
+   "why": "«Das ist meine Ruhezeit» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2775,
+   "col": "example_en",
+   "old": "This is my rest time",
+   "new": "During the quiet hours on Sunday you're not allowed to drill in the building",
+   "why": "«Das ist meine Ruhezeit» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2775,
+   "col": "example_tr",
+   "old": "Bu benim dinlenme zamanım",
+   "new": "Pazar günkü sessizlik saatlerinde binada matkap kullanmak yasak",
+   "why": "«Das ist meine Ruhezeit» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2775,
+   "col": "example_pl",
+   "old": "To jest mój czas odpoczynku",
+   "new": "W godzinach ciszy w niedzielę w bloku nie wolno wiercić",
+   "why": "«Das ist meine Ruhezeit» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2775,
+   "col": "example_it",
+   "old": "Questo è il mio tempo di riposo",
+   "new": "Durante le ore di silenzio la domenica in casa non si può usare il trapano",
+   "why": "«Das ist meine Ruhezeit» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2775,
+   "col": "example_es",
+   "old": "Es mi tiempo de descanso",
+   "new": "Durante las horas de silencio del domingo no se puede taladrar en el edificio",
+   "why": "«Das ist meine Ruhezeit» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2775,
+   "col": "example_fr",
+   "old": "C'est mon temps de repos",
+   "new": "Pendant les heures de calme du dimanche, on n'a pas le droit de percer dans l'immeuble",
+   "why": "«Das ist meine Ruhezeit» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2775,
+   "col": "example_cs",
+   "old": "To je můj čas odpočinku",
+   "new": "Během doby klidu v neděli se v domě nesmí vrtat",
+   "why": "«Das ist meine Ruhezeit» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2778,
+   "col": "translation_ru",
+   "old": "сотрудник, клерк, референт",
+   "new": "сотрудник, ведущий дело",
+   "why": "«Der Sachbearbeiter hilft» — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2778,
+   "col": "translation_uk",
+   "old": "працівник, клерк, референт",
+   "new": "працівник, що веде справу",
+   "why": "«Der Sachbearbeiter hilft» — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2778,
+   "col": "translation_en",
+   "old": "clerk, caseworker, administrative officer",
+   "new": "case worker, clerk",
+   "why": "«Der Sachbearbeiter hilft» — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2778,
+   "col": "translation_tr",
+   "old": "memur, büro görevlisi, dosya sorumlusu",
+   "new": "dosya sorumlusu",
+   "why": "«Der Sachbearbeiter hilft» — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2778,
+   "col": "translation_pl",
+   "old": "urzędnik, referent, pracownik biurowy",
+   "new": "referent, urzędnik",
+   "why": "«Der Sachbearbeiter hilft» — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2778,
+   "col": "translation_it",
+   "old": "l'impiegato, l'impiegata, il funzionario",
+   "new": "l'impiegato, l'impiegata",
+   "why": "«Der Sachbearbeiter hilft» — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2778,
+   "col": "translation_es",
+   "old": "el empleado administrativo, la empleada administrativa, el tramitador",
+   "new": "el tramitador, la tramitadora",
+   "why": "«Der Sachbearbeiter hilft» — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2778,
+   "col": "translation_fr",
+   "old": "le chargé de dossier, la chargée de dossier, l'employé",
+   "new": "le chargé de dossier, la chargée de dossier",
+   "why": "«Der Sachbearbeiter hilft» — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2778,
+   "col": "translation_cs",
+   "old": "referent, referentka, úředník",
+   "new": "referent, referentka",
+   "why": "«Der Sachbearbeiter hilft» — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2778,
+   "col": "example_de",
+   "old": "Der Sachbearbeiter hilft",
+   "new": "Meine Sachbearbeiterin beim Jobcenter wechselt jedes halbe Jahr, und ich muss alles neu erklären",
+   "why": "«Der Sachbearbeiter hilft» — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2778,
+   "col": "example_ru",
+   "old": "Сотрудник помогает",
+   "new": "Сотрудник, ведущий моё дело в центре занятости, меняется каждые полгода, и мне приходится всё объяснять заново",
+   "why": "«Der Sachbearbeiter hilft» — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2778,
+   "col": "example_uk",
+   "old": "Працівник допомагає",
+   "new": "Працівник, що веде мою справу в центрі зайнятості, змінюється кожні пів року, і мені доводиться все пояснювати заново",
+   "why": "«Der Sachbearbeiter hilft» — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2778,
+   "col": "example_en",
+   "old": "The caseworker helps",
+   "new": "My case worker at the job centre changes every six months and I have to explain everything again",
+   "why": "«Der Sachbearbeiter hilft» — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2778,
+   "col": "example_tr",
+   "old": "Memur yardımcı oluyor",
+   "new": "İş ve işçi bulma kurumundaki dosya sorumlum her altı ayda bir değişiyor ve her şeyi yeniden anlatmam gerekiyor",
+   "why": "«Der Sachbearbeiter hilft» — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2778,
+   "col": "example_pl",
+   "old": "Urzędnik pomaga",
+   "new": "Moja referentka w urzędzie pracy zmienia się co pół roku i muszę wszystko tłumaczyć od nowa",
+   "why": "«Der Sachbearbeiter hilft» — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2778,
+   "col": "example_it",
+   "old": "L'impiegato aiuta",
+   "new": "La mia impiegata al centro per l'impiego cambia ogni sei mesi e devo rispiegare tutto",
+   "why": "«Der Sachbearbeiter hilft» — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2778,
+   "col": "example_es",
+   "old": "El empleado administrativo ayuda",
+   "new": "Mi tramitadora de la oficina de empleo cambia cada seis meses y tengo que explicarlo todo otra vez",
+   "why": "«Der Sachbearbeiter hilft» — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2778,
+   "col": "example_fr",
+   "old": "Le chargé de dossier aide",
+   "new": "Ma chargée de dossier à l'agence pour l'emploi change tous les six mois et je dois tout réexpliquer",
+   "why": "«Der Sachbearbeiter hilft» — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2778,
+   "col": "example_cs",
+   "old": "Referent pomáhá",
+   "new": "Moje referentka na úřadu práce se mění každého půl roku a musím všechno vysvětlovat znovu",
+   "why": "«Der Sachbearbeiter hilft» — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2779,
+   "col": "translation_ru",
+   "old": "материальный ущерб, ущерб имуществу",
+   "new": "материальный ущерб",
+   "why": "«Es gab nur Sachschaden» — сводка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2779,
+   "col": "translation_uk",
+   "old": "матеріальна шкода, шкода майну",
+   "new": "матеріальна шкода",
+   "why": "«Es gab nur Sachschaden» — сводка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2779,
+   "col": "translation_en",
+   "old": "property damage, material damage",
+   "new": "damage to property",
+   "why": "«Es gab nur Sachschaden» — сводка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2779,
+   "col": "translation_tr",
+   "old": "maddi hasar, eşyada hasar",
+   "new": "maddi hasar",
+   "why": "«Es gab nur Sachschaden» — сводка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2779,
+   "col": "translation_pl",
+   "old": "szkoda materialna, szkoda w mieniu, straty materialne",
+   "new": "szkoda materialna",
+   "why": "«Es gab nur Sachschaden» — сводка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2779,
+   "col": "translation_fr",
+   "old": "le dégât matériel, le dommage matériel",
+   "new": "le dégât matériel",
+   "why": "«Es gab nur Sachschaden» — сводка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2779,
+   "col": "translation_cs",
+   "old": "hmotná škoda, škoda na majetku",
+   "new": "hmotná škoda",
+   "why": "«Es gab nur Sachschaden» — сводка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2779,
+   "col": "example_de",
+   "old": "Es gab nur Sachschaden",
+   "new": "Beim Unfall auf dem Parkplatz hat sich zum Glück niemand verletzt, es war nur Sachschaden",
+   "why": "«Es gab nur Sachschaden» — сводка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2779,
+   "col": "example_ru",
+   "old": "Был только материальный ущерб",
+   "new": "При аварии на парковке, к счастью, никто не пострадал — только материальный ущерб",
+   "why": "«Es gab nur Sachschaden» — сводка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2779,
+   "col": "example_uk",
+   "old": "Була лише матеріальна шкода",
+   "new": "Під час аварії на парковці, на щастя, ніхто не постраждав — лише матеріальна шкода",
+   "why": "«Es gab nur Sachschaden» — сводка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2779,
+   "col": "example_en",
+   "old": "There was only property damage",
+   "new": "Luckily nobody was hurt in the accident in the car park, it was only damage to property",
+   "why": "«Es gab nur Sachschaden» — сводка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2779,
+   "col": "example_tr",
+   "old": "Sadece maddi hasar vardı",
+   "new": "Otoparktaki kazada neyse ki kimse yaralanmadı, sadece maddi hasar vardı",
+   "why": "«Es gab nur Sachschaden» — сводка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2779,
+   "col": "example_pl",
+   "old": "Doszło tylko do szkody materialnej",
+   "new": "W wypadku na parkingu na szczęście nikt nie ucierpiał, była tylko szkoda materialna",
+   "why": "«Es gab nur Sachschaden» — сводка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2779,
+   "col": "example_it",
+   "old": "Ci sono stati solo danni materiali",
+   "new": "Nell'incidente al parcheggio per fortuna nessuno si è fatto male, c'è stato solo un danno materiale",
+   "why": "«Es gab nur Sachschaden» — сводка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2779,
+   "col": "example_es",
+   "old": "Solo hubo daños materiales",
+   "new": "En el accidente del aparcamiento por suerte nadie resultó herido, solo hubo daño material",
+   "why": "«Es gab nur Sachschaden» — сводка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2779,
+   "col": "example_fr",
+   "old": "Il n'y a eu que des dégâts matériels",
+   "new": "Dans l'accident sur le parking, heureusement personne n'a été blessé, il n'y a eu qu'un dégât matériel",
+   "why": "«Es gab nur Sachschaden» — сводка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2779,
+   "col": "example_cs",
+   "old": "Došlo jen k hmotné škodě",
+   "new": "Při nehodě na parkovišti se naštěstí nikdo nezranil, byla to jen hmotná škoda",
+   "why": "«Es gab nur Sachschaden» — сводка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2781,
+   "col": "translation_ru",
+   "old": "менеджер по продажам, руководитель отдела продаж",
+   "new": "менеджер по продажам",
+   "why": "«Sie ist Sales Managerin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2781,
+   "col": "translation_uk",
+   "old": "менеджер з продажу, керівник відділу продажів",
+   "new": "менеджер з продажу",
+   "why": "«Sie ist Sales Managerin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2781,
+   "col": "translation_tr",
+   "old": "satış müdürü, satış yöneticisi",
+   "new": "satış müdürü",
+   "why": "«Sie ist Sales Managerin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2781,
+   "col": "translation_pl",
+   "old": "kierownik sprzedaży, menedżer sprzedaży",
+   "new": "kierownik sprzedaży, kierowniczka sprzedaży",
+   "why": "«Sie ist Sales Managerin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2781,
+   "col": "translation_it",
+   "old": "il responsabile vendite, la responsabile vendite, il sales manager",
+   "new": "il responsabile vendite, la responsabile vendite",
+   "why": "«Sie ist Sales Managerin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2781,
+   "col": "translation_es",
+   "old": "el gerente de ventas, la gerente de ventas, el jefe de ventas",
+   "new": "el gerente de ventas, la gerente de ventas",
+   "why": "«Sie ist Sales Managerin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2781,
+   "col": "translation_fr",
+   "old": "le responsable commercial, la responsable commerciale, le directeur des ventes",
+   "new": "le responsable commercial, la responsable commerciale",
+   "why": "«Sie ist Sales Managerin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2781,
+   "col": "translation_cs",
+   "old": "manažer prodeje, manažerka prodeje, obchodní manažer",
+   "new": "manažer prodeje, manažerka prodeje",
+   "why": "«Sie ist Sales Managerin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2781,
+   "col": "example_de",
+   "old": "Sie ist Sales Managerin",
+   "new": "Als Sales Managerin ist meine Freundin mehr im Flugzeug als im Büro",
+   "why": "«Sie ist Sales Managerin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2781,
+   "col": "example_ru",
+   "old": "Она менеджер по продажам",
+   "new": "Моя подруга — менеджер по продажам и бывает в самолёте чаще, чем в офисе",
+   "why": "«Sie ist Sales Managerin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2781,
+   "col": "example_uk",
+   "old": "Вона менеджер з продажу",
+   "new": "Моя подруга — менеджер з продажу й буває в літаку частіше, ніж в офісі",
+   "why": "«Sie ist Sales Managerin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2781,
+   "col": "example_en",
+   "old": "She is a sales manager",
+   "new": "As a sales manager my friend spends more time on planes than in the office",
+   "why": "«Sie ist Sales Managerin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2781,
+   "col": "example_tr",
+   "old": "O satış müdürü",
+   "new": "Arkadaşım satış müdürü olarak uçakta ofisten daha çok vakit geçiriyor",
+   "why": "«Sie ist Sales Managerin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2781,
+   "col": "example_pl",
+   "old": "Ona jest kierowniczką sprzedaży",
+   "new": "Moja przyjaciółka jako kierowniczka sprzedaży więcej siedzi w samolocie niż w biurze",
+   "why": "«Sie ist Sales Managerin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2781,
+   "col": "example_it",
+   "old": "È responsabile vendite",
+   "new": "Come responsabile vendite la mia amica sta più in aereo che in ufficio",
+   "why": "«Sie ist Sales Managerin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2781,
+   "col": "example_es",
+   "old": "Es gerente de ventas",
+   "new": "Como gerente de ventas, mi amiga pasa más tiempo en el avión que en la oficina",
+   "why": "«Sie ist Sales Managerin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2781,
+   "col": "example_fr",
+   "old": "Elle est responsable commerciale",
+   "new": "En tant que responsable commerciale, mon amie est plus souvent dans l'avion qu'au bureau",
+   "why": "«Sie ist Sales Managerin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2781,
+   "col": "example_cs",
+   "old": "Je manažerka prodeje",
+   "new": "Jako manažerka prodeje je moje kamarádka víc v letadle než v kanceláři",
+   "why": "«Sie ist Sales Managerin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2783,
+   "col": "translation_ru",
+   "old": "пункт сбора, приёмный пункт, место сбора",
+   "new": "пункт сбора",
+   "why": "«Die Sammelstelle ist dort» — указатель; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2783,
+   "col": "translation_uk",
+   "old": "пункт збору, приймальний пункт, місце збору",
+   "new": "пункт збору",
+   "why": "«Die Sammelstelle ist dort» — указатель; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2783,
+   "col": "translation_en",
+   "old": "collection point, drop-off point, assembly point",
+   "new": "collection point",
+   "why": "«Die Sammelstelle ist dort» — указатель; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2783,
+   "col": "translation_tr",
+   "old": "toplama noktası, teslim noktası, buluşma noktası",
+   "new": "toplama noktası",
+   "why": "«Die Sammelstelle ist dort» — указатель; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2783,
+   "col": "translation_pl",
+   "old": "punkt zbiórki, punkt odbioru, miejsce zbiórki",
+   "new": "punkt zbiórki",
+   "why": "«Die Sammelstelle ist dort» — указатель; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2783,
+   "col": "translation_es",
+   "old": "el punto de recogida, el punto de encuentro",
+   "new": "el punto de recogida",
+   "why": "«Die Sammelstelle ist dort» — указатель; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2783,
+   "col": "translation_fr",
+   "old": "le point de collecte, le point de rassemblement",
+   "new": "le point de collecte",
+   "why": "«Die Sammelstelle ist dort» — указатель; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2783,
+   "col": "example_de",
+   "old": "Die Sammelstelle ist dort",
+   "new": "Alte Batterien bringe ich zur Sammelstelle im Supermarkt",
+   "why": "«Die Sammelstelle ist dort» — указатель; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2783,
+   "col": "example_ru",
+   "old": "Пункт сбора находится там",
+   "new": "Старые батарейки я отношу в пункт сбора в супермаркете",
+   "why": "«Die Sammelstelle ist dort» — указатель; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2783,
+   "col": "example_uk",
+   "old": "Пункт збору там",
+   "new": "Старі батарейки я відношу до пункту збору в супермаркеті",
+   "why": "«Die Sammelstelle ist dort» — указатель; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2783,
+   "col": "example_en",
+   "old": "The collection point is over there",
+   "new": "I take old batteries to the collection point in the supermarket",
+   "why": "«Die Sammelstelle ist dort» — указатель; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2783,
+   "col": "example_tr",
+   "old": "Toplama noktası orada",
+   "new": "Eski pilleri süpermarketteki toplama noktasına götürüyorum",
+   "why": "«Die Sammelstelle ist dort» — указатель; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2783,
+   "col": "example_pl",
+   "old": "Punkt zbiórki jest tam",
+   "new": "Stare baterie zanoszę do punktu zbiórki w supermarkecie",
+   "why": "«Die Sammelstelle ist dort» — указатель; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2783,
+   "col": "example_it",
+   "old": "Il punto di raccolta è lì",
+   "new": "Le pile vecchie le porto al punto di raccolta del supermercato",
+   "why": "«Die Sammelstelle ist dort» — указатель; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2783,
+   "col": "example_es",
+   "old": "El punto de recogida está allí",
+   "new": "Las pilas viejas las llevo al punto de recogida del supermercado",
+   "why": "«Die Sammelstelle ist dort» — указатель; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2783,
+   "col": "example_fr",
+   "old": "Le point de collecte est là-bas",
+   "new": "Les vieilles piles, je les apporte au point de collecte du supermarché",
+   "why": "«Die Sammelstelle ist dort» — указатель; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2783,
+   "col": "example_cs",
+   "old": "Sběrné místo je tamhle",
+   "new": "Staré baterie nosím do sběrného místa v supermarketu",
+   "why": "«Die Sammelstelle ist dort» — указатель; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2785,
+   "col": "translation_ru",
+   "old": "чистота, опрятность",
+   "new": "чистота",
+   "why": "«Sauberkeit ist wichtig» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2785,
+   "col": "translation_uk",
+   "old": "чистота, охайність",
+   "new": "чистота",
+   "why": "«Sauberkeit ist wichtig» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2785,
+   "col": "translation_en",
+   "old": "cleanliness, tidiness",
+   "new": "cleanliness",
+   "why": "«Sauberkeit ist wichtig» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2785,
+   "col": "translation_tr",
+   "old": "temizlik, düzenlilik",
+   "new": "temizlik",
+   "why": "«Sauberkeit ist wichtig» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2785,
+   "col": "translation_pl",
+   "old": "czystość, porządek",
+   "new": "czystość",
+   "why": "«Sauberkeit ist wichtig» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2785,
+   "col": "example_de",
+   "old": "Sauberkeit ist wichtig",
+   "new": "Das Hotel war günstig, aber mit der Sauberkeit im Bad waren wir gar nicht zufrieden",
+   "why": "«Sauberkeit ist wichtig» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2785,
+   "col": "example_ru",
+   "old": "Чистота важна",
+   "new": "Отель был недорогим, но чистотой в ванной мы были совсем недовольны",
+   "why": "«Sauberkeit ist wichtig» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2785,
+   "col": "example_uk",
+   "old": "Чистота важлива",
+   "new": "Готель був недорогим, але чистотою у ванній ми були зовсім незадоволені",
+   "why": "«Sauberkeit ist wichtig» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2785,
+   "col": "example_en",
+   "old": "Cleanliness is important",
+   "new": "The hotel was cheap, but we weren't at all happy with the cleanliness of the bathroom",
+   "why": "«Sauberkeit ist wichtig» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2785,
+   "col": "example_tr",
+   "old": "Temizlik önemli",
+   "new": "Otel ucuzdu ama banyonun temizliğinden hiç memnun kalmadık",
+   "why": "«Sauberkeit ist wichtig» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2785,
+   "col": "example_pl",
+   "old": "Czystość jest ważna",
+   "new": "Hotel był tani, ale z czystości w łazience nie byliśmy w ogóle zadowoleni",
+   "why": "«Sauberkeit ist wichtig» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2785,
+   "col": "example_it",
+   "old": "La pulizia è importante",
+   "new": "L'albergo costava poco, ma della pulizia del bagno non eravamo per niente contenti",
+   "why": "«Sauberkeit ist wichtig» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2785,
+   "col": "example_es",
+   "old": "La limpieza es importante",
+   "new": "El hotel era barato, pero con la limpieza del baño no quedamos nada contentos",
+   "why": "«Sauberkeit ist wichtig» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2785,
+   "col": "example_fr",
+   "old": "La propreté est importante",
+   "new": "L'hôtel n'était pas cher, mais on n'était pas du tout contents de la propreté de la salle de bains",
+   "why": "«Sauberkeit ist wichtig» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2785,
+   "col": "example_cs",
+   "old": "Čistota je důležitá",
+   "new": "Hotel byl levný, ale s čistotou v koupelně jsme vůbec nebyli spokojení",
+   "why": "«Sauberkeit ist wichtig» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2788,
+   "col": "translation_ru",
+   "old": "страховой случай, случай причинения ущерба",
+   "new": "страховой случай",
+   "why": "«Im Schadensfall rufen Sie an» — бланк; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2788,
+   "col": "translation_uk",
+   "old": "страховий випадок, випадок завдання шкоди",
+   "new": "страховий випадок",
+   "why": "«Im Schadensfall rufen Sie an» — бланк; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2788,
+   "col": "translation_en",
+   "old": "insurance claim, event of damage, claim case",
+   "new": "insurance claim",
+   "why": "«Im Schadensfall rufen Sie an» — бланк; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2788,
+   "col": "translation_tr",
+   "old": "hasar durumu, sigorta olayı, hasar ihbarı",
+   "new": "hasar durumu",
+   "why": "«Im Schadensfall rufen Sie an» — бланк; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2788,
+   "col": "translation_pl",
+   "old": "szkoda, przypadek szkody, zdarzenie ubezpieczeniowe",
+   "new": "szkoda, zdarzenie ubezpieczeniowe",
+   "why": "«Im Schadensfall rufen Sie an» — бланк; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2788,
+   "col": "translation_it",
+   "old": "il sinistro, il caso di danno",
+   "new": "il sinistro",
+   "why": "«Im Schadensfall rufen Sie an» — бланк; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2788,
+   "col": "translation_es",
+   "old": "el siniestro, el caso de daños",
+   "new": "el siniestro",
+   "why": "«Im Schadensfall rufen Sie an» — бланк; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2788,
+   "col": "translation_fr",
+   "old": "le sinistre, le cas de dommage",
+   "new": "le sinistre",
+   "why": "«Im Schadensfall rufen Sie an» — бланк; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2788,
+   "col": "translation_cs",
+   "old": "pojistná událost, případ škody",
+   "new": "pojistná událost",
+   "why": "«Im Schadensfall rufen Sie an» — бланк; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2788,
+   "col": "example_de",
+   "old": "Im Schadensfall rufen Sie an",
+   "new": "Bei meinem ersten Schadensfall hat die Versicherung erstaunlich schnell bezahlt",
+   "why": "«Im Schadensfall rufen Sie an» — бланк; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2788,
+   "col": "example_ru",
+   "old": "В случае ущерба звоните",
+   "new": "В моём первом страховом случае страховая заплатила удивительно быстро",
+   "why": "«Im Schadensfall rufen Sie an» — бланк; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2788,
+   "col": "example_uk",
+   "old": "У разі збитків зателефонуйте",
+   "new": "У моєму першому страховому випадку страхова заплатила напрочуд швидко",
+   "why": "«Im Schadensfall rufen Sie an» — бланк; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2788,
+   "col": "example_en",
+   "old": "In case of damage, please call",
+   "new": "With my first insurance claim the insurer paid out surprisingly quickly",
+   "why": "«Im Schadensfall rufen Sie an» — бланк; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2788,
+   "col": "example_tr",
+   "old": "Hasar durumunda arayın",
+   "new": "İlk hasar durumumda sigorta şaşırtıcı derecede hızlı ödedi",
+   "why": "«Im Schadensfall rufen Sie an» — бланк; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2788,
+   "col": "example_pl",
+   "old": "W razie szkody proszę zadzwonić",
+   "new": "Przy mojej pierwszej szkodzie ubezpieczyciel zapłacił zaskakująco szybko",
+   "why": "«Im Schadensfall rufen Sie an» — бланк; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2788,
+   "col": "example_it",
+   "old": "In caso di sinistro, ci chiami",
+   "new": "Al mio primo sinistro l'assicurazione ha pagato sorprendentemente in fretta",
+   "why": "«Im Schadensfall rufen Sie an» — бланк; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2788,
+   "col": "example_es",
+   "old": "En caso de siniestro, llámenos",
+   "new": "En mi primer siniestro el seguro pagó sorprendentemente rápido",
+   "why": "«Im Schadensfall rufen Sie an» — бланк; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2788,
+   "col": "example_fr",
+   "old": "En cas de sinistre, appelez-nous",
+   "new": "Pour mon premier sinistre, l'assurance a payé étonnamment vite",
+   "why": "«Im Schadensfall rufen Sie an» — бланк; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2788,
+   "col": "example_cs",
+   "old": "V případě pojistné události nám zavolejte",
+   "new": "U mé první pojistné události pojišťovna zaplatila překvapivě rychle",
+   "why": "«Im Schadensfall rufen Sie an» — бланк; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2789,
+   "col": "translation_ru",
+   "old": "вредить, наносить ущерб, портить репутацию",
+   "new": "вредить, наносить ущерб",
+   "why": "«Das schädigt die Gesundheit» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2789,
+   "col": "translation_uk",
+   "old": "шкодити, завдавати збитків, псувати репутацію",
+   "new": "шкодити, завдавати збитків",
+   "why": "«Das schädigt die Gesundheit» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2789,
+   "col": "translation_en",
+   "old": "to harm, to damage, to hurt someone's reputation",
+   "new": "to harm, to damage",
+   "why": "«Das schädigt die Gesundheit» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2789,
+   "col": "translation_tr",
+   "old": "zarar vermek, hasar vermek, itibarını zedelemek",
+   "new": "zarar vermek",
+   "why": "«Das schädigt die Gesundheit» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2789,
+   "col": "translation_pl",
+   "old": "szkodzić, wyrządzać szkodę, psuć reputację",
+   "new": "szkodzić",
+   "why": "«Das schädigt die Gesundheit» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2789,
+   "col": "example_de",
+   "old": "Das schädigt die Gesundheit",
+   "new": "Die schlechten Bewertungen im Internet haben das kleine Restaurant sehr geschädigt",
+   "why": "«Das schädigt die Gesundheit» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2789,
+   "col": "example_ru",
+   "old": "Это вредит здоровью",
+   "new": "Плохие отзывы в интернете сильно навредили маленькому ресторану",
+   "why": "«Das schädigt die Gesundheit» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2789,
+   "col": "example_uk",
+   "old": "Це шкодить здоров'ю",
+   "new": "Погані відгуки в інтернеті сильно зашкодили маленькому ресторану",
+   "why": "«Das schädigt die Gesundheit» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2789,
+   "col": "example_en",
+   "old": "It harms your health",
+   "new": "The bad reviews online did the little restaurant a lot of harm",
+   "why": "«Das schädigt die Gesundheit» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2789,
+   "col": "example_tr",
+   "old": "Bu sağlığa zarar verir",
+   "new": "İnternetteki kötü yorumlar küçük restorana çok zarar verdi",
+   "why": "«Das schädigt die Gesundheit» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2789,
+   "col": "example_pl",
+   "old": "To szkodzi zdrowiu",
+   "new": "Złe opinie w internecie bardzo zaszkodziły małej restauracji",
+   "why": "«Das schädigt die Gesundheit» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2789,
+   "col": "example_it",
+   "old": "Questo danneggia la salute",
+   "new": "Le recensioni negative su internet hanno danneggiato molto il piccolo ristorante",
+   "why": "«Das schädigt die Gesundheit» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2789,
+   "col": "example_es",
+   "old": "Esto perjudica la salud",
+   "new": "Las malas reseñas en internet perjudicaron mucho al pequeño restaurante",
+   "why": "«Das schädigt die Gesundheit» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2789,
+   "col": "example_fr",
+   "old": "Cela nuit à la santé",
+   "new": "Les mauvais avis sur internet ont beaucoup nui au petit restaurant",
+   "why": "«Das schädigt die Gesundheit» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2789,
+   "col": "example_cs",
+   "old": "To poškozuje zdraví",
+   "new": "Špatné recenze na internetu malé restauraci hodně uškodily",
+   "why": "«Das schädigt die Gesundheit» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2791,
+   "col": "translation_ru",
+   "old": "вредное вещество, загрязняющее вещество",
+   "new": "вредное вещество",
+   "why": "«Schadstoffe belasten die Umwelt» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2791,
+   "col": "translation_uk",
+   "old": "шкідлива речовина, забруднювач",
+   "new": "шкідлива речовина",
+   "why": "«Schadstoffe belasten die Umwelt» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2791,
+   "col": "translation_en",
+   "old": "pollutant, harmful substance, toxic substance",
+   "new": "pollutant, harmful substance",
+   "why": "«Schadstoffe belasten die Umwelt» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2791,
+   "col": "translation_tr",
+   "old": "zararlı madde, kirletici madde",
+   "new": "zararlı madde",
+   "why": "«Schadstoffe belasten die Umwelt» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2791,
+   "col": "translation_pl",
+   "old": "substancja szkodliwa, zanieczyszczenie, substancja trująca",
+   "new": "substancja szkodliwa",
+   "why": "«Schadstoffe belasten die Umwelt» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2791,
+   "col": "translation_it",
+   "old": "la sostanza nociva, l'inquinante",
+   "new": "la sostanza nociva",
+   "why": "«Schadstoffe belasten die Umwelt» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2791,
+   "col": "translation_es",
+   "old": "la sustancia nociva, el contaminante",
+   "new": "la sustancia nociva",
+   "why": "«Schadstoffe belasten die Umwelt» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2791,
+   "col": "translation_fr",
+   "old": "la substance nocive, le polluant",
+   "new": "la substance nocive",
+   "why": "«Schadstoffe belasten die Umwelt» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2791,
+   "col": "example_de",
+   "old": "Schadstoffe belasten die Umwelt",
+   "new": "Im billigen Spielzeug aus dem Internet hat man Schadstoffe gefunden",
+   "why": "«Schadstoffe belasten die Umwelt» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2791,
+   "col": "example_ru",
+   "old": "Вредные вещества загрязняют окружающую среду",
+   "new": "В дешёвых игрушках из интернета нашли вредные вещества",
+   "why": "«Schadstoffe belasten die Umwelt» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2791,
+   "col": "example_uk",
+   "old": "Шкідливі речовини забруднюють довкілля",
+   "new": "У дешевих іграшках з інтернету знайшли шкідливі речовини",
+   "why": "«Schadstoffe belasten die Umwelt» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2791,
+   "col": "example_en",
+   "old": "Pollutants put a strain on the environment",
+   "new": "Harmful substances have been found in cheap toys from the internet",
+   "why": "«Schadstoffe belasten die Umwelt» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2791,
+   "col": "example_tr",
+   "old": "Zararlı maddeler çevreyi kirletir",
+   "new": "İnternetten alınan ucuz oyuncaklarda zararlı maddeler bulundu",
+   "why": "«Schadstoffe belasten die Umwelt» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2791,
+   "col": "example_pl",
+   "old": "Szkodliwe substancje obciążają środowisko",
+   "new": "W tanich zabawkach z internetu znaleziono substancje szkodliwe",
+   "why": "«Schadstoffe belasten die Umwelt» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2791,
+   "col": "example_it",
+   "old": "Le sostanze nocive inquinano l'ambiente",
+   "new": "Nei giocattoli economici comprati su internet hanno trovato sostanze nocive",
+   "why": "«Schadstoffe belasten die Umwelt» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2791,
+   "col": "example_es",
+   "old": "Las sustancias nocivas contaminan el medio ambiente",
+   "new": "En los juguetes baratos de internet encontraron sustancias nocivas",
+   "why": "«Schadstoffe belasten die Umwelt» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2791,
+   "col": "example_fr",
+   "old": "Les substances nocives polluent l'environnement",
+   "new": "On a trouvé des substances nocives dans des jouets bon marché achetés en ligne",
+   "why": "«Schadstoffe belasten die Umwelt» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2791,
+   "col": "example_cs",
+   "old": "Škodliviny zatěžují životní prostředí",
+   "new": "V levných hračkách z internetu našli škodliviny",
+   "why": "«Schadstoffe belasten die Umwelt» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2807,
+   "col": "translation_ru",
+   "old": "самозанятый, человек, работающий на себя, частный предприниматель",
+   "new": "самозанятый, работающий на себя",
+   "why": "«Ich bin selbstständig» — это прилагательное, не слово; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2807,
+   "col": "translation_uk",
+   "old": "самозайнятий, той, хто працює на себе, приватний підприємець",
+   "new": "самозайнятий, той, хто працює на себе",
+   "why": "«Ich bin selbstständig» — это прилагательное, не слово; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2807,
+   "col": "translation_en",
+   "old": "self-employed person, freelancer, sole trader",
+   "new": "self-employed person",
+   "why": "«Ich bin selbstständig» — это прилагательное, не слово; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2807,
+   "col": "translation_tr",
+   "old": "serbest çalışan, kendi işini yapan kişi, esnaf",
+   "new": "serbest çalışan",
+   "why": "«Ich bin selbstständig» — это прилагательное, не слово; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2807,
+   "col": "translation_pl",
+   "old": "samozatrudniony, osoba pracująca na własny rachunek, przedsiębiorca",
+   "new": "samozatrudniony, osoba na własnym rachunku",
+   "why": "«Ich bin selbstständig» — это прилагательное, не слово; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2807,
+   "col": "translation_cs",
+   "old": "živnostník, osoba samostatně výdělečně činná",
+   "new": "živnostník, OSVČ",
+   "why": "«Ich bin selbstständig» — это прилагательное, не слово; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2807,
+   "col": "example_de",
+   "old": "Ich bin selbstständig",
+   "new": "Als Selbstständige muss sie sich selbst um ihre Krankenversicherung kümmern",
+   "why": "«Ich bin selbstständig» — это прилагательное, не слово; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2807,
+   "col": "example_ru",
+   "old": "Я самозанятый",
+   "new": "Как самозанятой ей приходится самой заниматься медицинской страховкой",
+   "why": "«Ich bin selbstständig» — это прилагательное, не слово; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2807,
+   "col": "example_uk",
+   "old": "Я самозайнятий",
+   "new": "Як самозайнятій їй доводиться самій займатися медичним страхуванням",
+   "why": "«Ich bin selbstständig» — это прилагательное, не слово; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2807,
+   "col": "example_en",
+   "old": "I am self-employed",
+   "new": "As a self-employed person she has to sort out her own health insurance",
+   "why": "«Ich bin selbstständig» — это прилагательное, не слово; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2807,
+   "col": "example_tr",
+   "old": "Serbest çalışıyorum",
+   "new": "Serbest çalışan olarak sağlık sigortasıyla kendisi ilgilenmek zorunda",
+   "why": "«Ich bin selbstständig» — это прилагательное, не слово; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2807,
+   "col": "example_pl",
+   "old": "Jestem samozatrudniony",
+   "new": "Jako samozatrudniona musi sama zadbać o ubezpieczenie zdrowotne",
+   "why": "«Ich bin selbstständig» — это прилагательное, не слово; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2807,
+   "col": "example_it",
+   "old": "Sono un lavoratore autonomo",
+   "new": "Come lavoratrice autonoma deve occuparsi da sola dell'assicurazione sanitaria",
+   "why": "«Ich bin selbstständig» — это прилагательное, не слово; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2807,
+   "col": "example_es",
+   "old": "Soy autónomo",
+   "new": "Como autónoma tiene que ocuparse ella misma del seguro médico",
+   "why": "«Ich bin selbstständig» — это прилагательное, не слово; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2807,
+   "col": "example_fr",
+   "old": "Je suis indépendant",
+   "new": "En tant qu'indépendante, elle doit s'occuper elle-même de son assurance maladie",
+   "why": "«Ich bin selbstständig» — это прилагательное, не слово; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2807,
+   "col": "example_cs",
+   "old": "Jsem živnostník",
+   "new": "Jako živnostnice se musí sama starat o zdravotní pojištění",
+   "why": "«Ich bin selbstständig» — это прилагательное, не слово; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2811,
+   "col": "translation_ru",
+   "old": "дом престарелых, пансионат для пожилых",
+   "new": "дом престарелых",
+   "why": "пример повторяет Altenheim/Pflegeheim; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2811,
+   "col": "translation_uk",
+   "old": "будинок для літніх людей, дім для людей похилого віку",
+   "new": "будинок для літніх людей",
+   "why": "пример повторяет Altenheim/Pflegeheim; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2811,
+   "col": "translation_en",
+   "old": "retirement home, nursing home",
+   "new": "care home, retirement home",
+   "why": "пример повторяет Altenheim/Pflegeheim; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2811,
+   "col": "translation_tr",
+   "old": "huzurevi, yaşlı bakım evi",
+   "new": "huzurevi",
+   "why": "пример повторяет Altenheim/Pflegeheim; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2811,
+   "col": "translation_pl",
+   "old": "dom seniora, dom spokojnej starości",
+   "new": "dom seniora",
+   "why": "пример повторяет Altenheim/Pflegeheim; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2811,
+   "col": "translation_es",
+   "old": "la residencia de ancianos, el asilo",
+   "new": "la residencia de ancianos",
+   "why": "пример повторяет Altenheim/Pflegeheim; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2811,
+   "col": "translation_cs",
+   "old": "domov pro seniory, domov důchodců",
+   "new": "domov pro seniory",
+   "why": "пример повторяет Altenheim/Pflegeheim; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2811,
+   "col": "example_de",
+   "old": "Oma lebt im Seniorenheim",
+   "new": "Jeden Freitag singt der Kinderchor im Seniorenheim neben der Schule",
+   "why": "пример повторяет Altenheim/Pflegeheim; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2811,
+   "col": "example_ru",
+   "old": "Бабушка живёт в доме престарелых",
+   "new": "Каждую пятницу детский хор поёт в доме престарелых рядом со школой",
+   "why": "пример повторяет Altenheim/Pflegeheim; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2811,
+   "col": "example_uk",
+   "old": "Бабуся живе в будинку для літніх людей",
+   "new": "Щоп'ятниці дитячий хор співає в будинку для літніх людей поруч зі школою",
+   "why": "пример повторяет Altenheim/Pflegeheim; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2811,
+   "col": "example_en",
+   "old": "Grandma lives in a nursing home",
+   "new": "Every Friday the children's choir sings at the care home next to the school",
+   "why": "пример повторяет Altenheim/Pflegeheim; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2811,
+   "col": "example_tr",
+   "old": "Büyükanne huzurevinde yaşıyor",
+   "new": "Her cuma çocuk korosu okulun yanındaki huzurevinde şarkı söylüyor",
+   "why": "пример повторяет Altenheim/Pflegeheim; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2811,
+   "col": "example_pl",
+   "old": "Babcia mieszka w domu seniora",
+   "new": "W każdy piątek chór dziecięcy śpiewa w domu seniora obok szkoły",
+   "why": "пример повторяет Altenheim/Pflegeheim; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2811,
+   "col": "example_it",
+   "old": "La nonna vive in casa di riposo",
+   "new": "Ogni venerdì il coro dei bambini canta nella casa di riposo vicino alla scuola",
+   "why": "пример повторяет Altenheim/Pflegeheim; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2811,
+   "col": "example_es",
+   "old": "La abuela vive en una residencia de ancianos",
+   "new": "Cada viernes el coro infantil canta en la residencia de ancianos junto al colegio",
+   "why": "пример повторяет Altenheim/Pflegeheim; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2811,
+   "col": "example_fr",
+   "old": "Mamie vit en maison de retraite",
+   "new": "Chaque vendredi, la chorale d'enfants chante à la maison de retraite à côté de l'école",
+   "why": "пример повторяет Altenheim/Pflegeheim; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2811,
+   "col": "example_cs",
+   "old": "Babička žije v domově pro seniory",
+   "new": "Každý pátek zpívá dětský sbor v domově pro seniory vedle školy",
+   "why": "пример повторяет Altenheim/Pflegeheim; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2814,
+   "col": "translation_pl",
+   "old": "zakupy, szał zakupów",
+   "new": "zakupy",
+   "why": "«Ich gehe shoppen» — это глагол, не слово; пометка (hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2814,
+   "col": "translation_es",
+   "old": "las compras, el shopping",
+   "new": "las compras",
+   "why": "«Ich gehe shoppen» — это глагол, не слово; пометка (hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2814,
+   "col": "translation_cs",
+   "old": "nakupování, šoping (hovor.)",
+   "new": "nakupování",
+   "why": "«Ich gehe shoppen» — это глагол, не слово; пометка (hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2814,
+   "col": "example_de",
+   "old": "Ich gehe shoppen",
+   "new": "Nach einem Tag Shopping in Mailand tun mir die Füße weh, aber gekauft habe ich nur Socken",
+   "why": "«Ich gehe shoppen» — это глагол, не слово; пометка (hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2814,
+   "col": "example_ru",
+   "old": "Я иду на шопинг",
+   "new": "После дня шопинга в Милане у меня болят ноги, а купил я только носки",
+   "why": "«Ich gehe shoppen» — это глагол, не слово; пометка (hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2814,
+   "col": "example_uk",
+   "old": "Я йду на шопінг",
+   "new": "Після дня шопінгу в Мілані в мене болять ноги, а купила я лише шкарпетки",
+   "why": "«Ich gehe shoppen» — это глагол, не слово; пометка (hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2814,
+   "col": "example_en",
+   "old": "I go shopping",
+   "new": "After a day's shopping in Milan my feet hurt, but all I bought was socks",
+   "why": "«Ich gehe shoppen» — это глагол, не слово; пометка (hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2814,
+   "col": "example_tr",
+   "old": "Alışverişe gidiyorum",
+   "new": "Milano'da bir günlük alışverişten sonra ayaklarım ağrıyor ama sadece çorap aldım",
+   "why": "«Ich gehe shoppen» — это глагол, не слово; пометка (hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2814,
+   "col": "example_pl",
+   "old": "Idę na zakupy",
+   "new": "Po dniu zakupów w Mediolanie bolą mnie nogi, a kupiłam tylko skarpetki",
+   "why": "«Ich gehe shoppen» — это глагол, не слово; пометка (hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2814,
+   "col": "example_it",
+   "old": "Vado a fare shopping",
+   "new": "Dopo una giornata di shopping a Milano mi fanno male i piedi, ma ho comprato solo calzini",
+   "why": "«Ich gehe shoppen» — это глагол, не слово; пометка (hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2814,
+   "col": "example_es",
+   "old": "Voy de compras",
+   "new": "Después de un día de compras en Milán me duelen los pies, pero solo me he comprado calcetines",
+   "why": "«Ich gehe shoppen» — это глагол, не слово; пометка (hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2814,
+   "col": "example_fr",
+   "old": "Je vais faire du shopping",
+   "new": "Après une journée de shopping à Milan, j'ai mal aux pieds, mais je n'ai acheté que des chaussettes",
+   "why": "«Ich gehe shoppen» — это глагол, не слово; пометка (hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2814,
+   "col": "example_cs",
+   "old": "Jdu nakupovat",
+   "new": "Po dni nakupování v Miláně mě bolí nohy, ale koupila jsem jen ponožky",
+   "why": "«Ich gehe shoppen» — это глагол, не слово; пометка (hovor.); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2816,
+   "col": "translation_ru",
+   "old": "победитель, победительница, чемпион",
+   "new": "победитель, победительница",
+   "why": "«Der Sieger bekommt einen Preis» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2816,
+   "col": "translation_en",
+   "old": "winner, champion, victor",
+   "new": "winner",
+   "why": "«Der Sieger bekommt einen Preis» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2816,
+   "col": "translation_tr",
+   "old": "kazanan, birinci, şampiyon",
+   "new": "kazanan",
+   "why": "«Der Sieger bekommt einen Preis» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2816,
+   "col": "translation_pl",
+   "old": "zwycięzca, zwyciężczyni, wygrany",
+   "new": "zwycięzca, zwyciężczyni",
+   "why": "«Der Sieger bekommt einen Preis» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2816,
+   "col": "translation_es",
+   "old": "el ganador, la ganadora, el vencedor",
+   "new": "el ganador, la ganadora",
+   "why": "«Der Sieger bekommt einen Preis» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2816,
+   "col": "translation_fr",
+   "old": "le gagnant, la gagnante, le vainqueur",
+   "new": "le gagnant, la gagnante",
+   "why": "«Der Sieger bekommt einen Preis» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2816,
+   "col": "example_de",
+   "old": "Der Sieger bekommt einen Preis",
+   "new": "Beim Kuchenwettbewerb im Dorf war meine Oma schon dreimal Siegerin",
+   "why": "«Der Sieger bekommt einen Preis» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2816,
+   "col": "example_ru",
+   "old": "Победитель получает приз",
+   "new": "На деревенском конкурсе пирогов моя бабушка уже трижды становилась победительницей",
+   "why": "«Der Sieger bekommt einen Preis» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2816,
+   "col": "example_uk",
+   "old": "Переможець отримує приз",
+   "new": "На сільському конкурсі пирогів моя бабуся вже тричі ставала переможницею",
+   "why": "«Der Sieger bekommt einen Preis» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2816,
+   "col": "example_en",
+   "old": "The winner gets a prize",
+   "new": "My gran has already been the winner of the village cake competition three times",
+   "why": "«Der Sieger bekommt einen Preis» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2816,
+   "col": "example_tr",
+   "old": "Kazanan bir ödül alır",
+   "new": "Köydeki kek yarışmasında anneannem şimdiye kadar üç kez kazanan oldu",
+   "why": "«Der Sieger bekommt einen Preis» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2816,
+   "col": "example_pl",
+   "old": "Zwycięzca dostaje nagrodę",
+   "new": "W wiejskim konkursie ciast moja babcia była już trzy razy zwyciężczynią",
+   "why": "«Der Sieger bekommt einen Preis» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2816,
+   "col": "example_it",
+   "old": "Il vincitore riceve un premio",
+   "new": "Al concorso di torte del paese mia nonna è stata già tre volte la vincitrice",
+   "why": "«Der Sieger bekommt einen Preis» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2816,
+   "col": "example_es",
+   "old": "El ganador recibe un premio",
+   "new": "En el concurso de tartas del pueblo mi abuela ya ha sido la ganadora tres veces",
+   "why": "«Der Sieger bekommt einen Preis» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2816,
+   "col": "example_fr",
+   "old": "Le gagnant reçoit un prix",
+   "new": "Au concours de gâteaux du village, ma grand-mère a déjà été trois fois la gagnante",
+   "why": "«Der Sieger bekommt einen Preis» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2816,
+   "col": "example_cs",
+   "old": "Vítěz dostane cenu",
+   "new": "V soutěži o nejlepší koláč ve vesnici byla babička už třikrát vítězkou",
+   "why": "«Der Sieger bekommt einen Preis» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2820,
+   "col": "translation_ru",
+   "old": "лыжный спорт, катание на лыжах",
+   "new": "лыжный спорт",
+   "why": "«Ich mache Skisport» — пусто; рядом Skifahren; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2820,
+   "col": "translation_uk",
+   "old": "лижний спорт, катання на лижах",
+   "new": "лижний спорт",
+   "why": "«Ich mache Skisport» — пусто; рядом Skifahren; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2820,
+   "col": "translation_en",
+   "old": "skiing, ski sport",
+   "new": "skiing",
+   "why": "«Ich mache Skisport» — пусто; рядом Skifahren; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2820,
+   "col": "translation_tr",
+   "old": "kayak sporu, kayak yapma",
+   "new": "kayak sporu",
+   "why": "«Ich mache Skisport» — пусто; рядом Skifahren; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2820,
+   "col": "translation_pl",
+   "old": "narciarstwo, jazda na nartach",
+   "new": "narciarstwo",
+   "why": "«Ich mache Skisport» — пусто; рядом Skifahren; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2820,
+   "col": "translation_cs",
+   "old": "lyžování, lyžařský sport",
+   "new": "lyžování",
+   "why": "«Ich mache Skisport» — пусто; рядом Skifahren; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2820,
+   "col": "example_de",
+   "old": "Ich mache Skisport",
+   "new": "Skisport ist teuer geworden, ein Tagesticket kostet fast sechzig Euro",
+   "why": "«Ich mache Skisport» — пусто; рядом Skifahren; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2820,
+   "col": "example_ru",
+   "old": "Я занимаюсь лыжным спортом",
+   "new": "Лыжный спорт стал дорогим: дневной абонемент стоит почти шестьдесят евро",
+   "why": "«Ich mache Skisport» — пусто; рядом Skifahren; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2820,
+   "col": "example_uk",
+   "old": "Я займаюся лижним спортом",
+   "new": "Лижний спорт став дорогим: денний абонемент коштує майже шістдесят євро",
+   "why": "«Ich mache Skisport» — пусто; рядом Skifahren; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2820,
+   "col": "example_en",
+   "old": "I do skiing",
+   "new": "Skiing has got expensive, a day pass costs almost sixty euros",
+   "why": "«Ich mache Skisport» — пусто; рядом Skifahren; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2820,
+   "col": "example_tr",
+   "old": "Kayak yapıyorum",
+   "new": "Kayak sporu pahalı oldu, günlük bilet neredeyse altmış euro",
+   "why": "«Ich mache Skisport» — пусто; рядом Skifahren; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2820,
+   "col": "example_pl",
+   "old": "Uprawiam narciarstwo",
+   "new": "Narciarstwo zrobiło się drogie, karnet dzienny kosztuje prawie sześćdziesiąt euro",
+   "why": "«Ich mache Skisport» — пусто; рядом Skifahren; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2820,
+   "col": "example_it",
+   "old": "Pratico lo sci",
+   "new": "Lo sci è diventato caro, lo skipass giornaliero costa quasi sessanta euro",
+   "why": "«Ich mache Skisport» — пусто; рядом Skifahren; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2820,
+   "col": "example_es",
+   "old": "Practico esquí",
+   "new": "El esquí se ha puesto caro, el forfait de un día cuesta casi sesenta euros",
+   "why": "«Ich mache Skisport» — пусто; рядом Skifahren; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2820,
+   "col": "example_fr",
+   "old": "Je fais du ski",
+   "new": "Le ski est devenu cher, le forfait à la journée coûte presque soixante euros",
+   "why": "«Ich mache Skisport» — пусто; рядом Skifahren; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2820,
+   "col": "example_cs",
+   "old": "Věnuji se lyžování",
+   "new": "Lyžování zdražilo, celodenní skipas stojí skoro šedesát eur",
+   "why": "«Ich mache Skisport» — пусто; рядом Skifahren; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2821,
+   "col": "translation_ru",
+   "old": "мыльная опера, сериал",
+   "new": "мыльная опера",
+   "why": "«Ich schaue eine Soap» — пусто; рядом Serie; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2821,
+   "col": "translation_uk",
+   "old": "мильна опера, серіал",
+   "new": "мильна опера",
+   "why": "«Ich schaue eine Soap» — пусто; рядом Serie; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2821,
+   "col": "translation_en",
+   "old": "soap opera, soap",
+   "new": "soap opera",
+   "why": "«Ich schaue eine Soap» — пусто; рядом Serie; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2821,
+   "col": "translation_tr",
+   "old": "pembe dizi, dizi",
+   "new": "pembe dizi",
+   "why": "«Ich schaue eine Soap» — пусто; рядом Serie; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2821,
+   "col": "translation_pl",
+   "old": "opera mydlana, telenowela, serial",
+   "new": "opera mydlana",
+   "why": "«Ich schaue eine Soap» — пусто; рядом Serie; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2821,
+   "col": "translation_it",
+   "old": "la soap opera, la telenovela",
+   "new": "la soap opera",
+   "why": "«Ich schaue eine Soap» — пусто; рядом Serie; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2821,
+   "col": "translation_es",
+   "old": "la telenovela, la serie",
+   "new": "la telenovela",
+   "why": "«Ich schaue eine Soap» — пусто; рядом Serie; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2821,
+   "col": "translation_fr",
+   "old": "le feuilleton, la série",
+   "new": "le feuilleton",
+   "why": "«Ich schaue eine Soap» — пусто; рядом Serie; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2821,
+   "col": "translation_cs",
+   "old": "telenovela, seriál",
+   "new": "telenovela",
+   "why": "«Ich schaue eine Soap» — пусто; рядом Serie; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2821,
+   "col": "example_de",
+   "old": "Ich schaue eine Soap",
+   "new": "Meine Mutter schaut seit zwanzig Jahren dieselbe Soap und kennt jede Figur",
+   "why": "«Ich schaue eine Soap» — пусто; рядом Serie; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2821,
+   "col": "example_ru",
+   "old": "Я смотрю мыльную оперу",
+   "new": "Мама двадцать лет смотрит одну и ту же мыльную оперу и знает каждого героя",
+   "why": "«Ich schaue eine Soap» — пусто; рядом Serie; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2821,
+   "col": "example_uk",
+   "old": "Я дивлюся мильну оперу",
+   "new": "Мама двадцять років дивиться ту саму мильну оперу й знає кожного героя",
+   "why": "«Ich schaue eine Soap» — пусто; рядом Serie; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2821,
+   "col": "example_en",
+   "old": "I watch a soap opera",
+   "new": "My mum has been watching the same soap opera for twenty years and knows every character",
+   "why": "«Ich schaue eine Soap» — пусто; рядом Serie; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2821,
+   "col": "example_tr",
+   "old": "Bir pembe dizi izliyorum",
+   "new": "Annem yirmi yıldır aynı pembe diziyi izliyor ve her karakteri tanıyor",
+   "why": "«Ich schaue eine Soap» — пусто; рядом Serie; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2821,
+   "col": "example_pl",
+   "old": "Oglądam operę mydlaną",
+   "new": "Mama od dwudziestu lat ogląda tę samą operę mydlaną i zna każdą postać",
+   "why": "«Ich schaue eine Soap» — пусто; рядом Serie; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2821,
+   "col": "example_it",
+   "old": "Guardo una soap opera",
+   "new": "Mia madre guarda la stessa soap opera da vent'anni e conosce ogni personaggio",
+   "why": "«Ich schaue eine Soap» — пусто; рядом Serie; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2821,
+   "col": "example_es",
+   "old": "Veo una telenovela",
+   "new": "Mi madre lleva veinte años viendo la misma telenovela y conoce a todos los personajes",
+   "why": "«Ich schaue eine Soap» — пусто; рядом Serie; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2821,
+   "col": "example_fr",
+   "old": "Je regarde un feuilleton",
+   "new": "Ma mère regarde le même feuilleton depuis vingt ans et connaît chaque personnage",
+   "why": "«Ich schaue eine Soap» — пусто; рядом Serie; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2821,
+   "col": "example_cs",
+   "old": "Dívám se na telenovelu",
+   "new": "Máma se dvacet let dívá na stejnou telenovelu a zná každou postavu",
+   "why": "«Ich schaue eine Soap» — пусто; рядом Serie; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2822,
+   "col": "translation_ru",
+   "old": "солнечная энергия, энергия солнца",
+   "new": "солнечная энергия",
+   "why": "пример пустой; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2822,
+   "col": "translation_en",
+   "old": "solar energy, solar power",
+   "new": "solar power, solar energy",
+   "why": "пример пустой; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2822,
+   "col": "translation_cs",
+   "old": "solární energie, sluneční energie",
+   "new": "solární energie",
+   "why": "пример пустой; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2822,
+   "col": "example_de",
+   "old": "Wir nutzen Solarenergie für unser Haus",
+   "new": "Im Sommer reicht die Solarenergie vom Dach sogar fürs Elektroauto",
+   "why": "пример пустой; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2822,
+   "col": "example_ru",
+   "old": "Мы используем солнечную энергию для нашего дома",
+   "new": "Летом солнечной энергии с крыши хватает даже на электромобиль",
+   "why": "пример пустой; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2822,
+   "col": "example_uk",
+   "old": "Ми використовуємо сонячну енергію для нашого будинку",
+   "new": "Улітку сонячної енергії з даху вистачає навіть на електромобіль",
+   "why": "пример пустой; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2822,
+   "col": "example_en",
+   "old": "We use solar energy for our house",
+   "new": "In summer the solar power from the roof is even enough for the electric car",
+   "why": "пример пустой; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2822,
+   "col": "example_tr",
+   "old": "Evimiz için güneş enerjisi kullanıyoruz",
+   "new": "Yazın çatıdaki güneş enerjisi elektrikli araba için bile yetiyor",
+   "why": "пример пустой; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2822,
+   "col": "example_pl",
+   "old": "Używamy energii słonecznej w naszym domu",
+   "new": "Latem energii słonecznej z dachu wystarcza nawet na samochód elektryczny",
+   "why": "пример пустой; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2822,
+   "col": "example_it",
+   "old": "Usiamo l'energia solare per la nostra casa",
+   "new": "D'estate l'energia solare del tetto basta perfino per l'auto elettrica",
+   "why": "пример пустой; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2822,
+   "col": "example_es",
+   "old": "Usamos energía solar para nuestra casa",
+   "new": "En verano la energía solar del tejado alcanza incluso para el coche eléctrico",
+   "why": "пример пустой; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2822,
+   "col": "example_fr",
+   "old": "Nous utilisons l'énergie solaire pour notre maison",
+   "new": "En été, l'énergie solaire du toit suffit même pour la voiture électrique",
+   "why": "пример пустой; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2822,
+   "col": "example_cs",
+   "old": "Pro náš dům využíváme solární energii",
+   "new": "V létě stačí solární energie ze střechy dokonce i na elektroauto",
+   "why": "пример пустой; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2823,
+   "col": "translation_ru",
+   "old": "опасные отходы, специальные отходы",
+   "new": "опасные отходы",
+   "why": "«… muss getrennt entsorgt werden» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2823,
+   "col": "translation_uk",
+   "old": "небезпечні відходи, спеціальні відходи",
+   "new": "небезпечні відходи",
+   "why": "«… muss getrennt entsorgt werden» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2823,
+   "col": "translation_en",
+   "old": "hazardous waste, special waste",
+   "new": "hazardous waste",
+   "why": "«… muss getrennt entsorgt werden» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2823,
+   "col": "translation_tr",
+   "old": "tehlikeli atık, özel atık",
+   "new": "tehlikeli atık",
+   "why": "«… muss getrennt entsorgt werden» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2823,
+   "col": "translation_pl",
+   "old": "odpady niebezpieczne, odpady specjalne",
+   "new": "odpady niebezpieczne",
+   "why": "«… muss getrennt entsorgt werden» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2823,
+   "col": "translation_it",
+   "old": "i rifiuti speciali, i rifiuti pericolosi",
+   "new": "i rifiuti pericolosi",
+   "why": "«… muss getrennt entsorgt werden» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2823,
+   "col": "translation_es",
+   "old": "los residuos peligrosos, los residuos especiales",
+   "new": "los residuos peligrosos",
+   "why": "«… muss getrennt entsorgt werden» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2823,
+   "col": "translation_fr",
+   "old": "les déchets dangereux, les déchets spéciaux",
+   "new": "les déchets dangereux",
+   "why": "«… muss getrennt entsorgt werden» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2823,
+   "col": "translation_cs",
+   "old": "nebezpečný odpad, zvláštní odpad",
+   "new": "nebezpečný odpad",
+   "why": "«… muss getrennt entsorgt werden» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2823,
+   "col": "example_de",
+   "old": "Sondermüll muss getrennt entsorgt werden",
+   "new": "Alte Farbeimer sind Sondermüll, die nimmt nur der Wertstoffhof an",
+   "why": "«… muss getrennt entsorgt werden» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2823,
+   "col": "example_ru",
+   "old": "Опасные отходы нужно утилизировать отдельно",
+   "new": "Старые банки из-под краски — опасные отходы, их принимает только пункт приёма вторсырья",
+   "why": "«… muss getrennt entsorgt werden» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2823,
+   "col": "example_uk",
+   "old": "Небезпечні відходи потрібно утилізувати окремо",
+   "new": "Старі відра з-під фарби — небезпечні відходи, їх приймає лише пункт прийому вторсировини",
+   "why": "«… muss getrennt entsorgt werden» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2823,
+   "col": "example_en",
+   "old": "Hazardous waste must be disposed of separately",
+   "new": "Old paint tins are hazardous waste, only the recycling centre takes them",
+   "why": "«… muss getrennt entsorgt werden» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2823,
+   "col": "example_tr",
+   "old": "Tehlikeli atık ayrı atılmalı",
+   "new": "Eski boya kovaları tehlikeli atık, onları sadece geri dönüşüm merkezi kabul ediyor",
+   "why": "«… muss getrennt entsorgt werden» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2823,
+   "col": "example_pl",
+   "old": "Odpady niebezpieczne trzeba utylizować osobno",
+   "new": "Stare puszki po farbie to odpady niebezpieczne, przyjmuje je tylko punkt zbiórki odpadów",
+   "why": "«… muss getrennt entsorgt werden» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2823,
+   "col": "example_it",
+   "old": "I rifiuti speciali devono essere smaltiti separatamente",
+   "new": "I vecchi barattoli di vernice sono rifiuti pericolosi, li accetta solo l'isola ecologica",
+   "why": "«… muss getrennt entsorgt werden» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2823,
+   "col": "example_es",
+   "old": "Los residuos peligrosos deben eliminarse por separado",
+   "new": "Los botes de pintura viejos son residuos peligrosos, solo los acepta el punto limpio",
+   "why": "«… muss getrennt entsorgt werden» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2823,
+   "col": "example_fr",
+   "old": "Les déchets dangereux doivent être éliminés séparément",
+   "new": "Les vieux pots de peinture sont des déchets dangereux, seule la déchetterie les accepte",
+   "why": "«… muss getrennt entsorgt werden» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2823,
+   "col": "example_cs",
+   "old": "Nebezpečný odpad se musí likvidovat odděleně",
+   "new": "Staré plechovky od barvy jsou nebezpečný odpad, bere je jen sběrný dvůr",
+   "why": "«… muss getrennt entsorgt werden» — табличка; список → главное слово и не больше одной альтернативы"
+  }
+ ],
+ "replace": [],
+ "split_later": {}
+}
