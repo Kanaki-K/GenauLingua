@@ -1,0 +1,994 @@
+{
+ "about": "2.3, B1 блок 22",
+ "edits": [
+  {
+   "id": 10262,
+   "col": "example_de",
+   "old": "Das ist total bescheuert",
+   "new": "Ich finde die Idee bescheuert",
+   "why": "«Das ist total bescheuert» — шаблон lächerlich («Das ist total lächerlich»)"
+  },
+  {
+   "id": 10262,
+   "col": "example_ru",
+   "old": "Это полный бред",
+   "new": "По-моему, идея дурацкая",
+   "why": "«Das ist total bescheuert» — шаблон lächerlich («Das ist total lächerlich»)"
+  },
+  {
+   "id": 10262,
+   "col": "example_uk",
+   "old": "Це повна дурниця",
+   "new": "Як на мене, ідея дурна",
+   "why": "«Das ist total bescheuert» — шаблон lächerlich («Das ist total lächerlich»)"
+  },
+  {
+   "id": 10262,
+   "col": "example_en",
+   "old": "That's totally stupid",
+   "new": "I think the idea is stupid",
+   "why": "«Das ist total bescheuert» — шаблон lächerlich («Das ist total lächerlich»)"
+  },
+  {
+   "id": 10262,
+   "col": "example_tr",
+   "old": "Bu tamamen aptalca",
+   "new": "Bence bu fikir saçma",
+   "why": "«Das ist total bescheuert» — шаблон lächerlich («Das ist total lächerlich»)"
+  },
+  {
+   "id": 10262,
+   "col": "example_pl",
+   "old": "To jest totalnie głupie",
+   "new": "Moim zdaniem ten pomysł jest głupi",
+   "why": "«Das ist total bescheuert» — шаблон lächerlich («Das ist total lächerlich»)"
+  },
+  {
+   "id": 10262,
+   "col": "example_it",
+   "old": "È una cosa totalmente stupida",
+   "new": "Secondo me l'idea è stupida",
+   "why": "«Das ist total bescheuert» — шаблон lächerlich («Das ist total lächerlich»)"
+  },
+  {
+   "id": 10262,
+   "col": "example_es",
+   "old": "Eso es totalmente estúpido",
+   "new": "La idea me parece estúpida",
+   "why": "«Das ist total bescheuert» — шаблон lächerlich («Das ist total lächerlich»)"
+  },
+  {
+   "id": 10262,
+   "col": "example_fr",
+   "old": "C'est complètement stupide",
+   "new": "Je trouve l'idée stupide",
+   "why": "«Das ist total bescheuert» — шаблон lächerlich («Das ist total lächerlich»)"
+  },
+  {
+   "id": 10262,
+   "col": "example_cs",
+   "old": "To je úplně hloupé",
+   "new": "Ten nápad mi přijde hloupý",
+   "why": "«Das ist total bescheuert» — шаблон lächerlich («Das ist total lächerlich»)"
+  },
+  {
+   "id": 15435,
+   "col": "example_de",
+   "old": "Der Vogel ist im Käfig",
+   "new": "Mach bitte den Käfig zu, sonst fliegt der Vogel weg",
+   "why": "«Der Vogel ist im Käfig» — пусто"
+  },
+  {
+   "id": 15435,
+   "col": "example_ru",
+   "old": "Птица в клетке",
+   "new": "Закрой, пожалуйста, клетку, а то птица улетит",
+   "why": "«Der Vogel ist im Käfig» — пусто"
+  },
+  {
+   "id": 15435,
+   "col": "example_uk",
+   "old": "Пташка в клітці",
+   "new": "Зачини, будь ласка, клітку, бо пташка вилетить",
+   "why": "«Der Vogel ist im Käfig» — пусто"
+  },
+  {
+   "id": 15435,
+   "col": "example_en",
+   "old": "The bird is in the cage",
+   "new": "Close the cage, please, or the bird will fly away",
+   "why": "«Der Vogel ist im Käfig» — пусто"
+  },
+  {
+   "id": 15435,
+   "col": "example_tr",
+   "old": "Kuş kafeste",
+   "new": "Kafesi kapat lütfen, yoksa kuş uçar",
+   "why": "«Der Vogel ist im Käfig» — пусто"
+  },
+  {
+   "id": 15435,
+   "col": "example_pl",
+   "old": "Ptak jest w klatce",
+   "new": "Zamknij, proszę, klatkę, bo ptak wyleci",
+   "why": "«Der Vogel ist im Käfig» — пусто"
+  },
+  {
+   "id": 15435,
+   "col": "example_it",
+   "old": "L'uccello è in gabbia",
+   "new": "Chiudi la gabbia, per favore, sennò l'uccellino scappa",
+   "why": "«Der Vogel ist im Käfig» — пусто"
+  },
+  {
+   "id": 15435,
+   "col": "example_es",
+   "old": "El pájaro está en la jaula",
+   "new": "Cierra la jaula, por favor, que si no se escapa el pájaro",
+   "why": "«Der Vogel ist im Käfig» — пусто"
+  },
+  {
+   "id": 15435,
+   "col": "example_fr",
+   "old": "L'oiseau est dans la cage",
+   "new": "Ferme la cage, s'il te plaît, sinon l'oiseau va s'envoler",
+   "why": "«Der Vogel ist im Käfig» — пусто"
+  },
+  {
+   "id": 15435,
+   "col": "example_cs",
+   "old": "Pták je v kleci",
+   "new": "Zavři prosím klec, jinak pták uletí",
+   "why": "«Der Vogel ist im Käfig» — пусто"
+  },
+  {
+   "id": 12129,
+   "col": "example_de",
+   "old": "Der Teddy liegt auf dem Bett",
+   "new": "Ohne seinen Teddy schläft er nicht ein",
+   "why": "«Der Teddy liegt auf dem Bett» — пусто"
+  },
+  {
+   "id": 12129,
+   "col": "example_ru",
+   "old": "Мишка лежит на кровати",
+   "new": "Без своего мишки он не засыпает",
+   "why": "«Der Teddy liegt auf dem Bett» — пусто"
+  },
+  {
+   "id": 12129,
+   "col": "example_uk",
+   "old": "Ведмедик лежить на ліжку",
+   "new": "Без свого ведмедика він не засинає",
+   "why": "«Der Teddy liegt auf dem Bett» — пусто"
+  },
+  {
+   "id": 12129,
+   "col": "example_en",
+   "old": "The teddy bear is on the bed",
+   "new": "He can't get to sleep without his teddy",
+   "why": "«Der Teddy liegt auf dem Bett» — пусто"
+  },
+  {
+   "id": 12129,
+   "col": "example_tr",
+   "old": "Oyuncak ayı yatağın üstünde",
+   "new": "Oyuncak ayısı olmadan uyuyamıyor",
+   "why": "«Der Teddy liegt auf dem Bett» — пусто"
+  },
+  {
+   "id": 12129,
+   "col": "example_pl",
+   "old": "Miś leży na łóżku",
+   "new": "Bez swojego misia nie zaśnie",
+   "why": "«Der Teddy liegt auf dem Bett» — пусто"
+  },
+  {
+   "id": 12129,
+   "col": "example_it",
+   "old": "L'orsacchiotto è sul letto",
+   "new": "Senza il suo orsacchiotto non si addormenta",
+   "why": "«Der Teddy liegt auf dem Bett» — пусто"
+  },
+  {
+   "id": 12129,
+   "col": "example_es",
+   "old": "El osito está en la cama",
+   "new": "Sin su osito no se duerme",
+   "why": "«Der Teddy liegt auf dem Bett» — пусто"
+  },
+  {
+   "id": 12129,
+   "col": "example_fr",
+   "old": "L'ours en peluche est sur le lit",
+   "new": "Sans son nounours, il ne s'endort pas",
+   "why": "«Der Teddy liegt auf dem Bett» — пусто"
+  },
+  {
+   "id": 12129,
+   "col": "example_cs",
+   "old": "Medvídek leží na posteli",
+   "new": "Bez svého medvídka neusne",
+   "why": "«Der Teddy liegt auf dem Bett» — пусто"
+  },
+  {
+   "id": 8790,
+   "col": "example_de",
+   "old": "Die Organisation ist sehr gut",
+   "new": "Er arbeitet für eine internationale Organisation",
+   "why": "«Die Organisation ist sehr gut» — пусто"
+  },
+  {
+   "id": 8790,
+   "col": "example_ru",
+   "old": "Организация очень хорошая",
+   "new": "Он работает в международной организации",
+   "why": "«Die Organisation ist sehr gut» — пусто"
+  },
+  {
+   "id": 8790,
+   "col": "example_uk",
+   "old": "Організація дуже хороша",
+   "new": "Він працює в міжнародній організації",
+   "why": "«Die Organisation ist sehr gut» — пусто"
+  },
+  {
+   "id": 8790,
+   "col": "example_en",
+   "old": "The organization is very good",
+   "new": "He works for an international organisation",
+   "why": "«Die Organisation ist sehr gut» — пусто"
+  },
+  {
+   "id": 8790,
+   "col": "example_tr",
+   "old": "Organizasyon çok iyi",
+   "new": "Uluslararası bir kuruluşta çalışıyor",
+   "why": "«Die Organisation ist sehr gut» — пусто"
+  },
+  {
+   "id": 8790,
+   "col": "example_pl",
+   "old": "Ta organizacja jest bardzo dobra",
+   "new": "Pracuje dla międzynarodowej organizacji",
+   "why": "«Die Organisation ist sehr gut» — пусто"
+  },
+  {
+   "id": 8790,
+   "col": "example_it",
+   "old": "L'organizzazione è molto buona",
+   "new": "Lavora per un'organizzazione internazionale",
+   "why": "«Die Organisation ist sehr gut» — пусто"
+  },
+  {
+   "id": 8790,
+   "col": "example_es",
+   "old": "La organización es muy buena",
+   "new": "Trabaja para una organización internacional",
+   "why": "«Die Organisation ist sehr gut» — пусто"
+  },
+  {
+   "id": 8790,
+   "col": "example_fr",
+   "old": "L'organisation est très bonne",
+   "new": "Il travaille pour une organisation internationale",
+   "why": "«Die Organisation ist sehr gut» — пусто"
+  },
+  {
+   "id": 8790,
+   "col": "example_cs",
+   "old": "Organizace je velmi dobrá",
+   "new": "Pracuje pro mezinárodní organizaci",
+   "why": "«Die Organisation ist sehr gut» — пусто"
+  },
+  {
+   "id": 6688,
+   "col": "example_de",
+   "old": "Das ist ganz gewöhnlich",
+   "new": "Gewöhnlich stehe ich um sieben auf",
+   "why": "«Das ist ganz gewöhnlich» — пусто"
+  },
+  {
+   "id": 6688,
+   "col": "example_ru",
+   "old": "Это вполне обычно",
+   "new": "Обычно я встаю в семь",
+   "why": "«Das ist ganz gewöhnlich» — пусто"
+  },
+  {
+   "id": 6688,
+   "col": "example_uk",
+   "old": "Це цілком звичайно",
+   "new": "Зазвичай я встаю о сьомій",
+   "why": "«Das ist ganz gewöhnlich» — пусто"
+  },
+  {
+   "id": 6688,
+   "col": "example_en",
+   "old": "That's quite ordinary",
+   "new": "I usually get up at seven",
+   "why": "«Das ist ganz gewöhnlich» — пусто"
+  },
+  {
+   "id": 6688,
+   "col": "example_tr",
+   "old": "Bu oldukça sıradan",
+   "new": "Genellikle yedide kalkarım",
+   "why": "«Das ist ganz gewöhnlich» — пусто"
+  },
+  {
+   "id": 6688,
+   "col": "example_pl",
+   "old": "To całkiem zwyczajne",
+   "new": "Zwykle wstaję o siódmej",
+   "why": "«Das ist ganz gewöhnlich» — пусто"
+  },
+  {
+   "id": 6688,
+   "col": "example_it",
+   "old": "È del tutto normale",
+   "new": "Di solito mi alzo alle sette",
+   "why": "«Das ist ganz gewöhnlich» — пусто"
+  },
+  {
+   "id": 6688,
+   "col": "example_es",
+   "old": "Es completamente normal",
+   "new": "Normalmente me levanto a las siete",
+   "why": "«Das ist ganz gewöhnlich» — пусто"
+  },
+  {
+   "id": 6688,
+   "col": "example_fr",
+   "old": "C'est tout à fait ordinaire",
+   "new": "D'habitude, je me lève à sept heures",
+   "why": "«Das ist ganz gewöhnlich» — пусто"
+  },
+  {
+   "id": 6688,
+   "col": "example_cs",
+   "old": "To je úplně obyčejné",
+   "new": "Obvykle vstávám v sedm",
+   "why": "«Das ist ganz gewöhnlich» — пусто"
+  },
+  {
+   "id": 760,
+   "col": "example_de",
+   "old": "Der Reporter schreibt über Politik",
+   "new": "Vor dem Haus warten Reporter",
+   "why": "снова «о политике»"
+  },
+  {
+   "id": 760,
+   "col": "example_ru",
+   "old": "Репортёр пишет о политике",
+   "new": "Перед домом ждут репортёры",
+   "why": "снова «о политике»"
+  },
+  {
+   "id": 760,
+   "col": "example_uk",
+   "old": "Репортер пише про політику",
+   "new": "Перед будинком чекають репортери",
+   "why": "снова «о политике»"
+  },
+  {
+   "id": 760,
+   "col": "example_en",
+   "old": "The reporter writes about politics",
+   "new": "Reporters are waiting outside the house",
+   "why": "снова «о политике»"
+  },
+  {
+   "id": 760,
+   "col": "example_tr",
+   "old": "Muhabir politika hakkında yazıyor",
+   "new": "Evin önünde muhabirler bekliyor",
+   "why": "снова «о политике»"
+  },
+  {
+   "id": 760,
+   "col": "example_pl",
+   "old": "Reporter pisze o polityce",
+   "new": "Przed domem czekają reporterzy",
+   "why": "снова «о политике»"
+  },
+  {
+   "id": 760,
+   "col": "example_it",
+   "old": "Il reporter scrive di politica",
+   "new": "Davanti alla casa aspettano i reporter",
+   "why": "снова «о политике»"
+  },
+  {
+   "id": 760,
+   "col": "example_es",
+   "old": "El reportero escribe sobre política",
+   "new": "Delante de la casa esperan los reporteros",
+   "why": "снова «о политике»"
+  },
+  {
+   "id": 760,
+   "col": "example_fr",
+   "old": "Le reporter écrit sur la politique",
+   "new": "Des reporters attendent devant la maison",
+   "why": "снова «о политике»"
+  },
+  {
+   "id": 760,
+   "col": "example_cs",
+   "old": "Reportér píše o politice",
+   "new": "Před domem čekají reportéři",
+   "why": "снова «о политике»"
+  },
+  {
+   "id": 16015,
+   "col": "example_de",
+   "old": "Unsere Nation ist stark",
+   "new": "Fußball verbindet die Nation",
+   "why": "«Unsere Nation ist stark» — лозунг"
+  },
+  {
+   "id": 16015,
+   "col": "example_ru",
+   "old": "Наша нация сильная",
+   "new": "Футбол объединяет нацию",
+   "why": "«Unsere Nation ist stark» — лозунг"
+  },
+  {
+   "id": 16015,
+   "col": "example_uk",
+   "old": "Наша нація сильна",
+   "new": "Футбол об'єднує націю",
+   "why": "«Unsere Nation ist stark» — лозунг"
+  },
+  {
+   "id": 16015,
+   "col": "example_en",
+   "old": "Our nation is strong",
+   "new": "Football brings the nation together",
+   "why": "«Unsere Nation ist stark» — лозунг"
+  },
+  {
+   "id": 16015,
+   "col": "example_tr",
+   "old": "Milletimiz güçlü",
+   "new": "Futbol milleti birleştiriyor",
+   "why": "«Unsere Nation ist stark» — лозунг"
+  },
+  {
+   "id": 16015,
+   "col": "example_pl",
+   "old": "Nasz naród jest silny",
+   "new": "Piłka nożna łączy naród",
+   "why": "«Unsere Nation ist stark» — лозунг"
+  },
+  {
+   "id": 16015,
+   "col": "example_it",
+   "old": "La nostra nazione è forte",
+   "new": "Il calcio unisce la nazione",
+   "why": "«Unsere Nation ist stark» — лозунг"
+  },
+  {
+   "id": 16015,
+   "col": "example_es",
+   "old": "Nuestra nación es fuerte",
+   "new": "El fútbol une a la nación",
+   "why": "«Unsere Nation ist stark» — лозунг"
+  },
+  {
+   "id": 16015,
+   "col": "example_fr",
+   "old": "Notre nation est forte",
+   "new": "Le foot unit la nation",
+   "why": "«Unsere Nation ist stark» — лозунг"
+  },
+  {
+   "id": 16015,
+   "col": "example_cs",
+   "old": "Náš národ je silný",
+   "new": "Fotbal spojuje národ",
+   "why": "«Unsere Nation ist stark» — лозунг"
+  },
+  {
+   "id": 17497,
+   "col": "example_de",
+   "old": "Die Technik ist super",
+   "new": "Mit Technik kenne ich mich nicht aus",
+   "why": "«Die Technik ist super» — пусто"
+  },
+  {
+   "id": 17497,
+   "col": "example_ru",
+   "old": "Техника просто отличная",
+   "new": "Я не разбираюсь в технике",
+   "why": "«Die Technik ist super» — пусто"
+  },
+  {
+   "id": 17497,
+   "col": "example_uk",
+   "old": "Техніка супер",
+   "new": "Я не розуміюся на техніці",
+   "why": "«Die Technik ist super» — пусто"
+  },
+  {
+   "id": 17497,
+   "col": "example_en",
+   "old": "The technology is great",
+   "new": "I'm no good with technology",
+   "why": "«Die Technik ist super» — пусто"
+  },
+  {
+   "id": 17497,
+   "col": "example_tr",
+   "old": "Teknoloji harika",
+   "new": "Teknolojiden anlamam",
+   "why": "«Die Technik ist super» — пусто"
+  },
+  {
+   "id": 17497,
+   "col": "example_pl",
+   "old": "Technika jest super",
+   "new": "Nie znam się na technice",
+   "why": "«Die Technik ist super» — пусто"
+  },
+  {
+   "id": 17497,
+   "col": "example_it",
+   "old": "La tecnologia è fantastica",
+   "new": "Non me ne intendo di tecnologia",
+   "why": "«Die Technik ist super» — пусто"
+  },
+  {
+   "id": 17497,
+   "col": "example_es",
+   "old": "La tecnología es genial",
+   "new": "No entiendo de tecnología",
+   "why": "«Die Technik ist super» — пусто"
+  },
+  {
+   "id": 17497,
+   "col": "example_fr",
+   "old": "La technologie est super",
+   "new": "Je ne m'y connais pas en technologie",
+   "why": "«Die Technik ist super» — пусто"
+  },
+  {
+   "id": 17497,
+   "col": "example_cs",
+   "old": "Technika je skvělá",
+   "new": "Technice nerozumím",
+   "why": "«Die Technik ist super» — пусто"
+  },
+  {
+   "id": 9453,
+   "col": "example_de",
+   "old": "Ich gehe an die Uni",
+   "new": "Wir kennen uns von der Uni",
+   "why": "«Ich gehe an die Uni» — шаблон Universität"
+  },
+  {
+   "id": 9453,
+   "col": "example_ru",
+   "old": "Я иду в университет",
+   "new": "Мы знакомы по универу",
+   "why": "«Ich gehe an die Uni» — шаблон Universität"
+  },
+  {
+   "id": 9453,
+   "col": "example_uk",
+   "old": "Я йду в університет",
+   "new": "Ми знайомі з універу",
+   "why": "«Ich gehe an die Uni» — шаблон Universität"
+  },
+  {
+   "id": 9453,
+   "col": "example_en",
+   "old": "I'm going to university",
+   "new": "We know each other from uni",
+   "why": "«Ich gehe an die Uni» — шаблон Universität"
+  },
+  {
+   "id": 9453,
+   "col": "example_tr",
+   "old": "Üniversiteye gidiyorum",
+   "new": "Üniversiteden tanışıyoruz",
+   "why": "«Ich gehe an die Uni» — шаблон Universität"
+  },
+  {
+   "id": 9453,
+   "col": "example_pl",
+   "old": "Idę na uniwersytet",
+   "new": "Znamy się z uczelni",
+   "why": "«Ich gehe an die Uni» — шаблон Universität"
+  },
+  {
+   "id": 9453,
+   "col": "example_it",
+   "old": "Vado all'università",
+   "new": "Ci conosciamo dall'università",
+   "why": "«Ich gehe an die Uni» — шаблон Universität"
+  },
+  {
+   "id": 9453,
+   "col": "example_es",
+   "old": "Voy a la universidad",
+   "new": "Nos conocemos de la uni",
+   "why": "«Ich gehe an die Uni» — шаблон Universität"
+  },
+  {
+   "id": 9453,
+   "col": "example_fr",
+   "old": "Je vais à l'université",
+   "new": "On se connaît de la fac",
+   "why": "«Ich gehe an die Uni» — шаблон Universität"
+  },
+  {
+   "id": 9453,
+   "col": "example_cs",
+   "old": "Jdu na univerzitu",
+   "new": "Známe se z vysoké školy",
+   "why": "«Ich gehe an die Uni» — шаблон Universität"
+  },
+  {
+   "id": 14407,
+   "col": "example_de",
+   "old": "Die Bibel ist alt",
+   "new": "In der Bibel steht viel über Liebe",
+   "why": "«Die Bibel ist alt» — пусто"
+  },
+  {
+   "id": 14407,
+   "col": "example_ru",
+   "old": "Библия старая",
+   "new": "В Библии много написано о любви",
+   "why": "«Die Bibel ist alt» — пусто"
+  },
+  {
+   "id": 14407,
+   "col": "example_uk",
+   "old": "Біблія стара",
+   "new": "У Біблії багато написано про любов",
+   "why": "«Die Bibel ist alt» — пусто"
+  },
+  {
+   "id": 14407,
+   "col": "example_en",
+   "old": "The Bible is old",
+   "new": "There's a lot in the Bible about love",
+   "why": "«Die Bibel ist alt» — пусто"
+  },
+  {
+   "id": 14407,
+   "col": "example_tr",
+   "old": "Kutsal Kitap eski",
+   "new": "Kutsal Kitap'ta sevgi hakkında çok şey yazıyor",
+   "why": "«Die Bibel ist alt» — пусто"
+  },
+  {
+   "id": 14407,
+   "col": "example_pl",
+   "old": "Ta Biblia jest stara",
+   "new": "W Biblii dużo jest o miłości",
+   "why": "«Die Bibel ist alt» — пусто"
+  },
+  {
+   "id": 14407,
+   "col": "example_it",
+   "old": "La Bibbia è antica",
+   "new": "Nella Bibbia si parla molto dell'amore",
+   "why": "«Die Bibel ist alt» — пусто"
+  },
+  {
+   "id": 14407,
+   "col": "example_es",
+   "old": "La Biblia es antigua",
+   "new": "En la Biblia se habla mucho del amor",
+   "why": "«Die Bibel ist alt» — пусто"
+  },
+  {
+   "id": 14407,
+   "col": "example_fr",
+   "old": "La Bible est ancienne",
+   "new": "La Bible parle beaucoup d'amour",
+   "why": "«Die Bibel ist alt» — пусто"
+  },
+  {
+   "id": 14407,
+   "col": "example_cs",
+   "old": "Bible je stará",
+   "new": "V Bibli se hodně mluví o lásce",
+   "why": "«Die Bibel ist alt» — пусто"
+  },
+  {
+   "id": 9744,
+   "col": "example_de",
+   "old": "Das Geld ist im Safe",
+   "new": "Leg deinen Pass in den Safe",
+   "why": "«Das Geld ist im Safe» — пусто"
+  },
+  {
+   "id": 9744,
+   "col": "example_ru",
+   "old": "Деньги в сейфе",
+   "new": "Положи паспорт в сейф",
+   "why": "«Das Geld ist im Safe» — пусто"
+  },
+  {
+   "id": 9744,
+   "col": "example_uk",
+   "old": "Гроші в сейфі",
+   "new": "Поклади паспорт у сейф",
+   "why": "«Das Geld ist im Safe» — пусто"
+  },
+  {
+   "id": 9744,
+   "col": "example_en",
+   "old": "The money is in the safe",
+   "new": "Put your passport in the safe",
+   "why": "«Das Geld ist im Safe» — пусто"
+  },
+  {
+   "id": 9744,
+   "col": "example_tr",
+   "old": "Para kasada",
+   "new": "Pasaportunu kasaya koy",
+   "why": "«Das Geld ist im Safe» — пусто"
+  },
+  {
+   "id": 9744,
+   "col": "example_pl",
+   "old": "Pieniądze są w sejfie",
+   "new": "Włóż paszport do sejfu",
+   "why": "«Das Geld ist im Safe» — пусто"
+  },
+  {
+   "id": 9744,
+   "col": "example_it",
+   "old": "I soldi sono nella cassaforte",
+   "new": "Metti il passaporto in cassaforte",
+   "why": "«Das Geld ist im Safe» — пусто"
+  },
+  {
+   "id": 9744,
+   "col": "example_es",
+   "old": "El dinero está en la caja fuerte",
+   "new": "Mete el pasaporte en la caja fuerte",
+   "why": "«Das Geld ist im Safe» — пусто"
+  },
+  {
+   "id": 9744,
+   "col": "example_fr",
+   "old": "L'argent est dans le coffre-fort",
+   "new": "Mets ton passeport dans le coffre-fort",
+   "why": "«Das Geld ist im Safe» — пусто"
+  },
+  {
+   "id": 9744,
+   "col": "example_cs",
+   "old": "Peníze jsou v sejfu",
+   "new": "Dej si pas do sejfu",
+   "why": "«Das Geld ist im Safe» — пусто"
+  },
+  {
+   "id": 2898,
+   "col": "example_en",
+   "old": "You are surprising me",
+   "new": "You surprise me",
+   "why": "английский пример: так не говорят («You are surprising me»)"
+  },
+  {
+   "id": 18665,
+   "col": "example_de",
+   "old": "Ich habe ihn kürzlich getroffen",
+   "new": "Sie hat kürzlich geheiratet",
+   "why": "«Ich habe ihn kürzlich getroffen» — шаблон neulich («… einen alten Freund getroffen»)"
+  },
+  {
+   "id": 18665,
+   "col": "example_ru",
+   "old": "Я его недавно встретил",
+   "new": "Она недавно вышла замуж",
+   "why": "«Ich habe ihn kürzlich getroffen» — шаблон neulich («… einen alten Freund getroffen»)"
+  },
+  {
+   "id": 18665,
+   "col": "example_uk",
+   "old": "Я його нещодавно зустрів",
+   "new": "Вона нещодавно вийшла заміж",
+   "why": "«Ich habe ihn kürzlich getroffen» — шаблон neulich («… einen alten Freund getroffen»)"
+  },
+  {
+   "id": 18665,
+   "col": "example_en",
+   "old": "I met him recently",
+   "new": "She got married recently",
+   "why": "«Ich habe ihn kürzlich getroffen» — шаблон neulich («… einen alten Freund getroffen»)"
+  },
+  {
+   "id": 18665,
+   "col": "example_tr",
+   "old": "Onu geçenlerde gördüm",
+   "new": "Kısa süre önce evlendi",
+   "why": "«Ich habe ihn kürzlich getroffen» — шаблон neulich («… einen alten Freund getroffen»)"
+  },
+  {
+   "id": 18665,
+   "col": "example_pl",
+   "old": "Spotkałem go niedawno",
+   "new": "Niedawno wyszła za mąż",
+   "why": "«Ich habe ihn kürzlich getroffen» — шаблон neulich («… einen alten Freund getroffen»)"
+  },
+  {
+   "id": 18665,
+   "col": "example_it",
+   "old": "L'ho incontrato di recente",
+   "new": "Si è sposata di recente",
+   "why": "«Ich habe ihn kürzlich getroffen» — шаблон neulich («… einen alten Freund getroffen»)"
+  },
+  {
+   "id": 18665,
+   "col": "example_es",
+   "old": "Me encontré con él hace poco",
+   "new": "Se casó hace poco",
+   "why": "«Ich habe ihn kürzlich getroffen» — шаблон neulich («… einen alten Freund getroffen»)"
+  },
+  {
+   "id": 18665,
+   "col": "example_fr",
+   "old": "Je l'ai rencontré récemment",
+   "new": "Elle s'est mariée récemment",
+   "why": "«Ich habe ihn kürzlich getroffen» — шаблон neulich («… einen alten Freund getroffen»)"
+  },
+  {
+   "id": 18665,
+   "col": "example_cs",
+   "old": "Nedávno jsem ho potkal",
+   "new": "Nedávno se vdala",
+   "why": "«Ich habe ihn kürzlich getroffen» — шаблон neulich («… einen alten Freund getroffen»)"
+  },
+  {
+   "id": 10267,
+   "col": "example_de",
+   "old": "Das ist meine große Schwäche",
+   "new": "Ich habe eine Schwäche für Schokolade",
+   "why": "«Das ist meine große Schwäche» — шаблон Stärke («Das ist meine größte Stärke»)"
+  },
+  {
+   "id": 10267,
+   "col": "example_ru",
+   "old": "Это моя большая слабость",
+   "new": "У меня слабость к шоколаду",
+   "why": "«Das ist meine große Schwäche» — шаблон Stärke («Das ist meine größte Stärke»)"
+  },
+  {
+   "id": 10267,
+   "col": "example_uk",
+   "old": "Це моя велика слабкість",
+   "new": "У мене слабкість до шоколаду",
+   "why": "«Das ist meine große Schwäche» — шаблон Stärke («Das ist meine größte Stärke»)"
+  },
+  {
+   "id": 10267,
+   "col": "example_en",
+   "old": "That's my big weakness",
+   "new": "I have a weakness for chocolate",
+   "why": "«Das ist meine große Schwäche» — шаблон Stärke («Das ist meine größte Stärke»)"
+  },
+  {
+   "id": 10267,
+   "col": "example_tr",
+   "old": "Bu benim büyük zayıflığım",
+   "new": "Çikolataya karşı zaafım var",
+   "why": "«Das ist meine große Schwäche» — шаблон Stärke («Das ist meine größte Stärke»)"
+  },
+  {
+   "id": 10267,
+   "col": "example_pl",
+   "old": "To moja wielka słabość",
+   "new": "Mam słabość do czekolady",
+   "why": "«Das ist meine große Schwäche» — шаблон Stärke («Das ist meine größte Stärke»)"
+  },
+  {
+   "id": 10267,
+   "col": "example_it",
+   "old": "Questa è la mia grande debolezza",
+   "new": "Ho un debole per il cioccolato",
+   "why": "«Das ist meine große Schwäche» — шаблон Stärke («Das ist meine größte Stärke»)"
+  },
+  {
+   "id": 10267,
+   "col": "example_es",
+   "old": "Es mi gran debilidad",
+   "new": "Tengo debilidad por el chocolate",
+   "why": "«Das ist meine große Schwäche» — шаблон Stärke («Das ist meine größte Stärke»)"
+  },
+  {
+   "id": 10267,
+   "col": "example_fr",
+   "old": "C'est ma grande faiblesse",
+   "new": "J'ai un faible pour le chocolat",
+   "why": "«Das ist meine große Schwäche» — шаблон Stärke («Das ist meine größte Stärke»)"
+  },
+  {
+   "id": 10267,
+   "col": "example_cs",
+   "old": "To je moje velká slabost",
+   "new": "Mám slabost pro čokoládu",
+   "why": "«Das ist meine große Schwäche» — шаблон Stärke («Das ist meine größte Stärke»)"
+  },
+  {
+   "id": 2190,
+   "col": "example_de",
+   "old": "Ich schaue mir den Film an",
+   "new": "Schau mich an, wenn ich mit dir rede!",
+   "why": "снова Film; английский пример: так не говорят"
+  },
+  {
+   "id": 2190,
+   "col": "example_ru",
+   "old": "Я смотрю фильм",
+   "new": "Посмотри на меня, когда я с тобой разговариваю!",
+   "why": "снова Film; английский пример: так не говорят"
+  },
+  {
+   "id": 2190,
+   "col": "example_uk",
+   "old": "Я дивлюся фільм",
+   "new": "Подивись на мене, коли я з тобою розмовляю!",
+   "why": "снова Film; английский пример: так не говорят"
+  },
+  {
+   "id": 2190,
+   "col": "example_en",
+   "old": "I watch the film",
+   "new": "Look at me when I'm talking to you!",
+   "why": "снова Film; английский пример: так не говорят"
+  },
+  {
+   "id": 2190,
+   "col": "example_tr",
+   "old": "Filmi izliyorum",
+   "new": "Seninle konuşurken bana bak!",
+   "why": "снова Film; английский пример: так не говорят"
+  },
+  {
+   "id": 2190,
+   "col": "example_pl",
+   "old": "Oglądam sobie ten film",
+   "new": "Patrz na mnie, kiedy do ciebie mówię!",
+   "why": "снова Film; английский пример: так не говорят"
+  },
+  {
+   "id": 2190,
+   "col": "example_it",
+   "old": "Guardo il film",
+   "new": "Guardami quando ti parlo!",
+   "why": "снова Film; английский пример: так не говорят"
+  },
+  {
+   "id": 2190,
+   "col": "example_es",
+   "old": "Veo la película",
+   "new": "¡Mírame cuando te hablo!",
+   "why": "снова Film; английский пример: так не говорят"
+  },
+  {
+   "id": 2190,
+   "col": "example_fr",
+   "old": "Je regarde le film",
+   "new": "Regarde-moi quand je te parle!",
+   "why": "снова Film; английский пример: так не говорят"
+  },
+  {
+   "id": 2190,
+   "col": "example_cs",
+   "old": "Dívám se na film",
+   "new": "Dívej se na mě, když s tebou mluvím!",
+   "why": "снова Film; английский пример: так не говорят"
+  }
+ ],
+ "replace": [],
+ "split_later": {}
+}
