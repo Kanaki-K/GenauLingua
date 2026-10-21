@@ -46,9 +46,16 @@ EDITABLE = {"word_de", "article", "level"} | {
 }
 
 
+_STOP = set("""der die das den dem des ein eine einen einem einer ist sind war bin bist hat habe hast haben
+ich du er sie es wir ihr mir dir mich dich uns euch und oder aber nicht kein keine mit auf aus bei nach von zu
+zum zur im in am an für über unter vor sehr noch schon auch nur mal bitte heute ja nein so wie was wer wo dann
+denn doch man""".split())
+
+
 def _words(text_: str) -> set[str]:
+    """Смысловые слова примера — без служебных, иначе всё «похоже» на всё."""
     import re
-    return {w for w in re.findall(r"[a-zäöüß]+", (text_ or "").lower()) if len(w) > 2}
+    return {w for w in re.findall(r"[a-zäöüß]+", (text_ or "").lower()) if len(w) > 2 and w not in _STOP}
 
 
 def near_twins(conn, ready: list[dict]) -> list[str]:
@@ -71,8 +78,15 @@ def near_twins(conn, ready: list[dict]) -> list[str]:
         for oid, theirs in others:
             if oid == wid or not theirs:
                 continue
-            if len(mine & theirs) / len(mine | theirs) >= 0.75:
+            # Доля смысловых слов нового примера, которые уже есть в чужом
+            common = len(mine & theirs)
+            if common / len(mine) >= 0.8:
                 found.append(f"{wid}: «{x}» похоже на пример слова {oid}")
+                break
+            # Шаблон: та же фраза, другое одно слово — «Mir tut das Ohr weh» /
+            # «Mir tut der Magen weh» (идея 15 в review/2.3-ideas.md)
+            if common >= 2 and len(mine - theirs) == 1 and len(theirs - mine) == 1:
+                found.append(f"{wid}: «{x}» — шаблон примера слова {oid}")
                 break
     return found
 
