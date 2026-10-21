@@ -1,0 +1,3209 @@
+{
+ "about": "2.3, A2 блок 11: слова 401–440",
+ "edits": [
+  {
+   "id": 360,
+   "col": "example_de",
+   "old": "Der Baum ist grün",
+   "new": "Die Ampel ist grün, du kannst fahren",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 360,
+   "col": "example_ru",
+   "old": "Дерево зелёное",
+   "new": "Светофор зелёный, можешь ехать",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 360,
+   "col": "example_uk",
+   "old": "Дерево зелене",
+   "new": "На світлофорі зелений, можеш їхати",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 360,
+   "col": "example_en",
+   "old": "The tree is green",
+   "new": "The light's green, you can go",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 360,
+   "col": "example_tr",
+   "old": "Ağaç yeşil",
+   "new": "Işık yeşil, gidebilirsin",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 360,
+   "col": "example_pl",
+   "old": "Drzewo jest zielone",
+   "new": "Jest zielone światło, możesz jechać",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 360,
+   "col": "example_it",
+   "old": "L'albero è verde",
+   "new": "Il semaforo è verde, puoi andare",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 360,
+   "col": "example_es",
+   "old": "El árbol es verde",
+   "new": "El semáforo está en verde, puedes pasar",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 360,
+   "col": "example_fr",
+   "old": "L'arbre est vert",
+   "new": "Le feu est vert, tu peux y aller",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 360,
+   "col": "example_cs",
+   "old": "Strom je zelený",
+   "new": "Je zelená, můžeš jet",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 2097,
+   "col": "translation_ru",
+   "old": "мало, немного, немногие",
+   "new": "мало, немного",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2097,
+   "col": "translation_uk",
+   "old": "мало, трохи, небагато",
+   "new": "мало, трохи",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2097,
+   "col": "translation_en",
+   "old": "little, few, not much",
+   "new": "little, few",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2097,
+   "col": "translation_tr",
+   "old": "az, birkaç, biraz",
+   "new": "az, biraz",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2097,
+   "col": "translation_pl",
+   "old": "mało, niewiele, kilku",
+   "new": "mało, niewiele",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2097,
+   "col": "example_en",
+   "old": "There are only a few seats available",
+   "new": "There are only a few seats left",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2097,
+   "col": "example_pl",
+   "old": "Jest tylko niewiele wolnych miejsc",
+   "new": "Zostało niewiele wolnych miejsc",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2097,
+   "col": "example_es",
+   "old": "Solo quedan unos pocos asientos libres",
+   "new": "Solo quedan pocos asientos libres",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2097,
+   "col": "example_fr",
+   "old": "Il n'y a que peu de places libres",
+   "new": "Il ne reste que peu de places",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10212,
+   "col": "translation_ru",
+   "old": "захватывающий, волнующий, будоражащий",
+   "new": "захватывающий, волнующий",
+   "why": "список → главное слово и не больше одной альтернативы; fr «journée très palpitante» — неживо"
+  },
+  {
+   "id": 10212,
+   "col": "translation_tr",
+   "old": "heyecan verici, heyecanlı",
+   "new": "heyecan verici",
+   "why": "список → главное слово и не больше одной альтернативы; fr «journée très palpitante» — неживо"
+  },
+  {
+   "id": 10212,
+   "col": "translation_fr",
+   "old": "palpitant, passionnant, excitant",
+   "new": "palpitant, passionnant",
+   "why": "список → главное слово и не больше одной альтернативы; fr «journée très palpitante» — неживо"
+  },
+  {
+   "id": 10212,
+   "col": "example_fr",
+   "old": "C'était une journée très palpitante",
+   "new": "C'était une journée vraiment passionnante",
+   "why": "список → главное слово и не больше одной альтернативы; fr «journée très palpitante» — неживо"
+  },
+  {
+   "id": 13908,
+   "col": "translation_ru",
+   "old": "подтвердить, заверить, утвердить",
+   "new": "подтвердить",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13908,
+   "col": "translation_uk",
+   "old": "підтвердити, засвідчити, затвердити",
+   "new": "підтвердити",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13908,
+   "col": "translation_en",
+   "old": "to confirm, to verify, to acknowledge",
+   "new": "to confirm",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13908,
+   "col": "translation_tr",
+   "old": "onaylamak, doğrulamak, teyit etmek",
+   "new": "onaylamak, doğrulamak",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13908,
+   "col": "translation_pl",
+   "old": "potwierdzić, poświadczyć",
+   "new": "potwierdzić",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2753,
+   "col": "translation_ru",
+   "old": "шина, покрышка, обруч",
+   "new": "шина",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2753,
+   "col": "translation_uk",
+   "old": "шина, покришка, обруч",
+   "new": "шина",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2753,
+   "col": "translation_en",
+   "old": "tire, tyre, hoop",
+   "new": "tyre",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2753,
+   "col": "translation_tr",
+   "old": "lastik, tekerlek lastiği, çember",
+   "new": "lastik",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2753,
+   "col": "translation_pl",
+   "old": "opona, obręcz",
+   "new": "opona",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1080,
+   "col": "example_uk",
+   "old": "Скільки цукру ти хочеш у свою каву?",
+   "new": "Скільки цукру тобі покласти в каву?",
+   "why": "uk «у свою каву» — калька"
+  },
+  {
+   "id": 584,
+   "col": "translation_ru",
+   "old": "чаще всего, обычно, в основном",
+   "new": "обычно, чаще всего",
+   "why": "список → главное слово и не больше одной альтернативы; «Я чаще всего ем дома» — книжно"
+  },
+  {
+   "id": 584,
+   "col": "translation_uk",
+   "old": "найчастіше, зазвичай, переважно",
+   "new": "зазвичай, найчастіше",
+   "why": "список → главное слово и не больше одной альтернативы; «Я чаще всего ем дома» — книжно"
+  },
+  {
+   "id": 584,
+   "col": "translation_en",
+   "old": "mostly, usually, most of the time",
+   "new": "mostly, usually",
+   "why": "список → главное слово и не больше одной альтернативы; «Я чаще всего ем дома» — книжно"
+  },
+  {
+   "id": 584,
+   "col": "translation_tr",
+   "old": "genellikle, çoğunlukla",
+   "new": "genellikle",
+   "why": "список → главное слово и не больше одной альтернативы; «Я чаще всего ем дома» — книжно"
+  },
+  {
+   "id": 584,
+   "col": "translation_pl",
+   "old": "najczęściej, zwykle, przeważnie",
+   "new": "najczęściej, zwykle",
+   "why": "список → главное слово и не больше одной альтернативы; «Я чаще всего ем дома» — книжно"
+  },
+  {
+   "id": 584,
+   "col": "translation_es",
+   "old": "casi siempre, normalmente, la mayoría de las veces",
+   "new": "casi siempre, normalmente",
+   "why": "список → главное слово и не больше одной альтернативы; «Я чаще всего ем дома» — книжно"
+  },
+  {
+   "id": 584,
+   "col": "translation_fr",
+   "old": "la plupart du temps, généralement, le plus souvent",
+   "new": "la plupart du temps, le plus souvent",
+   "why": "список → главное слово и не больше одной альтернативы; «Я чаще всего ем дома» — книжно"
+  },
+  {
+   "id": 584,
+   "col": "example_ru",
+   "old": "Я чаще всего ем дома",
+   "new": "Обычно я ем дома",
+   "why": "список → главное слово и не больше одной альтернативы; «Я чаще всего ем дома» — книжно"
+  },
+  {
+   "id": 584,
+   "col": "example_uk",
+   "old": "Я найчастіше їм удома",
+   "new": "Зазвичай я їм удома",
+   "why": "список → главное слово и не больше одной альтернативы; «Я чаще всего ем дома» — книжно"
+  },
+  {
+   "id": 584,
+   "col": "example_fr",
+   "old": "Je mange la plupart du temps à la maison",
+   "new": "La plupart du temps, je mange à la maison",
+   "why": "список → главное слово и не больше одной альтернативы; «Я чаще всего ем дома» — книжно"
+  },
+  {
+   "id": 10217,
+   "col": "translation_ru",
+   "old": "испугаться, напугать, вздрогнуть",
+   "new": "испугаться, напугать",
+   "why": "«по-настоящему испугал» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10217,
+   "col": "translation_uk",
+   "old": "злякатися, налякати, здригнутися",
+   "new": "злякатися, налякати",
+   "why": "«по-настоящему испугал» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10217,
+   "col": "translation_en",
+   "old": "to be frightened, to scare someone, to startle",
+   "new": "to be frightened, to scare",
+   "why": "«по-настоящему испугал» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10217,
+   "col": "translation_tr",
+   "old": "korkmak, korkutmak, irkilmek",
+   "new": "korkmak, korkutmak",
+   "why": "«по-настоящему испугал» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10217,
+   "col": "translation_pl",
+   "old": "przestraszyć się, przestraszyć kogoś, wystraszyć się",
+   "new": "przestraszyć się, przestraszyć",
+   "why": "«по-настоящему испугал» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10217,
+   "col": "translation_fr",
+   "old": "faire peur, effrayer, s'effrayer",
+   "new": "faire peur, s'effrayer",
+   "why": "«по-настоящему испугал» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10217,
+   "col": "translation_cs",
+   "old": "vyděsit, polekat, leknout se",
+   "new": "vyděsit, leknout se",
+   "why": "«по-настоящему испугал» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10217,
+   "col": "example_ru",
+   "old": "Ты меня по-настоящему испугал!",
+   "new": "Ну ты меня и напугал!",
+   "why": "«по-настоящему испугал» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10217,
+   "col": "example_uk",
+   "old": "Ти мене справді налякав!",
+   "new": "Ну ти мене й налякав!",
+   "why": "«по-настоящему испугал» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18651,
+   "col": "translation_ru",
+   "old": "ежедневно, каждый день, ежедневный",
+   "new": "ежедневно, каждый день",
+   "why": "английский пример: так не говорят («I jog daily for an hour»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18651,
+   "col": "translation_uk",
+   "old": "щодня, кожного дня, щоденний",
+   "new": "щодня",
+   "why": "английский пример: так не говорят («I jog daily for an hour»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18651,
+   "col": "translation_tr",
+   "old": "her gün, günlük",
+   "new": "her gün",
+   "why": "английский пример: так не говорят («I jog daily for an hour»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18651,
+   "col": "translation_pl",
+   "old": "codziennie, codzienny",
+   "new": "codziennie",
+   "why": "английский пример: так не говорят («I jog daily for an hour»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18651,
+   "col": "example_en",
+   "old": "I jog daily for an hour",
+   "new": "I go jogging for an hour every day",
+   "why": "английский пример: так не говорят («I jog daily for an hour»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18651,
+   "col": "example_es",
+   "old": "Corro una hora a diario",
+   "new": "Corro una hora todos los días",
+   "why": "английский пример: так не говорят («I jog daily for an hour»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6623,
+   "col": "translation_ru",
+   "old": "из-за, по причине, на основании",
+   "new": "из-за, по причине",
+   "why": "пример повторял wegen («Wegen des Regens bleibe ich zu Hause»); aufgrund — так пишут, а говорят wegen"
+  },
+  {
+   "id": 6623,
+   "col": "translation_uk",
+   "old": "через, з причини, на підставі",
+   "new": "через, з причини",
+   "why": "пример повторял wegen («Wegen des Regens bleibe ich zu Hause»); aufgrund — так пишут, а говорят wegen"
+  },
+  {
+   "id": 6623,
+   "col": "translation_en",
+   "old": "due to, because of, on the basis of",
+   "new": "due to, because of",
+   "why": "пример повторял wegen («Wegen des Regens bleibe ich zu Hause»); aufgrund — так пишут, а говорят wegen"
+  },
+  {
+   "id": 6623,
+   "col": "translation_tr",
+   "old": "nedeniyle, yüzünden, dayanarak",
+   "new": "nedeniyle",
+   "why": "пример повторял wegen («Wegen des Regens bleibe ich zu Hause»); aufgrund — так пишут, а говорят wegen"
+  },
+  {
+   "id": 6623,
+   "col": "translation_pl",
+   "old": "z powodu, ze względu na, na podstawie",
+   "new": "z powodu",
+   "why": "пример повторял wegen («Wegen des Regens bleibe ich zu Hause»); aufgrund — так пишут, а говорят wegen"
+  },
+  {
+   "id": 6623,
+   "col": "translation_it",
+   "old": "a causa di, in base a",
+   "new": "a causa di",
+   "why": "пример повторял wegen («Wegen des Regens bleibe ich zu Hause»); aufgrund — так пишут, а говорят wegen"
+  },
+  {
+   "id": 6623,
+   "col": "translation_cs",
+   "old": "kvůli, na základě",
+   "new": "kvůli",
+   "why": "пример повторял wegen («Wegen des Regens bleibe ich zu Hause»); aufgrund — так пишут, а говорят wegen"
+  },
+  {
+   "id": 6623,
+   "col": "example_de",
+   "old": "Aufgrund des Regens bleiben wir zu Hause",
+   "new": "Aufgrund von Bauarbeiten fällt der Zug aus",
+   "why": "пример повторял wegen («Wegen des Regens bleibe ich zu Hause»); aufgrund — так пишут, а говорят wegen"
+  },
+  {
+   "id": 6623,
+   "col": "example_ru",
+   "old": "Из-за дождя мы остаёмся дома",
+   "new": "Из-за ремонтных работ поезд отменён",
+   "why": "пример повторял wegen («Wegen des Regens bleibe ich zu Hause»); aufgrund — так пишут, а говорят wegen"
+  },
+  {
+   "id": 6623,
+   "col": "example_uk",
+   "old": "Через дощ ми залишаємося вдома",
+   "new": "Через ремонтні роботи поїзд скасовано",
+   "why": "пример повторял wegen («Wegen des Regens bleibe ich zu Hause»); aufgrund — так пишут, а говорят wegen"
+  },
+  {
+   "id": 6623,
+   "col": "example_en",
+   "old": "Due to the rain we're staying home",
+   "new": "The train is cancelled due to engineering works",
+   "why": "пример повторял wegen («Wegen des Regens bleibe ich zu Hause»); aufgrund — так пишут, а говорят wegen"
+  },
+  {
+   "id": 6623,
+   "col": "example_tr",
+   "old": "Yağmur nedeniyle evde kalıyoruz",
+   "new": "Yol çalışmaları nedeniyle tren iptal edildi",
+   "why": "пример повторял wegen («Wegen des Regens bleibe ich zu Hause»); aufgrund — так пишут, а говорят wegen"
+  },
+  {
+   "id": 6623,
+   "col": "example_pl",
+   "old": "Z powodu deszczu zostajemy w domu",
+   "new": "Z powodu prac remontowych pociąg jest odwołany",
+   "why": "пример повторял wegen («Wegen des Regens bleibe ich zu Hause»); aufgrund — так пишут, а говорят wegen"
+  },
+  {
+   "id": 6623,
+   "col": "example_it",
+   "old": "A causa della pioggia restiamo a casa",
+   "new": "A causa di lavori il treno è soppresso",
+   "why": "пример повторял wegen («Wegen des Regens bleibe ich zu Hause»); aufgrund — так пишут, а говорят wegen"
+  },
+  {
+   "id": 6623,
+   "col": "example_es",
+   "old": "Debido a la lluvia nos quedamos en casa",
+   "new": "Debido a unas obras, el tren está cancelado",
+   "why": "пример повторял wegen («Wegen des Regens bleibe ich zu Hause»); aufgrund — так пишут, а говорят wegen"
+  },
+  {
+   "id": 6623,
+   "col": "example_fr",
+   "old": "À cause de la pluie, nous restons à la maison",
+   "new": "En raison de travaux, le train est supprimé",
+   "why": "пример повторял wegen («Wegen des Regens bleibe ich zu Hause»); aufgrund — так пишут, а говорят wegen"
+  },
+  {
+   "id": 6623,
+   "col": "example_cs",
+   "old": "Kvůli dešti zůstáváme doma",
+   "new": "Kvůli stavebním pracím vlak nejede",
+   "why": "пример повторял wegen («Wegen des Regens bleibe ich zu Hause»); aufgrund — так пишут, а говорят wegen"
+  },
+  {
+   "id": 2089,
+   "col": "example_de",
+   "old": "Wegen des Regens bleibe ich zu Hause",
+   "new": "Wegen dir kommen wir zu spät!",
+   "why": "четвёртый пример «из-за дождя остаюсь дома» (aufgrund, trotz, daher) — у каждого свой"
+  },
+  {
+   "id": 2089,
+   "col": "example_ru",
+   "old": "Из-за дождя я остаюсь дома",
+   "new": "Из-за тебя мы опоздаем!",
+   "why": "четвёртый пример «из-за дождя остаюсь дома» (aufgrund, trotz, daher) — у каждого свой"
+  },
+  {
+   "id": 2089,
+   "col": "example_uk",
+   "old": "Через дощ я залишаюся вдома",
+   "new": "Через тебе ми запізнимося!",
+   "why": "четвёртый пример «из-за дождя остаюсь дома» (aufgrund, trotz, daher) — у каждого свой"
+  },
+  {
+   "id": 2089,
+   "col": "example_en",
+   "old": "Because of the rain, I'm staying home",
+   "new": "We'll be late because of you!",
+   "why": "четвёртый пример «из-за дождя остаюсь дома» (aufgrund, trotz, daher) — у каждого свой"
+  },
+  {
+   "id": 2089,
+   "col": "example_tr",
+   "old": "Yağmur yüzünden evde kalıyorum",
+   "new": "Senin yüzünden geç kalacağız!",
+   "why": "четвёртый пример «из-за дождя остаюсь дома» (aufgrund, trotz, daher) — у каждого свой"
+  },
+  {
+   "id": 2089,
+   "col": "example_pl",
+   "old": "Z powodu deszczu zostaję w domu",
+   "new": "Przez ciebie się spóźnimy!",
+   "why": "четвёртый пример «из-за дождя остаюсь дома» (aufgrund, trotz, daher) — у каждого свой"
+  },
+  {
+   "id": 2089,
+   "col": "example_it",
+   "old": "A causa della pioggia resto a casa",
+   "new": "Per colpa tua arriveremo in ritardo!",
+   "why": "четвёртый пример «из-за дождя остаюсь дома» (aufgrund, trotz, daher) — у каждого свой"
+  },
+  {
+   "id": 2089,
+   "col": "example_es",
+   "old": "A causa de la lluvia me quedo en casa",
+   "new": "¡Por tu culpa vamos a llegar tarde!",
+   "why": "четвёртый пример «из-за дождя остаюсь дома» (aufgrund, trotz, daher) — у каждого свой"
+  },
+  {
+   "id": 2089,
+   "col": "example_fr",
+   "old": "À cause de la pluie, je reste à la maison",
+   "new": "À cause de toi, on va être en retard!",
+   "why": "четвёртый пример «из-за дождя остаюсь дома» (aufgrund, trotz, daher) — у каждого свой"
+  },
+  {
+   "id": 2089,
+   "col": "example_cs",
+   "old": "Kvůli dešti zůstávám doma",
+   "new": "Kvůli tobě přijdeme pozdě!",
+   "why": "четвёртый пример «из-за дождя остаюсь дома» (aufgrund, trotz, daher) — у каждого свой"
+  },
+  {
+   "id": 14395,
+   "col": "translation_ru",
+   "old": "художник, артист, деятель искусства",
+   "new": "художник, артист",
+   "why": "«Der Künstler malt schöne Bilder» — из детской книжки; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14395,
+   "col": "translation_uk",
+   "old": "художник, артист, митець",
+   "new": "художник, митець",
+   "why": "«Der Künstler malt schöne Bilder» — из детской книжки; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14395,
+   "col": "translation_en",
+   "old": "artist, performer",
+   "new": "artist",
+   "why": "«Der Künstler malt schöne Bilder» — из детской книжки; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14395,
+   "col": "translation_tr",
+   "old": "sanatçı, ressam",
+   "new": "sanatçı",
+   "why": "«Der Künstler malt schöne Bilder» — из детской книжки; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14395,
+   "col": "translation_pl",
+   "old": "artysta, malarz",
+   "new": "artysta",
+   "why": "«Der Künstler malt schöne Bilder» — из детской книжки; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14395,
+   "col": "example_de",
+   "old": "Der Künstler malt schöne Bilder",
+   "new": "Auf dem Markt verkaufen Künstler ihre Bilder",
+   "why": "«Der Künstler malt schöne Bilder» — из детской книжки; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14395,
+   "col": "example_ru",
+   "old": "Художник рисует красивые картины",
+   "new": "На рынке художники продают свои картины",
+   "why": "«Der Künstler malt schöne Bilder» — из детской книжки; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14395,
+   "col": "example_uk",
+   "old": "Художник малює гарні картини",
+   "new": "На ринку художники продають свої картини",
+   "why": "«Der Künstler malt schöne Bilder» — из детской книжки; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14395,
+   "col": "example_en",
+   "old": "The artist paints beautiful pictures",
+   "new": "Artists sell their paintings at the market",
+   "why": "«Der Künstler malt schöne Bilder» — из детской книжки; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14395,
+   "col": "example_tr",
+   "old": "Sanatçı güzel resimler yapıyor",
+   "new": "Pazarda sanatçılar resimlerini satıyor",
+   "why": "«Der Künstler malt schöne Bilder» — из детской книжки; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14395,
+   "col": "example_pl",
+   "old": "Ten artysta maluje piękne obrazy",
+   "new": "Na targu artyści sprzedają swoje obrazy",
+   "why": "«Der Künstler malt schöne Bilder» — из детской книжки; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14395,
+   "col": "example_it",
+   "old": "L'artista dipinge bei quadri",
+   "new": "Al mercato gli artisti vendono i loro quadri",
+   "why": "«Der Künstler malt schöne Bilder» — из детской книжки; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14395,
+   "col": "example_es",
+   "old": "El artista pinta cuadros bonitos",
+   "new": "En el mercado los artistas venden sus cuadros",
+   "why": "«Der Künstler malt schöne Bilder» — из детской книжки; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14395,
+   "col": "example_fr",
+   "old": "L'artiste peint de beaux tableaux",
+   "new": "Au marché, des artistes vendent leurs tableaux",
+   "why": "«Der Künstler malt schöne Bilder» — из детской книжки; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14395,
+   "col": "example_cs",
+   "old": "Umělec maluje krásné obrazy",
+   "new": "Na trhu prodávají umělci své obrazy",
+   "why": "«Der Künstler malt schöne Bilder» — из детской книжки; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 526,
+   "col": "translation_ru",
+   "old": "сыр, ерунда",
+   "new": "сыр",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («ерунда» — разговорное значение); «Ich esse Käse und Brot» — скелет"
+  },
+  {
+   "id": 526,
+   "col": "translation_uk",
+   "old": "сир, дурниця",
+   "new": "сир",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («ерунда» — разговорное значение); «Ich esse Käse und Brot» — скелет"
+  },
+  {
+   "id": 526,
+   "col": "translation_en",
+   "old": "cheese, nonsense",
+   "new": "cheese",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («ерунда» — разговорное значение); «Ich esse Käse und Brot» — скелет"
+  },
+  {
+   "id": 526,
+   "col": "translation_tr",
+   "old": "peynir, saçmalık",
+   "new": "peynir",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («ерунда» — разговорное значение); «Ich esse Käse und Brot» — скелет"
+  },
+  {
+   "id": 526,
+   "col": "translation_pl",
+   "old": "ser, bzdura",
+   "new": "ser",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («ерунда» — разговорное значение); «Ich esse Käse und Brot» — скелет"
+  },
+  {
+   "id": 526,
+   "col": "translation_it",
+   "old": "il formaggio, la sciocchezza",
+   "new": "il formaggio",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («ерунда» — разговорное значение); «Ich esse Käse und Brot» — скелет"
+  },
+  {
+   "id": 526,
+   "col": "translation_es",
+   "old": "el queso, la tontería",
+   "new": "el queso",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («ерунда» — разговорное значение); «Ich esse Käse und Brot» — скелет"
+  },
+  {
+   "id": 526,
+   "col": "translation_fr",
+   "old": "le fromage, la bêtise",
+   "new": "le fromage",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («ерунда» — разговорное значение); «Ich esse Käse und Brot» — скелет"
+  },
+  {
+   "id": 526,
+   "col": "translation_cs",
+   "old": "sýr, nesmysl",
+   "new": "sýr",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («ерунда» — разговорное значение); «Ich esse Käse und Brot» — скелет"
+  },
+  {
+   "id": 526,
+   "col": "example_de",
+   "old": "Ich esse Käse und Brot",
+   "new": "Ein Brötchen mit Käse, bitte",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («ерунда» — разговорное значение); «Ich esse Käse und Brot» — скелет"
+  },
+  {
+   "id": 526,
+   "col": "example_ru",
+   "old": "Я ем сыр с хлебом",
+   "new": "Булочку с сыром, пожалуйста",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («ерунда» — разговорное значение); «Ich esse Käse und Brot» — скелет"
+  },
+  {
+   "id": 526,
+   "col": "example_uk",
+   "old": "Я їм сир і хліб",
+   "new": "Булочку з сиром, будь ласка",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («ерунда» — разговорное значение); «Ich esse Käse und Brot» — скелет"
+  },
+  {
+   "id": 526,
+   "col": "example_en",
+   "old": "I eat cheese and bread",
+   "new": "A cheese roll, please",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («ерунда» — разговорное значение); «Ich esse Käse und Brot» — скелет"
+  },
+  {
+   "id": 526,
+   "col": "example_tr",
+   "old": "Peynir ve ekmek yiyorum",
+   "new": "Peynirli bir sandviç lütfen",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («ерунда» — разговорное значение); «Ich esse Käse und Brot» — скелет"
+  },
+  {
+   "id": 526,
+   "col": "example_pl",
+   "old": "Jem ser i chleb",
+   "new": "Bułkę z serem poproszę",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («ерунда» — разговорное значение); «Ich esse Käse und Brot» — скелет"
+  },
+  {
+   "id": 526,
+   "col": "example_it",
+   "old": "Mangio formaggio e pane",
+   "new": "Un panino al formaggio, per favore",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («ерунда» — разговорное значение); «Ich esse Käse und Brot» — скелет"
+  },
+  {
+   "id": 526,
+   "col": "example_es",
+   "old": "Como queso y pan",
+   "new": "Un panecillo con queso, por favor",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («ерунда» — разговорное значение); «Ich esse Käse und Brot» — скелет"
+  },
+  {
+   "id": 526,
+   "col": "example_fr",
+   "old": "Je mange du fromage et du pain",
+   "new": "Un petit pain au fromage, s'il vous plaît",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («ерунда» — разговорное значение); «Ich esse Käse und Brot» — скелет"
+  },
+  {
+   "id": 526,
+   "col": "example_cs",
+   "old": "Jím sýr a chleba",
+   "new": "Rohlík se sýrem, prosím",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («ерунда» — разговорное значение); «Ich esse Käse und Brot» — скелет"
+  },
+  {
+   "id": 1440,
+   "col": "translation_ru",
+   "old": "добровольный, добровольно, по своей воле",
+   "new": "добровольный, по своей воле",
+   "why": "«Die Teilnahme ist freiwillig» — язык анкет; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1440,
+   "col": "translation_uk",
+   "old": "добровільний, добровільно, з власної волі",
+   "new": "добровільний, з власної волі",
+   "why": "«Die Teilnahme ist freiwillig» — язык анкет; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1440,
+   "col": "translation_en",
+   "old": "voluntary, voluntarily, of one's own free will",
+   "new": "voluntary, of one's own free will",
+   "why": "«Die Teilnahme ist freiwillig» — язык анкет; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1440,
+   "col": "translation_tr",
+   "old": "gönüllü, isteyerek, kendi isteğiyle",
+   "new": "gönüllü, kendi isteğiyle",
+   "why": "«Die Teilnahme ist freiwillig» — язык анкет; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1440,
+   "col": "translation_pl",
+   "old": "dobrowolny, dobrowolnie, ochotniczy",
+   "new": "dobrowolny, dobrowolnie",
+   "why": "«Die Teilnahme ist freiwillig» — язык анкет; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1440,
+   "col": "translation_it",
+   "old": "volontario, facoltativo",
+   "new": "volontario",
+   "why": "«Die Teilnahme ist freiwillig» — язык анкет; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1440,
+   "col": "translation_fr",
+   "old": "volontaire, facultatif",
+   "new": "volontaire",
+   "why": "«Die Teilnahme ist freiwillig» — язык анкет; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1440,
+   "col": "example_de",
+   "old": "Die Teilnahme ist freiwillig",
+   "new": "Niemand zwingt mich, ich mache das freiwillig",
+   "why": "«Die Teilnahme ist freiwillig» — язык анкет; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1440,
+   "col": "example_ru",
+   "old": "Участие добровольное",
+   "new": "Меня никто не заставляет, я делаю это по своей воле",
+   "why": "«Die Teilnahme ist freiwillig» — язык анкет; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1440,
+   "col": "example_uk",
+   "old": "Участь добровільна",
+   "new": "Мене ніхто не змушує, я роблю це з власної волі",
+   "why": "«Die Teilnahme ist freiwillig» — язык анкет; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1440,
+   "col": "example_en",
+   "old": "Participation is voluntary",
+   "new": "Nobody's forcing me, I'm doing it of my own free will",
+   "why": "«Die Teilnahme ist freiwillig» — язык анкет; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1440,
+   "col": "example_tr",
+   "old": "Katılım gönüllü",
+   "new": "Kimse beni zorlamıyor, bunu kendi isteğimle yapıyorum",
+   "why": "«Die Teilnahme ist freiwillig» — язык анкет; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1440,
+   "col": "example_pl",
+   "old": "Udział jest dobrowolny",
+   "new": "Nikt mnie nie zmusza, robię to dobrowolnie",
+   "why": "«Die Teilnahme ist freiwillig» — язык анкет; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1440,
+   "col": "example_it",
+   "old": "La partecipazione è volontaria",
+   "new": "Nessuno mi obbliga, lo faccio volontariamente",
+   "why": "«Die Teilnahme ist freiwillig» — язык анкет; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1440,
+   "col": "example_es",
+   "old": "La participación es voluntaria",
+   "new": "Nadie me obliga, lo hago voluntariamente",
+   "why": "«Die Teilnahme ist freiwillig» — язык анкет; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1440,
+   "col": "example_fr",
+   "old": "La participation est volontaire",
+   "new": "Personne ne m'oblige, je le fais volontairement",
+   "why": "«Die Teilnahme ist freiwillig» — язык анкет; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1440,
+   "col": "example_cs",
+   "old": "Účast je dobrovolná",
+   "new": "Nikdo mě nenutí, dělám to dobrovolně",
+   "why": "«Die Teilnahme ist freiwillig» — язык анкет; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 95,
+   "col": "translation_ru",
+   "old": "сообщать, рассказывать, докладывать, освещать в новостях",
+   "new": "сообщать, рассказывать",
+   "why": "список → главное слово и не больше одной альтернативы; «Я рассказываю тебе» — по-русски о будущем «расскажу»"
+  },
+  {
+   "id": 95,
+   "col": "translation_uk",
+   "old": "повідомляти, розповідати, доповідати, висвітлювати",
+   "new": "повідомляти, розповідати",
+   "why": "список → главное слово и не больше одной альтернативы; «Я рассказываю тебе» — по-русски о будущем «расскажу»"
+  },
+  {
+   "id": 95,
+   "col": "translation_en",
+   "old": "to report, to tell about, to inform",
+   "new": "to report, to tell about",
+   "why": "список → главное слово и не больше одной альтернативы; «Я рассказываю тебе» — по-русски о будущем «расскажу»"
+  },
+  {
+   "id": 95,
+   "col": "translation_tr",
+   "old": "bildirmek, anlatmak, haber vermek, rapor etmek",
+   "new": "anlatmak, bildirmek",
+   "why": "список → главное слово и не больше одной альтернативы; «Я рассказываю тебе» — по-русски о будущем «расскажу»"
+  },
+  {
+   "id": 95,
+   "col": "translation_pl",
+   "old": "relacjonować, opowiadać, donosić, informować",
+   "new": "opowiadać, relacjonować",
+   "why": "список → главное слово и не больше одной альтернативы; «Я рассказываю тебе» — по-русски о будущем «расскажу»"
+  },
+  {
+   "id": 95,
+   "col": "translation_it",
+   "old": "raccontare, riferire, riportare",
+   "new": "raccontare, riferire",
+   "why": "список → главное слово и не больше одной альтернативы; «Я рассказываю тебе» — по-русски о будущем «расскажу»"
+  },
+  {
+   "id": 95,
+   "col": "translation_es",
+   "old": "contar, informar, relatar",
+   "new": "contar, informar",
+   "why": "список → главное слово и не больше одной альтернативы; «Я рассказываю тебе» — по-русски о будущем «расскажу»"
+  },
+  {
+   "id": 95,
+   "col": "translation_fr",
+   "old": "raconter, rapporter, informer",
+   "new": "raconter, rapporter",
+   "why": "список → главное слово и не больше одной альтернативы; «Я рассказываю тебе» — по-русски о будущем «расскажу»"
+  },
+  {
+   "id": 95,
+   "col": "translation_cs",
+   "old": "vyprávět, informovat, podávat zprávu",
+   "new": "vyprávět, informovat",
+   "why": "список → главное слово и не больше одной альтернативы; «Я рассказываю тебе» — по-русски о будущем «расскажу»"
+  },
+  {
+   "id": 95,
+   "col": "example_ru",
+   "old": "Я рассказываю тебе о своей поездке",
+   "new": "Я расскажу тебе о своей поездке",
+   "why": "список → главное слово и не больше одной альтернативы; «Я рассказываю тебе» — по-русски о будущем «расскажу»"
+  },
+  {
+   "id": 95,
+   "col": "example_uk",
+   "old": "Я розповідаю тобі про свою подорож",
+   "new": "Я розповім тобі про свою подорож",
+   "why": "список → главное слово и не больше одной альтернативы; «Я рассказываю тебе» — по-русски о будущем «расскажу»"
+  },
+  {
+   "id": 95,
+   "col": "example_en",
+   "old": "I'm telling you about my trip",
+   "new": "I'll tell you about my trip",
+   "why": "список → главное слово и не больше одной альтернативы; «Я рассказываю тебе» — по-русски о будущем «расскажу»"
+  },
+  {
+   "id": 14396,
+   "col": "translation_ru",
+   "old": "название, заголовок, титул, звание, трек",
+   "new": "название, заголовок",
+   "why": "«Der Titel des Buchs ist interessant» — пусто; «трек, звание» — другие значения"
+  },
+  {
+   "id": 14396,
+   "col": "translation_uk",
+   "old": "назва, заголовок, титул, звання, трек",
+   "new": "назва, заголовок",
+   "why": "«Der Titel des Buchs ist interessant» — пусто; «трек, звание» — другие значения"
+  },
+  {
+   "id": 14396,
+   "col": "translation_en",
+   "old": "title, heading, rank, track",
+   "new": "title",
+   "why": "«Der Titel des Buchs ist interessant» — пусто; «трек, звание» — другие значения"
+  },
+  {
+   "id": 14396,
+   "col": "translation_tr",
+   "old": "başlık, ad, unvan, şarkı",
+   "new": "başlık, ad",
+   "why": "«Der Titel des Buchs ist interessant» — пусто; «трек, звание» — другие значения"
+  },
+  {
+   "id": 14396,
+   "col": "translation_pl",
+   "old": "tytuł, nagłówek, stopień, utwór",
+   "new": "tytuł",
+   "why": "«Der Titel des Buchs ist interessant» — пусто; «трек, звание» — другие значения"
+  },
+  {
+   "id": 14396,
+   "col": "example_de",
+   "old": "Der Titel des Buchs ist interessant",
+   "new": "Ich habe den Titel des Films vergessen",
+   "why": "«Der Titel des Buchs ist interessant» — пусто; «трек, звание» — другие значения"
+  },
+  {
+   "id": 14396,
+   "col": "example_ru",
+   "old": "Название книги интересное",
+   "new": "Я забыл название фильма",
+   "why": "«Der Titel des Buchs ist interessant» — пусто; «трек, звание» — другие значения"
+  },
+  {
+   "id": 14396,
+   "col": "example_uk",
+   "old": "Назва книги цікава",
+   "new": "Я забув назву фільму",
+   "why": "«Der Titel des Buchs ist interessant» — пусто; «трек, звание» — другие значения"
+  },
+  {
+   "id": 14396,
+   "col": "example_en",
+   "old": "The title of the book is interesting",
+   "new": "I've forgotten the title of the film",
+   "why": "«Der Titel des Buchs ist interessant» — пусто; «трек, звание» — другие значения"
+  },
+  {
+   "id": 14396,
+   "col": "example_tr",
+   "old": "Kitabın başlığı ilginç",
+   "new": "Filmin adını unuttum",
+   "why": "«Der Titel des Buchs ist interessant» — пусто; «трек, звание» — другие значения"
+  },
+  {
+   "id": 14396,
+   "col": "example_pl",
+   "old": "Tytuł tej książki jest ciekawy",
+   "new": "Zapomniałem tytułu filmu",
+   "why": "«Der Titel des Buchs ist interessant» — пусто; «трек, звание» — другие значения"
+  },
+  {
+   "id": 14396,
+   "col": "example_it",
+   "old": "Il titolo del libro è interessante",
+   "new": "Ho dimenticato il titolo del film",
+   "why": "«Der Titel des Buchs ist interessant» — пусто; «трек, звание» — другие значения"
+  },
+  {
+   "id": 14396,
+   "col": "example_es",
+   "old": "El título del libro es interesante",
+   "new": "He olvidado el título de la película",
+   "why": "«Der Titel des Buchs ist interessant» — пусто; «трек, звание» — другие значения"
+  },
+  {
+   "id": 14396,
+   "col": "example_fr",
+   "old": "Le titre du livre est intéressant",
+   "new": "J'ai oublié le titre du film",
+   "why": "«Der Titel des Buchs ist interessant» — пусто; «трек, звание» — другие значения"
+  },
+  {
+   "id": 14396,
+   "col": "example_cs",
+   "old": "Název knihy je zajímavý",
+   "new": "Zapomněl jsem název filmu",
+   "why": "«Der Titel des Buchs ist interessant» — пусто; «трек, звание» — другие значения"
+  },
+  {
+   "id": 888,
+   "col": "translation_ru",
+   "old": "стресс, нервотрёпка, спешка",
+   "new": "стресс, спешка",
+   "why": "«У него много стресса» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 888,
+   "col": "translation_uk",
+   "old": "стрес, нервування, поспіх",
+   "new": "стрес, поспіх",
+   "why": "«У него много стресса» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 888,
+   "col": "translation_en",
+   "old": "stress, pressure, hassle",
+   "new": "stress",
+   "why": "«У него много стресса» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 888,
+   "col": "translation_tr",
+   "old": "stres, baskı, telaş",
+   "new": "stres",
+   "why": "«У него много стресса» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 888,
+   "col": "translation_pl",
+   "old": "stres, napięcie, nerwy",
+   "new": "stres",
+   "why": "«У него много стресса» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 888,
+   "col": "example_de",
+   "old": "Er hat viel Stress",
+   "new": "Ich habe gerade viel Stress bei der Arbeit",
+   "why": "«У него много стресса» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 888,
+   "col": "example_ru",
+   "old": "У него много стресса",
+   "new": "У меня сейчас на работе сплошной стресс",
+   "why": "«У него много стресса» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 888,
+   "col": "example_uk",
+   "old": "У нього багато стресу",
+   "new": "У мене зараз на роботі суцільний стрес",
+   "why": "«У него много стресса» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 888,
+   "col": "example_en",
+   "old": "He has a lot of stress",
+   "new": "I've got a lot of stress at work right now",
+   "why": "«У него много стресса» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 888,
+   "col": "example_tr",
+   "old": "Çok stresi var",
+   "new": "Şu an işte çok stresim var",
+   "why": "«У него много стресса» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 888,
+   "col": "example_pl",
+   "old": "On ma dużo stresu",
+   "new": "Mam teraz dużo stresu w pracy",
+   "why": "«У него много стресса» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 888,
+   "col": "example_it",
+   "old": "Ha tanto stress",
+   "new": "In questo periodo ho tanto stress al lavoro",
+   "why": "«У него много стресса» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 888,
+   "col": "example_es",
+   "old": "Tiene mucho estrés",
+   "new": "Ahora tengo mucho estrés en el trabajo",
+   "why": "«У него много стресса» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 888,
+   "col": "example_fr",
+   "old": "Il a beaucoup de stress",
+   "new": "En ce moment, j'ai beaucoup de stress au travail",
+   "why": "«У него много стресса» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 888,
+   "col": "example_cs",
+   "old": "Má hodně stresu",
+   "new": "V práci mám teď hodně stresu",
+   "why": "«У него много стресса» — калька; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 339,
+   "col": "translation_it",
+   "old": "la salute",
+   "new": "la salute, salute!",
+   "why": "«Gesundheit ist wichtig» — плакат, а не речь; живёт слово в «Gesundheit!» после чиха"
+  },
+  {
+   "id": 339,
+   "col": "translation_es",
+   "old": "la salud",
+   "new": "la salud, ¡salud!",
+   "why": "«Gesundheit ist wichtig» — плакат, а не речь; живёт слово в «Gesundheit!» после чиха"
+  },
+  {
+   "id": 339,
+   "col": "translation_fr",
+   "old": "la santé",
+   "new": "la santé, à tes souhaits",
+   "why": "«Gesundheit ist wichtig» — плакат, а не речь; живёт слово в «Gesundheit!» после чиха"
+  },
+  {
+   "id": 339,
+   "col": "example_de",
+   "old": "Gesundheit ist wichtig",
+   "new": "Hatschi! — Gesundheit! — Danke!",
+   "why": "«Gesundheit ist wichtig» — плакат, а не речь; живёт слово в «Gesundheit!» после чиха"
+  },
+  {
+   "id": 339,
+   "col": "example_ru",
+   "old": "Здоровье — это важно",
+   "new": "Апчхи! — Будь здоров! — Спасибо!",
+   "why": "«Gesundheit ist wichtig» — плакат, а не речь; живёт слово в «Gesundheit!» после чиха"
+  },
+  {
+   "id": 339,
+   "col": "example_uk",
+   "old": "Здоров'я важливе",
+   "new": "Апчхи! — Будь здоровий! — Дякую!",
+   "why": "«Gesundheit ist wichtig» — плакат, а не речь; живёт слово в «Gesundheit!» после чиха"
+  },
+  {
+   "id": 339,
+   "col": "example_en",
+   "old": "Health is important",
+   "new": "Achoo! — Bless you! — Thanks!",
+   "why": "«Gesundheit ist wichtig» — плакат, а не речь; живёт слово в «Gesundheit!» после чиха"
+  },
+  {
+   "id": 339,
+   "col": "example_tr",
+   "old": "Sağlık önemli",
+   "new": "Hapşu! — Çok yaşa! — Sen de gör!",
+   "why": "«Gesundheit ist wichtig» — плакат, а не речь; живёт слово в «Gesundheit!» после чиха"
+  },
+  {
+   "id": 339,
+   "col": "example_pl",
+   "old": "Zdrowie jest ważne",
+   "new": "Apsik! — Na zdrowie! — Dziękuję!",
+   "why": "«Gesundheit ist wichtig» — плакат, а не речь; живёт слово в «Gesundheit!» после чиха"
+  },
+  {
+   "id": 339,
+   "col": "example_it",
+   "old": "La salute è importante",
+   "new": "Etciù! — Salute! — Grazie!",
+   "why": "«Gesundheit ist wichtig» — плакат, а не речь; живёт слово в «Gesundheit!» после чиха"
+  },
+  {
+   "id": 339,
+   "col": "example_es",
+   "old": "La salud es importante",
+   "new": "¡Achís! — ¡Salud! — ¡Gracias!",
+   "why": "«Gesundheit ist wichtig» — плакат, а не речь; живёт слово в «Gesundheit!» после чиха"
+  },
+  {
+   "id": 339,
+   "col": "example_fr",
+   "old": "La santé, c'est important",
+   "new": "Atchoum! — À tes souhaits! — Merci!",
+   "why": "«Gesundheit ist wichtig» — плакат, а не речь; живёт слово в «Gesundheit!» после чиха"
+  },
+  {
+   "id": 339,
+   "col": "example_cs",
+   "old": "Zdraví je důležité",
+   "new": "Hepčí! — Na zdraví! — Díky!",
+   "why": "«Gesundheit ist wichtig» — плакат, а не речь; живёт слово в «Gesundheit!» после чиха"
+  },
+  {
+   "id": 789,
+   "col": "translation_ru",
+   "old": "дарить, подарить, наливать, уделять",
+   "new": "дарить",
+   "why": "«Ich schenke dir ein Buch» — из учебника; «наливать» — устар."
+  },
+  {
+   "id": 789,
+   "col": "translation_uk",
+   "old": "дарувати, подарувати, наливати, приділяти",
+   "new": "дарувати",
+   "why": "«Ich schenke dir ein Buch» — из учебника; «наливать» — устар."
+  },
+  {
+   "id": 789,
+   "col": "translation_en",
+   "old": "to give as a gift, to present, to pour, to grant",
+   "new": "to give (as a present)",
+   "why": "«Ich schenke dir ein Buch» — из учебника; «наливать» — устар."
+  },
+  {
+   "id": 789,
+   "col": "translation_tr",
+   "old": "hediye etmek, bağışlamak, doldurmak",
+   "new": "hediye etmek",
+   "why": "«Ich schenke dir ein Buch» — из учебника; «наливать» — устар."
+  },
+  {
+   "id": 789,
+   "col": "translation_pl",
+   "old": "podarować, dawać w prezencie, nalewać",
+   "new": "podarować, dawać w prezencie",
+   "why": "«Ich schenke dir ein Buch» — из учебника; «наливать» — устар."
+  },
+  {
+   "id": 789,
+   "col": "example_de",
+   "old": "Ich schenke dir ein Buch",
+   "new": "Was schenkst du deiner Mutter zum Geburtstag?",
+   "why": "«Ich schenke dir ein Buch» — из учебника; «наливать» — устар."
+  },
+  {
+   "id": 789,
+   "col": "example_ru",
+   "old": "Я дарю тебе книгу",
+   "new": "Что ты подаришь маме на день рождения?",
+   "why": "«Ich schenke dir ein Buch» — из учебника; «наливать» — устар."
+  },
+  {
+   "id": 789,
+   "col": "example_uk",
+   "old": "Я дарую тобі книгу",
+   "new": "Що ти подаруєш мамі на день народження?",
+   "why": "«Ich schenke dir ein Buch» — из учебника; «наливать» — устар."
+  },
+  {
+   "id": 789,
+   "col": "example_en",
+   "old": "I'm giving you a book as a present",
+   "new": "What are you giving your mum for her birthday?",
+   "why": "«Ich schenke dir ein Buch» — из учебника; «наливать» — устар."
+  },
+  {
+   "id": 789,
+   "col": "example_tr",
+   "old": "Sana bir kitap hediye ediyorum",
+   "new": "Annene doğum gününde ne hediye edeceksin?",
+   "why": "«Ich schenke dir ein Buch» — из учебника; «наливать» — устар."
+  },
+  {
+   "id": 789,
+   "col": "example_pl",
+   "old": "Daję ci książkę w prezencie",
+   "new": "Co podarujesz mamie na urodziny?",
+   "why": "«Ich schenke dir ein Buch» — из учебника; «наливать» — устар."
+  },
+  {
+   "id": 789,
+   "col": "example_it",
+   "old": "Ti regalo un libro",
+   "new": "Cosa regali a tua madre per il compleanno?",
+   "why": "«Ich schenke dir ein Buch» — из учебника; «наливать» — устар."
+  },
+  {
+   "id": 789,
+   "col": "example_es",
+   "old": "Te regalo un libro",
+   "new": "¿Qué le vas a regalar a tu madre por su cumpleaños?",
+   "why": "«Ich schenke dir ein Buch» — из учебника; «наливать» — устар."
+  },
+  {
+   "id": 789,
+   "col": "example_fr",
+   "old": "Je t'offre un livre",
+   "new": "Qu'est-ce que tu offres à ta mère pour son anniversaire?",
+   "why": "«Ich schenke dir ein Buch» — из учебника; «наливать» — устар."
+  },
+  {
+   "id": 789,
+   "col": "example_cs",
+   "old": "Daruji ti knihu",
+   "new": "Co daruješ mámě k narozeninám?",
+   "why": "«Ich schenke dir ein Buch» — из учебника; «наливать» — устар."
+  },
+  {
+   "id": 6628,
+   "col": "translation_ru",
+   "old": "резать, нарезать, стричь, порезать",
+   "new": "резать, стричь",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6628,
+   "col": "translation_uk",
+   "old": "різати, нарізати, стригти, порізати",
+   "new": "різати, стригти",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6628,
+   "col": "translation_en",
+   "old": "to cut, to slice, to trim hair",
+   "new": "to cut",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6628,
+   "col": "translation_tr",
+   "old": "kesmek, dilimlemek, saç kesmek",
+   "new": "kesmek",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6628,
+   "col": "translation_pl",
+   "old": "ciąć, krajać, kroić, obcinać",
+   "new": "kroić, ciąć",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6628,
+   "col": "translation_cs",
+   "old": "krájet, řezat, stříhat",
+   "new": "krájet, stříhat",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12513,
+   "col": "example_de",
+   "old": "Mir tut der Magen weh",
+   "new": "Iss nicht so viel, sonst verdirbst du dir den Magen",
+   "why": "«Mir tut der Magen weh» — тот же пример, что Ohr"
+  },
+  {
+   "id": 12513,
+   "col": "example_ru",
+   "old": "У меня болит желудок",
+   "new": "Не ешь так много, а то испортишь желудок",
+   "why": "«Mir tut der Magen weh» — тот же пример, что Ohr"
+  },
+  {
+   "id": 12513,
+   "col": "example_uk",
+   "old": "У мене болить шлунок",
+   "new": "Не їж так багато, бо зіпсуєш шлунок",
+   "why": "«Mir tut der Magen weh» — тот же пример, что Ohr"
+  },
+  {
+   "id": 12513,
+   "col": "example_en",
+   "old": "My stomach hurts",
+   "new": "Don't eat so much or you'll upset your stomach",
+   "why": "«Mir tut der Magen weh» — тот же пример, что Ohr"
+  },
+  {
+   "id": 12513,
+   "col": "example_tr",
+   "old": "Midem ağrıyor",
+   "new": "Bu kadar çok yeme, yoksa miden bozulur",
+   "why": "«Mir tut der Magen weh» — тот же пример, что Ohr"
+  },
+  {
+   "id": 12513,
+   "col": "example_pl",
+   "old": "Boli mnie żołądek",
+   "new": "Nie jedz tyle, bo rozstroisz sobie żołądek",
+   "why": "«Mir tut der Magen weh» — тот же пример, что Ohr"
+  },
+  {
+   "id": 12513,
+   "col": "example_it",
+   "old": "Mi fa male lo stomaco",
+   "new": "Non mangiare così tanto, se no ti rovini lo stomaco",
+   "why": "«Mir tut der Magen weh» — тот же пример, что Ohr"
+  },
+  {
+   "id": 12513,
+   "col": "example_es",
+   "old": "Me duele el estómago",
+   "new": "No comas tanto, que te va a sentar mal al estómago",
+   "why": "«Mir tut der Magen weh» — тот же пример, что Ohr"
+  },
+  {
+   "id": 12513,
+   "col": "example_fr",
+   "old": "J'ai mal à l'estomac",
+   "new": "Ne mange pas trop, sinon tu vas avoir mal à l'estomac",
+   "why": "«Mir tut der Magen weh» — тот же пример, что Ohr"
+  },
+  {
+   "id": 12513,
+   "col": "example_cs",
+   "old": "Bolí mě žaludek",
+   "new": "Nejez tolik, nebo si zkazíš žaludek",
+   "why": "«Mir tut der Magen weh» — тот же пример, что Ohr"
+  },
+  {
+   "id": 12515,
+   "col": "translation_ru",
+   "old": "пациент, больной",
+   "new": "пациент",
+   "why": "«Der Patient wartet beim Arzt» — из детской книжки"
+  },
+  {
+   "id": 12515,
+   "col": "translation_uk",
+   "old": "пацієнт, хворий",
+   "new": "пацієнт",
+   "why": "«Der Patient wartet beim Arzt» — из детской книжки"
+  },
+  {
+   "id": 12515,
+   "col": "example_de",
+   "old": "Der Patient wartet beim Arzt",
+   "new": "Der Arzt hat heute viele Patienten",
+   "why": "«Der Patient wartet beim Arzt» — из детской книжки"
+  },
+  {
+   "id": 12515,
+   "col": "example_ru",
+   "old": "Пациент ждёт у врача",
+   "new": "У врача сегодня много пациентов",
+   "why": "«Der Patient wartet beim Arzt» — из детской книжки"
+  },
+  {
+   "id": 12515,
+   "col": "example_uk",
+   "old": "Пацієнт чекає у лікаря",
+   "new": "У лікаря сьогодні багато пацієнтів",
+   "why": "«Der Patient wartet beim Arzt» — из детской книжки"
+  },
+  {
+   "id": 12515,
+   "col": "example_en",
+   "old": "The patient is waiting at the doctor's",
+   "new": "The doctor has a lot of patients today",
+   "why": "«Der Patient wartet beim Arzt» — из детской книжки"
+  },
+  {
+   "id": 12515,
+   "col": "example_tr",
+   "old": "Hasta doktorda bekliyor",
+   "new": "Doktorun bugün çok hastası var",
+   "why": "«Der Patient wartet beim Arzt» — из детской книжки"
+  },
+  {
+   "id": 12515,
+   "col": "example_pl",
+   "old": "Pacjent czeka u lekarza",
+   "new": "Lekarz ma dziś dużo pacjentów",
+   "why": "«Der Patient wartet beim Arzt» — из детской книжки"
+  },
+  {
+   "id": 12515,
+   "col": "example_it",
+   "old": "Il paziente aspetta dal medico",
+   "new": "Il medico oggi ha tanti pazienti",
+   "why": "«Der Patient wartet beim Arzt» — из детской книжки"
+  },
+  {
+   "id": 12515,
+   "col": "example_es",
+   "old": "El paciente espera en la consulta del médico",
+   "new": "El médico tiene muchos pacientes hoy",
+   "why": "«Der Patient wartet beim Arzt» — из детской книжки"
+  },
+  {
+   "id": 12515,
+   "col": "example_fr",
+   "old": "Le patient attend chez le médecin",
+   "new": "Le médecin a beaucoup de patients aujourd'hui",
+   "why": "«Der Patient wartet beim Arzt» — из детской книжки"
+  },
+  {
+   "id": 12515,
+   "col": "example_cs",
+   "old": "Pacient čeká u lékaře",
+   "new": "Lékař má dnes hodně pacientů",
+   "why": "«Der Patient wartet beim Arzt» — из детской книжки"
+  },
+  {
+   "id": 914,
+   "col": "example_de",
+   "old": "Ich trinke meinen Kaffee aus einer Tasse",
+   "new": "Möchtest du eine Tasse Tee?",
+   "why": "«пью кофе из чашки» — смысла нет"
+  },
+  {
+   "id": 914,
+   "col": "example_ru",
+   "old": "Я пью кофе из чашки",
+   "new": "Хочешь чашку чая?",
+   "why": "«пью кофе из чашки» — смысла нет"
+  },
+  {
+   "id": 914,
+   "col": "example_uk",
+   "old": "Я п'ю каву з чашки",
+   "new": "Хочеш чашку чаю?",
+   "why": "«пью кофе из чашки» — смысла нет"
+  },
+  {
+   "id": 914,
+   "col": "example_en",
+   "old": "I drink my coffee from a cup",
+   "new": "Would you like a cup of tea?",
+   "why": "«пью кофе из чашки» — смысла нет"
+  },
+  {
+   "id": 914,
+   "col": "example_tr",
+   "old": "Kahvemi fincandan içiyorum",
+   "new": "Bir fincan çay ister misin?",
+   "why": "«пью кофе из чашки» — смысла нет"
+  },
+  {
+   "id": 914,
+   "col": "example_pl",
+   "old": "Piję kawę z filiżanki",
+   "new": "Chcesz filiżankę herbaty?",
+   "why": "«пью кофе из чашки» — смысла нет"
+  },
+  {
+   "id": 914,
+   "col": "example_it",
+   "old": "Bevo il caffè in una tazza",
+   "new": "Vuoi una tazza di tè?",
+   "why": "«пью кофе из чашки» — смысла нет"
+  },
+  {
+   "id": 914,
+   "col": "example_es",
+   "old": "Me tomo el café en una taza",
+   "new": "¿Quieres una taza de té?",
+   "why": "«пью кофе из чашки» — смысла нет"
+  },
+  {
+   "id": 914,
+   "col": "example_fr",
+   "old": "Je bois mon café dans une tasse",
+   "new": "Tu veux une tasse de thé?",
+   "why": "«пью кофе из чашки» — смысла нет"
+  },
+  {
+   "id": 914,
+   "col": "example_cs",
+   "old": "Piju kávu z hrnku",
+   "new": "Dáš si šálek čaje?",
+   "why": "«пью кофе из чашки» — смысла нет"
+  },
+  {
+   "id": 573,
+   "col": "translation_ru",
+   "old": "рынок, базар, рынок сбыта",
+   "new": "рынок",
+   "why": "английский пример: так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 573,
+   "col": "translation_uk",
+   "old": "ринок, базар, ринок збуту",
+   "new": "ринок, базар",
+   "why": "английский пример: так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 573,
+   "col": "translation_en",
+   "old": "market, marketplace",
+   "new": "market",
+   "why": "английский пример: так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 573,
+   "col": "translation_tr",
+   "old": "pazar, çarşı, piyasa",
+   "new": "pazar",
+   "why": "английский пример: так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 573,
+   "col": "translation_pl",
+   "old": "rynek, targ, bazar",
+   "new": "rynek, targ",
+   "why": "английский пример: так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 573,
+   "col": "example_ru",
+   "old": "В субботу рынок",
+   "new": "В субботу будет рынок",
+   "why": "английский пример: так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 573,
+   "col": "example_en",
+   "old": "On Saturday there is a market",
+   "new": "There's a market on Saturday",
+   "why": "английский пример: так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2071,
+   "col": "translation_ru",
+   "old": "готовить, подготавливать, готовиться",
+   "new": "готовить, готовиться",
+   "why": "третий пример про экзамен (schwierig, bestehen); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2071,
+   "col": "translation_uk",
+   "old": "готувати, підготовляти, готуватися",
+   "new": "готувати, готуватися",
+   "why": "третий пример про экзамен (schwierig, bestehen); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2071,
+   "col": "translation_tr",
+   "old": "hazırlamak, hazırlanmak",
+   "new": "hazırlamak",
+   "why": "третий пример про экзамен (schwierig, bestehen); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2071,
+   "col": "translation_pl",
+   "old": "przygotowywać, przygotowywać się",
+   "new": "przygotowywać",
+   "why": "третий пример про экзамен (schwierig, bestehen); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2071,
+   "col": "example_de",
+   "old": "Ich bereite mich auf die Prüfung vor",
+   "new": "Ich bereite das Abendessen vor",
+   "why": "третий пример про экзамен (schwierig, bestehen); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2071,
+   "col": "example_ru",
+   "old": "Я готовлюсь к экзамену",
+   "new": "Я готовлю ужин",
+   "why": "третий пример про экзамен (schwierig, bestehen); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2071,
+   "col": "example_uk",
+   "old": "Я готуюся до іспиту",
+   "new": "Я готую вечерю",
+   "why": "третий пример про экзамен (schwierig, bestehen); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2071,
+   "col": "example_en",
+   "old": "I'm preparing for the exam",
+   "new": "I'm getting dinner ready",
+   "why": "третий пример про экзамен (schwierig, bestehen); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2071,
+   "col": "example_tr",
+   "old": "Sınava hazırlanıyorum",
+   "new": "Akşam yemeğini hazırlıyorum",
+   "why": "третий пример про экзамен (schwierig, bestehen); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2071,
+   "col": "example_pl",
+   "old": "Przygotowuję się do egzaminu",
+   "new": "Przygotowuję kolację",
+   "why": "третий пример про экзамен (schwierig, bestehen); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2071,
+   "col": "example_it",
+   "old": "Mi preparo per l'esame",
+   "new": "Preparo la cena",
+   "why": "третий пример про экзамен (schwierig, bestehen); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2071,
+   "col": "example_es",
+   "old": "Me preparo para el examen",
+   "new": "Estoy preparando la cena",
+   "why": "третий пример про экзамен (schwierig, bestehen); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2071,
+   "col": "example_fr",
+   "old": "Je me prépare pour l'examen",
+   "new": "Je prépare le dîner",
+   "why": "третий пример про экзамен (schwierig, bestehen); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2071,
+   "col": "example_cs",
+   "old": "Připravuji se na zkoušku",
+   "new": "Připravuji večeři",
+   "why": "третий пример про экзамен (schwierig, bestehen); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1658,
+   "col": "translation_ru",
+   "old": "доставлять, поставлять, давать, предоставлять",
+   "new": "доставлять, поставлять",
+   "why": "«Wir liefern Lebensmittel nach Hause» — язык рекламы; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1658,
+   "col": "translation_uk",
+   "old": "доставляти, постачати, давати, надавати",
+   "new": "доставляти, постачати",
+   "why": "«Wir liefern Lebensmittel nach Hause» — язык рекламы; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1658,
+   "col": "translation_en",
+   "old": "to deliver, to supply, to provide",
+   "new": "to deliver, to supply",
+   "why": "«Wir liefern Lebensmittel nach Hause» — язык рекламы; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1658,
+   "col": "translation_tr",
+   "old": "teslim etmek, tedarik etmek, sağlamak",
+   "new": "teslim etmek",
+   "why": "«Wir liefern Lebensmittel nach Hause» — язык рекламы; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1658,
+   "col": "translation_pl",
+   "old": "dostarczać, dowozić, zapewniać",
+   "new": "dostarczać, dowozić",
+   "why": "«Wir liefern Lebensmittel nach Hause» — язык рекламы; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1658,
+   "col": "translation_es",
+   "old": "entregar, repartir, suministrar",
+   "new": "entregar, repartir",
+   "why": "«Wir liefern Lebensmittel nach Hause» — язык рекламы; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1658,
+   "col": "example_de",
+   "old": "Wir liefern Lebensmittel nach Hause",
+   "new": "Wann wird das Sofa geliefert?",
+   "why": "«Wir liefern Lebensmittel nach Hause» — язык рекламы; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1658,
+   "col": "example_ru",
+   "old": "Мы доставляем продукты на дом",
+   "new": "Когда доставят диван?",
+   "why": "«Wir liefern Lebensmittel nach Hause» — язык рекламы; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1658,
+   "col": "example_uk",
+   "old": "Ми доставляємо продукти додому",
+   "new": "Коли доставлять диван?",
+   "why": "«Wir liefern Lebensmittel nach Hause» — язык рекламы; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1658,
+   "col": "example_en",
+   "old": "We deliver groceries to your home",
+   "new": "When will the sofa be delivered?",
+   "why": "«Wir liefern Lebensmittel nach Hause» — язык рекламы; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1658,
+   "col": "example_tr",
+   "old": "Yiyecekleri eve teslim ediyoruz",
+   "new": "Kanepe ne zaman teslim edilecek?",
+   "why": "«Wir liefern Lebensmittel nach Hause» — язык рекламы; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1658,
+   "col": "example_pl",
+   "old": "Dostarczamy żywność do domu",
+   "new": "Kiedy dostarczą kanapę?",
+   "why": "«Wir liefern Lebensmittel nach Hause» — язык рекламы; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1658,
+   "col": "example_it",
+   "old": "Consegniamo la spesa a domicilio",
+   "new": "Quando consegnano il divano?",
+   "why": "«Wir liefern Lebensmittel nach Hause» — язык рекламы; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1658,
+   "col": "example_es",
+   "old": "Entregamos la compra a domicilio",
+   "new": "¿Cuándo entregan el sofá?",
+   "why": "«Wir liefern Lebensmittel nach Hause» — язык рекламы; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1658,
+   "col": "example_fr",
+   "old": "Nous livrons les courses à domicile",
+   "new": "Le canapé sera livré quand?",
+   "why": "«Wir liefern Lebensmittel nach Hause» — язык рекламы; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1658,
+   "col": "example_cs",
+   "old": "Doručujeme potraviny až domů",
+   "new": "Kdy doručí gauč?",
+   "why": "«Wir liefern Lebensmittel nach Hause» — язык рекламы; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 420,
+   "col": "translation_ru",
+   "old": "некрасивый, уродливый, отвратительный, мерзкий",
+   "new": "некрасивый, уродливый",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 420,
+   "col": "translation_uk",
+   "old": "негарний, потворний, гидкий",
+   "new": "негарний, потворний",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 420,
+   "col": "translation_en",
+   "old": "ugly, nasty, horrible",
+   "new": "ugly, nasty",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 420,
+   "col": "translation_tr",
+   "old": "çirkin, iğrenç, kötü",
+   "new": "çirkin",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 420,
+   "col": "translation_pl",
+   "old": "brzydki, paskudny, wstrętny",
+   "new": "brzydki, paskudny",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 420,
+   "col": "translation_it",
+   "old": "brutto, orribile",
+   "new": "brutto",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 420,
+   "col": "translation_es",
+   "old": "feo, horrible",
+   "new": "feo",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 420,
+   "col": "translation_fr",
+   "old": "laid, moche (fam.), affreux",
+   "new": "laid, moche",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 420,
+   "col": "example_de",
+   "old": "Das Gebäude ist hässlich",
+   "new": "Ich finde die Farbe ziemlich hässlich",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 420,
+   "col": "example_ru",
+   "old": "Здание некрасивое",
+   "new": "По-моему, цвет довольно некрасивый",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 420,
+   "col": "example_uk",
+   "old": "Будівля потворна",
+   "new": "Як на мене, колір доволі негарний",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 420,
+   "col": "example_en",
+   "old": "The building is ugly",
+   "new": "I think the colour's pretty ugly",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 420,
+   "col": "example_tr",
+   "old": "Bina çirkin",
+   "new": "Bence rengi oldukça çirkin",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 420,
+   "col": "example_pl",
+   "old": "Ten budynek jest brzydki",
+   "new": "Moim zdaniem ten kolor jest dość brzydki",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 420,
+   "col": "example_it",
+   "old": "L'edificio è brutto",
+   "new": "Secondo me il colore è piuttosto brutto",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 420,
+   "col": "example_es",
+   "old": "El edificio es feo",
+   "new": "A mí el color me parece bastante feo",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 420,
+   "col": "example_fr",
+   "old": "Le bâtiment est laid",
+   "new": "Je trouve la couleur plutôt moche",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 420,
+   "col": "example_cs",
+   "old": "Ta budova je ošklivá",
+   "new": "Ta barva je podle mě docela ošklivá",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1879,
+   "col": "translation_ru",
+   "old": "копить, экономить, сберегать, избавить от чего-то",
+   "new": "копить, экономить",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят («Ich spare Geld»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1879,
+   "col": "translation_uk",
+   "old": "заощаджувати, економити, відкладати гроші",
+   "new": "заощаджувати, економити",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят («Ich spare Geld»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1879,
+   "col": "translation_en",
+   "old": "to save, to economize, to spare",
+   "new": "to save",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят («Ich spare Geld»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1879,
+   "col": "translation_tr",
+   "old": "para biriktirmek, tasarruf etmek, idareli kullanmak",
+   "new": "para biriktirmek, tasarruf etmek",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят («Ich spare Geld»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1879,
+   "col": "translation_pl",
+   "old": "oszczędzać, odkładać pieniądze",
+   "new": "oszczędzać",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят («Ich spare Geld»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1879,
+   "col": "example_de",
+   "old": "Ich spare Geld",
+   "new": "Ich spare für ein neues Auto",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят («Ich spare Geld»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1879,
+   "col": "example_ru",
+   "old": "Я коплю деньги",
+   "new": "Я коплю на новую машину",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят («Ich spare Geld»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1879,
+   "col": "example_uk",
+   "old": "Я заощаджую гроші",
+   "new": "Я відкладаю на нову машину",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят («Ich spare Geld»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1879,
+   "col": "example_en",
+   "old": "I save money",
+   "new": "I'm saving up for a new car",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят («Ich spare Geld»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1879,
+   "col": "example_tr",
+   "old": "Para biriktiriyorum",
+   "new": "Yeni bir araba için para biriktiriyorum",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят («Ich spare Geld»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1879,
+   "col": "example_pl",
+   "old": "Oszczędzam pieniądze",
+   "new": "Oszczędzam na nowy samochód",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят («Ich spare Geld»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1879,
+   "col": "example_it",
+   "old": "Risparmio soldi",
+   "new": "Risparmio per una macchina nuova",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят («Ich spare Geld»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1879,
+   "col": "example_es",
+   "old": "Ahorro dinero",
+   "new": "Estoy ahorrando para un coche nuevo",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят («Ich spare Geld»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1879,
+   "col": "example_fr",
+   "old": "J'économise de l'argent",
+   "new": "J'économise pour une nouvelle voiture",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят («Ich spare Geld»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1879,
+   "col": "example_cs",
+   "old": "Šetřím peníze",
+   "new": "Šetřím na nové auto",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят («Ich spare Geld»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 904,
+   "col": "example_de",
+   "old": "Die Suppe ist heiß",
+   "new": "Meine Oma kocht die beste Suppe",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 904,
+   "col": "example_ru",
+   "old": "Суп горячий",
+   "new": "Моя бабушка варит самый вкусный суп",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 904,
+   "col": "example_uk",
+   "old": "Суп гарячий",
+   "new": "Моя бабуся варить найсмачніший суп",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 904,
+   "col": "example_en",
+   "old": "The soup is hot",
+   "new": "My gran makes the best soup",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 904,
+   "col": "example_tr",
+   "old": "Çorba sıcak",
+   "new": "En güzel çorbayı babaannem yapar",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 904,
+   "col": "example_pl",
+   "old": "Zupa jest gorąca",
+   "new": "Moja babcia gotuje najlepszą zupę",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 904,
+   "col": "example_it",
+   "old": "La zuppa è bollente",
+   "new": "Mia nonna fa la zuppa più buona",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 904,
+   "col": "example_es",
+   "old": "La sopa está caliente",
+   "new": "Mi abuela hace la mejor sopa",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 904,
+   "col": "example_fr",
+   "old": "La soupe est chaude",
+   "new": "Ma grand-mère fait la meilleure soupe",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 904,
+   "col": "example_cs",
+   "old": "Polévka je horká",
+   "new": "Moje babička vaří nejlepší polévku",
+   "why": "пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 6641,
+   "col": "translation_ru",
+   "old": "круг, окружность, круг людей, компания, район, округ",
+   "new": "круг",
+   "why": "список → главное слово и не больше одной альтернативы; «район, округ» — другое значение (Landkreis)"
+  },
+  {
+   "id": 6641,
+   "col": "translation_uk",
+   "old": "коло, окружність, коло людей, товариство, район, округ",
+   "new": "коло",
+   "why": "список → главное слово и не больше одной альтернативы; «район, округ» — другое значение (Landkreis)"
+  },
+  {
+   "id": 6641,
+   "col": "translation_en",
+   "old": "circle, ring, circle of people, district, county",
+   "new": "circle",
+   "why": "список → главное слово и не больше одной альтернативы; «район, округ» — другое значение (Landkreis)"
+  },
+  {
+   "id": 6641,
+   "col": "translation_tr",
+   "old": "daire, çember, halka, çevre, grup, ilçe",
+   "new": "daire, çember",
+   "why": "список → главное слово и не больше одной альтернативы; «район, округ» — другое значение (Landkreis)"
+  },
+  {
+   "id": 6641,
+   "col": "translation_pl",
+   "old": "koło, okrąg, grono, krąg osób, powiat",
+   "new": "koło, krąg",
+   "why": "список → главное слово и не больше одной альтернативы; «район, округ» — другое значение (Landkreis)"
+  },
+  {
+   "id": 6641,
+   "col": "translation_it",
+   "old": "il cerchio, la cerchia, il distretto",
+   "new": "il cerchio, la cerchia",
+   "why": "список → главное слово и не больше одной альтернативы; «район, округ» — другое значение (Landkreis)"
+  },
+  {
+   "id": 6641,
+   "col": "translation_es",
+   "old": "el círculo, el corro, el distrito",
+   "new": "el círculo",
+   "why": "список → главное слово и не больше одной альтернативы; «район, округ» — другое значение (Landkreis)"
+  },
+  {
+   "id": 6641,
+   "col": "translation_fr",
+   "old": "le cercle, le district",
+   "new": "le cercle",
+   "why": "список → главное слово и не больше одной альтернативы; «район, округ» — другое значение (Landkreis)"
+  },
+  {
+   "id": 6641,
+   "col": "translation_cs",
+   "old": "kruh, okruh, okres",
+   "new": "kruh",
+   "why": "список → главное слово и не больше одной альтернативы; «район, округ» — другое значение (Landkreis)"
+  },
+  {
+   "id": 6641,
+   "col": "example_en",
+   "old": "We sit in a circle",
+   "new": "We're sitting in a circle",
+   "why": "список → главное слово и не больше одной альтернативы; «район, округ» — другое значение (Landkreis)"
+  },
+  {
+   "id": 771,
+   "col": "translation_ru",
+   "old": "круглый, примерно, около",
+   "new": "круглый",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («примерно» — наречие, своя строка); пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 771,
+   "col": "translation_uk",
+   "old": "круглий, приблизно, близько",
+   "new": "круглий",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («примерно» — наречие, своя строка); пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 771,
+   "col": "translation_en",
+   "old": "round, approximately, about",
+   "new": "round",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («примерно» — наречие, своя строка); пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 771,
+   "col": "translation_tr",
+   "old": "yuvarlak, yaklaşık",
+   "new": "yuvarlak",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («примерно» — наречие, своя строка); пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 771,
+   "col": "translation_pl",
+   "old": "okrągły, około, mniej więcej",
+   "new": "okrągły",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («примерно» — наречие, своя строка); пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 771,
+   "col": "translation_it",
+   "old": "rotondo, circa",
+   "new": "rotondo",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («примерно» — наречие, своя строка); пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 771,
+   "col": "translation_es",
+   "old": "redondo, aproximadamente",
+   "new": "redondo",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («примерно» — наречие, своя строка); пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 771,
+   "col": "translation_fr",
+   "old": "rond, environ",
+   "new": "rond",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («примерно» — наречие, своя строка); пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 771,
+   "col": "translation_cs",
+   "old": "kulatý, zhruba",
+   "new": "kulatý",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («примерно» — наречие, своя строка); пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 771,
+   "col": "example_de",
+   "old": "Der Tisch ist rund",
+   "new": "Wir haben einen runden Tisch in der Küche",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («примерно» — наречие, своя строка); пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 771,
+   "col": "example_ru",
+   "old": "Стол круглый",
+   "new": "У нас на кухне круглый стол",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («примерно» — наречие, своя строка); пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 771,
+   "col": "example_uk",
+   "old": "Стіл круглий",
+   "new": "У нас на кухні круглий стіл",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («примерно» — наречие, своя строка); пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 771,
+   "col": "example_en",
+   "old": "The table is round",
+   "new": "We've got a round table in the kitchen",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («примерно» — наречие, своя строка); пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 771,
+   "col": "example_tr",
+   "old": "Masa yuvarlak",
+   "new": "Mutfakta yuvarlak bir masamız var",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («примерно» — наречие, своя строка); пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 771,
+   "col": "example_pl",
+   "old": "Stół jest okrągły",
+   "new": "W kuchni mamy okrągły stół",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («примерно» — наречие, своя строка); пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 771,
+   "col": "example_it",
+   "old": "Il tavolo è rotondo",
+   "new": "In cucina abbiamo un tavolo rotondo",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («примерно» — наречие, своя строка); пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 771,
+   "col": "example_es",
+   "old": "La mesa es redonda",
+   "new": "En la cocina tenemos una mesa redonda",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («примерно» — наречие, своя строка); пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 771,
+   "col": "example_fr",
+   "old": "La table est ronde",
+   "new": "On a une table ronde dans la cuisine",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («примерно» — наречие, своя строка); пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 771,
+   "col": "example_cs",
+   "old": "Stůl je kulatý",
+   "new": "V kuchyni máme kulatý stůl",
+   "why": "в строке два разных слова — оставлено главное, второе — отдельной строкой (блок деления) («примерно» — наречие, своя строка); пример-скелет («X ist grün/rund/hässlich») — так о вещи не говорят"
+  },
+  {
+   "id": 6646,
+   "col": "translation_ru",
+   "old": "сдать, выдержать, существовать, состоять, настаивать",
+   "new": "сдать, состоять",
+   "why": "список → главное слово и не больше одной альтернативы; «Я должен сдать» — калька с muss"
+  },
+  {
+   "id": 6646,
+   "col": "translation_uk",
+   "old": "скласти, витримати, існувати, складатися, наполягати",
+   "new": "скласти, складатися",
+   "why": "список → главное слово и не больше одной альтернативы; «Я должен сдать» — калька с muss"
+  },
+  {
+   "id": 6646,
+   "col": "translation_en",
+   "old": "to pass, to exist, to consist of, to insist",
+   "new": "to pass, to consist of",
+   "why": "список → главное слово и не больше одной альтернативы; «Я должен сдать» — калька с muss"
+  },
+  {
+   "id": 6646,
+   "col": "translation_tr",
+   "old": "geçmek, var olmak, oluşmak, ısrar etmek",
+   "new": "geçmek, oluşmak",
+   "why": "список → главное слово и не больше одной альтернативы; «Я должен сдать» — калька с muss"
+  },
+  {
+   "id": 6646,
+   "col": "translation_pl",
+   "old": "zdać, istnieć, składać się, nalegać",
+   "new": "zdać, składać się",
+   "why": "список → главное слово и не больше одной альтернативы; «Я должен сдать» — калька с muss"
+  },
+  {
+   "id": 6646,
+   "col": "translation_it",
+   "old": "superare, esistere, consistere, insistere",
+   "new": "superare, consistere",
+   "why": "список → главное слово и не больше одной альтернативы; «Я должен сдать» — калька с muss"
+  },
+  {
+   "id": 6646,
+   "col": "translation_es",
+   "old": "aprobar, existir, consistir, insistir",
+   "new": "aprobar, consistir",
+   "why": "список → главное слово и не больше одной альтернативы; «Я должен сдать» — калька с muss"
+  },
+  {
+   "id": 6646,
+   "col": "translation_fr",
+   "old": "réussir, exister, consister, insister",
+   "new": "réussir, consister",
+   "why": "список → главное слово и не больше одной альтернативы; «Я должен сдать» — калька с muss"
+  },
+  {
+   "id": 6646,
+   "col": "translation_cs",
+   "old": "složit, udělat, existovat, skládat se, trvat na",
+   "new": "složit, skládat se",
+   "why": "список → главное слово и не больше одной альтернативы; «Я должен сдать» — калька с muss"
+  },
+  {
+   "id": 6646,
+   "col": "example_ru",
+   "old": "Я должен сдать экзамен",
+   "new": "Мне нужно сдать экзамен",
+   "why": "список → главное слово и не больше одной альтернативы; «Я должен сдать» — калька с muss"
+  },
+  {
+   "id": 6646,
+   "col": "example_uk",
+   "old": "Я повинен здати іспит",
+   "new": "Мені треба скласти іспит",
+   "why": "список → главное слово и не больше одной альтернативы; «Я должен сдать» — калька с muss"
+  },
+  {
+   "id": 6646,
+   "col": "example_en",
+   "old": "I must pass the exam",
+   "new": "I have to pass the exam",
+   "why": "список → главное слово и не больше одной альтернативы; «Я должен сдать» — калька с muss"
+  },
+  {
+   "id": 735,
+   "col": "translation_ru",
+   "old": "проверять, испытывать, тестировать, экзаменовать",
+   "new": "проверять",
+   "why": "«Du prüfst die Dokumente» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 735,
+   "col": "translation_uk",
+   "old": "перевіряти, випробовувати, екзаменувати",
+   "new": "перевіряти",
+   "why": "«Du prüfst die Dokumente» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 735,
+   "col": "translation_en",
+   "old": "to check, to test, to examine",
+   "new": "to check, to test",
+   "why": "«Du prüfst die Dokumente» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 735,
+   "col": "translation_tr",
+   "old": "kontrol etmek, test etmek, sınamak",
+   "new": "kontrol etmek",
+   "why": "«Du prüfst die Dokumente» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 735,
+   "col": "translation_pl",
+   "old": "sprawdzać, testować, egzaminować",
+   "new": "sprawdzać",
+   "why": "«Du prüfst die Dokumente» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 735,
+   "col": "translation_it",
+   "old": "controllare, verificare, esaminare",
+   "new": "controllare, verificare",
+   "why": "«Du prüfst die Dokumente» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 735,
+   "col": "translation_es",
+   "old": "revisar, comprobar, examinar",
+   "new": "comprobar, revisar",
+   "why": "«Du prüfst die Dokumente» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 735,
+   "col": "translation_fr",
+   "old": "vérifier, contrôler, examiner",
+   "new": "vérifier, contrôler",
+   "why": "«Du prüfst die Dokumente» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 735,
+   "col": "translation_cs",
+   "old": "kontrolovat, prověřit, zkoušet",
+   "new": "kontrolovat, zkoušet",
+   "why": "«Du prüfst die Dokumente» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 735,
+   "col": "example_de",
+   "old": "Du prüfst die Dokumente",
+   "new": "Prüf bitte, ob die Tür zu ist",
+   "why": "«Du prüfst die Dokumente» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 735,
+   "col": "example_ru",
+   "old": "Ты проверяешь документы",
+   "new": "Проверь, пожалуйста, закрыта ли дверь",
+   "why": "«Du prüfst die Dokumente» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 735,
+   "col": "example_uk",
+   "old": "Ти перевіряєш документи",
+   "new": "Перевір, будь ласка, чи зачинені двері",
+   "why": "«Du prüfst die Dokumente» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 735,
+   "col": "example_en",
+   "old": "You check the documents",
+   "new": "Please check the door is shut",
+   "why": "«Du prüfst die Dokumente» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 735,
+   "col": "example_tr",
+   "old": "Belgeleri kontrol ediyorsun",
+   "new": "Kapının kapalı olup olmadığını kontrol et lütfen",
+   "why": "«Du prüfst die Dokumente» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 735,
+   "col": "example_pl",
+   "old": "Sprawdzasz dokumenty",
+   "new": "Sprawdź, proszę, czy drzwi są zamknięte",
+   "why": "«Du prüfst die Dokumente» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 735,
+   "col": "example_it",
+   "old": "Controlli i documenti",
+   "new": "Controlla, per favore, se la porta è chiusa",
+   "why": "«Du prüfst die Dokumente» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 735,
+   "col": "example_es",
+   "old": "Revisas los documentos",
+   "new": "Comprueba, por favor, si la puerta está cerrada",
+   "why": "«Du prüfst die Dokumente» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 735,
+   "col": "example_fr",
+   "old": "Tu vérifies les documents",
+   "new": "Vérifie, s'il te plaît, que la porte est fermée",
+   "why": "«Du prüfst die Dokumente» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 735,
+   "col": "example_cs",
+   "old": "Kontroluješ dokumenty",
+   "new": "Zkontroluj prosím, jestli jsou dveře zavřené",
+   "why": "«Du prüfst die Dokumente» — неживо; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 222,
+   "col": "translation_ru",
+   "old": "узкий, тесный, близкий",
+   "new": "узкий, тесный",
+   "why": "«Die Hose ist zu eng» — снова Hose; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 222,
+   "col": "translation_uk",
+   "old": "вузький, тісний, близький",
+   "new": "вузький, тісний",
+   "why": "«Die Hose ist zu eng» — снова Hose; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 222,
+   "col": "translation_en",
+   "old": "narrow, tight, close",
+   "new": "narrow, tight",
+   "why": "«Die Hose ist zu eng» — снова Hose; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 222,
+   "col": "translation_tr",
+   "old": "dar, sıkı, yakın",
+   "new": "dar",
+   "why": "«Die Hose ist zu eng» — снова Hose; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 222,
+   "col": "translation_pl",
+   "old": "wąski, ciasny, bliski",
+   "new": "wąski, ciasny",
+   "why": "«Die Hose ist zu eng» — снова Hose; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 222,
+   "col": "translation_it",
+   "old": "stretto, attillato, intimo",
+   "new": "stretto",
+   "why": "«Die Hose ist zu eng» — снова Hose; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 222,
+   "col": "translation_es",
+   "old": "estrecho, ajustado, cercano",
+   "new": "estrecho",
+   "why": "«Die Hose ist zu eng» — снова Hose; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 222,
+   "col": "translation_fr",
+   "old": "étroit, serré, proche",
+   "new": "étroit, serré",
+   "why": "«Die Hose ist zu eng» — снова Hose; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 222,
+   "col": "translation_cs",
+   "old": "úzký, těsný, blízký",
+   "new": "úzký, těsný",
+   "why": "«Die Hose ist zu eng» — снова Hose; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 222,
+   "col": "example_de",
+   "old": "Die Hose ist zu eng",
+   "new": "Die Straße ist hier sehr eng",
+   "why": "«Die Hose ist zu eng» — снова Hose; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 222,
+   "col": "example_ru",
+   "old": "Штаны слишком тесные",
+   "new": "Здесь очень узкая улица",
+   "why": "«Die Hose ist zu eng» — снова Hose; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 222,
+   "col": "example_uk",
+   "old": "Штани надто тісні",
+   "new": "Тут дуже вузька вулиця",
+   "why": "«Die Hose ist zu eng» — снова Hose; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 222,
+   "col": "example_en",
+   "old": "The pants are too tight",
+   "new": "The street is very narrow here",
+   "why": "«Die Hose ist zu eng» — снова Hose; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 222,
+   "col": "example_tr",
+   "old": "Pantolon çok dar",
+   "new": "Burada sokak çok dar",
+   "why": "«Die Hose ist zu eng» — снова Hose; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 222,
+   "col": "example_pl",
+   "old": "Te spodnie są za ciasne",
+   "new": "Tutaj ulica jest bardzo wąska",
+   "why": "«Die Hose ist zu eng» — снова Hose; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 222,
+   "col": "example_it",
+   "old": "I pantaloni sono troppo stretti",
+   "new": "Qui la strada è molto stretta",
+   "why": "«Die Hose ist zu eng» — снова Hose; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 222,
+   "col": "example_es",
+   "old": "Los pantalones son demasiado estrechos",
+   "new": "Aquí la calle es muy estrecha",
+   "why": "«Die Hose ist zu eng» — снова Hose; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 222,
+   "col": "example_fr",
+   "old": "Le pantalon est trop étroit",
+   "new": "Ici, la rue est très étroite",
+   "why": "«Die Hose ist zu eng» — снова Hose; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 222,
+   "col": "example_cs",
+   "old": "Kalhoty jsou moc úzké",
+   "new": "Tady je ulice hodně úzká",
+   "why": "«Die Hose ist zu eng» — снова Hose; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1963,
+   "col": "translation_ru",
+   "old": "тренировка, обучение, подготовка",
+   "new": "тренировка",
+   "why": "«о 18 годині», «at 6 in the evening» — так время не называют; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1963,
+   "col": "translation_uk",
+   "old": "тренування, навчання, підготовка",
+   "new": "тренування",
+   "why": "«о 18 годині», «at 6 in the evening» — так время не называют; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1963,
+   "col": "translation_en",
+   "old": "training, practice, workout",
+   "new": "training, workout",
+   "why": "«о 18 годині», «at 6 in the evening» — так время не называют; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1963,
+   "col": "translation_tr",
+   "old": "antrenman, eğitim, idman",
+   "new": "antrenman",
+   "why": "«о 18 годині», «at 6 in the evening» — так время не называют; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1963,
+   "col": "translation_pl",
+   "old": "trening, szkolenie",
+   "new": "trening",
+   "why": "«о 18 годині», «at 6 in the evening» — так время не называют; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1963,
+   "col": "example_ru",
+   "old": "Тренировка начинается в 18 часов",
+   "new": "Тренировка начинается в шесть вечера",
+   "why": "«о 18 годині», «at 6 in the evening» — так время не называют; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1963,
+   "col": "example_uk",
+   "old": "Тренування починається о 18 годині",
+   "new": "Тренування починається о шостій вечора",
+   "why": "«о 18 годині», «at 6 in the evening» — так время не называют; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1963,
+   "col": "example_en",
+   "old": "The training starts at 6 in the evening",
+   "new": "Training starts at 6 pm",
+   "why": "«о 18 годині», «at 6 in the evening» — так время не называют; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1963,
+   "col": "example_it",
+   "old": "L'allenamento comincia alle 18",
+   "new": "L'allenamento comincia alle sei",
+   "why": "«о 18 годині», «at 6 in the evening» — так время не называют; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1963,
+   "col": "example_es",
+   "old": "El entrenamiento empieza a las 18",
+   "new": "El entrenamiento empieza a las seis",
+   "why": "«о 18 годині», «at 6 in the evening» — так время не называют; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18144,
+   "col": "translation_ru",
+   "old": "рядом, по соседству, в соседней комнате",
+   "new": "рядом, по соседству",
+   "why": "en/it/es «girlfriend/ragazza/novia» — Freundin здесь «подруга»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18144,
+   "col": "translation_uk",
+   "old": "поруч, по сусідству, у сусідній кімнаті",
+   "new": "поруч, по сусідству",
+   "why": "en/it/es «girlfriend/ragazza/novia» — Freundin здесь «подруга»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18144,
+   "col": "translation_en",
+   "old": "next door, right beside, in the room next to",
+   "new": "next door",
+   "why": "en/it/es «girlfriend/ragazza/novia» — Freundin здесь «подруга»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18144,
+   "col": "translation_tr",
+   "old": "yan tarafta, yandaki evde, bitişikte",
+   "new": "yan tarafta, bitişikte",
+   "why": "en/it/es «girlfriend/ragazza/novia» — Freundin здесь «подруга»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18144,
+   "col": "translation_pl",
+   "old": "obok, po sąsiedzku, w sąsiednim pokoju",
+   "new": "obok, po sąsiedzku",
+   "why": "en/it/es «girlfriend/ragazza/novia» — Freundin здесь «подруга»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18144,
+   "col": "translation_it",
+   "old": "accanto, nella casa accanto",
+   "new": "accanto",
+   "why": "en/it/es «girlfriend/ragazza/novia» — Freundin здесь «подруга»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18144,
+   "col": "translation_es",
+   "old": "al lado, en la casa de al lado",
+   "new": "al lado",
+   "why": "en/it/es «girlfriend/ragazza/novia» — Freundin здесь «подруга»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18144,
+   "col": "translation_fr",
+   "old": "à côté, chez les voisins",
+   "new": "à côté",
+   "why": "en/it/es «girlfriend/ragazza/novia» — Freundin здесь «подруга»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18144,
+   "col": "translation_cs",
+   "old": "vedle, ve vedlejším bytě",
+   "new": "vedle",
+   "why": "en/it/es «girlfriend/ragazza/novia» — Freundin здесь «подруга»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18144,
+   "col": "example_ru",
+   "old": "Моя подруга живёт рядом",
+   "new": "Моя подруга живёт по соседству",
+   "why": "en/it/es «girlfriend/ragazza/novia» — Freundin здесь «подруга»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18144,
+   "col": "example_en",
+   "old": "My girlfriend lives next door",
+   "new": "My friend lives next door",
+   "why": "en/it/es «girlfriend/ragazza/novia» — Freundin здесь «подруга»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18144,
+   "col": "example_it",
+   "old": "La mia ragazza abita qui accanto",
+   "new": "La mia amica abita qui accanto",
+   "why": "en/it/es «girlfriend/ragazza/novia» — Freundin здесь «подруга»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18144,
+   "col": "example_es",
+   "old": "Mi novia vive al lado",
+   "new": "Mi amiga vive al lado",
+   "why": "en/it/es «girlfriend/ragazza/novia» — Freundin здесь «подруга»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18144,
+   "col": "example_cs",
+   "old": "Moje přítelkyně bydlí vedle",
+   "new": "Moje kamarádka bydlí vedle",
+   "why": "en/it/es «girlfriend/ragazza/novia» — Freundin здесь «подруга»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6657,
+   "col": "translation_ru",
+   "old": "известный, знаменитый, прославленный",
+   "new": "известный, знаменитый",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6657,
+   "col": "translation_uk",
+   "old": "відомий, знаменитий, славетний",
+   "new": "відомий, знаменитий",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6657,
+   "col": "translation_en",
+   "old": "famous, well-known, renowned",
+   "new": "famous",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6657,
+   "col": "translation_tr",
+   "old": "ünlü, meşhur, tanınmış",
+   "new": "ünlü, meşhur",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6657,
+   "col": "translation_pl",
+   "old": "słynny, znany, sławny",
+   "new": "słynny, znany",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17075,
+   "col": "translation_ru",
+   "old": "поездка, экскурсия, тур, турне",
+   "new": "поездка, экскурсия",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17075,
+   "col": "translation_uk",
+   "old": "поїздка, екскурсія, тур, турне",
+   "new": "поїздка, екскурсія",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17075,
+   "col": "translation_en",
+   "old": "tour, trip, excursion",
+   "new": "tour, trip",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17075,
+   "col": "translation_tr",
+   "old": "tur, gezi, turne",
+   "new": "tur, gezi",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17075,
+   "col": "translation_pl",
+   "old": "wycieczka, tura, trasa koncertowa",
+   "new": "wycieczka, trasa",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17075,
+   "col": "translation_it",
+   "old": "il giro, il tour, l'escursione",
+   "new": "il giro, il tour",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17075,
+   "col": "translation_es",
+   "old": "el recorrido, la vuelta, la excursión, la gira",
+   "new": "el recorrido, la excursión",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17075,
+   "col": "translation_fr",
+   "old": "le tour, l'excursion, la tournée",
+   "new": "le tour, l'excursion",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17075,
+   "col": "translation_cs",
+   "old": "prohlídka, výlet, okruh, turné",
+   "new": "výlet, prohlídka",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17075,
+   "col": "example_en",
+   "old": "We're doing a tour through the city",
+   "new": "We're doing a tour of the city",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1976,
+   "col": "translation_ru",
+   "old": "тренироваться, упражняться, репетировать, отрабатывать",
+   "new": "упражняться, заниматься",
+   "why": "«упражняться на пианино» — так не говорят, говорят «позаниматься»"
+  },
+  {
+   "id": 1976,
+   "col": "translation_uk",
+   "old": "тренуватися, вправлятися, репетирувати",
+   "new": "тренуватися, займатися",
+   "why": "«упражняться на пианино» — так не говорят, говорят «позаниматься»"
+  },
+  {
+   "id": 1976,
+   "col": "translation_en",
+   "old": "to practice, to rehearse, to train",
+   "new": "to practise, to rehearse",
+   "why": "«упражняться на пианино» — так не говорят, говорят «позаниматься»"
+  },
+  {
+   "id": 1976,
+   "col": "translation_tr",
+   "old": "alıştırma yapmak, pratik yapmak, çalışmak, prova etmek",
+   "new": "pratik yapmak, çalışmak",
+   "why": "«упражняться на пианино» — так не говорят, говорят «позаниматься»"
+  },
+  {
+   "id": 1976,
+   "col": "translation_pl",
+   "old": "ćwiczyć, trenować, wprawiać się",
+   "new": "ćwiczyć",
+   "why": "«упражняться на пианино» — так не говорят, говорят «позаниматься»"
+  },
+  {
+   "id": 1976,
+   "col": "translation_it",
+   "old": "esercitarsi, allenarsi, provare",
+   "new": "esercitarsi, provare",
+   "why": "«упражняться на пианино» — так не говорят, говорят «позаниматься»"
+  },
+  {
+   "id": 1976,
+   "col": "translation_es",
+   "old": "practicar, ensayar, entrenar",
+   "new": "practicar, ensayar",
+   "why": "«упражняться на пианино» — так не говорят, говорят «позаниматься»"
+  },
+  {
+   "id": 1976,
+   "col": "translation_fr",
+   "old": "s'entraîner, pratiquer, répéter",
+   "new": "s'entraîner, répéter",
+   "why": "«упражняться на пианино» — так не говорят, говорят «позаниматься»"
+  },
+  {
+   "id": 1976,
+   "col": "translation_cs",
+   "old": "cvičit, trénovat, nacvičovat",
+   "new": "cvičit, trénovat",
+   "why": "«упражняться на пианино» — так не говорят, говорят «позаниматься»"
+  },
+  {
+   "id": 1976,
+   "col": "example_ru",
+   "old": "Мне сегодня ещё нужно упражняться на пианино",
+   "new": "Мне сегодня ещё надо позаниматься на пианино",
+   "why": "«упражняться на пианино» — так не говорят, говорят «позаниматься»"
+  },
+  {
+   "id": 1976,
+   "col": "example_uk",
+   "old": "Мені сьогодні ще треба повправлятися на піаніно",
+   "new": "Мені сьогодні ще треба позайматися на піаніно",
+   "why": "«упражняться на пианино» — так не говорят, говорят «позаниматься»"
+  },
+  {
+   "id": 1976,
+   "col": "example_en",
+   "old": "I still have to practice the piano today",
+   "new": "I still have to practise the piano today",
+   "why": "«упражняться на пианино» — так не говорят, говорят «позаниматься»"
+  }
+ ],
+ "replace": [
+  {
+   "id": 6623,
+   "by": 2089,
+   "lang": "de",
+   "why": "aufgrund — письменное, в речи wegen"
+  }
+ ],
+ "split_later": {
+  "526": [
+   "der Käse = ерунда (разг.)"
+  ],
+  "771": [
+   "rund = примерно (rund 100 Euro)"
+  ],
+  "6641": [
+   "der Kreis = район (Landkreis)"
+  ]
+ }
+}
