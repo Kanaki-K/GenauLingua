@@ -1,0 +1,2027 @@
+{
+ "about": "2.3, B1 блок 42",
+ "edits": [
+  {
+   "id": 6942,
+   "col": "translation_ru",
+   "old": "расставлять, устанавливать, ставить, выдвигать кандидата, составлять список",
+   "new": "расставлять, выдвигать (кандидата)",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6942,
+   "col": "translation_uk",
+   "old": "розставляти, встановлювати, ставити, висувати кандидата",
+   "new": "розставляти, висувати (кандидата)",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6942,
+   "col": "translation_en",
+   "old": "to set up, to put up, to erect, to nominate",
+   "new": "to set up, to nominate",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6942,
+   "col": "translation_tr",
+   "old": "kurmak, dizmek, yerleştirmek, aday göstermek",
+   "new": "kurmak, aday göstermek",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6942,
+   "col": "translation_pl",
+   "old": "ustawiać, rozstawiać, stawiać, wystawiać kandydata",
+   "new": "ustawiać, wystawiać kandydata",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6942,
+   "col": "translation_it",
+   "old": "sistemare, montare, piazzare, candidare",
+   "new": "sistemare, candidare",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6942,
+   "col": "translation_es",
+   "old": "colocar, montar, poner, presentar",
+   "new": "colocar, presentar",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6942,
+   "col": "translation_fr",
+   "old": "installer, mettre en place, dresser, présenter",
+   "new": "installer, présenter",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6943,
+   "col": "translation_ru",
+   "old": "прессовать, выжимать, прижимать, давить",
+   "new": "прижимать, давить",
+   "why": "«Ich presse die Zitrone aus» — это auspressen; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6943,
+   "col": "translation_uk",
+   "old": "пресувати, вижимати, притискати, тиснути",
+   "new": "притискати, тиснути",
+   "why": "«Ich presse die Zitrone aus» — это auspressen; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6943,
+   "col": "translation_en",
+   "old": "to press, to squeeze, to compress",
+   "new": "to press, to squeeze",
+   "why": "«Ich presse die Zitrone aus» — это auspressen; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6943,
+   "col": "translation_tr",
+   "old": "sıkmak, preslemek, bastırmak",
+   "new": "bastırmak, sıkmak",
+   "why": "«Ich presse die Zitrone aus» — это auspressen; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6943,
+   "col": "translation_pl",
+   "old": "wyciskać, prasować, przyciskać",
+   "new": "przyciskać, wyciskać",
+   "why": "«Ich presse die Zitrone aus» — это auspressen; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6943,
+   "col": "example_de",
+   "old": "Ich presse die Zitrone aus",
+   "new": "Er presst die Hand auf die Wunde",
+   "why": "«Ich presse die Zitrone aus» — это auspressen; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6943,
+   "col": "example_ru",
+   "old": "Я выжимаю лимон",
+   "new": "Он прижимает руку к ране",
+   "why": "«Ich presse die Zitrone aus» — это auspressen; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6943,
+   "col": "example_uk",
+   "old": "Я вижимаю лимон",
+   "new": "Він притискає руку до рани",
+   "why": "«Ich presse die Zitrone aus» — это auspressen; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6943,
+   "col": "example_en",
+   "old": "I squeeze the lemon",
+   "new": "He presses his hand onto the wound",
+   "why": "«Ich presse die Zitrone aus» — это auspressen; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6943,
+   "col": "example_tr",
+   "old": "Limonu sıkıyorum",
+   "new": "Elini yaraya bastırıyor",
+   "why": "«Ich presse die Zitrone aus» — это auspressen; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6943,
+   "col": "example_pl",
+   "old": "Wyciskam cytrynę",
+   "new": "Przyciska rękę do rany",
+   "why": "«Ich presse die Zitrone aus» — это auspressen; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6943,
+   "col": "example_it",
+   "old": "Spremo il limone",
+   "new": "Preme la mano sulla ferita",
+   "why": "«Ich presse die Zitrone aus» — это auspressen; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6943,
+   "col": "example_es",
+   "old": "Exprimo el limón",
+   "new": "Aprieta la mano contra la herida",
+   "why": "«Ich presse die Zitrone aus» — это auspressen; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6943,
+   "col": "example_fr",
+   "old": "Je presse le citron",
+   "new": "Il presse la main sur la plaie",
+   "why": "«Ich presse die Zitrone aus» — это auspressen; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6943,
+   "col": "example_cs",
+   "old": "Vymačkávám citron",
+   "new": "Tiskne ruku na ránu",
+   "why": "«Ich presse die Zitrone aus» — это auspressen; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6944,
+   "col": "translation_ru",
+   "old": "кот, похмелье",
+   "new": "похмелье, кот",
+   "why": "в речи Kater — чаще «похмелье»; убрать пометки (colloq.)/(fam.)"
+  },
+  {
+   "id": 6944,
+   "col": "translation_uk",
+   "old": "кіт, похмілля",
+   "new": "похмілля, кіт",
+   "why": "в речи Kater — чаще «похмелье»; убрать пометки (colloq.)/(fam.)"
+  },
+  {
+   "id": 6944,
+   "col": "translation_en",
+   "old": "tomcat, male cat, hangover",
+   "new": "hangover, tomcat",
+   "why": "в речи Kater — чаще «похмелье»; убрать пометки (colloq.)/(fam.)"
+  },
+  {
+   "id": 6944,
+   "col": "translation_tr",
+   "old": "erkek kedi, akşamdan kalmalık",
+   "new": "akşamdan kalmalık, erkek kedi",
+   "why": "в речи Kater — чаще «похмелье»; убрать пометки (colloq.)/(fam.)"
+  },
+  {
+   "id": 6944,
+   "col": "translation_pl",
+   "old": "kocur, kac",
+   "new": "kac, kocur",
+   "why": "в речи Kater — чаще «похмелье»; убрать пометки (colloq.)/(fam.)"
+  },
+  {
+   "id": 6944,
+   "col": "translation_it",
+   "old": "il gatto, i postumi della sbornia (colloq.)",
+   "new": "i postumi della sbornia, il gatto",
+   "why": "в речи Kater — чаще «похмелье»; убрать пометки (colloq.)/(fam.)"
+  },
+  {
+   "id": 6944,
+   "col": "translation_es",
+   "old": "el gato, la resaca",
+   "new": "la resaca, el gato",
+   "why": "в речи Kater — чаще «похмелье»; убрать пометки (colloq.)/(fam.)"
+  },
+  {
+   "id": 6944,
+   "col": "translation_fr",
+   "old": "le matou, la gueule de bois (fam.)",
+   "new": "la gueule de bois, le matou",
+   "why": "в речи Kater — чаще «похмелье»; убрать пометки (colloq.)/(fam.)"
+  },
+  {
+   "id": 6944,
+   "col": "translation_cs",
+   "old": "kocour, kocovina",
+   "new": "kocovina, kocour",
+   "why": "в речи Kater — чаще «похмелье»; убрать пометки (colloq.)/(fam.)"
+  },
+  {
+   "id": 6944,
+   "col": "example_de",
+   "old": "Mein Kater faucht immer wenn der Hund kommt",
+   "new": "Ich habe einen fürchterlichen Kater",
+   "why": "в речи Kater — чаще «похмелье»; убрать пометки (colloq.)/(fam.)"
+  },
+  {
+   "id": 6944,
+   "col": "example_ru",
+   "old": "Мой кот всегда шипит, когда приходит собака",
+   "new": "У меня жуткое похмелье",
+   "why": "в речи Kater — чаще «похмелье»; убрать пометки (colloq.)/(fam.)"
+  },
+  {
+   "id": 6944,
+   "col": "example_uk",
+   "old": "Мій кіт завжди шипить, коли приходить собака",
+   "new": "У мене жахливе похмілля",
+   "why": "в речи Kater — чаще «похмелье»; убрать пометки (colloq.)/(fam.)"
+  },
+  {
+   "id": 6944,
+   "col": "example_en",
+   "old": "My tomcat always hisses when the dog comes",
+   "new": "I've got a terrible hangover",
+   "why": "в речи Kater — чаще «похмелье»; убрать пометки (colloq.)/(fam.)"
+  },
+  {
+   "id": 6944,
+   "col": "example_tr",
+   "old": "Erkek kedim köpek gelince hep tıslıyor",
+   "new": "Feci akşamdan kalmayım",
+   "why": "в речи Kater — чаще «похмелье»; убрать пометки (colloq.)/(fam.)"
+  },
+  {
+   "id": 6944,
+   "col": "example_pl",
+   "old": "Mój kocur zawsze syczy, kiedy przychodzi pies",
+   "new": "Mam straszliwego kaca",
+   "why": "в речи Kater — чаще «похмелье»; убрать пометки (colloq.)/(fam.)"
+  },
+  {
+   "id": 6944,
+   "col": "example_it",
+   "old": "Il mio gatto soffia sempre quando arriva il cane",
+   "new": "Ho dei postumi della sbornia terribili",
+   "why": "в речи Kater — чаще «похмелье»; убрать пометки (colloq.)/(fam.)"
+  },
+  {
+   "id": 6944,
+   "col": "example_es",
+   "old": "Mi gato bufa siempre que viene el perro",
+   "new": "Tengo una resaca horrible",
+   "why": "в речи Kater — чаще «похмелье»; убрать пометки (colloq.)/(fam.)"
+  },
+  {
+   "id": 6944,
+   "col": "example_fr",
+   "old": "Mon matou crache toujours quand le chien arrive",
+   "new": "J'ai une sacrée gueule de bois",
+   "why": "в речи Kater — чаще «похмелье»; убрать пометки (colloq.)/(fam.)"
+  },
+  {
+   "id": 6944,
+   "col": "example_cs",
+   "old": "Můj kocour vždycky prská, když přijde pes",
+   "new": "Mám příšernou kocovinu",
+   "why": "в речи Kater — чаще «похмелье»; убрать пометки (colloq.)/(fam.)"
+  },
+  {
+   "id": 10390,
+   "col": "example_ru",
+   "old": "Мой инстинкт говорит мне, что что-то не так",
+   "new": "Чутьё мне подсказывает, что что-то не так",
+   "why": "ru «Мой инстинкт говорит мне» — калька"
+  },
+  {
+   "id": 10390,
+   "col": "example_uk",
+   "old": "Мій інстинкт говорить мені, що щось не так",
+   "new": "Чуття підказує мені, що щось не так",
+   "why": "ru «Мой инстинкт говорит мне» — калька"
+  },
+  {
+   "id": 10390,
+   "col": "example_en",
+   "old": "My instinct tells me something is wrong",
+   "new": "My gut feeling tells me something's wrong",
+   "why": "ru «Мой инстинкт говорит мне» — калька"
+  },
+  {
+   "id": 6945,
+   "col": "example_de",
+   "old": "Der Dichter schreibt wunderbare Gedichte",
+   "new": "Goethe ist Deutschlands berühmtester Dichter",
+   "why": "«Der Dichter schreibt wunderbare Gedichte» — масло масляное"
+  },
+  {
+   "id": 6945,
+   "col": "example_ru",
+   "old": "Поэт пишет чудесные стихи",
+   "new": "Гёте — самый известный поэт Германии",
+   "why": "«Der Dichter schreibt wunderbare Gedichte» — масло масляное"
+  },
+  {
+   "id": 6945,
+   "col": "example_uk",
+   "old": "Поет пише чудові вірші",
+   "new": "Ґете — найвідоміший поет Німеччини",
+   "why": "«Der Dichter schreibt wunderbare Gedichte» — масло масляное"
+  },
+  {
+   "id": 6945,
+   "col": "example_en",
+   "old": "The poet writes wonderful poems",
+   "new": "Goethe is Germany's most famous poet",
+   "why": "«Der Dichter schreibt wunderbare Gedichte» — масло масляное"
+  },
+  {
+   "id": 6945,
+   "col": "example_tr",
+   "old": "Şair harika şiirler yazıyor",
+   "new": "Goethe, Almanya'nın en ünlü şairi",
+   "why": "«Der Dichter schreibt wunderbare Gedichte» — масло масляное"
+  },
+  {
+   "id": 6945,
+   "col": "example_pl",
+   "old": "Ten poeta pisze piękne wiersze",
+   "new": "Goethe to najsłynniejszy poeta Niemiec",
+   "why": "«Der Dichter schreibt wunderbare Gedichte» — масло масляное"
+  },
+  {
+   "id": 6945,
+   "col": "example_it",
+   "old": "Il poeta scrive poesie meravigliose",
+   "new": "Goethe è il poeta più famoso della Germania",
+   "why": "«Der Dichter schreibt wunderbare Gedichte» — масло масляное"
+  },
+  {
+   "id": 6945,
+   "col": "example_es",
+   "old": "El poeta escribe poemas maravillosos",
+   "new": "Goethe es el poeta más famoso de Alemania",
+   "why": "«Der Dichter schreibt wunderbare Gedichte» — масло масляное"
+  },
+  {
+   "id": 6945,
+   "col": "example_fr",
+   "old": "Le poète écrit de merveilleux poèmes",
+   "new": "Goethe est le poète le plus célèbre d'Allemagne",
+   "why": "«Der Dichter schreibt wunderbare Gedichte» — масло масляное"
+  },
+  {
+   "id": 6945,
+   "col": "example_cs",
+   "old": "Básník píše nádherné básně",
+   "new": "Goethe je nejslavnější německý básník",
+   "why": "«Der Dichter schreibt wunderbare Gedichte» — масло масляное"
+  },
+  {
+   "id": 17933,
+   "col": "translation_cs",
+   "old": "vynález",
+   "new": "vynález, výmysl",
+   "why": "«Die Erfindung des Autos war revolutionär» — учебник"
+  },
+  {
+   "id": 17933,
+   "col": "example_de",
+   "old": "Die Erfindung des Autos war revolutionär",
+   "new": "Das ist eine reine Erfindung!",
+   "why": "«Die Erfindung des Autos war revolutionär» — учебник"
+  },
+  {
+   "id": 17933,
+   "col": "example_ru",
+   "old": "Изобретение автомобиля было революционным",
+   "new": "Это чистая выдумка!",
+   "why": "«Die Erfindung des Autos war revolutionär» — учебник"
+  },
+  {
+   "id": 17933,
+   "col": "example_uk",
+   "old": "Винахід автомобіля був революційним",
+   "new": "Це чиста вигадка!",
+   "why": "«Die Erfindung des Autos war revolutionär» — учебник"
+  },
+  {
+   "id": 17933,
+   "col": "example_en",
+   "old": "The invention of the car was revolutionary",
+   "new": "That's pure fabrication!",
+   "why": "«Die Erfindung des Autos war revolutionär» — учебник"
+  },
+  {
+   "id": 17933,
+   "col": "example_tr",
+   "old": "Arabanın icadı devrimci oldu",
+   "new": "Bu tamamen uydurma!",
+   "why": "«Die Erfindung des Autos war revolutionär» — учебник"
+  },
+  {
+   "id": 17933,
+   "col": "example_pl",
+   "old": "Wynalazek samochodu był rewolucyjny",
+   "new": "To czysty wymysł!",
+   "why": "«Die Erfindung des Autos war revolutionär» — учебник"
+  },
+  {
+   "id": 17933,
+   "col": "example_it",
+   "old": "L'invenzione dell'automobile è stata rivoluzionaria",
+   "new": "È un'invenzione bella e buona!",
+   "why": "«Die Erfindung des Autos war revolutionär» — учебник"
+  },
+  {
+   "id": 17933,
+   "col": "example_es",
+   "old": "La invención del automóvil fue revolucionaria",
+   "new": "¡Eso es un invento!",
+   "why": "«Die Erfindung des Autos war revolutionär» — учебник"
+  },
+  {
+   "id": 17933,
+   "col": "example_fr",
+   "old": "L'invention de l'automobile a été révolutionnaire",
+   "new": "C'est une pure invention!",
+   "why": "«Die Erfindung des Autos war revolutionär» — учебник"
+  },
+  {
+   "id": 17933,
+   "col": "example_cs",
+   "old": "Vynález auta byl revoluční",
+   "new": "To je čistý výmysl!",
+   "why": "«Die Erfindung des Autos war revolutionär» — учебник"
+  },
+  {
+   "id": 6946,
+   "col": "example_de",
+   "old": "Eine Unbekannte rief mich heute an",
+   "new": "Eine Unbekannte hat nach dir gefragt",
+   "why": "«Eine Unbekannte rief mich heute an» — претерит"
+  },
+  {
+   "id": 6946,
+   "col": "example_ru",
+   "old": "Сегодня мне позвонила незнакомка",
+   "new": "Тебя спрашивала какая-то незнакомка",
+   "why": "«Eine Unbekannte rief mich heute an» — претерит"
+  },
+  {
+   "id": 6946,
+   "col": "example_uk",
+   "old": "Незнайомка подзвонила мені сьогодні",
+   "new": "Тебе питала якась незнайомка",
+   "why": "«Eine Unbekannte rief mich heute an» — претерит"
+  },
+  {
+   "id": 6946,
+   "col": "example_en",
+   "old": "An unknown woman called me today",
+   "new": "Some unknown woman was asking about you",
+   "why": "«Eine Unbekannte rief mich heute an» — претерит"
+  },
+  {
+   "id": 6946,
+   "col": "example_tr",
+   "old": "Bilinmeyen bir kadın bugün beni aradı",
+   "new": "Tanımadık bir kadın seni sordu",
+   "why": "«Eine Unbekannte rief mich heute an» — претерит"
+  },
+  {
+   "id": 6946,
+   "col": "example_pl",
+   "old": "Jakaś nieznajoma dzwoniła do mnie dzisiaj",
+   "new": "Pytała o ciebie jakaś nieznajoma",
+   "why": "«Eine Unbekannte rief mich heute an» — претерит"
+  },
+  {
+   "id": 6946,
+   "col": "example_it",
+   "old": "Oggi mi ha chiamato una sconosciuta",
+   "new": "Una sconosciuta ha chiesto di te",
+   "why": "«Eine Unbekannte rief mich heute an» — претерит"
+  },
+  {
+   "id": 6946,
+   "col": "example_es",
+   "old": "Hoy me ha llamado una desconocida",
+   "new": "Una desconocida ha preguntado por ti",
+   "why": "«Eine Unbekannte rief mich heute an» — претерит"
+  },
+  {
+   "id": 6946,
+   "col": "example_fr",
+   "old": "Une inconnue m'a appelé aujourd'hui",
+   "new": "Une inconnue a demandé après toi",
+   "why": "«Eine Unbekannte rief mich heute an» — претерит"
+  },
+  {
+   "id": 6946,
+   "col": "example_cs",
+   "old": "Dnes mi volala nějaká neznámá",
+   "new": "Ptala se po tobě nějaká neznámá",
+   "why": "«Eine Unbekannte rief mich heute an» — претерит"
+  },
+  {
+   "id": 8833,
+   "col": "example_de",
+   "old": "Der Geschäftsmann hat ein großes Unternehmen",
+   "new": "Er ist ein knallharter Geschäftsmann",
+   "why": "«Der Geschäftsmann hat ein großes Unternehmen» — пусто"
+  },
+  {
+   "id": 8833,
+   "col": "example_ru",
+   "old": "У бизнесмена большая компания",
+   "new": "Он жёсткий бизнесмен",
+   "why": "«Der Geschäftsmann hat ein großes Unternehmen» — пусто"
+  },
+  {
+   "id": 8833,
+   "col": "example_uk",
+   "old": "Бізнесмен має велику компанію",
+   "new": "Він жорсткий бізнесмен",
+   "why": "«Der Geschäftsmann hat ein großes Unternehmen» — пусто"
+  },
+  {
+   "id": 8833,
+   "col": "example_en",
+   "old": "The businessman owns a large company",
+   "new": "He's a hard-nosed businessman",
+   "why": "«Der Geschäftsmann hat ein großes Unternehmen» — пусто"
+  },
+  {
+   "id": 8833,
+   "col": "example_tr",
+   "old": "İş adamının büyük bir şirketi var",
+   "new": "Çok sert bir iş adamı",
+   "why": "«Der Geschäftsmann hat ein großes Unternehmen» — пусто"
+  },
+  {
+   "id": 8833,
+   "col": "example_pl",
+   "old": "Ten biznesmen ma dużą firmę",
+   "new": "To bezwzględny biznesmen",
+   "why": "«Der Geschäftsmann hat ein großes Unternehmen» — пусто"
+  },
+  {
+   "id": 8833,
+   "col": "example_it",
+   "old": "L'uomo d'affari ha una grande azienda",
+   "new": "È un uomo d'affari spietato",
+   "why": "«Der Geschäftsmann hat ein großes Unternehmen» — пусто"
+  },
+  {
+   "id": 8833,
+   "col": "example_es",
+   "old": "El hombre de negocios tiene una gran empresa",
+   "new": "Es un hombre de negocios implacable",
+   "why": "«Der Geschäftsmann hat ein großes Unternehmen» — пусто"
+  },
+  {
+   "id": 8833,
+   "col": "example_fr",
+   "old": "L'homme d'affaires a une grande entreprise",
+   "new": "C'est un homme d'affaires impitoyable",
+   "why": "«Der Geschäftsmann hat ein großes Unternehmen» — пусто"
+  },
+  {
+   "id": 8833,
+   "col": "example_cs",
+   "old": "Podnikatel má velkou firmu",
+   "new": "Je to tvrdý podnikatel",
+   "why": "«Der Geschäftsmann hat ein großes Unternehmen» — пусто"
+  },
+  {
+   "id": 1599,
+   "col": "example_de",
+   "old": "Schreib einen Kommentar",
+   "new": "Spar dir deine Kommentare!",
+   "why": "«Schreib einen Kommentar» — кнопка сайта"
+  },
+  {
+   "id": 1599,
+   "col": "example_ru",
+   "old": "Напиши комментарий",
+   "new": "Оставь свои комментарии при себе!",
+   "why": "«Schreib einen Kommentar» — кнопка сайта"
+  },
+  {
+   "id": 1599,
+   "col": "example_uk",
+   "old": "Напиши коментар",
+   "new": "Залиш свої коментарі при собі!",
+   "why": "«Schreib einen Kommentar» — кнопка сайта"
+  },
+  {
+   "id": 1599,
+   "col": "example_en",
+   "old": "Write a comment",
+   "new": "Keep your comments to yourself!",
+   "why": "«Schreib einen Kommentar» — кнопка сайта"
+  },
+  {
+   "id": 1599,
+   "col": "example_tr",
+   "old": "Bir yorum yaz",
+   "new": "Yorumlarını kendine sakla!",
+   "why": "«Schreib einen Kommentar» — кнопка сайта"
+  },
+  {
+   "id": 1599,
+   "col": "example_pl",
+   "old": "Napisz komentarz",
+   "new": "Zachowaj swoje komentarze dla siebie!",
+   "why": "«Schreib einen Kommentar» — кнопка сайта"
+  },
+  {
+   "id": 1599,
+   "col": "example_it",
+   "old": "Scrivi un commento",
+   "new": "Risparmiati i commenti!",
+   "why": "«Schreib einen Kommentar» — кнопка сайта"
+  },
+  {
+   "id": 1599,
+   "col": "example_es",
+   "old": "Escribe un comentario",
+   "new": "¡Ahórrate los comentarios!",
+   "why": "«Schreib einen Kommentar» — кнопка сайта"
+  },
+  {
+   "id": 1599,
+   "col": "example_fr",
+   "old": "Écris un commentaire",
+   "new": "Garde tes commentaires pour toi!",
+   "why": "«Schreib einen Kommentar» — кнопка сайта"
+  },
+  {
+   "id": 1599,
+   "col": "example_cs",
+   "old": "Napiš komentář",
+   "new": "Nech si své komentáře!",
+   "why": "«Schreib einen Kommentar» — кнопка сайта"
+  },
+  {
+   "id": 17784,
+   "col": "example_ru",
+   "old": "Конкуренция очень сильна в этой отрасли",
+   "new": "В этой отрасли очень сильная конкуренция",
+   "why": "ru — порядок слов"
+  },
+  {
+   "id": 17784,
+   "col": "example_en",
+   "old": "The competition is very strong in this industry",
+   "new": "There's very strong competition in this industry",
+   "why": "ru — порядок слов"
+  },
+  {
+   "id": 8834,
+   "col": "example_de",
+   "old": "Ich arbeite bei einer Werbeagentur",
+   "new": "Wir haben die Wohnung über eine Agentur gefunden",
+   "why": "пример про Werbeagentur, а не про Agentur"
+  },
+  {
+   "id": 8834,
+   "col": "example_ru",
+   "old": "Я работаю в рекламном агентстве",
+   "new": "Мы нашли квартиру через агентство",
+   "why": "пример про Werbeagentur, а не про Agentur"
+  },
+  {
+   "id": 8834,
+   "col": "example_uk",
+   "old": "Я працюю в рекламному агентстві",
+   "new": "Ми знайшли квартиру через агентство",
+   "why": "пример про Werbeagentur, а не про Agentur"
+  },
+  {
+   "id": 8834,
+   "col": "example_en",
+   "old": "I work at an advertising agency",
+   "new": "We found the flat through an agency",
+   "why": "пример про Werbeagentur, а не про Agentur"
+  },
+  {
+   "id": 8834,
+   "col": "example_tr",
+   "old": "Bir reklam ajansında çalışıyorum",
+   "new": "Daireyi bir ajans aracılığıyla bulduk",
+   "why": "пример про Werbeagentur, а не про Agentur"
+  },
+  {
+   "id": 8834,
+   "col": "example_pl",
+   "old": "Pracuję w agencji reklamowej",
+   "new": "Znaleźliśmy mieszkanie przez agencję",
+   "why": "пример про Werbeagentur, а не про Agentur"
+  },
+  {
+   "id": 8834,
+   "col": "example_it",
+   "old": "Lavoro in un'agenzia pubblicitaria",
+   "new": "Abbiamo trovato l'appartamento tramite un'agenzia",
+   "why": "пример про Werbeagentur, а не про Agentur"
+  },
+  {
+   "id": 8834,
+   "col": "example_es",
+   "old": "Trabajo en una agencia de publicidad",
+   "new": "Encontramos el piso a través de una agencia",
+   "why": "пример про Werbeagentur, а не про Agentur"
+  },
+  {
+   "id": 8834,
+   "col": "example_fr",
+   "old": "Je travaille dans une agence de publicité",
+   "new": "On a trouvé l'appartement par une agence",
+   "why": "пример про Werbeagentur, а не про Agentur"
+  },
+  {
+   "id": 8834,
+   "col": "example_cs",
+   "old": "Pracuji v reklamní agentuře",
+   "new": "Byt jsme našli přes agenturu",
+   "why": "пример про Werbeagentur, а не про Agentur"
+  },
+  {
+   "id": 2970,
+   "col": "translation_ru",
+   "old": "снабжать, обеспечивать, заботиться, ухаживать, обрабатывать рану",
+   "new": "обеспечивать, ухаживать",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2970,
+   "col": "translation_uk",
+   "old": "забезпечувати, постачати, дбати, доглядати",
+   "new": "забезпечувати, доглядати",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2970,
+   "col": "translation_en",
+   "old": "to supply, to provide, to take care of, to look after",
+   "new": "to provide, to look after",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2970,
+   "col": "translation_tr",
+   "old": "sağlamak, tedarik etmek, bakmak, ilgilenmek",
+   "new": "sağlamak, bakmak",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2970,
+   "col": "translation_pl",
+   "old": "zaopatrywać, zapewniać, opiekować się, zajmować się",
+   "new": "zaopatrywać, opiekować się",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15476,
+   "col": "example_de",
+   "old": "Der Hai ist ein großes Meerestier",
+   "new": "Haie greifen Menschen nur selten an",
+   "why": "«Der Hai ist ein großes Meerestier» — учебник"
+  },
+  {
+   "id": 15476,
+   "col": "example_ru",
+   "old": "Акула — крупное морское животное",
+   "new": "Акулы редко нападают на людей",
+   "why": "«Der Hai ist ein großes Meerestier» — учебник"
+  },
+  {
+   "id": 15476,
+   "col": "example_uk",
+   "old": "Акула — велика морська тварина",
+   "new": "Акули рідко нападають на людей",
+   "why": "«Der Hai ist ein großes Meerestier» — учебник"
+  },
+  {
+   "id": 15476,
+   "col": "example_en",
+   "old": "The shark is a large sea animal",
+   "new": "Sharks rarely attack people",
+   "why": "«Der Hai ist ein großes Meerestier» — учебник"
+  },
+  {
+   "id": 15476,
+   "col": "example_tr",
+   "old": "Köpek balığı büyük bir deniz hayvanı",
+   "new": "Köpek balıkları insanlara nadiren saldırır",
+   "why": "«Der Hai ist ein großes Meerestier» — учебник"
+  },
+  {
+   "id": 15476,
+   "col": "example_pl",
+   "old": "Rekin to duże zwierzę morskie",
+   "new": "Rekiny rzadko atakują ludzi",
+   "why": "«Der Hai ist ein großes Meerestier» — учебник"
+  },
+  {
+   "id": 15476,
+   "col": "example_it",
+   "old": "Lo squalo è un grande animale marino",
+   "new": "Gli squali attaccano raramente le persone",
+   "why": "«Der Hai ist ein großes Meerestier» — учебник"
+  },
+  {
+   "id": 15476,
+   "col": "example_es",
+   "old": "El tiburón es un gran animal marino",
+   "new": "Los tiburones rara vez atacan a las personas",
+   "why": "«Der Hai ist ein großes Meerestier» — учебник"
+  },
+  {
+   "id": 15476,
+   "col": "example_fr",
+   "old": "Le requin est un grand animal marin",
+   "new": "Les requins attaquent rarement les humains",
+   "why": "«Der Hai ist ein großes Meerestier» — учебник"
+  },
+  {
+   "id": 15476,
+   "col": "example_cs",
+   "old": "Žralok je velký mořský živočich",
+   "new": "Žraloci na lidi útočí jen zřídka",
+   "why": "«Der Hai ist ein großes Meerestier» — учебник"
+  },
+  {
+   "id": 16090,
+   "col": "translation_ru",
+   "old": "адвокатская контора, юридическая фирма, канцелярия",
+   "new": "адвокатская контора, юридическая фирма",
+   "why": "пример про Anwaltskanzlei, а не про Kanzlei; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16090,
+   "col": "translation_en",
+   "old": "law firm, law office, chancellery",
+   "new": "law firm, chancellery",
+   "why": "пример про Anwaltskanzlei, а не про Kanzlei; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16090,
+   "col": "translation_tr",
+   "old": "hukuk bürosu, avukatlık bürosu, kalem",
+   "new": "hukuk bürosu, kalem",
+   "why": "пример про Anwaltskanzlei, а не про Kanzlei; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16090,
+   "col": "example_de",
+   "old": "Seine Anwaltskanzlei ist im Zentrum",
+   "new": "Ich habe einen Termin in der Kanzlei",
+   "why": "пример про Anwaltskanzlei, а не про Kanzlei; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16090,
+   "col": "example_ru",
+   "old": "Его адвокатская контора в центре",
+   "new": "У меня встреча в адвокатской конторе",
+   "why": "пример про Anwaltskanzlei, а не про Kanzlei; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16090,
+   "col": "example_uk",
+   "old": "Його юридична канцелярія в центрі",
+   "new": "У мене зустріч в адвокатській конторі",
+   "why": "пример про Anwaltskanzlei, а не про Kanzlei; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16090,
+   "col": "example_en",
+   "old": "His law office is in the center",
+   "new": "I've got an appointment at the law firm",
+   "why": "пример про Anwaltskanzlei, а не про Kanzlei; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16090,
+   "col": "example_tr",
+   "old": "Onun avukatlık bürosu şehir merkezinde",
+   "new": "Hukuk bürosunda randevum var",
+   "why": "пример про Anwaltskanzlei, а не про Kanzlei; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16090,
+   "col": "example_pl",
+   "old": "Jego kancelaria adwokacka jest w centrum",
+   "new": "Mam spotkanie w kancelarii",
+   "why": "пример про Anwaltskanzlei, а не про Kanzlei; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16090,
+   "col": "example_it",
+   "old": "Il suo studio legale è in centro",
+   "new": "Ho un appuntamento allo studio legale",
+   "why": "пример про Anwaltskanzlei, а не про Kanzlei; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16090,
+   "col": "example_es",
+   "old": "Su bufete de abogados está en el centro",
+   "new": "Tengo una cita en el bufete",
+   "why": "пример про Anwaltskanzlei, а не про Kanzlei; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16090,
+   "col": "example_fr",
+   "old": "Son cabinet d'avocats est au centre-ville",
+   "new": "J'ai rendez-vous au cabinet",
+   "why": "пример про Anwaltskanzlei, а не про Kanzlei; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16090,
+   "col": "example_cs",
+   "old": "Jeho advokátní kancelář je v centru",
+   "new": "Mám schůzku v advokátní kanceláři",
+   "why": "пример про Anwaltskanzlei, а не про Kanzlei; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16091,
+   "col": "example_de",
+   "old": "Die Ermittlung der Polizei dauerte lange",
+   "new": "Die Ermittlungen laufen noch",
+   "why": "«Die Ermittlung der Polizei dauerte lange» — претерит"
+  },
+  {
+   "id": 16091,
+   "col": "example_ru",
+   "old": "Расследование полиции длилось долго",
+   "new": "Расследование ещё идёт",
+   "why": "«Die Ermittlung der Polizei dauerte lange» — претерит"
+  },
+  {
+   "id": 16091,
+   "col": "example_uk",
+   "old": "Розслідування поліції тривало довго",
+   "new": "Розслідування ще триває",
+   "why": "«Die Ermittlung der Polizei dauerte lange» — претерит"
+  },
+  {
+   "id": 16091,
+   "col": "example_en",
+   "old": "The police investigation took a long time",
+   "new": "The investigation is still ongoing",
+   "why": "«Die Ermittlung der Polizei dauerte lange» — претерит"
+  },
+  {
+   "id": 16091,
+   "col": "example_tr",
+   "old": "Polis soruşturması uzun sürdü",
+   "new": "Soruşturma hâlâ sürüyor",
+   "why": "«Die Ermittlung der Polizei dauerte lange» — претерит"
+  },
+  {
+   "id": 16091,
+   "col": "example_pl",
+   "old": "Śledztwo policji trwało długo",
+   "new": "Śledztwo wciąż trwa",
+   "why": "«Die Ermittlung der Polizei dauerte lange» — претерит"
+  },
+  {
+   "id": 16091,
+   "col": "example_it",
+   "old": "L'indagine della polizia è durata a lungo",
+   "new": "Le indagini sono ancora in corso",
+   "why": "«Die Ermittlung der Polizei dauerte lange» — претерит"
+  },
+  {
+   "id": 16091,
+   "col": "example_es",
+   "old": "La investigación de la policía duró mucho",
+   "new": "La investigación sigue en curso",
+   "why": "«Die Ermittlung der Polizei dauerte lange» — претерит"
+  },
+  {
+   "id": 16091,
+   "col": "example_fr",
+   "old": "L'enquête de la police a duré longtemps",
+   "new": "L'enquête est toujours en cours",
+   "why": "«Die Ermittlung der Polizei dauerte lange» — претерит"
+  },
+  {
+   "id": 16091,
+   "col": "example_cs",
+   "old": "Policejní vyšetřování trvalo dlouho",
+   "new": "Vyšetřování stále probíhá",
+   "why": "«Die Ermittlung der Polizei dauerte lange» — претерит"
+  },
+  {
+   "id": 1105,
+   "col": "translation_en",
+   "old": "to reject, to refuse, to turn down, to disapprove of",
+   "new": "to refuse, to turn down",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2311,
+   "col": "example_en",
+   "old": "He does boxing",
+   "new": "He goes to boxing training",
+   "why": "английский пример: так не говорят («He does boxing»)"
+  },
+  {
+   "id": 15477,
+   "col": "example_de",
+   "old": "Der Sonnenaufgang ist sehr schön",
+   "new": "Wir sind extra früh aufgestanden, um den Sonnenaufgang zu sehen",
+   "why": "«Der Sonnenaufgang ist sehr schön» — пусто"
+  },
+  {
+   "id": 15477,
+   "col": "example_ru",
+   "old": "Восход солнца очень красивый",
+   "new": "Мы специально встали рано, чтобы увидеть восход солнца",
+   "why": "«Der Sonnenaufgang ist sehr schön» — пусто"
+  },
+  {
+   "id": 15477,
+   "col": "example_uk",
+   "old": "Світанок дуже красивий",
+   "new": "Ми спеціально встали рано, щоб побачити схід сонця",
+   "why": "«Der Sonnenaufgang ist sehr schön» — пусто"
+  },
+  {
+   "id": 15477,
+   "col": "example_en",
+   "old": "The sunrise is very beautiful",
+   "new": "We got up extra early to see the sunrise",
+   "why": "«Der Sonnenaufgang ist sehr schön» — пусто"
+  },
+  {
+   "id": 15477,
+   "col": "example_tr",
+   "old": "Gündoğumu çok güzel",
+   "new": "Gündoğumunu görmek için özellikle erken kalktık",
+   "why": "«Der Sonnenaufgang ist sehr schön» — пусто"
+  },
+  {
+   "id": 15477,
+   "col": "example_pl",
+   "old": "Wschód słońca jest bardzo piękny",
+   "new": "Specjalnie wstaliśmy wcześnie, żeby zobaczyć wschód słońca",
+   "why": "«Der Sonnenaufgang ist sehr schön» — пусто"
+  },
+  {
+   "id": 15477,
+   "col": "example_it",
+   "old": "L'alba è molto bella",
+   "new": "Ci siamo alzati presto apposta per vedere l'alba",
+   "why": "«Der Sonnenaufgang ist sehr schön» — пусто"
+  },
+  {
+   "id": 15477,
+   "col": "example_es",
+   "old": "El amanecer es muy bonito",
+   "new": "Nos levantamos muy temprano para ver el amanecer",
+   "why": "«Der Sonnenaufgang ist sehr schön» — пусто"
+  },
+  {
+   "id": 15477,
+   "col": "example_fr",
+   "old": "Le lever du soleil est très beau",
+   "new": "On s'est levés exprès tôt pour voir le lever du soleil",
+   "why": "«Der Sonnenaufgang ist sehr schön» — пусто"
+  },
+  {
+   "id": 15477,
+   "col": "example_cs",
+   "old": "Východ slunce je velmi krásný",
+   "new": "Vstali jsme schválně brzy, abychom viděli východ slunce",
+   "why": "«Der Sonnenaufgang ist sehr schön» — пусто"
+  },
+  {
+   "id": 12565,
+   "col": "translation_ru",
+   "old": "фельдшер, санитар, медик скорой помощи",
+   "new": "медик скорой, фельдшер",
+   "why": "«Der Sanitäter half dem verletzten Mann» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12565,
+   "col": "translation_uk",
+   "old": "фельдшер, санітар, медик швидкої допомоги",
+   "new": "медик швидкої, фельдшер",
+   "why": "«Der Sanitäter half dem verletzten Mann» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12565,
+   "col": "translation_en",
+   "old": "paramedic, medic, ambulance worker",
+   "new": "paramedic, medic",
+   "why": "«Der Sanitäter half dem verletzten Mann» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12565,
+   "col": "translation_tr",
+   "old": "sağlık görevlisi, paramedik, ambulans görevlisi",
+   "new": "sağlık görevlisi, paramedik",
+   "why": "«Der Sanitäter half dem verletzten Mann» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12565,
+   "col": "example_de",
+   "old": "Der Sanitäter half dem verletzten Mann",
+   "new": "Die Sanitäter sind in fünf Minuten da",
+   "why": "«Der Sanitäter half dem verletzten Mann» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12565,
+   "col": "example_ru",
+   "old": "Санитар помог раненому мужчине",
+   "new": "Медики приедут через пять минут",
+   "why": "«Der Sanitäter half dem verletzten Mann» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12565,
+   "col": "example_uk",
+   "old": "Санітар допоміг пораненому чоловікові",
+   "new": "Медики приїдуть за п'ять хвилин",
+   "why": "«Der Sanitäter half dem verletzten Mann» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12565,
+   "col": "example_en",
+   "old": "The paramedic helped the injured man",
+   "new": "The paramedics will be here in five minutes",
+   "why": "«Der Sanitäter half dem verletzten Mann» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12565,
+   "col": "example_tr",
+   "old": "Paramedik yaralı adama yardım etti",
+   "new": "Sağlık görevlileri beş dakikaya burada",
+   "why": "«Der Sanitäter half dem verletzten Mann» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12565,
+   "col": "example_pl",
+   "old": "Ratownik medyczny pomógł rannemu mężczyźnie",
+   "new": "Ratownicy medyczni będą za pięć minut",
+   "why": "«Der Sanitäter half dem verletzten Mann» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12565,
+   "col": "example_it",
+   "old": "Il soccorritore ha aiutato l'uomo ferito",
+   "new": "I soccorritori arrivano tra cinque minuti",
+   "why": "«Der Sanitäter half dem verletzten Mann» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12565,
+   "col": "example_es",
+   "old": "El paramédico ayudó al hombre herido",
+   "new": "Los sanitarios llegan en cinco minutos",
+   "why": "«Der Sanitäter half dem verletzten Mann» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12565,
+   "col": "example_fr",
+   "old": "Le secouriste a aidé l'homme blessé",
+   "new": "Les ambulanciers seront là dans cinq minutes",
+   "why": "«Der Sanitäter half dem verletzten Mann» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12565,
+   "col": "example_cs",
+   "old": "Záchranář pomohl zraněnému muži",
+   "new": "Záchranáři tu budou za pět minut",
+   "why": "«Der Sanitäter half dem verletzten Mann» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1264,
+   "col": "translation_pl",
+   "old": "narada, zebranie, spotkanie w pracy, omówienie",
+   "new": "narada, zebranie",
+   "why": "«Die Besprechung beginnt um 10 Uhr» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1264,
+   "col": "example_de",
+   "old": "Die Besprechung beginnt um 10 Uhr",
+   "new": "Ich bin gerade in einer Besprechung, ich rufe zurück",
+   "why": "«Die Besprechung beginnt um 10 Uhr» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1264,
+   "col": "example_ru",
+   "old": "Совещание начинается в десять часов",
+   "new": "Я сейчас на совещании, перезвоню",
+   "why": "«Die Besprechung beginnt um 10 Uhr» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1264,
+   "col": "example_uk",
+   "old": "Нарада починається о десятій",
+   "new": "Я зараз на нараді, передзвоню",
+   "why": "«Die Besprechung beginnt um 10 Uhr» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1264,
+   "col": "example_en",
+   "old": "The meeting starts at 10 o'clock",
+   "new": "I'm in a meeting right now, I'll call you back",
+   "why": "«Die Besprechung beginnt um 10 Uhr» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1264,
+   "col": "example_tr",
+   "old": "Toplantı saat 10'da başlıyor",
+   "new": "Şu an bir toplantıdayım, seni geri ararım",
+   "why": "«Die Besprechung beginnt um 10 Uhr» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1264,
+   "col": "example_pl",
+   "old": "Narada zaczyna się o dziesiątej",
+   "new": "Jestem teraz na naradzie, oddzwonię",
+   "why": "«Die Besprechung beginnt um 10 Uhr» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1264,
+   "col": "example_it",
+   "old": "La riunione inizia alle 10",
+   "new": "Sono in riunione, ti richiamo",
+   "why": "«Die Besprechung beginnt um 10 Uhr» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1264,
+   "col": "example_es",
+   "old": "La reunión empieza a las 10",
+   "new": "Ahora estoy en una reunión, te llamo luego",
+   "why": "«Die Besprechung beginnt um 10 Uhr» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1264,
+   "col": "example_fr",
+   "old": "La réunion commence à 10 heures",
+   "new": "Je suis en réunion, je te rappelle",
+   "why": "«Die Besprechung beginnt um 10 Uhr» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1264,
+   "col": "example_cs",
+   "old": "Porada začíná v 10 hodin",
+   "new": "Jsem zrovna na poradě, zavolám ti zpátky",
+   "why": "«Die Besprechung beginnt um 10 Uhr» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16092,
+   "col": "example_de",
+   "old": "Der Sklave hatte keine Freiheit",
+   "new": "Ich bin doch nicht dein Sklave!",
+   "why": "«Der Sklave hatte keine Freiheit» — претерит, учебник истории"
+  },
+  {
+   "id": 16092,
+   "col": "example_ru",
+   "old": "Раб не имел свободы",
+   "new": "Я тебе не раб!",
+   "why": "«Der Sklave hatte keine Freiheit» — претерит, учебник истории"
+  },
+  {
+   "id": 16092,
+   "col": "example_uk",
+   "old": "Раб не мав свободи",
+   "new": "Я тобі не раб!",
+   "why": "«Der Sklave hatte keine Freiheit» — претерит, учебник истории"
+  },
+  {
+   "id": 16092,
+   "col": "example_en",
+   "old": "The slave had no freedom",
+   "new": "I'm not your slave!",
+   "why": "«Der Sklave hatte keine Freiheit» — претерит, учебник истории"
+  },
+  {
+   "id": 16092,
+   "col": "example_tr",
+   "old": "Kölenin özgürlüğü yoktu",
+   "new": "Ben senin kölen değilim!",
+   "why": "«Der Sklave hatte keine Freiheit» — претерит, учебник истории"
+  },
+  {
+   "id": 16092,
+   "col": "example_pl",
+   "old": "Niewolnik nie miał żadnej wolności",
+   "new": "Nie jestem twoim niewolnikiem!",
+   "why": "«Der Sklave hatte keine Freiheit» — претерит, учебник истории"
+  },
+  {
+   "id": 16092,
+   "col": "example_it",
+   "old": "Lo schiavo non aveva libertà",
+   "new": "Non sono mica il tuo schiavo!",
+   "why": "«Der Sklave hatte keine Freiheit» — претерит, учебник истории"
+  },
+  {
+   "id": 16092,
+   "col": "example_es",
+   "old": "El esclavo no tenía libertad",
+   "new": "¡No soy tu esclavo!",
+   "why": "«Der Sklave hatte keine Freiheit» — претерит, учебник истории"
+  },
+  {
+   "id": 16092,
+   "col": "example_fr",
+   "old": "L'esclave n'avait pas de liberté",
+   "new": "Je ne suis pas ton esclave!",
+   "why": "«Der Sklave hatte keine Freiheit» — претерит, учебник истории"
+  },
+  {
+   "id": 16092,
+   "col": "example_cs",
+   "old": "Otrok neměl svobodu",
+   "new": "Nejsem tvůj otrok!",
+   "why": "«Der Sklave hatte keine Freiheit» — претерит, учебник истории"
+  },
+  {
+   "id": 417,
+   "col": "example_de",
+   "old": "Sie hat Husten",
+   "new": "Ich habe seit einer Woche Husten",
+   "why": "«Sie hat Husten» — пусто"
+  },
+  {
+   "id": 417,
+   "col": "example_ru",
+   "old": "У неё кашель",
+   "new": "У меня уже неделю кашель",
+   "why": "«Sie hat Husten» — пусто"
+  },
+  {
+   "id": 417,
+   "col": "example_uk",
+   "old": "У неї кашель",
+   "new": "У мене вже тиждень кашель",
+   "why": "«Sie hat Husten» — пусто"
+  },
+  {
+   "id": 417,
+   "col": "example_en",
+   "old": "She has a cough",
+   "new": "I've had a cough for a week",
+   "why": "«Sie hat Husten» — пусто"
+  },
+  {
+   "id": 417,
+   "col": "example_tr",
+   "old": "Onun öksürüğü var",
+   "new": "Bir haftadır öksürüğüm var",
+   "why": "«Sie hat Husten» — пусто"
+  },
+  {
+   "id": 417,
+   "col": "example_pl",
+   "old": "Ona ma kaszel",
+   "new": "Od tygodnia mam kaszel",
+   "why": "«Sie hat Husten» — пусто"
+  },
+  {
+   "id": 417,
+   "col": "example_it",
+   "old": "Ha la tosse",
+   "new": "Ho la tosse da una settimana",
+   "why": "«Sie hat Husten» — пусто"
+  },
+  {
+   "id": 417,
+   "col": "example_es",
+   "old": "Tiene tos",
+   "new": "Tengo tos desde hace una semana",
+   "why": "«Sie hat Husten» — пусто"
+  },
+  {
+   "id": 417,
+   "col": "example_fr",
+   "old": "Elle a de la toux",
+   "new": "J'ai de la toux depuis une semaine",
+   "why": "«Sie hat Husten» — пусто"
+  },
+  {
+   "id": 417,
+   "col": "example_cs",
+   "old": "Má kašel",
+   "new": "Už týden mám kašel",
+   "why": "«Sie hat Husten» — пусто"
+  },
+  {
+   "id": 6952,
+   "col": "translation_ru",
+   "old": "отправляться, выезжать, трогаться в путь, взламывать, вскрывать",
+   "new": "отправляться, взламывать",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6952,
+   "col": "translation_uk",
+   "old": "вирушати, виїжджати, зриватися з місця, зламувати, розколювати",
+   "new": "вирушати, зламувати",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6952,
+   "col": "translation_en",
+   "old": "to set off, to depart, to break open, to force open",
+   "new": "to set off, to break open",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6952,
+   "col": "translation_tr",
+   "old": "yola çıkmak, hareket etmek, zorla açmak, kırıp açmak",
+   "new": "yola çıkmak, zorla açmak",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6952,
+   "col": "translation_pl",
+   "old": "wyruszać, ruszać w drogę, wyłamywać, rozłupywać",
+   "new": "wyruszać, wyłamywać",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6952,
+   "col": "translation_it",
+   "old": "partire, mettersi in cammino, forzare, scassinare",
+   "new": "partire, forzare",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6952,
+   "col": "translation_es",
+   "old": "partir, salir, forzar",
+   "new": "partir, forzar",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6952,
+   "col": "translation_fr",
+   "old": "partir, se mettre en route, forcer",
+   "new": "partir, forcer",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6952,
+   "col": "translation_cs",
+   "old": "vyrazit, vydat se, vypáčit",
+   "new": "vyrazit, vypáčit",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10392,
+   "col": "example_de",
+   "old": "Das war naiv von dir",
+   "new": "Sei doch nicht so naiv!",
+   "why": "«Das war naiv von dir» — шаблон «… von dir»"
+  },
+  {
+   "id": 10392,
+   "col": "example_ru",
+   "old": "Это было наивно с твоей стороны",
+   "new": "Не будь таким наивным!",
+   "why": "«Das war naiv von dir» — шаблон «… von dir»"
+  },
+  {
+   "id": 10392,
+   "col": "example_uk",
+   "old": "Це було наївно з твого боку",
+   "new": "Не будь таким наївним!",
+   "why": "«Das war naiv von dir» — шаблон «… von dir»"
+  },
+  {
+   "id": 10392,
+   "col": "example_en",
+   "old": "That was naive of you",
+   "new": "Don't be so naive!",
+   "why": "«Das war naiv von dir» — шаблон «… von dir»"
+  },
+  {
+   "id": 10392,
+   "col": "example_tr",
+   "old": "Bu senden saflık oldu",
+   "new": "Bu kadar saf olma!",
+   "why": "«Das war naiv von dir» — шаблон «… von dir»"
+  },
+  {
+   "id": 10392,
+   "col": "example_pl",
+   "old": "To było naiwne z twojej strony",
+   "new": "Nie bądź taki naiwny!",
+   "why": "«Das war naiv von dir» — шаблон «… von dir»"
+  },
+  {
+   "id": 10392,
+   "col": "example_it",
+   "old": "È stato ingenuo da parte tua",
+   "new": "Non essere così ingenuo!",
+   "why": "«Das war naiv von dir» — шаблон «… von dir»"
+  },
+  {
+   "id": 10392,
+   "col": "example_es",
+   "old": "Eso fue ingenuo por tu parte",
+   "new": "¡No seas tan ingenuo!",
+   "why": "«Das war naiv von dir» — шаблон «… von dir»"
+  },
+  {
+   "id": 10392,
+   "col": "example_fr",
+   "old": "C'était naïf de ta part",
+   "new": "Ne sois pas si naïf!",
+   "why": "«Das war naiv von dir» — шаблон «… von dir»"
+  },
+  {
+   "id": 10392,
+   "col": "example_cs",
+   "old": "To bylo od tebe naivní",
+   "new": "Nebuď tak naivní!",
+   "why": "«Das war naiv von dir» — шаблон «… von dir»"
+  },
+  {
+   "id": 10393,
+   "col": "translation_ru",
+   "old": "козёл, баран-самец, охота, желание",
+   "new": "охота, козёл",
+   "why": "список → главное слово и не больше одной альтернативы; en «I have a craving» — книжно"
+  },
+  {
+   "id": 10393,
+   "col": "translation_uk",
+   "old": "козел, самець, охота, бажання",
+   "new": "охота, козел",
+   "why": "список → главное слово и не больше одной альтернативы; en «I have a craving» — книжно"
+  },
+  {
+   "id": 10393,
+   "col": "translation_en",
+   "old": "buck, billy goat, craving, desire",
+   "new": "craving, billy goat",
+   "why": "список → главное слово и не больше одной альтернативы; en «I have a craving» — книжно"
+  },
+  {
+   "id": 10393,
+   "col": "translation_tr",
+   "old": "teke, erkek keçi, istek, heves",
+   "new": "istek, teke",
+   "why": "список → главное слово и не больше одной альтернативы; en «I have a craving» — книжно"
+  },
+  {
+   "id": 10393,
+   "col": "translation_pl",
+   "old": "kozioł, ochota, chęć",
+   "new": "ochota, kozioł",
+   "why": "список → главное слово и не больше одной альтернативы; en «I have a craving» — книжно"
+  },
+  {
+   "id": 10393,
+   "col": "example_en",
+   "old": "I have a craving for pizza",
+   "new": "I've got a craving for pizza",
+   "why": "список → главное слово и не больше одной альтернативы; en «I have a craving» — книжно"
+  },
+  {
+   "id": 10394,
+   "col": "translation_fr",
+   "old": "effrayant, flippant (fam.), sinistre",
+   "new": "effrayant, flippant",
+   "why": "«Das ist gruselig» — пусто; убрать пометку (fam.)"
+  },
+  {
+   "id": 10394,
+   "col": "example_de",
+   "old": "Das ist gruselig",
+   "new": "Der Keller ist mir zu gruselig",
+   "why": "«Das ist gruselig» — пусто; убрать пометку (fam.)"
+  },
+  {
+   "id": 10394,
+   "col": "example_ru",
+   "old": "Это страшно",
+   "new": "В подвале мне жутко",
+   "why": "«Das ist gruselig» — пусто; убрать пометку (fam.)"
+  },
+  {
+   "id": 10394,
+   "col": "example_uk",
+   "old": "Це страшно",
+   "new": "У підвалі мені лячно",
+   "why": "«Das ist gruselig» — пусто; убрать пометку (fam.)"
+  },
+  {
+   "id": 10394,
+   "col": "example_en",
+   "old": "That is creepy",
+   "new": "The cellar's too creepy for me",
+   "why": "«Das ist gruselig» — пусто; убрать пометку (fam.)"
+  },
+  {
+   "id": 10394,
+   "col": "example_tr",
+   "old": "Bu korkunç",
+   "new": "Bodrum bana fazla ürkütücü geliyor",
+   "why": "«Das ist gruselig» — пусто; убрать пометку (fam.)"
+  },
+  {
+   "id": 10394,
+   "col": "example_pl",
+   "old": "To jest straszne",
+   "new": "Piwnica jest dla mnie zbyt upiorna",
+   "why": "«Das ist gruselig» — пусто; убрать пометку (fam.)"
+  },
+  {
+   "id": 10394,
+   "col": "example_it",
+   "old": "È inquietante",
+   "new": "La cantina è troppo inquietante per me",
+   "why": "«Das ist gruselig» — пусто; убрать пометку (fam.)"
+  },
+  {
+   "id": 10394,
+   "col": "example_es",
+   "old": "Es espeluznante",
+   "new": "El sótano es demasiado espeluznante para mí",
+   "why": "«Das ist gruselig» — пусто; убрать пометку (fam.)"
+  },
+  {
+   "id": 10394,
+   "col": "example_fr",
+   "old": "C'est effrayant",
+   "new": "La cave est trop flippante pour moi",
+   "why": "«Das ist gruselig» — пусто; убрать пометку (fam.)"
+  },
+  {
+   "id": 10394,
+   "col": "example_cs",
+   "old": "To je strašidelné",
+   "new": "Sklep je na mě moc strašidelný",
+   "why": "«Das ist gruselig» — пусто; убрать пометку (fam.)"
+  },
+  {
+   "id": 10395,
+   "col": "example_de",
+   "old": "Ich kann das nicht aushalten",
+   "new": "Ich halte diese Hitze nicht mehr aus",
+   "why": "«Ich kann das nicht aushalten» — пусто"
+  },
+  {
+   "id": 10395,
+   "col": "example_ru",
+   "old": "Я не могу это вытерпеть",
+   "new": "Я больше не могу выносить эту жару",
+   "why": "«Ich kann das nicht aushalten» — пусто"
+  },
+  {
+   "id": 10395,
+   "col": "example_uk",
+   "old": "Я не можу це витримати",
+   "new": "Я більше не можу витримувати цю спеку",
+   "why": "«Ich kann das nicht aushalten» — пусто"
+  },
+  {
+   "id": 10395,
+   "col": "example_en",
+   "old": "I can't bear that",
+   "new": "I can't stand this heat any more",
+   "why": "«Ich kann das nicht aushalten» — пусто"
+  },
+  {
+   "id": 10395,
+   "col": "example_tr",
+   "old": "Buna dayanamam",
+   "new": "Bu sıcağa artık dayanamıyorum",
+   "why": "«Ich kann das nicht aushalten» — пусто"
+  },
+  {
+   "id": 10395,
+   "col": "example_pl",
+   "old": "Nie mogę tego wytrzymać",
+   "new": "Nie wytrzymam już tego upału",
+   "why": "«Ich kann das nicht aushalten» — пусто"
+  },
+  {
+   "id": 10395,
+   "col": "example_it",
+   "old": "Non riesco a sopportarlo",
+   "new": "Non sopporto più questo caldo",
+   "why": "«Ich kann das nicht aushalten» — пусто"
+  },
+  {
+   "id": 10395,
+   "col": "example_es",
+   "old": "No puedo aguantarlo",
+   "new": "Ya no aguanto este calor",
+   "why": "«Ich kann das nicht aushalten» — пусто"
+  },
+  {
+   "id": 10395,
+   "col": "example_fr",
+   "old": "Je ne peux pas supporter ça",
+   "new": "Je ne supporte plus cette chaleur",
+   "why": "«Ich kann das nicht aushalten» — пусто"
+  },
+  {
+   "id": 10395,
+   "col": "example_cs",
+   "old": "Nemůžu to vydržet",
+   "new": "Už to vedro nevydržím",
+   "why": "«Ich kann das nicht aushalten» — пусто"
+  },
+  {
+   "id": 16093,
+   "col": "example_de",
+   "old": "Der Gauner hat das Geld gestohlen",
+   "new": "So ein Gauner, er hat mich übers Ohr gehauen!",
+   "why": "«Der Gauner hat das Geld gestohlen» — шаблон stehlen"
+  },
+  {
+   "id": 16093,
+   "col": "example_ru",
+   "old": "Мошенник украл деньги",
+   "new": "Вот жулик, он меня надул!",
+   "why": "«Der Gauner hat das Geld gestohlen» — шаблон stehlen"
+  },
+  {
+   "id": 16093,
+   "col": "example_uk",
+   "old": "Шахрай украв гроші",
+   "new": "Ото шахрай, він мене ошукав!",
+   "why": "«Der Gauner hat das Geld gestohlen» — шаблон stehlen"
+  },
+  {
+   "id": 16093,
+   "col": "example_en",
+   "old": "The crook stole the money",
+   "new": "What a crook, he ripped me off!",
+   "why": "«Der Gauner hat das Geld gestohlen» — шаблон stehlen"
+  },
+  {
+   "id": 16093,
+   "col": "example_tr",
+   "old": "Dolandırıcı parayı çaldı",
+   "new": "Ne üçkağıtçı, beni kazıkladı!",
+   "why": "«Der Gauner hat das Geld gestohlen» — шаблон stehlen"
+  },
+  {
+   "id": 16093,
+   "col": "example_pl",
+   "old": "Oszust ukradł pieniądze",
+   "new": "Co za kanciarz, oszukał mnie!",
+   "why": "«Der Gauner hat das Geld gestohlen» — шаблон stehlen"
+  },
+  {
+   "id": 16093,
+   "col": "example_it",
+   "old": "Il furfante ha rubato i soldi",
+   "new": "Che furfante, mi ha fregato!",
+   "why": "«Der Gauner hat das Geld gestohlen» — шаблон stehlen"
+  },
+  {
+   "id": 16093,
+   "col": "example_es",
+   "old": "El granuja ha robado el dinero",
+   "new": "¡Qué granuja, me ha timado!",
+   "why": "«Der Gauner hat das Geld gestohlen» — шаблон stehlen"
+  },
+  {
+   "id": 16093,
+   "col": "example_fr",
+   "old": "L'escroc a volé l'argent",
+   "new": "Quel filou, il m'a arnaqué!",
+   "why": "«Der Gauner hat das Geld gestohlen» — шаблон stehlen"
+  },
+  {
+   "id": 16093,
+   "col": "example_cs",
+   "old": "Podvodník ukradl peníze",
+   "new": "To je darebák, natáhl mě!",
+   "why": "«Der Gauner hat das Geld gestohlen» — шаблон stehlen"
+  },
+  {
+   "id": 16094,
+   "col": "example_de",
+   "old": "Der Polizist hatte einen Revolver in der Hand",
+   "new": "Im Western hat jeder einen Revolver",
+   "why": "«Der Polizist hatte einen Revolver …» — претерит"
+  },
+  {
+   "id": 16094,
+   "col": "example_ru",
+   "old": "Полицейский держал револьвер в руке",
+   "new": "В вестернах у каждого есть револьвер",
+   "why": "«Der Polizist hatte einen Revolver …» — претерит"
+  },
+  {
+   "id": 16094,
+   "col": "example_uk",
+   "old": "Поліцейський тримав револьвер в руці",
+   "new": "У вестернах у кожного є револьвер",
+   "why": "«Der Polizist hatte einen Revolver …» — претерит"
+  },
+  {
+   "id": 16094,
+   "col": "example_en",
+   "old": "The police officer was holding a revolver in his hand",
+   "new": "In westerns everyone has a revolver",
+   "why": "«Der Polizist hatte einen Revolver …» — претерит"
+  },
+  {
+   "id": 16094,
+   "col": "example_tr",
+   "old": "Polis memuru elinde bir revolver tutuyordu",
+   "new": "Westernlerde herkesin bir tabancası var",
+   "why": "«Der Polizist hatte einen Revolver …» — претерит"
+  },
+  {
+   "id": 16094,
+   "col": "example_pl",
+   "old": "Policjant trzymał w dłoni rewolwer",
+   "new": "W westernach każdy ma rewolwer",
+   "why": "«Der Polizist hatte einen Revolver …» — претерит"
+  },
+  {
+   "id": 16094,
+   "col": "example_it",
+   "old": "Il poliziotto aveva un revolver in mano",
+   "new": "Nei western tutti hanno un revolver",
+   "why": "«Der Polizist hatte einen Revolver …» — претерит"
+  },
+  {
+   "id": 16094,
+   "col": "example_es",
+   "old": "El policía tenía un revólver en la mano",
+   "new": "En los westerns todo el mundo tiene un revólver",
+   "why": "«Der Polizist hatte einen Revolver …» — претерит"
+  },
+  {
+   "id": 16094,
+   "col": "example_fr",
+   "old": "Le policier avait un revolver à la main",
+   "new": "Dans les westerns, tout le monde a un revolver",
+   "why": "«Der Polizist hatte einen Revolver …» — претерит"
+  },
+  {
+   "id": 16094,
+   "col": "example_cs",
+   "old": "Policista držel v ruce revolver",
+   "new": "Ve westernech má každý revolver",
+   "why": "«Der Polizist hatte einen Revolver …» — претерит"
+  },
+  {
+   "id": 16095,
+   "col": "translation_ru",
+   "old": "орден, награда, медаль, монашеский орден",
+   "new": "орден, медаль",
+   "why": "«Der General bekam einen hohen Orden …» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16095,
+   "col": "translation_uk",
+   "old": "орден, нагорода, медаль, чернечий орден",
+   "new": "орден, медаль",
+   "why": "«Der General bekam einen hohen Orden …» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16095,
+   "col": "translation_en",
+   "old": "medal, decoration, order, religious order",
+   "new": "medal, order",
+   "why": "«Der General bekam einen hohen Orden …» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16095,
+   "col": "translation_tr",
+   "old": "madalya, nişan, tarikat, dini tarikat",
+   "new": "madalya, nişan",
+   "why": "«Der General bekam einen hohen Orden …» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16095,
+   "col": "translation_pl",
+   "old": "order, odznaczenie, zakon",
+   "new": "order, odznaczenie",
+   "why": "«Der General bekam einen hohen Orden …» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16095,
+   "col": "translation_it",
+   "old": "l'onorificenza, la medaglia, l'ordine",
+   "new": "la medaglia, l'onorificenza",
+   "why": "«Der General bekam einen hohen Orden …» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16095,
+   "col": "translation_es",
+   "old": "la condecoración, la medalla, la orden",
+   "new": "la medalla, la condecoración",
+   "why": "«Der General bekam einen hohen Orden …» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16095,
+   "col": "translation_fr",
+   "old": "la décoration, la médaille, l'ordre",
+   "new": "la médaille, la décoration",
+   "why": "«Der General bekam einen hohen Orden …» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16095,
+   "col": "translation_cs",
+   "old": "řád, vyznamenání, medaile",
+   "new": "řád, medaile",
+   "why": "«Der General bekam einen hohen Orden …» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16095,
+   "col": "example_de",
+   "old": "Der General bekam einen hohen Orden für seine Verdienste",
+   "new": "An seiner Jacke hängen viele Orden",
+   "why": "«Der General bekam einen hohen Orden …» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16095,
+   "col": "example_ru",
+   "old": "Генерал получил высокий орден за свои заслуги",
+   "new": "На его пиджаке висит много орденов",
+   "why": "«Der General bekam einen hohen Orden …» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16095,
+   "col": "example_uk",
+   "old": "Генерал отримав високий орден за свої заслуги",
+   "new": "На його піджаку висить багато орденів",
+   "why": "«Der General bekam einen hohen Orden …» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16095,
+   "col": "example_en",
+   "old": "The general received a high medal for his service",
+   "new": "Lots of medals hang on his jacket",
+   "why": "«Der General bekam einen hohen Orden …» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16095,
+   "col": "example_tr",
+   "old": "General hizmetleri için yüksek bir nişan aldı",
+   "new": "Ceketinde bir sürü madalya asılı",
+   "why": "«Der General bekam einen hohen Orden …» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16095,
+   "col": "example_pl",
+   "old": "Generał dostał wysoki order za swoje zasługi",
+   "new": "Na jego marynarce wisi wiele odznaczeń",
+   "why": "«Der General bekam einen hohen Orden …» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16095,
+   "col": "example_it",
+   "old": "Il generale ha ricevuto un'alta onorificenza per i suoi meriti",
+   "new": "Sulla sua giacca ci sono tante medaglie",
+   "why": "«Der General bekam einen hohen Orden …» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16095,
+   "col": "example_es",
+   "old": "El general recibió una alta condecoración por sus méritos",
+   "new": "En su chaqueta cuelgan muchas medallas",
+   "why": "«Der General bekam einen hohen Orden …» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16095,
+   "col": "example_fr",
+   "old": "Le général a reçu une haute décoration pour ses mérites",
+   "new": "Il a plein de médailles sur sa veste",
+   "why": "«Der General bekam einen hohen Orden …» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16095,
+   "col": "example_cs",
+   "old": "Generál dostal za své zásluhy vysoký řád",
+   "new": "Na saku má spoustu řádů",
+   "why": "«Der General bekam einen hohen Orden …» — претерит; список → главное слово и не больше одной альтернативы"
+  }
+ ],
+ "replace": [],
+ "split_later": {
+  "16095": [
+   "der Orden = монашеский орден (Jesuitenorden)"
+  ]
+ }
+}
