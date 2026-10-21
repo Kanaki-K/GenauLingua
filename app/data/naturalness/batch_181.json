@@ -1,0 +1,37 @@
+{
+ "about": "2.3, B2 блок 13",
+ "edits": [
+  {
+   "id": 12643,
+   "col": "example_en",
+   "old": "He has a fracture in his arm, it's broken in two places",
+   "new": "He has a fracture in his arm",
+   "why": "список → главное слово и не больше одной альтернативы"
+  }
+ ],
+ "replace": [
+  {
+   "id": 10551,
+   "by": 10740,
+   "lang": "de",
+   "why": "geheimnisvolle — форма от geheimnisvoll"
+  },
+  {
+   "id": 16227,
+   "by": 7028,
+   "lang": "de",
+   "why": "vertrieben — причастие от vertreiben"
+  },
+  {
+   "id": 15057,
+   "by": 376,
+   "lang": "de",
+   "why": "Händchen — уменьшительное от Hand"
+  }
+ ],
+ "split_later": {
+  "7227": [
+   "mindest — обрубок, переименовать в «mindeste»; пример про «das Mindeste»"
+  ]
+ }
+}
