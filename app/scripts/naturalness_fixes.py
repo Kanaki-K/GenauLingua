@@ -46,6 +46,37 @@ EDITABLE = {"word_de", "article", "level"} | {
 }
 
 
+def _words(text_: str) -> set[str]:
+    import re
+    return {w for w in re.findall(r"[a-zäöüß]+", (text_ or "").lower()) if len(w) > 2}
+
+
+def near_twins(conn, ready: list[dict]) -> list[str]:
+    """
+    Почти-повторы: новый немецкий пример по словам похож на пример другой
+    строки (общих слов ≥ 75%). Не запрет — подсказка: точные совпадения
+    запрещены в `_check`, а «Der Boden ist nass» рядом с «Pass auf, der
+    Boden ist nass!» вычитка 21.10 пропустила дважды.
+    """
+    new = [(e["id"], e["new"]) for e in ready if e["col"] == "example_de"]
+    if not new:
+        return []
+    rows = conn.execute(text("select id, example_de from words where example_de is not null")).all()
+    others = [(wid, _words(x)) for wid, x in rows]
+    found = []
+    for wid, x in new:
+        mine = _words(x)
+        if len(mine) < 2:
+            continue
+        for oid, theirs in others:
+            if oid == wid or not theirs:
+                continue
+            if len(mine & theirs) / len(mine | theirs) >= 0.75:
+                found.append(f"{wid}: «{x}» похоже на пример слова {oid}")
+                break
+    return found
+
+
 def _check(conn, block: dict) -> tuple[list[dict], list[str]]:
     """Что запишется и что не сходится. Не сходится хоть одно — писать нельзя."""
     ready, problems = [], []
@@ -110,6 +141,8 @@ def main(argv=None) -> int:
         print(f"правок к записи {len(ready)}, замен {len(replaces)}, пропущено {len(problems)}")
         for p in problems:
             print("  ПРОПУЩЕНО", p)
+        for w in near_twins(conn, ready):
+            print("  ПОХОЖЕ", w)
         for e in ready[:200]:
             print(f"  {e['id']:>6} {e['col']:<15} {e['old']!r} → {e['new']!r}")
         if problems:
