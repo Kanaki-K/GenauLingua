@@ -10,8 +10,7 @@ def all_x(de, ru, uk, en, tr, pl, it, es, fr, cs):
 
 
 FIXES = {
-    6742: ("«Wir erheben uns vom Stuhl» — книжно; слово канцелярское → B2; " + LIST, {
-        "level": "B2",
+    6742: ("«Wir erheben uns vom Stuhl» — книжно (B2-ряд 7318 склеен с этим); " + LIST, {
         "t_ru": "поднимать, взимать", "t_uk": "піднімати, стягувати", "t_en": "to raise, to charge",
         "t_tr": "kaldırmak, tahsil etmek", "t_pl": "podnosić, pobierać", "t_it": "alzare, riscuotere",
         "t_es": "levantar, cobrar", "t_fr": "lever, percevoir", "t_cs": "zvednout, vybírat",
@@ -47,14 +46,14 @@ FIXES = {
                 "Da quanto hai la patente?", "¿Desde cuándo tienes el carné de conducir?", "Tu as ton permis depuis quand?",
                 "Odkdy máš řidičák?")}),
     1913: ("ru «Я должен платить» — калька", {"x_ru": "Мне надо платить налоги", "x_uk": "Мені треба платити податки"}),
-    6745: ("«An einem bestimmten Tag werde ich zurückkommen» — так не говорят; главное значение — «наверняка»", {
-        "t_ru": "наверняка, определённый", "t_uk": "напевно, певний", "t_en": "surely, certain",
-        "t_tr": "kesin, belirli", "t_pl": "na pewno, określony", "t_it": "sicuramente, determinato",
-        "t_es": "seguro, determinado", "t_fr": "sûrement, précis", "t_cs": "určitě, určitý",
-        **all_x("Das hast du bestimmt schon gehört", "Ты наверняка это уже слышал", "Ти напевно це вже чув",
-                "You've surely heard that already", "Bunu kesin duymuşsundur", "Na pewno już to słyszałeś",
-                "Questo l'hai sicuramente già sentito", "Seguro que ya lo has oído", "Tu l'as sûrement déjà entendu",
-                "To jsi určitě už slyšel")}),
+    6745: ("«An einem bestimmten Tag werde ich zurückkommen» — так не говорят; «наверняка» — у ряда A1 (103)", {
+        "t_ru": "определённый, конкретный", "t_uk": "певний, конкретний", "t_en": "certain, particular",
+        "t_tr": "belirli, belli", "t_pl": "określony, konkretny", "t_it": "determinato, preciso",
+        "t_es": "determinado, concreto", "t_fr": "précis, déterminé", "t_cs": "určitý, konkrétní",
+        **all_x("Suchst du etwas Bestimmtes?", "Ты ищешь что-то определённое?", "Ти шукаєш щось певне?",
+                "Are you looking for anything in particular?", "Belirli bir şey mi arıyorsun?",
+                "Szukasz czegoś określonego?", "Cerchi qualcosa di preciso?", "¿Buscas algo en concreto?",
+                "Tu cherches quelque chose de précis?", "Hledáš něco určitého?")}),
     8802: ("«Sie ist eine bekannte Schauspielerin» — пусто", {"t_tr": "aktris, oyuncu", **all_x(
         "Sie will unbedingt Schauspielerin werden", "Она очень хочет стать актрисой", "Вона дуже хоче стати акторкою",
         "She's dead set on becoming an actress", "Mutlaka oyuncu olmak istiyor", "Bardzo chce zostać aktorką",
