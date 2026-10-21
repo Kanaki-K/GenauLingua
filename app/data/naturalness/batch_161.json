@@ -1,0 +1,4431 @@
+{
+ "about": "2.3, B1 блок 116",
+ "edits": [
+  {
+   "id": 2287,
+   "col": "translation_cs",
+   "old": "zasedací místnost, zasedačka (hovor.)",
+   "new": "zasedací místnost",
+   "why": "«… ist besetzt» — табличка; пометка (hovor.)"
+  },
+  {
+   "id": 2287,
+   "col": "example_de",
+   "old": "Das Besprechungszimmer ist besetzt",
+   "new": "Für das Gespräch mit dem Kunden habe ich das kleine Besprechungszimmer reserviert",
+   "why": "«… ist besetzt» — табличка; пометка (hovor.)"
+  },
+  {
+   "id": 2287,
+   "col": "example_ru",
+   "old": "Переговорная занята",
+   "new": "Для разговора с клиентом я забронировал маленькую переговорную",
+   "why": "«… ist besetzt» — табличка; пометка (hovor.)"
+  },
+  {
+   "id": 2287,
+   "col": "example_uk",
+   "old": "Кімната для нарад зайнята",
+   "new": "Для розмови з клієнтом я забронював маленьку переговорну",
+   "why": "«… ist besetzt» — табличка; пометка (hovor.)"
+  },
+  {
+   "id": 2287,
+   "col": "example_en",
+   "old": "The meeting room is occupied",
+   "new": "I've booked the small meeting room for the talk with the client",
+   "why": "«… ist besetzt» — табличка; пометка (hovor.)"
+  },
+  {
+   "id": 2287,
+   "col": "example_tr",
+   "old": "Toplantı odası dolu",
+   "new": "Müşteriyle görüşme için küçük toplantı odasını ayırttım",
+   "why": "«… ist besetzt» — табличка; пометка (hovor.)"
+  },
+  {
+   "id": 2287,
+   "col": "example_pl",
+   "old": "Sala konferencyjna jest zajęta",
+   "new": "Na rozmowę z klientem zarezerwowałem małą salę konferencyjną",
+   "why": "«… ist besetzt» — табличка; пометка (hovor.)"
+  },
+  {
+   "id": 2287,
+   "col": "example_it",
+   "old": "La sala riunioni è occupata",
+   "new": "Per il colloquio con il cliente ho prenotato la sala riunioni piccola",
+   "why": "«… ist besetzt» — табличка; пометка (hovor.)"
+  },
+  {
+   "id": 2287,
+   "col": "example_es",
+   "old": "La sala de reuniones está ocupada",
+   "new": "Para la reunión con el cliente he reservado la sala de reuniones pequeña",
+   "why": "«… ist besetzt» — табличка; пометка (hovor.)"
+  },
+  {
+   "id": 2287,
+   "col": "example_fr",
+   "old": "La salle de réunion est occupée",
+   "new": "Pour l'entretien avec le client, j'ai réservé la petite salle de réunion",
+   "why": "«… ist besetzt» — табличка; пометка (hovor.)"
+  },
+  {
+   "id": 2287,
+   "col": "example_cs",
+   "old": "Zasedací místnost je obsazená",
+   "new": "Na schůzku s klientem jsem zarezervoval malou zasedací místnost",
+   "why": "«… ist besetzt» — табличка; пометка (hovor.)"
+  },
+  {
+   "id": 2288,
+   "col": "translation_ru",
+   "old": "горячая линия заказов, телефон для заказов",
+   "new": "телефон для заказов",
+   "why": "«Rufen Sie unsere Bestellhotline an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2288,
+   "col": "translation_uk",
+   "old": "гаряча лінія замовлень, телефон для замовлень",
+   "new": "телефон для замовлень",
+   "why": "«Rufen Sie unsere Bestellhotline an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2288,
+   "col": "translation_en",
+   "old": "order hotline, ordering line",
+   "new": "order hotline",
+   "why": "«Rufen Sie unsere Bestellhotline an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2288,
+   "col": "translation_tr",
+   "old": "sipariş hattı, sipariş telefonu",
+   "new": "sipariş hattı",
+   "why": "«Rufen Sie unsere Bestellhotline an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2288,
+   "col": "translation_pl",
+   "old": "infolinia zamówień, telefon do zamówień",
+   "new": "infolinia zamówień",
+   "why": "«Rufen Sie unsere Bestellhotline an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2288,
+   "col": "translation_it",
+   "old": "la linea per gli ordini, il numero per gli ordini",
+   "new": "il numero per gli ordini",
+   "why": "«Rufen Sie unsere Bestellhotline an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2288,
+   "col": "translation_es",
+   "old": "la línea de pedidos, el teléfono de pedidos",
+   "new": "el teléfono de pedidos",
+   "why": "«Rufen Sie unsere Bestellhotline an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2288,
+   "col": "translation_fr",
+   "old": "le service commandes, la hotline de commande",
+   "new": "le service commandes",
+   "why": "«Rufen Sie unsere Bestellhotline an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2288,
+   "col": "example_de",
+   "old": "Rufen Sie unsere Bestellhotline an",
+   "new": "Meine Mutter bestellt nicht online, sie ruft lieber bei der Bestellhotline an",
+   "why": "«Rufen Sie unsere Bestellhotline an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2288,
+   "col": "example_ru",
+   "old": "Позвоните на нашу горячую линию заказов",
+   "new": "Мама не заказывает онлайн, она лучше позвонит по телефону для заказов",
+   "why": "«Rufen Sie unsere Bestellhotline an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2288,
+   "col": "example_uk",
+   "old": "Зателефонуйте на нашу гарячу лінію замовлень",
+   "new": "Мама не замовляє онлайн, вона краще подзвонить на телефон для замовлень",
+   "why": "«Rufen Sie unsere Bestellhotline an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2288,
+   "col": "example_en",
+   "old": "Call our order hotline",
+   "new": "My mum doesn't order online, she'd rather ring the order hotline",
+   "why": "«Rufen Sie unsere Bestellhotline an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2288,
+   "col": "example_tr",
+   "old": "Sipariş hattımızı arayın",
+   "new": "Annem internetten sipariş vermiyor, sipariş hattını aramayı tercih ediyor",
+   "why": "«Rufen Sie unsere Bestellhotline an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2288,
+   "col": "example_pl",
+   "old": "Proszę zadzwonić na naszą infolinię zamówień",
+   "new": "Moja mama nie zamawia przez internet, woli zadzwonić na infolinię zamówień",
+   "why": "«Rufen Sie unsere Bestellhotline an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2288,
+   "col": "example_it",
+   "old": "Chiami la nostra linea per gli ordini",
+   "new": "Mia madre non ordina online, preferisce chiamare il numero per gli ordini",
+   "why": "«Rufen Sie unsere Bestellhotline an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2288,
+   "col": "example_es",
+   "old": "Llame a nuestra línea de pedidos",
+   "new": "Mi madre no pide por internet, prefiere llamar al teléfono de pedidos",
+   "why": "«Rufen Sie unsere Bestellhotline an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2288,
+   "col": "example_fr",
+   "old": "Appelez notre service commandes",
+   "new": "Ma mère ne commande pas en ligne, elle préfère appeler le service commandes",
+   "why": "«Rufen Sie unsere Bestellhotline an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2288,
+   "col": "example_cs",
+   "old": "Zavolejte na naši objednávkovou linku",
+   "new": "Moje máma neobjednává online, raději volá na objednávkovou linku",
+   "why": "«Rufen Sie unsere Bestellhotline an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2291,
+   "col": "translation_ru",
+   "old": "экономика предприятия, менеджмент, бизнес-администрирование",
+   "new": "экономика предприятия, менеджмент",
+   "why": "пример повторяет Wirtschaft; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2291,
+   "col": "translation_en",
+   "old": "business administration, business management",
+   "new": "business studies, business administration",
+   "why": "пример повторяет Wirtschaft; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2291,
+   "col": "translation_tr",
+   "old": "işletme, işletme ekonomisi",
+   "new": "işletme",
+   "why": "пример повторяет Wirtschaft; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2291,
+   "col": "translation_pl",
+   "old": "zarządzanie przedsiębiorstwem, ekonomika przedsiębiorstwa",
+   "new": "zarządzanie, ekonomika przedsiębiorstwa",
+   "why": "пример повторяет Wirtschaft; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2291,
+   "col": "example_de",
+   "old": "Sie studiert Betriebswirtschaft",
+   "new": "Mit Betriebswirtschaft kann man später in fast jeder Firma arbeiten",
+   "why": "пример повторяет Wirtschaft; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2291,
+   "col": "example_ru",
+   "old": "Она изучает экономику предприятия",
+   "new": "С экономикой предприятия потом можно работать почти в любой фирме",
+   "why": "пример повторяет Wirtschaft; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2291,
+   "col": "example_uk",
+   "old": "Вона вивчає економіку підприємства",
+   "new": "З економікою підприємства потім можна працювати майже в будь-якій фірмі",
+   "why": "пример повторяет Wirtschaft; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2291,
+   "col": "example_en",
+   "old": "She studies business administration",
+   "new": "With business studies you can work in almost any company later on",
+   "why": "пример повторяет Wirtschaft; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2291,
+   "col": "example_tr",
+   "old": "İşletme okuyor",
+   "new": "İşletme okuyunca sonra neredeyse her şirkette çalışabilirsin",
+   "why": "пример повторяет Wirtschaft; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2291,
+   "col": "example_pl",
+   "old": "Ona studiuje zarządzanie przedsiębiorstwem",
+   "new": "Po zarządzaniu można potem pracować prawie w każdej firmie",
+   "why": "пример повторяет Wirtschaft; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2291,
+   "col": "example_it",
+   "old": "Studia economia aziendale",
+   "new": "Con l'economia aziendale poi si può lavorare in quasi tutte le aziende",
+   "why": "пример повторяет Wirtschaft; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2291,
+   "col": "example_es",
+   "old": "Estudia Administración de Empresas",
+   "new": "Con Administración de Empresas luego puedes trabajar en casi cualquier empresa",
+   "why": "пример повторяет Wirtschaft; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2291,
+   "col": "example_fr",
+   "old": "Elle étudie la gestion d'entreprise",
+   "new": "Avec la gestion d'entreprise, on peut ensuite travailler dans presque toutes les sociétés",
+   "why": "пример повторяет Wirtschaft; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2291,
+   "col": "example_cs",
+   "old": "Studuje podnikovou ekonomiku",
+   "new": "S podnikovou ekonomikou se dá pak pracovat skoro v každé firmě",
+   "why": "пример повторяет Wirtschaft; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2296,
+   "col": "translation_ru",
+   "old": "сопроводительное письмо, письмо-заявка на вакансию",
+   "new": "сопроводительное письмо",
+   "why": "«Ich schreibe ein Bewerbungsschreiben» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2296,
+   "col": "translation_uk",
+   "old": "супровідний лист, мотиваційний лист",
+   "new": "супровідний лист",
+   "why": "«Ich schreibe ein Bewerbungsschreiben» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2296,
+   "col": "translation_en",
+   "old": "cover letter, letter of application",
+   "new": "cover letter",
+   "why": "«Ich schreibe ein Bewerbungsschreiben» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2296,
+   "col": "translation_tr",
+   "old": "başvuru mektubu, ön yazı",
+   "new": "başvuru mektubu",
+   "why": "«Ich schreibe ein Bewerbungsschreiben» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2296,
+   "col": "translation_pl",
+   "old": "list motywacyjny, podanie o pracę",
+   "new": "list motywacyjny",
+   "why": "«Ich schreibe ein Bewerbungsschreiben» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2296,
+   "col": "translation_it",
+   "old": "la lettera di presentazione, la lettera di candidatura",
+   "new": "la lettera di presentazione",
+   "why": "«Ich schreibe ein Bewerbungsschreiben» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2296,
+   "col": "translation_cs",
+   "old": "motivační dopis, žádost o místo",
+   "new": "motivační dopis",
+   "why": "«Ich schreibe ein Bewerbungsschreiben» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2296,
+   "col": "example_de",
+   "old": "Ich schreibe ein Bewerbungsschreiben",
+   "new": "Für jedes Bewerbungsschreiben brauche ich einen ganzen Abend",
+   "why": "«Ich schreibe ein Bewerbungsschreiben» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2296,
+   "col": "example_ru",
+   "old": "Я пишу сопроводительное письмо",
+   "new": "На каждое сопроводительное письмо у меня уходит целый вечер",
+   "why": "«Ich schreibe ein Bewerbungsschreiben» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2296,
+   "col": "example_uk",
+   "old": "Я пишу супровідний лист",
+   "new": "На кожен супровідний лист у мене йде цілий вечір",
+   "why": "«Ich schreibe ein Bewerbungsschreiben» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2296,
+   "col": "example_en",
+   "old": "I write a cover letter",
+   "new": "Every cover letter takes me a whole evening",
+   "why": "«Ich schreibe ein Bewerbungsschreiben» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2296,
+   "col": "example_tr",
+   "old": "Başvuru mektubu yazıyorum",
+   "new": "Her başvuru mektubu için bütün bir akşama ihtiyacım var",
+   "why": "«Ich schreibe ein Bewerbungsschreiben» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2296,
+   "col": "example_pl",
+   "old": "Piszę list motywacyjny",
+   "new": "Na każdy list motywacyjny potrzebuję całego wieczoru",
+   "why": "«Ich schreibe ein Bewerbungsschreiben» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2296,
+   "col": "example_it",
+   "old": "Scrivo una lettera di presentazione",
+   "new": "Per ogni lettera di presentazione mi serve una serata intera",
+   "why": "«Ich schreibe ein Bewerbungsschreiben» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2296,
+   "col": "example_es",
+   "old": "Escribo una carta de presentación",
+   "new": "Cada carta de presentación me lleva una tarde entera",
+   "why": "«Ich schreibe ein Bewerbungsschreiben» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2296,
+   "col": "example_fr",
+   "old": "J'écris une lettre de motivation",
+   "new": "Chaque lettre de motivation me prend une soirée entière",
+   "why": "«Ich schreibe ein Bewerbungsschreiben» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2296,
+   "col": "example_cs",
+   "old": "Píšu motivační dopis",
+   "new": "Na každý motivační dopis potřebuji celý večer",
+   "why": "«Ich schreibe ein Bewerbungsschreiben» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2299,
+   "col": "translation_ru",
+   "old": "процесс оплаты, оплата",
+   "new": "оплата, процесс оплаты",
+   "why": "«… ist einfach» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2299,
+   "col": "translation_uk",
+   "old": "процес оплати, оплата",
+   "new": "оплата, процес оплати",
+   "why": "«… ist einfach» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2299,
+   "col": "translation_en",
+   "old": "payment process, checkout",
+   "new": "payment, checkout",
+   "why": "«… ist einfach» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2299,
+   "col": "translation_tr",
+   "old": "ödeme işlemi, ödeme süreci",
+   "new": "ödeme işlemi",
+   "why": "«… ist einfach» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2299,
+   "col": "translation_pl",
+   "old": "proces płatności, płatność",
+   "new": "płatność",
+   "why": "«… ist einfach» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2299,
+   "col": "translation_it",
+   "old": "la procedura di pagamento, il pagamento",
+   "new": "il pagamento",
+   "why": "«… ist einfach» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2299,
+   "col": "translation_es",
+   "old": "el proceso de pago, el pago",
+   "new": "el pago",
+   "why": "«… ist einfach» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2299,
+   "col": "translation_fr",
+   "old": "le processus de paiement, le paiement",
+   "new": "le paiement",
+   "why": "«… ist einfach» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2299,
+   "col": "translation_cs",
+   "old": "proces platby, platba",
+   "new": "platba",
+   "why": "«… ist einfach» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2299,
+   "col": "example_de",
+   "old": "Der Bezahlvorgang ist einfach",
+   "new": "Beim Bezahlvorgang ist die App abgestürzt, und jetzt weiß ich nicht, ob ich bezahlt habe",
+   "why": "«… ist einfach» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2299,
+   "col": "example_ru",
+   "old": "Процесс оплаты простой",
+   "new": "Во время оплаты приложение зависло, и теперь я не знаю, заплатил ли",
+   "why": "«… ist einfach» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2299,
+   "col": "example_uk",
+   "old": "Процес оплати простий",
+   "new": "Під час оплати застосунок завис, і тепер я не знаю, чи заплатив",
+   "why": "«… ist einfach» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2299,
+   "col": "example_en",
+   "old": "The payment process is simple",
+   "new": "The app crashed during the payment, and now I don't know if I've paid",
+   "why": "«… ist einfach» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2299,
+   "col": "example_tr",
+   "old": "Ödeme işlemi kolay",
+   "new": "Ödeme işlemi sırasında uygulama çöktü, şimdi ödeyip ödemediğimi bilmiyorum",
+   "why": "«… ist einfach» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2299,
+   "col": "example_pl",
+   "old": "Proces płatności jest prosty",
+   "new": "Podczas płatności aplikacja się zawiesiła i teraz nie wiem, czy zapłaciłem",
+   "why": "«… ist einfach» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2299,
+   "col": "example_it",
+   "old": "La procedura di pagamento è semplice",
+   "new": "Durante il pagamento l'app si è bloccata e ora non so se ho pagato",
+   "why": "«… ist einfach» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2299,
+   "col": "example_es",
+   "old": "El proceso de pago es sencillo",
+   "new": "Durante el pago se colgó la aplicación y ahora no sé si he pagado",
+   "why": "«… ist einfach» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2299,
+   "col": "example_fr",
+   "old": "Le processus de paiement est simple",
+   "new": "Pendant le paiement, l'appli a planté et maintenant je ne sais pas si j'ai payé",
+   "why": "«… ist einfach» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2299,
+   "col": "example_cs",
+   "old": "Proces platby je jednoduchý",
+   "new": "Při platbě aplikace spadla a teď nevím, jestli jsem zaplatil",
+   "why": "«… ist einfach» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2300,
+   "col": "translation_ru",
+   "old": "пивная под открытым небом, пивной сад",
+   "new": "пивной сад, пивная под открытым небом",
+   "why": "«Treffen wir uns im Biergarten?» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2300,
+   "col": "translation_uk",
+   "old": "пивний сад, пивна просто неба",
+   "new": "пивний сад",
+   "why": "«Treffen wir uns im Biergarten?» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2300,
+   "col": "translation_tr",
+   "old": "bira bahçesi, açık hava birahanesi",
+   "new": "bira bahçesi",
+   "why": "«Treffen wir uns im Biergarten?» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2300,
+   "col": "translation_pl",
+   "old": "ogródek piwny, piwny ogród",
+   "new": "ogródek piwny",
+   "why": "«Treffen wir uns im Biergarten?» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2300,
+   "col": "translation_it",
+   "old": "la birreria all'aperto, il biergarten",
+   "new": "la birreria all'aperto",
+   "why": "«Treffen wir uns im Biergarten?» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2300,
+   "col": "translation_es",
+   "old": "la cervecería al aire libre, el biergarten",
+   "new": "la cervecería al aire libre",
+   "why": "«Treffen wir uns im Biergarten?» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2300,
+   "col": "translation_fr",
+   "old": "le biergarten, la brasserie en plein air",
+   "new": "le biergarten",
+   "why": "«Treffen wir uns im Biergarten?» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2300,
+   "col": "example_de",
+   "old": "Treffen wir uns im Biergarten?",
+   "new": "Im Biergarten darf man in Bayern sein eigenes Essen mitbringen",
+   "why": "«Treffen wir uns im Biergarten?» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2300,
+   "col": "example_ru",
+   "old": "Встретимся в пивном саду?",
+   "new": "В Баварии в пивной сад можно приходить со своей едой",
+   "why": "«Treffen wir uns im Biergarten?» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2300,
+   "col": "example_uk",
+   "old": "Зустрінемося в пивному саду?",
+   "new": "У Баварії до пивного саду можна приходити зі своєю їжею",
+   "why": "«Treffen wir uns im Biergarten?» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2300,
+   "col": "example_en",
+   "old": "Shall we meet in the beer garden?",
+   "new": "In Bavaria you're allowed to bring your own food to a beer garden",
+   "why": "«Treffen wir uns im Biergarten?» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2300,
+   "col": "example_tr",
+   "old": "Bira bahçesinde buluşalım mı?",
+   "new": "Bavyera'da bira bahçesine kendi yemeğini getirebilirsin",
+   "why": "«Treffen wir uns im Biergarten?» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2300,
+   "col": "example_pl",
+   "old": "Spotkamy się w ogródku piwnym?",
+   "new": "W Bawarii do ogródka piwnego można przynieść własne jedzenie",
+   "why": "«Treffen wir uns im Biergarten?» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2300,
+   "col": "example_it",
+   "old": "Ci vediamo nella birreria all'aperto?",
+   "new": "In Baviera nella birreria all'aperto ci si può portare il proprio cibo",
+   "why": "«Treffen wir uns im Biergarten?» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2300,
+   "col": "example_es",
+   "old": "¿Quedamos en la cervecería al aire libre?",
+   "new": "En Baviera puedes llevar tu propia comida a la cervecería al aire libre",
+   "why": "«Treffen wir uns im Biergarten?» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2300,
+   "col": "example_fr",
+   "old": "On se retrouve au biergarten?",
+   "new": "En Bavière, on a le droit d'apporter sa propre nourriture au biergarten",
+   "why": "«Treffen wir uns im Biergarten?» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2300,
+   "col": "example_cs",
+   "old": "Sejdeme se v pivní zahrádce?",
+   "new": "V Bavorsku si do pivní zahrádky můžeš přinést vlastní jídlo",
+   "why": "«Treffen wir uns im Biergarten?» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2301,
+   "col": "translation_ru",
+   "old": "главный бухгалтер, дипломированный бухгалтер, бухгалтер по балансу",
+   "new": "главный бухгалтер",
+   "why": "«Sie ist Bilanzbuchhalterin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2301,
+   "col": "translation_uk",
+   "old": "головний бухгалтер, дипломований бухгалтер",
+   "new": "головний бухгалтер",
+   "why": "«Sie ist Bilanzbuchhalterin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2301,
+   "col": "translation_en",
+   "old": "certified accountant, chartered accountant, balance sheet accountant",
+   "new": "chartered accountant",
+   "why": "«Sie ist Bilanzbuchhalterin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2301,
+   "col": "translation_tr",
+   "old": "bilanço muhasebecisi, mali müşavir",
+   "new": "bilanço muhasebecisi",
+   "why": "«Sie ist Bilanzbuchhalterin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2301,
+   "col": "translation_pl",
+   "old": "główna księgowa, główny księgowy, dyplomowany księgowy",
+   "new": "główna księgowa, główny księgowy",
+   "why": "«Sie ist Bilanzbuchhalterin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2301,
+   "col": "translation_es",
+   "old": "el contable, la contable, el contador",
+   "new": "el contable, la contable",
+   "why": "«Sie ist Bilanzbuchhalterin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2301,
+   "col": "translation_cs",
+   "old": "účetní, bilanční účetní",
+   "new": "bilanční účetní",
+   "why": "«Sie ist Bilanzbuchhalterin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2301,
+   "col": "example_de",
+   "old": "Sie ist Bilanzbuchhalterin",
+   "new": "Am Jahresende arbeitet unsere Bilanzbuchhalterin fast jeden Abend länger",
+   "why": "«Sie ist Bilanzbuchhalterin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2301,
+   "col": "example_ru",
+   "old": "Она главный бухгалтер",
+   "new": "В конце года наш главный бухгалтер почти каждый вечер задерживается",
+   "why": "«Sie ist Bilanzbuchhalterin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2301,
+   "col": "example_uk",
+   "old": "Вона головний бухгалтер",
+   "new": "Наприкінці року наш головний бухгалтер майже щовечора затримується",
+   "why": "«Sie ist Bilanzbuchhalterin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2301,
+   "col": "example_en",
+   "old": "She is a certified accountant",
+   "new": "At the end of the year our chartered accountant works late almost every evening",
+   "why": "«Sie ist Bilanzbuchhalterin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2301,
+   "col": "example_tr",
+   "old": "O bir bilanço muhasebecisidir",
+   "new": "Yıl sonunda bilanço muhasebecimiz neredeyse her akşam geç saate kadar çalışıyor",
+   "why": "«Sie ist Bilanzbuchhalterin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2301,
+   "col": "example_pl",
+   "old": "Ona jest główną księgową",
+   "new": "Pod koniec roku nasza główna księgowa prawie co wieczór zostaje dłużej",
+   "why": "«Sie ist Bilanzbuchhalterin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2301,
+   "col": "example_it",
+   "old": "Fa la ragioniera",
+   "new": "A fine anno la nostra ragioniera lavora fino a tardi quasi ogni sera",
+   "why": "«Sie ist Bilanzbuchhalterin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2301,
+   "col": "example_es",
+   "old": "Es contable",
+   "new": "A final de año nuestra contable se queda trabajando casi todas las tardes",
+   "why": "«Sie ist Bilanzbuchhalterin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2301,
+   "col": "example_fr",
+   "old": "Elle est comptable",
+   "new": "En fin d'année, notre comptable reste tard presque tous les soirs",
+   "why": "«Sie ist Bilanzbuchhalterin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2301,
+   "col": "example_cs",
+   "old": "Je účetní",
+   "new": "Na konci roku naše bilanční účetní skoro každý večer pracuje déle",
+   "why": "«Sie ist Bilanzbuchhalterin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2304,
+   "col": "translation_ru",
+   "old": "органический продукт, биопродукт, экопродукт",
+   "new": "биопродукт, органический продукт",
+   "why": "«Bioprodukte sind teurer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2304,
+   "col": "translation_uk",
+   "old": "органічний продукт, біопродукт",
+   "new": "біопродукт, органічний продукт",
+   "why": "«Bioprodukte sind teurer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2304,
+   "col": "translation_en",
+   "old": "organic product, organic food",
+   "new": "organic product",
+   "why": "«Bioprodukte sind teurer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2304,
+   "col": "translation_tr",
+   "old": "organik ürün, doğal ürün",
+   "new": "organik ürün",
+   "why": "«Bioprodukte sind teurer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2304,
+   "col": "translation_pl",
+   "old": "produkt ekologiczny, produkt bio",
+   "new": "produkt ekologiczny",
+   "why": "«Bioprodukte sind teurer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2304,
+   "col": "translation_it",
+   "old": "il prodotto biologico, il prodotto bio",
+   "new": "il prodotto bio",
+   "why": "«Bioprodukte sind teurer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2304,
+   "col": "translation_es",
+   "old": "el producto ecológico, el producto orgánico",
+   "new": "el producto ecológico",
+   "why": "«Bioprodukte sind teurer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2304,
+   "col": "translation_fr",
+   "old": "le produit bio, le produit biologique",
+   "new": "le produit bio",
+   "why": "«Bioprodukte sind teurer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2304,
+   "col": "translation_cs",
+   "old": "biopotravina, bioprodukt",
+   "new": "biopotravina",
+   "why": "«Bioprodukte sind teurer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2304,
+   "col": "example_de",
+   "old": "Bioprodukte sind teurer",
+   "new": "Seit unser Baby da ist, kaufen wir fast nur noch Bioprodukte",
+   "why": "«Bioprodukte sind teurer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2304,
+   "col": "example_ru",
+   "old": "Биопродукты дороже",
+   "new": "С тех пор как у нас малыш, мы покупаем почти только биопродукты",
+   "why": "«Bioprodukte sind teurer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2304,
+   "col": "example_uk",
+   "old": "Органічні продукти дорожчі",
+   "new": "Відколи в нас малюк, ми купуємо майже лише біопродукти",
+   "why": "«Bioprodukte sind teurer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2304,
+   "col": "example_en",
+   "old": "Organic products are more expensive",
+   "new": "Since the baby arrived we buy almost only organic products",
+   "why": "«Bioprodukte sind teurer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2304,
+   "col": "example_tr",
+   "old": "Organik ürünler daha pahalı",
+   "new": "Bebeğimiz olduğundan beri neredeyse sadece organik ürün alıyoruz",
+   "why": "«Bioprodukte sind teurer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2304,
+   "col": "example_pl",
+   "old": "Produkty ekologiczne są droższe",
+   "new": "Odkąd mamy dziecko, kupujemy prawie wyłącznie produkty ekologiczne",
+   "why": "«Bioprodukte sind teurer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2304,
+   "col": "example_it",
+   "old": "I prodotti biologici sono più cari",
+   "new": "Da quando è nato il bambino compriamo quasi solo prodotti bio",
+   "why": "«Bioprodukte sind teurer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2304,
+   "col": "example_es",
+   "old": "Los productos ecológicos son más caros",
+   "new": "Desde que nació el bebé compramos casi solo productos ecológicos",
+   "why": "«Bioprodukte sind teurer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2304,
+   "col": "example_fr",
+   "old": "Les produits bio sont plus chers",
+   "new": "Depuis l'arrivée du bébé, on n'achète presque que des produits bio",
+   "why": "«Bioprodukte sind teurer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2304,
+   "col": "example_cs",
+   "old": "Biopotraviny jsou dražší",
+   "new": "Od té doby, co máme miminko, kupujeme skoro jen biopotraviny",
+   "why": "«Bioprodukte sind teurer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2308,
+   "col": "translation_ru",
+   "old": "горшок для цветов, цветочный горшок",
+   "new": "цветочный горшок",
+   "why": "«… steht am Fenster» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2308,
+   "col": "translation_en",
+   "old": "flower pot, plant pot",
+   "new": "flowerpot",
+   "why": "«… steht am Fenster» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2308,
+   "col": "translation_tr",
+   "old": "saksı, çiçek saksısı",
+   "new": "saksı",
+   "why": "«… steht am Fenster» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2308,
+   "col": "translation_it",
+   "old": "il vaso da fiori, il vaso",
+   "new": "il vaso da fiori",
+   "why": "«… steht am Fenster» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2308,
+   "col": "translation_es",
+   "old": "la maceta, el tiesto",
+   "new": "la maceta",
+   "why": "«… steht am Fenster» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2308,
+   "col": "example_de",
+   "old": "Der Blumentopf steht am Fenster",
+   "new": "Die Katze hat schon wieder einen Blumentopf vom Fensterbrett geworfen",
+   "why": "«… steht am Fenster» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2308,
+   "col": "example_ru",
+   "old": "Цветочный горшок стоит у окна",
+   "new": "Кошка опять сбросила цветочный горшок с подоконника",
+   "why": "«… steht am Fenster» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2308,
+   "col": "example_uk",
+   "old": "Квітковий горщик стоїть біля вікна",
+   "new": "Кішка знову скинула квітковий горщик із підвіконня",
+   "why": "«… steht am Fenster» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2308,
+   "col": "example_en",
+   "old": "The flower pot is by the window",
+   "new": "The cat has knocked a flowerpot off the windowsill again",
+   "why": "«… steht am Fenster» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2308,
+   "col": "example_tr",
+   "old": "Saksı pencerenin yanında",
+   "new": "Kedi yine pencere kenarından bir saksı düşürdü",
+   "why": "«… steht am Fenster» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2308,
+   "col": "example_pl",
+   "old": "Doniczka stoi przy oknie",
+   "new": "Kot znowu zrzucił doniczkę z parapetu",
+   "why": "«… steht am Fenster» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2308,
+   "col": "example_it",
+   "old": "Il vaso da fiori è vicino alla finestra",
+   "new": "Il gatto ha di nuovo buttato giù un vaso da fiori dal davanzale",
+   "why": "«… steht am Fenster» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2308,
+   "col": "example_es",
+   "old": "La maceta está junto a la ventana",
+   "new": "El gato ha vuelto a tirar una maceta del alféizar",
+   "why": "«… steht am Fenster» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2308,
+   "col": "example_fr",
+   "old": "Le pot de fleurs est près de la fenêtre",
+   "new": "Le chat a encore fait tomber un pot de fleurs du rebord de la fenêtre",
+   "why": "«… steht am Fenster» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2308,
+   "col": "example_cs",
+   "old": "Květináč stojí u okna",
+   "new": "Kočka zase shodila květináč z parapetu",
+   "why": "«… steht am Fenster» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2310,
+   "col": "translation_en",
+   "old": "boarding pass, boarding card",
+   "new": "boarding pass",
+   "why": "«Zeig mir bitte deine Bordkarte» — приказ; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2310,
+   "col": "translation_es",
+   "old": "la tarjeta de embarque, el pase de abordar",
+   "new": "la tarjeta de embarque",
+   "why": "«Zeig mir bitte deine Bordkarte» — приказ; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2310,
+   "col": "example_de",
+   "old": "Zeig mir bitte deine Bordkarte",
+   "new": "Die Bordkarte habe ich auf dem Handy, ausdrucken muss ich sie nicht",
+   "why": "«Zeig mir bitte deine Bordkarte» — приказ; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2310,
+   "col": "example_ru",
+   "old": "Покажи мне, пожалуйста, свой посадочный талон",
+   "new": "Посадочный талон у меня в телефоне, распечатывать его не нужно",
+   "why": "«Zeig mir bitte deine Bordkarte» — приказ; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2310,
+   "col": "example_uk",
+   "old": "Покажи мені, будь ласка, свій посадковий талон",
+   "new": "Посадковий талон у мене в телефоні, роздруковувати його не треба",
+   "why": "«Zeig mir bitte deine Bordkarte» — приказ; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2310,
+   "col": "example_en",
+   "old": "Please show me your boarding pass",
+   "new": "I've got my boarding pass on my phone, I don't need to print it",
+   "why": "«Zeig mir bitte deine Bordkarte» — приказ; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2310,
+   "col": "example_tr",
+   "old": "Lütfen biniş kartını göster",
+   "new": "Biniş kartı telefonumda, yazdırmam gerekmiyor",
+   "why": "«Zeig mir bitte deine Bordkarte» — приказ; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2310,
+   "col": "example_pl",
+   "old": "Pokaż mi proszę swoją kartę pokładową",
+   "new": "Kartę pokładową mam w telefonie, nie muszę jej drukować",
+   "why": "«Zeig mir bitte deine Bordkarte» — приказ; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2310,
+   "col": "example_it",
+   "old": "Mostrami la tua carta d'imbarco, per favore",
+   "new": "La carta d'imbarco ce l'ho sul telefono, non devo stamparla",
+   "why": "«Zeig mir bitte deine Bordkarte» — приказ; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2310,
+   "col": "example_es",
+   "old": "Muéstrame tu tarjeta de embarque, por favor",
+   "new": "La tarjeta de embarque la tengo en el móvil, no tengo que imprimirla",
+   "why": "«Zeig mir bitte deine Bordkarte» — приказ; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2310,
+   "col": "example_fr",
+   "old": "Montre-moi ta carte d'embarquement, s'il te plaît",
+   "new": "La carte d'embarquement, je l'ai sur mon téléphone, pas besoin de l'imprimer",
+   "why": "«Zeig mir bitte deine Bordkarte» — приказ; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2310,
+   "col": "example_cs",
+   "old": "Ukaž mi prosím svůj palubní lístek",
+   "new": "Palubní lístek mám v mobilu, tisknout ho nemusím",
+   "why": "«Zeig mir bitte deine Bordkarte» — приказ; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2313,
+   "col": "translation_ru",
+   "old": "почтовая бумага, писчая бумага, фирменный бланк",
+   "new": "почтовая бумага",
+   "why": "пример — заказ в офис; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2313,
+   "col": "translation_uk",
+   "old": "поштовий папір, папір для листів, фірмовий бланк",
+   "new": "папір для листів",
+   "why": "пример — заказ в офис; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2313,
+   "col": "translation_en",
+   "old": "letter paper, stationery, letterhead",
+   "new": "writing paper",
+   "why": "пример — заказ в офис; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2313,
+   "col": "translation_tr",
+   "old": "mektup kağıdı, antetli kağıt",
+   "new": "mektup kağıdı",
+   "why": "пример — заказ в офис; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2313,
+   "col": "translation_pl",
+   "old": "papier listowy, papier firmowy",
+   "new": "papier listowy",
+   "why": "пример — заказ в офис; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2313,
+   "col": "translation_it",
+   "old": "la carta da lettere, la carta intestata",
+   "new": "la carta da lettere",
+   "why": "пример — заказ в офис; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2313,
+   "col": "translation_es",
+   "old": "el papel de carta, el papel membretado",
+   "new": "el papel de carta",
+   "why": "пример — заказ в офис; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2313,
+   "col": "translation_fr",
+   "old": "le papier à lettres, le papier à en-tête",
+   "new": "le papier à lettres",
+   "why": "пример — заказ в офис; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2313,
+   "col": "translation_cs",
+   "old": "dopisní papír, hlavičkový papír",
+   "new": "dopisní papír",
+   "why": "пример — заказ в офис; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2313,
+   "col": "example_de",
+   "old": "Ich brauche neues Briefpapier fürs Büro",
+   "new": "Für den Brief an Oma hat meine Tochter extra Briefpapier mit Pferden gekauft",
+   "why": "пример — заказ в офис; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2313,
+   "col": "example_ru",
+   "old": "Мне нужна новая писчая бумага для офиса",
+   "new": "Для письма бабушке дочка специально купила почтовую бумагу с лошадками",
+   "why": "пример — заказ в офис; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2313,
+   "col": "example_uk",
+   "old": "Мені потрібен новий поштовий папір для офісу",
+   "new": "Для листа бабусі донька спеціально купила папір для листів з конячками",
+   "why": "пример — заказ в офис; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2313,
+   "col": "example_en",
+   "old": "I need new letter paper for the office",
+   "new": "My daughter bought writing paper with horses on it specially for the letter to Gran",
+   "why": "пример — заказ в офис; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2313,
+   "col": "example_tr",
+   "old": "Ofis için yeni mektup kağıdına ihtiyacım var",
+   "new": "Kızım anneanneye mektup için özel olarak atlı mektup kağıdı aldı",
+   "why": "пример — заказ в офис; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2313,
+   "col": "example_pl",
+   "old": "Potrzebuję nowego papieru listowego do biura",
+   "new": "Na list do babci córka specjalnie kupiła papier listowy w konie",
+   "why": "пример — заказ в офис; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2313,
+   "col": "example_it",
+   "old": "Mi serve nuova carta da lettere per l'ufficio",
+   "new": "Per la lettera alla nonna mia figlia ha comprato apposta della carta da lettere con i cavalli",
+   "why": "пример — заказ в офис; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2313,
+   "col": "example_es",
+   "old": "Necesito papel de carta nuevo para la oficina",
+   "new": "Para la carta a la abuela mi hija compró expresamente papel de carta con caballos",
+   "why": "пример — заказ в офис; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2313,
+   "col": "example_fr",
+   "old": "J'ai besoin de nouveau papier à lettres pour le bureau",
+   "new": "Pour la lettre à sa grand-mère, ma fille a acheté exprès du papier à lettres avec des chevaux",
+   "why": "пример — заказ в офис; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2313,
+   "col": "example_cs",
+   "old": "Potřebuji nový dopisní papír do kanceláře",
+   "new": "Na dopis babičce koupila dcera schválně dopisní papír s koníky",
+   "why": "пример — заказ в офис; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2314,
+   "col": "translation_ru",
+   "old": "канцлер, федеральный канцлер",
+   "new": "федеральный канцлер",
+   "why": "пример повторяет Kanzler; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2314,
+   "col": "translation_uk",
+   "old": "канцлер, федеральний канцлер",
+   "new": "федеральний канцлер",
+   "why": "пример повторяет Kanzler; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2314,
+   "col": "translation_en",
+   "old": "chancellor, federal chancellor",
+   "new": "chancellor",
+   "why": "пример повторяет Kanzler; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2314,
+   "col": "translation_tr",
+   "old": "başbakan, federal başbakan, şansölye",
+   "new": "şansölye",
+   "why": "пример повторяет Kanzler; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2314,
+   "col": "translation_pl",
+   "old": "kanclerz, kanclerz federalny",
+   "new": "kanclerz",
+   "why": "пример повторяет Kanzler; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2314,
+   "col": "translation_it",
+   "old": "il cancelliere, la cancelliera, il cancelliere federale",
+   "new": "il cancelliere, la cancelliera",
+   "why": "пример повторяет Kanzler; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2314,
+   "col": "translation_es",
+   "old": "el canciller, la canciller, el canciller federal",
+   "new": "el canciller, la canciller",
+   "why": "пример повторяет Kanzler; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2314,
+   "col": "translation_cs",
+   "old": "kancléř, kancléřka, spolkový kancléř",
+   "new": "kancléř, kancléřka",
+   "why": "пример повторяет Kanzler; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2314,
+   "col": "example_de",
+   "old": "Der Bundeskanzler gibt eine Erklärung ab",
+   "new": "Die Rede der Bundeskanzlerin lief gestern Abend auf allen Sendern",
+   "why": "пример повторяет Kanzler; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2314,
+   "col": "example_ru",
+   "old": "Канцлер выступает с заявлением",
+   "new": "Речь федерального канцлера вчера вечером показывали по всем каналам",
+   "why": "пример повторяет Kanzler; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2314,
+   "col": "example_uk",
+   "old": "Канцлер робить заяву",
+   "new": "Промову федеральної канцлерки вчора ввечері показували на всіх каналах",
+   "why": "пример повторяет Kanzler; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2314,
+   "col": "example_en",
+   "old": "The federal chancellor gives a statement",
+   "new": "The chancellor's speech was on every channel last night",
+   "why": "пример повторяет Kanzler; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2314,
+   "col": "example_tr",
+   "old": "Federal başbakan açıklama yapıyor",
+   "new": "Şansölyenin konuşması dün akşam bütün kanallarda yayınlandı",
+   "why": "пример повторяет Kanzler; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2314,
+   "col": "example_pl",
+   "old": "Kanclerz federalny wygłasza oświadczenie",
+   "new": "Przemówienie pani kanclerz leciało wczoraj wieczorem na wszystkich kanałach",
+   "why": "пример повторяет Kanzler; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2314,
+   "col": "example_it",
+   "old": "Il cancelliere rilascia una dichiarazione",
+   "new": "Il discorso della cancelliera ieri sera è andato in onda su tutti i canali",
+   "why": "пример повторяет Kanzler; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2314,
+   "col": "example_es",
+   "old": "El canciller hace una declaración",
+   "new": "El discurso de la canciller se emitió anoche en todos los canales",
+   "why": "пример повторяет Kanzler; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2314,
+   "col": "example_fr",
+   "old": "Le chancelier fait une déclaration",
+   "new": "Le discours de la chancelière est passé hier soir sur toutes les chaînes",
+   "why": "пример повторяет Kanzler; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2314,
+   "col": "example_cs",
+   "old": "Spolkový kancléř vydává prohlášení",
+   "new": "Projev kancléřky běžel včera večer na všech stanicích",
+   "why": "пример повторяет Kanzler; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2315,
+   "col": "translation_ru",
+   "old": "федеративная республика, ФРГ",
+   "new": "федеративная республика",
+   "why": "пассив wurde; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2315,
+   "col": "translation_uk",
+   "old": "федеративна республіка, ФРН",
+   "new": "федеративна республіка",
+   "why": "пассив wurde; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2315,
+   "col": "example_de",
+   "old": "Die Bundesrepublik Deutschland wurde 1949 gegründet",
+   "new": "In der Bundesrepublik hat jedes Bundesland seine eigenen Schulferien",
+   "why": "пассив wurde; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2315,
+   "col": "example_ru",
+   "old": "Федеративная Республика Германия была основана в 1949 году",
+   "new": "В Федеративной Республике у каждой земли свои школьные каникулы",
+   "why": "пассив wurde; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2315,
+   "col": "example_uk",
+   "old": "Федеративну Республіку Німеччина засновано у 1949 році",
+   "new": "У Федеративній Республіці в кожної землі свої шкільні канікули",
+   "why": "пассив wurde; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2315,
+   "col": "example_en",
+   "old": "The Federal Republic of Germany was founded in 1949",
+   "new": "In the Federal Republic each state has its own school holidays",
+   "why": "пассив wurde; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2315,
+   "col": "example_tr",
+   "old": "Almanya Federal Cumhuriyeti 1949'da kuruldu",
+   "new": "Federal Cumhuriyet'te her eyaletin kendi okul tatili var",
+   "why": "пассив wurde; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2315,
+   "col": "example_pl",
+   "old": "Republika Federalna Niemiec została założona w 1949 roku",
+   "new": "W Republice Federalnej każdy land ma własne ferie szkolne",
+   "why": "пассив wurde; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2315,
+   "col": "example_it",
+   "old": "La Repubblica Federale di Germania fu fondata nel 1949",
+   "new": "Nella Repubblica Federale ogni Land ha le sue vacanze scolastiche",
+   "why": "пассив wurde; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2315,
+   "col": "example_es",
+   "old": "La República Federal de Alemania se fundó en 1949",
+   "new": "En la República Federal cada estado tiene sus propias vacaciones escolares",
+   "why": "пассив wurde; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2315,
+   "col": "example_fr",
+   "old": "La République fédérale d'Allemagne a été fondée en 1949",
+   "new": "En République fédérale, chaque Land a ses propres vacances scolaires",
+   "why": "пассив wurde; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2315,
+   "col": "example_cs",
+   "old": "Spolková republika Německo byla založena v roce 1949",
+   "new": "Ve Spolkové republice má každá spolková země vlastní prázdniny",
+   "why": "пассив wurde; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2318,
+   "col": "translation_ru",
+   "old": "офисные будни, повседневная работа в офисе",
+   "new": "офисные будни",
+   "why": "«… kann langweilig sein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2318,
+   "col": "translation_uk",
+   "old": "офісні будні, щоденна робота в офісі",
+   "new": "офісні будні",
+   "why": "«… kann langweilig sein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2318,
+   "col": "translation_en",
+   "old": "office routine, everyday office life",
+   "new": "office routine",
+   "why": "«… kann langweilig sein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2318,
+   "col": "translation_tr",
+   "old": "ofis rutini, günlük ofis hayatı",
+   "new": "ofis rutini",
+   "why": "«… kann langweilig sein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2318,
+   "col": "translation_pl",
+   "old": "biurowa codzienność, codzienna praca w biurze",
+   "new": "biurowa codzienność",
+   "why": "«… kann langweilig sein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2318,
+   "col": "translation_it",
+   "old": "la routine d'ufficio, la quotidianità in ufficio",
+   "new": "la routine d'ufficio",
+   "why": "«… kann langweilig sein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2318,
+   "col": "translation_es",
+   "old": "la rutina de oficina, el día a día en la oficina",
+   "new": "el día a día en la oficina",
+   "why": "«… kann langweilig sein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2318,
+   "col": "translation_fr",
+   "old": "le quotidien au bureau, la routine de bureau",
+   "new": "le quotidien au bureau",
+   "why": "«… kann langweilig sein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2318,
+   "col": "translation_cs",
+   "old": "kancelářská rutina, všední den v kanceláři",
+   "new": "kancelářská rutina",
+   "why": "«… kann langweilig sein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2318,
+   "col": "example_de",
+   "old": "Der Büroalltag kann langweilig sein",
+   "new": "Nach drei Jahren auf dem Bau musste ich mich erst an den Büroalltag gewöhnen",
+   "why": "«… kann langweilig sein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2318,
+   "col": "example_ru",
+   "old": "Офисные будни могут быть скучными",
+   "new": "После трёх лет на стройке мне пришлось привыкать к офисным будням",
+   "why": "«… kann langweilig sein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2318,
+   "col": "example_uk",
+   "old": "Офісні будні можуть бути нудними",
+   "new": "Після трьох років на будові мені довелося звикати до офісних буднів",
+   "why": "«… kann langweilig sein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2318,
+   "col": "example_en",
+   "old": "Office routine can be boring",
+   "new": "After three years on building sites I had to get used to the office routine",
+   "why": "«… kann langweilig sein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2318,
+   "col": "example_tr",
+   "old": "Ofis rutini sıkıcı olabilir",
+   "new": "Üç yıl inşaatta çalıştıktan sonra ofis rutinine alışmam gerekti",
+   "why": "«… kann langweilig sein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2318,
+   "col": "example_pl",
+   "old": "Biurowa codzienność może być nudna",
+   "new": "Po trzech latach na budowie musiałem przyzwyczaić się do biurowej codzienności",
+   "why": "«… kann langweilig sein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2318,
+   "col": "example_it",
+   "old": "La routine d'ufficio può essere noiosa",
+   "new": "Dopo tre anni in cantiere mi sono dovuto abituare alla routine d'ufficio",
+   "why": "«… kann langweilig sein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2318,
+   "col": "example_es",
+   "old": "La rutina de oficina puede ser aburrida",
+   "new": "Después de tres años en la obra tuve que acostumbrarme al día a día en la oficina",
+   "why": "«… kann langweilig sein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2318,
+   "col": "example_fr",
+   "old": "Le quotidien au bureau peut être ennuyeux",
+   "new": "Après trois ans sur les chantiers, j'ai dû m'habituer au quotidien au bureau",
+   "why": "«… kann langweilig sein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2318,
+   "col": "example_cs",
+   "old": "Kancelářská rutina může být nudná",
+   "new": "Po třech letech na stavbě jsem si musel zvyknout na kancelářskou rutinu",
+   "why": "«… kann langweilig sein» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2319,
+   "col": "translation_ru",
+   "old": "офисный ассистент, помощник в офисе, секретарь",
+   "new": "офисный ассистент",
+   "why": "«Sie arbeitet als Büroassistentin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2319,
+   "col": "translation_uk",
+   "old": "офісний асистент, помічник в офісі",
+   "new": "офісний асистент",
+   "why": "«Sie arbeitet als Büroassistentin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2319,
+   "col": "translation_en",
+   "old": "office assistant, administrative assistant",
+   "new": "office assistant",
+   "why": "«Sie arbeitet als Büroassistentin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2319,
+   "col": "translation_tr",
+   "old": "ofis asistanı, büro asistanı",
+   "new": "ofis asistanı",
+   "why": "«Sie arbeitet als Büroassistentin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2319,
+   "col": "translation_it",
+   "old": "l'assistente d'ufficio, la segretaria",
+   "new": "l'assistente d'ufficio",
+   "why": "«Sie arbeitet als Büroassistentin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2319,
+   "col": "translation_cs",
+   "old": "kancelářský asistent, asistentka, sekretářka",
+   "new": "kancelářský asistent, asistentka",
+   "why": "«Sie arbeitet als Büroassistentin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2319,
+   "col": "example_de",
+   "old": "Sie arbeitet als Büroassistentin",
+   "new": "Unsere Büroassistentin weiß immer, wo jeder Ordner steht",
+   "why": "«Sie arbeitet als Büroassistentin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2319,
+   "col": "example_ru",
+   "old": "Она работает офисным ассистентом",
+   "new": "Наш офисный ассистент всегда знает, где стоит каждая папка",
+   "why": "«Sie arbeitet als Büroassistentin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2319,
+   "col": "example_uk",
+   "old": "Вона працює офісною асистенткою",
+   "new": "Наша офісна асистентка завжди знає, де стоїть кожна тека",
+   "why": "«Sie arbeitet als Büroassistentin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2319,
+   "col": "example_en",
+   "old": "She works as an office assistant",
+   "new": "Our office assistant always knows where every file is",
+   "why": "«Sie arbeitet als Büroassistentin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2319,
+   "col": "example_tr",
+   "old": "Ofis asistanı olarak çalışıyor",
+   "new": "Ofis asistanımız her klasörün nerede olduğunu hep biliyor",
+   "why": "«Sie arbeitet als Büroassistentin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2319,
+   "col": "example_pl",
+   "old": "Ona pracuje jako asystentka biurowa",
+   "new": "Nasza asystentka biurowa zawsze wie, gdzie stoi każdy segregator",
+   "why": "«Sie arbeitet als Büroassistentin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2319,
+   "col": "example_it",
+   "old": "Lavora come assistente d'ufficio",
+   "new": "La nostra assistente d'ufficio sa sempre dov'è ogni raccoglitore",
+   "why": "«Sie arbeitet als Büroassistentin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2319,
+   "col": "example_es",
+   "old": "Trabaja como auxiliar administrativa",
+   "new": "Nuestra auxiliar administrativa siempre sabe dónde está cada carpeta",
+   "why": "«Sie arbeitet als Büroassistentin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2319,
+   "col": "example_fr",
+   "old": "Elle travaille comme assistante administrative",
+   "new": "Notre assistante administrative sait toujours où se trouve chaque classeur",
+   "why": "«Sie arbeitet als Büroassistentin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2319,
+   "col": "example_cs",
+   "old": "Pracuje jako asistentka v kanceláři",
+   "new": "Naše asistentka vždycky ví, kde stojí který šanon",
+   "why": "«Sie arbeitet als Büroassistentin» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2320,
+   "col": "translation_ru",
+   "old": "канцтовары, офисные принадлежности",
+   "new": "канцтовары",
+   "why": "«Wir bestellen neues Büromaterial» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2320,
+   "col": "translation_uk",
+   "old": "канцтовари, офісне приладдя",
+   "new": "канцтовари",
+   "why": "«Wir bestellen neues Büromaterial» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2320,
+   "col": "translation_en",
+   "old": "office supplies, stationery",
+   "new": "office supplies",
+   "why": "«Wir bestellen neues Büromaterial» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2320,
+   "col": "translation_tr",
+   "old": "kırtasiye malzemesi, ofis malzemesi",
+   "new": "ofis malzemesi",
+   "why": "«Wir bestellen neues Büromaterial» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2320,
+   "col": "translation_pl",
+   "old": "materiały biurowe, artykuły biurowe",
+   "new": "materiały biurowe",
+   "why": "«Wir bestellen neues Büromaterial» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2320,
+   "col": "translation_it",
+   "old": "il materiale d'ufficio, la cancelleria",
+   "new": "il materiale d'ufficio",
+   "why": "«Wir bestellen neues Büromaterial» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2320,
+   "col": "example_de",
+   "old": "Wir bestellen neues Büromaterial",
+   "new": "Irgendwer nimmt immer Büromaterial mit nach Hause, schon wieder sind alle Kulis weg",
+   "why": "«Wir bestellen neues Büromaterial» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2320,
+   "col": "example_ru",
+   "old": "Мы заказываем новые канцтовары",
+   "new": "Кто-то вечно уносит канцтовары домой — опять все ручки пропали",
+   "why": "«Wir bestellen neues Büromaterial» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2320,
+   "col": "example_uk",
+   "old": "Ми замовляємо нові канцтовари",
+   "new": "Хтось постійно забирає канцтовари додому — знову всі ручки зникли",
+   "why": "«Wir bestellen neues Büromaterial» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2320,
+   "col": "example_en",
+   "old": "We order new office supplies",
+   "new": "Somebody always takes office supplies home, all the pens have gone again",
+   "why": "«Wir bestellen neues Büromaterial» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2320,
+   "col": "example_tr",
+   "old": "Yeni kırtasiye malzemesi sipariş ediyoruz",
+   "new": "Biri hep ofis malzemesini eve götürüyor, yine bütün tükenmez kalemler yok",
+   "why": "«Wir bestellen neues Büromaterial» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2320,
+   "col": "example_pl",
+   "old": "Zamawiamy nowe materiały biurowe",
+   "new": "Ktoś ciągle zabiera materiały biurowe do domu, znowu nie ma żadnych długopisów",
+   "why": "«Wir bestellen neues Büromaterial» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2320,
+   "col": "example_it",
+   "old": "Ordiniamo nuovo materiale d'ufficio",
+   "new": "Qualcuno si porta sempre a casa il materiale d'ufficio, di nuovo sono sparite tutte le penne",
+   "why": "«Wir bestellen neues Büromaterial» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2320,
+   "col": "example_es",
+   "old": "Pedimos material de oficina nuevo",
+   "new": "Alguien siempre se lleva material de oficina a casa, otra vez no queda ni un boli",
+   "why": "«Wir bestellen neues Büromaterial» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2320,
+   "col": "example_fr",
+   "old": "Nous commandons de nouvelles fournitures de bureau",
+   "new": "Quelqu'un emporte toujours des fournitures de bureau chez lui, encore une fois tous les stylos ont disparu",
+   "why": "«Wir bestellen neues Büromaterial» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2320,
+   "col": "example_cs",
+   "old": "Objednáváme nové kancelářské potřeby",
+   "new": "Někdo pořád nosí kancelářské potřeby domů, zase jsou všechny propisky pryč",
+   "why": "«Wir bestellen neues Büromaterial» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2321,
+   "col": "translation_ru",
+   "old": "офисное помещение, рабочий кабинет",
+   "new": "офисное помещение",
+   "why": "«Der Büroraum ist hell» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2321,
+   "col": "translation_uk",
+   "old": "офісне приміщення, робочий кабінет",
+   "new": "офісне приміщення",
+   "why": "«Der Büroraum ist hell» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2321,
+   "col": "translation_en",
+   "old": "office room, office space",
+   "new": "office space, office",
+   "why": "«Der Büroraum ist hell» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2321,
+   "col": "translation_tr",
+   "old": "ofis odası, büro odası",
+   "new": "ofis odası",
+   "why": "«Der Büroraum ist hell» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2321,
+   "col": "translation_pl",
+   "old": "pomieszczenie biurowe, biuro",
+   "new": "pomieszczenie biurowe",
+   "why": "«Der Büroraum ist hell» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2321,
+   "col": "translation_it",
+   "old": "l'ufficio, il locale ufficio",
+   "new": "il locale ufficio",
+   "why": "«Der Büroraum ist hell» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2321,
+   "col": "translation_es",
+   "old": "la oficina, el local de oficina",
+   "new": "el local de oficina",
+   "why": "«Der Büroraum ist hell» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2321,
+   "col": "translation_fr",
+   "old": "le bureau, le local de bureau",
+   "new": "le local de bureau",
+   "why": "«Der Büroraum ist hell» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2321,
+   "col": "translation_cs",
+   "old": "kancelář, kancelářská místnost",
+   "new": "kancelářská místnost",
+   "why": "«Der Büroraum ist hell» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2321,
+   "col": "example_de",
+   "old": "Der Büroraum ist hell",
+   "new": "Im Erdgeschoss werden zwei Büroräume frei, vielleicht zieht dort eine Praxis ein",
+   "why": "«Der Büroraum ist hell» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2321,
+   "col": "example_ru",
+   "old": "Офисное помещение светлое",
+   "new": "На первом этаже освобождаются два офисных помещения — может, туда въедет врачебный кабинет",
+   "why": "«Der Büroraum ist hell» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2321,
+   "col": "example_uk",
+   "old": "Офісне приміщення світле",
+   "new": "На першому поверсі звільняються два офісні приміщення — може, туди заїде лікарський кабінет",
+   "why": "«Der Büroraum ist hell» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2321,
+   "col": "example_en",
+   "old": "The office room is bright",
+   "new": "Two office spaces on the ground floor are becoming free, maybe a surgery will move in",
+   "why": "«Der Büroraum ist hell» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2321,
+   "col": "example_tr",
+   "old": "Ofis odası aydınlık",
+   "new": "Zemin katta iki ofis odası boşalıyor, belki oraya bir muayenehane taşınır",
+   "why": "«Der Büroraum ist hell» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2321,
+   "col": "example_pl",
+   "old": "To pomieszczenie biurowe jest jasne",
+   "new": "Na parterze zwalniają się dwa pomieszczenia biurowe, może wprowadzi się tam gabinet lekarski",
+   "why": "«Der Büroraum ist hell» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2321,
+   "col": "example_it",
+   "old": "L'ufficio è luminoso",
+   "new": "Al piano terra si liberano due locali ufficio, forse ci si trasferisce uno studio medico",
+   "why": "«Der Büroraum ist hell» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2321,
+   "col": "example_es",
+   "old": "La oficina es luminosa",
+   "new": "En la planta baja quedan libres dos locales de oficina, quizá se instale una consulta",
+   "why": "«Der Büroraum ist hell» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2321,
+   "col": "example_fr",
+   "old": "Le bureau est lumineux",
+   "new": "Au rez-de-chaussée, deux locaux de bureau se libèrent, peut-être qu'un cabinet médical va s'y installer",
+   "why": "«Der Büroraum ist hell» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2321,
+   "col": "example_cs",
+   "old": "Kancelář je světlá",
+   "new": "V přízemí se uvolní dvě kancelářské místnosti, možná se tam nastěhuje ordinace",
+   "why": "«Der Büroraum ist hell» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2322,
+   "col": "translation_ru",
+   "old": "часы работы офиса, рабочее время",
+   "new": "часы работы офиса",
+   "why": "«Die Bürozeit ist von 9 bis 17 Uhr» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2322,
+   "col": "translation_uk",
+   "old": "робочий час офісу, години роботи",
+   "new": "години роботи офісу",
+   "why": "«Die Bürozeit ist von 9 bis 17 Uhr» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2322,
+   "col": "translation_en",
+   "old": "office hours, working hours",
+   "new": "office hours",
+   "why": "«Die Bürozeit ist von 9 bis 17 Uhr» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2322,
+   "col": "translation_tr",
+   "old": "mesai saati, çalışma saatleri",
+   "new": "mesai saati",
+   "why": "«Die Bürozeit ist von 9 bis 17 Uhr» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2322,
+   "col": "translation_pl",
+   "old": "godziny pracy biura, czas pracy",
+   "new": "godziny pracy biura",
+   "why": "«Die Bürozeit ist von 9 bis 17 Uhr» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2322,
+   "col": "translation_cs",
+   "old": "pracovní doba, úřední hodiny",
+   "new": "úřední hodiny, pracovní doba",
+   "why": "«Die Bürozeit ist von 9 bis 17 Uhr» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2322,
+   "col": "example_de",
+   "old": "Die Bürozeit ist von 9 bis 17 Uhr",
+   "new": "Außerhalb der Bürozeit gehe ich nicht ans Diensttelefon",
+   "why": "«Die Bürozeit ist von 9 bis 17 Uhr» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2322,
+   "col": "example_ru",
+   "old": "Рабочее время с 9 до 17",
+   "new": "В нерабочие часы офиса я не беру служебный телефон",
+   "why": "«Die Bürozeit ist von 9 bis 17 Uhr» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2322,
+   "col": "example_uk",
+   "old": "Робочий час офісу з 9 до 17",
+   "new": "Поза годинами роботи офісу я не беру службовий телефон",
+   "why": "«Die Bürozeit ist von 9 bis 17 Uhr» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2322,
+   "col": "example_en",
+   "old": "Office hours are from 9 in the morning to 5 in the afternoon",
+   "new": "Outside office hours I don't answer the work phone",
+   "why": "«Die Bürozeit ist von 9 bis 17 Uhr» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2322,
+   "col": "example_tr",
+   "old": "Mesai 9'dan 17'ye kadar",
+   "new": "Mesai saati dışında iş telefonuna bakmıyorum",
+   "why": "«Die Bürozeit ist von 9 bis 17 Uhr» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2322,
+   "col": "example_pl",
+   "old": "Godziny pracy biura są od dziewiątej do siedemnastej",
+   "new": "Poza godzinami pracy biura nie odbieram służbowego telefonu",
+   "why": "«Die Bürozeit ist von 9 bis 17 Uhr» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2322,
+   "col": "example_it",
+   "old": "L'orario d'ufficio è dalle 9 alle 17",
+   "new": "Fuori dall'orario d'ufficio non rispondo al telefono di lavoro",
+   "why": "«Die Bürozeit ist von 9 bis 17 Uhr» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2322,
+   "col": "example_es",
+   "old": "El horario de oficina es de 9 a 17",
+   "new": "Fuera del horario de oficina no cojo el teléfono del trabajo",
+   "why": "«Die Bürozeit ist von 9 bis 17 Uhr» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2322,
+   "col": "example_fr",
+   "old": "Les heures de bureau sont de 9 h à 17 h",
+   "new": "En dehors des heures de bureau, je ne réponds pas au téléphone pro",
+   "why": "«Die Bürozeit ist von 9 bis 17 Uhr» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2322,
+   "col": "example_cs",
+   "old": "Pracovní doba je od 9 do 17 hodin",
+   "new": "Mimo úřední hodiny nezvedám služební telefon",
+   "why": "«Die Bürozeit ist von 9 bis 17 Uhr» — табличка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2323,
+   "col": "translation_en",
+   "old": "call center",
+   "new": "call centre",
+   "why": "en «call center» — американское"
+  },
+  {
+   "id": 2323,
+   "col": "example_de",
+   "old": "Ich arbeite in einem Callcenter",
+   "new": "Im Callcenter hat man mich zwanzig Minuten in der Warteschleife gelassen",
+   "why": "en «call center» — американское"
+  },
+  {
+   "id": 2323,
+   "col": "example_ru",
+   "old": "Я работаю в колл-центре",
+   "new": "В колл-центре меня двадцать минут продержали на линии",
+   "why": "en «call center» — американское"
+  },
+  {
+   "id": 2323,
+   "col": "example_uk",
+   "old": "Я працюю в кол-центрі",
+   "new": "У кол-центрі мене двадцять хвилин протримали на лінії",
+   "why": "en «call center» — американское"
+  },
+  {
+   "id": 2323,
+   "col": "example_en",
+   "old": "I work in a call center",
+   "new": "The call centre kept me on hold for twenty minutes",
+   "why": "en «call center» — американское"
+  },
+  {
+   "id": 2323,
+   "col": "example_tr",
+   "old": "Bir çağrı merkezinde çalışıyorum",
+   "new": "Çağrı merkezinde beni yirmi dakika hatta beklettiler",
+   "why": "en «call center» — американское"
+  },
+  {
+   "id": 2323,
+   "col": "example_pl",
+   "old": "Pracuję w call center",
+   "new": "W call center trzymali mnie dwadzieścia minut na linii",
+   "why": "en «call center» — американское"
+  },
+  {
+   "id": 2323,
+   "col": "example_it",
+   "old": "Lavoro in un call center",
+   "new": "Al call center mi hanno lasciato in attesa venti minuti",
+   "why": "en «call center» — американское"
+  },
+  {
+   "id": 2323,
+   "col": "example_es",
+   "old": "Trabajo en un centro de llamadas",
+   "new": "En el centro de llamadas me tuvieron veinte minutos en espera",
+   "why": "en «call center» — американское"
+  },
+  {
+   "id": 2323,
+   "col": "example_fr",
+   "old": "Je travaille dans un centre d'appels",
+   "new": "Au centre d'appels, on m'a laissé vingt minutes en attente",
+   "why": "en «call center» — американское"
+  },
+  {
+   "id": 2323,
+   "col": "example_cs",
+   "old": "Pracuji v call centru",
+   "new": "V call centru mě nechali dvacet minut čekat na lince",
+   "why": "en «call center» — американское"
+  },
+  {
+   "id": 2324,
+   "col": "translation_ru",
+   "old": "отдыхающий в кемпинге, турист с палаткой, путешественник на автодоме",
+   "new": "отдыхающий в кемпинге",
+   "why": "«Viele Camper sind am See» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2324,
+   "col": "translation_uk",
+   "old": "відпочивальник у кемпінгу, турист із наметом, мандрівник на автодомі",
+   "new": "відпочивальник у кемпінгу",
+   "why": "«Viele Camper sind am See» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2324,
+   "col": "translation_en",
+   "old": "camper, camping tourist",
+   "new": "camper",
+   "why": "«Viele Camper sind am See» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2324,
+   "col": "translation_tr",
+   "old": "kampçı, karavancı",
+   "new": "kampçı",
+   "why": "«Viele Camper sind am See» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2324,
+   "col": "translation_pl",
+   "old": "biwakowicz, kempingowicz, obozowicz",
+   "new": "kempingowicz",
+   "why": "«Viele Camper sind am See» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2324,
+   "col": "translation_cs",
+   "old": "kempař, kempařka, táborník",
+   "new": "kempař, kempařka",
+   "why": "«Viele Camper sind am See» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2324,
+   "col": "example_de",
+   "old": "Viele Camper sind am See",
+   "new": "Die Camper vom Platz nebenan haben uns zum Grillen eingeladen",
+   "why": "«Viele Camper sind am See» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2324,
+   "col": "example_ru",
+   "old": "Много отдыхающих в кемпинге у озера",
+   "new": "Отдыхающие с соседнего места в кемпинге позвали нас на гриль",
+   "why": "«Viele Camper sind am See» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2324,
+   "col": "example_uk",
+   "old": "Багато відпочивальників у кемпінгу біля озера",
+   "new": "Відпочивальники в кемпінгу з сусіднього місця покликали нас на гриль",
+   "why": "«Viele Camper sind am See» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2324,
+   "col": "example_en",
+   "old": "Many campers are at the lake",
+   "new": "The campers on the next pitch invited us to a barbecue",
+   "why": "«Viele Camper sind am See» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2324,
+   "col": "example_tr",
+   "old": "Birçok karavancı göl kenarında",
+   "new": "Yan taraftaki kampçılar bizi mangala davet etti",
+   "why": "«Viele Camper sind am See» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2324,
+   "col": "example_pl",
+   "old": "Nad jeziorem jest wielu biwakowiczów",
+   "new": "Kempingowicze z sąsiedniego miejsca zaprosili nas na grilla",
+   "why": "«Viele Camper sind am See» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2324,
+   "col": "example_it",
+   "old": "Ci sono molti campeggiatori al lago",
+   "new": "I campeggiatori della piazzola accanto ci hanno invitato a una grigliata",
+   "why": "«Viele Camper sind am See» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2324,
+   "col": "example_es",
+   "old": "Hay muchos campistas en el lago",
+   "new": "Los campistas de la parcela de al lado nos invitaron a una barbacoa",
+   "why": "«Viele Camper sind am See» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2324,
+   "col": "example_fr",
+   "old": "Il y a beaucoup de campeurs au lac",
+   "new": "Les campeurs de l'emplacement d'à côté nous ont invités à un barbecue",
+   "why": "«Viele Camper sind am See» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2324,
+   "col": "example_cs",
+   "old": "U jezera je hodně kempařů",
+   "new": "Kempaři od vedlejšího místa nás pozvali na grilování",
+   "why": "«Viele Camper sind am See» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2327,
+   "col": "translation_ru",
+   "old": "стойка регистрации, чек-ин стойка",
+   "new": "стойка регистрации",
+   "why": "«… ist dort» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2327,
+   "col": "translation_en",
+   "old": "check-in counter, check-in desk",
+   "new": "check-in desk",
+   "why": "«… ist dort» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2327,
+   "col": "translation_tr",
+   "old": "check-in gişesi, kayıt bankosu",
+   "new": "check-in bankosu",
+   "why": "«… ist dort» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2327,
+   "col": "translation_pl",
+   "old": "stanowisko odprawy, punkt odprawy",
+   "new": "stanowisko odprawy",
+   "why": "«… ist dort» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2327,
+   "col": "translation_es",
+   "old": "el mostrador de facturación, el mostrador de check-in",
+   "new": "el mostrador de facturación",
+   "why": "«… ist dort» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2327,
+   "col": "translation_cs",
+   "old": "odbavovací přepážka, check-in přepážka",
+   "new": "odbavovací přepážka",
+   "why": "«… ist dort» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2327,
+   "col": "example_de",
+   "old": "Der Check-in-Schalter ist dort",
+   "new": "Am Check-in-Schalter mussten wir fast eine Stunde anstehen",
+   "why": "«… ist dort» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2327,
+   "col": "example_ru",
+   "old": "Стойка регистрации вон там",
+   "new": "У стойки регистрации нам пришлось стоять в очереди почти час",
+   "why": "«… ist dort» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2327,
+   "col": "example_uk",
+   "old": "Стійка реєстрації там",
+   "new": "Біля стійки реєстрації нам довелося стояти в черзі майже годину",
+   "why": "«… ist dort» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2327,
+   "col": "example_en",
+   "old": "The check-in counter is there",
+   "new": "We had to queue for almost an hour at the check-in desk",
+   "why": "«… ist dort» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2327,
+   "col": "example_tr",
+   "old": "Check-in gişesi şurada",
+   "new": "Check-in bankosunda neredeyse bir saat sıra beklememiz gerekti",
+   "why": "«… ist dort» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2327,
+   "col": "example_pl",
+   "old": "Stanowisko odprawy jest tam",
+   "new": "Przy stanowisku odprawy musieliśmy stać w kolejce prawie godzinę",
+   "why": "«… ist dort» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2327,
+   "col": "example_it",
+   "old": "Il banco del check-in è lì",
+   "new": "Al banco del check-in abbiamo dovuto fare la fila per quasi un'ora",
+   "why": "«… ist dort» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2327,
+   "col": "example_es",
+   "old": "El mostrador de facturación está allí",
+   "new": "En el mostrador de facturación tuvimos que hacer cola casi una hora",
+   "why": "«… ist dort» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2327,
+   "col": "example_fr",
+   "old": "Le comptoir d'enregistrement est là-bas",
+   "new": "Au comptoir d'enregistrement, on a dû faire la queue presque une heure",
+   "why": "«… ist dort» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2327,
+   "col": "example_cs",
+   "old": "Odbavovací přepážka je tamhle",
+   "new": "U odbavovací přepážky jsme museli stát frontu skoro hodinu",
+   "why": "«… ist dort» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2329,
+   "col": "translation_en",
+   "old": "crisps, chips",
+   "new": "crisps",
+   "why": "«Ich esse gern Chips» — шаблон"
+  },
+  {
+   "id": 2329,
+   "col": "translation_es",
+   "old": "las patatas fritas, las papas fritas",
+   "new": "las patatas fritas",
+   "why": "«Ich esse gern Chips» — шаблон"
+  },
+  {
+   "id": 2329,
+   "col": "example_de",
+   "old": "Ich esse gern Chips",
+   "new": "Beim Fußball im Fernsehen essen wir immer eine ganze Tüte Chips",
+   "why": "«Ich esse gern Chips» — шаблон"
+  },
+  {
+   "id": 2329,
+   "col": "example_ru",
+   "old": "Я люблю чипсы",
+   "new": "Под футбол по телевизору мы всегда съедаем целую пачку чипсов",
+   "why": "«Ich esse gern Chips» — шаблон"
+  },
+  {
+   "id": 2329,
+   "col": "example_uk",
+   "old": "Я люблю їсти чіпси",
+   "new": "Під футбол по телевізору ми завжди з'їдаємо цілу пачку чіпсів",
+   "why": "«Ich esse gern Chips» — шаблон"
+  },
+  {
+   "id": 2329,
+   "col": "example_en",
+   "old": "I like eating chips",
+   "new": "When the football's on TV we always eat a whole bag of crisps",
+   "why": "«Ich esse gern Chips» — шаблон"
+  },
+  {
+   "id": 2329,
+   "col": "example_tr",
+   "old": "Cips yemeyi severim",
+   "new": "Televizyonda maç izlerken hep koca bir paket cips yiyoruz",
+   "why": "«Ich esse gern Chips» — шаблон"
+  },
+  {
+   "id": 2329,
+   "col": "example_pl",
+   "old": "Chętnie jem chipsy",
+   "new": "Przy meczu w telewizji zawsze zjadamy całą paczkę chipsów",
+   "why": "«Ich esse gern Chips» — шаблон"
+  },
+  {
+   "id": 2329,
+   "col": "example_it",
+   "old": "Mi piace mangiare le patatine",
+   "new": "Con la partita in tv mangiamo sempre un intero sacchetto di patatine",
+   "why": "«Ich esse gern Chips» — шаблон"
+  },
+  {
+   "id": 2329,
+   "col": "example_es",
+   "old": "Me gusta comer patatas fritas",
+   "new": "Viendo el fútbol en la tele siempre nos comemos una bolsa entera de patatas fritas",
+   "why": "«Ich esse gern Chips» — шаблон"
+  },
+  {
+   "id": 2329,
+   "col": "example_fr",
+   "old": "J'aime manger des chips",
+   "new": "Devant le foot à la télé, on mange toujours un paquet entier de chips",
+   "why": "«Ich esse gern Chips» — шаблон"
+  },
+  {
+   "id": 2329,
+   "col": "example_cs",
+   "old": "Rád jím brambůrky",
+   "new": "U fotbalu v televizi vždycky sníme celý sáček brambůrků",
+   "why": "«Ich esse gern Chips» — шаблон"
+  },
+  {
+   "id": 2333,
+   "col": "translation_ru",
+   "old": "защита данных, конфиденциальность персональных данных",
+   "new": "защита данных",
+   "why": "«… ist wichtig» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2333,
+   "col": "translation_uk",
+   "old": "захист даних, конфіденційність персональних даних",
+   "new": "захист даних",
+   "why": "«… ist wichtig» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2333,
+   "col": "translation_tr",
+   "old": "veri koruma, kişisel verilerin korunması, veri gizliliği",
+   "new": "veri koruma",
+   "why": "«… ist wichtig» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2333,
+   "col": "translation_pl",
+   "old": "ochrona danych, poufność danych osobowych",
+   "new": "ochrona danych",
+   "why": "«… ist wichtig» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2333,
+   "col": "translation_es",
+   "old": "la protección de datos, la privacidad",
+   "new": "la protección de datos",
+   "why": "«… ist wichtig» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2333,
+   "col": "example_de",
+   "old": "Datenschutz ist wichtig",
+   "new": "Wegen des Datenschutzes darf die Schule keine Fotos der Kinder ins Internet stellen",
+   "why": "«… ist wichtig» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2333,
+   "col": "example_ru",
+   "old": "Защита данных важна",
+   "new": "Из-за защиты данных школа не имеет права выкладывать фото детей в интернет",
+   "why": "«… ist wichtig» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2333,
+   "col": "example_uk",
+   "old": "Захист даних важливий",
+   "new": "Через захист даних школа не має права викладати фото дітей в інтернет",
+   "why": "«… ist wichtig» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2333,
+   "col": "example_en",
+   "old": "Data protection is important",
+   "new": "Because of data protection the school isn't allowed to put photos of the children online",
+   "why": "«… ist wichtig» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2333,
+   "col": "example_tr",
+   "old": "Veri koruma önemlidir",
+   "new": "Veri koruma nedeniyle okul çocukların fotoğraflarını internete koyamıyor",
+   "why": "«… ist wichtig» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2333,
+   "col": "example_pl",
+   "old": "Ochrona danych jest ważna",
+   "new": "Ze względu na ochronę danych szkoła nie może wrzucać zdjęć dzieci do internetu",
+   "why": "«… ist wichtig» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2333,
+   "col": "example_it",
+   "old": "La protezione dei dati è importante",
+   "new": "Per la protezione dei dati la scuola non può mettere le foto dei bambini su internet",
+   "why": "«… ist wichtig» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2333,
+   "col": "example_es",
+   "old": "La protección de datos es importante",
+   "new": "Por la protección de datos, el colegio no puede subir fotos de los niños a internet",
+   "why": "«… ist wichtig» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2333,
+   "col": "example_fr",
+   "old": "La protection des données est importante",
+   "new": "À cause de la protection des données, l'école n'a pas le droit de mettre des photos des enfants en ligne",
+   "why": "«… ist wichtig» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2333,
+   "col": "example_cs",
+   "old": "Ochrana osobních údajů je důležitá",
+   "new": "Kvůli ochraně osobních údajů nesmí škola dávat fotky dětí na internet",
+   "why": "«… ist wichtig» — шаблон; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2340,
+   "col": "translation_ru",
+   "old": "детектив, детективная история, детективный рассказ",
+   "new": "детективная история, детектив",
+   "why": "«Ich lese gern …» — шаблон; рядом Krimi; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2340,
+   "col": "translation_uk",
+   "old": "детектив, детективна історія",
+   "new": "детективна історія, детектив",
+   "why": "«Ich lese gern …» — шаблон; рядом Krimi; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2340,
+   "col": "translation_en",
+   "old": "detective story, crime story, whodunit",
+   "new": "detective story",
+   "why": "«Ich lese gern …» — шаблон; рядом Krimi; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2340,
+   "col": "translation_tr",
+   "old": "dedektif hikâyesi, polisiye roman",
+   "new": "dedektif hikâyesi",
+   "why": "«Ich lese gern …» — шаблон; рядом Krimi; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2340,
+   "col": "translation_pl",
+   "old": "kryminał, opowieść detektywistyczna, powieść detektywistyczna",
+   "new": "kryminał, opowieść detektywistyczna",
+   "why": "«Ich lese gern …» — шаблон; рядом Krimi; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2340,
+   "col": "translation_it",
+   "old": "il giallo, il racconto poliziesco",
+   "new": "il giallo",
+   "why": "«Ich lese gern …» — шаблон; рядом Krimi; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2340,
+   "col": "translation_es",
+   "old": "la historia de detectives, la novela policíaca",
+   "new": "la historia de detectives",
+   "why": "«Ich lese gern …» — шаблон; рядом Krimi; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2340,
+   "col": "translation_fr",
+   "old": "le roman policier, l'histoire policière",
+   "new": "l'histoire policière",
+   "why": "«Ich lese gern …» — шаблон; рядом Krimi; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2340,
+   "col": "example_de",
+   "old": "Ich lese gern Detektivgeschichten",
+   "new": "Mein Sohn will vor dem Schlafen immer eine Detektivgeschichte hören",
+   "why": "«Ich lese gern …» — шаблон; рядом Krimi; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2340,
+   "col": "example_ru",
+   "old": "Я люблю читать детективные истории",
+   "new": "Сын перед сном всегда хочет послушать детективную историю",
+   "why": "«Ich lese gern …» — шаблон; рядом Krimi; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2340,
+   "col": "example_uk",
+   "old": "Я люблю читати детективні історії",
+   "new": "Син перед сном завжди хоче послухати детективну історію",
+   "why": "«Ich lese gern …» — шаблон; рядом Krimi; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2340,
+   "col": "example_en",
+   "old": "I like reading detective stories",
+   "new": "My son always wants to hear a detective story before bed",
+   "why": "«Ich lese gern …» — шаблон; рядом Krimi; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2340,
+   "col": "example_tr",
+   "old": "Dedektif hikâyelerini okumayı severim",
+   "new": "Oğlum uyumadan önce hep bir dedektif hikâyesi dinlemek istiyor",
+   "why": "«Ich lese gern …» — шаблон; рядом Krimi; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2340,
+   "col": "example_pl",
+   "old": "Chętnie czytam powieści detektywistyczne",
+   "new": "Mój syn przed snem zawsze chce posłuchać opowieści detektywistycznej",
+   "why": "«Ich lese gern …» — шаблон; рядом Krimi; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2340,
+   "col": "example_it",
+   "old": "Mi piace leggere i gialli",
+   "new": "Mio figlio prima di dormire vuole sempre sentire un giallo",
+   "why": "«Ich lese gern …» — шаблон; рядом Krimi; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2340,
+   "col": "example_es",
+   "old": "Me gusta leer historias de detectives",
+   "new": "Mi hijo antes de dormir siempre quiere escuchar una historia de detectives",
+   "why": "«Ich lese gern …» — шаблон; рядом Krimi; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2340,
+   "col": "example_fr",
+   "old": "J'aime lire des romans policiers",
+   "new": "Avant de dormir, mon fils veut toujours écouter une histoire policière",
+   "why": "«Ich lese gern …» — шаблон; рядом Krimi; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2340,
+   "col": "example_cs",
+   "old": "Rád čtu detektivky",
+   "new": "Syn chce před spaním vždycky slyšet detektivku",
+   "why": "«Ich lese gern …» — шаблон; рядом Krimi; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2341,
+   "col": "translation_ru",
+   "old": "ГДР, Германская Демократическая Республика, Восточная Германия",
+   "new": "ГДР, Германская Демократическая Республика",
+   "why": "претерит wuchs; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2341,
+   "col": "translation_uk",
+   "old": "НДР, Німецька Демократична Республіка, Східна Німеччина",
+   "new": "НДР, Німецька Демократична Республіка",
+   "why": "претерит wuchs; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2341,
+   "col": "translation_en",
+   "old": "German Democratic Republic, GDR, East Germany",
+   "new": "German Democratic Republic, East Germany",
+   "why": "претерит wuchs; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2341,
+   "col": "translation_pl",
+   "old": "Niemiecka Republika Demokratyczna, NRD, Niemcy Wschodnie",
+   "new": "Niemiecka Republika Demokratyczna, NRD",
+   "why": "претерит wuchs; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2341,
+   "col": "translation_it",
+   "old": "la Repubblica Democratica Tedesca, la DDR, la Germania Est",
+   "new": "la Repubblica Democratica Tedesca, la Germania Est",
+   "why": "претерит wuchs; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2341,
+   "col": "translation_es",
+   "old": "la República Democrática Alemana, la RDA, la Alemania Oriental",
+   "new": "la República Democrática Alemana, la RDA",
+   "why": "претерит wuchs; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2341,
+   "col": "translation_fr",
+   "old": "la République démocratique allemande, la RDA, l'Allemagne de l'Est",
+   "new": "la République démocratique allemande, la RDA",
+   "why": "претерит wuchs; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2341,
+   "col": "translation_cs",
+   "old": "Německá demokratická republika, NDR, východní Německo",
+   "new": "Německá demokratická republika, NDR",
+   "why": "претерит wuchs; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2341,
+   "col": "example_de",
+   "old": "Meine Oma wuchs in der Deutschen Demokratischen Republik auf",
+   "new": "Meine Oma ist in der Deutschen Demokratischen Republik aufgewachsen",
+   "why": "претерит wuchs; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2341,
+   "col": "example_en",
+   "old": "My grandma grew up in the German Democratic Republic",
+   "new": "My gran grew up in the German Democratic Republic",
+   "why": "претерит wuchs; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2341,
+   "col": "example_tr",
+   "old": "Büyükannem Alman Demokratik Cumhuriyeti'nde büyüdü",
+   "new": "Anneannem Alman Demokratik Cumhuriyeti'nde büyüdü",
+   "why": "претерит wuchs; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2346,
+   "col": "translation_ru",
+   "old": "услуга, сфера услуг",
+   "new": "услуга",
+   "why": "«Wir bieten … an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2346,
+   "col": "translation_uk",
+   "old": "послуга, сфера послуг",
+   "new": "послуга",
+   "why": "«Wir bieten … an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2346,
+   "col": "translation_en",
+   "old": "service, services sector",
+   "new": "service",
+   "why": "«Wir bieten … an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2346,
+   "col": "translation_tr",
+   "old": "hizmet, servis",
+   "new": "hizmet",
+   "why": "«Wir bieten … an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2346,
+   "col": "translation_pl",
+   "old": "usługa, świadczenie",
+   "new": "usługa",
+   "why": "«Wir bieten … an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2346,
+   "col": "translation_it",
+   "old": "il servizio, il settore dei servizi",
+   "new": "il servizio",
+   "why": "«Wir bieten … an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2346,
+   "col": "translation_es",
+   "old": "el servicio, el sector servicios",
+   "new": "el servicio",
+   "why": "«Wir bieten … an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2346,
+   "col": "translation_fr",
+   "old": "le service, le secteur des services",
+   "new": "le service",
+   "why": "«Wir bieten … an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2346,
+   "col": "translation_cs",
+   "old": "služba, sektor služeb",
+   "new": "služba",
+   "why": "«Wir bieten … an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2346,
+   "col": "example_de",
+   "old": "Wir bieten verschiedene Dienstleistungen an",
+   "new": "Der Hausmeister macht auch kleine Reparaturen, aber diese Dienstleistung kostet extra",
+   "why": "«Wir bieten … an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2346,
+   "col": "example_ru",
+   "old": "Мы предлагаем разные услуги",
+   "new": "Завхоз делает и мелкий ремонт, но эта услуга оплачивается отдельно",
+   "why": "«Wir bieten … an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2346,
+   "col": "example_uk",
+   "old": "Ми надаємо різні послуги",
+   "new": "Завгосп робить і дрібний ремонт, але ця послуга оплачується окремо",
+   "why": "«Wir bieten … an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2346,
+   "col": "example_en",
+   "old": "We offer various services",
+   "new": "The caretaker does small repairs too, but that service costs extra",
+   "why": "«Wir bieten … an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2346,
+   "col": "example_tr",
+   "old": "Farklı hizmetler sunuyoruz",
+   "new": "Kapıcı küçük tamirler de yapıyor ama bu hizmet ayrıca ücretli",
+   "why": "«Wir bieten … an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2346,
+   "col": "example_pl",
+   "old": "Oferujemy różne usługi",
+   "new": "Dozorca robi też drobne naprawy, ale ta usługa kosztuje dodatkowo",
+   "why": "«Wir bieten … an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2346,
+   "col": "example_it",
+   "old": "Offriamo diversi servizi",
+   "new": "Il custode fa anche piccole riparazioni, ma questo servizio si paga a parte",
+   "why": "«Wir bieten … an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2346,
+   "col": "example_es",
+   "old": "Ofrecemos diversos servicios",
+   "new": "El conserje también hace pequeñas reparaciones, pero ese servicio se paga aparte",
+   "why": "«Wir bieten … an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2346,
+   "col": "example_fr",
+   "old": "Nous proposons différents services",
+   "new": "Le gardien fait aussi de petites réparations, mais ce service est payant en plus",
+   "why": "«Wir bieten … an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2346,
+   "col": "example_cs",
+   "old": "Nabízíme různé služby",
+   "new": "Domovník dělá i drobné opravy, ale tahle služba se platí zvlášť",
+   "why": "«Wir bieten … an» — реклама; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2347,
+   "col": "translation_uk",
+   "old": "відрядження, службова поїздка",
+   "new": "відрядження",
+   "why": "«Ich bin auf Dienstreise» — пусто; повторяет Geschäftsreise; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2347,
+   "col": "translation_en",
+   "old": "business trip, work trip",
+   "new": "business trip",
+   "why": "«Ich bin auf Dienstreise» — пусто; повторяет Geschäftsreise; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2347,
+   "col": "translation_tr",
+   "old": "iş seyahati, iş gezisi",
+   "new": "iş seyahati",
+   "why": "«Ich bin auf Dienstreise» — пусто; повторяет Geschäftsreise; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2347,
+   "col": "translation_pl",
+   "old": "podróż służbowa, delegacja",
+   "new": "delegacja, podróż służbowa",
+   "why": "«Ich bin auf Dienstreise» — пусто; повторяет Geschäftsreise; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2347,
+   "col": "translation_it",
+   "old": "il viaggio di lavoro, la trasferta",
+   "new": "la trasferta",
+   "why": "«Ich bin auf Dienstreise» — пусто; повторяет Geschäftsreise; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2347,
+   "col": "translation_es",
+   "old": "el viaje de negocios, el viaje de trabajo",
+   "new": "el viaje de trabajo",
+   "why": "«Ich bin auf Dienstreise» — пусто; повторяет Geschäftsreise; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2347,
+   "col": "translation_fr",
+   "old": "le voyage d'affaires, le déplacement professionnel",
+   "new": "le déplacement professionnel",
+   "why": "«Ich bin auf Dienstreise» — пусто; повторяет Geschäftsreise; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2347,
+   "col": "example_de",
+   "old": "Ich bin auf Dienstreise",
+   "new": "Die Kosten für die Dienstreise bekomme ich nächsten Monat mit dem Gehalt zurück",
+   "why": "«Ich bin auf Dienstreise» — пусто; повторяет Geschäftsreise; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2347,
+   "col": "example_ru",
+   "old": "Я в командировке",
+   "new": "Расходы на командировку мне вернут в следующем месяце вместе с зарплатой",
+   "why": "«Ich bin auf Dienstreise» — пусто; повторяет Geschäftsreise; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2347,
+   "col": "example_uk",
+   "old": "Я у службовому відрядженні",
+   "new": "Витрати на відрядження мені повернуть наступного місяця разом із зарплатою",
+   "why": "«Ich bin auf Dienstreise» — пусто; повторяет Geschäftsreise; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2347,
+   "col": "example_en",
+   "old": "I'm on a business trip",
+   "new": "I'll get the costs of the business trip back with my salary next month",
+   "why": "«Ich bin auf Dienstreise» — пусто; повторяет Geschäftsreise; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2347,
+   "col": "example_tr",
+   "old": "İş seyahatindeyim",
+   "new": "İş seyahatinin masraflarını gelecek ay maaşla birlikte geri alıyorum",
+   "why": "«Ich bin auf Dienstreise» — пусто; повторяет Geschäftsreise; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2347,
+   "col": "example_pl",
+   "old": "Jestem w podróży służbowej",
+   "new": "Koszty delegacji zwrócą mi w przyszłym miesiącu razem z pensją",
+   "why": "«Ich bin auf Dienstreise» — пусто; повторяет Geschäftsreise; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2347,
+   "col": "example_it",
+   "old": "Sono in viaggio di lavoro",
+   "new": "Le spese della trasferta me le rimborsano il mese prossimo con lo stipendio",
+   "why": "«Ich bin auf Dienstreise» — пусто; повторяет Geschäftsreise; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2347,
+   "col": "example_es",
+   "old": "Estoy de viaje de negocios",
+   "new": "Los gastos del viaje de trabajo me los devuelven el mes que viene con el sueldo",
+   "why": "«Ich bin auf Dienstreise» — пусто; повторяет Geschäftsreise; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2347,
+   "col": "example_fr",
+   "old": "Je suis en voyage d'affaires",
+   "new": "Les frais du déplacement professionnel me seront remboursés le mois prochain avec mon salaire",
+   "why": "«Ich bin auf Dienstreise» — пусто; повторяет Geschäftsreise; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2347,
+   "col": "example_cs",
+   "old": "Jsem na služební cestě",
+   "new": "Náklady na služební cestu mi vrátí příští měsíc s výplatou",
+   "why": "«Ich bin auf Dienstreise» — пусто; повторяет Geschäftsreise; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2350,
+   "col": "translation_ru",
+   "old": "донер, шаурма, дёнер-кебаб",
+   "new": "донер, шаурма",
+   "why": "«Ich esse einen Döner» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2350,
+   "col": "translation_en",
+   "old": "döner kebab, kebab",
+   "new": "doner kebab",
+   "why": "«Ich esse einen Döner» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2350,
+   "col": "translation_tr",
+   "old": "döner, döner kebap",
+   "new": "döner",
+   "why": "«Ich esse einen Döner» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2350,
+   "col": "translation_pl",
+   "old": "kebab, kebab z rożna",
+   "new": "kebab",
+   "why": "«Ich esse einen Döner» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2350,
+   "col": "example_de",
+   "old": "Ich esse einen Döner",
+   "new": "Nach der Party holen wir uns um drei Uhr nachts noch einen Döner",
+   "why": "«Ich esse einen Döner» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2350,
+   "col": "example_ru",
+   "old": "Я ем донер",
+   "new": "После вечеринки мы в три часа ночи ещё берём себе донер",
+   "why": "«Ich esse einen Döner» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2350,
+   "col": "example_uk",
+   "old": "Я їм донер",
+   "new": "Після вечірки ми о третій ночі ще беремо собі донер",
+   "why": "«Ich esse einen Döner» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2350,
+   "col": "example_en",
+   "old": "I'm eating a döner kebab",
+   "new": "After the party we get a doner kebab at three in the morning",
+   "why": "«Ich esse einen Döner» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2350,
+   "col": "example_tr",
+   "old": "Bir döner yiyorum",
+   "new": "Partiden sonra gece saat üçte bir de döner alıyoruz",
+   "why": "«Ich esse einen Döner» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2350,
+   "col": "example_pl",
+   "old": "Jem kebaba",
+   "new": "Po imprezie o trzeciej w nocy kupujemy sobie jeszcze kebaba",
+   "why": "«Ich esse einen Döner» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2350,
+   "col": "example_it",
+   "old": "Mangio un kebab",
+   "new": "Dopo la festa alle tre di notte ci prendiamo ancora un kebab",
+   "why": "«Ich esse einen Döner» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2350,
+   "col": "example_es",
+   "old": "Me como un kebab",
+   "new": "Después de la fiesta, a las tres de la mañana, nos compramos un kebab",
+   "why": "«Ich esse einen Döner» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2350,
+   "col": "example_fr",
+   "old": "Je mange un kebab",
+   "new": "Après la soirée, à trois heures du matin, on va encore se prendre un kebab",
+   "why": "«Ich esse einen Döner» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2350,
+   "col": "example_cs",
+   "old": "Jím kebab",
+   "new": "Po večírku si ve tři ráno ještě dáme kebab",
+   "why": "«Ich esse einen Döner» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2352,
+   "col": "translation_pl",
+   "old": "podwójne łóżko, łóżko dwuosobowe",
+   "new": "łóżko dwuosobowe",
+   "why": "«Das Zimmer hat ein Doppelbett» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2352,
+   "col": "translation_es",
+   "old": "la cama de matrimonio, la cama doble",
+   "new": "la cama de matrimonio",
+   "why": "«Das Zimmer hat ein Doppelbett» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2352,
+   "col": "translation_cs",
+   "old": "manželská postel, dvoulůžko",
+   "new": "manželská postel",
+   "why": "«Das Zimmer hat ein Doppelbett» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2352,
+   "col": "example_de",
+   "old": "Das Zimmer hat ein Doppelbett",
+   "new": "Seit wir ein Doppelbett haben, liegt der Hund jede Nacht zwischen uns",
+   "why": "«Das Zimmer hat ein Doppelbett» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2352,
+   "col": "example_ru",
+   "old": "В комнате есть двуспальная кровать",
+   "new": "С тех пор как у нас двуспальная кровать, собака каждую ночь лежит между нами",
+   "why": "«Das Zimmer hat ein Doppelbett» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2352,
+   "col": "example_uk",
+   "old": "У кімнаті є двоспальне ліжко",
+   "new": "Відколи в нас двоспальне ліжко, пес щоночі лежить між нами",
+   "why": "«Das Zimmer hat ein Doppelbett» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2352,
+   "col": "example_en",
+   "old": "The room has a double bed",
+   "new": "Since we got a double bed the dog lies between us every night",
+   "why": "«Das Zimmer hat ein Doppelbett» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2352,
+   "col": "example_tr",
+   "old": "Odanın çift kişilik yatağı var",
+   "new": "Çift kişilik yatağımız olduğundan beri köpek her gece aramızda yatıyor",
+   "why": "«Das Zimmer hat ein Doppelbett» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2352,
+   "col": "example_pl",
+   "old": "Pokój ma podwójne łóżko",
+   "new": "Odkąd mamy łóżko dwuosobowe, pies co noc leży między nami",
+   "why": "«Das Zimmer hat ein Doppelbett» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2352,
+   "col": "example_it",
+   "old": "La camera ha un letto matrimoniale",
+   "new": "Da quando abbiamo un letto matrimoniale il cane dorme ogni notte in mezzo a noi",
+   "why": "«Das Zimmer hat ein Doppelbett» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2352,
+   "col": "example_es",
+   "old": "La habitación tiene una cama de matrimonio",
+   "new": "Desde que tenemos cama de matrimonio, el perro se tumba cada noche entre los dos",
+   "why": "«Das Zimmer hat ein Doppelbett» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2352,
+   "col": "example_fr",
+   "old": "La chambre a un lit double",
+   "new": "Depuis qu'on a un lit double, le chien dort entre nous chaque nuit",
+   "why": "«Das Zimmer hat ein Doppelbett» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2352,
+   "col": "example_cs",
+   "old": "Pokoj má manželskou postel",
+   "new": "Od té doby, co máme manželskou postel, leží pes každou noc mezi námi",
+   "why": "«Das Zimmer hat ein Doppelbett» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2357,
+   "col": "translation_ru",
+   "old": "быть на очереди, подходить чья-то очередь, быть следующим",
+   "new": "быть на очереди",
+   "why": "«Jetzt bist du dran» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2357,
+   "col": "translation_uk",
+   "old": "бути на черзі, бути наступним, надходити чиясь черга",
+   "new": "бути на черзі",
+   "why": "«Jetzt bist du dran» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2357,
+   "col": "translation_en",
+   "old": "to be one's turn, to be next",
+   "new": "to be one's turn",
+   "why": "«Jetzt bist du dran» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2357,
+   "col": "translation_tr",
+   "old": "sırası gelmek, sıra kendisinde olmak",
+   "new": "sırası gelmek",
+   "why": "«Jetzt bist du dran» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2357,
+   "col": "translation_pl",
+   "old": "twoja kolej, być następnym w kolejce",
+   "new": "mieć swoją kolej",
+   "why": "«Jetzt bist du dran» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2357,
+   "col": "translation_it",
+   "old": "toccare a, essere di turno",
+   "new": "toccare a",
+   "why": "«Jetzt bist du dran» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2357,
+   "col": "translation_es",
+   "old": "tocar, ser el turno de",
+   "new": "tocar a",
+   "why": "«Jetzt bist du dran» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2357,
+   "col": "translation_fr",
+   "old": "être le tour de, être le suivant",
+   "new": "être le tour de",
+   "why": "«Jetzt bist du dran» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2357,
+   "col": "example_de",
+   "old": "Jetzt bist du dran",
+   "new": "Beim Arzt warte ich schon eine Stunde, aber in zehn Minuten bin ich dran",
+   "why": "«Jetzt bist du dran» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2357,
+   "col": "example_ru",
+   "old": "Теперь твоя очередь",
+   "new": "У врача я жду уже час, но через десять минут моя очередь",
+   "why": "«Jetzt bist du dran» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2357,
+   "col": "example_uk",
+   "old": "Тепер твоя черга",
+   "new": "У лікаря я чекаю вже годину, але за десять хвилин моя черга",
+   "why": "«Jetzt bist du dran» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2357,
+   "col": "example_en",
+   "old": "Now it's your turn",
+   "new": "I've been waiting at the doctor's for an hour, but it's my turn in ten minutes",
+   "why": "«Jetzt bist du dran» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2357,
+   "col": "example_tr",
+   "old": "Şimdi sıra sende",
+   "new": "Doktorda bir saattir bekliyorum ama on dakika sonra sıra bende",
+   "why": "«Jetzt bist du dran» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2357,
+   "col": "example_pl",
+   "old": "Teraz twoja kolej",
+   "new": "U lekarza czekam już godzinę, ale za dziesięć minut moja kolej",
+   "why": "«Jetzt bist du dran» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2357,
+   "col": "example_it",
+   "old": "Ora tocca a te",
+   "new": "Dal medico aspetto già da un'ora, ma fra dieci minuti tocca a me",
+   "why": "«Jetzt bist du dran» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2357,
+   "col": "example_es",
+   "old": "Ahora te toca a ti",
+   "new": "En el médico llevo una hora esperando, pero en diez minutos me toca a mí",
+   "why": "«Jetzt bist du dran» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2357,
+   "col": "example_fr",
+   "old": "Maintenant, c'est ton tour",
+   "new": "Chez le médecin, j'attends depuis une heure, mais dans dix minutes c'est mon tour",
+   "why": "«Jetzt bist du dran» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2357,
+   "col": "example_cs",
+   "old": "Teď jsi na řadě ty",
+   "new": "U doktora čekám už hodinu, ale za deset minut jsem na řadě",
+   "why": "«Jetzt bist du dran» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2360,
+   "col": "translation_ru",
+   "old": "проницаемый, пропускающий воду, негерметичный",
+   "new": "проницаемый, пропускающий воду",
+   "why": "«Der Stoff ist wasserdurchlässig» — этикетка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2360,
+   "col": "translation_uk",
+   "old": "проникний, водопроникний, що пропускає воду",
+   "new": "проникний, що пропускає воду",
+   "why": "«Der Stoff ist wasserdurchlässig» — этикетка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2360,
+   "col": "translation_en",
+   "old": "permeable, porous, letting something through",
+   "new": "permeable, leaky",
+   "why": "«Der Stoff ist wasserdurchlässig» — этикетка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2360,
+   "col": "translation_pl",
+   "old": "przepuszczalny, przenikliwy dla wody, nieszczelny",
+   "new": "przepuszczalny, nieszczelny",
+   "why": "«Der Stoff ist wasserdurchlässig» — этикетка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2360,
+   "col": "example_de",
+   "old": "Der Stoff ist wasserdurchlässig",
+   "new": "Das alte Zelt ist so durchlässig, dass wir nachts nass geworden sind",
+   "why": "«Der Stoff ist wasserdurchlässig» — этикетка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2360,
+   "col": "example_ru",
+   "old": "Ткань водопроницаемая",
+   "new": "Старая палатка настолько пропускает воду, что ночью мы промокли",
+   "why": "«Der Stoff ist wasserdurchlässig» — этикетка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2360,
+   "col": "example_uk",
+   "old": "Тканина водопроникна",
+   "new": "Старий намет настільки пропускає воду, що вночі ми промокли",
+   "why": "«Der Stoff ist wasserdurchlässig» — этикетка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2360,
+   "col": "example_en",
+   "old": "The fabric is water-permeable",
+   "new": "The old tent is so leaky that we got wet during the night",
+   "why": "«Der Stoff ist wasserdurchlässig» — этикетка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2360,
+   "col": "example_tr",
+   "old": "Kumaş su geçiriyor",
+   "new": "Eski çadır o kadar su geçiren ki gece ıslandık",
+   "why": "«Der Stoff ist wasserdurchlässig» — этикетка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2360,
+   "col": "example_pl",
+   "old": "Ten materiał jest przepuszczalny dla wody",
+   "new": "Stary namiot jest tak nieszczelny, że w nocy zmokliśmy",
+   "why": "«Der Stoff ist wasserdurchlässig» — этикетка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2360,
+   "col": "example_it",
+   "old": "Il tessuto è permeabile all'acqua",
+   "new": "La vecchia tenda è così permeabile che di notte ci siamo bagnati",
+   "why": "«Der Stoff ist wasserdurchlässig» — этикетка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2360,
+   "col": "example_es",
+   "old": "La tela es permeable al agua",
+   "new": "La tienda vieja es tan permeable que por la noche nos mojamos",
+   "why": "«Der Stoff ist wasserdurchlässig» — этикетка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2360,
+   "col": "example_fr",
+   "old": "Le tissu est perméable à l'eau",
+   "new": "La vieille tente est tellement perméable qu'on a été mouillés pendant la nuit",
+   "why": "«Der Stoff ist wasserdurchlässig» — этикетка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2360,
+   "col": "example_cs",
+   "old": "Látka je propustná pro vodu",
+   "new": "Starý stan je tak propustný, že jsme v noci zmokli",
+   "why": "«Der Stoff ist wasserdurchlässig» — этикетка; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2361,
+   "col": "translation_ru",
+   "old": "среднее значение, средний показатель, в среднем",
+   "new": "среднее, в среднем",
+   "why": "«Der Durchschnitt liegt bei 50» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2361,
+   "col": "translation_uk",
+   "old": "середнє значення, середній показник, у середньому",
+   "new": "середнє, у середньому",
+   "why": "«Der Durchschnitt liegt bei 50» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2361,
+   "col": "translation_en",
+   "old": "average, mean, average level",
+   "new": "average",
+   "why": "«Der Durchschnitt liegt bei 50» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2361,
+   "col": "translation_tr",
+   "old": "ortalama, ortalama değer",
+   "new": "ortalama",
+   "why": "«Der Durchschnitt liegt bei 50» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2361,
+   "col": "translation_pl",
+   "old": "średnia, przeciętna, średnia wartość",
+   "new": "średnia",
+   "why": "«Der Durchschnitt liegt bei 50» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2361,
+   "col": "translation_es",
+   "old": "el promedio, la media",
+   "new": "la media",
+   "why": "«Der Durchschnitt liegt bei 50» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2361,
+   "col": "example_de",
+   "old": "Der Durchschnitt liegt bei 50",
+   "new": "Meine Noten liegen über dem Durchschnitt der Klasse, nur in Mathe nicht",
+   "why": "«Der Durchschnitt liegt bei 50» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2361,
+   "col": "example_ru",
+   "old": "Среднее значение — около 50",
+   "new": "Мои оценки выше среднего по классу, только не по математике",
+   "why": "«Der Durchschnitt liegt bei 50» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2361,
+   "col": "example_uk",
+   "old": "Середнє значення становить 50",
+   "new": "Мої оцінки вищі за середнє по класу, тільки не з математики",
+   "why": "«Der Durchschnitt liegt bei 50» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2361,
+   "col": "example_en",
+   "old": "The average is 50",
+   "new": "My marks are above the class average, except in maths",
+   "why": "«Der Durchschnitt liegt bei 50» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2361,
+   "col": "example_tr",
+   "old": "Ortalama 50",
+   "new": "Notlarım sınıf ortalamasının üstünde, sadece matematikte değil",
+   "why": "«Der Durchschnitt liegt bei 50» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2361,
+   "col": "example_pl",
+   "old": "Średnia wynosi 50",
+   "new": "Moje oceny są powyżej średniej klasy, tylko nie z matematyki",
+   "why": "«Der Durchschnitt liegt bei 50» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2361,
+   "col": "example_it",
+   "old": "La media è di 50",
+   "new": "I miei voti sono sopra la media della classe, tranne in matematica",
+   "why": "«Der Durchschnitt liegt bei 50» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2361,
+   "col": "example_es",
+   "old": "El promedio es de 50",
+   "new": "Mis notas están por encima de la media de la clase, menos en matemáticas",
+   "why": "«Der Durchschnitt liegt bei 50» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2361,
+   "col": "example_fr",
+   "old": "La moyenne est de 50",
+   "new": "Mes notes sont au-dessus de la moyenne de la classe, sauf en maths",
+   "why": "«Der Durchschnitt liegt bei 50» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2361,
+   "col": "example_cs",
+   "old": "Průměr je 50",
+   "new": "Moje známky jsou nad průměrem třídy, jen z matiky ne",
+   "why": "«Der Durchschnitt liegt bei 50» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2363,
+   "col": "translation_ru",
+   "old": "диск DVD",
+   "new": "DVD-диск",
+   "why": "«Ich schaue eine DVD» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2363,
+   "col": "translation_uk",
+   "old": "диск DVD",
+   "new": "DVD-диск",
+   "why": "«Ich schaue eine DVD» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2363,
+   "col": "translation_en",
+   "old": "DVD, DVD disc",
+   "new": "DVD",
+   "why": "«Ich schaue eine DVD» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2363,
+   "col": "translation_tr",
+   "old": "DVD, DVD diski",
+   "new": "DVD",
+   "why": "«Ich schaue eine DVD» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2363,
+   "col": "example_de",
+   "old": "Ich schaue eine DVD",
+   "new": "Wir haben noch einen Karton voller DVDs, aber keinen Player mehr",
+   "why": "«Ich schaue eine DVD» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2363,
+   "col": "example_ru",
+   "old": "Я смотрю DVD",
+   "new": "У нас ещё есть коробка, полная DVD-дисков, а проигрывателя уже нет",
+   "why": "«Ich schaue eine DVD» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2363,
+   "col": "example_uk",
+   "old": "Я дивлюся DVD",
+   "new": "У нас ще є коробка, повна DVD-дисків, а програвача вже немає",
+   "why": "«Ich schaue eine DVD» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2363,
+   "col": "example_en",
+   "old": "I'm watching a DVD",
+   "new": "We've still got a box full of DVDs but no player any more",
+   "why": "«Ich schaue eine DVD» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2363,
+   "col": "example_tr",
+   "old": "Bir DVD izliyorum",
+   "new": "Hâlâ dolu bir koli DVD'miz var ama oynatıcımız yok artık",
+   "why": "«Ich schaue eine DVD» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2363,
+   "col": "example_pl",
+   "old": "Oglądam płytę DVD",
+   "new": "Mamy jeszcze karton pełen płyt DVD, ale odtwarzacza już nie",
+   "why": "«Ich schaue eine DVD» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2363,
+   "col": "example_it",
+   "old": "Guardo un DVD",
+   "new": "Abbiamo ancora uno scatolone pieno di DVD, ma il lettore non più",
+   "why": "«Ich schaue eine DVD» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2363,
+   "col": "example_es",
+   "old": "Veo un DVD",
+   "new": "Todavía tenemos una caja llena de DVD, pero ya no tenemos reproductor",
+   "why": "«Ich schaue eine DVD» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2363,
+   "col": "example_fr",
+   "old": "Je regarde un DVD",
+   "new": "On a encore un carton plein de DVD, mais plus de lecteur",
+   "why": "«Ich schaue eine DVD» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2363,
+   "col": "example_cs",
+   "old": "Dívám se na DVD",
+   "new": "Máme ještě krabici plnou DVD, ale přehrávač už ne",
+   "why": "«Ich schaue eine DVD» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2365,
+   "col": "translation_ru",
+   "old": "бывший, прежний",
+   "new": "бывший",
+   "why": "пример повторяет früher; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2365,
+   "col": "translation_uk",
+   "old": "колишній, попередній",
+   "new": "колишній",
+   "why": "пример повторяет früher; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2365,
+   "col": "translation_en",
+   "old": "former, previous, ex-",
+   "new": "former",
+   "why": "пример повторяет früher; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2365,
+   "col": "translation_tr",
+   "old": "eski, önceki",
+   "new": "eski",
+   "why": "пример повторяет früher; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2365,
+   "col": "translation_pl",
+   "old": "były, dawny, poprzedni",
+   "new": "były, dawny",
+   "why": "пример повторяет früher; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2365,
+   "col": "example_de",
+   "old": "Das ist mein ehemaliger Chef",
+   "new": "In der ehemaligen Fabrik am Fluss gibt es heute Wohnungen und ein Café",
+   "why": "пример повторяет früher; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2365,
+   "col": "example_ru",
+   "old": "Это мой бывший начальник",
+   "new": "На бывшей фабрике у реки теперь квартиры и кафе",
+   "why": "пример повторяет früher; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2365,
+   "col": "example_uk",
+   "old": "Це мій колишній начальник",
+   "new": "На колишній фабриці біля річки тепер квартири й кав'ярня",
+   "why": "пример повторяет früher; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2365,
+   "col": "example_en",
+   "old": "That is my former boss",
+   "new": "The former factory by the river now has flats and a café",
+   "why": "пример повторяет früher; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2365,
+   "col": "example_tr",
+   "old": "Bu benim eski patronum",
+   "new": "Nehir kenarındaki eski fabrikada bugün daireler ve bir kafe var",
+   "why": "пример повторяет früher; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2365,
+   "col": "example_pl",
+   "old": "To mój były szef",
+   "new": "W dawnej fabryce nad rzeką są dziś mieszkania i kawiarnia",
+   "why": "пример повторяет früher; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2365,
+   "col": "example_it",
+   "old": "Questo è il mio ex capo",
+   "new": "Nell'ex fabbrica sul fiume oggi ci sono appartamenti e un bar",
+   "why": "пример повторяет früher; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2365,
+   "col": "example_es",
+   "old": "Es mi antiguo jefe",
+   "new": "En la antigua fábrica junto al río hoy hay pisos y una cafetería",
+   "why": "пример повторяет früher; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2365,
+   "col": "example_fr",
+   "old": "C'est mon ancien chef",
+   "new": "Dans l'ancienne usine au bord de la rivière, il y a aujourd'hui des appartements et un café",
+   "why": "пример повторяет früher; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2365,
+   "col": "example_cs",
+   "old": "To je můj bývalý šéf",
+   "new": "V bývalé továrně u řeky jsou dnes byty a kavárna",
+   "why": "пример повторяет früher; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2368,
+   "col": "translation_ru",
+   "old": "лоток для яиц, коробка для яиц",
+   "new": "коробка для яиц",
+   "why": "«Der Eierkarton ist leer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2368,
+   "col": "translation_uk",
+   "old": "лоток для яєць, коробка для яєць",
+   "new": "коробка для яєць",
+   "why": "«Der Eierkarton ist leer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2368,
+   "col": "translation_en",
+   "old": "egg carton, egg box",
+   "new": "egg box",
+   "why": "«Der Eierkarton ist leer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2368,
+   "col": "translation_tr",
+   "old": "yumurta kartonu, yumurta kutusu",
+   "new": "yumurta kartonu",
+   "why": "«Der Eierkarton ist leer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2368,
+   "col": "translation_pl",
+   "old": "karton na jajka, wytłaczanka na jajka",
+   "new": "wytłaczanka na jajka",
+   "why": "«Der Eierkarton ist leer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2368,
+   "col": "translation_it",
+   "old": "il cartone delle uova, la confezione delle uova",
+   "new": "il cartone delle uova",
+   "why": "«Der Eierkarton ist leer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2368,
+   "col": "translation_cs",
+   "old": "krabička od vajec, plato na vejce",
+   "new": "plato na vejce",
+   "why": "«Der Eierkarton ist leer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2368,
+   "col": "example_de",
+   "old": "Der Eierkarton ist leer",
+   "new": "Aus alten Eierkartons basteln die Kinder im Kindergarten Raupen",
+   "why": "«Der Eierkarton ist leer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2368,
+   "col": "example_ru",
+   "old": "Коробка для яиц пустая",
+   "new": "Из старых коробок для яиц дети в садике мастерят гусениц",
+   "why": "«Der Eierkarton ist leer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2368,
+   "col": "example_uk",
+   "old": "Коробка для яєць порожня",
+   "new": "Зі старих коробок для яєць діти в садочку майструють гусениць",
+   "why": "«Der Eierkarton ist leer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2368,
+   "col": "example_en",
+   "old": "The egg carton is empty",
+   "new": "At nursery the children make caterpillars out of old egg boxes",
+   "why": "«Der Eierkarton ist leer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2368,
+   "col": "example_tr",
+   "old": "Yumurta kartonu boş",
+   "new": "Anaokulunda çocuklar eski yumurta kartonlarından tırtıl yapıyor",
+   "why": "«Der Eierkarton ist leer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2368,
+   "col": "example_pl",
+   "old": "Karton na jajka jest pusty",
+   "new": "Ze starych wytłaczanek na jajka dzieci w przedszkolu robią gąsienice",
+   "why": "«Der Eierkarton ist leer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2368,
+   "col": "example_it",
+   "old": "Il cartone delle uova è vuoto",
+   "new": "All'asilo i bambini fanno dei bruchi con i vecchi cartoni delle uova",
+   "why": "«Der Eierkarton ist leer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2368,
+   "col": "example_es",
+   "old": "El cartón de huevos está vacío",
+   "new": "En la guardería los niños hacen orugas con cartones de huevos viejos",
+   "why": "«Der Eierkarton ist leer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2368,
+   "col": "example_fr",
+   "old": "La boîte à œufs est vide",
+   "new": "À la crèche, les enfants fabriquent des chenilles avec de vieilles boîtes à œufs",
+   "why": "«Der Eierkarton ist leer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2368,
+   "col": "example_cs",
+   "old": "Krabička od vajec je prázdná",
+   "new": "Ve školce děti vyrábějí ze starých plat na vejce housenky",
+   "why": "«Der Eierkarton ist leer» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2369,
+   "col": "translation_ru",
+   "old": "яичная скорлупа, скорлупа",
+   "new": "яичная скорлупа",
+   "why": "«Die Eierschale ist zerbrochen» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2369,
+   "col": "translation_uk",
+   "old": "яєчна шкаралупа, шкаралупа",
+   "new": "яєчна шкаралупа",
+   "why": "«Die Eierschale ist zerbrochen» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2369,
+   "col": "translation_pl",
+   "old": "skorupka jajka, skorupka",
+   "new": "skorupka jajka",
+   "why": "«Die Eierschale ist zerbrochen» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2369,
+   "col": "translation_cs",
+   "old": "vaječná skořápka, skořápka",
+   "new": "vaječná skořápka",
+   "why": "«Die Eierschale ist zerbrochen» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2369,
+   "col": "example_de",
+   "old": "Die Eierschale ist zerbrochen",
+   "new": "Im Kuchen war ein Stück Eierschale, das hat beim Beißen geknirscht",
+   "why": "«Die Eierschale ist zerbrochen» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2369,
+   "col": "example_ru",
+   "old": "Яичная скорлупа разбилась",
+   "new": "В пироге попался кусочек яичной скорлупы, хрустнул на зубах",
+   "why": "«Die Eierschale ist zerbrochen» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2369,
+   "col": "example_uk",
+   "old": "Яєчна шкаралупа розбилася",
+   "new": "У пирозі трапився шматочок яєчної шкаралупи, хруснув на зубах",
+   "why": "«Die Eierschale ist zerbrochen» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2369,
+   "col": "example_en",
+   "old": "The eggshell is broken",
+   "new": "There was a bit of eggshell in the cake and it crunched when I bit into it",
+   "why": "«Die Eierschale ist zerbrochen» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2369,
+   "col": "example_tr",
+   "old": "Yumurta kabuğu kırıldı",
+   "new": "Kekin içinde bir parça yumurta kabuğu vardı, ısırınca çıtırdadı",
+   "why": "«Die Eierschale ist zerbrochen» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2369,
+   "col": "example_pl",
+   "old": "Skorupka jajka jest pęknięta",
+   "new": "W cieście był kawałek skorupki jajka, zachrzęścił w zębach",
+   "why": "«Die Eierschale ist zerbrochen» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2369,
+   "col": "example_it",
+   "old": "Il guscio d'uovo è rotto",
+   "new": "Nella torta c'era un pezzetto di guscio d'uovo che scricchiolava sotto i denti",
+   "why": "«Die Eierschale ist zerbrochen» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2369,
+   "col": "example_es",
+   "old": "La cáscara de huevo está rota",
+   "new": "En el bizcocho había un trozo de cáscara de huevo que crujió al morder",
+   "why": "«Die Eierschale ist zerbrochen» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2369,
+   "col": "example_fr",
+   "old": "La coquille d'œuf est cassée",
+   "new": "Il y avait un morceau de coquille d'œuf dans le gâteau, ça a croqué sous la dent",
+   "why": "«Die Eierschale ist zerbrochen» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2369,
+   "col": "example_cs",
+   "old": "Vaječná skořápka je rozbitá",
+   "new": "V koláči byl kousek vaječné skořápky a křupl mi mezi zuby",
+   "why": "«Die Eierschale ist zerbrochen» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2371,
+   "col": "translation_ru",
+   "old": "самостоятельный, действующий под свою ответственность, самостоятельно",
+   "new": "самостоятельный, под свою ответственность",
+   "why": "«Ich arbeite eigenverantwortlich» — фраза из резюме; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2371,
+   "col": "translation_uk",
+   "old": "самостійний, що діє під власну відповідальність, самостійно",
+   "new": "самостійний, під власну відповідальність",
+   "why": "«Ich arbeite eigenverantwortlich» — фраза из резюме; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2371,
+   "col": "translation_en",
+   "old": "self-reliant, working on one's own responsibility, independently",
+   "new": "independent, on one's own responsibility",
+   "why": "«Ich arbeite eigenverantwortlich» — фраза из резюме; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2371,
+   "col": "translation_tr",
+   "old": "kendi sorumluluğunda, bağımsız çalışan, sorumluluk alan",
+   "new": "kendi sorumluluğunda",
+   "why": "«Ich arbeite eigenverantwortlich» — фраза из резюме; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2371,
+   "col": "translation_pl",
+   "old": "samodzielny, na własną odpowiedzialność, odpowiedzialny za swoje decyzje",
+   "new": "samodzielny, na własną odpowiedzialność",
+   "why": "«Ich arbeite eigenverantwortlich» — фраза из резюме; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2371,
+   "col": "example_de",
+   "old": "Ich arbeite eigenverantwortlich",
+   "new": "In der zehnten Klasse sollen die Schüler ihr Praktikum eigenverantwortlich suchen",
+   "why": "«Ich arbeite eigenverantwortlich» — фраза из резюме; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2371,
+   "col": "example_ru",
+   "old": "Я работаю самостоятельно",
+   "new": "В десятом классе ученики ищут практику сами, под свою ответственность",
+   "why": "«Ich arbeite eigenverantwortlich» — фраза из резюме; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2371,
+   "col": "example_uk",
+   "old": "Я працюю самостійно",
+   "new": "У десятому класі учні мають самостійно шукати практику",
+   "why": "«Ich arbeite eigenverantwortlich» — фраза из резюме; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2371,
+   "col": "example_en",
+   "old": "I work independently and responsibly",
+   "new": "In year ten pupils are supposed to find their work placement independently",
+   "why": "«Ich arbeite eigenverantwortlich» — фраза из резюме; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2371,
+   "col": "example_tr",
+   "old": "Kendi sorumluluğumla çalışıyorum",
+   "new": "Onuncu sınıfta öğrenciler stajlarını kendi sorumluluklarında bulmalı",
+   "why": "«Ich arbeite eigenverantwortlich» — фраза из резюме; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2371,
+   "col": "example_pl",
+   "old": "Pracuję samodzielnie",
+   "new": "W dziesiątej klasie uczniowie mają samodzielnie szukać praktyk",
+   "why": "«Ich arbeite eigenverantwortlich» — фраза из резюме; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2371,
+   "col": "example_it",
+   "old": "Lavoro in modo autonomo",
+   "new": "In decima classe gli studenti devono cercarsi il tirocinio in modo autonomo",
+   "why": "«Ich arbeite eigenverantwortlich» — фраза из резюме; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2371,
+   "col": "example_es",
+   "old": "Trabajo de forma autónoma",
+   "new": "En décimo los alumnos tienen que buscar sus prácticas de forma autónoma",
+   "why": "«Ich arbeite eigenverantwortlich» — фраза из резюме; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2371,
+   "col": "example_fr",
+   "old": "Je travaille de manière autonome",
+   "new": "En seconde, les élèves doivent chercher leur stage de façon autonome",
+   "why": "«Ich arbeite eigenverantwortlich» — фраза из резюме; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2371,
+   "col": "example_cs",
+   "old": "Pracuji samostatně",
+   "new": "V desáté třídě si mají žáci hledat praxi samostatně",
+   "why": "«Ich arbeite eigenverantwortlich» — фраза из резюме; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2383,
+   "col": "translation_ru",
+   "old": "припарковаться, заехать на парковочное место, поставить машину",
+   "new": "припарковаться",
+   "why": "пример — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2383,
+   "col": "translation_uk",
+   "old": "припаркуватися, заїхати на місце для парковки, поставити машину",
+   "new": "припаркуватися",
+   "why": "пример — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2383,
+   "col": "translation_en",
+   "old": "to park, to pull into a parking space",
+   "new": "to park",
+   "why": "пример — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2383,
+   "col": "translation_tr",
+   "old": "park etmek, park yerine girmek",
+   "new": "park etmek",
+   "why": "пример — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2383,
+   "col": "translation_pl",
+   "old": "zaparkować, wjechać na miejsce parkingowe",
+   "new": "zaparkować",
+   "why": "пример — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2383,
+   "col": "translation_es",
+   "old": "aparcar, estacionar",
+   "new": "aparcar",
+   "why": "пример — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2383,
+   "col": "translation_cs",
+   "old": "zaparkovat, parkovat",
+   "new": "zaparkovat",
+   "why": "пример — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2383,
+   "col": "example_de",
+   "old": "Ich parke rückwärts ein",
+   "new": "In der Fahrprüfung bin ich fast durchgefallen, weil ich nicht einparken konnte",
+   "why": "пример — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2383,
+   "col": "example_ru",
+   "old": "Я паркуюсь задним ходом",
+   "new": "На экзамене по вождению я чуть не провалился, потому что не смог припарковаться",
+   "why": "пример — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2383,
+   "col": "example_uk",
+   "old": "Я паркуюся заднім ходом",
+   "new": "На іспиті з водіння я ледь не провалився, бо не зміг припаркуватися",
+   "why": "пример — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2383,
+   "col": "example_en",
+   "old": "I park in reverse",
+   "new": "I nearly failed my driving test because I couldn't park",
+   "why": "пример — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2383,
+   "col": "example_tr",
+   "old": "Geri geri park ediyorum",
+   "new": "Ehliyet sınavında park edemediğim için neredeyse kalıyordum",
+   "why": "пример — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2383,
+   "col": "example_pl",
+   "old": "Parkuję tyłem",
+   "new": "Na egzaminie na prawo jazdy prawie oblałem, bo nie umiałem zaparkować",
+   "why": "пример — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2383,
+   "col": "example_it",
+   "old": "Parcheggio in retromarcia",
+   "new": "All'esame di guida sono quasi stato bocciato perché non sapevo parcheggiare",
+   "why": "пример — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2383,
+   "col": "example_es",
+   "old": "Aparco marcha atrás",
+   "new": "En el examen de conducir casi suspendo porque no sabía aparcar",
+   "why": "пример — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2383,
+   "col": "example_fr",
+   "old": "Je me gare en marche arrière",
+   "new": "J'ai failli rater mon permis parce que je n'arrivais pas à me garer",
+   "why": "пример — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2383,
+   "col": "example_cs",
+   "old": "Parkuji couváním",
+   "new": "U řidičských zkoušek jsem skoro neprošel, protože jsem neuměl zaparkovat",
+   "why": "пример — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2388,
+   "col": "translation_ru",
+   "old": "односторонний, однобокий, предвзятый, несбалансированный",
+   "new": "однобокий, односторонний",
+   "why": "«Das ist eine einseitige Sicht» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2388,
+   "col": "translation_uk",
+   "old": "односторонній, однобокий, упереджений, незбалансований",
+   "new": "однобокий, односторонній",
+   "why": "«Das ist eine einseitige Sicht» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2388,
+   "col": "translation_en",
+   "old": "one-sided, biased, unbalanced",
+   "new": "one-sided",
+   "why": "«Das ist eine einseitige Sicht» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2388,
+   "col": "translation_tr",
+   "old": "tek taraflı, tek yanlı, önyargılı, dengesiz",
+   "new": "tek taraflı",
+   "why": "«Das ist eine einseitige Sicht» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2388,
+   "col": "translation_pl",
+   "old": "jednostronny, stronniczy, niezrównoważony",
+   "new": "jednostronny",
+   "why": "«Das ist eine einseitige Sicht» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2388,
+   "col": "translation_it",
+   "old": "unilaterale, parziale, di parte",
+   "new": "unilaterale, di parte",
+   "why": "«Das ist eine einseitige Sicht» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2388,
+   "col": "translation_es",
+   "old": "parcial, unilateral, sesgado",
+   "new": "parcial, unilateral",
+   "why": "«Das ist eine einseitige Sicht» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2388,
+   "col": "translation_fr",
+   "old": "unilatéral, partial, biaisé",
+   "new": "unilatéral, partial",
+   "why": "«Das ist eine einseitige Sicht» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2388,
+   "col": "example_de",
+   "old": "Das ist eine einseitige Sicht",
+   "new": "Nur Nudeln mit Ketchup ist für ein Kind zu einseitig",
+   "why": "«Das ist eine einseitige Sicht» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2388,
+   "col": "example_ru",
+   "old": "Это односторонний взгляд",
+   "new": "Одни макароны с кетчупом для ребёнка слишком однобоко",
+   "why": "«Das ist eine einseitige Sicht» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2388,
+   "col": "example_uk",
+   "old": "Це однобічний погляд",
+   "new": "Самі макарони з кетчупом для дитини занадто однобоко",
+   "why": "«Das ist eine einseitige Sicht» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2388,
+   "col": "example_en",
+   "old": "That's a one-sided view",
+   "new": "Just pasta with ketchup is too one-sided for a child",
+   "why": "«Das ist eine einseitige Sicht» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2388,
+   "col": "example_tr",
+   "old": "Bu tek taraflı bir bakış",
+   "new": "Bir çocuk için sadece ketçaplı makarna fazla tek taraflı",
+   "why": "«Das ist eine einseitige Sicht» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2388,
+   "col": "example_pl",
+   "old": "To jednostronne spojrzenie",
+   "new": "Sam makaron z keczupem to dla dziecka zbyt jednostronnie",
+   "why": "«Das ist eine einseitige Sicht» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2388,
+   "col": "example_it",
+   "old": "È una visione unilaterale",
+   "new": "Solo pasta col ketchup per un bambino è troppo unilaterale",
+   "why": "«Das ist eine einseitige Sicht» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2388,
+   "col": "example_es",
+   "old": "Es una visión parcial",
+   "new": "Solo pasta con kétchup es demasiado parcial para un niño",
+   "why": "«Das ist eine einseitige Sicht» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2388,
+   "col": "example_fr",
+   "old": "C'est un point de vue unilatéral",
+   "new": "Que des pâtes au ketchup, c'est trop unilatéral pour un enfant",
+   "why": "«Das ist eine einseitige Sicht» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2388,
+   "col": "example_cs",
+   "old": "To je jednostranný pohled",
+   "new": "Jen těstoviny s kečupem jsou pro dítě moc jednostranné",
+   "why": "«Das ist eine einseitige Sicht» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2391,
+   "col": "translation_ru",
+   "old": "время посадки, время начала посадки",
+   "new": "время посадки",
+   "why": "«… beginnt um 10 Uhr» — табло; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2391,
+   "col": "translation_uk",
+   "old": "час посадки, час початку посадки",
+   "new": "час посадки",
+   "why": "«… beginnt um 10 Uhr» — табло; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2391,
+   "col": "translation_tr",
+   "old": "biniş zamanı, uçağa biniş saati",
+   "new": "biniş saati",
+   "why": "«… beginnt um 10 Uhr» — табло; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2391,
+   "col": "translation_pl",
+   "old": "czas wejścia na pokład, godzina wejścia na pokład",
+   "new": "godzina wejścia na pokład",
+   "why": "«… beginnt um 10 Uhr» — табло; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2391,
+   "col": "translation_it",
+   "old": "l'imbarco, l'orario d'imbarco",
+   "new": "l'orario d'imbarco",
+   "why": "«… beginnt um 10 Uhr» — табло; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2391,
+   "col": "translation_es",
+   "old": "el embarque, la hora de embarque",
+   "new": "la hora de embarque",
+   "why": "«… beginnt um 10 Uhr» — табло; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2391,
+   "col": "translation_fr",
+   "old": "l'embarquement, l'heure d'embarquement",
+   "new": "l'heure d'embarquement",
+   "why": "«… beginnt um 10 Uhr» — табло; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2391,
+   "col": "translation_cs",
+   "old": "nástup, doba nástupu",
+   "new": "doba nástupu",
+   "why": "«… beginnt um 10 Uhr» — табло; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2391,
+   "col": "example_de",
+   "old": "Die Einsteigezeit beginnt um 10 Uhr",
+   "new": "Die Einsteigezeit steht auf dem Ticket, aber der Flieger hat meistens Verspätung",
+   "why": "«… beginnt um 10 Uhr» — табло; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2391,
+   "col": "example_ru",
+   "old": "Время посадки начинается в 10 часов",
+   "new": "Время посадки указано в билете, но самолёт обычно опаздывает",
+   "why": "«… beginnt um 10 Uhr» — табло; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2391,
+   "col": "example_uk",
+   "old": "Час посадки починається о 10 годині",
+   "new": "Час посадки вказаний у квитку, але літак зазвичай запізнюється",
+   "why": "«… beginnt um 10 Uhr» — табло; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2391,
+   "col": "example_en",
+   "old": "Boarding starts at 10 in the morning",
+   "new": "The boarding time is on the ticket, but the plane is usually late",
+   "why": "«… beginnt um 10 Uhr» — табло; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2391,
+   "col": "example_tr",
+   "old": "Biniş zamanı 10'da başlıyor",
+   "new": "Biniş saati biletin üstünde yazıyor ama uçak genelde rötarlı",
+   "why": "«… beginnt um 10 Uhr» — табло; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2391,
+   "col": "example_pl",
+   "old": "Czas wejścia na pokład zaczyna się o dziesiątej",
+   "new": "Godzina wejścia na pokład jest na bilecie, ale samolot zwykle ma opóźnienie",
+   "why": "«… beginnt um 10 Uhr» — табло; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2391,
+   "col": "example_it",
+   "old": "L'imbarco inizia alle 10",
+   "new": "L'orario d'imbarco è sul biglietto, ma l'aereo di solito è in ritardo",
+   "why": "«… beginnt um 10 Uhr» — табло; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2391,
+   "col": "example_es",
+   "old": "El embarque comienza a las 10",
+   "new": "La hora de embarque viene en el billete, pero el avión suele llevar retraso",
+   "why": "«… beginnt um 10 Uhr» — табло; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2391,
+   "col": "example_fr",
+   "old": "L'embarquement commence à 10 h",
+   "new": "L'heure d'embarquement est sur le billet, mais l'avion a souvent du retard",
+   "why": "«… beginnt um 10 Uhr» — табло; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2391,
+   "col": "example_cs",
+   "old": "Nástup začíná v 10 hodin",
+   "new": "Doba nástupu je na letence, ale letadlo má většinou zpoždění",
+   "why": "«… beginnt um 10 Uhr» — табло; список → главное слово и не больше одной альтернативы"
+  }
+ ],
+ "replace": [],
+ "split_later": {}
+}
