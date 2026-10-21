@@ -1,0 +1,1806 @@
+{
+ "about": "2.3, A2 блок 20: слова 761–787 (конец A2)",
+ "edits": [
+  {
+   "id": 1287,
+   "col": "translation_ru",
+   "old": "пожар, возгорание",
+   "new": "пожар",
+   "why": "«Es gab einen Brand» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1287,
+   "col": "translation_uk",
+   "old": "пожежа, займання",
+   "new": "пожежа",
+   "why": "«Es gab einen Brand» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1287,
+   "col": "translation_en",
+   "old": "fire, blaze",
+   "new": "fire",
+   "why": "«Es gab einen Brand» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1287,
+   "col": "example_de",
+   "old": "Es gab einen Brand",
+   "new": "In der Nachbarschaft gab es gestern einen Brand",
+   "why": "«Es gab einen Brand» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1287,
+   "col": "example_ru",
+   "old": "Произошёл пожар",
+   "new": "Вчера по соседству был пожар",
+   "why": "«Es gab einen Brand» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1287,
+   "col": "example_uk",
+   "old": "Сталася пожежа",
+   "new": "Учора поблизу була пожежа",
+   "why": "«Es gab einen Brand» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1287,
+   "col": "example_en",
+   "old": "There was a fire",
+   "new": "There was a fire in the neighbourhood yesterday",
+   "why": "«Es gab einen Brand» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1287,
+   "col": "example_tr",
+   "old": "Bir yangın oldu",
+   "new": "Dün mahallede yangın çıktı",
+   "why": "«Es gab einen Brand» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1287,
+   "col": "example_pl",
+   "old": "Wybuchł pożar",
+   "new": "Wczoraj w okolicy był pożar",
+   "why": "«Es gab einen Brand» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1287,
+   "col": "example_it",
+   "old": "C'è stato un incendio",
+   "new": "Ieri c'è stato un incendio nel quartiere",
+   "why": "«Es gab einen Brand» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1287,
+   "col": "example_es",
+   "old": "Hubo un incendio",
+   "new": "Ayer hubo un incendio en el barrio",
+   "why": "«Es gab einen Brand» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1287,
+   "col": "example_fr",
+   "old": "Il y a eu un incendie",
+   "new": "Hier, il y a eu un incendie dans le quartier",
+   "why": "«Es gab einen Brand» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1287,
+   "col": "example_cs",
+   "old": "Došlo k požáru",
+   "new": "Včera byl v sousedství požár",
+   "why": "«Es gab einen Brand» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1306,
+   "col": "example_en",
+   "old": "I chat with friends",
+   "new": "I'm chatting with friends right now",
+   "why": "английский пример: так не говорят («I chat with friends»)"
+  },
+  {
+   "id": 1348,
+   "col": "translation_ru",
+   "old": "супруг, супруга, вторая половина",
+   "new": "супруг, супруга",
+   "why": "«Mein Ehepartner arbeitet hier» — пусто; слово — из анкет и приглашений"
+  },
+  {
+   "id": 1348,
+   "col": "translation_uk",
+   "old": "чоловік, дружина, подружжя",
+   "new": "чоловік, дружина",
+   "why": "«Mein Ehepartner arbeitet hier» — пусто; слово — из анкет и приглашений"
+  },
+  {
+   "id": 1348,
+   "col": "translation_en",
+   "old": "spouse, husband, wife",
+   "new": "spouse",
+   "why": "«Mein Ehepartner arbeitet hier» — пусто; слово — из анкет и приглашений"
+  },
+  {
+   "id": 1348,
+   "col": "translation_tr",
+   "old": "eş, hayat arkadaşı",
+   "new": "eş",
+   "why": "«Mein Ehepartner arbeitet hier» — пусто; слово — из анкет и приглашений"
+  },
+  {
+   "id": 1348,
+   "col": "translation_it",
+   "old": "il coniuge, il marito, la moglie",
+   "new": "il coniuge",
+   "why": "«Mein Ehepartner arbeitet hier» — пусто; слово — из анкет и приглашений"
+  },
+  {
+   "id": 1348,
+   "col": "translation_es",
+   "old": "el cónyuge, el marido, la esposa",
+   "new": "el cónyuge",
+   "why": "«Mein Ehepartner arbeitet hier» — пусто; слово — из анкет и приглашений"
+  },
+  {
+   "id": 1348,
+   "col": "translation_fr",
+   "old": "le conjoint, l'époux",
+   "new": "le conjoint",
+   "why": "«Mein Ehepartner arbeitet hier» — пусто; слово — из анкет и приглашений"
+  },
+  {
+   "id": 1348,
+   "col": "translation_cs",
+   "old": "manželský partner, manžel, manželka",
+   "new": "manžel, manželka",
+   "why": "«Mein Ehepartner arbeitet hier» — пусто; слово — из анкет и приглашений"
+  },
+  {
+   "id": 1348,
+   "col": "example_de",
+   "old": "Mein Ehepartner arbeitet hier",
+   "new": "Kommt Ihr Ehepartner auch mit?",
+   "why": "«Mein Ehepartner arbeitet hier» — пусто; слово — из анкет и приглашений"
+  },
+  {
+   "id": 1348,
+   "col": "example_ru",
+   "old": "Мой супруг работает здесь",
+   "new": "Ваш супруг тоже придёт?",
+   "why": "«Mein Ehepartner arbeitet hier» — пусто; слово — из анкет и приглашений"
+  },
+  {
+   "id": 1348,
+   "col": "example_uk",
+   "old": "Мій чоловік працює тут",
+   "new": "Ваш чоловік теж прийде?",
+   "why": "«Mein Ehepartner arbeitet hier» — пусто; слово — из анкет и приглашений"
+  },
+  {
+   "id": 1348,
+   "col": "example_en",
+   "old": "My spouse works here",
+   "new": "Is your spouse coming too?",
+   "why": "«Mein Ehepartner arbeitet hier» — пусто; слово — из анкет и приглашений"
+  },
+  {
+   "id": 1348,
+   "col": "example_tr",
+   "old": "Eşim burada çalışıyor",
+   "new": "Eşiniz de geliyor mu?",
+   "why": "«Mein Ehepartner arbeitet hier» — пусто; слово — из анкет и приглашений"
+  },
+  {
+   "id": 1348,
+   "col": "example_pl",
+   "old": "Mój małżonek pracuje tutaj",
+   "new": "Czy małżonek też przyjdzie?",
+   "why": "«Mein Ehepartner arbeitet hier» — пусто; слово — из анкет и приглашений"
+  },
+  {
+   "id": 1348,
+   "col": "example_it",
+   "old": "Il mio coniuge lavora qui",
+   "new": "Viene anche il Suo coniuge?",
+   "why": "«Mein Ehepartner arbeitet hier» — пусто; слово — из анкет и приглашений"
+  },
+  {
+   "id": 1348,
+   "col": "example_es",
+   "old": "Mi cónyuge trabaja aquí",
+   "new": "¿Viene también su cónyuge?",
+   "why": "«Mein Ehepartner arbeitet hier» — пусто; слово — из анкет и приглашений"
+  },
+  {
+   "id": 1348,
+   "col": "example_fr",
+   "old": "Mon conjoint travaille ici",
+   "new": "Votre conjoint vient aussi?",
+   "why": "«Mein Ehepartner arbeitet hier» — пусто; слово — из анкет и приглашений"
+  },
+  {
+   "id": 1348,
+   "col": "example_cs",
+   "old": "Můj manžel tady pracuje",
+   "new": "Přijde i váš manžel?",
+   "why": "«Mein Ehepartner arbeitet hier» — пусто; слово — из анкет и приглашений"
+  },
+  {
+   "id": 1380,
+   "col": "translation_ru",
+   "old": "внук, внучка",
+   "new": "внук",
+   "why": "пример про Enkelin — слово Enkel не видно, и повтор строки Enkelin"
+  },
+  {
+   "id": 1380,
+   "col": "translation_uk",
+   "old": "онук, онука",
+   "new": "онук",
+   "why": "пример про Enkelin — слово Enkel не видно, и повтор строки Enkelin"
+  },
+  {
+   "id": 1380,
+   "col": "translation_pl",
+   "old": "wnuk, wnuczka",
+   "new": "wnuk",
+   "why": "пример про Enkelin — слово Enkel не видно, и повтор строки Enkelin"
+  },
+  {
+   "id": 1380,
+   "col": "translation_it",
+   "old": "la nipote, il nipote",
+   "new": "il nipote",
+   "why": "пример про Enkelin — слово Enkel не видно, и повтор строки Enkelin"
+  },
+  {
+   "id": 1380,
+   "col": "translation_es",
+   "old": "la nieta, el nieto",
+   "new": "el nieto",
+   "why": "пример про Enkelin — слово Enkel не видно, и повтор строки Enkelin"
+  },
+  {
+   "id": 1380,
+   "col": "translation_fr",
+   "old": "la petite-fille, le petit-fils",
+   "new": "le petit-fils",
+   "why": "пример про Enkelin — слово Enkel не видно, и повтор строки Enkelin"
+  },
+  {
+   "id": 1380,
+   "col": "translation_cs",
+   "old": "vnučka, vnuk, vnouče",
+   "new": "vnuk, vnouče",
+   "why": "пример про Enkelin — слово Enkel не видно, и повтор строки Enkelin"
+  },
+  {
+   "id": 1380,
+   "col": "example_de",
+   "old": "Meine Enkelin ist drei Jahre alt",
+   "new": "Am Wochenende passen wir auf unseren Enkel auf",
+   "why": "пример про Enkelin — слово Enkel не видно, и повтор строки Enkelin"
+  },
+  {
+   "id": 1380,
+   "col": "example_ru",
+   "old": "Моей внучке три года",
+   "new": "На выходных мы присматриваем за внуком",
+   "why": "пример про Enkelin — слово Enkel не видно, и повтор строки Enkelin"
+  },
+  {
+   "id": 1380,
+   "col": "example_uk",
+   "old": "Моїй онучці три роки",
+   "new": "На вихідних ми доглядаємо онука",
+   "why": "пример про Enkelin — слово Enkel не видно, и повтор строки Enkelin"
+  },
+  {
+   "id": 1380,
+   "col": "example_en",
+   "old": "My granddaughter is three years old",
+   "new": "We're looking after our grandson at the weekend",
+   "why": "пример про Enkelin — слово Enkel не видно, и повтор строки Enkelin"
+  },
+  {
+   "id": 1380,
+   "col": "example_tr",
+   "old": "Torunum üç yaşında",
+   "new": "Hafta sonu torunumuza bakıyoruz",
+   "why": "пример про Enkelin — слово Enkel не видно, и повтор строки Enkelin"
+  },
+  {
+   "id": 1380,
+   "col": "example_pl",
+   "old": "Moja wnuczka ma trzy lata",
+   "new": "W weekend opiekujemy się wnukiem",
+   "why": "пример про Enkelin — слово Enkel не видно, и повтор строки Enkelin"
+  },
+  {
+   "id": 1380,
+   "col": "example_it",
+   "old": "Mia nipote ha tre anni",
+   "new": "Nel fine settimana badiamo a nostro nipote",
+   "why": "пример про Enkelin — слово Enkel не видно, и повтор строки Enkelin"
+  },
+  {
+   "id": 1380,
+   "col": "example_es",
+   "old": "Mi nieta tiene tres años",
+   "new": "El fin de semana cuidamos a nuestro nieto",
+   "why": "пример про Enkelin — слово Enkel не видно, и повтор строки Enkelin"
+  },
+  {
+   "id": 1380,
+   "col": "example_fr",
+   "old": "Ma petite-fille a trois ans",
+   "new": "Ce week-end, on garde notre petit-fils",
+   "why": "пример про Enkelin — слово Enkel не видно, и повтор строки Enkelin"
+  },
+  {
+   "id": 1380,
+   "col": "example_cs",
+   "old": "Moje vnučka má tři roky",
+   "new": "O víkendu hlídáme vnuka",
+   "why": "пример про Enkelin — слово Enkel не видно, и повтор строки Enkelin"
+  },
+  {
+   "id": 1533,
+   "col": "translation_ru",
+   "old": "скачивать, загружать себе",
+   "new": "скачивать",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1533,
+   "col": "example_uk",
+   "old": "Я саме завантажую додаток",
+   "new": "Я саме завантажую застосунок",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1671,
+   "col": "example_de",
+   "old": "Manche Leute mögen das",
+   "new": "Manche Leute essen kein Fleisch",
+   "why": "«Manche Leute mögen das» — что «это»? пусто"
+  },
+  {
+   "id": 1671,
+   "col": "example_ru",
+   "old": "Некоторые люди это любят",
+   "new": "Некоторые люди не едят мясо",
+   "why": "«Manche Leute mögen das» — что «это»? пусто"
+  },
+  {
+   "id": 1671,
+   "col": "example_uk",
+   "old": "Деяким людям це подобається",
+   "new": "Деякі люди не їдять м'яса",
+   "why": "«Manche Leute mögen das» — что «это»? пусто"
+  },
+  {
+   "id": 1671,
+   "col": "example_en",
+   "old": "Some people like that",
+   "new": "Some people don't eat meat",
+   "why": "«Manche Leute mögen das» — что «это»? пусто"
+  },
+  {
+   "id": 1671,
+   "col": "example_tr",
+   "old": "Bazı insanlar bunu sever",
+   "new": "Bazı insanlar et yemiyor",
+   "why": "«Manche Leute mögen das» — что «это»? пусто"
+  },
+  {
+   "id": 1671,
+   "col": "example_pl",
+   "old": "Niektórzy ludzie to lubią",
+   "new": "Niektórzy ludzie nie jedzą mięsa",
+   "why": "«Manche Leute mögen das» — что «это»? пусто"
+  },
+  {
+   "id": 1671,
+   "col": "example_it",
+   "old": "Ad alcune persone piace",
+   "new": "Alcune persone non mangiano carne",
+   "why": "«Manche Leute mögen das» — что «это»? пусто"
+  },
+  {
+   "id": 1671,
+   "col": "example_es",
+   "old": "A algunas personas les gusta eso",
+   "new": "Algunas personas no comen carne",
+   "why": "«Manche Leute mögen das» — что «это»? пусто"
+  },
+  {
+   "id": 1671,
+   "col": "example_fr",
+   "old": "Certaines personnes aiment ça",
+   "new": "Certaines personnes ne mangent pas de viande",
+   "why": "«Manche Leute mögen das» — что «это»? пусто"
+  },
+  {
+   "id": 1671,
+   "col": "example_cs",
+   "old": "Někteří lidé to mají rádi",
+   "new": "Někteří lidé nejedí maso",
+   "why": "«Manche Leute mögen das» — что «это»? пусто"
+  },
+  {
+   "id": 1683,
+   "col": "example_ru",
+   "old": "Я чаще всего езжу на автобусе",
+   "new": "Я обычно езжу на автобусе",
+   "why": "«Я чаще всего езжу» — книжно"
+  },
+  {
+   "id": 1683,
+   "col": "example_uk",
+   "old": "Я здебільшого їжджу автобусом",
+   "new": "Я зазвичай їжджу автобусом",
+   "why": "«Я чаще всего езжу» — книжно"
+  },
+  {
+   "id": 1761,
+   "col": "example_de",
+   "old": "Er ist Pilot",
+   "new": "Als Kind wollte ich Pilot werden",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто"
+  },
+  {
+   "id": 1761,
+   "col": "example_ru",
+   "old": "Он пилот",
+   "new": "В детстве я хотел стать пилотом",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто"
+  },
+  {
+   "id": 1761,
+   "col": "example_uk",
+   "old": "Він пілот",
+   "new": "У дитинстві я хотів стати пілотом",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто"
+  },
+  {
+   "id": 1761,
+   "col": "example_en",
+   "old": "He is a pilot",
+   "new": "As a kid I wanted to be a pilot",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто"
+  },
+  {
+   "id": 1761,
+   "col": "example_tr",
+   "old": "O bir pilot",
+   "new": "Çocukken pilot olmak istiyordum",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто"
+  },
+  {
+   "id": 1761,
+   "col": "example_pl",
+   "old": "On jest pilotem",
+   "new": "Jako dziecko chciałem zostać pilotem",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто"
+  },
+  {
+   "id": 1761,
+   "col": "example_it",
+   "old": "È pilota",
+   "new": "Da bambino volevo fare il pilota",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто"
+  },
+  {
+   "id": 1761,
+   "col": "example_es",
+   "old": "Es piloto",
+   "new": "De pequeño quería ser piloto",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто"
+  },
+  {
+   "id": 1761,
+   "col": "example_fr",
+   "old": "Il est pilote",
+   "new": "Enfant, je voulais devenir pilote",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто"
+  },
+  {
+   "id": 1761,
+   "col": "example_cs",
+   "old": "Je pilot",
+   "new": "Jako dítě jsem chtěl být pilotem",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто"
+  },
+  {
+   "id": 1769,
+   "col": "translation_ru",
+   "old": "недорогой, выгодный по цене, дешёвый",
+   "new": "недорогой, выгодный",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1769,
+   "col": "translation_uk",
+   "old": "недорогий, вигідний за ціною, дешевий",
+   "new": "недорогий, вигідний",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1769,
+   "col": "translation_en",
+   "old": "inexpensive, good value, cheap",
+   "new": "inexpensive, cheap",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1769,
+   "col": "translation_tr",
+   "old": "uygun fiyatlı, hesaplı, ucuz",
+   "new": "uygun fiyatlı, ucuz",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1769,
+   "col": "translation_pl",
+   "old": "tani, niedrogi, w dobrej cenie",
+   "new": "tani, niedrogi",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1769,
+   "col": "example_de",
+   "old": "Das Hotel ist preiswert",
+   "new": "Hier kann man preiswert essen",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1769,
+   "col": "example_ru",
+   "old": "Отель недорогой",
+   "new": "Здесь можно недорого поесть",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1769,
+   "col": "example_uk",
+   "old": "Готель недорогий",
+   "new": "Тут можна недорого поїсти",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1769,
+   "col": "example_en",
+   "old": "The hotel is inexpensive",
+   "new": "You can eat cheaply here",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1769,
+   "col": "example_tr",
+   "old": "Otel uygun fiyatlı",
+   "new": "Burada ucuza yemek yenebilir",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1769,
+   "col": "example_pl",
+   "old": "Ten hotel jest tani",
+   "new": "Tu można tanio zjeść",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1769,
+   "col": "example_it",
+   "old": "L'hotel è economico",
+   "new": "Qui si mangia a prezzi convenienti",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1769,
+   "col": "example_es",
+   "old": "El hotel es económico",
+   "new": "Aquí se come barato",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1769,
+   "col": "example_fr",
+   "old": "L'hôtel n'est pas cher",
+   "new": "Ici, on mange pas cher",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1769,
+   "col": "example_cs",
+   "old": "Hotel je levný",
+   "new": "Tady se dá levně najíst",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1812,
+   "col": "translation_ru",
+   "old": "направление, сторона, курс, течение",
+   "new": "направление, сторона",
+   "why": "пример — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1812,
+   "col": "translation_uk",
+   "old": "напрямок, сторона, курс, течія",
+   "new": "напрямок, сторона",
+   "why": "пример — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1812,
+   "col": "translation_en",
+   "old": "direction, way, course, trend",
+   "new": "direction",
+   "why": "пример — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1812,
+   "col": "translation_tr",
+   "old": "yön, istikamet, akım",
+   "new": "yön",
+   "why": "пример — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1812,
+   "col": "translation_pl",
+   "old": "kierunek, strona, nurt",
+   "new": "kierunek",
+   "why": "пример — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1812,
+   "col": "example_de",
+   "old": "In welche Richtung?",
+   "new": "Fährt dieser Bus in Richtung Zentrum?",
+   "why": "пример — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1812,
+   "col": "example_ru",
+   "old": "В каком направлении?",
+   "new": "Этот автобус идёт в сторону центра?",
+   "why": "пример — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1812,
+   "col": "example_uk",
+   "old": "У якому напрямку?",
+   "new": "Цей автобус їде в бік центру?",
+   "why": "пример — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1812,
+   "col": "example_en",
+   "old": "In which direction?",
+   "new": "Does this bus go in the direction of the city centre?",
+   "why": "пример — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1812,
+   "col": "example_tr",
+   "old": "Hangi yöne?",
+   "new": "Bu otobüs merkez yönüne mi gidiyor?",
+   "why": "пример — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1812,
+   "col": "example_pl",
+   "old": "W którym kierunku?",
+   "new": "Czy ten autobus jedzie w kierunku centrum?",
+   "why": "пример — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1812,
+   "col": "example_it",
+   "old": "In quale direzione?",
+   "new": "Questo autobus va in direzione centro?",
+   "why": "пример — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1812,
+   "col": "example_es",
+   "old": "¿En qué dirección?",
+   "new": "¿Este autobús va en dirección al centro?",
+   "why": "пример — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1812,
+   "col": "example_fr",
+   "old": "Dans quelle direction?",
+   "new": "Ce bus va en direction du centre?",
+   "why": "пример — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1812,
+   "col": "example_cs",
+   "old": "Kterým směrem?",
+   "new": "Jede tenhle autobus směrem do centra?",
+   "why": "пример — обрывок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1858,
+   "col": "translation_ru",
+   "old": "секретариат, канцелярия, приёмная",
+   "new": "секретариат, приёмная",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1858,
+   "col": "translation_uk",
+   "old": "секретаріат, канцелярія, приймальня",
+   "new": "секретаріат, приймальня",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1858,
+   "col": "translation_en",
+   "old": "secretary's office, secretariat, school office",
+   "new": "office, secretariat",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1858,
+   "col": "translation_tr",
+   "old": "sekreterlik, sekreterya, okul idari ofisi",
+   "new": "sekreterlik",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1871,
+   "col": "example_de",
+   "old": "Die Situation ist schwierig",
+   "new": "Was würdest du in so einer Situation machen?",
+   "why": "«Die Situation ist schwierig» — скелет"
+  },
+  {
+   "id": 1871,
+   "col": "example_ru",
+   "old": "Ситуация сложная",
+   "new": "Как бы ты поступил в такой ситуации?",
+   "why": "«Die Situation ist schwierig» — скелет"
+  },
+  {
+   "id": 1871,
+   "col": "example_uk",
+   "old": "Ситуація складна",
+   "new": "Як би ти вчинив у такій ситуації?",
+   "why": "«Die Situation ist schwierig» — скелет"
+  },
+  {
+   "id": 1871,
+   "col": "example_en",
+   "old": "The situation is difficult",
+   "new": "What would you do in that situation?",
+   "why": "«Die Situation ist schwierig» — скелет"
+  },
+  {
+   "id": 1871,
+   "col": "example_tr",
+   "old": "Durum zor",
+   "new": "Bu durumda ne yapardın?",
+   "why": "«Die Situation ist schwierig» — скелет"
+  },
+  {
+   "id": 1871,
+   "col": "example_pl",
+   "old": "Sytuacja jest trudna",
+   "new": "Co byś zrobił w takiej sytuacji?",
+   "why": "«Die Situation ist schwierig» — скелет"
+  },
+  {
+   "id": 1871,
+   "col": "example_it",
+   "old": "La situazione è difficile",
+   "new": "Cosa faresti in questa situazione?",
+   "why": "«Die Situation ist schwierig» — скелет"
+  },
+  {
+   "id": 1871,
+   "col": "example_es",
+   "old": "La situación es difícil",
+   "new": "¿Qué harías en esta situación?",
+   "why": "«Die Situation ist schwierig» — скелет"
+  },
+  {
+   "id": 1871,
+   "col": "example_fr",
+   "old": "La situation est difficile",
+   "new": "Qu'est-ce que tu ferais dans cette situation?",
+   "why": "«Die Situation ist schwierig» — скелет"
+  },
+  {
+   "id": 1871,
+   "col": "example_cs",
+   "old": "Situace je obtížná",
+   "new": "Co bys dělal v takové situaci?",
+   "why": "«Die Situation ist schwierig» — скелет"
+  },
+  {
+   "id": 1893,
+   "col": "translation_ru",
+   "old": "спортплощадка, спортивная площадка, стадион",
+   "new": "спортплощадка, стадион",
+   "why": "«Die Kinder sind auf dem Sportplatz» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1893,
+   "col": "translation_uk",
+   "old": "спортивний майданчик, стадіон",
+   "new": "спортивний майданчик",
+   "why": "«Die Kinder sind auf dem Sportplatz» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1893,
+   "col": "translation_en",
+   "old": "sports field, playing field, sports ground",
+   "new": "sports field",
+   "why": "«Die Kinder sind auf dem Sportplatz» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1893,
+   "col": "translation_tr",
+   "old": "spor sahası, spor alanı",
+   "new": "spor sahası",
+   "why": "«Die Kinder sind auf dem Sportplatz» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1893,
+   "col": "translation_pl",
+   "old": "boisko, plac sportowy",
+   "new": "boisko",
+   "why": "«Die Kinder sind auf dem Sportplatz» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1893,
+   "col": "example_de",
+   "old": "Die Kinder sind auf dem Sportplatz",
+   "new": "Nach der Schule spielen die Jungs auf dem Sportplatz Fußball",
+   "why": "«Die Kinder sind auf dem Sportplatz» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1893,
+   "col": "example_ru",
+   "old": "Дети на спортплощадке",
+   "new": "После школы мальчишки играют в футбол на спортплощадке",
+   "why": "«Die Kinder sind auf dem Sportplatz» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1893,
+   "col": "example_uk",
+   "old": "Діти на спортивному майданчику",
+   "new": "Після школи хлопці грають у футбол на спортивному майданчику",
+   "why": "«Die Kinder sind auf dem Sportplatz» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1893,
+   "col": "example_en",
+   "old": "The kids are on the sports field",
+   "new": "After school the boys play football on the sports field",
+   "why": "«Die Kinder sind auf dem Sportplatz» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1893,
+   "col": "example_tr",
+   "old": "Çocuklar spor sahasında",
+   "new": "Okuldan sonra çocuklar spor sahasında futbol oynuyor",
+   "why": "«Die Kinder sind auf dem Sportplatz» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1893,
+   "col": "example_pl",
+   "old": "Dzieci są na boisku",
+   "new": "Po szkole chłopcy grają w piłkę na boisku",
+   "why": "«Die Kinder sind auf dem Sportplatz» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1893,
+   "col": "example_it",
+   "old": "I bambini sono al campo sportivo",
+   "new": "Dopo la scuola i ragazzi giocano a calcio al campo sportivo",
+   "why": "«Die Kinder sind auf dem Sportplatz» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1893,
+   "col": "example_es",
+   "old": "Los niños están en el campo de deportes",
+   "new": "Después del colegio los chicos juegan al fútbol en el campo de deportes",
+   "why": "«Die Kinder sind auf dem Sportplatz» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1893,
+   "col": "example_fr",
+   "old": "Les enfants sont sur le terrain de sport",
+   "new": "Après l'école, les garçons jouent au foot sur le terrain de sport",
+   "why": "«Die Kinder sind auf dem Sportplatz» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1893,
+   "col": "example_cs",
+   "old": "Děti jsou na hřišti",
+   "new": "Po škole hrají kluci fotbal na hřišti",
+   "why": "«Die Kinder sind auf dem Sportplatz» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2010,
+   "col": "translation_ru",
+   "old": "делать, предпринимать, затевать",
+   "new": "делать, предпринимать",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2010,
+   "col": "translation_uk",
+   "old": "робити, вживати заходів, затівати",
+   "new": "робити, затівати",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2010,
+   "col": "translation_en",
+   "old": "to do, to undertake, to take action",
+   "new": "to do, to undertake",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2010,
+   "col": "translation_tr",
+   "old": "bir şey yapmak, girişimde bulunmak, harekete geçmek",
+   "new": "bir şey yapmak",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2010,
+   "col": "translation_pl",
+   "old": "robić coś, podejmować, przedsiębrać kroki",
+   "new": "robić coś, przedsiębrać",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2010,
+   "col": "example_ru",
+   "old": "Что мы будем делать сегодня?",
+   "new": "Что будем сегодня делать?",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2112,
+   "col": "example_de",
+   "old": "Ich esse eine Wurst",
+   "new": "Möchtest du Käse oder Wurst aufs Brot?",
+   "why": "«Ich esse eine Wurst» — скелет"
+  },
+  {
+   "id": 2112,
+   "col": "example_ru",
+   "old": "Я ем колбасу",
+   "new": "Тебе на хлеб сыр или колбасу?",
+   "why": "«Ich esse eine Wurst» — скелет"
+  },
+  {
+   "id": 2112,
+   "col": "example_uk",
+   "old": "Я їм ковбасу",
+   "new": "Тобі на хліб сир чи ковбасу?",
+   "why": "«Ich esse eine Wurst» — скелет"
+  },
+  {
+   "id": 2112,
+   "col": "example_en",
+   "old": "I'm eating a sausage",
+   "new": "Would you like cheese or sausage on your bread?",
+   "why": "«Ich esse eine Wurst» — скелет"
+  },
+  {
+   "id": 2112,
+   "col": "example_tr",
+   "old": "Bir sosis yiyorum",
+   "new": "Ekmeğine peynir mi salam mı istersin?",
+   "why": "«Ich esse eine Wurst» — скелет"
+  },
+  {
+   "id": 2112,
+   "col": "example_pl",
+   "old": "Jem kiełbasę",
+   "new": "Chcesz na chleb ser czy kiełbasę?",
+   "why": "«Ich esse eine Wurst» — скелет"
+  },
+  {
+   "id": 2112,
+   "col": "example_it",
+   "old": "Mangio una salsiccia",
+   "new": "Vuoi il formaggio o il salume sul pane?",
+   "why": "«Ich esse eine Wurst» — скелет"
+  },
+  {
+   "id": 2112,
+   "col": "example_es",
+   "old": "Me como una salchicha",
+   "new": "¿Quieres queso o embutido en el pan?",
+   "why": "«Ich esse eine Wurst» — скелет"
+  },
+  {
+   "id": 2112,
+   "col": "example_fr",
+   "old": "Je mange une saucisse",
+   "new": "Tu veux du fromage ou de la charcuterie sur ton pain?",
+   "why": "«Ich esse eine Wurst» — скелет"
+  },
+  {
+   "id": 2112,
+   "col": "example_cs",
+   "old": "Jím klobásu",
+   "new": "Chceš na chleba sýr, nebo salám?",
+   "why": "«Ich esse eine Wurst» — скелет"
+  },
+  {
+   "id": 2120,
+   "col": "example_de",
+   "old": "Ich habe ein Zertifikat bekommen",
+   "new": "Nach dem Kurs bekommst du ein Zertifikat",
+   "why": "«Ich habe ein Zertifikat bekommen» — пусто"
+  },
+  {
+   "id": 2120,
+   "col": "example_ru",
+   "old": "Я получил сертификат",
+   "new": "После курса ты получишь сертификат",
+   "why": "«Ich habe ein Zertifikat bekommen» — пусто"
+  },
+  {
+   "id": 2120,
+   "col": "example_uk",
+   "old": "Я отримав сертифікат",
+   "new": "Після курсу ти отримаєш сертифікат",
+   "why": "«Ich habe ein Zertifikat bekommen» — пусто"
+  },
+  {
+   "id": 2120,
+   "col": "example_en",
+   "old": "I received a certificate",
+   "new": "You'll get a certificate after the course",
+   "why": "«Ich habe ein Zertifikat bekommen» — пусто"
+  },
+  {
+   "id": 2120,
+   "col": "example_tr",
+   "old": "Bir sertifika aldım",
+   "new": "Kurstan sonra bir sertifika alacaksın",
+   "why": "«Ich habe ein Zertifikat bekommen» — пусто"
+  },
+  {
+   "id": 2120,
+   "col": "example_pl",
+   "old": "Dostałem certyfikat",
+   "new": "Po kursie dostaniesz certyfikat",
+   "why": "«Ich habe ein Zertifikat bekommen» — пусто"
+  },
+  {
+   "id": 2120,
+   "col": "example_it",
+   "old": "Ho ricevuto un certificato",
+   "new": "Alla fine del corso ricevi un attestato",
+   "why": "«Ich habe ein Zertifikat bekommen» — пусто"
+  },
+  {
+   "id": 2120,
+   "col": "example_es",
+   "old": "He recibido un certificado",
+   "new": "Después del curso te dan un certificado",
+   "why": "«Ich habe ein Zertifikat bekommen» — пусто"
+  },
+  {
+   "id": 2120,
+   "col": "example_fr",
+   "old": "J'ai reçu un certificat",
+   "new": "Après le cours, tu reçois un certificat",
+   "why": "«Ich habe ein Zertifikat bekommen» — пусто"
+  },
+  {
+   "id": 2120,
+   "col": "example_cs",
+   "old": "Dostal jsem certifikát",
+   "new": "Po kurzu dostaneš certifikát",
+   "why": "«Ich habe ein Zertifikat bekommen» — пусто"
+  },
+  {
+   "id": 2550,
+   "col": "example_de",
+   "old": "Berlin ist die Hauptstadt",
+   "new": "Wie heißt die Hauptstadt von Australien?",
+   "why": "«Berlin ist die Hauptstadt» — пусто, и снова Berlin"
+  },
+  {
+   "id": 2550,
+   "col": "example_ru",
+   "old": "Берлин — столица",
+   "new": "Как называется столица Австралии?",
+   "why": "«Berlin ist die Hauptstadt» — пусто, и снова Berlin"
+  },
+  {
+   "id": 2550,
+   "col": "example_uk",
+   "old": "Берлін — столиця",
+   "new": "Як називається столиця Австралії?",
+   "why": "«Berlin ist die Hauptstadt» — пусто, и снова Berlin"
+  },
+  {
+   "id": 2550,
+   "col": "example_en",
+   "old": "Berlin is the capital",
+   "new": "What's the capital of Australia?",
+   "why": "«Berlin ist die Hauptstadt» — пусто, и снова Berlin"
+  },
+  {
+   "id": 2550,
+   "col": "example_tr",
+   "old": "Berlin başkenttir",
+   "new": "Avustralya'nın başkenti neresi?",
+   "why": "«Berlin ist die Hauptstadt» — пусто, и снова Berlin"
+  },
+  {
+   "id": 2550,
+   "col": "example_pl",
+   "old": "Berlin jest stolicą",
+   "new": "Jak się nazywa stolica Australii?",
+   "why": "«Berlin ist die Hauptstadt» — пусто, и снова Berlin"
+  },
+  {
+   "id": 2550,
+   "col": "example_it",
+   "old": "Berlino è la capitale",
+   "new": "Qual è la capitale dell'Australia?",
+   "why": "«Berlin ist die Hauptstadt» — пусто, и снова Berlin"
+  },
+  {
+   "id": 2550,
+   "col": "example_es",
+   "old": "Berlín es la capital",
+   "new": "¿Cuál es la capital de Australia?",
+   "why": "«Berlin ist die Hauptstadt» — пусто, и снова Berlin"
+  },
+  {
+   "id": 2550,
+   "col": "example_fr",
+   "old": "Berlin est la capitale",
+   "new": "Quelle est la capitale de l'Australie?",
+   "why": "«Berlin ist die Hauptstadt» — пусто, и снова Berlin"
+  },
+  {
+   "id": 2550,
+   "col": "example_cs",
+   "old": "Berlín je hlavní město",
+   "new": "Jak se jmenuje hlavní město Austrálie?",
+   "why": "«Berlin ist die Hauptstadt» — пусто, и снова Berlin"
+  },
+  {
+   "id": 2627,
+   "col": "translation_ru",
+   "old": "косметика, косметические средства, косметические услуги",
+   "new": "косметика",
+   "why": "английский пример: так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2627,
+   "col": "translation_uk",
+   "old": "косметика, косметичні засоби",
+   "new": "косметика",
+   "why": "английский пример: так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2627,
+   "col": "translation_en",
+   "old": "cosmetics, make-up, beauty products",
+   "new": "cosmetics, make-up",
+   "why": "английский пример: так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2627,
+   "col": "translation_tr",
+   "old": "kozmetik, makyaj malzemesi, güzellik ürünleri",
+   "new": "kozmetik",
+   "why": "английский пример: так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2627,
+   "col": "translation_pl",
+   "old": "kosmetyki, kosmetyka",
+   "new": "kosmetyki",
+   "why": "английский пример: так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2627,
+   "col": "example_en",
+   "old": "I buy myself new cosmetics",
+   "new": "I'm buying myself some new make-up",
+   "why": "английский пример: так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2684,
+   "col": "translation_fr",
+   "old": "brumeux",
+   "new": "brumeux, il y a du brouillard",
+   "why": "«Es ist neblig heute» — шаблон windig, sonnig"
+  },
+  {
+   "id": 2684,
+   "col": "example_de",
+   "old": "Es ist neblig heute",
+   "new": "Fahr vorsichtig, es ist sehr neblig",
+   "why": "«Es ist neblig heute» — шаблон windig, sonnig"
+  },
+  {
+   "id": 2684,
+   "col": "example_ru",
+   "old": "Сегодня туманно",
+   "new": "Езжай осторожно, очень туманно",
+   "why": "«Es ist neblig heute» — шаблон windig, sonnig"
+  },
+  {
+   "id": 2684,
+   "col": "example_uk",
+   "old": "Сьогодні туманно",
+   "new": "Їдь обережно, дуже туманно",
+   "why": "«Es ist neblig heute» — шаблон windig, sonnig"
+  },
+  {
+   "id": 2684,
+   "col": "example_en",
+   "old": "It's foggy today",
+   "new": "Drive carefully, it's very foggy",
+   "why": "«Es ist neblig heute» — шаблон windig, sonnig"
+  },
+  {
+   "id": 2684,
+   "col": "example_tr",
+   "old": "Bugün sisli",
+   "new": "Dikkatli sür, hava çok sisli",
+   "why": "«Es ist neblig heute» — шаблон windig, sonnig"
+  },
+  {
+   "id": 2684,
+   "col": "example_pl",
+   "old": "Dzisiaj jest mglisto",
+   "new": "Jedź ostrożnie, jest bardzo mglisto",
+   "why": "«Es ist neblig heute» — шаблон windig, sonnig"
+  },
+  {
+   "id": 2684,
+   "col": "example_it",
+   "old": "Oggi è una giornata nebbiosa",
+   "new": "Guida con prudenza, c'è molta nebbia",
+   "why": "«Es ist neblig heute» — шаблон windig, sonnig"
+  },
+  {
+   "id": 2684,
+   "col": "example_es",
+   "old": "Hoy es un día de niebla",
+   "new": "Conduce con cuidado, que hay mucha niebla",
+   "why": "«Es ist neblig heute» — шаблон windig, sonnig"
+  },
+  {
+   "id": 2684,
+   "col": "example_fr",
+   "old": "Le temps est brumeux aujourd'hui",
+   "new": "Conduis prudemment, il y a beaucoup de brouillard",
+   "why": "«Es ist neblig heute» — шаблон windig, sonnig"
+  },
+  {
+   "id": 2684,
+   "col": "example_cs",
+   "old": "Dnes je mlhavo",
+   "new": "Jeď opatrně, je hrozně mlhavo",
+   "why": "«Es ist neblig heute» — шаблон windig, sonnig"
+  },
+  {
+   "id": 2714,
+   "col": "example_de",
+   "old": "Mein PC ist schnell",
+   "new": "Mein PC ist schon wieder abgestürzt",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто"
+  },
+  {
+   "id": 2714,
+   "col": "example_ru",
+   "old": "Мой компьютер быстрый",
+   "new": "Мой компьютер опять завис",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто"
+  },
+  {
+   "id": 2714,
+   "col": "example_uk",
+   "old": "Мій комп'ютер швидкий",
+   "new": "Мій комп'ютер знову завис",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто"
+  },
+  {
+   "id": 2714,
+   "col": "example_en",
+   "old": "My PC is fast",
+   "new": "My PC has crashed again",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто"
+  },
+  {
+   "id": 2714,
+   "col": "example_tr",
+   "old": "Bilgisayarım hızlı",
+   "new": "Bilgisayarım yine çöktü",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто"
+  },
+  {
+   "id": 2714,
+   "col": "example_pl",
+   "old": "Mój komputer jest szybki",
+   "new": "Mój komputer znowu się zawiesił",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто"
+  },
+  {
+   "id": 2714,
+   "col": "example_it",
+   "old": "Il mio PC è veloce",
+   "new": "Il mio PC si è bloccato di nuovo",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто"
+  },
+  {
+   "id": 2714,
+   "col": "example_es",
+   "old": "Mi PC es rápido",
+   "new": "Se me ha vuelto a colgar el PC",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто"
+  },
+  {
+   "id": 2714,
+   "col": "example_fr",
+   "old": "Mon PC est rapide",
+   "new": "Mon PC a encore planté",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто"
+  },
+  {
+   "id": 2714,
+   "col": "example_cs",
+   "old": "Můj počítač je rychlý",
+   "new": "Počítač mi zase spadl",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто"
+  },
+  {
+   "id": 2738,
+   "col": "translation_ru",
+   "old": "качество, свойство",
+   "new": "качество",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто; «свойство» — другое слово"
+  },
+  {
+   "id": 2738,
+   "col": "translation_uk",
+   "old": "якість, властивість",
+   "new": "якість",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто; «свойство» — другое слово"
+  },
+  {
+   "id": 2738,
+   "col": "translation_en",
+   "old": "quality, attribute",
+   "new": "quality",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто; «свойство» — другое слово"
+  },
+  {
+   "id": 2738,
+   "col": "translation_tr",
+   "old": "kalite, nitelik",
+   "new": "kalite",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто; «свойство» — другое слово"
+  },
+  {
+   "id": 2738,
+   "col": "translation_pl",
+   "old": "jakość, cecha",
+   "new": "jakość",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто; «свойство» — другое слово"
+  },
+  {
+   "id": 2738,
+   "col": "example_de",
+   "old": "Die Qualität ist hoch",
+   "new": "Beim Obst achte ich auf die Qualität",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто; «свойство» — другое слово"
+  },
+  {
+   "id": 2738,
+   "col": "example_ru",
+   "old": "Качество высокое",
+   "new": "Когда покупаю фрукты, я смотрю на качество",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто; «свойство» — другое слово"
+  },
+  {
+   "id": 2738,
+   "col": "example_uk",
+   "old": "Якість висока",
+   "new": "Коли купую фрукти, я дивлюся на якість",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто; «свойство» — другое слово"
+  },
+  {
+   "id": 2738,
+   "col": "example_en",
+   "old": "The quality is high",
+   "new": "When I buy fruit, I look at the quality",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто; «свойство» — другое слово"
+  },
+  {
+   "id": 2738,
+   "col": "example_tr",
+   "old": "Kalite yüksek",
+   "new": "Meyve alırken kaliteye dikkat ederim",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто; «свойство» — другое слово"
+  },
+  {
+   "id": 2738,
+   "col": "example_pl",
+   "old": "Jakość jest wysoka",
+   "new": "Kiedy kupuję owoce, zwracam uwagę na jakość",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто; «свойство» — другое слово"
+  },
+  {
+   "id": 2738,
+   "col": "example_it",
+   "old": "La qualità è alta",
+   "new": "Quando compro la frutta, guardo la qualità",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто; «свойство» — другое слово"
+  },
+  {
+   "id": 2738,
+   "col": "example_es",
+   "old": "La calidad es alta",
+   "new": "Cuando compro fruta, me fijo en la calidad",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто; «свойство» — другое слово"
+  },
+  {
+   "id": 2738,
+   "col": "example_fr",
+   "old": "La qualité est élevée",
+   "new": "Quand j'achète des fruits, je fais attention à la qualité",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто; «свойство» — другое слово"
+  },
+  {
+   "id": 2738,
+   "col": "example_cs",
+   "old": "Kvalita je vysoká",
+   "new": "Když kupuji ovoce, dívám se na kvalitu",
+   "why": "пример-скелет («Er ist Pilot», «Mein PC ist schnell», «Die Qualität ist hoch») — пусто; «свойство» — другое слово"
+  },
+  {
+   "id": 2782,
+   "col": "translation_ru",
+   "old": "собирать, коллекционировать, накапливать, набирать опыт",
+   "new": "собирать, коллекционировать",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2782,
+   "col": "translation_uk",
+   "old": "збирати, колекціонувати, накопичувати, набувати досвіду",
+   "new": "збирати, колекціонувати",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2782,
+   "col": "translation_en",
+   "old": "to collect, to gather, to accumulate, to gain experience",
+   "new": "to collect, to gather",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2782,
+   "col": "translation_tr",
+   "old": "toplamak, biriktirmek, koleksiyon yapmak, deneyim kazanmak",
+   "new": "toplamak, biriktirmek",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2782,
+   "col": "translation_pl",
+   "old": "zbierać, kolekcjonować, gromadzić, nabierać doświadczenia",
+   "new": "zbierać, kolekcjonować",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2782,
+   "col": "translation_it",
+   "old": "collezionare, raccogliere, accumulare",
+   "new": "collezionare, raccogliere",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2782,
+   "col": "translation_es",
+   "old": "coleccionar, recoger, reunir, juntar",
+   "new": "coleccionar, recoger",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2782,
+   "col": "translation_fr",
+   "old": "collectionner, ramasser, rassembler",
+   "new": "collectionner, ramasser",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2782,
+   "col": "translation_cs",
+   "old": "sbírat, shromažďovat",
+   "new": "sbírat",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2836,
+   "col": "translation_ru",
+   "old": "игрок, игрок в команде, азартный игрок",
+   "new": "игрок",
+   "why": "«Der Spieler ist gut» — скелет; «азартный игрок» — другое значение"
+  },
+  {
+   "id": 2836,
+   "col": "translation_en",
+   "old": "player, gambler",
+   "new": "player",
+   "why": "«Der Spieler ist gut» — скелет; «азартный игрок» — другое значение"
+  },
+  {
+   "id": 2836,
+   "col": "translation_tr",
+   "old": "oyuncu, kumarbaz",
+   "new": "oyuncu",
+   "why": "«Der Spieler ist gut» — скелет; «азартный игрок» — другое значение"
+  },
+  {
+   "id": 2836,
+   "col": "translation_pl",
+   "old": "gracz, zawodnik, hazardzista",
+   "new": "gracz, zawodnik",
+   "why": "«Der Spieler ist gut» — скелет; «азартный игрок» — другое значение"
+  },
+  {
+   "id": 2836,
+   "col": "example_de",
+   "old": "Der Spieler ist gut",
+   "new": "Dieser Spieler hat heute zwei Tore geschossen",
+   "why": "«Der Spieler ist gut» — скелет; «азартный игрок» — другое значение"
+  },
+  {
+   "id": 2836,
+   "col": "example_ru",
+   "old": "Игрок хороший",
+   "new": "Этот игрок сегодня забил два гола",
+   "why": "«Der Spieler ist gut» — скелет; «азартный игрок» — другое значение"
+  },
+  {
+   "id": 2836,
+   "col": "example_uk",
+   "old": "Гравець хороший",
+   "new": "Цей гравець сьогодні забив два голи",
+   "why": "«Der Spieler ist gut» — скелет; «азартный игрок» — другое значение"
+  },
+  {
+   "id": 2836,
+   "col": "example_en",
+   "old": "The player is good",
+   "new": "That player scored two goals today",
+   "why": "«Der Spieler ist gut» — скелет; «азартный игрок» — другое значение"
+  },
+  {
+   "id": 2836,
+   "col": "example_tr",
+   "old": "Oyuncu iyi",
+   "new": "Bu oyuncu bugün iki gol attı",
+   "why": "«Der Spieler ist gut» — скелет; «азартный игрок» — другое значение"
+  },
+  {
+   "id": 2836,
+   "col": "example_pl",
+   "old": "Ten gracz jest dobry",
+   "new": "Ten zawodnik strzelił dziś dwa gole",
+   "why": "«Der Spieler ist gut» — скелет; «азартный игрок» — другое значение"
+  },
+  {
+   "id": 2836,
+   "col": "example_it",
+   "old": "Il giocatore è bravo",
+   "new": "Quel giocatore oggi ha segnato due gol",
+   "why": "«Der Spieler ist gut» — скелет; «азартный игрок» — другое значение"
+  },
+  {
+   "id": 2836,
+   "col": "example_es",
+   "old": "El jugador es bueno",
+   "new": "Ese jugador ha marcado hoy dos goles",
+   "why": "«Der Spieler ist gut» — скелет; «азартный игрок» — другое значение"
+  },
+  {
+   "id": 2836,
+   "col": "example_fr",
+   "old": "Le joueur est bon",
+   "new": "Ce joueur a marqué deux buts aujourd'hui",
+   "why": "«Der Spieler ist gut» — скелет; «азартный игрок» — другое значение"
+  },
+  {
+   "id": 2836,
+   "col": "example_cs",
+   "old": "Hráč je dobrý",
+   "new": "Ten hráč dnes dal dva góly",
+   "why": "«Der Spieler ist gut» — скелет; «азартный игрок» — другое значение"
+  },
+  {
+   "id": 3013,
+   "col": "example_de",
+   "old": "Montag ist ein Werktag",
+   "new": "Die Bibliothek ist an Werktagen bis 20 Uhr offen",
+   "why": "«Montag ist ein Werktag» — из словаря, а не из жизни"
+  },
+  {
+   "id": 3013,
+   "col": "example_ru",
+   "old": "Понедельник — рабочий день",
+   "new": "Библиотека по будним дням открыта до восьми",
+   "why": "«Montag ist ein Werktag» — из словаря, а не из жизни"
+  },
+  {
+   "id": 3013,
+   "col": "example_uk",
+   "old": "Понеділок — робочий день",
+   "new": "Бібліотека в будні дні відкрита до восьмої",
+   "why": "«Montag ist ein Werktag» — из словаря, а не из жизни"
+  },
+  {
+   "id": 3013,
+   "col": "example_en",
+   "old": "Monday is a weekday",
+   "new": "The library is open until 8 pm on weekdays",
+   "why": "«Montag ist ein Werktag» — из словаря, а не из жизни"
+  },
+  {
+   "id": 3013,
+   "col": "example_tr",
+   "old": "Pazartesi bir iş günüdür",
+   "new": "Kütüphane hafta içi saat sekize kadar açık",
+   "why": "«Montag ist ein Werktag» — из словаря, а не из жизни"
+  },
+  {
+   "id": 3013,
+   "col": "example_pl",
+   "old": "Poniedziałek jest dniem roboczym",
+   "new": "Biblioteka jest otwarta w dni powszednie do ósmej",
+   "why": "«Montag ist ein Werktag» — из словаря, а не из жизни"
+  },
+  {
+   "id": 3013,
+   "col": "example_it",
+   "old": "Il lunedì è un giorno feriale",
+   "new": "La biblioteca è aperta fino alle otto nei giorni feriali",
+   "why": "«Montag ist ein Werktag» — из словаря, а не из жизни"
+  },
+  {
+   "id": 3013,
+   "col": "example_es",
+   "old": "El lunes es un día laborable",
+   "new": "La biblioteca abre hasta las ocho los días laborables",
+   "why": "«Montag ist ein Werktag» — из словаря, а не из жизни"
+  },
+  {
+   "id": 3013,
+   "col": "example_fr",
+   "old": "Le lundi est un jour ouvrable",
+   "new": "La bibliothèque est ouverte jusqu'à 20 heures les jours de semaine",
+   "why": "«Montag ist ein Werktag» — из словаря, а не из жизни"
+  },
+  {
+   "id": 3013,
+   "col": "example_cs",
+   "old": "Pondělí je pracovní den",
+   "new": "Knihovna má ve všední dny otevřeno do osmi",
+   "why": "«Montag ist ein Werktag» — из словаря, а не из жизни"
+  },
+  {
+   "id": 8730,
+   "col": "translation_ru",
+   "old": "прочий, другой, остальной",
+   "new": "прочий, остальной",
+   "why": "«Unter Sonstiges kannst du … eintragen» — инструкция к анкете"
+  },
+  {
+   "id": 8730,
+   "col": "translation_uk",
+   "old": "інший, інакший, решта",
+   "new": "інший, решта",
+   "why": "«Unter Sonstiges kannst du … eintragen» — инструкция к анкете"
+  },
+  {
+   "id": 8730,
+   "col": "translation_en",
+   "old": "other, miscellaneous, remaining",
+   "new": "other",
+   "why": "«Unter Sonstiges kannst du … eintragen» — инструкция к анкете"
+  },
+  {
+   "id": 8730,
+   "col": "translation_tr",
+   "old": "diğer, başka, sair",
+   "new": "diğer",
+   "why": "«Unter Sonstiges kannst du … eintragen» — инструкция к анкете"
+  },
+  {
+   "id": 8730,
+   "col": "example_de",
+   "old": "Unter Sonstiges kannst du weitere Informationen eintragen",
+   "new": "Und die sonstigen Kosten, wie Strom und Wasser?",
+   "why": "«Unter Sonstiges kannst du … eintragen» — инструкция к анкете"
+  },
+  {
+   "id": 8730,
+   "col": "example_ru",
+   "old": "В разделе «Прочее» ты можешь указать дополнительную информацию",
+   "new": "А прочие расходы, например свет и вода?",
+   "why": "«Unter Sonstiges kannst du … eintragen» — инструкция к анкете"
+  },
+  {
+   "id": 8730,
+   "col": "example_uk",
+   "old": "У розділі «Інше» ти можеш вказати додаткову інформацію",
+   "new": "А інші витрати, наприклад світло й вода?",
+   "why": "«Unter Sonstiges kannst du … eintragen» — инструкция к анкете"
+  },
+  {
+   "id": 8730,
+   "col": "example_en",
+   "old": "Under 'Other' you can enter further information",
+   "new": "And what about other costs, like electricity and water?",
+   "why": "«Unter Sonstiges kannst du … eintragen» — инструкция к анкете"
+  },
+  {
+   "id": 8730,
+   "col": "example_tr",
+   "old": "«Diğer» bölümüne ek bilgi yazabilirsin",
+   "new": "Peki elektrik ve su gibi diğer masraflar?",
+   "why": "«Unter Sonstiges kannst du … eintragen» — инструкция к анкете"
+  },
+  {
+   "id": 8730,
+   "col": "example_pl",
+   "old": "W rubryce „inne” możesz wpisać dalsze informacje",
+   "new": "A pozostałe koszty, jak prąd i woda?",
+   "why": "«Unter Sonstiges kannst du … eintragen» — инструкция к анкете"
+  },
+  {
+   "id": 8730,
+   "col": "example_it",
+   "old": "Alla voce Altro puoi inserire altre informazioni",
+   "new": "E le altre spese, come luce e acqua?",
+   "why": "«Unter Sonstiges kannst du … eintragen» — инструкция к анкете"
+  },
+  {
+   "id": 8730,
+   "col": "example_es",
+   "old": "En el apartado Otros puedes añadir más información",
+   "new": "¿Y los otros gastos, como la luz y el agua?",
+   "why": "«Unter Sonstiges kannst du … eintragen» — инструкция к анкете"
+  },
+  {
+   "id": 8730,
+   "col": "example_fr",
+   "old": "Dans la rubrique Divers, tu peux indiquer d'autres informations",
+   "new": "Et les autres frais, comme l'électricité et l'eau?",
+   "why": "«Unter Sonstiges kannst du … eintragen» — инструкция к анкете"
+  },
+  {
+   "id": 8730,
+   "col": "example_cs",
+   "old": "V části Ostatní můžeš zadat další informace",
+   "new": "A ostatní náklady, jako elektřina a voda?",
+   "why": "«Unter Sonstiges kannst du … eintragen» — инструкция к анкете"
+  }
+ ],
+ "replace": [],
+ "split_later": {}
+}
