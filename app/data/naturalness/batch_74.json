@@ -1,0 +1,2478 @@
+{
+ "about": "2.3, B1 блок 29",
+ "edits": [
+  {
+   "id": 2070,
+   "col": "translation_ru",
+   "old": "заходить, заглядывать, проходить мимо",
+   "new": "заходить, заглядывать",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2070,
+   "col": "translation_uk",
+   "old": "заходити, забігати, проходити мимо",
+   "new": "заходити, забігати",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2070,
+   "col": "translation_en",
+   "old": "to drop by, to stop by, to come past",
+   "new": "to drop by, to come past",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2070,
+   "col": "translation_tr",
+   "old": "uğramak, yanından geçmek",
+   "new": "uğramak",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2070,
+   "col": "translation_pl",
+   "old": "wpadać, zaglądać, przechodzić obok",
+   "new": "wpadać, zaglądać",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11670,
+   "col": "example_en",
+   "old": "He likes to drink whisky in the evening",
+   "new": "He likes a whisky in the evening",
+   "why": "английский пример: так не говорят"
+  },
+  {
+   "id": 6781,
+   "col": "translation_ru",
+   "old": "определять, устанавливать, решать, распоряжаться, назначать",
+   "new": "решать, определять",
+   "why": "список → главное слово и не больше одной альтернативы; en «You can't determine everything» — так не говорят"
+  },
+  {
+   "id": 6781,
+   "col": "translation_uk",
+   "old": "визначати, встановлювати, вирішувати, розпоряджатися, призначати",
+   "new": "вирішувати, визначати",
+   "why": "список → главное слово и не больше одной альтернативы; en «You can't determine everything» — так не говорят"
+  },
+  {
+   "id": 6781,
+   "col": "translation_en",
+   "old": "to determine, to define, to decide, to be in charge, to appoint",
+   "new": "to decide, to determine",
+   "why": "список → главное слово и не больше одной альтернативы; en «You can't determine everything» — так не говорят"
+  },
+  {
+   "id": 6781,
+   "col": "translation_tr",
+   "old": "belirlemek, karar vermek, söz sahibi olmak, tayin etmek",
+   "new": "karar vermek, belirlemek",
+   "why": "список → главное слово и не больше одной альтернативы; en «You can't determine everything» — так не говорят"
+  },
+  {
+   "id": 6781,
+   "col": "translation_pl",
+   "old": "określać, decydować, wyznaczać",
+   "new": "decydować, określać",
+   "why": "список → главное слово и не больше одной альтернативы; en «You can't determine everything» — так не говорят"
+  },
+  {
+   "id": 6781,
+   "col": "translation_it",
+   "old": "decidere, determinare, stabilire",
+   "new": "decidere, determinare",
+   "why": "список → главное слово и не больше одной альтернативы; en «You can't determine everything» — так не говорят"
+  },
+  {
+   "id": 6781,
+   "col": "translation_es",
+   "old": "decidir, determinar, mandar",
+   "new": "decidir, mandar",
+   "why": "список → главное слово и не больше одной альтернативы; en «You can't determine everything» — так не говорят"
+  },
+  {
+   "id": 6781,
+   "col": "example_en",
+   "old": "You can't determine everything",
+   "new": "You can't decide everything",
+   "why": "список → главное слово и не больше одной альтернативы; en «You can't determine everything» — так не говорят"
+  },
+  {
+   "id": 16033,
+   "col": "translation_ru",
+   "old": "подозрительный, вызывающий подозрения",
+   "new": "подозрительный",
+   "why": "«Das ist eine verdächtige Person» — протокол; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16033,
+   "col": "translation_uk",
+   "old": "підозрілий, який викликає підозру",
+   "new": "підозрілий",
+   "why": "«Das ist eine verdächtige Person» — протокол; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16033,
+   "col": "translation_en",
+   "old": "suspicious, suspect",
+   "new": "suspicious",
+   "why": "«Das ist eine verdächtige Person» — протокол; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16033,
+   "col": "translation_tr",
+   "old": "şüpheli, kuşku uyandıran",
+   "new": "şüpheli",
+   "why": "«Das ist eine verdächtige Person» — протокол; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16033,
+   "col": "translation_pl",
+   "old": "podejrzany, budzący podejrzenia",
+   "new": "podejrzany",
+   "why": "«Das ist eine verdächtige Person» — протокол; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16033,
+   "col": "example_de",
+   "old": "Das ist eine verdächtige Person",
+   "new": "Das kommt mir verdächtig vor",
+   "why": "«Das ist eine verdächtige Person» — протокол; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16033,
+   "col": "example_ru",
+   "old": "Это подозрительный человек",
+   "new": "Мне это кажется подозрительным",
+   "why": "«Das ist eine verdächtige Person» — протокол; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16033,
+   "col": "example_uk",
+   "old": "Це підозріла людина",
+   "new": "Мені це здається підозрілим",
+   "why": "«Das ist eine verdächtige Person» — протокол; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16033,
+   "col": "example_en",
+   "old": "That's a suspicious person",
+   "new": "That looks suspicious to me",
+   "why": "«Das ist eine verdächtige Person» — протокол; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16033,
+   "col": "example_tr",
+   "old": "Bu şüpheli bir kişi",
+   "new": "Bu bana şüpheli geliyor",
+   "why": "«Das ist eine verdächtige Person» — протокол; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16033,
+   "col": "example_pl",
+   "old": "To jest podejrzana osoba",
+   "new": "To wydaje mi się podejrzane",
+   "why": "«Das ist eine verdächtige Person» — протокол; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16033,
+   "col": "example_it",
+   "old": "È una persona sospetta",
+   "new": "Mi sembra sospetto",
+   "why": "«Das ist eine verdächtige Person» — протокол; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16033,
+   "col": "example_es",
+   "old": "Es una persona sospechosa",
+   "new": "Me parece sospechoso",
+   "why": "«Das ist eine verdächtige Person» — протокол; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16033,
+   "col": "example_fr",
+   "old": "C'est une personne suspecte",
+   "new": "Ça me paraît suspect",
+   "why": "«Das ist eine verdächtige Person» — протокол; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16033,
+   "col": "example_cs",
+   "old": "To je podezřelá osoba",
+   "new": "Připadá mi to podezřelé",
+   "why": "«Das ist eine verdächtige Person» — протокол; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12141,
+   "col": "translation_en",
+   "old": "spectator, viewer, member of the audience",
+   "new": "spectator, viewer",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6782,
+   "col": "translation_ru",
+   "old": "происшествие, инцидент, случай",
+   "new": "происшествие, случай",
+   "why": "«Das war ein seltsamer Vorfall» — шаблон «Das war ein …»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6782,
+   "col": "translation_uk",
+   "old": "випадок, інцидент, пригода",
+   "new": "випадок, інцидент",
+   "why": "«Das war ein seltsamer Vorfall» — шаблон «Das war ein …»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6782,
+   "col": "translation_en",
+   "old": "incident, occurrence, event",
+   "new": "incident",
+   "why": "«Das war ein seltsamer Vorfall» — шаблон «Das war ein …»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6782,
+   "col": "translation_pl",
+   "old": "zdarzenie, incydent, wypadek",
+   "new": "zdarzenie, incydent",
+   "why": "«Das war ein seltsamer Vorfall» — шаблон «Das war ein …»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6782,
+   "col": "translation_it",
+   "old": "l'episodio, l'incidente, l'accaduto",
+   "new": "l'episodio, l'incidente",
+   "why": "«Das war ein seltsamer Vorfall» — шаблон «Das war ein …»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6782,
+   "col": "translation_cs",
+   "old": "příhoda, incident, událost",
+   "new": "příhoda, incident",
+   "why": "«Das war ein seltsamer Vorfall» — шаблон «Das war ein …»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6782,
+   "col": "example_de",
+   "old": "Das war ein seltsamer Vorfall",
+   "new": "Über den Vorfall reden wir später",
+   "why": "«Das war ein seltsamer Vorfall» — шаблон «Das war ein …»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6782,
+   "col": "example_ru",
+   "old": "Это было странное происшествие",
+   "new": "Об этом случае поговорим позже",
+   "why": "«Das war ein seltsamer Vorfall» — шаблон «Das war ein …»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6782,
+   "col": "example_uk",
+   "old": "Це був дивний випадок",
+   "new": "Про цей випадок поговоримо пізніше",
+   "why": "«Das war ein seltsamer Vorfall» — шаблон «Das war ein …»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6782,
+   "col": "example_en",
+   "old": "That was a strange incident",
+   "new": "We'll talk about the incident later",
+   "why": "«Das war ein seltsamer Vorfall» — шаблон «Das war ein …»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6782,
+   "col": "example_tr",
+   "old": "Bu garip bir olaydı",
+   "new": "Olay hakkında sonra konuşuruz",
+   "why": "«Das war ein seltsamer Vorfall» — шаблон «Das war ein …»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6782,
+   "col": "example_pl",
+   "old": "To było dziwne zdarzenie",
+   "new": "O tym zdarzeniu porozmawiamy później",
+   "why": "«Das war ein seltsamer Vorfall» — шаблон «Das war ein …»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6782,
+   "col": "example_it",
+   "old": "È stato uno strano episodio",
+   "new": "Dell'episodio parliamo dopo",
+   "why": "«Das war ein seltsamer Vorfall» — шаблон «Das war ein …»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6782,
+   "col": "example_es",
+   "old": "Fue un incidente extraño",
+   "new": "Del incidente hablamos luego",
+   "why": "«Das war ein seltsamer Vorfall» — шаблон «Das war ein …»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6782,
+   "col": "example_fr",
+   "old": "C'était un incident étrange",
+   "new": "On parlera de l'incident plus tard",
+   "why": "«Das war ein seltsamer Vorfall» — шаблон «Das war ein …»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6782,
+   "col": "example_cs",
+   "old": "To byla zvláštní příhoda",
+   "new": "O té příhodě si promluvíme později",
+   "why": "«Das war ein seltsamer Vorfall» — шаблон «Das war ein …»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6783,
+   "col": "translation_ru",
+   "old": "собираться, намереваться, планировать, затевать",
+   "new": "собираться, планировать",
+   "why": "«Er muss etwas Großes vorhaben» — живее «Was hast du vor?»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6783,
+   "col": "translation_uk",
+   "old": "збиратися, мати намір, планувати, затівати",
+   "new": "збиратися, планувати",
+   "why": "«Er muss etwas Großes vorhaben» — живее «Was hast du vor?»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6783,
+   "col": "translation_en",
+   "old": "to plan, to intend, to be up to something",
+   "new": "to plan, to be up to",
+   "why": "«Er muss etwas Großes vorhaben» — живее «Was hast du vor?»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6783,
+   "col": "translation_tr",
+   "old": "planlamak, niyetinde olmak, bir şeyler kurmak",
+   "new": "planlamak, niyetinde olmak",
+   "why": "«Er muss etwas Großes vorhaben» — живее «Was hast du vor?»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6783,
+   "col": "translation_pl",
+   "old": "zamierzać, planować, mieć w planach",
+   "new": "zamierzać, planować",
+   "why": "«Er muss etwas Großes vorhaben» — живее «Was hast du vor?»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6783,
+   "col": "translation_it",
+   "old": "avere in mente, progettare, avere intenzione di",
+   "new": "avere in mente, progettare",
+   "why": "«Er muss etwas Großes vorhaben» — живее «Was hast du vor?»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6783,
+   "col": "translation_es",
+   "old": "planear, tener pensado, proponerse",
+   "new": "planear, tener pensado",
+   "why": "«Er muss etwas Großes vorhaben» — живее «Was hast du vor?»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6783,
+   "col": "translation_fr",
+   "old": "avoir en tête, prévoir, projeter",
+   "new": "avoir en tête, prévoir",
+   "why": "«Er muss etwas Großes vorhaben» — живее «Was hast du vor?»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6783,
+   "col": "translation_cs",
+   "old": "chystat, plánovat, mít v úmyslu",
+   "new": "chystat, plánovat",
+   "why": "«Er muss etwas Großes vorhaben» — живее «Was hast du vor?»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6783,
+   "col": "example_de",
+   "old": "Er muss etwas Großes vorhaben",
+   "new": "Was hast du heute Abend vor?",
+   "why": "«Er muss etwas Großes vorhaben» — живее «Was hast du vor?»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6783,
+   "col": "example_ru",
+   "old": "Он, должно быть, затевает что-то грандиозное",
+   "new": "Какие у тебя планы на вечер?",
+   "why": "«Er muss etwas Großes vorhaben» — живее «Was hast du vor?»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6783,
+   "col": "example_uk",
+   "old": "Він, мабуть, планує щось велике",
+   "new": "Які в тебе плани на вечір?",
+   "why": "«Er muss etwas Großes vorhaben» — живее «Was hast du vor?»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6783,
+   "col": "example_en",
+   "old": "He must be planning something big",
+   "new": "What are you up to tonight?",
+   "why": "«Er muss etwas Großes vorhaben» — живее «Was hast du vor?»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6783,
+   "col": "example_tr",
+   "old": "Büyük bir şey planlıyor olmalı",
+   "new": "Bu akşam ne planlıyorsun?",
+   "why": "«Er muss etwas Großes vorhaben» — живее «Was hast du vor?»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6783,
+   "col": "example_pl",
+   "old": "Musi planować coś wielkiego",
+   "new": "Co planujesz dziś wieczorem?",
+   "why": "«Er muss etwas Großes vorhaben» — живее «Was hast du vor?»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6783,
+   "col": "example_it",
+   "old": "Deve avere in mente qualcosa di grande",
+   "new": "Cos'hai in mente per stasera?",
+   "why": "«Er muss etwas Großes vorhaben» — живее «Was hast du vor?»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6783,
+   "col": "example_es",
+   "old": "Debe de estar planeando algo grande",
+   "new": "¿Qué tienes pensado para esta noche?",
+   "why": "«Er muss etwas Großes vorhaben» — живее «Was hast du vor?»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6783,
+   "col": "example_fr",
+   "old": "Il doit avoir quelque chose de grand en tête",
+   "new": "Tu as prévu quoi ce soir?",
+   "why": "«Er muss etwas Großes vorhaben» — живее «Was hast du vor?»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6783,
+   "col": "example_cs",
+   "old": "Určitě chystá něco velkého",
+   "new": "Co chystáš na dnešní večer?",
+   "why": "«Er muss etwas Großes vorhaben» — живее «Was hast du vor?»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11671,
+   "col": "translation_it",
+   "old": "il panino, il tramezzino, il sandwich",
+   "new": "il panino, il tramezzino",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6784,
+   "col": "translation_ru",
+   "old": "применять, использовать, вводить в действие, вставлять, заступаться, начинаться",
+   "new": "использовать, задействовать",
+   "why": "«Ich setze alle Mittel ein» — книжно; список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 6784,
+   "col": "translation_uk",
+   "old": "застосовувати, використовувати, вводити в дію, вставляти, заступатися, починатися",
+   "new": "використовувати, залучати",
+   "why": "«Ich setze alle Mittel ein» — книжно; список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 6784,
+   "col": "translation_en",
+   "old": "to use, to apply, to deploy, to insert, to stand up for, to set in",
+   "new": "to use, to deploy",
+   "why": "«Ich setze alle Mittel ein» — книжно; список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 6784,
+   "col": "translation_tr",
+   "old": "kullanmak, uygulamak, devreye sokmak, yerleştirmek, savunmak, başlamak",
+   "new": "kullanmak, devreye sokmak",
+   "why": "«Ich setze alle Mittel ein» — книжно; список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 6784,
+   "col": "translation_pl",
+   "old": "stosować, używać, wstawiać, angażować się, zaczynać się",
+   "new": "stosować, angażować",
+   "why": "«Ich setze alle Mittel ein» — книжно; список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 6784,
+   "col": "translation_it",
+   "old": "impiegare, usare, inserire, impegnarsi",
+   "new": "impiegare, usare",
+   "why": "«Ich setze alle Mittel ein» — книжно; список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 6784,
+   "col": "translation_es",
+   "old": "emplear, usar, insertar, comprometerse",
+   "new": "emplear, usar",
+   "why": "«Ich setze alle Mittel ein» — книжно; список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 6784,
+   "col": "translation_fr",
+   "old": "employer, utiliser, insérer, s'engager",
+   "new": "employer, utiliser",
+   "why": "«Ich setze alle Mittel ein» — книжно; список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 6784,
+   "col": "translation_cs",
+   "old": "použít, nasadit, vložit, zasadit se",
+   "new": "použít, nasadit",
+   "why": "«Ich setze alle Mittel ein» — книжно; список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 6784,
+   "col": "example_de",
+   "old": "Ich setze alle Mittel ein",
+   "new": "Wir müssen mehr Personal einsetzen",
+   "why": "«Ich setze alle Mittel ein» — книжно; список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 6784,
+   "col": "example_ru",
+   "old": "Я применяю все средства",
+   "new": "Нам нужно задействовать больше персонала",
+   "why": "«Ich setze alle Mittel ein» — книжно; список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 6784,
+   "col": "example_uk",
+   "old": "Я застосовую всі засоби",
+   "new": "Нам треба залучити більше персоналу",
+   "why": "«Ich setze alle Mittel ein» — книжно; список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 6784,
+   "col": "example_en",
+   "old": "I use all means",
+   "new": "We need to deploy more staff",
+   "why": "«Ich setze alle Mittel ein» — книжно; список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 6784,
+   "col": "example_tr",
+   "old": "Tüm imkanları kullanıyorum",
+   "new": "Daha fazla personel kullanmamız lazım",
+   "why": "«Ich setze alle Mittel ein» — книжно; список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 6784,
+   "col": "example_pl",
+   "old": "Stosuję wszystkie środki",
+   "new": "Musimy zaangażować więcej personelu",
+   "why": "«Ich setze alle Mittel ein» — книжно; список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 6784,
+   "col": "example_it",
+   "old": "Impiego tutti i mezzi",
+   "new": "Dobbiamo impiegare più personale",
+   "why": "«Ich setze alle Mittel ein» — книжно; список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 6784,
+   "col": "example_es",
+   "old": "Empleo todos los medios",
+   "new": "Tenemos que emplear a más personal",
+   "why": "«Ich setze alle Mittel ein» — книжно; список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 6784,
+   "col": "example_fr",
+   "old": "J'emploie tous les moyens",
+   "new": "Il faut employer plus de personnel",
+   "why": "«Ich setze alle Mittel ein» — книжно; список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 6784,
+   "col": "example_cs",
+   "old": "Použiji všechny prostředky",
+   "new": "Musíme nasadit víc personálu",
+   "why": "«Ich setze alle Mittel ein» — книжно; список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 14422,
+   "col": "translation_ru",
+   "old": "сказка, выдумка, небылица",
+   "new": "сказка, выдумка",
+   "why": "«Kinder lieben Märchen» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14422,
+   "col": "translation_uk",
+   "old": "казка, вигадка, небилиця",
+   "new": "казка, вигадка",
+   "why": "«Kinder lieben Märchen» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14422,
+   "col": "translation_en",
+   "old": "fairy tale, made-up story, tall tale",
+   "new": "fairy tale, tall tale",
+   "why": "«Kinder lieben Märchen» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14422,
+   "col": "translation_pl",
+   "old": "bajka, baśń, wymysł",
+   "new": "bajka, baśń",
+   "why": "«Kinder lieben Märchen» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14422,
+   "col": "example_de",
+   "old": "Kinder lieben Märchen",
+   "new": "Erzähl mir keine Märchen!",
+   "why": "«Kinder lieben Märchen» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14422,
+   "col": "example_ru",
+   "old": "Дети любят сказки",
+   "new": "Не рассказывай мне сказки!",
+   "why": "«Kinder lieben Märchen» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14422,
+   "col": "example_uk",
+   "old": "Діти люблять казки",
+   "new": "Не розповідай мені казок!",
+   "why": "«Kinder lieben Märchen» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14422,
+   "col": "example_en",
+   "old": "Children love fairy tales",
+   "new": "Don't tell me fairy tales!",
+   "why": "«Kinder lieben Märchen» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14422,
+   "col": "example_tr",
+   "old": "Çocuklar masalları sever",
+   "new": "Bana masal anlatma!",
+   "why": "«Kinder lieben Märchen» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14422,
+   "col": "example_pl",
+   "old": "Dzieci uwielbiają bajki",
+   "new": "Nie opowiadaj mi bajek!",
+   "why": "«Kinder lieben Märchen» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14422,
+   "col": "example_it",
+   "old": "I bambini amano le fiabe",
+   "new": "Non raccontarmi favole!",
+   "why": "«Kinder lieben Märchen» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14422,
+   "col": "example_es",
+   "old": "A los niños les encantan los cuentos de hadas",
+   "new": "¡No me cuentes cuentos!",
+   "why": "«Kinder lieben Märchen» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14422,
+   "col": "example_fr",
+   "old": "Les enfants adorent les contes de fées",
+   "new": "Ne me raconte pas de contes!",
+   "why": "«Kinder lieben Märchen» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14422,
+   "col": "example_cs",
+   "old": "Děti milují pohádky",
+   "new": "Nevykládej mi pohádky!",
+   "why": "«Kinder lieben Märchen» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13937,
+   "col": "translation_ru",
+   "old": "кстати, к слову, раз уж речь об этом",
+   "new": "кстати, к слову",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13937,
+   "col": "translation_uk",
+   "old": "до речі, до слова, якщо вже про це",
+   "new": "до речі, до слова",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13937,
+   "col": "translation_en",
+   "old": "by the way, speaking of which, incidentally",
+   "new": "by the way, speaking of which",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13937,
+   "col": "translation_tr",
+   "old": "bu arada, laf açılmışken, sözü geçmişken",
+   "new": "bu arada, laf açılmışken",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13937,
+   "col": "translation_pl",
+   "old": "a propos, przy okazji, skoro o tym mowa",
+   "new": "a propos, przy okazji",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6785,
+   "col": "translation_ru",
+   "old": "прерывать, перебивать, приостанавливать",
+   "new": "прерывать, перебивать",
+   "why": "список → главное слово и не больше одной альтернативы; ru «ненадолго прервать» — канцелярит"
+  },
+  {
+   "id": 6785,
+   "col": "translation_uk",
+   "old": "перебивати, перервати, припиняти на час",
+   "new": "перебивати, перервати",
+   "why": "список → главное слово и не больше одной альтернативы; ru «ненадолго прервать» — канцелярит"
+  },
+  {
+   "id": 6785,
+   "col": "translation_en",
+   "old": "to interrupt, to break off, to cut short",
+   "new": "to interrupt, to break off",
+   "why": "список → главное слово и не больше одной альтернативы; ru «ненадолго прервать» — канцелярит"
+  },
+  {
+   "id": 6785,
+   "col": "translation_tr",
+   "old": "sözünü kesmek, kesmek, yarıda bırakmak",
+   "new": "sözünü kesmek, kesmek",
+   "why": "список → главное слово и не больше одной альтернативы; ru «ненадолго прервать» — канцелярит"
+  },
+  {
+   "id": 6785,
+   "col": "translation_pl",
+   "old": "przerywać, przerwać komuś, wstrzymywać",
+   "new": "przerywać, wstrzymywać",
+   "why": "список → главное слово и не больше одной альтернативы; ru «ненадолго прервать» — канцелярит"
+  },
+  {
+   "id": 6785,
+   "col": "example_ru",
+   "old": "Извини, можно тебя ненадолго прервать?",
+   "new": "Извини, можно тебя на секунду перебить?",
+   "why": "список → главное слово и не больше одной альтернативы; ru «ненадолго прервать» — канцелярит"
+  },
+  {
+   "id": 6785,
+   "col": "example_en",
+   "old": "Excuse me, can I interrupt you briefly?",
+   "new": "Sorry, can I interrupt you for a second?",
+   "why": "список → главное слово и не больше одной альтернативы; ru «ненадолго прервать» — канцелярит"
+  },
+  {
+   "id": 10312,
+   "col": "translation_ru",
+   "old": "захватывающий, увлекательный, потрясающий",
+   "new": "увлекательный, захватывающий",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10312,
+   "col": "translation_uk",
+   "old": "захопливий, цікавезний, неймовірний",
+   "new": "захопливий, неймовірний",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10312,
+   "col": "translation_en",
+   "old": "fascinating, captivating, enthralling",
+   "new": "fascinating, captivating",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10312,
+   "col": "translation_tr",
+   "old": "büyüleyici, çok ilginç, hayran bırakan",
+   "new": "büyüleyici, çok ilginç",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10312,
+   "col": "translation_pl",
+   "old": "fascynujący, porywający, niezwykle ciekawy",
+   "new": "fascynujący, porywający",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12535,
+   "col": "translation_ru",
+   "old": "без сознания, бессильный, беспомощный",
+   "new": "без сознания, в обмороке",
+   "why": "«Sie wurde ohnmächtig und fiel um» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12535,
+   "col": "translation_uk",
+   "old": "непритомний, безсилий, безпорадний",
+   "new": "непритомний, безсилий",
+   "why": "«Sie wurde ohnmächtig und fiel um» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12535,
+   "col": "translation_en",
+   "old": "unconscious, powerless, helpless",
+   "new": "unconscious, passed out",
+   "why": "«Sie wurde ohnmächtig und fiel um» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12535,
+   "col": "translation_tr",
+   "old": "baygın, bilinci kapalı, güçsüz",
+   "new": "baygın, güçsüz",
+   "why": "«Sie wurde ohnmächtig und fiel um» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12535,
+   "col": "translation_pl",
+   "old": "nieprzytomny, bezsilny, bezradny",
+   "new": "omdlały, bezsilny",
+   "why": "«Sie wurde ohnmächtig und fiel um» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12535,
+   "col": "translation_it",
+   "old": "svenuto, privo di sensi, impotente",
+   "new": "svenuto, impotente",
+   "why": "«Sie wurde ohnmächtig und fiel um» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12535,
+   "col": "translation_es",
+   "old": "desmayado, inconsciente, impotente",
+   "new": "desmayado, impotente",
+   "why": "«Sie wurde ohnmächtig und fiel um» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12535,
+   "col": "translation_cs",
+   "old": "omdlelý, v bezvědomí, bezmocný",
+   "new": "omdlelý, bezmocný",
+   "why": "«Sie wurde ohnmächtig und fiel um» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12535,
+   "col": "example_de",
+   "old": "Sie wurde ohnmächtig und fiel um",
+   "new": "Mir war so heiß, ich bin fast ohnmächtig geworden",
+   "why": "«Sie wurde ohnmächtig und fiel um» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12535,
+   "col": "example_ru",
+   "old": "Она потеряла сознание и упала",
+   "new": "Мне было так жарко, что я чуть не упал в обморок",
+   "why": "«Sie wurde ohnmächtig und fiel um» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12535,
+   "col": "example_uk",
+   "old": "Вона знепритомніла і впала",
+   "new": "Мені було так спекотно, що я мало не знепритомнів",
+   "why": "«Sie wurde ohnmächtig und fiel um» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12535,
+   "col": "example_en",
+   "old": "She became unconscious and fell down",
+   "new": "I was so hot I nearly passed out",
+   "why": "«Sie wurde ohnmächtig und fiel um» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12535,
+   "col": "example_tr",
+   "old": "Bayıldı ve yere düştü",
+   "new": "O kadar sıcaktı ki neredeyse bayılıyordum",
+   "why": "«Sie wurde ohnmächtig und fiel um» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12535,
+   "col": "example_pl",
+   "old": "Straciła przytomność i upadła",
+   "new": "Było mi tak gorąco, że prawie zemdlałem",
+   "why": "«Sie wurde ohnmächtig und fiel um» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12535,
+   "col": "example_it",
+   "old": "È svenuta ed è caduta",
+   "new": "Avevo così caldo che sono quasi svenuto",
+   "why": "«Sie wurde ohnmächtig und fiel um» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12535,
+   "col": "example_es",
+   "old": "Se desmayó y se cayó",
+   "new": "Tenía tanto calor que casi me desmayo",
+   "why": "«Sie wurde ohnmächtig und fiel um» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12535,
+   "col": "example_fr",
+   "old": "Elle s'est évanouie et elle est tombée",
+   "new": "J'avais tellement chaud que j'ai failli m'évanouir",
+   "why": "«Sie wurde ohnmächtig und fiel um» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12535,
+   "col": "example_cs",
+   "old": "Omdlela a upadla",
+   "new": "Bylo mi takové horko, že jsem skoro omdlel",
+   "why": "«Sie wurde ohnmächtig und fiel um» — претерит; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16034,
+   "col": "translation_ru",
+   "old": "алиби, доказательство непричастности, отговорка",
+   "new": "алиби, отговорка",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16034,
+   "col": "translation_uk",
+   "old": "алібі, доказ непричетності, відмовка",
+   "new": "алібі, відмовка",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16034,
+   "col": "translation_tr",
+   "old": "mazeret, suçsuzluk kanıtı, bahane",
+   "new": "mazeret, bahane",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16034,
+   "col": "translation_pl",
+   "old": "alibi, dowód niewinności, wymówka",
+   "new": "alibi, wymówka",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6786,
+   "col": "translation_ru",
+   "old": "кризис, тяжёлое положение, перелом в болезни",
+   "new": "кризис",
+   "why": "список → главное слово и не больше одной альтернативы; ru «находится в тяжёлом кризисе» — канцелярит"
+  },
+  {
+   "id": 6786,
+   "col": "translation_uk",
+   "old": "криза, важке становище, перелом у хворобі",
+   "new": "криза",
+   "why": "список → главное слово и не больше одной альтернативы; ru «находится в тяжёлом кризисе» — канцелярит"
+  },
+  {
+   "id": 6786,
+   "col": "translation_en",
+   "old": "crisis, emergency, critical point",
+   "new": "crisis",
+   "why": "список → главное слово и не больше одной альтернативы; ru «находится в тяжёлом кризисе» — канцелярит"
+  },
+  {
+   "id": 6786,
+   "col": "translation_tr",
+   "old": "kriz, buhran, kritik dönem",
+   "new": "kriz, buhran",
+   "why": "список → главное слово и не больше одной альтернативы; ru «находится в тяжёлом кризисе» — канцелярит"
+  },
+  {
+   "id": 6786,
+   "col": "translation_pl",
+   "old": "kryzys, trudna sytuacja, przełom",
+   "new": "kryzys",
+   "why": "список → главное слово и не больше одной альтернативы; ru «находится в тяжёлом кризисе» — канцелярит"
+  },
+  {
+   "id": 6786,
+   "col": "example_ru",
+   "old": "Фирма находится в тяжёлом кризисе",
+   "new": "У фирмы серьёзный кризис",
+   "why": "список → главное слово и не больше одной альтернативы; ru «находится в тяжёлом кризисе» — канцелярит"
+  },
+  {
+   "id": 8806,
+   "col": "example_en",
+   "old": "My brother works in the navy",
+   "new": "My brother is in the navy",
+   "why": "английский пример: так не говорят"
+  },
+  {
+   "id": 12536,
+   "col": "translation_ru",
+   "old": "кома, глубокое беспамятство",
+   "new": "кома",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12536,
+   "col": "translation_uk",
+   "old": "кома, глибоке безпам'ятство",
+   "new": "кома",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12536,
+   "col": "translation_pl",
+   "old": "śpiączka, koma",
+   "new": "śpiączka",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1548,
+   "col": "translation_tr",
+   "old": "nazik, kibar, saygılı",
+   "new": "nazik, kibar",
+   "why": "«Er ist sehr höflich» — пусто"
+  },
+  {
+   "id": 1548,
+   "col": "translation_it",
+   "old": "educato, cortese, gentile",
+   "new": "educato, gentile",
+   "why": "«Er ist sehr höflich» — пусто"
+  },
+  {
+   "id": 1548,
+   "col": "example_de",
+   "old": "Er ist sehr höflich",
+   "new": "Sei bitte höflich zu den Gästen",
+   "why": "«Er ist sehr höflich» — пусто"
+  },
+  {
+   "id": 1548,
+   "col": "example_ru",
+   "old": "Он очень вежливый",
+   "new": "Будь, пожалуйста, вежлив с гостями",
+   "why": "«Er ist sehr höflich» — пусто"
+  },
+  {
+   "id": 1548,
+   "col": "example_uk",
+   "old": "Він дуже ввічливий",
+   "new": "Будь, будь ласка, ввічливим із гостями",
+   "why": "«Er ist sehr höflich» — пусто"
+  },
+  {
+   "id": 1548,
+   "col": "example_en",
+   "old": "He is very polite",
+   "new": "Please be polite to the guests",
+   "why": "«Er ist sehr höflich» — пусто"
+  },
+  {
+   "id": 1548,
+   "col": "example_tr",
+   "old": "O çok nazik",
+   "new": "Lütfen misafirlere karşı kibar ol",
+   "why": "«Er ist sehr höflich» — пусто"
+  },
+  {
+   "id": 1548,
+   "col": "example_pl",
+   "old": "On jest bardzo uprzejmy",
+   "new": "Bądź, proszę, uprzejmy dla gości",
+   "why": "«Er ist sehr höflich» — пусто"
+  },
+  {
+   "id": 1548,
+   "col": "example_it",
+   "old": "È molto educato",
+   "new": "Sii gentile con gli ospiti, per favore",
+   "why": "«Er ist sehr höflich» — пусто"
+  },
+  {
+   "id": 1548,
+   "col": "example_es",
+   "old": "Es muy educado",
+   "new": "Sé educado con los invitados, por favor",
+   "why": "«Er ist sehr höflich» — пусто"
+  },
+  {
+   "id": 1548,
+   "col": "example_fr",
+   "old": "Il est très poli",
+   "new": "Sois poli avec les invités, s'il te plaît",
+   "why": "«Er ist sehr höflich» — пусто"
+  },
+  {
+   "id": 1548,
+   "col": "example_cs",
+   "old": "Je velmi zdvořilý",
+   "new": "Buď prosím k hostům zdvořilý",
+   "why": "«Er ist sehr höflich» — пусто"
+  },
+  {
+   "id": 17922,
+   "col": "translation_ru",
+   "old": "ракета, космический корабль, фейерверк",
+   "new": "ракета",
+   "why": "«Die Rakete fliegt zum Mond» — детский; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17922,
+   "col": "translation_uk",
+   "old": "ракета, космічний апарат, феєрверк",
+   "new": "ракета",
+   "why": "«Die Rakete fliegt zum Mond» — детский; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17922,
+   "col": "translation_en",
+   "old": "rocket, missile, firework",
+   "new": "rocket",
+   "why": "«Die Rakete fliegt zum Mond» — детский; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17922,
+   "col": "translation_tr",
+   "old": "roket, füze, havai fişek",
+   "new": "roket, havai fişek",
+   "why": "«Die Rakete fliegt zum Mond» — детский; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17922,
+   "col": "translation_pl",
+   "old": "rakieta, pocisk, raca",
+   "new": "rakieta",
+   "why": "«Die Rakete fliegt zum Mond» — детский; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17922,
+   "col": "example_de",
+   "old": "Die Rakete fliegt zum Mond",
+   "new": "An Silvester schießen wir Raketen ab",
+   "why": "«Die Rakete fliegt zum Mond» — детский; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17922,
+   "col": "example_ru",
+   "old": "Ракета летит на Луну",
+   "new": "На Новый год мы запускаем ракеты",
+   "why": "«Die Rakete fliegt zum Mond» — детский; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17922,
+   "col": "example_uk",
+   "old": "Ракета летить на Місяць",
+   "new": "На Новий рік ми запускаємо ракети",
+   "why": "«Die Rakete fliegt zum Mond» — детский; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17922,
+   "col": "example_en",
+   "old": "The rocket flies to the moon",
+   "new": "We set off rockets on New Year's Eve",
+   "why": "«Die Rakete fliegt zum Mond» — детский; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17922,
+   "col": "example_tr",
+   "old": "Roket aya uçuyor",
+   "new": "Yılbaşında havai fişek atıyoruz",
+   "why": "«Die Rakete fliegt zum Mond» — детский; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17922,
+   "col": "example_pl",
+   "old": "Rakieta leci na Księżyc",
+   "new": "W sylwestra puszczamy rakiety",
+   "why": "«Die Rakete fliegt zum Mond» — детский; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17922,
+   "col": "example_it",
+   "old": "Il razzo vola verso la luna",
+   "new": "A Capodanno lanciamo i razzi",
+   "why": "«Die Rakete fliegt zum Mond» — детский; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17922,
+   "col": "example_es",
+   "old": "El cohete vuela hacia la luna",
+   "new": "En Nochevieja tiramos cohetes",
+   "why": "«Die Rakete fliegt zum Mond» — детский; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17922,
+   "col": "example_fr",
+   "old": "La fusée vole vers la Lune",
+   "new": "Au Nouvel An, on tire des fusées",
+   "why": "«Die Rakete fliegt zum Mond» — детский; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17922,
+   "col": "example_cs",
+   "old": "Raketa letí na Měsíc",
+   "new": "Na Silvestra pouštíme rakety",
+   "why": "«Die Rakete fliegt zum Mond» — детский; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10314,
+   "col": "translation_ru",
+   "old": "верность, преданность, лояльность",
+   "new": "верность, преданность",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10314,
+   "col": "translation_uk",
+   "old": "вірність, відданість, лояльність",
+   "new": "вірність, відданість",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10314,
+   "col": "translation_en",
+   "old": "loyalty, faithfulness, allegiance",
+   "new": "loyalty",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10314,
+   "col": "translation_tr",
+   "old": "sadakat, bağlılık, vefa",
+   "new": "sadakat, bağlılık",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10314,
+   "col": "translation_pl",
+   "old": "lojalność, wierność, oddanie",
+   "new": "lojalność, wierność",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16036,
+   "col": "translation_ru",
+   "old": "признание, признание вины, чистосердечное признание",
+   "new": "признание",
+   "why": "«Der Täter machte ein volles Geständnis» — претерит, протокол; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16036,
+   "col": "translation_uk",
+   "old": "визнання вини, зізнання, щире каяття",
+   "new": "зізнання, визнання вини",
+   "why": "«Der Täter machte ein volles Geständnis» — претерит, протокол; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16036,
+   "col": "translation_en",
+   "old": "confession, admission of guilt",
+   "new": "confession",
+   "why": "«Der Täter machte ein volles Geständnis» — претерит, протокол; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16036,
+   "col": "translation_tr",
+   "old": "itiraf, suçunu kabul etme",
+   "new": "itiraf",
+   "why": "«Der Täter machte ein volles Geständnis» — претерит, протокол; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16036,
+   "col": "translation_pl",
+   "old": "przyznanie się do winy, wyznanie",
+   "new": "przyznanie się, wyznanie",
+   "why": "«Der Täter machte ein volles Geständnis» — претерит, протокол; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16036,
+   "col": "example_de",
+   "old": "Der Täter machte ein volles Geständnis",
+   "new": "Ich muss dir ein Geständnis machen",
+   "why": "«Der Täter machte ein volles Geständnis» — претерит, протокол; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16036,
+   "col": "example_ru",
+   "old": "Преступник сделал полное признание",
+   "new": "У меня к тебе признание",
+   "why": "«Der Täter machte ein volles Geständnis» — претерит, протокол; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16036,
+   "col": "example_uk",
+   "old": "Злочинець зробив повне зізнання",
+   "new": "Мушу тобі в дечому зізнатися",
+   "why": "«Der Täter machte ein volles Geständnis» — претерит, протокол; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16036,
+   "col": "example_en",
+   "old": "The perpetrator made a full confession",
+   "new": "I have a confession to make",
+   "why": "«Der Täter machte ein volles Geständnis» — претерит, протокол; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16036,
+   "col": "example_tr",
+   "old": "Suçlu tam bir itiraf yaptı",
+   "new": "Sana bir itirafım var",
+   "why": "«Der Täter machte ein volles Geständnis» — претерит, протокол; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16036,
+   "col": "example_pl",
+   "old": "Sprawca złożył pełne przyznanie się do winy",
+   "new": "Muszę ci się do czegoś przyznać",
+   "why": "«Der Täter machte ein volles Geständnis» — претерит, протокол; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16036,
+   "col": "example_it",
+   "old": "Il colpevole ha fatto una piena confessione",
+   "new": "Devo farti una confessione",
+   "why": "«Der Täter machte ein volles Geständnis» — претерит, протокол; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16036,
+   "col": "example_es",
+   "old": "El culpable hizo una confesión completa",
+   "new": "Tengo que hacerte una confesión",
+   "why": "«Der Täter machte ein volles Geständnis» — претерит, протокол; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16036,
+   "col": "example_fr",
+   "old": "Le coupable a fait des aveux complets",
+   "new": "J'ai un aveu à te faire",
+   "why": "«Der Täter machte ein volles Geständnis» — претерит, протокол; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16036,
+   "col": "example_cs",
+   "old": "Pachatel se plně přiznal",
+   "new": "Musím se ti k něčemu přiznat",
+   "why": "«Der Täter machte ein volles Geständnis» — претерит, протокол; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10315,
+   "col": "example_de",
+   "old": "Lautes Gelächter kam aus dem Zimmer",
+   "new": "Aus dem Zimmer hört man lautes Gelächter",
+   "why": "«Lautes Gelächter kam aus dem Zimmer» — претерит"
+  },
+  {
+   "id": 10315,
+   "col": "example_ru",
+   "old": "Из комнаты доносился громкий смех",
+   "new": "Из комнаты слышен громкий смех",
+   "why": "«Lautes Gelächter kam aus dem Zimmer» — претерит"
+  },
+  {
+   "id": 10315,
+   "col": "example_uk",
+   "old": "З кімнати лунав гучний сміх",
+   "new": "З кімнати чути гучний сміх",
+   "why": "«Lautes Gelächter kam aus dem Zimmer» — претерит"
+  },
+  {
+   "id": 10315,
+   "col": "example_en",
+   "old": "Loud laughter came from the room",
+   "new": "You can hear loud laughter from the room",
+   "why": "«Lautes Gelächter kam aus dem Zimmer» — претерит"
+  },
+  {
+   "id": 10315,
+   "col": "example_tr",
+   "old": "Odadan yüksek kahkaha sesi geliyordu",
+   "new": "Odadan yüksek kahkahalar geliyor",
+   "why": "«Lautes Gelächter kam aus dem Zimmer» — претерит"
+  },
+  {
+   "id": 10315,
+   "col": "example_pl",
+   "old": "Z pokoju dobiegał głośny śmiech",
+   "new": "Z pokoju słychać głośny śmiech",
+   "why": "«Lautes Gelächter kam aus dem Zimmer» — претерит"
+  },
+  {
+   "id": 10315,
+   "col": "example_it",
+   "old": "Dalla stanza arrivavano forti risate",
+   "new": "Dalla stanza si sentono forti risate",
+   "why": "«Lautes Gelächter kam aus dem Zimmer» — претерит"
+  },
+  {
+   "id": 10315,
+   "col": "example_es",
+   "old": "De la habitación salían fuertes risas",
+   "new": "Desde la habitación se oyen risas fuertes",
+   "why": "«Lautes Gelächter kam aus dem Zimmer» — претерит"
+  },
+  {
+   "id": 10315,
+   "col": "example_fr",
+   "old": "Des rires bruyants venaient de la pièce",
+   "new": "On entend de grands éclats de rire dans la pièce",
+   "why": "«Lautes Gelächter kam aus dem Zimmer» — претерит"
+  },
+  {
+   "id": 10315,
+   "col": "example_cs",
+   "old": "Z pokoje se ozýval hlasitý smích",
+   "new": "Z pokoje je slyšet hlasitý smích",
+   "why": "«Lautes Gelächter kam aus dem Zimmer» — претерит"
+  },
+  {
+   "id": 2949,
+   "col": "translation_ru",
+   "old": "проходить, протекать, заблудиться",
+   "new": "проходить, заблудиться",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2949,
+   "col": "translation_uk",
+   "old": "проходити, перебігати, минати, заблукати",
+   "new": "проходити, заблукати",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2949,
+   "col": "translation_en",
+   "old": "to go, to turn out, to proceed, to get lost",
+   "new": "to go, to get lost",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2949,
+   "col": "translation_tr",
+   "old": "geçmek, seyretmek, yolunu kaybetmek",
+   "new": "geçmek, yolunu kaybetmek",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2949,
+   "col": "translation_pl",
+   "old": "przebiegać, przebiec, zgubić się",
+   "new": "przebiegać, zgubić się",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2949,
+   "col": "translation_it",
+   "old": "andare, svolgersi, perdersi",
+   "new": "andare, perdersi",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2949,
+   "col": "translation_es",
+   "old": "salir, transcurrir, perderse",
+   "new": "salir, perderse",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2949,
+   "col": "translation_fr",
+   "old": "se passer, se dérouler, se perdre",
+   "new": "se passer, se perdre",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2949,
+   "col": "translation_cs",
+   "old": "proběhnout, probíhat, zabloudit",
+   "new": "proběhnout, zabloudit",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14425,
+   "col": "translation_ru",
+   "old": "пение, вокал, песнь",
+   "new": "пение, вокал",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14425,
+   "col": "translation_uk",
+   "old": "спів, вокал, пісня",
+   "new": "спів, вокал",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14425,
+   "col": "translation_en",
+   "old": "singing, vocals, song",
+   "new": "singing, vocals",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14425,
+   "col": "translation_tr",
+   "old": "şarkı söyleme, vokal, ezgi",
+   "new": "şarkı söyleme, vokal",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14425,
+   "col": "translation_pl",
+   "old": "śpiew, wokal, pieśń",
+   "new": "śpiew, wokal",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12537,
+   "col": "translation_ru",
+   "old": "психиатр, врач-психиатр",
+   "new": "психиатр",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12537,
+   "col": "translation_uk",
+   "old": "психіатр, лікар-психіатр",
+   "new": "психіатр",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12537,
+   "col": "translation_tr",
+   "old": "psikiyatrist, ruh hekimi",
+   "new": "psikiyatrist",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12537,
+   "col": "translation_pl",
+   "old": "psychiatra, lekarz psychiatra",
+   "new": "psychiatra",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1709,
+   "col": "translation_ru",
+   "old": "образец, узор, шаблон, пример для подражания",
+   "new": "образец, узор",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1709,
+   "col": "translation_uk",
+   "old": "зразок, узор, шаблон, приклад для наслідування",
+   "new": "зразок, узор",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1709,
+   "col": "translation_en",
+   "old": "pattern, sample, template, model",
+   "new": "sample, pattern",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1709,
+   "col": "translation_tr",
+   "old": "desen, örnek, numune, şablon",
+   "new": "numune, desen",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1709,
+   "col": "translation_pl",
+   "old": "wzór, deseń, próbka, szablon",
+   "new": "wzór, próbka",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1709,
+   "col": "translation_it",
+   "old": "il campione, il modello, il motivo",
+   "new": "il campione, il motivo",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1709,
+   "col": "translation_es",
+   "old": "la muestra, el modelo, el estampado",
+   "new": "la muestra, el estampado",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1709,
+   "col": "translation_fr",
+   "old": "l'échantillon, le modèle, le motif",
+   "new": "l'échantillon, le motif",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6789,
+   "col": "translation_ru",
+   "old": "забирать, отбирать, убирать",
+   "new": "забирать, отбирать",
+   "why": "«Kannst du das Geschirr wegnehmen?» — так не говорят (abräumen); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6789,
+   "col": "translation_uk",
+   "old": "забирати, відбирати, прибирати",
+   "new": "забирати, відбирати",
+   "why": "«Kannst du das Geschirr wegnehmen?» — так не говорят (abräumen); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6789,
+   "col": "translation_en",
+   "old": "to take away, to take from someone, to remove",
+   "new": "to take away, to remove",
+   "why": "«Kannst du das Geschirr wegnehmen?» — так не говорят (abräumen); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6789,
+   "col": "translation_tr",
+   "old": "almak, elinden almak, kaldırmak",
+   "new": "almak, elinden almak",
+   "why": "«Kannst du das Geschirr wegnehmen?» — так не говорят (abräumen); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6789,
+   "col": "translation_pl",
+   "old": "zabierać, odbierać komuś, sprzątać",
+   "new": "zabierać, odbierać",
+   "why": "«Kannst du das Geschirr wegnehmen?» — так не говорят (abräumen); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6789,
+   "col": "example_de",
+   "old": "Kannst du das Geschirr wegnehmen?",
+   "new": "Nimm ihm bitte die Schere weg!",
+   "why": "«Kannst du das Geschirr wegnehmen?» — так не говорят (abräumen); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6789,
+   "col": "example_ru",
+   "old": "Можешь убрать посуду?",
+   "new": "Забери у него, пожалуйста, ножницы!",
+   "why": "«Kannst du das Geschirr wegnehmen?» — так не говорят (abräumen); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6789,
+   "col": "example_uk",
+   "old": "Можеш забрати посуд?",
+   "new": "Забери в нього, будь ласка, ножиці!",
+   "why": "«Kannst du das Geschirr wegnehmen?» — так не говорят (abräumen); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6789,
+   "col": "example_en",
+   "old": "Can you take away the dishes?",
+   "new": "Please take the scissors away from him!",
+   "why": "«Kannst du das Geschirr wegnehmen?» — так не говорят (abräumen); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6789,
+   "col": "example_tr",
+   "old": "Bulaşıkları alabilir misin?",
+   "new": "Lütfen makası elinden al!",
+   "why": "«Kannst du das Geschirr wegnehmen?» — так не говорят (abräumen); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6789,
+   "col": "example_pl",
+   "old": "Możesz zabrać naczynia?",
+   "new": "Zabierz mu, proszę, nożyczki!",
+   "why": "«Kannst du das Geschirr wegnehmen?» — так не говорят (abräumen); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6789,
+   "col": "example_it",
+   "old": "Puoi togliere i piatti?",
+   "new": "Togligli le forbici, per favore!",
+   "why": "«Kannst du das Geschirr wegnehmen?» — так не говорят (abräumen); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6789,
+   "col": "example_es",
+   "old": "¿Puedes quitar los platos?",
+   "new": "¡Quítale las tijeras, por favor!",
+   "why": "«Kannst du das Geschirr wegnehmen?» — так не говорят (abräumen); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6789,
+   "col": "example_fr",
+   "old": "Tu peux enlever la vaisselle?",
+   "new": "Enlève-lui les ciseaux, s'il te plaît!",
+   "why": "«Kannst du das Geschirr wegnehmen?» — так не говорят (abräumen); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6789,
+   "col": "example_cs",
+   "old": "Můžeš odnést nádobí?",
+   "new": "Vezmi mu prosím ty nůžky!",
+   "why": "«Kannst du das Geschirr wegnehmen?» — так не говорят (abräumen); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17099,
+   "col": "translation_ru",
+   "old": "транспортное средство, машина, автомобиль",
+   "new": "транспортное средство, машина",
+   "why": "«Das Fahrzeug steht vor der Tür» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17099,
+   "col": "translation_uk",
+   "old": "транспортний засіб, машина, автомобіль",
+   "new": "транспортний засіб, машина",
+   "why": "«Das Fahrzeug steht vor der Tür» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17099,
+   "col": "translation_tr",
+   "old": "araç, taşıt, otomobil",
+   "new": "araç, taşıt",
+   "why": "«Das Fahrzeug steht vor der Tür» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17099,
+   "col": "translation_pl",
+   "old": "pojazd, samochód",
+   "new": "pojazd",
+   "why": "«Das Fahrzeug steht vor der Tür» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17099,
+   "col": "example_de",
+   "old": "Das Fahrzeug steht vor der Tür",
+   "new": "Wem gehört das Fahrzeug da vorne?",
+   "why": "«Das Fahrzeug steht vor der Tür» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17099,
+   "col": "example_ru",
+   "old": "Автомобиль стоит перед дверью",
+   "new": "Чья это машина впереди?",
+   "why": "«Das Fahrzeug steht vor der Tür» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17099,
+   "col": "example_uk",
+   "old": "Автомобіль стоїть перед дверима",
+   "new": "Чия це машина попереду?",
+   "why": "«Das Fahrzeug steht vor der Tür» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17099,
+   "col": "example_en",
+   "old": "The vehicle is parked in front of the door",
+   "new": "Whose vehicle is that up ahead?",
+   "why": "«Das Fahrzeug steht vor der Tür» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17099,
+   "col": "example_tr",
+   "old": "Araç kapının önünde duruyor",
+   "new": "Şuradaki araç kimin?",
+   "why": "«Das Fahrzeug steht vor der Tür» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17099,
+   "col": "example_pl",
+   "old": "Pojazd stoi przed drzwiami",
+   "new": "Do kogo należy ten pojazd z przodu?",
+   "why": "«Das Fahrzeug steht vor der Tür» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17099,
+   "col": "example_it",
+   "old": "Il veicolo è davanti alla porta",
+   "new": "Di chi è quel veicolo lì davanti?",
+   "why": "«Das Fahrzeug steht vor der Tür» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17099,
+   "col": "example_es",
+   "old": "El vehículo está delante de la puerta",
+   "new": "¿De quién es ese vehículo de ahí delante?",
+   "why": "«Das Fahrzeug steht vor der Tür» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17099,
+   "col": "example_fr",
+   "old": "Le véhicule est garé devant la porte",
+   "new": "À qui est le véhicule là-devant?",
+   "why": "«Das Fahrzeug steht vor der Tür» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17099,
+   "col": "example_cs",
+   "old": "Vozidlo stojí před dveřmi",
+   "new": "Čí je to vozidlo tamhle vpředu?",
+   "why": "«Das Fahrzeug steht vor der Tür» — пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12538,
+   "col": "translation_ru",
+   "old": "умереть с голоду, голодать до смерти",
+   "new": "умереть с голоду",
+   "why": "«Ohne Essen werden wir verhungern» — пусто; живое — «Ich verhungere!»"
+  },
+  {
+   "id": 12538,
+   "col": "translation_uk",
+   "old": "померти з голоду, голодувати до смерті",
+   "new": "померти з голоду",
+   "why": "«Ohne Essen werden wir verhungern» — пусто; живое — «Ich verhungere!»"
+  },
+  {
+   "id": 12538,
+   "col": "translation_en",
+   "old": "to starve to death, to die of hunger",
+   "new": "to starve",
+   "why": "«Ohne Essen werden wir verhungern» — пусто; живое — «Ich verhungere!»"
+  },
+  {
+   "id": 12538,
+   "col": "example_de",
+   "old": "Ohne Essen werden wir verhungern",
+   "new": "Wann gibt's Essen? Ich verhungere!",
+   "why": "«Ohne Essen werden wir verhungern» — пусто; живое — «Ich verhungere!»"
+  },
+  {
+   "id": 12538,
+   "col": "example_ru",
+   "old": "Без еды мы умрём с голоду",
+   "new": "Когда будет еда? Я умираю с голоду!",
+   "why": "«Ohne Essen werden wir verhungern» — пусто; живое — «Ich verhungere!»"
+  },
+  {
+   "id": 12538,
+   "col": "example_uk",
+   "old": "Без їжі ми помремо з голоду",
+   "new": "Коли буде їжа? Я помираю з голоду!",
+   "why": "«Ohne Essen werden wir verhungern» — пусто; живое — «Ich verhungere!»"
+  },
+  {
+   "id": 12538,
+   "col": "example_en",
+   "old": "Without food we will starve",
+   "new": "When's dinner? I'm starving!",
+   "why": "«Ohne Essen werden wir verhungern» — пусто; живое — «Ich verhungere!»"
+  },
+  {
+   "id": 12538,
+   "col": "example_tr",
+   "old": "Yemek olmadan açlıktan öleceğiz",
+   "new": "Yemek ne zaman? Açlıktan ölüyorum!",
+   "why": "«Ohne Essen werden wir verhungern» — пусто; живое — «Ich verhungere!»"
+  },
+  {
+   "id": 12538,
+   "col": "example_pl",
+   "old": "Bez jedzenia umrzemy z głodu",
+   "new": "Kiedy jedzenie? Umieram z głodu!",
+   "why": "«Ohne Essen werden wir verhungern» — пусто; живое — «Ich verhungere!»"
+  },
+  {
+   "id": 12538,
+   "col": "example_it",
+   "old": "Senza cibo moriremo di fame",
+   "new": "Quando si mangia? Sto morendo di fame!",
+   "why": "«Ohne Essen werden wir verhungern» — пусто; живое — «Ich verhungere!»"
+  },
+  {
+   "id": 12538,
+   "col": "example_es",
+   "old": "Sin comida nos moriremos de hambre",
+   "new": "¿Cuándo se come? ¡Me muero de hambre!",
+   "why": "«Ohne Essen werden wir verhungern» — пусто; живое — «Ich verhungere!»"
+  },
+  {
+   "id": 12538,
+   "col": "example_fr",
+   "old": "Sans nourriture, nous allons mourir de faim",
+   "new": "On mange quand? Je meurs de faim!",
+   "why": "«Ohne Essen werden wir verhungern» — пусто; живое — «Ich verhungere!»"
+  },
+  {
+   "id": 12538,
+   "col": "example_cs",
+   "old": "Bez jídla zemřeme hlady",
+   "new": "Kdy bude jídlo? Umírám hlady!",
+   "why": "«Ohne Essen werden wir verhungern» — пусто; живое — «Ich verhungere!»"
+  },
+  {
+   "id": 10316,
+   "col": "translation_ru",
+   "old": "клясться, присягать, божиться",
+   "new": "клясться, присягать",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10316,
+   "col": "translation_uk",
+   "old": "клястися, присягати, божитися",
+   "new": "клястися, присягати",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10316,
+   "col": "translation_en",
+   "old": "to swear, to vow, to take an oath",
+   "new": "to swear, to vow",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10316,
+   "col": "translation_tr",
+   "old": "yemin etmek, söz vermek, and içmek",
+   "new": "yemin etmek, and içmek",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10316,
+   "col": "translation_pl",
+   "old": "przysięgać, poprzysiąc, składać przysięgę",
+   "new": "przysięgać, poprzysiąc",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6790,
+   "col": "translation_ru",
+   "old": "хитрый, ловкий, пронырливый, разорванный",
+   "new": "хитрый, пронырливый",
+   "why": "список → главное слово и не больше одной альтернативы; «разорванный» — другое слово (reißen)"
+  },
+  {
+   "id": 6790,
+   "col": "translation_uk",
+   "old": "хитрий, спритний, пронозливий, розірваний",
+   "new": "хитрий, спритний",
+   "why": "список → главное слово и не больше одной альтернативы; «разорванный» — другое слово (reißen)"
+  },
+  {
+   "id": 6790,
+   "col": "translation_en",
+   "old": "cunning, crafty, shrewd, torn",
+   "new": "cunning, crafty",
+   "why": "список → главное слово и не больше одной альтернативы; «разорванный» — другое слово (reißen)"
+  },
+  {
+   "id": 6790,
+   "col": "translation_tr",
+   "old": "kurnaz, açıkgöz, yırtılmış",
+   "new": "kurnaz, açıkgöz",
+   "why": "список → главное слово и не больше одной альтернативы; «разорванный» — другое слово (reißen)"
+  },
+  {
+   "id": 6790,
+   "col": "translation_pl",
+   "old": "przebiegły, chytry, cwany, rozerwany",
+   "new": "przebiegły, cwany",
+   "why": "список → главное слово и не больше одной альтернативы; «разорванный» — другое слово (reißen)"
+  },
+  {
+   "id": 6790,
+   "col": "translation_it",
+   "old": "scaltro, furbo, strappato",
+   "new": "scaltro, furbo",
+   "why": "список → главное слово и не больше одной альтернативы; «разорванный» — другое слово (reißen)"
+  },
+  {
+   "id": 6790,
+   "col": "translation_es",
+   "old": "astuto, pillo, rasgado",
+   "new": "astuto, pillo",
+   "why": "список → главное слово и не больше одной альтернативы; «разорванный» — другое слово (reißen)"
+  },
+  {
+   "id": 6790,
+   "col": "translation_fr",
+   "old": "rusé, malin, déchiré",
+   "new": "rusé, malin",
+   "why": "список → главное слово и не больше одной альтернативы; «разорванный» — другое слово (reißen)"
+  },
+  {
+   "id": 6790,
+   "col": "translation_cs",
+   "old": "mazaný, vychytralý, roztržený",
+   "new": "mazaný, vychytralý",
+   "why": "список → главное слово и не больше одной альтернативы; «разорванный» — другое слово (reißen)"
+  },
+  {
+   "id": 9755,
+   "col": "translation_ru",
+   "old": "сумма, итог, количество денег",
+   "new": "сумма, итог",
+   "why": "«Die Summe beträgt 100 Euro» — квитанция; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9755,
+   "col": "translation_uk",
+   "old": "сума, підсумок, кількість грошей",
+   "new": "сума, підсумок",
+   "why": "«Die Summe beträgt 100 Euro» — квитанция; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9755,
+   "col": "translation_en",
+   "old": "sum, total, amount",
+   "new": "sum, amount",
+   "why": "«Die Summe beträgt 100 Euro» — квитанция; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9755,
+   "col": "translation_tr",
+   "old": "toplam, meblağ, tutar",
+   "new": "meblağ, toplam",
+   "why": "«Die Summe beträgt 100 Euro» — квитанция; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9755,
+   "col": "translation_pl",
+   "old": "suma, kwota, łączna liczba",
+   "new": "suma, kwota",
+   "why": "«Die Summe beträgt 100 Euro» — квитанция; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9755,
+   "col": "translation_it",
+   "old": "la somma, il totale, l'importo",
+   "new": "la somma, l'importo",
+   "why": "«Die Summe beträgt 100 Euro» — квитанция; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9755,
+   "col": "translation_es",
+   "old": "la suma, el total, el importe",
+   "new": "la suma, el importe",
+   "why": "«Die Summe beträgt 100 Euro» — квитанция; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9755,
+   "col": "translation_fr",
+   "old": "la somme, le total, le montant",
+   "new": "la somme, le montant",
+   "why": "«Die Summe beträgt 100 Euro» — квитанция; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9755,
+   "col": "translation_cs",
+   "old": "částka, součet, suma",
+   "new": "suma, částka",
+   "why": "«Die Summe beträgt 100 Euro» — квитанция; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9755,
+   "col": "example_de",
+   "old": "Die Summe beträgt 100 Euro",
+   "new": "Das ist eine ganz schöne Summe!",
+   "why": "«Die Summe beträgt 100 Euro» — квитанция; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9755,
+   "col": "example_ru",
+   "old": "Сумма составляет 100 евро",
+   "new": "Это кругленькая сумма!",
+   "why": "«Die Summe beträgt 100 Euro» — квитанция; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9755,
+   "col": "example_uk",
+   "old": "Сума становить 100 євро",
+   "new": "Це чимала сума!",
+   "why": "«Die Summe beträgt 100 Euro» — квитанция; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9755,
+   "col": "example_en",
+   "old": "The sum amounts to 100 euros",
+   "new": "That's quite a sum!",
+   "why": "«Die Summe beträgt 100 Euro» — квитанция; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9755,
+   "col": "example_tr",
+   "old": "Toplam 100 euro tutuyor",
+   "new": "Bu epey yüklü bir meblağ!",
+   "why": "«Die Summe beträgt 100 Euro» — квитанция; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9755,
+   "col": "example_pl",
+   "old": "Suma wynosi 100 euro",
+   "new": "To niezła suma!",
+   "why": "«Die Summe beträgt 100 Euro» — квитанция; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9755,
+   "col": "example_it",
+   "old": "La somma è di 100 euro",
+   "new": "È una bella somma!",
+   "why": "«Die Summe beträgt 100 Euro» — квитанция; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9755,
+   "col": "example_es",
+   "old": "La suma asciende a 100 euros",
+   "new": "¡Es una buena suma!",
+   "why": "«Die Summe beträgt 100 Euro» — квитанция; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9755,
+   "col": "example_fr",
+   "old": "La somme s'élève à 100 euros",
+   "new": "C'est une jolie somme!",
+   "why": "«Die Summe beträgt 100 Euro» — квитанция; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9755,
+   "col": "example_cs",
+   "old": "Částka činí 100 eur",
+   "new": "To je pěkná suma!",
+   "why": "«Die Summe beträgt 100 Euro» — квитанция; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2485,
+   "col": "translation_ru",
+   "old": "мирный, спокойный, тихий",
+   "new": "мирный, спокойный",
+   "why": "«Die Demonstration war friedlich» — хроника; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2485,
+   "col": "translation_uk",
+   "old": "мирний, спокійний, тихий",
+   "new": "мирний, спокійний",
+   "why": "«Die Demonstration war friedlich» — хроника; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2485,
+   "col": "translation_en",
+   "old": "peaceful, calm, quiet",
+   "new": "peaceful, calm",
+   "why": "«Die Demonstration war friedlich» — хроника; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2485,
+   "col": "translation_tr",
+   "old": "barışçıl, huzurlu, sakin",
+   "new": "barışçıl, huzurlu",
+   "why": "«Die Demonstration war friedlich» — хроника; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2485,
+   "col": "translation_pl",
+   "old": "pokojowy, spokojny, cichy",
+   "new": "pokojowy, spokojny",
+   "why": "«Die Demonstration war friedlich» — хроника; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2485,
+   "col": "translation_cs",
+   "old": "pokojný, mírumilovný, klidný",
+   "new": "pokojný, klidný",
+   "why": "«Die Demonstration war friedlich» — хроника; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2485,
+   "col": "example_de",
+   "old": "Die Demonstration war friedlich",
+   "new": "Bei uns im Dorf ist es sehr friedlich",
+   "why": "«Die Demonstration war friedlich» — хроника; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2485,
+   "col": "example_ru",
+   "old": "Демонстрация была мирной",
+   "new": "У нас в деревне очень спокойно",
+   "why": "«Die Demonstration war friedlich» — хроника; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2485,
+   "col": "example_uk",
+   "old": "Демонстрація була мирною",
+   "new": "У нас у селі дуже спокійно",
+   "why": "«Die Demonstration war friedlich» — хроника; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2485,
+   "col": "example_en",
+   "old": "The demonstration was peaceful",
+   "new": "It's very peaceful in our village",
+   "why": "«Die Demonstration war friedlich» — хроника; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2485,
+   "col": "example_tr",
+   "old": "Gösteri barışçıldı",
+   "new": "Köyümüz çok huzurlu",
+   "why": "«Die Demonstration war friedlich» — хроника; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2485,
+   "col": "example_pl",
+   "old": "Demonstracja była pokojowa",
+   "new": "U nas na wsi jest bardzo spokojnie",
+   "why": "«Die Demonstration war friedlich» — хроника; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2485,
+   "col": "example_it",
+   "old": "La manifestazione è stata pacifica",
+   "new": "Nel nostro paese è molto tranquillo",
+   "why": "«Die Demonstration war friedlich» — хроника; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2485,
+   "col": "example_es",
+   "old": "La manifestación fue pacífica",
+   "new": "En nuestro pueblo se vive muy tranquilo",
+   "why": "«Die Demonstration war friedlich» — хроника; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2485,
+   "col": "example_fr",
+   "old": "La manifestation a été pacifique",
+   "new": "Dans notre village, c'est très paisible",
+   "why": "«Die Demonstration war friedlich» — хроника; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2485,
+   "col": "example_cs",
+   "old": "Demonstrace byla pokojná",
+   "new": "U nás na vesnici je velký klid",
+   "why": "«Die Demonstration war friedlich» — хроника; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14426,
+   "col": "translation_ru",
+   "old": "режиссёр, постановщик",
+   "new": "режиссёр",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14426,
+   "col": "translation_uk",
+   "old": "режисер, постановник",
+   "new": "режисер",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14426,
+   "col": "translation_en",
+   "old": "director, film director",
+   "new": "director",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14426,
+   "col": "translation_tr",
+   "old": "yönetmen, rejisör",
+   "new": "yönetmen",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6791,
+   "col": "translation_ru",
+   "old": "наполнять, заполнять, насыпать, начинять",
+   "new": "наполнять, заполнять",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6791,
+   "col": "translation_uk",
+   "old": "наповнювати, заповнювати, насипати, начиняти",
+   "new": "наповнювати, заповнювати",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6791,
+   "col": "translation_en",
+   "old": "to fill, to fill up, to stuff",
+   "new": "to fill, to stuff",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6791,
+   "col": "translation_pl",
+   "old": "napełniać, wypełniać, nadziewać",
+   "new": "napełniać, wypełniać",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12539,
+   "col": "translation_ru",
+   "old": "пациентка, больная",
+   "new": "пациентка",
+   "why": "«Die Patientin wartet in Zimmer 5» — шаблон Patient («Der Patient wartet»)"
+  },
+  {
+   "id": 12539,
+   "col": "translation_uk",
+   "old": "пацієнтка, хвора",
+   "new": "пацієнтка",
+   "why": "«Die Patientin wartet in Zimmer 5» — шаблон Patient («Der Patient wartet»)"
+  },
+  {
+   "id": 12539,
+   "col": "translation_en",
+   "old": "patient, female patient",
+   "new": "patient",
+   "why": "«Die Patientin wartet in Zimmer 5» — шаблон Patient («Der Patient wartet»)"
+  },
+  {
+   "id": 12539,
+   "col": "translation_tr",
+   "old": "hasta, kadın hasta",
+   "new": "hasta",
+   "why": "«Die Patientin wartet in Zimmer 5» — шаблон Patient («Der Patient wartet»)"
+  },
+  {
+   "id": 12539,
+   "col": "translation_pl",
+   "old": "pacjentka, chora",
+   "new": "pacjentka",
+   "why": "«Die Patientin wartet in Zimmer 5» — шаблон Patient («Der Patient wartet»)"
+  },
+  {
+   "id": 12539,
+   "col": "example_de",
+   "old": "Die Patientin wartet in Zimmer 5",
+   "new": "Die Patientin darf morgen nach Hause",
+   "why": "«Die Patientin wartet in Zimmer 5» — шаблон Patient («Der Patient wartet»)"
+  },
+  {
+   "id": 12539,
+   "col": "example_ru",
+   "old": "Пациентка ждёт в комнате 5",
+   "new": "Пациентку завтра отпускают домой",
+   "why": "«Die Patientin wartet in Zimmer 5» — шаблон Patient («Der Patient wartet»)"
+  },
+  {
+   "id": 12539,
+   "col": "example_uk",
+   "old": "Пацієнтка чекає в 5-й палаті",
+   "new": "Пацієнтку завтра відпускають додому",
+   "why": "«Die Patientin wartet in Zimmer 5» — шаблон Patient («Der Patient wartet»)"
+  },
+  {
+   "id": 12539,
+   "col": "example_en",
+   "old": "The patient is waiting in room 5",
+   "new": "The patient can go home tomorrow",
+   "why": "«Die Patientin wartet in Zimmer 5» — шаблон Patient («Der Patient wartet»)"
+  },
+  {
+   "id": 12539,
+   "col": "example_tr",
+   "old": "Kadın hasta 5 numaralı odada bekliyor",
+   "new": "Hasta yarın eve gidebilir",
+   "why": "«Die Patientin wartet in Zimmer 5» — шаблон Patient («Der Patient wartet»)"
+  },
+  {
+   "id": 12539,
+   "col": "example_pl",
+   "old": "Pacjentka czeka w pokoju numer 5",
+   "new": "Pacjentka może jutro wrócić do domu",
+   "why": "«Die Patientin wartet in Zimmer 5» — шаблон Patient («Der Patient wartet»)"
+  },
+  {
+   "id": 12539,
+   "col": "example_it",
+   "old": "La paziente aspetta nella stanza 5",
+   "new": "La paziente domani può tornare a casa",
+   "why": "«Die Patientin wartet in Zimmer 5» — шаблон Patient («Der Patient wartet»)"
+  },
+  {
+   "id": 12539,
+   "col": "example_es",
+   "old": "La paciente espera en la habitación 5",
+   "new": "La paciente puede irse a casa mañana",
+   "why": "«Die Patientin wartet in Zimmer 5» — шаблон Patient («Der Patient wartet»)"
+  },
+  {
+   "id": 12539,
+   "col": "example_fr",
+   "old": "La patiente attend dans la chambre 5",
+   "new": "La patiente peut rentrer chez elle demain",
+   "why": "«Die Patientin wartet in Zimmer 5» — шаблон Patient («Der Patient wartet»)"
+  },
+  {
+   "id": 12539,
+   "col": "example_cs",
+   "old": "Pacientka čeká v pokoji 5",
+   "new": "Pacientka může zítra domů",
+   "why": "«Die Patientin wartet in Zimmer 5» — шаблон Patient («Der Patient wartet»)"
+  },
+  {
+   "id": 18164,
+   "col": "example_en",
+   "old": "Please get the bucket from the basement",
+   "new": "Please fetch the bucket from the cellar",
+   "why": "английский пример: так не говорят («basement» — американское)"
+  },
+  {
+   "id": 18164,
+   "col": "translation_es",
+   "old": "el cubo, la cubeta, el balde",
+   "new": "el cubo, el balde",
+   "why": "английский пример: так не говорят («basement» — американское)"
+  },
+  {
+   "id": 1679,
+   "col": "translation_ru",
+   "old": "мышь, компьютерная мышь",
+   "new": "мышь",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1679,
+   "col": "translation_uk",
+   "old": "мишка, миша, комп'ютерна мишка",
+   "new": "миша",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1679,
+   "col": "translation_en",
+   "old": "mouse, computer mouse",
+   "new": "mouse",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1679,
+   "col": "translation_tr",
+   "old": "fare, bilgisayar faresi",
+   "new": "fare",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1679,
+   "col": "translation_pl",
+   "old": "mysz, myszka komputerowa",
+   "new": "mysz",
+   "why": "список → главное слово и не больше одной альтернативы"
+  }
+ ],
+ "replace": [],
+ "split_later": {
+  "6784": [
+   "sich einsetzen für = заступаться; einsetzen = начинаться (Der Regen setzt ein)"
+  ],
+  "6790": [
+   "gerissen = разорванный (Partizip от reißen)"
+  ]
+ }
+}
