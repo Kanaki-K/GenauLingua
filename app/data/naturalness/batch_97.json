@@ -1,0 +1,975 @@
+{
+ "about": "2.3, B1 блок 52",
+ "edits": [
+  {
+   "id": 13996,
+   "col": "translation_ru",
+   "old": "вклад, взнос, отчисление, статья, публикация, пост, материал в передаче",
+   "new": "вклад, взнос",
+   "why": "список → главное слово и не больше одной альтернативы (было семь значений)"
+  },
+  {
+   "id": 13996,
+   "col": "translation_uk",
+   "old": "внесок, платіж, внесок до каси, стаття, публікація, матеріал у передачі",
+   "new": "внесок, стаття",
+   "why": "список → главное слово и не больше одной альтернативы (было семь значений)"
+  },
+  {
+   "id": 13996,
+   "col": "translation_en",
+   "old": "contribution, fee, membership payment, article, post, report in a broadcast",
+   "new": "contribution, fee",
+   "why": "список → главное слово и не больше одной альтернативы (было семь значений)"
+  },
+  {
+   "id": 13996,
+   "col": "translation_tr",
+   "old": "katkı, aidat, yazı, gönderi",
+   "new": "katkı, aidat",
+   "why": "список → главное слово и не больше одной альтернативы (было семь значений)"
+  },
+  {
+   "id": 13996,
+   "col": "translation_pl",
+   "old": "wkład, składka, artykuł, wpis",
+   "new": "wkład, składka",
+   "why": "список → главное слово и не больше одной альтернативы (было семь значений)"
+  },
+  {
+   "id": 13996,
+   "col": "translation_it",
+   "old": "il contributo, la quota, l'articolo, il post",
+   "new": "il contributo, la quota",
+   "why": "список → главное слово и не больше одной альтернативы (было семь значений)"
+  },
+  {
+   "id": 13996,
+   "col": "translation_es",
+   "old": "la aportación, el aporte, la cuota, el artículo",
+   "new": "la aportación, la cuota",
+   "why": "список → главное слово и не больше одной альтернативы (было семь значений)"
+  },
+  {
+   "id": 13996,
+   "col": "translation_fr",
+   "old": "la contribution, la cotisation, l'article",
+   "new": "la contribution, la cotisation",
+   "why": "список → главное слово и не больше одной альтернативы (было семь значений)"
+  },
+  {
+   "id": 17939,
+   "col": "example_de",
+   "old": "Die Formel ist sehr wichtig für die Mathematik",
+   "new": "Kannst du dir die Formel merken?",
+   "why": "«Die Formel ist sehr wichtig für die Mathematik» — учебник"
+  },
+  {
+   "id": 17939,
+   "col": "example_ru",
+   "old": "Формула очень важна для математики",
+   "new": "Ты можешь запомнить формулу?",
+   "why": "«Die Formel ist sehr wichtig für die Mathematik» — учебник"
+  },
+  {
+   "id": 17939,
+   "col": "example_uk",
+   "old": "Формула дуже важлива для математики",
+   "new": "Ти можеш запам'ятати формулу?",
+   "why": "«Die Formel ist sehr wichtig für die Mathematik» — учебник"
+  },
+  {
+   "id": 17939,
+   "col": "example_en",
+   "old": "The formula is very important for mathematics",
+   "new": "Can you remember the formula?",
+   "why": "«Die Formel ist sehr wichtig für die Mathematik» — учебник"
+  },
+  {
+   "id": 17939,
+   "col": "example_tr",
+   "old": "Formül matematik için çok önemlidir",
+   "new": "Formülü aklında tutabiliyor musun?",
+   "why": "«Die Formel ist sehr wichtig für die Mathematik» — учебник"
+  },
+  {
+   "id": 17939,
+   "col": "example_pl",
+   "old": "Ten wzór jest bardzo ważny dla matematyki",
+   "new": "Zapamiętasz ten wzór?",
+   "why": "«Die Formel ist sehr wichtig für die Mathematik» — учебник"
+  },
+  {
+   "id": 17939,
+   "col": "example_it",
+   "old": "La formula è molto importante per la matematica",
+   "new": "Riesci a ricordare la formula?",
+   "why": "«Die Formel ist sehr wichtig für die Mathematik» — учебник"
+  },
+  {
+   "id": 17939,
+   "col": "example_es",
+   "old": "La fórmula es muy importante para las matemáticas",
+   "new": "¿Te acuerdas de la fórmula?",
+   "why": "«Die Formel ist sehr wichtig für die Mathematik» — учебник"
+  },
+  {
+   "id": 17939,
+   "col": "example_fr",
+   "old": "La formule est très importante pour les mathématiques",
+   "new": "Tu arrives à retenir la formule?",
+   "why": "«Die Formel ist sehr wichtig für die Mathematik» — учебник"
+  },
+  {
+   "id": 17939,
+   "col": "example_cs",
+   "old": "Ten vzorec je pro matematiku velmi důležitý",
+   "new": "Zapamatuješ si ten vzorec?",
+   "why": "«Die Formel ist sehr wichtig für die Mathematik» — учебник"
+  },
+  {
+   "id": 16134,
+   "col": "example_de",
+   "old": "Der Raub in der Bank war spektakulär",
+   "new": "Er sitzt wegen Raub im Gefängnis",
+   "why": "«Der Raub in der Bank war spektakulär» — претерит, хроника"
+  },
+  {
+   "id": 16134,
+   "col": "example_ru",
+   "old": "Ограбление банка было зрелищным",
+   "new": "Он сидит в тюрьме за грабёж",
+   "why": "«Der Raub in der Bank war spektakulär» — претерит, хроника"
+  },
+  {
+   "id": 16134,
+   "col": "example_uk",
+   "old": "Грабіж у банку був вражаючим",
+   "new": "Він сидить у в'язниці за грабіж",
+   "why": "«Der Raub in der Bank war spektakulär» — претерит, хроника"
+  },
+  {
+   "id": 16134,
+   "col": "example_en",
+   "old": "The robbery at the bank was spectacular",
+   "new": "He's in prison for robbery",
+   "why": "«Der Raub in der Bank war spektakulär» — претерит, хроника"
+  },
+  {
+   "id": 16134,
+   "col": "example_tr",
+   "old": "Bankadaki soygun çok çarpıcıydı",
+   "new": "Gasp yüzünden hapiste",
+   "why": "«Der Raub in der Bank war spektakulär» — претерит, хроника"
+  },
+  {
+   "id": 16134,
+   "col": "example_pl",
+   "old": "Rabunek w banku był spektakularny",
+   "new": "Siedzi w więzieniu za rabunek",
+   "why": "«Der Raub in der Bank war spektakulär» — претерит, хроника"
+  },
+  {
+   "id": 16134,
+   "col": "example_it",
+   "old": "La rapina in banca è stata spettacolare",
+   "new": "È in prigione per rapina",
+   "why": "«Der Raub in der Bank war spektakulär» — претерит, хроника"
+  },
+  {
+   "id": 16134,
+   "col": "example_es",
+   "old": "El atraco al banco fue espectacular",
+   "new": "Está en la cárcel por robo",
+   "why": "«Der Raub in der Bank war spektakulär» — претерит, хроника"
+  },
+  {
+   "id": 16134,
+   "col": "example_fr",
+   "old": "Le braquage de la banque a été spectaculaire",
+   "new": "Il est en prison pour vol",
+   "why": "«Der Raub in der Bank war spektakulär» — претерит, хроника"
+  },
+  {
+   "id": 16134,
+   "col": "example_cs",
+   "old": "Loupež v bance byla velkolepá",
+   "new": "Sedí ve vězení za loupež",
+   "why": "«Der Raub in der Bank war spektakulär» — претерит, хроника"
+  },
+  {
+   "id": 18713,
+   "col": "example_de",
+   "old": "Der Zeitplan für das Projekt ist sehr eng",
+   "new": "Wir liegen gut im Zeitplan",
+   "why": "снова Projekt"
+  },
+  {
+   "id": 18713,
+   "col": "example_ru",
+   "old": "График проекта очень плотный",
+   "new": "Мы хорошо укладываемся в график",
+   "why": "снова Projekt"
+  },
+  {
+   "id": 18713,
+   "col": "example_uk",
+   "old": "Графік проекту дуже щільний",
+   "new": "Ми добре вкладаємося в графік",
+   "why": "снова Projekt"
+  },
+  {
+   "id": 18713,
+   "col": "example_en",
+   "old": "The project schedule is very tight",
+   "new": "We're well on schedule",
+   "why": "снова Projekt"
+  },
+  {
+   "id": 18713,
+   "col": "example_tr",
+   "old": "Proje zaman çizelgesi çok sıkı",
+   "new": "Programa göre iyi gidiyoruz",
+   "why": "снова Projekt"
+  },
+  {
+   "id": 18713,
+   "col": "example_pl",
+   "old": "Harmonogram prac jest bardzo napięty",
+   "new": "Dobrze trzymamy się harmonogramu",
+   "why": "снова Projekt"
+  },
+  {
+   "id": 18713,
+   "col": "example_it",
+   "old": "La tabella di marcia del progetto è molto serrata",
+   "new": "Siamo in linea con la tabella di marcia",
+   "why": "снова Projekt"
+  },
+  {
+   "id": 18713,
+   "col": "example_es",
+   "old": "El calendario del proyecto es muy ajustado",
+   "new": "Vamos bien con el calendario",
+   "why": "снова Projekt"
+  },
+  {
+   "id": 18713,
+   "col": "example_fr",
+   "old": "Le calendrier du projet est très serré",
+   "new": "On est dans les temps par rapport au planning",
+   "why": "снова Projekt"
+  },
+  {
+   "id": 18713,
+   "col": "example_cs",
+   "old": "Harmonogram projektu je velmi napjatý",
+   "new": "Jsme dobře v harmonogramu",
+   "why": "снова Projekt"
+  },
+  {
+   "id": 11711,
+   "col": "translation_ru",
+   "old": "блин, оладья, пончик",
+   "new": "блин, оладья",
+   "why": "«Zum Frühstück esse ich gerne …» — шаблон Speck; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11711,
+   "col": "translation_uk",
+   "old": "млинець, оладка, пончик",
+   "new": "млинець, оладка",
+   "why": "«Zum Frühstück esse ich gerne …» — шаблон Speck; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11711,
+   "col": "translation_en",
+   "old": "pancake, doughnut",
+   "new": "pancake",
+   "why": "«Zum Frühstück esse ich gerne …» — шаблон Speck; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11711,
+   "col": "translation_tr",
+   "old": "krep, pankek, tatlı çörek",
+   "new": "krep, pankek",
+   "why": "«Zum Frühstück esse ich gerne …» — шаблон Speck; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11711,
+   "col": "translation_pl",
+   "old": "naleśnik, placek, pączek",
+   "new": "naleśnik, placek",
+   "why": "«Zum Frühstück esse ich gerne …» — шаблон Speck; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11711,
+   "col": "example_de",
+   "old": "Zum Frühstück esse ich gerne Pfannkuchen mit Marmelade",
+   "new": "Oma macht die besten Pfannkuchen",
+   "why": "«Zum Frühstück esse ich gerne …» — шаблон Speck; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11711,
+   "col": "example_ru",
+   "old": "На завтрак я люблю есть блины с джемом",
+   "new": "Бабушка печёт лучшие блины",
+   "why": "«Zum Frühstück esse ich gerne …» — шаблон Speck; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11711,
+   "col": "example_uk",
+   "old": "На сніданок я люблю їсти млинці з джемом",
+   "new": "Бабуся пече найкращі млинці",
+   "why": "«Zum Frühstück esse ich gerne …» — шаблон Speck; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11711,
+   "col": "example_en",
+   "old": "For breakfast I like to eat pancakes with jam",
+   "new": "Gran makes the best pancakes",
+   "why": "«Zum Frühstück esse ich gerne …» — шаблон Speck; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11711,
+   "col": "example_tr",
+   "old": "Kahvaltıda reçel ile krep yemekten hoşlanırım",
+   "new": "En güzel krepleri anneannem yapar",
+   "why": "«Zum Frühstück esse ich gerne …» — шаблон Speck; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11711,
+   "col": "example_pl",
+   "old": "Na śniadanie chętnie jem naleśniki z dżemem",
+   "new": "Babcia robi najlepsze naleśniki",
+   "why": "«Zum Frühstück esse ich gerne …» — шаблон Speck; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11711,
+   "col": "example_it",
+   "old": "A colazione mi piace mangiare i pancake con la marmellata",
+   "new": "La nonna fa le crespelle più buone",
+   "why": "«Zum Frühstück esse ich gerne …» — шаблон Speck; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11711,
+   "col": "example_es",
+   "old": "Para desayunar me gusta comer tortitas con mermelada",
+   "new": "La abuela hace las mejores tortitas",
+   "why": "«Zum Frühstück esse ich gerne …» — шаблон Speck; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11711,
+   "col": "example_fr",
+   "old": "Au petit-déjeuner, j'aime manger des crêpes avec de la confiture",
+   "new": "Mamie fait les meilleures crêpes",
+   "why": "«Zum Frühstück esse ich gerne …» — шаблон Speck; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11711,
+   "col": "example_cs",
+   "old": "K snídani rád jím palačinky s marmeládou",
+   "new": "Babička dělá nejlepší palačinky",
+   "why": "«Zum Frühstück esse ich gerne …» — шаблон Speck; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7064,
+   "col": "example_de",
+   "old": "Sie war total aufgelöst nach der schlechten Nachricht",
+   "new": "Sie ist völlig aufgelöst, was ist passiert?",
+   "why": "«Sie war total aufgelöst …» — претерит"
+  },
+  {
+   "id": 7064,
+   "col": "example_ru",
+   "old": "Она была совсем расстроена после плохой новости",
+   "new": "Она совсем расстроена, что случилось?",
+   "why": "«Sie war total aufgelöst …» — претерит"
+  },
+  {
+   "id": 7064,
+   "col": "example_uk",
+   "old": "Вона була зовсім засмучена після поганої новини",
+   "new": "Вона зовсім засмучена, що сталося?",
+   "why": "«Sie war total aufgelöst …» — претерит"
+  },
+  {
+   "id": 7064,
+   "col": "example_en",
+   "old": "She was completely upset after the bad news",
+   "new": "She's completely distraught – what happened?",
+   "why": "«Sie war total aufgelöst …» — претерит"
+  },
+  {
+   "id": 7064,
+   "col": "example_tr",
+   "old": "Kötü haberin ardından tamamen altüst olmuştu",
+   "new": "Çok üzgün, ne oldu?",
+   "why": "«Sie war total aufgelöst …» — претерит"
+  },
+  {
+   "id": 7064,
+   "col": "example_pl",
+   "old": "Była całkiem roztrzęsiona po tej złej wiadomości",
+   "new": "Jest kompletnie roztrzęsiona, co się stało?",
+   "why": "«Sie war total aufgelöst …» — претерит"
+  },
+  {
+   "id": 7064,
+   "col": "example_it",
+   "old": "Era completamente sconvolta dopo la brutta notizia",
+   "new": "È sconvolta, cos'è successo?",
+   "why": "«Sie war total aufgelöst …» — претерит"
+  },
+  {
+   "id": 7064,
+   "col": "example_es",
+   "old": "Estaba totalmente deshecha después de la mala noticia",
+   "new": "Está deshecha, ¿qué ha pasado?",
+   "why": "«Sie war total aufgelöst …» — претерит"
+  },
+  {
+   "id": 7064,
+   "col": "example_fr",
+   "old": "Elle était complètement bouleversée après la mauvaise nouvelle",
+   "new": "Elle est bouleversée, qu'est-ce qui s'est passé?",
+   "why": "«Sie war total aufgelöst …» — претерит"
+  },
+  {
+   "id": 7064,
+   "col": "example_cs",
+   "old": "Po té špatné zprávě byla úplně rozrušená",
+   "new": "Je úplně rozrušená, co se stalo?",
+   "why": "«Sie war total aufgelöst …» — претерит"
+  },
+  {
+   "id": 1425,
+   "col": "example_de",
+   "old": "Die Flamme flackert orange",
+   "new": "Stell die Flamme kleiner",
+   "why": "«Die Flamme flackert orange» — пусто"
+  },
+  {
+   "id": 1425,
+   "col": "example_ru",
+   "old": "Пламя мерцает оранжевым",
+   "new": "Сделай пламя поменьше",
+   "why": "«Die Flamme flackert orange» — пусто"
+  },
+  {
+   "id": 1425,
+   "col": "example_uk",
+   "old": "Полум'я мерехтить помаранчевим",
+   "new": "Зменш полум'я",
+   "why": "«Die Flamme flackert orange» — пусто"
+  },
+  {
+   "id": 1425,
+   "col": "example_en",
+   "old": "The flame flickers orange",
+   "new": "Turn the flame down",
+   "why": "«Die Flamme flackert orange» — пусто"
+  },
+  {
+   "id": 1425,
+   "col": "example_tr",
+   "old": "Alev turuncu renkte titreşiyor",
+   "new": "Alevi kıs",
+   "why": "«Die Flamme flackert orange» — пусто"
+  },
+  {
+   "id": 1425,
+   "col": "example_pl",
+   "old": "Płomień migocze na pomarańczowo",
+   "new": "Zmniejsz płomień",
+   "why": "«Die Flamme flackert orange» — пусто"
+  },
+  {
+   "id": 1425,
+   "col": "example_it",
+   "old": "La fiamma arancione tremola",
+   "new": "Abbassa la fiamma",
+   "why": "«Die Flamme flackert orange» — пусто"
+  },
+  {
+   "id": 1425,
+   "col": "example_es",
+   "old": "La llama naranja parpadea",
+   "new": "Baja la llama",
+   "why": "«Die Flamme flackert orange» — пусто"
+  },
+  {
+   "id": 1425,
+   "col": "example_fr",
+   "old": "La flamme orange vacille",
+   "new": "Baisse la flamme",
+   "why": "«Die Flamme flackert orange» — пусто"
+  },
+  {
+   "id": 1425,
+   "col": "example_cs",
+   "old": "Plamen oranžově plápolá",
+   "new": "Ztlum plamen",
+   "why": "«Die Flamme flackert orange» — пусто"
+  },
+  {
+   "id": 16135,
+   "col": "example_de",
+   "old": "Ich muss meine Versicherungspolice überprüfen",
+   "new": "Lies dir die Police genau durch",
+   "why": "пример про Versicherungspolice, а не про Police"
+  },
+  {
+   "id": 16135,
+   "col": "example_ru",
+   "old": "Я должен проверить свой страховой полис",
+   "new": "Внимательно прочитай полис",
+   "why": "пример про Versicherungspolice, а не про Police"
+  },
+  {
+   "id": 16135,
+   "col": "example_uk",
+   "old": "Я повинен перевірити свій страховий поліс",
+   "new": "Уважно прочитай поліс",
+   "why": "пример про Versicherungspolice, а не про Police"
+  },
+  {
+   "id": 16135,
+   "col": "example_en",
+   "old": "I need to check my insurance policy",
+   "new": "Read the policy carefully",
+   "why": "пример про Versicherungspolice, а не про Police"
+  },
+  {
+   "id": 16135,
+   "col": "example_tr",
+   "old": "Sigorta poliçemi kontrol etmem gerekiyor",
+   "new": "Poliçeyi dikkatlice oku",
+   "why": "пример про Versicherungspolice, а не про Police"
+  },
+  {
+   "id": 16135,
+   "col": "example_pl",
+   "old": "Muszę sprawdzić swoją polisę ubezpieczeniową",
+   "new": "Przeczytaj dokładnie polisę",
+   "why": "пример про Versicherungspolice, а не про Police"
+  },
+  {
+   "id": 16135,
+   "col": "example_it",
+   "old": "Devo controllare la mia polizza assicurativa",
+   "new": "Leggi attentamente la polizza",
+   "why": "пример про Versicherungspolice, а не про Police"
+  },
+  {
+   "id": 16135,
+   "col": "example_es",
+   "old": "Tengo que revisar mi póliza de seguro",
+   "new": "Lee bien la póliza",
+   "why": "пример про Versicherungspolice, а не про Police"
+  },
+  {
+   "id": 16135,
+   "col": "example_fr",
+   "old": "Je dois vérifier ma police d'assurance",
+   "new": "Lis bien la police d'assurance",
+   "why": "пример про Versicherungspolice, а не про Police"
+  },
+  {
+   "id": 16135,
+   "col": "example_cs",
+   "old": "Musím zkontrolovat svou pojistku",
+   "new": "Přečti si pozorně pojistku",
+   "why": "пример про Versicherungspolice, а не про Police"
+  },
+  {
+   "id": 12585,
+   "col": "example_de",
+   "old": "Die Überlebenden des Unfalls wurden ins Krankenhaus gebracht",
+   "new": "Gibt es Überlebende?",
+   "why": "«Die Überlebenden … wurden … gebracht» — претерит, хроника"
+  },
+  {
+   "id": 12585,
+   "col": "example_ru",
+   "old": "Выжившие в аварии были доставлены в больницу",
+   "new": "Есть выжившие?",
+   "why": "«Die Überlebenden … wurden … gebracht» — претерит, хроника"
+  },
+  {
+   "id": 12585,
+   "col": "example_uk",
+   "old": "Ті, хто вижив у аварії, були доставлені до лікарні",
+   "new": "Є вцілілі?",
+   "why": "«Die Überlebenden … wurden … gebracht» — претерит, хроника"
+  },
+  {
+   "id": 12585,
+   "col": "example_en",
+   "old": "The survivors of the accident were taken to hospital",
+   "new": "Are there any survivors?",
+   "why": "«Die Überlebenden … wurden … gebracht» — претерит, хроника"
+  },
+  {
+   "id": 12585,
+   "col": "example_tr",
+   "old": "Kazada hayatta kalanlar hastaneye götürüldü",
+   "new": "Hayatta kalan var mı?",
+   "why": "«Die Überlebenden … wurden … gebracht» — претерит, хроника"
+  },
+  {
+   "id": 12585,
+   "col": "example_pl",
+   "old": "Ocalałych z wypadku zabrano do szpitala",
+   "new": "Czy są ocalali?",
+   "why": "«Die Überlebenden … wurden … gebracht» — претерит, хроника"
+  },
+  {
+   "id": 12585,
+   "col": "example_it",
+   "old": "I sopravvissuti all'incidente sono stati portati in ospedale",
+   "new": "Ci sono sopravvissuti?",
+   "why": "«Die Überlebenden … wurden … gebracht» — претерит, хроника"
+  },
+  {
+   "id": 12585,
+   "col": "example_es",
+   "old": "Los supervivientes del accidente fueron llevados al hospital",
+   "new": "¿Hay supervivientes?",
+   "why": "«Die Überlebenden … wurden … gebracht» — претерит, хроника"
+  },
+  {
+   "id": 12585,
+   "col": "example_fr",
+   "old": "Les survivants de l'accident ont été transportés à l'hôpital",
+   "new": "Il y a des survivants?",
+   "why": "«Die Überlebenden … wurden … gebracht» — претерит, хроника"
+  },
+  {
+   "id": 12585,
+   "col": "example_cs",
+   "old": "Přeživší z nehody byli převezeni do nemocnice",
+   "new": "Jsou nějací přeživší?",
+   "why": "«Die Überlebenden … wurden … gebracht» — претерит, хроника"
+  },
+  {
+   "id": 1118,
+   "col": "example_de",
+   "old": "Der Hund ist nicht aggressiv",
+   "new": "Warum bist du heute so aggressiv?",
+   "why": "«Der Hund ist nicht aggressiv» — шаблон harmlos (собака)"
+  },
+  {
+   "id": 1118,
+   "col": "example_ru",
+   "old": "Собака не агрессивная",
+   "new": "Почему ты сегодня такой агрессивный?",
+   "why": "«Der Hund ist nicht aggressiv» — шаблон harmlos (собака)"
+  },
+  {
+   "id": 1118,
+   "col": "example_uk",
+   "old": "Собака не агресивна",
+   "new": "Чому ти сьогодні такий агресивний?",
+   "why": "«Der Hund ist nicht aggressiv» — шаблон harmlos (собака)"
+  },
+  {
+   "id": 1118,
+   "col": "example_en",
+   "old": "The dog is not aggressive",
+   "new": "Why are you so aggressive today?",
+   "why": "«Der Hund ist nicht aggressiv» — шаблон harmlos (собака)"
+  },
+  {
+   "id": 1118,
+   "col": "example_tr",
+   "old": "Köpek agresif değil",
+   "new": "Bugün neden bu kadar agresifsin?",
+   "why": "«Der Hund ist nicht aggressiv» — шаблон harmlos (собака)"
+  },
+  {
+   "id": 1118,
+   "col": "example_pl",
+   "old": "Ten pies nie jest agresywny",
+   "new": "Czemu jesteś dziś taki agresywny?",
+   "why": "«Der Hund ist nicht aggressiv» — шаблон harmlos (собака)"
+  },
+  {
+   "id": 1118,
+   "col": "example_it",
+   "old": "Il cane non è aggressivo",
+   "new": "Perché oggi sei così aggressivo?",
+   "why": "«Der Hund ist nicht aggressiv» — шаблон harmlos (собака)"
+  },
+  {
+   "id": 1118,
+   "col": "example_es",
+   "old": "El perro no es agresivo",
+   "new": "¿Por qué estás tan agresivo hoy?",
+   "why": "«Der Hund ist nicht aggressiv» — шаблон harmlos (собака)"
+  },
+  {
+   "id": 1118,
+   "col": "example_fr",
+   "old": "Le chien n'est pas agressif",
+   "new": "Pourquoi tu es si agressif aujourd'hui?",
+   "why": "«Der Hund ist nicht aggressiv» — шаблон harmlos (собака)"
+  },
+  {
+   "id": 1118,
+   "col": "example_cs",
+   "old": "Ten pes není agresivní",
+   "new": "Proč jsi dneska tak agresivní?",
+   "why": "«Der Hund ist nicht aggressiv» — шаблон harmlos (собака)"
+  },
+  {
+   "id": 17530,
+   "col": "example_en",
+   "old": "The battery of my flashlight is dead",
+   "new": "My torch battery is flat",
+   "why": "английский пример: так не говорят («flashlight» — американское)"
+  },
+  {
+   "id": 10456,
+   "col": "translation_es",
+   "old": "terco, testarudo, cabezota (coloq.)",
+   "new": "terco, cabezota",
+   "why": "убрать пометку (coloq.)"
+  },
+  {
+   "id": 16136,
+   "col": "example_de",
+   "old": "Im Sommer herrschen hohe Temperaturen",
+   "new": "Hier herrscht ja totales Chaos!",
+   "why": "«Im Sommer herrschen hohe Temperaturen» — снова погода"
+  },
+  {
+   "id": 16136,
+   "col": "example_ru",
+   "old": "Летом господствуют высокие температуры",
+   "new": "Тут же царит полный хаос!",
+   "why": "«Im Sommer herrschen hohe Temperaturen» — снова погода"
+  },
+  {
+   "id": 16136,
+   "col": "example_uk",
+   "old": "Влітку панують високі температури",
+   "new": "Тут панує повний хаос!",
+   "why": "«Im Sommer herrschen hohe Temperaturen» — снова погода"
+  },
+  {
+   "id": 16136,
+   "col": "example_en",
+   "old": "High temperatures prevail in summer",
+   "new": "Total chaos reigns here!",
+   "why": "«Im Sommer herrschen hohe Temperaturen» — снова погода"
+  },
+  {
+   "id": 16136,
+   "col": "example_tr",
+   "old": "Yazda yüksek sıcaklıklar hüküm sürüyor",
+   "new": "Burada tam bir kaos hüküm sürüyor!",
+   "why": "«Im Sommer herrschen hohe Temperaturen» — снова погода"
+  },
+  {
+   "id": 16136,
+   "col": "example_pl",
+   "old": "Latem panują wysokie temperatury",
+   "new": "Tu panuje totalny chaos!",
+   "why": "«Im Sommer herrschen hohe Temperaturen» — снова погода"
+  },
+  {
+   "id": 16136,
+   "col": "example_it",
+   "old": "D'estate regnano temperature alte",
+   "new": "Qui regna il caos totale!",
+   "why": "«Im Sommer herrschen hohe Temperaturen» — снова погода"
+  },
+  {
+   "id": 16136,
+   "col": "example_es",
+   "old": "En verano imperan altas temperaturas",
+   "new": "¡Aquí reina el caos total!",
+   "why": "«Im Sommer herrschen hohe Temperaturen» — снова погода"
+  },
+  {
+   "id": 16136,
+   "col": "example_fr",
+   "old": "En été règnent des températures élevées",
+   "new": "Ici, c'est le chaos total qui règne!",
+   "why": "«Im Sommer herrschen hohe Temperaturen» — снова погода"
+  },
+  {
+   "id": 16136,
+   "col": "example_cs",
+   "old": "V létě panují vysoké teploty",
+   "new": "Tady panuje totální chaos!",
+   "why": "«Im Sommer herrschen hohe Temperaturen» — снова погода"
+  },
+  {
+   "id": 18201,
+   "col": "example_de",
+   "old": "Ich muss mein Auto reinigen",
+   "new": "Den Anzug lasse ich reinigen",
+   "why": "«Ich muss mein Auto reinigen» — в речи «waschen»; reinigen — «в чистку»"
+  },
+  {
+   "id": 18201,
+   "col": "example_ru",
+   "old": "Мне надо почистить машину",
+   "new": "Костюм я отдам в чистку",
+   "why": "«Ich muss mein Auto reinigen» — в речи «waschen»; reinigen — «в чистку»"
+  },
+  {
+   "id": 18201,
+   "col": "example_uk",
+   "old": "Мені потрібно очистити машину",
+   "new": "Костюм я віддам у чистку",
+   "why": "«Ich muss mein Auto reinigen» — в речи «waschen»; reinigen — «в чистку»"
+  },
+  {
+   "id": 18201,
+   "col": "example_en",
+   "old": "I need to clean my car",
+   "new": "I'm having the suit cleaned",
+   "why": "«Ich muss mein Auto reinigen» — в речи «waschen»; reinigen — «в чистку»"
+  },
+  {
+   "id": 18201,
+   "col": "example_tr",
+   "old": "Arabamı temizlemem gerekiyor",
+   "new": "Takım elbiseyi temizletiyorum",
+   "why": "«Ich muss mein Auto reinigen» — в речи «waschen»; reinigen — «в чистку»"
+  },
+  {
+   "id": 18201,
+   "col": "example_pl",
+   "old": "Muszę wyczyścić samochód",
+   "new": "Oddam garnitur do czyszczenia",
+   "why": "«Ich muss mein Auto reinigen» — в речи «waschen»; reinigen — «в чистку»"
+  },
+  {
+   "id": 18201,
+   "col": "example_it",
+   "old": "Devo pulire la macchina",
+   "new": "Faccio pulire il vestito",
+   "why": "«Ich muss mein Auto reinigen» — в речи «waschen»; reinigen — «в чистку»"
+  },
+  {
+   "id": 18201,
+   "col": "example_es",
+   "old": "Tengo que limpiar el coche",
+   "new": "Llevo el traje a limpiar",
+   "why": "«Ich muss mein Auto reinigen» — в речи «waschen»; reinigen — «в чистку»"
+  },
+  {
+   "id": 18201,
+   "col": "example_fr",
+   "old": "Je dois nettoyer ma voiture",
+   "new": "Je fais nettoyer le costume",
+   "why": "«Ich muss mein Auto reinigen» — в речи «waschen»; reinigen — «в чистку»"
+  },
+  {
+   "id": 18201,
+   "col": "example_cs",
+   "old": "Musím vyčistit auto",
+   "new": "Oblek nechám vyčistit",
+   "why": "«Ich muss mein Auto reinigen» — в речи «waschen»; reinigen — «в чистку»"
+  },
+  {
+   "id": 15035,
+   "col": "example_de",
+   "old": "Wir kümmern uns füreinander",
+   "new": "Wir sind immer füreinander da",
+   "why": "«Wir kümmern uns füreinander» — грамматика (umeinander)"
+  },
+  {
+   "id": 15035,
+   "col": "example_ru",
+   "old": "Мы заботимся друг о друге",
+   "new": "Мы всегда рядом друг для друга",
+   "why": "«Wir kümmern uns füreinander» — грамматика (umeinander)"
+  },
+  {
+   "id": 15035,
+   "col": "example_uk",
+   "old": "Ми піклуємося один про одного",
+   "new": "Ми завжди є одне для одного",
+   "why": "«Wir kümmern uns füreinander» — грамматика (umeinander)"
+  },
+  {
+   "id": 15035,
+   "col": "example_en",
+   "old": "We care for each other",
+   "new": "We're always there for each other",
+   "why": "«Wir kümmern uns füreinander» — грамматика (umeinander)"
+  },
+  {
+   "id": 15035,
+   "col": "example_tr",
+   "old": "Birbirimize özen gösteriyoruz",
+   "new": "Hep birbirimiz için varız",
+   "why": "«Wir kümmern uns füreinander» — грамматика (umeinander)"
+  },
+  {
+   "id": 15035,
+   "col": "example_pl",
+   "old": "Troszczymy się o siebie wzajemnie",
+   "new": "Zawsze jesteśmy dla siebie",
+   "why": "«Wir kümmern uns füreinander» — грамматика (umeinander)"
+  },
+  {
+   "id": 15035,
+   "col": "example_it",
+   "old": "Ci preoccupiamo l'uno per l'altro",
+   "new": "Ci siamo sempre l'uno per l'altro",
+   "why": "«Wir kümmern uns füreinander» — грамматика (umeinander)"
+  },
+  {
+   "id": 15035,
+   "col": "example_es",
+   "old": "Nos preocupamos el uno por el otro",
+   "new": "Siempre estamos el uno para el otro",
+   "why": "«Wir kümmern uns füreinander» — грамматика (umeinander)"
+  },
+  {
+   "id": 15035,
+   "col": "example_fr",
+   "old": "Nous sommes là l'un pour l'autre",
+   "new": "On est toujours là l'un pour l'autre",
+   "why": "«Wir kümmern uns füreinander» — грамматика (umeinander)"
+  },
+  {
+   "id": 15035,
+   "col": "example_cs",
+   "old": "Staráme se o sebe navzájem",
+   "new": "Vždycky jsme tu jeden pro druhého",
+   "why": "«Wir kümmern uns füreinander» — грамматика (umeinander)"
+  }
+ ],
+ "replace": [
+  {
+   "id": 15031,
+   "by": 18190,
+   "lang": "de",
+   "why": "Nägel — мн. число Nagel"
+  },
+  {
+   "id": 13997,
+   "by": 2891,
+   "lang": "de",
+   "why": "überein — часть глагола übereinstimmen"
+  },
+  {
+   "id": 8858,
+   "by": 3066,
+   "lang": "de",
+   "why": "kooperieren — книжный вариант zusammenarbeiten"
+  }
+ ],
+ "split_later": {
+  "17531": [
+   "auf Draht sein = быть начеку, соображать"
+  ]
+ }
+}
