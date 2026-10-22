@@ -1,0 +1,61 @@
+"""После прохода, блок 6: американский английский → британский (норма базы).
+Найдено поиском по словам-маркерам, каждая строка прочитана: «line up», «food truck»,
+«fortune cookie», «tow truck» по-британски так и есть — не тронуты. 22.10."""
+
+WHY = "en: британский вариант"
+
+FIXES = {
+    10083: (WHY, {"t_en": "honour, privilege", "x_en": "This is a great honour"}),
+    620: (WHY, {"t_en": "mother, mum"}),
+    900: (WHY, {"x_en": "I'm looking for a flat"}),
+    1385: (WHY, {"t_en": "to excuse, to apologise"}),
+    1055: (WHY, {"t_en": "flat"}),
+    18160: (WHY, {"t_en": "flat, apartment", "x_en": "We rented a small flat"}),
+    256: (WHY, {"t_en": "colour, paint", "x_en": "Which colour do you like?"}),
+    270: (WHY, {"t_en": "film"}),
+    970: (WHY, {"t_en": "holiday"}),
+    2044: (WHY, {"x_en": "I'm letting out a flat"}),
+    11492: (WHY, {"x_en": "This is my favourite restaurant in the city"}),
+    332: (WHY, {"x_en": "The present is for Mum"}),
+    2270: (WHY, {"t_en": "petrol"}),
+    481: (WHY, {"t_en": "cinema"}),
+    6672: (WHY, {"t_en": "to identify, to recognise"}),
+    1414: (WHY, {"x_en": "The film was fantastic"}),
+    10261: (WHY, {"t_en": "humour, sense of humour", "x_en": "You really have no sense of humour"}),
+    628: (WHY, {"t_en": "rubbish"}),
+    17274: (WHY, {"t_en": "lorry, HGV"}),
+    1923: (WHY, {"t_en": "sweet"}),
+    18188: (WHY, {"t_en": "lift"}),
+    353: (WHY, {"t_en": "grey, grey-haired"}),
+    17087: (WHY, {"x_en": "The lorry has a heavy load"}),
+    17088: (WHY, {"t_en": "lorry", "x_en": "The lorry is blocking the whole street"}),
+    770: (WHY, {"x_en": "The neighbourhood is quiet"}),
+    14896: (WHY, {"t_en": "mum"}),
+    15998: (WHY, {"t_en": "defence", "x_en": "He plays in defence"}),
+    17138: (WHY, {"t_en": "lorry"}),
+    14394: (WHY, {"x_en": "In the film he plays a vampire"}),
+    2026: (WHY, {"t_en": "to organise, to hold"}),
+    413: (WHY, {"t_en": "trousers"}),
+    10126: (WHY, {"t_en": "to honour, to pay tribute to"}),
+    2038: (WHY, {"t_en": "behaviour, conduct"}),
+    1557: (WHY, {"t_en": "city centre, town centre"}),
+    1177: (WHY, {"t_en": "lift"}),
+    10102: (WHY, {"x_en": "The film is very funny"}),
+    1376: (WHY, {"x_en": "The end of the film was sad"}),
+    16535: (WHY, {"t_en": "defence minister"}),
+    14999: (WHY, {"t_en": "neighbour", "x_en": "My neighbour is pretty loud"}),
+    16106: (WHY, {"t_en": "organised, settled", "x_en": "My daily routine is well organised"}),
+    8887: (WHY, {"t_en": "trade union"}),
+    673: (WHY, {"x_en": "In October the leaves are colourful"}),
+    2139: (WHY, {"t_en": "rubbish, waste"}),
+    472: (WHY, {"t_en": "biscuit"}),
+    1181: (WHY, {"t_en": "to be cancelled, to fall out", "x_en": "The class is cancelled today"}),
+    9848: (WHY, {"x_en": "My savings are just enough for the holiday"}),
+    632: (WHY, {"x_en": "The neighbour is friendly"}),
+    723: (WHY, {"t_en": "postcode", "x_en": "What's your postcode?"}),
+    1669: (WHY, {"t_en": "estate agent, broker", "x_en": "The agent is showing us the flat"}),
+}
+
+REPLACE = []
+
+SPLIT_LATER = {}
