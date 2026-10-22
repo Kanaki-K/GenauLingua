@@ -1,0 +1,4212 @@
+{
+ "about": "2.3, C1 блок 14",
+ "edits": [
+  {
+   "id": 14618,
+   "col": "translation_ru",
+   "old": "шпага, рапира, клинок",
+   "new": "шпага",
+   "why": "претерит griff/begann; рядом Schwert 16162; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14618,
+   "col": "translation_uk",
+   "old": "шпага, рапіра",
+   "new": "шпага",
+   "why": "претерит griff/begann; рядом Schwert 16162; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14618,
+   "col": "translation_en",
+   "old": "sword, épée, rapier",
+   "new": "épée, sword",
+   "why": "претерит griff/begann; рядом Schwert 16162; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14618,
+   "col": "translation_tr",
+   "old": "kılıç, epe, meç",
+   "new": "meç, epe",
+   "why": "претерит griff/begann; рядом Schwert 16162; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14618,
+   "col": "translation_pl",
+   "old": "szpada, rapier",
+   "new": "szpada",
+   "why": "претерит griff/begann; рядом Schwert 16162; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14618,
+   "col": "translation_fr",
+   "old": "l'épée, la rapière",
+   "new": "l'épée",
+   "why": "претерит griff/begann; рядом Schwert 16162; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14618,
+   "col": "translation_cs",
+   "old": "kord, meč",
+   "new": "kord",
+   "why": "претерит griff/begann; рядом Schwert 16162; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14618,
+   "col": "example_de",
+   "old": "Der Fechter griff zum Degen und begann das Training",
+   "new": "Seit mein Sohn mit dem Fechten angefangen hat, kämpft er zu Hause mit einem Degen aus Pappe gegen den Kühlschrank",
+   "why": "претерит griff/begann; рядом Schwert 16162; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14618,
+   "col": "example_ru",
+   "old": "Фехтовальщик взял рапиру и начал тренировку",
+   "new": "С тех пор как сын начал заниматься фехтованием, он дома сражается картонной шпагой с холодильником",
+   "why": "претерит griff/begann; рядом Schwert 16162; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14618,
+   "col": "example_uk",
+   "old": "Фехтувальник узяв шпагу й почав тренування",
+   "new": "Відтоді як син почав займатися фехтуванням, він удома б'ється картонною шпагою з холодильником",
+   "why": "претерит griff/begann; рядом Schwert 16162; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14618,
+   "col": "example_en",
+   "old": "The fencer grabbed the rapier and started training",
+   "new": "Since my son started fencing he fights the fridge at home with a cardboard épée",
+   "why": "претерит griff/begann; рядом Schwert 16162; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14618,
+   "col": "example_tr",
+   "old": "Eskrimci kılıcı aldı ve antrenmana başladı",
+   "new": "Oğlum eskrime başladığından beri evde kartondan bir meçle buzdolabıyla dövüşüyor",
+   "why": "претерит griff/begann; рядом Schwert 16162; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14618,
+   "col": "example_pl",
+   "old": "Szermierz wziął szpadę i zaczął trening",
+   "new": "Odkąd syn zaczął szermierkę, w domu walczy tekturową szpadą z lodówką",
+   "why": "претерит griff/begann; рядом Schwert 16162; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14618,
+   "col": "example_it",
+   "old": "Lo schermidore prese la spada e cominciò l'allenamento",
+   "new": "Da quando mio figlio fa scherma, a casa combatte contro il frigo con una spada di cartone",
+   "why": "претерит griff/begann; рядом Schwert 16162; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14618,
+   "col": "example_es",
+   "old": "El esgrimista tomó la espada y empezó el entrenamiento",
+   "new": "Desde que mi hijo hace esgrima, en casa lucha contra la nevera con una espada de cartón",
+   "why": "претерит griff/begann; рядом Schwert 16162; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14618,
+   "col": "example_fr",
+   "old": "L'escrimeur a saisi son épée et a commencé l'entraînement",
+   "new": "Depuis que mon fils fait de l'escrime, il se bat à la maison contre le frigo avec une épée en carton",
+   "why": "претерит griff/begann; рядом Schwert 16162; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14618,
+   "col": "example_cs",
+   "old": "Šermíř sáhl po kordu a začal trénovat",
+   "new": "Od té doby, co syn začal šermovat, bojuje doma s lednicí kordem z kartonu",
+   "why": "претерит griff/begann; рядом Schwert 16162; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9035,
+   "col": "translation_ru",
+   "old": "деталь, компонент, конструктивный элемент",
+   "new": "деталь",
+   "why": "пассив «musste ausgetauscht werden»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9035,
+   "col": "translation_uk",
+   "old": "деталь, компонент, конструктивний елемент",
+   "new": "деталь",
+   "why": "пассив «musste ausgetauscht werden»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9035,
+   "col": "translation_en",
+   "old": "component, part, structural element",
+   "new": "component, part",
+   "why": "пассив «musste ausgetauscht werden»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9035,
+   "col": "translation_tr",
+   "old": "parça, bileşen, yapı elemanı",
+   "new": "parça",
+   "why": "пассив «musste ausgetauscht werden»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9035,
+   "col": "translation_pl",
+   "old": "element, część, podzespół",
+   "new": "część, element",
+   "why": "пассив «musste ausgetauscht werden»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9035,
+   "col": "translation_es",
+   "old": "la pieza, el componente",
+   "new": "la pieza",
+   "why": "пассив «musste ausgetauscht werden»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9035,
+   "col": "translation_cs",
+   "old": "součástka, díl, konstrukční prvek",
+   "new": "součástka, díl",
+   "why": "пассив «musste ausgetauscht werden»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9035,
+   "col": "example_de",
+   "old": "Das Bauteil war defekt und musste ausgetauscht werden",
+   "new": "Für die Waschmaschine fehlt ein kleines Bauteil, und der Techniker kann erst in drei Wochen kommen",
+   "why": "пассив «musste ausgetauscht werden»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9035,
+   "col": "example_ru",
+   "old": "Деталь была неисправна, и её пришлось заменить",
+   "new": "Для стиральной машины не хватает маленькой детали, а мастер сможет прийти только через три недели",
+   "why": "пассив «musste ausgetauscht werden»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9035,
+   "col": "example_uk",
+   "old": "Деталь була несправна, і її довелося замінити",
+   "new": "Для пральної машини бракує маленької деталі, а майстер зможе прийти лише через три тижні",
+   "why": "пассив «musste ausgetauscht werden»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9035,
+   "col": "example_en",
+   "old": "The component was defective and had to be replaced",
+   "new": "A small part is missing for the washing machine, and the engineer can't come for three weeks",
+   "why": "пассив «musste ausgetauscht werden»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9035,
+   "col": "example_tr",
+   "old": "Parça arızalıydı ve değiştirilmesi gerekiyordu",
+   "new": "Çamaşır makinesi için küçük bir parça eksik ve teknisyen ancak üç hafta sonra gelebiliyor",
+   "why": "пассив «musste ausgetauscht werden»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9035,
+   "col": "example_pl",
+   "old": "Element był uszkodzony i trzeba go było wymienić",
+   "new": "Do pralki brakuje małej części, a technik może przyjść dopiero za trzy tygodnie",
+   "why": "пассив «musste ausgetauscht werden»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9035,
+   "col": "example_it",
+   "old": "Il componente era difettoso e andava sostituito",
+   "new": "Per la lavatrice manca un piccolo pezzo, e il tecnico può venire solo tra tre settimane",
+   "why": "пассив «musste ausgetauscht werden»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9035,
+   "col": "example_es",
+   "old": "La pieza estaba defectuosa y tuvo que ser reemplazada",
+   "new": "A la lavadora le falta una pieza pequeña, y el técnico no puede venir hasta dentro de tres semanas",
+   "why": "пассив «musste ausgetauscht werden»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9035,
+   "col": "example_fr",
+   "old": "La pièce était défectueuse et a dû être remplacée",
+   "new": "Il manque une petite pièce pour la machine à laver, et le technicien ne peut venir que dans trois semaines",
+   "why": "пассив «musste ausgetauscht werden»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9035,
+   "col": "example_cs",
+   "old": "Součástka byla vadná a musela se vyměnit",
+   "new": "Do pračky chybí malá součástka a technik může přijít až za tři týdny",
+   "why": "пассив «musste ausgetauscht werden»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7700,
+   "col": "translation_ru",
+   "old": "блестящий, начищенный, голый, без денег",
+   "new": "голый, без гроша",
+   "why": "претерит blitzte; меч; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7700,
+   "col": "translation_uk",
+   "old": "блискучий, начищений, голий, без грошей",
+   "new": "голий, без грошей",
+   "why": "претерит blitzte; меч; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7700,
+   "col": "translation_en",
+   "old": "shiny, polished, bare, broke",
+   "new": "bare, broke",
+   "why": "претерит blitzte; меч; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7700,
+   "col": "translation_tr",
+   "old": "parlak, cilalı, çıplak, meteliksiz",
+   "new": "çıplak, meteliksiz",
+   "why": "претерит blitzte; меч; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7700,
+   "col": "translation_pl",
+   "old": "lśniący, wypolerowany, goły, bez grosza",
+   "new": "goły, spłukany",
+   "why": "претерит blitzte; меч; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7700,
+   "col": "translation_it",
+   "old": "lucido, scintillante, nudo, al verde",
+   "new": "nudo, al verde",
+   "why": "претерит blitzte; меч; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7700,
+   "col": "translation_es",
+   "old": "reluciente, pulido, desnudo",
+   "new": "desnudo, sin blanca",
+   "why": "претерит blitzte; меч; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7700,
+   "col": "translation_fr",
+   "old": "brillant, poli, nu, fauché (fam.)",
+   "new": "nu, fauché",
+   "why": "претерит blitzte; меч; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7700,
+   "col": "translation_cs",
+   "old": "lesklý, naleštěný, holý, švorc (hovor.)",
+   "new": "holý, švorc",
+   "why": "претерит blitzte; меч; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7700,
+   "col": "example_de",
+   "old": "Das Schwert blitzte blank in der Sonne",
+   "new": "Am Ende des Monats bin ich völlig blank und esse nur noch Nudeln mit Ketchup",
+   "why": "претерит blitzte; меч; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7700,
+   "col": "example_ru",
+   "old": "Начищенный меч сверкал на солнце",
+   "new": "В конце месяца я совсем без гроша и ем только макароны с кетчупом",
+   "why": "претерит blitzte; меч; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7700,
+   "col": "example_uk",
+   "old": "Начищений меч сяяв на сонці",
+   "new": "Наприкінці місяця я зовсім без грошей і їм лише макарони з кетчупом",
+   "why": "претерит blitzte; меч; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7700,
+   "col": "example_en",
+   "old": "The polished sword gleamed in the sun",
+   "new": "At the end of the month I'm completely broke and only eat pasta with ketchup",
+   "why": "претерит blitzte; меч; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7700,
+   "col": "example_tr",
+   "old": "Cilalı kılıç güneşte parlıyordu",
+   "new": "Ay sonunda tamamen meteliksizim ve sadece ketçaplı makarna yiyorum",
+   "why": "претерит blitzte; меч; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7700,
+   "col": "example_pl",
+   "old": "Miecz lśnił w słońcu",
+   "new": "Pod koniec miesiąca jestem całkiem spłukany i jem tylko makaron z keczupem",
+   "why": "претерит blitzte; меч; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7700,
+   "col": "example_it",
+   "old": "La spada lucida scintillava al sole",
+   "new": "A fine mese sono completamente al verde e mangio solo pasta col ketchup",
+   "why": "претерит blitzte; меч; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7700,
+   "col": "example_es",
+   "old": "La espada reluciente brillaba al sol",
+   "new": "A final de mes estoy sin blanca y solo como pasta con kétchup",
+   "why": "претерит blitzte; меч; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7700,
+   "col": "example_fr",
+   "old": "L'épée brillante étincelait au soleil",
+   "new": "À la fin du mois, je suis complètement fauché et je ne mange que des pâtes au ketchup",
+   "why": "претерит blitzte; меч; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7700,
+   "col": "example_cs",
+   "old": "Lesklý meč se třpytil na slunci",
+   "new": "Na konci měsíce jsem úplně švorc a jím jen těstoviny s kečupem",
+   "why": "претерит blitzte; меч; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10944,
+   "col": "translation_ru",
+   "old": "негодяй, мошенник, прохвост, шалопай",
+   "new": "негодник, прохвост",
+   "why": "претерит; рядом Gauner 16093; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10944,
+   "col": "translation_uk",
+   "old": "негідник, шахрай, пройдисвіт",
+   "new": "негідник, пройдисвіт",
+   "why": "претерит; рядом Gauner 16093; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10944,
+   "col": "translation_en",
+   "old": "scoundrel, rascal, crook",
+   "new": "rascal, scoundrel",
+   "why": "претерит; рядом Gauner 16093; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10944,
+   "col": "translation_tr",
+   "old": "alçak, dolandırıcı, namussuz, haydut",
+   "new": "hergele, düzenbaz",
+   "why": "претерит; рядом Gauner 16093; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10944,
+   "col": "translation_pl",
+   "old": "łajdak, łobuz, oszust",
+   "new": "łobuz, łajdak",
+   "why": "претерит; рядом Gauner 16093; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10944,
+   "col": "translation_it",
+   "old": "il mascalzone, il furfante, il farabutto",
+   "new": "il furfante, il briccone",
+   "why": "претерит; рядом Gauner 16093; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10944,
+   "col": "translation_es",
+   "old": "el sinvergüenza, el granuja, el canalla",
+   "new": "el granuja, el sinvergüenza",
+   "why": "претерит; рядом Gauner 16093; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10944,
+   "col": "translation_fr",
+   "old": "le voyou, l'escroc, la crapule",
+   "new": "la canaille, le vaurien",
+   "why": "претерит; рядом Gauner 16093; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10944,
+   "col": "translation_cs",
+   "old": "darebák, lump, podvodník",
+   "new": "darebák, lump",
+   "why": "претерит; рядом Gauner 16093; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10944,
+   "col": "example_de",
+   "old": "Der Halunke hat die alte Frau um ihr Geld betrogen",
+   "new": "„Du kleiner Halunke!“, ruft Oma, als der Enkel das letzte Stück Kuchen vom Teller schnappt",
+   "why": "претерит; рядом Gauner 16093; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10944,
+   "col": "example_ru",
+   "old": "Негодяй обманом выманил у старой женщины деньги",
+   "new": "«Ах ты, маленький негодник!» — кричит бабушка, когда внук хватает с тарелки последний кусок пирога",
+   "why": "претерит; рядом Gauner 16093; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10944,
+   "col": "example_uk",
+   "old": "Негідник обманом виманив у старої жінки гроші",
+   "new": "«Ах ти ж малий негіднику!» — кричить бабуся, коли онук хапає з тарілки останній шматок пирога",
+   "why": "претерит; рядом Gauner 16093; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10944,
+   "col": "example_en",
+   "old": "The scoundrel cheated the old woman out of her money",
+   "new": "'You little rascal!' Grandma cries when her grandson snatches the last piece of cake off the plate",
+   "why": "претерит; рядом Gauner 16093; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10944,
+   "col": "example_tr",
+   "old": "Dolandırıcı yaşlı kadını aldatıp parasını çaldı",
+   "new": "Torun tabaktaki son kek dilimini kapınca büyükanne 'Seni küçük hergele!' diye bağırıyor",
+   "why": "претерит; рядом Gauner 16093; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10944,
+   "col": "example_pl",
+   "old": "Ten łajdak wyłudził od starszej pani pieniądze",
+   "new": "„Ty mały łobuzie!” – woła babcia, kiedy wnuk porywa z talerza ostatni kawałek ciasta",
+   "why": "претерит; рядом Gauner 16093; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10944,
+   "col": "example_it",
+   "old": "Il mascalzone ha truffato l'anziana signora portandole via i soldi",
+   "new": "«Piccolo furfante!», esclama la nonna quando il nipote afferra l'ultima fetta di torta dal piatto",
+   "why": "претерит; рядом Gauner 16093; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10944,
+   "col": "example_es",
+   "old": "El sinvergüenza estafó a la anciana y le quitó su dinero",
+   "new": "«¡Pequeño granuja!», grita la abuela cuando el nieto coge el último trozo de tarta del plato",
+   "why": "претерит; рядом Gauner 16093; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10944,
+   "col": "example_fr",
+   "old": "Le voyou a escroqué la vieille dame et lui a pris son argent",
+   "new": "« Petite canaille ! » s'écrie mamie quand son petit-fils attrape la dernière part de gâteau dans l'assiette",
+   "why": "претерит; рядом Gauner 16093; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10944,
+   "col": "example_cs",
+   "old": "Ten darebák připravil starou paní o peníze",
+   "new": "„Ty malej darebáku!“ zvolá babička, když vnuk sebere z talíře poslední kousek koláče",
+   "why": "претерит; рядом Gauner 16093; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12791,
+   "col": "translation_ru",
+   "old": "поражать, нападать на растения, охватывать, постигать",
+   "new": "поразить, напасть",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12791,
+   "col": "translation_uk",
+   "old": "уражати, нападати на рослини, охоплювати, спіткати",
+   "new": "уразити, напасти",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12791,
+   "col": "translation_en",
+   "old": "to infest, to attack, to afflict, to befall",
+   "new": "to infest, to affect",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12791,
+   "col": "translation_tr",
+   "old": "istila etmek, musallat olmak, başına gelmek, sarmak",
+   "new": "sarmak, istila etmek",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12791,
+   "col": "translation_pl",
+   "old": "zaatakować, opanować, ogarnąć, dotknąć",
+   "new": "zaatakować, opanować",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12791,
+   "col": "translation_it",
+   "old": "infestare, colpire, assalire",
+   "new": "colpire, infestare",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12791,
+   "col": "translation_es",
+   "old": "infestar, atacar, afectar",
+   "new": "atacar, afectar",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12791,
+   "col": "translation_fr",
+   "old": "infester, attaquer, frapper",
+   "new": "infester, atteindre",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12791,
+   "col": "translation_cs",
+   "old": "napadat, napadnout, postihnout",
+   "new": "napadnout",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12791,
+   "col": "example_de",
+   "old": "Blattläuse haben unsere Rosen befallen",
+   "new": "Blattläuse haben die Rosen von Oma befallen, und jetzt sprüht sie jeden Morgen Seifenwasser",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12791,
+   "col": "example_ru",
+   "old": "Тля поразила наши розы",
+   "new": "Тля поразила бабушкины розы, и теперь она каждое утро опрыскивает их мыльной водой",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12791,
+   "col": "example_uk",
+   "old": "Попелиця вразила наші троянди",
+   "new": "Попелиця уразила бабусині троянди, і тепер вона щоранку обприскує їх мильною водою",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12791,
+   "col": "example_en",
+   "old": "Aphids have infested our roses",
+   "new": "Greenfly have infested Grandma's roses, and now she sprays them with soapy water every morning",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12791,
+   "col": "example_tr",
+   "old": "Yaprak bitleri güllerimizi istila etti",
+   "new": "Yaprak bitleri büyükannemin güllerini sardı ve şimdi her sabah sabunlu su püskürtüyor",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12791,
+   "col": "example_pl",
+   "old": "Mszyce zaatakowały nasze róże",
+   "new": "Mszyce zaatakowały róże babci i teraz co rano pryska je wodą z mydłem",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12791,
+   "col": "example_it",
+   "old": "Gli afidi hanno infestato le nostre rose",
+   "new": "Gli afidi hanno infestato le rose della nonna, e ora lei le spruzza ogni mattina con acqua e sapone",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12791,
+   "col": "example_es",
+   "old": "Los pulgones han infestado nuestras rosas",
+   "new": "El pulgón ha atacado las rosas de la abuela, y ahora las rocía cada mañana con agua jabonosa",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12791,
+   "col": "example_fr",
+   "old": "Les pucerons ont infesté nos rosiers",
+   "new": "Les pucerons ont infesté les roses de mamie, et maintenant elle les vaporise d'eau savonneuse tous les matins",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12791,
+   "col": "example_cs",
+   "old": "Mšice napadly naše růže",
+   "new": "Mšice napadly babiččiny růže a teď je každé ráno stříká mýdlovou vodou",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15651,
+   "col": "translation_ru",
+   "old": "кусты, заросли, кустарник",
+   "new": "кусты, заросли",
+   "why": "претерит versteckte; почти дословно Busch 15495 («Hinter dem Busch versteckt sich…»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15651,
+   "col": "translation_uk",
+   "old": "кущі, зарості, чагарник",
+   "new": "кущі, зарості",
+   "why": "претерит versteckte; почти дословно Busch 15495 («Hinter dem Busch versteckt sich…»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15651,
+   "col": "translation_en",
+   "old": "bushes, shrubbery, thicket",
+   "new": "bushes, shrubbery",
+   "why": "претерит versteckte; почти дословно Busch 15495 («Hinter dem Busch versteckt sich…»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15651,
+   "col": "translation_tr",
+   "old": "çalılık, çalılar, fundalık",
+   "new": "çalılık",
+   "why": "претерит versteckte; почти дословно Busch 15495 («Hinter dem Busch versteckt sich…»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15651,
+   "col": "translation_pl",
+   "old": "krzaki, zarośla, krzewy",
+   "new": "krzaki, zarośla",
+   "why": "претерит versteckte; почти дословно Busch 15495 («Hinter dem Busch versteckt sich…»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15651,
+   "col": "translation_it",
+   "old": "i cespugli, la boscaglia",
+   "new": "i cespugli",
+   "why": "претерит versteckte; почти дословно Busch 15495 («Hinter dem Busch versteckt sich…»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15651,
+   "col": "translation_es",
+   "old": "los arbustos, la maleza, el matorral",
+   "new": "los matorrales, los arbustos",
+   "why": "претерит versteckte; почти дословно Busch 15495 («Hinter dem Busch versteckt sich…»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15651,
+   "col": "translation_fr",
+   "old": "les buissons, les fourrés",
+   "new": "les buissons",
+   "why": "претерит versteckte; почти дословно Busch 15495 («Hinter dem Busch versteckt sich…»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15651,
+   "col": "translation_cs",
+   "old": "křoví, houští",
+   "new": "křoví",
+   "why": "претерит versteckte; почти дословно Busch 15495 («Hinter dem Busch versteckt sich…»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15651,
+   "col": "example_de",
+   "old": "Hinter dem dichten Gebüsch versteckte sich ein Reh",
+   "new": "Beim Golfspielen landet der Ball meines Vaters jedes Mal im Gebüsch, und wir suchen eine halbe Stunde",
+   "why": "претерит versteckte; почти дословно Busch 15495 («Hinter dem Busch versteckt sich…»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15651,
+   "col": "example_ru",
+   "old": "За густыми кустами спряталась косуля",
+   "new": "Когда отец играет в гольф, его мяч каждый раз оказывается в кустах, и мы ищем полчаса",
+   "why": "претерит versteckte; почти дословно Busch 15495 («Hinter dem Busch versteckt sich…»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15651,
+   "col": "example_uk",
+   "old": "За густими кущами сховалася сарна",
+   "new": "Коли батько грає в гольф, його м'яч щоразу опиняється в кущах, і ми шукаємо пів години",
+   "why": "претерит versteckte; почти дословно Busch 15495 («Hinter dem Busch versteckt sich…»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15651,
+   "col": "example_en",
+   "old": "Behind the dense bushes hid a deer",
+   "new": "When my dad plays golf his ball ends up in the bushes every time, and we spend half an hour looking",
+   "why": "претерит versteckte; почти дословно Busch 15495 («Hinter dem Busch versteckt sich…»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15651,
+   "col": "example_tr",
+   "old": "Sık çalıların arkasına bir karaca saklandı",
+   "new": "Babam golf oynarken topu her seferinde çalılığa düşüyor ve yarım saat arıyoruz",
+   "why": "претерит versteckte; почти дословно Busch 15495 («Hinter dem Busch versteckt sich…»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15651,
+   "col": "example_pl",
+   "old": "Za gęstymi krzakami ukryła się sarna",
+   "new": "Kiedy tata gra w golfa, jego piłka za każdym razem ląduje w krzakach i szukamy pół godziny",
+   "why": "претерит versteckte; почти дословно Busch 15495 («Hinter dem Busch versteckt sich…»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15651,
+   "col": "example_it",
+   "old": "Dietro i fitti cespugli si nascondeva un capriolo",
+   "new": "Quando mio padre gioca a golf, la pallina finisce ogni volta nei cespugli e la cerchiamo per mezz'ora",
+   "why": "претерит versteckte; почти дословно Busch 15495 («Hinter dem Busch versteckt sich…»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15651,
+   "col": "example_es",
+   "old": "Detrás de los densos arbustos se escondía un corzo",
+   "new": "Cuando mi padre juega al golf, la pelota acaba cada vez en los matorrales y la buscamos media hora",
+   "why": "претерит versteckte; почти дословно Busch 15495 («Hinter dem Busch versteckt sich…»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15651,
+   "col": "example_fr",
+   "old": "Derrière les buissons épais se cachait un chevreuil",
+   "new": "Quand mon père joue au golf, sa balle finit à chaque fois dans les buissons et on la cherche une demi-heure",
+   "why": "претерит versteckte; почти дословно Busch 15495 («Hinter dem Busch versteckt sich…»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15651,
+   "col": "example_cs",
+   "old": "Za hustým křovím se schovávala srna",
+   "new": "Když táta hraje golf, míček mu pokaždé skončí v křoví a půl hodiny ho hledáme",
+   "why": "претерит versteckte; почти дословно Busch 15495 («Hinter dem Busch versteckt sich…»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7701,
+   "col": "translation_ru",
+   "old": "по глупости, как назло, к сожалению",
+   "new": "как назло, по глупости",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7701,
+   "col": "translation_uk",
+   "old": "через дурість, як на біду, на жаль",
+   "new": "як на біду, через дурість",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7701,
+   "col": "translation_en",
+   "old": "stupidly, foolishly, unfortunately",
+   "new": "stupidly, unfortunately",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7701,
+   "col": "translation_tr",
+   "old": "aptalca, ne yazık ki, şanssızlık eseri",
+   "new": "aptallık edip, ne yazık ki",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7701,
+   "col": "translation_pl",
+   "old": "głupio, niestety, jak na złość",
+   "new": "na nieszczęście, głupio",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7701,
+   "col": "translation_fr",
+   "old": "bêtement, malheureusement",
+   "new": "bêtement",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7701,
+   "col": "translation_cs",
+   "old": "hloupě, naneštěstí",
+   "new": "hloupě, bohužel",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7701,
+   "col": "example_de",
+   "old": "Dummerweise habe ich meine Geldbörse zu Hause vergessen",
+   "new": "Dummerweise habe ich die Haustür hinter mir zugezogen, und der Schlüssel liegt noch drinnen",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7701,
+   "col": "example_ru",
+   "old": "По глупости я забыл кошелёк дома",
+   "new": "Как назло, я захлопнул за собой дверь, а ключ остался внутри",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7701,
+   "col": "example_uk",
+   "old": "Через дурість я забув гаманець удома",
+   "new": "Як на біду, я зачинив за собою двері, а ключ залишився всередині",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7701,
+   "col": "example_en",
+   "old": "Unfortunately, I forgot my wallet at home",
+   "new": "Stupidly I've pulled the front door shut behind me, and the key is still inside",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7701,
+   "col": "example_tr",
+   "old": "Aptalca bir şekilde cüzdanımı evde unuttum",
+   "new": "Aptallık edip kapıyı arkamdan çektim, anahtar da hâlâ içeride",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7701,
+   "col": "example_pl",
+   "old": "Głupio zapomniałem portfela w domu",
+   "new": "Głupio zatrzasnąłem za sobą drzwi, a klucz został w środku",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7701,
+   "col": "example_it",
+   "old": "Stupidamente ho dimenticato il portafoglio a casa",
+   "new": "Stupidamente mi sono chiuso la porta alle spalle, e la chiave è ancora dentro",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7701,
+   "col": "example_es",
+   "old": "Tontamente, me he dejado la cartera en casa",
+   "new": "Tontamente he cerrado la puerta al salir, y la llave sigue dentro",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7701,
+   "col": "example_fr",
+   "old": "Bêtement, j'ai oublié mon porte-monnaie à la maison",
+   "new": "Bêtement, j'ai claqué la porte derrière moi, et la clé est encore à l'intérieur",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7701,
+   "col": "example_cs",
+   "old": "Hloupě jsem zapomněl peněženku doma",
+   "new": "Hloupě jsem za sebou zabouchl dveře a klíč je pořád uvnitř",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10945,
+   "col": "translation_ru",
+   "old": "скептический, недоверчивый",
+   "new": "скептический",
+   "why": "претерит war; рядом zweifeln 10459; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10945,
+   "col": "translation_uk",
+   "old": "скептичний, недовірливий",
+   "new": "скептичний",
+   "why": "претерит war; рядом zweifeln 10459; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10945,
+   "col": "translation_en",
+   "old": "skeptical, doubtful",
+   "new": "sceptical",
+   "why": "претерит war; рядом zweifeln 10459; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10945,
+   "col": "translation_tr",
+   "old": "şüpheci, kuşkulu",
+   "new": "şüpheci",
+   "why": "претерит war; рядом zweifeln 10459; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10945,
+   "col": "translation_pl",
+   "old": "sceptyczny, nieufny",
+   "new": "sceptyczny",
+   "why": "претерит war; рядом zweifeln 10459; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10945,
+   "col": "example_de",
+   "old": "Er war skeptisch gegenüber dem neuen Projekt",
+   "new": "Oma ist skeptisch, ob der neue Saugroboter wirklich unter das Sofa kommt",
+   "why": "претерит war; рядом zweifeln 10459; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10945,
+   "col": "example_ru",
+   "old": "Он был скептичен по отношению к новому проекту",
+   "new": "Бабушка скептически относится к тому, что новый робот-пылесос действительно заедет под диван",
+   "why": "претерит war; рядом zweifeln 10459; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10945,
+   "col": "example_uk",
+   "old": "Він був скептичний щодо нового проекту",
+   "new": "Бабуся скептично ставиться до того, що новий робот-пилосос справді заїде під диван",
+   "why": "претерит war; рядом zweifeln 10459; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10945,
+   "col": "example_en",
+   "old": "He was skeptical about the new project",
+   "new": "Grandma is sceptical about whether the new robot hoover can really get under the sofa",
+   "why": "претерит war; рядом zweifeln 10459; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10945,
+   "col": "example_tr",
+   "old": "Yeni projeye karşı kuşkucu bir tavrı vardı",
+   "new": "Büyükannem yeni robot süpürgenin gerçekten kanepenin altına girebileceğinden şüpheci",
+   "why": "претерит war; рядом zweifeln 10459; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10945,
+   "col": "example_pl",
+   "old": "Był sceptyczny wobec nowego projektu",
+   "new": "Babcia jest sceptyczna, czy nowy robot sprzątający naprawdę wjedzie pod kanapę",
+   "why": "претерит war; рядом zweifeln 10459; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10945,
+   "col": "example_it",
+   "old": "Era scettico nei confronti del nuovo progetto",
+   "new": "La nonna è scettica sul fatto che il nuovo robot aspirapolvere riesca davvero a passare sotto il divano",
+   "why": "претерит war; рядом zweifeln 10459; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10945,
+   "col": "example_es",
+   "old": "Era escéptico respecto al nuevo proyecto",
+   "new": "La abuela es escéptica de que el robot aspirador nuevo pueda meterse de verdad debajo del sofá",
+   "why": "претерит war; рядом zweifeln 10459; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10945,
+   "col": "example_fr",
+   "old": "Il était sceptique à l'égard du nouveau projet",
+   "new": "Mamie est sceptique sur le fait que le nouvel aspirateur robot passe vraiment sous le canapé",
+   "why": "претерит war; рядом zweifeln 10459; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10945,
+   "col": "example_cs",
+   "old": "K novému projektu byl skeptický",
+   "new": "Babička je skeptická, jestli se nový robotický vysavač opravdu dostane pod gauč",
+   "why": "претерит war; рядом zweifeln 10459; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14620,
+   "col": "example_de",
+   "old": "Die Moschee ist das Gebetshaus der Muslime",
+   "new": "Am Tag der offenen Tür in der Moschee hat meine Tochter zum ersten Mal den Gebetsruf live gehört",
+   "why": "определение — учебник; рядом Kirche 482"
+  },
+  {
+   "id": 14620,
+   "col": "example_ru",
+   "old": "Мечеть — это молитвенный дом мусульман",
+   "new": "В день открытых дверей в мечети дочь впервые услышала призыв к молитве вживую",
+   "why": "определение — учебник; рядом Kirche 482"
+  },
+  {
+   "id": 14620,
+   "col": "example_uk",
+   "old": "Мечеть — це молитовний дім мусульман",
+   "new": "У день відчинених дверей у мечеті донька вперше почула заклик до молитви наживо",
+   "why": "определение — учебник; рядом Kirche 482"
+  },
+  {
+   "id": 14620,
+   "col": "example_en",
+   "old": "The mosque is the prayer house of Muslims",
+   "new": "On the mosque's open day my daughter heard the call to prayer live for the first time",
+   "why": "определение — учебник; рядом Kirche 482"
+  },
+  {
+   "id": 14620,
+   "col": "example_tr",
+   "old": "Cami, Müslümanların ibadet yeri",
+   "new": "Caminin açık kapı gününde kızım ezanı ilk kez canlı dinledi",
+   "why": "определение — учебник; рядом Kirche 482"
+  },
+  {
+   "id": 14620,
+   "col": "example_pl",
+   "old": "Meczet to dom modlitwy muzułmanów",
+   "new": "Podczas dnia otwartego w meczecie córka pierwszy raz usłyszała na żywo wezwanie do modlitwy",
+   "why": "определение — учебник; рядом Kirche 482"
+  },
+  {
+   "id": 14620,
+   "col": "example_it",
+   "old": "La moschea è il luogo di preghiera dei musulmani",
+   "new": "Alla giornata delle porte aperte della moschea mia figlia ha sentito per la prima volta dal vivo il richiamo alla preghiera",
+   "why": "определение — учебник; рядом Kirche 482"
+  },
+  {
+   "id": 14620,
+   "col": "example_es",
+   "old": "La mezquita es la casa de oración de los musulmanes",
+   "new": "En la jornada de puertas abiertas de la mezquita mi hija oyó por primera vez en directo la llamada a la oración",
+   "why": "определение — учебник; рядом Kirche 482"
+  },
+  {
+   "id": 14620,
+   "col": "example_fr",
+   "old": "La mosquée est le lieu de prière des musulmans",
+   "new": "À la journée portes ouvertes de la mosquée, ma fille a entendu pour la première fois l'appel à la prière en vrai",
+   "why": "определение — учебник; рядом Kirche 482"
+  },
+  {
+   "id": 14620,
+   "col": "example_cs",
+   "old": "Mešita je modlitebna muslimů",
+   "new": "Na dni otevřených dveří v mešitě dcera poprvé naživo slyšela svolávání k modlitbě",
+   "why": "определение — учебник; рядом Kirche 482"
+  },
+  {
+   "id": 9543,
+   "col": "example_de",
+   "old": "Das Klassentreffen war nach 20 Jahren endlich wieder so toll",
+   "new": "Beim Klassentreffen hat mein Vater seinen alten Banknachbarn nicht erkannt, weil der jetzt eine Glatze hat",
+   "why": "претерит war; шаблон; рядом мой zustande kommen 7550 (встреча класса)"
+  },
+  {
+   "id": 9543,
+   "col": "example_ru",
+   "old": "Встреча одноклассников спустя 20 лет была снова чудесной",
+   "new": "На встрече одноклассников отец не узнал своего бывшего соседа по парте, потому что тот теперь лысый",
+   "why": "претерит war; шаблон; рядом мой zustande kommen 7550 (встреча класса)"
+  },
+  {
+   "id": 9543,
+   "col": "example_uk",
+   "old": "Зустріч однокласників через 20 років була знову чудова",
+   "new": "На зустрічі однокласників батько не впізнав свого колишнього сусіда по парті, бо той тепер лисий",
+   "why": "претерит war; шаблон; рядом мой zustande kommen 7550 (встреча класса)"
+  },
+  {
+   "id": 9543,
+   "col": "example_en",
+   "old": "The class reunion was wonderful after 20 years",
+   "new": "At the class reunion my dad didn't recognise the boy he used to sit next to, because he's bald now",
+   "why": "претерит war; шаблон; рядом мой zustande kommen 7550 (встреча класса)"
+  },
+  {
+   "id": 9543,
+   "col": "example_tr",
+   "old": "20 yıl sonra sınıf buluşması harika oldu",
+   "new": "Babam sınıf buluşmasında eski sıra arkadaşını tanımadı, çünkü artık kel",
+   "why": "претерит war; шаблон; рядом мой zustande kommen 7550 (встреча класса)"
+  },
+  {
+   "id": 9543,
+   "col": "example_pl",
+   "old": "Zjazd klasowy po 20 latach był wspaniały",
+   "new": "Na spotkaniu klasowym tata nie poznał dawnego kolegi z ławki, bo ten jest teraz łysy",
+   "why": "претерит war; шаблон; рядом мой zustande kommen 7550 (встреча класса)"
+  },
+  {
+   "id": 9543,
+   "col": "example_it",
+   "old": "Dopo 20 anni la rimpatriata di classe è stata finalmente bella come una volta",
+   "new": "Alla rimpatriata di classe mio padre non ha riconosciuto il suo vecchio compagno di banco, perché adesso è calvo",
+   "why": "претерит war; шаблон; рядом мой zustande kommen 7550 (встреча класса)"
+  },
+  {
+   "id": 9543,
+   "col": "example_es",
+   "old": "Después de 20 años, la reunión de antiguos alumnos por fin fue tan genial como antes",
+   "new": "En la reunión de antiguos alumnos mi padre no reconoció a su antiguo compañero de pupitre porque ahora está calvo",
+   "why": "претерит war; шаблон; рядом мой zustande kommen 7550 (встреча класса)"
+  },
+  {
+   "id": 9543,
+   "col": "example_fr",
+   "old": "Après 20 ans, la réunion d'anciens élèves a enfin été aussi géniale qu'avant",
+   "new": "Aux retrouvailles de classe, mon père n'a pas reconnu son ancien voisin de table, parce qu'il est chauve maintenant",
+   "why": "претерит war; шаблон; рядом мой zustande kommen 7550 (встреча класса)"
+  },
+  {
+   "id": 9543,
+   "col": "example_cs",
+   "old": "Třídní sraz byl po 20 letech konečně zase tak skvělý jako dřív",
+   "new": "Na srazu třídy táta nepoznal svého bývalého souseda z lavice, protože je teď plešatý",
+   "why": "претерит war; шаблон; рядом мой zustande kommen 7550 (встреча класса)"
+  },
+  {
+   "id": 10946,
+   "col": "translation_ru",
+   "old": "вдохновлять, воодушевлять",
+   "new": "вдохновлять",
+   "why": "претерит inspirierte; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10946,
+   "col": "translation_uk",
+   "old": "надихати, запалювати, мотивувати",
+   "new": "надихати",
+   "why": "претерит inspirierte; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10946,
+   "col": "translation_en",
+   "old": "to inspire, to motivate",
+   "new": "to inspire",
+   "why": "претерит inspirierte; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10946,
+   "col": "translation_tr",
+   "old": "ilham vermek, esinlendirmek, motive etmek",
+   "new": "ilham vermek",
+   "why": "претерит inspirierte; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10946,
+   "col": "translation_pl",
+   "old": "inspirować, natchnąć, motywować",
+   "new": "inspirować",
+   "why": "претерит inspirierte; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10946,
+   "col": "example_de",
+   "old": "Seine Rede inspirierte viele junge Menschen",
+   "new": "Die Kochsendung hat meinen Mann so inspiriert, dass er jetzt jeden Sonntag Sushi macht",
+   "why": "претерит inspirierte; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10946,
+   "col": "example_ru",
+   "old": "Его речь вдохновила многих молодых людей",
+   "new": "Кулинарная передача так вдохновила мужа, что теперь он каждое воскресенье делает суши",
+   "why": "претерит inspirierte; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10946,
+   "col": "example_uk",
+   "old": "Його промова надихнула багато молодих людей",
+   "new": "Кулінарна передача так надихнула чоловіка, що тепер він щонеділі робить суші",
+   "why": "претерит inspirierte; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10946,
+   "col": "example_en",
+   "old": "His speech inspired many young people",
+   "new": "The cookery show inspired my husband so much that he now makes sushi every Sunday",
+   "why": "претерит inspirierte; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10946,
+   "col": "example_tr",
+   "old": "Konuşması birçok gence ilham verdi",
+   "new": "Yemek programı kocama o kadar ilham verdi ki artık her pazar suşi yapıyor",
+   "why": "претерит inspirierte; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10946,
+   "col": "example_pl",
+   "old": "Jego mowa zainspirowała wielu młodych ludzi",
+   "new": "Program kulinarny tak zainspirował męża, że teraz co niedzielę robi sushi",
+   "why": "претерит inspirierte; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10946,
+   "col": "example_it",
+   "old": "Il suo discorso ha ispirato molti giovani",
+   "new": "Il programma di cucina ha ispirato così tanto mio marito che ora fa il sushi ogni domenica",
+   "why": "претерит inspirierte; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10946,
+   "col": "example_es",
+   "old": "Su discurso inspiró a muchos jóvenes",
+   "new": "El programa de cocina inspiró tanto a mi marido que ahora hace sushi todos los domingos",
+   "why": "претерит inspirierte; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10946,
+   "col": "example_fr",
+   "old": "Son discours a inspiré de nombreux jeunes",
+   "new": "L'émission de cuisine a tellement inspiré mon mari qu'il fait maintenant des sushis tous les dimanches",
+   "why": "претерит inspirierte; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10946,
+   "col": "example_cs",
+   "old": "Jeho projev inspiroval mnoho mladých lidí",
+   "new": "Kuchařský pořad manžela tak inspiroval, že teď každou neděli dělá sushi",
+   "why": "претерит inspirierte; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7702,
+   "col": "translation_ru",
+   "old": "безуспешный, неудачный, безрезультатный",
+   "new": "безуспешный",
+   "why": "пассив/пафос; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7702,
+   "col": "translation_uk",
+   "old": "безуспішний, невдалий, безрезультатний",
+   "new": "безуспішний",
+   "why": "пассив/пафос; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7702,
+   "col": "translation_en",
+   "old": "unsuccessful, fruitless, failed",
+   "new": "unsuccessful",
+   "why": "пассив/пафос; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7702,
+   "col": "translation_tr",
+   "old": "başarısız, sonuçsuz",
+   "new": "başarısız",
+   "why": "пассив/пафос; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7702,
+   "col": "translation_pl",
+   "old": "bezskuteczny, nieudany, bezowocny",
+   "new": "bezskuteczny, nieudany",
+   "why": "пассив/пафос; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7702,
+   "col": "translation_it",
+   "old": "infruttuoso, fallimentare, senza successo",
+   "new": "senza successo, vano",
+   "why": "пассив/пафос; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7702,
+   "col": "translation_es",
+   "old": "fallido, infructuoso, sin éxito",
+   "new": "fallido, sin éxito",
+   "why": "пассив/пафос; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7702,
+   "col": "translation_fr",
+   "old": "infructueux, vain, sans succès",
+   "new": "infructueux",
+   "why": "пассив/пафос; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7702,
+   "col": "translation_cs",
+   "old": "neúspěšný, marný",
+   "new": "neúspěšný",
+   "why": "пассив/пафос; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7702,
+   "col": "example_de",
+   "old": "Sein erfolgloser Versuch, die alte Liebe zurückzugewinnen, war zum Scheitern verurteilt",
+   "new": "Nach drei erfolglosen Versuchen, den Drachen steigen zu lassen, packen wir ihn wieder ein",
+   "why": "пассив/пафос; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7702,
+   "col": "example_ru",
+   "old": "Его безуспешная попытка вернуть старую любовь была обречена на неудачу",
+   "new": "После трёх безуспешных попыток запустить воздушного змея мы снова его упаковываем",
+   "why": "пассив/пафос; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7702,
+   "col": "example_uk",
+   "old": "Його невдала спроба повернути стару любов була приречена на невдачу",
+   "new": "Після трьох безуспішних спроб запустити повітряного змія ми знову його пакуємо",
+   "why": "пассив/пафос; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7702,
+   "col": "example_en",
+   "old": "His unsuccessful attempt to win back his old love was doomed to fail",
+   "new": "After three unsuccessful attempts to fly the kite we pack it away again",
+   "why": "пассив/пафос; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7702,
+   "col": "example_tr",
+   "old": "Eski aşkını geri kazanma girişimi başarısızdı ve baştan mahkûmdu",
+   "new": "Uçurtmayı uçurmak için üç başarısız denemeden sonra onu yeniden paketliyoruz",
+   "why": "пассив/пафос; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7702,
+   "col": "example_pl",
+   "old": "Jego nieudana próba odzyskania dawnej miłości była z góry skazana na porażkę",
+   "new": "Po trzech nieudanych próbach puszczenia latawca chowamy go z powrotem",
+   "why": "пассив/пафос; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7702,
+   "col": "example_it",
+   "old": "Il suo tentativo infruttuoso di riconquistare il vecchio amore era destinato a fallire",
+   "new": "Dopo tre tentativi senza successo di far volare l'aquilone, lo rimettiamo via",
+   "why": "пассив/пафос; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7702,
+   "col": "example_es",
+   "old": "Su intento fallido de recuperar a su antiguo amor estaba condenado al fracaso",
+   "new": "Después de tres intentos fallidos de volar la cometa, la volvemos a guardar",
+   "why": "пассив/пафос; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7702,
+   "col": "example_fr",
+   "old": "Sa tentative infructueuse de reconquérir son ancien amour était vouée à l'échec",
+   "new": "Après trois tentatives infructueuses pour faire voler le cerf-volant, on le range",
+   "why": "пассив/пафос; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7702,
+   "col": "example_cs",
+   "old": "Jeho neúspěšný pokus získat zpět starou lásku byl odsouzen k nezdaru",
+   "new": "Po třech neúspěšných pokusech pustit draka ho zase balíme",
+   "why": "пассив/пафос; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7703,
+   "col": "translation_ru",
+   "old": "аспект, сторона, момент",
+   "new": "аспект, сторона",
+   "why": "претерит hatten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7703,
+   "col": "translation_uk",
+   "old": "аспект, сторона, момент",
+   "new": "аспект, бік",
+   "why": "претерит hatten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7703,
+   "col": "translation_en",
+   "old": "aspect, angle, side",
+   "new": "aspect",
+   "why": "претерит hatten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7703,
+   "col": "translation_tr",
+   "old": "yön, açı, bakış açısı",
+   "new": "yön",
+   "why": "претерит hatten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7703,
+   "col": "translation_pl",
+   "old": "aspekt, strona, kwestia",
+   "new": "aspekt",
+   "why": "претерит hatten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7703,
+   "col": "translation_cs",
+   "old": "aspekt, hledisko, stránka",
+   "new": "aspekt, stránka",
+   "why": "претерит hatten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7703,
+   "col": "example_de",
+   "old": "Diesen Aspekt hatten wir in unserer Planung übersehen",
+   "new": "Bei der Planung des Gartenhauses hat mein Mann einen Aspekt vergessen: die Tür ist zu schmal für den Rasenmäher",
+   "why": "претерит hatten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7703,
+   "col": "example_ru",
+   "old": "Этот аспект мы упустили из виду при планировании",
+   "new": "При планировании садового домика муж забыл один аспект: дверь слишком узкая для газонокосилки",
+   "why": "претерит hatten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7703,
+   "col": "example_uk",
+   "old": "Цей аспект ми випустили з уваги при плануванні",
+   "new": "Плануючи садовий будиночок, чоловік забув один аспект: двері завузькі для газонокосарки",
+   "why": "претерит hatten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7703,
+   "col": "example_en",
+   "old": "We overlooked this aspect in our planning",
+   "new": "When planning the garden shed my husband forgot one aspect: the door is too narrow for the lawnmower",
+   "why": "претерит hatten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7703,
+   "col": "example_tr",
+   "old": "Planlamada bu yönü gözden kaçırdık",
+   "new": "Kocam bahçe kulübesini planlarken bir yönü unuttu: Kapı çim biçme makinesi için fazla dar",
+   "why": "претерит hatten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7703,
+   "col": "example_pl",
+   "old": "Przeoczyliśmy ten aspekt w naszym planowaniu",
+   "new": "Planując domek ogrodowy, mąż zapomniał o jednym aspekcie: drzwi są za wąskie na kosiarkę",
+   "why": "претерит hatten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7703,
+   "col": "example_it",
+   "old": "Questo aspetto l'avevamo trascurato nella nostra pianificazione",
+   "new": "Progettando la casetta da giardino mio marito ha dimenticato un aspetto: la porta è troppo stretta per il tosaerba",
+   "why": "претерит hatten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7703,
+   "col": "example_es",
+   "old": "Habíamos pasado por alto este aspecto en nuestra planificación",
+   "new": "Al planear la caseta del jardín mi marido olvidó un aspecto: la puerta es demasiado estrecha para el cortacésped",
+   "why": "претерит hatten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7703,
+   "col": "example_fr",
+   "old": "Nous avions négligé cet aspect dans notre planification",
+   "new": "En planifiant l'abri de jardin, mon mari a oublié un aspect : la porte est trop étroite pour la tondeuse",
+   "why": "претерит hatten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7703,
+   "col": "example_cs",
+   "old": "Tento aspekt jsme při plánování přehlédli",
+   "new": "Při plánování zahradního domku manžel zapomněl na jeden aspekt: dveře jsou na sekačku moc úzké",
+   "why": "претерит hatten; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7704,
+   "col": "translation_ru",
+   "old": "в крайнем случае, если понадобится, при необходимости",
+   "new": "в крайнем случае",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7704,
+   "col": "translation_uk",
+   "old": "у крайньому разі, якщо буде треба, за потреби",
+   "new": "у крайньому разі",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7704,
+   "col": "translation_en",
+   "old": "if necessary, if need be, as a last resort",
+   "new": "if need be, if necessary",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7704,
+   "col": "translation_tr",
+   "old": "gerekirse, icabında, son çare olarak",
+   "new": "gerekirse",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7704,
+   "col": "translation_pl",
+   "old": "w razie czego, w razie potrzeby, ostatecznie",
+   "new": "w razie potrzeby",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7704,
+   "col": "translation_it",
+   "old": "al limite, se necessario, in caso di necessità",
+   "new": "all'occorrenza, se necessario",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7704,
+   "col": "translation_es",
+   "old": "en último caso, si hace falta, en caso necesario",
+   "new": "si hace falta",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7704,
+   "col": "translation_fr",
+   "old": "à la rigueur, au besoin, si nécessaire",
+   "new": "au besoin, si nécessaire",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7704,
+   "col": "translation_cs",
+   "old": "v nejhorším, v případě nutnosti",
+   "new": "v nouzi, v případě potřeby",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12792,
+   "col": "translation_ru",
+   "old": "психика, душа",
+   "new": "психика",
+   "why": "пассив «wird belastet»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12792,
+   "col": "translation_uk",
+   "old": "психіка, душа",
+   "new": "психіка",
+   "why": "пассив «wird belastet»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12792,
+   "col": "translation_en",
+   "old": "psyche, mind, soul",
+   "new": "psyche, mind",
+   "why": "пассив «wird belastet»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12792,
+   "col": "translation_tr",
+   "old": "ruh, ruhsal yapı, psişe",
+   "new": "ruh",
+   "why": "пассив «wird belastet»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12792,
+   "col": "translation_pl",
+   "old": "psychika, dusza",
+   "new": "psychika",
+   "why": "пассив «wird belastet»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12792,
+   "col": "translation_es",
+   "old": "la psique, la mente",
+   "new": "la psique",
+   "why": "пассив «wird belastet»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12792,
+   "col": "translation_fr",
+   "old": "le psychisme, la psyché",
+   "new": "le psychisme",
+   "why": "пассив «wird belastet»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12792,
+   "col": "example_de",
+   "old": "Die Psyche eines Menschen wird durch traumatische Erlebnisse stark belastet",
+   "new": "Drei Wochen ohne Sonne schlagen meiner Mutter jedes Jahr im Februar auf die Psyche",
+   "why": "пассив «wird belastet»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12792,
+   "col": "example_ru",
+   "old": "Психика человека сильно страдает от травматических переживаний",
+   "new": "Три недели без солнца каждый год в феврале бьют маме по психике",
+   "why": "пассив «wird belastet»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12792,
+   "col": "example_uk",
+   "old": "Психіка людини сильно страждає від травматичних подій",
+   "new": "Три тижні без сонця щороку в лютому б'ють мамі по психіці",
+   "why": "пассив «wird belastet»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12792,
+   "col": "example_en",
+   "old": "A person's psyche is heavily burdened by traumatic events",
+   "new": "Three weeks without sun every February really get my mum down",
+   "why": "пассив «wird belastet»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12792,
+   "col": "example_tr",
+   "old": "İnsanın ruhsal yapısı travmatik olaylardan ağır biçimde etkilenir",
+   "new": "Şubatta her yıl üç hafta güneşsiz kalmak annemin ruhunu çökertiyor",
+   "why": "пассив «wird belastet»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12792,
+   "col": "example_pl",
+   "old": "Psychika człowieka jest mocno obciążona przez traumatyczne przeżycia",
+   "new": "Trzy tygodnie bez słońca co roku w lutym uderzają mamie w psychikę",
+   "why": "пассив «wird belastet»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12792,
+   "col": "example_it",
+   "old": "La psiche di una persona viene messa a dura prova dalle esperienze traumatiche",
+   "new": "Tre settimane senza sole ogni febbraio pesano sulla psiche di mia madre",
+   "why": "пассив «wird belastet»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12792,
+   "col": "example_es",
+   "old": "La psique de una persona se ve muy afectada por las experiencias traumáticas",
+   "new": "Tres semanas sin sol cada febrero le afectan a mi madre a la psique",
+   "why": "пассив «wird belastet»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12792,
+   "col": "example_fr",
+   "old": "Le psychisme d'une personne est fortement éprouvé par les expériences traumatiques",
+   "new": "Trois semaines sans soleil chaque février pèsent sur le psychisme de ma mère",
+   "why": "пассив «wird belastet»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12792,
+   "col": "example_cs",
+   "old": "Traumatické zážitky silně zatěžují psychiku člověka",
+   "new": "Tři týdny bez slunce každý únor mámě doléhají na psychiku",
+   "why": "пассив «wird belastet»; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7705,
+   "col": "translation_ru",
+   "old": "намерение, замысел, план, проект",
+   "new": "замысел, план",
+   "why": "претерит war; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7705,
+   "col": "translation_uk",
+   "old": "намір, задум, план, проєкт",
+   "new": "задум, план",
+   "why": "претерит war; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7705,
+   "col": "translation_en",
+   "old": "intention, plan, project, undertaking",
+   "new": "plan, project",
+   "why": "претерит war; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7705,
+   "col": "translation_tr",
+   "old": "niyet, plan, proje, girişim",
+   "new": "plan, niyet",
+   "why": "претерит war; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7705,
+   "col": "translation_pl",
+   "old": "zamiar, plan, przedsięwzięcie",
+   "new": "zamiar, plan",
+   "why": "претерит war; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7705,
+   "col": "translation_it",
+   "old": "il progetto, l'intenzione, il proposito",
+   "new": "il progetto, l'intenzione",
+   "why": "претерит war; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7705,
+   "col": "translation_es",
+   "old": "el proyecto, la intención, el plan",
+   "new": "el plan, el propósito",
+   "why": "претерит war; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7705,
+   "col": "translation_fr",
+   "old": "le projet, l'intention",
+   "new": "le projet",
+   "why": "претерит war; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7705,
+   "col": "translation_cs",
+   "old": "záměr, plán, předsevzetí",
+   "new": "záměr, plán",
+   "why": "претерит war; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7705,
+   "col": "example_de",
+   "old": "Sein Vorhaben war es, die alte Villa zu renovieren",
+   "new": "Unser Vorhaben, das Bad in einem Wochenende zu streichen, hat am Ende drei Wochen gedauert",
+   "why": "претерит war; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7705,
+   "col": "example_ru",
+   "old": "Его намерением было отремонтировать старую виллу",
+   "new": "Наш замысел покрасить ванную за выходные в итоге растянулся на три недели",
+   "why": "претерит war; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7705,
+   "col": "example_uk",
+   "old": "Його намір полягав у тому, щоб відремонтувати стару віллу",
+   "new": "Наш задум пофарбувати ванну за вихідні зрештою розтягнувся на три тижні",
+   "why": "претерит war; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7705,
+   "col": "example_en",
+   "old": "His intention was to renovate the old villa",
+   "new": "Our plan to paint the bathroom in one weekend ended up taking three weeks",
+   "why": "претерит war; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7705,
+   "col": "example_tr",
+   "old": "Onun niyeti eski villayı restore etmekti",
+   "new": "Banyoyu bir hafta sonunda boyama planımız sonunda üç hafta sürdü",
+   "why": "претерит war; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7705,
+   "col": "example_pl",
+   "old": "Jego zamiarem było wyremontowanie starej willi",
+   "new": "Nasz zamiar pomalowania łazienki w jeden weekend skończył się trzema tygodniami",
+   "why": "претерит war; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7705,
+   "col": "example_it",
+   "old": "Il suo progetto era ristrutturare la vecchia villa",
+   "new": "Il nostro progetto di dipingere il bagno in un fine settimana alla fine ha richiesto tre settimane",
+   "why": "претерит war; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7705,
+   "col": "example_es",
+   "old": "Su proyecto era renovar la vieja villa",
+   "new": "Nuestro plan de pintar el baño en un fin de semana al final nos llevó tres semanas",
+   "why": "претерит war; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7705,
+   "col": "example_fr",
+   "old": "Son projet était de rénover la vieille villa",
+   "new": "Notre projet de repeindre la salle de bains en un week-end a finalement pris trois semaines",
+   "why": "претерит war; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7705,
+   "col": "example_cs",
+   "old": "Jeho záměrem bylo zrekonstruovat starou vilu",
+   "new": "Náš záměr vymalovat koupelnu za víkend nakonec trval tři týdny",
+   "why": "претерит war; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12793,
+   "col": "translation_ru",
+   "old": "истечь кровью, умереть от потери крови",
+   "new": "истечь кровью",
+   "why": "претерит verblutete; война — тяжело; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12793,
+   "col": "translation_uk",
+   "old": "спливти кров'ю, померти від втрати крові",
+   "new": "спливти кров'ю",
+   "why": "претерит verblutete; война — тяжело; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12793,
+   "col": "translation_en",
+   "old": "to bleed to death, to bleed out",
+   "new": "to bleed to death",
+   "why": "претерит verblutete; война — тяжело; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12793,
+   "col": "translation_tr",
+   "old": "kan kaybından ölmek, kan kaybetmek",
+   "new": "kan kaybından ölmek",
+   "why": "претерит verblutete; война — тяжело; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12793,
+   "col": "translation_pl",
+   "old": "wykrwawić się, umrzeć z powodu utraty krwi",
+   "new": "wykrwawić się",
+   "why": "претерит verblutete; война — тяжело; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12793,
+   "col": "translation_it",
+   "old": "dissanguarsi, morire dissanguato",
+   "new": "morire dissanguato",
+   "why": "претерит verblutete; война — тяжело; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12793,
+   "col": "translation_fr",
+   "old": "se vider de son sang, mourir d'hémorragie",
+   "new": "se vider de son sang",
+   "why": "претерит verblutete; война — тяжело; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12793,
+   "col": "example_de",
+   "old": "Der verletzte Soldat verblutete langsam auf dem Schlachtfeld",
+   "new": "Nach einem kleinen Schnitt in den Finger behauptet mein Sohn jedes Mal, dass er gleich verblutet",
+   "why": "претерит verblutete; война — тяжело; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12793,
+   "col": "example_ru",
+   "old": "Раненый солдат медленно истекал кровью на поле боя",
+   "new": "После маленького пореза на пальце сын каждый раз утверждает, что вот-вот истечёт кровью",
+   "why": "претерит verblutete; война — тяжело; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12793,
+   "col": "example_uk",
+   "old": "Поранений солдат повільно сходив кров'ю на полі бою",
+   "new": "Після маленького порізу на пальці син щоразу стверджує, що от-от спливе кров'ю",
+   "why": "претерит verblutete; война — тяжело; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12793,
+   "col": "example_en",
+   "old": "The wounded soldier slowly bled out on the battlefield",
+   "new": "After a tiny cut on his finger my son claims every time that he's about to bleed to death",
+   "why": "претерит verblutete; война — тяжело; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12793,
+   "col": "example_tr",
+   "old": "Yaralı asker savaş alanında yavaşça kan kaybından öldü",
+   "new": "Parmağında küçük bir kesik olunca oğlum her seferinde kan kaybından öleceğini iddia ediyor",
+   "why": "претерит verblutete; война — тяжело; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12793,
+   "col": "example_pl",
+   "old": "Ranny żołnierz powoli wykrwawiał się na polu bitwy",
+   "new": "Po małym skaleczeniu palca syn za każdym razem twierdzi, że zaraz się wykrwawi",
+   "why": "претерит verblutete; война — тяжело; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12793,
+   "col": "example_it",
+   "old": "Il soldato ferito si dissanguò lentamente sul campo di battaglia",
+   "new": "Dopo un taglietto al dito mio figlio sostiene ogni volta che sta per morire dissanguato",
+   "why": "претерит verblutete; война — тяжело; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12793,
+   "col": "example_es",
+   "old": "El soldado herido se desangró lentamente en el campo de batalla",
+   "new": "Con un cortecito en el dedo mi hijo asegura cada vez que se va a desangrar",
+   "why": "претерит verblutete; война — тяжело; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12793,
+   "col": "example_fr",
+   "old": "Le soldat blessé s'est lentement vidé de son sang sur le champ de bataille",
+   "new": "Après une petite coupure au doigt, mon fils prétend à chaque fois qu'il va se vider de son sang",
+   "why": "претерит verblutete; война — тяжело; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12793,
+   "col": "example_cs",
+   "old": "Raněný voják pomalu vykrvácel na bojišti",
+   "new": "Po malém říznutí do prstu syn pokaždé tvrdí, že hned vykrvácí",
+   "why": "претерит verblutete; война — тяжело; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10948,
+   "col": "translation_ru",
+   "old": "драка, потасовка, мордобой",
+   "new": "драка, потасовка",
+   "why": "претерит waren; рядом prügeln 16187; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10948,
+   "col": "translation_uk",
+   "old": "бійка, штовханина, махач",
+   "new": "бійка, штовханина",
+   "why": "претерит waren; рядом prügeln 16187; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10948,
+   "col": "translation_en",
+   "old": "brawl, fistfight, scuffle",
+   "new": "brawl, scuffle",
+   "why": "претерит waren; рядом prügeln 16187; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10948,
+   "col": "translation_tr",
+   "old": "kavga, dövüş, arbede",
+   "new": "kavga, arbede",
+   "why": "претерит waren; рядом prügeln 16187; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10948,
+   "col": "translation_pl",
+   "old": "bójka, bijatyka, szarpanina",
+   "new": "bójka",
+   "why": "претерит waren; рядом prügeln 16187; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10948,
+   "col": "translation_cs",
+   "old": "rvačka, bitka",
+   "new": "rvačka",
+   "why": "претерит waren; рядом prügeln 16187; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10948,
+   "col": "example_de",
+   "old": "Nach der Prügelei waren beide Männer verletzt",
+   "new": "Um das letzte Stück Pizza gibt es bei meinen Söhnen fast jedes Mal eine kleine Prügelei",
+   "why": "претерит waren; рядом prügeln 16187; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10948,
+   "col": "example_ru",
+   "old": "После драки оба мужчины были травмированы",
+   "new": "Из-за последнего куска пиццы у моих сыновей почти каждый раз небольшая потасовка",
+   "why": "претерит waren; рядом prügeln 16187; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10948,
+   "col": "example_uk",
+   "old": "Після бійки обидва чоловіки були травмовані",
+   "new": "Через останній шматок піци в моїх синів майже щоразу невелика штовханина",
+   "why": "претерит waren; рядом prügeln 16187; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10948,
+   "col": "example_en",
+   "old": "After the brawl both men were injured",
+   "new": "There's a little scuffle between my sons over the last piece of pizza almost every time",
+   "why": "претерит waren; рядом prügeln 16187; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10948,
+   "col": "example_tr",
+   "old": "Dövüşten sonra her iki adam yaralandı",
+   "new": "Son pizza dilimi yüzünden oğullarım arasında neredeyse her seferinde küçük bir kavga çıkıyor",
+   "why": "претерит waren; рядом prügeln 16187; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10948,
+   "col": "example_pl",
+   "old": "Po bójce obaj mężczyźni byli ranni",
+   "new": "O ostatni kawałek pizzy moi synowie niemal za każdym razem urządzają małą bójkę",
+   "why": "претерит waren; рядом prügeln 16187; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10948,
+   "col": "example_it",
+   "old": "Dopo la rissa entrambi gli uomini erano feriti",
+   "new": "Per l'ultimo pezzo di pizza tra i miei figli c'è quasi ogni volta una piccola zuffa",
+   "why": "претерит waren; рядом prügeln 16187; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10948,
+   "col": "example_es",
+   "old": "Después de la pelea, los dos hombres estaban heridos",
+   "new": "Por el último trozo de pizza mis hijos casi siempre acaban en una pequeña pelea",
+   "why": "претерит waren; рядом prügeln 16187; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10948,
+   "col": "example_fr",
+   "old": "Après la bagarre, les deux hommes étaient blessés",
+   "new": "Pour la dernière part de pizza, il y a presque à chaque fois une petite bagarre entre mes fils",
+   "why": "претерит waren; рядом prügeln 16187; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10948,
+   "col": "example_cs",
+   "old": "Po rvačce byli oba muži zranění",
+   "new": "O poslední kousek pizzy je mezi mými syny skoro pokaždé malá rvačka",
+   "why": "претерит waren; рядом prügeln 16187; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12794,
+   "col": "translation_ru",
+   "old": "орган, ведомство, голос",
+   "new": "орган",
+   "why": "«Das Herz ist ein wichtiges Organ» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12794,
+   "col": "translation_uk",
+   "old": "орган, відомство, голос",
+   "new": "орган",
+   "why": "«Das Herz ist ein wichtiges Organ» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12794,
+   "col": "translation_en",
+   "old": "organ, body, voice",
+   "new": "organ",
+   "why": "«Das Herz ist ein wichtiges Organ» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12794,
+   "col": "translation_tr",
+   "old": "organ, kurum, ses",
+   "new": "organ",
+   "why": "«Das Herz ist ein wichtiges Organ» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12794,
+   "col": "translation_pl",
+   "old": "narząd, organ, instytucja",
+   "new": "narząd, organ",
+   "why": "«Das Herz ist ein wichtiges Organ» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12794,
+   "col": "example_de",
+   "old": "Das Herz ist ein wichtiges Organ des Menschen",
+   "new": "Seit dem Biologieunterricht weiß mein Sohn, welches Organ wo sitzt, und erklärt es beim Essen",
+   "why": "«Das Herz ist ein wichtiges Organ» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12794,
+   "col": "example_ru",
+   "old": "Сердце — важный орган человека",
+   "new": "После урока биологии сын знает, где какой орган находится, и рассказывает об этом за едой",
+   "why": "«Das Herz ist ein wichtiges Organ» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12794,
+   "col": "example_uk",
+   "old": "Серце — важливий орган людини",
+   "new": "Після уроку біології син знає, де який орган розташований, і розповідає про це за їжею",
+   "why": "«Das Herz ist ein wichtiges Organ» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12794,
+   "col": "example_en",
+   "old": "The heart is an important organ of the human body",
+   "new": "Since his biology lesson my son knows where each organ is and explains it at the dinner table",
+   "why": "«Das Herz ist ein wichtiges Organ» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12794,
+   "col": "example_tr",
+   "old": "Kalp, insanın önemli bir organı",
+   "new": "Biyoloji dersinden beri oğlum hangi organın nerede olduğunu biliyor ve yemekte anlatıyor",
+   "why": "«Das Herz ist ein wichtiges Organ» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12794,
+   "col": "example_pl",
+   "old": "Serce to ważny narząd człowieka",
+   "new": "Od lekcji biologii syn wie, gdzie który narząd się znajduje, i tłumaczy to przy jedzeniu",
+   "why": "«Das Herz ist ein wichtiges Organ» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12794,
+   "col": "example_it",
+   "old": "Il cuore è un organo importante dell'essere umano",
+   "new": "Dalla lezione di biologia mio figlio sa dove si trova ogni organo e lo spiega a tavola",
+   "why": "«Das Herz ist ein wichtiges Organ» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12794,
+   "col": "example_es",
+   "old": "El corazón es un órgano importante del ser humano",
+   "new": "Desde la clase de biología mi hijo sabe dónde está cada órgano y lo explica en la comida",
+   "why": "«Das Herz ist ein wichtiges Organ» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12794,
+   "col": "example_fr",
+   "old": "Le cœur est un organe important de l'être humain",
+   "new": "Depuis le cours de biologie, mon fils sait où se trouve chaque organe et l'explique à table",
+   "why": "«Das Herz ist ein wichtiges Organ» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12794,
+   "col": "example_cs",
+   "old": "Srdce je důležitý lidský orgán",
+   "new": "Od hodiny biologie syn ví, kde je jaký orgán, a vysvětluje to u jídla",
+   "why": "«Das Herz ist ein wichtiges Organ» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17618,
+   "col": "translation_ru",
+   "old": "рекламный ролик, реклама",
+   "new": "рекламный ролик",
+   "why": "рядом Werbung 17777; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17618,
+   "col": "translation_uk",
+   "old": "рекламний ролик, реклама",
+   "new": "рекламний ролик",
+   "why": "рядом Werbung 17777; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17618,
+   "col": "translation_en",
+   "old": "commercial, TV ad, advertising spot",
+   "new": "advert, commercial",
+   "why": "рядом Werbung 17777; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17618,
+   "col": "translation_tr",
+   "old": "reklam filmi, reklam",
+   "new": "reklam filmi",
+   "why": "рядом Werbung 17777; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17618,
+   "col": "translation_pl",
+   "old": "spot reklamowy, reklama",
+   "new": "spot reklamowy",
+   "why": "рядом Werbung 17777; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17618,
+   "col": "translation_it",
+   "old": "lo spot, la pubblicità",
+   "new": "lo spot",
+   "why": "рядом Werbung 17777; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17618,
+   "col": "translation_es",
+   "old": "el anuncio, el comercial",
+   "new": "el anuncio",
+   "why": "рядом Werbung 17777; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17618,
+   "col": "translation_fr",
+   "old": "le spot publicitaire, la pub (fam.)",
+   "new": "la pub, le spot publicitaire",
+   "why": "рядом Werbung 17777; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17618,
+   "col": "translation_cs",
+   "old": "reklama, reklamní spot",
+   "new": "reklamní spot",
+   "why": "рядом Werbung 17777; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17618,
+   "col": "example_de",
+   "old": "Der neue Werbespot ist sehr witzig und erinnert mich an meine Kindheit",
+   "new": "Meine Tochter singt den ganzen Tag das Lied aus dem neuen Werbespot für Joghurt",
+   "why": "рядом Werbung 17777; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17618,
+   "col": "example_ru",
+   "old": "Новая реклама очень смешная и напоминает мне детство",
+   "new": "Дочь весь день поёт песенку из нового рекламного ролика йогурта",
+   "why": "рядом Werbung 17777; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17618,
+   "col": "example_uk",
+   "old": "Нова реклама дуже смішна і нагадує мені дитинство",
+   "new": "Донька цілий день співає пісеньку з нового рекламного ролика йогурту",
+   "why": "рядом Werbung 17777; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17618,
+   "col": "example_en",
+   "old": "The new commercial is very funny and reminds me of my childhood",
+   "new": "My daughter sings the song from the new yoghurt advert all day long",
+   "why": "рядом Werbung 17777; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17618,
+   "col": "example_tr",
+   "old": "Yeni reklam filmi çok komik ve çocukluğumu hatırlatıyor",
+   "new": "Kızım bütün gün yeni yoğurt reklam filmindeki şarkıyı söylüyor",
+   "why": "рядом Werbung 17777; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17618,
+   "col": "example_pl",
+   "old": "Nowy spot reklamowy jest bardzo śmieszny i przypomina mi dzieciństwo",
+   "new": "Córka cały dzień śpiewa piosenkę z nowego spotu reklamowego jogurtu",
+   "why": "рядом Werbung 17777; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17618,
+   "col": "example_it",
+   "old": "Il nuovo spot è molto divertente e mi ricorda la mia infanzia",
+   "new": "Mia figlia canta tutto il giorno la canzone del nuovo spot dello yogurt",
+   "why": "рядом Werbung 17777; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17618,
+   "col": "example_es",
+   "old": "El nuevo anuncio es muy divertido y me recuerda a mi infancia",
+   "new": "Mi hija canta todo el día la canción del nuevo anuncio de yogur",
+   "why": "рядом Werbung 17777; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17618,
+   "col": "example_fr",
+   "old": "Le nouveau spot publicitaire est très drôle et me rappelle mon enfance",
+   "new": "Ma fille chante toute la journée la chanson de la nouvelle pub pour un yaourt",
+   "why": "рядом Werbung 17777; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17618,
+   "col": "example_cs",
+   "old": "Nová reklama je velmi vtipná a připomíná mi dětství",
+   "new": "Dcera celý den zpívá písničku z nového reklamního spotu na jogurt",
+   "why": "рядом Werbung 17777; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14621,
+   "col": "translation_ru",
+   "old": "паломник, богомолец",
+   "new": "паломник",
+   "why": "претерит machte; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14621,
+   "col": "translation_tr",
+   "old": "hacı, hac yolcusu, ziyaretçi",
+   "new": "hacı",
+   "why": "претерит machte; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14621,
+   "col": "example_de",
+   "old": "Der Pilger machte sich auf den Weg zum heiligen Berg",
+   "new": "Auf dem Jakobsweg hat meine Tante so viele Pilger aus aller Welt getroffen, dass sie jetzt fünf Sprachen ein bisschen kann",
+   "why": "претерит machte; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14621,
+   "col": "example_ru",
+   "old": "Паломник отправился в путь к святой горе",
+   "new": "На Пути Святого Иакова тётя встретила столько паломников со всего мира, что теперь немного знает пять языков",
+   "why": "претерит machte; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14621,
+   "col": "example_uk",
+   "old": "Паломник вирушив у дорогу до святої гори",
+   "new": "На Шляху святого Якова тітка зустріла стільки паломників з усього світу, що тепер трохи знає п'ять мов",
+   "why": "претерит machte; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14621,
+   "col": "example_en",
+   "old": "The pilgrim set out on a journey to the holy mountain",
+   "new": "On the Camino my aunt met so many pilgrims from all over the world that she now speaks a bit of five languages",
+   "why": "претерит machte; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14621,
+   "col": "example_tr",
+   "old": "Hacı kutsal dağa doğru yola çıktı",
+   "new": "Teyzem Camino yolunda dünyanın her yerinden o kadar çok hacı tanıdı ki artık beş dili biraz biliyor",
+   "why": "претерит machte; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14621,
+   "col": "example_pl",
+   "old": "Pielgrzym wyruszył w drogę do świętej góry",
+   "new": "Na Drodze Świętego Jakuba ciocia spotkała tylu pielgrzymów z całego świata, że teraz trochę zna pięć języków",
+   "why": "претерит machte; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14621,
+   "col": "example_it",
+   "old": "Il pellegrino si mise in cammino verso il monte sacro",
+   "new": "Sul Cammino di Santiago mia zia ha incontrato così tanti pellegrini da tutto il mondo che ora sa un po' cinque lingue",
+   "why": "претерит machte; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14621,
+   "col": "example_es",
+   "old": "El peregrino se puso en camino hacia la montaña sagrada",
+   "new": "En el Camino de Santiago mi tía conoció a tantos peregrinos de todo el mundo que ahora sabe un poco de cinco idiomas",
+   "why": "претерит machte; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14621,
+   "col": "example_fr",
+   "old": "Le pèlerin s'est mis en route vers la montagne sacrée",
+   "new": "Sur le chemin de Compostelle, ma tante a rencontré tant de pèlerins du monde entier qu'elle parle un peu cinq langues",
+   "why": "претерит machte; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14621,
+   "col": "example_cs",
+   "old": "Poutník se vydal na cestu ke svaté hoře",
+   "new": "Na Svatojakubské cestě potkala teta tolik poutníků z celého světa, že teď trochu umí pět jazyků",
+   "why": "претерит machte; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 18319,
+   "col": "example_de",
+   "old": "Für den Bau brauchten wir mehrere Tonnen Zement",
+   "new": "Für den neuen Gartenweg mischt mein Vater den Zement selbst, und der Hund hat schon Pfotenabdrücke hinterlassen",
+   "why": "претерит brauchten; рядом Beton 18269"
+  },
+  {
+   "id": 18319,
+   "col": "example_ru",
+   "old": "Для строительства нам потребовалось несколько тонн цемента",
+   "new": "Для новой садовой дорожки отец сам замешивает цемент, а собака уже оставила в нём отпечатки лап",
+   "why": "претерит brauchten; рядом Beton 18269"
+  },
+  {
+   "id": 18319,
+   "col": "example_uk",
+   "old": "Для будівництва нам знадобилося кілька тонн цементу",
+   "new": "Для нової садової доріжки батько сам замішує цемент, а пес уже залишив у ньому відбитки лап",
+   "why": "претерит brauchten; рядом Beton 18269"
+  },
+  {
+   "id": 18319,
+   "col": "example_en",
+   "old": "We needed several tons of cement for the construction",
+   "new": "For the new garden path my dad mixes the cement himself, and the dog has already left paw prints in it",
+   "why": "претерит brauchten; рядом Beton 18269"
+  },
+  {
+   "id": 18319,
+   "col": "example_tr",
+   "old": "İnşaat için birkaç ton çimento gerekti",
+   "new": "Babam yeni bahçe yolu için çimentoyu kendisi karıştırıyor ve köpek şimdiden pati izleri bıraktı",
+   "why": "претерит brauchten; рядом Beton 18269"
+  },
+  {
+   "id": 18319,
+   "col": "example_pl",
+   "old": "Na budowę potrzebowaliśmy kilku ton cementu",
+   "new": "Do nowej ścieżki w ogrodzie tata sam miesza cement, a pies już zostawił w nim ślady łap",
+   "why": "претерит brauchten; рядом Beton 18269"
+  },
+  {
+   "id": 18319,
+   "col": "example_it",
+   "old": "Per la costruzione ci servivano diverse tonnellate di cemento",
+   "new": "Per il nuovo vialetto del giardino mio padre prepara il cemento da solo, e il cane ci ha già lasciato le impronte",
+   "why": "претерит brauchten; рядом Beton 18269"
+  },
+  {
+   "id": 18319,
+   "col": "example_es",
+   "old": "Para la obra necesitábamos varias toneladas de cemento",
+   "new": "Para el nuevo camino del jardín mi padre mezcla el cemento él mismo, y el perro ya ha dejado sus huellas",
+   "why": "претерит brauchten; рядом Beton 18269"
+  },
+  {
+   "id": 18319,
+   "col": "example_fr",
+   "old": "Pour la construction, il nous fallait plusieurs tonnes de ciment",
+   "new": "Pour la nouvelle allée du jardin, mon père gâche le ciment lui-même, et le chien y a déjà laissé ses empreintes",
+   "why": "претерит brauchten; рядом Beton 18269"
+  },
+  {
+   "id": 18319,
+   "col": "example_cs",
+   "old": "Na stavbu jsme potřebovali několik tun cementu",
+   "new": "Na novou zahradní cestičku si táta míchá cement sám a pes v něm už nechal otisky tlapek",
+   "why": "претерит brauchten; рядом Beton 18269"
+  },
+  {
+   "id": 10949,
+   "col": "translation_ru",
+   "old": "боготворить, почитать, обожать, поклоняться",
+   "new": "обожать, почитать",
+   "why": "рядом vergöttern; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10949,
+   "col": "translation_uk",
+   "old": "шанувати, боготворити, обожнювати, поклонятися",
+   "new": "обожнювати, шанувати",
+   "why": "рядом vergöttern; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10949,
+   "col": "translation_en",
+   "old": "to revere, to adore, to worship, to admire",
+   "new": "to adore, to worship",
+   "why": "рядом vergöttern; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10949,
+   "col": "translation_tr",
+   "old": "saygı duymak, tapmak, hayran olmak, yüceltmek",
+   "new": "tapmak, hayran olmak",
+   "why": "рядом vergöttern; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10949,
+   "col": "translation_pl",
+   "old": "czcić, uwielbiać, wielbić, podziwiać",
+   "new": "uwielbiać, czcić",
+   "why": "рядом vergöttern; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10949,
+   "col": "translation_it",
+   "old": "venerare, adorare, idolatrare",
+   "new": "adorare, venerare",
+   "why": "рядом vergöttern; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10949,
+   "col": "translation_es",
+   "old": "venerar, adorar, idolatrar",
+   "new": "adorar, venerar",
+   "why": "рядом vergöttern; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10949,
+   "col": "translation_fr",
+   "old": "vénérer, adorer, idolâtrer",
+   "new": "adorer, vénérer",
+   "why": "рядом vergöttern; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10949,
+   "col": "translation_cs",
+   "old": "uctívat, zbožňovat, ctít",
+   "new": "zbožňovat, uctívat",
+   "why": "рядом vergöttern; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10949,
+   "col": "example_de",
+   "old": "Die Fans verehren ihren Lieblingssänger wie einen Gott",
+   "new": "Mein kleiner Sohn verehrt seinen großen Cousin und macht alles nach, was er tut",
+   "why": "рядом vergöttern; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10949,
+   "col": "example_ru",
+   "old": "Фанаты боготворят своего любимого певца как бога",
+   "new": "Младший сын обожает старшего двоюродного брата и повторяет за ним всё",
+   "why": "рядом vergöttern; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10949,
+   "col": "example_uk",
+   "old": "Фани боготворять свого улюбленого співака як бога",
+   "new": "Молодший син обожнює старшого двоюрідного брата й повторює за ним усе",
+   "why": "рядом vergöttern; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10949,
+   "col": "example_en",
+   "old": "Fans adore their favorite singer like a god",
+   "new": "My little son adores his big cousin and copies everything he does",
+   "why": "рядом vergöttern; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10949,
+   "col": "example_tr",
+   "old": "Hayranlar en sevdiği şarkıcıya tanrı gibi tapıyor",
+   "new": "Küçük oğlum büyük kuzenine hayran ve yaptığı her şeyi taklit ediyor",
+   "why": "рядом vergöttern; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10949,
+   "col": "example_pl",
+   "old": "Fani czczą swojego ulubionego piosenkarza jak boga",
+   "new": "Młodszy syn uwielbia starszego kuzyna i naśladuje wszystko, co on robi",
+   "why": "рядом vergöttern; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10949,
+   "col": "example_it",
+   "old": "I fan venerano il loro cantante preferito come un dio",
+   "new": "Il mio figlio piccolo adora il cugino grande e imita tutto quello che fa",
+   "why": "рядом vergöttern; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10949,
+   "col": "example_es",
+   "old": "Los fans veneran a su cantante favorito como a un dios",
+   "new": "Mi hijo pequeño adora a su primo mayor y le imita en todo",
+   "why": "рядом vergöttern; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10949,
+   "col": "example_fr",
+   "old": "Les fans vénèrent leur chanteur préféré comme un dieu",
+   "new": "Mon petit garçon adore son grand cousin et imite tout ce qu'il fait",
+   "why": "рядом vergöttern; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10949,
+   "col": "example_cs",
+   "old": "Fanoušci uctívají svého oblíbeného zpěváka jako boha",
+   "new": "Můj malý syn zbožňuje svého velkého bratrance a dělá všechno po něm",
+   "why": "рядом vergöttern; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16468,
+   "col": "example_de",
+   "old": "Er wurde des Hochverrats angeklagt und ins Gefängnis geworfen",
+   "new": "Dass mein Sohn den Gegnern unsere Taktik verraten hat, nennt die ganze Mannschaft Hochverrat",
+   "why": "пассив; тяжёлое — шутливо"
+  },
+  {
+   "id": 16468,
+   "col": "example_ru",
+   "old": "Его обвинили в государственной измене и бросили в тюрьму",
+   "new": "То, что сын выдал соперникам нашу тактику, вся команда называет государственной изменой",
+   "why": "пассив; тяжёлое — шутливо"
+  },
+  {
+   "id": 16468,
+   "col": "example_uk",
+   "old": "Його звинувачили в державній зраді і кинули до в'язниці",
+   "new": "Те, що син видав суперникам нашу тактику, уся команда називає державною зрадою",
+   "why": "пассив; тяжёлое — шутливо"
+  },
+  {
+   "id": 16468,
+   "col": "example_en",
+   "old": "He was accused of high treason and thrown into prison",
+   "new": "The whole team calls it high treason that my son told the other side our tactics",
+   "why": "пассив; тяжёлое — шутливо"
+  },
+  {
+   "id": 16468,
+   "col": "example_tr",
+   "old": "Vatana ihanetle suçlanıp hapse atıldı",
+   "new": "Oğlumun taktiğimizi rakiplere söylemesine bütün takım vatana ihanet diyor",
+   "why": "пассив; тяжёлое — шутливо"
+  },
+  {
+   "id": 16468,
+   "col": "example_pl",
+   "old": "Oskarżono go o zdradę stanu i wtrącono do więzienia",
+   "new": "To, że syn zdradził przeciwnikom naszą taktykę, cała drużyna nazywa zdradą stanu",
+   "why": "пассив; тяжёлое — шутливо"
+  },
+  {
+   "id": 16468,
+   "col": "example_it",
+   "old": "È stato accusato di alto tradimento e gettato in prigione",
+   "new": "Che mio figlio abbia svelato la nostra tattica agli avversari, tutta la squadra lo chiama alto tradimento",
+   "why": "пассив; тяжёлое — шутливо"
+  },
+  {
+   "id": 16468,
+   "col": "example_es",
+   "old": "Fue acusado de alta traición y encarcelado",
+   "new": "Que mi hijo les contara nuestra táctica a los rivales, todo el equipo lo llama alta traición",
+   "why": "пассив; тяжёлое — шутливо"
+  },
+  {
+   "id": 16468,
+   "col": "example_fr",
+   "old": "Il a été accusé de haute trahison et jeté en prison",
+   "new": "Que mon fils ait révélé notre tactique aux adversaires, toute l'équipe appelle ça de la haute trahison",
+   "why": "пассив; тяжёлое — шутливо"
+  },
+  {
+   "id": 16468,
+   "col": "example_cs",
+   "old": "Byl obviněn z velezrady a uvržen do vězení",
+   "new": "To, že syn prozradil soupeřům naši taktiku, nazývá celý tým velezradou",
+   "why": "пассив; тяжёлое — шутливо"
+  },
+  {
+   "id": 7708,
+   "col": "translation_ru",
+   "old": "щипать, ущипнуть, жать",
+   "new": "щипать, жать",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7708,
+   "col": "translation_uk",
+   "old": "щипати, ущипнути, тиснути",
+   "new": "щипати, тиснути",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7708,
+   "col": "translation_en",
+   "old": "to pinch, to nip, to be too tight",
+   "new": "to pinch, to be too tight",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7708,
+   "col": "translation_tr",
+   "old": "çimdiklemek, sıkmak, dar gelmek",
+   "new": "çimdiklemek, sıkmak",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7708,
+   "col": "translation_pl",
+   "old": "szczypać, uszczypnąć, cisnąć",
+   "new": "szczypać, uwierać",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7708,
+   "col": "translation_cs",
+   "old": "štípat, štípnout, tlačit",
+   "new": "štípat, tlačit",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7708,
+   "col": "example_de",
+   "old": "Er kneift sich selbst, um zu sehen, ob er träumt",
+   "new": "Die neue Jeans kneift am Bauch, ich hätte sie eine Nummer größer kaufen sollen",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7708,
+   "col": "example_ru",
+   "old": "Он щиплет себя, чтобы проверить, не снится ли ему это",
+   "new": "Новые джинсы жмут в животе, надо было брать на размер больше",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7708,
+   "col": "example_uk",
+   "old": "Він щипає себе, щоб перевірити, чи це сон",
+   "new": "Нові джинси тиснуть на животі, треба було брати на розмір більше",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7708,
+   "col": "example_en",
+   "old": "He pinches himself to see if he is dreaming",
+   "new": "The new jeans pinch round the waist, I should have bought them a size bigger",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7708,
+   "col": "example_tr",
+   "old": "Rüya görüp görmediğini anlamak için kendini çimdikliyor",
+   "new": "Yeni kot pantolon belimi sıkıyor, bir beden büyüğünü almalıydım",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7708,
+   "col": "example_pl",
+   "old": "Szczypie się, żeby sprawdzić, czy to nie sen",
+   "new": "Nowe dżinsy uwierają w brzuchu, trzeba było kupić rozmiar większy",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7708,
+   "col": "example_it",
+   "old": "Si pizzica per vedere se sta sognando",
+   "new": "I jeans nuovi stringono sulla pancia, avrei dovuto prenderli di una taglia in più",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7708,
+   "col": "example_es",
+   "old": "Se pellizca para ver si está soñando",
+   "new": "Los vaqueros nuevos me aprietan en la barriga, tendría que haberlos comprado una talla más",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7708,
+   "col": "example_fr",
+   "old": "Il se pince pour voir s'il rêve",
+   "new": "Le nouveau jean serre au ventre, j'aurais dû le prendre une taille au-dessus",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7708,
+   "col": "example_cs",
+   "old": "Štípne se, aby zjistil, jestli se mu to nezdá",
+   "new": "Nové džíny tlačí v pase, měl jsem je koupit o číslo větší",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10951,
+   "col": "translation_ru",
+   "old": "непростительный, недопустимый",
+   "new": "непростительный",
+   "why": "пусто; рядом verzeihen 10118; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10951,
+   "col": "translation_uk",
+   "old": "непростимий, неприпустимий",
+   "new": "непростимий",
+   "why": "пусто; рядом verzeihen 10118; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10951,
+   "col": "translation_en",
+   "old": "unforgivable, inexcusable",
+   "new": "unforgivable",
+   "why": "пусто; рядом verzeihen 10118; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10951,
+   "col": "translation_tr",
+   "old": "affedilmez, bağışlanamaz",
+   "new": "affedilmez",
+   "why": "пусто; рядом verzeihen 10118; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10951,
+   "col": "translation_pl",
+   "old": "niewybaczalny, nie do wybaczenia",
+   "new": "niewybaczalny",
+   "why": "пусто; рядом verzeihen 10118; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10951,
+   "col": "example_de",
+   "old": "Es ist unverzeihlich, dass er sie so behandelt hat",
+   "new": "Für meine Frau ist es unverzeihlich, dass ich die letzte Folge der Serie ohne sie geschaut habe",
+   "why": "пусто; рядом verzeihen 10118; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10951,
+   "col": "example_ru",
+   "old": "Непростительно, что он так с ней обращался",
+   "new": "Для жены непростительно, что я посмотрел последнюю серию без неё",
+   "why": "пусто; рядом verzeihen 10118; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10951,
+   "col": "example_uk",
+   "old": "Непростимо, що він так з нею поводився",
+   "new": "Для дружини непростимо, що я подивився останню серію без неї",
+   "why": "пусто; рядом verzeihen 10118; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10951,
+   "col": "example_en",
+   "old": "It's unforgivable that he treated her like that",
+   "new": "For my wife it's unforgivable that I watched the last episode of the series without her",
+   "why": "пусто; рядом verzeihen 10118; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10951,
+   "col": "example_tr",
+   "old": "Ona böyle davranması affedilmez",
+   "new": "Dizinin son bölümünü onsuz izlemem karım için affedilmez bir şey",
+   "why": "пусто; рядом verzeihen 10118; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10951,
+   "col": "example_pl",
+   "old": "To niewybaczalne, że tak ją traktował",
+   "new": "Dla żony to niewybaczalne, że obejrzałem ostatni odcinek serialu bez niej",
+   "why": "пусто; рядом verzeihen 10118; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10951,
+   "col": "example_it",
+   "old": "È imperdonabile che l'abbia trattata così",
+   "new": "Per mia moglie è imperdonabile che io abbia visto l'ultima puntata della serie senza di lei",
+   "why": "пусто; рядом verzeihen 10118; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10951,
+   "col": "example_es",
+   "old": "Es imperdonable que la haya tratado así",
+   "new": "Para mi mujer es imperdonable que viera el último capítulo de la serie sin ella",
+   "why": "пусто; рядом verzeihen 10118; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10951,
+   "col": "example_fr",
+   "old": "C'est impardonnable qu'il l'ait traitée comme ça",
+   "new": "Pour ma femme, c'est impardonnable que j'aie regardé le dernier épisode de la série sans elle",
+   "why": "пусто; рядом verzeihen 10118; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10951,
+   "col": "example_cs",
+   "old": "Je neodpustitelné, že se k ní tak choval",
+   "new": "Pro manželku je neodpustitelné, že jsem se na poslední díl seriálu podíval bez ní",
+   "why": "пусто; рядом verzeihen 10118; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10952,
+   "col": "translation_ru",
+   "old": "симпатия, расположение, приязнь",
+   "new": "симпатия",
+   "why": "рядом sympathisch 1925; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10952,
+   "col": "translation_uk",
+   "old": "симпатія, прихильність, приязнь",
+   "new": "симпатія",
+   "why": "рядом sympathisch 1925; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10952,
+   "col": "translation_en",
+   "old": "liking, fondness, affection, sympathy",
+   "new": "liking, sympathy",
+   "why": "рядом sympathisch 1925; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10952,
+   "col": "translation_tr",
+   "old": "sempati, hoşlanma, yakınlık duyma",
+   "new": "sempati",
+   "why": "рядом sympathisch 1925; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10952,
+   "col": "translation_pl",
+   "old": "sympatia, przychylność, życzliwość",
+   "new": "sympatia",
+   "why": "рядом sympathisch 1925; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10952,
+   "col": "translation_it",
+   "old": "la comprensione, la simpatia",
+   "new": "la simpatia",
+   "why": "рядом sympathisch 1925; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10952,
+   "col": "translation_es",
+   "old": "la simpatía, la comprensión",
+   "new": "la simpatía",
+   "why": "рядом sympathisch 1925; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10952,
+   "col": "translation_fr",
+   "old": "la sympathie, la compréhension",
+   "new": "la sympathie",
+   "why": "рядом sympathisch 1925; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10952,
+   "col": "translation_cs",
+   "old": "pochopení, sympatie",
+   "new": "sympatie",
+   "why": "рядом sympathisch 1925; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10952,
+   "col": "example_de",
+   "old": "Ich habe große Sympathie für seine Situation",
+   "new": "Mein Vater hat eine heimliche Sympathie für den Gegnerverein, weil er dort aufgewachsen ist",
+   "why": "рядом sympathisch 1925; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10952,
+   "col": "example_ru",
+   "old": "Я испытываю большую симпатию к его положению",
+   "new": "У отца тайная симпатия к клубу соперников, потому что он там вырос",
+   "why": "рядом sympathisch 1925; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10952,
+   "col": "example_uk",
+   "old": "Я відчуваю велику симпатію до його ситуації",
+   "new": "Батько має таємну симпатію до клубу суперників, бо там виріс",
+   "why": "рядом sympathisch 1925; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10952,
+   "col": "example_en",
+   "old": "I have great sympathy for his situation",
+   "new": "My dad has a secret liking for the rival club because he grew up there",
+   "why": "рядом sympathisch 1925; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10952,
+   "col": "example_tr",
+   "old": "Onun durumuna büyük bir sempati hissediyorum",
+   "new": "Babamın rakip kulübe gizli bir sempatisi var, çünkü orada büyüdü",
+   "why": "рядом sympathisch 1925; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10952,
+   "col": "example_pl",
+   "old": "Mam dużo sympatii dla jego sytuacji",
+   "new": "Tata ma skrytą sympatię do klubu rywali, bo tam dorastał",
+   "why": "рядом sympathisch 1925; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10952,
+   "col": "example_it",
+   "old": "Ho molta comprensione per la sua situazione",
+   "new": "Mio padre ha una simpatia segreta per la squadra avversaria, perché è cresciuto lì",
+   "why": "рядом sympathisch 1925; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10952,
+   "col": "example_es",
+   "old": "Siento mucha simpatía por su situación",
+   "new": "Mi padre tiene una simpatía secreta por el equipo rival porque se crio allí",
+   "why": "рядом sympathisch 1925; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10952,
+   "col": "example_fr",
+   "old": "J'ai beaucoup de sympathie pour sa situation",
+   "new": "Mon père a une sympathie secrète pour le club adverse, parce qu'il a grandi là-bas",
+   "why": "рядом sympathisch 1925; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10952,
+   "col": "example_cs",
+   "old": "Mám velké pochopení pro jeho situaci",
+   "new": "Táta má tajnou sympatii k soupeřovu klubu, protože tam vyrůstal",
+   "why": "рядом sympathisch 1925; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7709,
+   "col": "translation_ru",
+   "old": "обходиться без, лишаться, нуждаться",
+   "new": "обходиться без",
+   "why": "претерит musste; война; рядом verzichten 2983; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7709,
+   "col": "translation_uk",
+   "old": "обходитися без, позбуватися, бідувати",
+   "new": "обходитися без",
+   "why": "претерит musste; война; рядом verzichten 2983; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7709,
+   "col": "translation_en",
+   "old": "to do without, to go without, to lack",
+   "new": "to do without",
+   "why": "претерит musste; война; рядом verzichten 2983; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7709,
+   "col": "translation_tr",
+   "old": "mahrum kalmak, idare etmek, yoksun olmak",
+   "new": "-sız yapmak",
+   "why": "претерит musste; война; рядом verzichten 2983; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7709,
+   "col": "translation_pl",
+   "old": "obywać się bez, być pozbawionym, rezygnować",
+   "new": "obywać się bez",
+   "why": "претерит musste; война; рядом verzichten 2983; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7709,
+   "col": "translation_it",
+   "old": "fare a meno di, privarsi di, mancare di",
+   "new": "fare a meno di",
+   "why": "претерит musste; война; рядом verzichten 2983; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7709,
+   "col": "translation_es",
+   "old": "privarse de, prescindir de, pasar sin",
+   "new": "prescindir de, pasar sin",
+   "why": "претерит musste; война; рядом verzichten 2983; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7709,
+   "col": "translation_fr",
+   "old": "se priver de, se passer de, manquer de",
+   "new": "se passer de",
+   "why": "претерит musste; война; рядом verzichten 2983; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7709,
+   "col": "translation_cs",
+   "old": "obejít se bez, strádat, postrádat",
+   "new": "obejít se bez",
+   "why": "претерит musste; война; рядом verzichten 2983; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7709,
+   "col": "example_de",
+   "old": "In Kriegszeiten musste man vieles entbehren",
+   "new": "Im Zeltlager müssen die Kinder eine Woche lang ihr Handy entbehren, und am dritten Tag vermissen sie es nicht mehr",
+   "why": "претерит musste; война; рядом verzichten 2983; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7709,
+   "col": "example_ru",
+   "old": "В войну людям приходилось обходиться без многого",
+   "new": "В палаточном лагере дети неделю обходятся без телефона, и на третий день уже по нему не скучают",
+   "why": "претерит musste; война; рядом verzichten 2983; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7709,
+   "col": "example_uk",
+   "old": "У воєнні часи доводилось обходитися без багатьох речей",
+   "new": "У наметовому таборі діти тиждень обходяться без телефону, і на третій день уже за ним не сумують",
+   "why": "претерит musste; война; рядом verzichten 2983; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7709,
+   "col": "example_en",
+   "old": "In wartime one must do without many things",
+   "new": "At the tent camp the children have to do without their phones for a week, and by day three they don't miss them",
+   "why": "претерит musste; война; рядом verzichten 2983; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7709,
+   "col": "example_tr",
+   "old": "Savaş zamanında insanlar birçok şeyden mahrum kaldı",
+   "new": "Kampta çocuklar bir hafta telefonsuz yapmak zorunda ve üçüncü gün artık onu özlemiyorlar",
+   "why": "претерит musste; война; рядом verzichten 2983; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7709,
+   "col": "example_pl",
+   "old": "W czasie wojny trzeba było obywać się bez wielu rzeczy",
+   "new": "Na obozie dzieci przez tydzień muszą obywać się bez telefonu, a trzeciego dnia już za nim nie tęsknią",
+   "why": "претерит musste; война; рядом verzichten 2983; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7709,
+   "col": "example_it",
+   "old": "In tempo di guerra si doveva fare a meno di molte cose",
+   "new": "Al campeggio i bambini devono fare a meno del telefono per una settimana, e al terzo giorno non ne sentono più la mancanza",
+   "why": "претерит musste; война; рядом verzichten 2983; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7709,
+   "col": "example_es",
+   "old": "En tiempos de guerra había que privarse de muchas cosas",
+   "new": "En el campamento los niños tienen que pasar sin móvil una semana, y al tercer día ya no lo echan de menos",
+   "why": "претерит musste; война; рядом verzichten 2983; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7709,
+   "col": "example_fr",
+   "old": "En temps de guerre, il fallait se priver de beaucoup de choses",
+   "new": "Au camp, les enfants doivent se passer de leur téléphone pendant une semaine, et au troisième jour ils ne le regrettent plus",
+   "why": "претерит musste; война; рядом verzichten 2983; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7709,
+   "col": "example_cs",
+   "old": "V době války se člověk musel obejít bez mnoha věcí",
+   "new": "Na stanovém táboře se děti musí týden obejít bez mobilu a třetí den už jim nechybí",
+   "why": "претерит musste; война; рядом verzichten 2983; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15154,
+   "col": "translation_ru",
+   "old": "сексуальность, половая жизнь, сексуальная ориентация",
+   "new": "сексуальность",
+   "why": "лозунг; нейтрально; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15154,
+   "col": "translation_uk",
+   "old": "сексуальність, статеве життя, сексуальна орієнтація",
+   "new": "сексуальність",
+   "why": "лозунг; нейтрально; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15154,
+   "col": "translation_en",
+   "old": "sexuality, sexual life, sexual orientation",
+   "new": "sexuality",
+   "why": "лозунг; нейтрально; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15154,
+   "col": "translation_tr",
+   "old": "cinsellik, cinsel yaşam, cinsel yönelim",
+   "new": "cinsellik",
+   "why": "лозунг; нейтрально; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15154,
+   "col": "translation_pl",
+   "old": "seksualność, życie seksualne, orientacja seksualna",
+   "new": "seksualność",
+   "why": "лозунг; нейтрально; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15154,
+   "col": "example_de",
+   "old": "Sexualität ist ein normaler Teil des menschlichen Lebens",
+   "new": "In der siebten Klasse sprechen sie im Biologieunterricht über Sexualität, und mein Sohn wird schon beim Wort rot",
+   "why": "лозунг; нейтрально; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15154,
+   "col": "example_ru",
+   "old": "Сексуальность — нормальная часть человеческой жизни",
+   "new": "В седьмом классе на биологии говорят о сексуальности, и сын краснеет уже от одного слова",
+   "why": "лозунг; нейтрально; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15154,
+   "col": "example_uk",
+   "old": "Сексуальність — нормальна частина людського життя",
+   "new": "У сьомому класі на біології говорять про сексуальність, і син червоніє вже від самого слова",
+   "why": "лозунг; нейтрально; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15154,
+   "col": "example_en",
+   "old": "Sexuality is a normal part of human life",
+   "new": "In year seven they talk about sexuality in biology, and my son goes red at the very word",
+   "why": "лозунг; нейтрально; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15154,
+   "col": "example_tr",
+   "old": "Cinsellik insan hayatının normal bir parçasıdır",
+   "new": "Yedinci sınıfta biyoloji dersinde cinsellikten bahsediyorlar ve oğlum kelimeyi duyar duymaz kızarıyor",
+   "why": "лозунг; нейтрально; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15154,
+   "col": "example_pl",
+   "old": "Seksualność to normalna część ludzkiego życia",
+   "new": "W siódmej klasie na biologii rozmawiają o seksualności, a syn czerwieni się już na samo słowo",
+   "why": "лозунг; нейтрально; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15154,
+   "col": "example_it",
+   "old": "La sessualità è una parte normale della vita umana",
+   "new": "In seconda media a biologia parlano di sessualità, e mio figlio arrossisce già alla parola",
+   "why": "лозунг; нейтрально; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15154,
+   "col": "example_es",
+   "old": "La sexualidad es una parte normal de la vida humana",
+   "new": "En primero de la ESO hablan de sexualidad en biología, y mi hijo se pone rojo solo con oír la palabra",
+   "why": "лозунг; нейтрально; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15154,
+   "col": "example_fr",
+   "old": "La sexualité est une part normale de la vie humaine",
+   "new": "En cinquième, ils parlent de sexualité en SVT, et mon fils rougit rien qu'au mot",
+   "why": "лозунг; нейтрально; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15154,
+   "col": "example_cs",
+   "old": "Sexualita je normální součástí lidského života",
+   "new": "V sedmé třídě mluví v biologii o sexualitě a syn zčervená už při tom slově",
+   "why": "лозунг; нейтрально; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14622,
+   "col": "example_de",
+   "old": "Der Präsident war der Ehrengast bei der Gala",
+   "new": "Beim Schulfest ist Oma der Ehrengast, weil sie vor fünfzig Jahren an dieser Schule unterrichtet hat",
+   "why": "претерит war; президент; рядом Gast 309"
+  },
+  {
+   "id": 14622,
+   "col": "example_ru",
+   "old": "Президент был почётным гостем на гала-вечере",
+   "new": "На школьном празднике бабушка — почётный гость, потому что пятьдесят лет назад преподавала в этой школе",
+   "why": "претерит war; президент; рядом Gast 309"
+  },
+  {
+   "id": 14622,
+   "col": "example_uk",
+   "old": "Президент був почесним гостем на гала-вечері",
+   "new": "На шкільному святі бабуся — почесний гість, бо п'ятдесят років тому викладала в цій школі",
+   "why": "претерит war; президент; рядом Gast 309"
+  },
+  {
+   "id": 14622,
+   "col": "example_en",
+   "old": "The president was the guest of honor at the gala",
+   "new": "Grandma is the guest of honour at the school fair because she taught at this school fifty years ago",
+   "why": "претерит war; президент; рядом Gast 309"
+  },
+  {
+   "id": 14622,
+   "col": "example_tr",
+   "old": "Başkan galada onur konuğuydu",
+   "new": "Büyükannem okul şenliğinin onur konuğu, çünkü elli yıl önce bu okulda öğretmenlik yaptı",
+   "why": "претерит war; президент; рядом Gast 309"
+  },
+  {
+   "id": 14622,
+   "col": "example_pl",
+   "old": "Prezydent był gościem honorowym na gali",
+   "new": "Na festynie szkolnym babcia jest gościem honorowym, bo pięćdziesiąt lat temu uczyła w tej szkole",
+   "why": "претерит war; президент; рядом Gast 309"
+  },
+  {
+   "id": 14622,
+   "col": "example_it",
+   "old": "Il presidente era l'ospite d'onore al galà",
+   "new": "Alla festa della scuola la nonna è l'ospite d'onore, perché cinquant'anni fa insegnava in questa scuola",
+   "why": "претерит war; президент; рядом Gast 309"
+  },
+  {
+   "id": 14622,
+   "col": "example_es",
+   "old": "El presidente era el invitado de honor en la gala",
+   "new": "En la fiesta del colegio la abuela es la invitada de honor porque hace cincuenta años daba clase en este colegio",
+   "why": "претерит war; президент; рядом Gast 309"
+  },
+  {
+   "id": 14622,
+   "col": "example_fr",
+   "old": "Le président était l'invité d'honneur du gala",
+   "new": "À la fête de l'école, mamie est l'invitée d'honneur parce qu'elle a enseigné dans cette école il y a cinquante ans",
+   "why": "претерит war; президент; рядом Gast 309"
+  },
+  {
+   "id": 14622,
+   "col": "example_cs",
+   "old": "Prezident byl čestným hostem na galavečeru",
+   "new": "Na školní slavnosti je babička čestným hostem, protože na téhle škole před padesáti lety učila",
+   "why": "претерит war; президент; рядом Gast 309"
+  },
+  {
+   "id": 9036,
+   "col": "translation_ru",
+   "old": "сверло, дрель, бур",
+   "new": "дрель, сверло",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9036,
+   "col": "translation_uk",
+   "old": "сверло, дриль, бур",
+   "new": "дриль, свердло",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9036,
+   "col": "translation_en",
+   "old": "drill bit, drill, borer",
+   "new": "drill",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9036,
+   "col": "translation_tr",
+   "old": "matkap ucu, matkap, burgu",
+   "new": "matkap",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9036,
+   "col": "translation_pl",
+   "old": "wiertło, wiertarka",
+   "new": "wiertarka, wiertło",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9036,
+   "col": "translation_it",
+   "old": "la punta, il trapano",
+   "new": "il trapano, la punta",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9036,
+   "col": "translation_es",
+   "old": "la broca, el taladro",
+   "new": "el taladro, la broca",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9036,
+   "col": "translation_fr",
+   "old": "la mèche, le foret, la perceuse",
+   "new": "la perceuse, la mèche",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9036,
+   "col": "translation_cs",
+   "old": "vrták, vrtačka",
+   "new": "vrtačka, vrták",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9036,
+   "col": "example_de",
+   "old": "Gib mir mal den kleinen Bohrer",
+   "new": "Am Sonntag um acht holt der Nachbar den Bohrer raus, und das ganze Haus ist wach",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9036,
+   "col": "example_ru",
+   "old": "Дай-ка мне маленькое сверло",
+   "new": "В воскресенье в восемь утра сосед достаёт дрель, и весь дом просыпается",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9036,
+   "col": "example_uk",
+   "old": "Дай-но мені маленьке сверло",
+   "new": "У неділю о восьмій ранку сусід дістає дриль, і весь будинок прокидається",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9036,
+   "col": "example_en",
+   "old": "Give me the small drill bit",
+   "new": "On Sunday at eight the neighbour gets his drill out, and the whole building is awake",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9036,
+   "col": "example_tr",
+   "old": "Küçük matkap ucunu bana ver",
+   "new": "Pazar sabahı saat sekizde komşu matkabı çıkarıyor ve bütün bina uyanıyor",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9036,
+   "col": "example_pl",
+   "old": "Podaj mi to małe wiertło",
+   "new": "W niedzielę o ósmej sąsiad wyciąga wiertarkę i cały dom się budzi",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9036,
+   "col": "example_it",
+   "old": "Passami la punta piccola",
+   "new": "La domenica alle otto il vicino tira fuori il trapano, e tutto il palazzo si sveglia",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9036,
+   "col": "example_es",
+   "old": "Pásame la broca pequeña",
+   "new": "El domingo a las ocho el vecino saca el taladro, y se despierta todo el edificio",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9036,
+   "col": "example_fr",
+   "old": "Passe-moi la petite mèche",
+   "new": "Le dimanche à huit heures, le voisin sort sa perceuse, et tout l'immeuble est réveillé",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 9036,
+   "col": "example_cs",
+   "old": "Podej mi ten malý vrták",
+   "new": "V neděli v osm vytáhne soused vrtačku a celý dům je vzhůru",
+   "why": "пример ок; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7710,
+   "col": "translation_ru",
+   "old": "помочь добиться, помочь получить, поспособствовать",
+   "new": "помочь получить",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7710,
+   "col": "translation_uk",
+   "old": "допомогти досягти, допомогти здобути, посприяти",
+   "new": "допомогти отримати",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7710,
+   "col": "translation_en",
+   "old": "to help achieve, to help someone get something, to enable",
+   "new": "to help to",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7710,
+   "col": "translation_tr",
+   "old": "elde etmesine yardım etmek, kavuşturmak, ulaşmasını sağlamak",
+   "new": "yardımcı olmak",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7710,
+   "col": "translation_pl",
+   "old": "pomóc zdobyć, dopomóc, pomóc osiągnąć",
+   "new": "pomóc w",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7710,
+   "col": "translation_it",
+   "old": "aiutare a raggiungere, aiutare a ottenere, contribuire a",
+   "new": "aiutare a ottenere",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7710,
+   "col": "translation_es",
+   "old": "ayudar a conseguir, contribuir a",
+   "new": "ayudar a conseguir",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7710,
+   "col": "translation_fr",
+   "old": "permettre de, aider à obtenir",
+   "new": "aider à obtenir",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7710,
+   "col": "translation_cs",
+   "old": "pomoci k, dopomoci k",
+   "new": "dopomoci k",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7710,
+   "col": "example_de",
+   "old": "Das soll ihm zum Erfolg verhelfen",
+   "new": "Der Tipp von meiner Nachbarin hat mir zu einer günstigen Wohnung direkt am Park verholfen",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7710,
+   "col": "example_ru",
+   "old": "Это должно помочь ему добиться успеха",
+   "new": "Совет соседки помог мне получить недорогую квартиру прямо у парка",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7710,
+   "col": "example_uk",
+   "old": "Це має допомогти йому досягти успіху",
+   "new": "Порада сусідки допомогла мені отримати недорогу квартиру просто біля парку",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7710,
+   "col": "example_en",
+   "old": "That should help him achieve success",
+   "new": "My neighbour's tip helped me get a cheap flat right by the park",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7710,
+   "col": "example_tr",
+   "old": "Bu, onun başarıya ulaşmasını sağlayacak",
+   "new": "Komşumun tavsiyesi parkın hemen yanında uygun fiyatlı bir daire bulmama yardımcı oldu",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7710,
+   "col": "example_pl",
+   "old": "To ma mu pomóc osiągnąć sukces",
+   "new": "Rada sąsiadki pomogła mi w zdobyciu taniego mieszkania tuż przy parku",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7710,
+   "col": "example_it",
+   "old": "Questo dovrebbe aiutarlo a raggiungere il successo",
+   "new": "Il consiglio della mia vicina mi ha aiutato a ottenere un appartamento economico proprio vicino al parco",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7710,
+   "col": "example_es",
+   "old": "Esto debería ayudarle a conseguir el éxito",
+   "new": "El consejo de mi vecina me ayudó a conseguir un piso barato justo al lado del parque",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7710,
+   "col": "example_fr",
+   "old": "Cela doit lui permettre de réussir",
+   "new": "Le conseil de ma voisine m'a aidé à obtenir un appartement pas cher juste à côté du parc",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7710,
+   "col": "example_cs",
+   "old": "To mu má pomoci k úspěchu",
+   "new": "Rada sousedky mi dopomohla k levnému bytu přímo u parku",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12270,
+   "col": "translation_en",
+   "old": "rules of the game, game rules",
+   "new": "rules of the game",
+   "why": "пусто; рядом Regel 1789; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12270,
+   "col": "translation_pl",
+   "old": "zasady gry, reguły gry",
+   "new": "zasady gry",
+   "why": "пусто; рядом Regel 1789; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12270,
+   "col": "translation_it",
+   "old": "la regola del gioco",
+   "new": "le regole del gioco",
+   "why": "пусто; рядом Regel 1789; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12270,
+   "col": "translation_es",
+   "old": "la regla del juego",
+   "new": "las reglas del juego",
+   "why": "пусто; рядом Regel 1789; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12270,
+   "col": "translation_fr",
+   "old": "la règle du jeu",
+   "new": "les règles du jeu",
+   "why": "пусто; рядом Regel 1789; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12270,
+   "col": "translation_cs",
+   "old": "pravidlo hry, herní pravidlo",
+   "new": "pravidla hry",
+   "why": "пусто; рядом Regel 1789; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12270,
+   "col": "example_de",
+   "old": "Die Spielregeln sind sehr einfach zu verstehen",
+   "new": "Bei jedem Brettspiel ändert mein Sohn die Spielregeln, sobald er verliert",
+   "why": "пусто; рядом Regel 1789; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12270,
+   "col": "example_ru",
+   "old": "Правила игры очень просто понять",
+   "new": "В каждой настольной игре сын меняет правила игры, как только начинает проигрывать",
+   "why": "пусто; рядом Regel 1789; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12270,
+   "col": "example_uk",
+   "old": "Правила гри дуже просто зрозуміти",
+   "new": "У кожній настільній грі син змінює правила гри, щойно починає програвати",
+   "why": "пусто; рядом Regel 1789; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12270,
+   "col": "example_en",
+   "old": "The game rules are very easy to understand",
+   "new": "In every board game my son changes the rules of the game as soon as he's losing",
+   "why": "пусто; рядом Regel 1789; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12270,
+   "col": "example_tr",
+   "old": "Oyun kuralları çok kolay anlaşılır",
+   "new": "Oğlum her masa oyununda kaybetmeye başlar başlamaz oyun kurallarını değiştiriyor",
+   "why": "пусто; рядом Regel 1789; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12270,
+   "col": "example_pl",
+   "old": "Zasady gry są bardzo łatwe do zrozumienia",
+   "new": "W każdej grze planszowej syn zmienia zasady gry, gdy tylko przegrywa",
+   "why": "пусто; рядом Regel 1789; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12270,
+   "col": "example_it",
+   "old": "Le regole del gioco sono molto semplici da capire",
+   "new": "In ogni gioco da tavolo mio figlio cambia le regole del gioco appena perde",
+   "why": "пусто; рядом Regel 1789; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12270,
+   "col": "example_es",
+   "old": "Las reglas del juego son muy fáciles de entender",
+   "new": "En cada juego de mesa mi hijo cambia las reglas del juego en cuanto pierde",
+   "why": "пусто; рядом Regel 1789; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12270,
+   "col": "example_fr",
+   "old": "Les règles du jeu sont très simples à comprendre",
+   "new": "À chaque jeu de société, mon fils change les règles du jeu dès qu'il perd",
+   "why": "пусто; рядом Regel 1789; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 12270,
+   "col": "example_cs",
+   "old": "Pravidla hry se dají velmi snadno pochopit",
+   "new": "V každé deskové hře syn mění pravidla hry, jakmile prohrává",
+   "why": "пусто; рядом Regel 1789; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17238,
+   "col": "translation_ru",
+   "old": "попутка, возможность поехать с попутчиком, совместная поездка на машине",
+   "new": "попутка",
+   "why": "пусто; рядом mitnehmen 1696; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17238,
+   "col": "translation_uk",
+   "old": "попутка, можливість поїхати з попутником, спільна поїздка автівкою",
+   "new": "попутка",
+   "why": "пусто; рядом mitnehmen 1696; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17238,
+   "col": "translation_en",
+   "old": "ride share, lift with someone, carpool",
+   "new": "lift, ride share",
+   "why": "пусто; рядом mitnehmen 1696; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17238,
+   "col": "translation_tr",
+   "old": "araç paylaşımı, birinin arabasıyla gitme imkânı, yol arkadaşlığı",
+   "new": "araç paylaşımı",
+   "why": "пусто; рядом mitnehmen 1696; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17238,
+   "col": "translation_pl",
+   "old": "wspólny przejazd, podwózka, okazja na podwiezienie",
+   "new": "podwózka, wspólny przejazd",
+   "why": "пусто; рядом mitnehmen 1696; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17238,
+   "col": "translation_it",
+   "old": "il passaggio, il car pooling",
+   "new": "il passaggio",
+   "why": "пусто; рядом mitnehmen 1696; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17238,
+   "col": "translation_es",
+   "old": "el viaje compartido, el aventón",
+   "new": "el viaje compartido",
+   "why": "пусто; рядом mitnehmen 1696; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17238,
+   "col": "translation_cs",
+   "old": "spolujízda, svezení",
+   "new": "spolujízda",
+   "why": "пусто; рядом mitnehmen 1696; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17238,
+   "col": "example_de",
+   "old": "Ich suche eine Mitfahrgelegenheit nach München",
+   "new": "Für das Festival hat meine Tochter eine Mitfahrgelegenheit gefunden, mit drei Studenten und einem Hund",
+   "why": "пусто; рядом mitnehmen 1696; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17238,
+   "col": "example_ru",
+   "old": "Я ищу попутку до Мюнхена",
+   "new": "На фестиваль дочь нашла попутку: с тремя студентами и собакой",
+   "why": "пусто; рядом mitnehmen 1696; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17238,
+   "col": "example_uk",
+   "old": "Я шукаю попутку до Мюнхена",
+   "new": "На фестиваль донька знайшла попутку: із трьома студентами й собакою",
+   "why": "пусто; рядом mitnehmen 1696; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17238,
+   "col": "example_en",
+   "old": "I'm looking for a carpool to Munich",
+   "new": "My daughter has found a lift to the festival, with three students and a dog",
+   "why": "пусто; рядом mitnehmen 1696; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17238,
+   "col": "example_tr",
+   "old": "Münih'e araç paylaşımı arıyorum",
+   "new": "Kızım festival için üç öğrenci ve bir köpekle araç paylaşımı buldu",
+   "why": "пусто; рядом mitnehmen 1696; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17238,
+   "col": "example_pl",
+   "old": "Szukam wspólnego przejazdu do Monachium",
+   "new": "Na festiwal córka znalazła wspólny przejazd z trzema studentami i psem",
+   "why": "пусто; рядом mitnehmen 1696; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17238,
+   "col": "example_it",
+   "old": "Cerco un passaggio per Monaco",
+   "new": "Per il festival mia figlia ha trovato un passaggio con tre studenti e un cane",
+   "why": "пусто; рядом mitnehmen 1696; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17238,
+   "col": "example_es",
+   "old": "Busco un viaje compartido a Múnich",
+   "new": "Para el festival mi hija ha encontrado un viaje compartido con tres estudiantes y un perro",
+   "why": "пусто; рядом mitnehmen 1696; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17238,
+   "col": "example_fr",
+   "old": "Je cherche un covoiturage pour Munich",
+   "new": "Pour le festival, ma fille a trouvé un covoiturage avec trois étudiants et un chien",
+   "why": "пусто; рядом mitnehmen 1696; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 17238,
+   "col": "example_cs",
+   "old": "Hledám spolujízdu do Mnichova",
+   "new": "Na festival si dcera našla spolujízdu se třemi studenty a psem",
+   "why": "пусто; рядом mitnehmen 1696; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14153,
+   "col": "translation_ru",
+   "old": "прислушиваться, слушать затаив дыхание, подслушивать",
+   "new": "прислушиваться, слушать",
+   "why": "пусто; рядом zuhören 2128; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14153,
+   "col": "translation_uk",
+   "old": "прислухатися, слухати затамувавши подих, підслуховувати",
+   "new": "прислухатися, слухати",
+   "why": "пусто; рядом zuhören 2128; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14153,
+   "col": "translation_en",
+   "old": "to listen intently, to listen closely, to eavesdrop",
+   "new": "to listen",
+   "why": "пусто; рядом zuhören 2128; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14153,
+   "col": "translation_tr",
+   "old": "kulak vermek, dikkatle dinlemek, kulak kabartmak",
+   "new": "dinlemek",
+   "why": "пусто; рядом zuhören 2128; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14153,
+   "col": "translation_pl",
+   "old": "nasłuchiwać, przysłuchiwać się, podsłuchiwać",
+   "new": "słuchać, przysłuchiwać się",
+   "why": "пусто; рядом zuhören 2128; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14153,
+   "col": "translation_it",
+   "old": "ascoltare attentamente, origliare",
+   "new": "ascoltare",
+   "why": "пусто; рядом zuhören 2128; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14153,
+   "col": "translation_es",
+   "old": "escuchar atentamente, escuchar a escondidas",
+   "new": "escuchar",
+   "why": "пусто; рядом zuhören 2128; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14153,
+   "col": "translation_fr",
+   "old": "écouter attentivement, tendre l'oreille",
+   "new": "écouter",
+   "why": "пусто; рядом zuhören 2128; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14153,
+   "col": "translation_cs",
+   "old": "naslouchat, poslouchat",
+   "new": "naslouchat",
+   "why": "пусто; рядом zuhören 2128; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14153,
+   "col": "example_de",
+   "old": "Sie lauschen der Musik mit geschlossenen Augen",
+   "new": "Wenn Opa von früher erzählt, lauschen die Enkel mit offenem Mund",
+   "why": "пусто; рядом zuhören 2128; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14153,
+   "col": "example_ru",
+   "old": "Они слушают музыку с закрытыми глазами",
+   "new": "Когда дед рассказывает о прежних временах, внуки слушают с открытым ртом",
+   "why": "пусто; рядом zuhören 2128; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14153,
+   "col": "example_uk",
+   "old": "Вони слухають музику із закритими очима",
+   "new": "Коли дід розповідає про давні часи, онуки слухають із відкритим ротом",
+   "why": "пусто; рядом zuhören 2128; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14153,
+   "col": "example_en",
+   "old": "They listen to the music with their eyes closed",
+   "new": "When Grandad tells stories about the old days, the grandchildren listen open-mouthed",
+   "why": "пусто; рядом zuhören 2128; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14153,
+   "col": "example_tr",
+   "old": "Gözleri kapalı olarak müzik dinliyorlar",
+   "new": "Dedem eski günleri anlattığında torunlar ağızları açık dinliyor",
+   "why": "пусто; рядом zuhören 2128; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14153,
+   "col": "example_pl",
+   "old": "Słuchają muzyki z zamkniętymi oczami",
+   "new": "Kiedy dziadek opowiada o dawnych czasach, wnuki słuchają z otwartymi buziami",
+   "why": "пусто; рядом zuhören 2128; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14153,
+   "col": "example_it",
+   "old": "Ascoltano attentamente la musica a occhi chiusi",
+   "new": "Quando il nonno racconta di una volta, i nipoti ascoltano a bocca aperta",
+   "why": "пусто; рядом zuhören 2128; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14153,
+   "col": "example_es",
+   "old": "Escuchan atentamente la música con los ojos cerrados",
+   "new": "Cuando el abuelo cuenta cosas de antes, los nietos escuchan con la boca abierta",
+   "why": "пусто; рядом zuhören 2128; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14153,
+   "col": "example_fr",
+   "old": "Ils écoutent attentivement la musique les yeux fermés",
+   "new": "Quand papy raconte le bon vieux temps, les petits-enfants écoutent bouche bée",
+   "why": "пусто; рядом zuhören 2128; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 14153,
+   "col": "example_cs",
+   "old": "Naslouchají hudbě se zavřenýma očima",
+   "new": "Když děda vypráví o starých časech, vnoučata naslouchají s otevřenou pusou",
+   "why": "пусто; рядом zuhören 2128; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10954,
+   "col": "translation_ru",
+   "old": "сорваться, выйти из себя, взбеситься",
+   "new": "сорваться, взбеситься",
+   "why": "претерит hörte; рядом Wut 10207; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10954,
+   "col": "translation_uk",
+   "old": "зірватися, вийти з себе, оскаженіти",
+   "new": "зірватися, оскаженіти",
+   "why": "претерит hörte; рядом Wut 10207; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10954,
+   "col": "translation_en",
+   "old": "to freak out, to lose one's temper, to blow up",
+   "new": "to flip, to lose it",
+   "why": "претерит hörte; рядом Wut 10207; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10954,
+   "col": "translation_tr",
+   "old": "çılgına dönmek, kendini kaybetmek, köpürmek",
+   "new": "kendini kaybetmek",
+   "why": "претерит hörte; рядом Wut 10207; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10954,
+   "col": "translation_pl",
+   "old": "wściec się, stracić panowanie nad sobą, wybuchnąć złością",
+   "new": "wściec się, stracić panowanie",
+   "why": "претерит hörte; рядом Wut 10207; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10954,
+   "col": "translation_it",
+   "old": "perdere le staffe, dare di matto (colloq.), andare fuori di testa (colloq.)",
+   "new": "dare di matto",
+   "why": "претерит hörte; рядом Wut 10207; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10954,
+   "col": "translation_es",
+   "old": "perder los estribos, ponerse como loco (coloq.)",
+   "new": "perder los estribos",
+   "why": "претерит hörte; рядом Wut 10207; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10954,
+   "col": "translation_fr",
+   "old": "s'emporter, s'énerver, piquer une crise, péter les plombs (fam.)",
+   "new": "péter les plombs",
+   "why": "претерит hörte; рядом Wut 10207; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10954,
+   "col": "translation_cs",
+   "old": "ztratit nervy, vyletět (hovor.), vybouchnout (hovor.)",
+   "new": "vyletět, vybouchnout",
+   "why": "претерит hörte; рядом Wut 10207; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10954,
+   "col": "example_de",
+   "old": "Er ist völlig ausgerastet, als er die Nachricht hörte",
+   "new": "Als der Drucker zum dritten Mal Papierstau hatte, ist mein Mann völlig ausgerastet",
+   "why": "претерит hörte; рядом Wut 10207; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10954,
+   "col": "example_ru",
+   "old": "Он совершенно вышел из себя, когда услышал новость",
+   "new": "Когда принтер в третий раз зажевал бумагу, муж совсем сорвался",
+   "why": "претерит hörte; рядом Wut 10207; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10954,
+   "col": "example_uk",
+   "old": "Він вийшов з себе, коли почув новину",
+   "new": "Коли принтер утретє зажував папір, чоловік зовсім зірвався",
+   "why": "претерит hörte; рядом Wut 10207; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10954,
+   "col": "example_en",
+   "old": "He completely freaked out when he heard the news",
+   "new": "When the printer jammed for the third time, my husband completely lost it",
+   "why": "претерит hörte; рядом Wut 10207; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10954,
+   "col": "example_tr",
+   "old": "Haberi duyunca tamamen çılgına döndü",
+   "new": "Yazıcı üçüncü kez kâğıt sıkıştırınca kocam tamamen kendini kaybetti",
+   "why": "претерит hörte; рядом Wut 10207; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10954,
+   "col": "example_pl",
+   "old": "Kompletnie się wściekł, gdy to usłyszał",
+   "new": "Kiedy drukarce po raz trzeci zaciął się papier, mąż kompletnie się wściekł",
+   "why": "претерит hörte; рядом Wut 10207; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10954,
+   "col": "example_it",
+   "old": "Ha perso completamente le staffe quando ha sentito la notizia",
+   "new": "Quando la stampante si è inceppata per la terza volta, mio marito ha dato di matto",
+   "why": "претерит hörte; рядом Wut 10207; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10954,
+   "col": "example_es",
+   "old": "Perdió completamente los estribos cuando oyó la noticia",
+   "new": "Cuando la impresora se atascó por tercera vez, mi marido perdió los estribos",
+   "why": "претерит hörte; рядом Wut 10207; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10954,
+   "col": "example_fr",
+   "old": "Il s'est complètement emporté quand il a appris la nouvelle",
+   "new": "Quand l'imprimante a eu un bourrage pour la troisième fois, mon mari a complètement pété les plombs",
+   "why": "претерит hörte; рядом Wut 10207; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10954,
+   "col": "example_cs",
+   "old": "Úplně ztratil nervy, když tu zprávu slyšel",
+   "new": "Když se tiskárně potřetí zasekl papír, manžel úplně vyletěl",
+   "why": "претерит hörte; рядом Wut 10207; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7717,
+   "col": "translation_ru",
+   "old": "основываться, основываться на чём-то, опираться на что-то, быть обусловленным чем-то",
+   "new": "основываться",
+   "why": "«…auf wissenschaftlichen Erkenntnissen» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7717,
+   "col": "translation_uk",
+   "old": "ґрунтуватися, ґрунтуватися на чомусь, базуватися на чомусь, спиратися на щось",
+   "new": "ґрунтуватися",
+   "why": "«…auf wissenschaftlichen Erkenntnissen» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7717,
+   "col": "translation_en",
+   "old": "to be based on, to rest on, to be due to",
+   "new": "to be based on",
+   "why": "«…auf wissenschaftlichen Erkenntnissen» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7717,
+   "col": "translation_tr",
+   "old": "dayanmak, temel almak, kaynaklanmak",
+   "new": "dayanmak",
+   "why": "«…auf wissenschaftlichen Erkenntnissen» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7717,
+   "col": "translation_pl",
+   "old": "opierać się, opierać się na czymś, bazować na czymś, wynikać z czegoś",
+   "new": "opierać się",
+   "why": "«…auf wissenschaftlichen Erkenntnissen» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7717,
+   "col": "translation_it",
+   "old": "basarsi su, fondarsi su",
+   "new": "basarsi",
+   "why": "«…auf wissenschaftlichen Erkenntnissen» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7717,
+   "col": "translation_es",
+   "old": "basarse en, fundarse en",
+   "new": "basarse",
+   "why": "«…auf wissenschaftlichen Erkenntnissen» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7717,
+   "col": "translation_fr",
+   "old": "reposer sur, être fondé sur",
+   "new": "reposer sur",
+   "why": "«…auf wissenschaftlichen Erkenntnissen» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7717,
+   "col": "translation_cs",
+   "old": "zakládat se na, spočívat na",
+   "new": "zakládat se, spočívat",
+   "why": "«…auf wissenschaftlichen Erkenntnissen» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7717,
+   "col": "example_de",
+   "old": "Die Idee beruht auf wissenschaftlichen Erkenntnissen",
+   "new": "Omas Wettervorhersage beruht allein auf ihrem Knie, und sie liegt öfter richtig als die App",
+   "why": "«…auf wissenschaftlichen Erkenntnissen» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7717,
+   "col": "example_ru",
+   "old": "Идея основывается на научных данных",
+   "new": "Бабушкин прогноз погоды основан исключительно на её колене, и она чаще права, чем приложение",
+   "why": "«…auf wissenschaftlichen Erkenntnissen» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7717,
+   "col": "example_uk",
+   "old": "Ідея ґрунтується на наукових даних",
+   "new": "Бабусин прогноз погоди ґрунтується виключно на її коліні, і вона частіше має рацію, ніж застосунок",
+   "why": "«…auf wissenschaftlichen Erkenntnissen» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7717,
+   "col": "example_en",
+   "old": "The idea is based on scientific knowledge",
+   "new": "Grandma's weather forecast is based entirely on her knee, and she's right more often than the app",
+   "why": "«…auf wissenschaftlichen Erkenntnissen» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7717,
+   "col": "example_tr",
+   "old": "Fikir bilimsel bilgiye dayanıyor",
+   "new": "Büyükannemin hava tahmini tamamen dizine dayanıyor ve uygulamadan daha sık haklı çıkıyor",
+   "why": "«…auf wissenschaftlichen Erkenntnissen» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7717,
+   "col": "example_pl",
+   "old": "Ten pomysł opiera się na wiedzy naukowej",
+   "new": "Prognoza pogody babci opiera się wyłącznie na jej kolanie, a ma rację częściej niż aplikacja",
+   "why": "«…auf wissenschaftlichen Erkenntnissen» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7717,
+   "col": "example_it",
+   "old": "L'idea si basa su conoscenze scientifiche",
+   "new": "Le previsioni del tempo della nonna si basano solo sul suo ginocchio, e ci prende più spesso dell'app",
+   "why": "«…auf wissenschaftlichen Erkenntnissen» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7717,
+   "col": "example_es",
+   "old": "La idea se basa en conocimientos científicos",
+   "new": "La previsión del tiempo de la abuela se basa solo en su rodilla, y acierta más que la aplicación",
+   "why": "«…auf wissenschaftlichen Erkenntnissen» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7717,
+   "col": "example_fr",
+   "old": "L'idée repose sur des connaissances scientifiques",
+   "new": "La météo de mamie repose uniquement sur son genou, et elle a raison plus souvent que l'appli",
+   "why": "«…auf wissenschaftlichen Erkenntnissen» — учебник; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7717,
+   "col": "example_cs",
+   "old": "Ta myšlenka se zakládá na vědeckých poznatcích",
+   "new": "Babiččina předpověď počasí se zakládá jen na jejím koleni a trefí se častěji než aplikace",
+   "why": "«…auf wissenschaftlichen Erkenntnissen» — учебник; список → главное слово и не больше одной альтернативы"
+  }
+ ],
+ "replace": [
+  {
+   "id": 10950,
+   "by": 10899,
+   "lang": "de",
+   "why": "«noble» — форма от nobel 10899"
+  },
+  {
+   "id": 7714,
+   "by": 6679,
+   "lang": "de",
+   "why": "«Nützliche» — субстантивированная форма от nützlich 6679"
+  },
+  {
+   "id": 16466,
+   "by": 16322,
+   "lang": "de",
+   "why": "«Abgeordnete» уже есть на B2 (16322)"
+  }
+ ],
+ "split_later": {}
+}
