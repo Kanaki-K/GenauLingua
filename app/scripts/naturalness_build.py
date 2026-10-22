@@ -38,8 +38,10 @@ with engine.connect() as c:
         if "example_de" in keys:
             missing = [f"example_{l}" for l in LANGS if f"example_{l}" not in keys]
             assert not missing, (wid, "немецкий пример сменён, а эти — нет:", missing)
+# Новые строки: те же короткие ключи t_xx / x_xx, что у правок
+inserts = [{COL.get(k, k): v for k, v in r.items()} for r in getattr(fx, "INSERT", [])]
 out = pathlib.Path(sys.argv[2])
-out.write_text(json.dumps({"about": sys.argv[3], "edits": edits,
+out.write_text(json.dumps({"about": sys.argv[3], "edits": edits, "insert": inserts,
                            "replace": getattr(fx, "REPLACE", []),
                            "unreplace": getattr(fx, "UNREPLACE", []),
                            "split_later": getattr(fx, "SPLIT_LATER", {})},

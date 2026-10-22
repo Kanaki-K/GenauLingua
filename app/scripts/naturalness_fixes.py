@@ -10,7 +10,10 @@
 
     {"edits": [{"id": 10, "col": "translation_ru", "old": "…", "new": "…", "why": "…"}],
      "replace": [{"id": 2676, "by": 542, "lang": "de", "why": "…"}],
-     "unreplace": [{"id": 18268, "why": "…"}]}
+     "unreplace": [{"id": 18268, "why": "…"}],
+     "insert": [{"word_de": "Bank", "article": "die", "pos": "NOUN", "level": "A2",
+                 "category": "Wohnen & Haus", "translation_ru": "…", "example_de": "…", …,
+                 "why": "…"}]}
 
 ПОЧЕМУ ПО НОМЕРУ И СО СВЕРКОЙ «БЫЛО» (`REVIEW_CRITERIA.md`, «Порядок работы
 с правкой»). Прежние правки адресовались по немецкому слову — при 382
@@ -28,6 +31,15 @@
 указания проверяются целиком: ни одно не ведёт на выключенную строку —
 иначе цепочка или круг (22.10: unterbringen B2↔C1 и bezweifeln B1↔C1
 указывали друг на друга, и обе строки пропали у людей). Нашлось — откат.
+
+`insert` — второе значение слова своей строкой (22.10, решение владельца:
+die Bank «скамейка» рядом с die Bank «банк»). Строка опознаётся по паре
+word_de + level (на ней уникальный ключ базы), а не по номеру: номера на
+проде и в разработке выдаёт своя последовательность, и ссылка на номер новой
+строки в следующем блоке попала бы в чужую. Есть строка с той же парой и тем
+же примером — уже вставлена, повторный прогон; с другим — стоп. Обязательны
+все переводы и примеры; первое значение ru не должно совпадать с уже
+существующей строкой того же слова — иначе это не второе значение, а дубль.
 
 Звук перестраивается сам: клип в кэше сверяется с произносимым текстом.
 """
@@ -161,6 +173,62 @@ def _check(conn, block: dict) -> tuple[list[dict], list[str]]:
     return ready, problems
 
 
+_MOJIBAKE = r"Г[јЁ¤¶–ћњ„џ©]|Р[°±µё]|С[Ѓ‚ѓ€]"
+TEXT_COLS = sorted(attr for lang in LANGUAGES.values()
+                   for attr in (lang.word_attr, lang.example_attr) if attr != "word_de")
+
+
+def _first(variants: str) -> str:
+    return (variants or "").split(",")[0].strip().lower()
+
+
+def check_inserts(conn, block: dict) -> tuple[list[dict], list[str]]:
+    """Новые строки: что вставится и что не сходится."""
+    import re
+    ready, problems, seen = [], [], set()
+    pos_ok = {r[0] for r in conn.execute(text("select unnest(enum_range(null::partofspeech))::text"))}
+    lvl_ok = {r[0] for r in conn.execute(text("select unnest(enum_range(null::cefrlevel))::text"))}
+    for r in block.get("insert", []):
+        key = (r.get("word_de"), r.get("level"))
+        name = f"{key[0]} {key[1]}"
+        if key in seen:
+            problems.append(f"{name}: вставка повторяется в блоке")
+            continue
+        seen.add(key)
+        # артикль у не-существительных — «-», как во всей базе, а не пусто
+        empty = [c for c in ["word_de", "article", "why", *TEXT_COLS] if not (r.get(c) or "").strip()]
+        if empty:
+            problems.append(f"{name}: пусто {empty}")
+            continue
+        if r.get("pos") not in pos_ok or r.get("level") not in lvl_ok:
+            problems.append(f"{name}: часть речи {r.get('pos')!r} или уровень неизвестны")
+            continue
+        bad = [c for c in TEXT_COLS if re.search(_MOJIBAKE, r[c])]
+        if bad:
+            problems.append(f"{name}: битая кодировка {bad}")
+            continue
+        same = conn.execute(text("select id, example_de from words where word_de = :w and level = :l"),
+                            {"w": key[0], "l": key[1]}).first()
+        if same is not None:
+            if same[1] == r["example_de"]:
+                continue                        # уже вставлена — повторный прогон
+            problems.append(f"{name}: на этой паре уже строка {same[0]} с другим примером")
+            continue
+        twin = conn.execute(text("select id from words where example_de = :x limit 1"),
+                            {"x": r["example_de"]}).scalar()
+        if twin is not None:
+            problems.append(f"{name}: такой пример уже у слова {twin}")
+            continue
+        sib = [s for s in conn.execute(text(
+            "select id, translation_ru from words where lower(word_de) = lower(:w)"), {"w": key[0]}).all()
+            if _first(s[1]) == _first(r["translation_ru"])]
+        if sib:
+            problems.append(f"{name}: значение «{_first(r['translation_ru'])}» уже у строки {sib[0][0]}")
+            continue
+        ready.append(r)
+    return ready, problems
+
+
 def broken_overrides(conn) -> list[str]:
     """Указания, которые ведут на выключенную строку: цепочка или круг."""
     rows = conn.execute(text(
@@ -180,13 +248,20 @@ def main(argv=None) -> int:
     engine = create_engine(settings.DATABASE_URL_SYNC)
     with engine.begin() as conn:
         ready, problems = _check(conn, block)
+        inserts, ins_problems = check_inserts(conn, block)
+        problems += ins_problems
         replaces = block.get("replace", [])
         unreplaces = block.get("unreplace", [])
-        print(f"правок к записи {len(ready)}, замен {len(replaces)}, пропущено {len(problems)}")
+        print(f"правок к записи {len(ready)}, замен {len(replaces)}, новых строк {len(inserts)}, "
+              f"пропущено {len(problems)}")
         for p in problems:
             print("  ПРОПУЩЕНО", p)
-        for w in near_twins(conn, ready):
+        # Новая строка номера ещё не имеет: -1 — ни с чем в базе не совпадёт
+        pseudo = [{"id": -1, "col": "example_de", "new": r["example_de"]} for r in inserts]
+        for w in near_twins(conn, ready + pseudo):
             print("  ПОХОЖЕ", w)
+        for r in inserts:
+            print(f"  НОВАЯ {r['word_de']} {r['level']} {r['pos']}: {r['translation_ru']} — {r['example_de']}")
         for e in ready[:200]:
             print(f"  {e['id']:>6} {e['col']:<15} {e['old']!r} → {e['new']!r}")
         if problems:
@@ -207,6 +282,14 @@ def main(argv=None) -> int:
                 {"id": r["id"], "by": r["by"], "why": f"2.3 замена: {r['why']}", "lang": r["lang"]})
         for r in unreplaces:
             conn.execute(text("delete from word_lemma_overrides where word_id = :id"), {"id": r["id"]})
+        for r in inserts:
+            cols = ["word_de", "article", "category", *TEXT_COLS]
+            conn.execute(text(
+                f"insert into words (pos, level, categories, times_shown, times_correct, created_at, "
+                f"{', '.join(cols)}) values (cast(:pos as partofspeech), cast(:level as cefrlevel), "
+                f"array_remove(array[:category]::varchar[], null), 0, 0, now(), "
+                f"{', '.join(':' + c for c in cols)})"),
+                {"pos": r["pos"], "level": r["level"], **{c: r.get(c) for c in cols}})
         if replaces or unreplaces:
             broken = broken_overrides(conn)
             if broken:
@@ -222,8 +305,15 @@ def main(argv=None) -> int:
         if wrong:
             print(f"СТОП: {len(wrong)} правок не прочитались обратно — откат")
             raise SystemExit(1)
-    print(f"записано правок {len(ready)}, замен {len(replaces)}, снято {len(unreplaces)}")
-    if replaces or unreplaces:
+        lost = [r for r in inserts if conn.execute(text(
+            "select example_de from words where word_de = :w and level = :l"),
+            {"w": r["word_de"], "l": r["level"]}).scalar() != r["example_de"]]
+        if lost:
+            print(f"СТОП: {len(lost)} новых строк не прочитались обратно — откат")
+            raise SystemExit(1)
+    print(f"записано правок {len(ready)}, замен {len(replaces)}, снято {len(unreplaces)}, "
+          f"новых строк {len(inserts)}")
+    if replaces or unreplaces or inserts:
         print("теперь: python -m app.scripts.rebuild_word_groups")
     return 0
 
