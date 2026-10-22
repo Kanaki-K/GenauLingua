@@ -1,0 +1,491 @@
+{
+ "about": "2.3, починка кодировки немецких примеров",
+ "edits": [
+  {
+   "id": 9242,
+   "col": "example_de",
+   "old": "Der MГјllmann kommt jeden Montagmorgen vorbei",
+   "new": "Der Müllmann kommt jeden Montagmorgen vorbei",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 1765,
+   "col": "example_de",
+   "old": "PlГ¶tzlich hat es angefangen zu regnen",
+   "new": "Plötzlich hat es angefangen zu regnen",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 6424,
+   "col": "example_de",
+   "old": "Wir mГјssen von hier entkommen",
+   "new": "Wir müssen von hier entkommen",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 17576,
+   "col": "example_de",
+   "old": "Man hat den ZГјnder der Bombe entschГ¤rft",
+   "new": "Man hat den Zünder der Bombe entschärft",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 15777,
+   "col": "example_de",
+   "old": "Lange haben meine Freunde gedacht, sie wГ¤ren unfruchtbar, und jetzt bekommen sie Zwillinge",
+   "new": "Lange haben meine Freunde gedacht, sie wären unfruchtbar, und jetzt bekommen sie Zwillinge",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 295,
+   "col": "example_de",
+   "old": "Er hat frГјher in Berlin gelebt",
+   "new": "Er hat früher in Berlin gelebt",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 16037,
+   "col": "example_de",
+   "old": "DafГјr bestrafen sie dich!",
+   "new": "Dafür bestrafen sie dich!",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 8548,
+   "col": "example_de",
+   "old": "Ich kann zwischen Tee und Kaffee wГ¤hlen, Letzteren bevorzuge ich",
+   "new": "Ich kann zwischen Tee und Kaffee wählen, Letzteren bevorzuge ich",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 6813,
+   "col": "example_de",
+   "old": "Man ГјbertrГ¤gt das Spiel live",
+   "new": "Man überträgt das Spiel live",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 2932,
+   "col": "example_de",
+   "old": "Der Richter verkГјndet das Urteil",
+   "new": "Der Richter verkündet das Urteil",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 10188,
+   "col": "example_de",
+   "old": "Man hat den VerrГ¤ter verhaftet",
+   "new": "Man hat den Verräter verhaftet",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 15865,
+   "col": "example_de",
+   "old": "Wegen des Taifuns sind alle FlГјge nach Tokio gestrichen",
+   "new": "Wegen des Taifuns sind alle Flüge nach Tokio gestrichen",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 13916,
+   "col": "example_de",
+   "old": "Die Warnung vor dem Sturm ist zu spГ¤t gekommen",
+   "new": "Die Warnung vor dem Sturm ist zu spät gekommen",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 16248,
+   "col": "example_de",
+   "old": "Bei der Festnahme vor unserem Haus haben fГјnf Polizeiautos auf der StraГџe gestanden",
+   "new": "Bei der Festnahme vor unserem Haus haben fünf Polizeiautos auf der Straße gestanden",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 2182,
+   "col": "example_de",
+   "old": "Sie hat ihren Besuch nicht angekГјndigt und hat plГ¶tzlich vor der TГјr gestanden",
+   "new": "Sie hat ihren Besuch nicht angekündigt und hat plötzlich vor der Tür gestanden",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 16253,
+   "col": "example_de",
+   "old": "Es hat einen RaubГјberfall in der Bank gegeben",
+   "new": "Es hat einen Raubüberfall in der Bank gegeben",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 9295,
+   "col": "example_de",
+   "old": "Wegen des Streiks der LokfГјhrer fallen heute viele ZГјge aus",
+   "new": "Wegen des Streiks der Lokführer fallen heute viele Züge aus",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 16125,
+   "col": "example_de",
+   "old": "Sie bringen ihn gerade zum VerhГ¶r",
+   "new": "Sie bringen ihn gerade zum Verhör",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 8853,
+   "col": "example_de",
+   "old": "Ingenieure sucht man Гјberall",
+   "new": "Ingenieure sucht man überall",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 16134,
+   "col": "example_de",
+   "old": "Er sitzt wegen Raubes im GefГ¤ngnis",
+   "new": "Er sitzt wegen Raubes im Gefängnis",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 16143,
+   "col": "example_de",
+   "old": "Nach der Party hat die KГјche wie ein Schlachtfeld ausgesehen",
+   "new": "Nach der Party hat die Küche wie ein Schlachtfeld ausgesehen",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 14702,
+   "col": "example_de",
+   "old": "Beim Gitarrenstimmen hГ¶rt mein Lehrer sofort, ob die Quint sauber ist",
+   "new": "Beim Gitarrenstimmen hört mein Lehrer sofort, ob die Quint sauber ist",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 17520,
+   "col": "example_de",
+   "old": "Mein FunkgerГ¤t ist kaputtgegangen",
+   "new": "Mein Funkgerät ist kaputtgegangen",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 2968,
+   "col": "example_de",
+   "old": "Der Versicherungsberater wollte mir drei VertrГ¤ge verkaufen, aber ich habe nur einen gebraucht",
+   "new": "Der Versicherungsberater wollte mir drei Verträge verkaufen, aber ich habe nur einen gebraucht",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 1977,
+   "col": "example_de",
+   "old": "Gestern hat es einen Гњberfall auf die Bank gegeben",
+   "new": "Gestern hat es einen Überfall auf die Bank gegeben",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 12573,
+   "col": "example_de",
+   "old": "Die Infektion kann gefГ¤hrlich werden, wenn man sie nicht behandelt",
+   "new": "Die Infektion kann gefährlich werden, wenn man sie nicht behandelt",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 3041,
+   "col": "example_de",
+   "old": "Nach dem Zeitungsbericht Гјber unsere BГ¤ckerei haben am Samstag Leute bis auf die StraГџe gestanden",
+   "new": "Nach dem Zeitungsbericht über unsere Bäckerei haben am Samstag Leute bis auf die Straße gestanden",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 3046,
+   "col": "example_de",
+   "old": "Nach dem Sturm hat uns die ZerstГ¶rung im Wald richtig schockiert, Гјberall haben BГ¤ume gelegen",
+   "new": "Nach dem Sturm hat uns die Zerstörung im Wald richtig schockiert, überall haben Bäume gelegen",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 14465,
+   "col": "example_de",
+   "old": "Das Kind lГ¤sst im Park einen roten Drachen steigen",
+   "new": "Das Kind lässt im Park einen roten Drachen steigen",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 16152,
+   "col": "example_de",
+   "old": "Die Herrschaft des KГ¶nigs hat 40 Jahre gedauert",
+   "new": "Die Herrschaft des Königs hat 40 Jahre gedauert",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 16193,
+   "col": "example_de",
+   "old": "Den Angeklagten verhГ¶ren sie morgen",
+   "new": "Den Angeklagten verhören sie morgen",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 2846,
+   "col": "example_de",
+   "old": "Die Stellenanzeige hat toll geklungen, aber im GesprГ¤ch war von dem hohen Gehalt keine Rede mehr",
+   "new": "Die Stellenanzeige hat toll geklungen, aber im Gespräch war von dem hohen Gehalt keine Rede mehr",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 10204,
+   "col": "example_de",
+   "old": "Der Lehrer hat keine Gnade gekannt: Wer zu spГ¤t gekommen ist, musste nachsitzen",
+   "new": "Der Lehrer hat keine Gnade gekannt: Wer zu spät gekommen ist, musste nachsitzen",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 11447,
+   "col": "example_de",
+   "old": "Als die Spinne Гјber den Tisch gelaufen ist, hat meine Schwester versteinert dagesessen und nicht mal geschrien",
+   "new": "Als die Spinne über den Tisch gelaufen ist, hat meine Schwester versteinert dagesessen und nicht mal geschrien",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 12669,
+   "col": "example_de",
+   "old": "Nach dem Unfall war das Auto beschГ¤digt, aber die Insassen sind unversehrt geblieben",
+   "new": "Nach dem Unfall war das Auto beschädigt, aber die Insassen sind unversehrt geblieben",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 12842,
+   "col": "example_de",
+   "old": "Beim RГ¶ntgen ist rausgekommen, dass nichts gebrochen ist, nur eine Prellung am Knie",
+   "new": "Beim Röntgen ist rausgekommen, dass nichts gebrochen ist, nur eine Prellung am Knie",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 14004,
+   "col": "example_de",
+   "old": "Das war buchstГ¤blich das Beste, was ich je gegessen habe",
+   "new": "Das war buchstäblich das Beste, was ich je gegessen habe",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 14086,
+   "col": "example_de",
+   "old": "FrГјher hat unsere Nummer im Telefonbuch gestanden, heute findet man niemanden mehr darin",
+   "new": "Früher hat unsere Nummer im Telefonbuch gestanden, heute findet man niemanden mehr darin",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 14272,
+   "col": "example_de",
+   "old": "Mitten im Krimi ist eine Eilmeldung gekommen, und die letzten fГјnf Minuten haben wir verpasst",
+   "new": "Mitten im Krimi ist eine Eilmeldung gekommen, und die letzten fünf Minuten haben wir verpasst",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 16010,
+   "col": "example_de",
+   "old": "Es hat groГџen Widerstand gegen den Plan gegeben",
+   "new": "Es hat großen Widerstand gegen den Plan gegeben",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 16085,
+   "col": "example_de",
+   "old": "Im Krimi gestern habe ich schon nach zehn Minuten gewusst, wer den GГ¤rtner ermordet hat",
+   "new": "Im Krimi gestern habe ich schon nach zehn Minuten gewusst, wer den Gärtner ermordet hat",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 16269,
+   "col": "example_de",
+   "old": "Beim FuГџballspiel am Samstag hat es eine SchlГ¤gerei zwischen den Fans gegeben",
+   "new": "Beim Fußballspiel am Samstag hat es eine Schlägerei zwischen den Fans gegeben",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 17155,
+   "col": "example_de",
+   "old": "Der Lkw hat seine Fracht auf der Autobahn verloren, Гјberall haben Orangen gelegen",
+   "new": "Der Lkw hat seine Fracht auf der Autobahn verloren, überall haben Orangen gelegen",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 17342,
+   "col": "example_de",
+   "old": "Der ReisefГјhrer hat uns die besten SehenswГјrdigkeiten in Paris gezeigt",
+   "new": "Der Reiseführer hat uns die besten Sehenswürdigkeiten in Paris gezeigt",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 17346,
+   "col": "example_de",
+   "old": "Zur Besichtigung der Wohnung sind Гјber fГјnfzig Leute gekommen, die Schlange ist bis auf die StraГџe gegangen",
+   "new": "Zur Besichtigung der Wohnung sind über fünfzig Leute gekommen, die Schlange ist bis auf die Straße gegangen",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 17834,
+   "col": "example_de",
+   "old": "Man hat die wertvollen GГјter in einem Tresor gelagert",
+   "new": "Man hat die wertvollen Güter in einem Tresor gelagert",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 17878,
+   "col": "example_de",
+   "old": "FГјr den Platz im TГ¶pferkurs gibt es dreiГџig Interessenten, also entscheidet das Los",
+   "new": "Für den Platz im Töpferkurs gibt es dreißig Interessenten, also entscheidet das Los",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 18322,
+   "col": "example_de",
+   "old": "Die MГјllabfuhr leert die MГјlltonnen immer am Dienstag",
+   "new": "Die Müllabfuhr leert die Mülltonnen immer am Dienstag",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 18746,
+   "col": "example_de",
+   "old": "Nach der Grippe war ich tagelang so mГјde, dass ich nur auf dem Sofa gelegen habe",
+   "new": "Nach der Grippe war ich tagelang so müde, dass ich nur auf dem Sofa gelegen habe",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 17411,
+   "col": "example_de",
+   "old": "Wegen des Wasserschadens hat es im BГјro eine auГџerplanmГ¤Гџige Renovierung gegeben, und wir haben eine Woche zu Hause gearbeitet",
+   "new": "Wegen des Wasserschadens hat es im Büro eine außerplanmäßige Renovierung gegeben, und wir haben eine Woche zu Hause gearbeitet",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 7051,
+   "col": "example_de",
+   "old": "Sie hat ihre verlorene Katze Гјberall in der Nachbarschaft gesucht",
+   "new": "Sie hat ihre verlorene Katze überall in der Nachbarschaft gesucht",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 13075,
+   "col": "example_de",
+   "old": "Vor dem Operationssaal haben wir drei Stunden gewartet, und dann ist der Arzt endlich mit einem LГ¤cheln gekommen",
+   "new": "Vor dem Operationssaal haben wir drei Stunden gewartet, und dann ist der Arzt endlich mit einem Lächeln gekommen",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 7089,
+   "col": "example_de",
+   "old": "Wir mГјssen das zerbrochene Fenster reparieren",
+   "new": "Wir müssen das zerbrochene Fenster reparieren",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 1539,
+   "col": "example_de",
+   "old": "Auf der Hinfahrt war viel Stau, zurГјck ist es schneller gegangen",
+   "new": "Auf der Hinfahrt war viel Stau, zurück ist es schneller gegangen",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 2317,
+   "col": "example_de",
+   "old": "Der BГјrgerkrieg hat mehrere Jahre gedauert",
+   "new": "Der Bürgerkrieg hat mehrere Jahre gedauert",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 16480,
+   "col": "example_de",
+   "old": "In der alten Festung Гјber der Stadt hat frГјher eine Garnison gelegen, heute gibt es dort ein CafГ© mit Aussicht",
+   "new": "In der alten Festung über der Stadt hat früher eine Garnison gelegen, heute gibt es dort ein Café mit Aussicht",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 15040,
+   "col": "example_de",
+   "old": "Die Verlobung feiern sie nГ¤chsten Monat",
+   "new": "Die Verlobung feiern sie nächsten Monat",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 15302,
+   "col": "example_de",
+   "old": "Mein Opa hat schon alles fГјr seine Bestattung aufgeschrieben, sogar welche Lieder man spielen soll",
+   "new": "Mein Opa hat schon alles für seine Bestattung aufgeschrieben, sogar welche Lieder man spielen soll",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 2378,
+   "col": "example_de",
+   "old": "Ab nГ¤chstem Jahr fГјhrt die Schule Informatik als Fach ein",
+   "new": "Ab nächstem Jahr führt die Schule Informatik als Fach ein",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 15162,
+   "col": "example_de",
+   "old": "Oma erzГ¤hlt, ihre Mitgift hat aus BettwГ¤sche, einem Kochtopf und drei HГјhnern bestanden",
+   "new": "Oma erzählt, ihre Mitgift hat aus Bettwäsche, einem Kochtopf und drei Hühnern bestanden",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 7749,
+   "col": "example_de",
+   "old": "Im Dunkeln bin ich Гјber die Schultasche meines Sohnes gestolpert, die mitten im Flur gelegen hat",
+   "new": "Im Dunkeln bin ich über die Schultasche meines Sohnes gestolpert, die mitten im Flur gelegen hat",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 12759,
+   "col": "example_de",
+   "old": "Als die Rechnung fГјr die Klassenfahrt gekommen ist, hГ¤tte mein Vater fast einen Herzstillstand bekommen",
+   "new": "Als die Rechnung für die Klassenfahrt gekommen ist, hätte mein Vater fast einen Herzstillstand bekommen",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 10978,
+   "col": "example_de",
+   "old": "Mit groГџer Zuversicht hat sich meine Tochter zur FahrprГјfung angemeldet, nach nur fГјnf Fahrstunden",
+   "new": "Mit großer Zuversicht hat sich meine Tochter zur Fahrprüfung angemeldet, nach nur fünf Fahrstunden",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 18286,
+   "col": "example_de",
+   "old": "Nach dem starken Regen ist die Kanalisation Гјbergelaufen, und die StraГџe hat unter Wasser gestanden",
+   "new": "Nach dem starken Regen ist die Kanalisation übergelaufen, und die Straße hat unter Wasser gestanden",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 12961,
+   "col": "example_de",
+   "old": "Der Tumor war bГ¶sartig, und man musste ihn entfernen",
+   "new": "Der Tumor war bösartig, und man musste ihn entfernen",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 8552,
+   "col": "example_de",
+   "old": "Seitens der Regierung hat es keine UnterstГјtzung gegeben",
+   "new": "Seitens der Regierung hat es keine Unterstützung gegeben",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 12285,
+   "col": "example_de",
+   "old": "Um den neuen Hund der Nachbarn machen alle so einen Rummel, dass jeden Tag Kinder vor der TГјr stehen",
+   "new": "Um den neuen Hund der Nachbarn machen alle so einen Rummel, dass jeden Tag Kinder vor der Tür stehen",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 2108,
+   "col": "example_de",
+   "old": "Zur Wohnungsbesichtigung sind dreiГџig Leute fГјr eine kleine Zweizimmerwohnung gekommen",
+   "new": "Zur Wohnungsbesichtigung sind dreißig Leute für eine kleine Zweizimmerwohnung gekommen",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  },
+  {
+   "id": 12778,
+   "col": "example_de",
+   "old": "Als der vierte Teller Pfannkuchen dazugekommen ist, ist das alte Regal in der KГјche zusammengebrochen",
+   "new": "Als der vierte Teller Pfannkuchen dazugekommen ist, ist das alte Regal in der Küche zusammengebrochen",
+   "why": "починка кодировки: ü/ä/ö/ß испорчены при записи блока 329"
+  }
+ ],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
