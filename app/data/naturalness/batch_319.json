@@ -1,0 +1,681 @@
+{
+ "about": "2.3, после прохода 1: дубли слов на разных уровнях",
+ "edits": [
+  {
+   "id": 10384,
+   "col": "translation_ru",
+   "old": "искренний, честный, откровенный",
+   "new": "искренний, честный",
+   "why": "пример-пустышка; C2-двойник 11525 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10384,
+   "col": "translation_uk",
+   "old": "щирий, відкритий, чесний",
+   "new": "щирий, чесний",
+   "why": "пример-пустышка; C2-двойник 11525 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10384,
+   "col": "translation_en",
+   "old": "sincere, honest, genuine",
+   "new": "sincere, genuine",
+   "why": "пример-пустышка; C2-двойник 11525 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10384,
+   "col": "translation_tr",
+   "old": "samimi, içten, dürüst",
+   "new": "samimi, içten",
+   "why": "пример-пустышка; C2-двойник 11525 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10384,
+   "col": "translation_pl",
+   "old": "szczery, prawdziwy, uczciwy",
+   "new": "szczery, uczciwy",
+   "why": "пример-пустышка; C2-двойник 11525 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10384,
+   "col": "example_de",
+   "old": "Das war eine aufrichtige Entschuldigung",
+   "new": "Ich habe mich über seine aufrichtige Entschuldigung wirklich gefreut",
+   "why": "пример-пустышка; C2-двойник 11525 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10384,
+   "col": "example_ru",
+   "old": "Это было искреннее извинение",
+   "new": "Я по-настоящему обрадовался его искреннему извинению",
+   "why": "пример-пустышка; C2-двойник 11525 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10384,
+   "col": "example_uk",
+   "old": "Це було щире вибачення",
+   "new": "Я справді зрадів його щирому вибаченню",
+   "why": "пример-пустышка; C2-двойник 11525 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10384,
+   "col": "example_en",
+   "old": "That was a sincere apology",
+   "new": "I was really pleased by his sincere apology",
+   "why": "пример-пустышка; C2-двойник 11525 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10384,
+   "col": "example_tr",
+   "old": "Bu samimi bir özürdü",
+   "new": "Samimi özrüne gerçekten sevindim",
+   "why": "пример-пустышка; C2-двойник 11525 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10384,
+   "col": "example_pl",
+   "old": "To były szczere przeprosiny",
+   "new": "Naprawdę ucieszyły mnie jego szczere przeprosiny",
+   "why": "пример-пустышка; C2-двойник 11525 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10384,
+   "col": "example_it",
+   "old": "Quelle erano scuse sincere",
+   "new": "Le sue scuse sincere mi hanno fatto davvero piacere",
+   "why": "пример-пустышка; C2-двойник 11525 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10384,
+   "col": "example_es",
+   "old": "Fue una disculpa sincera",
+   "new": "Su disculpa sincera me alegró de verdad",
+   "why": "пример-пустышка; C2-двойник 11525 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10384,
+   "col": "example_fr",
+   "old": "C'étaient des excuses sincères",
+   "new": "Ses excuses sincères m'ont vraiment fait plaisir",
+   "why": "пример-пустышка; C2-двойник 11525 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 10384,
+   "col": "example_cs",
+   "old": "To byla upřímná omluva",
+   "new": "Jeho upřímná omluva mě opravdu potěšila",
+   "why": "пример-пустышка; C2-двойник 11525 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 6657,
+   "col": "example_de",
+   "old": "Er ist ein berühmter Schauspieler",
+   "new": "Mein Onkel ist im ganzen Dorf berühmt für seinen Apfelkuchen",
+   "why": "пример-пустышка; C1-двойник 7991 выключается"
+  },
+  {
+   "id": 6657,
+   "col": "example_ru",
+   "old": "Он знаменитый актёр",
+   "new": "Мой дядя знаменит на всю деревню своим яблочным пирогом",
+   "why": "пример-пустышка; C1-двойник 7991 выключается"
+  },
+  {
+   "id": 6657,
+   "col": "example_uk",
+   "old": "Він знаменитий актор",
+   "new": "Мій дядько славиться на все село своїм яблучним пирогом",
+   "why": "пример-пустышка; C1-двойник 7991 выключается"
+  },
+  {
+   "id": 6657,
+   "col": "example_en",
+   "old": "He's a famous actor",
+   "new": "My uncle is famous in the whole village for his apple cake",
+   "why": "пример-пустышка; C1-двойник 7991 выключается"
+  },
+  {
+   "id": 6657,
+   "col": "example_tr",
+   "old": "O ünlü bir oyuncu",
+   "new": "Amcam elmalı pastasıyla bütün köyde ünlü",
+   "why": "пример-пустышка; C1-двойник 7991 выключается"
+  },
+  {
+   "id": 6657,
+   "col": "example_pl",
+   "old": "On jest słynnym aktorem",
+   "new": "Mój wujek słynie w całej wsi ze swojej szarlotki",
+   "why": "пример-пустышка; C1-двойник 7991 выключается"
+  },
+  {
+   "id": 6657,
+   "col": "example_it",
+   "old": "È un attore famoso",
+   "new": "Mio zio è famoso in tutto il paese per la sua torta di mele",
+   "why": "пример-пустышка; C1-двойник 7991 выключается"
+  },
+  {
+   "id": 6657,
+   "col": "example_es",
+   "old": "Es un actor famoso",
+   "new": "Mi tío es famoso en todo el pueblo por su tarta de manzana",
+   "why": "пример-пустышка; C1-двойник 7991 выключается"
+  },
+  {
+   "id": 6657,
+   "col": "example_fr",
+   "old": "C'est un acteur célèbre",
+   "new": "Mon oncle est célèbre dans tout le village pour sa tarte aux pommes",
+   "why": "пример-пустышка; C1-двойник 7991 выключается"
+  },
+  {
+   "id": 6657,
+   "col": "example_cs",
+   "old": "Je to slavný herec",
+   "new": "Strýc je v celé vesnici slavný svým jablečným koláčem",
+   "why": "пример-пустышка; C1-двойник 7991 выключается"
+  },
+  {
+   "id": 502,
+   "col": "translation_ru",
+   "old": "проверка, контроль, власть над ситуацией",
+   "new": "проверка, контроль",
+   "why": "«Die Kontrolle ist wichtig» — пусто; B2-двойник 16546 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 502,
+   "col": "translation_uk",
+   "old": "перевірка, контроль, влада над ситуацією",
+   "new": "перевірка, контроль",
+   "why": "«Die Kontrolle ist wichtig» — пусто; B2-двойник 16546 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 502,
+   "col": "translation_en",
+   "old": "check, inspection, control",
+   "new": "check, control",
+   "why": "«Die Kontrolle ist wichtig» — пусто; B2-двойник 16546 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 502,
+   "col": "translation_pl",
+   "old": "kontrola, sprawdzanie, panowanie nad czymś",
+   "new": "kontrola",
+   "why": "«Die Kontrolle ist wichtig» — пусто; B2-двойник 16546 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 502,
+   "col": "translation_es",
+   "old": "el control, la inspección, la revisión",
+   "new": "el control, la revisión",
+   "why": "«Die Kontrolle ist wichtig» — пусто; B2-двойник 16546 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 502,
+   "col": "translation_fr",
+   "old": "le contrôle, l'inspection",
+   "new": "le contrôle",
+   "why": "«Die Kontrolle ist wichtig» — пусто; B2-двойник 16546 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 502,
+   "col": "example_de",
+   "old": "Die Kontrolle ist wichtig",
+   "new": "Bei der Kontrolle im Bus habe ich zum Glück meine Monatskarte dabei",
+   "why": "«Die Kontrolle ist wichtig» — пусто; B2-двойник 16546 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 502,
+   "col": "example_ru",
+   "old": "Проверка важна",
+   "new": "При проверке в автобусе у меня, к счастью, с собой проездной",
+   "why": "«Die Kontrolle ist wichtig» — пусто; B2-двойник 16546 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 502,
+   "col": "example_uk",
+   "old": "Перевірка важлива",
+   "new": "Під час перевірки в автобусі в мене, на щастя, з собою проїзний",
+   "why": "«Die Kontrolle ist wichtig» — пусто; B2-двойник 16546 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 502,
+   "col": "example_en",
+   "old": "The inspection is important",
+   "new": "Luckily I've got my monthly pass on me when they check tickets on the bus",
+   "why": "«Die Kontrolle ist wichtig» — пусто; B2-двойник 16546 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 502,
+   "col": "example_tr",
+   "old": "Kontrol önemli",
+   "new": "Otobüsteki kontrolde neyse ki aylık kartım yanımda",
+   "why": "«Die Kontrolle ist wichtig» — пусто; B2-двойник 16546 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 502,
+   "col": "example_pl",
+   "old": "Kontrola jest ważna",
+   "new": "Przy kontroli w autobusie mam na szczęście bilet miesięczny",
+   "why": "«Die Kontrolle ist wichtig» — пусто; B2-двойник 16546 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 502,
+   "col": "example_it",
+   "old": "Il controllo è importante",
+   "new": "Al controllo sull'autobus per fortuna ho con me l'abbonamento",
+   "why": "«Die Kontrolle ist wichtig» — пусто; B2-двойник 16546 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 502,
+   "col": "example_es",
+   "old": "El control es importante",
+   "new": "En el control del autobús por suerte llevo el abono mensual",
+   "why": "«Die Kontrolle ist wichtig» — пусто; B2-двойник 16546 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 502,
+   "col": "example_fr",
+   "old": "Le contrôle est important",
+   "new": "Au contrôle dans le bus, j'ai heureusement mon abonnement sur moi",
+   "why": "«Die Kontrolle ist wichtig» — пусто; B2-двойник 16546 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 502,
+   "col": "example_cs",
+   "old": "Kontrola je důležitá",
+   "new": "Při kontrole v autobuse mám naštěstí u sebe měsíční jízdenku",
+   "why": "«Die Kontrolle ist wichtig» — пусто; B2-двойник 16546 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1870,
+   "col": "translation_ru",
+   "old": "падать, снижаться, опускаться, тонуть, погружаться",
+   "new": "падать, снижаться, тонуть",
+   "why": "«Die Preise sinken» — пусто; C1-двойник 7922 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1870,
+   "col": "translation_uk",
+   "old": "падати, знижуватися, опускатися, тонути, занурюватися",
+   "new": "падати, знижуватися, тонути",
+   "why": "«Die Preise sinken» — пусто; C1-двойник 7922 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1870,
+   "col": "translation_en",
+   "old": "to fall, to drop, to sink, to go down",
+   "new": "to fall, to sink",
+   "why": "«Die Preise sinken» — пусто; C1-двойник 7922 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1870,
+   "col": "translation_tr",
+   "old": "düşmek, azalmak, batmak, alçalmak",
+   "new": "düşmek, batmak",
+   "why": "«Die Preise sinken» — пусто; C1-двойник 7922 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1870,
+   "col": "translation_pl",
+   "old": "spadać, obniżać się, opadać, tonąć",
+   "new": "spadać, tonąć",
+   "why": "«Die Preise sinken» — пусто; C1-двойник 7922 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1870,
+   "col": "translation_it",
+   "old": "scendere, calare, diminuire, affondare",
+   "new": "calare, affondare",
+   "why": "«Die Preise sinken» — пусто; C1-двойник 7922 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1870,
+   "col": "translation_es",
+   "old": "bajar, caer, disminuir, hundirse",
+   "new": "bajar, hundirse",
+   "why": "«Die Preise sinken» — пусто; C1-двойник 7922 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1870,
+   "col": "translation_fr",
+   "old": "baisser, diminuer, couler, sombrer",
+   "new": "baisser, couler",
+   "why": "«Die Preise sinken» — пусто; C1-двойник 7922 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1870,
+   "col": "translation_cs",
+   "old": "klesat, snižovat se, potápět se",
+   "new": "klesat, potápět se",
+   "why": "«Die Preise sinken» — пусто; C1-двойник 7922 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1870,
+   "col": "example_de",
+   "old": "Die Preise sinken",
+   "new": "Im Oktober sinken die Temperaturen nachts schon unter null",
+   "why": "«Die Preise sinken» — пусто; C1-двойник 7922 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1870,
+   "col": "example_ru",
+   "old": "Цены снижаются",
+   "new": "В октябре ночью температура уже опускается ниже нуля",
+   "why": "«Die Preise sinken» — пусто; C1-двойник 7922 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1870,
+   "col": "example_uk",
+   "old": "Ціни знижуються",
+   "new": "У жовтні вночі температура вже опускається нижче нуля",
+   "why": "«Die Preise sinken» — пусто; C1-двойник 7922 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1870,
+   "col": "example_en",
+   "old": "Prices are dropping",
+   "new": "In October the temperature already falls below zero at night",
+   "why": "«Die Preise sinken» — пусто; C1-двойник 7922 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1870,
+   "col": "example_tr",
+   "old": "Fiyatlar düşüyor",
+   "new": "Ekimde geceleri sıcaklık şimdiden sıfırın altına düşüyor",
+   "why": "«Die Preise sinken» — пусто; C1-двойник 7922 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1870,
+   "col": "example_pl",
+   "old": "Ceny spadają",
+   "new": "W październiku temperatura w nocy spada już poniżej zera",
+   "why": "«Die Preise sinken» — пусто; C1-двойник 7922 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1870,
+   "col": "example_it",
+   "old": "I prezzi scendono",
+   "new": "A ottobre di notte le temperature calano già sotto lo zero",
+   "why": "«Die Preise sinken» — пусто; C1-двойник 7922 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1870,
+   "col": "example_es",
+   "old": "Los precios bajan",
+   "new": "En octubre las temperaturas bajan ya de cero por la noche",
+   "why": "«Die Preise sinken» — пусто; C1-двойник 7922 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1870,
+   "col": "example_fr",
+   "old": "Les prix baissent",
+   "new": "En octobre, les températures baissent déjà sous zéro la nuit",
+   "why": "«Die Preise sinken» — пусто; C1-двойник 7922 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1870,
+   "col": "example_cs",
+   "old": "Ceny klesají",
+   "new": "V říjnu teploty v noci klesají už pod nulu",
+   "why": "«Die Preise sinken» — пусто; C1-двойник 7922 выключается; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8321,
+   "col": "translation_ru",
+   "old": "величественный, возвышенный, торжественный",
+   "new": "величественный, возвышенный",
+   "why": "в примере «das Erhabene» (сущ.); значение отлично от erhaben 11241 C1 — оба остаются; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8321,
+   "col": "translation_uk",
+   "old": "величний, піднесений, урочистий",
+   "new": "величний, піднесений",
+   "why": "в примере «das Erhabene» (сущ.); значение отлично от erhaben 11241 C1 — оба остаются; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8321,
+   "col": "translation_en",
+   "old": "sublime, majestic, lofty",
+   "new": "majestic, sublime",
+   "why": "в примере «das Erhabene» (сущ.); значение отлично от erhaben 11241 C1 — оба остаются; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8321,
+   "col": "translation_tr",
+   "old": "görkemli, yüce, ulu",
+   "new": "görkemli, yüce",
+   "why": "в примере «das Erhabene» (сущ.); значение отлично от erhaben 11241 C1 — оба остаются; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8321,
+   "col": "translation_pl",
+   "old": "wzniosły, majestatyczny, dostojny",
+   "new": "majestatyczny, wzniosły",
+   "why": "в примере «das Erhabene» (сущ.); значение отлично от erhaben 11241 C1 — оба остаются; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8321,
+   "col": "translation_it",
+   "old": "sublime, maestoso, elevato, in rilievo",
+   "new": "maestoso, sublime",
+   "why": "в примере «das Erhabene» (сущ.); значение отлично от erhaben 11241 C1 — оба остаются; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8321,
+   "col": "translation_es",
+   "old": "sublime, majestuoso, elevado, en relieve",
+   "new": "majestuoso, sublime",
+   "why": "в примере «das Erhabene» (сущ.); значение отлично от erhaben 11241 C1 — оба остаются; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8321,
+   "col": "translation_fr",
+   "old": "sublime, majestueux, élevé, en relief",
+   "new": "majestueux, sublime",
+   "why": "в примере «das Erhabene» (сущ.); значение отлично от erhaben 11241 C1 — оба остаются; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8321,
+   "col": "translation_cs",
+   "old": "vznešený, majestátní, vystouplý",
+   "new": "majestátní, vznešený",
+   "why": "в примере «das Erhabene» (сущ.); значение отлично от erhaben 11241 C1 — оба остаются; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8321,
+   "col": "example_de",
+   "old": "Das Erhabene dieser Berge beeindruckt mich",
+   "new": "Der Blick vom Gipfel auf die verschneiten Alpen ist einfach erhaben",
+   "why": "в примере «das Erhabene» (сущ.); значение отлично от erhaben 11241 C1 — оба остаются; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8321,
+   "col": "example_ru",
+   "old": "Величественность этих гор меня впечатляет",
+   "new": "Вид с вершины на заснеженные Альпы просто величественный",
+   "why": "в примере «das Erhabene» (сущ.); значение отлично от erhaben 11241 C1 — оба остаются; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8321,
+   "col": "example_uk",
+   "old": "Велич цих гір мене вражає",
+   "new": "Краєвид з вершини на засніжені Альпи просто величний",
+   "why": "в примере «das Erhabene» (сущ.); значение отлично от erhaben 11241 C1 — оба остаются; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8321,
+   "col": "example_en",
+   "old": "The sublimity of these mountains impresses me",
+   "new": "The view from the summit over the snowy Alps is simply majestic",
+   "why": "в примере «das Erhabene» (сущ.); значение отлично от erhaben 11241 C1 — оба остаются; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8321,
+   "col": "example_tr",
+   "old": "Bu dağların görkemi beni etkiliyor",
+   "new": "Zirveden karlı Alplerin manzarası tek kelimeyle görkemli",
+   "why": "в примере «das Erhabene» (сущ.); значение отлично от erhaben 11241 C1 — оба остаются; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8321,
+   "col": "example_pl",
+   "old": "Wzniosłość tych gór mnie zachwyca",
+   "new": "Widok ze szczytu na zaśnieżone Alpy jest po prostu majestatyczny",
+   "why": "в примере «das Erhabene» (сущ.); значение отлично от erhaben 11241 C1 — оба остаются; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8321,
+   "col": "example_it",
+   "old": "Il sublime di queste montagne mi colpisce",
+   "new": "La vista dalla cima sulle Alpi innevate è semplicemente maestosa",
+   "why": "в примере «das Erhabene» (сущ.); значение отлично от erhaben 11241 C1 — оба остаются; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8321,
+   "col": "example_es",
+   "old": "Lo sublime de estas montañas me impresiona",
+   "new": "La vista desde la cumbre sobre los Alpes nevados es sencillamente majestuosa",
+   "why": "в примере «das Erhabene» (сущ.); значение отлично от erhaben 11241 C1 — оба остаются; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8321,
+   "col": "example_fr",
+   "old": "Le sublime de ces montagnes m'impressionne",
+   "new": "La vue du sommet sur les Alpes enneigées est tout simplement majestueuse",
+   "why": "в примере «das Erhabene» (сущ.); значение отлично от erhaben 11241 C1 — оба остаются; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8321,
+   "col": "example_cs",
+   "old": "Vznešenost těchto hor mě ohromuje",
+   "new": "Výhled z vrcholu na zasněžené Alpy je prostě majestátní",
+   "why": "в примере «das Erhabene» (сущ.); значение отлично от erhaben 11241 C1 — оба остаются; список → главное слово и не больше одной альтернативы"
+  }
+ ],
+ "replace": [
+  {
+   "id": 11525,
+   "by": 10384,
+   "lang": "de",
+   "why": "дубль слова на другом уровне: aufrichtig C2 → B1"
+  },
+  {
+   "id": 7991,
+   "by": 6657,
+   "lang": "de",
+   "why": "дубль слова на другом уровне: berühmt C1 → A2"
+  },
+  {
+   "id": 18792,
+   "by": 6449,
+   "lang": "de",
+   "why": "дубль слова на другом уровне: dringend C1 → A2"
+  },
+  {
+   "id": 13464,
+   "by": 194,
+   "lang": "de",
+   "why": "дубль слова на другом уровне: dritte A2 → A1"
+  },
+  {
+   "id": 13515,
+   "by": 194,
+   "lang": "de",
+   "why": "дубль слова на другом уровне: dritter B1 → dritte A1"
+  },
+  {
+   "id": 18782,
+   "by": 2420,
+   "lang": "de",
+   "why": "дубль слова на другом уровне: Ereignis B2 → B1"
+  },
+  {
+   "id": 16987,
+   "by": 16936,
+   "lang": "de",
+   "why": "дубль слова на другом уровне: Gesandte C2 → C1"
+  },
+  {
+   "id": 16509,
+   "by": 16890,
+   "lang": "de",
+   "why": "дубль слова на другом уровне: Geschworene C1 → B2"
+  },
+  {
+   "id": 11097,
+   "by": 10394,
+   "lang": "de",
+   "why": "дубль слова на другом уровне: gruselig C1 → B1"
+  },
+  {
+   "id": 9273,
+   "by": 9006,
+   "lang": "de",
+   "why": "дубль слова на другом уровне: Kaufmann C2 → A2"
+  },
+  {
+   "id": 8466,
+   "by": 7965,
+   "lang": "de",
+   "why": "дубль слова на другом уровне: konstant C2 → C1"
+  },
+  {
+   "id": 16546,
+   "by": 502,
+   "lang": "de",
+   "why": "дубль слова на другом уровне: Kontrolle B2 → B1"
+  },
+  {
+   "id": 13727,
+   "by": 572,
+   "lang": "de",
+   "why": "дубль слова на другом уровне: Mantel C1 → A2"
+  },
+  {
+   "id": 8794,
+   "by": 1761,
+   "lang": "de",
+   "why": "дубль слова на другом уровне: Pilot B1 → A2"
+  },
+  {
+   "id": 16406,
+   "by": 16268,
+   "lang": "de",
+   "why": "дубль слова на другом уровне: Privilegien (мн. ч.) C1 → Privileg B2"
+  },
+  {
+   "id": 16414,
+   "by": 16318,
+   "lang": "de",
+   "why": "дубль слова на другом уровне: Scharfschütze C1 → B2"
+  },
+  {
+   "id": 7922,
+   "by": 1870,
+   "lang": "de",
+   "why": "дубль слова на другом уровне: sinken C1 → B1"
+  },
+  {
+   "id": 8371,
+   "by": 7749,
+   "lang": "de",
+   "why": "дубль слова на другом уровне: stolpern C2 → C1"
+  },
+  {
+   "id": 11601,
+   "by": 10564,
+   "lang": "de",
+   "why": "дубль слова на другом уровне: unverschämt C2 → B2"
+  },
+  {
+   "id": 16690,
+   "by": 16594,
+   "lang": "de",
+   "why": "дубль слова на другом уровне: zivil C2 → C1"
+  }
+ ],
+ "split_later": {}
+}
