@@ -18,6 +18,16 @@ LANGS = ["de", "ru", "uk", "en", "tr", "pl", "it", "es", "fr", "cs"]
 COL = {f"t_{l}": f"translation_{l}" for l in LANGS if l != "de"}
 COL.update({f"x_{l}": f"example_{l}" for l in LANGS})
 
+# Один номер дважды в словаре FIXES — Python молча оставляет последнюю запись. 22.10 так
+# пропала турецкая правка этажа у 12400: вторую запись дописали в тот же словарь
+import ast  # noqa: E402
+
+for node in ast.walk(ast.parse(pathlib.Path(sys.argv[1]).read_text(encoding="utf-8"))):
+    if isinstance(node, ast.Dict):
+        keys = [k.value for k in node.keys if isinstance(k, ast.Constant)]
+        dup = sorted({k for k in keys if keys.count(k) > 1}, key=str)
+        assert not dup, ("ключ повторяется в словаре блока — сработает только последний:", dup)
+
 spec = importlib.util.spec_from_file_location("fx", sys.argv[1])
 fx = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(fx)
