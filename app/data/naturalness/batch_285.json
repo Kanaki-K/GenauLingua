@@ -1,0 +1,924 @@
+{
+ "about": "2.3, C1 блок 43",
+ "edits": [
+  {
+   "id": 16929,
+   "col": "translation_ru",
+   "old": "вызвать в суд, вызвать повесткой",
+   "new": "вызывать (в суд)",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16929,
+   "col": "translation_uk",
+   "old": "викликати до суду, викликати повісткою",
+   "new": "викликати (до суду)",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16929,
+   "col": "translation_en",
+   "old": "to summon, to subpoena",
+   "new": "to summon",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16929,
+   "col": "translation_tr",
+   "old": "mahkemeye çağırmak, celp etmek",
+   "new": "mahkemeye çağırmak",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16929,
+   "col": "translation_pl",
+   "old": "wezwać do sądu, wezwać wezwaniem",
+   "new": "wezwać (do sądu)",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16929,
+   "col": "translation_fr",
+   "old": "citer, convoquer, assigner",
+   "new": "citer, convoquer",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16929,
+   "col": "example_de",
+   "old": "Das Gericht hat ihn als Zeugen vorgeladen",
+   "new": "Wegen des Auffahrunfalls hat mich das Gericht als Zeugin vorgeladen, jetzt muss ich mir freinehmen",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16929,
+   "col": "example_ru",
+   "old": "Суд вызвал его в качестве свидетеля",
+   "new": "Из-за той аварии суд вызвал меня свидетельницей — теперь придётся брать выходной",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16929,
+   "col": "example_uk",
+   "old": "Суд викликав його як свідка",
+   "new": "Через ту аварію суд викликав мене свідкинею — тепер доведеться брати вихідний",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16929,
+   "col": "example_en",
+   "old": "The court summoned him as a witness",
+   "new": "The court has summoned me as a witness to the rear-end collision, so now I have to take a day off",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16929,
+   "col": "example_tr",
+   "old": "Mahkeme onu tanık olarak çağırdı",
+   "new": "Arkadan çarpma kazası yüzünden mahkeme beni tanık olarak çağırdı, şimdi izin almam gerekiyor",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16929,
+   "col": "example_pl",
+   "old": "Sąd wezwał go jako świadka",
+   "new": "Przez tę stłuczkę sąd wezwał mnie na świadka, teraz muszę wziąć wolne",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16929,
+   "col": "example_it",
+   "old": "Il tribunale l'ha citato come testimone",
+   "new": "Per quel tamponamento il tribunale mi ha citata come testimone, ora devo prendermi un giorno libero",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16929,
+   "col": "example_es",
+   "old": "El tribunal lo ha citado como testigo",
+   "new": "Por el choque por alcance el juzgado me ha citado como testigo, y ahora tengo que pedirme el día libre",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16929,
+   "col": "example_fr",
+   "old": "Le tribunal l'a cité comme témoin",
+   "new": "À cause de l'accrochage, le tribunal m'a citée comme témoin, maintenant je dois prendre un jour de congé",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16929,
+   "col": "example_cs",
+   "old": "Soud ho předvolal jako svědka",
+   "new": "Kvůli té bouračce mě soud předvolal jako svědkyni, teď si musím vzít volno",
+   "why": "пусто; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15324,
+   "col": "translation_ru",
+   "old": "поясница, бедро, чресла",
+   "new": "вырезка, поясница",
+   "why": "претерит; «чресла» — книжное; живое — кухня; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15324,
+   "col": "translation_uk",
+   "old": "поперек, стегно, чресла",
+   "new": "вирізка, поперек",
+   "why": "претерит; «чресла» — книжное; живое — кухня; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15324,
+   "col": "translation_en",
+   "old": "loins, lower back",
+   "new": "loin, tenderloin",
+   "why": "претерит; «чресла» — книжное; живое — кухня; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15324,
+   "col": "translation_tr",
+   "old": "bel, böğür",
+   "new": "bonfile, bel",
+   "why": "претерит; «чресла» — книжное; живое — кухня; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15324,
+   "col": "translation_pl",
+   "old": "lędźwie, krzyż",
+   "new": "polędwica, lędźwie",
+   "why": "претерит; «чресла» — книжное; живое — кухня; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15324,
+   "col": "translation_it",
+   "old": "la zona lombare, il lombo, il fianco",
+   "new": "il lombo, il filetto",
+   "why": "претерит; «чресла» — книжное; живое — кухня; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15324,
+   "col": "translation_es",
+   "old": "la zona lumbar, los riñones, el lomo",
+   "new": "el lomo, la zona lumbar",
+   "why": "претерит; «чресла» — книжное; живое — кухня; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15324,
+   "col": "translation_fr",
+   "old": "les reins, le bas du dos, la longe",
+   "new": "la longe, les reins",
+   "why": "претерит; «чресла» — книжное; живое — кухня; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15324,
+   "col": "translation_cs",
+   "old": "bedra, kříž, svíčková",
+   "new": "svíčková, bedra",
+   "why": "претерит; «чресла» — книжное; живое — кухня; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15324,
+   "col": "example_de",
+   "old": "Er hatte Schmerzen in den Lenden",
+   "new": "Zum Geburtstag brate ich eine Schweinelende mit Pilzsoße",
+   "why": "претерит; «чресла» — книжное; живое — кухня; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15324,
+   "col": "example_ru",
+   "old": "У него была боль в пояснице",
+   "new": "На день рождения я жарю свиную вырезку с грибным соусом",
+   "why": "претерит; «чресла» — книжное; живое — кухня; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15324,
+   "col": "example_uk",
+   "old": "У нього був біль у поясниці",
+   "new": "На день народження я смажу свинячу вирізку з грибним соусом",
+   "why": "претерит; «чресла» — книжное; живое — кухня; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15324,
+   "col": "example_en",
+   "old": "He had pain in his loins",
+   "new": "For the birthday I'm roasting a pork loin with mushroom sauce",
+   "why": "претерит; «чресла» — книжное; живое — кухня; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15324,
+   "col": "example_tr",
+   "old": "Belinde ağrı vardı",
+   "new": "Doğum günü için mantar soslu domuz bonfile kızartıyorum",
+   "why": "претерит; «чресла» — книжное; живое — кухня; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15324,
+   "col": "example_pl",
+   "old": "Miał bóle w lędźwiach",
+   "new": "Na urodziny piekę polędwicę wieprzową w sosie grzybowym",
+   "why": "претерит; «чресла» — книжное; живое — кухня; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15324,
+   "col": "example_it",
+   "old": "Aveva dolori alla zona lombare",
+   "new": "Per il compleanno preparo un lombo di maiale con salsa ai funghi",
+   "why": "претерит; «чресла» — книжное; живое — кухня; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15324,
+   "col": "example_es",
+   "old": "Tenía dolores en la zona lumbar",
+   "new": "Para el cumpleaños hago un lomo de cerdo con salsa de setas",
+   "why": "претерит; «чресла» — книжное; живое — кухня; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15324,
+   "col": "example_fr",
+   "old": "Il avait mal aux reins",
+   "new": "Pour l'anniversaire, je fais rôtir une longe de porc sauce aux champignons",
+   "why": "претерит; «чресла» — книжное; живое — кухня; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 15324,
+   "col": "example_cs",
+   "old": "Bolela ho bedra",
+   "new": "K narozeninám peču vepřovou svíčkovou s houbovou omáčkou",
+   "why": "претерит; «чресла» — книжное; живое — кухня; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8647,
+   "col": "translation_ru",
+   "old": "иметь целью, добиваться, стремиться",
+   "new": "добиваться, иметь целью",
+   "why": "канцелярит; рядом Ziel 3047; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8647,
+   "col": "translation_uk",
+   "old": "мати на меті, домагатися, прагнути",
+   "new": "домагатися, мати на меті",
+   "why": "канцелярит; рядом Ziel 3047; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8647,
+   "col": "translation_en",
+   "old": "to aim at, to intend, to have as a goal",
+   "new": "to aim at, to be after",
+   "why": "канцелярит; рядом Ziel 3047; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8647,
+   "col": "translation_tr",
+   "old": "amaçlamak, hedeflemek, gütmek",
+   "new": "amaçlamak",
+   "why": "канцелярит; рядом Ziel 3047; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8647,
+   "col": "translation_pl",
+   "old": "mieć na celu, zamierzać, dążyć do czegoś",
+   "new": "mieć na celu, zmierzać do",
+   "why": "канцелярит; рядом Ziel 3047; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8647,
+   "col": "example_de",
+   "old": "Damit bezwecken wir eine bessere Effizienz",
+   "new": "Was bezweckst du eigentlich mit diesen ganzen Fragen?",
+   "why": "канцелярит; рядом Ziel 3047; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8647,
+   "col": "example_ru",
+   "old": "Этим мы добиваемся повышения эффективности",
+   "new": "Чего ты вообще добиваешься всеми этими вопросами?",
+   "why": "канцелярит; рядом Ziel 3047; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8647,
+   "col": "example_uk",
+   "old": "Цим ми маємо на меті кращу ефективність",
+   "new": "Чого ти взагалі домагаєшся всіма цими питаннями?",
+   "why": "канцелярит; рядом Ziel 3047; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8647,
+   "col": "example_en",
+   "old": "With this we aim at better efficiency",
+   "new": "What are you actually after with all these questions?",
+   "why": "канцелярит; рядом Ziel 3047; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8647,
+   "col": "example_tr",
+   "old": "Bununla daha iyi bir verimlilik amaçlıyoruz",
+   "new": "Bütün bu sorularla aslında neyi amaçlıyorsun?",
+   "why": "канцелярит; рядом Ziel 3047; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8647,
+   "col": "example_pl",
+   "old": "Tym mamy na celu lepszą efektywność",
+   "new": "Do czego właściwie zmierzasz tymi wszystkimi pytaniami?",
+   "why": "канцелярит; рядом Ziel 3047; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8647,
+   "col": "example_it",
+   "old": "Con questo miriamo a una maggiore efficienza",
+   "new": "Ma a che cosa miri con tutte queste domande?",
+   "why": "канцелярит; рядом Ziel 3047; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8647,
+   "col": "example_es",
+   "old": "Con esto pretendemos una mayor eficiencia",
+   "new": "¿Qué pretendes en realidad con todas estas preguntas?",
+   "why": "канцелярит; рядом Ziel 3047; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8647,
+   "col": "example_fr",
+   "old": "Par là, nous visons une meilleure efficacité",
+   "new": "Qu'est-ce que tu vises au juste avec toutes ces questions ?",
+   "why": "канцелярит; рядом Ziel 3047; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 8647,
+   "col": "example_cs",
+   "old": "Tím sledujeme vyšší efektivitu",
+   "new": "Co vlastně sleduješ všemi těmi otázkami?",
+   "why": "канцелярит; рядом Ziel 3047; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16936,
+   "col": "translation_ru",
+   "old": "посланник, эмиссар, посол",
+   "new": "посланник, посол",
+   "why": "претерит trafen; дубль C2 16987; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16936,
+   "col": "translation_uk",
+   "old": "посланець, емісар, посол",
+   "new": "посланець, посол",
+   "why": "претерит trafen; дубль C2 16987; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16936,
+   "col": "translation_en",
+   "old": "envoy, emissary, minister",
+   "new": "envoy",
+   "why": "претерит trafen; дубль C2 16987; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16936,
+   "col": "translation_tr",
+   "old": "elçi, temsilci",
+   "new": "elçi",
+   "why": "претерит trafen; дубль C2 16987; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16936,
+   "col": "translation_pl",
+   "old": "wysłannik, poseł, emisariusz",
+   "new": "wysłannik, poseł",
+   "why": "претерит trafen; дубль C2 16987; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16936,
+   "col": "translation_it",
+   "old": "l'inviato, l'emissario",
+   "new": "l'inviato",
+   "why": "претерит trafen; дубль C2 16987; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16936,
+   "col": "translation_es",
+   "old": "el enviado, el emisario",
+   "new": "el enviado",
+   "why": "претерит trafen; дубль C2 16987; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16936,
+   "col": "translation_fr",
+   "old": "l'envoyé, l'émissaire",
+   "new": "l'envoyé",
+   "why": "претерит trafen; дубль C2 16987; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16936,
+   "col": "example_de",
+   "old": "Die Gesandten der beiden Länder trafen sich zu Verhandlungen",
+   "new": "Im Schloss zeigt die Führerin den Saal, in dem der König die Gesandten empfangen hat",
+   "why": "претерит trafen; дубль C2 16987; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16936,
+   "col": "example_ru",
+   "old": "Посланники двух стран встретились на переговорах",
+   "new": "В замке экскурсовод показывает зал, где король принимал посланников",
+   "why": "претерит trafen; дубль C2 16987; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16936,
+   "col": "example_uk",
+   "old": "Посланці двох країн зустрілися на переговорах",
+   "new": "У замку екскурсоводка показує зал, де король приймав посланців",
+   "why": "претерит trafen; дубль C2 16987; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16936,
+   "col": "example_en",
+   "old": "The envoys of the two countries met for negotiations",
+   "new": "At the castle the guide shows the hall where the king received the envoys",
+   "why": "претерит trafen; дубль C2 16987; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16936,
+   "col": "example_tr",
+   "old": "İki ülkenin elçileri müzakereler için buluştu",
+   "new": "Şatoda rehber, kralın elçileri kabul ettiği salonu gösteriyor",
+   "why": "претерит trafen; дубль C2 16987; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16936,
+   "col": "example_pl",
+   "old": "Wysłannicy obu krajów spotkali się na negocjacjach",
+   "new": "W zamku przewodniczka pokazuje salę, w której król przyjmował posłów",
+   "why": "претерит trafen; дубль C2 16987; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16936,
+   "col": "example_it",
+   "old": "Gli inviati dei due paesi si incontrarono per i negoziati",
+   "new": "Nel castello la guida mostra la sala in cui il re riceveva gli inviati",
+   "why": "претерит trafen; дубль C2 16987; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16936,
+   "col": "example_es",
+   "old": "Los enviados de ambos países se reunieron para negociar",
+   "new": "En el castillo la guía enseña la sala donde el rey recibía a los enviados",
+   "why": "претерит trafen; дубль C2 16987; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16936,
+   "col": "example_fr",
+   "old": "Les envoyés des deux pays se sont rencontrés pour des négociations",
+   "new": "Au château, la guide montre la salle où le roi recevait les envoyés",
+   "why": "претерит trafen; дубль C2 16987; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16936,
+   "col": "example_cs",
+   "old": "Vyslanci obou zemí se sešli k jednání",
+   "new": "Na zámku průvodkyně ukazuje sál, kde král přijímal vyslance",
+   "why": "претерит trafen; дубль C2 16987; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13156,
+   "col": "translation_ru",
+   "old": "шизофренический, противоречивый",
+   "new": "шизофренический, абсурдно противоречивый",
+   "why": "претерит; диагноз → живое переносное «противоречиво»"
+  },
+  {
+   "id": 13156,
+   "col": "translation_uk",
+   "old": "шизофренічний, суперечливий",
+   "new": "шизофренічний, абсурдно суперечливий",
+   "why": "претерит; диагноз → живое переносное «противоречиво»"
+  },
+  {
+   "id": 13156,
+   "col": "translation_en",
+   "old": "schizophrenic, self-contradictory",
+   "new": "schizophrenic, absurdly contradictory",
+   "why": "претерит; диагноз → живое переносное «противоречиво»"
+  },
+  {
+   "id": 13156,
+   "col": "translation_tr",
+   "old": "şizofrenik, kendisiyle çelişen",
+   "new": "şizofrenik, çelişkili",
+   "why": "претерит; диагноз → живое переносное «противоречиво»"
+  },
+  {
+   "id": 13156,
+   "col": "translation_pl",
+   "old": "schizofreniczny, wewnętrznie sprzeczny",
+   "new": "schizofreniczny, absurdalnie sprzeczny",
+   "why": "претерит; диагноз → живое переносное «противоречиво»"
+  },
+  {
+   "id": 13156,
+   "col": "example_de",
+   "old": "Er zeigte schizophrene Symptome",
+   "new": "Es ist doch schizophren: Wir fahren mit dem Auto ins Fitnessstudio, um dort aufs Laufband zu gehen",
+   "why": "претерит; диагноз → живое переносное «противоречиво»"
+  },
+  {
+   "id": 13156,
+   "col": "example_ru",
+   "old": "Он проявлял шизофренические симптомы",
+   "new": "Это же абсурд: мы едем в фитнес-клуб на машине, чтобы там встать на беговую дорожку",
+   "why": "претерит; диагноз → живое переносное «противоречиво»"
+  },
+  {
+   "id": 13156,
+   "col": "example_uk",
+   "old": "Він проявляв шизофренічні симптоми",
+   "new": "Це ж абсурд: ми їдемо до фітнес-клубу машиною, щоб там стати на бігову доріжку",
+   "why": "претерит; диагноз → живое переносное «противоречиво»"
+  },
+  {
+   "id": 13156,
+   "col": "example_en",
+   "old": "He showed schizophrenic symptoms",
+   "new": "It's schizophrenic, really: we drive to the gym to go on the treadmill",
+   "why": "претерит; диагноз → живое переносное «противоречиво»"
+  },
+  {
+   "id": 13156,
+   "col": "example_tr",
+   "old": "Şizofrenik belirtiler gösterdi",
+   "new": "Düpedüz çelişkili: koşu bandına çıkmak için spor salonuna arabayla gidiyoruz",
+   "why": "претерит; диагноз → живое переносное «противоречиво»"
+  },
+  {
+   "id": 13156,
+   "col": "example_pl",
+   "old": "Wykazywał objawy schizofreniczne",
+   "new": "To przecież schizofreniczne: jedziemy samochodem na siłownię, żeby tam wejść na bieżnię",
+   "why": "претерит; диагноз → живое переносное «противоречиво»"
+  },
+  {
+   "id": 13156,
+   "col": "example_it",
+   "old": "Mostrava sintomi schizofrenici",
+   "new": "È proprio schizofrenico: andiamo in palestra in macchina per salire sul tapis roulant",
+   "why": "претерит; диагноз → живое переносное «противоречиво»"
+  },
+  {
+   "id": 13156,
+   "col": "example_es",
+   "old": "Mostraba síntomas esquizofrénicos",
+   "new": "Es esquizofrénico: vamos en coche al gimnasio para subirnos a la cinta de correr",
+   "why": "претерит; диагноз → живое переносное «противоречиво»"
+  },
+  {
+   "id": 13156,
+   "col": "example_fr",
+   "old": "Il présentait des symptômes schizophrènes",
+   "new": "C'est quand même schizophrène : on va à la salle de sport en voiture pour monter sur le tapis de course",
+   "why": "претерит; диагноз → живое переносное «противоречиво»"
+  },
+  {
+   "id": 13156,
+   "col": "example_cs",
+   "old": "Projevoval schizofrenní příznaky",
+   "new": "Je to vlastně schizofrenní: jedeme autem do posilovny, abychom tam šli na běžecký pás",
+   "why": "претерит; диагноз → живое переносное «противоречиво»"
+  },
+  {
+   "id": 14835,
+   "col": "translation_en",
+   "old": "video rental store, video store",
+   "new": "video shop, video rental shop",
+   "why": "en movie/store → британское"
+  },
+  {
+   "id": 14835,
+   "col": "example_en",
+   "old": "We used to rent a movie at the video store every Friday",
+   "new": "We used to rent a film from the video shop every Friday",
+   "why": "en movie/store → британское"
+  },
+  {
+   "id": 11602,
+   "col": "translation_ru",
+   "old": "ужас, зверство, мерзость, отвращение",
+   "new": "ужас, мерзость",
+   "why": "война → живое «ist mir ein Gräuel»; рядом Ekel 10784; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11602,
+   "col": "translation_uk",
+   "old": "жах, жорстокість, мерзота, відраза",
+   "new": "жах, мерзота",
+   "why": "война → живое «ist mir ein Gräuel»; рядом Ekel 10784; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11602,
+   "col": "translation_en",
+   "old": "horror, atrocity, abomination",
+   "new": "horror, abomination",
+   "why": "война → живое «ist mir ein Gräuel»; рядом Ekel 10784; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11602,
+   "col": "translation_tr",
+   "old": "korkunçluk, vahşet, iğrençlik",
+   "new": "dehşet, nefret edilen şey",
+   "why": "война → живое «ist mir ein Gräuel»; рядом Ekel 10784; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11602,
+   "col": "translation_pl",
+   "old": "okrucieństwo, okropność, zgroza, obrzydliwość",
+   "new": "zgroza, okropność",
+   "why": "война → живое «ist mir ein Gräuel»; рядом Ekel 10784; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11602,
+   "col": "example_de",
+   "old": "Der Gräuel des Krieges ist unbeschreiblich",
+   "new": "Bügeln ist mir ein Gräuel, deshalb kaufe ich nur Hemden, die nicht knittern",
+   "why": "война → живое «ist mir ein Gräuel»; рядом Ekel 10784; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11602,
+   "col": "example_ru",
+   "old": "Ужас войны невозможно описать",
+   "new": "Гладить для меня сущий ужас, поэтому я покупаю только немнущиеся рубашки",
+   "why": "война → живое «ist mir ein Gräuel»; рядом Ekel 10784; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11602,
+   "col": "example_uk",
+   "old": "Жах війни неможливо описати",
+   "new": "Прасувати для мене — справжній жах, тому я купую лише сорочки, що не мнуться",
+   "why": "война → живое «ist mir ein Gräuel»; рядом Ekel 10784; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11602,
+   "col": "example_en",
+   "old": "The horror of war is indescribable",
+   "new": "Ironing is a horror to me, so I only buy shirts that don't crease",
+   "why": "война → живое «ist mir ein Gräuel»; рядом Ekel 10784; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11602,
+   "col": "example_tr",
+   "old": "Savaşın korkunçluğu anlatılamaz",
+   "new": "Ütü yapmak benim için tam bir dehşet, o yüzden sadece buruşmayan gömlekler alıyorum",
+   "why": "война → живое «ist mir ein Gräuel»; рядом Ekel 10784; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11602,
+   "col": "example_pl",
+   "old": "Okrucieństwo wojny jest nie do opisania",
+   "new": "Prasowanie to dla mnie zgroza, dlatego kupuję tylko niegniotące się koszule",
+   "why": "война → живое «ist mir ein Gräuel»; рядом Ekel 10784; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11602,
+   "col": "example_it",
+   "old": "L'orrore della guerra è indescrivibile",
+   "new": "Stirare per me è un orrore, perciò compro solo camicie che non si stropicciano",
+   "why": "война → живое «ist mir ein Gräuel»; рядом Ekel 10784; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11602,
+   "col": "example_es",
+   "old": "El horror de la guerra es indescriptible",
+   "new": "Planchar es para mí un horror, por eso solo compro camisas que no se arrugan",
+   "why": "война → живое «ist mir ein Gräuel»; рядом Ekel 10784; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11602,
+   "col": "example_fr",
+   "old": "L'horreur de la guerre est indescriptible",
+   "new": "Repasser, c'est une horreur pour moi, alors je n'achète que des chemises infroissables",
+   "why": "война → живое «ist mir ein Gräuel»; рядом Ekel 10784; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11602,
+   "col": "example_cs",
+   "old": "Hrůza války je nepopsatelná",
+   "new": "Žehlení je pro mě hrůza, proto kupuju jen nemačkavé košile",
+   "why": "война → живое «ist mir ein Gräuel»; рядом Ekel 10784; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16988,
+   "col": "translation_ru",
+   "old": "власти, начальство, верхи",
+   "new": "власти, начальство",
+   "why": "пусто; рядом Behörde 1238; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16988,
+   "col": "translation_uk",
+   "old": "влада, начальство, верхи",
+   "new": "влада, начальство",
+   "why": "пусто; рядом Behörde 1238; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16988,
+   "col": "translation_en",
+   "old": "authorities, the powers that be, officialdom",
+   "new": "the authorities, the powers that be",
+   "why": "пусто; рядом Behörde 1238; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16988,
+   "col": "translation_tr",
+   "old": "yetkililer, üst makam, hükümet",
+   "new": "yetkililer, üst makam",
+   "why": "пусто; рядом Behörde 1238; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16988,
+   "col": "translation_pl",
+   "old": "władza, zwierzchność, urzędy",
+   "new": "władza, zwierzchność",
+   "why": "пусто; рядом Behörde 1238; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16988,
+   "col": "example_de",
+   "old": "Die Obrigkeit hat neue Regeln erlassen",
+   "new": "Mein Opa hat vor der Obrigkeit nie viel Respekt gehabt, nicht mal vor dem Pfarrer",
+   "why": "пусто; рядом Behörde 1238; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16988,
+   "col": "example_ru",
+   "old": "Власти издали новые правила",
+   "new": "Мой дед никогда особо не уважал начальство, даже священника",
+   "why": "пусто; рядом Behörde 1238; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16988,
+   "col": "example_uk",
+   "old": "Влада видала нові правила",
+   "new": "Мій дід ніколи особливо не поважав начальство, навіть священника",
+   "why": "пусто; рядом Behörde 1238; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16988,
+   "col": "example_en",
+   "old": "The authorities issued new rules",
+   "new": "My grandad never had much respect for the powers that be, not even the vicar",
+   "why": "пусто; рядом Behörde 1238; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16988,
+   "col": "example_tr",
+   "old": "Yetkililer yeni kurallar çıkardı",
+   "new": "Dedemin yetkililere hiç pek saygısı olmadı, papaza bile",
+   "why": "пусто; рядом Behörde 1238; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16988,
+   "col": "example_pl",
+   "old": "Władza wydała nowe przepisy",
+   "new": "Mój dziadek nigdy nie miał wielkiego szacunku dla władzy, nawet dla proboszcza",
+   "why": "пусто; рядом Behörde 1238; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16988,
+   "col": "example_it",
+   "old": "Le autorità hanno emanato nuove regole",
+   "new": "Mio nonno non ha mai avuto molto rispetto per le autorità, neanche per il parroco",
+   "why": "пусто; рядом Behörde 1238; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16988,
+   "col": "example_es",
+   "old": "Las autoridades han dictado nuevas normas",
+   "new": "Mi abuelo nunca ha tenido mucho respeto por las autoridades, ni siquiera por el cura",
+   "why": "пусто; рядом Behörde 1238; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16988,
+   "col": "example_fr",
+   "old": "Les autorités ont édicté de nouvelles règles",
+   "new": "Mon grand-père n'a jamais eu beaucoup de respect pour les autorités, même pas pour le curé",
+   "why": "пусто; рядом Behörde 1238; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16988,
+   "col": "example_cs",
+   "old": "Vrchnost vydala nová pravidla",
+   "new": "Můj děda nikdy neměl moc respekt před vrchností, ani před farářem",
+   "why": "пусто; рядом Behörde 1238; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11618,
+   "col": "translation_ru",
+   "old": "честный, порядочный, праведный",
+   "new": "порядочный, честный",
+   "why": "претерит; рядом ehrlich 10048; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11618,
+   "col": "translation_uk",
+   "old": "чесний, порядний, праведний",
+   "new": "порядний, чесний",
+   "why": "претерит; рядом ehrlich 10048; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11618,
+   "col": "translation_en",
+   "old": "honest, upright, righteous",
+   "new": "upright, honest",
+   "why": "претерит; рядом ehrlich 10048; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11618,
+   "col": "translation_tr",
+   "old": "dürüst, doğru, erdemli",
+   "new": "dürüst, doğru",
+   "why": "претерит; рядом ehrlich 10048; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11618,
+   "col": "translation_pl",
+   "old": "uczciwy, porządny, prawy",
+   "new": "prawy, uczciwy",
+   "why": "претерит; рядом ehrlich 10048; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11618,
+   "col": "translation_cs",
+   "old": "poctivý, čestný, spravedlivý",
+   "new": "poctivý, čestný",
+   "why": "претерит; рядом ehrlich 10048; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11618,
+   "col": "example_de",
+   "old": "Er war ein rechtschaffener Mann, der anderen immer half",
+   "new": "Der Taxifahrer ist ein rechtschaffener Mensch, er hat mir mein Handy sofort zurückgebracht",
+   "why": "претерит; рядом ehrlich 10048; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11618,
+   "col": "example_ru",
+   "old": "Он был честным человеком, который всегда помогал другим",
+   "new": "Таксист — порядочный человек: он сразу вернул мне телефон",
+   "why": "претерит; рядом ehrlich 10048; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11618,
+   "col": "example_uk",
+   "old": "Він був чесною людиною, яка завжди допомагала іншим",
+   "new": "Таксист — порядна людина: він одразу повернув мені телефон",
+   "why": "претерит; рядом ehrlich 10048; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11618,
+   "col": "example_en",
+   "old": "He was an honest man who always helped others",
+   "new": "The taxi driver is an upright man — he brought my phone straight back to me",
+   "why": "претерит; рядом ehrlich 10048; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11618,
+   "col": "example_tr",
+   "old": "Hep başkalarına yardım eden dürüst bir insandı",
+   "new": "Taksici dürüst bir insan, telefonumu hemen geri getirdi",
+   "why": "претерит; рядом ehrlich 10048; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11618,
+   "col": "example_pl",
+   "old": "Był uczciwym człowiekiem, który zawsze pomagał innym",
+   "new": "Taksówkarz to prawy człowiek, od razu oddał mi telefon",
+   "why": "претерит; рядом ehrlich 10048; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11618,
+   "col": "example_it",
+   "old": "Era un uomo onesto che aiutava sempre gli altri",
+   "new": "Il tassista è una persona onesta, mi ha riportato subito il telefono",
+   "why": "претерит; рядом ehrlich 10048; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11618,
+   "col": "example_es",
+   "old": "Era un hombre honrado que siempre ayudaba a los demás",
+   "new": "El taxista es un hombre honrado, me ha devuelto el móvil enseguida",
+   "why": "претерит; рядом ehrlich 10048; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11618,
+   "col": "example_fr",
+   "old": "C'était un homme honnête qui aidait toujours les autres",
+   "new": "Le chauffeur de taxi est un homme intègre, il m'a tout de suite rapporté mon portable",
+   "why": "претерит; рядом ehrlich 10048; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 11618,
+   "col": "example_cs",
+   "old": "Byl to poctivý muž, který vždycky pomáhal ostatním",
+   "new": "Taxikář je poctivý člověk, hned mi vrátil mobil",
+   "why": "претерит; рядом ehrlich 10048; список → главное слово и не больше одной альтернативы"
+  }
+ ],
+ "replace": [],
+ "split_later": {}
+}
