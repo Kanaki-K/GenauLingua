@@ -110,7 +110,8 @@ def _check(conn, block: dict) -> tuple[list[dict], list[str]]:
         # Битая кодировка: UTF-8, прочитанный как cp1251 («ü» → «Гј»). 22.10 так испортились
         # 69 немецких примеров — находки читались через консоль Windows
         import re as _re
-        if _re.search(r"Г[јЁ¤¶–ћњ„џ©]|Р[°±ІіЃ]", e.get("new") or ""):
+        # не «Рі»: так начинается укр. «Різдво»
+        if _re.search(r"Г[јЁ¤¶–ћњ„џ©]|Р[°±µё]|С[Ѓ‚ѓ€]", e.get("new") or ""):
             problems.append(f"{wid}.{col}: битая кодировка в новом тексте")
             continue
         if (wid, col) in seen:
