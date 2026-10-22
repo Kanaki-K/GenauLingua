@@ -41,6 +41,7 @@ with engine.connect() as c:
 out = pathlib.Path(sys.argv[2])
 out.write_text(json.dumps({"about": sys.argv[3], "edits": edits,
                            "replace": getattr(fx, "REPLACE", []),
+                           "unreplace": getattr(fx, "UNREPLACE", []),
                            "split_later": getattr(fx, "SPLIT_LATER", {})},
                           ensure_ascii=False, indent=1), encoding="utf-8")
 print(len(edits), "правок")

@@ -9,7 +9,8 @@
 Файл блока:
 
     {"edits": [{"id": 10, "col": "translation_ru", "old": "…", "new": "…", "why": "…"}],
-     "replace": [{"id": 2676, "by": 542, "lang": "de", "why": "…"}]}
+     "replace": [{"id": 2676, "by": 542, "lang": "de", "why": "…"}],
+     "unreplace": [{"id": 18268, "why": "…"}]}
 
 ПОЧЕМУ ПО НОМЕРУ И СО СВЕРКОЙ «БЫЛО» (`REVIEW_CRITERIA.md`, «Порядок работы
 с правкой»). Прежние правки адресовались по немецкому слову — при 382
@@ -21,6 +22,12 @@
 `word_lemma_overrides` с языком (миграция b5d7f9a1c3e4). Ничего не
 удаляется; после пересборки групп прогресс по книжному сливается на
 разговорное.
+
+`unreplace` — снять указание, если строка снова самостоятельна (например,
+форму переименовали в лемму, а старое «форма от …» осталось). После записи
+указания проверяются целиком: ни одно не ведёт на выключенную строку —
+иначе цепочка или круг (22.10: unterbringen B2↔C1 и bezweifeln B1↔C1
+указывали друг на друга, и обе строки пропали у людей). Нашлось — откат.
 
 Звук перестраивается сам: клип в кэше сверяется с произносимым текстом.
 """
@@ -137,7 +144,22 @@ def _check(conn, block: dict) -> tuple[list[dict], list[str]]:
             problems.append(f"замена {ids}: язык {r.get('lang')!r} неизвестен")
         elif not (r.get("why") or "").strip():
             problems.append(f"замена {ids}: нет «зачем»")
+    for r in block.get("unreplace", []):
+        has = conn.execute(text("select count(*) from word_lemma_overrides where word_id = :id"),
+                           {"id": r.get("id")}).scalar()
+        if not has and not any(x.get("id") == r.get("id") for x in block.get("replace", [])):
+            problems.append(f"снятие замены {r.get('id')}: указания нет")
+        elif not (r.get("why") or "").strip():
+            problems.append(f"снятие замены {r.get('id')}: нет «зачем»")
     return ready, problems
+
+
+def broken_overrides(conn) -> list[str]:
+    """Указания, которые ведут на выключенную строку: цепочка или круг."""
+    rows = conn.execute(text(
+        "select o.word_id, o.lemma_word_id, o2.lemma_word_id from word_lemma_overrides o "
+        "join word_lemma_overrides o2 on o2.word_id = o.lemma_word_id order by 1")).all()
+    return [f"{a} → {b} → {c}" for a, b, c in rows]
 
 
 def main(argv=None) -> int:
@@ -152,6 +174,7 @@ def main(argv=None) -> int:
     with engine.begin() as conn:
         ready, problems = _check(conn, block)
         replaces = block.get("replace", [])
+        unreplaces = block.get("unreplace", [])
         print(f"правок к записи {len(ready)}, замен {len(replaces)}, пропущено {len(problems)}")
         for p in problems:
             print("  ПРОПУЩЕНО", p)
@@ -175,6 +198,15 @@ def main(argv=None) -> int:
                 "values (:id, :by, :why, :lang, now()) on conflict (word_id) do update set "
                 "lemma_word_id = excluded.lemma_word_id, reason = excluded.reason, lang = excluded.lang"),
                 {"id": r["id"], "by": r["by"], "why": f"2.3 замена: {r['why']}", "lang": r["lang"]})
+        for r in unreplaces:
+            conn.execute(text("delete from word_lemma_overrides where word_id = :id"), {"id": r["id"]})
+        if replaces or unreplaces:
+            broken = broken_overrides(conn)
+            if broken:
+                print(f"СТОП: {len(broken)} указаний ведут на выключенную строку — откат")
+                for b in broken[:20]:
+                    print("  ЦЕПОЧКА", b)
+                raise SystemExit(1)
 
         # Самопроверка чтением обратно — в той же транзакции
         wrong = [e for e in ready if (conn.execute(
@@ -183,8 +215,8 @@ def main(argv=None) -> int:
         if wrong:
             print(f"СТОП: {len(wrong)} правок не прочитались обратно — откат")
             raise SystemExit(1)
-    print(f"записано правок {len(ready)}, замен {len(replaces)}")
-    if replaces:
+    print(f"записано правок {len(ready)}, замен {len(replaces)}, снято {len(unreplaces)}")
+    if replaces or unreplaces:
         print("теперь: python -m app.scripts.rebuild_word_groups")
     return 0
 
