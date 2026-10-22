@@ -1,0 +1,1654 @@
+{
+ "about": "QA s249-s288",
+ "edits": [
+  {
+   "id": 17159,
+   "col": "example_en",
+   "old": "We're moving the furniture in a lorry",
+   "new": "We're transporting the furniture in a lorry",
+   "why": "проверка выборок: изучаемое слово не узнаётся: «moving» нет среди W: en (to transport, to carry)"
+  },
+  {
+   "id": 17210,
+   "col": "example_ru",
+   "old": "В порту Монако стоят яхты, которые стоят дороже всей нашей деревни",
+   "new": "В порту Монако стоят яхты дороже всей нашей деревни",
+   "why": "проверка выборок: неуклюжий повтор «стоят … стоят»"
+  },
+  {
+   "id": 9259,
+   "col": "example_en",
+   "old": "At our place every sick note ends up in your personnel file",
+   "new": "Where I work, every sick note ends up in your personnel file",
+   "why": "проверка выборок: «at our place» значит «у нас дома», а в немецком «bei uns» = у нас на работе"
+  },
+  {
+   "id": 18908,
+   "col": "example_cs",
+   "old": "Sousedovo miminko už hodiny nepřetržitě křičí",
+   "new": "Miminko sousedů už hodiny nepřetržitě křičí",
+   "why": "проверка выборок: «Sousedovo» — ребёнок одного соседа, а в DE «der Nachbarn» — соседей (мн. ч.)"
+  },
+  {
+   "id": 8287,
+   "col": "example_es",
+   "old": "Después de la enfermedad retrocedí en mi entrenamiento",
+   "new": "Después de la enfermedad me quedé atrás en el entrenamiento",
+   "why": "проверка выборок: «retroceder» = откатиться назад, а не «отстать»; слова из W: es (quedarse atrás) в перевод"
+  },
+  {
+   "id": 7795,
+   "col": "example_cs",
+   "old": "Táta se hodinu lopotí s novou tiskárnou a nechce pomoct",
+   "new": "Táta se už hodinu lopotí s novou tiskárnou a nechce si nechat pomoct",
+   "why": "проверка выборок: «nechce pomoct» значит «не хочет помочь», а в DE «will keine Hilfe» — не хочет помощи; так"
+  },
+  {
+   "id": 10240,
+   "col": "example_de",
+   "old": "Ich möchte meinen Traum erfüllen",
+   "new": "Ich möchte mir meinen Traum erfüllen",
+   "why": "проверка выборок: устойчивое сочетание — «sich einen Traum erfüllen»; без «mir» звучит неестественно. Перево"
+  },
+  {
+   "id": 17940,
+   "col": "example_fr",
+   "old": "Tu as déjà mesuré ta fièvre ?",
+   "new": "Tu as déjà mesuré ta température ?",
+   "why": "проверка выборок: «mesurer sa fièvre» неестественно; мерят температуру"
+  },
+  {
+   "id": 8268,
+   "col": "example_fr",
+   "old": "Mes parents font encore face à mon nouveau copain avec un certain scepticisme",
+   "new": "Mes parents se montrent encore un peu sceptiques envers mon nouveau copain",
+   "why": "проверка выборок: «faire face à» = противостоять; калька с gegenüberstehen, смысл «относиться к» потерян; калька «stojí vůči … skepticky»; по-чешски «stavějí se k … skepticky»"
+  },
+  {
+   "id": 8268,
+   "col": "example_cs",
+   "old": "Moji rodiče stojí vůči mému novému příteli ještě trochu skepticky",
+   "new": "Moji rodiče se k mému novému příteli ještě stavějí trochu skepticky",
+   "why": "проверка выборок: «faire face à» = противостоять; калька с gegenüberstehen, смысл «относиться к» потерян; калька «stojí vůči … skepticky»; по-чешски «stavějí se k … skepticky»"
+  },
+  {
+   "id": 17824,
+   "col": "example_tr",
+   "old": "Emlakçı küçük daire için iki aylık kira komisyon istiyor, bence bu küstahlık",
+   "new": "Emlakçı küçük daire için iki aylık kira tutarında komisyon istiyor, bence bu küstahlık",
+   "why": "проверка выборок: грамматически корявое сочетание «iki aylık kira komisyon»: нужно «iki aylık kira tutarında"
+  },
+  {
+   "id": 1698,
+   "col": "example_tr",
+   "old": "Sizin için bir bildirimim var",
+   "new": "Size bir mesajım var",
+   "why": "проверка выборок: «bildirim» звучит как уведомление приложения; по-людски «Size bir mesajım var» (mesaj есть"
+  },
+  {
+   "id": 10167,
+   "col": "example_pl",
+   "old": "Ten dureń zastawił mi samochód",
+   "new": "Ten idiota zastawił mi samochód",
+   "why": "проверка выборок: изучаемое слово не узнаётся: «dureń» нет в W (głupek, idiota)"
+  },
+  {
+   "id": 16503,
+   "col": "example_tr",
+   "old": "Oğlumuz emeklemeye başladığından beri her yerde güvenlik önlemlerimiz var: dolaplarda kilit, merdivende korkuluk",
+   "new": "Oğlumuz emeklemeye başladığından beri her yerde güvenlik önlemlerimiz var: dolaplarda kilit, merdivende güvenlik kapısı",
+   "why": "проверка выборок: Gitter an der Treppe — детские ворота на лестнице; «korkuluk» = перила, которые и так есть"
+  },
+  {
+   "id": 17601,
+   "col": "example_ru",
+   "old": "Во время экскурсии на телестудию сыну разрешили зайти в диспетчерскую и нажать на кнопку",
+   "new": "Во время экскурсии на телестудию сыну разрешили зайти в аппаратную и нажать на кнопку",
+   "why": "проверка выборок: на телестудии Kontrollraum — «аппаратная», а не «диспетчерская» (cs уже «režie»); при прав; на телестудії Kontrollraum — «апаратна», а не «диспетчерська»; при правці додати «апаратна"
+  },
+  {
+   "id": 17601,
+   "col": "example_uk",
+   "old": "Під час екскурсії на телестудію синові дозволили зайти в диспетчерську й натиснути кнопку",
+   "new": "Під час екскурсії на телестудію синові дозволили зайти в апаратну й натиснути кнопку",
+   "why": "проверка выборок: на телестудии Kontrollraum — «аппаратная», а не «диспетчерская» (cs уже «režie»); при прав; на телестудії Kontrollraum — «апаратна», а не «диспетчерська»; при правці додати «апаратна"
+  },
+  {
+   "id": 9001,
+   "col": "example_it",
+   "old": "Per la vendemmia il contadino ingaggia ogni anno degli studenti",
+   "new": "Per la raccolta il contadino ingaggia ogni anno degli studenti",
+   "why": "проверка выборок: vendemmia — только сбор винограда; Erntezeit — сбор урожая вообще"
+  },
+  {
+   "id": 13164,
+   "col": "example_fr",
+   "old": "L'infirmière en chef du service de mamie est sévère, mais le soir elle lui apporte un pudding en cachette",
+   "new": "L'infirmière en chef du service de mamie est sévère, mais le soir elle lui apporte un flan en cachette",
+   "why": "проверка выборок: французский «pudding» — плотный хлебный пирог, а не немецкий Pudding (десертный крем); по-"
+  },
+  {
+   "id": 6882,
+   "col": "example_pl",
+   "old": "Mam jeszcze trochę czasu w międzyczasie",
+   "new": "Mam jeszcze trochę wolnego czasu pomiędzy",
+   "why": "проверка выборок: тавтология «czasu w międzyczasie», так не говорят"
+  },
+  {
+   "id": 7315,
+   "col": "example_fr",
+   "old": "C'est généralement connu",
+   "new": "C'est un fait généralement connu",
+   "why": "проверка выборок: неестественно; по-французски «c'est un fait généralement connu» / «c'est bien connu»"
+  },
+  {
+   "id": 10596,
+   "col": "example_ru",
+   "old": "Плохую погоду в субботу мы наверстали отличным воскресеньем на озере",
+   "new": "За плохую погоду в субботу мы отыгрались отличным воскресеньем на озере",
+   "why": "проверка выборок: «наверстать погоду» по-русски не говорят (наверстывают упущенное время); естественно «отыг; «надолужити погоду» так не кажуть (надолужують втрачений час); природно «відігратися за…»"
+  },
+  {
+   "id": 10596,
+   "col": "example_uk",
+   "old": "Погану погоду в суботу ми надолужили чудовою неділею на озері",
+   "new": "За погану погоду в суботу ми відігралися чудовою неділею на озері",
+   "why": "проверка выборок: «наверстать погоду» по-русски не говорят (наверстывают упущенное время); естественно «отыг; «надолужити погоду» так не кажуть (надолужують втрачений час); природно «відігратися за…»"
+  },
+  {
+   "id": 12606,
+   "col": "example_ru",
+   "old": "Якобы розыгрыш по телефону был чистым обманом — им был нужен только мой номер счёта",
+   "new": "Так называемый розыгрыш по телефону был чистым обманом — им был нужен только мой номер счёта",
+   "why": "проверка выборок: «Якобы розыгрыш» в роли подлежащего — калька с angeblich; по-русски «так называемый»; «Нібито розіграш» у ролі підмета — калька з angeblich; природно «так званий»"
+  },
+  {
+   "id": 12606,
+   "col": "example_uk",
+   "old": "Нібито розіграш по телефону був чистим обманом — їм потрібен був лише мій номер рахунку",
+   "new": "Так званий розіграш по телефону був чистим обманом — їм потрібен був лише мій номер рахунку",
+   "why": "проверка выборок: «Якобы розыгрыш» в роли подлежащего — калька с angeblich; по-русски «так называемый»; «Нібито розіграш» у ролі підмета — калька з angeblich; природно «так званий»"
+  },
+  {
+   "id": 2490,
+   "col": "example_ru",
+   "old": "После ссоры у меня была страшная досада",
+   "new": "После ссоры мне было ужасно досадно",
+   "why": "проверка выборок: «у меня была досада» — неестественно; по-русски «мне было досадно»; «в мене була досада» — неприродно; українською «мені було досадно»"
+  },
+  {
+   "id": 2490,
+   "col": "example_uk",
+   "old": "Після сварки в мене була страшна досада",
+   "new": "Після сварки мені було страшенно досадно",
+   "why": "проверка выборок: «у меня была досада» — неестественно; по-русски «мне было досадно»; «в мене була досада» — неприродно; українською «мені було досадно»"
+  },
+  {
+   "id": 15735,
+   "col": "example_ru",
+   "old": "Я даже свой кактус засушил",
+   "new": "У меня даже кактус засох",
+   "why": "проверка выборок: «засушить» — высушить нарочно (цветы для гербария); vertrocknen lassen = довести до того, ; «засушити» — висушити навмисно; vertrocknen lassen = недогледіти, і він засох"
+  },
+  {
+   "id": 15735,
+   "col": "example_uk",
+   "old": "Я навіть свій кактус засушив",
+   "new": "У мене навіть кактус засох",
+   "why": "проверка выборок: «засушить» — высушить нарочно (цветы для гербария); vertrocknen lassen = довести до того, ; «засушити» — висушити навмисно; vertrocknen lassen = недогледіти, і він засох"
+  },
+  {
+   "id": 14969,
+   "col": "example_en",
+   "old": "The bum sleeps on the bench",
+   "new": "The tramp is sleeping on the bench",
+   "why": "проверка выборок: «bum» — американское слово; в британском «tramp» (есть в W); и естественнее Present Contin"
+  },
+  {
+   "id": 11975,
+   "col": "example_cs",
+   "old": "Šéfkuchař vyšel z kuchyně schválně kvůli tomu, že syn vyjedl talíř úplně do čista",
+   "new": "Šéfkuchař vyšel z kuchyně schválně kvůli tomu, že syn vyjedl talíř úplně dočista",
+   "why": "проверка выборок: орфография: наречие пишется слитно «dočista»; «a propósito» = нарочно/кстати, а не «специально ради»; выпало «aus der Küche»"
+  },
+  {
+   "id": 11975,
+   "col": "example_es",
+   "old": "El jefe de cocina salió a propósito porque mi hijo había dejado el plato limpísimo",
+   "new": "El jefe de cocina salió expresamente de la cocina porque mi hijo había dejado el plato limpísimo",
+   "why": "проверка выборок: орфография: наречие пишется слитно «dočista»; «a propósito» = нарочно/кстати, а не «специально ради»; выпало «aus der Küche»"
+  },
+  {
+   "id": 16216,
+   "col": "example_fr",
+   "old": "Quand la star du foot est apparue au supermarché, tout le magasin était en agitation",
+   "new": "Quand la star du foot est apparue au supermarché, il y a eu une vraie agitation dans tout le magasin",
+   "why": "проверка выборок: «être en agitation» по-французски не говорят"
+  },
+  {
+   "id": 18768,
+   "col": "example_en",
+   "old": "The company sent him immediate dismissal without any warning",
+   "new": "The company sent him notice of immediate dismissal without any warning",
+   "why": "проверка выборок: неестественно: «sent him immediate dismissal» — увольнение не посылают, посылают уведомлен; калька: «прислала немедленное увольнение» — по-русски присылают уведомление/приказ об увол; калька: «надіслала негайне звільнення» — надсилають повідомлення про звільнення"
+  },
+  {
+   "id": 18768,
+   "col": "example_ru",
+   "old": "Фирма прислала ему немедленное увольнение без всякого предупреждения",
+   "new": "Фирма прислала ему уведомление о немедленном увольнении без всякого предупреждения",
+   "why": "проверка выборок: неестественно: «sent him immediate dismissal» — увольнение не посылают, посылают уведомлен; калька: «прислала немедленное увольнение» — по-русски присылают уведомление/приказ об увол; калька: «надіслала негайне звільнення» — надсилають повідомлення про звільнення"
+  },
+  {
+   "id": 18768,
+   "col": "example_uk",
+   "old": "Фірма надіслала йому негайне звільнення без жодного попередження",
+   "new": "Фірма надіслала йому повідомлення про негайне звільнення без жодного попередження",
+   "why": "проверка выборок: неестественно: «sent him immediate dismissal» — увольнение не посылают, посылают уведомлен; калька: «прислала немедленное увольнение» — по-русски присылают уведомление/приказ об увол; калька: «надіслала негайне звільнення» — надсилають повідомлення про звільнення"
+  },
+  {
+   "id": 13346,
+   "col": "example_tr",
+   "old": "Burada kimse evde değil",
+   "new": "Burada evde kimse yok",
+   "why": "проверка выборок: неестественно: «Burada ... evde değil» — двойное место; по-турецки «Evde kimse yok»"
+  },
+  {
+   "id": 7218,
+   "col": "example_uk",
+   "old": "Мені потрібно спочатку обробити цю інформацію",
+   "new": "Мені потрібно спочатку осмислити цю інформацію",
+   "why": "проверка выборок: в переводе нет слова из W: uk (переробити, осмислити); «обробити інформацію» — про техниче"
+  },
+  {
+   "id": 8137,
+   "col": "example_ru",
+   "old": "Наша команда на корпоративном забеге собрана самая разная — от стажёра до начальницы",
+   "new": "Наша команда на корпоративном забеге собрана из самых разных людей — от стажёра до начальницы",
+   "why": "проверка выборок: неграмотная конструкция «собрана самая разная»; неграмотная конструкция «зібрана найрізноманітніша»"
+  },
+  {
+   "id": 8137,
+   "col": "example_uk",
+   "old": "Наша команда на корпоративному забігу зібрана найрізноманітніша — від стажера до начальниці",
+   "new": "Наша команда на корпоративному забігу зібрана з найрізноманітніших людей — від стажера до начальниці",
+   "why": "проверка выборок: неграмотная конструкция «собрана самая разная»; неграмотная конструкция «зібрана найрізноманітніша»"
+  },
+  {
+   "id": 8240,
+   "col": "example_tr",
+   "old": "Kışın ellerim hep sert ve kuru oluyor",
+   "new": "Kışın ellerim hep pürüzlü oluyor",
+   "why": "проверка выборок: изучаемое слово не узнаётся: в переводе нет слова из W: tr (pürüzlü, boğuk)"
+  },
+  {
+   "id": 6411,
+   "col": "example_es",
+   "old": "El dinero no basta hasta final de mes",
+   "new": "El dinero no basta para llegar a final de mes",
+   "why": "проверка выборок: неестественно: «no basta hasta final de mes»; по-испански «no basta para llegar a final de"
+  },
+  {
+   "id": 13508,
+   "col": "example_fr",
+   "old": "Il est en quatrième année",
+   "new": "Il est en CM1",
+   "why": "проверка выборок: во Франции «en quatrième» — класс коллежа (13 лет), 4-й класс начальной школы — CM1; «quat"
+  },
+  {
+   "id": 1879,
+   "col": "example_uk",
+   "old": "Я відкладаю на нову машину",
+   "new": "Я заощаджую на нову машину",
+   "why": "проверка выборок: изучаемое слово не узнаётся: в переводе нет слова из W: uk (заощаджувати, економити)"
+  },
+  {
+   "id": 9543,
+   "col": "example_cs",
+   "old": "Na srazu třídy táta nepoznal svého bývalého souseda z lavice, protože je teď plešatý",
+   "new": "Na třídním srazu táta nepoznal svého bývalého souseda z lavice, protože je teď plešatý",
+   "why": "проверка выборок: неестественно «Na srazu třídy»; по-чешски «třídní sraz» (как в W)"
+  },
+  {
+   "id": 15565,
+   "col": "example_pl",
+   "old": "Z klifu przy dobrej pogodzie widać aż Anglię",
+   "new": "Z klifu przy dobrej pogodzie widać nawet Anglię",
+   "why": "проверка выборок: неграмотно «widać aż Anglię»; нужно «aż do Anglii» или «nawet Anglię»"
+  },
+  {
+   "id": 15868,
+   "col": "example_ru",
+   "old": "После спора о наследстве между сёстрами настал ледниковый период",
+   "new": "После спора о наследстве у сестёр холодные отношения",
+   "why": "проверка выборок: калька: «ледниковый период» в переносном смысле по-русски не говорят; в W дано «холодные о; калька: «льодовиковий період» у переносному значенні неприродно; у W дано «холодні стосунк; калька: «an ice age between» неидиоматично; в W дано (fig.) big freeze"
+  },
+  {
+   "id": 15868,
+   "col": "example_uk",
+   "old": "Після суперечки про спадок між сестрами настав льодовиковий період",
+   "new": "Після суперечки про спадок у сестер холодні стосунки",
+   "why": "проверка выборок: калька: «ледниковый период» в переносном смысле по-русски не говорят; в W дано «холодные о; калька: «льодовиковий період» у переносному значенні неприродно; у W дано «холодні стосунк; калька: «an ice age between» неидиоматично; в W дано (fig.) big freeze"
+  },
+  {
+   "id": 15868,
+   "col": "example_en",
+   "old": "Since the row over the inheritance there's been an ice age between the two sisters",
+   "new": "Since the row over the inheritance there's been a big freeze between the two sisters",
+   "why": "проверка выборок: калька: «ледниковый период» в переносном смысле по-русски не говорят; в W дано «холодные о; калька: «льодовиковий період» у переносному значенні неприродно; у W дано «холодні стосунк; калька: «an ice age between» неидиоматично; в W дано (fig.) big freeze"
+  },
+  {
+   "id": 2480,
+   "col": "translation_ru",
+   "old": "добровольцы, волонтёр",
+   "new": "доброволец, волонтёр",
+   "why": "проверка выборок: главное значение стоит во множественном числе, вперемешку с единственным; существительное "
+  },
+  {
+   "id": 18320,
+   "col": "example_ru",
+   "old": "Сделаю нам чайник чая",
+   "new": "Заварю нам чайник чая",
+   "why": "проверка выборок: «сделаю чайник чая» неестественно; чай заваривают; «зроблю чайник чаю» неприродно; чай заварюють"
+  },
+  {
+   "id": 18320,
+   "col": "example_uk",
+   "old": "Зроблю нам чайник чаю",
+   "new": "Заварю нам чайник чаю",
+   "why": "проверка выборок: «сделаю чайник чая» неестественно; чай заваривают; «зроблю чайник чаю» неприродно; чай заварюють"
+  },
+  {
+   "id": 12323,
+   "col": "example_it",
+   "old": "La festa a sorpresa è saltata perché mia sorella se l'è fatta scappare al telefono",
+   "new": "La festa a sorpresa è stata scoperta perché mia sorella se l'è fatta scappare al telefono",
+   "why": "проверка выборок: «è saltata» = вечеринку отменили; в DE aufgeflogen = сюрприз раскрылся"
+  },
+  {
+   "id": 12303,
+   "col": "example_pl",
+   "old": "Wygląda wysportowana i regularnie trenuje",
+   "new": "Wygląda na wysportowaną i regularnie trenuje",
+   "why": "проверка выборок: грамматика: после «wyglądać» нужно «na» + винительный"
+  },
+  {
+   "id": 152,
+   "col": "example_tr",
+   "old": "Şef bugün burada değil",
+   "new": "Patron bugün burada değil",
+   "why": "проверка выборок: «şef» по-турецки прежде всего шеф-повар/старший; в W «patron, müdür», начальника так не на"
+  },
+  {
+   "id": 11592,
+   "col": "example_uk",
+   "old": "З зворушливою відданістю наша такса ходить за мамою по всій квартирі",
+   "new": "Зі зворушливою відданістю наша такса ходить за мамою по всій квартирі",
+   "why": "проверка выборок: милозвучність: перед «зв» пишеться «зі»"
+  },
+  {
+   "id": 11135,
+   "col": "translation_uk",
+   "old": "неженка, слабак",
+   "new": "слабак, хлюпик",
+   "why": "проверка выборок: «неженка» — русизм, в українській такого слова немає; «неженка» — русизм; українською «хлюпик» / «слабак»"
+  },
+  {
+   "id": 11135,
+   "col": "example_uk",
+   "old": "Ти при п'ятнадцяти градусах уже в шапці? Ну й неженка!",
+   "new": "Ти при п'ятнадцяти градусах уже в шапці? Ну й хлюпик!",
+   "why": "проверка выборок: «неженка» — русизм, в українській такого слова немає; «неженка» — русизм; українською «хлюпик» / «слабак»"
+  },
+  {
+   "id": 8363,
+   "col": "example_ru",
+   "old": "Сын полакомился тортом и вышел сухим из воды — безнаказанно",
+   "new": "Сын полакомился тортом и остался безнаказанным",
+   "why": "проверка выборок: неестественно: «вышел сухим из воды — безнаказанно» повторяет одно и то же, хвост приклеен; неприродно: «вийшов сухим з води — безкарно» — повтор, хвіст доданий заради слова; повтор: «l'ha passata liscia, impunito» — хвост добавлен ради слова; повтор: «se fue de rositas, impune» — хвост добавлен рад"
+  },
+  {
+   "id": 8363,
+   "col": "example_uk",
+   "old": "Син поласував тортом і вийшов сухим з води — безкарно",
+   "new": "Син поласував тортом і залишився безкарним",
+   "why": "проверка выборок: неестественно: «вышел сухим из воды — безнаказанно» повторяет одно и то же, хвост приклеен; неприродно: «вийшов сухим з води — безкарно» — повтор, хвіст доданий заради слова; повтор: «l'ha passata liscia, impunito» — хвост добавлен ради слова; повтор: «se fue de rositas, impune» — хвост добавлен рад"
+  },
+  {
+   "id": 8363,
+   "col": "example_it",
+   "old": "Mio figlio ha sbocconcellato la torta e l'ha passata liscia, impunito",
+   "new": "Mio figlio ha sbocconcellato la torta ed è rimasto impunito",
+   "why": "проверка выборок: неестественно: «вышел сухим из воды — безнаказанно» повторяет одно и то же, хвост приклеен; неприродно: «вийшов сухим з води — безкарно» — повтор, хвіст доданий заради слова; повтор: «l'ha passata liscia, impunito» — хвост добавлен ради слова; повтор: «se fue de rositas, impune» — хвост добавлен рад"
+  },
+  {
+   "id": 8363,
+   "col": "example_es",
+   "old": "Mi hijo picoteó la tarta y se fue de rositas, impune",
+   "new": "Mi hijo picoteó la tarta y quedó impune",
+   "why": "проверка выборок: неестественно: «вышел сухим из воды — безнаказанно» повторяет одно и то же, хвост приклеен; неприродно: «вийшов сухим з води — безкарно» — повтор, хвіст доданий заради слова; повтор: «l'ha passata liscia, impunito» — хвост добавлен ради слова; повтор: «se fue de rositas, impune» — хвост добавлен рад"
+  },
+  {
+   "id": 7370,
+   "col": "example_uk",
+   "old": "Облиш мене, я саме дивлюся фільм",
+   "new": "Облиш мене, я саме залип на фільм",
+   "why": "проверка выборок: слово не впізнається: в W «затягнути, залипнути», у перекладі нейтральне «дивлюся»; слово не узнаётся: в W «tragarse», в переводе нейтральное «viendo»; слово не узнаётся: в W «se taper», в переводе нейтральное «regarder»; в W «keyifle izlemek», в переводе нейтральное «izliyorum»; разговорный оттенок"
+  },
+  {
+   "id": 7370,
+   "col": "example_es",
+   "old": "Déjame, estoy viendo una película",
+   "new": "Déjame, me estoy tragando una película",
+   "why": "проверка выборок: слово не впізнається: в W «затягнути, залипнути», у перекладі нейтральне «дивлюся»; слово не узнаётся: в W «tragarse», в переводе нейтральное «viendo»; слово не узнаётся: в W «se taper», в переводе нейтральное «regarder»; в W «keyifle izlemek», в переводе нейтральное «izliyorum»; разговорный оттенок"
+  },
+  {
+   "id": 7370,
+   "col": "example_fr",
+   "old": "Laisse-moi, je suis en train de regarder un film",
+   "new": "Laisse-moi, je suis en train de me taper un film",
+   "why": "проверка выборок: слово не впізнається: в W «затягнути, залипнути», у перекладі нейтральне «дивлюся»; слово не узнаётся: в W «tragarse», в переводе нейтральное «viendo»; слово не узнаётся: в W «se taper», в переводе нейтральное «regarder»; в W «keyifle izlemek», в переводе нейтральное «izliyorum»; разговорный оттенок"
+  },
+  {
+   "id": 7370,
+   "col": "example_tr",
+   "old": "Beni rahat bırak, bir film izliyorum",
+   "new": "Beni rahat bırak, keyifle bir film izliyorum",
+   "why": "проверка выборок: слово не впізнається: в W «затягнути, залипнути», у перекладі нейтральне «дивлюся»; слово не узнаётся: в W «tragarse», в переводе нейтральное «viendo»; слово не узнаётся: в W «se taper», в переводе нейтральное «regarder»; в W «keyifle izlemek», в переводе нейтральное «izliyorum»; разговорный оттенок"
+  },
+  {
+   "id": 11937,
+   "col": "example_pl",
+   "old": "Z śliwek z ogrodu babcia robi dżem",
+   "new": "Ze śliwek z ogrodu babcia robi dżem",
+   "why": "проверка выборок: орфография: перед «śl» пишется «ze»"
+  },
+  {
+   "id": 15175,
+   "col": "example_es",
+   "old": "En el funeral del mejor amigo del abuelo todos cantamos juntos su canción favorita",
+   "new": "En el funeral del mejor amigo del abuelo todos cantaron juntos su canción favorita",
+   "why": "проверка выборок: лицо сменилось: в DE «alle haben gesungen» (3-е л.), в переводе «cantamos» (мы); лицо сменилось: в DE «alle haben gesungen» (3-е л.), в переводе «jsme zazpívali» (мы)"
+  },
+  {
+   "id": 15175,
+   "col": "example_cs",
+   "old": "Na smutečním obřadu dědova nejlepšího kamaráda jsme všichni spolu zazpívali jeho oblíbenou písničku",
+   "new": "Na smutečním obřadu dědova nejlepšího kamaráda všichni spolu zazpívali jeho oblíbenou písničku",
+   "why": "проверка выборок: лицо сменилось: в DE «alle haben gesungen» (3-е л.), в переводе «cantamos» (мы); лицо сменилось: в DE «alle haben gesungen» (3-е л.), в переводе «jsme zazpívali» (мы)"
+  },
+  {
+   "id": 18897,
+   "col": "example_ru",
+   "old": "С окончанием школы младшей дочерью для нас заканчивается целая эпоха",
+   "new": "Младшая дочь оканчивает школу — и для нас заканчивается целая эпоха",
+   "why": "проверка выборок: калька с немецкого: «окончанием школы младшей дочерью» — так не говорят; калька: «закінченням школи молодшою донькою» — неприродна конструкція"
+  },
+  {
+   "id": 18897,
+   "col": "example_uk",
+   "old": "Із закінченням школи молодшою донькою для нас закінчується ціла епоха",
+   "new": "Молодша донька закінчує школу — і для нас закінчується ціла епоха",
+   "why": "проверка выборок: калька с немецкого: «окончанием школы младшей дочерью» — так не говорят; калька: «закінченням школи молодшою донькою» — неприродна конструкція"
+  },
+  {
+   "id": 17956,
+   "col": "translation_uk",
+   "old": "кротовина, червоточина",
+   "new": "червоточина, кротова нора",
+   "why": "проверка выборок: «кротовина» по-украински — нора/купка земли крота, не физический термин; главным должно ст"
+  },
+  {
+   "id": 18060,
+   "col": "example_ru",
+   "old": "Он движется в высших сферах общества",
+   "new": "Он вращается в высших сферах общества",
+   "why": "проверка выборок: калька sich bewegen → «движется»; по-русски «вращается в высших сферах»; калька sich bewegen → «рухається»; по-українськи «обертається у вищих колах/сферах»"
+  },
+  {
+   "id": 18060,
+   "col": "example_uk",
+   "old": "Він рухається у найвищих сферах суспільства",
+   "new": "Він обертається у найвищих сферах суспільства",
+   "why": "проверка выборок: калька sich bewegen → «движется»; по-русски «вращается в высших сферах»; калька sich bewegen → «рухається»; по-українськи «обертається у вищих колах/сферах»"
+  },
+  {
+   "id": 11762,
+   "col": "example_ru",
+   "old": "Мясо было слишком жёстким для еды",
+   "new": "Мясо было слишком жёстким, чтобы его есть",
+   "why": "проверка выборок: калька zum Essen → «для еды»; по-русски «чтобы его есть»"
+  },
+  {
+   "id": 15800,
+   "col": "translation_uk",
+   "old": "стерв'ятник, падложер",
+   "new": "стерв'ятник, падлоїд",
+   "why": "проверка выборок: «падложер» — не украинское слово (калька с рус. «падальщик/пожиратель»); по-украински «пад"
+  },
+  {
+   "id": 14012,
+   "col": "translation_tr",
+   "old": "slogan",
+   "new": "motto, slogan",
+   "why": "проверка выборок: в примере стоит «mottosu», а в W только «slogan» — изучаемое слово не узнаётся; для девиза"
+  },
+  {
+   "id": 9729,
+   "col": "example_en",
+   "old": "He has a great fortune",
+   "new": "He's got a large fortune",
+   "why": "проверка выборок: «a great fortune» звучит книжно/неестественно; по-английски «a large fortune»"
+  },
+  {
+   "id": 13343,
+   "col": "translation_ru",
+   "old": "когда-нибудь, по",
+   "new": "когда-нибудь",
+   "why": "проверка выборок: лишнее значение «по» (je zwei = по два) путает: в других языках и в примере только «когда-"
+  },
+  {
+   "id": 8570,
+   "col": "example_cs",
+   "old": "Pokaždé když v supermarketu jdu kolem sladkostí, přepadne mě chuť na čokoládu",
+   "new": "Pokaždé, když jdu v supermarketu kolem sladkostí, přepadne mě chuť na čokoládu",
+   "why": "проверка выборок: нет запятой перед «když»; порядок слов «v supermarketu jdu» неестественный"
+  },
+  {
+   "id": 1388,
+   "col": "example_it",
+   "old": "Per relax la sera leggo un libro",
+   "new": "Per rilassarmi, la sera leggo un libro",
+   "why": "проверка выборок: «Per relax» без артикля неестественно; по-итальянски «Per rilassarmi»"
+  },
+  {
+   "id": 11469,
+   "col": "example_uk",
+   "old": "Наш кіт і сусідський пес уже багато років заклятими ворогами",
+   "new": "Наш кіт і сусідський пес уже багато років — закляті вороги",
+   "why": "проверка выборок: грамматическая ошибка: творительный падеж без глагола-связки — предложение без сказуемого"
+  },
+  {
+   "id": 13481,
+   "col": "example_tr",
+   "old": "Bu, dünkü adamın aynısı",
+   "new": "Bu, dünkü adamla aynı adam",
+   "why": "проверка выборок: «adamın aynısı» значит «копия/такой же, как вчерашний», а не «тот же самый человек»"
+  },
+  {
+   "id": 6833,
+   "col": "example_uk",
+   "old": "Давайте ще раз переглянемо список",
+   "new": "Давай ще раз переглянемо список",
+   "why": "проверка выборок: немецкое «Lass uns» — обращение на «ты» к одному; «Давайте» — множ./вежливая форма (ru сто"
+  },
+  {
+   "id": 14471,
+   "col": "example_tr",
+   "old": "Bu saf büyü",
+   "new": "Bu resmen sihir",
+   "why": "проверка выборок: «saf büyü» — калька pure magic, по-турецки звучит неестественно"
+  },
+  {
+   "id": 11462,
+   "col": "example_en",
+   "old": "That advert with happy cows is completely hypocritical, the animals have never seen a meadow",
+   "new": "That advert with happy cows is completely dishonest, the animals have never seen a meadow",
+   "why": "проверка выборок: реклама не бывает «hypocritical» в этом смысле; речь о лживой рекламе — естественнее disho"
+  },
+  {
+   "id": 9483,
+   "col": "example_fr",
+   "old": "Les mathématiques, c'est parfois difficile pour moi",
+   "new": "Les maths, c'est parfois difficile pour moi",
+   "why": "проверка выборок: разговорное Mathe → в W стоит les maths; полная форма звучит книжно и расходится с W"
+  },
+  {
+   "id": 9790,
+   "col": "example_fr",
+   "old": "Au lieu de cadeaux, mon père veut un don pour le refuge pour animaux pour son anniversaire",
+   "new": "Au lieu de cadeaux, mon père veut pour son anniversaire un don au refuge pour animaux",
+   "why": "проверка выборок: три «pour» подряд, неуклюже"
+  },
+  {
+   "id": 9823,
+   "col": "example_en",
+   "old": "The business revenues have increased",
+   "new": "The shop's takings have gone up",
+   "why": "проверка выборок: неестественно и без артикля/притяжательного; des Geschäfts = магазина, в W есть takings"
+  },
+  {
+   "id": 13585,
+   "col": "example_tr",
+   "old": "O, benim üç katı kazanıyor",
+   "new": "Benim üç katımı kazanıyor",
+   "why": "проверка выборок: грамматика: нужно притяжательное согласование «benim üç katımı»"
+  },
+  {
+   "id": 13643,
+   "col": "translation_en",
+   "old": "dressed, tightened",
+   "new": "dressed",
+   "why": "проверка выборок: лишнее значение «затянутый (винт)», путает и не совпадает с ru/it/es/fr/cs и примером; лишнее значение «затянутий», расходится с другими языками и примером; лишнее значение «sıkılmış» (затянутый; к тому же читается как «соскучившийся»); лишнее значение «dokręcony», расходится с другими языками и при"
+  },
+  {
+   "id": 13643,
+   "col": "translation_uk",
+   "old": "одягнений, затягнутий",
+   "new": "одягнений",
+   "why": "проверка выборок: лишнее значение «затянутый (винт)», путает и не совпадает с ru/it/es/fr/cs и примером; лишнее значение «затянутий», расходится с другими языками и примером; лишнее значение «sıkılmış» (затянутый; к тому же читается как «соскучившийся»); лишнее значение «dokręcony», расходится с другими языками и при"
+  },
+  {
+   "id": 13643,
+   "col": "translation_tr",
+   "old": "giyinmiş, sıkılmış",
+   "new": "giyinmiş, giyimli",
+   "why": "проверка выборок: лишнее значение «затянутый (винт)», путает и не совпадает с ru/it/es/fr/cs и примером; лишнее значение «затянутий», расходится с другими языками и примером; лишнее значение «sıkılmış» (затянутый; к тому же читается как «соскучившийся»); лишнее значение «dokręcony», расходится с другими языками и при"
+  },
+  {
+   "id": 13643,
+   "col": "translation_pl",
+   "old": "ubrany, dokręcony",
+   "new": "ubrany",
+   "why": "проверка выборок: лишнее значение «затянутый (винт)», путает и не совпадает с ru/it/es/fr/cs и примером; лишнее значение «затянутий», расходится с другими языками и примером; лишнее значение «sıkılmış» (затянутый; к тому же читается как «соскучившийся»); лишнее значение «dokręcony», расходится с другими языками и при"
+  },
+  {
+   "id": 18917,
+   "col": "translation_pl",
+   "old": "godzina zamknięcia, cisza nocna",
+   "new": "godzina zamknięcia, godzina policyjna",
+   "why": "проверка выборок: cisza nocna = тихий час/ночная тишина, не «комендантский час»; пример про время возвращени; неверное слово: cisza nocna — тишина, а не время, к которому сын должен быть дома; только «время закрытия заведения»; для значения из примера (время возвращения домой) нужно; kapanış saati — время закрытия за"
+  },
+  {
+   "id": 18917,
+   "col": "example_pl",
+   "old": "U nas w domu syn ma w weekendy ciszę nocną o północy i za każdym razem negocjuje",
+   "new": "U nas w domu syn ma w weekendy godzinę policyjną o północy i za każdym razem negocjuje",
+   "why": "проверка выборок: cisza nocna = тихий час/ночная тишина, не «комендантский час»; пример про время возвращени; неверное слово: cisza nocna — тишина, а не время, к которому сын должен быть дома; только «время закрытия заведения»; для значения из примера (время возвращения домой) нужно; kapanış saati — время закрытия за"
+  },
+  {
+   "id": 18917,
+   "col": "translation_tr",
+   "old": "kapanış saati",
+   "new": "kapanış saati, eve dönüş saati",
+   "why": "проверка выборок: cisza nocna = тихий час/ночная тишина, не «комендантский час»; пример про время возвращени; неверное слово: cisza nocna — тишина, а не время, к которому сын должен быть дома; только «время закрытия заведения»; для значения из примера (время возвращения домой) нужно; kapanış saati — время закрытия за"
+  },
+  {
+   "id": 18917,
+   "col": "example_tr",
+   "old": "Bizim evde oğlum için hafta sonları kapanış saati gece yarısı ve her seferinde pazarlık ediyor",
+   "new": "Bizim evde oğlumun hafta sonları eve dönüş saati gece yarısı ve her seferinde pazarlık ediyor",
+   "why": "проверка выборок: cisza nocna = тихий час/ночная тишина, не «комендантский час»; пример про время возвращени; неверное слово: cisza nocna — тишина, а не время, к которому сын должен быть дома; только «время закрытия заведения»; для значения из примера (время возвращения домой) нужно; kapanış saati — время закрытия за"
+  },
+  {
+   "id": 18917,
+   "col": "translation_it",
+   "old": "l'orario di chiusura",
+   "new": "l'orario di chiusura, il coprifuoco",
+   "why": "проверка выборок: cisza nocna = тихий час/ночная тишина, не «комендантский час»; пример про время возвращени; неверное слово: cisza nocna — тишина, а не время, к которому сын должен быть дома; только «время закрытия заведения»; для значения из примера (время возвращения домой) нужно; kapanış saati — время закрытия за"
+  },
+  {
+   "id": 18917,
+   "col": "example_it",
+   "old": "A casa nostra per mio figlio nel weekend l'orario di chiusura è mezzanotte, e ogni volta contratta",
+   "new": "A casa nostra mio figlio nel weekend ha il coprifuoco a mezzanotte, e ogni volta contratta",
+   "why": "проверка выборок: cisza nocna = тихий час/ночная тишина, не «комендантский час»; пример про время возвращени; неверное слово: cisza nocna — тишина, а не время, к которому сын должен быть дома; только «время закрытия заведения»; для значения из примера (время возвращения домой) нужно; kapanış saati — время закрытия за"
+  },
+  {
+   "id": 18917,
+   "col": "translation_es",
+   "old": "la hora de cierre",
+   "new": "la hora de cierre, el toque de queda",
+   "why": "проверка выборок: cisza nocna = тихий час/ночная тишина, не «комендантский час»; пример про время возвращени; неверное слово: cisza nocna — тишина, а не время, к которому сын должен быть дома; только «время закрытия заведения»; для значения из примера (время возвращения домой) нужно; kapanış saati — время закрытия за"
+  },
+  {
+   "id": 18917,
+   "col": "example_es",
+   "old": "En casa la hora de cierre de mi hijo el fin de semana es a medianoche, y cada vez negocia",
+   "new": "En casa mi hijo tiene toque de queda a medianoche los fines de semana, y cada vez lo negocia",
+   "why": "проверка выборок: cisza nocna = тихий час/ночная тишина, не «комендантский час»; пример про время возвращени; неверное слово: cisza nocna — тишина, а не время, к которому сын должен быть дома; только «время закрытия заведения»; для значения из примера (время возвращения домой) нужно; kapanış saati — время закрытия за"
+  },
+  {
+   "id": 18917,
+   "col": "translation_fr",
+   "old": "l'heure de fermeture",
+   "new": "l'heure de fermeture, le couvre-feu",
+   "why": "проверка выборок: cisza nocna = тихий час/ночная тишина, не «комендантский час»; пример про время возвращени; неверное слово: cisza nocna — тишина, а не время, к которому сын должен быть дома; только «время закрытия заведения»; для значения из примера (время возвращения домой) нужно; kapanış saati — время закрытия за"
+  },
+  {
+   "id": 18917,
+   "col": "example_fr",
+   "old": "Chez nous, l'heure de fermeture pour mon fils le week-end est minuit, et il négocie à chaque fois",
+   "new": "Chez nous, mon fils a un couvre-feu à minuit le week-end, et il négocie à chaque fois",
+   "why": "проверка выборок: cisza nocna = тихий час/ночная тишина, не «комендантский час»; пример про время возвращени; неверное слово: cisza nocna — тишина, а не время, к которому сын должен быть дома; только «время закрытия заведения»; для значения из примера (время возвращения домой) нужно; kapanış saati — время закрытия за"
+  },
+  {
+   "id": 6598,
+   "col": "example_en",
+   "old": "Do you have a good remedy for headaches?",
+   "new": "Have you got a remedy for headaches?",
+   "why": "проверка выборок: добавлено «good», которого нет в DE"
+  },
+  {
+   "id": 2250,
+   "col": "example_cs",
+   "old": "Lékař shledal vysoké krevní hodnoty znepokojivé a poslal mě ke specialistovi",
+   "new": "Lékař shledal vysoké krevní hodnoty znepokojivými a poslal mě ke specialistovi",
+   "why": "проверка выборок: грамматика: «shledat co jakým» требует творительного падежа"
+  },
+  {
+   "id": 15108,
+   "col": "word_de",
+   "old": "Verwandter",
+   "new": "Verwandte",
+   "why": "проверка выборок: субстантивированное прилагательное: с определённым артиклем «der Verwandte» (Verwandter — "
+  },
+  {
+   "id": 16563,
+   "col": "example_tr",
+   "old": "Bir yolcu kadın otobüs şoförüne hakaret edince iş arkadaşım herkesin önünde ona ırkçı dedi",
+   "new": "Bir yolcu otobüsün kadın şoförüne hakaret edince iş arkadaşım herkesin önünde ona ırkçı dedi",
+   "why": "проверка выборок: двусмысленно: «yolcu kadın» читается как «пассажирка», хотя в DE пассажир — мужчина, а жен"
+  },
+  {
+   "id": 17690,
+   "col": "translation_cs",
+   "old": "píst, baňka",
+   "new": "píst, kukuřičný klas",
+   "why": "проверка выборок: второе значение расходится: во всех языках «початок (кукурузы)», в cs «baňka» (колба)"
+  },
+  {
+   "id": 18831,
+   "col": "example_tr",
+   "old": "Kızımın şimdiki en sevdiği renk mor, geçen hafta daha sarıydı",
+   "new": "Kızımın şimdiki en sevdiği renk mor, geçen hafta hâlâ sarıydı",
+   "why": "проверка выборок: «daha sarıydı» читается как «была жёлтее»; нужно «hâlâ» (ещё)"
+  },
+  {
+   "id": 6442,
+   "col": "example_pl",
+   "old": "Dwie gałki waniliowych poproszę",
+   "new": "Poproszę dwie gałki waniliowe",
+   "why": "проверка выборок: «gałki waniliowych» без существительного звучит обрубленно; естественно «dwie gałki wanili"
+  },
+  {
+   "id": 16750,
+   "col": "translation_tr",
+   "old": "patlamamış bomba, başarısız şey",
+   "new": "patlamamış bomba, fiyasko",
+   "why": "проверка выборок: в примере стоит «fiyasko», которого нет в W:; изучаемое слово в tr-переводе не узнаётся"
+  },
+  {
+   "id": 16113,
+   "col": "example_en",
+   "old": "The principal has great authority at school",
+   "new": "The head teacher has great authority at school",
+   "why": "проверка выборок: US-английский: principal; в британском — head teacher"
+  },
+  {
+   "id": 11543,
+   "col": "example_ru",
+   "old": "То, что завхоз постоянно прогоняет детей с площадки, я считаю возмутительным",
+   "new": "То, что дворник постоянно прогоняет детей с площадки, я считаю возмутительным",
+   "why": "проверка выборок: Hausmeister жилого дома — не «завхоз» (учреждение); uk рядом — «двірник», колонки расходят"
+  },
+  {
+   "id": 9234,
+   "col": "example_ru",
+   "old": "Летом на пляже патрулируют спасатели, и сын потом хочет заниматься именно этим",
+   "new": "Летом на пляже патрулируют спасатели, и сын, когда вырастет, хочет заниматься именно этим",
+   "why": "проверка выборок: калька später → «потом»; по-русски «когда вырастет»; калька später → «потім»; по-українськи «коли виросте»"
+  },
+  {
+   "id": 9234,
+   "col": "example_uk",
+   "old": "Влітку на пляжі патрулюють рятувальники, і син потім хоче займатися саме цим",
+   "new": "Влітку на пляжі патрулюють рятувальники, і син, коли виросте, хоче займатися саме цим",
+   "why": "проверка выборок: калька später → «потом»; по-русски «когда вырастет»; калька später → «потім»; по-українськи «коли виросте»"
+  },
+  {
+   "id": 8480,
+   "col": "example_ru",
+   "old": "Сын без труда заносит тяжёлые ящики с водой на четвёртый этаж, а мне нужно два перерыва",
+   "new": "Сын без труда заносит тяжёлые ящики с водой на пятый этаж, а мне нужно два перерыва",
+   "why": "проверка выборок: этаж: «in den vierten Stock» = на пятый этаж по-русски; поверх: «in den vierten Stock» = на п'ятий поверх по-українськи"
+  },
+  {
+   "id": 8480,
+   "col": "example_uk",
+   "old": "Син без зусиль заносить важкі ящики з водою на четвертий поверх, а мені потрібні дві перерви",
+   "new": "Син без зусиль заносить важкі ящики з водою на п'ятий поверх, а мені потрібні дві перерви",
+   "why": "проверка выборок: этаж: «in den vierten Stock» = на пятый этаж по-русски; поверх: «in den vierten Stock» = на п'ятий поверх по-українськи"
+  },
+  {
+   "id": 17260,
+   "col": "example_tr",
+   "old": "Hafta sonları kabriyoletiyle göle gidiyor",
+   "new": "Hafta sonları üstü açık arabasıyla göle gidiyor",
+   "why": "проверка выборок: орфография: по-турецки «kabriyole», а не «kabriyolet»; слово из W: (üstü açık araba) не уз"
+  },
+  {
+   "id": 10383,
+   "col": "example_tr",
+   "old": "Gelemediğim için çok pişmanım",
+   "new": "Gelemediğim için çok üzgünüm",
+   "why": "проверка выборок: «pişman» — раскаяние в своём поступке; вежливое сожаление о том, что не смог прийти, — «üz"
+  },
+  {
+   "id": 16906,
+   "col": "example_ru",
+   "old": "Бульварные газеты любят писать «растлитель детей», полиция предпочитает говорить «преступник»",
+   "new": "Бульварные газеты любят писать «растлитель детей», полиция предпочитает говорить о лицах, совершивших насилие",
+   "why": "проверка выборок: Missbrauchstäter передано слишком общо: «преступник» теряет смысл «совершивший насилие»"
+  },
+  {
+   "id": 17081,
+   "col": "translation_ru",
+   "old": "палуба, колода карт",
+   "new": "палуба",
+   "why": "проверка выборок: языки расходятся: в ru/uk второе значение «колода карт», в en/tr/pl — «уровень парковки»; "
+  },
+  {
+   "id": 17081,
+   "col": "translation_uk",
+   "old": "палуба, колода карт",
+   "new": "палуба",
+   "why": "проверка выборок: языки расходятся: в ru/uk второе значение «колода карт», в en/tr/pl — «уровень парковки»; "
+  },
+  {
+   "id": 18272,
+   "col": "translation_ru",
+   "old": "память, чердак",
+   "new": "память, хранилище",
+   "why": "проверка выборок: языки расходятся: ru/uk/pl/it дают второе значение «чердак», en/es/fr/cs — «хранилище/stor; языки расходятся: «горище» против storage/almacenamiento/stockage/úložiště в других колонк"
+  },
+  {
+   "id": 18272,
+   "col": "translation_uk",
+   "old": "пам'ять, горище",
+   "new": "пам'ять, сховище",
+   "why": "проверка выборок: языки расходятся: ru/uk/pl/it дают второе значение «чердак», en/es/fr/cs — «хранилище/stor; языки расходятся: «горище» против storage/almacenamiento/stockage/úložiště в других колонк"
+  },
+  {
+   "id": 18272,
+   "col": "translation_pl",
+   "old": "pamięć, strych",
+   "new": "pamięć, magazyn",
+   "why": "проверка выборок: языки расходятся: ru/uk/pl/it дают второе значение «чердак», en/es/fr/cs — «хранилище/stor; языки расходятся: «горище» против storage/almacenamiento/stockage/úložiště в других колонк"
+  },
+  {
+   "id": 18272,
+   "col": "translation_it",
+   "old": "la memoria, la soffitta",
+   "new": "la memoria, il magazzino",
+   "why": "проверка выборок: языки расходятся: ru/uk/pl/it дают второе значение «чердак», en/es/fr/cs — «хранилище/stor; языки расходятся: «горище» против storage/almacenamiento/stockage/úložiště в других колонк"
+  },
+  {
+   "id": 16399,
+   "col": "example_uk",
+   "old": "Удома донька любить гратися в шляхту й вимагає, щоб за вечерею ми зверталися до неї «графине»",
+   "new": "Удома донька любить гратися в аристократію й вимагає, щоб за вечерею ми зверталися до неї «графине»",
+   "why": "проверка выборок: «шляхта» — польське дворянство, не те слово; у W стоїть «дворянство, аристократія»"
+  },
+  {
+   "id": 12918,
+   "col": "example_fr",
+   "old": "Économiser justement sur les pneus d'hiver, c'est une vision à courte vue",
+   "new": "Économiser justement sur les pneus d'hiver, c'est plutôt un calcul à courte vue",
+   "why": "проверка выборок: «une vision à courte vue» — тавтология и неестественно; потеряно «ziemlich»"
+  },
+  {
+   "id": 13659,
+   "col": "translation_en",
+   "old": "umbrella, screen",
+   "new": "umbrella",
+   "why": "проверка выборок: второе значение «screen» не совпадает с ru/uk «козырёк» и отсутствует в остальных языках; "
+  },
+  {
+   "id": 17808,
+   "col": "translation_pl",
+   "old": "rekompensata",
+   "new": "rewanż, coś w zamian",
+   "why": "проверка выборок: «rekompensata» = компенсация ущерба, не «ответная услуга»; другие языки — contrepartie/som; «w ramach rekompensaty» звучит как возмещение убытков; по-польски естественно «w zamian / "
+  },
+  {
+   "id": 17808,
+   "col": "example_pl",
+   "old": "Pomogę ci w przeprowadzce, a w ramach rekompensaty ugotujesz dla nas wszystkich",
+   "new": "Pomogę ci w przeprowadzce, a w rewanżu ugotujesz dla nas wszystkich",
+   "why": "проверка выборок: «rekompensata» = компенсация ущерба, не «ответная услуга»; другие языки — contrepartie/som; «w ramach rekompensaty» звучит как возмещение убытков; по-польски естественно «w zamian / "
+  },
+  {
+   "id": 15541,
+   "col": "translation_tr",
+   "old": "fırtına",
+   "new": "gök gürültülü fırtına, fırtına",
+   "why": "проверка выборок: Gewitter — гроза; «fırtına» = буря/шторм (Sturm), смешивается с другим словом"
+  },
+  {
+   "id": 9083,
+   "col": "translation_tr",
+   "old": "profesyonelce olmayan",
+   "new": "profesyonel olmayan, amatörce",
+   "why": "проверка выборок: неестественное словосочетание; по-турецки «profesyonel olmayan» или «amatörce»"
+  },
+  {
+   "id": 17950,
+   "col": "example_de",
+   "old": "Den Teig so lange kneten, bis eine glatte Masse entsteht",
+   "new": "Ich knete den Teig so lange, bis eine glatte Masse entsteht",
+   "why": "проверка выборок: пример — инструкция из рецепта (инфинитив), а не живая фраза; под новый немецкий пример"
+  },
+  {
+   "id": 17950,
+   "col": "example_ru",
+   "old": "Месить тесто, пока не получится гладкая масса",
+   "new": "Я мешу тесто, пока не получится гладкая масса",
+   "why": "проверка выборок: пример — инструкция из рецепта (инфинитив), а не живая фраза; под новый немецкий пример"
+  },
+  {
+   "id": 17950,
+   "col": "example_uk",
+   "old": "Місити тісто, доки не вийде гладка маса",
+   "new": "Я мішу тісто, доки не вийде гладка маса",
+   "why": "проверка выборок: пример — инструкция из рецепта (инфинитив), а не живая фраза; под новый немецкий пример"
+  },
+  {
+   "id": 17950,
+   "col": "example_en",
+   "old": "Knead the dough until you get a smooth mass",
+   "new": "I knead the dough until it forms a smooth mass",
+   "why": "проверка выборок: пример — инструкция из рецепта (инфинитив), а не живая фраза; под новый немецкий пример"
+  },
+  {
+   "id": 17950,
+   "col": "example_tr",
+   "old": "Hamuru pürüzsüz bir kütle oluşana kadar yoğurun",
+   "new": "Hamuru pürüzsüz bir kütle oluşana kadar yoğuruyorum",
+   "why": "проверка выборок: пример — инструкция из рецепта (инфинитив), а не живая фраза; под новый немецкий пример"
+  },
+  {
+   "id": 17950,
+   "col": "example_pl",
+   "old": "Wyrabiać ciasto, aż powstanie gładka masa",
+   "new": "Wyrabiam ciasto, aż powstanie gładka masa",
+   "why": "проверка выборок: пример — инструкция из рецепта (инфинитив), а не живая фраза; под новый немецкий пример"
+  },
+  {
+   "id": 17950,
+   "col": "example_it",
+   "old": "Impastare finché non si ottiene una massa liscia",
+   "new": "Impasto finché non si ottiene una massa liscia",
+   "why": "проверка выборок: пример — инструкция из рецепта (инфинитив), а не живая фраза; под новый немецкий пример"
+  },
+  {
+   "id": 17950,
+   "col": "example_es",
+   "old": "Amasar hasta obtener una masa lisa",
+   "new": "Amaso hasta obtener una masa lisa",
+   "why": "проверка выборок: пример — инструкция из рецепта (инфинитив), а не живая фраза; под новый немецкий пример"
+  },
+  {
+   "id": 17950,
+   "col": "example_fr",
+   "old": "Pétrir la pâte jusqu'à obtenir une masse lisse",
+   "new": "Je pétris la pâte jusqu'à obtenir une masse lisse",
+   "why": "проверка выборок: пример — инструкция из рецепта (инфинитив), а не живая фраза; под новый немецкий пример"
+  },
+  {
+   "id": 17950,
+   "col": "example_cs",
+   "old": "Hníst těsto, dokud nevznikne hladká hmota",
+   "new": "Hnětu těsto, dokud nevznikne hladká hmota",
+   "why": "проверка выборок: пример — инструкция из рецепта (инфинитив), а не живая фраза; под новый немецкий пример"
+  },
+  {
+   "id": 14434,
+   "col": "translation_it",
+   "old": "l'atto, il nudo",
+   "new": "l'atto, il gesto",
+   "why": "проверка выборок: языки расходятся: второе значение «nudo» (обнажённая натура), а в ru/en/pl/cs — «поступок/; языки расходятся: «desnudo» против «поступок/deed» в других колонках; языки расходятся: «nu» против «поступок/deed» в других колонках; языки расходятся: «perde» (действие пьесы) против «поступок/deed» в други"
+  },
+  {
+   "id": 14434,
+   "col": "translation_es",
+   "old": "el acto, el desnudo",
+   "new": "el acto, el gesto",
+   "why": "проверка выборок: языки расходятся: второе значение «nudo» (обнажённая натура), а в ru/en/pl/cs — «поступок/; языки расходятся: «desnudo» против «поступок/deed» в других колонках; языки расходятся: «nu» против «поступок/deed» в других колонках; языки расходятся: «perde» (действие пьесы) против «поступок/deed» в други"
+  },
+  {
+   "id": 14434,
+   "col": "translation_fr",
+   "old": "l'acte, le nu",
+   "new": "l'acte, le geste",
+   "why": "проверка выборок: языки расходятся: второе значение «nudo» (обнажённая натура), а в ru/en/pl/cs — «поступок/; языки расходятся: «desnudo» против «поступок/deed» в других колонках; языки расходятся: «nu» против «поступок/deed» в других колонках; языки расходятся: «perde» (действие пьесы) против «поступок/deed» в други"
+  },
+  {
+   "id": 14434,
+   "col": "translation_tr",
+   "old": "eylem, perde",
+   "new": "eylem, davranış",
+   "why": "проверка выборок: языки расходятся: второе значение «nudo» (обнажённая натура), а в ru/en/pl/cs — «поступок/; языки расходятся: «desnudo» против «поступок/deed» в других колонках; языки расходятся: «nu» против «поступок/deed» в других колонках; языки расходятся: «perde» (действие пьесы) против «поступок/deed» в други"
+  },
+  {
+   "id": 2692,
+   "col": "example_tr",
+   "old": "Buna objektif bakmaya çalışıyorum",
+   "new": "Buna nesnel bakmaya çalışıyorum",
+   "why": "проверка выборок: в переводе нет слова из W (nesnel, tarafsız) — изучаемое слово не узнаётся"
+  },
+  {
+   "id": 17955,
+   "col": "example_en",
+   "old": "Gravity pulls everything downward",
+   "new": "Gravity pulls everything downwards",
+   "why": "проверка выборок: «downward» как наречие — американский вариант; британский — downwards"
+  },
+  {
+   "id": 6815,
+   "col": "example_ru",
+   "old": "Он всегда перепрыгивает через две ступеньки",
+   "new": "Он всегда шагает через ступеньку",
+   "why": "проверка выборок: «zwei Stufen auf einmal» = по две ступеньки за шаг, т.е. «через ступеньку»; «через две сту; «через дві сходинки» = по три за крок; у німецькому — по дві за раз, тобто «через сходинку"
+  },
+  {
+   "id": 6815,
+   "col": "example_uk",
+   "old": "Він завжди переступає через дві сходинки",
+   "new": "Він завжди ступає через сходинку",
+   "why": "проверка выборок: «zwei Stufen auf einmal» = по две ступеньки за шаг, т.е. «через ступеньку»; «через две сту; «через дві сходинки» = по три за крок; у німецькому — по дві за раз, тобто «через сходинку"
+  },
+  {
+   "id": 11966,
+   "col": "example_tr",
+   "old": "Futbol antrenmanından sonra çocuklar eve açlıktan ölerek gelip buzdolabını yağmalıyor",
+   "new": "Futbol antrenmanından sonra çocuklar eve açlıktan ölmüş halde gelip buzdolabını yağmalıyor",
+   "why": "проверка выборок: «açlıktan ölerek gelip» неестественно (буквально «умирая от голода приходят»)"
+  },
+  {
+   "id": 8481,
+   "col": "translation_pl",
+   "old": "znieść, zlikwidować",
+   "new": "znieść, pozbyć się",
+   "why": "проверка выборок: нет значения «избавиться» для примера про машину; «zlikwidować samochód» канцелярски; естественно «pozbyć się samochodu»"
+  },
+  {
+   "id": 8481,
+   "col": "example_pl",
+   "old": "Zlikwidowaliśmy samochód i teraz wszędzie jeździmy rowerem, nawet na duże zakupy",
+   "new": "Pozbyliśmy się samochodu i teraz wszędzie jeździmy rowerem, nawet na duże zakupy",
+   "why": "проверка выборок: нет значения «избавиться» для примера про машину; «zlikwidować samochód» канцелярски; естественно «pozbyć się samochodu»"
+  },
+  {
+   "id": 14011,
+   "col": "example_en",
+   "old": "The answer goes: yes",
+   "new": "The answer is: yes",
+   "why": "проверка выборок: «The answer goes» неестественно для «Die Antwort lautet»"
+  },
+  {
+   "id": 14399,
+   "col": "translation_en",
+   "old": "cross, lower back",
+   "new": "cross",
+   "why": "проверка выборок: языки расходятся: «lower back» есть только в en/it/es/fr, в ru/uk/tr/pl/cs его нет; при па; языки расходятся: «schiena» нет в ru/uk/tr/pl/cs; языки расходятся: «espalda» нет в ru/uk/tr/pl/cs; языки расходятся: «dos» нет в ru/uk/tr/pl/cs"
+  },
+  {
+   "id": 14399,
+   "col": "translation_it",
+   "old": "la croce, la schiena",
+   "new": "la croce, la crocetta",
+   "why": "проверка выборок: языки расходятся: «lower back» есть только в en/it/es/fr, в ru/uk/tr/pl/cs его нет; при па; языки расходятся: «schiena» нет в ru/uk/tr/pl/cs; языки расходятся: «espalda» нет в ru/uk/tr/pl/cs; языки расходятся: «dos» нет в ru/uk/tr/pl/cs"
+  },
+  {
+   "id": 14399,
+   "col": "translation_es",
+   "old": "la cruz, la espalda",
+   "new": "la cruz, la crucecita",
+   "why": "проверка выборок: языки расходятся: «lower back» есть только в en/it/es/fr, в ru/uk/tr/pl/cs его нет; при па; языки расходятся: «schiena» нет в ru/uk/tr/pl/cs; языки расходятся: «espalda» нет в ru/uk/tr/pl/cs; языки расходятся: «dos» нет в ru/uk/tr/pl/cs"
+  },
+  {
+   "id": 14399,
+   "col": "translation_fr",
+   "old": "la croix, le dos",
+   "new": "la croix",
+   "why": "проверка выборок: языки расходятся: «lower back» есть только в en/it/es/fr, в ru/uk/tr/pl/cs его нет; при па; языки расходятся: «schiena» нет в ru/uk/tr/pl/cs; языки расходятся: «espalda» нет в ru/uk/tr/pl/cs; языки расходятся: «dos» нет в ru/uk/tr/pl/cs"
+  },
+  {
+   "id": 11387,
+   "col": "translation_fr",
+   "old": "la tête brûlée, le sanguin",
+   "new": "le sanguin, la soupe au lait",
+   "why": "проверка выборок: «tête brûlée» = сорвиголова, безрассудный смельчак, а не вспыльчивый человек (Hitzkopf); «tête brûlée» = сорвиголова; в примере нужен вспыльчивый человек"
+  },
+  {
+   "id": 11387,
+   "col": "example_fr",
+   "old": "Pendant le foot, mon mari d'habitude si calme devient une vraie tête brûlée et hurle contre la télé",
+   "new": "Pendant le foot, mon mari d'habitude si calme devient un vrai sanguin et hurle contre la télé",
+   "why": "проверка выборок: «tête brûlée» = сорвиголова, безрассудный смельчак, а не вспыльчивый человек (Hitzkopf); «tête brûlée» = сорвиголова; в примере нужен вспыльчивый человек"
+  },
+  {
+   "id": 2591,
+   "col": "example_it",
+   "old": "Nell'annuncio c'era un ruolo in inglese e non capivo che lavoro fosse",
+   "new": "Nell'annuncio il nome del ruolo era in inglese e non capivo che lavoro fosse",
+   "why": "проверка выборок: «c'era un ruolo in inglese» неестественно: речь о названии должности; «había un puesto en inglés» = «была вакансия на английском»; речь о названии должности"
+  },
+  {
+   "id": 2591,
+   "col": "example_es",
+   "old": "En el anuncio había un puesto en inglés y no sabía de qué era el trabajo",
+   "new": "En el anuncio el nombre del puesto estaba en inglés y no sabía de qué era el trabajo",
+   "why": "проверка выборок: «c'era un ruolo in inglese» неестественно: речь о названии должности; «había un puesto en inglés» = «была вакансия на английском»; речь о названии должности"
+  },
+  {
+   "id": 14061,
+   "col": "example_uk",
+   "old": "Щирі привітання зі здачею іспиту",
+   "new": "Щирі вітання зі складеним іспитом",
+   "why": "проверка выборок: «здача іспиту» — русизм; по-українськи «складання іспиту / складений іспит»"
+  },
+  {
+   "id": 7425,
+   "col": "example_pl",
+   "old": "Kolejka przed muzeum była niekończąca się, więc poszliśmy do kawiarni",
+   "new": "Kolejka przed muzeum ciągnęła się bez końca, więc poszliśmy do kawiarni",
+   "why": "проверка выборок: «była niekończąca się» — неестественная конструкция с причастием; по-польски говорят «ciąg"
+  },
+  {
+   "id": 18833,
+   "col": "example_ru",
+   "old": "После визита к стоматологу в пять лет у мужа на всю жизнь страх перед бормашиной",
+   "new": "После визита к стоматологу в пять лет у мужа на всю жизнь остался страх перед бормашиной",
+   "why": "проверка выборок: нет сказуемого: «у мужа на всю жизнь страх» — так не говорят; нет сказуемого, калька с русского варианта; «una paura per tutta la vita del trapano» — неестественный порядок и калька"
+  },
+  {
+   "id": 18833,
+   "col": "example_uk",
+   "old": "Після візиту до стоматолога в п'ять років у чоловіка на все життя страх перед бормашиною",
+   "new": "Після візиту до стоматолога в п'ять років у чоловіка на все життя залишився страх перед бормашиною",
+   "why": "проверка выборок: нет сказуемого: «у мужа на всю жизнь страх» — так не говорят; нет сказуемого, калька с русского варианта; «una paura per tutta la vita del trapano» — неестественный порядок и калька"
+  },
+  {
+   "id": 18833,
+   "col": "example_it",
+   "old": "Da una visita dal dentista a cinque anni mio marito ha una paura per tutta la vita del trapano",
+   "new": "Da una visita dal dentista a cinque anni mio marito si porta dietro per tutta la vita la paura del trapano",
+   "why": "проверка выборок: нет сказуемого: «у мужа на всю жизнь страх» — так не говорят; нет сказуемого, калька с русского варианта; «una paura per tutta la vita del trapano» — неестественный порядок и калька"
+  },
+  {
+   "id": 17235,
+   "col": "translation_cs",
+   "old": "přihrádka",
+   "new": "odkládací přihrádka",
+   "why": "проверка выборок: «přihrádka» — просто «отделение/полка», без уточнения не значит бардачок; в самом примере "
+  },
+  {
+   "id": 10437,
+   "col": "example_ru",
+   "old": "Фильм держал в напряжении до конца",
+   "new": "Напряжение в фильме было потрясающее",
+   "why": "проверка выборок: пересказ, а не перевод: добавлено «до конца», потеряно «toll» (напряжение было отличным)"
+  },
+  {
+   "id": 7685,
+   "col": "translation_ru",
+   "old": "отступить, пойти на попятную",
+   "new": "отступление, (einen Rückzieher machen) пойти на попятную",
+   "why": "проверка выборок: существительное der Rückzieher переведено только глаголами"
+  },
+  {
+   "id": 7685,
+   "col": "translation_uk",
+   "old": "відступити, піти на попятну",
+   "new": "відступ, (einen Rückzieher machen) піти на попятну",
+   "why": "проверка выборок: существительное der Rückzieher переведено только глаголами"
+  },
+  {
+   "id": 15137,
+   "col": "translation_pl",
+   "old": "jądro, testykul",
+   "new": "jądro",
+   "why": "проверка выборок: «testykul» — не польское слово"
+  },
+  {
+   "id": 16276,
+   "col": "example_it",
+   "old": "Per un giocatore del suo calibro la serie B in realtà è troppo poco",
+   "new": "Per un giocatore del suo calibro la serie B in realtà va stretta",
+   "why": "проверка выборок: «è troppo poco» про лигу звучит неестественно; по-итальянски «gli va stretta»"
+  },
+  {
+   "id": 8280,
+   "col": "example_tr",
+   "old": "Camdan eski etiketi kazıyorum",
+   "new": "Kavanozdan eski etiketi kazıyorum",
+   "why": "проверка выборок: Glas здесь — банка; «camdan» = «со стекла (оконного)», в ru/pl/it/fr везде банка"
+  },
+  {
+   "id": 14119,
+   "col": "example_it",
+   "old": "Senza replica mio figlio mette in ordine la camera solo quando glielo dice la nonna",
+   "new": "Senza obiezioni mio figlio mette in ordine la camera solo quando glielo dice la nonna",
+   "why": "проверка выборок: «Senza replica» неидиоматично в этом значении; «Sin réplica» неестественно; по-испански «sin protestar»"
+  },
+  {
+   "id": 14119,
+   "col": "example_es",
+   "old": "Sin réplica mi hijo solo recoge su cuarto cuando se lo dice la abuela",
+   "new": "Sin protestar mi hijo solo recoge su cuarto cuando se lo dice la abuela",
+   "why": "проверка выборок: «Senza replica» неидиоматично в этом значении; «Sin réplica» неестественно; по-испански «sin protestar»"
+  },
+  {
+   "id": 12702,
+   "col": "translation_en",
+   "old": "depressive, depressed",
+   "new": "depressing, depressed",
+   "why": "проверка выборок: в примере значение «угнетающий» (музыка) — en-пример использует depressing, которого нет в"
+  },
+  {
+   "id": 2795,
+   "col": "example_fr",
+   "old": "Allume les phares, il fait nuit",
+   "new": "Allume les phares, la nuit tombe",
+   "why": "проверка выборок: «es wird dunkel» = темнеет (процесс), а не «уже ночь»"
+  },
+  {
+   "id": 2512,
+   "col": "example_en",
+   "old": "In the evenings we watch football together in the common room at the halls",
+   "new": "In the evenings we watch football together in the common room in our hall of residence",
+   "why": "проверка выборок: «at the halls» — по-британски «in halls» / «in our hall of residence»"
+  },
+  {
+   "id": 13069,
+   "col": "example_en",
+   "old": "When my boss gets angry, you can see the artery in his neck swelling",
+   "new": "When my boss gets angry, you can see his carotid artery swelling",
+   "why": "проверка выборок: слово W (carotid artery) в примере не узнаётся"
+  },
+  {
+   "id": 2877,
+   "col": "example_en",
+   "old": "My daughter saves her pocket money and gives it to animal welfare",
+   "new": "My daughter saves her pocket money and gives it to an animal welfare charity",
+   "why": "проверка выборок: «gives it to animal welfare» — деньги отдают организации, а не понятию"
+  },
+  {
+   "id": 10539,
+   "col": "translation_ru",
+   "old": "ошеломлённый, переполненный",
+   "new": "ошеломлённый, заваленный (работой)",
+   "why": "проверка выборок: в ru-примере «завален (работой)» — этого слова нет в W, изучаемое слово не узнаётся; под исправленный uk-пример: «приголомшений від роботи» неестественно; «приголомшений від роботи» — неестественно; калька «відчуваю себе»"
+  },
+  {
+   "id": 10539,
+   "col": "translation_uk",
+   "old": "приголомшений, переповнений",
+   "new": "приголомшений, завалений (роботою)",
+   "why": "проверка выборок: в ru-примере «завален (работой)» — этого слова нет в W, изучаемое слово не узнаётся; под исправленный uk-пример: «приголомшений від роботи» неестественно; «приголомшений від роботи» — неестественно; калька «відчуваю себе»"
+  },
+  {
+   "id": 10539,
+   "col": "example_uk",
+   "old": "Я відчуваю себе приголомшеним від усієї цієї роботи",
+   "new": "Я почуваюся заваленим усією цією роботою",
+   "why": "проверка выборок: в ru-примере «завален (работой)» — этого слова нет в W, изучаемое слово не узнаётся; под исправленный uk-пример: «приголомшений від роботи» неестественно; «приголомшений від роботи» — неестественно; калька «відчуваю себе»"
+  },
+  {
+   "id": 9495,
+   "col": "example_en",
+   "old": "The new student is from Spain",
+   "new": "The new pupil is from Spain",
+   "why": "проверка выборок: про школьницу по-британски pupil (и это слово есть в W), student — студент"
+  },
+  {
+   "id": 406,
+   "col": "example_en",
+   "old": "He is sitting in the back",
+   "new": "He's sitting at the back",
+   "why": "проверка выборок: британский вариант — «at the back»"
+  },
+  {
+   "id": 16656,
+   "col": "example_fr",
+   "old": "Le garage, c'est le royaume de mon père, personne n'a le droit d'y toucher à rien",
+   "new": "Le garage, c'est le royaume de mon père, personne n'a le droit de toucher à quoi que ce soit",
+   "why": "проверка выборок: «d'y toucher à rien» — лишнее y и двойное отрицание, разговорно-неграмотно"
+  },
+  {
+   "id": 14432,
+   "col": "example_de",
+   "old": "In diesem Horror-Film kämpft er gegen seltsame Kreaturen",
+   "new": "In diesem Horrorfilm kämpft er gegen seltsame Kreaturen",
+   "why": "проверка выборок: орфография: Horrorfilm пишется слитно; смысл не меняется, переводы править не нужно"
+  },
+  {
+   "id": 15150,
+   "col": "translation_uk",
+   "old": "дружина, подружжя",
+   "new": "дружина",
+   "why": "проверка выборок: «подружжя» = супружеская пара, а не супруга; лишнее неверное значение"
+  },
+  {
+   "id": 11310,
+   "col": "word_de",
+   "old": "Hintergedanken",
+   "new": "Hintergedanke",
+   "why": "проверка выборок: именительный падеж — der Hintergedanke; «Hintergedanken» — форма мн. ч./косвенных падежей"
+  },
+  {
+   "id": 11561,
+   "col": "example_pl",
+   "old": "Syn jest raczej uzdolniony praktycznie, woli naprawiać rowery niż czytać książki",
+   "new": "Syn ma raczej smykałkę do rzeczy praktycznych, woli naprawiać rowery niż czytać książki",
+   "why": "проверка выборок: «uzdolniony praktycznie» — неестественное сочетание, калька"
+  },
+  {
+   "id": 2926,
+   "col": "translation_cs",
+   "old": "nespravedlnost, křivda",
+   "new": "nespravedlnost, (Unrecht haben) mýlit se",
+   "why": "проверка выборок: пример «Da hast du Unrecht» переведён «mýlíš se», а в W этого значения нет — слово не узна"
+  },
+  {
+   "id": 18825,
+   "col": "translation_cs",
+   "old": "v pátek, každý pátek",
+   "new": "v pátky, každý pátek",
+   "why": "проверка выборок: freitags = по пятницам; «v pátek» — в (эту) пятницу; регулярность — «v pátky»; регулярность «по пятницам» — «v pátky»"
+  },
+  {
+   "id": 18825,
+   "col": "example_cs",
+   "old": "V pátek pracuji jen do poledne",
+   "new": "V pátky pracuji jen do poledne",
+   "why": "проверка выборок: freitags = по пятницам; «v pátek» — в (эту) пятницу; регулярность — «v pátky»; регулярность «по пятницам» — «v pátky»"
+  },
+  {
+   "id": 10970,
+   "col": "example_de",
+   "old": "Für die Hochzeit hat sich Opa ganz vornehm einen Hut gekauft und will ihn jetzt jeden Sonntag tragen",
+   "new": "Für die Hochzeit hat sich Opa einen ganz vornehmen Hut gekauft und will ihn jetzt jeden Sonntag tragen",
+   "why": "проверка выборок: наречие «ganz vornehm» относится к покупке, а не к шляпе — неестественно; все переводы уже; «kibar» = вежливый (о человеке), к шляпе не подходит; «kibar» = вежливый; для vornehm (о вещи/виде) — şık"
+  },
+  {
+   "id": 10970,
+   "col": "example_tr",
+   "old": "Dedem düğün için çok kibar bir şapka aldı ve şimdi onu her pazar takmak istiyor",
+   "new": "Dedem düğün için çok şık bir şapka aldı ve şimdi onu her pazar takmak istiyor",
+   "why": "проверка выборок: наречие «ganz vornehm» относится к покупке, а не к шляпе — неестественно; все переводы уже; «kibar» = вежливый (о человеке), к шляпе не подходит; «kibar» = вежливый; для vornehm (о вещи/виде) — şık"
+  },
+  {
+   "id": 10970,
+   "col": "translation_tr",
+   "old": "seçkin, kibar",
+   "new": "şık, seçkin",
+   "why": "проверка выборок: наречие «ganz vornehm» относится к покупке, а не к шляпе — неестественно; все переводы уже; «kibar» = вежливый (о человеке), к шляпе не подходит; «kibar» = вежливый; для vornehm (о вещи/виде) — şık"
+  },
+  {
+   "id": 16313,
+   "col": "example_fr",
+   "old": "Il me punit par son silence depuis ce matin",
+   "new": "Ça fait toute la journée qu'il me punit par son silence",
+   "why": "проверка выборок: «den ganzen Tag» переведено «с утра» — другой смысл"
+  },
+  {
+   "id": 6993,
+   "col": "example_uk",
+   "old": "Ти повинен ухопитися за цей шанс",
+   "new": "Тобі треба ухопитися за цей шанс",
+   "why": "проверка выборок: калька müssen → «повинен»; по-людски «треба»"
+  },
+  {
+   "id": 7077,
+   "col": "example_ru",
+   "old": "Художник лепит глину своими руками",
+   "new": "Художник лепит из глины своими руками",
+   "why": "проверка выборок: «лепить глину» — неестественно; лепят из глины"
+  },
+  {
+   "id": 7441,
+   "col": "translation_ru",
+   "old": "начинать, открывать",
+   "new": "начинать, стимулировать (роды)",
+   "why": "проверка выборок: пример — «врачи стимулировали роды», этого значения в W нет, слово не узнаётся; пример — «лікарі стимулювали пологи», значения нет в W; пример — «the doctors induced it», значения нет в W; пример — «lekarze go wywołali», значения нет в W; пример — «i medici l'hanno indotto», значения нет в W; пример"
+  },
+  {
+   "id": 7441,
+   "col": "translation_uk",
+   "old": "починати, відкривати",
+   "new": "починати, стимулювати (пологи)",
+   "why": "проверка выборок: пример — «врачи стимулировали роды», этого значения в W нет, слово не узнаётся; пример — «лікарі стимулювали пологи», значения нет в W; пример — «the doctors induced it», значения нет в W; пример — «lekarze go wywołali», значения нет в W; пример — «i medici l'hanno indotto», значения нет в W; пример"
+  },
+  {
+   "id": 7441,
+   "col": "translation_en",
+   "old": "to start, to initiate",
+   "new": "to start, to induce (labour)",
+   "why": "проверка выборок: пример — «врачи стимулировали роды», этого значения в W нет, слово не узнаётся; пример — «лікарі стимулювали пологи», значения нет в W; пример — «the doctors induced it», значения нет в W; пример — «lekarze go wywołali», значения нет в W; пример — «i medici l'hanno indotto», значения нет в W; пример"
+  },
+  {
+   "id": 7441,
+   "col": "translation_pl",
+   "old": "rozpoczynać, wszczynać",
+   "new": "rozpoczynać, wywołać (poród)",
+   "why": "проверка выборок: пример — «врачи стимулировали роды», этого значения в W нет, слово не узнаётся; пример — «лікарі стимулювали пологи», значения нет в W; пример — «the doctors induced it», значения нет в W; пример — «lekarze go wywołali», значения нет в W; пример — «i medici l'hanno indotto», значения нет в W; пример"
+  },
+  {
+   "id": 7441,
+   "col": "translation_it",
+   "old": "aprire, avviare",
+   "new": "avviare, indurre (il parto)",
+   "why": "проверка выборок: пример — «врачи стимулировали роды», этого значения в W нет, слово не узнаётся; пример — «лікарі стимулювали пологи», значения нет в W; пример — «the doctors induced it», значения нет в W; пример — «lekarze go wywołali», значения нет в W; пример — «i medici l'hanno indotto», значения нет в W; пример"
+  },
+  {
+   "id": 7441,
+   "col": "translation_es",
+   "old": "abrir, iniciar",
+   "new": "iniciar, inducir (el parto)",
+   "why": "проверка выборок: пример — «врачи стимулировали роды», этого значения в W нет, слово не узнаётся; пример — «лікарі стимулювали пологи», значения нет в W; пример — «the doctors induced it», значения нет в W; пример — «lekarze go wywołali», значения нет в W; пример — «i medici l'hanno indotto», значения нет в W; пример"
+  },
+  {
+   "id": 7441,
+   "col": "translation_fr",
+   "old": "ouvrir, engager",
+   "new": "engager, déclencher (l'accouchement)",
+   "why": "проверка выборок: пример — «врачи стимулировали роды», этого значения в W нет, слово не узнаётся; пример — «лікарі стимулювали пологи», значения нет в W; пример — «the doctors induced it», значения нет в W; пример — «lekarze go wywołali», значения нет в W; пример — «i medici l'hanno indotto», значения нет в W; пример"
+  },
+  {
+   "id": 7441,
+   "col": "translation_cs",
+   "old": "zahájit, uvést",
+   "new": "zahájit, vyvolat (porod)",
+   "why": "проверка выборок: пример — «врачи стимулировали роды», этого значения в W нет, слово не узнаётся; пример — «лікарі стимулювали пологи», значения нет в W; пример — «the doctors induced it», значения нет в W; пример — «lekarze go wywołali», значения нет в W; пример — «i medici l'hanno indotto», значения нет в W; пример"
+  },
+  {
+   "id": 10801,
+   "col": "example_ru",
+   "old": "С явным удовольствием кошка укладывается на только что выстиранное бельё",
+   "new": "С явным удовлетворением кошка укладывается на только что выстиранное бельё",
+   "why": "проверка выборок: «удовольствие» не из W (удовлетворение, довольство) — изучаемое слово хуже узнаётся"
+  },
+  {
+   "id": 16879,
+   "col": "example_de",
+   "old": "Das Finanzministerium hat einen neuen Haushalt vorgestellt",
+   "new": "Meine Nachbarin arbeitet im Finanzministerium und kommt im Herbst oft erst spät nach Hause",
+   "why": "проверка выборок: фраза из новостей, а не бытовая; заменить на семейную/соседскую ситуацию (переводы ниже); под новый DE"
+  },
+  {
+   "id": 16879,
+   "col": "example_ru",
+   "old": "Министерство финансов представило новый бюджет",
+   "new": "Моя соседка работает в министерстве финансов и осенью часто приходит домой поздно",
+   "why": "проверка выборок: фраза из новостей, а не бытовая; заменить на семейную/соседскую ситуацию (переводы ниже); под новый DE"
+  },
+  {
+   "id": 16879,
+   "col": "example_uk",
+   "old": "Міністерство фінансів представило новий бюджет",
+   "new": "Моя сусідка працює в міністерстві фінансів і восени часто приходить додому пізно",
+   "why": "проверка выборок: фраза из новостей, а не бытовая; заменить на семейную/соседскую ситуацию (переводы ниже); под новый DE"
+  },
+  {
+   "id": 16879,
+   "col": "example_en",
+   "old": "The ministry of finance presented a new budget",
+   "new": "My neighbour works at the ministry of finance and in autumn she often doesn't get home until late",
+   "why": "проверка выборок: фраза из новостей, а не бытовая; заменить на семейную/соседскую ситуацию (переводы ниже); под новый DE"
+  },
+  {
+   "id": 16879,
+   "col": "example_tr",
+   "old": "Maliye bakanlığı yeni bir bütçe sundu",
+   "new": "Komşum maliye bakanlığında çalışıyor ve sonbaharda eve çoğu zaman geç geliyor",
+   "why": "проверка выборок: фраза из новостей, а не бытовая; заменить на семейную/соседскую ситуацию (переводы ниже); под новый DE"
+  },
+  {
+   "id": 16879,
+   "col": "example_pl",
+   "old": "Ministerstwo finansów przedstawiło nowy budżet",
+   "new": "Moja sąsiadka pracuje w ministerstwie finansów i jesienią często wraca do domu dopiero późno",
+   "why": "проверка выборок: фраза из новостей, а не бытовая; заменить на семейную/соседскую ситуацию (переводы ниже); под новый DE"
+  },
+  {
+   "id": 16879,
+   "col": "example_it",
+   "old": "Il ministero delle finanze ha presentato un nuovo bilancio",
+   "new": "La mia vicina lavora al ministero delle finanze e in autunno spesso torna a casa tardi",
+   "why": "проверка выборок: фраза из новостей, а не бытовая; заменить на семейную/соседскую ситуацию (переводы ниже); под новый DE"
+  },
+  {
+   "id": 16879,
+   "col": "example_es",
+   "old": "El Ministerio de Hacienda ha presentado un nuevo presupuesto",
+   "new": "Mi vecina trabaja en el Ministerio de Hacienda y en otoño muchas veces llega tarde a casa",
+   "why": "проверка выборок: фраза из новостей, а не бытовая; заменить на семейную/соседскую ситуацию (переводы ниже); под новый DE"
+  },
+  {
+   "id": 16879,
+   "col": "example_fr",
+   "old": "Le ministère des Finances a présenté un nouveau budget",
+   "new": "Ma voisine travaille au ministère des Finances et, en automne, elle rentre souvent tard à la maison",
+   "why": "проверка выборок: фраза из новостей, а не бытовая; заменить на семейную/соседскую ситуацию (переводы ниже); под новый DE"
+  },
+  {
+   "id": 16879,
+   "col": "example_cs",
+   "old": "Ministerstvo financí představilo nový rozpočet",
+   "new": "Moje sousedka pracuje na ministerstvu financí a na podzim často chodí domů až pozdě",
+   "why": "проверка выборок: фраза из новостей, а не бытовая; заменить на семейную/соседскую ситуацию (переводы ниже); под новый DE"
+  },
+  {
+   "id": 9733,
+   "col": "translation_en",
+   "old": "cheque, check",
+   "new": "cheque",
+   "why": "сквозные проверки 22.10: этажи, британский, müssen→«повинен», der + субстантивированное прилагательное"
+  },
+  {
+   "id": 17318,
+   "col": "translation_en",
+   "old": "tow truck, breakdown truck",
+   "new": "breakdown truck, tow truck",
+   "why": "сквозные проверки 22.10: этажи, британский, müssen→«повинен», der + субстантивированное прилагательное"
+  },
+  {
+   "id": 17318,
+   "col": "example_en",
+   "old": "We waited two hours for the tow truck in the middle of the motorway",
+   "new": "We waited two hours for the breakdown truck in the middle of the motorway",
+   "why": "сквозные проверки 22.10: этажи, британский, müssen→«повинен», der + субстантивированное прилагательное"
+  },
+  {
+   "id": 8560,
+   "col": "translation_en",
+   "old": "trash, rubbish",
+   "new": "rubbish, trash",
+   "why": "сквозные проверки 22.10: этажи, британский, müssen→«повинен», der + субстантивированное прилагательное"
+  },
+  {
+   "id": 17578,
+   "col": "example_uk",
+   "old": "Ліфт зламаний, ми повинні йти по сходах",
+   "new": "Ліфт зламаний, нам доведеться йти сходами",
+   "why": "сквозные проверки 22.10: этажи, британский, müssen→«повинен», der + субстантивированное прилагательное"
+  },
+  {
+   "id": 6610,
+   "col": "example_uk",
+   "old": "Я повинен тебе попередити",
+   "new": "Мушу тебе попередити",
+   "why": "сквозные проверки 22.10: этажи, британский, müssen→«повинен», der + субстантивированное прилагательное"
+  },
+  {
+   "id": 9604,
+   "col": "example_ru",
+   "old": "Как настоящий знаток, тесть сначала нюхает вино, а уже потом пьёт, и мы все должны ждать",
+   "new": "Как настоящий знаток, тесть сначала нюхает вино, а уже потом пьёт, и нам всем приходится ждать",
+   "why": "сквозные проверки 22.10: этажи, британский, müssen→«повинен», der + субстантивированное прилагательное"
+  },
+  {
+   "id": 16009,
+   "col": "example_uk",
+   "old": "Свідки повинні давати показання в суді",
+   "new": "Свідки мають давати показання в суді",
+   "why": "сквозные проверки 22.10: этажи, британский, müssen→«повинен», der + субстантивированное прилагательное"
+  },
+  {
+   "id": 2891,
+   "col": "example_uk",
+   "old": "Цифри повинні точно збігатися",
+   "new": "Цифри мають точно збігатися",
+   "why": "сквозные проверки 22.10: этажи, британский, müssen→«повинен», der + субстантивированное прилагательное"
+  },
+  {
+   "id": 6970,
+   "col": "example_uk",
+   "old": "Це правило повинно діяти для всіх",
+   "new": "Це правило має діяти для всіх",
+   "why": "сквозные проверки 22.10: этажи, британский, müssen→«повинен», der + субстантивированное прилагательное"
+  },
+  {
+   "id": 8946,
+   "col": "word_de",
+   "old": "Angestellter",
+   "new": "Angestellte",
+   "why": "сквозные проверки 22.10: этажи, британский, müssen→«повинен», der + субстантивированное прилагательное"
+  },
+  {
+   "id": 1572,
+   "col": "word_de",
+   "old": "Jugendlicher",
+   "new": "Jugendliche",
+   "why": "сквозные проверки 22.10: этажи, британский, müssen→«повинен», der + субстантивированное прилагательное"
+  },
+  {
+   "id": 10391,
+   "col": "word_de",
+   "old": "Geliebter",
+   "new": "Geliebte",
+   "why": "сквозные проверки 22.10: этажи, британский, müssen→«повинен», der + субстантивированное прилагательное"
+  },
+  {
+   "id": 10391,
+   "col": "level",
+   "old": "B1",
+   "new": "B2",
+   "why": "сквозные проверки 22.10: этажи, британский, müssen→«повинен», der + субстантивированное прилагательное"
+  }
+ ],
+ "insert": [],
+ "replace": [
+  {
+   "id": 11130,
+   "by": 2480,
+   "lang": "de",
+   "why": "«Freiwilliger» — дубль der Freiwillige B1 (доброволец)"
+  }
+ ],
+ "unreplace": [],
+ "split_later": {}
+}
