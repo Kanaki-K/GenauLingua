@@ -1,0 +1,75 @@
+"""После прохода, блок 4: слова, записанные не в словарной форме (SPLIT_LATER).
+Множественное → единственное (с переводами на всех языках), склонённая форма → основа,
+слитное/старое написание → по Дудену. Пример не трогаем: в нём форма живая.
+Не переименованы: возвратные без «sich» (так записаны почти все ~20 тыс. слов, «sich»
+есть у двух), причастия с частью речи «прилагательное» (eingeliefert, untergekommen,
+aufgebraucht, entsichert — часть речи этим инструментом не правится), «zustande». 22.10."""
+
+FORM = "слово записано не в словарной форме"
+
+FIXES = {
+    7791: (FORM + ": мн. ч.", {"word_de": "Riss",
+        "t_ru": "трещина", "t_uk": "тріщина", "t_en": "crack", "t_tr": "çatlak", "t_pl": "pęknięcie",
+        "t_it": "la crepa", "t_es": "la grieta", "t_fr": "la fissure", "t_cs": "prasklina"}),
+    8442: (FORM + ": мн. ч.", {"word_de": "Extra",
+        "t_ru": "доп. опция, бонус", "t_uk": "додаткова опція, бонус", "t_en": "extra, add-on", "t_tr": "ekstra, ek donanım", "t_pl": "dodatek",
+        "t_it": "l'extra", "t_es": "el extra", "t_fr": "l'extra, l'option", "t_cs": "doplněk, extra výbava"}),
+    9593: (FORM + ": мн. ч.", {"word_de": "Eins",
+        "t_ru": "единица (высшая оценка)", "t_uk": "одиниця (найвища оцінка)", "t_en": "top mark, A grade", "t_tr": "en yüksek not", "t_pl": "jedynka (najwyższa ocena)",
+        "t_it": "il dieci (voto più alto)", "t_es": "el sobresaliente", "t_fr": "l'excellente note", "t_cs": "jednička"}),
+    11579: (FORM + ": мн. ч.", {"word_de": "Empfindung",
+        "t_ru": "ощущение, чувство", "t_uk": "відчуття, почуття", "t_en": "feeling, sensation", "t_tr": "duygu, his", "t_pl": "odczucie, uczucie",
+        "t_it": "il sentimento, la sensazione", "t_es": "el sentimiento, la sensación", "t_fr": "le sentiment, la sensation", "t_cs": "pocit, cit"}),
+    11588: (FORM + ": мн. ч.", {"word_de": "Befürchtung",
+        "t_ru": "опасение", "t_uk": "побоювання", "t_en": "fear, apprehension", "t_tr": "endişe, kaygı", "t_pl": "obawa",
+        "t_it": "il timore", "t_es": "el temor", "t_fr": "la crainte", "t_cs": "obava"}),
+    12789: (FORM + ": мн. ч.", {"word_de": "Mandel",
+        "t_ru": "миндалина, миндаль", "t_uk": "мигдалик, мигдаль", "t_en": "tonsil, almond", "t_tr": "bademcik, badem", "t_pl": "migdałek, migdał",
+        "t_it": "la tonsilla, la mandorla", "t_es": "la amígdala, la almendra", "t_fr": "l'amygdale, l'amande", "t_cs": "mandle"}),
+    12835: (FORM + ": мн. ч.", {"word_de": "Pupille",
+        "t_ru": "зрачок", "t_uk": "зіниця", "t_en": "pupil", "t_tr": "göz bebeği", "t_pl": "źrenica",
+        "t_it": "la pupilla", "t_es": "la pupila", "t_fr": "la pupille", "t_cs": "zornička, zornice"}),
+    13160: (FORM + ": мн. ч.", {"word_de": "Gelenk",
+        "t_it": "l'articolazione", "t_es": "la articulación", "t_fr": "l'articulation", "t_cs": "kloub"}),
+    13165: (FORM + ": мн. ч.", {"word_de": "Augenlid"}),
+    14173: (FORM + ": мн. ч.", {"word_de": "Instruktion",
+        "t_ru": "инструкция, указание", "t_uk": "інструкція, вказівка", "t_en": "instruction", "t_tr": "talimat", "t_pl": "instrukcja",
+        "t_it": "l'istruzione", "t_es": "la instrucción", "t_fr": "l'instruction", "t_cs": "instrukce, pokyn"}),
+    14744: (FORM + ": мн. ч.", {"word_de": "Tanz", "article": "der",
+        "t_ru": "танец", "t_uk": "танець", "t_en": "dance", "t_tr": "dans", "t_pl": "taniec",
+        "t_it": "la danza, il ballo", "t_es": "el baile, la danza", "t_fr": "la danse", "t_cs": "tanec"}),
+    15625: (FORM + ": мн. ч. (и грубое второе значение «Möpse»)", {"word_de": "Mops", "article": "der",
+        "t_ru": "мопс", "t_uk": "мопс", "t_en": "pug", "t_tr": "mops köpeği", "t_pl": "mops",
+        "t_it": "il carlino", "t_es": "el carlino, el pug", "t_fr": "le carlin", "t_cs": "mops"}),
+    16508: (FORM + ": косвенный падеж", {"word_de": "Deckname"}),
+    16547: (FORM + ": мн. ч.", {"word_de": "Atomwaffe",
+        "t_en": "nuclear weapon", "t_tr": "nükleer silah", "t_it": "l'arma nucleare", "t_es": "el arma nuclear", "t_fr": "l'arme nucléaire", "t_cs": "jaderná zbraň"}),
+    17641: (FORM + ": мн. ч.", {"word_de": "Ersatzteil",
+        "t_ru": "запчасть", "t_uk": "запчастина", "t_en": "spare part", "t_tr": "yedek parça", "t_pl": "część zamienna",
+        "t_it": "il pezzo di ricambio", "t_es": "el recambio", "t_fr": "la pièce de rechange", "t_cs": "náhradní díl"}),
+    17875: (FORM + ": мн. ч.", {"word_de": "Anleihe",
+        "t_ru": "облигация", "t_uk": "облігація", "t_en": "bond", "t_tr": "tahvil", "t_pl": "obligacja",
+        "t_it": "l'obbligazione", "t_es": "el bono", "t_fr": "l'obligation", "t_cs": "dluhopis"}),
+    9239: (FORM + ": мн. ч.", {"word_de": "Dienstbote",
+        "t_ru": "слуга", "t_uk": "слуга", "t_en": "servant", "t_tr": "hizmetçi", "t_pl": "służący",
+        "t_it": "il domestico", "t_es": "el criado", "t_fr": "le domestique", "t_cs": "sluha"}),
+    16861: (FORM + ": употребляется во мн. ч.", {"word_de": "Scheidungspapiere", "article": "die"}),
+    7227: (FORM + ": обрубок", {"word_de": "mindeste"}),
+    7762: (FORM + ": обрубок", {"word_de": "vordere"}),
+    8432: (FORM + ": склонённая форма", {"word_de": "gegeben"}),
+    8437: (FORM + ": склонённая форма", {"word_de": "wachsend"}),
+    16891: (FORM + ": склонённая форма", {"word_de": "aufständisch"}),
+    13488: (FORM + ": склонённая форма", {"word_de": "irgendein"}),
+    8618: (FORM + ": «hecken» само — выводить потомство; в примере «aushecken»", {"word_de": "aushecken"}),
+    18757: (FORM + ": старое написание, по Дудену «jedes Mal»", {"word_de": "jedes Mal"}),
+    11554: (FORM + ": по Дудену «Gott sei Dank»", {"word_de": "Gott sei Dank"}),
+    18942: (FORM + ": живёт только в паре «tagaus, tagein»", {"word_de": "tagaus, tagein"}),
+    13606: (FORM + ": живёт только с «um»", {"word_de": "um ihretwillen"}),
+}
+
+REPLACE = [
+    {"id": 16759, "by": 16311, "lang": "de", "why": "«schmuggel» — опечатка, schmuggeln уже есть (B2)"},
+    {"id": 8655, "by": 8198, "lang": "de", "why": "«rätselhafte» — форма, rätselhaft уже есть (C2)"},
+]
+
+SPLIT_LATER = {}
