@@ -284,10 +284,14 @@ def main(argv=None) -> int:
             conn.execute(text("delete from word_lemma_overrides where word_id = :id"), {"id": r["id"]})
         for r in inserts:
             cols = ["word_de", "article", "category", *TEXT_COLS]
+            # Частотный ранг — тот же, что у первого значения слова: без ранга строка
+            # проигрывает в группе синонимов любому слову с рангом (22.10: «суд»
+            # показывался бы как Gerichtshof C1, а не Gericht, «лампочка» — как Glühbirne)
             conn.execute(text(
                 f"insert into words (pos, level, categories, times_shown, times_correct, created_at, "
-                f"{', '.join(cols)}) values (cast(:pos as partofspeech), cast(:level as cefrlevel), "
-                f"array_remove(array[:category]::varchar[], null), 0, 0, now(), "
+                f"frequency_rank, {', '.join(cols)}) values (cast(:pos as partofspeech), "
+                f"cast(:level as cefrlevel), array_remove(array[:category]::varchar[], null), 0, 0, now(), "
+                f"(select min(frequency_rank) from words where lower(word_de) = lower(:word_de)), "
                 f"{', '.join(':' + c for c in cols)})"),
                 {"pos": r["pos"], "level": r["level"], **{c: r.get(c) for c in cols}})
         if replaces or unreplaces:
