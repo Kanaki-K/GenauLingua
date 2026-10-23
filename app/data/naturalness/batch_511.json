@@ -1,0 +1,317 @@
+{
+ "about": "вычитка польского p001",
+ "edits": [
+  {
+   "id": 8,
+   "col": "example_pl",
+   "old": "Jaki jest twój adres?",
+   "new": "Jaki masz adres?",
+   "why": "вычитка польского: «Jaki jest twój adres» — калька"
+  },
+  {
+   "id": 61,
+   "col": "example_pl",
+   "old": "Co masz na myśli przez tę wypowiedź?",
+   "new": "Co chciałeś powiedzieć tą wypowiedzią?",
+   "why": "вычитка польского: «masz na myśli przez» — калька"
+  },
+  {
+   "id": 62,
+   "col": "example_pl",
+   "old": "Ona jeździ do pracy samochodem",
+   "new": "Jeździ do pracy samochodem",
+   "why": "вычитка польского: «Ona» — лишнее"
+  },
+  {
+   "id": 72,
+   "col": "example_pl",
+   "old": "Do pracy jeżdżę koleją",
+   "new": "Do pracy jeżdżę pociągiem",
+   "why": "вычитка польского: «koleją» — книжно"
+  },
+  {
+   "id": 74,
+   "col": "example_pl",
+   "old": "On wkrótce wróci do domu",
+   "new": "Niedługo wróci do domu",
+   "why": "вычитка польского: «On» — лишнее"
+  },
+  {
+   "id": 96,
+   "col": "example_pl",
+   "old": "Jaki jest twój zawód?",
+   "new": "Jaki masz zawód?",
+   "why": "вычитка польского: «Jaki jest twój zawód» — калька"
+  },
+  {
+   "id": 107,
+   "col": "example_pl",
+   "old": "Chodzę wcześnie do łóżka",
+   "new": "Wcześnie kładę się do łóżka",
+   "why": "вычитка польского: «Chodzę do łóżka» — калька"
+  },
+  {
+   "id": 113,
+   "col": "example_pl",
+   "old": "On pije piwo",
+   "new": "Pije piwo",
+   "why": "вычитка польского: «On» — лишнее"
+  },
+  {
+   "id": 117,
+   "col": "example_pl",
+   "old": "Ta gruszka smakuje słodko",
+   "new": "Ta gruszka jest słodka",
+   "why": "вычитка польского: «smakuje słodko» — калька"
+  },
+  {
+   "id": 127,
+   "col": "example_pl",
+   "old": "Ona kupuje czerwony kwiat",
+   "new": "Kupuje czerwony kwiat",
+   "why": "вычитка польского: «Ona» — лишнее"
+  },
+  {
+   "id": 137,
+   "col": "example_pl",
+   "old": "On przynosi mi kwiaty",
+   "new": "Przynosi mi kwiaty",
+   "why": "вычитка польского: «On» — лишнее"
+  },
+  {
+   "id": 141,
+   "col": "example_pl",
+   "old": "Oni jedzą bułki na śniadanie",
+   "new": "Na śniadanie jedzą bułki",
+   "why": "вычитка польского: «Oni» — лишнее"
+  },
+  {
+   "id": 160,
+   "col": "example_pl",
+   "old": "On tu jest",
+   "new": "Jest tutaj",
+   "why": "вычитка польского: «On» — лишнее"
+  },
+  {
+   "id": 164,
+   "col": "example_pl",
+   "old": "Dziękuję, jesteś bardzo miły",
+   "new": "Dziękuję, to bardzo miłe",
+   "why": "вычитка польского: «jesteś miły» — не тот смысл"
+  },
+  {
+   "id": 195,
+   "col": "example_pl",
+   "old": "A ty idziesz z nami dziś wieczorem?",
+   "new": "Idziesz z nami dziś wieczorem?",
+   "why": "вычитка польского: «A ty» — лишнее"
+  },
+  {
+   "id": 225,
+   "col": "example_pl",
+   "old": "On jest z Monachium",
+   "new": "Jest z Monachium",
+   "why": "вычитка польского: «On» — лишнее"
+  },
+  {
+   "id": 250,
+   "col": "example_pl",
+   "old": "Niestety to jest błędne",
+   "new": "Niestety, to błędna odpowiedź",
+   "why": "вычитка польского: «to jest błędne» — коряво"
+  },
+  {
+   "id": 253,
+   "col": "example_pl",
+   "old": "Jakie jest twoje nazwisko?",
+   "new": "Jak masz na nazwisko?",
+   "why": "вычитка польского: «Jakie jest twoje nazwisko» — калька"
+  },
+  {
+   "id": 269,
+   "col": "example_pl",
+   "old": "Ona ma gorączkę",
+   "new": "Ma gorączkę",
+   "why": "вычитка польского: «Ona» — лишнее"
+  },
+  {
+   "id": 274,
+   "col": "example_pl",
+   "old": "Chętnie jem rybę",
+   "new": "Lubię ryby",
+   "why": "вычитка польского: «Chętnie jem» — калька gern"
+  },
+  {
+   "id": 276,
+   "col": "example_pl",
+   "old": "On nie je mięsa",
+   "new": "Nie je mięsa",
+   "why": "вычитка польского: «On» — лишнее"
+  },
+  {
+   "id": 282,
+   "col": "example_pl",
+   "old": "To zdjęcie jest słodkie",
+   "new": "Słodkie zdjęcie!",
+   "why": "вычитка польского: «To zdjęcie jest słodkie» — калька"
+  },
+  {
+   "id": 307,
+   "col": "example_pl",
+   "old": "Ona pracuje w ogrodzie",
+   "new": "Pracuje w ogrodzie",
+   "why": "вычитка польского: «Ona» — лишнее"
+  },
+  {
+   "id": 316,
+   "col": "example_pl",
+   "old": "To bardzo mi się podoba",
+   "new": "Bardzo mi się to podoba",
+   "why": "вычитка польского: порядок слов"
+  },
+  {
+   "id": 323,
+   "col": "example_pl",
+   "old": "Ona kupuje świeże warzywa",
+   "new": "Kupuje świeże warzywa",
+   "why": "вычитка польского: «Ona» — лишнее"
+  },
+  {
+   "id": 328,
+   "col": "example_pl",
+   "old": "Jestem właśnie zajęty",
+   "new": "Właśnie jestem zajęty",
+   "why": "вычитка польского: порядок слов"
+  },
+  {
+   "id": 345,
+   "col": "example_pl",
+   "old": "Myślę, że on przyjdzie",
+   "new": "Myślę, że przyjdzie",
+   "why": "вычитка польского: «on» — лишнее"
+  },
+  {
+   "id": 348,
+   "col": "example_pl",
+   "old": "Ona jest bardzo szczęśliwa",
+   "new": "Jest bardzo szczęśliwa",
+   "why": "вычитка польского: «Ona» — лишнее"
+  },
+  {
+   "id": 354,
+   "col": "example_pl",
+   "old": "W lecie chętnie grillujemy",
+   "new": "Latem chętnie grillujemy",
+   "why": "вычитка польского: «W lecie» → «Latem»"
+  },
+  {
+   "id": 358,
+   "col": "example_pl",
+   "old": "Serdeczne pozdrowienia dla twojej rodziny",
+   "new": "Serdeczne pozdrowienia dla całej rodziny",
+   "why": "вычитка польского: «dla twojej rodziny» — калька"
+  },
+  {
+   "id": 365,
+   "col": "example_pl",
+   "old": "Ona ma krótkie włosy",
+   "new": "Ma krótkie włosy",
+   "why": "вычитка польского: «Ona» — лишнее"
+  },
+  {
+   "id": 376,
+   "col": "example_pl",
+   "old": "Ona podaje mi rękę",
+   "new": "Podaje mi rękę",
+   "why": "вычитка польского: «Ona» — лишнее"
+  },
+  {
+   "id": 391,
+   "col": "example_pl",
+   "old": "Oni biorą ślub w czerwcu",
+   "new": "Biorą ślub w czerwcu",
+   "why": "вычитка польского: «Oni» — лишнее"
+  },
+  {
+   "id": 406,
+   "col": "example_pl",
+   "old": "On siedzi z tyłu",
+   "new": "Siedzi z tyłu",
+   "why": "вычитка польского: «On» — лишнее"
+  },
+  {
+   "id": 422,
+   "col": "example_pl",
+   "old": "Ja jestem studentem",
+   "new": "Jestem studentem",
+   "why": "вычитка польского: «Ja» — лишнее"
+  },
+  {
+   "id": 427,
+   "col": "example_pl",
+   "old": "Jakie jest pana imię?",
+   "new": "Jak brzmi pana nazwisko?",
+   "why": "вычитка польского: «Jakie jest pana imię» — калька"
+  },
+  {
+   "id": 443,
+   "col": "example_pl",
+   "old": "Ona ma na sobie ciepłą kurtkę",
+   "new": "Ma na sobie ciepłą kurtkę",
+   "why": "вычитка польского: «Ona» — лишнее"
+  },
+  {
+   "id": 456,
+   "col": "example_pl",
+   "old": "Każdego ranka piję kawę",
+   "new": "Codziennie rano piję kawę",
+   "why": "вычитка польского: «Każdego ranka» — книжно"
+  },
+  {
+   "id": 463,
+   "col": "example_pl",
+   "old": "Chętnie jem gotowane ziemniaki z masłem",
+   "new": "Lubię gotowane ziemniaki z masłem",
+   "why": "вычитка польского: «Chętnie jem» — калька gern"
+  },
+  {
+   "id": 479,
+   "col": "example_pl",
+   "old": "Ona zawozi dziecko do przedszkola",
+   "new": "Zawozi dziecko do przedszkola",
+   "why": "вычитка польского: «Ona» — лишнее"
+  },
+  {
+   "id": 490,
+   "col": "example_pl",
+   "old": "Ona potrzebuje nowych ubrań",
+   "new": "Potrzebuje nowych ubrań",
+   "why": "вычитка польского: «Ona» — лишнее"
+  },
+  {
+   "id": 509,
+   "col": "example_pl",
+   "old": "Ona jest chora",
+   "new": "Jest chora",
+   "why": "вычитка польского: «Ona» — лишнее"
+  },
+  {
+   "id": 518,
+   "col": "example_pl",
+   "old": "Czy mogę skorzystać z twojego długopisu?",
+   "new": "Mogę pożyczyć twój długopis?",
+   "why": "вычитка польского: «skorzystać z długopisu» — книжно"
+  },
+  {
+   "id": 527,
+   "col": "example_pl",
+   "old": "Możemy jutro zjeść razem",
+   "new": "Możemy jutro razem zjeść obiad",
+   "why": "вычитка польского: «zjeść razem» — неполно"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
