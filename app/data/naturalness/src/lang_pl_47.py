@@ -1,0 +1,56 @@
+"""Вычитка польского, порция p047 (C2), 23.10: лишние местоимения и кальки → разговорный польский"""
+
+T = "вычитка польского: "
+
+FIXES = {
+    11489: (T + "«Ona … swoich» — лишнее", {"example_pl": "Jest naprawdę odpowiedzialna i troszczy się o kolegów"}),
+    11493: (T + "«Moja» — лишнее", {"example_pl": "Siostra to hipokrytka: głosi zdrowe odżywianie, a po kryjomu je chipsy"}),
+    11519: (T + "«mój» — лишнее", {"example_pl": "Przy szczepieniu synek dzielnie się trzyma i wcale nie płacze"}),
+    11520: (T + "«moja» — лишнее", {"example_pl": "Imponuje mi, jak spokojna jest siostra przy trójce małych dzieci"}),
+    11557: (T + "«mojego» — лишнее", {"example_pl": "Dla szwagra w samochodzie liczy się tylko prestiż, a nie spalanie"}),
+    11566: (T + "«swój» — лишнее", {"example_pl": "Syn niechętnie sprząta pokój, ale sprząta"}),
+    11567: (T + "нет слова карточки «poukładać»", {"example_pl": "Po przeprowadzce najpierw poukładamy wszystko w kuchni, a potem zobaczymy"}),
+    11582: (T + "«Moja» — лишнее", {"example_pl": "Rozważna siostra zachowuje spokój, nawet gdy auto psuje się na autostradzie"}),
+    11592: (T + "«nasz» — лишнее", {"example_pl": "Ze wzruszającym oddaniem jamnik chodzi za mamą po całym mieszkaniu"}),
+    11603: (T + "«Mój» — лишнее", {"example_pl": "Wujek jest trochę nieokrzesany, ale ma wielkie serce"}),
+    11612: (T + "«naszym» — лишнее", {"example_pl": "Między kocurem a odkurzaczem panuje otwarta wrogość"}),
+    11926: (T + "«naszego» — лишнее", {"example_pl": "Dla psa kawałek sera to największy przysmak"}),
+    11973: (T + "«mój» — лишнее", {"example_pl": "Kocham owoce morza, ale mąż nie"}),
+    11983: (T + "«Moja» — лишнее", {"example_pl": "Babcia robi pyszne klopsiki z puree ziemniaczanym"}),
+    11998: (T + "«mój» — лишнее", {"example_pl": "Niestety stryjeczny dziadek wcześnie popadł w pijaństwo, rodzina niechętnie o tym mówi"}),
+    12017: (T + "«mojego» — лишнее", {"example_pl": "Dla taty śledź marynowany to prawdziwy przysmak"}),
+    12333: (T + "«Moja» — лишнее", {"example_pl": "Siostrzenica zajęła drugie miejsce na olimpiadzie matematycznej"}),
+    12360: (T + "«Mój» — лишнее", {"example_pl": "Siostrzeniec to prawdziwy sportowiec, co rano przed szkołą przepływa dwa kilometry"}),
+    12369: (T + "«Mój» — лишнее", {"example_pl": "Syn jest najlepszym miotaczem w szkolnej drużynie baseballowej"}),
+    12379: (T + "«Mój» — лишнее", {"example_pl": "Najlepszy przyjaciel odbił mi dziewczynę w dziesiątej klasie"}),
+    12396: (T + "«mojego» — лишнее", {"example_pl": "Impreza pożegnalna dla kolegi była naprawdę udana"}),
+    12840: (T + "«mojego» — лишнее", {"example_pl": "Trzy espresso dziennie to po prostu za dużo dla układu nerwowego"}),
+    12921: (T + "«Z powodu» → «Przez»", {"example_pl": "Przez chorobę odtwórcy głównej roli dzisiejsze przedstawienie niestety się nie odbędzie"}),
+    12945: (T + "порядок слов", {"example_pl": "Wczoraj dziecku wzrosła temperatura ciała"}),
+    12963: (T + "«Nasz» — лишнее", {"example_pl": "Pies jest zaszczepiony przeciw wściekliźnie, inaczej nie mógłby jechać z nami do Chorwacji"}),
+    12964: (T + "«Mój» — лишнее", {"example_pl": "Siostrzeniec jest lekarzem rezydentem i ciągle ma nocne dyżury"}),
+    12969: (T + "«Z powodu» → «Przez»", {"example_pl": "Przez obchód o ósmej odwiedzający mogą wejść na oddział dopiero od dziesiątej"}),
+    13004: (T + "«moja» — лишнее", {"example_pl": "W zatłoczonej windzie przyjaciółka czasem dostaje ataku paniki"}),
+    13014: (T + "«Moja» — лишнее", {"example_pl": "Siostra oddała szpik kostny obcemu dziecku"}),
+    13015: (T + "«Mój» — лишнее", {"example_pl": "Mąż to nieuleczalny optymista, nawet w korku widzi tylko dobre strony"}),
+    13018: (T + "«Nasz» — лишнее", {"example_pl": "Stary pies zmarł spokojnie zeszłej nocy na niewydolność serca"}),
+    13033: (T + "«Moja» — лишнее", {"example_pl": "Prababcia jako młoda kobieta spędziła rok w sanatorium z powodu gruźlicy"}),
+    13037: (T + "«mój» — лишнее", {"example_pl": "Z lekkim katarem mąż zachowuje się, jakby był śmiertelnie chory"}),
+    13050: (T + "«naszym» — лишнее", {"example_pl": "Pożegnanie ze starym psem było bolesne dla całej rodziny"}),
+    13051: (T + "«Moja … swoim» — лишнее", {"example_pl": "Przyjaciółka pracuje w zakładzie patologii i przy kolacji woli nie opowiadać o swoim dniu"}),
+    13095: (T + "«naszego» — лишнее", {"example_pl": "Kastrujemy kocura, żeby przestał włóczyć się nocami"}),
+    13099: (T + "«Mój … w moich» — калька", {"example_pl": "Masażysta znajduje u mnie na plecach każdy węzeł"}),
+    13106: (T + "«moim» — лишнее", {"example_pl": "W ulubionym serialu kryminalnym w każdym odcinku jest przynajmniej jeden worek na zwłoki"}),
+    13115: (T + "«Z powodu» → «Przez»", {"example_pl": "Przez migrenę lekarka rodzinna kieruje mnie na badanie neurologiczne"}),
+    13133: (T + "«Nasz» — лишнее", {"example_pl": "Pies ma padaczkę, ale z tabletkami czuje się dobrze"}),
+    13173: (T + "«nasz» — лишнее", {"example_pl": "Weterynarz pyta, czy kocur normalnie oddaje mocz"}),
+    13605: (T + "нет слова карточки «podczas gdy»", {"example_pl": "Brat lubi piłkę nożną, podczas gdy ja wolę grać w szachy"}),
+    13607: (T + "«Mój» — калька", {"example_pl": "Nowy rower kosztował mnie prawie dwa tysiące euro"}),
+    13773: (T + "«Moja» — лишнее", {"example_pl": "Stara suknia wieczorowa po dwudziestu latach wciąż na mnie pasuje"}),
+    13775: (T + "«swój» — лишнее", {"example_pl": "Sąsiad podrasował motorower, teraz jedzie sześćdziesiąt"}),
+    14278: (T + "«swoją» — лишнее", {"example_pl": "Na rozmowie kwalifikacyjnej bardzo uważam na mowę ciała"}),
+}
+
+REPLACE = []
+
+SPLIT_LATER = {}
