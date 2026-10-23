@@ -1,0 +1,58 @@
+"""Вычитка чешского, порция p045 (C1–C2), 23.10: кальки и книжные обороты → разговорный чешский"""
+
+T = "вычитка чешского: "
+
+FIXES = {
+    18800: (T + "«moje» — лишнее", {"example_cs": "U dětské lékařky jdou všechny tři děti postupně na řadu a každé u injekce brečí"}),
+    18804: (T + "«Telefonát přichází» — калька", {"example_cs": "Šéf volá dost nevhod, stojím v koupelně s mokrými vlasy"}),
+    18809: (T + "«žádá o pětiminutový» — книжно", {"example_cs": "Syn každý večer prosí o pět minut odkladu, než jde spát"}),
+    18826: (T + "«tento» → «tenhle»", {"example_cs": "S nájmem jsme ještě nikdy nebyli v prodlení, ale tenhle měsíc banka zapomněla na převod"}),
+    18830: (T + "«svůj» — лишнее", {"example_cs": "Od infarktu změnil strýc celý způsob života: teď každé ráno běhá a nejí sůl"}),
+    18831: (T + "«barva dcery» — коряво", {"example_cs": "Současná dceřina oblíbená barva je fialová, minulý týden to byla ještě žlutá"}),
+    18845: (T + "«dnes» → «dneska»", {"example_cs": "Kvůli výluce projíždějí vlaky dneska tunelem sníženou rychlostí"}),
+    19013: (T + "«Moje» — лишнее", {"example_cs": "Teta vstoupila ve dvaceti do řádu a od té doby žije v klášteře"}),
+    19043: (T + "«můj nový známý» — не то", {"example_cs": "Včera mě kluk, se kterým jsem měla rande, prostě vypekl, hodinu jsem čekala v kavárně"}),
+    8092: (T + "«Můj PIN» — калька", {"example_cs": "PIN má čtyři číslice a vždycky zapomenu zrovna tu poslední"}),
+    8119: (T + "«Dcera našich sousedů» — тяжело", {"example_cs": "Sousedovic dcera utekla s přítelem do Itálie"}),
+    8128: (T + "«v našem městě velmi» — книжно", {"example_cs": "Volná místa ve školkách jsou u nás ve městě hrozně vzácná"}),
+    8169: (T + "«dnes … velmi» — книжно", {"example_cs": "Šéf byl dneska do telefonu hodně úsečný, asi je ve stresu"}),
+    8171: (T + "«svého vnuka» — тяжело", {"example_cs": "Jsem tak ráda, že babička ještě zažila vnukovu svatbu"}),
+    8175: (T + "«jeho bratr» — лишнее", {"example_cs": "Chce mít to samé co brácha"}),
+    8202: (T + "«uvědomuji» → «uvědomuju»", {"example_cs": "Při stěhování si uvědomuju, kolik věcí je vlastně postradatelných"}),
+    8234: (T + "«našimi» — лишнее", {"example_cs": "V zimě křupe čerstvý sníh pod botami"}),
+    8250: (T + "«nedosáhli dohody» — канцелярит", {"example_cs": "Co se týká platby, ještě jsme se nedohodli"}),
+    8268: (T + "«Moji rodiče» — лишнее", {"example_cs": "Rodiče se k mému novému příteli ještě stavějí trochu skepticky"}),
+    8276: (T + "«Na mém vyúčtování» — калька", {"example_cs": "Ve vyúčtování za mobil mám všechny odchozí hovory za minulý měsíc"}),
+    8278: (T + "«velmi» — книжно", {"example_cs": "Představa, že bych rok pracovala v Portugalsku, je pro mě hodně lákavá"}),
+    8288: (T + "«Ve své» — лишнее", {"example_cs": "V kartonové rytířské helmě se syn cítí úplně nezranitelný"}),
+    8292: (T + "«tomto … svého» — книжно", {"example_cs": "V tomhle filmu chce gangster oddělat soka"}),
+    8296: (T + "«dnes» → «dneska»", {"example_cs": "Kvůli absenci dvou učitelů dneska odpadá matematika"}),
+    8306: (T + "«od prodavače» — предлог", {"example_cs": "Nenech se tím prodavačem ukecat, ten mobil je moc drahý!"}),
+    8331: (T + "«dnes» → «dneska»", {"example_cs": "Manžel jde dneska na třídní schůzky inkognito, s čepicí a slunečními brýlemi"}),
+    8364: (T + "«své» — лишнее", {"example_cs": "Polibkem před všemi hosty zpečetili zasnoubení"}),
+    8384: (T + "«napoprvé … poprvé» — повтор", {"example_cs": "Dort se mi povedl napoprvé, i když jsem podle toho receptu ještě nikdy nepekla"}),
+    8406: (T + "«Moje špatná nálada» — калька", {"example_cs": "Ta špatná nálada určitě souvisí s tím šedivým počasím"}),
+    8414: (T + "«méně» → «míň»", {"example_cs": "Je to paradox: čím víc mám času, tím míň stihnu"}),
+    8426: (T + "«tuto» → «tuhle»", {"example_cs": "Řidičák je pro tuhle pozici nezbytný"}),
+    8434: (T + "«Pro svůj pokoj» — калька", {"example_cs": "Do pokoje si můžeš vybrat libovolnou barvu"}),
+    8449: (T + "«Moje» — лишнее", {"example_cs": "Kolegyně má roztroušenou sklerózu a stejně pracuje na plný úvazek"}),
+    8457: (T + "«Urovnejme» — книжно", {"example_cs": "Pojďme to nedorozumění urovnat, než přijdou hosté"}),
+    8462: (T + "«v našem městě» — калька", {"example_cs": "Elektrokoloběžky jsou u nás ve městě už dva roky na vzestupu"}),
+    8467: (T + "«o tomto tématu» — книжно", {"example_cs": "Chtěl bych si v tom tématu prohloubit znalosti, proto čtu víc knih"}),
+    8472: (T + "«příliš zaneprázdněný» — книжно", {"example_cs": "Pro něj to nemá žádný význam, má moc práce"}),
+    8497: (T + "«a tudíž» — книжно", {"example_cs": "Skoro jsem nespal, a podle toho mám taky náladu"}),
+    8498: (T + "«Domluvme … naší schůzky» — книжно", {"example_cs": "Pojďme si domluvit termín, kdy se sejdeme"}),
+    8504: (T + "«k mému autu» — калька", {"example_cs": "Příslušenství k autu mě stojí víc než auto samotné"}),
+    8522: (T + "«Můj závěr» — калька", {"example_cs": "Závěr po týdnu kempování: už nikdy bez nafukovací matrace"}),
+    8529: (T + "«se stáváš» — книжно", {"example_cs": "S takovým překlepem ve smlouvě budeš snadno napadnutelný"}),
+    8537: (T + "«Moje máma» — лишнее", {"example_cs": "Máma má čich na výhodné koupě"}),
+    8550: (T + "«velmi» — книжно", {"example_cs": "Tvůj strach z nového zubaře je neopodstatněný, je hodně jemný"}),
+    8564: (T + "«Moje kočka» — лишнее", {"example_cs": "Kočka se neslyšně připlíží a skočí mi na klín"}),
+    8567: (T + "«náš» — лишнее", {"example_cs": "V létě se celý rodinný život přesune na balkon"}),
+    8568: (T + "«tento» → «tenhle»", {"example_cs": "Potřebujeme externí pomoc, abychom tenhle problém vyřešili"}),
+    8578: (T + "«naplňuje» — книжно", {"example_cs": "Sklep se plní vodou"}),
+}
+
+REPLACE = []
+
+SPLIT_LATER = {}
