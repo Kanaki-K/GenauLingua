@@ -1,0 +1,55 @@
+"""Вычитка польского, порция p038 (B2–C1), 23.10: кальки и лишние местоимения → разговорный польский"""
+
+T = "вычитка польского: "
+
+FIXES = {
+    18377: (T + "«Nasz» — лишнее", {"example_pl": "Zamek z piasku na plaży runął już przy pierwszej dużej fali"}),
+    18422: (T + "«mój» — лишнее", {"example_pl": "W restauracji synek zamknął się w toalecie męskiej i nie może wyjść"}),
+    18461: (T + "«Z powodu» → «Przez»", {"example_pl": "Przez przebudowę kuchni od czterech tygodni gotujemy na jednej płytce w salonie"}),
+    18464: (T + "«Nasz» — лишнее", {"example_pl": "Kot co noc wspina się po schodach pożarowych do sąsiadki i dostaje tam drugą kolację"}),
+    18481: (T + "«nasz» — лишнее", {"example_pl": "We wnęce obok kominka kot śpi całą zimę"}),
+    18653: (T + "«On» — лишнее", {"example_pl": "Zawsze się spóźnia"}),
+    18663: (T + "«Po posiłku» — книжно", {"example_pl": "Po obiedzie chcę godzinę odpocząć"}),
+    18734: (T + "«Jego styl jest» — калька", {"example_pl": "Ubiera się dla mnie zbyt staromodnie"}),
+    18736: (T + "«Dotychczas» — книжно", {"example_pl": "Na razie wszystko idzie dobrze"}),
+    18742: (T + "«restauracje są zarezerwowane» — калька", {"example_pl": "W walentynki we wszystkich restauracjach w mieście brakuje miejsc"}),
+    18755: (T + "«odbywa się» — книжно", {"example_pl": "W rocznicę upadku muru w Berlinie jest wielki koncert"}),
+    18765: (T + "«Mój paszport» — калька", {"example_pl": "Paszport traci mi ważność w maju, muszę złożyć wniosek o nowy"}),
+    18766: (T + "«Z powodu … nasza» — коряво", {"example_pl": "Przez problemy z dostawami nowa kuchnia ma trzy tygodnie opóźnienia"}),
+    18770: (T + "«mojej» — лишнее", {"example_pl": "Przy obecnej pensji nie stać mnie na większe mieszkanie"}),
+    18785: (T + "«swojej» — лишнее", {"example_pl": "U nowego lekarza musiałem wypełnić długi kwestionariusz o historii chorób"}),
+    18788: (T + "«mój» — лишнее", {"example_pl": "Po trzech latach w biurze wciąż nie rozumiem, jak funkcjonuje szef"}),
+    18858: (T + "«Pana» → «pana»", {"example_pl": "W przyszłości nie będę już parkować przed pana wjazdem, obiecuję!"}),
+    18883: (T + "«W przeddzień … wieczorem» — повтор", {"example_pl": "W wieczór przed ślubem cała rodzina grillowała u nas w ogrodzie"}),
+    18934: (T + "«On» — лишнее", {"example_pl": "Nie ma poczucia czasu i zawsze się spóźnia"}),
+    19002: (T + "«Moja» — лишнее", {"example_pl": "Babcia co niedzielę chodzi na mszę, a potem do piekarni"}),
+    19005: (T + "«mój» — лишнее", {"example_pl": "Po długim podaniu z tyłu syn strzelił bramkę"}),
+    19021: (T + "«moi … mojej» — лишнее", {"example_pl": "W tym roku rodzice urządzają wesele siostry w ogrodzie"}),
+    19022: (T + "«Mój» — лишнее", {"example_pl": "Wspólnik chce się wycofać z naszej małej firmy i przeprowadzić do Hiszpanii"}),
+    19023: (T + "«mój» — лишнее", {"example_pl": "Po wigilii firmowej kolega był kompletnie pijany i wziął taksówkę"}),
+    19025: (T + "«moje» — лишнее", {"example_pl": "Pieniądze ze sprzedaży wpłynęły dziś w końcu na konto"}),
+    19027: (T + "«Nasza» — лишнее", {"example_pl": "Sąsiadka od lat angażuje się na rzecz nowego placu zabaw"}),
+    19028: (T + "«mój … naszego ojca» — лишнее", {"example_pl": "Po studiach brat chce wejść do firmy taty"}),
+    19034: (T + "«moją» — лишнее", {"example_pl": "Rozstanie bardzo wykończyło siostrę, prawie nie śpi"}),
+    19039: (T + "«mój» — лишнее", {"example_pl": "Grając w rzutki, syn prawie zawsze trafia w środek"}),
+    19042: (T + "«moja» — лишнее", {"example_pl": "Po tym komplemencie córka zrobiła się zupełnie zakłopotana i się zaczerwieniła"}),
+    19044: (T + "«nasze» — лишнее", {"example_pl": "Co roku jesienią technik serwisuje ogrzewanie"}),
+    7518: (T + "«Nasz» — лишнее", {"example_pl": "Pies zręcznie łapie każdą piłkę, tylko nie wtedy, gdy patrzą goście"}),
+    7542: (T + "«mój» — лишнее", {"example_pl": "Po rozstaniu przyjaciel chciał utopić smutki w lodach i zjadł trzy opakowania"}),
+    7543: (T + "«skłonność do kupowania» — книжно", {"example_pl": "Mąż ma skłonność, żeby na zakupach brać wszystko podwójnie, bo zapomina listy"}),
+    7546: (T + "«nasz … jego» — лишнее", {"example_pl": "Odkąd pies przychodzi z nami do biura, jego obecność widać po sierści na każdym krześle"}),
+    7555: (T + "«moje» — лишнее", {"example_pl": "W kinie dzieci nigdy nie siedzą obok siebie, bo kłócą się o podłokietnik"}),
+    7598: (T + "«przywrócono spokój» — безлично, книжно", {"example_pl": "Po kłótni minął tydzień, zanim rodzeństwo przywróciło między sobą zgodę"}),
+    7630: (T + "«Nasz» — лишнее", {"example_pl": "Pies chodzi za małą wszędzie, nawet pod drzwi łazienki"}),
+    7637: (T + "«naszej» — лишнее", {"example_pl": "Zapach świeżo upieczonego chleba rano przenika aż do sypialni"}),
+    7641: (T + "«mój» — лишнее", {"example_pl": "Po dwudziestu latach stary nauczyciel od razu poznał mnie w supermarkecie"}),
+    7644: (T + "«Nasz» — лишнее", {"example_pl": "Pies wykopuje w ogrodzie każdą schowaną kość i przynosi ją do domu"}),
+    7649: (T + "«Nasz» — лишнее", {"example_pl": "Pies coraz bardziej przypomina właściciela, obaj chrapią i uwielbiają parówki"}),
+    7656: (T + "«Nasz … swoje» — лишнее", {"example_pl": "Kot co rano syczy na własne odbicie w drzwiczkach piekarnika"}),
+    7677: (T + "«moja» — лишнее", {"example_pl": "W memory czteroletnia córka jest nie do pobicia, wygrywa nawet z dziadkiem"}),
+    7705: (T + "«Nasz zamiar pomalowania» — книжно", {"example_pl": "Zamiar, żeby pomalować łazienkę w jeden weekend, skończył się na trzech tygodniach"}),
+}
+
+REPLACE = []
+
+SPLIT_LATER = {}
