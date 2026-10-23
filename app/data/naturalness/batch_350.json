@@ -1,0 +1,65 @@
+{
+ "about": "QA: новые и изменённые строки, порция d05",
+ "edits": [
+  {
+   "id": 8462,
+   "col": "translation_pl",
+   "old": "natarcie, (auf dem Vormarsch) w natarciu",
+   "new": "natarcie, (auf dem Vormarsch) zyskiwać popularność",
+   "why": "проверка выборок: «w natarciu» о самокатах — военная калька; по-польски «zyskiwać popularność»"
+  },
+  {
+   "id": 8462,
+   "col": "example_pl",
+   "old": "Hulajnogi elektryczne od dwóch lat są w naszym mieście w natarciu",
+   "new": "Hulajnogi elektryczne od dwóch lat zyskują w naszym mieście popularność",
+   "why": "проверка выборок: «w natarciu» о самокатах — военная калька; по-польски «zyskiwać popularność»"
+  },
+  {
+   "id": 8624,
+   "col": "example_en",
+   "old": "In the new house with a garden my son can finally live out his need to run around",
+   "new": "In the new house with a garden my son can finally give free rein to his need to run around",
+   "why": "проверка выборок: «live out his need to run around» — неестественно; есть в W «give free rein to»"
+  },
+  {
+   "id": 8869,
+   "col": "example_en",
+   "old": "The barman makes me a cocktail",
+   "new": "The barman is making me a cocktail",
+   "why": "проверка выборок: действие сейчас — продолженное время"
+  },
+  {
+   "id": 9292,
+   "col": "example_ru",
+   "old": "Художник нарисовал мой фантастический портрет",
+   "new": "Художник нарисовал с меня фантастический портрет",
+   "why": "проверка выборок: «мой фантастический портрет» — прилагательное не к тому слову"
+  },
+  {
+   "id": 9292,
+   "col": "example_uk",
+   "old": "Художник намалював мій фантастичний портрет",
+   "new": "Художник намалював з мене фантастичний портрет",
+   "why": "проверка выборок: «мой фантастический портрет» — прилагательное не к тому слову"
+  },
+  {
+   "id": 9536,
+   "col": "example_en",
+   "old": "I draw a circle with the compasses",
+   "new": "I draw a circle with a pair of compasses",
+   "why": "проверка выборок: по-британски «a pair of compasses»"
+  },
+  {
+   "id": 10045,
+   "col": "example_tr",
+   "old": "Bunu ciddiye alıyorum",
+   "new": "Bu konuda ciddiyim",
+   "why": "проверка выборок: «Mir ist das ernst» = «я серьёзно», а не «я принимаю всерьёз»"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
