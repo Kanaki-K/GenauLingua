@@ -1,0 +1,436 @@
+{
+ "about": "вычитка турецкого p029 (B2)",
+ "edits": [
+  {
+   "id": 8703,
+   "col": "example_tr",
+   "old": "Bahçemizdeki kabak bu yıl hatırı sayılır yirmi kilo geliyor",
+   "new": "Bahçemizin kabağı bu yıl tam yirmi kilo çekiyor, hatırı sayılır bir ağırlık",
+   "why": "вычитка турецкого: «hatırı sayılır yirmi kilo geliyor» — коряво"
+  },
+  {
+   "id": 8795,
+   "col": "example_tr",
+   "old": "Komşum cinayet masasında komiser, işinden hiç bahsetmiyor",
+   "new": "Komşum emniyette komiser, işinden hiç bahsetmiyor",
+   "why": "вычитка турецкого: Kripo — не «cinayet masası»"
+  },
+  {
+   "id": 8875,
+   "col": "example_tr",
+   "old": "Benim yerime hâlâ bir halef arıyorlar",
+   "new": "Yerime hâlâ bir halef arıyorlar",
+   "why": "вычитка турецкого: «Benim yerime» — лишнее «benim»"
+  },
+  {
+   "id": 8876,
+   "col": "example_tr",
+   "old": "Fahişelerin çalışması birçok ülkede düzenlenir",
+   "new": "Birçok ülkede fahişelik yasal olarak düzenlenmiş",
+   "why": "вычитка турецкого: «Fahişelerin çalışması … düzenlenir» — калька"
+  },
+  {
+   "id": 8877,
+   "col": "example_tr",
+   "old": "Bahçıvanımız her cuma bahçeye bakmak için geliyor",
+   "new": "Bahçıvanımız her cuma gelip bahçeyle ilgileniyor",
+   "why": "вычитка турецкого: «bahçeye bakmak için geliyor» — подстрочник"
+  },
+  {
+   "id": 8882,
+   "col": "example_tr",
+   "old": "Eski filmlerde hizmetçi hep beyaz önlük takar",
+   "new": "Eski filmlerde hizmetçi hep beyaz önlük giyer",
+   "why": "вычитка турецкого: önlük «giyer», не «takar»"
+  },
+  {
+   "id": 8883,
+   "col": "example_tr",
+   "old": "Kuzenim devlet balesinde dansçı ve her gün altı saat çalışıyor",
+   "new": "Kuzenim devlet balesinde dansçı ve her gün altı saat prova yapıyor",
+   "why": "вычитка турецкого: у балерины — «prova/antrenman»"
+  },
+  {
+   "id": 8886,
+   "col": "example_tr",
+   "old": "Yapımcı albüm için yeni şarkılar oluşturdu",
+   "new": "Albümün yeni şarkılarını yapımcı hazırladı",
+   "why": "вычитка турецкого: «şarkılar oluşturdu» — калька"
+  },
+  {
+   "id": 8900,
+   "col": "example_tr",
+   "old": "Polis kayıp adam hakkında soruşturmalar yapıyor",
+   "new": "Polis kayıp adamla ilgili araştırma yapıyor",
+   "why": "вычитка турецкого: «soruşturmalar yapıyor» — канцелярит"
+  },
+  {
+   "id": 8906,
+   "col": "example_tr",
+   "old": "Şirket kasadan biri para aldığı için özel dedektif tuttu",
+   "new": "Kasadan biri para aldığı için şirket özel dedektif tuttu",
+   "why": "вычитка турецкого: порядок слов — двусмысленно"
+  },
+  {
+   "id": 8911,
+   "col": "example_tr",
+   "old": "Ben sadece haberciyim, karar için bana şikâyet etme",
+   "new": "Ben sadece haberciyim, karardan bana yakınma",
+   "why": "вычитка турецкого: «karar için bana şikâyet etme» — коряво"
+  },
+  {
+   "id": 8920,
+   "col": "example_tr",
+   "old": "Otelin yeni bir yönetimi var, o zamandan beri kahvaltı daha kötü",
+   "new": "Otelin yönetimi değişti, o günden beri kahvaltı daha kötü",
+   "why": "вычитка турецкого: «yeni bir yönetimi var, o zamandan beri» — подстрочник"
+  },
+  {
+   "id": 8931,
+   "col": "example_tr",
+   "old": "Kurye iki kez geldi ama ben hiç evde değildim",
+   "new": "Kurye iki kez geldi ama ikisinde de evde yoktum",
+   "why": "вычитка турецкого: «hiç evde değildim» — калька"
+  },
+  {
+   "id": 8936,
+   "col": "example_tr",
+   "old": "Okulun yanında geçimimi garsonluk yaparak sağlamam gerekiyor",
+   "new": "Üniversitenin yanında geçimimi garsonluk yaparak sağlamak zorundayım",
+   "why": "вычитка турецкого: Studium — университет; «gerekiyor» тяжело"
+  },
+  {
+   "id": 8942,
+   "col": "example_tr",
+   "old": "Babasından zanaatı öğreniyor",
+   "new": "Zanaatı babasından öğreniyor",
+   "why": "вычитка турецкого: порядок слов"
+  },
+  {
+   "id": 8945,
+   "col": "example_tr",
+   "old": "Babam aile geleneklerimizin sıkı bir koruyucusu",
+   "new": "Babam aile geleneklerimizin sıkı bir bekçisi",
+   "why": "вычитка турецкого: Hüter традиций — «bekçi»"
+  },
+  {
+   "id": 8948,
+   "col": "example_tr",
+   "old": "Böyle küçük bir parti için üç pasta gerçekten fazla emek",
+   "new": "Bu kadar küçük bir parti için üç pasta yapmak fazla emek",
+   "why": "вычитка турецкого: «üç pasta … fazla emek» — без глагола"
+  },
+  {
+   "id": 8955,
+   "col": "example_tr",
+   "old": "Müvekkilim boşanmak istiyor ve acilen randevuya ihtiyacı var",
+   "new": "Müvekkilim boşanmak istiyor ve acil randevu istiyor",
+   "why": "вычитка турецкого: «randevuya ihtiyacı var» — калька"
+  },
+  {
+   "id": 8958,
+   "col": "example_tr",
+   "old": "Evde patron açıkça kedimiz, kimin nereye oturacağına o karar veriyor",
+   "new": "Evde patron belli: kedimiz, kimin nereye oturacağına o karar veriyor",
+   "why": "вычитка турецкого: «açıkça» — подстрочник eindeutig"
+  },
+  {
+   "id": 8963,
+   "col": "example_tr",
+   "old": "Bu hafta yine gece vardiyasında çalışmam gerek",
+   "new": "Bu hafta yine gece vardiyasındayım",
+   "why": "вычитка турецкого: «çalışmam gerek» — тяжело"
+  },
+  {
+   "id": 8966,
+   "col": "example_tr",
+   "old": "Grafiker olarak bazen müşteri memnun olana kadar taslakları on kez değiştirmem gerekiyor",
+   "new": "Grafiker olarak bazen müşteri memnun olana kadar taslakları on kez değiştirmek zorunda kalıyorum",
+   "why": "вычитка турецкого: «değiştirmem gerekiyor» — тяжело"
+  },
+  {
+   "id": 8973,
+   "col": "example_tr",
+   "old": "Büyükanne ve büyükbaba nihayet evlenmemiz için epey baskı uyguluyor",
+   "new": "Babaannemler nihayet evlenmemiz için epey baskı yapıyor",
+   "why": "вычитка турецкого: «Büyükanne ve büyükbaba» — тяжело"
+  },
+  {
+   "id": 8986,
+   "col": "example_tr",
+   "old": "Arabanın muayenesi yarım saat sürüyor",
+   "new": "Arabanın bakımı yarım saat sürüyor",
+   "why": "вычитка турецкого: Inspektion машины — «bakım»"
+  },
+  {
+   "id": 8999,
+   "col": "example_tr",
+   "old": "Komşu sabah yediden beri çekiçliyor, uyumaya devam etmek mümkün değil",
+   "new": "Komşu sabah yediden beri çekiçliyor, uyumak ne mümkün",
+   "why": "вычитка турецкого: «uyumaya devam etmek mümkün değil» — калька"
+  },
+  {
+   "id": 9082,
+   "col": "example_tr",
+   "old": "Resmi dairede beni odadan odaya gönderiyorlar, kimse sorumluluğu üstlenmek istemiyor",
+   "new": "Devlet dairesinde beni odadan odaya gönderiyorlar, kimse sorumluluğu üstlenmek istemiyor",
+   "why": "вычитка турецкого: «Resmi dairede» — «devlet dairesi»"
+  },
+  {
+   "id": 9156,
+   "col": "example_tr",
+   "old": "Pazar sabahı komşu motorlu testereyle odun kesiyor ve bütün sokak uyanık",
+   "new": "Pazar sabahı komşu motorlu testereyle odun kesiyor ve bütün sokağı uyandırıyor",
+   "why": "вычитка турецкого: «bütün sokak uyanık» — подстрочник"
+  },
+  {
+   "id": 9167,
+   "col": "example_tr",
+   "old": "Genç askeri öğrenci askeri akademi için sıkı çalışıyor",
+   "new": "Genç askeri öğrenci akademi sınavlarına sıkı hazırlanıyor",
+   "why": "вычитка турецкого: «askeri … askeri» — повтор"
+  },
+  {
+   "id": 9219,
+   "col": "example_tr",
+   "old": "Oteldeki resepsiyon görevlisi iki gün sonra köpeğimizin adını bile biliyor",
+   "new": "Oteldeki resepsiyon görevlisi daha ikinci gün köpeğimizin adını biliyor",
+   "why": "вычитка турецкого: «iki gün sonra … bile» — коряво"
+  },
+  {
+   "id": 9227,
+   "col": "example_tr",
+   "old": "Kulüp kalecimizi hakemi aşağıladığı için iki maçlığına uzaklaştırdı",
+   "new": "Kulüp kalecimizi hakeme hakaret ettiği için iki maçlığına uzaklaştırdı",
+   "why": "вычитка турецкого: Schiri beleidigt — «hakaret etmek»"
+  },
+  {
+   "id": 9234,
+   "col": "example_tr",
+   "old": "Yazın plajda cankurtaranlar devriye geziyor, oğlum da ileride tam olarak bunu yapmak istiyor",
+   "new": "Yazın plajda cankurtaranlar devriye geziyor, oğlum da ileride tam da bunu yapmak istiyor",
+   "why": "вычитка турецкого: «tam olarak bunu» — калька genau"
+  },
+  {
+   "id": 9258,
+   "col": "example_tr",
+   "old": "Pazar yemeğinde dedem hâlâ askerlik hizmetinden aynı hikâyeleri anlatıyor",
+   "new": "Pazar yemeklerinde dedem hâlâ askerlikten aynı hikâyeleri anlatıyor",
+   "why": "вычитка турецкого: «askerlik hizmetinden» — канцелярит"
+  },
+  {
+   "id": 9268,
+   "col": "example_tr",
+   "old": "Eski daireyi almadan önce bütün odaları gezmesi için bir eksper gönderiyoruz",
+   "new": "Eski daireyi almadan önce bir ekspere bütün odaları gezdiriyoruz",
+   "why": "вычитка турецкого: «gezmesi için bir eksper gönderiyoruz» — коряво"
+  },
+  {
+   "id": 9272,
+   "col": "example_tr",
+   "old": "Konserde güvenlik ekibi kızımın su şişesini aldı ama rujuna izin verdi",
+   "new": "Konserde güvenlik ekibi kızımın su şişesini aldı ama rujuna dokunmadı",
+   "why": "вычитка турецкого: «rujuna izin verdi» — калька"
+  },
+  {
+   "id": 9281,
+   "col": "example_tr",
+   "old": "İtfaiyede rütbe miğferdeki şeritlerden anlaşılıyor",
+   "new": "İtfaiyede rütbe kasktaki şeritlerden anlaşılıyor",
+   "why": "вычитка турецкого: у пожарных — «kask»"
+  },
+  {
+   "id": 9284,
+   "col": "example_tr",
+   "old": "İş arkadaşım beni yılbaşı partisinin planlanmasıyla görevlendirdi, şimdi pişmanım",
+   "new": "İş arkadaşım beni yılbaşı partisini planlamakla görevlendirdi, şimdi pişmanım",
+   "why": "вычитка турецкого: «planlanmasıyla görevlendirdi» — тяжело"
+  },
+  {
+   "id": 9363,
+   "col": "example_tr",
+   "old": "Kız kardeşim yönetim asistanlığında çalışıyor ve şirketin bütün sırlarını biliyor",
+   "new": "Kız kardeşim genel müdürün asistanı ve şirketin bütün sırlarını biliyor",
+   "why": "вычитка турецкого: «yönetim asistanlığında» — калька"
+  },
+  {
+   "id": 9505,
+   "col": "example_tr",
+   "old": "Demek istediğimi anlıyor musun?",
+   "new": "Ne demek istediğimi çaktın mı?",
+   "why": "вычитка турецкого: kapieren — разговорное «çakmak»"
+  },
+  {
+   "id": 9508,
+   "col": "example_tr",
+   "old": "İklim değişikliği hakkında bir kompozisyon yazmam gerekiyor",
+   "new": "İklim değişikliği hakkında bir kompozisyon yazmam lazım",
+   "why": "вычитка турецкого: «gerekiyor» → «lazım»"
+  },
+  {
+   "id": 9511,
+   "col": "example_tr",
+   "old": "Mezuniyet töreninde rektör çok uzun bir konuşma yaptı",
+   "new": "Mezuniyet töreninde rektör fazlasıyla uzun bir konuşma yaptı",
+   "why": "вычитка турецкого: viel zu lang — «fazlasıyla»"
+  },
+  {
+   "id": 9577,
+   "col": "example_tr",
+   "old": "Patronumun şakaları hep aynı kalıba göre ilerliyor, yine de herkes gülüyor",
+   "new": "Patronumun şakaları hep aynı kalıpta, yine de herkes gülüyor",
+   "why": "вычитка турецкого: «kalıba göre ilerliyor» — калька"
+  },
+  {
+   "id": 9580,
+   "col": "example_tr",
+   "old": "Tamamen bilgisizlikten Almanya'daki ilk yılımda hiç vergi beyannamesi vermedim",
+   "new": "Sırf bilgisizlikten Almanya'daki ilk yılımda hiç vergi beyannamesi vermedim",
+   "why": "вычитка турецкого: aus reiner — «sırf»"
+  },
+  {
+   "id": 9583,
+   "col": "example_tr",
+   "old": "Plajda okumak için üç kalın polisiye roman koydum",
+   "new": "Plajda okumak için çantama üç kalın polisiye koydum",
+   "why": "вычитка турецкого: «koydum» — куда?"
+  },
+  {
+   "id": 9594,
+   "col": "example_tr",
+   "old": "Doktora unvanını aldığından beri kapı zilimizin isim levhasında bile yazıyor",
+   "new": "Doktora unvanını aldığından beri kapı zilimizdeki isimde bile yazıyor",
+   "why": "вычитка турецкого: «kapı zilimizin isim levhasında» — тяжело"
+  },
+  {
+   "id": 9602,
+   "col": "example_tr",
+   "old": "Okul diploması olmadan bugün neredeyse hiç meslek eğitimi bulunmuyor, bunu oğluma her gün anlatıyorum",
+   "new": "Bugün okul diploması olmadan meslek eğitimine girmek neredeyse imkânsız, bunu oğluma her gün anlatıyorum",
+   "why": "вычитка турецкого: «meslek eğitimi bulunmuyor» — калька"
+  },
+  {
+   "id": 9604,
+   "col": "example_tr",
+   "old": "Gerçek bir uzman olarak kayınpederim şarabı içmeden önce kokluyor ve hepimiz beklemek zorunda kalıyoruz",
+   "new": "Kayınpederim gerçek bir şarap meraklısı, içmeden önce kokluyor, biz de hep bekliyoruz",
+   "why": "вычитка турецкого: «Gerçek bir uzman olarak» — калька"
+  },
+  {
+   "id": 9615,
+   "col": "example_tr",
+   "old": "Hukuk eğitiminden sonra ağabeyim yine de fırın açmayı tercih etti, ailem hâlâ bundan bahsediyor",
+   "new": "Hukuku bitirdikten sonra ağabeyim fırın açtı, ailem hâlâ bundan bahsediyor",
+   "why": "вычитка турецкого: «yine de fırın açmayı tercih etti» — калька doch lieber"
+  },
+  {
+   "id": 9625,
+   "col": "example_tr",
+   "old": "Kızımın son sınıfı yazın birlikte İspanya'ya gidiyor, veliler şimdiden titriyor",
+   "new": "Kızımın son sınıftaki arkadaşları yazın hep birlikte İspanya'ya gidiyor, veliler şimdiden tir tir titriyor",
+   "why": "вычитка турецкого: «Kızımın son sınıfı … gidiyor» — коряво"
+  },
+  {
+   "id": 9639,
+   "col": "example_tr",
+   "old": "Oğlum geometriden nefret ediyor, pergelle renkli desenler çizmesine izin verildiği zamanlar hariç",
+   "new": "Oğlum geometriden nefret ediyor, pergelle renkli desen çizerken hariç",
+   "why": "вычитка турецкого: «izin verildiği zamanlar hariç» — тяжело"
+  },
+  {
+   "id": 9788,
+   "col": "example_tr",
+   "old": "Tokyo seyahatinden önce euroyu yene çevirdim",
+   "new": "Tokyo seyahatinden önce avroyu yene bozdurdum",
+   "why": "вычитка турецкого: деньги «bozdurmak»"
+  },
+  {
+   "id": 9793,
+   "col": "example_tr",
+   "old": "Tatil için iki bin euroluk bir bütçemiz var ve bu ancak yetiyor",
+   "new": "Tatil için iki bin avroluk bir bütçemiz var, o da zor yetiyor",
+   "why": "вычитка турецкого: «bu ancak yetiyor» — смысл"
+  },
+  {
+   "id": 9798,
+   "col": "example_tr",
+   "old": "Ev sahibi daireyi satmak istiyor, belki taşınmamız gerekecek",
+   "new": "Mal sahibi daireyi satmak istiyor, belki taşınmak zorunda kalacağız",
+   "why": "вычитка турецкого: Eigentümer — «mal sahibi»; «gerekecek» тяжело"
+  },
+  {
+   "id": 9808,
+   "col": "example_tr",
+   "old": "Noelden hemen önce patronumdan avans istedim",
+   "new": "Noel'den hemen önce patronumdan avans istedim",
+   "why": "вычитка турецкого: «Noelden» — апостроф"
+  },
+  {
+   "id": 9815,
+   "col": "example_tr",
+   "old": "Bisikletini kısa bir süre ödünç alabilir miyim? Benimkinin lastiği patlak",
+   "new": "Bisikletini biraz ödünç alabilir miyim? Benimkinin lastiği patlak",
+   "why": "вычитка турецкого: «kısa bir süre» — калька kurz"
+  },
+  {
+   "id": 9818,
+   "col": "example_tr",
+   "old": "Makine para üstü vermiyor, tam para gerekiyor",
+   "new": "Makine para üstü vermiyor, parayı tam vermen lazım",
+   "why": "вычитка турецкого: «tam para gerekiyor» — коряво"
+  },
+  {
+   "id": 9831,
+   "col": "example_tr",
+   "old": "Bu kadar iş için sadece on euro, bu sadaka gibi",
+   "new": "Bu kadar iş için sadece on avro, bu resmen sadaka",
+   "why": "вычитка турецкого: «bu sadaka gibi» — слабо"
+  },
+  {
+   "id": 9849,
+   "col": "example_tr",
+   "old": "Arabasını verip elektrikli araba alan kişi devletten ikramiye alıyor",
+   "new": "Eski arabasını verip elektrikli araba alana devlet prim veriyor",
+   "why": "вычитка турецкого: «araba alan kişi … ikramiye alıyor» — коряво"
+  },
+  {
+   "id": 9893,
+   "col": "example_tr",
+   "old": "Benim tahminime göre arabayla Prag'a yaklaşık beş saatte varırız",
+   "new": "Tahminimce arabayla Prag'a beş saat kadar sürer",
+   "why": "вычитка турецкого: «Benim tahminime göre» — тяжело"
+  },
+  {
+   "id": 9900,
+   "col": "example_tr",
+   "old": "Dedemin hâlâ artık hiçbir değeri olmayan eski Avusturya bozuk paralarıyla dolu bir teneke kutusu var",
+   "new": "Dedemin artık hiçbir değeri olmayan eski Avusturya bozukluklarıyla dolu bir teneke kutusu var",
+   "why": "вычитка турецкого: длинная цепочка определений"
+  },
+  {
+   "id": 9939,
+   "col": "example_tr",
+   "old": "Dedem yirmi yaşında meteliksiz Almanya'ya geldi ve sonra kendi atölyesi oldu",
+   "new": "Dedem yirmi yaşında meteliksiz Almanya'ya geldi, sonradan kendi atölyesini açtı",
+   "why": "вычитка турецкого: «sonra kendi atölyesi oldu» — коряво"
+  },
+  {
+   "id": 9945,
+   "col": "example_tr",
+   "old": "İki yıl sonra ev kredisini nihayet kapatmış olacağız, o zaman büyük bir parti var",
+   "new": "İki yıl sonra ev kredisini nihayet kapatmış olacağız, o zaman büyük bir parti vereceğiz",
+   "why": "вычитка турецкого: «büyük bir parti var» — калька"
+  },
+  {
+   "id": 10391,
+   "col": "example_tr",
+   "old": "Sevgilim ve ben birlikte tatile gidiyoruz",
+   "new": "Sevgilimle birlikte tatile gidiyoruz",
+   "why": "вычитка турецкого: «Sevgilim ve ben» — калька"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
