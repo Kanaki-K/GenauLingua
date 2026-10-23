@@ -1,0 +1,380 @@
+{
+ "about": "вычитка турецкого p027 (B2)",
+ "edits": [
+  {
+   "id": 7105,
+   "col": "example_tr",
+   "old": "Dedektif kimse fark etmesin diye hep dikkat çekmeden gri giyiniyor",
+   "new": "Dedektif kimse fark etmesin diye hep dikkat çekmeyen gri kıyafetler giyiyor",
+   "why": "вычитка турецкого: «dikkat çekmeden … giyiniyor» — коряво"
+  },
+  {
+   "id": 7110,
+   "col": "example_tr",
+   "old": "Bu söz konusu değil",
+   "new": "Bu benim için söz konusu bile değil",
+   "why": "вычитка турецкого: «kommt für mich nicht infrage» — потерян «для меня»"
+  },
+  {
+   "id": 7117,
+   "col": "example_tr",
+   "old": "On kilometre yarıçapında hiç ev yok",
+   "new": "On kilometre çevrede hiç ev yok",
+   "why": "вычитка турецкого: «yarıçapında» — книжно (как в 17992)"
+  },
+  {
+   "id": 7118,
+   "col": "example_tr",
+   "old": "Bozkırın genişliğinde saatlerce tek bir ev görmüyorsun",
+   "new": "Uçsuz bucaksız bozkırda saatlerce tek bir ev görmüyorsun",
+   "why": "вычитка турецкого: «Bozkırın genişliğinde» — подстрочник"
+  },
+  {
+   "id": 7129,
+   "col": "example_tr",
+   "old": "Umarım bu zor zamanı atlatabilirim",
+   "new": "Umarım bu zor dönemi atlatırım",
+   "why": "вычитка турецкого: «atlatabilirim» — после «umarım» просто «atlatırım»"
+  },
+  {
+   "id": 7142,
+   "col": "example_tr",
+   "old": "Karınca minik",
+   "new": "Karınca minicik",
+   "why": "вычитка турецкого: winzig klein — «minicik»"
+  },
+  {
+   "id": 7144,
+   "col": "example_tr",
+   "old": "Dün hava adeta harikaydı, kusursuzdu",
+   "new": "Dün hava düpedüz harikaydı, tek kelimeyle mükemmel",
+   "why": "вычитка турецкого: «adeta harikaydı» — неестественно"
+  },
+  {
+   "id": 7148,
+   "col": "example_tr",
+   "old": "Askerlere sonunda dağılma izni verildi",
+   "new": "Askerler sonunda dağılabildi",
+   "why": "вычитка турецкого: wegtreten — «rahat/dağıl» как команда"
+  },
+  {
+   "id": 7151,
+   "col": "example_tr",
+   "old": "Kiraya ek olarak yüz euro da aidat geliyor",
+   "new": "Kiraya yüz euro da aidat ekleniyor",
+   "why": "вычитка турецкого: «aidat geliyor» — «ekleniyor»"
+  },
+  {
+   "id": 7159,
+   "col": "example_tr",
+   "old": "Yalan söylediğine ne işaret ediyor?",
+   "new": "Yalan söylediği nereden belli?",
+   "why": "вычитка турецкого: «ne işaret ediyor» — подстрочник"
+  },
+  {
+   "id": 7162,
+   "col": "example_tr",
+   "old": "Hava kötüydü ve takımın ruh hali buna göre çok kötüydü",
+   "new": "Hava kötüydü, takımın morali de ona göre bozuktu",
+   "why": "вычитка турецкого: «buna göre çok kötüydü» — калька"
+  },
+  {
+   "id": 7164,
+   "col": "example_tr",
+   "old": "Birden maraton koşma isteği geldi bana",
+   "new": "Birden canım maraton koşmak istedi",
+   "why": "вычитка турецкого: «isteği geldi bana» — порядок"
+  },
+  {
+   "id": 7180,
+   "col": "example_tr",
+   "old": "Elmalar, armutlar ve benzeri şeyler yemeyi sevdiğim meyveler",
+   "new": "Elma, armut ve benzeri meyveleri severek yerim",
+   "why": "вычитка турецкого: «Elmalar, armutlar ve benzeri şeyler» — тяжело"
+  },
+  {
+   "id": 7183,
+   "col": "example_tr",
+   "old": "Bardak düşürürsem kırılacak",
+   "new": "Bardağı düşürürsem kırılır",
+   "why": "вычитка турецкого: условие — «kırılır»"
+  },
+  {
+   "id": 7212,
+   "col": "example_tr",
+   "old": "Onun gözlerindeki ışıltı güzeldi",
+   "new": "Gözlerindeki ışıltı çok güzeldi",
+   "why": "вычитка турецкого: «Onun» — лишнее"
+  },
+  {
+   "id": 7215,
+   "col": "example_tr",
+   "old": "Nerede hâlâ bir usta bulabilirim?",
+   "new": "Nereden bir usta bulsam acaba?",
+   "why": "вычитка турецкого: noch — не «hâlâ»"
+  },
+  {
+   "id": 7217,
+   "col": "example_tr",
+   "old": "Terzi düğün için elbisemi uyarlıyor, belde fazla bol",
+   "new": "Terzi düğün için elbisemi daraltıyor, belde fazla bol",
+   "why": "вычитка турецкого: anpassen у портнихи — «daraltmak»"
+  },
+  {
+   "id": 7218,
+   "col": "example_tr",
+   "old": "Önce bu bilgiyi işlemem gerekiyor",
+   "new": "Önce bu bilgiyi bir sindirmem lazım",
+   "why": "вычитка турецкого: Information verarbeiten — «sindirmek»"
+  },
+  {
+   "id": 7221,
+   "col": "example_tr",
+   "old": "Amcam şehir merkezinde küçük bir restoran işletir",
+   "new": "Amcam şehir merkezinde küçük bir restoran işletiyor",
+   "why": "вычитка турецкого: «işletir» — сейчас «işletiyor»"
+  },
+  {
+   "id": 7227,
+   "col": "example_tr",
+   "old": "Yapabileceğimin en azı bu",
+   "new": "Yapabileceğim en az şey bu",
+   "why": "вычитка турецкого: «Yapabileceğimin en azı» — калька"
+  },
+  {
+   "id": 7232,
+   "col": "example_tr",
+   "old": "Görevi çok kesin bir şekilde açıklıyor",
+   "new": "Ödevi çok net anlatıyor",
+   "why": "вычитка турецкого: «Görevi … kesin bir şekilde» — Aufgabe = ödev"
+  },
+  {
+   "id": 7241,
+   "col": "example_tr",
+   "old": "Bu gerçekten zor bir görev",
+   "new": "Bu gerçekten zor bir iş",
+   "why": "вычитка турецкого: Aufgabe здесь — «iş», не «görev»"
+  },
+  {
+   "id": 7246,
+   "col": "example_tr",
+   "old": "Masa zaten kurulmuş",
+   "new": "Masa kurulmuş bile",
+   "why": "вычитка турецкого: schon — «bile», не «zaten»"
+  },
+  {
+   "id": 7262,
+   "col": "example_tr",
+   "old": "O kadar yorgunum ki uyuyabilirdim",
+   "new": "O kadar yorgunum ki ayakta uyuyabilirim",
+   "why": "вычитка турецкого: «uyuyabilirdim» — потеряно «einschlafen könnte»"
+  },
+  {
+   "id": 7271,
+   "col": "example_tr",
+   "old": "Sonuçta yine de işler yolunda gitti",
+   "new": "Sonuçta yine de oldu",
+   "why": "вычитка турецкого: «işler yolunda gitti» — тяжело"
+  },
+  {
+   "id": 7282,
+   "col": "example_tr",
+   "old": "Numaralarımızı değiş tokuş ediyoruz",
+   "new": "Telefon numaralarımızı paylaşıyoruz",
+   "why": "вычитка турецкого: «değiş tokuş ediyoruz» — номера не меняют"
+  },
+  {
+   "id": 7303,
+   "col": "example_tr",
+   "old": "Yeni yasa birçok insana okuma olanağı sağlıyor",
+   "new": "Yeni yasa birçok insana üniversite okuma olanağı sağlıyor",
+   "why": "вычитка турецкого: studieren — «üniversite okumak»"
+  },
+  {
+   "id": 7308,
+   "col": "example_tr",
+   "old": "Bu benim şüphemi daha da artırıyor",
+   "new": "Bu, şüphemi daha da artırıyor",
+   "why": "вычитка турецкого: «Bu benim şüphemi» — лишнее «benim»"
+  },
+  {
+   "id": 7310,
+   "col": "example_tr",
+   "old": "Yarın öğleden sonra takvimimde hâlâ bir boşluk var",
+   "new": "Yarın öğleden sonra takvimimde bir boşluk var",
+   "why": "вычитка турецкого: noch — не «hâlâ»"
+  },
+  {
+   "id": 7317,
+   "col": "example_tr",
+   "old": "Çamaşırları katlamama yardım eder misin? Tek başıma bitmek bilmiyor",
+   "new": "Çamaşırları katlamama yardım eder misin? Tek başıma saatler sürüyor",
+   "why": "вычитка турецкого: «Tek başıma bitmek bilmiyor» — коряво"
+  },
+  {
+   "id": 7341,
+   "col": "example_tr",
+   "old": "Yatağın yanında hâlâ okumak istediğim bir yığın kitap var",
+   "new": "Yatağın yanında daha okuyacağım bir yığın kitap duruyor",
+   "why": "вычитка турецкого: noch — не «hâlâ»"
+  },
+  {
+   "id": 7350,
+   "col": "example_tr",
+   "old": "Bir karacadan kaçmak için yana kaçtım ve neredeyse hendeğe düşüyordum",
+   "new": "Bir karacadan kaçayım derken neredeyse hendeğe giriyordum",
+   "why": "вычитка турецкого: «kaçmak için yana kaçtım» — тавтология"
+  },
+  {
+   "id": 7364,
+   "col": "example_tr",
+   "old": "Otobüs köşeyi dönünce inmen gerekiyor",
+   "new": "Otobüs köşeyi dönünce inmen lazım",
+   "why": "вычитка турецкого: «gerekiyor» → «lazım»"
+  },
+  {
+   "id": 7365,
+   "col": "example_tr",
+   "old": "Otel bir havuza ve kendi saunasına sahip",
+   "new": "Otelin havuzu ve kendine ait saunası var",
+   "why": "вычитка турецкого: «havuza ve saunasına sahip» — канцелярит"
+  },
+  {
+   "id": 7368,
+   "col": "example_tr",
+   "old": "Durumu hızlı kavrıyorum",
+   "new": "Durumu çabuk kavrarım",
+   "why": "вычитка турецкого: «hızlı kavrıyorum» — «çabuk kavrarım»"
+  },
+  {
+   "id": 7373,
+   "col": "example_tr",
+   "old": "Öğretmen her çocuğa bir proje arkadaşı atıyor",
+   "new": "Öğretmen proje için her çocuğa bir eş veriyor",
+   "why": "вычитка турецкого: «proje arkadaşı atıyor» — коряво"
+  },
+  {
+   "id": 7389,
+   "col": "example_tr",
+   "old": "Gözünde sinirsel bir tiki var",
+   "new": "Gözünde sinir tiki var",
+   "why": "вычитка турецкого: «sinirsel bir tiki» — «sinir tiki»"
+  },
+  {
+   "id": 7398,
+   "col": "example_tr",
+   "old": "Pişirmeden önce bıçağımı bilemem gerekiyor",
+   "new": "Yemek yapmadan önce bıçağımı bilemem lazım",
+   "why": "вычитка турецкого: «Pişirmeden … gerekiyor» — подстрочник"
+  },
+  {
+   "id": 7401,
+   "col": "example_tr",
+   "old": "Büyük yemekten sonra pantolon karnımı iyice sıkıyor",
+   "new": "Bu kadar yemekten sonra pantolon karnımı iyice sıkıyor",
+   "why": "вычитка турецкого: «Büyük yemekten sonra» — калька"
+  },
+  {
+   "id": 7404,
+   "col": "example_tr",
+   "old": "Alkollü araç kullandığı için ehliyeti bir yıllığına elinden alındı",
+   "new": "Alkollü araç kullandığı için ehliyetine bir yıl el konuldu",
+   "why": "вычитка турецкого: «ehliyeti elinden alındı» — «el konuldu»"
+  },
+  {
+   "id": 7405,
+   "col": "example_tr",
+   "old": "Kuaförde kıpırdamadan durmak zorundasın",
+   "new": "Kuaförde kıpırdamadan oturman lazım",
+   "why": "вычитка турецкого: у парикмахера сидят — «oturman lazım»"
+  },
+  {
+   "id": 7421,
+   "col": "example_tr",
+   "old": "Çocuklar fark edilmeden dolaptaki bütün çikolatayı yedi",
+   "new": "Çocuklar kimse fark etmeden dolaptaki bütün çikolatayı yemiş",
+   "why": "вычитка турецкого: «Çocuklar fark edilmeden» — коряво"
+  },
+  {
+   "id": 7432,
+   "col": "example_tr",
+   "old": "Burası tamamen dolu, başka yerde kalmamız gerekecek",
+   "new": "Burası tamamen dolu, başka bir yerde kalmamız lazım",
+   "why": "вычитка турецкого: «gerekecek» → «lazım»"
+  },
+  {
+   "id": 7433,
+   "col": "example_tr",
+   "old": "Cips paketini açar açmaz bütün çocuklar buraya koştu",
+   "new": "Cips paketini açar açmaz bütün çocuklar koşup geldi",
+   "why": "вычитка турецкого: «buraya koştu» — «koşup geldi»"
+  },
+  {
+   "id": 7435,
+   "col": "example_tr",
+   "old": "Tek bir sivrisineğin vızıltısı gecenin yarısı beni uyutmadı",
+   "new": "Tek bir sivrisineğin vızıltısı yüzünden gecenin yarısını uykusuz geçirdim",
+   "why": "вычитка турецкого: «gecenin yarısı beni uyutmadı» — коряво"
+  },
+  {
+   "id": 7440,
+   "col": "example_tr",
+   "old": "Çocuk doğum gününde on yaşındaki bir sürü çocuk bütün pastayı on dakikada yedi",
+   "new": "Doğum günü partisinde on yaşında bir çocuk sürüsü bütün pastayı on dakikada bitirdi",
+   "why": "вычитка турецкого: «Çocuk doğum gününde» — коряво"
+  },
+  {
+   "id": 7441,
+   "col": "example_tr",
+   "old": "Doğum kendiliğinden başlamadığı için doktorlar doğumu başlattı",
+   "new": "Doğum kendiliğinden başlamadığı için doktorlar suni sancı verdi",
+   "why": "вычитка турецкого: einleiten — «suni sancıyla başlatmak»"
+  },
+  {
+   "id": 7443,
+   "col": "example_tr",
+   "old": "Oteldeki internet o kadar istikrarsızdı ki tek bir görüşme bile yapamadım",
+   "new": "Oteldeki internet o kadar dengesizdi ki tek bir görüşme bile yapamadım",
+   "why": "вычитка турецкого: WLAN «istikrarsız» — книжно"
+  },
+  {
+   "id": 7447,
+   "col": "example_tr",
+   "old": "Hız sınırını saatte yirmi kilometreden fazla aşan burada çok para ödüyor",
+   "new": "Hız sınırını saatte yirmi kilometreden fazla aşan burada ağır ceza ödüyor",
+   "why": "вычитка турецкого: «çok para ödüyor» — штраф"
+  },
+  {
+   "id": 7451,
+   "col": "example_tr",
+   "old": "Elmaları yakında yemezsek sepette çürüyecekler",
+   "new": "Elmaları bir an önce yemezsek sepette çürüyecekler",
+   "why": "вычитка турецкого: «yakında yemezsek» — «bir an önce»"
+  },
+  {
+   "id": 7453,
+   "col": "example_tr",
+   "old": "Saçım için bir lastiğe ihtiyacım var",
+   "new": "Saçımı bağlamak için bir lastik lazım",
+   "why": "вычитка турецкого: «lastiğe ihtiyacım var» — калька"
+  },
+  {
+   "id": 7460,
+   "col": "example_tr",
+   "old": "Büyükannemin tabaklarının olduğu kolinin üzerine büyük harflerle \"kırılgan\" yazdım",
+   "new": "Anneannemin tabaklarını koyduğum kolinin üstüne büyük harflerle \"kırılgan\" yazdım",
+   "why": "вычитка турецкого: «tabaklarının olduğu kolinin» — коряво"
+  },
+  {
+   "id": 7470,
+   "col": "example_tr",
+   "old": "Parkta bir piknikte ne ters gidebilir ki? Tabii ki yağmur yağdı",
+   "new": "Parkta piknik yaparken ne ters gidebilir ki? Tabii ki yağmur yağdı",
+   "why": "вычитка турецкого: «Parkta bir piknikte» — коряво"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
