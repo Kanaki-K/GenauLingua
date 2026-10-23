@@ -1,0 +1,100 @@
+{
+ "about": "QA: новые и изменённые строки, порция d09",
+ "edits": [
+  {
+   "id": 13888,
+   "col": "example_ru",
+   "old": "У меня есть сообщение для тебя",
+   "new": "У меня для тебя послание",
+   "why": "проверка выборок: слово W «послание/послання» не узнаётся в «сообщение»"
+  },
+  {
+   "id": 13888,
+   "col": "example_uk",
+   "old": "У мене є повідомлення для тебе",
+   "new": "У мене для тебе послання",
+   "why": "проверка выборок: слово W «послание/послання» не узнаётся в «сообщение»"
+  },
+  {
+   "id": 13911,
+   "col": "example_en",
+   "old": "Here's an important hint for you",
+   "new": "Here's an important note for you",
+   "why": "проверка выборок: «wichtiger Hinweis» — не подсказка в игре, а важное замечание"
+  },
+  {
+   "id": 13914,
+   "col": "example_en",
+   "old": "The radio signal doesn't work",
+   "new": "The radio isn't working",
+   "why": "проверка выборок: «The radio signal doesn't work» — не по-английски"
+  },
+  {
+   "id": 13962,
+   "col": "example_tr",
+   "old": "Haberlerdeki bildiriyi gördün mü?",
+   "new": "Haberlerde o haberi gördün mü?",
+   "why": "проверка выборок: «bildiriyi» — канцелярит для новости"
+  },
+  {
+   "id": 14298,
+   "col": "example_uk",
+   "old": "Сказати, що моя сестра любить поговорити, — це ще м'яко кажучи",
+   "new": "Сказати, що моя сестра любить поговорити, — це ще м'яко сказано",
+   "why": "проверка выборок: «це ще м'яко кажучи» — неграмотно; нужно «м'яко сказано»"
+  },
+  {
+   "id": 14632,
+   "col": "example_en",
+   "old": "Every time my mum begs me to put a hat on in winter, as if I were still twelve",
+   "new": "My mum begs me to put a hat on in winter every single time, as if I were still twelve",
+   "why": "проверка выборок: «Every time my mum begs me» — читается как придаточное без главного"
+  },
+  {
+   "id": 14767,
+   "col": "example_tr",
+   "old": "Annemle babam her akşam izledikleri Türk dizisinin bir bölümünü izliyor",
+   "new": "Annemle babam her akşam sevdikleri Türk dizisinin bir bölümünü izliyor",
+   "why": "проверка выборок: «izledikleri … izliyor» — повтор глагола"
+  },
+  {
+   "id": 14947,
+   "col": "example_tr",
+   "old": "Köpek bahçeye gömüldü",
+   "new": "Köpek bahçede gömülü",
+   "why": "проверка выборок: «ist begraben» — состояние (похоронен), а не действие"
+  },
+  {
+   "id": 15155,
+   "col": "example_ru",
+   "old": "После дневного сна сын выходит из комнаты, щурясь, и спрашивает, уже ли утро",
+   "new": "После дневного сна сын выходит из комнаты, щурясь, и спрашивает, не утро ли уже",
+   "why": "проверка выборок: «уже ли утро» — не по-русски; cs «mžouravě» — неживо"
+  },
+  {
+   "id": 15155,
+   "col": "example_cs",
+   "old": "Po odpoledním spánku vyjde syn mžouravě z pokoje a ptá se, jestli už je ráno",
+   "new": "Po odpoledním spánku vyjde syn z pokoje, mžourá a ptá se, jestli už je ráno",
+   "why": "проверка выборок: «уже ли утро» — не по-русски; cs «mžouravě» — неживо"
+  },
+  {
+   "id": 15261,
+   "col": "example_ru",
+   "old": "Наши соседи уже два года — приёмная семья для двух маленьких брата и сестры",
+   "new": "Наши соседи уже два года — приёмная семья для маленьких брата и сестры",
+   "why": "проверка выборок: «для двух маленьких брата и сестры» — неграмотно"
+  },
+  {
+   "id": 15261,
+   "col": "example_uk",
+   "old": "Наші сусіди вже два роки — прийомна сім'я для двох маленьких брата і сестри",
+   "new": "Наші сусіди вже два роки — прийомна сім'я для маленьких брата і сестри",
+   "why": "проверка выборок: «для двух маленьких брата и сестры» — неграмотно"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
