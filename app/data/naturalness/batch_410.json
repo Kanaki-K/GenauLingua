@@ -1,0 +1,86 @@
+{
+ "about": "вычитка турецкого p002 (A1)",
+ "edits": [
+  {
+   "id": 554,
+   "col": "example_tr",
+   "old": "Yatakta yatıp kitap okuyorum",
+   "new": "Yatakta uzanmış kitap okuyorum",
+   "why": "вычитка турецкого: «yatakta yatıp» — тавтология"
+  },
+  {
+   "id": 598,
+   "col": "example_tr",
+   "old": "Lütfen ekmek getir",
+   "new": "Gelirken ekmek de getir lütfen",
+   "why": "вычитка турецкого: «Lütfen ekmek getir» — без «mit»"
+  },
+  {
+   "id": 599,
+   "col": "example_tr",
+   "old": "Öğle yemeğini yiyoruz",
+   "new": "Öğle yemeği yiyoruz",
+   "why": "вычитка турецкого: «Öğle yemeğini yiyoruz» — лишний аккузатив"
+  },
+  {
+   "id": 608,
+   "col": "translation_tr",
+   "old": "an",
+   "new": "an, dakika",
+   "why": "вычитка турецкого: в примере «bir dakika», а слово дано только как «an»"
+  },
+  {
+   "id": 663,
+   "col": "example_tr",
+   "old": "Şimdi ne yapıyoruz?",
+   "new": "Şimdi ne yapacağız?",
+   "why": "вычитка турецкого: «Şimdi ne yapıyoruz?» — «что мы сейчас делаем», а не «что будем делать»"
+  },
+  {
+   "id": 755,
+   "col": "example_tr",
+   "old": "Pirinç pişiriyorum",
+   "new": "Pilav yapıyorum",
+   "why": "вычитка турецкого: «Pirinç pişiriyorum» — так не говорят"
+  },
+  {
+   "id": 892,
+   "col": "example_tr",
+   "old": "Kardeşim Münih'te öğrenci",
+   "new": "Kardeşim Münih'te üniversite öğrencisi",
+   "why": "вычитка турецкого: студент — «üniversite öğrencisi»"
+  },
+  {
+   "id": 1007,
+   "col": "example_tr",
+   "old": "Ne istiyorsunuz?",
+   "new": "Ne alırdınız?",
+   "why": "вычитка турецкого: «Ne istiyorsunuz?» — грубо для продавца"
+  },
+  {
+   "id": 1066,
+   "col": "example_tr",
+   "old": "Hesabı ödemek istiyoruz",
+   "new": "Ödemek istiyoruz, hesabı getirir misiniz?",
+   "why": "вычитка турецкого: «Hesabı ödemek istiyoruz» — подстрочник"
+  },
+  {
+   "id": 1182,
+   "col": "example_tr",
+   "old": "Bir gezi yapıyoruz",
+   "new": "Geziye çıkıyoruz",
+   "why": "вычитка турецкого: «Bir gezi yapıyoruz» — калька"
+  },
+  {
+   "id": 1266,
+   "col": "example_tr",
+   "old": "Bir su sipariş ediyorum",
+   "new": "Ben bir su sipariş edeyim",
+   "why": "вычитка турецкого: «Bir su sipariş ediyorum» — так не заказывают"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
