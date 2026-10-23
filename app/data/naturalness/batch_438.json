@@ -1,0 +1,464 @@
+{
+ "about": "вычитка турецкого p030 (B2)",
+ "edits": [
+  {
+   "id": 10470,
+   "col": "example_tr",
+   "old": "Kaybedilen oyundan sonra egosu o kadar incindi ki bütün akşam tek kelime etmedi",
+   "new": "Maçı kaybedince egosu o kadar incindi ki bütün akşam tek kelime etmedi",
+   "why": "вычитка турецкого: «Kaybedilen oyundan sonra» — канцелярит"
+  },
+  {
+   "id": 10472,
+   "col": "example_tr",
+   "old": "Öğretmen öğrencilere ödevlerini yapmaları için ısrar ediyor",
+   "new": "Öğretmen ödevlerini yapmaları için öğrencileri sıkıştırıyor",
+   "why": "вычитка турецкого: «öğrencilere … ısrar ediyor» — управление"
+  },
+  {
+   "id": 10485,
+   "col": "example_tr",
+   "old": "Ödevler için çok fazla konsantrasyona ihtiyacım var",
+   "new": "Ödev yaparken çok konsantrasyon lazım",
+   "why": "вычитка турецкого: «konsantrasyona ihtiyacım var» — калька"
+  },
+  {
+   "id": 10487,
+   "col": "example_tr",
+   "old": "Bugün hava korkunç ve durmadan yağmur yağıyor",
+   "new": "Bugün hava berbat, durmadan yağmur yağıyor",
+   "why": "вычитка турецкого: «korkunç ve» — коряво"
+  },
+  {
+   "id": 10488,
+   "col": "example_tr",
+   "old": "Bu hikayeden kesinlikle büyülendim",
+   "new": "Bu hikâye beni tamamen büyüledi",
+   "why": "вычитка турецкого: «kesinlikle büyülendim» — калька"
+  },
+  {
+   "id": 10490,
+   "col": "example_tr",
+   "old": "Plajda çocuklar daha bir gün sonra sıkılıyor",
+   "new": "Çocuklar plajda daha ilk günden sıkılıyor",
+   "why": "вычитка турецкого: «daha bir gün sonra» — коряво"
+  },
+  {
+   "id": 10495,
+   "col": "example_tr",
+   "old": "Çocuklarla olan sabrına hayranlık duyuyorum",
+   "new": "Çocuklara karşı sabrına hayranım",
+   "why": "вычитка турецкого: «hayranlık duyuyorum» — книжно"
+  },
+  {
+   "id": 10496,
+   "col": "example_tr",
+   "old": "Hiç nezaketi yok ve aptal gibi davranıyor",
+   "new": "Hiç terbiyesi yok, aptal gibi davranıyor",
+   "why": "вычитка турецкого: Anstand — «terbiye»"
+  },
+  {
+   "id": 10498,
+   "col": "example_tr",
+   "old": "Bu görevi yapmakta tamamen aciz",
+   "new": "Bu işi yapmaktan tamamen aciz",
+   "why": "вычитка турецкого: «yapmakta aciz» — управление «-mektan»"
+  },
+  {
+   "id": 10502,
+   "col": "example_tr",
+   "old": "Senin yardımseverliğini kullandığını fark etmiyor musun?",
+   "new": "Senin iyi niyetini sömürdüğünü görmüyor musun?",
+   "why": "вычитка турецкого: ausnutzen — «sömürmek»"
+  },
+  {
+   "id": 10507,
+   "col": "example_tr",
+   "old": "O, yabancılara karşı şüpheci",
+   "new": "Yabancılara karşı şüpheci",
+   "why": "вычитка турецкого: «O,» — лишнее"
+  },
+  {
+   "id": 10512,
+   "col": "example_tr",
+   "old": "Kızlar benim arkamda kıkırdıyor",
+   "new": "Kızlar arkamda kıkırdıyor",
+   "why": "вычитка турецкого: «benim arkamda» — лишнее «benim»"
+  },
+  {
+   "id": 10515,
+   "col": "example_tr",
+   "old": "Sıcakta su ihtiyacı çok büyük",
+   "new": "Sıcakta insanın suya ihtiyacı çok artıyor",
+   "why": "вычитка турецкого: «su ihtiyacı çok büyük» — калька"
+  },
+  {
+   "id": 10517,
+   "col": "example_tr",
+   "old": "Kurtarıcı çocuğu sudan çekip çıkardı",
+   "new": "Çocuğun kurtarıcısı onu sudan çekip çıkardı",
+   "why": "вычитка турецкого: «Kurtarıcı» без принадлежности — коряво"
+  },
+  {
+   "id": 10519,
+   "col": "example_tr",
+   "old": "Fırından gelen koku her sabah beni bir kruvasanla baştan çıkarıyor",
+   "new": "Fırının kokusu her sabah beni baştan çıkarıyor, bir kruvasan alıyorum",
+   "why": "вычитка турецкого: «kruvasanla baştan çıkarıyor» — калька"
+  },
+  {
+   "id": 10527,
+   "col": "example_tr",
+   "old": "Şimdi gerçekten beladayız, çünkü parayı kaybettik",
+   "new": "Parayı kaybettik, şimdi başımız gerçekten belada",
+   "why": "вычитка турецкого: «beladayız, çünkü» — порядок"
+  },
+  {
+   "id": 10528,
+   "col": "example_tr",
+   "old": "Bu çok kötü bir yorumdu ve beni incitti",
+   "new": "Çok kötü bir laftı, beni kırdı",
+   "why": "вычитка турецкого: «kötü bir yorumdu» — калька"
+  },
+  {
+   "id": 10533,
+   "col": "example_tr",
+   "old": "Cevap beklemenin acısı dayanılmazdı",
+   "new": "Cevap beklemek tam bir eziyetti",
+   "why": "вычитка турецкого: «beklemenin acısı» — калька"
+  },
+  {
+   "id": 10534,
+   "col": "example_tr",
+   "old": "Aile vefat eden dede için yas tutuyor",
+   "new": "Ailecek dedemizin yasını tutuyoruz",
+   "why": "вычитка турецкого: «vefat eden dede için» — коряво"
+  },
+  {
+   "id": 10536,
+   "col": "example_tr",
+   "old": "Bana merhamet et, kötü bir gün geçirdim",
+   "new": "Biraz acı bana, kötü bir gün geçirdim",
+   "why": "вычитка турецкого: «Bana merhamet et» — пафосно"
+  },
+  {
+   "id": 10539,
+   "col": "example_tr",
+   "old": "Tüm bu işten bunalmış hissediyorum",
+   "new": "Bu kadar işten bunaldım",
+   "why": "вычитка турецкого: «bunalmış hissediyorum» — калька"
+  },
+  {
+   "id": 10546,
+   "col": "example_tr",
+   "old": "Onun hırsı onu çok ileriye taşıdı",
+   "new": "Hırsı onu çok ileriye taşıdı",
+   "why": "вычитка турецкого: «Onun hırsı onu» — лишнее"
+  },
+  {
+   "id": 10549,
+   "col": "example_tr",
+   "old": "O çok içe kapanık bir kişi",
+   "new": "Çok içine kapanık biri",
+   "why": "вычитка турецкого: «O çok içe kapanık bir kişi» — калька"
+  },
+  {
+   "id": 10550,
+   "col": "example_tr",
+   "old": "Çok ağzı sıkı ve hiçbir şey söylemiyor",
+   "new": "Ağzı çok sıkı, hiçbir şey anlatmıyor",
+   "why": "вычитка турецкого: «Çok ağzı sıkı ve» — порядок"
+  },
+  {
+   "id": 10557,
+   "col": "example_tr",
+   "old": "Kedim karnına dokunuşu sevmiyor, hemen tırmalıyor",
+   "new": "Kedim karnına dokunulmasını sevmiyor, hemen tırmalıyor",
+   "why": "вычитка турецкого: «karnına dokunuşu» — коряво"
+  },
+  {
+   "id": 10559,
+   "col": "example_tr",
+   "old": "İçten çok üzgündü ama gülümsedi",
+   "new": "İçinden çok üzgündü ama gülümsedi",
+   "why": "вычитка турецкого: innerlich — «içinden»"
+  },
+  {
+   "id": 10563,
+   "col": "example_tr",
+   "old": "Onun para hırsı inanılmaz",
+   "new": "Para hırsı inanılmaz",
+   "why": "вычитка турецкого: «Onun» — лишнее"
+  },
+  {
+   "id": 10565,
+   "col": "example_tr",
+   "old": "Bu harika yeni bir gitar",
+   "new": "Bu yeni gitar süper!",
+   "why": "вычитка турецкого: «Bu harika yeni bir gitar» — подстрочник"
+  },
+  {
+   "id": 10566,
+   "col": "example_tr",
+   "old": "Sabır pek en büyük erdemim değil, beklemekten nefret ediyorum",
+   "new": "Sabır benim en büyük erdemim sayılmaz, beklemekten nefret ediyorum",
+   "why": "вычитка турецкого: «pek en büyük» — коряво"
+  },
+  {
+   "id": 10567,
+   "col": "example_tr",
+   "old": "Yeni bisikletimizin elektrikli tahriki var, onunla her yokuşu çıkıyoruz",
+   "new": "Yeni bisikletimizin elektrik motoru var, onunla her yokuşu çıkıyoruz",
+   "why": "вычитка турецкого: «elektrikli tahriki» — технично"
+  },
+  {
+   "id": 10572,
+   "col": "example_tr",
+   "old": "Bütün bu gürültüden sinirlendim",
+   "new": "Bu gürültüden bıktım artık",
+   "why": "вычитка турецкого: genervt — состояние, «bıktım»"
+  },
+  {
+   "id": 10574,
+   "col": "example_tr",
+   "old": "Brüksel'deki projeye sadece on seçilmiş öğrenci katılabiliyor",
+   "new": "Brüksel'deki projeye sadece seçilmiş on öğrenci katılabiliyor",
+   "why": "вычитка турецкого: порядок «seçilmiş on»"
+  },
+  {
+   "id": 10577,
+   "col": "example_tr",
+   "old": "Hikayeden duygulandım",
+   "new": "Hikâye beni çok duygulandırdı",
+   "why": "вычитка турецкого: «Hikayeden duygulandım» — коряво"
+  },
+  {
+   "id": 10579,
+   "col": "example_tr",
+   "old": "Tiyatro kursuna gittiğinden beri utangaç kızımın öz güveni çok daha fazla",
+   "new": "Tiyatro kursuna gittiğinden beri utangaç kızımın öz güveni çok arttı",
+   "why": "вычитка турецкого: «öz güveni çok daha fazla» — калька"
+  },
+  {
+   "id": 10580,
+   "col": "example_tr",
+   "old": "Seninle sadece şaka yapıyorum",
+   "new": "Sadece şaka yapıyorum",
+   "why": "вычитка турецкого: «Seninle sadece» — подстрочник"
+  },
+  {
+   "id": 10584,
+   "col": "example_tr",
+   "old": "Seninle konuşma şekli gerçekten saygısızlık",
+   "new": "Seninle böyle konuşması tam bir küstahlık",
+   "why": "вычитка турецкого: Frechheit — «küstahlık»"
+  },
+  {
+   "id": 10587,
+   "col": "example_tr",
+   "old": "Adam açgözlü, her zaman daha fazlasını istiyor",
+   "new": "Adam açgözlü, hep daha fazlasını istiyor",
+   "why": "вычитка турецкого: «her zaman» → «hep»"
+  },
+  {
+   "id": 10602,
+   "col": "example_tr",
+   "old": "Bu haberle soğukkanlılığımı kaybettim",
+   "new": "Bu haber beni allak bullak etti",
+   "why": "вычитка турецкого: «Bu haberle soğukkanlılığımı kaybettim» — калька"
+  },
+  {
+   "id": 10606,
+   "col": "example_tr",
+   "old": "Sınavdan korku duyuyorum",
+   "new": "Sınav için çok endişeliyim",
+   "why": "вычитка турецкого: «Sınavdan korku duyuyorum» — книжно"
+  },
+  {
+   "id": 10610,
+   "col": "example_tr",
+   "old": "Kocam hafta sonu nöbetçi, belki hastaneye gitmesi gerekecek",
+   "new": "Kocam hafta sonu nöbetçi, belki hastaneye çağrılır",
+   "why": "вычитка турецкого: «gitmesi gerekecek» — тяжело"
+  },
+  {
+   "id": 10613,
+   "col": "example_tr",
+   "old": "Olguları çarpıttı ve şimdi herkesin kafası karışık",
+   "new": "Gerçekleri çarpıttı, şimdi herkesin kafası karıştı",
+   "why": "вычитка турецкого: «Olguları» — книжно"
+  },
+  {
+   "id": 10617,
+   "col": "example_tr",
+   "old": "Mutluluğundan parlıyorsun",
+   "new": "Sevinçten ışıl ışıl parlıyorsun",
+   "why": "вычитка турецкого: «Mutluluğundan parlıyorsun» — калька"
+  },
+  {
+   "id": 10618,
+   "col": "example_tr",
+   "old": "Başarını gerçekten kıskanmıyorum, inan bana",
+   "new": "Başarını hiç kıskanmıyorum, gerçekten sevindim",
+   "why": "вычитка турецкого: gönnen — «рад за тебя»"
+  },
+  {
+   "id": 10627,
+   "col": "example_tr",
+   "old": "Yeni oyuncu genç ve yetenekli ama daha çok şey öğrenmesi gerekiyor",
+   "new": "Yeni oyuncu genç ve yetenekli ama daha öğreneceği çok şey var",
+   "why": "вычитка турецкого: «öğrenmesi gerekiyor» — тяжело"
+  },
+  {
+   "id": 10628,
+   "col": "example_tr",
+   "old": "Bu sapık bir şakaydı, bunu komik bulmuyorum",
+   "new": "Bu çok sapıkça bir şakaydı, hiç komik bulmuyorum",
+   "why": "вычитка турецкого: «sapık bir şaka» — коряво"
+  },
+  {
+   "id": 10633,
+   "col": "example_tr",
+   "old": "Endişelenmeden gidebilirsin, orada tamamen güvenli",
+   "new": "Endişelenmeden gidebilirsin, orası tamamen güvenli",
+   "why": "вычитка турецкого: «orada tamamen güvenli» — без подлежащего"
+  },
+  {
+   "id": 10634,
+   "col": "example_tr",
+   "old": "Ne yazık ki dairenin kararı karşısında çaresiziz",
+   "new": "Ne yazık ki kurumun kararı karşısında çaresiziz",
+   "why": "вычитка турецкого: «dairenin kararı» — daire = квартира"
+  },
+  {
+   "id": 10636,
+   "col": "example_tr",
+   "old": "Ayrılıktan beri her şeye kayıtsız, işine bile",
+   "new": "Ayrılıktan beri hiçbir şeyi umursamıyor, işini bile",
+   "why": "вычитка турецкого: «her şeye kayıtsız, işine bile» — падеж"
+  },
+  {
+   "id": 10653,
+   "col": "example_tr",
+   "old": "O filmdeki kötü adam gerçekten çok gaddar",
+   "new": "Filmdeki kötü adam gerçekten çok gaddar",
+   "why": "вычитка турецкого: «O filmdeki» — лишнее «O»"
+  },
+  {
+   "id": 10663,
+   "col": "example_tr",
+   "old": "Oğlumun küçük kız kardeşine nasıl baktığı çok dokunaklı",
+   "new": "Oğlumun küçük kız kardeşiyle ilgilenmesi çok dokunaklı",
+   "why": "вычитка турецкого: «nasıl baktığı» — подстрочник wie"
+  },
+  {
+   "id": 10664,
+   "col": "example_tr",
+   "old": "Mağazada pahalı ceketi öylece almak için bir dürtü hissettim ama almadım",
+   "new": "Mağazada pahalı ceketi hemen alma dürtüsüne kapıldım ama vazgeçtim",
+   "why": "вычитка турецкого: «almak için bir dürtü hissettim» — калька"
+  },
+  {
+   "id": 10666,
+   "col": "example_tr",
+   "old": "Hayvanların bu dar ahırlarda tutulma şeklini iğrenç buluyorum",
+   "new": "Hayvanların böyle dar ahırlarda tutulmasını iğrenç buluyorum",
+   "why": "вычитка турецкого: «tutulma şeklini» — калька"
+  },
+  {
+   "id": 10677,
+   "col": "example_tr",
+   "old": "Amcam tutkulu bir balıkçı, her cumartesi gölde oturuyor",
+   "new": "Amcam tutkulu bir balıkçı, her cumartesi göl kenarında oturuyor",
+   "why": "вычитка турецкого: «gölde oturuyor» — в озере"
+  },
+  {
+   "id": 10688,
+   "col": "example_tr",
+   "old": "O ikiyüzlü – dürüstlüğü vaaz veriyor ama sürekli yalan söylüyor",
+   "new": "Tam bir ikiyüzlü: dürüstlükten dem vuruyor ama sürekli yalan söylüyor",
+   "why": "вычитка турецкого: «dürüstlüğü vaaz veriyor» — падеж"
+  },
+  {
+   "id": 10694,
+   "col": "example_tr",
+   "old": "Sivrisinekler bu akşam gerçekten rahatsız edici, pencereyi kapatıyorum",
+   "new": "Sivrisinekler bu akşam çok can sıkıcı, pencereyi kapatıyorum",
+   "why": "вычитка турецкого: lästig — «can sıkıcı»"
+  },
+  {
+   "id": 10695,
+   "col": "example_tr",
+   "old": "Kardeşine karşı kini var",
+   "new": "Kardeşine kin besliyor",
+   "why": "вычитка турецкого: Groll tragen — «kin beslemek»"
+  },
+  {
+   "id": 10698,
+   "col": "example_tr",
+   "old": "Güçlü bir mizacı var ve çabuk kızıyor",
+   "new": "Çok sert mizaçlı, çabuk kızıyor",
+   "why": "вычитка турецкого: «Güçlü bir mizacı var» — калька"
+  },
+  {
+   "id": 10702,
+   "col": "example_tr",
+   "old": "Torunları ona ev yapımı kurabiye getirince büyükanne çok memnun oldu",
+   "new": "Torunları ev yapımı kurabiye getirince büyükanneleri çok sevindi",
+   "why": "вычитка турецкого: «büyükanne çok memnun oldu» — без принадлежности"
+  },
+  {
+   "id": 10706,
+   "col": "example_tr",
+   "old": "Çocuk kasada bağırınca pes etmiyorum ve şeker almıyorum",
+   "new": "Çocuk kasada bağırınca boyun eğmiyorum, şeker almıyorum",
+   "why": "вычитка турецкого: nachgeben — «boyun eğmek»"
+  },
+  {
+   "id": 10707,
+   "col": "example_tr",
+   "old": "Planların konusunda netliğe ihtiyacım var",
+   "new": "Planlarını net olarak bilmem lazım",
+   "why": "вычитка турецкого: «netliğe ihtiyacım var» — калька"
+  },
+  {
+   "id": 10722,
+   "col": "example_tr",
+   "old": "Bazı insanların hayvanlarına davrandığı zalimlik beni çok kızdırıyor",
+   "new": "Bazı insanların hayvanlarına bu kadar zalimce davranması beni çok kızdırıyor",
+   "why": "вычитка турецкого: «davrandığı zalimlik» — коряво"
+  },
+  {
+   "id": 10725,
+   "col": "example_tr",
+   "old": "Rafın arkasına kabloları saklayabileceğin zekice bir kapağı var",
+   "new": "Rafta kabloları saklamak için zekice bir kapak var",
+   "why": "вычитка турецкого: «Rafın arkasına» — двусмысленно"
+  },
+  {
+   "id": 10732,
+   "col": "example_tr",
+   "old": "Üç haftadır geçmek bilmeyen inatçı bir öksürüğüm var",
+   "new": "Üç haftadır inatçı bir öksürüğüm var, bir türlü geçmiyor",
+   "why": "вычитка турецкого: «geçmek bilmeyen inatçı» — тавтология"
+  },
+  {
+   "id": 10744,
+   "col": "example_tr",
+   "old": "Ne pislik!",
+   "new": "Ne rezalet!",
+   "why": "вычитка турецкого: «Ne pislik!» — грубо не по смыслу"
+  },
+  {
+   "id": 10748,
+   "col": "example_tr",
+   "old": "Yıllardır ilk antrenmanımdan sonra ertesi gün her kasım feci ağrıyor",
+   "new": "Yıllar sonraki ilk antrenmandan sonra ertesi gün her kasım feci ağrıyor",
+   "why": "вычитка турецкого: «Yıllardır ilk antrenmanımdan» — коряво"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
