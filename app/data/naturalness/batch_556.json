@@ -1,0 +1,387 @@
+{
+ "about": "вычитка польского p046",
+ "edits": [
+  {
+   "id": 8633,
+   "col": "example_pl",
+   "old": "Nasz szczeniak w pięć minut pustoszy cały salon",
+   "new": "Szczeniak w pięć minut pustoszy cały salon",
+   "why": "вычитка польского: «Nasz» — лишнее"
+  },
+  {
+   "id": 8652,
+   "col": "example_pl",
+   "old": "Nasz stary nauczyciel wciąż uczy frontalnie, dzieci siedzą w rzędach",
+   "new": "Stary nauczyciel wciąż uczy frontalnie, dzieci siedzą w rzędach",
+   "why": "вычитка польского: «Nasz» — лишнее"
+  },
+  {
+   "id": 8669,
+   "col": "example_pl",
+   "old": "Cholewa mojego buta się rozdarła",
+   "new": "Rozdarła mi się cholewa buta",
+   "why": "вычитка польского: «Cholewa mojego buta» — калька"
+  },
+  {
+   "id": 8688,
+   "col": "example_pl",
+   "old": "Nasza sąsiadka co roku inicjuje festyn uliczny dla całego osiedla",
+   "new": "Sąsiadka co roku inicjuje festyn uliczny dla całego osiedla",
+   "why": "вычитка польского: «Nasza» — лишнее"
+  },
+  {
+   "id": 9162,
+   "col": "example_pl",
+   "old": "Na konfirmację mojej siostrzenicy do naszego małego kościoła przyjeżdża nawet superintendent",
+   "new": "Na konfirmację siostrzenicy do naszego małego kościoła przyjeżdża nawet superintendent",
+   "why": "вычитка польского: «mojej» — лишнее"
+  },
+  {
+   "id": 9176,
+   "col": "example_pl",
+   "old": "To, że święto było tak piękne, to przede wszystkim zasługa mojej siostry",
+   "new": "To, że święto było tak piękne, to przede wszystkim zasługa siostry",
+   "why": "вычитка польского: «mojej» — лишнее"
+  },
+  {
+   "id": 9181,
+   "col": "example_pl",
+   "old": "Nasza opiekunka studiuje chemię i zawsze robi z dziećmi doświadczenia w kuchni",
+   "new": "Opiekunka studiuje chemię i zawsze robi z dziećmi doświadczenia w kuchni",
+   "why": "вычитка польского: «Nasza» — лишнее"
+  },
+  {
+   "id": 9183,
+   "col": "example_pl",
+   "old": "Właściciel sklepu zna prawie wszystkich swoich stałych klientów",
+   "new": "Właściciel sklepu zna prawie wszystkich stałych klientów",
+   "why": "вычитка польского: «swoich» — лишнее"
+  },
+  {
+   "id": 9189,
+   "col": "example_pl",
+   "old": "Po bójce na boisku mojemu siostrzeńcowi grozi zawieszenie na trzy dni",
+   "new": "Po bójce na boisku siostrzeńcowi grozi zawieszenie na trzy dni",
+   "why": "вычитка польского: «mojemu» — лишнее"
+  },
+  {
+   "id": 9200,
+   "col": "example_pl",
+   "old": "Moja mama jest bizneswoman i ciągle podróżuje",
+   "new": "Mama jest bizneswoman i ciągle podróżuje",
+   "why": "вычитка польского: «Moja» — лишнее"
+  },
+  {
+   "id": 9208,
+   "col": "example_pl",
+   "old": "Moja siostra jest menedżerką w hotelu i prawie nigdy nie ma wolnych weekendów",
+   "new": "Siostra jest menedżerką w hotelu i prawie nigdy nie ma wolnych weekendów",
+   "why": "вычитка польского: «Moja» — лишнее"
+  },
+  {
+   "id": 9209,
+   "col": "example_pl",
+   "old": "Nadkomisarz w moim ulubionym serialu rozwiązuje każdą sprawę z filiżanką herbaty w ręku",
+   "new": "Nadkomisarz w ulubionym serialu rozwiązuje każdą sprawę z filiżanką herbaty w ręku",
+   "why": "вычитка польского: «moim» — лишнее"
+  },
+  {
+   "id": 9228,
+   "col": "example_pl",
+   "old": "Mój siostrzeniec jest programistą i miesiącami pracuje z kawiarni w Lizbonie",
+   "new": "Siostrzeniec jest programistą i miesiącami pracuje z kawiarni w Lizbonie",
+   "why": "вычитка польского: «Mój» — лишнее"
+  },
+  {
+   "id": 9236,
+   "col": "example_pl",
+   "old": "Mój wujek w Ameryce wciąż co miesiąc dostaje czek z wypłatą pocztą",
+   "new": "Wujek w Ameryce wciąż co miesiąc dostaje czek z wypłatą pocztą",
+   "why": "вычитка польского: «Mój» — лишнее"
+  },
+  {
+   "id": 9247,
+   "col": "example_pl",
+   "old": "Nasz nowy dozorca to człowiek czynu: po tygodniu winda wreszcie działa",
+   "new": "Nowy dozorca to człowiek czynu: po tygodniu winda wreszcie działa",
+   "why": "вычитка польского: «Nasz» — лишнее"
+  },
+  {
+   "id": 9249,
+   "col": "example_pl",
+   "old": "Nasz agent nieruchomości nazywa malutkie mieszkanie przytulnym, a hałas z ulicy ożywieniem",
+   "new": "Agent nieruchomości nazywa malutkie mieszkanie przytulnym, a hałas z ulicy ożywieniem",
+   "why": "вычитка польского: «Nasz» — лишнее"
+  },
+  {
+   "id": 9253,
+   "col": "example_pl",
+   "old": "Pana telefon zwalnia mnie z obawy, czy dobrze Pan dojechał",
+   "new": "Pana telefon zwalnia mnie z obawy, czy dobrze pan dojechał",
+   "why": "вычитка польского: «Pana … Pan» → «pana … pan»"
+  },
+  {
+   "id": 9255,
+   "col": "example_pl",
+   "old": "Nasza bibliotekarka zna każdą książkę i odkłada mi nowości",
+   "new": "Bibliotekarka zna każdą książkę i odkłada mi nowości",
+   "why": "вычитка польского: «Nasza» — лишнее"
+  },
+  {
+   "id": 9257,
+   "col": "example_pl",
+   "old": "Mój pradziadek po wojnie spędził trzy lata w obozie pracy na Syberii",
+   "new": "Pradziadek po wojnie spędził trzy lata w obozie pracy na Syberii",
+   "why": "вычитка польского: «Mój» — лишнее"
+  },
+  {
+   "id": 9640,
+   "col": "example_pl",
+   "old": "Nasza sąsiadka ze swoją olbrzymią dynią była na okładce lokalnej gazety",
+   "new": "Sąsiadka z olbrzymią dynią była na okładce lokalnej gazety",
+   "why": "вычитка польского: «Nasza … swoją» — лишнее"
+  },
+  {
+   "id": 9644,
+   "col": "example_pl",
+   "old": "Mój szwagier lubi zgrywać intelektualistę i przy grillu cytuje Nietzschego",
+   "new": "Szwagier lubi zgrywać intelektualistę i przy grillu cytuje Nietzschego",
+   "why": "вычитка польского: «Mój» — лишнее"
+  },
+  {
+   "id": 9917,
+   "col": "example_pl",
+   "old": "Koszty remontu są wyższe niż oczekiwano",
+   "new": "Koszty remontu są wyższe, niż się spodziewaliśmy",
+   "why": "вычитка польского: «niż oczekiwano» — книжно"
+  },
+  {
+   "id": 9940,
+   "col": "example_pl",
+   "old": "Po odjęciu podatków z mojej premii zostaje tylko połowa",
+   "new": "Po odjęciu podatków z premii zostaje tylko połowa",
+   "why": "вычитка польского: «z mojej» — лишнее"
+  },
+  {
+   "id": 10708,
+   "col": "example_pl",
+   "old": "Z gałką czekoladowych lodów w ręce mój syn jest w błogim nastroju",
+   "new": "Z gałką czekoladowych lodów w ręce syn jest w błogim nastroju",
+   "why": "вычитка польского: «mój» — лишнее"
+  },
+  {
+   "id": 11198,
+   "col": "example_pl",
+   "old": "Nasz dziadek w wieku osiemdziesięciu lat skoczył ze spadochronem, prawdziwy zuch",
+   "new": "Dziadek w wieku osiemdziesięciu lat skoczył ze spadochronem, prawdziwy zuch",
+   "why": "вычитка польского: «Nasz» — лишнее"
+  },
+  {
+   "id": 11208,
+   "col": "example_pl",
+   "old": "Jego ciągłe marudzenie mnie denerwuje",
+   "new": "Denerwuje mnie to jego ciągłe marudzenie",
+   "why": "вычитка польского: «Jego ciągłe marudzenie» — порядок"
+  },
+  {
+   "id": 11212,
+   "col": "example_pl",
+   "old": "Nasz pies skomli pod drzwiami, gdy tylko usłyszy mój klucz w zamku",
+   "new": "Pies skomli pod drzwiami, gdy tylko usłyszy mój klucz w zamku",
+   "why": "вычитка польского: «Nasz» — лишнее"
+  },
+  {
+   "id": 11214,
+   "col": "example_pl",
+   "old": "Po roku w Londynie mój kuzyn mówi dość wyniośle o naszym miasteczku",
+   "new": "Po roku w Londynie kuzyn mówi dość wyniośle o naszym miasteczku",
+   "why": "вычитка польского: «mój» — лишнее"
+  },
+  {
+   "id": 11222,
+   "col": "example_pl",
+   "old": "Moje dzieci uwielbiają dreszczyk emocji w tunelu strachu, a ja wolę zamknąć oczy",
+   "new": "Dzieci uwielbiają dreszczyk emocji w tunelu strachu, a ja wolę zamknąć oczy",
+   "why": "вычитка польского: «Moje» — лишнее"
+  },
+  {
+   "id": 11224,
+   "col": "example_pl",
+   "old": "Mój brat nie ma żadnych skrupułów, żeby bez pytania zjeść ostatni kawałek ciasta",
+   "new": "Brat nie ma żadnych skrupułów, żeby bez pytania zjeść ostatni kawałek ciasta",
+   "why": "вычитка польского: «Mój» — лишнее"
+  },
+  {
+   "id": 11230,
+   "col": "example_pl",
+   "old": "Nasz kocur to mały potwór, znowu przyniósł do domu ptaka",
+   "new": "Kocur to mały potwór, znowu przyniósł do domu ptaka",
+   "why": "вычитка польского: «Nasz» — лишнее"
+  },
+  {
+   "id": 11243,
+   "col": "example_pl",
+   "old": "Wobec psiego spojrzenia naszego labradora jestem zupełnie bezbronny",
+   "new": "Wobec psiego spojrzenia labradora jestem zupełnie bezbronny",
+   "why": "вычитка польского: «naszego» — лишнее"
+  },
+  {
+   "id": 11279,
+   "col": "example_pl",
+   "old": "Nasza kotka to prawdziwy uparciuch: je tylko drogą karmę",
+   "new": "Kotka to prawdziwy uparciuch: je tylko drogą karmę",
+   "why": "вычитка польского: «Nasza» — лишнее"
+  },
+  {
+   "id": 11300,
+   "col": "example_pl",
+   "old": "Przemowa pana młodego była tak wzruszająca, że nawet mój tata się popłakał",
+   "new": "Przemowa pana młodego była tak wzruszająca, że nawet tata się popłakał",
+   "why": "вычитка польского: «mój» — лишнее"
+  },
+  {
+   "id": 11306,
+   "col": "example_pl",
+   "old": "Pochwała od trenera świetnie wpływa na poczucie własnej wartości mojego syna",
+   "new": "Pochwała od trenera świetnie wpływa na poczucie własnej wartości syna",
+   "why": "вычитка польского: «mojego» — лишнее"
+  },
+  {
+   "id": 11346,
+   "col": "example_pl",
+   "old": "Nasza stara kotka kroczy dostojnie przez ogród, jakby należał do niej",
+   "new": "Stara kotka kroczy dostojnie przez ogród, jakby należał do niej",
+   "why": "вычитка польского: «Nasza» — лишнее"
+  },
+  {
+   "id": 11360,
+   "col": "example_pl",
+   "old": "Mój strach przed pająkami jest zupełnie irracjonalny, przecież nic mi nie robią",
+   "new": "Boję się pająków zupełnie irracjonalnie, przecież nic mi nie robią",
+   "why": "вычитка польского: «Mój strach jest» — калька"
+  },
+  {
+   "id": 11362,
+   "col": "example_pl",
+   "old": "Nasz pies jest trochę neurotyczny, szczeka na każdy odkurzacz",
+   "new": "Pies jest trochę neurotyczny, szczeka na każdy odkurzacz",
+   "why": "вычитка польского: «Nasz» — лишнее"
+  },
+  {
+   "id": 11364,
+   "col": "example_pl",
+   "old": "Nasza sąsiadka jest tak miłosierna, że karmi każdego bezpańskiego kota w okolicy",
+   "new": "Sąsiadka jest tak miłosierna, że karmi każdego bezpańskiego kota w okolicy",
+   "why": "вычитка польского: «Nasza» — лишнее"
+  },
+  {
+   "id": 11384,
+   "col": "example_pl",
+   "old": "Przy każdym golu swojej drużyny moja zwykle spokojna babcia wpada w ekstazę",
+   "new": "Przy każdym golu swojej drużyny zwykle spokojna babcia wpada w ekstazę",
+   "why": "вычитка польского: «moja» — лишнее"
+  },
+  {
+   "id": 11394,
+   "col": "example_pl",
+   "old": "Nasz dziadek ma na każde głupie pytanie dowcipną odpowiedź",
+   "new": "Dziadek ma na każde głupie pytanie dowcipną odpowiedź",
+   "why": "вычитка польского: «Nasz» — лишнее"
+  },
+  {
+   "id": 11399,
+   "col": "example_pl",
+   "old": "„Bóg zapłać!” — mówi moja babcia z Bawarii, kiedy ktoś niesie jej zakupy",
+   "new": "„Bóg zapłać!” — mówi babcia z Bawarii, kiedy ktoś niesie jej zakupy",
+   "why": "вычитка польского: «moja» — лишнее"
+  },
+  {
+   "id": 11408,
+   "col": "example_pl",
+   "old": "Mój budzik co rano nieubłaganie dzwoni o szóstej",
+   "new": "Budzik co rano nieubłaganie dzwoni o szóstej",
+   "why": "вычитка польского: «Mój» — лишнее"
+  },
+  {
+   "id": 11424,
+   "col": "example_pl",
+   "old": "Mój szef jest strasznie drobiazgowy, jeśli chodzi o formatowanie",
+   "new": "Szef jest strasznie drobiazgowy, jeśli chodzi o formatowanie",
+   "why": "вычитка польского: «Mój» — лишнее"
+  },
+  {
+   "id": 11433,
+   "col": "example_pl",
+   "old": "Z przysmakiem nasz pies od razu robi się posłuszny",
+   "new": "Z przysmakiem pies od razu robi się posłuszny",
+   "why": "вычитка польского: «nasz» — лишнее"
+  },
+  {
+   "id": 11436,
+   "col": "example_pl",
+   "old": "Kiedy nasz pies kładzie się na plecach, to znak uległości",
+   "new": "Kiedy pies kładzie się na plecach, to znak uległości",
+   "why": "вычитка польского: «nasz» — лишнее"
+  },
+  {
+   "id": 11437,
+   "col": "example_pl",
+   "old": "Nasi sąsiedzi wzorowo segregują śmieci, nawet wieczka od jogurtów",
+   "new": "Sąsiedzi wzorowo segregują śmieci, nawet wieczka od jogurtów",
+   "why": "вычитка польского: «Nasi» — лишнее"
+  },
+  {
+   "id": 11440,
+   "col": "example_pl",
+   "old": "Mój dziadek to stary skąpiec i nigdy nie wydaje pieniędzy",
+   "new": "Dziadek to stary skąpiec i nigdy nie wydaje pieniędzy",
+   "why": "вычитка польского: «Mój» — лишнее"
+  },
+  {
+   "id": 11449,
+   "col": "example_pl",
+   "old": "Nasz pies wiernie chodzi za mną krok w krok, nawet do łazienki",
+   "new": "Pies wiernie chodzi za mną krok w krok, nawet do łazienki",
+   "why": "вычитка польского: «Nasz» — лишнее"
+  },
+  {
+   "id": 11455,
+   "col": "example_pl",
+   "old": "Niestety nasza ulubiona lodziarnia zamknęła się na zawsze",
+   "new": "Niestety ulubiona lodziarnia zamknęła się na zawsze",
+   "why": "вычитка польского: «nasza» — лишнее"
+  },
+  {
+   "id": 11469,
+   "col": "example_pl",
+   "old": "Nasz kocur i pies sąsiadów od lat są odwiecznymi wrogami",
+   "new": "Kocur i pies sąsiadów od lat są odwiecznymi wrogami",
+   "why": "вычитка польского: «Nasz» — лишнее"
+  },
+  {
+   "id": 11471,
+   "col": "example_pl",
+   "old": "Nasz bernardyn jest tak dobroduszny, że dzieci mogą na nim jeździć",
+   "new": "Bernardyn jest tak dobroduszny, że dzieci mogą na nim jeździć",
+   "why": "вычитка польского: «Nasz» — лишнее"
+  },
+  {
+   "id": 11473,
+   "col": "example_pl",
+   "old": "Mój szwagier to mądrala, poprawia nawet nawigację",
+   "new": "Szwagier to mądrala, poprawia nawet nawigację",
+   "why": "вычитка польского: «Mój» — лишнее"
+  },
+  {
+   "id": 11476,
+   "col": "example_pl",
+   "old": "Nasza temperamentna sąsiadka z Neapolu mówi rękami i nogami",
+   "new": "Temperamentna sąsiadka z Neapolu mówi rękami i nogami",
+   "why": "вычитка польского: «Nasza» — лишнее"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
