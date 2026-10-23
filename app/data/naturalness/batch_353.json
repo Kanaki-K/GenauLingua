@@ -1,0 +1,226 @@
+{
+ "about": "QA: новые и изменённые строки, порция d08",
+ "edits": [
+  {
+   "id": 13125,
+   "col": "example_uk",
+   "old": "Проказа стала сьогодні дуже рідкою хворобою",
+   "new": "Проказа стала сьогодні дуже рідкісною хворобою",
+   "why": "проверка выборок: uk «рідкою» = жидкой; нужно «рідкісною»"
+  },
+  {
+   "id": 12526,
+   "col": "example_de",
+   "old": "Der Jäger hat ein Reh angeschossen",
+   "new": "Im Wald haben wir ein angeschossenes Reh gefunden",
+   "why": "проверка выборок: прилагательное, а в примере глагол «hat angeschossen»"
+  },
+  {
+   "id": 12526,
+   "col": "example_ru",
+   "old": "Охотник подстрелил косулю",
+   "new": "В лесу мы нашли подстреленную косулю",
+   "why": "проверка выборок: прилагательное, а в примере глагол «hat angeschossen»"
+  },
+  {
+   "id": 12526,
+   "col": "example_uk",
+   "old": "Мисливець підстрелив козулю",
+   "new": "У лісі ми знайшли підстрелену козулю",
+   "why": "проверка выборок: прилагательное, а в примере глагол «hat angeschossen»"
+  },
+  {
+   "id": 12526,
+   "col": "example_en",
+   "old": "The hunter wounded a deer",
+   "new": "In the forest we found a deer that had been shot",
+   "why": "проверка выборок: прилагательное, а в примере глагол «hat angeschossen»"
+  },
+  {
+   "id": 12526,
+   "col": "example_tr",
+   "old": "Avcı bir karacayı yaraladı",
+   "new": "Ormanda vurulmuş bir karaca bulduk",
+   "why": "проверка выборок: прилагательное, а в примере глагол «hat angeschossen»"
+  },
+  {
+   "id": 12526,
+   "col": "example_pl",
+   "old": "Myśliwy postrzelił sarnę",
+   "new": "W lesie znaleźliśmy postrzeloną sarnę",
+   "why": "проверка выборок: прилагательное, а в примере глагол «hat angeschossen»"
+  },
+  {
+   "id": 12526,
+   "col": "example_it",
+   "old": "Il cacciatore ha ferito un capriolo",
+   "new": "Nel bosco abbiamo trovato un capriolo ferito",
+   "why": "проверка выборок: прилагательное, а в примере глагол «hat angeschossen»"
+  },
+  {
+   "id": 12526,
+   "col": "example_es",
+   "old": "El cazador hirió a un corzo",
+   "new": "En el bosque encontramos un corzo herido de bala",
+   "why": "проверка выборок: прилагательное, а в примере глагол «hat angeschossen»"
+  },
+  {
+   "id": 12526,
+   "col": "example_fr",
+   "old": "Le chasseur a blessé un chevreuil",
+   "new": "Dans la forêt, on a trouvé un chevreuil blessé par balle",
+   "why": "проверка выборок: прилагательное, а в примере глагол «hat angeschossen»"
+  },
+  {
+   "id": 12526,
+   "col": "example_cs",
+   "old": "Myslivec postřelil srnu",
+   "new": "V lese jsme našli postřelenou srnu",
+   "why": "проверка выборок: прилагательное, а в примере глагол «hat angeschossen»"
+  },
+  {
+   "id": 12531,
+   "col": "example_tr",
+   "old": "Hızlıca işemeye gitmem gerek",
+   "new": "Hemen çiş yapmam lazım",
+   "why": "проверка выборок: «işemek» грубо; первое в W «çiş yapmak»"
+  },
+  {
+   "id": 12571,
+   "col": "example_ru",
+   "old": "Он стонет под тяжестью",
+   "new": "Он кряхтит под тяжестью",
+   "why": "проверка выборок: «стонет / sténá» — слова W «кряхтеть / hekat» не узнаются"
+  },
+  {
+   "id": 12571,
+   "col": "example_uk",
+   "old": "Він стогне під тяжістю",
+   "new": "Він кректає під вагою",
+   "why": "проверка выборок: «стонет / sténá» — слова W «кряхтеть / hekat» не узнаются"
+  },
+  {
+   "id": 12571,
+   "col": "example_cs",
+   "old": "Sténá pod tíhou nákladu",
+   "new": "Heká pod tíhou nákladu",
+   "why": "проверка выборок: «стонет / sténá» — слова W «кряхтеть / hekat» не узнаются"
+  },
+  {
+   "id": 12589,
+   "col": "example_en",
+   "old": "After the accident, he had heavy bleeding on his head",
+   "new": "After the accident, he had heavy bleeding from his head",
+   "why": "проверка выборок: «bleeding on his head» — по-английски «from his head»"
+  },
+  {
+   "id": 12642,
+   "col": "translation_en",
+   "old": "hearing",
+   "new": "hearing, ear",
+   "why": "проверка выборок: «such a good ear and hearing» — склейка; о музыке по-английски «a good ear»"
+  },
+  {
+   "id": 12642,
+   "col": "example_en",
+   "old": "My sister has such a good ear and hearing that she can play any song on the piano after hearing it once",
+   "new": "My sister has such a good ear that she can play any song on the piano after hearing it once",
+   "why": "проверка выборок: «such a good ear and hearing» — склейка; о музыке по-английски «a good ear»"
+  },
+  {
+   "id": 12770,
+   "col": "example_ru",
+   "old": "После напряжённой недели вечер в одиночестве в ванне мне очень на пользу",
+   "new": "После напряжённой недели вечер в одиночестве в ванне очень идёт мне на пользу",
+   "why": "проверка выборок: «мне очень на пользу» — нет глагола"
+  },
+  {
+   "id": 12770,
+   "col": "example_uk",
+   "old": "Після напруженого тижня вечір на самоті у ванні мені дуже на користь",
+   "new": "Після напруженого тижня вечір на самоті у ванні дуже йде мені на користь",
+   "why": "проверка выборок: «мне очень на пользу» — нет глагола"
+  },
+  {
+   "id": 12920,
+   "col": "example_uk",
+   "old": "Після довгої роботи за комп'ютером я весь затерплий",
+   "new": "Після довгої роботи за комп'ютером я весь напружений",
+   "why": "проверка выборок: «затерплий» — онемевший, не то; слово W «напружений»"
+  },
+  {
+   "id": 12929,
+   "col": "example_en",
+   "old": "I got an electric shock changing the light because I'd forgotten the fuse",
+   "new": "I got an electric shock changing the light because I'd forgotten to switch off the fuse",
+   "why": "проверка выборок: «forgotten the fuse» — непонятно; забыл выключить"
+  },
+  {
+   "id": 12961,
+   "col": "example_ru",
+   "old": "Опухоль была злокачественной и её нужно было удалить",
+   "new": "Опухоль была злокачественной, и её нужно было удалить",
+   "why": "проверка выборок: запятая перед «и» между частями сложного"
+  },
+  {
+   "id": 12961,
+   "col": "example_uk",
+   "old": "Пухлина була злоякісною і її потрібно було видалити",
+   "new": "Пухлина була злоякісною, і її потрібно було видалити",
+   "why": "проверка выборок: запятая перед «и» между частями сложного"
+  },
+  {
+   "id": 12992,
+   "col": "example_ru",
+   "old": "Для спасательной операции нашей кошки на дереве понадобились два пожарных и длинная лестница",
+   "new": "Спасательная операция для нашей кошки на дереве потребовала двух пожарных и длинной лестницы",
+   "why": "проверка выборок: «для спасательной операции нашей кошки» — не по-русски"
+  },
+  {
+   "id": 12992,
+   "col": "example_uk",
+   "old": "Для рятувальної операції нашої кішки на дереві знадобилися двоє пожежників і довга драбина",
+   "new": "Рятувальна операція для нашої кішки на дереві потребувала двох пожежників і довгої драбини",
+   "why": "проверка выборок: «для спасательной операции нашей кошки» — не по-русски"
+  },
+  {
+   "id": 13038,
+   "col": "example_ru",
+   "old": "Наш старый семейный врач даже ещё делает визиты на дом, если у тебя температура",
+   "new": "Наш старый семейный врач до сих пор делает визиты на дом, если у тебя температура",
+   "why": "проверка выборок: «даже ещё делает» — тяжело"
+  },
+  {
+   "id": 13163,
+   "col": "word_de",
+   "old": "Stimmbänder",
+   "new": "Stimmband",
+   "why": "проверка выборок: заголовок «das Stimmbänder» — это множественное; единственное das Stimmband"
+  },
+  {
+   "id": 13309,
+   "col": "example_tr",
+   "old": "Diğerleri zaten orada",
+   "new": "Diğerleri zaten burada",
+   "why": "проверка выборок: «orada» = там; «sind schon da» = здесь"
+  },
+  {
+   "id": 13659,
+   "col": "example_tr",
+   "old": "Şemsiyemi unuttum, yağmur yağıyor",
+   "new": "Şemsiyemi unuttum, şimdi de yağmur yağıyor",
+   "why": "проверка выборок: потеряно «jetzt»"
+  },
+  {
+   "id": 13713,
+   "col": "example_tr",
+   "old": "Dedem fırına bile takım elbiseyle giyiniyor, eskiden böyle yapılırdı diyor",
+   "new": "Dedem fırına giderken bile takım elbiseyle giyiniyor, eskiden böyle yapılırdı diyor",
+   "why": "проверка выборок: «fırına … giyiniyor» — оборвано, нет «идя в»"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
