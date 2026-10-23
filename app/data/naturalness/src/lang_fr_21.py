@@ -1,0 +1,58 @@
+"""Вычитка французского, порция p021 (B1), 23.10: здоровье, служебные слова, одежда, речь — повторы, инверсия, «nous» → «on»"""
+
+T = "вычитка французского: "
+
+FIXES = {
+    13008: (T + "«L'inflammation est guérie» — неживо", {"example_fr": "J'ai une inflammation au genou"}),
+    13059: (T + "«mal à la trachée» — неживо", {"example_fr": "Le morceau de pomme est passé dans la trachée"}),
+    13060: (T + "«concert à Munich» — лишнее", {"example_fr": "Après le match, j'avais la voix enrouée à force de crier"}),
+    13067: (T + "повтор 12807 «grand-mère vit en maison de retraite»", {"example_fr": "Le dimanche, on rend visite à papi à la maison de retraite"}),
+    13096: (T + "повтор 12798 «mal au ventre»", {"example_fr": "Le petit se plaint d'un mal de ventre tous les lundis matin"}),
+    13097: (T + "учебниково", {"example_fr": "Mon médecin traitant part à la retraite, je dois en trouver un autre"}),
+    13103: (T + "учебниково", {"example_fr": "Arrête de bâiller, c'est contagieux !"}),
+    13141: (T + "«L'enfant a» — учебниково", {"example_fr": "Ce n'est qu'une égratignure, pas besoin de pansement"}),
+    13168: (T + "повтор 11851 «sirop… goût horrible»", {"example_fr": "Tu peux passer à la pharmacie prendre du sirop contre la toux ?"}),
+    13342: (T + "нет слова карточки «dedans»", {"example_fr": "Qu'est-ce qu'il y a dedans ?"}),
+    13369: (T + "«J'ai besoin de» — калька", {"example_fr": "Tu as quelque chose à manger ?"}),
+    13377: (T + "«y vas-tu» — книжно", {"example_fr": "Tu y vas avec qui ?"}),
+    13394: (T + "нет слова карточки «par ici»", {"example_fr": "Viens par ici, il y a de la place"}),
+    13407: (T + "«Ni toi ni moi ne le savons» — книжно", {"example_fr": "Je n'ai ni le temps ni l'argent"}),
+    13412: (T + "нет слова карточки «ensemble»", {"example_fr": "Les deux frères jouent bien ensemble"}),
+    13440: (T + "«puis-je» — книжно", {"example_fr": "En quoi je peux t'aider ?"}),
+    13443: (T + "«penses-tu» — книжно", {"example_fr": "Tu penses à quoi ?"}),
+    13445: (T + "«ne viens-tu pas» — книжно", {"example_fr": "Pourquoi tu ne viens pas ?"}),
+    13473: (T + "нет слова карточки «tel»", {"example_fr": "Avec un tel temps, on reste à la maison"}),
+    13478: (T + "повтор 13538 «premièrement je n'ai pas le temps»", {"example_fr": "Premièrement, on fait les devoirs, ensuite la télé"}),
+    13487: (T + "«nous devons» — книжно", {"example_fr": "Deuxièmement, il faut vérifier le budget"}),
+    13502: (T + "«nous sommes restés» — книжно", {"example_fr": "Il pleuvait fort, si bien qu'on est restés à la maison"}),
+    13508: (T + "нет слова карточки «quatrième»", {"example_fr": "Il a fini quatrième de la course"}),
+    13511: (T + "повтор 8182 «livres les uns sur les autres»", {"example_fr": "Les assiettes sont empilées les unes sur les autres dans l'évier"}),
+    13513: (T + "«Nous ne savons pas» — книжно", {"example_fr": "On ne sait pas grand-chose l'un de l'autre"}),
+    13558: (T + "повтор 6838 «déjà mon …ième café aujourd'hui»", {"example_fr": "J'habite au septième, et l'ascenseur est en panne"}),
+    13590: (T + "«un dixième de la population vit en ville» — неверно", {"example_fr": "Il a perdu à un dixième de seconde près"}),
+    13631: (T + "«a besoin de vêtements» — коряво", {"example_fr": "Le petit court tout nu dans le jardin"}),
+    13645: (T + "повтор «le bouton de ma veste» (8409)", {"example_fr": "Tu peux me recoudre ce bouton ?"}),
+    13660: (T + "повтор 13703 «déguisé(s) en pirate(s)»", {"example_fr": "Tout le monde est venu déguisé à la fête"}),
+    13662: (T + "повтор 12339 «laisser … au vestiaire»", {"example_fr": "Au théâtre, on laisse les manteaux au vestiaire"}),
+    13758: (T + "«quand nous irons» — книжно", {"example_fr": "N'oublie pas la crème solaire pour la plage"}),
+    13769: (T + "повтор 13719 «traîne … le dimanche»", {"example_fr": "Mon grand-père prend son café en robe de chambre"}),
+    13770: (T + "повтор 13746 «mettre ses chaussons»", {"example_fr": "Chez nous, les invités enlèvent leurs chaussures et mettent des chaussons"}),
+    13861: (T + "нет слова карточки «à vos ordres»", {"example_fr": "À vos ordres, chef !"}),
+    13866: (T + "без ситуации", {"example_fr": "Je regarde les séries avec des sous-titres"}),
+    13880: (T + "«Nous avons eu» — книжно", {"example_fr": "On a eu une dispute idiote"}),
+    13881: (T + "нет слова карточки «la plaisanterie»", {"example_fr": "C'était juste une plaisanterie !"}),
+    13884: (T + "повтор 8796 «Ne fais pas de bêtises»", {"example_fr": "Arrête de dire des âneries"}),
+    13893: (T + "«parle de l'événement» — учебниково", {"example_fr": "Toute la presse parle du mariage du prince"}),
+    13911: (T + "«Voici une indication importante» — канцелярит", {"example_fr": "Merci pour le conseil !"}),
+    13918: (T + "«Nous sommes d'accord» — книжно", {"example_fr": "Alors, on est d'accord ?"}),
+    13924: (T + "«Je peux tout simplement ignorer» — калька", {"example_fr": "Ignore ses commentaires idiots"}),
+    13925: (T + "«Tu peux écouter ça» — калька", {"example_fr": "Écoute un peu ça !"}),
+    13957: (T + "повтор 13877 «Non, je n'ai pas envie»", {"example_fr": "Tu as faim ? – Nan, ça va"}),
+    13973: (T + "без ситуации", {"example_fr": "Ce bip du four m'énerve"}),
+    13983: (T + "повтор 10122 «je ne suis pas sourd»", {"example_fr": "Le lion rugit dans sa cage"}),
+    13995: (T + "«Au revoir, mon ami» — книжно", {"example_fr": "Adieu, et merci pour tout !"}),
+}
+
+REPLACE = []
+
+SPLIT_LATER = {}
