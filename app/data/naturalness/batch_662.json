@@ -1,0 +1,366 @@
+{
+ "about": "вычитка испанского p002",
+ "edits": [
+  {
+   "id": 323,
+   "col": "example_es",
+   "old": "La verdura la compro en el mercado",
+   "new": "La verdura la compro directamente al agricultor",
+   "why": "вычитка испанского: повтор «en el mercado» (1050, 667)"
+  },
+  {
+   "id": 547,
+   "col": "example_es",
+   "old": "Aprendo alemán",
+   "new": "Llevo seis meses aprendiendo alemán",
+   "why": "вычитка испанского: «Aprendo alemán» — учебниково"
+  },
+  {
+   "id": 551,
+   "col": "example_es",
+   "old": "Ama a su familia",
+   "new": "Quiere muchísimo a sus nietos",
+   "why": "вычитка испанского: «Ama a su familia» — учебниково"
+  },
+  {
+   "id": 558,
+   "col": "example_es",
+   "old": "Gire a la izquierda",
+   "new": "El baño es la segunda puerta a la izquierda",
+   "why": "вычитка испанского: «Gire a la izquierda» — повтор шаблона"
+  },
+  {
+   "id": 563,
+   "col": "example_es",
+   "old": "Esta es la solución correcta",
+   "new": "No hay una solución fácil",
+   "why": "вычитка испанского: повтор 763 «Esta es la … correcta»"
+  },
+  {
+   "id": 578,
+   "col": "example_es",
+   "old": "Vamos al mar",
+   "new": "Hoy el mar está tranquilísimo",
+   "why": "вычитка испанского: повтор 55 «vamos al mar»"
+  },
+  {
+   "id": 580,
+   "col": "example_es",
+   "old": "Quisiera más agua",
+   "new": "¡Come más verdura!",
+   "why": "вычитка испанского: «Quisiera más agua» — учебниково"
+  },
+  {
+   "id": 599,
+   "col": "example_es",
+   "old": "Comemos al mediodía",
+   "new": "Al mediodía como en el comedor",
+   "why": "вычитка испанского: «Comemos al mediodía» — учебниково"
+  },
+  {
+   "id": 613,
+   "col": "example_es",
+   "old": "Vengo mañana",
+   "new": "¡Hasta mañana!",
+   "why": "вычитка испанского: «Vengo mañana» — без ситуации"
+  },
+  {
+   "id": 614,
+   "col": "example_es",
+   "old": "Todas las mañanas tomo té",
+   "new": "Mañana por la mañana salgo temprano",
+   "why": "вычитка испанского: повтор 429 «por la mañana tomo»"
+  },
+  {
+   "id": 620,
+   "col": "example_es",
+   "old": "Mi madre está en casa",
+   "new": "Mi madre me llama todos los domingos",
+   "why": "вычитка испанского: «Mi madre está en casa» — учебниково"
+  },
+  {
+   "id": 629,
+   "col": "example_es",
+   "old": "Tengo que trabajar",
+   "new": "Mañana por desgracia tengo que trabajar",
+   "why": "вычитка испанского: «Tengo que trabajar» — оборвано"
+  },
+  {
+   "id": 641,
+   "col": "example_es",
+   "old": "Mi nombre es Anna Weber",
+   "new": "Escribe aquí tu nombre, por favor",
+   "why": "вычитка испанского: «Anna Weber» — не испанское имя"
+  },
+  {
+   "id": 667,
+   "col": "example_es",
+   "old": "Compro fruta en el mercado",
+   "new": "De postre hay fruta",
+   "why": "вычитка испанского: повтор «en el mercado»"
+  },
+  {
+   "id": 676,
+   "col": "example_es",
+   "old": "La abuela hace pasteles",
+   "new": "La abuela vive con nosotros",
+   "why": "вычитка испанского: «La abuela hace pasteles» — учебниково"
+  },
+  {
+   "id": 681,
+   "col": "example_es",
+   "old": "¿Todo en orden?",
+   "new": "¡Pon orden en tu habitación!",
+   "why": "вычитка испанского: нет слова карточки «el orden»"
+  },
+  {
+   "id": 745,
+   "col": "example_es",
+   "old": "No fuma",
+   "new": "Mi padre ya no fuma",
+   "why": "вычитка испанского: «No fuma» — без ситуации"
+  },
+  {
+   "id": 755,
+   "col": "example_es",
+   "old": "Cocino arroz",
+   "new": "El arroz está listo en veinte minutos",
+   "why": "вычитка испанского: «Cocino arroz» — учебниково"
+  },
+  {
+   "id": 763,
+   "col": "example_es",
+   "old": "Esta es la respuesta correcta",
+   "new": "Tienes razón, así está bien",
+   "why": "вычитка испанского: повтор 563"
+  },
+  {
+   "id": 778,
+   "col": "example_es",
+   "old": "La ensalada está fresca",
+   "new": "¿Te preparo una ensalada?",
+   "why": "вычитка испанского: «La ensalada está fresca» — учебниково"
+  },
+  {
+   "id": 795,
+   "col": "example_es",
+   "old": "Eso está mal",
+   "new": "Hoy me encuentro mal",
+   "why": "вычитка испанского: «Eso está mal» — без ситуации"
+  },
+  {
+   "id": 798,
+   "col": "example_es",
+   "old": "Busco mi llave",
+   "new": "¿Tienes las llaves de casa?",
+   "why": "вычитка испанского: повтор 271 «No encuentro la llave»"
+  },
+  {
+   "id": 800,
+   "col": "example_es",
+   "old": "Sabe bien",
+   "new": "Esta sopa sabe muy bien",
+   "why": "вычитка испанского: «Sabe bien» — без ситуации"
+  },
+  {
+   "id": 812,
+   "col": "example_es",
+   "old": "Va a la escuela",
+   "new": "El colegio está cerca de casa",
+   "why": "вычитка испанского: «Va a la escuela» — оборвано"
+  },
+  {
+   "id": 820,
+   "col": "example_es",
+   "old": "Vamos a la piscina",
+   "new": "En verano vamos mucho a la piscina",
+   "why": "вычитка испанского: «Vamos a la piscina» — учебниково"
+  },
+  {
+   "id": 826,
+   "col": "example_es",
+   "old": "Esto está muy bien",
+   "new": "Hoy hace mucho calor",
+   "why": "вычитка испанского: повтор «Está bien» (167, 305)"
+  },
+  {
+   "id": 836,
+   "col": "example_es",
+   "old": "Se lava",
+   "new": "El gato siempre se lava después de comer",
+   "why": "вычитка испанского: «Se lava» — оборвано"
+  },
+  {
+   "id": 845,
+   "col": "example_es",
+   "old": "Está sentada en el sofá",
+   "new": "¿Nos sentamos en el sofá?",
+   "why": "вычитка испанского: «Está sentada en el sofá» — учебниково"
+  },
+  {
+   "id": 863,
+   "col": "example_es",
+   "old": "Hago deporte",
+   "new": "Hago deporte tres veces por semana",
+   "why": "вычитка испанского: «Hago deporte» — оборвано"
+  },
+  {
+   "id": 867,
+   "col": "example_es",
+   "old": "Hablo alemán",
+   "new": "¿Hablas español?",
+   "why": "вычитка испанского: «Hablo alemán» — учебниково"
+  },
+  {
+   "id": 872,
+   "col": "example_es",
+   "old": "Comemos más tarde",
+   "new": "Lo hablamos más tarde",
+   "why": "вычитка испанского: «Comemos más tarde» — учебниково"
+  },
+  {
+   "id": 875,
+   "col": "example_es",
+   "old": "Berlín es una gran ciudad",
+   "new": "Sevilla es una ciudad preciosa",
+   "why": "вычитка испанского: «Berlín es una gran ciudad» — учебниково"
+  },
+  {
+   "id": 880,
+   "col": "example_es",
+   "old": "Estamos en la parada",
+   "new": "En el autobús he ido de pie todo el viaje",
+   "why": "вычитка испанского: нет слова карточки «estar de pie»"
+  },
+  {
+   "id": 912,
+   "col": "example_es",
+   "old": "Bailamos juntos",
+   "new": "¿Bailamos?",
+   "why": "вычитка испанского: «Bailamos juntos» — калька"
+  },
+  {
+   "id": 930,
+   "col": "example_es",
+   "old": "La comida está en la mesa",
+   "new": "La mesa de la cocina es demasiado pequeña",
+   "why": "вычитка испанского: «La comida está en la mesa» — калька"
+  },
+  {
+   "id": 951,
+   "col": "example_es",
+   "old": "El curso empieza a las nueve",
+   "new": "Quedamos a eso de las siete",
+   "why": "вычитка испанского: повтор 22 «El curso empieza a las…»"
+  },
+  {
+   "id": 974,
+   "col": "example_es",
+   "old": "Gana bien",
+   "new": "Mi hermana gana bien",
+   "why": "вычитка испанского: «Gana bien» — без ситуации"
+  },
+  {
+   "id": 978,
+   "col": "example_es",
+   "old": "Está casada",
+   "new": "¿Estás casado?",
+   "why": "вычитка испанского: «Está casada» — без ситуации"
+  },
+  {
+   "id": 997,
+   "col": "example_es",
+   "old": "¿Cuál es tu nombre?",
+   "new": "Me llamo Marco, pero todos me llaman Max",
+   "why": "вычитка испанского: повтор 253 «¿Cuál es tu…?»"
+  },
+  {
+   "id": 1022,
+   "col": "example_es",
+   "old": "Bebe una copa de vino",
+   "new": "Con la cena tomamos una copa de vino tinto",
+   "why": "вычитка испанского: «Bebe una copa de vino» — учебниково"
+  },
+  {
+   "id": 1034,
+   "col": "example_es",
+   "old": "Es importante",
+   "new": "Para mí la familia es importante",
+   "why": "вычитка испанского: «Es importante» — без ситуации"
+  },
+  {
+   "id": 1036,
+   "col": "example_es",
+   "old": "Vendré otra vez",
+   "new": "Otra vez llueve",
+   "why": "вычитка испанского: «Vendré otra vez» — книжно"
+  },
+  {
+   "id": 1045,
+   "col": "example_es",
+   "old": "Nosotros vamos a casa",
+   "new": "Nosotros nos vamos, ¿vosotros os quedáis?",
+   "why": "вычитка испанского: «Nosotros vamos a casa» — лишнее «nosotros»"
+  },
+  {
+   "id": 1053,
+   "col": "example_es",
+   "old": "Vivo en la ciudad",
+   "new": "Vivo en el centro",
+   "why": "вычитка испанского: «Vivo en la ciudad» — учебниково"
+  },
+  {
+   "id": 1084,
+   "col": "example_es",
+   "old": "De vuelta vamos en autobús",
+   "new": "Estoy de vuelta mañana por la noche",
+   "why": "вычитка испанского: «De vuelta vamos en autobús» — коряво"
+  },
+  {
+   "id": 1085,
+   "col": "example_es",
+   "old": "Comemos juntos",
+   "new": "¿Vamos juntos al concierto?",
+   "why": "вычитка испанского: повтор 527 «comer juntos»"
+  },
+  {
+   "id": 1098,
+   "col": "example_es",
+   "old": "El tren sale a las 10",
+   "new": "Salimos mañana temprano",
+   "why": "вычитка испанского: повтор «el tren … a las»"
+  },
+  {
+   "id": 1139,
+   "col": "example_es",
+   "old": "¿Cuándo llega el tren?",
+   "new": "¿A qué hora llegas?",
+   "why": "вычитка испанского: повтор 1082 «llega el tren»"
+  },
+  {
+   "id": 1198,
+   "col": "example_es",
+   "old": "Me bajo en la próxima estación",
+   "new": "Tengo que bajarme aquí, perdone",
+   "why": "вычитка испанского: повтор 375 «nos bajamos en la próxima parada»"
+  },
+  {
+   "id": 1266,
+   "col": "example_es",
+   "old": "Pido un agua",
+   "new": "¿Ya hemos pedido?",
+   "why": "вычитка испанского: «Pido un agua» — учебниково"
+  },
+  {
+   "id": 1315,
+   "col": "example_es",
+   "old": "La señora de recepción le ayudará con gusto",
+   "new": "La señora de recepción estará encantada de ayudarle",
+   "why": "вычитка испанского: «le ayudará con gusto» — калька"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
