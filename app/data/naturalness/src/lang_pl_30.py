@@ -1,0 +1,55 @@
+"""Вычитка польского, порция p030 (B2), 23.10: кальки и лишние местоимения → разговорный польский"""
+
+T = "вычитка польского: "
+
+FIXES = {
+    10472: (T + "«robili zadania domowe» → «odrabiali lekcje»", {"example_pl": "Nauczyciel naciska na uczniów, żeby odrabiali lekcje"}),
+    10473: (T + "«Jesteś prawdziwym szczęściarzem, że» — калька", {"example_pl": "Ale z ciebie szczęściarz, wygrałeś na loterii!"}),
+    10479: (T + "«moja … swoim» — лишнее", {"example_pl": "W wieku szesnastu lat siostra była po uszy zakochana w nauczycielu gitary"}),
+    10485: (T + "«Do zadań domowych» — калька", {"example_pl": "Przy odrabianiu lekcji potrzebuję dużo koncentracji"}),
+    10486: (T + "«ze swoimi» — коряво", {"example_pl": "Ten maluch z wielkimi oczami jest uroczy"}),
+    10487: (T + "«i ciągle pada» — коряво", {"example_pl": "Dziś jest okropna pogoda, ciągle pada"}),
+    10496: (T + "«w ogóle przyzwoitości» → «za grosz»", {"example_pl": "Nie ma za grosz przyzwoitości i zachowuje się jak idiota"}),
+    10499: (T + "«nie mów sekretu» — калька", {"example_pl": "Bądź, proszę, dyskretny i nikomu nie zdradzaj mojego sekretu"}),
+    10507: (T + "«obcych ludzi» — лишнее", {"example_pl": "Jest nieufny wobec obcych"}),
+    10508: (T + "«Moja … robić zadania» — калька", {"example_pl": "Siostra zawsze marudzi, kiedy musi odrabiać lekcje"}),
+    10509: (T + "«bardzo … bardzo» — повтор", {"example_pl": "Była nim oczarowana, bardzo go lubiła"}),
+    10510: (T + "«myląca» → «zagmatwana»", {"example_pl": "Ta instrukcja jest strasznie zagmatwana, nic z niej nie rozumiem"}),
+    10519: (T + "«kusi mnie na rogalika» — коряво", {"example_pl": "Zapach z piekarni co rano kusi mnie, żeby kupić rogalika"}),
+    10520: (T + "«moją» — лишнее", {"example_pl": "Pielęgniarka w nocy posiedziała z babcią, tyle człowieczeństwa się nie spodziewałem"}),
+    10521: (T + "«Uścisk mojego dziadka był» — калька", {"example_pl": "Dziadek tak ciepło mnie przytulił"}),
+    10528: (T + "«i zabolała mnie» — коряво", {"example_pl": "To była wredna uwaga, zabolało mnie"}),
+    10541: (T + "«swoje» — лишнее", {"example_pl": "Z wielkim oddaniem tata od lat pielęgnuje róże w ogrodzie"}),
+    10546: (T + "«ambicja zaprowadziła» — калька", {"example_pl": "Dzięki ambicji zaszedł daleko"}),
+    10557: (T + "«Mój» — лишнее", {"example_pl": "Kot nie znosi dotyku na brzuchu, od razu drapie"}),
+    10559: (T + "«Wewnętrznie» — книжно", {"example_pl": "W duszy był bardzo smutny, ale się uśmiechał"}),
+    10563: (T + "«żądza pieniędzy jest niewiarygodna» — книжно", {"example_pl": "Jego chciwość nie zna granic"}),
+    10565: (T + "«To jest świetna» — калька", {"example_pl": "Ale super nowa gitara!"}),
+    10567: (T + "«Nasz» — лишнее", {"example_pl": "Nowy rower ma napęd elektryczny, wjedziemy nim na każdą górę"}),
+    10579: (T + "«moja» — лишнее", {"example_pl": "Odkąd chodzi na zajęcia teatralne, nieśmiała córka ma dużo więcej pewności siebie"}),
+    10580: (T + "«Ja … z tobą» — лишнее", {"example_pl": "Tylko żartuję"}),
+    10584: (T + "«To jest … tak do ciebie mówić» — калька", {"example_pl": "To bezczelność, jak on do ciebie mówi"}),
+    10594: (T + "«od wyjazdu przyjaciela» — книжно", {"example_pl": "Od kiedy przyjaciel się wyprowadził, chodzi przygnębiony"}),
+    10610: (T + "«Mój» — лишнее", {"example_pl": "Mąż ma w weekend dyżur i może będzie musiał jechać do szpitala"}),
+    10643: (T + "«Mój» — лишнее", {"example_pl": "Młodszy brat to prawdziwe utrapienie, cały dzień pyta dlaczego"}),
+    10645: (T + "«nasza wieś jest pusta» — калька", {"example_pl": "W niedziele u nas na wsi jest pusto, wszystkie sklepy są zamknięte"}),
+    10655: (T + "«Mój» — лишнее", {"example_pl": "Brat jest naprawdę uzdolniony, świetnie rysuje"}),
+    10668: (T + "«naszym» — лишнее", {"example_pl": "Latem smród w śmietniku jest po prostu okropny"}),
+    10678: (T + "«nawyk czytania … i milczenia» — книжно", {"example_pl": "Mąż ma taki nawyk, że przy śniadaniu czyta gazetę i nic nie mówi"}),
+    10691: (T + "«każdego ranka» → «co rano»", {"example_pl": "Kwiaty na balkonie co rano mnie cieszą"}),
+    10693: (T + "«jest pewny» → «dobrej myśli»", {"example_pl": "Lekarz jest dobrej myśli, że dziadek po operacji znowu będzie chodził"}),
+    10695: (T + "«swojego» — лишнее", {"example_pl": "Ma urazę do brata"}),
+    10697: (T + "«zdolność oceny» — книжно", {"example_pl": "W takich sytuacjach ma dużo rozsądku"}),
+    10698: (T + "«Ona … silny» — калька", {"example_pl": "Ma ostry temperament i szybko wpada w złość"}),
+    10704: (T + "«nasz» — лишнее", {"example_pl": "Przed burzą pies jest pełen niepokoju i biega po korytarzu tam i z powrotem"}),
+    10713: (T + "«nasz» — лишнее", {"example_pl": "Po szkole dla psów pies jest dużo bardziej posłuszny i od razu przybiega, kiedy wołam"}),
+    10714: (T + "«Nasz» — лишнее", {"example_pl": "Kot jest tak rozpieszczony, że je już tylko drogą karmę z puszki"}),
+    10733: (T + "«Nasz» — лишнее", {"example_pl": "Duży pies jest bardzo czuły dla dziecka, tylko ostrożnie liże mu rękę"}),
+    10734: (T + "«swoją» — лишнее", {"example_pl": "Troskliwie opiekuje się babcią"}),
+    10739: (T + "«Pana» → «pana»", {"example_pl": "To bardzo uprzejmie z pana strony, że pomaga mi pan z walizką"}),
+    10742: (T + "«Mój» — лишнее", {"example_pl": "Wspólnik oszukał mnie i potajemnie negocjował z konkurencją"}),
+}
+
+REPLACE = []
+
+SPLIT_LATER = {}
