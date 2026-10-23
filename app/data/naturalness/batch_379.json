@@ -1,0 +1,779 @@
+{
+ "about": "вычитка немецкого p021 (B1)",
+ "edits": [
+  {
+   "id": 13412,
+   "col": "example_de",
+   "old": "Wir reden miteinander",
+   "new": "Seit dem Streit reden die beiden nicht mehr miteinander",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13412,
+   "col": "example_ru",
+   "old": "Мы говорим друг с другом",
+   "new": "После ссоры они больше не разговаривают друг с другом",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13412,
+   "col": "example_uk",
+   "old": "Ми говоримо один з одним",
+   "new": "Після сварки вони більше не розмовляють одне з одним",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13412,
+   "col": "example_en",
+   "old": "We talk with each other",
+   "new": "Since the argument the two of them haven't spoken to each other",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13412,
+   "col": "example_tr",
+   "old": "Birbirimizle konuşuyoruz",
+   "new": "Kavgadan beri ikisi birbiriyle konuşmuyor",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13412,
+   "col": "example_pl",
+   "old": "Rozmawiamy ze sobą",
+   "new": "Od kłótni ci dwoje już ze sobą nie rozmawiają",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13412,
+   "col": "example_it",
+   "old": "Parliamo insieme",
+   "new": "Dopo la lite quei due non si parlano più",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13412,
+   "col": "example_es",
+   "old": "Hablamos entre nosotros",
+   "new": "Desde la pelea esos dos ya no hablan entre ellos",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13412,
+   "col": "example_fr",
+   "old": "Nous parlons ensemble",
+   "new": "Depuis la dispute, ils ne se parlent plus",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13412,
+   "col": "example_cs",
+   "old": "Mluvíme spolu",
+   "new": "Od té hádky spolu ti dva nemluví",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13451,
+   "col": "example_de",
+   "old": "Wir helfen einander immer",
+   "new": "In unserem Haus helfen die Nachbarn einander, wenn jemand krank ist",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13451,
+   "col": "example_ru",
+   "old": "Мы всегда помогаем друг другу",
+   "new": "В нашем доме соседи помогают друг другу, когда кто-то болеет",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13451,
+   "col": "example_uk",
+   "old": "Ми завжди допомагаємо один одному",
+   "new": "У нашому будинку сусіди допомагають одне одному, коли хтось хворіє",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13451,
+   "col": "example_en",
+   "old": "We always help each other",
+   "new": "In our building the neighbours help each other when someone is ill",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13451,
+   "col": "example_tr",
+   "old": "Hep birbirimize yardım ederiz",
+   "new": "Apartmanımızda biri hastalanınca komşular birbirine yardım ediyor",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13451,
+   "col": "example_pl",
+   "old": "Zawsze pomagamy sobie nawzajem",
+   "new": "W naszym bloku sąsiedzi pomagają sobie nawzajem, gdy ktoś choruje",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13451,
+   "col": "example_it",
+   "old": "Ci aiutiamo sempre a vicenda",
+   "new": "Nel nostro palazzo i vicini si aiutano a vicenda quando qualcuno è malato",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13451,
+   "col": "example_es",
+   "old": "Siempre nos ayudamos el uno al otro",
+   "new": "En nuestro edificio los vecinos se ayudan entre sí cuando alguien está enfermo",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13451,
+   "col": "example_fr",
+   "old": "Nous nous aidons toujours mutuellement",
+   "new": "Dans notre immeuble, les voisins s'entraident quand quelqu'un est malade",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13451,
+   "col": "example_cs",
+   "old": "Vždycky si navzájem pomáháme",
+   "new": "V našem domě si sousedé navzájem pomáhají, když je někdo nemocný",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13465,
+   "col": "example_de",
+   "old": "Das Haus dahinter gehört mir",
+   "new": "Siehst du die Kirche? Wir wohnen gleich dahinter",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13465,
+   "col": "example_ru",
+   "old": "Дом позади принадлежит мне",
+   "new": "Видишь церковь? Мы живём сразу за ней",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13465,
+   "col": "example_uk",
+   "old": "Будинок позаду належить мені",
+   "new": "Бачиш церкву? Ми живемо одразу за нею",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13465,
+   "col": "example_en",
+   "old": "The house behind it belongs to me",
+   "new": "Can you see the church? We live just behind it",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13465,
+   "col": "example_tr",
+   "old": "Arkasındaki ev benim",
+   "new": "Kiliseyi görüyor musun? Hemen arkasında oturuyoruz",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13465,
+   "col": "example_pl",
+   "old": "Dom z tyłu należy do mnie",
+   "new": "Widzisz kościół? Mieszkamy zaraz za nim",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13465,
+   "col": "example_it",
+   "old": "La casa lì dietro è mia",
+   "new": "Vedi la chiesa? Abitiamo proprio lì dietro",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13465,
+   "col": "example_es",
+   "old": "La casa de ahí detrás es mía",
+   "new": "¿Ves la iglesia? Vivimos justo detrás",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13465,
+   "col": "example_fr",
+   "old": "La maison de derrière est à moi",
+   "new": "Tu vois l'église ? On habite juste derrière",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13465,
+   "col": "example_cs",
+   "old": "Ten dům vzadu patří mně",
+   "new": "Vidíš ten kostel? Bydlíme hned za ním",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13468,
+   "col": "example_de",
+   "old": "Das Auto kostet tausend Euro",
+   "new": "Für tausend Euro bekommst du heute kein gutes Auto mehr",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13468,
+   "col": "example_ru",
+   "old": "Машина стоит тысячу евро",
+   "new": "За тысячу евро сейчас хорошую машину уже не купишь",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13468,
+   "col": "example_uk",
+   "old": "Машина коштує тисячу євро",
+   "new": "За тисячу євро зараз добру машину вже не купиш",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13468,
+   "col": "example_en",
+   "old": "The car costs a thousand euros",
+   "new": "You won't get a decent car for a thousand euros these days",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13468,
+   "col": "example_tr",
+   "old": "Bu araba bin euro",
+   "new": "Bugün bin euroya artık iyi bir araba alamazsın",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13468,
+   "col": "example_pl",
+   "old": "To auto kosztuje tysiąc euro",
+   "new": "Za tysiąc euro nie kupisz dziś już dobrego samochodu",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13468,
+   "col": "example_it",
+   "old": "La macchina costa mille euro",
+   "new": "Con mille euro oggi non trovi più una macchina decente",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13468,
+   "col": "example_es",
+   "old": "El coche cuesta mil euros",
+   "new": "Por mil euros hoy ya no encuentras un coche decente",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13468,
+   "col": "example_fr",
+   "old": "La voiture coûte mille euros",
+   "new": "Pour mille euros, tu ne trouves plus de bonne voiture aujourd'hui",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13468,
+   "col": "example_cs",
+   "old": "To auto stojí tisíc eur",
+   "new": "Za tisíc eur dneska už dobré auto nekoupíš",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13477,
+   "col": "example_de",
+   "old": "Zwei plus drei ist fünf",
+   "new": "Die Wohnung kostet 700 Euro plus Nebenkosten",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; «Zwei plus drei ist fünf» — урок математики"
+  },
+  {
+   "id": 13477,
+   "col": "example_ru",
+   "old": "Два плюс три равно пять",
+   "new": "Квартира стоит 700 евро плюс коммунальные",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; «Zwei plus drei ist fünf» — урок математики"
+  },
+  {
+   "id": 13477,
+   "col": "example_uk",
+   "old": "Два плюс три дорівнює п'яти",
+   "new": "Квартира коштує 700 євро плюс комунальні",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; «Zwei plus drei ist fünf» — урок математики"
+  },
+  {
+   "id": 13477,
+   "col": "example_en",
+   "old": "Two plus three is five",
+   "new": "The flat costs 700 euros plus bills",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; «Zwei plus drei ist fünf» — урок математики"
+  },
+  {
+   "id": 13477,
+   "col": "example_tr",
+   "old": "İki artı üç beş eder",
+   "new": "Daire 700 euro artı aidat ve faturalar",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; «Zwei plus drei ist fünf» — урок математики"
+  },
+  {
+   "id": 13477,
+   "col": "example_pl",
+   "old": "Dwa plus trzy to pięć",
+   "new": "Mieszkanie kosztuje 700 euro plus opłaty",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; «Zwei plus drei ist fünf» — урок математики"
+  },
+  {
+   "id": 13477,
+   "col": "example_it",
+   "old": "Due più tre fa cinque",
+   "new": "L'appartamento costa 700 euro più le spese",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; «Zwei plus drei ist fünf» — урок математики"
+  },
+  {
+   "id": 13477,
+   "col": "example_es",
+   "old": "Dos más tres son cinco",
+   "new": "El piso cuesta 700 euros más gastos",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; «Zwei plus drei ist fünf» — урок математики"
+  },
+  {
+   "id": 13477,
+   "col": "example_fr",
+   "old": "Deux plus trois font cinq",
+   "new": "L'appartement coûte 700 euros plus les charges",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; «Zwei plus drei ist fünf» — урок математики"
+  },
+  {
+   "id": 13477,
+   "col": "example_cs",
+   "old": "Dvě plus tři je pět",
+   "new": "Byt stojí 700 eur plus poplatky",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; «Zwei plus drei ist fünf» — урок математики"
+  },
+  {
+   "id": 13483,
+   "col": "example_de",
+   "old": "Es gibt keinerlei Probleme",
+   "new": "Ich habe keinerlei Lust, heute noch einkaufen zu gehen",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13483,
+   "col": "example_ru",
+   "old": "Никаких проблем нет",
+   "new": "У меня нет ни малейшего желания сегодня ещё идти за покупками",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13483,
+   "col": "example_uk",
+   "old": "Жодних проблем немає",
+   "new": "У мене немає ані найменшого бажання сьогодні ще йти по покупки",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13483,
+   "col": "example_en",
+   "old": "There are no problems at all",
+   "new": "I have no desire whatsoever to go shopping today",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13483,
+   "col": "example_tr",
+   "old": "Hiçbir sorun yok",
+   "new": "Bugün alışverişe gitmeye hiç ama hiç hevesim yok",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13483,
+   "col": "example_pl",
+   "old": "Nie ma żadnych problemów",
+   "new": "Nie mam najmniejszej ochoty iść dziś jeszcze na zakupy",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13483,
+   "col": "example_it",
+   "old": "Non c'è nessun problema",
+   "new": "Non ho la minima voglia di andare ancora a fare la spesa oggi",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13483,
+   "col": "example_es",
+   "old": "No hay ningún problema",
+   "new": "No tengo ninguna gana de ir hoy a la compra",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13483,
+   "col": "example_fr",
+   "old": "Il n'y a aucun problème",
+   "new": "Je n'ai aucune envie d'aller encore faire les courses aujourd'hui",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13483,
+   "col": "example_cs",
+   "old": "Nejsou vůbec žádné problémy",
+   "new": "Nemám nejmenší chuť jít dneska ještě nakupovat",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13914,
+   "col": "example_de",
+   "old": "Der Funk funktioniert nicht",
+   "new": "Der Taxifahrer hat über Funk eine neue Adresse bekommen",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13914,
+   "col": "example_ru",
+   "old": "Рация не работает",
+   "new": "Таксист получил по рации новый адрес",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13914,
+   "col": "example_uk",
+   "old": "Радіозв'язок не працює",
+   "new": "Таксист отримав по рації нову адресу",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13914,
+   "col": "example_en",
+   "old": "The radio isn't working",
+   "new": "The taxi driver got a new address over the radio",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13914,
+   "col": "example_tr",
+   "old": "Telsiz çalışmıyor",
+   "new": "Taksi şoförü telsizden yeni bir adres aldı",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13914,
+   "col": "example_pl",
+   "old": "Łączność radiowa nie działa",
+   "new": "Taksówkarz dostał przez radio nowy adres",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13914,
+   "col": "example_it",
+   "old": "La radio non funziona",
+   "new": "Il tassista ha ricevuto un nuovo indirizzo via radio",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13914,
+   "col": "example_es",
+   "old": "La radio no funciona",
+   "new": "El taxista recibió una nueva dirección por radio",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13914,
+   "col": "example_fr",
+   "old": "La radio ne marche pas",
+   "new": "Le chauffeur de taxi a reçu une nouvelle adresse par radio",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13914,
+   "col": "example_cs",
+   "old": "Rádiové spojení nefunguje",
+   "new": "Taxikář dostal vysílačkou novou adresu",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13953,
+   "col": "example_de",
+   "old": "Der Pfeil weist nach links",
+   "new": "Das Schild weist den Weg zum Parkplatz",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13953,
+   "col": "example_ru",
+   "old": "Стрелка указывает налево",
+   "new": "Табличка указывает дорогу к парковке",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13953,
+   "col": "example_uk",
+   "old": "Стрілка вказує ліворуч",
+   "new": "Табличка вказує дорогу до парковки",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13953,
+   "col": "example_en",
+   "old": "The arrow points left",
+   "new": "The sign points the way to the car park",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13953,
+   "col": "example_tr",
+   "old": "Ok sola işaret ediyor",
+   "new": "Tabela otoparkın yolunu gösteriyor",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13953,
+   "col": "example_pl",
+   "old": "Strzałka wskazuje w lewo",
+   "new": "Tablica wskazuje drogę na parking",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13953,
+   "col": "example_it",
+   "old": "La freccia indica a sinistra",
+   "new": "Il cartello indica la strada per il parcheggio",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13953,
+   "col": "example_es",
+   "old": "La flecha señala a la izquierda",
+   "new": "El cartel indica el camino al aparcamiento",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13953,
+   "col": "example_fr",
+   "old": "La flèche indique la gauche",
+   "new": "Le panneau indique le chemin du parking",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13953,
+   "col": "example_cs",
+   "old": "Šipka ukazuje doleva",
+   "new": "Cedule ukazuje cestu na parkoviště",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13964,
+   "col": "example_de",
+   "old": "Ich habe ein Telegramm bekommen",
+   "new": "Zur Hochzeit hat meine Oma noch ein Telegramm bekommen",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13964,
+   "col": "example_ru",
+   "old": "Я получил телеграмму",
+   "new": "На свадьбу моя бабушка ещё получала телеграмму",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13964,
+   "col": "example_uk",
+   "old": "Я отримав телеграму",
+   "new": "На весілля моя бабуся ще отримала телеграму",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13964,
+   "col": "example_en",
+   "old": "I received a telegram",
+   "new": "For her wedding my grandma still got a telegram",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13964,
+   "col": "example_tr",
+   "old": "Bir telgraf aldım",
+   "new": "Babaannem düğününde hâlâ telgraf almıştı",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13964,
+   "col": "example_pl",
+   "old": "Dostałem telegram",
+   "new": "Na ślub moja babcia dostała jeszcze telegram",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13964,
+   "col": "example_it",
+   "old": "Ho ricevuto un telegramma",
+   "new": "Per il matrimonio mia nonna ha ricevuto ancora un telegramma",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13964,
+   "col": "example_es",
+   "old": "He recibido un telegrama",
+   "new": "Para su boda mi abuela todavía recibió un telegrama",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13964,
+   "col": "example_fr",
+   "old": "J'ai reçu un télégramme",
+   "new": "Pour son mariage, ma grand-mère a encore reçu un télégramme",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13964,
+   "col": "example_cs",
+   "old": "Dostal jsem telegram",
+   "new": "Na svatbu babička ještě dostala telegram",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13966,
+   "col": "example_de",
+   "old": "Seine Rede war unverständlich",
+   "new": "Die Durchsage am Bahnhof war völlig unverständlich",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13966,
+   "col": "example_ru",
+   "old": "Его речь была непонятна",
+   "new": "Объявление на вокзале было совершенно непонятным",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13966,
+   "col": "example_uk",
+   "old": "Його промова була незрозуміла",
+   "new": "Оголошення на вокзалі було зовсім незрозумілим",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13966,
+   "col": "example_en",
+   "old": "His speech was incomprehensible",
+   "new": "The announcement at the station was completely unintelligible",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13966,
+   "col": "example_tr",
+   "old": "Konuşması anlaşılmazdı",
+   "new": "İstasyondaki anons hiç anlaşılmıyordu",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13966,
+   "col": "example_pl",
+   "old": "Jego przemówienie było niezrozumiałe",
+   "new": "Komunikat na dworcu był zupełnie niezrozumiały",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13966,
+   "col": "example_it",
+   "old": "Il suo discorso era incomprensibile",
+   "new": "L'annuncio in stazione era del tutto incomprensibile",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13966,
+   "col": "example_es",
+   "old": "Su discurso fue incomprensible",
+   "new": "El aviso en la estación era totalmente incomprensible",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13966,
+   "col": "example_fr",
+   "old": "Son discours était incompréhensible",
+   "new": "L'annonce à la gare était complètement incompréhensible",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13966,
+   "col": "example_cs",
+   "old": "Jeho projev byl nesrozumitelný",
+   "new": "Hlášení na nádraží bylo úplně nesrozumitelné",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13989,
+   "col": "example_de",
+   "old": "Das ist eine vertrauliche Information",
+   "new": "Was ich dir jetzt sage, ist vertraulich, okay?",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13989,
+   "col": "example_ru",
+   "old": "Это конфиденциальная информация",
+   "new": "То, что я тебе сейчас скажу, — конфиденциально, хорошо?",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13989,
+   "col": "example_uk",
+   "old": "Це конфіденційна інформація",
+   "new": "Те, що я тобі зараз скажу, — конфіденційно, добре?",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13989,
+   "col": "example_en",
+   "old": "That is confidential information",
+   "new": "What I'm about to tell you is confidential, OK?",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13989,
+   "col": "example_tr",
+   "old": "Bu gizli bir bilgi",
+   "new": "Sana şimdi söyleyeceğim şey gizli, tamam mı?",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13989,
+   "col": "example_pl",
+   "old": "To jest informacja poufna",
+   "new": "To, co ci teraz powiem, jest poufne, dobrze?",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13989,
+   "col": "example_it",
+   "old": "Questa è un'informazione riservata",
+   "new": "Quello che ti dico adesso è confidenziale, ok?",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13989,
+   "col": "example_es",
+   "old": "Esta es una información confidencial",
+   "new": "Lo que te voy a decir es confidencial, ¿vale?",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13989,
+   "col": "example_fr",
+   "old": "C'est une information confidentielle",
+   "new": "Ce que je vais te dire est confidentiel, d'accord ?",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 13989,
+   "col": "example_cs",
+   "old": "To je důvěrná informace",
+   "new": "To, co ti teď řeknu, je důvěrné, jo?",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
