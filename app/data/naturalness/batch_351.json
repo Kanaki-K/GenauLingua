@@ -1,0 +1,65 @@
+{
+ "about": "QA: новые и изменённые строки, порция d06",
+ "edits": [
+  {
+   "id": 10088,
+   "col": "example_ru",
+   "old": "Я не верю в духов",
+   "new": "Я не верю в призраков",
+   "why": "проверка выборок: «Geister» здесь привидения (W «призрак/привид»), а не «духи»"
+  },
+  {
+   "id": 10088,
+   "col": "example_uk",
+   "old": "Я не вірю в духів",
+   "new": "Я не вірю в привидів",
+   "why": "проверка выборок: «Geister» здесь привидения (W «призрак/привид»), а не «духи»"
+  },
+  {
+   "id": 10088,
+   "col": "example_tr",
+   "old": "Ruhlara inanmıyorum",
+   "new": "Hayaletlere inanmıyorum",
+   "why": "проверка выборок: «Geister» здесь привидения (W «призрак/привид»), а не «духи»"
+  },
+  {
+   "id": 10530,
+   "col": "example_tr",
+   "old": "Günahkâr eylemlerinden pişman oluyor ve iyileşmek istiyor",
+   "new": "Günahkâr yaptıklarından pişman ve kendini düzeltmek istiyor",
+   "why": "проверка выборок: tr «iyileşmek» — выздороветь; «sich bessern» = исправиться"
+  },
+  {
+   "id": 10530,
+   "col": "example_en",
+   "old": "The sinner regrets his actions and wants to improve",
+   "new": "The sinner regrets his actions and wants to mend his ways",
+   "why": "проверка выборок: tr «iyileşmek» — выздороветь; «sich bessern» = исправиться"
+  },
+  {
+   "id": 10535,
+   "col": "example_ru",
+   "old": "Когда всё становится слишком, бабушкин сад — моё убежище",
+   "new": "Когда всего становится слишком много, бабушкин сад — моё убежище",
+   "why": "проверка выборок: «становится слишком» — оборвано"
+  },
+  {
+   "id": 10563,
+   "col": "example_pl",
+   "old": "Jego chciwość na pieniądze jest niewiarygodna",
+   "new": "Jego żądza pieniędzy jest niewiarygodna",
+   "why": "проверка выборок: «chciwość na pieniądze» — не сочетается; «żądza pieniędzy» (есть в W)"
+  },
+  {
+   "id": 10656,
+   "col": "example_cs",
+   "old": "Od stěhování pouto se starými přáteli zesláblo",
+   "new": "Od stěhování zesláblo pouto se starými přáteli",
+   "why": "проверка выборок: порядок слов — глагол на втором месте"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
