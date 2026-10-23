@@ -1,0 +1,779 @@
+{
+ "about": "вычитка немецкого p029 (B2)",
+ "edits": [
+  {
+   "id": 8795,
+   "col": "example_de",
+   "old": "Der Kommissar ermittelt in dem Fall",
+   "new": "Mein Nachbar ist Kommissar bei der Kripo und erzählt nie etwas von der Arbeit",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; повтор «Kommissar ermittelt» (2615)"
+  },
+  {
+   "id": 8795,
+   "col": "example_ru",
+   "old": "Комиссар расследует дело",
+   "new": "Мой сосед — комиссар уголовной полиции и никогда не рассказывает о работе",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; повтор «Kommissar ermittelt» (2615)"
+  },
+  {
+   "id": 8795,
+   "col": "example_uk",
+   "old": "Комісар розслідує справу",
+   "new": "Мій сусід — комісар кримінальної поліції й ніколи не розповідає про роботу",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; повтор «Kommissar ermittelt» (2615)"
+  },
+  {
+   "id": 8795,
+   "col": "example_en",
+   "old": "The detective inspector is investigating the case",
+   "new": "My neighbour is a detective inspector and never says anything about work",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; повтор «Kommissar ermittelt» (2615)"
+  },
+  {
+   "id": 8795,
+   "col": "example_tr",
+   "old": "Komiser olayı araştırıyor",
+   "new": "Komşum cinayet masasında komiser, işinden hiç bahsetmiyor",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; повтор «Kommissar ermittelt» (2615)"
+  },
+  {
+   "id": 8795,
+   "col": "example_pl",
+   "old": "Komisarz prowadzi śledztwo w tej sprawie",
+   "new": "Mój sąsiad jest komisarzem w policji kryminalnej i nigdy nie opowiada o pracy",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; повтор «Kommissar ermittelt» (2615)"
+  },
+  {
+   "id": 8795,
+   "col": "example_it",
+   "old": "Il commissario indaga sul caso",
+   "new": "Il mio vicino è commissario della polizia criminale e non racconta mai niente del lavoro",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; повтор «Kommissar ermittelt» (2615)"
+  },
+  {
+   "id": 8795,
+   "col": "example_es",
+   "old": "El comisario investiga el caso",
+   "new": "Mi vecino es comisario de la policía judicial y nunca cuenta nada del trabajo",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; повтор «Kommissar ermittelt» (2615)"
+  },
+  {
+   "id": 8795,
+   "col": "example_fr",
+   "old": "Le commissaire enquête sur l'affaire",
+   "new": "Mon voisin est commissaire à la police judiciaire et ne parle jamais du travail",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; повтор «Kommissar ermittelt» (2615)"
+  },
+  {
+   "id": 8795,
+   "col": "example_cs",
+   "old": "Komisař vyšetřuje ten případ",
+   "new": "Můj soused je komisař kriminálky a nikdy nic o práci nevypráví",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; повтор «Kommissar ermittelt» (2615)"
+  },
+  {
+   "id": 8867,
+   "col": "example_de",
+   "old": "Der Buchhalter prüft die Rechnungen",
+   "new": "Unser Buchhalter will alle Quittungen bis Freitag haben",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8867,
+   "col": "example_ru",
+   "old": "Бухгалтер проверяет счета",
+   "new": "Нашему бухгалтеру нужны все чеки до пятницы",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8867,
+   "col": "example_uk",
+   "old": "Бухгалтер перевіряє рахунки",
+   "new": "Нашому бухгалтерові потрібні всі чеки до п'ятниці",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8867,
+   "col": "example_en",
+   "old": "The bookkeeper checks the invoices",
+   "new": "Our accountant wants all the receipts by Friday",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8867,
+   "col": "example_tr",
+   "old": "Muhasebeci faturaları kontrol ediyor",
+   "new": "Muhasebecimiz bütün fişleri cumaya kadar istiyor",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8867,
+   "col": "example_pl",
+   "old": "Księgowy sprawdza faktury",
+   "new": "Nasz księgowy chce mieć wszystkie paragony do piątku",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8867,
+   "col": "example_it",
+   "old": "Il contabile controlla le fatture",
+   "new": "Il nostro contabile vuole tutte le ricevute entro venerdì",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8867,
+   "col": "example_es",
+   "old": "El contable revisa las facturas",
+   "new": "Nuestro contable quiere todos los recibos antes del viernes",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8867,
+   "col": "example_fr",
+   "old": "Le comptable vérifie les factures",
+   "new": "Notre comptable veut tous les reçus d'ici vendredi",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8867,
+   "col": "example_cs",
+   "old": "Účetní kontroluje faktury",
+   "new": "Náš účetní chce všechny účtenky do pátku",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8875,
+   "col": "example_de",
+   "old": "Der Nachfolger des Chefs beginnt morgen",
+   "new": "Für meine Stelle suchen sie noch einen Nachfolger",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8875,
+   "col": "example_ru",
+   "old": "Преемник шефа начинает завтра",
+   "new": "На моё место ещё ищут преемника",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8875,
+   "col": "example_uk",
+   "old": "Наступник керівника починає завтра",
+   "new": "На моє місце ще шукають наступника",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8875,
+   "col": "example_en",
+   "old": "The successor of the boss starts tomorrow",
+   "new": "They're still looking for a successor for my job",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8875,
+   "col": "example_tr",
+   "old": "Şefin halefi yarın başlıyor",
+   "new": "Benim yerime hâlâ bir halef arıyorlar",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8875,
+   "col": "example_pl",
+   "old": "Następca szefa zaczyna jutro",
+   "new": "Na moje stanowisko wciąż szukają następcy",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8875,
+   "col": "example_it",
+   "old": "Il successore del capo inizia domani",
+   "new": "Per il mio posto cercano ancora un successore",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8875,
+   "col": "example_es",
+   "old": "El sucesor del jefe empieza mañana",
+   "new": "Para mi puesto todavía buscan un sucesor",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8875,
+   "col": "example_fr",
+   "old": "Le successeur du chef commence demain",
+   "new": "Pour mon poste, ils cherchent encore un successeur",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8875,
+   "col": "example_cs",
+   "old": "Šéfův nástupce nastupuje zítra",
+   "new": "Na moje místo ještě hledají nástupce",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8880,
+   "col": "example_de",
+   "old": "Die Agentin arbeitet undercover für den Geheimdienst",
+   "new": "In ihrer Lieblingsserie ist die Heldin eine Agentin mit zwei Kindern",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8880,
+   "col": "example_ru",
+   "old": "Агентка работает под прикрытием на спецслужбу",
+   "new": "В её любимом сериале героиня — агентка с двумя детьми",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8880,
+   "col": "example_uk",
+   "old": "Агентка працює під прикриттям для спецслужб",
+   "new": "У її улюбленому серіалі героїня — агентка з двома дітьми",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8880,
+   "col": "example_en",
+   "old": "The agent works undercover for the secret service",
+   "new": "In her favourite series the heroine is an agent with two children",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8880,
+   "col": "example_tr",
+   "old": "Kadın ajan istihbarat için gizli görevde çalışıyor",
+   "new": "En sevdiği dizide kahraman iki çocuklu bir kadın ajan",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8880,
+   "col": "example_pl",
+   "old": "Agentka pracuje pod przykrywką dla wywiadu",
+   "new": "W jej ulubionym serialu bohaterka jest agentką z dwójką dzieci",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8880,
+   "col": "example_it",
+   "old": "L'agente lavora sotto copertura per i servizi segreti",
+   "new": "Nella sua serie preferita la protagonista è un'agente con due figli",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8880,
+   "col": "example_es",
+   "old": "La agente trabaja de incógnito para los servicios secretos",
+   "new": "En su serie favorita la protagonista es una agente con dos hijos",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8880,
+   "col": "example_fr",
+   "old": "L'agente travaille sous couverture pour les services secrets",
+   "new": "Dans sa série préférée, l'héroïne est une agente qui a deux enfants",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8880,
+   "col": "example_cs",
+   "old": "Agentka pracuje v utajení pro tajnou službu",
+   "new": "V jejím oblíbeném seriálu je hrdinka agentka se dvěma dětmi",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8882,
+   "col": "example_de",
+   "old": "Das Dienstmädchen putzt das Haus",
+   "new": "In alten Filmen trägt das Dienstmädchen immer eine weiße Schürze",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8882,
+   "col": "example_ru",
+   "old": "Служанка убирает дом",
+   "new": "В старых фильмах служанка всегда в белом переднике",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8882,
+   "col": "example_uk",
+   "old": "Служниця прибирає дім",
+   "new": "У старих фільмах служниця завжди в білому фартусі",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8882,
+   "col": "example_en",
+   "old": "The maid cleans the house",
+   "new": "In old films the maid always wears a white apron",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8882,
+   "col": "example_tr",
+   "old": "Hizmetçi evi temizliyor",
+   "new": "Eski filmlerde hizmetçi hep beyaz önlük takar",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8882,
+   "col": "example_pl",
+   "old": "Służąca sprząta dom",
+   "new": "W starych filmach służąca zawsze nosi biały fartuszek",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8882,
+   "col": "example_it",
+   "old": "La domestica pulisce la casa",
+   "new": "Nei film vecchi la cameriera porta sempre il grembiule bianco",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8882,
+   "col": "example_es",
+   "old": "La criada limpia la casa",
+   "new": "En las películas antiguas la criada siempre lleva un delantal blanco",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8882,
+   "col": "example_fr",
+   "old": "La bonne nettoie la maison",
+   "new": "Dans les vieux films, la bonne porte toujours un tablier blanc",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8882,
+   "col": "example_cs",
+   "old": "Služka uklízí dům",
+   "new": "Ve starých filmech má služka vždycky bílou zástěru",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8907,
+   "col": "example_de",
+   "old": "Der Klempner repariert die Toilette",
+   "new": "Der Klempner kommt erst Montag, bis dahin müssen wir das Wasser abstellen",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8907,
+   "col": "example_ru",
+   "old": "Сантехник чинит унитаз",
+   "new": "Сантехник придёт только в понедельник, до тех пор придётся перекрыть воду",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8907,
+   "col": "example_uk",
+   "old": "Сантехнік ремонтує унітаз",
+   "new": "Сантехнік прийде лише в понеділок, до того доведеться перекрити воду",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8907,
+   "col": "example_en",
+   "old": "The plumber is fixing the loo",
+   "new": "The plumber isn't coming until Monday, till then we'll have to turn the water off",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8907,
+   "col": "example_tr",
+   "old": "Tesisatçı tuvaleti tamir ediyor",
+   "new": "Tesisatçı ancak pazartesi geliyor, o zamana kadar suyu kapatmamız lazım",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8907,
+   "col": "example_pl",
+   "old": "Hydraulik naprawia toaletę",
+   "new": "Hydraulik przyjdzie dopiero w poniedziałek, do tego czasu musimy zakręcić wodę",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8907,
+   "col": "example_it",
+   "old": "L'idraulico ripara il water",
+   "new": "L'idraulico viene solo lunedì, fino ad allora dobbiamo chiudere l'acqua",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8907,
+   "col": "example_es",
+   "old": "El fontanero arregla el inodoro",
+   "new": "El fontanero no viene hasta el lunes, hasta entonces hay que cortar el agua",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8907,
+   "col": "example_fr",
+   "old": "Le plombier répare les toilettes",
+   "new": "Le plombier ne vient que lundi, d'ici là il faut couper l'eau",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8907,
+   "col": "example_cs",
+   "old": "Instalatér opravuje záchod",
+   "new": "Instalatér přijde až v pondělí, do té doby musíme zavřít vodu",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 8920,
+   "col": "example_de",
+   "old": "Das Management hat eine neue Strategie beschlossen",
+   "new": "Das Hotel hat ein neues Management, seitdem ist das Frühstück schlechter",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; корпоративно"
+  },
+  {
+   "id": 8920,
+   "col": "example_ru",
+   "old": "Руководство приняло новую стратегию",
+   "new": "У отеля новое руководство, с тех пор завтраки хуже",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; корпоративно"
+  },
+  {
+   "id": 8920,
+   "col": "example_uk",
+   "old": "Керівництво ухвалило нову стратегію",
+   "new": "У готелю нове керівництво, відтоді сніданки гірші",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; корпоративно"
+  },
+  {
+   "id": 8920,
+   "col": "example_en",
+   "old": "The management has decided on a new strategy",
+   "new": "The hotel has new management, and breakfast has been worse since",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; корпоративно"
+  },
+  {
+   "id": 8920,
+   "col": "example_tr",
+   "old": "Yönetim yeni bir strateji kararı aldı",
+   "new": "Otelin yeni bir yönetimi var, o zamandan beri kahvaltı daha kötü",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; корпоративно"
+  },
+  {
+   "id": 8920,
+   "col": "example_pl",
+   "old": "Kierownictwo przyjęło nową strategię",
+   "new": "Hotel ma nowe kierownictwo i od tego czasu śniadania są gorsze",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; корпоративно"
+  },
+  {
+   "id": 8920,
+   "col": "example_it",
+   "old": "La direzione ha deciso una nuova strategia",
+   "new": "L'hotel ha una nuova gestione e da allora la colazione è peggiorata",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; корпоративно"
+  },
+  {
+   "id": 8920,
+   "col": "example_es",
+   "old": "La dirección ha decidido una nueva estrategia",
+   "new": "El hotel tiene una nueva dirección y desde entonces el desayuno es peor",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; корпоративно"
+  },
+  {
+   "id": 8920,
+   "col": "example_fr",
+   "old": "La direction a décidé d'une nouvelle stratégie",
+   "new": "L'hôtel a une nouvelle direction, et depuis le petit déjeuner est moins bon",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; корпоративно"
+  },
+  {
+   "id": 8920,
+   "col": "example_cs",
+   "old": "Vedení schválilo novou strategii",
+   "new": "Hotel má nové vedení a od té doby je snídaně horší",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; корпоративно"
+  },
+  {
+   "id": 9502,
+   "col": "example_de",
+   "old": "Das ist die Grundlage unseres Plans",
+   "new": "Gemüse und Brot sind bei uns die Grundlage fast jeder Mahlzeit",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; офис"
+  },
+  {
+   "id": 9502,
+   "col": "example_ru",
+   "old": "Это основа нашего плана",
+   "new": "Овощи и хлеб у нас — основа почти каждого приёма пищи",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; офис"
+  },
+  {
+   "id": 9502,
+   "col": "example_uk",
+   "old": "Це основа нашого плану",
+   "new": "Овочі й хліб у нас — основа майже кожного прийому їжі",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; офис"
+  },
+  {
+   "id": 9502,
+   "col": "example_en",
+   "old": "That's the foundation of our plan",
+   "new": "Vegetables and bread are the basis of almost every meal at our house",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; офис"
+  },
+  {
+   "id": 9502,
+   "col": "example_tr",
+   "old": "Bu bizim planımızın temelini oluşturuyor",
+   "new": "Bizde sebze ve ekmek neredeyse her öğünün temeli",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; офис"
+  },
+  {
+   "id": 9502,
+   "col": "example_pl",
+   "old": "To jest podstawa naszego planu",
+   "new": "Warzywa i chleb to u nas podstawa prawie każdego posiłku",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; офис"
+  },
+  {
+   "id": 9502,
+   "col": "example_it",
+   "old": "Questa è la base del nostro piano",
+   "new": "Da noi verdura e pane sono la base di quasi ogni pasto",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; офис"
+  },
+  {
+   "id": 9502,
+   "col": "example_es",
+   "old": "Esta es la base de nuestro plan",
+   "new": "En casa la verdura y el pan son la base de casi todas las comidas",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; офис"
+  },
+  {
+   "id": 9502,
+   "col": "example_fr",
+   "old": "C'est la base de notre plan",
+   "new": "Chez nous, les légumes et le pain sont la base de presque chaque repas",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; офис"
+  },
+  {
+   "id": 9502,
+   "col": "example_cs",
+   "old": "To je základ našeho plánu",
+   "new": "Zelenina a chleba jsou u nás základem skoro každého jídla",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; офис"
+  },
+  {
+   "id": 9788,
+   "col": "example_de",
+   "old": "Der Yen ist die Währung von Japan",
+   "new": "Vor der Reise nach Tokio habe ich Euro in Yen umgetauscht",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; справка из учебника"
+  },
+  {
+   "id": 9788,
+   "col": "example_ru",
+   "old": "Иена — это валюта Японии",
+   "new": "Перед поездкой в Токио я поменял евро на иены",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; справка из учебника"
+  },
+  {
+   "id": 9788,
+   "col": "example_uk",
+   "old": "Єна — це валюта Японії",
+   "new": "Перед поїздкою до Токіо я обміняв євро на єни",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; справка из учебника"
+  },
+  {
+   "id": 9788,
+   "col": "example_en",
+   "old": "The yen is the currency of Japan",
+   "new": "Before the trip to Tokyo I changed euros into yen",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; справка из учебника"
+  },
+  {
+   "id": 9788,
+   "col": "example_tr",
+   "old": "Yen Japonya'nın para birimi",
+   "new": "Tokyo seyahatinden önce euroyu yene çevirdim",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; справка из учебника"
+  },
+  {
+   "id": 9788,
+   "col": "example_pl",
+   "old": "Jen to waluta Japonii",
+   "new": "Przed podróżą do Tokio wymieniłem euro na jeny",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; справка из учебника"
+  },
+  {
+   "id": 9788,
+   "col": "example_it",
+   "old": "Lo yen è la moneta del Giappone",
+   "new": "Prima del viaggio a Tokyo ho cambiato gli euro in yen",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; справка из учебника"
+  },
+  {
+   "id": 9788,
+   "col": "example_es",
+   "old": "El yen es la moneda de Japón",
+   "new": "Antes del viaje a Tokio cambié euros por yenes",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; справка из учебника"
+  },
+  {
+   "id": 9788,
+   "col": "example_fr",
+   "old": "Le yen est la monnaie du Japon",
+   "new": "Avant le voyage à Tokyo, j'ai changé des euros en yens",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; справка из учебника"
+  },
+  {
+   "id": 9788,
+   "col": "example_cs",
+   "old": "Jen je měna Japonska",
+   "new": "Před cestou do Tokia jsem si vyměnil eura za jeny",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; справка из учебника"
+  },
+  {
+   "id": 9798,
+   "col": "example_de",
+   "old": "Der Eigentümer des Hauses verkauft es",
+   "new": "Der Eigentümer will die Wohnung verkaufen, wir müssen vielleicht ausziehen",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 9798,
+   "col": "example_ru",
+   "old": "Владелец дома продаёт его",
+   "new": "Владелец хочет продать квартиру, возможно, нам придётся съехать",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 9798,
+   "col": "example_uk",
+   "old": "Власник будинку продає його",
+   "new": "Власник хоче продати квартиру, можливо, нам доведеться виїхати",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 9798,
+   "col": "example_en",
+   "old": "The owner of the house is selling it",
+   "new": "The owner wants to sell the flat, we might have to move out",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 9798,
+   "col": "example_tr",
+   "old": "Evin sahibi onu satıyor",
+   "new": "Ev sahibi daireyi satmak istiyor, belki taşınmamız gerekecek",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 9798,
+   "col": "example_pl",
+   "old": "Właściciel domu go sprzedaje",
+   "new": "Właściciel chce sprzedać mieszkanie, może będziemy musieli się wyprowadzić",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 9798,
+   "col": "example_it",
+   "old": "Il proprietario della casa la vende",
+   "new": "Il proprietario vuole vendere l'appartamento, forse dobbiamo traslocare",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 9798,
+   "col": "example_es",
+   "old": "El propietario de la casa la vende",
+   "new": "El propietario quiere vender el piso, a lo mejor tenemos que mudarnos",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 9798,
+   "col": "example_fr",
+   "old": "Le propriétaire de la maison la vend",
+   "new": "Le propriétaire veut vendre l'appartement, on devra peut-être déménager",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 9798,
+   "col": "example_cs",
+   "old": "Majitel domu ho prodává",
+   "new": "Majitel chce byt prodat, možná se budeme muset odstěhovat",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 9800,
+   "col": "example_de",
+   "old": "Der Bonus war überraschend hoch",
+   "new": "Mit dem Bonus zum Jahresende bezahlen wir den Urlaub",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 9800,
+   "col": "example_ru",
+   "old": "Бонус был неожиданно высоким",
+   "new": "Отпуск мы оплатим годовой премией",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 9800,
+   "col": "example_uk",
+   "old": "Бонус був неочікувано високим",
+   "new": "Відпустку ми оплатимо річною премією",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 9800,
+   "col": "example_en",
+   "old": "The bonus was unexpectedly high",
+   "new": "We'll pay for the holiday with the end-of-year bonus",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 9800,
+   "col": "example_tr",
+   "old": "İkramiye beklenenden daha yüksekti",
+   "new": "Tatili yıl sonu ikramiyesiyle ödeyeceğiz",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 9800,
+   "col": "example_pl",
+   "old": "Bonus był zaskakująco wysoki",
+   "new": "Urlop opłacimy z premii na koniec roku",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 9800,
+   "col": "example_it",
+   "old": "Il bonus è stato sorprendentemente alto",
+   "new": "La vacanza la paghiamo con il bonus di fine anno",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 9800,
+   "col": "example_es",
+   "old": "La prima fue sorprendentemente alta",
+   "new": "Las vacaciones las pagamos con el bonus de fin de año",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 9800,
+   "col": "example_fr",
+   "old": "La prime était étonnamment élevée",
+   "new": "On paiera les vacances avec la prime de fin d'année",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 9800,
+   "col": "example_cs",
+   "old": "Prémie byla překvapivě vysoká",
+   "new": "Dovolenou zaplatíme z bonusu na konci roku",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
