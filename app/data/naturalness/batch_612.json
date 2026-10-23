@@ -1,0 +1,387 @@
+{
+ "about": "вычитка итальянского p002",
+ "edits": [
+  {
+   "id": 137,
+   "col": "example_it",
+   "old": "Mi porti un bicchiere d'acqua?",
+   "new": "Mi porti il caricabatterie?",
+   "why": "вычитка итальянского: повтор 1010 «un bicchiere d'acqua»"
+  },
+  {
+   "id": 305,
+   "col": "example_it",
+   "old": "Sono abbastanza stanco",
+   "new": "La casa è abbastanza grande per tutti",
+   "why": "вычитка итальянского: повтор 627 «Sono … stanco»"
+  },
+  {
+   "id": 500,
+   "col": "example_it",
+   "old": "Da dove vieni?",
+   "new": "Viene anche tua sorella?",
+   "why": "вычитка итальянского: повтор 1051 «Da dove vieni?»"
+  },
+  {
+   "id": 547,
+   "col": "example_it",
+   "old": "Imparo il tedesco",
+   "new": "Sto imparando il tedesco da sei mesi",
+   "why": "вычитка итальянского: «Imparo il tedesco» — учебниково"
+  },
+  {
+   "id": 551,
+   "col": "example_it",
+   "old": "Ama la sua famiglia",
+   "new": "Ama tantissimo i suoi nipoti",
+   "why": "вычитка итальянского: «Ama la sua famiglia» — учебниково"
+  },
+  {
+   "id": 558,
+   "col": "example_it",
+   "old": "Giri a sinistra",
+   "new": "Il bagno è la seconda porta a sinistra",
+   "why": "вычитка итальянского: повтор 748 «Gira a…»"
+  },
+  {
+   "id": 563,
+   "col": "example_it",
+   "old": "Questa è la soluzione giusta",
+   "new": "Non c'è una soluzione facile",
+   "why": "вычитка итальянского: повтор 763 «è la … giusta»"
+  },
+  {
+   "id": 578,
+   "col": "example_it",
+   "old": "Andiamo al mare",
+   "new": "Oggi il mare è calmissimo",
+   "why": "вычитка итальянского: повтор 55 «andiamo al mare»"
+  },
+  {
+   "id": 580,
+   "col": "example_it",
+   "old": "Vorrei più acqua",
+   "new": "Mangia più verdura!",
+   "why": "вычитка итальянского: «Vorrei più acqua» — учебниково"
+  },
+  {
+   "id": 599,
+   "col": "example_it",
+   "old": "Mangiamo a mezzogiorno",
+   "new": "A mezzogiorno mangio in mensa",
+   "why": "вычитка итальянского: «Mangiamo a mezzogiorno» — учебниково"
+  },
+  {
+   "id": 613,
+   "col": "example_it",
+   "old": "Vengo domani",
+   "new": "Ci vediamo domani!",
+   "why": "вычитка итальянского: «Vengo domani» — без ситуации"
+  },
+  {
+   "id": 614,
+   "col": "example_it",
+   "old": "Ogni mattina bevo il tè",
+   "new": "Di mattina sono sempre di buon umore",
+   "why": "вычитка итальянского: повтор 429 «bevo … la mattina»"
+  },
+  {
+   "id": 620,
+   "col": "example_it",
+   "old": "Mia madre è a casa",
+   "new": "Mia madre mi chiama ogni domenica",
+   "why": "вычитка итальянского: «Mia madre è a casa» — учебниково"
+  },
+  {
+   "id": 629,
+   "col": "example_it",
+   "old": "Devo lavorare",
+   "new": "Purtroppo domani devo lavorare",
+   "why": "вычитка итальянского: «Devo lavorare» — оборвано"
+  },
+  {
+   "id": 641,
+   "col": "example_it",
+   "old": "Il mio nome è Anna Weber",
+   "new": "Scrivi qui il tuo nome, per favore",
+   "why": "вычитка итальянского: «Anna Weber» — не итальянское имя; повтор 997"
+  },
+  {
+   "id": 667,
+   "col": "example_it",
+   "old": "Compro la frutta al mercato",
+   "new": "Per dessert c'è la frutta",
+   "why": "вычитка итальянского: повтор «al mercato» (323)"
+  },
+  {
+   "id": 676,
+   "col": "example_it",
+   "old": "La nonna fa le torte",
+   "new": "La nonna fa la torta più buona del mondo",
+   "why": "вычитка итальянского: «La nonna fa le torte» — учебниково"
+  },
+  {
+   "id": 681,
+   "col": "example_it",
+   "old": "Tutto a posto?",
+   "new": "Metti in ordine la tua stanza!",
+   "why": "вычитка итальянского: нет слова карточки «l'ordine»"
+  },
+  {
+   "id": 745,
+   "col": "example_it",
+   "old": "Non fuma",
+   "new": "Mio padre non fuma più",
+   "why": "вычитка итальянского: «Non fuma» — без ситуации"
+  },
+  {
+   "id": 755,
+   "col": "example_it",
+   "old": "Cucino il riso",
+   "new": "Il riso è pronto in venti minuti",
+   "why": "вычитка итальянского: «Cucino il riso» — учебниково"
+  },
+  {
+   "id": 763,
+   "col": "example_it",
+   "old": "Questa è la risposta giusta",
+   "new": "Hai ragione, è giusto così",
+   "why": "вычитка итальянского: повтор 563 «è la … giusta»"
+  },
+  {
+   "id": 778,
+   "col": "example_it",
+   "old": "L'insalata è fresca",
+   "new": "Ti faccio un'insalata?",
+   "why": "вычитка итальянского: «L'insalata è fresca» — учебниково"
+  },
+  {
+   "id": 780,
+   "col": "example_it",
+   "old": "La zuppa ha bisogno di un po' di sale",
+   "new": "Manca un po' di sale",
+   "why": "вычитка итальянского: «ha bisogno di sale» — калька"
+  },
+  {
+   "id": 795,
+   "col": "example_it",
+   "old": "È una brutta cosa",
+   "new": "Oggi mi sento male",
+   "why": "вычитка итальянского: нет слова карточки «male»"
+  },
+  {
+   "id": 798,
+   "col": "example_it",
+   "old": "Cerco la mia chiave",
+   "new": "Hai le chiavi di casa?",
+   "why": "вычитка итальянского: повтор 271 «non trovo la chiave»"
+  },
+  {
+   "id": 800,
+   "col": "example_it",
+   "old": "Ha un buon sapore",
+   "new": "Questa minestra ha un buon sapore",
+   "why": "вычитка итальянского: «Ha un buon sapore» — без ситуации"
+  },
+  {
+   "id": 812,
+   "col": "example_it",
+   "old": "Va a scuola",
+   "new": "La scuola è vicino a casa",
+   "why": "вычитка итальянского: «Va a scuola» — оборвано"
+  },
+  {
+   "id": 820,
+   "col": "example_it",
+   "old": "Andiamo in piscina",
+   "new": "D'estate andiamo spesso in piscina",
+   "why": "вычитка итальянского: «Andiamo in piscina» — учебниково"
+  },
+  {
+   "id": 826,
+   "col": "example_it",
+   "old": "Questo va molto bene",
+   "new": "Mi piace molto questa canzone",
+   "why": "вычитка итальянского: повтор «Questo va … bene» (167, 305)"
+  },
+  {
+   "id": 836,
+   "col": "example_it",
+   "old": "Si lava",
+   "new": "Il gatto si lava sempre dopo mangiato",
+   "why": "вычитка итальянского: «Si lava» — оборвано"
+  },
+  {
+   "id": 845,
+   "col": "example_it",
+   "old": "È seduta sul divano",
+   "new": "Ci sediamo sul divano?",
+   "why": "вычитка итальянского: «È seduta sul divano» — учебниково"
+  },
+  {
+   "id": 863,
+   "col": "example_it",
+   "old": "Faccio sport",
+   "new": "Faccio sport tre volte alla settimana",
+   "why": "вычитка итальянского: «Faccio sport» — оборвано"
+  },
+  {
+   "id": 867,
+   "col": "example_it",
+   "old": "Parlo tedesco",
+   "new": "Parli italiano?",
+   "why": "вычитка итальянского: «Parlo tedesco» — учебниково"
+  },
+  {
+   "id": 872,
+   "col": "example_it",
+   "old": "Mangiamo più tardi",
+   "new": "Ne parliamo più tardi",
+   "why": "вычитка итальянского: «Mangiamo più tardi» — учебниково"
+  },
+  {
+   "id": 875,
+   "col": "example_it",
+   "old": "Berlino è una grande città",
+   "new": "Roma è una città bellissima",
+   "why": "вычитка итальянского: «Berlino è una grande città» — учебниково"
+  },
+  {
+   "id": 880,
+   "col": "example_it",
+   "old": "Siamo alla fermata",
+   "new": "In autobus sono rimasto in piedi tutto il tempo",
+   "why": "вычитка итальянского: нет слова карточки «stare in piedi»"
+  },
+  {
+   "id": 912,
+   "col": "example_it",
+   "old": "Balliamo insieme",
+   "new": "Balliamo?",
+   "why": "вычитка итальянского: «Balliamo insieme» — калька"
+  },
+  {
+   "id": 930,
+   "col": "example_it",
+   "old": "Il cibo è in tavola",
+   "new": "Il tavolo della cucina è troppo piccolo",
+   "why": "вычитка итальянского: «Il cibo è in tavola» — калька"
+  },
+  {
+   "id": 951,
+   "col": "example_it",
+   "old": "Il corso comincia alle nove",
+   "new": "Ci vediamo verso le sette",
+   "why": "вычитка итальянского: повтор 22 «Il corso comincia alle…»"
+  },
+  {
+   "id": 974,
+   "col": "example_it",
+   "old": "Guadagna bene",
+   "new": "Mia sorella guadagna bene",
+   "why": "вычитка итальянского: «Guadagna bene» — без ситуации"
+  },
+  {
+   "id": 978,
+   "col": "example_it",
+   "old": "È sposata",
+   "new": "Sei sposato?",
+   "why": "вычитка итальянского: «È sposata» — без ситуации"
+  },
+  {
+   "id": 997,
+   "col": "example_it",
+   "old": "Qual è il tuo nome?",
+   "new": "Mi chiamo Marco, ma tutti mi chiamano Max",
+   "why": "вычитка итальянского: повтор 253 «Qual è il tuo…»"
+  },
+  {
+   "id": 1022,
+   "col": "example_it",
+   "old": "Beve un bicchiere di vino",
+   "new": "A cena beviamo un bicchiere di vino rosso",
+   "why": "вычитка итальянского: «Beve un bicchiere di vino» — учебниково"
+  },
+  {
+   "id": 1034,
+   "col": "example_it",
+   "old": "È importante",
+   "new": "Per me la famiglia è importante",
+   "why": "вычитка итальянского: «È importante» — без ситуации"
+  },
+  {
+   "id": 1036,
+   "col": "example_it",
+   "old": "Verrò di nuovo",
+   "new": "Piove di nuovo",
+   "why": "вычитка итальянского: «Verrò di nuovo» — книжно"
+  },
+  {
+   "id": 1045,
+   "col": "example_it",
+   "old": "Noi andiamo a casa",
+   "new": "Noi andiamo, voi restate?",
+   "why": "вычитка итальянского: «Noi andiamo a casa» — лишнее «noi»"
+  },
+  {
+   "id": 1053,
+   "col": "example_it",
+   "old": "Abito in città",
+   "new": "Abito in centro",
+   "why": "вычитка итальянского: «Abito in città» — учебниково"
+  },
+  {
+   "id": 1084,
+   "col": "example_it",
+   "old": "Torniamo indietro in autobus",
+   "new": "Sono di ritorno domani sera",
+   "why": "вычитка итальянского: «Torniamo indietro in autobus» — коряво"
+  },
+  {
+   "id": 1085,
+   "col": "example_it",
+   "old": "Mangiamo insieme",
+   "new": "Andiamo insieme al concerto?",
+   "why": "вычитка итальянского: повтор 527 «mangiare insieme»"
+  },
+  {
+   "id": 1098,
+   "col": "example_it",
+   "old": "Il treno parte alle 10",
+   "new": "Partiamo domani mattina presto",
+   "why": "вычитка итальянского: повтор «il treno … alle» (1082)"
+  },
+  {
+   "id": 1139,
+   "col": "example_it",
+   "old": "A che ora arriva il treno?",
+   "new": "A che ora arrivi?",
+   "why": "вычитка итальянского: повтор 1082 «il treno arriva»"
+  },
+  {
+   "id": 1198,
+   "col": "example_it",
+   "old": "Scendo alla prossima fermata",
+   "new": "Devo scendere qui, mi scusi",
+   "why": "вычитка итальянского: повтор 375 «Scendiamo alla prossima fermata»"
+  },
+  {
+   "id": 1266,
+   "col": "example_it",
+   "old": "Ordino un'acqua",
+   "new": "Abbiamo già ordinato?",
+   "why": "вычитка итальянского: «Ordino un'acqua» — учебниково"
+  },
+  {
+   "id": 1315,
+   "col": "example_it",
+   "old": "La signora alla reception La aiuterà volentieri",
+   "new": "La signora alla reception sarà felice di aiutarLa",
+   "why": "вычитка итальянского: «La aiuterà volentieri» — калька gern"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
