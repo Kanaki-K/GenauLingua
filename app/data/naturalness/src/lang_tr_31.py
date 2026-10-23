@@ -1,0 +1,55 @@
+"""Вычитка турецкого, порция p031 (B2), 23.10: характер, чувства — кальки → разговорный турецкий"""
+
+T = "вычитка турецкого: "
+
+FIXES = {
+    10770: (T + "«huysuz kadınlık yapma» — коряво", {"example_tr": "Bu kadar nazlanma, huysuzluk yapma, sadece kısa bir alışverişe gidiyoruz"}),
+    10781: (T + "«park yerimize park edince» — повтор", {"example_tr": "Komşu üçüncü kez bizim yerimize park edince babam gerçekten öfkelendi"}),
+    10786: (T + "«hâlâ çok motivasyonum vardı» — noch ≠ hâlâ", {"example_tr": "Ocakta spor salonu için motivasyonum yüksekti, şimdi martta hiç kalmadı"}),
+    10787: (T + "«Beni nihayet kurtar ve» — подстрочник", {"example_tr": "Hadi beni bu beklemekten kurtar, işi alıp almadığımı söyle"}),
+    10788: (T + "«adınla selamlanman» — коряво", {"example_tr": "Küçük şehirlerin cazibesi, fırında seni adınla selamlamaları"}),
+    10791: (T + "«seçicidir» — книжно", {"example_tr": "Kızım yemek konusunda çok seçici"}),
+    10792: (T + "«pervasızcaydı» — коряво", {"example_tr": "O fırtınada bisikletle eve gitmek düşüncesizlikti"}),
+    10796: (T + "«o kadar arzulanıyor ki» — книжно", {"example_tr": "Sınırlı sayıdaki spor ayakkabılar o kadar çok isteniyor ki insanlar bütün gece mağazanın önünde bekliyor"}),
+    10816: (T + "«Renklerin algılanması» — тяжело", {"example_tr": "Renk algısı herkeste farklı"}),
+    10841: (T + "«köyde saygındı» — коряво", {"example_tr": "Eski aile doktorumuz bütün köyün saygı duyduğu biriydi, herkes ona danışırdı"}),
+    10847: (T + "schon — «şimdiye kadar»", {"example_tr": "Komşunun köpeği saldırgan, şimdiye kadar iki çocuğu ısırdı"}),
+    10859: (T + "«kabullenmek gerekiyor» — тяжело", {"example_tr": "Tatilde yağmuru kabulleneceksin, havayı değiştiremezsin"}),
+    10891: (T + "«kokusu olunca bu bana» — коряво", {"example_tr": "Fırından gelen taze simit kokusu bana karşı konulmaz geliyor"}),
+    11020: (T + "Feierabend — «paydos»", {"example_tr": "Büyükannem derin bir iç çekişle kanepeye oturuyor: nihayet paydos"}),
+    11050: (T + "«onun aldatmasını» — неясно, кто кого", {"example_tr": "Yirmi yıllık evlilikten sonra kocasının sadakatsizliğini affetti ama unutamıyor"}),
+    11227: (T + "schmollen — «surat asmak»", {"example_tr": "Kocam kahvaltıdan beri surat asıyor, çünkü en sevdiği bardağı kırdım"}),
+    11240: (T + "«çok sevinmiş bir halde» — калька", {"example_tr": "Büyükannem torunlarının çocuklarının fotoğraflarına büyük bir sevinçle baktı, hemen başkalarını da istedi"}),
+    11271: (T + "«ne pahasına olursa olsun pahalı» — коряво", {"example_tr": "Satıcı bana pahalı bir garantiyi zorla dayatmaya çalıştı ama hayır dedim"}),
+    11308: (T + "«bizde bir daireye ödenen kadar» — тяжело", {"example_tr": "Münih'te kiralar çılgınca yüksek, bir odaya bizde bir dairenin kirası kadar para veriliyor"}),
+    11317: (T + "«büyükannenin» — нет принадлежности", {"example_tr": "Çocuklar büyükannelerinin sonunda pastayı kesmesini hevesle bekliyor"}),
+    11327: (T + "seit Wochen nicht — «değiştirmedi»", {"example_tr": "Yeni kapıcı o kadar beceriksiz ki haftalardır merdiven lambasını bile değiştirmedi"}),
+    11330: (T + "«karşılıklılığa dayanıyor» — книжно", {"example_tr": "Komşularla dostluğumuz karşılıklı: onlar bize alet ödünç veriyor, biz onlara kek yapıyoruz"}),
+    11349: (T + "«çıkması gerekiyor» — тяжело", {"example_tr": "Bizde her sabah banyo yüzünden kavga çıkıyor, çünkü herkes aynı anda çıkmak zorunda"}),
+    11351: (T + "«artışı isteğiyle … geri çevrildi» — тяжело", {"example_tr": "Oğlum babasından daha fazla harçlık istedi ama yine geri çevrildi"}),
+    11353: (T + "«iğrenç geliyor» — слишком сильно", {"example_tr": "Devlet daireleriyle uzun telefon görüşmeleri bana hiç çekilmez geliyor, o yüzden bunları kocam yapıyor"}),
+    11354: (T + "«daire çizerek dolaşmayı» — калька im Kreis", {"example_tr": "Babam inatçının teki, yol sormaktansa üç saat aynı yerde dönüp durmayı tercih ediyor"}),
+    11387: (T + "«öfkesi burnunda biri oluyor» — коряво", {"example_tr": "Normalde çok sakin olan kocam futbol izlerken öfke küpüne dönüyor ve televizyona bağırıyor"}),
+    11410: (T + "«üçüncü ayakkabı çiftinden sonra» — калька", {"example_tr": "İndirimde üçüncü çift ayakkabıyı alınca nihayet aklım başıma geldi ve eve döndüm"}),
+    11415: (T + "«On yıl gözlükten sonra» — коряво", {"example_tr": "On yıl gözlük taktıktan sonra lensle aynaya bakmak çok alışılmadık geliyor"}),
+    11416: (T + "длинная цепочка — тяжело", {"example_tr": "Oğlum bana gayet ciddi bir yüzle, havuçların da duyguları olduğu için bir daha sebze yemeyeceğini söyledi"}),
+    11419: (T + "«dondurma vardı» — калька es gab", {"example_tr": "Kötü nottan sonra moral olsun diye dondurma yedik ama bu aramızda kalacak"}),
+    11432: (T + "«o kadar sert ki, oysa» — оборванная конструкция", {"example_tr": "Otobüs şoförü sabahları hep çok kaba, oysa ben sadece yol soruyorum"}),
+    11445: (T + "«uyanık yatıyorum» — калька", {"example_tr": "Akşam siyah çay benim için fazla uyarıcı, yoksa gece ikiye kadar uyuyamıyorum"}),
+    11460: (T + "«üçüncü ekranında» — калька", {"example_tr": "Ağabeyim telefonuna o kadar kaygısızca davranıyor ki ekranını şimdiden üç kez değiştirdi"}),
+    11462: (T + "«reklam tamamen yalancı» — коряво", {"example_tr": "Mutlu ineklerin olduğu bu reklam baştan sona yalan, hayvanlar hiç çayır görmedi"}),
+    11526: (T + "«herhangi bir diziden» — калька", {"example_tr": "Bizim ofiste dizilerdekinden daha çok entrika var"}),
+    11533: (T + "Strafzettel — «park cezası»", {"example_tr": "Şu sıralar şanssızlık dönemindeyim: önce patlak lastik, sonra bozuk telefon, bugün de park cezası"}),
+    11534: (T + "«hassasiyetiyle … fark ediyor» — калька", {"example_tr": "Oğlum o kadar hassas ki evde hava gerginleşince hemen fark ediyor"}),
+    11551: (T + "«Üçüncü kaybettiği satranç maçından» — коряво", {"example_tr": "Üst üste üçüncü satranç maçını kaybedince oğlumun cesareti kırıldı ama yarın yine oynamak istiyor"}),
+    11558: (T + "«nazik bir şekilde» — тяжело", {"example_tr": "Arkadaşıma yeni erkek arkadaşının yemek yerken şapırdattığını nasıl kibarca söylerim?"}),
+    11579: (T + "«kek yapmayı tercih ediyor» — калька lieber", {"example_tr": "Kocam duyguları hakkında konuşmayı sevmiyor, onun yerine kek yapıyor"}),
+    11581: (T + "«Kaybedilen maçtan sonra» — канцелярит", {"example_tr": "Maçı kaybedince bütün takım birlikte pizza yiyor, antrenör buna arkadaşlık diyor"}),
+    11617: (T + "«ders çalışacağına kafasında … var» — коряво", {"example_tr": "Oğlumun kafası ders yerine saçma fikirlerle dolu, dün kendine bir kepçe almak istedi"}),
+    11725: (T + "«greyfurt keserken» — фрукт не режет", {"example_tr": "Dikkat et, greyfurt kesilirken suyu fışkırıyor!"}),
+    11728: (T + "учебная фраза — оживить", {"example_tr": "İstakoz pahalı ama çok lezzetli"}),
+}
+
+REPLACE = []
+
+SPLIT_LATER = {}
