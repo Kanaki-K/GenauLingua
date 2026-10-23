@@ -1,0 +1,240 @@
+{
+ "about": "вычитка испанского p004",
+ "edits": [
+  {
+   "id": 81,
+   "col": "example_es",
+   "old": "Construyen una casa nueva",
+   "new": "Los vecinos se están construyendo una casa nueva",
+   "why": "вычитка испанского: «Construyen una casa» — без ситуации"
+  },
+  {
+   "id": 128,
+   "col": "example_es",
+   "old": "La blusa sienta bien",
+   "new": "Esta blusa es perfecta para la oficina",
+   "why": "вычитка испанского: «La blusa sienta bien» — оборвано"
+  },
+  {
+   "id": 161,
+   "col": "example_es",
+   "old": "Estoy a favor",
+   "new": "Para eso he venido",
+   "why": "вычитка испанского: «Estoy a favor» — не то значение"
+  },
+  {
+   "id": 170,
+   "col": "example_es",
+   "old": "¿Qué quieres tomar con eso?",
+   "new": "¿Qué bebes con la pizza?",
+   "why": "вычитка испанского: «tomar con eso» — калька"
+  },
+  {
+   "id": 171,
+   "col": "example_es",
+   "old": "Este es tu bolso",
+   "new": "¿Es tuyo este bolso?",
+   "why": "вычитка испанского: повтор «Esta es … » (426, 963)"
+  },
+  {
+   "id": 186,
+   "col": "example_es",
+   "old": "El tren va directo a Berlín",
+   "new": "El tren va directo a Madrid",
+   "why": "вычитка испанского: «a Berlín» — без нужды"
+  },
+  {
+   "id": 216,
+   "col": "example_es",
+   "old": "Me gusta comer helado",
+   "new": "¿Vamos a tomar un helado?",
+   "why": "вычитка испанского: «Me gusta comer helado» — учебниково"
+  },
+  {
+   "id": 234,
+   "col": "example_es",
+   "old": "Es mi primera vez en Berlín",
+   "new": "Es mi primera vez en Valencia",
+   "why": "вычитка испанского: «en Berlín» — без нужды"
+  },
+  {
+   "id": 289,
+   "col": "example_es",
+   "old": "Me alegro mucho",
+   "new": "¡Me alegro mucho de verte!",
+   "why": "вычитка испанского: повтор 293 «estoy contento»"
+  },
+  {
+   "id": 318,
+   "col": "example_es",
+   "old": "La farmacia está enfrente de la estación",
+   "new": "Vivo justo enfrente del parque",
+   "why": "вычитка испанского: повтор «la farmacia»"
+  },
+  {
+   "id": 355,
+   "col": "example_es",
+   "old": "Tiene la gripe",
+   "new": "Media clase tiene la gripe",
+   "why": "вычитка испанского: «Tiene la gripe» — без ситуации"
+  },
+  {
+   "id": 423,
+   "col": "example_es",
+   "old": "Tengo una buena idea",
+   "new": "¡Tengo una idea!",
+   "why": "вычитка испанского: «Tengo una buena idea» — калька"
+  },
+  {
+   "id": 459,
+   "col": "example_es",
+   "old": "¡Se enfría la comida, ven rápido!",
+   "new": "¡Se enfría la pasta, ven rápido!",
+   "why": "вычитка испанского: «la comida» — калька"
+  },
+  {
+   "id": 471,
+   "col": "example_es",
+   "old": "No tengo tiempo",
+   "new": "No hay ningún problema",
+   "why": "вычитка испанского: повтор 450 «no tengo tiempo»"
+  },
+  {
+   "id": 538,
+   "col": "example_es",
+   "old": "Me aburro",
+   "new": "Esta película es aburridísima",
+   "why": "вычитка испанского: нет слова карточки «aburrido»"
+  },
+  {
+   "id": 568,
+   "col": "example_es",
+   "old": "A veces voy al trabajo en bici",
+   "new": "A veces me despierto por la noche",
+   "why": "вычитка испанского: повтор «al trabajo en…»"
+  },
+  {
+   "id": 582,
+   "col": "example_es",
+   "old": "Este es mi periódico",
+   "new": "¿Has visto mi móvil?",
+   "why": "вычитка испанского: повтор «Este es mi…»"
+  },
+  {
+   "id": 657,
+   "col": "example_es",
+   "old": "Dilo otra vez",
+   "new": "¿Me lo explicas otra vez?",
+   "why": "вычитка испанского: «Dilo otra vez» — грубовато"
+  },
+  {
+   "id": 662,
+   "col": "example_es",
+   "old": "Hago pasta para comer",
+   "new": "Esta noche hago pasta con tomate",
+   "why": "вычитка испанского: «Hago pasta para comer» — учебниково"
+  },
+  {
+   "id": 677,
+   "col": "example_es",
+   "old": "Compra por internet",
+   "new": "Compro casi todo por internet",
+   "why": "вычитка испанского: «Compra por internet» — оборвано"
+  },
+  {
+   "id": 686,
+   "col": "example_es",
+   "old": "En el este hace mucho frío en invierno",
+   "new": "Su familia es de Europa del Este",
+   "why": "вычитка испанского: «En el este hace frío» — калька"
+  },
+  {
+   "id": 773,
+   "col": "example_es",
+   "old": "Lleva la mochila a la espalda",
+   "new": "Me duele la espalda",
+   "why": "вычитка испанского: «Lleva la mochila a la espalda» — учебниково"
+  },
+  {
+   "id": 782,
+   "col": "example_es",
+   "old": "Los sábados voy al mercado",
+   "new": "Los sábados hago la compra de toda la semana",
+   "why": "вычитка испанского: повтор 573 «el mercado»"
+  },
+  {
+   "id": 784,
+   "col": "example_es",
+   "old": "Es una lástima",
+   "new": "¡Qué pena, no puedo ir!",
+   "why": "вычитка испанского: «Es una lástima» — учебниково"
+  },
+  {
+   "id": 792,
+   "col": "example_es",
+   "old": "El barco zarpa",
+   "new": "El barco a Mallorca sale a las nueve",
+   "why": "вычитка испанского: «El barco zarpa» — книжно"
+  },
+  {
+   "id": 814,
+   "col": "example_es",
+   "old": "Está embarazada",
+   "new": "Mi hermana está embarazada de tres meses",
+   "why": "вычитка испанского: «Está embarazada» — без ситуации"
+  },
+  {
+   "id": 840,
+   "col": "example_es",
+   "old": "Me gusta cantar",
+   "new": "Siempre canta en la ducha",
+   "why": "вычитка испанского: «Me gusta cantar» — учебниково"
+  },
+  {
+   "id": 842,
+   "col": "example_es",
+   "old": "Va a esquiar",
+   "new": "He alquilado los esquís",
+   "why": "вычитка испанского: повтор 1043 «ir a esquiar»"
+  },
+  {
+   "id": 923,
+   "col": "example_es",
+   "old": "Juguemos al tenis",
+   "new": "¿Juegas al tenis?",
+   "why": "вычитка испанского: «Juguemos al tenis» — книжно"
+  },
+  {
+   "id": 941,
+   "col": "example_es",
+   "old": "Quedamos a las tres",
+   "new": "Me encontré con Pablo en el centro",
+   "why": "вычитка испанского: повтор «a las tres»"
+  },
+  {
+   "id": 963,
+   "col": "example_es",
+   "old": "Esta es nuestra casa",
+   "new": "Nuestra casa está al final de la calle",
+   "why": "вычитка испанского: повтор «Esta es … casa» (426)"
+  },
+  {
+   "id": 976,
+   "col": "example_es",
+   "old": "Olvido a menudo las llaves",
+   "new": "¡Se me ha olvidado el cumpleaños de mi madre!",
+   "why": "вычитка испанского: повтор «las llaves»"
+  },
+  {
+   "id": 1011,
+   "col": "example_es",
+   "old": "¿Dónde está el baño?",
+   "new": "El servicio está al fondo del pasillo",
+   "why": "вычитка испанского: повтор 223 «¿dónde está el baño?»"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
