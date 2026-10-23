@@ -1,0 +1,56 @@
+"""Вычитка польского, порция p031 (B2), 23.10: кальки и лишние местоимения → разговорный польский"""
+
+T = "вычитка польского: "
+
+FIXES = {
+    10768: (T + "«moja» — лишнее", {"example_pl": "Na urlopie przyjaciółka miała krótki romans z instruktorem surfingu"}),
+    10771: (T + "«swojego» — лишнее", {"example_pl": "Syn wciąż nie może sobie poradzić ze śmiercią psa"}),
+    10791: (T + "«Moja» — лишнее", {"example_pl": "Córka jest bardzo wybredna w jedzeniu"}),
+    10792: (T + "«Jazda … była lekkomyślna» — книжно", {"example_pl": "To było lekkomyślne wracać do domu rowerem w czasie burzy"}),
+    10803: (T + "«swojej» — лишнее", {"example_pl": "Dzięki determinacji w wieku sześćdziesięciu lat nauczył się hiszpańskiego"}),
+    10832: (T + "«Nasz» — лишнее", {"example_pl": "Kocur to samotnik, przychodzi do domu tylko jeść"}),
+    10885: (T + "«mój» — лишнее", {"example_pl": "W wieku siedemdziesięciu lat dziadek zdobył jeszcze Kilimandżaro"}),
+    10897: (T + "«moim» — лишнее", {"example_pl": "Zdjęcie w nowym paszporcie nie jest zbyt korzystne"}),
+    10900: (T + "«Mój» — лишнее", {"example_pl": "Starszy brat to strachajło, w wieku trzydziestu lat wciąż śpi przy zapalonym świetle"}),
+    10914: (T + "«Nasza» — лишнее", {"example_pl": "Kotka ma już dwanaście lat, ale wciąż jest figlarna jak kociak"}),
+    10917: (T + "«nasze mieszkanie jest» — калька", {"example_pl": "Syn od tygodni błaga o psa, ale mieszkanie mamy po prostu za małe"}),
+    10955: (T + "«Nasz» — лишнее", {"example_pl": "Nowy trener jest twardy, na treningu nie ma ani jednej przerwy"}),
+    10958: (T + "«mojego» — лишнее", {"example_pl": "Lekarz liczy na odrobinę rozsądku u taty, ale on po prostu dalej pali"}),
+    11006: (T + "«Mój» — лишнее", {"example_pl": "Brat nie ma wielkich ambicji, chce po prostu w spokoju pracować w ogrodzie"}),
+    11017: (T + "«mojego» — лишнее", {"example_pl": "Magik wyciągnął moją kartę z kieszeni kurtki męża, byłam kompletnie osłupiała"}),
+    11047: (T + "«mój» — лишнее", {"example_pl": "Miałem dziś w nocy dziwaczny sen: szef był pingwinem i grał na pianinie"}),
+    11210: (T + "«Sposób myślenia moich … niż mój» — громоздко", {"example_pl": "Rodzice mają zupełnie inny sposób myślenia o pieniądzach niż ja: oszczędzają każdy grosz"}),
+    11226: (T + "«mojego ojca» → «taty»", {"example_pl": "Prosić w banku o mały kredyt było dla taty upokorzeniem"}),
+    11228: (T + "«mojego» — лишнее", {"example_pl": "Dziadek czule nazywa brata nicponiem, ale i tak za każdym razem daje mu pieniądze"}),
+    11235: (T + "«Nasz … w domu» — коряво", {"example_pl": "Kocur to domowy rozrabiaka, codziennie o piątej rano wszystkich budzi"}),
+    11248: (T + "«Mój» — лишнее", {"example_pl": "Szwagier to snob, pije tylko wino droższe niż trzydzieści euro"}),
+    11263: (T + "«mojej» — лишнее", {"example_pl": "Pediatra przed zastrzykiem bardzo delikatnie wszystko wytłumaczyła córce"}),
+    11264: (T + "«nasz» — лишнее", {"example_pl": "Co wieczór pies radośnie macha ogonem, kiedy słyszy klucz w drzwiach"}),
+    11272: (T + "«Nasza» — лишнее", {"example_pl": "Kotka jest właściwie płochliwa, ale do dziadka jest bardzo przywiązana"}),
+    11274: (T + "«naszą paczkę» → «za nas»", {"example_pl": "Sąsiadka uprzejmie odebrała za nas paczkę, kiedy byliśmy na urlopie"}),
+    11277: (T + "«Mój» — лишнее", {"example_pl": "Brat ma bystry intelekt, ale nigdy nie może znaleźć kluczy"}),
+    11280: (T + "«Mój» — лишнее", {"example_pl": "Mały siostrzeniec to śmiałek, skacze z trzymetrowej wieży, chociaż ledwo umie pływać"}),
+    11284: (T + "«Mój» — лишнее", {"example_pl": "Mąż jest bardzo troskliwy, kiedy choruję, przynosi mi nawet zupę do łóżka"}),
+    11354: (T + "«Mój» — лишнее", {"example_pl": "Tata to uparciuch, woli trzy godziny jeździć w kółko, niż zapytać o drogę"}),
+    11387: (T + "«mój» — лишнее", {"example_pl": "Przy meczu zwykle spokojny mąż staje się prawdziwym narwańcem i krzyczy na telewizor"}),
+    11400: (T + "«mojego włoskiego kolegi» — коряво", {"example_pl": "Dla kolegi Włocha ananas na pizzy to po prostu coś barbarzyńskiego"}),
+    11409: (T + "«Nasz» — лишнее", {"example_pl": "Kocur prowadzi podwójne życie: u nas dostaje jedzenie, a u sąsiada nazywa się Moritz i też dostaje jedzenie"}),
+    11421: (T + "«Nasz» — лишнее", {"example_pl": "Pies niestrudzenie przynosi piłkę z powrotem, a po godzinie jestem bardziej zmęczony niż on"}),
+    11448: (T + "«mojego … naszego» — лишнее", {"example_pl": "Geniusz męża widać przede wszystkim przy pakowaniu: do bagażnika zmieści wszystko"}),
+    11467: (T + "неясно, кто «zna»", {"example_pl": "Obsesja syna na punkcie dinozaurów trwa już trzy lata, a on zna każdą nazwę"}),
+    11503: (T + "«jego» — лишнее", {"example_pl": "Dziadek patrzy na grządkę bardzo zmartwiony, bo pomidory w tym roku nie chcą się zaczerwienić"}),
+    11516: (T + "«jej» — лишнее", {"example_pl": "Szlochając, córka opowiedziała mi, że chomik uciekł z klatki"}),
+    11524: (T + "«Nasz» — лишнее", {"example_pl": "Kot to prawdziwy cwaniak: kuleje tak długo, aż ktoś da mu jedzenie"}),
+    11544: (T + "«W swoim dążeniu» — книжно", {"example_pl": "Chłopak tak dążył do tego, żeby zaimponować babci, że zjadł trzy kawałki tortu"}),
+    11547: (T + "«nasz» — лишнее", {"example_pl": "Odkąd jest dziecko, pies dostaje mniej uwagi i jest strasznie obrażony"}),
+    11553: (T + "«Nasi» — лишнее", {"example_pl": "Sąsiedzi są tak gościnni, że nigdy nie wychodzi się od nich bez kawałka ciasta"}),
+    11564: (T + "«Nasz» — лишнее", {"example_pl": "Kierowca autobusu jeździ w śniegu tak rozważnie, że dzieci i tak są punktualnie w szkole"}),
+    11579: (T + "«swoich» — лишнее", {"example_pl": "Mąż nie lubi mówić o uczuciach, woli upiec ciasto"}),
+    11609: (T + "«naszemu» — лишнее", {"example_pl": "Wesołość dzieci przy pierwszym śniegu udziela się nawet zrzędliwemu sąsiadowi"}),
+    11722: (T + "«mój» — лишнее", {"example_pl": "Po dwóch kieliszkach tequili wujek tańczył na stole"}),
+    11728: (T + "«smaczny owoc morza» — как из учебника", {"example_pl": "Homar jest drogi, ale pyszny"}),
+}
+
+REPLACE = []
+
+SPLIT_LATER = {}
