@@ -1,0 +1,156 @@
+{
+ "about": "QA: новые и изменённые строки, порция d02",
+ "edits": [
+  {
+   "id": 1665,
+   "col": "translation_en",
+   "old": "desire",
+   "new": "desire, mood",
+   "why": "проверка выборок: в примере «I'm not in the mood», а в W только «desire» — слово не узнаётся"
+  },
+  {
+   "id": 1665,
+   "col": "example_en",
+   "old": "I don't feel like it",
+   "new": "I'm not in the mood",
+   "why": "проверка выборок: в примере «I'm not in the mood», а в W только «desire» — слово не узнаётся"
+  },
+  {
+   "id": 1572,
+   "col": "translation_cs",
+   "old": "mladistvý, dospívající",
+   "new": "dospívající, mladý člověk",
+   "why": "проверка выборок: «mladistvý» — юридический термин (несовершеннолетний правонарушитель); в быту «dospívající»"
+  },
+  {
+   "id": 1572,
+   "col": "example_cs",
+   "old": "Mladiství se tady scházejí",
+   "new": "Dospívající se tady scházejí",
+   "why": "проверка выборок: «mladistvý» — юридический термин (несовершеннолетний правонарушитель); в быту «dospívající»"
+  },
+  {
+   "id": 2160,
+   "col": "example_en",
+   "old": "That's correct, though",
+   "new": "That's true, though",
+   "why": "проверка выборок: «correct» — не тот оттенок; «stimmt» = «true»"
+  },
+  {
+   "id": 2249,
+   "col": "example_en",
+   "old": "The processing of the application takes about three days",
+   "new": "Processing the application takes about three days",
+   "why": "проверка выборок: «The processing of …» — канцелярит"
+  },
+  {
+   "id": 1801,
+   "col": "example_cs",
+   "old": "Náš cíl cesty na léto je ještě otevřený, možná Chorvatsko",
+   "new": "Náš cíl cesty na léto ještě není jasný, možná Chorvatsko",
+   "why": "проверка выборок: «je ještě otevřený» — калька с «ist noch offen»"
+  },
+  {
+   "id": 2116,
+   "col": "example_ru",
+   "old": "С тех пор как я изменил управление временем, я наконец успеваю всё домашнее задание",
+   "new": "С тех пор как я изменил управление временем, я наконец успеваю сделать всё домашнее задание",
+   "why": "проверка выборок: «успеваю всё домашнее задание» — нет глагола «сделать»"
+  },
+  {
+   "id": 2116,
+   "col": "example_uk",
+   "old": "Відколи я змінив управління часом, я нарешті встигаю все домашнє завдання",
+   "new": "Відколи я змінив управління часом, я нарешті встигаю зробити все домашнє завдання",
+   "why": "проверка выборок: «успеваю всё домашнее задание» — нет глагола «сделать»"
+  },
+  {
+   "id": 2377,
+   "col": "example_de",
+   "old": "Mir fällt gerade ein guter Gedanke ein",
+   "new": "Mir fällt gerade eine gute Idee ein",
+   "why": "проверка выборок: «fällt ein guter Gedanke ein» — неживое сочетание; по-немецки «eine gute Idee»"
+  },
+  {
+   "id": 2377,
+   "col": "example_ru",
+   "old": "Мне только что пришла на ум хорошая мысль",
+   "new": "Мне только что пришла на ум хорошая идея",
+   "why": "проверка выборок: «fällt ein guter Gedanke ein» — неживое сочетание; по-немецки «eine gute Idee»"
+  },
+  {
+   "id": 2377,
+   "col": "example_uk",
+   "old": "Мені спала на думку гарна ідея",
+   "new": "Мені щойно спала на думку гарна ідея",
+   "why": "проверка выборок: «fällt ein guter Gedanke ein» — неживое сочетание; по-немецки «eine gute Idee»"
+  },
+  {
+   "id": 2377,
+   "col": "example_en",
+   "old": "A good idea came to mind",
+   "new": "A good idea has just come to mind",
+   "why": "проверка выборок: «fällt ein guter Gedanke ein» — неживое сочетание; по-немецки «eine gute Idee»"
+  },
+  {
+   "id": 2377,
+   "col": "example_tr",
+   "old": "Aklıma güzel bir fikir geldi",
+   "new": "Aklıma şimdi güzel bir fikir geldi",
+   "why": "проверка выборок: «fällt ein guter Gedanke ein» — неживое сочетание; по-немецки «eine gute Idee»"
+  },
+  {
+   "id": 2377,
+   "col": "example_pl",
+   "old": "Właśnie przychodzi mi do głowy dobra myśl",
+   "new": "Właśnie przychodzi mi do głowy dobry pomysł",
+   "why": "проверка выборок: «fällt ein guter Gedanke ein» — неживое сочетание; по-немецки «eine gute Idee»"
+  },
+  {
+   "id": 2377,
+   "col": "example_fr",
+   "old": "Une bonne idée me vient à l'esprit",
+   "new": "Une bonne idée vient de me venir à l'esprit",
+   "why": "проверка выборок: «fällt ein guter Gedanke ein» — неживое сочетание; по-немецки «eine gute Idee»"
+  },
+  {
+   "id": 2377,
+   "col": "example_cs",
+   "old": "Zrovna mě napadla dobrá myšlenka",
+   "new": "Zrovna mě napadl dobrý nápad",
+   "why": "проверка выборок: «fällt ein guter Gedanke ein» — неживое сочетание; по-немецки «eine gute Idee»"
+  },
+  {
+   "id": 2434,
+   "col": "example_tr",
+   "old": "Bu işi kolaylaştırıyor",
+   "new": "Bu işimi kolaylaştırıyor",
+   "why": "проверка выборок: потеряно «mir» — «облегчает мне»"
+  },
+  {
+   "id": 2670,
+   "col": "example_ru",
+   "old": "Фильм заставил меня задуматься",
+   "new": "После этого фильма я ходил совсем задумчивый",
+   "why": "проверка выборок: «задуматься» — слово W «задумчивый/замислений» не узнаётся"
+  },
+  {
+   "id": 2670,
+   "col": "example_uk",
+   "old": "Фільм змусив мене замислитися",
+   "new": "Після цього фільму я ходив зовсім замислений",
+   "why": "проверка выборок: «задуматься» — слово W «задумчивый/замислений» не узнаётся"
+  },
+  {
+   "id": 2587,
+   "col": "example_fr",
+   "old": "Nous y arriverons d'une manière ou d'une autre",
+   "new": "On y arrivera d'une manière ou d'une autre",
+   "why": "проверка выборок: «Nous y arriverons» — книжно для бытовой фразы"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
