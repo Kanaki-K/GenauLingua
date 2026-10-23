@@ -1,0 +1,849 @@
+{
+ "about": "вычитка немецкого p025 (B1)",
+ "edits": [
+  {
+   "id": 17495,
+   "col": "example_de",
+   "old": "Der Roboter arbeitet sehr schnell",
+   "new": "Bei uns saugt ein kleiner Roboter jeden Tag den Boden",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17495,
+   "col": "example_ru",
+   "old": "Робот работает очень быстро",
+   "new": "У нас каждый день пол пылесосит маленький робот",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17495,
+   "col": "example_uk",
+   "old": "Робот працює дуже швидко",
+   "new": "У нас щодня підлогу пилососить маленький робот",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17495,
+   "col": "example_en",
+   "old": "The robot works very fast",
+   "new": "At our place a little robot vacuums the floor every day",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17495,
+   "col": "example_tr",
+   "old": "Robot çok hızlı çalışıyor",
+   "new": "Bizde her gün küçük bir robot yeri süpürüyor",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17495,
+   "col": "example_pl",
+   "old": "Ten robot pracuje bardzo szybko",
+   "new": "U nas codziennie podłogę odkurza mały robot",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17495,
+   "col": "example_it",
+   "old": "Il robot lavora molto velocemente",
+   "new": "Da noi un piccolo robot aspira il pavimento ogni giorno",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17495,
+   "col": "example_es",
+   "old": "El robot trabaja muy rápido",
+   "new": "En casa un pequeño robot aspira el suelo todos los días",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17495,
+   "col": "example_fr",
+   "old": "Le robot travaille très vite",
+   "new": "Chez nous, un petit robot passe l'aspirateur tous les jours",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17495,
+   "col": "example_cs",
+   "old": "Robot pracuje velmi rychle",
+   "new": "U nás každý den vysává podlahu malý robot",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17496,
+   "col": "example_de",
+   "old": "Die Aufnahme ist sehr gut",
+   "new": "Auf dieser Aufnahme vom Urlaub sieht man das ganze Tal",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17496,
+   "col": "example_ru",
+   "old": "Запись очень хорошая",
+   "new": "На этом снимке из отпуска видна вся долина",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17496,
+   "col": "example_uk",
+   "old": "Запис дуже хороший",
+   "new": "На цьому знімку з відпустки видно всю долину",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17496,
+   "col": "example_en",
+   "old": "The recording is very good",
+   "new": "In this photo from the holiday you can see the whole valley",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17496,
+   "col": "example_tr",
+   "old": "Kayıt çok iyi",
+   "new": "Tatildeki bu fotoğrafta bütün vadi görünüyor",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17496,
+   "col": "example_pl",
+   "old": "To nagranie jest bardzo dobre",
+   "new": "Na tym zdjęciu z urlopu widać całą dolinę",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17496,
+   "col": "example_it",
+   "old": "La registrazione è molto buona",
+   "new": "In questa foto delle vacanze si vede tutta la valle",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17496,
+   "col": "example_es",
+   "old": "La grabación es muy buena",
+   "new": "En esta foto de las vacaciones se ve todo el valle",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17496,
+   "col": "example_fr",
+   "old": "L'enregistrement est très bon",
+   "new": "Sur cette photo des vacances, on voit toute la vallée",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17496,
+   "col": "example_cs",
+   "old": "Nahrávka je velmi dobrá",
+   "new": "Na tomhle snímku z dovolené je vidět celé údolí",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17528,
+   "col": "example_de",
+   "old": "Das Radar erfasst die Flugzeuge",
+   "new": "Auf dem Radar in der Wetter-App sieht man, dass gleich Regen kommt",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17528,
+   "col": "example_ru",
+   "old": "Радар отслеживает самолёты",
+   "new": "На радаре в приложении погоды видно, что скоро пойдёт дождь",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17528,
+   "col": "example_uk",
+   "old": "Радар відслідковує літаки",
+   "new": "На радарі в застосунку погоди видно, що скоро піде дощ",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17528,
+   "col": "example_en",
+   "old": "The radar tracks the planes",
+   "new": "On the radar in the weather app you can see rain is on its way",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17528,
+   "col": "example_tr",
+   "old": "Radar uçakları takip ediyor",
+   "new": "Hava durumu uygulamasındaki radarda birazdan yağmur geleceği görünüyor",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17528,
+   "col": "example_pl",
+   "old": "Radar wykrywa samoloty",
+   "new": "Na radarze w aplikacji pogodowej widać, że zaraz będzie padać",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17528,
+   "col": "example_it",
+   "old": "Il radar rileva gli aerei",
+   "new": "Sul radar dell'app meteo si vede che tra poco piove",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17528,
+   "col": "example_es",
+   "old": "El radar detecta los aviones",
+   "new": "En el radar de la app del tiempo se ve que va a llover enseguida",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17528,
+   "col": "example_fr",
+   "old": "Le radar détecte les avions",
+   "new": "Sur le radar de l'appli météo, on voit que la pluie arrive",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17528,
+   "col": "example_cs",
+   "old": "Radar zachycuje letadla",
+   "new": "Na radaru v aplikaci počasí je vidět, že bude hned pršet",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17529,
+   "col": "example_de",
+   "old": "Die Datenbank enthält alle Kundeninformationen",
+   "new": "Beim Arzt bin ich plötzlich nicht mehr in der Datenbank",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; офис"
+  },
+  {
+   "id": 17529,
+   "col": "example_ru",
+   "old": "База данных содержит всю информацию о клиентах",
+   "new": "У врача меня вдруг больше нет в базе данных",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; офис"
+  },
+  {
+   "id": 17529,
+   "col": "example_uk",
+   "old": "База даних містить всю інформацію про клієнтів",
+   "new": "У лікаря мене раптом більше немає в базі даних",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; офис"
+  },
+  {
+   "id": 17529,
+   "col": "example_en",
+   "old": "The database contains all customer information",
+   "new": "At the doctor's I'm suddenly not in the database any more",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; офис"
+  },
+  {
+   "id": 17529,
+   "col": "example_tr",
+   "old": "Veri tabanı tüm müşteri bilgilerini içerir",
+   "new": "Doktorda birden veritabanında görünmüyorum",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; офис"
+  },
+  {
+   "id": 17529,
+   "col": "example_pl",
+   "old": "Baza danych zawiera wszystkie informacje o klientach",
+   "new": "U lekarza nagle nie ma mnie już w bazie danych",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; офис"
+  },
+  {
+   "id": 17529,
+   "col": "example_it",
+   "old": "Il database contiene tutte le informazioni sui clienti",
+   "new": "Dal medico all'improvviso non sono più nel database",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; офис"
+  },
+  {
+   "id": 17529,
+   "col": "example_es",
+   "old": "La base de datos contiene toda la información de los clientes",
+   "new": "En el médico de repente ya no estoy en la base de datos",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; офис"
+  },
+  {
+   "id": 17529,
+   "col": "example_fr",
+   "old": "La base de données contient toutes les informations sur les clients",
+   "new": "Chez le médecin, je ne suis soudain plus dans la base de données",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; офис"
+  },
+  {
+   "id": 17529,
+   "col": "example_cs",
+   "old": "Databáze obsahuje všechny informace o zákaznících",
+   "new": "U doktora najednou nejsem v databázi",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза; офис"
+  },
+  {
+   "id": 17531,
+   "col": "example_de",
+   "old": "Der Draht ist gerissen",
+   "new": "Mit einem Stück Draht habe ich den Auspuff provisorisch festgemacht",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17531,
+   "col": "example_ru",
+   "old": "Провод порвался",
+   "new": "Куском проволоки я временно закрепил глушитель",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17531,
+   "col": "example_uk",
+   "old": "Дріт розірвався",
+   "new": "Шматком дроту я тимчасово закріпив глушник",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17531,
+   "col": "example_en",
+   "old": "The wire is broken",
+   "new": "I fixed the exhaust temporarily with a bit of wire",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17531,
+   "col": "example_tr",
+   "old": "Tel koptu",
+   "new": "Egzozu bir parça telle geçici olarak bağladım",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17531,
+   "col": "example_pl",
+   "old": "Drut pękł",
+   "new": "Kawałkiem drutu prowizorycznie przymocowałem tłumik",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17531,
+   "col": "example_it",
+   "old": "Il filo si è spezzato",
+   "new": "Ho fissato provvisoriamente la marmitta con un pezzo di filo di ferro",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17531,
+   "col": "example_es",
+   "old": "El alambre se ha roto",
+   "new": "Sujeté el tubo de escape provisionalmente con un trozo de alambre",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17531,
+   "col": "example_fr",
+   "old": "Le fil de fer s'est cassé",
+   "new": "J'ai fixé le pot d'échappement provisoirement avec un bout de fil de fer",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17531,
+   "col": "example_cs",
+   "old": "Drát praskl",
+   "new": "Kouskem drátu jsem provizorně přidělal výfuk",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17775,
+   "col": "example_de",
+   "old": "Der Handel läuft gut",
+   "new": "Mein Onkel hat einen kleinen Handel mit gebrauchten Fahrrädern",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17775,
+   "col": "example_ru",
+   "old": "Торговля идёт хорошо",
+   "new": "У моего дяди небольшая торговля подержанными велосипедами",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17775,
+   "col": "example_uk",
+   "old": "Торгівля йде добре",
+   "new": "У мого дядька невелика торгівля вживаними велосипедами",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17775,
+   "col": "example_en",
+   "old": "Trade is going well",
+   "new": "My uncle has a little business trading second-hand bikes",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17775,
+   "col": "example_tr",
+   "old": "Ticaret iyi gidiyor",
+   "new": "Amcamın küçük bir ikinci el bisiklet ticareti var",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17775,
+   "col": "example_pl",
+   "old": "Handel idzie dobrze",
+   "new": "Mój wujek ma mały handel używanymi rowerami",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17775,
+   "col": "example_it",
+   "old": "Il commercio va bene",
+   "new": "Mio zio ha un piccolo commercio di bici usate",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17775,
+   "col": "example_es",
+   "old": "El comercio va bien",
+   "new": "Mi tío tiene un pequeño negocio de compraventa de bicis usadas",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17775,
+   "col": "example_fr",
+   "old": "Le commerce marche bien",
+   "new": "Mon oncle fait un petit commerce de vélos d'occasion",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17775,
+   "col": "example_cs",
+   "old": "Obchod jde dobře",
+   "new": "Můj strejda má malý obchod s ojetými koly",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17788,
+   "col": "example_de",
+   "old": "Die Produktion steigt jedes Jahr",
+   "new": "Die Produktion von dem Film hat drei Jahre gedauert",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17788,
+   "col": "example_ru",
+   "old": "Производство растёт каждый год",
+   "new": "Съёмки фильма длились три года",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17788,
+   "col": "example_uk",
+   "old": "Виробництво зростає кожного року",
+   "new": "Зйомки фільму тривали три роки",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17788,
+   "col": "example_en",
+   "old": "Production increases every year",
+   "new": "The production of the film took three years",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17788,
+   "col": "example_tr",
+   "old": "Üretim her yıl artıyor",
+   "new": "Filmin yapımı üç yıl sürdü",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17788,
+   "col": "example_pl",
+   "old": "Produkcja rośnie każdego roku",
+   "new": "Produkcja filmu trwała trzy lata",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17788,
+   "col": "example_it",
+   "old": "La produzione aumenta ogni anno",
+   "new": "La produzione del film è durata tre anni",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17788,
+   "col": "example_es",
+   "old": "La producción aumenta cada año",
+   "new": "La producción de la película duró tres años",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17788,
+   "col": "example_fr",
+   "old": "La production augmente chaque année",
+   "new": "La production du film a duré trois ans",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17788,
+   "col": "example_cs",
+   "old": "Výroba každý rok roste",
+   "new": "Produkce filmu trvala tři roky",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17917,
+   "col": "example_de",
+   "old": "Das Universum ist unendlich groß",
+   "new": "Wenn ich nachts an das Universum denke, fühle ich mich ganz klein",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17917,
+   "col": "example_ru",
+   "old": "Вселенная бесконечно велика",
+   "new": "Когда ночью думаю о вселенной, чувствую себя совсем маленьким",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17917,
+   "col": "example_uk",
+   "old": "Всесвіт нескінченно великий",
+   "new": "Коли вночі думаю про всесвіт, почуваюся зовсім маленьким",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17917,
+   "col": "example_en",
+   "old": "The universe is infinitely large",
+   "new": "When I think about the universe at night I feel tiny",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17917,
+   "col": "example_tr",
+   "old": "Evren sonsuz derecede büyük",
+   "new": "Gece evreni düşününce kendimi çok küçük hissediyorum",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17917,
+   "col": "example_pl",
+   "old": "Wszechświat jest nieskończenie wielki",
+   "new": "Kiedy w nocy myślę o wszechświecie, czuję się malutki",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17917,
+   "col": "example_it",
+   "old": "L'universo è infinitamente grande",
+   "new": "Quando di notte penso all'universo mi sento piccolissimo",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17917,
+   "col": "example_es",
+   "old": "El universo es infinitamente grande",
+   "new": "Cuando de noche pienso en el universo me siento muy pequeño",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17917,
+   "col": "example_fr",
+   "old": "L'univers est infiniment grand",
+   "new": "Quand je pense à l'univers la nuit, je me sens tout petit",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17917,
+   "col": "example_cs",
+   "old": "Vesmír je nekonečně velký",
+   "new": "Když v noci myslím na vesmír, připadám si úplně malý",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17919,
+   "col": "example_de",
+   "old": "Der Wissenschaftler macht Experimente",
+   "new": "Unser Sohn will Wissenschaftler werden und mischt ständig Sachen in der Küche",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17919,
+   "col": "example_ru",
+   "old": "Учёный проводит опыты",
+   "new": "Наш сын хочет стать учёным и постоянно что-то смешивает на кухне",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17919,
+   "col": "example_uk",
+   "old": "Вчений проводить експерименти",
+   "new": "Наш син хоче стати науковцем і постійно щось змішує на кухні",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17919,
+   "col": "example_en",
+   "old": "The scientist does experiments",
+   "new": "Our son wants to be a scientist and is always mixing things in the kitchen",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17919,
+   "col": "example_tr",
+   "old": "Bilim insanı deneyler yapıyor",
+   "new": "Oğlumuz bilim insanı olmak istiyor, mutfakta sürekli bir şeyler karıştırıyor",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17919,
+   "col": "example_pl",
+   "old": "Naukowiec przeprowadza eksperymenty",
+   "new": "Nasz syn chce zostać naukowcem i ciągle coś miesza w kuchni",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17919,
+   "col": "example_it",
+   "old": "Lo scienziato fa esperimenti",
+   "new": "Nostro figlio vuole fare lo scienziato e mescola sempre roba in cucina",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17919,
+   "col": "example_es",
+   "old": "El científico hace experimentos",
+   "new": "Nuestro hijo quiere ser científico y siempre está mezclando cosas en la cocina",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17919,
+   "col": "example_fr",
+   "old": "Le scientifique fait des expériences",
+   "new": "Notre fils veut devenir scientifique et mélange sans arrêt des trucs dans la cuisine",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17919,
+   "col": "example_cs",
+   "old": "Vědec dělá pokusy",
+   "new": "Náš syn chce být vědcem a pořád v kuchyni něco míchá",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17936,
+   "col": "example_de",
+   "old": "Dynamit ist sehr gefährlich",
+   "new": "Diese Chilisoße ist das reinste Dynamit!",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17936,
+   "col": "example_ru",
+   "old": "Динамит очень опасен",
+   "new": "Этот соус чили — чистый динамит!",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17936,
+   "col": "example_uk",
+   "old": "Динаміт дуже небезпечний",
+   "new": "Цей соус чилі — чистий динаміт!",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17936,
+   "col": "example_en",
+   "old": "Dynamite is very dangerous",
+   "new": "This chilli sauce is pure dynamite!",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17936,
+   "col": "example_tr",
+   "old": "Dinamit çok tehlikelidir",
+   "new": "Bu acı sos resmen dinamit!",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17936,
+   "col": "example_pl",
+   "old": "Dynamit jest bardzo niebezpieczny",
+   "new": "Ten sos chili to czysty dynamit!",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17936,
+   "col": "example_it",
+   "old": "La dinamite è molto pericolosa",
+   "new": "Questa salsa al peperoncino è dinamite pura!",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17936,
+   "col": "example_es",
+   "old": "La dinamita es muy peligrosa",
+   "new": "¡Esta salsa picante es pura dinamita!",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17936,
+   "col": "example_fr",
+   "old": "La dynamite est très dangereuse",
+   "new": "Cette sauce piquante, c'est de la vraie dynamite !",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17936,
+   "col": "example_cs",
+   "old": "Dynamit je velmi nebezpečný",
+   "new": "Tahle chilli omáčka je čistý dynamit!",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17989,
+   "col": "example_de",
+   "old": "Die Gleichung hat mehrere Lösungen",
+   "new": "Bei den Hausaufgaben verstehe ich diese Gleichung einfach nicht",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17989,
+   "col": "example_ru",
+   "old": "Уравнение имеет несколько решений",
+   "new": "В домашке я никак не пойму это уравнение",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17989,
+   "col": "example_uk",
+   "old": "Рівняння має кілька розв'язків",
+   "new": "У домашньому завданні я ніяк не зрозумію це рівняння",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17989,
+   "col": "example_en",
+   "old": "The equation has several solutions",
+   "new": "I just don't understand this equation in the homework",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17989,
+   "col": "example_tr",
+   "old": "Denklemin birkaç çözümü var",
+   "new": "Ödevdeki bu denklemi bir türlü anlamıyorum",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17989,
+   "col": "example_pl",
+   "old": "To równanie ma kilka rozwiązań",
+   "new": "W zadaniu domowym w ogóle nie rozumiem tego równania",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17989,
+   "col": "example_it",
+   "old": "L'equazione ha più soluzioni",
+   "new": "Nei compiti non capisco proprio questa equazione",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17989,
+   "col": "example_es",
+   "old": "La ecuación tiene varias soluciones",
+   "new": "En los deberes no entiendo esta ecuación",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17989,
+   "col": "example_fr",
+   "old": "L'équation a plusieurs solutions",
+   "new": "Dans les devoirs, je ne comprends pas du tout cette équation",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 17989,
+   "col": "example_cs",
+   "old": "Ta rovnice má několik řešení",
+   "new": "V úkolu té rovnici vůbec nerozumím",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 18192,
+   "col": "example_de",
+   "old": "Das Fenster hat ein Gitter",
+   "new": "Vor den Kellerfenstern sind Gitter gegen Einbrecher",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 18192,
+   "col": "example_ru",
+   "old": "На окне решётка",
+   "new": "На подвальных окнах решётки от воров",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 18192,
+   "col": "example_uk",
+   "old": "На вікні решітка",
+   "new": "На вікнах підвалу решітки від злодіїв",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 18192,
+   "col": "example_en",
+   "old": "The window has bars",
+   "new": "There are bars on the cellar windows to keep burglars out",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 18192,
+   "col": "example_tr",
+   "old": "Pencerenin parmaklığı var",
+   "new": "Bodrum pencerelerinde hırsızlara karşı parmaklık var",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 18192,
+   "col": "example_pl",
+   "old": "W oknie jest krata",
+   "new": "W oknach piwnicy są kraty przeciw złodziejom",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 18192,
+   "col": "example_it",
+   "old": "La finestra ha una grata",
+   "new": "Alle finestre della cantina ci sono le grate contro i ladri",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 18192,
+   "col": "example_es",
+   "old": "La ventana tiene una reja",
+   "new": "En las ventanas del sótano hay rejas contra los ladrones",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 18192,
+   "col": "example_fr",
+   "old": "La fenêtre a une grille",
+   "new": "Il y a des grilles aux fenêtres de la cave contre les cambrioleurs",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  },
+  {
+   "id": 18192,
+   "col": "example_cs",
+   "old": "To okno má mříž",
+   "new": "Na sklepních oknech jsou mříže proti zlodějům",
+   "why": "вычитка немецкого: учебная заглушка → живая бытовая фраза"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
