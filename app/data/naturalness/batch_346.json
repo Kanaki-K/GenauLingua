@@ -1,0 +1,86 @@
+{
+ "about": "QA: новые и изменённые строки, порция d01",
+ "edits": [
+  {
+   "id": 280,
+   "col": "example_en",
+   "old": "I'm out of form right now",
+   "new": "I'm out of shape at the moment",
+   "why": "проверка выборок: «out of form» не по-британски; нужно «out of shape»"
+  },
+  {
+   "id": 287,
+   "col": "example_en",
+   "old": "The room is available",
+   "new": "The room is free",
+   "why": "проверка выборок: «available» нет в W; слово должно узнаваться"
+  },
+  {
+   "id": 521,
+   "col": "example_ru",
+   "old": "Ты забыл учебник? Можем смотреть вместе",
+   "new": "Ты забыл учебник? Можем вместе посмотреть в мой",
+   "why": "проверка выборок: «можем смотреть вместе» — оборвано, во что смотреть; по смыслу «заглянуть в мой»"
+  },
+  {
+   "id": 521,
+   "col": "example_uk",
+   "old": "Ти забув підручник? Можемо дивитися разом",
+   "new": "Ти забув підручник? Можемо разом подивитися в мій",
+   "why": "проверка выборок: «можем смотреть вместе» — оборвано, во что смотреть; по смыслу «заглянуть в мой»"
+  },
+  {
+   "id": 521,
+   "col": "example_cs",
+   "old": "Zapomněl jsi učebnici? Můžeme se dívat spolu",
+   "new": "Zapomněl jsi učebnici? Můžeme se dívat spolu do mojí",
+   "why": "проверка выборок: «можем смотреть вместе» — оборвано, во что смотреть; по смыслу «заглянуть в мой»"
+  },
+  {
+   "id": 202,
+   "col": "example_fr",
+   "old": "Alors nous le ferons simplement demain",
+   "new": "Alors on le fera demain, tout simplement",
+   "why": "проверка выборок: «nous le ferons simplement demain» — книжно, не разговор"
+  },
+  {
+   "id": 795,
+   "col": "example_pl",
+   "old": "To jest złe",
+   "new": "To źle",
+   "why": "проверка выборок: «To jest złe» — оценка морали; «Das ist schlecht» = «To źle»"
+  },
+  {
+   "id": 1009,
+   "col": "example_uk",
+   "old": "Пральна машина працює",
+   "new": "Пральна машина зараз працює",
+   "why": "проверка выборок: потеряно gerade «сейчас»"
+  },
+  {
+   "id": 1009,
+   "col": "example_en",
+   "old": "The washing machine is running",
+   "new": "The washing machine is on at the moment",
+   "why": "проверка выборок: потеряно gerade «сейчас»"
+  },
+  {
+   "id": 1054,
+   "col": "example_en",
+   "old": "My home town is a small village, but I work in the city",
+   "new": "Where I live is a small village, but I work in the city",
+   "why": "проверка выборок: «home town» нет в W (место жительства) и значит другое — родной город"
+  },
+  {
+   "id": 1445,
+   "col": "example_en",
+   "old": "I go to the hairdresser",
+   "new": "I'm going to the hairdresser's",
+   "why": "проверка выборок: британское «to the hairdresser's», и действие сейчас"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
