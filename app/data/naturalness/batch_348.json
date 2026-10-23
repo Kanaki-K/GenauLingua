@@ -1,0 +1,135 @@
+{
+ "about": "QA: новые и изменённые строки, порция d03",
+ "edits": [
+  {
+   "id": 2773,
+   "col": "example_en",
+   "old": "You should be more considerate",
+   "new": "You should show more consideration for others",
+   "why": "проверка выборок: слово W (consideration / уважение / повага) в примере не узнаётся; uk «повинен» — калька"
+  },
+  {
+   "id": 2773,
+   "col": "example_ru",
+   "old": "Тебе следует больше считаться с другими",
+   "new": "Тебе следует проявлять больше уважения к другим",
+   "why": "проверка выборок: слово W (consideration / уважение / повага) в примере не узнаётся; uk «повинен» — калька"
+  },
+  {
+   "id": 2773,
+   "col": "example_uk",
+   "old": "Ти повинен більше зважати на інших",
+   "new": "Тобі варто виявляти більше поваги до інших",
+   "why": "проверка выборок: слово W (consideration / уважение / повага) в примере не узнаётся; uk «повинен» — калька"
+  },
+  {
+   "id": 2902,
+   "col": "example_ru",
+   "old": "Свидетельство о рождении я перевёл в бюро переводов у вокзала",
+   "new": "Свидетельство о рождении мне перевели в бюро переводов у вокзала",
+   "why": "проверка выборок: «übersetzen lassen» — перевели в бюро, а не сам"
+  },
+  {
+   "id": 2902,
+   "col": "example_uk",
+   "old": "Свідоцтво про народження я переклав у бюро перекладів біля вокзалу",
+   "new": "Свідоцтво про народження мені переклали в бюро перекладів біля вокзалу",
+   "why": "проверка выборок: «übersetzen lassen» — перевели в бюро, а не сам"
+  },
+  {
+   "id": 2902,
+   "col": "example_pl",
+   "old": "Akt urodzenia przetłumaczyłem w biurze tłumaczeń przy dworcu",
+   "new": "Akt urodzenia dałem do przetłumaczenia w biurze tłumaczeń przy dworcu",
+   "why": "проверка выборок: «übersetzen lassen» — перевели в бюро, а не сам"
+  },
+  {
+   "id": 2958,
+   "col": "example_fr",
+   "old": "Le t-shirt ne coûte que cinq euros, mais les frais de livraison depuis la Chine sont deux fois plus chers",
+   "new": "Le t-shirt ne coûte que cinq euros, mais les frais de livraison depuis la Chine sont deux fois plus élevés",
+   "why": "проверка выборок: о расходах — «élevés», не «chers»"
+  },
+  {
+   "id": 2921,
+   "col": "example_en",
+   "old": "When it's icy the risk of accident is so high that I'd rather take the bus",
+   "new": "When it's icy the risk of an accident is so high that I'd rather take the bus",
+   "why": "проверка выборок: нет артикля — «the risk of an accident»"
+  },
+  {
+   "id": 6528,
+   "col": "example_uk",
+   "old": "Грошей мало",
+   "new": "Грошей обмаль",
+   "why": "проверка выборок: слово W «обмаль» узнаётся лучше «мало»"
+  },
+  {
+   "id": 6566,
+   "col": "example_en",
+   "old": "The picture hangs crooked on the wall",
+   "new": "The picture is hanging crooked on the wall",
+   "why": "проверка выборок: «hangs crooked» — нужно продолженное время"
+  },
+  {
+   "id": 6625,
+   "col": "example_en",
+   "old": "You're surely hungry after the journey",
+   "new": "You'll certainly be hungry after the journey",
+   "why": "проверка выборок: «You're surely hungry» — не по-английски"
+  },
+  {
+   "id": 6882,
+   "col": "example_uk",
+   "old": "У мене є ще трохи часу у проміжку",
+   "new": "Між справами в мене ще є трохи часу",
+   "why": "проверка выборок: «у проміжку» — неживо"
+  },
+  {
+   "id": 7033,
+   "col": "example_cs",
+   "old": "Tento týden jsem šel několikrát do posilovny",
+   "new": "Tento týden jsem byl několikrát v posilovně",
+   "why": "проверка выборок: «šel jsem do posilovny» несколько раз — по-чешски «byl jsem v posilovně»"
+  },
+  {
+   "id": 7077,
+   "col": "example_uk",
+   "old": "Художник формує глину своїми руками",
+   "new": "Художник ліпить із глини своїми руками",
+   "why": "проверка выборок: «формує глину» — неживо; слово W «ліпити»"
+  },
+  {
+   "id": 7129,
+   "col": "example_ru",
+   "old": "Я надеюсь, что я пройду через это сложное время",
+   "new": "Надеюсь, я пройду через это трудное время",
+   "why": "проверка выборок: «Я надеюсь, что я…» — двойное «я»"
+  },
+  {
+   "id": 7129,
+   "col": "example_uk",
+   "old": "Я сподіваюсь, що я пройду через цей складний час",
+   "new": "Сподіваюся, я пройду через цей важкий час",
+   "why": "проверка выборок: «Я надеюсь, что я…» — двойное «я»"
+  },
+  {
+   "id": 7218,
+   "col": "example_pl",
+   "old": "Muszę najpierw przetworzyć tę informację",
+   "new": "Muszę najpierw przetrawić tę informację",
+   "why": "проверка выборок: «przetworzyć informację» — о машине; о человеке «przetrawić» (есть в W)"
+  },
+  {
+   "id": 6925,
+   "col": "example_en",
+   "old": "That's virtually a guarantee",
+   "new": "That's practically a guarantee",
+   "why": "проверка выборок: в W «practically», в примере «virtually»"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
