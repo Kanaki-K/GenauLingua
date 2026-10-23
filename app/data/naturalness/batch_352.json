@@ -1,0 +1,130 @@
+{
+ "about": "QA: новые и изменённые строки, порция d07",
+ "edits": [
+  {
+   "id": 11244,
+   "col": "example_en",
+   "old": "Before her driving test the tension is huge for my daughter",
+   "new": "Before her driving test my daughter is under enormous strain",
+   "why": "проверка выборок: «the tension is huge for my daughter» — неестественно"
+  },
+  {
+   "id": 11262,
+   "col": "example_es",
+   "old": "Un gracias sincero del jefe es para mí más aprecio que cualquier prima",
+   "new": "Un gracias sincero del jefe es para mí una muestra de aprecio mayor que cualquier prima",
+   "why": "проверка выборок: «es para mí más aprecio» — не по-испански"
+  },
+  {
+   "id": 11391,
+   "col": "example_ru",
+   "old": "Бабушка совсем не ханжа: она рассказывает самые неприличные анекдоты во всей семье",
+   "new": "Бабушка совсем не ханжа: она рассказывает самые озорные анекдоты во всей семье",
+   "why": "проверка выборок: «frechsten» — озорные, а не «неприличные»"
+  },
+  {
+   "id": 11413,
+   "col": "example_ru",
+   "old": "Дед, танцующий на свадьбе, был таким уморительным, что видео уже переслали тысяча человек",
+   "new": "Дед, танцующий на свадьбе, был таким уморительным, что видео уже переслала тысяча человек",
+   "why": "проверка выборок: «тысяча» — подлежащее в ед. числе («переслала»); tr — нужен винительный «videoyu»"
+  },
+  {
+   "id": 11413,
+   "col": "example_uk",
+   "old": "Дід, що танцював на весіллі, був такий страшенно смішний, що відео вже переслали тисяча людей",
+   "new": "Дід, що танцював на весіллі, був такий страшенно смішний, що відео вже переслала тисяча людей",
+   "why": "проверка выборок: «тысяча» — подлежащее в ед. числе («переслала»); tr — нужен винительный «videoyu»"
+  },
+  {
+   "id": 11413,
+   "col": "example_tr",
+   "old": "Dedemin düğünde dans etmesi o kadar komikti ki video bin kişi paylaştı",
+   "new": "Dedemin düğünde dans etmesi o kadar komikti ki videoyu bin kişi paylaştı",
+   "why": "проверка выборок: «тысяча» — подлежащее в ед. числе («переслала»); tr — нужен винительный «videoyu»"
+  },
+  {
+   "id": 11474,
+   "col": "example_cs",
+   "old": "Ta ryba voní trochu pochybně, radši ji nebudeme jíst",
+   "new": "Ta ryba má trochu pochybný zápach, radši ji nebudeme jíst",
+   "why": "проверка выборок: «voní» — пахнет приятно; о подозрительной рыбе так не говорят"
+  },
+  {
+   "id": 11495,
+   "col": "example_tr",
+   "old": "Kimse yanılmaz değil, hepimiz zaman zaman hata yapıyoruz",
+   "new": "Kimse hatasız değil, hepimiz zaman zaman hata yapıyoruz",
+   "why": "проверка выборок: «Kimse yanılmaz değil» — двойное отрицание; слово W «hatasız»"
+  },
+  {
+   "id": 11504,
+   "col": "example_it",
+   "old": "Senza giacca alla fermata dell'autobus ho un freddo pietoso",
+   "new": "Senza giacca alla fermata dell'autobus tremo penosamente dal freddo",
+   "why": "проверка выборок: «ho un freddo pietoso» — не по-итальянски"
+  },
+  {
+   "id": 11543,
+   "col": "example_cs",
+   "old": "Je pobuřující, že školník pořád vyhání děti z hřiště",
+   "new": "Přijde mi pobuřující, že domovník pořád vyhání děti z hřiště",
+   "why": "проверка выборок: Hausmeister у дома — «domovník», не «školník»; потеряно «finde ich»"
+  },
+  {
+   "id": 11745,
+   "col": "example_uk",
+   "old": "До смаженої ковбаски в Тюрингії обов'язково належить гостра гірчиця",
+   "new": "До смаженої ковбаски в Тюрингії обов'язково подають гостру гірчицю",
+   "why": "проверка выборок: «обов'язково належить» — калька с «gehört»"
+  },
+  {
+   "id": 11870,
+   "col": "example_pl",
+   "old": "Żeberka dzieci jedzą zupełnie bez sztućców, a potem trzeba myć całą twarz",
+   "new": "Żeberka dzieci jedzą zupełnie bez sztućców, a potem muszę im myć całe twarze",
+   "why": "проверка выборок: потеряно «им» — моет родитель, а не кто-то"
+  },
+  {
+   "id": 11870,
+   "col": "example_cs",
+   "old": "Žebírka jedí děti úplně bez příboru a potom se musí mýt celý obličej",
+   "new": "Žebírka jedí děti úplně bez příboru a potom jim musím umýt celý obličej",
+   "why": "проверка выборок: потеряно «им» — моет родитель, а не кто-то"
+  },
+  {
+   "id": 11915,
+   "col": "example_tr",
+   "old": "Ekmek için hamur en az iki saat fermente olmalı",
+   "new": "Ekmek hamuru en az iki saat mayalanmalı",
+   "why": "проверка выборок: о тесте по-турецки «mayalanmak», не «fermente olmak»"
+  },
+  {
+   "id": 11926,
+   "col": "example_tr",
+   "old": "Köpeğimiz için bir parça peynir en büyük leziz lokma",
+   "new": "Köpeğimiz için bir parça peynir en leziz lokma",
+   "why": "проверка выборок: «en büyük leziz lokma» — несочетаемо"
+  },
+  {
+   "id": 12200,
+   "col": "example_ru",
+   "old": "На соревновании по плаванию в субботу моя дочь впервые участвует",
+   "new": "В субботу дочь впервые участвует в соревновании по плаванию",
+   "why": "проверка выборок: порядок слов — «на соревновании … впервые участвует» тяжело"
+  },
+  {
+   "id": 12200,
+   "col": "example_uk",
+   "old": "На змаганні з плавання в суботу моя донька вперше бере участь",
+   "new": "У суботу донька вперше бере участь у змаганні з плавання",
+   "why": "проверка выборок: порядок слов — «на соревновании … впервые участвует» тяжело"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {
+  "12296": "die Gassi — Gassi не существительное с артиклем, только «Gassi gehen»; снять артикль или переделать строку"
+ }
+}
