@@ -1,0 +1,44 @@
+{
+ "about": "QA: новые и изменённые строки, порция d13",
+ "edits": [
+  {
+   "id": 19012,
+   "col": "example_en",
+   "old": "On Saturday mornings the supermarket is always full of bustle",
+   "new": "On Saturday mornings there's always a lot of bustle in the supermarket",
+   "why": "проверка выборок: «full of bustle» — неестественно"
+  },
+  {
+   "id": 19020,
+   "col": "example_tr",
+   "old": "Elektrikçiyle perşembe gününü kararlaştırdık",
+   "new": "Elektrikçiyle perşembeye randevu kararlaştırdık",
+   "why": "проверка выборок: «perşembe gününü kararlaştırdık» — потерян «Termin»"
+  },
+  {
+   "id": 19024,
+   "col": "example_ru",
+   "old": "Дорожка вдоль реки хорошая и ровная, удобно для коляски",
+   "new": "Дорожка вдоль реки очень ровная — удобно для коляски",
+   "why": "проверка выборок: «хорошая и ровная» — «schön eben» = очень ровная"
+  },
+  {
+   "id": 19042,
+   "col": "example_ru",
+   "old": "От комплимента дочь стала вся смущённая и покраснела",
+   "new": "От комплимента дочь вся смутилась и покраснела",
+   "why": "проверка выборок: «стала вся смущённая» — не по-русски"
+  },
+  {
+   "id": 19042,
+   "col": "example_uk",
+   "old": "Від компліменту донька стала вся збентежена й почервоніла",
+   "new": "Від компліменту донька вся зніяковіла й почервоніла",
+   "why": "проверка выборок: «стала вся смущённая» — не по-русски"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
