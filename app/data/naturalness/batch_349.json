@@ -1,0 +1,142 @@
+{
+ "about": "QA: новые и изменённые строки, порция d04",
+ "edits": [
+  {
+   "id": 7227,
+   "col": "example_tr",
+   "old": "Yapabileceğim en küçük şey bu",
+   "new": "Yapabileceğimin en azı bu",
+   "why": "проверка выборок: «en küçük şey» — о размере; слово W «en az»"
+  },
+  {
+   "id": 7236,
+   "col": "example_uk",
+   "old": "Малюк плакав усю ніч безперервно, і ми майже не спали",
+   "new": "Малюк плакав упродовж усієї ночі, і ми майже не спали",
+   "why": "проверка выборок: «безперервно» — слово W «упродовж» не узнаётся"
+  },
+  {
+   "id": 7255,
+   "col": "example_ru",
+   "old": "Бумага прилипает к стене",
+   "new": "Бумага прилипла к стене",
+   "why": "проверка выборок: «klebt an der Wand» — состояние (прилипла), а не процесс"
+  },
+  {
+   "id": 7255,
+   "col": "example_uk",
+   "old": "Папір прилипає до стіни",
+   "new": "Папір прилип до стіни",
+   "why": "проверка выборок: «klebt an der Wand» — состояние (прилипла), а не процесс"
+  },
+  {
+   "id": 7255,
+   "col": "example_en",
+   "old": "The paper sticks to the wall",
+   "new": "The paper is stuck to the wall",
+   "why": "проверка выборок: «klebt an der Wand» — состояние (прилипла), а не процесс"
+  },
+  {
+   "id": 7317,
+   "col": "example_ru",
+   "old": "Поможешь мне сложить бельё? Одной это целая вечность",
+   "new": "Поможешь мне сложить бельё? Одна я провожусь целую вечность",
+   "why": "проверка выборок: «Одной это целая вечность» — нет глагола, неграмотно"
+  },
+  {
+   "id": 7317,
+   "col": "example_uk",
+   "old": "Допоможеш мені скласти білизну? Самій це ціла вічність",
+   "new": "Допоможеш мені скласти білизну? Сама я провожуся цілу вічність",
+   "why": "проверка выборок: «Одной это целая вечность» — нет глагола, неграмотно"
+  },
+  {
+   "id": 7341,
+   "col": "example_ru",
+   "old": "У кровати лежит стопка книг, которые я все ещё хочу прочитать",
+   "new": "У кровати лежит стопка книг, и все их я ещё хочу прочитать",
+   "why": "проверка выборок: «которые я все ещё хочу» читается как «всё ещё»"
+  },
+  {
+   "id": 7453,
+   "col": "example_de",
+   "old": "Ich brauche ein Gummi für meine Haare",
+   "new": "Ich brauche einen Gummi für meine Haare",
+   "why": "проверка выборок: der Gummi — в винительном «einen Gummi»; en «hair tie for my hair» — тавтология"
+  },
+  {
+   "id": 7453,
+   "col": "example_en",
+   "old": "I need a hair tie for my hair",
+   "new": "I need a hair tie",
+   "why": "проверка выборок: der Gummi — в винительном «einen Gummi»; en «hair tie for my hair» — тавтология"
+  },
+  {
+   "id": 7475,
+   "col": "example_ru",
+   "old": "Эта информация для тебя значима",
+   "new": "Эта информация для тебя важна",
+   "why": "проверка выборок: «значима» / «актуальна» — слово W «важный/важливий» не узнаётся"
+  },
+  {
+   "id": 7475,
+   "col": "example_uk",
+   "old": "Ця інформація для тебе актуальна",
+   "new": "Ця інформація для тебе важлива",
+   "why": "проверка выборок: «значима» / «актуальна» — слово W «важный/важливий» не узнаётся"
+  },
+  {
+   "id": 7476,
+   "col": "example_fr",
+   "old": "C'est à lui que revient un grand merci pour cela",
+   "new": "Un grand merci lui revient pour cela",
+   "why": "проверка выборок: «C'est à lui que revient un grand merci» — тяжело"
+  },
+  {
+   "id": 7704,
+   "col": "example_en",
+   "old": "If the bus doesn't come, we can always walk if need be",
+   "new": "If need be, we can walk in case the bus doesn't come",
+   "why": "проверка выборок: два «if» подряд"
+  },
+  {
+   "id": 7751,
+   "col": "example_en",
+   "old": "After the cleaning the kitchen is spotless, until the kids come in for breakfast five minutes later",
+   "new": "After cleaning, the kitchen is spotless, until the kids come in for breakfast five minutes later",
+   "why": "проверка выборок: «After the cleaning» — лишний артикль"
+  },
+  {
+   "id": 8085,
+   "col": "example_en",
+   "old": "Can you help out with my move today?",
+   "new": "Can you help me out with the move today?",
+   "why": "проверка выборок: потеряно «mir»"
+  },
+  {
+   "id": 8287,
+   "col": "example_uk",
+   "old": "Після хвороби я відстав у своєму тренуванні",
+   "new": "Після хвороби я відстав у тренуваннях",
+   "why": "проверка выборок: «у своєму тренуванні» — неживо"
+  },
+  {
+   "id": 8363,
+   "col": "example_cs",
+   "old": "Syn uždiboval z dortu a vyvázl bez úhony",
+   "new": "Syn uždiboval z dortu a vyvázl z toho nepotrestaný",
+   "why": "проверка выборок: «bez úhony» = невредимым; здесь смысл «безнаказанно»"
+  },
+  {
+   "id": 8451,
+   "col": "example_uk",
+   "old": "Гострота цього карі була для мене занадто",
+   "new": "Гострота цього карі була для мене занадто сильна",
+   "why": "проверка выборок: «була для мене занадто» — оборвано"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
