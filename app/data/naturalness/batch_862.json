@@ -1,0 +1,1857 @@
+{
+ "about": "полная вычитка p002",
+ "edits": [
+  {
+   "id": 547,
+   "col": "example_de",
+   "old": "Ich lerne Deutsch",
+   "new": "Ich lerne seit einem halben Jahr Deutsch",
+   "why": "полная вычитка: смысл разошёлся (полгода)"
+  },
+  {
+   "id": 547,
+   "col": "example_tr",
+   "old": "Almanca öğreniyorum",
+   "new": "Altı aydır Almanca öğreniyorum",
+   "why": "полная вычитка: смысл разошёлся (полгода)"
+  },
+  {
+   "id": 547,
+   "col": "example_pl",
+   "old": "Uczę się niemieckiego",
+   "new": "Od pół roku uczę się niemieckiego",
+   "why": "полная вычитка: смысл разошёлся (полгода)"
+  },
+  {
+   "id": 547,
+   "col": "example_fr",
+   "old": "J'apprends l'allemand",
+   "new": "J'apprends l'allemand depuis six mois",
+   "why": "полная вычитка: смысл разошёлся (полгода)"
+  },
+  {
+   "id": 547,
+   "col": "example_cs",
+   "old": "Učím se německy",
+   "new": "Učím se německy už půl roku",
+   "why": "полная вычитка: смысл разошёлся (полгода)"
+  },
+  {
+   "id": 551,
+   "col": "example_de",
+   "old": "Sie liebt ihre Familie",
+   "new": "Sie liebt ihre Enkel über alles",
+   "why": "полная вычитка: смысл разошёлся (внуки)"
+  },
+  {
+   "id": 551,
+   "col": "example_tr",
+   "old": "Ailesini seviyor",
+   "new": "Torunlarını çok seviyor",
+   "why": "полная вычитка: смысл разошёлся (внуки)"
+  },
+  {
+   "id": 551,
+   "col": "example_pl",
+   "old": "Kocha swoją rodzinę",
+   "new": "Bardzo kocha swoje wnuki",
+   "why": "полная вычитка: смысл разошёлся (внуки)"
+  },
+  {
+   "id": 551,
+   "col": "example_fr",
+   "old": "Elle aime sa famille",
+   "new": "Elle aime ses petits-enfants plus que tout",
+   "why": "полная вычитка: смысл разошёлся (внуки)"
+  },
+  {
+   "id": 551,
+   "col": "example_cs",
+   "old": "Miluje svou rodinu",
+   "new": "Miluje svoje vnoučata nade všechno",
+   "why": "полная вычитка: смысл разошёлся (внуки)"
+  },
+  {
+   "id": 558,
+   "col": "example_de",
+   "old": "Biegen Sie links ab",
+   "new": "Die Toilette ist die zweite Tür links",
+   "why": "полная вычитка: смысл разошёлся (туалет налево)"
+  },
+  {
+   "id": 558,
+   "col": "example_ru",
+   "old": "Поверните налево",
+   "new": "Туалет — вторая дверь налево",
+   "why": "полная вычитка: смысл разошёлся (туалет налево)"
+  },
+  {
+   "id": 558,
+   "col": "example_tr",
+   "old": "Sola dönün",
+   "new": "Tuvalet soldaki ikinci kapı",
+   "why": "полная вычитка: смысл разошёлся (туалет налево)"
+  },
+  {
+   "id": 558,
+   "col": "example_pl",
+   "old": "Proszę skręcić w lewo",
+   "new": "Toaleta to drugie drzwi po lewej",
+   "why": "полная вычитка: смысл разошёлся (туалет налево)"
+  },
+  {
+   "id": 558,
+   "col": "example_fr",
+   "old": "Tournez à gauche",
+   "new": "Les toilettes, c'est la deuxième porte à gauche",
+   "why": "полная вычитка: смысл разошёлся (туалет налево)"
+  },
+  {
+   "id": 558,
+   "col": "example_cs",
+   "old": "Odbočte doleva",
+   "new": "Záchod jsou druhé dveře vlevo",
+   "why": "полная вычитка: смысл разошёлся (туалет налево)"
+  },
+  {
+   "id": 563,
+   "col": "example_de",
+   "old": "Das ist die richtige Lösung",
+   "new": "Eine einfache Lösung gibt es hier nicht",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 563,
+   "col": "example_tr",
+   "old": "Bu doğru çözüm",
+   "new": "Burada kolay bir çözüm yok",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 563,
+   "col": "example_pl",
+   "old": "To jest właściwe rozwiązanie",
+   "new": "Nie ma tu prostego rozwiązania",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 563,
+   "col": "example_fr",
+   "old": "C'est la bonne solution",
+   "new": "Il n'y a pas de solution simple",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 563,
+   "col": "example_cs",
+   "old": "To je správné řešení",
+   "new": "Jednoduché řešení tady není",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 578,
+   "col": "example_de",
+   "old": "Wir fahren ans Meer",
+   "new": "Heute ist das Meer ganz ruhig",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 578,
+   "col": "example_tr",
+   "old": "Denize gidiyoruz",
+   "new": "Bugün deniz çok sakin",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 578,
+   "col": "example_pl",
+   "old": "Jedziemy nad morze",
+   "new": "Dziś morze jest zupełnie spokojne",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 578,
+   "col": "example_fr",
+   "old": "Cet été, on part à la mer",
+   "new": "Aujourd'hui, la mer est très calme",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 578,
+   "col": "example_cs",
+   "old": "Jedeme k moři",
+   "new": "Dnes je moře úplně klidné",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 580,
+   "col": "example_de",
+   "old": "Ich möchte mehr Wasser",
+   "new": "Iss mehr Gemüse!",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 580,
+   "col": "example_tr",
+   "old": "Daha fazla su istiyorum",
+   "new": "Daha fazla sebze ye!",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 580,
+   "col": "example_pl",
+   "old": "Chcę więcej wody",
+   "new": "Jedz więcej warzyw!",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 580,
+   "col": "example_fr",
+   "old": "Je voudrais plus d'eau",
+   "new": "Mange plus de légumes !",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 580,
+   "col": "example_cs",
+   "old": "Chtěl bych víc vody",
+   "new": "Jez víc zeleniny!",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 599,
+   "col": "example_de",
+   "old": "Wir essen zu Mittag",
+   "new": "Mittags esse ich in der Kantine",
+   "why": "полная вычитка: смысл разошёлся (в столовой)"
+  },
+  {
+   "id": 599,
+   "col": "example_tr",
+   "old": "Öğle yemeği yiyoruz",
+   "new": "Öğlen kantinde yemek yiyorum",
+   "why": "полная вычитка: смысл разошёлся (в столовой)"
+  },
+  {
+   "id": 599,
+   "col": "example_pl",
+   "old": "W południe jemy obiad",
+   "new": "W południe jem w stołówce",
+   "why": "полная вычитка: смысл разошёлся (в столовой)"
+  },
+  {
+   "id": 599,
+   "col": "example_fr",
+   "old": "À midi, on mange à la cantine",
+   "new": "À midi, je mange à la cantine",
+   "why": "полная вычитка: смысл разошёлся (в столовой)"
+  },
+  {
+   "id": 599,
+   "col": "example_cs",
+   "old": "V poledne obědváme",
+   "new": "V poledne jím v jídelně",
+   "why": "полная вычитка: смысл разошёлся (в столовой)"
+  },
+  {
+   "id": 613,
+   "col": "example_de",
+   "old": "Ich komme morgen",
+   "new": "Bis morgen!",
+   "why": "полная вычитка: смысл разошёлся (до завтра)"
+  },
+  {
+   "id": 613,
+   "col": "example_tr",
+   "old": "Yarın geliyorum",
+   "new": "Yarın görüşürüz!",
+   "why": "полная вычитка: смысл разошёлся (до завтра)"
+  },
+  {
+   "id": 613,
+   "col": "example_pl",
+   "old": "Przyjdę jutro",
+   "new": "Do jutra!",
+   "why": "полная вычитка: смысл разошёлся (до завтра)"
+  },
+  {
+   "id": 613,
+   "col": "example_fr",
+   "old": "Je viens demain",
+   "new": "À demain !",
+   "why": "полная вычитка: смысл разошёлся (до завтра)"
+  },
+  {
+   "id": 613,
+   "col": "example_cs",
+   "old": "Přijdu zítra",
+   "new": "Uvidíme se zítra!",
+   "why": "полная вычитка: смысл разошёлся (до завтра)"
+  },
+  {
+   "id": 614,
+   "col": "example_de",
+   "old": "Jeden Morgen trinke ich Tee",
+   "new": "Am Morgen ist es hier noch ganz ruhig",
+   "why": "полная вычитка: смысл разошёлся; новый общий пример"
+  },
+  {
+   "id": 614,
+   "col": "example_ru",
+   "old": "Завтра утром я рано уезжаю",
+   "new": "Утром здесь ещё совсем тихо",
+   "why": "полная вычитка: смысл разошёлся; новый общий пример"
+  },
+  {
+   "id": 614,
+   "col": "example_uk",
+   "old": "Завтра зранку я рано виїжджаю",
+   "new": "Зранку тут ще зовсім тихо",
+   "why": "полная вычитка: смысл разошёлся; новый общий пример"
+  },
+  {
+   "id": 614,
+   "col": "example_en",
+   "old": "I'm leaving early tomorrow morning",
+   "new": "In the morning it's still really quiet here",
+   "why": "полная вычитка: смысл разошёлся; новый общий пример"
+  },
+  {
+   "id": 614,
+   "col": "example_tr",
+   "old": "Her sabah çay içerim",
+   "new": "Sabah burası hâlâ çok sakin",
+   "why": "полная вычитка: смысл разошёлся; новый общий пример"
+  },
+  {
+   "id": 614,
+   "col": "example_pl",
+   "old": "Codziennie rano piję herbatę",
+   "new": "Rano jest tu jeszcze zupełnie cicho",
+   "why": "полная вычитка: смысл разошёлся; новый общий пример"
+  },
+  {
+   "id": 614,
+   "col": "example_it",
+   "old": "Domani mattina parto presto",
+   "new": "La mattina qui è ancora tutto tranquillo",
+   "why": "полная вычитка: смысл разошёлся; новый общий пример"
+  },
+  {
+   "id": 614,
+   "col": "example_es",
+   "old": "Mañana por la mañana salgo temprano",
+   "new": "Por la mañana aquí todavía está todo tranquilo",
+   "why": "полная вычитка: смысл разошёлся; новый общий пример"
+  },
+  {
+   "id": 614,
+   "col": "example_fr",
+   "old": "Le matin, je bois du thé",
+   "new": "Le matin, c'est encore très calme ici",
+   "why": "полная вычитка: смысл разошёлся; новый общий пример"
+  },
+  {
+   "id": 614,
+   "col": "example_cs",
+   "old": "Každé ráno piji čaj",
+   "new": "Ráno je tu ještě úplné ticho",
+   "why": "полная вычитка: смысл разошёлся; новый общий пример"
+  },
+  {
+   "id": 620,
+   "col": "example_de",
+   "old": "Meine Mutter ist zu Hause",
+   "new": "Meine Mutter ruft mich jeden Sonntag an",
+   "why": "полная вычитка: смысл разошёлся (звонит по воскресеньям)"
+  },
+  {
+   "id": 620,
+   "col": "example_tr",
+   "old": "Annem evde",
+   "new": "Annem beni her pazar arıyor",
+   "why": "полная вычитка: смысл разошёлся (звонит по воскресеньям)"
+  },
+  {
+   "id": 620,
+   "col": "example_pl",
+   "old": "Mama jest w domu",
+   "new": "Mama dzwoni do mnie w każdą niedzielę",
+   "why": "полная вычитка: смысл разошёлся (звонит по воскресеньям)"
+  },
+  {
+   "id": 620,
+   "col": "example_fr",
+   "old": "Ma mère est à la maison",
+   "new": "Ma mère m'appelle tous les dimanches",
+   "why": "полная вычитка: смысл разошёлся (звонит по воскресеньям)"
+  },
+  {
+   "id": 620,
+   "col": "example_cs",
+   "old": "Moje máma je doma",
+   "new": "Máma mi volá každou neděli",
+   "why": "полная вычитка: смысл разошёлся (звонит по воскресеньям)"
+  },
+  {
+   "id": 629,
+   "col": "example_de",
+   "old": "Ich muss arbeiten",
+   "new": "Leider muss ich morgen arbeiten",
+   "why": "полная вычитка: смысл разошёлся (завтра)"
+  },
+  {
+   "id": 629,
+   "col": "example_tr",
+   "old": "Çalışmak zorundayım",
+   "new": "Maalesef yarın çalışmak zorundayım",
+   "why": "полная вычитка: смысл разошёлся (завтра)"
+  },
+  {
+   "id": 629,
+   "col": "example_pl",
+   "old": "Muszę pracować",
+   "new": "Niestety jutro muszę pracować",
+   "why": "полная вычитка: смысл разошёлся (завтра)"
+  },
+  {
+   "id": 629,
+   "col": "example_fr",
+   "old": "Je dois travailler",
+   "new": "Malheureusement, je dois travailler demain",
+   "why": "полная вычитка: смысл разошёлся (завтра)"
+  },
+  {
+   "id": 629,
+   "col": "example_cs",
+   "old": "Musím pracovat",
+   "new": "Bohužel zítra musím pracovat",
+   "why": "полная вычитка: смысл разошёлся (завтра)"
+  },
+  {
+   "id": 641,
+   "col": "example_de",
+   "old": "Mein Name ist Anna Weber",
+   "new": "Schreib bitte deinen Namen hier hin",
+   "why": "полная вычитка: смысл разошёлся; «Анна Вебер»"
+  },
+  {
+   "id": 641,
+   "col": "example_tr",
+   "old": "Benim adım Anna Weber",
+   "new": "Lütfen adını buraya yaz",
+   "why": "полная вычитка: смысл разошёлся; «Анна Вебер»"
+  },
+  {
+   "id": 641,
+   "col": "example_pl",
+   "old": "Nazywam się Anna Weber",
+   "new": "Wpisz tu, proszę, swoje imię",
+   "why": "полная вычитка: смысл разошёлся; «Анна Вебер»"
+  },
+  {
+   "id": 641,
+   "col": "example_fr",
+   "old": "Mon nom est Anna Weber",
+   "new": "Écris ton nom ici, s'il te plaît",
+   "why": "полная вычитка: смысл разошёлся; «Анна Вебер»"
+  },
+  {
+   "id": 641,
+   "col": "example_cs",
+   "old": "Moje jméno je Anna Weber",
+   "new": "Napiš sem prosím své jméno",
+   "why": "полная вычитка: смысл разошёлся; «Анна Вебер»"
+  },
+  {
+   "id": 667,
+   "col": "example_de",
+   "old": "Ich kaufe Obst auf dem Markt",
+   "new": "Zum Nachtisch gibt es Obst",
+   "why": "полная вычитка: смысл разошёлся (на десерт)"
+  },
+  {
+   "id": 667,
+   "col": "example_tr",
+   "old": "Pazarda meyve alıyorum",
+   "new": "Tatlı olarak meyve var",
+   "why": "полная вычитка: смысл разошёлся (на десерт)"
+  },
+  {
+   "id": 667,
+   "col": "example_pl",
+   "old": "Kupuję owoce na targu",
+   "new": "Na deser są owoce",
+   "why": "полная вычитка: смысл разошёлся (на десерт)"
+  },
+  {
+   "id": 667,
+   "col": "example_fr",
+   "old": "J'achète des fruits au marché",
+   "new": "Comme dessert, il y a des fruits",
+   "why": "полная вычитка: смысл разошёлся (на десерт)"
+  },
+  {
+   "id": 667,
+   "col": "example_cs",
+   "old": "Kupuji ovoce na trhu",
+   "new": "Jako dezert je ovoce",
+   "why": "полная вычитка: смысл разошёлся (на десерт)"
+  },
+  {
+   "id": 676,
+   "col": "example_de",
+   "old": "Oma bäckt Kuchen",
+   "new": "Oma wohnt bei uns",
+   "why": "полная вычитка: смысл разошёлся (живёт с нами)"
+  },
+  {
+   "id": 676,
+   "col": "example_tr",
+   "old": "Büyükannem kek yapıyor",
+   "new": "Büyükannem bizimle yaşıyor",
+   "why": "полная вычитка: смысл разошёлся (живёт с нами)"
+  },
+  {
+   "id": 676,
+   "col": "example_pl",
+   "old": "Babcia piecze ciasto",
+   "new": "Babcia mieszka z nami",
+   "why": "полная вычитка: смысл разошёлся (живёт с нами)"
+  },
+  {
+   "id": 676,
+   "col": "example_fr",
+   "old": "Mamie fait des gâteaux",
+   "new": "Mamie vit avec nous",
+   "why": "полная вычитка: смысл разошёлся (живёт с нами)"
+  },
+  {
+   "id": 676,
+   "col": "example_cs",
+   "old": "Babička peče koláč",
+   "new": "Babička bydlí s námi",
+   "why": "полная вычитка: смысл разошёлся (живёт с нами)"
+  },
+  {
+   "id": 681,
+   "col": "example_de",
+   "old": "Alles in Ordnung?",
+   "new": "Mach Ordnung in deinem Zimmer!",
+   "why": "полная вычитка: смысл разошёлся (наведи порядок)"
+  },
+  {
+   "id": 681,
+   "col": "example_tr",
+   "old": "Her şey yolunda mı?",
+   "new": "Odanı düzene sok!",
+   "why": "полная вычитка: смысл разошёлся (наведи порядок)"
+  },
+  {
+   "id": 681,
+   "col": "example_pl",
+   "old": "Wszystko w porządku?",
+   "new": "Zrób porządek w swoim pokoju!",
+   "why": "полная вычитка: смысл разошёлся (наведи порядок)"
+  },
+  {
+   "id": 681,
+   "col": "example_fr",
+   "old": "Tout est en ordre ?",
+   "new": "Mets de l'ordre dans ta chambre !",
+   "why": "полная вычитка: смысл разошёлся (наведи порядок)"
+  },
+  {
+   "id": 681,
+   "col": "example_cs",
+   "old": "Je všechno v pořádku?",
+   "new": "Udělej si pořádek v pokoji!",
+   "why": "полная вычитка: смысл разошёлся (наведи порядок)"
+  },
+  {
+   "id": 745,
+   "col": "example_de",
+   "old": "Er raucht nicht",
+   "new": "Mein Vater raucht nicht mehr",
+   "why": "полная вычитка: смысл разошёлся (папа уже не курит)"
+  },
+  {
+   "id": 745,
+   "col": "example_tr",
+   "old": "O sigara içmiyor",
+   "new": "Babam artık sigara içmiyor",
+   "why": "полная вычитка: смысл разошёлся (папа уже не курит)"
+  },
+  {
+   "id": 745,
+   "col": "example_pl",
+   "old": "Nie pali",
+   "new": "Tata już nie pali",
+   "why": "полная вычитка: смысл разошёлся (папа уже не курит)"
+  },
+  {
+   "id": 745,
+   "col": "example_fr",
+   "old": "Il ne fume pas",
+   "new": "Mon père ne fume plus",
+   "why": "полная вычитка: смысл разошёлся (папа уже не курит)"
+  },
+  {
+   "id": 745,
+   "col": "example_cs",
+   "old": "Nekouří",
+   "new": "Táta už nekouří",
+   "why": "полная вычитка: смысл разошёлся (папа уже не курит)"
+  },
+  {
+   "id": 755,
+   "col": "example_de",
+   "old": "Ich koche Reis",
+   "new": "Der Reis ist in zwanzig Minuten fertig",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 755,
+   "col": "example_tr",
+   "old": "Pilav yapıyorum",
+   "new": "Pilav yirmi dakikaya hazır olur",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 755,
+   "col": "example_pl",
+   "old": "Gotuję ryż",
+   "new": "Ryż będzie gotowy za dwadzieścia minut",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 755,
+   "col": "example_fr",
+   "old": "Je fais cuire du riz",
+   "new": "Le riz est prêt dans vingt minutes",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 755,
+   "col": "example_cs",
+   "old": "Vařím rýži",
+   "new": "Rýže bude hotová za dvacet minut",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 763,
+   "col": "example_de",
+   "old": "Das ist die richtige Antwort",
+   "new": "Du hast recht, das ist richtig",
+   "why": "полная вычитка: смысл разошёлся (ты прав)"
+  },
+  {
+   "id": 763,
+   "col": "example_ru",
+   "old": "Это правильный ответ",
+   "new": "Ты прав, это правильно",
+   "why": "полная вычитка: смысл разошёлся (ты прав)"
+  },
+  {
+   "id": 763,
+   "col": "example_tr",
+   "old": "Bu doğru cevap",
+   "new": "Haklısın, bu doğru",
+   "why": "полная вычитка: смысл разошёлся (ты прав)"
+  },
+  {
+   "id": 763,
+   "col": "example_pl",
+   "old": "To jest poprawna odpowiedź",
+   "new": "Masz rację, to jest właściwe",
+   "why": "полная вычитка: смысл разошёлся (ты прав)"
+  },
+  {
+   "id": 763,
+   "col": "example_fr",
+   "old": "C'est la bonne réponse",
+   "new": "Tu as raison, c'est juste",
+   "why": "полная вычитка: смысл разошёлся (ты прав)"
+  },
+  {
+   "id": 763,
+   "col": "example_cs",
+   "old": "To je správná odpověď",
+   "new": "Máš pravdu, to je správně",
+   "why": "полная вычитка: смысл разошёлся (ты прав)"
+  },
+  {
+   "id": 778,
+   "col": "example_de",
+   "old": "Der Salat ist frisch",
+   "new": "Soll ich dir einen Salat machen?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 778,
+   "col": "example_tr",
+   "old": "Salata taze",
+   "new": "Sana salata yapayım mı?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 778,
+   "col": "example_pl",
+   "old": "Sałatka jest świeża",
+   "new": "Zrobić ci sałatkę?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 778,
+   "col": "example_fr",
+   "old": "La salade est fraîche",
+   "new": "Je te fais une salade ?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 778,
+   "col": "example_cs",
+   "old": "Salát je čerstvý",
+   "new": "Mám ti udělat salát?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 795,
+   "col": "example_de",
+   "old": "Das ist schlecht",
+   "new": "Mir geht's heute schlecht",
+   "why": "полная вычитка: смысл разошёлся (мне плохо)"
+  },
+  {
+   "id": 795,
+   "col": "example_tr",
+   "old": "Bu kötü",
+   "new": "Bugün kendimi kötü hissediyorum",
+   "why": "полная вычитка: смысл разошёлся (мне плохо)"
+  },
+  {
+   "id": 795,
+   "col": "example_pl",
+   "old": "To źle",
+   "new": "Źle się dziś czuję",
+   "why": "полная вычитка: смысл разошёлся (мне плохо)"
+  },
+  {
+   "id": 795,
+   "col": "example_fr",
+   "old": "C'est mauvais",
+   "new": "Je me sens mal aujourd'hui",
+   "why": "полная вычитка: смысл разошёлся (мне плохо)"
+  },
+  {
+   "id": 795,
+   "col": "example_cs",
+   "old": "To je špatné",
+   "new": "Dneska je mi špatně",
+   "why": "полная вычитка: смысл разошёлся (мне плохо)"
+  },
+  {
+   "id": 798,
+   "col": "example_de",
+   "old": "Ich suche meinen Schlüssel",
+   "new": "Hast du den Hausschlüssel dabei?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 798,
+   "col": "example_tr",
+   "old": "Anahtarımı arıyorum",
+   "new": "Ev anahtarın yanında mı?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 798,
+   "col": "example_pl",
+   "old": "Szukam klucza",
+   "new": "Masz klucze do domu?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 798,
+   "col": "example_fr",
+   "old": "Je cherche ma clé",
+   "new": "Tu as les clés de la maison ?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 798,
+   "col": "example_cs",
+   "old": "Hledám svůj klíč",
+   "new": "Máš klíče od domu?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 800,
+   "col": "example_de",
+   "old": "Das schmeckt gut",
+   "new": "Diese Suppe schmeckt richtig gut",
+   "why": "полная вычитка: смысл разошёлся (суп)"
+  },
+  {
+   "id": 800,
+   "col": "example_tr",
+   "old": "Bunun tadı güzel",
+   "new": "Bu çorbanın tadı çok güzel",
+   "why": "полная вычитка: смысл разошёлся (суп)"
+  },
+  {
+   "id": 800,
+   "col": "example_pl",
+   "old": "Bardzo mi to smakuje",
+   "new": "Ta zupa bardzo mi smakuje",
+   "why": "полная вычитка: смысл разошёлся (суп)"
+  },
+  {
+   "id": 800,
+   "col": "example_fr",
+   "old": "Ça a bon goût",
+   "new": "Cette soupe a vraiment bon goût",
+   "why": "полная вычитка: смысл разошёлся (суп)"
+  },
+  {
+   "id": 800,
+   "col": "example_cs",
+   "old": "To mi chutná",
+   "new": "Ta polévka mi moc chutná",
+   "why": "полная вычитка: смысл разошёлся (суп)"
+  },
+  {
+   "id": 812,
+   "col": "example_de",
+   "old": "Sie geht in die Schule",
+   "new": "Die Schule ist ganz nah bei uns",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 812,
+   "col": "example_tr",
+   "old": "Okula gidiyor",
+   "new": "Okul evimize çok yakın",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 812,
+   "col": "example_pl",
+   "old": "Chodzi do szkoły",
+   "new": "Szkoła jest tuż obok domu",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 812,
+   "col": "example_fr",
+   "old": "Elle va à l'école",
+   "new": "L'école est tout près de la maison",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 812,
+   "col": "example_cs",
+   "old": "Chodí do školy",
+   "new": "Škola je kousek od domu",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 820,
+   "col": "example_de",
+   "old": "Wir gehen ins Schwimmbad",
+   "new": "Im Sommer gehen wir oft ins Schwimmbad",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 820,
+   "col": "example_tr",
+   "old": "Yüzme havuzuna gidiyoruz",
+   "new": "Yazın sık sık yüzme havuzuna gidiyoruz",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 820,
+   "col": "example_pl",
+   "old": "Idziemy na basen",
+   "new": "Latem często chodzimy na basen",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 820,
+   "col": "example_fr",
+   "old": "On va à la piscine",
+   "new": "L'été, on va souvent à la piscine",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 820,
+   "col": "example_cs",
+   "old": "Jdeme do bazénu",
+   "new": "V létě často chodíme na koupaliště",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 826,
+   "col": "example_de",
+   "old": "Das ist sehr gut",
+   "new": "Dieses Lied höre ich sehr gern",
+   "why": "полная вычитка: смысл разошёлся (песня)"
+  },
+  {
+   "id": 826,
+   "col": "example_tr",
+   "old": "Bu çok iyi",
+   "new": "Bu şarkıyı çok seviyorum",
+   "why": "полная вычитка: смысл разошёлся (песня)"
+  },
+  {
+   "id": 826,
+   "col": "example_pl",
+   "old": "To jest bardzo dobre",
+   "new": "Bardzo podoba mi się ta piosenka",
+   "why": "полная вычитка: смысл разошёлся (песня)"
+  },
+  {
+   "id": 826,
+   "col": "example_it",
+   "old": "Oggi fa molto caldo",
+   "new": "Questa canzone mi piace molto",
+   "why": "полная вычитка: смысл разошёлся (песня)"
+  },
+  {
+   "id": 826,
+   "col": "example_fr",
+   "old": "C'est très bien",
+   "new": "J'aime beaucoup cette chanson",
+   "why": "полная вычитка: смысл разошёлся (песня)"
+  },
+  {
+   "id": 826,
+   "col": "example_cs",
+   "old": "To je velmi dobré",
+   "new": "Ta písnička se mi moc líbí",
+   "why": "полная вычитка: смысл разошёлся (песня)"
+  },
+  {
+   "id": 836,
+   "col": "example_de",
+   "old": "Sie wäscht sich",
+   "new": "Die Katze wäscht sich nach dem Fressen immer",
+   "why": "полная вычитка: смысл разошёлся (кошка)"
+  },
+  {
+   "id": 836,
+   "col": "example_tr",
+   "old": "Kendini yıkıyor",
+   "new": "Kedi yemekten sonra hep kendini yalar",
+   "why": "полная вычитка: смысл разошёлся (кошка)"
+  },
+  {
+   "id": 836,
+   "col": "example_pl",
+   "old": "Myje się",
+   "new": "Kot zawsze myje się po jedzeniu",
+   "why": "полная вычитка: смысл разошёлся (кошка)"
+  },
+  {
+   "id": 836,
+   "col": "example_fr",
+   "old": "Elle se lave",
+   "new": "Le chat se lave toujours après avoir mangé",
+   "why": "полная вычитка: смысл разошёлся (кошка)"
+  },
+  {
+   "id": 836,
+   "col": "example_cs",
+   "old": "Myje se",
+   "new": "Kočka se po jídle vždycky myje",
+   "why": "полная вычитка: смысл разошёлся (кошка)"
+  },
+  {
+   "id": 845,
+   "col": "example_de",
+   "old": "Sie sitzt auf dem Sofa",
+   "new": "Setzen wir uns aufs Sofa?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 845,
+   "col": "example_tr",
+   "old": "Kanepede oturuyor",
+   "new": "Kanepeye oturalım mı?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 845,
+   "col": "example_pl",
+   "old": "Siedzi na kanapie",
+   "new": "Siądziemy na kanapie?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 845,
+   "col": "example_fr",
+   "old": "Elle est assise sur le canapé",
+   "new": "On s'assoit sur le canapé ?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 845,
+   "col": "example_cs",
+   "old": "Sedí na pohovce",
+   "new": "Sedneme si na gauč?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 863,
+   "col": "example_de",
+   "old": "Ich mache Sport",
+   "new": "Ich mache dreimal pro Woche Sport",
+   "why": "полная вычитка: смысл разошёлся (три раза в неделю)"
+  },
+  {
+   "id": 863,
+   "col": "example_tr",
+   "old": "Spor yapıyorum",
+   "new": "Haftada üç kez spor yapıyorum",
+   "why": "полная вычитка: смысл разошёлся (три раза в неделю)"
+  },
+  {
+   "id": 863,
+   "col": "example_pl",
+   "old": "Uprawiam sport",
+   "new": "Uprawiam sport trzy razy w tygodniu",
+   "why": "полная вычитка: смысл разошёлся (три раза в неделю)"
+  },
+  {
+   "id": 863,
+   "col": "example_fr",
+   "old": "Je fais du sport",
+   "new": "Je fais du sport trois fois par semaine",
+   "why": "полная вычитка: смысл разошёлся (три раза в неделю)"
+  },
+  {
+   "id": 863,
+   "col": "example_cs",
+   "old": "Věnuji se sportu",
+   "new": "Třikrát týdně dělám sport",
+   "why": "полная вычитка: смысл разошёлся (три раза в неделю)"
+  },
+  {
+   "id": 867,
+   "col": "example_de",
+   "old": "Ich spreche Deutsch",
+   "new": "Sprichst du Englisch?",
+   "why": "полная вычитка: смысл разошёлся (язык у каждого свой)"
+  },
+  {
+   "id": 867,
+   "col": "example_uk",
+   "old": "Ти розмовляєш українською?",
+   "new": "Ти розмовляєш англійською?",
+   "why": "полная вычитка: смысл разошёлся (язык у каждого свой)"
+  },
+  {
+   "id": 867,
+   "col": "example_tr",
+   "old": "Almanca konuşuyorum",
+   "new": "İngilizce konuşuyor musun?",
+   "why": "полная вычитка: смысл разошёлся (язык у каждого свой)"
+  },
+  {
+   "id": 867,
+   "col": "example_pl",
+   "old": "Mówię po niemiecku",
+   "new": "Mówisz po angielsku?",
+   "why": "полная вычитка: смысл разошёлся (язык у каждого свой)"
+  },
+  {
+   "id": 867,
+   "col": "example_it",
+   "old": "Parli italiano?",
+   "new": "Parli inglese?",
+   "why": "полная вычитка: смысл разошёлся (язык у каждого свой)"
+  },
+  {
+   "id": 867,
+   "col": "example_es",
+   "old": "¿Hablas español?",
+   "new": "¿Hablas inglés?",
+   "why": "полная вычитка: смысл разошёлся (язык у каждого свой)"
+  },
+  {
+   "id": 867,
+   "col": "example_fr",
+   "old": "Je parle allemand",
+   "new": "Tu parles anglais ?",
+   "why": "полная вычитка: смысл разошёлся (язык у каждого свой)"
+  },
+  {
+   "id": 867,
+   "col": "example_cs",
+   "old": "Mluvím německy",
+   "new": "Mluvíš anglicky?",
+   "why": "полная вычитка: смысл разошёлся (язык у каждого свой)"
+  },
+  {
+   "id": 872,
+   "col": "example_de",
+   "old": "Wir essen später",
+   "new": "Lass uns später darüber reden",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 872,
+   "col": "example_tr",
+   "old": "Daha sonra yemek yiyeceğiz",
+   "new": "Bunu daha sonra konuşalım",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 872,
+   "col": "example_pl",
+   "old": "Zjemy później",
+   "new": "Porozmawiamy o tym później",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 872,
+   "col": "example_fr",
+   "old": "On mange plus tard",
+   "new": "On en parle plus tard",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 872,
+   "col": "example_cs",
+   "old": "Najíme se později",
+   "new": "Promluvíme si o tom později",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 875,
+   "col": "example_de",
+   "old": "Berlin ist eine große Stadt",
+   "new": "Unsere Stadt ist klein, aber sehr grün",
+   "why": "полная вычитка: смысл разошёлся (город у каждого свой)"
+  },
+  {
+   "id": 875,
+   "col": "example_uk",
+   "old": "Львів — дуже гарне місто",
+   "new": "Наше місто невелике, але дуже зелене",
+   "why": "полная вычитка: смысл разошёлся (город у каждого свой)"
+  },
+  {
+   "id": 875,
+   "col": "example_en",
+   "old": "Edinburgh is a beautiful city",
+   "new": "Our town is small but very green",
+   "why": "полная вычитка: смысл разошёлся (город у каждого свой)"
+  },
+  {
+   "id": 875,
+   "col": "example_tr",
+   "old": "Berlin büyük bir şehir",
+   "new": "Şehrimiz küçük ama çok yeşil",
+   "why": "полная вычитка: смысл разошёлся (город у каждого свой)"
+  },
+  {
+   "id": 875,
+   "col": "example_pl",
+   "old": "Berlin jest dużym miastem",
+   "new": "Nasze miasto jest małe, ale bardzo zielone",
+   "why": "полная вычитка: смысл разошёлся (город у каждого свой)"
+  },
+  {
+   "id": 875,
+   "col": "example_it",
+   "old": "Roma è una città bellissima",
+   "new": "La nostra città è piccola, ma molto verde",
+   "why": "полная вычитка: смысл разошёлся (город у каждого свой)"
+  },
+  {
+   "id": 875,
+   "col": "example_es",
+   "old": "Sevilla es una ciudad preciosa",
+   "new": "Nuestra ciudad es pequeña, pero muy verde",
+   "why": "полная вычитка: смысл разошёлся (город у каждого свой)"
+  },
+  {
+   "id": 875,
+   "col": "example_fr",
+   "old": "Berlin est une grande ville",
+   "new": "Notre ville est petite, mais très verte",
+   "why": "полная вычитка: смысл разошёлся (город у каждого свой)"
+  },
+  {
+   "id": 875,
+   "col": "example_cs",
+   "old": "Berlín je velké město",
+   "new": "Naše město je malé, ale hodně zelené",
+   "why": "полная вычитка: смысл разошёлся (город у каждого свой)"
+  },
+  {
+   "id": 880,
+   "col": "example_de",
+   "old": "Wir stehen an der Haltestelle",
+   "new": "Im Bus musste ich die ganze Fahrt stehen",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 880,
+   "col": "example_tr",
+   "old": "Durakta duruyoruz",
+   "new": "Otobüste bütün yol ayakta durdum",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 880,
+   "col": "example_pl",
+   "old": "Stoimy na przystanku",
+   "new": "W autobusie całą drogę stałem",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 880,
+   "col": "example_fr",
+   "old": "On attend debout à l'arrêt",
+   "new": "Dans le bus, je suis resté debout tout le trajet",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 880,
+   "col": "example_cs",
+   "old": "Stojíme na zastávce",
+   "new": "V autobuse jsem celou cestu stál",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 892,
+   "col": "example_ru",
+   "old": "Мой брат — студент, учится на врача",
+   "new": "Мой брат — студент в Мюнхене",
+   "why": "полная вычитка: ru ушёл от de"
+  },
+  {
+   "id": 912,
+   "col": "example_de",
+   "old": "Wir tanzen zusammen",
+   "new": "Wollen wir tanzen?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 912,
+   "col": "example_tr",
+   "old": "Beraber dans ediyoruz",
+   "new": "Dans edelim mi?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 912,
+   "col": "example_pl",
+   "old": "Tańczymy razem",
+   "new": "Zatańczymy?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 912,
+   "col": "example_cs",
+   "old": "Tančíme spolu",
+   "new": "Zatancujeme si?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 930,
+   "col": "example_de",
+   "old": "Das Essen steht auf dem Tisch",
+   "new": "Der Tisch in der Küche ist zu klein",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 930,
+   "col": "example_tr",
+   "old": "Yemek masada",
+   "new": "Mutfaktaki masa çok küçük",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 930,
+   "col": "example_pl",
+   "old": "Jedzenie jest na stole",
+   "new": "Stół w kuchni jest za mały",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 930,
+   "col": "example_fr",
+   "old": "Le repas est sur la table",
+   "new": "La table de la cuisine est trop petite",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 930,
+   "col": "example_cs",
+   "old": "Jídlo je na stole",
+   "new": "Kuchyňský stůl je moc malý",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 951,
+   "col": "example_de",
+   "old": "Der Kurs beginnt um neun",
+   "new": "Treffen wir uns so um sieben?",
+   "why": "полная вычитка: смысл разошёлся (около семи)"
+  },
+  {
+   "id": 951,
+   "col": "example_tr",
+   "old": "Kurs saat dokuzda başlıyor",
+   "new": "Saat yedi gibi buluşalım mı?",
+   "why": "полная вычитка: смысл разошёлся (около семи)"
+  },
+  {
+   "id": 951,
+   "col": "example_pl",
+   "old": "Kurs zaczyna się o dziewiątej",
+   "new": "Spotkamy się koło siódmej?",
+   "why": "полная вычитка: смысл разошёлся (около семи)"
+  },
+  {
+   "id": 951,
+   "col": "example_fr",
+   "old": "Le cours commence à neuf heures",
+   "new": "On se retrouve vers sept heures ?",
+   "why": "полная вычитка: смысл разошёлся (около семи)"
+  },
+  {
+   "id": 951,
+   "col": "example_cs",
+   "old": "Kurz začíná v devět",
+   "new": "Sejdeme se kolem sedmé?",
+   "why": "полная вычитка: смысл разошёлся (около семи)"
+  },
+  {
+   "id": 974,
+   "col": "example_de",
+   "old": "Er verdient gut",
+   "new": "Meine Schwester verdient gut",
+   "why": "полная вычитка: смысл разошёлся (сестра)"
+  },
+  {
+   "id": 974,
+   "col": "example_tr",
+   "old": "İyi kazanıyor",
+   "new": "Kız kardeşim iyi kazanıyor",
+   "why": "полная вычитка: смысл разошёлся (сестра)"
+  },
+  {
+   "id": 974,
+   "col": "example_pl",
+   "old": "Dobrze zarabia",
+   "new": "Moja siostra dobrze zarabia",
+   "why": "полная вычитка: смысл разошёлся (сестра)"
+  },
+  {
+   "id": 974,
+   "col": "example_fr",
+   "old": "Il gagne bien sa vie",
+   "new": "Ma sœur gagne bien sa vie",
+   "why": "полная вычитка: смысл разошёлся (сестра)"
+  },
+  {
+   "id": 974,
+   "col": "example_cs",
+   "old": "Vydělává dobře",
+   "new": "Moje sestra dobře vydělává",
+   "why": "полная вычитка: смысл разошёлся (сестра)"
+  },
+  {
+   "id": 978,
+   "col": "example_de",
+   "old": "Sie ist verheiratet",
+   "new": "Bist du verheiratet?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 978,
+   "col": "example_tr",
+   "old": "O evli",
+   "new": "Evli misin?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 978,
+   "col": "example_pl",
+   "old": "Jest zamężna",
+   "new": "Jesteś żonaty?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 978,
+   "col": "example_fr",
+   "old": "Elle est mariée",
+   "new": "Tu es marié ?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 978,
+   "col": "example_cs",
+   "old": "Je vdaná",
+   "new": "Jsi ženatý?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 997,
+   "col": "example_de",
+   "old": "Wie ist dein Vorname?",
+   "new": "Mein Vorname ist Alexander, aber alle sagen Alex",
+   "why": "полная вычитка: смысл разошёлся; слово карточки в примере"
+  },
+  {
+   "id": 997,
+   "col": "example_ru",
+   "old": "Меня зовут Александр, но все зовут меня Саша",
+   "new": "Имя у меня Александр, но все зовут меня Саша",
+   "why": "полная вычитка: смысл разошёлся; слово карточки в примере"
+  },
+  {
+   "id": 997,
+   "col": "example_uk",
+   "old": "Мене звуть Олександр, але всі кличуть Сашко",
+   "new": "Ім'я в мене Олександр, але всі кличуть Сашко",
+   "why": "полная вычитка: смысл разошёлся; слово карточки в примере"
+  },
+  {
+   "id": 997,
+   "col": "example_en",
+   "old": "My name's Robert, but everyone calls me Bob",
+   "new": "My first name's Robert, but everyone calls me Bob",
+   "why": "полная вычитка: смысл разошёлся; слово карточки в примере"
+  },
+  {
+   "id": 997,
+   "col": "example_tr",
+   "old": "Senin adın ne?",
+   "new": "Adım Mehmet ama herkes bana Memo der",
+   "why": "полная вычитка: смысл разошёлся; слово карточки в примере"
+  },
+  {
+   "id": 997,
+   "col": "example_pl",
+   "old": "Jak masz na imię?",
+   "new": "Mam na imię Aleksander, ale wszyscy mówią na mnie Olek",
+   "why": "полная вычитка: смысл разошёлся; слово карточки в примере"
+  },
+  {
+   "id": 997,
+   "col": "example_it",
+   "old": "Mi chiamo Marco, ma tutti mi chiamano Max",
+   "new": "Il mio nome è Marco, ma tutti mi chiamano Max",
+   "why": "полная вычитка: смысл разошёлся; слово карточки в примере"
+  },
+  {
+   "id": 997,
+   "col": "example_es",
+   "old": "Me llamo Marco, pero todos me llaman Max",
+   "new": "Mi nombre es Marco, pero todos me llaman Max",
+   "why": "полная вычитка: смысл разошёлся; слово карточки в примере"
+  },
+  {
+   "id": 997,
+   "col": "example_fr",
+   "old": "Quel est ton prénom ?",
+   "new": "Mon prénom, c'est Alexandre, mais tout le monde m'appelle Alex",
+   "why": "полная вычитка: смысл разошёлся; слово карточки в примере"
+  },
+  {
+   "id": 997,
+   "col": "example_cs",
+   "old": "Jaké je tvoje křestní jméno?",
+   "new": "Křestní jméno mám Alexandr, ale všichni mi říkají Saša",
+   "why": "полная вычитка: смысл разошёлся; слово карточки в примере"
+  },
+  {
+   "id": 1022,
+   "col": "example_de",
+   "old": "Sie trinkt ein Glas Wein",
+   "new": "Zum Abendessen trinken wir ein Glas Rotwein",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 1022,
+   "col": "example_tr",
+   "old": "Bir kadeh şarap içiyor",
+   "new": "Akşam yemeğinde bir kadeh kırmızı şarap içiyoruz",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 1022,
+   "col": "example_pl",
+   "old": "Pije kieliszek wina",
+   "new": "Do kolacji pijemy kieliszek czerwonego wina",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 1022,
+   "col": "example_fr",
+   "old": "Elle boit un verre de vin",
+   "new": "Au dîner, on boit un verre de vin rouge",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 1022,
+   "col": "example_cs",
+   "old": "Pije sklenku vína",
+   "new": "K večeři si dáváme sklenku červeného vína",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 1034,
+   "col": "example_de",
+   "old": "Das ist wichtig",
+   "new": "Die Familie ist mir sehr wichtig",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 1034,
+   "col": "example_tr",
+   "old": "Bu önemli",
+   "new": "Ailem benim için çok önemli",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 1034,
+   "col": "example_pl",
+   "old": "To jest ważne",
+   "new": "Rodzina jest dla mnie bardzo ważna",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 1034,
+   "col": "example_fr",
+   "old": "C'est important",
+   "new": "Pour moi, la famille, c'est important",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 1034,
+   "col": "example_cs",
+   "old": "To je důležité",
+   "new": "Rodina je pro mě hodně důležitá",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 1036,
+   "col": "example_de",
+   "old": "Ich komme wieder",
+   "new": "Es regnet schon wieder",
+   "why": "полная вычитка: смысл разошёлся (опять дождь)"
+  },
+  {
+   "id": 1036,
+   "col": "example_tr",
+   "old": "Tekrar geleceğim",
+   "new": "Yine yağmur yağıyor",
+   "why": "полная вычитка: смысл разошёлся (опять дождь)"
+  },
+  {
+   "id": 1036,
+   "col": "example_pl",
+   "old": "Przyjdę znowu",
+   "new": "Znowu pada",
+   "why": "полная вычитка: смысл разошёлся (опять дождь)"
+  },
+  {
+   "id": 1036,
+   "col": "example_fr",
+   "old": "Je viendrai à nouveau",
+   "new": "Il pleut encore",
+   "why": "полная вычитка: смысл разошёлся (опять дождь)"
+  },
+  {
+   "id": 1036,
+   "col": "example_cs",
+   "old": "Zase přijdu",
+   "new": "Zase prší",
+   "why": "полная вычитка: смысл разошёлся (опять дождь)"
+  },
+  {
+   "id": 1045,
+   "col": "example_de",
+   "old": "Wir gehen nach Hause",
+   "new": "Wir gehen, bleibt ihr noch?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 1045,
+   "col": "example_tr",
+   "old": "Biz eve gidiyoruz",
+   "new": "Biz gidiyoruz, siz kalıyor musunuz?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 1045,
+   "col": "example_pl",
+   "old": "My już idziemy do domu",
+   "new": "My już idziemy, a wy zostajecie?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 1045,
+   "col": "example_fr",
+   "old": "Nous rentrons à la maison",
+   "new": "Nous, on y va, vous restez ?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 1045,
+   "col": "example_cs",
+   "old": "My jdeme domů",
+   "new": "My jdeme, a vy zůstanete?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 1053,
+   "col": "example_de",
+   "old": "Ich wohne in der Stadt",
+   "new": "Ich wohne im Zentrum",
+   "why": "полная вычитка: смысл разошёлся (в центре)"
+  },
+  {
+   "id": 1053,
+   "col": "example_tr",
+   "old": "Şehirde oturuyorum",
+   "new": "Merkezde oturuyorum",
+   "why": "полная вычитка: смысл разошёлся (в центре)"
+  },
+  {
+   "id": 1053,
+   "col": "example_pl",
+   "old": "Mieszkam w mieście",
+   "new": "Mieszkam w centrum",
+   "why": "полная вычитка: смысл разошёлся (в центре)"
+  },
+  {
+   "id": 1053,
+   "col": "example_fr",
+   "old": "J'habite en ville",
+   "new": "J'habite dans le centre",
+   "why": "полная вычитка: смысл разошёлся (в центре)"
+  },
+  {
+   "id": 1053,
+   "col": "example_cs",
+   "old": "Bydlím ve městě",
+   "new": "Bydlím v centru",
+   "why": "полная вычитка: смысл разошёлся (в центре)"
+  },
+  {
+   "id": 1084,
+   "col": "example_uk",
+   "old": "Я повернуся назад завтра ввечері",
+   "new": "Назад ми поїдемо автобусом",
+   "why": "полная вычитка: смысл разошёлся; «вернусь назад» — тавтология"
+  },
+  {
+   "id": 1084,
+   "col": "example_en",
+   "old": "I'll be back tomorrow evening",
+   "new": "We'll go back by bus",
+   "why": "полная вычитка: смысл разошёлся; «вернусь назад» — тавтология"
+  },
+  {
+   "id": 1084,
+   "col": "example_it",
+   "old": "Sono di ritorno domani sera",
+   "new": "Torniamo indietro in autobus",
+   "why": "полная вычитка: смысл разошёлся; «вернусь назад» — тавтология"
+  },
+  {
+   "id": 1084,
+   "col": "example_es",
+   "old": "Estoy de vuelta mañana por la noche",
+   "new": "La vuelta la hacemos en autobús",
+   "why": "полная вычитка: смысл разошёлся; «вернусь назад» — тавтология"
+  },
+  {
+   "id": 1085,
+   "col": "example_de",
+   "old": "Wir essen zusammen",
+   "new": "Gehen wir zusammen ins Konzert?",
+   "why": "полная вычитка: смысл разошёлся (концерт)"
+  },
+  {
+   "id": 1085,
+   "col": "example_tr",
+   "old": "Birlikte yemek yiyoruz",
+   "new": "Konsere birlikte gidelim mi?",
+   "why": "полная вычитка: смысл разошёлся (концерт)"
+  },
+  {
+   "id": 1085,
+   "col": "example_pl",
+   "old": "Jemy razem",
+   "new": "Pójdziemy razem na koncert?",
+   "why": "полная вычитка: смысл разошёлся (концерт)"
+  },
+  {
+   "id": 1085,
+   "col": "example_fr",
+   "old": "On mange ensemble ce soir ?",
+   "new": "On va au concert ensemble ?",
+   "why": "полная вычитка: смысл разошёлся (концерт)"
+  },
+  {
+   "id": 1085,
+   "col": "example_cs",
+   "old": "Jíme spolu",
+   "new": "Půjdeme spolu na koncert?",
+   "why": "полная вычитка: смысл разошёлся (концерт)"
+  },
+  {
+   "id": 1098,
+   "col": "example_de",
+   "old": "Der Zug fährt um 10 Uhr ab",
+   "new": "Wir fahren morgen früh ab",
+   "why": "полная вычитка: смысл разошёлся (завтра рано)"
+  },
+  {
+   "id": 1098,
+   "col": "example_tr",
+   "old": "Tren saat 10'da hareket ediyor",
+   "new": "Yarın sabah erkenden hareket ediyoruz",
+   "why": "полная вычитка: смысл разошёлся (завтра рано)"
+  },
+  {
+   "id": 1098,
+   "col": "example_pl",
+   "old": "Pociąg odjeżdża o dziesiątej",
+   "new": "Odjeżdżamy jutro wcześnie rano",
+   "why": "полная вычитка: смысл разошёлся (завтра рано)"
+  },
+  {
+   "id": 1098,
+   "col": "example_fr",
+   "old": "Le train part à 10 heures",
+   "new": "On part demain de bonne heure",
+   "why": "полная вычитка: смысл разошёлся (завтра рано)"
+  },
+  {
+   "id": 1098,
+   "col": "example_cs",
+   "old": "Vlak odjíždí v 10 hodin",
+   "new": "Odjíždíme zítra brzy ráno",
+   "why": "полная вычитка: смысл разошёлся (завтра рано)"
+  },
+  {
+   "id": 1139,
+   "col": "example_de",
+   "old": "Wann kommt der Zug an?",
+   "new": "Um wie viel Uhr kommst du an?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 1139,
+   "col": "example_tr",
+   "old": "Tren ne zaman varıyor?",
+   "new": "Saat kaçta varıyorsun?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 1139,
+   "col": "example_pl",
+   "old": "O której przyjeżdża pociąg?",
+   "new": "O której przyjeżdżasz?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 1139,
+   "col": "example_fr",
+   "old": "Quand est-ce que le train arrive ?",
+   "new": "Tu arrives à quelle heure ?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 1139,
+   "col": "example_cs",
+   "old": "Kdy přijede vlak?",
+   "new": "V kolik přijedeš?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 1198,
+   "col": "example_de",
+   "old": "Ich steige an der nächsten Station aus",
+   "new": "Ich muss hier aussteigen, Entschuldigung",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 1198,
+   "col": "example_tr",
+   "old": "Bir sonraki durakta iniyorum",
+   "new": "Burada inmem lazım, pardon",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 1198,
+   "col": "example_pl",
+   "old": "Wysiadam na następnej stacji",
+   "new": "Muszę tu wysiąść, przepraszam",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 1198,
+   "col": "example_fr",
+   "old": "Je descends à la prochaine station",
+   "new": "Je dois descendre ici, pardon",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 1198,
+   "col": "example_cs",
+   "old": "Vystupuji na příští stanici",
+   "new": "Tady musím vystoupit, promiňte",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 1266,
+   "col": "example_de",
+   "old": "Ich bestelle ein Wasser",
+   "new": "Haben wir schon bestellt?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 1266,
+   "col": "example_tr",
+   "old": "Ben bir su sipariş edeyim",
+   "new": "Sipariş verdik mi?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 1266,
+   "col": "example_pl",
+   "old": "Zamówię wodę",
+   "new": "Już zamówiliśmy?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 1266,
+   "col": "example_fr",
+   "old": "Je commande une bouteille d'eau",
+   "new": "On a déjà commandé ?",
+   "why": "полная вычитка: смысл разошёлся"
+  },
+  {
+   "id": 1266,
+   "col": "example_cs",
+   "old": "Objednám si vodu",
+   "new": "Už jsme objednali?",
+   "why": "полная вычитка: смысл разошёлся"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
