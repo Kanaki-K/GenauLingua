@@ -1,0 +1,639 @@
+{
+ "about": "полная вычитка p023",
+ "edits": [
+  {
+   "id": 15152,
+   "col": "example_en",
+   "old": "We should help our fellow human beings",
+   "new": "We should treat our fellow human beings with respect",
+   "why": "полная вычитка: en/it/es «помогать ближним», fr «считает себя выше» — «относиться к ближним с уважением»"
+  },
+  {
+   "id": 15152,
+   "col": "example_it",
+   "old": "Bisogna aiutare il prossimo",
+   "new": "Bisogna trattare il prossimo con rispetto",
+   "why": "полная вычитка: en/it/es «помогать ближним», fr «считает себя выше» — «относиться к ближним с уважением»"
+  },
+  {
+   "id": 15152,
+   "col": "example_es",
+   "old": "Hay que ayudar al prójimo",
+   "new": "Hay que tratar al prójimo con respeto",
+   "why": "полная вычитка: en/it/es «помогать ближним», fr «считает себя выше» — «относиться к ближним с уважением»"
+  },
+  {
+   "id": 15152,
+   "col": "example_fr",
+   "old": "Il se croit supérieur à ses semblables",
+   "new": "On devrait traiter ses semblables avec respect",
+   "why": "полная вычитка: en/it/es «помогать ближним», fr «считает себя выше» — «относиться к ближним с уважением»"
+  },
+  {
+   "id": 15206,
+   "col": "example_ru",
+   "old": "Я ударился локтем о дверь",
+   "new": "У меня болит локоть, я упал",
+   "why": "полная вычитка: ru/uk «ударился о дверь» — «болит локоть, я упал»"
+  },
+  {
+   "id": 15206,
+   "col": "example_uk",
+   "old": "Я вдарився ліктем об двері",
+   "new": "У мене болить лікоть, я впав",
+   "why": "полная вычитка: ru/uk «ударился о дверь» — «болит локоть, я упал»"
+  },
+  {
+   "id": 15209,
+   "col": "example_ru",
+   "old": "Мой сводный брат живёт в другом городе",
+   "new": "Мой сводный брат живёт в Берлине",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 15209,
+   "col": "example_uk",
+   "old": "Мій зведений брат живе в Луцьку",
+   "new": "Мій зведений брат живе в Берліні",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 15209,
+   "col": "example_en",
+   "old": "My half-brother lives in Cardiff",
+   "new": "My half-brother lives in Berlin",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 15209,
+   "col": "example_it",
+   "old": "Il mio fratellastro abita a Torino",
+   "new": "Il mio fratellastro abita a Berlino",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 15209,
+   "col": "example_es",
+   "old": "Mi medio hermano vive en Granada",
+   "new": "Mi medio hermano vive en Berlín",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 15263,
+   "col": "example_ru",
+   "old": "Она выросла в детском доме",
+   "new": "Ребёнок растёт в детском доме",
+   "why": "полная вычитка: ru/uk «она выросла», en/it/es/fr «он вырос» — «ребёнок растёт в детском доме»"
+  },
+  {
+   "id": 15263,
+   "col": "example_uk",
+   "old": "Вона виросла в дитячому будинку",
+   "new": "Дитина росте в дитячому будинку",
+   "why": "полная вычитка: ru/uk «она выросла», en/it/es/fr «он вырос» — «ребёнок растёт в детском доме»"
+  },
+  {
+   "id": 15263,
+   "col": "example_en",
+   "old": "He grew up in a children's home",
+   "new": "The child is growing up in a children's home",
+   "why": "полная вычитка: ru/uk «она выросла», en/it/es/fr «он вырос» — «ребёнок растёт в детском доме»"
+  },
+  {
+   "id": 15263,
+   "col": "example_it",
+   "old": "È cresciuto in un orfanotrofio",
+   "new": "Il bambino cresce in un orfanotrofio",
+   "why": "полная вычитка: ru/uk «она выросла», en/it/es/fr «он вырос» — «ребёнок растёт в детском доме»"
+  },
+  {
+   "id": 15263,
+   "col": "example_es",
+   "old": "Se crió en un orfanato",
+   "new": "El niño se está criando en un orfanato",
+   "why": "полная вычитка: ru/uk «она выросла», en/it/es/fr «он вырос» — «ребёнок растёт в детском доме»"
+  },
+  {
+   "id": 15263,
+   "col": "example_fr",
+   "old": "Il a grandi dans un foyer pour enfants",
+   "new": "L'enfant grandit dans un foyer pour enfants",
+   "why": "полная вычитка: ru/uk «она выросла», en/it/es/fr «он вырос» — «ребёнок растёт в детском доме»"
+  },
+  {
+   "id": 15314,
+   "col": "example_en",
+   "old": "The little one can already use the potty on his own",
+   "new": "The child is sitting on the potty",
+   "why": "полная вычитка: en/it/es/fr «уже умеет сам» — «ребёнок сидит на горшке»"
+  },
+  {
+   "id": 15314,
+   "col": "example_it",
+   "old": "Il piccolo sa già usare il vasino da solo",
+   "new": "Il bambino è seduto sul vasino",
+   "why": "полная вычитка: en/it/es/fr «уже умеет сам» — «ребёнок сидит на горшке»"
+  },
+  {
+   "id": 15314,
+   "col": "example_es",
+   "old": "El peque ya sabe usar el orinal solo",
+   "new": "El niño está sentado en el orinal",
+   "why": "полная вычитка: en/it/es/fr «уже умеет сам» — «ребёнок сидит на горшке»"
+  },
+  {
+   "id": 15314,
+   "col": "example_fr",
+   "old": "Le petit sait déjà aller sur le pot tout seul",
+   "new": "L'enfant est assis sur le pot",
+   "why": "полная вычитка: en/it/es/fr «уже умеет сам» — «ребёнок сидит на горшке»"
+  },
+  {
+   "id": 15388,
+   "col": "example_de",
+   "old": "Die Katze will den Vogel jagen",
+   "new": "Die Katze jagt auf dem Dachboden Mäuse",
+   "why": "полная вычитка: смысл разошёлся — везде «кошка охотится на мышей на чердаке»"
+  },
+  {
+   "id": 15388,
+   "col": "example_ru",
+   "old": "Кошка охотится на птиц в саду",
+   "new": "Кошка охотится на мышей на чердаке",
+   "why": "полная вычитка: смысл разошёлся — везде «кошка охотится на мышей на чердаке»"
+  },
+  {
+   "id": 15388,
+   "col": "example_uk",
+   "old": "Кішка полює на пташок у саду",
+   "new": "Кішка полює на мишей на горищі",
+   "why": "полная вычитка: смысл разошёлся — везде «кошка охотится на мышей на чердаке»"
+  },
+  {
+   "id": 15388,
+   "col": "example_tr",
+   "old": "Kedi kuşu avlamak istiyor",
+   "new": "Kedi tavan arasında fare avlıyor",
+   "why": "полная вычитка: смысл разошёлся — везде «кошка охотится на мышей на чердаке»"
+  },
+  {
+   "id": 15388,
+   "col": "example_pl",
+   "old": "Kot chce polować na ptaka",
+   "new": "Kot poluje na myszy na strychu",
+   "why": "полная вычитка: смысл разошёлся — везде «кошка охотится на мышей на чердаке»"
+  },
+  {
+   "id": 15388,
+   "col": "example_cs",
+   "old": "Kočka chce lovit ptáka",
+   "new": "Kočka loví na půdě myši",
+   "why": "полная вычитка: смысл разошёлся — везде «кошка охотится на мышей на чердаке»"
+  },
+  {
+   "id": 15402,
+   "col": "example_de",
+   "old": "Wir sitzen im Schatten",
+   "new": "Komm, setz dich in den Schatten, es ist zu heiß",
+   "why": "полная вычитка: смысл разошёлся — везде «садись в тень, слишком жарко»"
+  },
+  {
+   "id": 15402,
+   "col": "example_ru",
+   "old": "Мы сидим в тени",
+   "new": "Иди садись в тень, слишком жарко",
+   "why": "полная вычитка: смысл разошёлся — везде «садись в тень, слишком жарко»"
+  },
+  {
+   "id": 15402,
+   "col": "example_uk",
+   "old": "Ми сидимо в тіні",
+   "new": "Іди сідай у тінь, занадто спекотно",
+   "why": "полная вычитка: смысл разошёлся — везде «садись в тень, слишком жарко»"
+  },
+  {
+   "id": 15402,
+   "col": "example_tr",
+   "old": "Gölgede oturuyoruz",
+   "new": "Gel gölgeye otur, çok sıcak",
+   "why": "полная вычитка: смысл разошёлся — везде «садись в тень, слишком жарко»"
+  },
+  {
+   "id": 15402,
+   "col": "example_pl",
+   "old": "Siedzimy w cieniu",
+   "new": "Chodź, usiądź w cieniu, jest za gorąco",
+   "why": "полная вычитка: смысл разошёлся — везде «садись в тень, слишком жарко»"
+  },
+  {
+   "id": 15402,
+   "col": "example_cs",
+   "old": "Sedíme ve stínu",
+   "new": "Pojď si sednout do stínu, je moc horko",
+   "why": "полная вычитка: смысл разошёлся — везде «садись в тень, слишком жарко»"
+  },
+  {
+   "id": 15411,
+   "col": "example_de",
+   "old": "Im Sommer liegen wir gern im Gras",
+   "new": "Das Gras ist heute Morgen noch nass",
+   "why": "полная вычитка: смысл разошёлся — везде «трава утром ещё мокрая»"
+  },
+  {
+   "id": 15411,
+   "col": "example_ru",
+   "old": "Летом мы любим лежать на траве",
+   "new": "Трава сегодня утром ещё мокрая",
+   "why": "полная вычитка: смысл разошёлся — везде «трава утром ещё мокрая»"
+  },
+  {
+   "id": 15411,
+   "col": "example_uk",
+   "old": "Улітку ми любимо лежати на траві",
+   "new": "Трава сьогодні зранку ще мокра",
+   "why": "полная вычитка: смысл разошёлся — везде «трава утром ещё мокрая»"
+  },
+  {
+   "id": 15411,
+   "col": "example_tr",
+   "old": "Yazın çimenlerde uzanmayı severiz",
+   "new": "Çimenler bu sabah hâlâ ıslak",
+   "why": "полная вычитка: смысл разошёлся — везде «трава утром ещё мокрая»"
+  },
+  {
+   "id": 15411,
+   "col": "example_pl",
+   "old": "Latem lubimy leżeć na trawie",
+   "new": "Trawa jest dziś rano jeszcze mokra",
+   "why": "полная вычитка: смысл разошёлся — везде «трава утром ещё мокрая»"
+  },
+  {
+   "id": 15411,
+   "col": "example_cs",
+   "old": "V létě rádi ležíme v trávě",
+   "new": "Tráva je dnes ráno ještě mokrá",
+   "why": "полная вычитка: смысл разошёлся — везде «трава утром ещё мокрая»"
+  },
+  {
+   "id": 15443,
+   "col": "example_de",
+   "old": "Das Huhn legt jeden Tag ein Ei",
+   "new": "Die Nachbarn halten fünf Hühner im Garten",
+   "why": "полная вычитка: смысл разошёлся; «несёт яйцо» — как у 15744 — везде «соседи держат пять кур»"
+  },
+  {
+   "id": 15443,
+   "col": "example_ru",
+   "old": "Курица каждый день несёт яйцо",
+   "new": "Соседи держат в саду пять кур",
+   "why": "полная вычитка: смысл разошёлся; «несёт яйцо» — как у 15744 — везде «соседи держат пять кур»"
+  },
+  {
+   "id": 15443,
+   "col": "example_uk",
+   "old": "Курка щодня несе яйце",
+   "new": "Сусіди тримають у саду п'ять курей",
+   "why": "полная вычитка: смысл разошёлся; «несёт яйцо» — как у 15744 — везде «соседи держат пять кур»"
+  },
+  {
+   "id": 15443,
+   "col": "example_tr",
+   "old": "Tavuk her gün bir yumurta yapıyor",
+   "new": "Komşular bahçede beş tavuk besliyor",
+   "why": "полная вычитка: смысл разошёлся; «несёт яйцо» — как у 15744 — везде «соседи держат пять кур»"
+  },
+  {
+   "id": 15443,
+   "col": "example_pl",
+   "old": "Kura znosi codziennie jajko",
+   "new": "Sąsiedzi trzymają w ogrodzie pięć kur",
+   "why": "полная вычитка: смысл разошёлся; «несёт яйцо» — как у 15744 — везде «соседи держат пять кур»"
+  },
+  {
+   "id": 15443,
+   "col": "example_cs",
+   "old": "Slepice snáší každý den vejce",
+   "new": "Sousedé chovají na zahradě pět slepic",
+   "why": "полная вычитка: смысл разошёлся; «несёт яйцо» — как у 15744 — везде «соседи держат пять кур»"
+  },
+  {
+   "id": 15444,
+   "col": "example_de",
+   "old": "Wir wollen Tomaten pflanzen",
+   "new": "Zur Geburt des Babys pflanzen wir einen Baum",
+   "why": "полная вычитка: смысл разошёлся — везде «в честь рождения малыша посадим дерево»"
+  },
+  {
+   "id": 15444,
+   "col": "example_ru",
+   "old": "Весной бабушка сажает помидоры",
+   "new": "В честь рождения малыша мы посадим дерево",
+   "why": "полная вычитка: смысл разошёлся — везде «в честь рождения малыша посадим дерево»"
+  },
+  {
+   "id": 15444,
+   "col": "example_uk",
+   "old": "Навесні бабуся садить помідори",
+   "new": "На честь народження малюка ми посадимо дерево",
+   "why": "полная вычитка: смысл разошёлся — везде «в честь рождения малыша посадим дерево»"
+  },
+  {
+   "id": 15444,
+   "col": "example_tr",
+   "old": "Domates dikmek istiyoruz",
+   "new": "Bebeğin doğumu için bir ağaç dikeceğiz",
+   "why": "полная вычитка: смысл разошёлся — везде «в честь рождения малыша посадим дерево»"
+  },
+  {
+   "id": 15444,
+   "col": "example_pl",
+   "old": "Chcemy posadzić pomidory",
+   "new": "Z okazji narodzin dziecka posadzimy drzewo",
+   "why": "полная вычитка: смысл разошёлся — везде «в честь рождения малыша посадим дерево»"
+  },
+  {
+   "id": 15444,
+   "col": "example_cs",
+   "old": "Chceme zasadit rajčata",
+   "new": "K narození miminka zasadíme strom",
+   "why": "полная вычитка: смысл разошёлся — везде «в честь рождения малыша посадим дерево»"
+  },
+  {
+   "id": 15455,
+   "col": "example_en",
+   "old": "There's a strange atmosphere in this house",
+   "new": "The atmosphere here is very cosy",
+   "why": "полная вычитка: en/it/es/fr «странная атмосфера» — «атмосфера здесь уютная»"
+  },
+  {
+   "id": 15455,
+   "col": "example_it",
+   "old": "In questa casa c'è un'atmosfera strana",
+   "new": "L'atmosfera qui è molto accogliente",
+   "why": "полная вычитка: en/it/es/fr «странная атмосфера» — «атмосфера здесь уютная»"
+  },
+  {
+   "id": 15455,
+   "col": "example_es",
+   "old": "En esta casa hay un ambiente raro",
+   "new": "El ambiente aquí es muy acogedor",
+   "why": "полная вычитка: en/it/es/fr «странная атмосфера» — «атмосфера здесь уютная»"
+  },
+  {
+   "id": 15455,
+   "col": "example_fr",
+   "old": "Il y a une atmosphère bizarre dans cette maison",
+   "new": "L'ambiance ici est très chaleureuse",
+   "why": "полная вычитка: en/it/es/fr «странная атмосфера» — «атмосфера здесь уютная»"
+  },
+  {
+   "id": 15463,
+   "col": "example_de",
+   "old": "Wir sind letztes Jahr über den Ozean geflogen",
+   "new": "Mein Traum ist es, mit dem Boot über den Ozean zu fahren",
+   "why": "полная вычитка: смысл разошёлся — везде «мечта — пересечь океан на лодке»"
+  },
+  {
+   "id": 15463,
+   "col": "example_ru",
+   "old": "Я ещё ни разу не видел океан",
+   "new": "Моя мечта — пересечь океан на лодке",
+   "why": "полная вычитка: смысл разошёлся — везде «мечта — пересечь океан на лодке»"
+  },
+  {
+   "id": 15463,
+   "col": "example_uk",
+   "old": "Я ще жодного разу не бачив океану",
+   "new": "Моя мрія — перетнути океан на човні",
+   "why": "полная вычитка: смысл разошёлся — везде «мечта — пересечь океан на лодке»"
+  },
+  {
+   "id": 15463,
+   "col": "example_tr",
+   "old": "Geçen yıl okyanusun üzerinden uçtuk",
+   "new": "Hayalim okyanusu tekneyle geçmek",
+   "why": "полная вычитка: смысл разошёлся — везде «мечта — пересечь океан на лодке»"
+  },
+  {
+   "id": 15463,
+   "col": "example_pl",
+   "old": "W zeszłym roku lecieliśmy nad oceanem",
+   "new": "Moim marzeniem jest przepłynąć ocean łodzią",
+   "why": "полная вычитка: смысл разошёлся — везде «мечта — пересечь океан на лодке»"
+  },
+  {
+   "id": 15463,
+   "col": "example_cs",
+   "old": "Loni jsme letěli přes oceán",
+   "new": "Mým snem je přeplout oceán lodí",
+   "why": "полная вычитка: смысл разошёлся — везде «мечта — пересечь океан на лодке»"
+  },
+  {
+   "id": 15465,
+   "col": "example_de",
+   "old": "Die Kälte draußen ist heute unerträglich",
+   "new": "Ich kann Kälte nicht ausstehen",
+   "why": "полная вычитка: смысл разошёлся — везде «я плохо переношу холод»"
+  },
+  {
+   "id": 15465,
+   "col": "example_tr",
+   "old": "Dışarıdaki soğuk bugün dayanılmaz",
+   "new": "Soğuğa dayanamıyorum",
+   "why": "полная вычитка: смысл разошёлся — везде «я плохо переношу холод»"
+  },
+  {
+   "id": 15465,
+   "col": "example_pl",
+   "old": "Na dworze jest dziś nieznośne zimno",
+   "new": "Nie znoszę zimna",
+   "why": "полная вычитка: смысл разошёлся — везде «я плохо переношу холод»"
+  },
+  {
+   "id": 15465,
+   "col": "example_cs",
+   "old": "Venku je dnes nesnesitelná zima",
+   "new": "Nesnáším zimu",
+   "why": "полная вычитка: смысл разошёлся — везде «я плохо переношу холод»"
+  },
+  {
+   "id": 15475,
+   "col": "example_en",
+   "old": "The frost killed the flowers on the balcony",
+   "new": "There was a hard frost last night",
+   "why": "полная вычитка: en/it/es/fr «мороз погубил цветы» — «ночью был сильный мороз»"
+  },
+  {
+   "id": 15475,
+   "col": "example_it",
+   "old": "Con il gelo sono morti i fiori del balcone",
+   "new": "Stanotte c'è stato un gelo fortissimo",
+   "why": "полная вычитка: en/it/es/fr «мороз погубил цветы» — «ночью был сильный мороз»"
+  },
+  {
+   "id": 15475,
+   "col": "example_es",
+   "old": "Con la helada se murieron las flores del balcón",
+   "new": "Anoche hubo una helada muy fuerte",
+   "why": "полная вычитка: en/it/es/fr «мороз погубил цветы» — «ночью был сильный мороз»"
+  },
+  {
+   "id": 15475,
+   "col": "example_fr",
+   "old": "Avec le gel, les fleurs du balcon sont mortes",
+   "new": "Cette nuit, il y a eu un gel très fort",
+   "why": "полная вычитка: en/it/es/fr «мороз погубил цветы» — «ночью был сильный мороз»"
+  },
+  {
+   "id": 15482,
+   "col": "example_en",
+   "old": "Darkness scares my little son",
+   "new": "The darkness of the night scares me",
+   "why": "полная вычитка: en/it/es/fr «сын боится темноты» — «ночная тьма меня пугает»"
+  },
+  {
+   "id": 15482,
+   "col": "example_it",
+   "old": "Mio figlio ha paura dell'oscurità",
+   "new": "L'oscurità della notte mi fa paura",
+   "why": "полная вычитка: en/it/es/fr «сын боится темноты» — «ночная тьма меня пугает»"
+  },
+  {
+   "id": 15482,
+   "col": "example_es",
+   "old": "Mi hijo tiene miedo a la oscuridad",
+   "new": "La oscuridad de la noche me da miedo",
+   "why": "полная вычитка: en/it/es/fr «сын боится темноты» — «ночная тьма меня пугает»"
+  },
+  {
+   "id": 15482,
+   "col": "example_fr",
+   "old": "Mon fils a peur de l'obscurité",
+   "new": "L'obscurité de la nuit me fait peur",
+   "why": "полная вычитка: en/it/es/fr «сын боится темноты» — «ночная тьма меня пугает»"
+  },
+  {
+   "id": 15498,
+   "col": "example_uk",
+   "old": "Чернігів лежить на північ від Києва",
+   "new": "Гамбург розташований на північ від Ганновера",
+   "why": "полная вычитка: uk Чернигов и Киев — Гамбург и Ганновер"
+  },
+  {
+   "id": 15609,
+   "col": "example_en",
+   "old": "The tractor is ploughing the field",
+   "new": "The farmer works in his field from morning till night",
+   "why": "полная вычитка: en/es/fr трактор пашет — «фермер работает в поле с утра до вечера»"
+  },
+  {
+   "id": 15609,
+   "col": "example_es",
+   "old": "El tractor ara el campo",
+   "new": "El agricultor trabaja en su campo de sol a sol",
+   "why": "полная вычитка: en/es/fr трактор пашет — «фермер работает в поле с утра до вечера»"
+  },
+  {
+   "id": 15609,
+   "col": "example_fr",
+   "old": "Le tracteur laboure le champ",
+   "new": "Le paysan travaille dans son champ du matin au soir",
+   "why": "полная вычитка: en/es/fr трактор пашет — «фермер работает в поле с утра до вечера»"
+  },
+  {
+   "id": 15618,
+   "col": "example_de",
+   "old": "Wer füttert die Fische im Aquarium, wenn wir weg sind?",
+   "new": "Der Zahnarzt hat ein riesiges Aquarium im Wartezimmer",
+   "why": "полная вычитка: смысл разошёлся; «кто покормит рыбок» — как у 15454 — везде «у стоматолога огромный аквариум»"
+  },
+  {
+   "id": 15618,
+   "col": "example_ru",
+   "old": "Кто будет кормить рыбок в аквариуме, пока нас нет?",
+   "new": "У стоматолога в приёмной огромный аквариум",
+   "why": "полная вычитка: смысл разошёлся; «кто покормит рыбок» — как у 15454 — везде «у стоматолога огромный аквариум»"
+  },
+  {
+   "id": 15618,
+   "col": "example_uk",
+   "old": "Хто годуватиме рибок в акваріумі, поки нас немає?",
+   "new": "У стоматолога в приймальні величезний акваріум",
+   "why": "полная вычитка: смысл разошёлся; «кто покормит рыбок» — как у 15454 — везде «у стоматолога огромный аквариум»"
+  },
+  {
+   "id": 15618,
+   "col": "example_tr",
+   "old": "Biz yokken akvaryumdaki balıkları kim besleyecek?",
+   "new": "Dişçinin bekleme odasında kocaman bir akvaryum var",
+   "why": "полная вычитка: смысл разошёлся; «кто покормит рыбок» — как у 15454 — везде «у стоматолога огромный аквариум»"
+  },
+  {
+   "id": 15618,
+   "col": "example_pl",
+   "old": "Kto nakarmi rybki w akwarium, jak nas nie będzie?",
+   "new": "Dentysta ma w poczekalni ogromne akwarium",
+   "why": "полная вычитка: смысл разошёлся; «кто покормит рыбок» — как у 15454 — везде «у стоматолога огромный аквариум»"
+  },
+  {
+   "id": 15618,
+   "col": "example_it",
+   "old": "Chi dà da mangiare ai pesci dell'acquario quando non ci siamo?",
+   "new": "Il dentista ha un acquario enorme in sala d'attesa",
+   "why": "полная вычитка: смысл разошёлся; «кто покормит рыбок» — как у 15454 — везде «у стоматолога огромный аквариум»"
+  },
+  {
+   "id": 15618,
+   "col": "example_cs",
+   "old": "Kdo bude krmit rybičky v akváriu, když budeme pryč?",
+   "new": "Zubař má v čekárně obrovské akvárium",
+   "why": "полная вычитка: смысл разошёлся; «кто покормит рыбок» — как у 15454 — везде «у стоматолога огромный аквариум»"
+  },
+  {
+   "id": 15859,
+   "col": "example_de",
+   "old": "Der Kanarienvogel singt jeden Morgen laut",
+   "new": "Oma hat einen Kanarienvogel, der Hansi heißt",
+   "why": "полная вычитка: смысл разошёлся; «поёт по утрам» — как у 15852 — везде «у бабушки канарейка»"
+  },
+  {
+   "id": 15859,
+   "col": "example_ru",
+   "old": "Канарейка поёт громко каждое утро",
+   "new": "У бабушки есть канарейка по кличке Гоша",
+   "why": "полная вычитка: смысл разошёлся; «поёт по утрам» — как у 15852 — везде «у бабушки канарейка»"
+  },
+  {
+   "id": 15859,
+   "col": "example_uk",
+   "old": "Канарка щоранку голосно співає",
+   "new": "У бабусі є канарка, яку звати Гоша",
+   "why": "полная вычитка: смысл разошёлся; «поёт по утрам» — как у 15852 — везде «у бабушки канарейка»"
+  },
+  {
+   "id": 15859,
+   "col": "example_tr",
+   "old": "Kanarya her sabah yüksek sesle ötüyor",
+   "new": "Babaannemin Cikcik adında bir kanaryası var",
+   "why": "полная вычитка: смысл разошёлся; «поёт по утрам» — как у 15852 — везде «у бабушки канарейка»"
+  },
+  {
+   "id": 15859,
+   "col": "example_pl",
+   "old": "Kanarek co rano głośno śpiewa",
+   "new": "Babcia ma kanarka, który nazywa się Pipi",
+   "why": "полная вычитка: смысл разошёлся; «поёт по утрам» — как у 15852 — везде «у бабушки канарейка»"
+  },
+  {
+   "id": 15859,
+   "col": "example_cs",
+   "old": "Kanárek každé ráno hlasitě zpívá",
+   "new": "Babička má kanárka, který se jmenuje Pepíček",
+   "why": "полная вычитка: смысл разошёлся; «поёт по утрам» — как у 15852 — везде «у бабушки канарейка»"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
