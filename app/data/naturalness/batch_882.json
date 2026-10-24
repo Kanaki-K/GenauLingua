@@ -1,0 +1,800 @@
+{
+ "about": "полная вычитка p022",
+ "edits": [
+  {
+   "id": 14046,
+   "col": "example_ru",
+   "old": "Не знаю, как затронуть с ним эту тему",
+   "new": "Завтра я с ним об этом заговорю",
+   "why": "полная вычитка: ru/uk «не знаю, как затронуть тему» — «завтра я с ним об этом заговорю»"
+  },
+  {
+   "id": 14046,
+   "col": "example_uk",
+   "old": "Я не знаю, як порушити з ним цю тему",
+   "new": "Завтра я з ним про це заговорю",
+   "why": "полная вычитка: ru/uk «не знаю, как затронуть тему» — «завтра я с ним об этом заговорю»"
+  },
+  {
+   "id": 14374,
+   "col": "example_de",
+   "old": "Sie benimmt sich wie eine Prinzessin",
+   "new": "Meine Tochter wünscht sich zum Geburtstag ein Prinzessinnenkleid",
+   "why": "полная вычитка: смысл разошёлся — везде «дочка хочет платье принцессы»"
+  },
+  {
+   "id": 14374,
+   "col": "example_ru",
+   "old": "Она ведёт себя как принцесса",
+   "new": "Дочка хочет на день рождения платье принцессы",
+   "why": "полная вычитка: смысл разошёлся — везде «дочка хочет платье принцессы»"
+  },
+  {
+   "id": 14374,
+   "col": "example_uk",
+   "old": "Вона поводиться як принцеса",
+   "new": "Донька хоче на день народження сукню принцеси",
+   "why": "полная вычитка: смысл разошёлся — везде «дочка хочет платье принцессы»"
+  },
+  {
+   "id": 14374,
+   "col": "example_tr",
+   "old": "Prenses gibi davranıyor",
+   "new": "Kızım doğum günü için prenses elbisesi istiyor",
+   "why": "полная вычитка: смысл разошёлся — везде «дочка хочет платье принцессы»"
+  },
+  {
+   "id": 14374,
+   "col": "example_pl",
+   "old": "Zachowuje się jak księżniczka",
+   "new": "Córka chce na urodziny sukienkę księżniczki",
+   "why": "полная вычитка: смысл разошёлся — везде «дочка хочет платье принцессы»"
+  },
+  {
+   "id": 14374,
+   "col": "example_cs",
+   "old": "Chová se jako princezna",
+   "new": "Dcera chce k narozeninám šaty princezny",
+   "why": "полная вычитка: смысл разошёлся — везде «дочка хочет платье принцессы»"
+  },
+  {
+   "id": 14405,
+   "col": "example_de",
+   "old": "Ich will das filmen",
+   "new": "Warte, ich filme das!",
+   "why": "полная вычитка: смысл разошёлся — везде «подожди, я это сниму»"
+  },
+  {
+   "id": 14405,
+   "col": "example_ru",
+   "old": "Не снимай меня, я ещё не причесалась!",
+   "new": "Подожди, я это сниму!",
+   "why": "полная вычитка: смысл разошёлся — везде «подожди, я это сниму»"
+  },
+  {
+   "id": 14405,
+   "col": "example_uk",
+   "old": "Не знімай мене, я ще не причесалася!",
+   "new": "Зачекай, я це зніму!",
+   "why": "полная вычитка: смысл разошёлся — везде «подожди, я это сниму»"
+  },
+  {
+   "id": 14405,
+   "col": "example_tr",
+   "old": "Bunu çekmek istiyorum",
+   "new": "Bekle, bunu çekiyorum!",
+   "why": "полная вычитка: смысл разошёлся — везде «подожди, я это сниму»"
+  },
+  {
+   "id": 14405,
+   "col": "example_pl",
+   "old": "Chcę to nagrać",
+   "new": "Czekaj, nagram to!",
+   "why": "полная вычитка: смысл разошёлся — везде «подожди, я это сниму»"
+  },
+  {
+   "id": 14405,
+   "col": "example_cs",
+   "old": "Chci to natočit",
+   "new": "Počkej, natočím to!",
+   "why": "полная вычитка: смысл разошёлся — везде «подожди, я это сниму»"
+  },
+  {
+   "id": 14411,
+   "col": "example_de",
+   "old": "Wir haben den alten Tempel besichtigt",
+   "new": "In Thailand gibt es überall Tempel",
+   "why": "полная вычитка: смысл разошёлся; «осмотрели старый храм» — как у 14437 — везде «в Таиланде храмы повсюду»"
+  },
+  {
+   "id": 14411,
+   "col": "example_ru",
+   "old": "Мы осмотрели старый храм",
+   "new": "В Таиланде храмы повсюду",
+   "why": "полная вычитка: смысл разошёлся; «осмотрели старый храм» — как у 14437 — везде «в Таиланде храмы повсюду»"
+  },
+  {
+   "id": 14411,
+   "col": "example_uk",
+   "old": "Ми оглянули старий храм",
+   "new": "У Таїланді храми всюди",
+   "why": "полная вычитка: смысл разошёлся; «осмотрели старый храм» — как у 14437 — везде «в Таиланде храмы повсюду»"
+  },
+  {
+   "id": 14411,
+   "col": "example_tr",
+   "old": "Eski tapınağı ziyaret ettik",
+   "new": "Tayland'da her yerde tapınak var",
+   "why": "полная вычитка: смысл разошёлся; «осмотрели старый храм» — как у 14437 — везде «в Таиланде храмы повсюду»"
+  },
+  {
+   "id": 14411,
+   "col": "example_pl",
+   "old": "Zwiedziliśmy starą świątynię",
+   "new": "W Tajlandii wszędzie są świątynie",
+   "why": "полная вычитка: смысл разошёлся; «осмотрели старый храм» — как у 14437 — везде «в Таиланде храмы повсюду»"
+  },
+  {
+   "id": 14411,
+   "col": "example_cs",
+   "old": "Prohlédli jsme si starý chrám",
+   "new": "V Thajsku jsou všude chrámy",
+   "why": "полная вычитка: смысл разошёлся; «осмотрели старый храм» — как у 14437 — везде «в Таиланде храмы повсюду»"
+  },
+  {
+   "id": 14437,
+   "col": "example_de",
+   "old": "Wir haben das alte Kloster besichtigt",
+   "new": "Das alte Kloster auf dem Hügel ist heute ein Hotel",
+   "why": "полная вычитка: смысл разошёлся; пиво монахов — двойник 14477 — везде «старый монастырь на холме теперь гостиница»"
+  },
+  {
+   "id": 14437,
+   "col": "example_ru",
+   "old": "На холме над рекой стоит старинный монастырь",
+   "new": "Старый монастырь на холме сегодня стал гостиницей",
+   "why": "полная вычитка: смысл разошёлся; пиво монахов — двойник 14477 — везде «старый монастырь на холме теперь гостиница»"
+  },
+  {
+   "id": 14437,
+   "col": "example_uk",
+   "old": "Над Дніпром стоїть старовинний монастир",
+   "new": "Старий монастир на пагорбі тепер став готелем",
+   "why": "полная вычитка: смысл разошёлся; пиво монахов — двойник 14477 — везде «старый монастырь на холме теперь гостиница»"
+  },
+  {
+   "id": 14437,
+   "col": "example_en",
+   "old": "The monks at the monastery brew their own beer",
+   "new": "The old monastery on the hill is a hotel now",
+   "why": "полная вычитка: смысл разошёлся; пиво монахов — двойник 14477 — везде «старый монастырь на холме теперь гостиница»"
+  },
+  {
+   "id": 14437,
+   "col": "example_tr",
+   "old": "Eski manastırı ziyaret ettik",
+   "new": "Tepedeki eski manastır bugün bir otel",
+   "why": "полная вычитка: смысл разошёлся; пиво монахов — двойник 14477 — везде «старый монастырь на холме теперь гостиница»"
+  },
+  {
+   "id": 14437,
+   "col": "example_pl",
+   "old": "Zwiedzaliśmy stary klasztor",
+   "new": "Stary klasztor na wzgórzu jest dziś hotelem",
+   "why": "полная вычитка: смысл разошёлся; пиво монахов — двойник 14477 — везде «старый монастырь на холме теперь гостиница»"
+  },
+  {
+   "id": 14437,
+   "col": "example_it",
+   "old": "I monaci del monastero fanno la loro birra",
+   "new": "Il vecchio monastero sulla collina oggi è un albergo",
+   "why": "полная вычитка: смысл разошёлся; пиво монахов — двойник 14477 — везде «старый монастырь на холме теперь гостиница»"
+  },
+  {
+   "id": 14437,
+   "col": "example_es",
+   "old": "Los monjes del monasterio hacen su propia cerveza",
+   "new": "El antiguo monasterio de la colina hoy es un hotel",
+   "why": "полная вычитка: смысл разошёлся; пиво монахов — двойник 14477 — везде «старый монастырь на холме теперь гостиница»"
+  },
+  {
+   "id": 14437,
+   "col": "example_fr",
+   "old": "Les moines du monastère font leur propre bière",
+   "new": "Le vieux monastère sur la colline est aujourd'hui un hôtel",
+   "why": "полная вычитка: смысл разошёлся; пиво монахов — двойник 14477 — везде «старый монастырь на холме теперь гостиница»"
+  },
+  {
+   "id": 14437,
+   "col": "example_cs",
+   "old": "Prohlédli jsme si starý klášter",
+   "new": "Starý klášter na kopci je dnes hotel",
+   "why": "полная вычитка: смысл разошёлся; пиво монахов — двойник 14477 — везде «старый монастырь на холме теперь гостиница»"
+  },
+  {
+   "id": 14448,
+   "col": "example_de",
+   "old": "Die Kinder bauen eine Burg aus Sand",
+   "new": "Wir haben eine mittelalterliche Burg besichtigt",
+   "why": "полная вычитка: смысл разошёлся — везде «осмотрели средневековый замок»"
+  },
+  {
+   "id": 14448,
+   "col": "example_ru",
+   "old": "Дети строят замок из песка",
+   "new": "Мы осмотрели средневековый замок",
+   "why": "полная вычитка: смысл разошёлся — везде «осмотрели средневековый замок»"
+  },
+  {
+   "id": 14448,
+   "col": "example_uk",
+   "old": "Діти будують замок із піску",
+   "new": "Ми оглянули середньовічний замок",
+   "why": "полная вычитка: смысл разошёлся — везде «осмотрели средневековый замок»"
+  },
+  {
+   "id": 14448,
+   "col": "example_tr",
+   "old": "Çocuklar kumdan kale yapıyor",
+   "new": "Ortaçağdan kalma bir kaleyi gezdik",
+   "why": "полная вычитка: смысл разошёлся — везде «осмотрели средневековый замок»"
+  },
+  {
+   "id": 14448,
+   "col": "example_pl",
+   "old": "Dzieci budują zamek z piasku",
+   "new": "Zwiedziliśmy średniowieczny zamek",
+   "why": "полная вычитка: смысл разошёлся — везде «осмотрели средневековый замок»"
+  },
+  {
+   "id": 14448,
+   "col": "example_cs",
+   "old": "Děti stavějí hrad z písku",
+   "new": "Prohlédli jsme si středověký hrad",
+   "why": "полная вычитка: смысл разошёлся — везде «осмотрели средневековый замок»"
+  },
+  {
+   "id": 14449,
+   "col": "example_de",
+   "old": "Die Klänge der Musik waren wunderschön",
+   "new": "Ich liebe den Klang dieser alten Gitarre",
+   "why": "полная вычитка: смысл разошёлся — везде «люблю звучание этой старой гитары»"
+  },
+  {
+   "id": 14449,
+   "col": "example_ru",
+   "old": "Мне очень нравится звучание этой гитары",
+   "new": "Мне очень нравится звучание этой старой гитары",
+   "why": "полная вычитка: смысл разошёлся — везде «люблю звучание этой старой гитары»"
+  },
+  {
+   "id": 14449,
+   "col": "example_uk",
+   "old": "Мені дуже подобається звучання цієї гітари",
+   "new": "Мені дуже подобається звучання цієї старої гітари",
+   "why": "полная вычитка: смысл разошёлся — везде «люблю звучание этой старой гитары»"
+  },
+  {
+   "id": 14449,
+   "col": "example_tr",
+   "old": "Müziğin tınıları çok güzeldi",
+   "new": "Bu eski gitarın tınısına bayılıyorum",
+   "why": "полная вычитка: смысл разошёлся — везде «люблю звучание этой старой гитары»"
+  },
+  {
+   "id": 14449,
+   "col": "example_pl",
+   "old": "Dźwięki muzyki były przepiękne",
+   "new": "Uwielbiam brzmienie tej starej gitary",
+   "why": "полная вычитка: смысл разошёлся — везде «люблю звучание этой старой гитары»"
+  },
+  {
+   "id": 14449,
+   "col": "example_cs",
+   "old": "Zvuky hudby byly nádherné",
+   "new": "Miluju zvuk téhle staré kytary",
+   "why": "полная вычитка: смысл разошёлся — везде «люблю звучание этой старой гитары»"
+  },
+  {
+   "id": 14451,
+   "col": "example_de",
+   "old": "Er war ein gesegneter Mensch mit einer glücklichen Familie",
+   "new": "Mit drei Enkeln fühle ich mich wirklich gesegnet",
+   "why": "полная вычитка: смысл разошёлся — везде «с тремя внуками я по-настоящему счастлива»"
+  },
+  {
+   "id": 14451,
+   "col": "example_ru",
+   "old": "Он был счастливым человеком, благословлённым прекрасной семьёй",
+   "new": "С тремя внуками я чувствую себя по-настоящему счастливой",
+   "why": "полная вычитка: смысл разошёлся — везде «с тремя внуками я по-настоящему счастлива»"
+  },
+  {
+   "id": 14451,
+   "col": "example_uk",
+   "old": "Він був благословенною людиною зі щасливою сім'єю",
+   "new": "З трьома онуками я почуваюся по-справжньому щасливою",
+   "why": "полная вычитка: смысл разошёлся — везде «с тремя внуками я по-настоящему счастлива»"
+  },
+  {
+   "id": 14451,
+   "col": "example_tr",
+   "old": "Allah ona mutlu bir aile vermişti, şanslı bir insandı",
+   "new": "Üç torunumla kendimi gerçekten şanslı hissediyorum",
+   "why": "полная вычитка: смысл разошёлся — везде «с тремя внуками я по-настоящему счастлива»"
+  },
+  {
+   "id": 14451,
+   "col": "example_pl",
+   "old": "Był błogosławionym człowiekiem ze szczęśliwą rodziną",
+   "new": "Z trojgiem wnucząt czuję się naprawdę błogosławiona",
+   "why": "полная вычитка: смысл разошёлся — везде «с тремя внуками я по-настоящему счастлива»"
+  },
+  {
+   "id": 14451,
+   "col": "example_cs",
+   "old": "Byl to požehnaný člověk se šťastnou rodinou",
+   "new": "Se třemi vnoučaty se cítím opravdu požehnaná",
+   "why": "полная вычитка: смысл разошёлся — везде «с тремя внуками я по-настоящему счастлива»"
+  },
+  {
+   "id": 14456,
+   "col": "example_ru",
+   "old": "Его Святейшество Папа посещает Африку",
+   "new": "Его Святейшество Папа посещает Берлин",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 14456,
+   "col": "example_uk",
+   "old": "Його Святійшество Папа відвідує Київ",
+   "new": "Його Святійшество Папа відвідує Берлін",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 14456,
+   "col": "example_en",
+   "old": "His Holiness the Pope is visiting London",
+   "new": "His Holiness the Pope is visiting Berlin",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 14456,
+   "col": "example_it",
+   "old": "Sua Santità il Papa visita Milano",
+   "new": "Sua Santità il Papa visita Berlino",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 14456,
+   "col": "example_es",
+   "old": "Su Santidad el Papa visita Madrid",
+   "new": "Su Santidad el Papa visita Berlín",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 14466,
+   "col": "example_de",
+   "old": "Der Erzähler der Geschichte ist sehr talentiert",
+   "new": "In diesem Buch ist der Erzähler eine Katze",
+   "why": "полная вычитка: смысл разошёлся — везде «в этой книге рассказчик — кот»"
+  },
+  {
+   "id": 14466,
+   "col": "example_ru",
+   "old": "В аудиокниге у рассказчика очень приятный голос",
+   "new": "В этой книге рассказчик — кот",
+   "why": "полная вычитка: смысл разошёлся — везде «в этой книге рассказчик — кот»"
+  },
+  {
+   "id": 14466,
+   "col": "example_uk",
+   "old": "В аудіокнизі в оповідача дуже приємний голос",
+   "new": "У цій книжці оповідач — кіт",
+   "why": "полная вычитка: смысл разошёлся — везде «в этой книге рассказчик — кот»"
+  },
+  {
+   "id": 14466,
+   "col": "example_tr",
+   "old": "Hikayenin anlatıcısı çok yeteneklidir",
+   "new": "Bu kitapta anlatıcı bir kedi",
+   "why": "полная вычитка: смысл разошёлся — везде «в этой книге рассказчик — кот»"
+  },
+  {
+   "id": 14466,
+   "col": "example_pl",
+   "old": "Narrator tej historii jest bardzo utalentowany",
+   "new": "W tej książce narratorem jest kot",
+   "why": "полная вычитка: смысл разошёлся — везде «в этой книге рассказчик — кот»"
+  },
+  {
+   "id": 14466,
+   "col": "example_cs",
+   "old": "Vypravěč toho příběhu je hodně talentovaný",
+   "new": "V téhle knize je vypravěčem kočka",
+   "why": "полная вычитка: смысл разошёлся — везде «в этой книге рассказчик — кот»"
+  },
+  {
+   "id": 14469,
+   "col": "example_de",
+   "old": "Dieser Song ist ein großer Hit",
+   "new": "Dieser Song ist der Hit des Sommers geworden",
+   "why": "полная вычитка: смысл разошёлся — везде «песня стала хитом лета»"
+  },
+  {
+   "id": 14469,
+   "col": "example_ru",
+   "old": "Эта песня — большой хит",
+   "new": "Эта песня стала хитом лета",
+   "why": "полная вычитка: смысл разошёлся — везде «песня стала хитом лета»"
+  },
+  {
+   "id": 14469,
+   "col": "example_uk",
+   "old": "Ця пісня — великий хіт",
+   "new": "Ця пісня стала хітом літа",
+   "why": "полная вычитка: смысл разошёлся — везде «песня стала хитом лета»"
+  },
+  {
+   "id": 14469,
+   "col": "example_tr",
+   "old": "Bu şarkı büyük bir hit",
+   "new": "Bu şarkı yazın hiti oldu",
+   "why": "полная вычитка: смысл разошёлся — везде «песня стала хитом лета»"
+  },
+  {
+   "id": 14469,
+   "col": "example_pl",
+   "old": "Ta piosenka to wielki hit",
+   "new": "Ta piosenka stała się hitem lata",
+   "why": "полная вычитка: смысл разошёлся — везде «песня стала хитом лета»"
+  },
+  {
+   "id": 14469,
+   "col": "example_cs",
+   "old": "Tahle písnička je velký hit",
+   "new": "Tahle písnička se stala hitem léta",
+   "why": "полная вычитка: смысл разошёлся — везде «песня стала хитом лета»"
+  },
+  {
+   "id": 14481,
+   "col": "example_ru",
+   "old": "Её картины висят в известной галерее",
+   "new": "Её картины висят в галерее в Берлине",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 14481,
+   "col": "example_uk",
+   "old": "Її картини висять у галереї у Львові",
+   "new": "Її картини висять у галереї в Берліні",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 14481,
+   "col": "example_en",
+   "old": "Her paintings hang in a gallery in London",
+   "new": "Her paintings hang in a gallery in Berlin",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 14481,
+   "col": "example_it",
+   "old": "I suoi quadri sono esposti in una galleria a Milano",
+   "new": "I suoi quadri sono esposti in una galleria a Berlino",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 14481,
+   "col": "example_es",
+   "old": "Sus cuadros cuelgan en una galería de Madrid",
+   "new": "Sus cuadros cuelgan en una galería de Berlín",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 14496,
+   "col": "example_ru",
+   "old": "Певица на следующей неделе даёт концерт в нашем городе",
+   "new": "Певица на следующей неделе даёт концерт в Берлине",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 14496,
+   "col": "example_uk",
+   "old": "Співачка наступного тижня дає концерт в Одесі",
+   "new": "Співачка наступного тижня дає концерт у Берліні",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 14496,
+   "col": "example_en",
+   "old": "The singer is giving a concert in Dublin next week",
+   "new": "The singer is giving a concert in Berlin next week",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 14496,
+   "col": "example_it",
+   "old": "La cantante tiene un concerto a Napoli la settimana prossima",
+   "new": "La cantante tiene un concerto a Berlino la settimana prossima",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 14496,
+   "col": "example_es",
+   "old": "La cantante da un concierto en Sevilla la semana que viene",
+   "new": "La cantante da un concierto en Berlín la semana que viene",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 14502,
+   "col": "example_en",
+   "old": "My daughter has done ballet since she was five",
+   "new": "My daughter loves doing ballet",
+   "why": "полная вычитка: en/es/fr «с пяти лет» — «дочка любит танцевать балет»"
+  },
+  {
+   "id": 14502,
+   "col": "example_es",
+   "old": "Mi hija hace ballet desde los cinco años",
+   "new": "A mi hija le gusta mucho bailar ballet",
+   "why": "полная вычитка: en/es/fr «с пяти лет» — «дочка любит танцевать балет»"
+  },
+  {
+   "id": 14502,
+   "col": "example_fr",
+   "old": "Ma fille fait de la danse classique depuis ses cinq ans",
+   "new": "Ma fille adore faire de la danse classique",
+   "why": "полная вычитка: en/es/fr «с пяти лет» — «дочка любит танцевать балет»"
+  },
+  {
+   "id": 14937,
+   "col": "example_en",
+   "old": "The little one is crying for her mummy",
+   "new": "Mummy, where are you?",
+   "why": "полная вычитка: en/it/es/fr «малыш плачет» — «мамочка, где ты?»"
+  },
+  {
+   "id": 14937,
+   "col": "example_it",
+   "old": "Il piccolo piange, vuole la mamma",
+   "new": "Mamma, dove sei?",
+   "why": "полная вычитка: en/it/es/fr «малыш плачет» — «мамочка, где ты?»"
+  },
+  {
+   "id": 14937,
+   "col": "example_es",
+   "old": "El peque llora, quiere a su mami",
+   "new": "Mami, ¿dónde estás?",
+   "why": "полная вычитка: en/it/es/fr «малыш плачет» — «мамочка, где ты?»"
+  },
+  {
+   "id": 14937,
+   "col": "example_fr",
+   "old": "Le petit pleure, il veut sa maman",
+   "new": "Maman, tu es où ?",
+   "why": "полная вычитка: en/it/es/fr «малыш плачет» — «мамочка, где ты?»"
+  },
+  {
+   "id": 14953,
+   "col": "example_de",
+   "old": "Unsere Freundschaft ist sehr wichtig für mich",
+   "new": "Unsere Freundschaft geht auf die Grundschule zurück",
+   "why": "полная вычитка: смысл разошёлся — везде «наша дружба ещё с начальной школы»"
+  },
+  {
+   "id": 14953,
+   "col": "example_ru",
+   "old": "С годами наша дружба только крепла",
+   "new": "Наша дружба тянется ещё с начальной школы",
+   "why": "полная вычитка: смысл разошёлся — везде «наша дружба ещё с начальной школы»"
+  },
+  {
+   "id": 14953,
+   "col": "example_uk",
+   "old": "З роками наша дружба тільки міцніла",
+   "new": "Наша дружба триває ще з початкової школи",
+   "why": "полная вычитка: смысл разошёлся — везде «наша дружба ещё с начальной школы»"
+  },
+  {
+   "id": 14953,
+   "col": "example_tr",
+   "old": "Dostluğumuz benim için çok önemli",
+   "new": "Dostluğumuz ilkokuldan beri sürüyor",
+   "why": "полная вычитка: смысл разошёлся — везде «наша дружба ещё с начальной школы»"
+  },
+  {
+   "id": 14953,
+   "col": "example_pl",
+   "old": "Nasza przyjaźń jest dla mnie bardzo ważna",
+   "new": "Nasza przyjaźń trwa od podstawówki",
+   "why": "полная вычитка: смысл разошёлся — везде «наша дружба ещё с начальной школы»"
+  },
+  {
+   "id": 14953,
+   "col": "example_cs",
+   "old": "Na našem přátelství mi hodně záleží",
+   "new": "Naše přátelství trvá od základní školy",
+   "why": "полная вычитка: смысл разошёлся — везде «наша дружба ещё с начальной школы»"
+  },
+  {
+   "id": 14966,
+   "col": "example_ru",
+   "old": "После развода она переехала к родителям",
+   "new": "После развода она переехала в Берлин",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 14966,
+   "col": "example_uk",
+   "old": "Після розлучення вона переїхала до Харкова",
+   "new": "Після розлучення вона переїхала до Берліна",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 14966,
+   "col": "example_en",
+   "old": "After the divorce she moved to Bristol",
+   "new": "After the divorce she moved to Berlin",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 14966,
+   "col": "example_it",
+   "old": "Dopo il divorzio si è trasferita a Firenze",
+   "new": "Dopo il divorzio si è trasferita a Berlino",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 14966,
+   "col": "example_es",
+   "old": "Después del divorcio se mudó a Málaga",
+   "new": "Después del divorcio se mudó a Berlín",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 14976,
+   "col": "example_de",
+   "old": "Er ist ein echter Gentleman und sehr höflich",
+   "new": "Er ist ein echter Gentleman, er hält mir immer die Tür auf",
+   "why": "полная вычитка: смысл разошёлся — везде «джентльмен, всегда открывает мне дверь»"
+  },
+  {
+   "id": 14976,
+   "col": "example_ru",
+   "old": "Он настоящий джентльмен и очень вежливый",
+   "new": "Он настоящий джентльмен, всегда открывает мне дверь",
+   "why": "полная вычитка: смысл разошёлся — везде «джентльмен, всегда открывает мне дверь»"
+  },
+  {
+   "id": 14976,
+   "col": "example_uk",
+   "old": "Він справжній джентльмен і дуже ввічливий",
+   "new": "Він справжній джентльмен, завжди відчиняє мені двері",
+   "why": "полная вычитка: смысл разошёлся — везде «джентльмен, всегда открывает мне дверь»"
+  },
+  {
+   "id": 14976,
+   "col": "example_tr",
+   "old": "Tam bir centilmen, çok kibar",
+   "new": "Tam bir centilmen, bana hep kapıyı açıyor",
+   "why": "полная вычитка: смысл разошёлся — везде «джентльмен, всегда открывает мне дверь»"
+  },
+  {
+   "id": 14976,
+   "col": "example_pl",
+   "old": "To prawdziwy dżentelmen, bardzo uprzejmy",
+   "new": "To prawdziwy dżentelmen, zawsze otwiera mi drzwi",
+   "why": "полная вычитка: смысл разошёлся — везде «джентльмен, всегда открывает мне дверь»"
+  },
+  {
+   "id": 14976,
+   "col": "example_cs",
+   "old": "Je to skutečný gentleman a hodně zdvořilý",
+   "new": "Je to skutečný gentleman, vždycky mi otevře dveře",
+   "why": "полная вычитка: смысл разошёлся — везде «джентльмен, всегда открывает мне дверь»"
+  },
+  {
+   "id": 15006,
+   "col": "example_en",
+   "old": "I've got a good relationship with my neighbours",
+   "new": "So what's your relationship with each other like?",
+   "why": "полная вычитка: en/it/es/fr соседи (близко к 14922) — «какие у вас отношения друг с другом?»"
+  },
+  {
+   "id": 15006,
+   "col": "example_it",
+   "old": "Ho un ottimo rapporto con i vicini",
+   "new": "Ma che rapporto avete tra di voi?",
+   "why": "полная вычитка: en/it/es/fr соседи (близко к 14922) — «какие у вас отношения друг с другом?»"
+  },
+  {
+   "id": 15006,
+   "col": "example_es",
+   "old": "Tengo muy buena relación con mis vecinos",
+   "new": "¿Y qué relación tenéis entre vosotros?",
+   "why": "полная вычитка: en/it/es/fr соседи (близко к 14922) — «какие у вас отношения друг с другом?»"
+  },
+  {
+   "id": 15006,
+   "col": "example_fr",
+   "old": "J'ai de bons rapports avec mes voisins",
+   "new": "Et quels rapports vous avez entre vous ?",
+   "why": "полная вычитка: en/it/es/fr соседи (близко к 14922) — «какие у вас отношения друг с другом?»"
+  },
+  {
+   "id": 15013,
+   "col": "example_de",
+   "old": "Wir sind verwandt",
+   "new": "Wir sind verwandt, aber nur entfernt",
+   "why": "полная вычитка: смысл разошёлся — везде «мы родственники, но дальние»"
+  },
+  {
+   "id": 15013,
+   "col": "example_tr",
+   "old": "Biz akrabayız",
+   "new": "Akrabayız ama uzaktan",
+   "why": "полная вычитка: смысл разошёлся — везде «мы родственники, но дальние»"
+  },
+  {
+   "id": 15013,
+   "col": "example_pl",
+   "old": "Jesteśmy spokrewnieni",
+   "new": "Jesteśmy spokrewnieni, ale tylko daleko",
+   "why": "полная вычитка: смысл разошёлся — везде «мы родственники, но дальние»"
+  },
+  {
+   "id": 15013,
+   "col": "example_cs",
+   "old": "Jsme příbuzní",
+   "new": "Jsme příbuzní, ale jen vzdáleně",
+   "why": "полная вычитка: смысл разошёлся — везде «мы родственники, но дальние»"
+  },
+  {
+   "id": 15034,
+   "col": "example_de",
+   "old": "Der Bischof hat die Kirche besucht",
+   "new": "Der Bischof kommt und segnet die neue Kirche",
+   "why": "полная вычитка: смысл разошёлся — везде «епископ приедет освятить новую церковь»"
+  },
+  {
+   "id": 15034,
+   "col": "example_ru",
+   "old": "Епископ освятил новую церковь",
+   "new": "Епископ приедет освятить новую церковь",
+   "why": "полная вычитка: смысл разошёлся — везде «епископ приедет освятить новую церковь»"
+  },
+  {
+   "id": 15034,
+   "col": "example_uk",
+   "old": "Єпископ освятив нову церкву",
+   "new": "Єпископ приїде освятити нову церкву",
+   "why": "полная вычитка: смысл разошёлся — везде «епископ приедет освятить новую церковь»"
+  },
+  {
+   "id": 15034,
+   "col": "example_tr",
+   "old": "Piskopos kiliseyi ziyaret etti",
+   "new": "Piskopos yeni kiliseyi kutsamaya geliyor",
+   "why": "полная вычитка: смысл разошёлся — везде «епископ приедет освятить новую церковь»"
+  },
+  {
+   "id": 15034,
+   "col": "example_pl",
+   "old": "Biskup odwiedził kościół",
+   "new": "Biskup przyjedzie poświęcić nowy kościół",
+   "why": "полная вычитка: смысл разошёлся — везде «епископ приедет освятить новую церковь»"
+  },
+  {
+   "id": 15034,
+   "col": "example_cs",
+   "old": "Biskup navštívil kostel",
+   "new": "Biskup přijede vysvětit nový kostel",
+   "why": "полная вычитка: смысл разошёлся — везде «епископ приедет освятить новую церковь»"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
