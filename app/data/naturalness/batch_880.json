@@ -1,0 +1,576 @@
+{
+ "about": "полная вычитка p020",
+ "edits": [
+  {
+   "id": 12146,
+   "col": "example_ru",
+   "old": "Папа с самого утра ушёл рыбачить на озеро",
+   "new": "На выходных мы идём рыбачить",
+   "why": "полная вычитка: ru/uk «папа ушёл рыбачить», fr «с дедушкой» — «на выходных идём рыбачить»"
+  },
+  {
+   "id": 12146,
+   "col": "example_uk",
+   "old": "Тато з самого ранку пішов рибалити на озеро",
+   "new": "На вихідних ми йдемо рибалити",
+   "why": "полная вычитка: ru/uk «папа ушёл рыбачить», fr «с дедушкой» — «на выходных идём рыбачить»"
+  },
+  {
+   "id": 12146,
+   "col": "example_fr",
+   "old": "Ce week-end, on va pêcher avec papi",
+   "new": "Ce week-end, on va pêcher",
+   "why": "полная вычитка: ru/uk «папа ушёл рыбачить», fr «с дедушкой» — «на выходных идём рыбачить»"
+  },
+  {
+   "id": 12156,
+   "col": "example_ru",
+   "old": "В отпуске мы впервые ныряли с маской",
+   "new": "Завтра мы идём нырять с аквалангом",
+   "why": "полная вычитка: ru/uk «впервые ныряли», fr Корсика — «завтра идём нырять»"
+  },
+  {
+   "id": 12156,
+   "col": "example_uk",
+   "old": "У відпустці ми вперше пірнали з маскою",
+   "new": "Завтра ми йдемо пірнати з аквалангом",
+   "why": "полная вычитка: ru/uk «впервые ныряли», fr Корсика — «завтра идём нырять»"
+  },
+  {
+   "id": 12156,
+   "col": "example_fr",
+   "old": "Demain, on va plonger en Corse",
+   "new": "Demain, on va faire de la plongée",
+   "why": "полная вычитка: ru/uk «впервые ныряли», fr Корсика — «завтра идём нырять»"
+  },
+  {
+   "id": 12157,
+   "col": "example_ru",
+   "old": "В Америке бейсбол очень популярен",
+   "new": "Сегодня мы играем в бейсбол в парке",
+   "why": "полная вычитка: ru/uk Америка, fr Япония — «сегодня играем в бейсбол в парке»"
+  },
+  {
+   "id": 12157,
+   "col": "example_uk",
+   "old": "В Америці бейсбол дуже популярний",
+   "new": "Сьогодні ми граємо в бейсбол у парку",
+   "why": "полная вычитка: ru/uk Америка, fr Япония — «сегодня играем в бейсбол в парке»"
+  },
+  {
+   "id": 12157,
+   "col": "example_fr",
+   "old": "Au Japon, le baseball est super populaire",
+   "new": "Aujourd'hui, on joue au baseball au parc",
+   "why": "полная вычитка: ru/uk Америка, fr Япония — «сегодня играем в бейсбол в парке»"
+  },
+  {
+   "id": 12163,
+   "col": "example_de",
+   "old": "Wir nehmen die Ruder und rudern über den See",
+   "new": "Ich habe ein Ruder verloren, wir drehen uns im Kreis!",
+   "why": "полная вычитка: смысл разошёлся; «гребём через озеро» — как у 12229 — везде «потерял весло, крутимся на месте»"
+  },
+  {
+   "id": 12163,
+   "col": "example_ru",
+   "old": "Мы берём вёсла и гребём через озеро",
+   "new": "Я потерял весло, мы крутимся на месте!",
+   "why": "полная вычитка: смысл разошёлся; «гребём через озеро» — как у 12229 — везде «потерял весло, крутимся на месте»"
+  },
+  {
+   "id": 12163,
+   "col": "example_uk",
+   "old": "Ми беремо весла і гребемо через озеро",
+   "new": "Я загубив весло, ми крутимося на місці!",
+   "why": "полная вычитка: смысл разошёлся; «гребём через озеро» — как у 12229 — везде «потерял весло, крутимся на месте»"
+  },
+  {
+   "id": 12163,
+   "col": "example_tr",
+   "old": "Kürekleri alıp gölün karşısına geçiyoruz",
+   "new": "Bir küreği kaybettim, olduğumuz yerde dönüyoruz!",
+   "why": "полная вычитка: смысл разошёлся; «гребём через озеро» — как у 12229 — везде «потерял весло, крутимся на месте»"
+  },
+  {
+   "id": 12163,
+   "col": "example_pl",
+   "old": "Bierzemy wiosła i płyniemy przez jezioro",
+   "new": "Zgubiłem wiosło, kręcimy się w kółko!",
+   "why": "полная вычитка: смысл разошёлся; «гребём через озеро» — как у 12229 — везде «потерял весло, крутимся на месте»"
+  },
+  {
+   "id": 12163,
+   "col": "example_cs",
+   "old": "Bereme vesla a veslujeme přes jezero",
+   "new": "Ztratil jsem veslo, točíme se v kruhu!",
+   "why": "полная вычитка: смысл разошёлся; «гребём через озеро» — как у 12229 — везде «потерял весло, крутимся на месте»"
+  },
+  {
+   "id": 12219,
+   "col": "example_es",
+   "old": "Empataron a uno",
+   "new": "El partido termina en empate",
+   "why": "полная вычитка: es/fr «сыграли 1:1» — «игра заканчивается вничью»"
+  },
+  {
+   "id": 12219,
+   "col": "example_fr",
+   "old": "Ils ont fait match nul, un partout",
+   "new": "Le match se termine par un nul",
+   "why": "полная вычитка: es/fr «сыграли 1:1» — «игра заканчивается вничью»"
+  },
+  {
+   "id": 12269,
+   "col": "example_de",
+   "old": "Wir pokern manchmal am Wochenende",
+   "new": "Er kann überhaupt nicht bluffen, deshalb verliert er beim Pokern immer",
+   "why": "полная вычитка: смысл разошёлся; «покер по выходным» — как у 12192 — везде «не умеет блефовать, всегда проигрывает»"
+  },
+  {
+   "id": 12269,
+   "col": "example_en",
+   "old": "We sometimes play poker at the weekend",
+   "new": "He can't bluff at all, so he always loses at poker",
+   "why": "полная вычитка: смысл разошёлся; «покер по выходным» — как у 12192 — везде «не умеет блефовать, всегда проигрывает»"
+  },
+  {
+   "id": 12269,
+   "col": "example_tr",
+   "old": "Bazen hafta sonları poker oynuyoruz",
+   "new": "Hiç blöf yapamıyor, bu yüzden pokerde hep kaybediyor",
+   "why": "полная вычитка: смысл разошёлся; «покер по выходным» — как у 12192 — везде «не умеет блефовать, всегда проигрывает»"
+  },
+  {
+   "id": 12269,
+   "col": "example_pl",
+   "old": "Czasami gramy w pokera w weekendy",
+   "new": "W ogóle nie umie blefować, dlatego w pokera zawsze przegrywa",
+   "why": "полная вычитка: смысл разошёлся; «покер по выходным» — как у 12192 — везде «не умеет блефовать, всегда проигрывает»"
+  },
+  {
+   "id": 12269,
+   "col": "example_it",
+   "old": "A volte giochiamo a poker nel fine settimana",
+   "new": "Non sa proprio bluffare, per questo a poker perde sempre",
+   "why": "полная вычитка: смысл разошёлся; «покер по выходным» — как у 12192 — везде «не умеет блефовать, всегда проигрывает»"
+  },
+  {
+   "id": 12269,
+   "col": "example_es",
+   "old": "A veces jugamos al póquer los fines de semana",
+   "new": "No sabe tirarse faroles, por eso siempre pierde al póquer",
+   "why": "полная вычитка: смысл разошёлся; «покер по выходным» — как у 12192 — везде «не умеет блефовать, всегда проигрывает»"
+  },
+  {
+   "id": 12269,
+   "col": "example_fr",
+   "old": "On joue parfois au poker entre amis",
+   "new": "Il ne sait pas du tout bluffer, alors il perd toujours au poker",
+   "why": "полная вычитка: смысл разошёлся; «покер по выходным» — как у 12192 — везде «не умеет блефовать, всегда проигрывает»"
+  },
+  {
+   "id": 12269,
+   "col": "example_cs",
+   "old": "O víkendu občas hrajeme poker",
+   "new": "Vůbec neumí blafovat, a proto v pokeru vždycky prohraje",
+   "why": "полная вычитка: смысл разошёлся; «покер по выходным» — как у 12192 — везде «не умеет блефовать, всегда проигрывает»"
+  },
+  {
+   "id": 12299,
+   "col": "example_fr",
+   "old": "Cet été, on descend la Dordogne en canoë",
+   "new": "Le week-end prochain, on descend la rivière en canoë",
+   "why": "полная вычитка: fr Дордонь летом — «на следующих выходных спускаемся по реке на каноэ»"
+  },
+  {
+   "id": 12364,
+   "col": "example_fr",
+   "old": "On joue au frisbee au parc ?",
+   "new": "On joue au frisbee au parc",
+   "why": "полная вычитка: fr вопрос — утверждение"
+  },
+  {
+   "id": 12378,
+   "col": "example_de",
+   "old": "Ich nehme das Paddel und fahre mit dem Kanu über den Fluss",
+   "new": "Halt das Paddel gut fest, die Strömung ist stark",
+   "why": "полная вычитка: смысл разошёлся — везде «держи весло крепче, течение сильное»"
+  },
+  {
+   "id": 12378,
+   "col": "example_tr",
+   "old": "Küreği alıp kanoyla nehri geçiyorum",
+   "new": "Küreği sıkı tut, akıntı güçlü",
+   "why": "полная вычитка: смысл разошёлся — везде «держи весло крепче, течение сильное»"
+  },
+  {
+   "id": 12378,
+   "col": "example_pl",
+   "old": "Biorę wiosło i płynę kajakiem przez rzekę",
+   "new": "Trzymaj mocno wiosło, prąd jest silny",
+   "why": "полная вычитка: смысл разошёлся — везде «держи весло крепче, течение сильное»"
+  },
+  {
+   "id": 12378,
+   "col": "example_it",
+   "old": "Prendo la pagaia e attraverso il fiume in canoa",
+   "new": "Tieni forte la pagaia, la corrente è forte",
+   "why": "полная вычитка: смысл разошёлся — везде «держи весло крепче, течение сильное»"
+  },
+  {
+   "id": 12378,
+   "col": "example_cs",
+   "old": "Vezmu pádlo a jedu na kánoi přes řeku",
+   "new": "Drž pádlo pevně, proud je silný",
+   "why": "полная вычитка: смысл разошёлся — везде «держи весло крепче, течение сильное»"
+  },
+  {
+   "id": 12485,
+   "col": "example_en",
+   "old": "In this damp weather my bones ache",
+   "new": "All my bones ache",
+   "why": "полная вычитка: en/it/es/fr «от сырости ноют кости» — «у меня ломит все кости»"
+  },
+  {
+   "id": 12485,
+   "col": "example_it",
+   "old": "Con quest'umidità mi fanno male le ossa",
+   "new": "Mi fanno male tutte le ossa",
+   "why": "полная вычитка: en/it/es/fr «от сырости ноют кости» — «у меня ломит все кости»"
+  },
+  {
+   "id": 12485,
+   "col": "example_es",
+   "old": "Con esta humedad me duelen los huesos",
+   "new": "Me duelen todos los huesos",
+   "why": "полная вычитка: en/it/es/fr «от сырости ноют кости» — «у меня ломит все кости»"
+  },
+  {
+   "id": 12485,
+   "col": "example_fr",
+   "old": "Il fait si humide que j'ai mal jusqu'aux os",
+   "new": "J'ai mal à tous les os",
+   "why": "полная вычитка: en/it/es/fr «от сырости ноют кости» — «у меня ломит все кости»"
+  },
+  {
+   "id": 12501,
+   "col": "example_de",
+   "old": "Das Virus macht viele Leute krank",
+   "new": "Im Büro geht gerade ein Virus um",
+   "why": "полная вычитка: смысл разошёлся — везде «в офисе ходит вирус»"
+  },
+  {
+   "id": 12501,
+   "col": "example_ru",
+   "old": "Из-за вируса многие болеют",
+   "new": "В офисе сейчас ходит вирус",
+   "why": "полная вычитка: смысл разошёлся — везде «в офисе ходит вирус»"
+  },
+  {
+   "id": 12501,
+   "col": "example_uk",
+   "old": "Через вірус багато людей хворіє",
+   "new": "В офісі зараз ходить вірус",
+   "why": "полная вычитка: смысл разошёлся — везде «в офисе ходит вирус»"
+  },
+  {
+   "id": 12501,
+   "col": "example_tr",
+   "old": "Virüs birçok insanı hasta ediyor",
+   "new": "Ofiste şu an bir virüs dolaşıyor",
+   "why": "полная вычитка: смысл разошёлся — везде «в офисе ходит вирус»"
+  },
+  {
+   "id": 12501,
+   "col": "example_pl",
+   "old": "Przez ten wirus choruje mnóstwo ludzi",
+   "new": "W biurze krąży teraz jakiś wirus",
+   "why": "полная вычитка: смысл разошёлся — везде «в офисе ходит вирус»"
+  },
+  {
+   "id": 12501,
+   "col": "example_cs",
+   "old": "Kvůli tomu viru onemocní spousta lidí",
+   "new": "V kanceláři teď řádí nějaký virus",
+   "why": "полная вычитка: смысл разошёлся — везде «в офисе ходит вирус»"
+  },
+  {
+   "id": 12518,
+   "col": "example_ru",
+   "old": "У дедушки до сих пор отличная память",
+   "new": "Память у меня уже не та",
+   "why": "полная вычитка: ru/uk «у дедушки отличная память» — наоборот — «память у меня уже не та»"
+  },
+  {
+   "id": 12518,
+   "col": "example_uk",
+   "old": "У дідуся досі чудова пам'ять",
+   "new": "Пам'ять у мене вже не та",
+   "why": "полная вычитка: ru/uk «у дедушки отличная память» — наоборот — «память у меня уже не та»"
+  },
+  {
+   "id": 12525,
+   "col": "example_fr",
+   "old": "Attends, je reprends mon souffle",
+   "new": "Je suis complètement à bout de souffle",
+   "why": "полная вычитка: fr «перевожу дух» — «совсем запыхался»"
+  },
+  {
+   "id": 12532,
+   "col": "example_ru",
+   "old": "После бега у меня пульс под сто семьдесят",
+   "new": "После бега у меня очень высокий пульс",
+   "why": "полная вычитка: ru/uk 170, en/es/fr 150 — «после бега очень высокий пульс»"
+  },
+  {
+   "id": 12532,
+   "col": "example_uk",
+   "old": "Після бігу в мене пульс під сто сімдесят",
+   "new": "Після бігу в мене дуже високий пульс",
+   "why": "полная вычитка: ru/uk 170, en/es/fr 150 — «после бега очень высокий пульс»"
+  },
+  {
+   "id": 12532,
+   "col": "example_en",
+   "old": "After the race my pulse was 150",
+   "new": "My pulse is really high after running",
+   "why": "полная вычитка: ru/uk 170, en/es/fr 150 — «после бега очень высокий пульс»"
+  },
+  {
+   "id": 12532,
+   "col": "example_es",
+   "old": "Después de la carrera tengo el pulso a 150",
+   "new": "Después de correr tengo el pulso muy alto",
+   "why": "полная вычитка: ru/uk 170, en/es/fr 150 — «после бега очень высокий пульс»"
+  },
+  {
+   "id": 12532,
+   "col": "example_fr",
+   "old": "Après la course, mon pouls est à 150",
+   "new": "Après la course, mon pouls est très élevé",
+   "why": "полная вычитка: ru/uk 170, en/es/fr 150 — «после бега очень высокий пульс»"
+  },
+  {
+   "id": 12540,
+   "col": "example_fr",
+   "old": "Il n'y a pas encore de remède contre cette maladie",
+   "new": "Il existe un remède contre cette maladie ?",
+   "why": "полная вычитка: fr «лекарства ещё нет» — «есть ли лекарство?»"
+  },
+  {
+   "id": 12545,
+   "col": "example_de",
+   "old": "Ich brauche eine medizinische Untersuchung",
+   "new": "Für den Fußballverein brauchst du eine medizinische Bescheinigung",
+   "why": "полная вычитка: смысл разошёлся — везде «для футбольного клуба нужна медицинская справка»"
+  },
+  {
+   "id": 12545,
+   "col": "example_ru",
+   "old": "Для новой работы мне нужна медицинская справка",
+   "new": "Для футбольного клуба нужна медицинская справка",
+   "why": "полная вычитка: смысл разошёлся — везде «для футбольного клуба нужна медицинская справка»"
+  },
+  {
+   "id": 12545,
+   "col": "example_uk",
+   "old": "Для нової роботи мені потрібна медична довідка",
+   "new": "Для футбольного клубу потрібна медична довідка",
+   "why": "полная вычитка: смысл разошёлся — везде «для футбольного клуба нужна медицинская справка»"
+  },
+  {
+   "id": 12545,
+   "col": "example_tr",
+   "old": "Tıbbi muayeneye ihtiyacım var",
+   "new": "Futbol kulübü için tıbbi rapor gerekiyor",
+   "why": "полная вычитка: смысл разошёлся — везде «для футбольного клуба нужна медицинская справка»"
+  },
+  {
+   "id": 12545,
+   "col": "example_pl",
+   "old": "Potrzebuję badania medycznego",
+   "new": "Do klubu piłkarskiego potrzebne jest zaświadczenie medyczne",
+   "why": "полная вычитка: смысл разошёлся — везде «для футбольного клуба нужна медицинская справка»"
+  },
+  {
+   "id": 12545,
+   "col": "example_cs",
+   "old": "Potřebuju lékařské vyšetření",
+   "new": "Do fotbalového klubu potřebuješ lékařské potvrzení",
+   "why": "полная вычитка: смысл разошёлся — везде «для футбольного клуба нужна медицинская справка»"
+  },
+  {
+   "id": 12559,
+   "col": "example_de",
+   "old": "Du musst das Medikament einnehmen",
+   "new": "Das Medikament musst du vor dem Essen einnehmen",
+   "why": "полная вычитка: смысл разошёлся — везде «лекарство принимать до еды»"
+  },
+  {
+   "id": 12559,
+   "col": "example_ru",
+   "old": "Эти таблетки надо принимать после еды",
+   "new": "Это лекарство надо принимать до еды",
+   "why": "полная вычитка: смысл разошёлся — везде «лекарство принимать до еды»"
+  },
+  {
+   "id": 12559,
+   "col": "example_uk",
+   "old": "Ці таблетки треба приймати після їжі",
+   "new": "Ці ліки треба приймати до їжі",
+   "why": "полная вычитка: смысл разошёлся — везде «лекарство принимать до еды»"
+  },
+  {
+   "id": 12559,
+   "col": "example_tr",
+   "old": "İlacı almalısın",
+   "new": "Bu ilacı yemekten önce almalısın",
+   "why": "полная вычитка: смысл разошёлся — везде «лекарство принимать до еды»"
+  },
+  {
+   "id": 12559,
+   "col": "example_pl",
+   "old": "Musisz przyjmować ten lek",
+   "new": "Ten lek trzeba przyjmować przed jedzeniem",
+   "why": "полная вычитка: смысл разошёлся — везде «лекарство принимать до еды»"
+  },
+  {
+   "id": 12559,
+   "col": "example_cs",
+   "old": "Musíš si ten lék vzít",
+   "new": "Ten lék se musí brát před jídlem",
+   "why": "полная вычитка: смысл разошёлся — везде «лекарство принимать до еды»"
+  },
+  {
+   "id": 12588,
+   "col": "example_en",
+   "old": "I avoid people like that like the plague",
+   "new": "I hate these mosquitoes like the plague",
+   "why": "полная вычитка: en/it/es/fr «избегаю таких людей» — «ненавижу комаров как чуму»"
+  },
+  {
+   "id": 12588,
+   "col": "example_it",
+   "old": "Quel tipo di persone lo evito come la peste",
+   "new": "Odio queste zanzare come la peste",
+   "why": "полная вычитка: en/it/es/fr «избегаю таких людей» — «ненавижу комаров как чуму»"
+  },
+  {
+   "id": 12588,
+   "col": "example_es",
+   "old": "A esa gente la evito como a la peste",
+   "new": "Odio a estos mosquitos como a la peste",
+   "why": "полная вычитка: en/it/es/fr «избегаю таких людей» — «ненавижу комаров как чуму»"
+  },
+  {
+   "id": 12588,
+   "col": "example_fr",
+   "old": "Ce genre de personnes, je les fuis comme la peste",
+   "new": "Je déteste ces moustiques comme la peste",
+   "why": "полная вычитка: en/it/es/fr «избегаю таких людей» — «ненавижу комаров как чуму»"
+  },
+  {
+   "id": 12602,
+   "col": "example_en",
+   "old": "At the scan you can hear the baby's heartbeat",
+   "new": "His heartbeat is very fast",
+   "why": "полная вычитка: en/it/es/fr УЗИ малыша — «у него очень частое сердцебиение»"
+  },
+  {
+   "id": 12602,
+   "col": "example_it",
+   "old": "All'ecografia si sente il battito cardiaco del bambino",
+   "new": "Il suo battito cardiaco è molto veloce",
+   "why": "полная вычитка: en/it/es/fr УЗИ малыша — «у него очень частое сердцебиение»"
+  },
+  {
+   "id": 12602,
+   "col": "example_es",
+   "old": "En la ecografía se oyen los latidos del bebé",
+   "new": "Sus latidos son muy rápidos",
+   "why": "полная вычитка: en/it/es/fr УЗИ малыша — «у него очень частое сердцебиение»"
+  },
+  {
+   "id": 12602,
+   "col": "example_fr",
+   "old": "À l'échographie, on entend les battements de cœur du bébé",
+   "new": "Ses battements de cœur sont très rapides",
+   "why": "полная вычитка: en/it/es/fr УЗИ малыша — «у него очень частое сердцебиение»"
+  },
+  {
+   "id": 12630,
+   "col": "example_de",
+   "old": "Ich schwitze beim Sport und werde ganz nass",
+   "new": "Wenn es heiß ist, schwitze ich wahnsinnig",
+   "why": "полная вычитка: смысл разошёлся — везде «когда жарко, я ужасно потею»"
+  },
+  {
+   "id": 12630,
+   "col": "example_ru",
+   "old": "Я весь вспотел, пока тащил чемоданы на пятый этаж",
+   "new": "Когда жарко, я ужасно потею",
+   "why": "полная вычитка: смысл разошёлся — везде «когда жарко, я ужасно потею»"
+  },
+  {
+   "id": 12630,
+   "col": "example_uk",
+   "old": "Я весь спітнів, поки ніс валізи на п'ятий поверх",
+   "new": "Коли спекотно, я страшенно пітнію",
+   "why": "полная вычитка: смысл разошёлся — везде «когда жарко, я ужасно потею»"
+  },
+  {
+   "id": 12630,
+   "col": "example_tr",
+   "old": "Spor yaparken terliyorum ve sırılsıklam oluyorum",
+   "new": "Hava sıcakken çok terliyorum",
+   "why": "полная вычитка: смысл разошёлся — везде «когда жарко, я ужасно потею»"
+  },
+  {
+   "id": 12630,
+   "col": "example_pl",
+   "old": "Pocę się przy sporcie i cały robię się mokry",
+   "new": "Kiedy jest gorąco, strasznie się pocę",
+   "why": "полная вычитка: смысл разошёлся — везде «когда жарко, я ужасно потею»"
+  },
+  {
+   "id": 12630,
+   "col": "example_cs",
+   "old": "Při sportu se potím a jsem celý mokrý",
+   "new": "Když je horko, strašně se potím",
+   "why": "полная вычитка: смысл разошёлся — везде «когда жарко, я ужасно потею»"
+  },
+  {
+   "id": 12727,
+   "col": "example_en",
+   "old": "The night carer is really kind to the patients",
+   "new": "The carer helps the old man wash",
+   "why": "полная вычитка: en/it/es/fr «ночной санитар добр» — «санитар помогает старику мыться»"
+  },
+  {
+   "id": 12727,
+   "col": "example_it",
+   "old": "L'infermiere di notte è gentilissimo con i pazienti",
+   "new": "L'infermiere aiuta l'anziano a lavarsi",
+   "why": "полная вычитка: en/it/es/fr «ночной санитар добр» — «санитар помогает старику мыться»"
+  },
+  {
+   "id": 12727,
+   "col": "example_es",
+   "old": "El enfermero de noche es muy amable con los pacientes",
+   "new": "El enfermero ayuda al anciano a lavarse",
+   "why": "полная вычитка: en/it/es/fr «ночной санитар добр» — «санитар помогает старику мыться»"
+  },
+  {
+   "id": 12727,
+   "col": "example_fr",
+   "old": "L'aide-soignant de nuit est très gentil avec les patients",
+   "new": "L'aide-soignant aide le vieil homme à se laver",
+   "why": "полная вычитка: en/it/es/fr «ночной санитар добр» — «санитар помогает старику мыться»"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
