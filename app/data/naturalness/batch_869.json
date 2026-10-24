@@ -1,0 +1,674 @@
+{
+ "about": "полная вычитка p009",
+ "edits": [
+  {
+   "id": 1397,
+   "col": "example_en",
+   "old": "A new shop is opening on the high street",
+   "new": "We're opening a new shop",
+   "why": "полная вычитка: en/it/es «открывается на улице» — вернуть «мы открываем магазин»"
+  },
+  {
+   "id": 1397,
+   "col": "example_it",
+   "old": "In via Roma inaugurano un nuovo negozio",
+   "new": "Apriamo un nuovo negozio",
+   "why": "полная вычитка: en/it/es «открывается на улице» — вернуть «мы открываем магазин»"
+  },
+  {
+   "id": 1397,
+   "col": "example_es",
+   "old": "En la calle Mayor inauguran una tienda nueva",
+   "new": "Abrimos una tienda nueva",
+   "why": "полная вычитка: en/it/es «открывается на улице» — вернуть «мы открываем магазин»"
+  },
+  {
+   "id": 1445,
+   "col": "example_en",
+   "old": "The hairdresser cut my hair far too short",
+   "new": "I'm going to the hairdresser's",
+   "why": "полная вычитка: en/it/es «слишком коротко постригли» — вернуть «иду к парикмахеру»"
+  },
+  {
+   "id": 1445,
+   "col": "example_it",
+   "old": "La parrucchiera mi ha tagliato troppo i capelli",
+   "new": "Vado dal parrucchiere",
+   "why": "полная вычитка: en/it/es «слишком коротко постригли» — вернуть «иду к парикмахеру»"
+  },
+  {
+   "id": 1445,
+   "col": "example_es",
+   "old": "La peluquera me ha cortado demasiado el pelo",
+   "new": "Voy al peluquero",
+   "why": "полная вычитка: en/it/es «слишком коротко постригли» — вернуть «иду к парикмахеру»"
+  },
+  {
+   "id": 1447,
+   "col": "example_ru",
+   "old": "Кофеварка опять не работает",
+   "new": "Как это работает?",
+   "why": "полная вычитка: ru/uk/en/it/es техника сломалась — вернуть «как это работает»"
+  },
+  {
+   "id": 1447,
+   "col": "example_uk",
+   "old": "Кавоварка знову не працює",
+   "new": "Як це працює?",
+   "why": "полная вычитка: ru/uk/en/it/es техника сломалась — вернуть «как это работает»"
+  },
+  {
+   "id": 1447,
+   "col": "example_en",
+   "old": "The dishwasher has stopped working",
+   "new": "How does this work?",
+   "why": "полная вычитка: ru/uk/en/it/es техника сломалась — вернуть «как это работает»"
+  },
+  {
+   "id": 1447,
+   "col": "example_it",
+   "old": "La lavastoviglie non funziona più",
+   "new": "Come funziona?",
+   "why": "полная вычитка: ru/uk/en/it/es техника сломалась — вернуть «как это работает»"
+  },
+  {
+   "id": 1447,
+   "col": "example_es",
+   "old": "El lavavajillas ya no funciona",
+   "new": "¿Cómo funciona?",
+   "why": "полная вычитка: ru/uk/en/it/es техника сломалась — вернуть «как это работает»"
+  },
+  {
+   "id": 1452,
+   "col": "example_en",
+   "old": "I bought my rucksack second-hand",
+   "new": "I'm buying a used car",
+   "why": "полная вычитка: en/it/es рюкзак — вернуть «покупаю подержанную машину»"
+  },
+  {
+   "id": 1452,
+   "col": "example_it",
+   "old": "Lo zaino l'ho comprato usato",
+   "new": "Compro una macchina usata",
+   "why": "полная вычитка: en/it/es рюкзак — вернуть «покупаю подержанную машину»"
+  },
+  {
+   "id": 1452,
+   "col": "example_es",
+   "old": "La mochila la compré de segunda mano",
+   "new": "Me compro un coche de segunda mano",
+   "why": "полная вычитка: en/it/es рюкзак — вернуть «покупаю подержанную машину»"
+  },
+  {
+   "id": 1467,
+   "col": "example_de",
+   "old": "Für den Einkaufswagen brauchst du ein Geldstück",
+   "new": "Touristen werfen Geldstücke in diesen Brunnen",
+   "why": "полная вычитка: двойник с 1707/151 (тележка) — везде «туристы бросают монетки в фонтан»"
+  },
+  {
+   "id": 1467,
+   "col": "example_ru",
+   "old": "Для тележки тебе нужна монетка",
+   "new": "Туристы бросают монетки в этот фонтан",
+   "why": "полная вычитка: двойник с 1707/151 (тележка) — везде «туристы бросают монетки в фонтан»"
+  },
+  {
+   "id": 1467,
+   "col": "example_uk",
+   "old": "Для візка тобі потрібна монетка",
+   "new": "Туристи кидають монетки в цей фонтан",
+   "why": "полная вычитка: двойник с 1707/151 (тележка) — везде «туристы бросают монетки в фонтан»"
+  },
+  {
+   "id": 1467,
+   "col": "example_tr",
+   "old": "Alışveriş arabası için bir madeni para lazım",
+   "new": "Turistler bu çeşmeye madeni para atıyor",
+   "why": "полная вычитка: двойник с 1707/151 (тележка) — везде «туристы бросают монетки в фонтан»"
+  },
+  {
+   "id": 1467,
+   "col": "example_pl",
+   "old": "Do wózka potrzebujesz monety",
+   "new": "Turyści wrzucają monety do tej fontanny",
+   "why": "полная вычитка: двойник с 1707/151 (тележка) — везде «туристы бросают монетки в фонтан»"
+  },
+  {
+   "id": 1467,
+   "col": "example_fr",
+   "old": "Pour le chariot, il te faut une pièce",
+   "new": "Les touristes jettent des pièces dans cette fontaine",
+   "why": "полная вычитка: двойник с 1707/151 (тележка) — везде «туристы бросают монетки в фонтан»"
+  },
+  {
+   "id": 1467,
+   "col": "example_cs",
+   "old": "Na nákupní vozík potřebuješ minci",
+   "new": "Turisté házejí mince do této fontány",
+   "why": "полная вычитка: двойник с 1707/151 (тележка) — везде «туристы бросают монетки в фонтан»"
+  },
+  {
+   "id": 1519,
+   "col": "example_en",
+   "old": "The caretaker has already changed the bulb",
+   "new": "The caretaker will fix it",
+   "why": "полная вычитка: en/it/es лампочка — вернуть «завхоз починит»"
+  },
+  {
+   "id": 1519,
+   "col": "example_it",
+   "old": "Il custode ha già cambiato la lampadina",
+   "new": "Lo ripara il custode",
+   "why": "полная вычитка: en/it/es лампочка — вернуть «завхоз починит»"
+  },
+  {
+   "id": 1519,
+   "col": "example_es",
+   "old": "El conserje ya ha cambiado la bombilla",
+   "new": "Lo arregla el conserje",
+   "why": "полная вычитка: en/it/es лампочка — вернуть «завхоз починит»"
+  },
+  {
+   "id": 1532,
+   "col": "example_de",
+   "old": "Wir fahren um die Stadt herum",
+   "new": "Um den See herum gibt es einen Weg",
+   "why": "полная вычитка: смысл разошёлся — везде «вокруг озера тропинка»"
+  },
+  {
+   "id": 1532,
+   "col": "example_ru",
+   "old": "Тут ремонт, придётся объезжать вокруг",
+   "new": "Вокруг озера идёт тропинка",
+   "why": "полная вычитка: смысл разошёлся — везде «вокруг озера тропинка»"
+  },
+  {
+   "id": 1532,
+   "col": "example_uk",
+   "old": "Тут ремонт, треба об'їжджати навколо",
+   "new": "Навколо озера є стежка",
+   "why": "полная вычитка: смысл разошёлся — везде «вокруг озера тропинка»"
+  },
+  {
+   "id": 1532,
+   "col": "example_tr",
+   "old": "Şehrin etrafından dolaşıyoruz",
+   "new": "Gölün etrafında bir patika var",
+   "why": "полная вычитка: смысл разошёлся — везде «вокруг озера тропинка»"
+  },
+  {
+   "id": 1532,
+   "col": "example_pl",
+   "old": "Jedziemy dookoła miasta",
+   "new": "Dookoła jeziora jest ścieżka",
+   "why": "полная вычитка: смысл разошёлся — везде «вокруг озера тропинка»"
+  },
+  {
+   "id": 1532,
+   "col": "example_fr",
+   "old": "On roule autour de la ville",
+   "new": "Il y a un sentier tout autour du lac",
+   "why": "полная вычитка: смысл разошёлся — везде «вокруг озера тропинка»"
+  },
+  {
+   "id": 1532,
+   "col": "example_cs",
+   "old": "Jedeme okolo města",
+   "new": "Kolem jezera vede cesta",
+   "why": "полная вычитка: смысл разошёлся — везде «вокруг озера тропинка»"
+  },
+  {
+   "id": 1538,
+   "col": "example_ru",
+   "old": "Ярмарка уже открылась? Тогда поехали туда!",
+   "new": "Мы поедем туда завтра",
+   "why": "полная вычитка: ru/uk ярмарка — вернуть «поедем туда завтра»"
+  },
+  {
+   "id": 1538,
+   "col": "example_uk",
+   "old": "Ярмарок уже відкрився? Тоді поїхали туди!",
+   "new": "Ми поїдемо туди завтра",
+   "why": "полная вычитка: ru/uk ярмарка — вернуть «поедем туда завтра»"
+  },
+  {
+   "id": 1566,
+   "col": "example_en",
+   "old": "The remote must be somewhere on the sofa",
+   "new": "The book's lying around somewhere",
+   "why": "полная вычитка: en/it/es пульт — вернуть «книга где-то валяется»"
+  },
+  {
+   "id": 1566,
+   "col": "example_it",
+   "old": "Il telecomando è da qualche parte sul divano",
+   "new": "Il libro è da qualche parte",
+   "why": "полная вычитка: en/it/es пульт — вернуть «книга где-то валяется»"
+  },
+  {
+   "id": 1566,
+   "col": "example_es",
+   "old": "El mando estará por ahí, en algún sitio del sofá",
+   "new": "El libro está por ahí en algún sitio",
+   "why": "полная вычитка: en/it/es пульт — вернуть «книга где-то валяется»"
+  },
+  {
+   "id": 1572,
+   "col": "example_de",
+   "old": "Die Jugendlichen treffen sich hier",
+   "new": "Abends treffen sich die Jugendlichen im Park",
+   "why": "полная вычитка: смысл разошёлся — везде «по вечерам подростки в парке»"
+  },
+  {
+   "id": 1572,
+   "col": "example_ru",
+   "old": "По вечерам подростки собираются у школы",
+   "new": "По вечерам подростки собираются в парке",
+   "why": "полная вычитка: смысл разошёлся — везде «по вечерам подростки в парке»"
+  },
+  {
+   "id": 1572,
+   "col": "example_uk",
+   "old": "Ввечері підлітки збираються біля школи",
+   "new": "Увечері підлітки збираються в парку",
+   "why": "полная вычитка: смысл разошёлся — везде «по вечерам подростки в парке»"
+  },
+  {
+   "id": 1572,
+   "col": "example_en",
+   "old": "The local teenagers meet in the park",
+   "new": "In the evenings the teenagers meet in the park",
+   "why": "полная вычитка: смысл разошёлся — везде «по вечерам подростки в парке»"
+  },
+  {
+   "id": 1572,
+   "col": "example_tr",
+   "old": "Gençler burada buluşuyor",
+   "new": "Akşamları gençler parkta buluşuyor",
+   "why": "полная вычитка: смысл разошёлся — везде «по вечерам подростки в парке»"
+  },
+  {
+   "id": 1572,
+   "col": "example_pl",
+   "old": "Nastolatki spotykają się tutaj",
+   "new": "Wieczorami nastolatki spotykają się w parku",
+   "why": "полная вычитка: смысл разошёлся — везде «по вечерам подростки в парке»"
+  },
+  {
+   "id": 1572,
+   "col": "example_it",
+   "old": "I ragazzi del quartiere si incontrano al parco",
+   "new": "La sera i ragazzi si incontrano al parco",
+   "why": "полная вычитка: смысл разошёлся — везде «по вечерам подростки в парке»"
+  },
+  {
+   "id": 1572,
+   "col": "example_es",
+   "old": "Los jóvenes del barrio se reúnen en el parque",
+   "new": "Por las tardes los jóvenes se reúnen en el parque",
+   "why": "полная вычитка: смысл разошёлся — везде «по вечерам подростки в парке»"
+  },
+  {
+   "id": 1572,
+   "col": "example_fr",
+   "old": "Les jeunes se retrouvent ici",
+   "new": "Le soir, les jeunes se retrouvent au parc",
+   "why": "полная вычитка: смысл разошёлся — везде «по вечерам подростки в парке»"
+  },
+  {
+   "id": 1572,
+   "col": "example_cs",
+   "old": "Dospívající se tady scházejí",
+   "new": "Večer se dospívající scházejí v parku",
+   "why": "полная вычитка: смысл разошёлся — везде «по вечерам подростки в парке»"
+  },
+  {
+   "id": 1590,
+   "col": "example_de",
+   "old": "Morgen schreiben wir eine Klassenarbeit",
+   "new": "Morgen schreiben wir eine Klassenarbeit in Mathe",
+   "why": "полная вычитка: смысл разошёлся — везде «завтра контрольная по математике»"
+  },
+  {
+   "id": 1590,
+   "col": "example_ru",
+   "old": "Завтра мы пишем контрольную работу",
+   "new": "Завтра мы пишем контрольную работу по математике",
+   "why": "полная вычитка: смысл разошёлся — везде «завтра контрольная по математике»"
+  },
+  {
+   "id": 1590,
+   "col": "example_uk",
+   "old": "Завтра ми пишемо контрольну роботу",
+   "new": "Завтра ми пишемо контрольну роботу з математики",
+   "why": "полная вычитка: смысл разошёлся — везде «завтра контрольная по математике»"
+  },
+  {
+   "id": 1590,
+   "col": "example_en",
+   "old": "The maths test went well",
+   "new": "Tomorrow we've got a maths test",
+   "why": "полная вычитка: смысл разошёлся — везде «завтра контрольная по математике»"
+  },
+  {
+   "id": 1590,
+   "col": "example_tr",
+   "old": "Yarın yazılı sınavımız var",
+   "new": "Yarın matematikten yazılı sınavımız var",
+   "why": "полная вычитка: смысл разошёлся — везде «завтра контрольная по математике»"
+  },
+  {
+   "id": 1590,
+   "col": "example_pl",
+   "old": "Jutro piszemy klasówkę",
+   "new": "Jutro piszemy klasówkę z matematyki",
+   "why": "полная вычитка: смысл разошёлся — везде «завтра контрольная по математике»"
+  },
+  {
+   "id": 1590,
+   "col": "example_it",
+   "old": "Il compito in classe di matematica è andato bene",
+   "new": "Domani abbiamo il compito in classe di matematica",
+   "why": "полная вычитка: смысл разошёлся — везде «завтра контрольная по математике»"
+  },
+  {
+   "id": 1590,
+   "col": "example_es",
+   "old": "El examen de matemáticas ha salido bien",
+   "new": "Mañana tenemos examen de matemáticas",
+   "why": "полная вычитка: смысл разошёлся — везде «завтра контрольная по математике»"
+  },
+  {
+   "id": 1590,
+   "col": "example_cs",
+   "old": "Zítra píšeme písemnou práci",
+   "new": "Zítra píšeme písemnou práci z matematiky",
+   "why": "полная вычитка: смысл разошёлся — везде «завтра контрольная по математике»"
+  },
+  {
+   "id": 1595,
+   "col": "example_en",
+   "old": "Double-click on the icon",
+   "new": "I click on the link",
+   "why": "полная вычитка: en/it/es двойной клик — вернуть «кликаю по ссылке»"
+  },
+  {
+   "id": 1595,
+   "col": "example_it",
+   "old": "Clicca due volte sull'icona",
+   "new": "Clicco sul link",
+   "why": "полная вычитка: en/it/es двойной клик — вернуть «кликаю по ссылке»"
+  },
+  {
+   "id": 1595,
+   "col": "example_es",
+   "old": "Haz doble clic en el icono",
+   "new": "Hago clic en el enlace",
+   "why": "полная вычитка: en/it/es двойной клик — вернуть «кликаю по ссылке»"
+  },
+  {
+   "id": 1640,
+   "col": "example_en",
+   "old": "I take my laptop to the office every day",
+   "new": "My laptop's crashed again",
+   "why": "полная вычитка: en/it/es ношу в офис — вернуть «ноутбук опять завис»"
+  },
+  {
+   "id": 1640,
+   "col": "example_it",
+   "old": "Porto il portatile in ufficio ogni giorno",
+   "new": "Il portatile mi si è bloccato di nuovo",
+   "why": "полная вычитка: en/it/es ношу в офис — вернуть «ноутбук опять завис»"
+  },
+  {
+   "id": 1640,
+   "col": "example_es",
+   "old": "Me llevo el portátil a la oficina todos los días",
+   "new": "Se me ha vuelto a colgar el portátil",
+   "why": "полная вычитка: en/it/es ношу в офис — вернуть «ноутбук опять завис»"
+  },
+  {
+   "id": 1663,
+   "col": "example_ru",
+   "old": "Выезжаем пораньше, чтобы не стоять в пробках",
+   "new": "Мы выезжаем в 8 часов",
+   "why": "полная вычитка: ru/uk/en/it/es другое время — вернуть «выезжаем в 8»"
+  },
+  {
+   "id": 1663,
+   "col": "example_uk",
+   "old": "Виїжджаємо рано, щоб не стояти в заторах",
+   "new": "Ми виїжджаємо о 8-й",
+   "why": "полная вычитка: ru/uk/en/it/es другое время — вернуть «выезжаем в 8»"
+  },
+  {
+   "id": 1663,
+   "col": "example_en",
+   "old": "We'll set off as soon as it stops raining",
+   "new": "We're setting off at 8",
+   "why": "полная вычитка: ru/uk/en/it/es другое время — вернуть «выезжаем в 8»"
+  },
+  {
+   "id": 1663,
+   "col": "example_it",
+   "old": "Partiamo appena smette di piovere",
+   "new": "Partiamo alle 8",
+   "why": "полная вычитка: ru/uk/en/it/es другое время — вернуть «выезжаем в 8»"
+  },
+  {
+   "id": 1663,
+   "col": "example_es",
+   "old": "Salimos en cuanto deje de llover",
+   "new": "Salimos a las 8",
+   "why": "полная вычитка: ru/uk/en/it/es другое время — вернуть «выезжаем в 8»"
+  },
+  {
+   "id": 1681,
+   "col": "example_ru",
+   "old": "Не включай удлинитель в удлинитель — это опасно",
+   "new": "За письменным столом три удлинителя включены друг в друга",
+   "why": "полная вычитка: ru/uk «не включай» — вернуть «три удлинителя друг в друге»"
+  },
+  {
+   "id": 1681,
+   "col": "example_uk",
+   "old": "Не вмикай подовжувач у подовжувач — це небезпечно",
+   "new": "За письмовим столом три подовжувачі ввімкнені один в одного",
+   "why": "полная вычитка: ru/uk «не включай» — вернуть «три удлинителя друг в друге»"
+  },
+  {
+   "id": 1707,
+   "col": "example_de",
+   "old": "Hast du eine Münze für den Einkaufswagen?",
+   "new": "Ich sammle alte Münzen",
+   "why": "полная вычитка: двойник с 1467/151 (тележка) — везде «собираю старые монеты»"
+  },
+  {
+   "id": 1707,
+   "col": "example_ru",
+   "old": "У тебя есть монетка для тележки?",
+   "new": "Я собираю старые монеты",
+   "why": "полная вычитка: двойник с 1467/151 (тележка) — везде «собираю старые монеты»"
+  },
+  {
+   "id": 1707,
+   "col": "example_uk",
+   "old": "У тебе є монетка для візка?",
+   "new": "Я збираю старі монети",
+   "why": "полная вычитка: двойник с 1467/151 (тележка) — везде «собираю старые монеты»"
+  },
+  {
+   "id": 1707,
+   "col": "example_tr",
+   "old": "Market arabası için bozuk paran var mı?",
+   "new": "Eski madeni paralar biriktiriyorum",
+   "why": "полная вычитка: двойник с 1467/151 (тележка) — везде «собираю старые монеты»"
+  },
+  {
+   "id": 1707,
+   "col": "example_pl",
+   "old": "Masz monetę do wózka?",
+   "new": "Zbieram stare monety",
+   "why": "полная вычитка: двойник с 1467/151 (тележка) — везде «собираю старые монеты»"
+  },
+  {
+   "id": 1707,
+   "col": "example_fr",
+   "old": "Tu as une pièce pour le caddie ?",
+   "new": "Je collectionne les vieilles pièces",
+   "why": "полная вычитка: двойник с 1467/151 (тележка) — везде «собираю старые монеты»"
+  },
+  {
+   "id": 1707,
+   "col": "example_cs",
+   "old": "Máš minci na vozík?",
+   "new": "Sbírám staré mince",
+   "why": "полная вычитка: двойник с 1467/151 (тележка) — везде «собираю старые монеты»"
+  },
+  {
+   "id": 1712,
+   "col": "example_en",
+   "old": "See you later at the café",
+   "new": "I'll call you back later",
+   "why": "полная вычитка: en/it/es встреча в кафе — вернуть «перезвоню потом»"
+  },
+  {
+   "id": 1712,
+   "col": "example_it",
+   "old": "Ci vediamo dopo al bar",
+   "new": "Ti richiamo dopo",
+   "why": "полная вычитка: en/it/es встреча в кафе — вернуть «перезвоню потом»"
+  },
+  {
+   "id": 1712,
+   "col": "example_es",
+   "old": "Nos vemos luego en el bar",
+   "new": "Te llamo luego",
+   "why": "полная вычитка: en/it/es встреча в кафе — вернуть «перезвоню потом»"
+  },
+  {
+   "id": 1728,
+   "col": "example_ru",
+   "old": "Моя племянница учится в медицинском",
+   "new": "Моя племянница учится в Берлине",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 1728,
+   "col": "example_uk",
+   "old": "Моя племінниця навчається в Харкові",
+   "new": "Моя племінниця навчається в Берліні",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 1728,
+   "col": "example_en",
+   "old": "My niece is studying in Oxford",
+   "new": "My niece is studying in Berlin",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 1728,
+   "col": "example_it",
+   "old": "Mia nipote studia a Bologna",
+   "new": "Mia nipote studia a Berlino",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 1728,
+   "col": "example_es",
+   "old": "Mi sobrina estudia en Salamanca",
+   "new": "Mi sobrina estudia en Berlín",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 1734,
+   "col": "example_de",
+   "old": "Das ist nicht nötig",
+   "new": "Du musst nichts mitbringen, das ist nicht nötig",
+   "why": "полная вычитка: смысл разошёлся — везде «ничего не нужно приносить»"
+  },
+  {
+   "id": 1734,
+   "col": "example_tr",
+   "old": "Buna gerek yok",
+   "new": "Bir şey getirmene gerek yok",
+   "why": "полная вычитка: смысл разошёлся — везде «ничего не нужно приносить»"
+  },
+  {
+   "id": 1734,
+   "col": "example_pl",
+   "old": "To nie jest potrzebne",
+   "new": "Nie trzeba nic przynosić",
+   "why": "полная вычитка: смысл разошёлся — везде «ничего не нужно приносить»"
+  },
+  {
+   "id": 1734,
+   "col": "example_fr",
+   "old": "Ce n'est pas nécessaire",
+   "new": "Ce n'est pas nécessaire d'apporter quoi que ce soit",
+   "why": "полная вычитка: смысл разошёлся — везде «ничего не нужно приносить»"
+  },
+  {
+   "id": 1734,
+   "col": "example_cs",
+   "old": "To není nutné",
+   "new": "Není nutné nic nosit",
+   "why": "полная вычитка: смысл разошёлся — везде «ничего не нужно приносить»"
+  },
+  {
+   "id": 1758,
+   "col": "example_de",
+   "old": "Das ist meine Pflicht",
+   "new": "Das ist kein Gefallen, das ist deine Pflicht",
+   "why": "полная вычитка: смысл разошёлся — везде «не одолжение, а твоя обязанность»"
+  },
+  {
+   "id": 1758,
+   "col": "example_ru",
+   "old": "Голосовать — долг каждого",
+   "new": "Это не одолжение, это твоя обязанность",
+   "why": "полная вычитка: смысл разошёлся — везде «не одолжение, а твоя обязанность»"
+  },
+  {
+   "id": 1758,
+   "col": "example_uk",
+   "old": "Голосувати — обов'язок кожного",
+   "new": "Це не послуга, це твій обов'язок",
+   "why": "полная вычитка: смысл разошёлся — везде «не одолжение, а твоя обязанность»"
+  },
+  {
+   "id": 1758,
+   "col": "example_tr",
+   "old": "Bu benim görevim",
+   "new": "Bu bir iyilik değil, senin görevin",
+   "why": "полная вычитка: смысл разошёлся — везде «не одолжение, а твоя обязанность»"
+  },
+  {
+   "id": 1758,
+   "col": "example_pl",
+   "old": "To mój obowiązek",
+   "new": "To nie przysługa, to twój obowiązek",
+   "why": "полная вычитка: смысл разошёлся — везде «не одолжение, а твоя обязанность»"
+  },
+  {
+   "id": 1758,
+   "col": "example_fr",
+   "old": "C'est mon devoir",
+   "new": "Ce n'est pas une faveur, c'est ton devoir",
+   "why": "полная вычитка: смысл разошёлся — везде «не одолжение, а твоя обязанность»"
+  },
+  {
+   "id": 1758,
+   "col": "example_cs",
+   "old": "To je moje povinnost",
+   "new": "To není laskavost, to je tvoje povinnost",
+   "why": "полная вычитка: смысл разошёлся — везде «не одолжение, а твоя обязанность»"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
