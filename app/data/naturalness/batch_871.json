@@ -1,0 +1,772 @@
+{
+ "about": "полная вычитка p011",
+ "edits": [
+  {
+   "id": 2178,
+   "col": "example_de",
+   "old": "Fass das nicht an",
+   "new": "Fass das nicht an, das ist heiß!",
+   "why": "полная вычитка: смысл разошёлся — везде «не трогай, это горячо»"
+  },
+  {
+   "id": 2178,
+   "col": "example_ru",
+   "old": "Не трогай, краска ещё не высохла",
+   "new": "Не трогай, это горячо!",
+   "why": "полная вычитка: смысл разошёлся — везде «не трогай, это горячо»"
+  },
+  {
+   "id": 2178,
+   "col": "example_uk",
+   "old": "Не чіпай, фарба ще не висохла",
+   "new": "Не чіпай, це гаряче!",
+   "why": "полная вычитка: смысл разошёлся — везде «не трогай, это горячо»"
+  },
+  {
+   "id": 2178,
+   "col": "example_tr",
+   "old": "Ona dokunma",
+   "new": "Dokunma, sıcak!",
+   "why": "полная вычитка: смысл разошёлся — везде «не трогай, это горячо»"
+  },
+  {
+   "id": 2178,
+   "col": "example_pl",
+   "old": "Nie dotykaj tego",
+   "new": "Nie dotykaj, to gorące!",
+   "why": "полная вычитка: смысл разошёлся — везде «не трогай, это горячо»"
+  },
+  {
+   "id": 2178,
+   "col": "example_fr",
+   "old": "Ne touche pas à ça",
+   "new": "Ne touche pas, c'est chaud !",
+   "why": "полная вычитка: смысл разошёлся — везде «не трогай, это горячо»"
+  },
+  {
+   "id": 2178,
+   "col": "example_cs",
+   "old": "Nesahej na to",
+   "new": "Nesahej na to, je to horké!",
+   "why": "полная вычитка: смысл разошёлся — везде «не трогай, это горячо»"
+  },
+  {
+   "id": 2192,
+   "col": "example_en",
+   "old": "Rather than complaining, help me",
+   "new": "Instead of studying I'd rather play video games",
+   "why": "полная вычитка: en/it/es «вместо жалоб помоги» — вернуть «вместо учёбы видеоигры»"
+  },
+  {
+   "id": 2192,
+   "col": "example_it",
+   "old": "Anziché lamentarti, aiutami",
+   "new": "Invece di studiare preferisco giocare ai videogiochi",
+   "why": "полная вычитка: en/it/es «вместо жалоб помоги» — вернуть «вместо учёбы видеоигры»"
+  },
+  {
+   "id": 2192,
+   "col": "example_es",
+   "old": "En lugar de quejarte, ayúdame",
+   "new": "En lugar de estudiar prefiero jugar a los videojuegos",
+   "why": "полная вычитка: en/it/es «вместо жалоб помоги» — вернуть «вместо учёбы видеоигры»"
+  },
+  {
+   "id": 2205,
+   "col": "example_de",
+   "old": "Das ist echt ärgerlich",
+   "new": "Wie ärgerlich, wir haben den Zug verpasst!",
+   "why": "полная вычитка: смысл разошёлся — везде «как досадно, опоздали на поезд»"
+  },
+  {
+   "id": 2205,
+   "col": "example_en",
+   "old": "This noise is really annoying",
+   "new": "How annoying, we've missed the train!",
+   "why": "полная вычитка: смысл разошёлся — везде «как досадно, опоздали на поезд»"
+  },
+  {
+   "id": 2205,
+   "col": "example_tr",
+   "old": "Bu çok can sıkıcı",
+   "new": "Ne can sıkıcı, treni kaçırdık!",
+   "why": "полная вычитка: смысл разошёлся — везде «как досадно, опоздали на поезд»"
+  },
+  {
+   "id": 2205,
+   "col": "example_pl",
+   "old": "To naprawdę irytujące",
+   "new": "Ale irytujące, spóźniliśmy się na pociąg!",
+   "why": "полная вычитка: смысл разошёлся — везде «как досадно, опоздали на поезд»"
+  },
+  {
+   "id": 2205,
+   "col": "example_it",
+   "old": "Questo rumore è davvero fastidioso",
+   "new": "Che fastidio, abbiamo perso il treno!",
+   "why": "полная вычитка: смысл разошёлся — везде «как досадно, опоздали на поезд»"
+  },
+  {
+   "id": 2205,
+   "col": "example_es",
+   "old": "Este ruido es realmente molesto",
+   "new": "¡Qué fastidio, hemos perdido el tren!",
+   "why": "полная вычитка: смысл разошёлся — везде «как досадно, опоздали на поезд»"
+  },
+  {
+   "id": 2205,
+   "col": "example_fr",
+   "old": "C'est vraiment agaçant",
+   "new": "C'est agaçant, on a raté le train !",
+   "why": "полная вычитка: смысл разошёлся — везде «как досадно, опоздали на поезд»"
+  },
+  {
+   "id": 2205,
+   "col": "example_cs",
+   "old": "To je opravdu nepříjemné",
+   "new": "To je nepříjemné, ujel nám vlak!",
+   "why": "полная вычитка: смысл разошёлся — везде «как досадно, опоздали на поезд»"
+  },
+  {
+   "id": 2217,
+   "col": "example_en",
+   "old": "He's very attentive in class",
+   "new": "He always listens attentively",
+   "why": "полная вычитка: en/it/es «внимателен на уроке» — вернуть «всегда внимательно слушает»"
+  },
+  {
+   "id": 2217,
+   "col": "example_it",
+   "old": "È un ragazzo molto attento in classe",
+   "new": "Ascolta sempre con attenzione",
+   "why": "полная вычитка: en/it/es «внимателен на уроке» — вернуть «всегда внимательно слушает»"
+  },
+  {
+   "id": 2217,
+   "col": "example_es",
+   "old": "Es un chico muy atento en clase",
+   "new": "Siempre escucha con atención",
+   "why": "полная вычитка: en/it/es «внимателен на уроке» — вернуть «всегда внимательно слушает»"
+  },
+  {
+   "id": 2220,
+   "col": "example_de",
+   "old": "Schreib dir das auf",
+   "new": "Schreib dir die Adresse auf, sonst vergisst du sie",
+   "why": "полная вычитка: смысл разошёлся — везде «запиши адрес, а то забудешь»"
+  },
+  {
+   "id": 2220,
+   "col": "example_ru",
+   "old": "Запиши себе мой номер",
+   "new": "Запиши себе адрес, а то забудешь",
+   "why": "полная вычитка: смысл разошёлся — везде «запиши адрес, а то забудешь»"
+  },
+  {
+   "id": 2220,
+   "col": "example_uk",
+   "old": "Запиши собі мій номер",
+   "new": "Запиши собі адресу, а то забудеш",
+   "why": "полная вычитка: смысл разошёлся — везде «запиши адрес, а то забудешь»"
+  },
+  {
+   "id": 2220,
+   "col": "example_tr",
+   "old": "Bunu kendine not al",
+   "new": "Adresi not al, yoksa unutursun",
+   "why": "полная вычитка: смысл разошёлся — везде «запиши адрес, а то забудешь»"
+  },
+  {
+   "id": 2220,
+   "col": "example_pl",
+   "old": "Zapisz to sobie",
+   "new": "Zapisz sobie adres, bo zapomnisz",
+   "why": "полная вычитка: смысл разошёлся — везде «запиши адрес, а то забудешь»"
+  },
+  {
+   "id": 2220,
+   "col": "example_fr",
+   "old": "Note-le",
+   "new": "Note l'adresse, sinon tu vas l'oublier",
+   "why": "полная вычитка: смысл разошёлся — везде «запиши адрес, а то забудешь»"
+  },
+  {
+   "id": 2220,
+   "col": "example_cs",
+   "old": "Zapiš si to",
+   "new": "Zapiš si adresu, jinak ji zapomeneš",
+   "why": "полная вычитка: смысл разошёлся — везде «запиши адрес, а то забудешь»"
+  },
+  {
+   "id": 2221,
+   "col": "example_de",
+   "old": "Wir teilen die Arbeit auf",
+   "new": "Wir teilen die Arbeit unter uns dreien auf",
+   "why": "полная вычитка: смысл разошёлся — везде «делим работу на троих»"
+  },
+  {
+   "id": 2221,
+   "col": "example_ru",
+   "old": "Давай поделим счёт пополам",
+   "new": "Мы поделим работу на троих",
+   "why": "полная вычитка: смысл разошёлся — везде «делим работу на троих»"
+  },
+  {
+   "id": 2221,
+   "col": "example_uk",
+   "old": "Давай поділимо рахунок навпіл",
+   "new": "Ми поділимо роботу на трьох",
+   "why": "полная вычитка: смысл разошёлся — везде «делим работу на троих»"
+  },
+  {
+   "id": 2221,
+   "col": "example_tr",
+   "old": "İşi bölüyoruz",
+   "new": "İşi üçümüz arasında bölüşüyoruz",
+   "why": "полная вычитка: смысл разошёлся — везде «делим работу на троих»"
+  },
+  {
+   "id": 2221,
+   "col": "example_pl",
+   "old": "Dzielimy pracę",
+   "new": "Dzielimy pracę między nas troje",
+   "why": "полная вычитка: смысл разошёлся — везде «делим работу на троих»"
+  },
+  {
+   "id": 2221,
+   "col": "example_fr",
+   "old": "On se partage le travail",
+   "new": "On se partage le travail à trois",
+   "why": "полная вычитка: смысл разошёлся — везде «делим работу на троих»"
+  },
+  {
+   "id": 2221,
+   "col": "example_cs",
+   "old": "Rozdělíme si práci",
+   "new": "Rozdělíme si práci mezi nás tři",
+   "why": "полная вычитка: смысл разошёлся — везде «делим работу на троих»"
+  },
+  {
+   "id": 2258,
+   "col": "example_de",
+   "old": "Das kannst du behalten",
+   "new": "Das Buch kannst du behalten, ich schenke es dir",
+   "why": "полная вычитка: смысл разошёлся — везде «книгу оставь себе, дарю»"
+  },
+  {
+   "id": 2258,
+   "col": "example_ru",
+   "old": "Можешь оставить это себе",
+   "new": "Книгу можешь оставить себе, я тебе её дарю",
+   "why": "полная вычитка: смысл разошёлся — везде «книгу оставь себе, дарю»"
+  },
+  {
+   "id": 2258,
+   "col": "example_uk",
+   "old": "Можеш залишити це собі",
+   "new": "Книжку можеш залишити собі, я тобі її дарую",
+   "why": "полная вычитка: смысл разошёлся — везде «книгу оставь себе, дарю»"
+  },
+  {
+   "id": 2258,
+   "col": "example_tr",
+   "old": "Bu sende kalsın",
+   "new": "Kitap sende kalsın, sana hediye",
+   "why": "полная вычитка: смысл разошёлся — везде «книгу оставь себе, дарю»"
+  },
+  {
+   "id": 2258,
+   "col": "example_pl",
+   "old": "Możesz to zatrzymać",
+   "new": "Książkę możesz zatrzymać, daję ci ją w prezencie",
+   "why": "полная вычитка: смысл разошёлся — везде «книгу оставь себе, дарю»"
+  },
+  {
+   "id": 2258,
+   "col": "example_fr",
+   "old": "Tu peux le garder",
+   "new": "Tu peux garder le livre, je te l'offre",
+   "why": "полная вычитка: смысл разошёлся — везде «книгу оставь себе, дарю»"
+  },
+  {
+   "id": 2258,
+   "col": "example_cs",
+   "old": "Můžeš si to nechat",
+   "new": "Tu knížku si můžeš nechat, dávám ti ji",
+   "why": "полная вычитка: смысл разошёлся — везде «книгу оставь себе, дарю»"
+  },
+  {
+   "id": 2286,
+   "col": "example_de",
+   "old": "Wir haben den Gegner besiegt",
+   "new": "Wir haben die beste Mannschaft der Liga besiegt",
+   "why": "полная вычитка: смысл разошёлся — везде «победили лучшую команду лиги»"
+  },
+  {
+   "id": 2286,
+   "col": "example_ru",
+   "old": "Мы победили соперника",
+   "new": "Мы победили лучшую команду лиги",
+   "why": "полная вычитка: смысл разошёлся — везде «победили лучшую команду лиги»"
+  },
+  {
+   "id": 2286,
+   "col": "example_uk",
+   "old": "Ми перемогли суперника",
+   "new": "Ми перемогли найкращу команду ліги",
+   "why": "полная вычитка: смысл разошёлся — везде «победили лучшую команду лиги»"
+  },
+  {
+   "id": 2286,
+   "col": "example_tr",
+   "old": "Rakibi yendik",
+   "new": "Ligin en iyi takımını yendik",
+   "why": "полная вычитка: смысл разошёлся — везде «победили лучшую команду лиги»"
+  },
+  {
+   "id": 2286,
+   "col": "example_pl",
+   "old": "Pokonaliśmy przeciwnika",
+   "new": "Pokonaliśmy najlepszą drużynę w lidze",
+   "why": "полная вычитка: смысл разошёлся — везде «победили лучшую команду лиги»"
+  },
+  {
+   "id": 2286,
+   "col": "example_fr",
+   "old": "On a battu l'adversaire",
+   "new": "On a battu la meilleure équipe du championnat",
+   "why": "полная вычитка: смысл разошёлся — везде «победили лучшую команду лиги»"
+  },
+  {
+   "id": 2286,
+   "col": "example_cs",
+   "old": "Porazili jsme soupeře",
+   "new": "Porazili jsme nejlepší tým ligy",
+   "why": "полная вычитка: смысл разошёлся — везде «победили лучшую команду лиги»"
+  },
+  {
+   "id": 2290,
+   "col": "example_de",
+   "old": "Du darfst den Raum nicht betreten",
+   "new": "Ich habe dieses Haus nie betreten",
+   "why": "полная вычитка: смысл разошёлся — везде «в этот дом я ни разу не входил»"
+  },
+  {
+   "id": 2290,
+   "col": "example_ru",
+   "old": "Тебе нельзя входить в комнату",
+   "new": "В этот дом я ни разу не входил",
+   "why": "полная вычитка: смысл разошёлся — везде «в этот дом я ни разу не входил»"
+  },
+  {
+   "id": 2290,
+   "col": "example_uk",
+   "old": "Тобі не можна входити в кімнату",
+   "new": "У цей будинок я жодного разу не заходив",
+   "why": "полная вычитка: смысл разошёлся — везде «в этот дом я ни разу не входил»"
+  },
+  {
+   "id": 2290,
+   "col": "example_tr",
+   "old": "Odaya giremezsin",
+   "new": "O eve hiç ayak basmadım",
+   "why": "полная вычитка: смысл разошёлся — везде «в этот дом я ни разу не входил»"
+  },
+  {
+   "id": 2290,
+   "col": "example_pl",
+   "old": "Nie wolno ci wchodzić do tego pokoju",
+   "new": "Nigdy nie wszedłem do tego domu",
+   "why": "полная вычитка: смысл разошёлся — везде «в этот дом я ни разу не входил»"
+  },
+  {
+   "id": 2290,
+   "col": "example_fr",
+   "old": "Tu n'as pas le droit d'entrer dans la pièce",
+   "new": "Je ne suis jamais entré dans cette maison",
+   "why": "полная вычитка: смысл разошёлся — везде «в этот дом я ни разу не входил»"
+  },
+  {
+   "id": 2290,
+   "col": "example_cs",
+   "old": "Do té místnosti nesmíš vstoupit",
+   "new": "Do toho domu jsem nikdy nevstoupil",
+   "why": "полная вычитка: смысл разошёлся — везде «в этот дом я ни разу не входил»"
+  },
+  {
+   "id": 2309,
+   "col": "example_de",
+   "old": "Ich bohre ein Loch in die Wand",
+   "new": "Der Nachbar bohrt schon wieder am Sonntag",
+   "why": "полная вычитка: смысл разошёлся — везде «сосед опять сверлит в воскресенье»"
+  },
+  {
+   "id": 2309,
+   "col": "example_en",
+   "old": "You're not allowed to drill on Sundays",
+   "new": "The neighbour is drilling again on a Sunday",
+   "why": "полная вычитка: смысл разошёлся — везде «сосед опять сверлит в воскресенье»"
+  },
+  {
+   "id": 2309,
+   "col": "example_tr",
+   "old": "Duvara delik açıyorum",
+   "new": "Komşu yine pazar günü duvar deliyor",
+   "why": "полная вычитка: смысл разошёлся — везде «сосед опять сверлит в воскресенье»"
+  },
+  {
+   "id": 2309,
+   "col": "example_pl",
+   "old": "Wiercę dziurę w ścianie",
+   "new": "Sąsiad znowu wierci w niedzielę",
+   "why": "полная вычитка: смысл разошёлся — везде «сосед опять сверлит в воскресенье»"
+  },
+  {
+   "id": 2309,
+   "col": "example_it",
+   "old": "La domenica non si può forare il muro",
+   "new": "Il vicino trapana di nuovo di domenica",
+   "why": "полная вычитка: смысл разошёлся — везде «сосед опять сверлит в воскресенье»"
+  },
+  {
+   "id": 2309,
+   "col": "example_es",
+   "old": "Los domingos no se puede taladrar la pared",
+   "new": "El vecino vuelve a taladrar en domingo",
+   "why": "полная вычитка: смысл разошёлся — везде «сосед опять сверлит в воскресенье»"
+  },
+  {
+   "id": 2309,
+   "col": "example_fr",
+   "old": "Je perce un trou dans le mur",
+   "new": "Le voisin perce encore le mur un dimanche",
+   "why": "полная вычитка: смысл разошёлся — везде «сосед опять сверлит в воскресенье»"
+  },
+  {
+   "id": 2309,
+   "col": "example_cs",
+   "old": "Vrtám díru do zdi",
+   "new": "Soused zase v neděli vrtá",
+   "why": "полная вычитка: смысл разошёлся — везде «сосед опять сверлит в воскресенье»"
+  },
+  {
+   "id": 2311,
+   "col": "example_de",
+   "old": "Er trainiert Boxen",
+   "new": "Meine Tochter macht zweimal die Woche Boxen",
+   "why": "полная вычитка: смысл разошёлся — везде «дочь два раза в неделю на боксе»"
+  },
+  {
+   "id": 2311,
+   "col": "example_ru",
+   "old": "Он занимается боксом",
+   "new": "Моя дочь два раза в неделю занимается боксом",
+   "why": "полная вычитка: смысл разошёлся — везде «дочь два раза в неделю на боксе»"
+  },
+  {
+   "id": 2311,
+   "col": "example_uk",
+   "old": "Він займається боксом",
+   "new": "Моя донька двічі на тиждень займається боксом",
+   "why": "полная вычитка: смысл разошёлся — везде «дочь два раза в неделю на боксе»"
+  },
+  {
+   "id": 2311,
+   "col": "example_tr",
+   "old": "Boks antrenmanı yapıyor",
+   "new": "Kızım haftada iki kez boks yapıyor",
+   "why": "полная вычитка: смысл разошёлся — везде «дочь два раза в неделю на боксе»"
+  },
+  {
+   "id": 2311,
+   "col": "example_pl",
+   "old": "Trenuje boks",
+   "new": "Córka dwa razy w tygodniu trenuje boks",
+   "why": "полная вычитка: смысл разошёлся — везде «дочь два раза в неделю на боксе»"
+  },
+  {
+   "id": 2311,
+   "col": "example_fr",
+   "old": "Il s'entraîne à la boxe",
+   "new": "Ma fille fait de la boxe deux fois par semaine",
+   "why": "полная вычитка: смысл разошёлся — везде «дочь два раза в неделю на боксе»"
+  },
+  {
+   "id": 2311,
+   "col": "example_cs",
+   "old": "Trénuje box",
+   "new": "Moje dcera dvakrát týdně trénuje box",
+   "why": "полная вычитка: смысл разошёлся — везде «дочь два раза в неделю на боксе»"
+  },
+  {
+   "id": 2335,
+   "col": "example_de",
+   "old": "Demnächst eröffnen wir einen neuen Laden",
+   "new": "Das neue Kino in der Innenstadt eröffnet demnächst",
+   "why": "полная вычитка: смысл разошёлся и близко к 1397 — везде «новый кинотеатр скоро откроется»"
+  },
+  {
+   "id": 2335,
+   "col": "example_ru",
+   "old": "Вскоре мы откроем новый магазин",
+   "new": "Новый кинотеатр в центре скоро откроется",
+   "why": "полная вычитка: смысл разошёлся и близко к 1397 — везде «новый кинотеатр скоро откроется»"
+  },
+  {
+   "id": 2335,
+   "col": "example_uk",
+   "old": "Незабаром ми відкриємо новий магазин",
+   "new": "Новий кінотеатр у центрі незабаром відкриється",
+   "why": "полная вычитка: смысл разошёлся и близко к 1397 — везде «новый кинотеатр скоро откроется»"
+  },
+  {
+   "id": 2335,
+   "col": "example_en",
+   "old": "Coming soon to cinemas",
+   "new": "The new cinema in the town centre is opening shortly",
+   "why": "полная вычитка: смысл разошёлся и близко к 1397 — везде «новый кинотеатр скоро откроется»"
+  },
+  {
+   "id": 2335,
+   "col": "example_tr",
+   "old": "Yakında yeni bir dükkân açıyoruz",
+   "new": "Şehir merkezindeki yeni sinema yakında açılıyor",
+   "why": "полная вычитка: смысл разошёлся и близко к 1397 — везде «новый кинотеатр скоро откроется»"
+  },
+  {
+   "id": 2335,
+   "col": "example_pl",
+   "old": "Wkrótce otwieramy nowy sklep",
+   "new": "Nowe kino w centrum wkrótce zostanie otwarte",
+   "why": "полная вычитка: смысл разошёлся и близко к 1397 — везде «новый кинотеатр скоро откроется»"
+  },
+  {
+   "id": 2335,
+   "col": "example_it",
+   "old": "Prossimamente al cinema",
+   "new": "Il nuovo cinema in centro apre prossimamente",
+   "why": "полная вычитка: смысл разошёлся и близко к 1397 — везде «новый кинотеатр скоро откроется»"
+  },
+  {
+   "id": 2335,
+   "col": "example_es",
+   "old": "Próximamente en cines",
+   "new": "El nuevo cine del centro abre próximamente",
+   "why": "полная вычитка: смысл разошёлся и близко к 1397 — везде «новый кинотеатр скоро откроется»"
+  },
+  {
+   "id": 2335,
+   "col": "example_cs",
+   "old": "Brzy otevřeme nový obchod",
+   "new": "Nové kino v centru brzy otevře",
+   "why": "полная вычитка: смысл разошёлся и близко к 1397 — везде «новый кинотеатр скоро откроется»"
+  },
+  {
+   "id": 2339,
+   "col": "example_en",
+   "old": "There's a strike tomorrow, that's why I'm cycling",
+   "new": "I'm ill, that's why I'm not coming",
+   "why": "полная вычитка: en/it/es забастовка — вернуть «заболел, поэтому не приду»"
+  },
+  {
+   "id": 2339,
+   "col": "example_it",
+   "old": "Domani c'è sciopero, per questo vado in bici",
+   "new": "Sono malato, per questo non vengo",
+   "why": "полная вычитка: en/it/es забастовка — вернуть «заболел, поэтому не приду»"
+  },
+  {
+   "id": 2339,
+   "col": "example_es",
+   "old": "Mañana hay huelga, por eso voy en bici",
+   "new": "Estoy enfermo, por eso no voy",
+   "why": "полная вычитка: en/it/es забастовка — вернуть «заболел, поэтому не приду»"
+  },
+  {
+   "id": 2342,
+   "col": "example_en",
+   "old": "There are sugar-free sweets for diabetics",
+   "new": "My father is diabetic",
+   "why": "полная вычитка: en/it/es сладости — вернуть «отец диабетик»"
+  },
+  {
+   "id": 2342,
+   "col": "example_it",
+   "old": "Per i diabetici ci sono dolci senza zucchero",
+   "new": "Mio padre è diabetico",
+   "why": "полная вычитка: en/it/es сладости — вернуть «отец диабетик»"
+  },
+  {
+   "id": 2342,
+   "col": "example_es",
+   "old": "Para los diabéticos hay dulces sin azúcar",
+   "new": "Mi padre es diabético",
+   "why": "полная вычитка: en/it/es сладости — вернуть «отец диабетик»"
+  },
+  {
+   "id": 2353,
+   "col": "example_de",
+   "old": "Ich zahle den doppelten Preis",
+   "new": "Nachts kostet das Taxi doppelt so viel",
+   "why": "полная вычитка: смысл разошёлся — везде «ночью такси вдвое дороже»"
+  },
+  {
+   "id": 2353,
+   "col": "example_en",
+   "old": "A last-minute ticket costs double",
+   "new": "At night a taxi costs double",
+   "why": "полная вычитка: смысл разошёлся — везде «ночью такси вдвое дороже»"
+  },
+  {
+   "id": 2353,
+   "col": "example_tr",
+   "old": "İki kat fiyat ödüyorum",
+   "new": "Gece taksi iki kat pahalı",
+   "why": "полная вычитка: смысл разошёлся — везде «ночью такси вдвое дороже»"
+  },
+  {
+   "id": 2353,
+   "col": "example_pl",
+   "old": "Płacę podwójną cenę",
+   "new": "W nocy taksówka kosztuje podwójnie",
+   "why": "полная вычитка: смысл разошёлся — везде «ночью такси вдвое дороже»"
+  },
+  {
+   "id": 2353,
+   "col": "example_it",
+   "old": "Il biglietto all'ultimo minuto costa il doppio",
+   "new": "Di notte il taxi costa il doppio",
+   "why": "полная вычитка: смысл разошёлся — везде «ночью такси вдвое дороже»"
+  },
+  {
+   "id": 2353,
+   "col": "example_es",
+   "old": "El billete de última hora cuesta el doble",
+   "new": "Por la noche el taxi cuesta el doble",
+   "why": "полная вычитка: смысл разошёлся — везде «ночью такси вдвое дороже»"
+  },
+  {
+   "id": 2353,
+   "col": "example_fr",
+   "old": "Je paie le double du prix",
+   "new": "La nuit, le taxi coûte le double",
+   "why": "полная вычитка: смысл разошёлся — везде «ночью такси вдвое дороже»"
+  },
+  {
+   "id": 2353,
+   "col": "example_cs",
+   "old": "Zaplatím dvojnásobnou cenu",
+   "new": "V noci stojí taxík dvojnásobek",
+   "why": "полная вычитка: смысл разошёлся — везде «ночью такси вдвое дороже»"
+  },
+  {
+   "id": 2385,
+   "col": "example_en",
+   "old": "Who switched the radio on?",
+   "new": "Turn the TV on",
+   "why": "полная вычитка: en/it/es радио — вернуть «включи телевизор»"
+  },
+  {
+   "id": 2385,
+   "col": "example_it",
+   "old": "Chi ha acceso la radio?",
+   "new": "Accendi la tv",
+   "why": "полная вычитка: en/it/es радио — вернуть «включи телевизор»"
+  },
+  {
+   "id": 2385,
+   "col": "example_es",
+   "old": "¿Quién ha encendido la radio?",
+   "new": "Enciende la tele",
+   "why": "полная вычитка: en/it/es радио — вернуть «включи телевизор»"
+  },
+  {
+   "id": 2426,
+   "col": "example_de",
+   "old": "Wir müssen die Preise erhöhen",
+   "new": "Der Vermieter will die Miete erhöhen",
+   "why": "полная вычитка: смысл разошёлся — везде «хозяин хочет повысить плату»"
+  },
+  {
+   "id": 2426,
+   "col": "example_ru",
+   "old": "Хозяин квартиры опять повысил плату",
+   "new": "Хозяин квартиры хочет повысить плату",
+   "why": "полная вычитка: смысл разошёлся — везде «хозяин хочет повысить плату»"
+  },
+  {
+   "id": 2426,
+   "col": "example_uk",
+   "old": "Хазяїн квартири знову підвищив плату",
+   "new": "Хазяїн квартири хоче підвищити плату",
+   "why": "полная вычитка: смысл разошёлся — везде «хозяин хочет повысить плату»"
+  },
+  {
+   "id": 2426,
+   "col": "example_tr",
+   "old": "Fiyatları artırmamız gerekiyor",
+   "new": "Ev sahibi kirayı artırmak istiyor",
+   "why": "полная вычитка: смысл разошёлся — везде «хозяин хочет повысить плату»"
+  },
+  {
+   "id": 2426,
+   "col": "example_pl",
+   "old": "Musimy podnieść ceny",
+   "new": "Właściciel chce podnieść czynsz",
+   "why": "полная вычитка: смысл разошёлся — везде «хозяин хочет повысить плату»"
+  },
+  {
+   "id": 2426,
+   "col": "example_fr",
+   "old": "On doit augmenter les prix",
+   "new": "Le propriétaire veut augmenter le loyer",
+   "why": "полная вычитка: смысл разошёлся — везде «хозяин хочет повысить плату»"
+  },
+  {
+   "id": 2426,
+   "col": "example_cs",
+   "old": "Musíme zvýšit ceny",
+   "new": "Pronajímatel chce zvýšit nájem",
+   "why": "полная вычитка: смысл разошёлся — везде «хозяин хочет повысить плату»"
+  },
+  {
+   "id": 2430,
+   "col": "example_de",
+   "old": "Ich brauche eine Erklärung",
+   "new": "Du schuldest mir eine Erklärung",
+   "why": "полная вычитка: смысл разошёлся — везде «ты мне должен объяснение»"
+  },
+  {
+   "id": 2430,
+   "col": "example_tr",
+   "old": "Bir açıklamaya ihtiyacım var",
+   "new": "Bana bir açıklama borçlusun",
+   "why": "полная вычитка: смысл разошёлся — везде «ты мне должен объяснение»"
+  },
+  {
+   "id": 2430,
+   "col": "example_pl",
+   "old": "Potrzebuję wyjaśnienia",
+   "new": "Jesteś mi winien wyjaśnienie",
+   "why": "полная вычитка: смысл разошёлся — везде «ты мне должен объяснение»"
+  },
+  {
+   "id": 2430,
+   "col": "example_fr",
+   "old": "J'ai besoin d'une explication",
+   "new": "Tu me dois une explication",
+   "why": "полная вычитка: смысл разошёлся — везде «ты мне должен объяснение»"
+  },
+  {
+   "id": 2430,
+   "col": "example_cs",
+   "old": "Potřebuji vysvětlení",
+   "new": "Dlužíš mi vysvětlení",
+   "why": "полная вычитка: смысл разошёлся — везде «ты мне должен объяснение»"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
