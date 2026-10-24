@@ -1,0 +1,884 @@
+{
+ "about": "полная вычитка p015",
+ "edits": [
+  {
+   "id": 6872,
+   "col": "example_de",
+   "old": "Wir bauen das Zelt wieder auf",
+   "new": "Sollen wir das Zelt hier aufbauen?",
+   "why": "полная вычитка: смысл разошёлся — везде «поставим палатку здесь?»"
+  },
+  {
+   "id": 6872,
+   "col": "example_ru",
+   "old": "Мы поставили палатку у самой реки",
+   "new": "Поставим палатку здесь?",
+   "why": "полная вычитка: смысл разошёлся — везде «поставим палатку здесь?»"
+  },
+  {
+   "id": 6872,
+   "col": "example_uk",
+   "old": "Ми поставили намет біля самої річки",
+   "new": "Поставимо намет тут?",
+   "why": "полная вычитка: смысл разошёлся — везде «поставим палатку здесь?»"
+  },
+  {
+   "id": 6872,
+   "col": "example_tr",
+   "old": "Çadırı tekrar kuruyoruz",
+   "new": "Çadırı burada mı kuralım?",
+   "why": "полная вычитка: смысл разошёлся — везде «поставим палатку здесь?»"
+  },
+  {
+   "id": 6872,
+   "col": "example_pl",
+   "old": "Znowu rozstawiamy namiot",
+   "new": "Rozstawimy namiot tutaj?",
+   "why": "полная вычитка: смысл разошёлся — везде «поставим палатку здесь?»"
+  },
+  {
+   "id": 6872,
+   "col": "example_cs",
+   "old": "Znovu postavíme stan",
+   "new": "Postavíme stan tady?",
+   "why": "полная вычитка: смысл разошёлся — везде «поставим палатку здесь?»"
+  },
+  {
+   "id": 6873,
+   "col": "example_fr",
+   "old": "Je t'attends en bas, devant l'immeuble",
+   "new": "Descends au salon, s'il te plaît !",
+   "why": "полная вычитка: fr другой смысл — «спустись в гостиную»"
+  },
+  {
+   "id": 6876,
+   "col": "example_en",
+   "old": "Don't look down!",
+   "new": "We're going down the stairs",
+   "why": "полная вычитка: en/es/fr — «спускаемся по лестнице»"
+  },
+  {
+   "id": 6876,
+   "col": "example_es",
+   "old": "¡No mires hacia abajo!",
+   "new": "Bajamos por la escalera",
+   "why": "полная вычитка: en/es/fr — «спускаемся по лестнице»"
+  },
+  {
+   "id": 6876,
+   "col": "example_fr",
+   "old": "Ne regarde pas vers le bas !",
+   "new": "On descend l'escalier",
+   "why": "полная вычитка: en/es/fr — «спускаемся по лестнице»"
+  },
+  {
+   "id": 6890,
+   "col": "example_de",
+   "old": "Das Lied ist mir völlig unbekannt",
+   "new": "Die Nummer ist unbekannt, ich gehe nicht ran",
+   "why": "полная вычитка: смысл разошёлся — везде «номер неизвестный, не беру»"
+  },
+  {
+   "id": 6890,
+   "col": "example_ru",
+   "old": "Эта песня мне совершенно неизвестна",
+   "new": "Номер неизвестный, я не беру трубку",
+   "why": "полная вычитка: смысл разошёлся — везде «номер неизвестный, не беру»"
+  },
+  {
+   "id": 6890,
+   "col": "example_uk",
+   "old": "Ця пісня мені зовсім невідома",
+   "new": "Номер невідомий, я не беру слухавку",
+   "why": "полная вычитка: смысл разошёлся — везде «номер неизвестный, не беру»"
+  },
+  {
+   "id": 6890,
+   "col": "example_tr",
+   "old": "Bu şarkı bana tamamen yabancı",
+   "new": "Numara bilinmiyor, açmıyorum",
+   "why": "полная вычитка: смысл разошёлся — везде «номер неизвестный, не беру»"
+  },
+  {
+   "id": 6890,
+   "col": "example_pl",
+   "old": "Ta piosenka jest mi zupełnie nieznana",
+   "new": "Numer jest nieznany, nie odbieram",
+   "why": "полная вычитка: смысл разошёлся — везде «номер неизвестный, не беру»"
+  },
+  {
+   "id": 6890,
+   "col": "example_cs",
+   "old": "Ta píseň je mi úplně neznámá",
+   "new": "Číslo je neznámé, to nezvednu",
+   "why": "полная вычитка: смысл разошёлся — везде «номер неизвестный, не беру»"
+  },
+  {
+   "id": 6898,
+   "col": "example_fr",
+   "old": "Ce petit boulot lui procure un peu d'argent de poche",
+   "new": "Il faut que je me ménage plus de temps pour mes loisirs",
+   "why": "полная вычитка: fr другой смысл — «выкроить время на хобби»"
+  },
+  {
+   "id": 6925,
+   "col": "example_de",
+   "old": "Das ist quasi eine Garantie",
+   "new": "Ich bin quasi fertig",
+   "why": "полная вычитка: смысл разошёлся — везде «я практически закончил»"
+  },
+  {
+   "id": 6925,
+   "col": "example_ru",
+   "old": "Мы с ним практически соседи",
+   "new": "Я практически закончил",
+   "why": "полная вычитка: смысл разошёлся — везде «я практически закончил»"
+  },
+  {
+   "id": 6925,
+   "col": "example_uk",
+   "old": "Ми з ним практично сусіди",
+   "new": "Я практично закінчив",
+   "why": "полная вычитка: смысл разошёлся — везде «я практически закончил»"
+  },
+  {
+   "id": 6925,
+   "col": "example_tr",
+   "old": "Bu neredeyse garanti",
+   "new": "Neredeyse bitirdim",
+   "why": "полная вычитка: смысл разошёлся — везде «я практически закончил»"
+  },
+  {
+   "id": 6925,
+   "col": "example_pl",
+   "old": "To praktycznie gwarancja",
+   "new": "Praktycznie skończyłem",
+   "why": "полная вычитка: смысл разошёлся — везде «я практически закончил»"
+  },
+  {
+   "id": 6925,
+   "col": "example_cs",
+   "old": "To je prakticky záruka",
+   "new": "Prakticky jsem hotový",
+   "why": "полная вычитка: смысл разошёлся — везде «я практически закончил»"
+  },
+  {
+   "id": 6927,
+   "col": "example_de",
+   "old": "Kaffee ist ein guter Ersatz für Tee",
+   "new": "Wir suchen noch Ersatz für den kranken Kollegen",
+   "why": "полная вычитка: смысл разошёлся — везде «ищем замену больному коллеге»"
+  },
+  {
+   "id": 6927,
+   "col": "example_en",
+   "old": "I always carry a replacement battery",
+   "new": "We're still looking for a replacement for our colleague who's off sick",
+   "why": "полная вычитка: смысл разошёлся — везде «ищем замену больному коллеге»"
+  },
+  {
+   "id": 6927,
+   "col": "example_tr",
+   "old": "Kahve, çayın yerini tutabilir",
+   "new": "Hasta iş arkadaşımız için hâlâ yedek birini arıyoruz",
+   "why": "полная вычитка: смысл разошёлся — везде «ищем замену больному коллеге»"
+  },
+  {
+   "id": 6927,
+   "col": "example_pl",
+   "old": "Kawa jest dobrym zamiennikiem herbaty",
+   "new": "Wciąż szukamy zastępstwa za chorego kolegę",
+   "why": "полная вычитка: смысл разошёлся — везде «ищем замену больному коллеге»"
+  },
+  {
+   "id": 6927,
+   "col": "example_it",
+   "old": "Ho sempre una batteria di ricambio",
+   "new": "Cerchiamo ancora un sostituto per il collega malato",
+   "why": "полная вычитка: смысл разошёлся — везде «ищем замену больному коллеге»"
+  },
+  {
+   "id": 6927,
+   "col": "example_es",
+   "old": "Siempre llevo una batería de repuesto",
+   "new": "Todavía buscamos un sustituto para el compañero enfermo",
+   "why": "полная вычитка: смысл разошёлся — везде «ищем замену больному коллеге»"
+  },
+  {
+   "id": 6927,
+   "col": "example_fr",
+   "old": "Le train est annulé, mais il y a un bus de remplacement",
+   "new": "On cherche encore un remplaçant pour le collègue malade",
+   "why": "полная вычитка: смысл разошёлся — везде «ищем замену больному коллеге»"
+  },
+  {
+   "id": 6927,
+   "col": "example_cs",
+   "old": "Káva je dobrá náhrada za čaj",
+   "new": "Pořád hledáme náhradu za nemocného kolegu",
+   "why": "полная вычитка: смысл разошёлся — везде «ищем замену больному коллеге»"
+  },
+  {
+   "id": 6931,
+   "col": "example_de",
+   "old": "Sie hat ihn in eine andere Klasse versetzt",
+   "new": "Sein Chef hat ihn nach Hamburg versetzt",
+   "why": "полная вычитка: смысл разошёлся — везде «начальник перевёл его в Гамбург»"
+  },
+  {
+   "id": 6931,
+   "col": "example_ru",
+   "old": "Из-за плохих оценок его не перевели в следующий класс",
+   "new": "Начальник перевёл его в Гамбург",
+   "why": "полная вычитка: смысл разошёлся — везде «начальник перевёл его в Гамбург»"
+  },
+  {
+   "id": 6931,
+   "col": "example_uk",
+   "old": "Через погані оцінки його не перевели в наступний клас",
+   "new": "Начальник перевів його до Гамбурга",
+   "why": "полная вычитка: смысл разошёлся — везде «начальник перевёл его в Гамбург»"
+  },
+  {
+   "id": 6931,
+   "col": "example_en",
+   "old": "His boss transferred him to Leeds",
+   "new": "His boss transferred him to Hamburg",
+   "why": "полная вычитка: смысл разошёлся — везде «начальник перевёл его в Гамбург»"
+  },
+  {
+   "id": 6931,
+   "col": "example_tr",
+   "old": "Onu başka bir sınıfa nakletti",
+   "new": "Patronu onu Hamburg'a nakletti",
+   "why": "полная вычитка: смысл разошёлся — везде «начальник перевёл его в Гамбург»"
+  },
+  {
+   "id": 6931,
+   "col": "example_pl",
+   "old": "Przeniosła go do innej klasy",
+   "new": "Szef przeniósł go do Hamburga",
+   "why": "полная вычитка: смысл разошёлся — везде «начальник перевёл его в Гамбург»"
+  },
+  {
+   "id": 6931,
+   "col": "example_it",
+   "old": "Il capo l'ha trasferito a Milano",
+   "new": "Il capo l'ha trasferito ad Amburgo",
+   "why": "полная вычитка: смысл разошёлся — везде «начальник перевёл его в Гамбург»"
+  },
+  {
+   "id": 6931,
+   "col": "example_es",
+   "old": "Su jefe lo trasladó a Valencia",
+   "new": "Su jefe lo trasladó a Hamburgo",
+   "why": "полная вычитка: смысл разошёлся — везде «начальник перевёл его в Гамбург»"
+  },
+  {
+   "id": 6931,
+   "col": "example_fr",
+   "old": "Son patron l'a transféré à Lyon",
+   "new": "Son patron l'a transféré à Hambourg",
+   "why": "полная вычитка: смысл разошёлся — везде «начальник перевёл его в Гамбург»"
+  },
+  {
+   "id": 6931,
+   "col": "example_cs",
+   "old": "Přeložila ho do jiné třídy",
+   "new": "Šéf ho přeložil do Hamburku",
+   "why": "полная вычитка: смысл разошёлся — везде «начальник перевёл его в Гамбург»"
+  },
+  {
+   "id": 6952,
+   "col": "example_de",
+   "old": "Wir brechen morgen auf",
+   "new": "Pack deine Sachen, wir brechen in zehn Minuten auf",
+   "why": "полная вычитка: смысл разошёлся — везде «собирай вещи, через десять минут отправляемся»"
+  },
+  {
+   "id": 6952,
+   "col": "example_ru",
+   "old": "Отправляемся на рассвете, чтобы успеть до жары",
+   "new": "Собирай вещи, через десять минут отправляемся",
+   "why": "полная вычитка: смысл разошёлся — везде «собирай вещи, через десять минут отправляемся»"
+  },
+  {
+   "id": 6952,
+   "col": "example_uk",
+   "old": "Вирушаємо на світанку, щоб устигнути до спеки",
+   "new": "Збирай речі, за десять хвилин вирушаємо",
+   "why": "полная вычитка: смысл разошёлся — везде «собирай вещи, через десять минут отправляемся»"
+  },
+  {
+   "id": 6952,
+   "col": "example_en",
+   "old": "What time are we setting off?",
+   "new": "Pack your things, we're setting off in ten minutes",
+   "why": "полная вычитка: смысл разошёлся — везде «собирай вещи, через десять минут отправляемся»"
+  },
+  {
+   "id": 6952,
+   "col": "example_tr",
+   "old": "Yarın yola çıkıyoruz",
+   "new": "Eşyalarını topla, on dakika sonra yola çıkıyoruz",
+   "why": "полная вычитка: смысл разошёлся — везде «собирай вещи, через десять минут отправляемся»"
+  },
+  {
+   "id": 6952,
+   "col": "example_pl",
+   "old": "Wyruszamy jutro",
+   "new": "Pakuj się, za dziesięć minut wyruszamy",
+   "why": "полная вычитка: смысл разошёлся — везде «собирай вещи, через десять минут отправляемся»"
+  },
+  {
+   "id": 6952,
+   "col": "example_it",
+   "old": "A che ora partiamo?",
+   "new": "Prepara le tue cose, partiamo tra dieci minuti",
+   "why": "полная вычитка: смысл разошёлся — везде «собирай вещи, через десять минут отправляемся»"
+  },
+  {
+   "id": 6952,
+   "col": "example_es",
+   "old": "¿A qué hora partimos?",
+   "new": "Recoge tus cosas, que nos ponemos en marcha en diez minutos",
+   "why": "полная вычитка: смысл разошёлся — везде «собирай вещи, через десять минут отправляемся»"
+  },
+  {
+   "id": 6952,
+   "col": "example_fr",
+   "old": "À quelle heure on part ?",
+   "new": "Range tes affaires, on part dans dix minutes",
+   "why": "полная вычитка: смысл разошёлся — везде «собирай вещи, через десять минут отправляемся»"
+  },
+  {
+   "id": 6952,
+   "col": "example_cs",
+   "old": "Zítra vyrážíme",
+   "new": "Sbal si věci, za deset minut vyrážíme",
+   "why": "полная вычитка: смысл разошёлся — везде «собирай вещи, через десять минут отправляемся»"
+  },
+  {
+   "id": 6969,
+   "col": "example_de",
+   "old": "Ich habe festgestellt, dass er nicht kommt",
+   "new": "Ich habe festgestellt, dass zwanzig Euro in meinem Portemonnaie fehlen",
+   "why": "полная вычитка: смысл разошёлся — везде «в кошельке не хватает двадцати евро»"
+  },
+  {
+   "id": 6969,
+   "col": "example_ru",
+   "old": "Я выяснил, что он не придёт",
+   "new": "Я заметил, что в кошельке не хватает двадцати евро",
+   "why": "полная вычитка: смысл разошёлся — везде «в кошельке не хватает двадцати евро»"
+  },
+  {
+   "id": 6969,
+   "col": "example_uk",
+   "old": "Я з'ясував, що він не прийде",
+   "new": "Я помітив, що в гаманці бракує двадцяти євро",
+   "why": "полная вычитка: смысл разошёлся — везде «в кошельке не хватает двадцати евро»"
+  },
+  {
+   "id": 6969,
+   "col": "example_en",
+   "old": "I noticed twenty pounds were missing from my wallet",
+   "new": "I noticed twenty euros were missing from my wallet",
+   "why": "полная вычитка: смысл разошёлся — везде «в кошельке не хватает двадцати евро»"
+  },
+  {
+   "id": 6969,
+   "col": "example_tr",
+   "old": "Gelmeyeceğini fark ettim",
+   "new": "Cüzdanımda yirmi euro eksik olduğunu fark ettim",
+   "why": "полная вычитка: смысл разошёлся — везде «в кошельке не хватает двадцати евро»"
+  },
+  {
+   "id": 6969,
+   "col": "example_pl",
+   "old": "Stwierdziłem, że nie przyjdzie",
+   "new": "Stwierdziłem, że w portfelu brakuje dwudziestu euro",
+   "why": "полная вычитка: смысл разошёлся — везде «в кошельке не хватает двадцати евро»"
+  },
+  {
+   "id": 6969,
+   "col": "example_cs",
+   "old": "Zjistil jsem, že nepřijde",
+   "new": "Zjistil jsem, že mi v peněžence chybí dvacet eur",
+   "why": "полная вычитка: смысл разошёлся — везде «в кошельке не хватает двадцати евро»"
+  },
+  {
+   "id": 6970,
+   "col": "example_en",
+   "old": "The discount applies to children too",
+   "new": "The ticket is valid all day on the bus and underground",
+   "why": "полная вычитка: en/es/fr — «билет действует весь день в автобусе и метро»"
+  },
+  {
+   "id": 6970,
+   "col": "example_es",
+   "old": "El descuento vale también para los niños",
+   "new": "El billete vale todo el día en autobús y metro",
+   "why": "полная вычитка: en/es/fr — «билет действует весь день в автобусе и метро»"
+  },
+  {
+   "id": 6970,
+   "col": "example_fr",
+   "old": "La réduction s'applique aussi aux enfants",
+   "new": "Le ticket est valable toute la journée dans le bus et le métro",
+   "why": "полная вычитка: en/es/fr — «билет действует весь день в автобусе и метро»"
+  },
+  {
+   "id": 6992,
+   "col": "example_fr",
+   "old": "Tu peux m'attacher les cheveux ?",
+   "new": "Tu peux me lacer mes chaussures ?",
+   "why": "полная вычитка: fr «завязать волосы» — «завязать шнурки»"
+  },
+  {
+   "id": 6994,
+   "col": "example_de",
+   "old": "Der Knoten in meinem Seil ist zu fest",
+   "new": "Ich bekomme diesen Knoten nicht auf",
+   "why": "полная вычитка: смысл разошёлся — везде «не могу развязать этот узел»"
+  },
+  {
+   "id": 6994,
+   "col": "example_tr",
+   "old": "İpteki düğüm çok sıkı",
+   "new": "Bu düğümü çözemiyorum",
+   "why": "полная вычитка: смысл разошёлся — везде «не могу развязать этот узел»"
+  },
+  {
+   "id": 6994,
+   "col": "example_pl",
+   "old": "Węzeł na linie jest za mocno zaciągnięty",
+   "new": "Nie mogę rozwiązać tego węzła",
+   "why": "полная вычитка: смысл разошёлся — везде «не могу развязать этот узел»"
+  },
+  {
+   "id": 6994,
+   "col": "example_cs",
+   "old": "Uzel na laně je moc utažený",
+   "new": "Nemůžu rozvázat tenhle uzel",
+   "why": "полная вычитка: смысл разошёлся — везде «не могу развязать этот узел»"
+  },
+  {
+   "id": 7005,
+   "col": "example_it",
+   "old": "È solo un calcolo approssimativo",
+   "new": "A occhio costa 100 euro",
+   "why": "полная вычитка: it/es «только грубый расчёт» — «на глаз стоит 100 евро»"
+  },
+  {
+   "id": 7005,
+   "col": "example_es",
+   "old": "Es solo un cálculo aproximado",
+   "new": "Calculando por encima, cuesta 100 euros",
+   "why": "полная вычитка: it/es «только грубый расчёт» — «на глаз стоит 100 евро»"
+  },
+  {
+   "id": 7032,
+   "col": "example_en",
+   "old": "Soldiers march through the city on Remembrance Day",
+   "new": "We marched through the forest for two hours",
+   "why": "полная вычитка: en/it/es/fr парад солдат — «два часа маршировали по лесу»"
+  },
+  {
+   "id": 7032,
+   "col": "example_it",
+   "old": "I soldati marciano per la città",
+   "new": "Abbiamo marciato due ore nel bosco",
+   "why": "полная вычитка: en/it/es/fr парад солдат — «два часа маршировали по лесу»"
+  },
+  {
+   "id": 7032,
+   "col": "example_es",
+   "old": "El 12 de octubre los soldados desfilan por Madrid",
+   "new": "Marchamos dos horas por el bosque",
+   "why": "полная вычитка: en/it/es/fr парад солдат — «два часа маршировали по лесу»"
+  },
+  {
+   "id": 7032,
+   "col": "example_fr",
+   "old": "Le 14 juillet, les soldats défilent sur les Champs-Élysées",
+   "new": "On a marché deux heures à travers la forêt",
+   "why": "полная вычитка: en/it/es/fr парад солдат — «два часа маршировали по лесу»"
+  },
+  {
+   "id": 7053,
+   "col": "example_de",
+   "old": "Halt bitte ein Taxi bereit, falls ich es brauche",
+   "new": "Halt die Fahrkarte bereit, der Kontrolleur kommt schon",
+   "why": "полная вычитка: смысл разошёлся — везде «держи билет наготове, контролёр идёт»"
+  },
+  {
+   "id": 7053,
+   "col": "example_en",
+   "old": "Keep your phone handy, I'll call you",
+   "new": "Have your ticket ready, the inspector's coming",
+   "why": "полная вычитка: смысл разошёлся — везде «держи билет наготове, контролёр идёт»"
+  },
+  {
+   "id": 7053,
+   "col": "example_tr",
+   "old": "İhtiyacım olursa diye bir taksi hazırda beklesin lütfen",
+   "new": "Bileti hazır tut, kontrolör geliyor",
+   "why": "полная вычитка: смысл разошёлся — везде «держи билет наготове, контролёр идёт»"
+  },
+  {
+   "id": 7053,
+   "col": "example_pl",
+   "old": "Trzymaj proszę taksówkę w pogotowiu, na wypadek gdybym jej potrzebował",
+   "new": "Trzymaj bilet w pogotowiu, kontroler już idzie",
+   "why": "полная вычитка: смысл разошёлся — везде «держи билет наготове, контролёр идёт»"
+  },
+  {
+   "id": 7053,
+   "col": "example_it",
+   "old": "Tieni pronto un taxi, per favore, nel caso mi serva",
+   "new": "Tieni pronto il biglietto, arriva il controllore",
+   "why": "полная вычитка: смысл разошёлся — везде «держи билет наготове, контролёр идёт»"
+  },
+  {
+   "id": 7053,
+   "col": "example_es",
+   "old": "Ten el móvil a mano, que te llamo",
+   "new": "Ten el billete preparado, que viene el revisor",
+   "why": "полная вычитка: смысл разошёлся — везде «держи билет наготове, контролёр идёт»"
+  },
+  {
+   "id": 7053,
+   "col": "example_fr",
+   "old": "Garde ton téléphone sous la main, je t'appelle",
+   "new": "Garde ton billet sous la main, le contrôleur arrive",
+   "why": "полная вычитка: смысл разошёлся — везде «держи билет наготове, контролёр идёт»"
+  },
+  {
+   "id": 7053,
+   "col": "example_cs",
+   "old": "Měj prosím připravené taxi, kdybych ho potřeboval",
+   "new": "Měj připravenou jízdenku, revizor už jde",
+   "why": "полная вычитка: смысл разошёлся — везде «держи билет наготове, контролёр идёт»"
+  },
+  {
+   "id": 7061,
+   "col": "example_de",
+   "old": "Der Preis inklusive Steuern ist 50 Euro",
+   "new": "Das Zimmer kostet fünfzig Euro inklusive Frühstück",
+   "why": "полная вычитка: смысл разошёлся, гривны — везде «номер 50 евро с завтраком»"
+  },
+  {
+   "id": 7061,
+   "col": "example_uk",
+   "old": "Номер коштує тисячу п'ятсот гривень, включно зі сніданком",
+   "new": "Номер коштує п'ятдесят євро, включно зі сніданком",
+   "why": "полная вычитка: смысл разошёлся, гривны — везде «номер 50 евро с завтраком»"
+  },
+  {
+   "id": 7061,
+   "col": "example_en",
+   "old": "It's 50 pounds, including delivery",
+   "new": "The room is fifty euros, including breakfast",
+   "why": "полная вычитка: смысл разошёлся, гривны — везде «номер 50 евро с завтраком»"
+  },
+  {
+   "id": 7061,
+   "col": "example_tr",
+   "old": "Vergi dahil fiyat 50 euro",
+   "new": "Oda kahvaltı dahil elli euro",
+   "why": "полная вычитка: смысл разошёлся, гривны — везде «номер 50 евро с завтраком»"
+  },
+  {
+   "id": 7061,
+   "col": "example_pl",
+   "old": "Cena włącznie z podatkiem to 50 euro",
+   "new": "Pokój kosztuje pięćdziesiąt euro, włącznie ze śniadaniem",
+   "why": "полная вычитка: смысл разошёлся, гривны — везде «номер 50 евро с завтраком»"
+  },
+  {
+   "id": 7061,
+   "col": "example_it",
+   "old": "Sono 50 euro, consegna inclusa",
+   "new": "La camera costa cinquanta euro, colazione inclusa",
+   "why": "полная вычитка: смысл разошёлся, гривны — везде «номер 50 евро с завтраком»"
+  },
+  {
+   "id": 7061,
+   "col": "example_es",
+   "old": "Son 50 euros, envío incluido",
+   "new": "La habitación cuesta cincuenta euros, desayuno incluido",
+   "why": "полная вычитка: смысл разошёлся, гривны — везде «номер 50 евро с завтраком»"
+  },
+  {
+   "id": 7061,
+   "col": "example_fr",
+   "old": "Ça fait 50 euros, livraison comprise",
+   "new": "La chambre coûte cinquante euros, petit-déjeuner compris",
+   "why": "полная вычитка: смысл разошёлся, гривны — везде «номер 50 евро с завтраком»"
+  },
+  {
+   "id": 7061,
+   "col": "example_cs",
+   "old": "Cena včetně daní je 50 eur",
+   "new": "Pokoj stojí padesát eur včetně snídaně",
+   "why": "полная вычитка: смысл разошёлся, гривны — везде «номер 50 евро с завтраком»"
+  },
+  {
+   "id": 7091,
+   "col": "example_de",
+   "old": "Hast du meine Nachricht gecheckt?",
+   "new": "Moment, ich checke kurz meine Nachrichten",
+   "why": "полная вычитка: смысл разошёлся — везде «подожди, гляну сообщения»"
+  },
+  {
+   "id": 7091,
+   "col": "example_ru",
+   "old": "Глянь почту, я тебе всё отправил",
+   "new": "Подожди, я гляну сообщения",
+   "why": "полная вычитка: смысл разошёлся — везде «подожди, гляну сообщения»"
+  },
+  {
+   "id": 7091,
+   "col": "example_uk",
+   "old": "Глянь пошту, я тобі все надіслав",
+   "new": "Зачекай, я гляну повідомлення",
+   "why": "полная вычитка: смысл разошёлся — везде «подожди, гляну сообщения»"
+  },
+  {
+   "id": 7091,
+   "col": "example_tr",
+   "old": "Mesajımı kontrol ettin mi?",
+   "new": "Bir saniye, mesajlarıma bakayım",
+   "why": "полная вычитка: смысл разошёлся — везде «подожди, гляну сообщения»"
+  },
+  {
+   "id": 7091,
+   "col": "example_pl",
+   "old": "Sprawdziłeś moją wiadomość?",
+   "new": "Chwila, sprawdzę tylko wiadomości",
+   "why": "полная вычитка: смысл разошёлся — везде «подожди, гляну сообщения»"
+  },
+  {
+   "id": 7091,
+   "col": "example_it",
+   "old": "Aspetta, guardo un attimo le mail",
+   "new": "Aspetta, controllo un attimo i messaggi",
+   "why": "полная вычитка: смысл разошёлся — везде «подожди, гляну сообщения»"
+  },
+  {
+   "id": 7091,
+   "col": "example_es",
+   "old": "Espera, que miro un momento el correo",
+   "new": "Espera, que miro un momento los mensajes",
+   "why": "полная вычитка: смысл разошёлся — везде «подожди, гляну сообщения»"
+  },
+  {
+   "id": 7091,
+   "col": "example_cs",
+   "old": "Zkontroloval jsi mou zprávu?",
+   "new": "Moment, jen zkontroluju zprávy",
+   "why": "полная вычитка: смысл разошёлся — везде «подожди, гляну сообщения»"
+  },
+  {
+   "id": 7116,
+   "col": "example_en",
+   "old": "We covered a long distance by bike",
+   "new": "He always keeps his distance from his colleagues",
+   "why": "полная вычитка: en/es/fr велосипед — «держит дистанцию с коллегами»"
+  },
+  {
+   "id": 7116,
+   "col": "example_es",
+   "old": "Hemos recorrido una gran distancia en bici",
+   "new": "Siempre guarda las distancias con sus compañeros",
+   "why": "полная вычитка: en/es/fr велосипед — «держит дистанцию с коллегами»"
+  },
+  {
+   "id": 7116,
+   "col": "example_fr",
+   "old": "On a parcouru une grande distance à vélo",
+   "new": "Il garde toujours ses distances avec ses collègues",
+   "why": "полная вычитка: en/es/fr велосипед — «держит дистанцию с коллегами»"
+  },
+  {
+   "id": 7292,
+   "col": "example_ru",
+   "old": "Эта парковка исключительно для жильцов дома",
+   "new": "Это исключительно для тебя",
+   "why": "полная вычитка: ru/uk парковка — «это исключительно для тебя»"
+  },
+  {
+   "id": 7292,
+   "col": "example_uk",
+   "old": "Ця парковка виключно для мешканців будинку",
+   "new": "Це виключно для тебе",
+   "why": "полная вычитка: ru/uk парковка — «это исключительно для тебя»"
+  },
+  {
+   "id": 7313,
+   "col": "example_en",
+   "old": "Global warming is a worldwide problem",
+   "new": "Global warming is a big problem for our future",
+   "why": "полная вычитка: en/es/fr — «большая проблема для нашего будущего»"
+  },
+  {
+   "id": 7313,
+   "col": "example_es",
+   "old": "El calentamiento global es un problema mundial",
+   "new": "El calentamiento global es un gran problema para nuestro futuro",
+   "why": "полная вычитка: en/es/fr — «большая проблема для нашего будущего»"
+  },
+  {
+   "id": 7313,
+   "col": "example_fr",
+   "old": "Le réchauffement climatique est un problème mondial",
+   "new": "Le réchauffement climatique est un gros problème pour notre avenir",
+   "why": "полная вычитка: en/es/fr — «большая проблема для нашего будущего»"
+  },
+  {
+   "id": 7315,
+   "col": "example_de",
+   "old": "Das ist allgemein bekannt",
+   "new": "Im Allgemeinen bin ich mit meiner Arbeit zufrieden",
+   "why": "полная вычитка: смысл разошёлся — везде «в целом я доволен работой»"
+  },
+  {
+   "id": 7315,
+   "col": "example_ru",
+   "old": "Это общеизвестно",
+   "new": "В целом я доволен своей работой",
+   "why": "полная вычитка: смысл разошёлся — везде «в целом я доволен работой»"
+  },
+  {
+   "id": 7315,
+   "col": "example_uk",
+   "old": "Це загальновідомо",
+   "new": "Загалом я задоволений своєю роботою",
+   "why": "полная вычитка: смысл разошёлся — везде «в целом я доволен работой»"
+  },
+  {
+   "id": 7315,
+   "col": "example_tr",
+   "old": "Bu genel olarak biliniyor",
+   "new": "Genel olarak işimden memnunum",
+   "why": "полная вычитка: смысл разошёлся — везде «в целом я доволен работой»"
+  },
+  {
+   "id": 7315,
+   "col": "example_pl",
+   "old": "To powszechnie wiadomo",
+   "new": "Ogólnie jestem zadowolony ze swojej pracy",
+   "why": "полная вычитка: смысл разошёлся — везде «в целом я доволен работой»"
+  },
+  {
+   "id": 7315,
+   "col": "example_cs",
+   "old": "To je všeobecně známé",
+   "new": "Obecně jsem se svou prací spokojený",
+   "why": "полная вычитка: смысл разошёлся — везде «в целом я доволен работой»"
+  },
+  {
+   "id": 7611,
+   "col": "example_de",
+   "old": "Seit er die Firma verlassen hat, geht's bergab",
+   "new": "Bergab rollt das Fahrrad ganz von allein",
+   "why": "полная вычитка: смысл разошёлся — везде «под горку велосипед катится сам»"
+  },
+  {
+   "id": 7611,
+   "col": "example_ru",
+   "old": "С тех пор как он ушёл из фирмы, всё идёт под откос",
+   "new": "Под горку велосипед катится сам",
+   "why": "полная вычитка: смысл разошёлся — везде «под горку велосипед катится сам»"
+  },
+  {
+   "id": 7611,
+   "col": "example_uk",
+   "old": "Відколи він пішов з фірми, усе йде під укіс",
+   "new": "З гори велосипед котиться сам",
+   "why": "полная вычитка: смысл разошёлся — везде «под горку велосипед катится сам»"
+  },
+  {
+   "id": 7611,
+   "col": "example_tr",
+   "old": "Şirketten ayrıldığından beri her şey kötüye gidiyor",
+   "new": "Yokuş aşağı bisiklet kendi kendine gidiyor",
+   "why": "полная вычитка: смысл разошёлся — везде «под горку велосипед катится сам»"
+  },
+  {
+   "id": 7611,
+   "col": "example_pl",
+   "old": "Odkąd odszedł z firmy, wszystko idzie w dół",
+   "new": "Z górki rower jedzie sam",
+   "why": "полная вычитка: смысл разошёлся — везде «под горку велосипед катится сам»"
+  },
+  {
+   "id": 7611,
+   "col": "example_it",
+   "old": "Da quando ha lasciato l'azienda, va di male in peggio",
+   "new": "In discesa la bici va da sola",
+   "why": "полная вычитка: смысл разошёлся — везде «под горку велосипед катится сам»"
+  },
+  {
+   "id": 7611,
+   "col": "example_cs",
+   "old": "Od té doby, co odešel z firmy, jde to z kopce",
+   "new": "Z kopce jede kolo samo",
+   "why": "полная вычитка: смысл разошёлся — везде «под горку велосипед катится сам»"
+  },
+  {
+   "id": 7715,
+   "col": "example_de",
+   "old": "Die Familie sitzt beieinander und erzählt Geschichten",
+   "new": "Sonntags sitzen wir alle beieinander am Tisch",
+   "why": "полная вычитка: смысл разошёлся — везде «по воскресеньям все вместе за столом»"
+  },
+  {
+   "id": 7715,
+   "col": "example_ru",
+   "old": "Семья сидит вместе и рассказывает истории",
+   "new": "По воскресеньям мы все вместе сидим за столом",
+   "why": "полная вычитка: смысл разошёлся — везде «по воскресеньям все вместе за столом»"
+  },
+  {
+   "id": 7715,
+   "col": "example_uk",
+   "old": "Сім'я сидить поряд і розповідає історії",
+   "new": "У неділю ми всі разом сидимо за столом",
+   "why": "полная вычитка: смысл разошёлся — везде «по воскресеньям все вместе за столом»"
+  },
+  {
+   "id": 7715,
+   "col": "example_tr",
+   "old": "Aile yan yana oturup hikaye anlatıyor",
+   "new": "Pazarları hep birlikte masada oturuyoruz",
+   "why": "полная вычитка: смысл разошёлся — везде «по воскресеньям все вместе за столом»"
+  },
+  {
+   "id": 7715,
+   "col": "example_pl",
+   "old": "Rodzina siedzi razem i opowiada historie",
+   "new": "W niedziele siedzimy wszyscy razem przy stole",
+   "why": "полная вычитка: смысл разошёлся — везде «по воскресеньям все вместе за столом»"
+  },
+  {
+   "id": 7715,
+   "col": "example_cs",
+   "old": "Rodina sedí pohromadě a vypráví si příběhy",
+   "new": "V neděli sedíme všichni pohromadě u stolu",
+   "why": "полная вычитка: смысл разошёлся — везде «по воскресеньям все вместе за столом»"
+  },
+  {
+   "id": 10606,
+   "col": "example_pl",
+   "old": "Boję się tego egzaminu",
+   "new": "Mam stracha przed tym egzaminem",
+   "why": "полная вычитка: pl дубль с 7002 — «mam stracha przed egzaminem»"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
