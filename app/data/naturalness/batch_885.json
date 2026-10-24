@@ -1,0 +1,779 @@
+{
+ "about": "полная вычитка p025",
+ "edits": [
+  {
+   "id": 15106,
+   "col": "example_de",
+   "old": "Meine Stiefmutter hat mir beigebracht, wie man Spätzle selbst macht",
+   "new": "Meine Stiefmutter hat mir beigebracht, wie man Pfannkuchen backt",
+   "why": "полная вычитка: смысл разошёлся (шпецле/блины/крокеты) — везде «мачеха научила печь блины»"
+  },
+  {
+   "id": 15106,
+   "col": "example_en",
+   "old": "My stepmother taught me how to make pancakes from scratch",
+   "new": "My stepmother taught me how to make pancakes",
+   "why": "полная вычитка: смысл разошёлся (шпецле/блины/крокеты) — везде «мачеха научила печь блины»"
+  },
+  {
+   "id": 15106,
+   "col": "example_tr",
+   "old": "Üvey annem bana spätzle yapmayı öğretti",
+   "new": "Üvey annem bana krep yapmayı öğretti",
+   "why": "полная вычитка: смысл разошёлся (шпецле/блины/крокеты) — везде «мачеха научила печь блины»"
+  },
+  {
+   "id": 15106,
+   "col": "example_pl",
+   "old": "Macocha nauczyła mnie robić domowe kluski spätzle",
+   "new": "Macocha nauczyła mnie smażyć naleśniki",
+   "why": "полная вычитка: смысл разошёлся (шпецле/блины/крокеты) — везде «мачеха научила печь блины»"
+  },
+  {
+   "id": 15106,
+   "col": "example_es",
+   "old": "Mi madrastra me enseñó a hacer croquetas caseras",
+   "new": "Mi madrastra me enseñó a hacer crepes",
+   "why": "полная вычитка: смысл разошёлся (шпецле/блины/крокеты) — везде «мачеха научила печь блины»"
+  },
+  {
+   "id": 15106,
+   "col": "example_fr",
+   "old": "Ma belle-mère m'a appris à faire la pâte à crêpes",
+   "new": "Ma belle-mère m'a appris à faire des crêpes",
+   "why": "полная вычитка: смысл разошёлся (шпецле/блины/крокеты) — везде «мачеха научила печь блины»"
+  },
+  {
+   "id": 15106,
+   "col": "example_cs",
+   "old": "Nevlastní máma mě naučila dělat domácí špecle",
+   "new": "Nevlastní máma mě naučila péct palačinky",
+   "why": "полная вычитка: смысл разошёлся (шпецле/блины/крокеты) — везде «мачеха научила печь блины»"
+  },
+  {
+   "id": 17173,
+   "col": "example_de",
+   "old": "Der Passagier steigt ins Flugzeug ein",
+   "new": "Die Passagiere werden gebeten, sich anzuschnallen",
+   "why": "полная вычитка: смысл разошёлся на три; гейт — как у 17333 — везде «пассажиров просят пристегнуться»"
+  },
+  {
+   "id": 17173,
+   "col": "example_en",
+   "old": "Passengers for the Nice flight should go to gate 12",
+   "new": "Passengers are asked to fasten their seat belts",
+   "why": "полная вычитка: смысл разошёлся на три; гейт — как у 17333 — везде «пассажиров просят пристегнуться»"
+  },
+  {
+   "id": 17173,
+   "col": "example_tr",
+   "old": "Yolcu uçağa biniyor",
+   "new": "Yolcuların kemerlerini bağlamaları rica olunur",
+   "why": "полная вычитка: смысл разошёлся на три; гейт — как у 17333 — везде «пассажиров просят пристегнуться»"
+  },
+  {
+   "id": 17173,
+   "col": "example_pl",
+   "old": "Pasażer wsiada do samolotu",
+   "new": "Pasażerowie proszeni są o zapięcie pasów",
+   "why": "полная вычитка: смысл разошёлся на три; гейт — как у 17333 — везде «пассажиров просят пристегнуться»"
+  },
+  {
+   "id": 17173,
+   "col": "example_it",
+   "old": "I passeggeri del volo per Napoli sono attesi al gate 12",
+   "new": "I passeggeri sono pregati di allacciare le cinture",
+   "why": "полная вычитка: смысл разошёлся на три; гейт — как у 17333 — везде «пассажиров просят пристегнуться»"
+  },
+  {
+   "id": 17173,
+   "col": "example_es",
+   "old": "Los pasajeros del vuelo a Málaga deben ir a la puerta 12",
+   "new": "Se ruega a los pasajeros que se abrochen el cinturón",
+   "why": "полная вычитка: смысл разошёлся на три; гейт — как у 17333 — везде «пассажиров просят пристегнуться»"
+  },
+  {
+   "id": 17173,
+   "col": "example_fr",
+   "old": "Les passagers du vol pour Nice sont attendus porte 12",
+   "new": "Les passagers sont priés d'attacher leur ceinture",
+   "why": "полная вычитка: смысл разошёлся на три; гейт — как у 17333 — везде «пассажиров просят пристегнуться»"
+  },
+  {
+   "id": 17173,
+   "col": "example_cs",
+   "old": "Cestující nastupuje do letadla",
+   "new": "Cestující jsou žádáni, aby se připoutali",
+   "why": "полная вычитка: смысл разошёлся на три; гейт — как у 17333 — везде «пассажиров просят пристегнуться»"
+  },
+  {
+   "id": 17184,
+   "col": "example_en",
+   "old": "Shall we make a detour past the bakery?",
+   "new": "We're taking a detour through town",
+   "why": "полная вычитка: en/it/es/fr «крюк через булочную» — «едем в объезд через город»"
+  },
+  {
+   "id": 17184,
+   "col": "example_it",
+   "old": "Facciamo una deviazione dal fornaio?",
+   "new": "Facciamo una deviazione per il centro",
+   "why": "полная вычитка: en/it/es/fr «крюк через булочную» — «едем в объезд через город»"
+  },
+  {
+   "id": 17184,
+   "col": "example_es",
+   "old": "¿Damos un rodeo por la panadería?",
+   "new": "Damos un rodeo por la ciudad",
+   "why": "полная вычитка: en/it/es/fr «крюк через булочную» — «едем в объезд через город»"
+  },
+  {
+   "id": 17184,
+   "col": "example_fr",
+   "old": "On fait un petit détour par la boulangerie ?",
+   "new": "On fait un détour par la ville",
+   "why": "полная вычитка: en/it/es/fr «крюк через булочную» — «едем в объезд через город»"
+  },
+  {
+   "id": 17194,
+   "col": "example_en",
+   "old": "Turn left at the next street",
+   "new": "Turn off at the next street",
+   "why": "полная вычитка: en/it/es/fr «налево» — как у 17060/17275 — «поверни на следующей улице»"
+  },
+  {
+   "id": 17194,
+   "col": "example_it",
+   "old": "Alla prossima strada gira a sinistra",
+   "new": "Gira alla prossima strada",
+   "why": "полная вычитка: en/it/es/fr «налево» — как у 17060/17275 — «поверни на следующей улице»"
+  },
+  {
+   "id": 17194,
+   "col": "example_es",
+   "old": "En la próxima calle gira a la izquierda",
+   "new": "Gira en la próxima calle",
+   "why": "полная вычитка: en/it/es/fr «налево» — как у 17060/17275 — «поверни на следующей улице»"
+  },
+  {
+   "id": 17194,
+   "col": "example_fr",
+   "old": "Tourne à gauche à la prochaine rue",
+   "new": "Tourne à la prochaine rue",
+   "why": "полная вычитка: en/it/es/fr «налево» — как у 17060/17275 — «поверни на следующей улице»"
+  },
+  {
+   "id": 17209,
+   "col": "example_ru",
+   "old": "У меня бронь на фамилию Смирнов",
+   "new": "У меня бронь на фамилию Мюллер",
+   "why": "полная вычитка: фамилии разошлись — везде Мюллер"
+  },
+  {
+   "id": 17209,
+   "col": "example_uk",
+   "old": "У мене бронювання на прізвище Шевченко",
+   "new": "У мене бронювання на прізвище Мюллер",
+   "why": "полная вычитка: фамилии разошлись — везде Мюллер"
+  },
+  {
+   "id": 17209,
+   "col": "example_en",
+   "old": "I have a reservation under the name Johnson",
+   "new": "I have a reservation under the name Müller",
+   "why": "полная вычитка: фамилии разошлись — везде Мюллер"
+  },
+  {
+   "id": 17209,
+   "col": "example_it",
+   "old": "Ho una prenotazione a nome Russo",
+   "new": "Ho una prenotazione a nome Müller",
+   "why": "полная вычитка: фамилии разошлись — везде Мюллер"
+  },
+  {
+   "id": 17209,
+   "col": "example_es",
+   "old": "Tengo una reserva a nombre de Martínez",
+   "new": "Tengo una reserva a nombre de Müller",
+   "why": "полная вычитка: фамилии разошлись — везде Мюллер"
+  },
+  {
+   "id": 17209,
+   "col": "example_fr",
+   "old": "J'ai une réservation au nom de Martin",
+   "new": "J'ai une réservation au nom de Müller",
+   "why": "полная вычитка: фамилии разошлись — везде Мюллер"
+  },
+  {
+   "id": 17410,
+   "col": "example_de",
+   "old": "Das Fischerboot fährt früh raus",
+   "new": "Das Fischerboot kommt voller Fische in den Hafen zurück",
+   "why": "полная вычитка: смысл разошёлся — везде «лодка возвращается в порт, полная рыбы»"
+  },
+  {
+   "id": 17410,
+   "col": "example_ru",
+   "old": "Рыбацкая лодка выходит рано утром",
+   "new": "Рыбацкая лодка возвращается в порт, полная рыбы",
+   "why": "полная вычитка: смысл разошёлся — везде «лодка возвращается в порт, полная рыбы»"
+  },
+  {
+   "id": 17410,
+   "col": "example_uk",
+   "old": "Рибальський човен виходить рано вранці",
+   "new": "Рибальський човен повертається в порт, повний риби",
+   "why": "полная вычитка: смысл разошёлся — везде «лодка возвращается в порт, полная рыбы»"
+  },
+  {
+   "id": 17410,
+   "col": "example_tr",
+   "old": "Balıkçı teknesi sabah erkenden denize açılıyor",
+   "new": "Balıkçı teknesi limana balık dolu dönüyor",
+   "why": "полная вычитка: смысл разошёлся — везде «лодка возвращается в порт, полная рыбы»"
+  },
+  {
+   "id": 17410,
+   "col": "example_pl",
+   "old": "Łódź rybacka wypływa wcześnie rano",
+   "new": "Łódź rybacka wraca do portu pełna ryb",
+   "why": "полная вычитка: смысл разошёлся — везде «лодка возвращается в порт, полная рыбы»"
+  },
+  {
+   "id": 17410,
+   "col": "example_cs",
+   "old": "Rybářská loď vyplouvá brzy",
+   "new": "Rybářská loď se vrací do přístavu plná ryb",
+   "why": "полная вычитка: смысл разошёлся — везде «лодка возвращается в порт, полная рыбы»"
+  },
+  {
+   "id": 17473,
+   "col": "example_uk",
+   "old": "Інтерсіті я доїду до Львова за п'ять годин, звичайним поїздом — за дев'ять",
+   "new": "Інтерсіті я доїду до Гамбурга за дві години, регіональним поїздом — за чотири",
+   "why": "полная вычитка: uk Львов и пять часов — Гамбург, два и четыре"
+  },
+  {
+   "id": 17502,
+   "col": "example_de",
+   "old": "Die neue Technologie macht alles einfacher",
+   "new": "Mein Opa hat Angst vor neuer Technologie",
+   "why": "полная вычитка: смысл разошёлся; «вкладывать в технологии» — 17798 — везде «дедушка боится новых технологий»"
+  },
+  {
+   "id": 17502,
+   "col": "example_ru",
+   "old": "Новая технология делает всё проще",
+   "new": "Мой дедушка боится новых технологий",
+   "why": "полная вычитка: смысл разошёлся; «вкладывать в технологии» — 17798 — везде «дедушка боится новых технологий»"
+  },
+  {
+   "id": 17502,
+   "col": "example_uk",
+   "old": "Нова технологія робить усе простіше",
+   "new": "Мій дідусь боїться нових технологій",
+   "why": "полная вычитка: смысл разошёлся; «вкладывать в технологии» — 17798 — везде «дедушка боится новых технологий»"
+  },
+  {
+   "id": 17502,
+   "col": "example_tr",
+   "old": "Yeni teknoloji her şeyi kolaylaştırıyor",
+   "new": "Dedem yeni teknolojiden korkuyor",
+   "why": "полная вычитка: смысл разошёлся; «вкладывать в технологии» — 17798 — везде «дедушка боится новых технологий»"
+  },
+  {
+   "id": 17502,
+   "col": "example_pl",
+   "old": "Nowa technologia wszystko ułatwia",
+   "new": "Mój dziadek boi się nowych technologii",
+   "why": "полная вычитка: смысл разошёлся; «вкладывать в технологии» — 17798 — везде «дедушка боится новых технологий»"
+  },
+  {
+   "id": 17502,
+   "col": "example_cs",
+   "old": "Nová technologie všechno usnadňuje",
+   "new": "Můj děda se bojí nových technologií",
+   "why": "полная вычитка: смысл разошёлся; «вкладывать в технологии» — 17798 — везде «дедушка боится новых технологий»"
+  },
+  {
+   "id": 17516,
+   "col": "example_en",
+   "old": "He put his arm around my shoulders",
+   "new": "Can you flip the switch?",
+   "why": "полная вычитка: en/it/es/fr «обнял за плечи» — «можешь переключить выключатель?»"
+  },
+  {
+   "id": 17516,
+   "col": "example_it",
+   "old": "Mi ha messo il braccio intorno alle spalle",
+   "new": "Puoi girare l'interruttore?",
+   "why": "полная вычитка: en/it/es/fr «обнял за плечи» — «можешь переключить выключатель?»"
+  },
+  {
+   "id": 17516,
+   "col": "example_es",
+   "old": "Me puso el brazo por encima de los hombros",
+   "new": "¿Puedes accionar el interruptor?",
+   "why": "полная вычитка: en/it/es/fr «обнял за плечи» — «можешь переключить выключатель?»"
+  },
+  {
+   "id": 17516,
+   "col": "example_fr",
+   "old": "Il m'a mis son bras autour des épaules",
+   "new": "Tu peux basculer l'interrupteur ?",
+   "why": "полная вычитка: en/it/es/fr «обнял за плечи» — «можешь переключить выключатель?»"
+  },
+  {
+   "id": 17533,
+   "col": "example_de",
+   "old": "Ich bin Teil eines großen Netzwerks",
+   "new": "Sie hat ein großes Netzwerk in der Modebranche",
+   "why": "полная вычитка: смысл разошёлся — везде «у неё большой круг знакомств в мире моды»"
+  },
+  {
+   "id": 17533,
+   "col": "example_ru",
+   "old": "Новую работу он нашёл через круг знакомых",
+   "new": "У неё большой круг знакомств в мире моды",
+   "why": "полная вычитка: смысл разошёлся — везде «у неё большой круг знакомств в мире моды»"
+  },
+  {
+   "id": 17533,
+   "col": "example_uk",
+   "old": "Нову роботу він знайшов через коло знайомств",
+   "new": "У неї велике коло знайомств у світі моди",
+   "why": "полная вычитка: смысл разошёлся — везде «у неё большой круг знакомств в мире моды»"
+  },
+  {
+   "id": 17533,
+   "col": "example_tr",
+   "old": "İş hayatında geniş bir bağlantı ağım var",
+   "new": "Moda dünyasında geniş bir bağlantı ağı var",
+   "why": "полная вычитка: смысл разошёлся — везде «у неё большой круг знакомств в мире моды»"
+  },
+  {
+   "id": 17533,
+   "col": "example_pl",
+   "old": "Jestem częścią dużej sieci",
+   "new": "Ma dużą sieć kontaktów w branży modowej",
+   "why": "полная вычитка: смысл разошёлся — везде «у неё большой круг знакомств в мире моды»"
+  },
+  {
+   "id": 17533,
+   "col": "example_cs",
+   "old": "Jsem součástí velké sítě",
+   "new": "V módním světě má velkou síť kontaktů",
+   "why": "полная вычитка: смысл разошёлся — везде «у неё большой круг знакомств в мире моды»"
+  },
+  {
+   "id": 17578,
+   "col": "example_de",
+   "old": "Der Lift ist kaputt, wir müssen die Treppe nehmen",
+   "new": "Nehmen wir den Lift oder die Treppe?",
+   "why": "полная вычитка: смысл разошёлся; «лифт сломан» — как у 17667 — везде «на лифте или по лестнице?»"
+  },
+  {
+   "id": 17578,
+   "col": "example_ru",
+   "old": "Лифт сломан, нам нужно идти по лестнице",
+   "new": "Поедем на лифте или пойдём по лестнице?",
+   "why": "полная вычитка: смысл разошёлся; «лифт сломан» — как у 17667 — везде «на лифте или по лестнице?»"
+  },
+  {
+   "id": 17578,
+   "col": "example_uk",
+   "old": "Ліфт зламаний, нам доведеться йти сходами",
+   "new": "Поїдемо ліфтом чи підемо сходами?",
+   "why": "полная вычитка: смысл разошёлся; «лифт сломан» — как у 17667 — везде «на лифте или по лестнице?»"
+  },
+  {
+   "id": 17578,
+   "col": "example_tr",
+   "old": "Asansör bozuk, merdivenleri kullanmalıyız",
+   "new": "Asansöre mi binelim, merdivenden mi gidelim?",
+   "why": "полная вычитка: смысл разошёлся; «лифт сломан» — как у 17667 — везде «на лифте или по лестнице?»"
+  },
+  {
+   "id": 17578,
+   "col": "example_pl",
+   "old": "Winda nie działa, musimy iść po schodach",
+   "new": "Jedziemy windą czy idziemy schodami?",
+   "why": "полная вычитка: смысл разошёлся; «лифт сломан» — как у 17667 — везде «на лифте или по лестнице?»"
+  },
+  {
+   "id": 17578,
+   "col": "example_cs",
+   "old": "Výtah je rozbitý, musíme jít po schodech",
+   "new": "Pojedeme výtahem, nebo půjdeme po schodech?",
+   "why": "полная вычитка: смысл разошёлся; «лифт сломан» — как у 17667 — везде «на лифте или по лестнице?»"
+  },
+  {
+   "id": 17590,
+   "col": "example_de",
+   "old": "Die Plattform bietet viele neue Funktionen",
+   "new": "Auf welcher Plattform kann man den Film sehen?",
+   "why": "полная вычитка: смысл разошёлся — везде «на какой платформе можно посмотреть фильм?»"
+  },
+  {
+   "id": 17590,
+   "col": "example_ru",
+   "old": "Платформа предлагает много новых функций",
+   "new": "На какой платформе можно посмотреть этот фильм?",
+   "why": "полная вычитка: смысл разошёлся — везде «на какой платформе можно посмотреть фильм?»"
+  },
+  {
+   "id": 17590,
+   "col": "example_uk",
+   "old": "Платформа пропонує багато нових функцій",
+   "new": "На якій платформі можна подивитися цей фільм?",
+   "why": "полная вычитка: смысл разошёлся — везде «на какой платформе можно посмотреть фильм?»"
+  },
+  {
+   "id": 17590,
+   "col": "example_tr",
+   "old": "Platform birçok yeni özellik sunuyor",
+   "new": "Filmi hangi platformda izleyebiliriz?",
+   "why": "полная вычитка: смысл разошёлся — везде «на какой платформе можно посмотреть фильм?»"
+  },
+  {
+   "id": 17590,
+   "col": "example_pl",
+   "old": "Ta platforma oferuje wiele nowych funkcji",
+   "new": "Na jakiej platformie można obejrzeć ten film?",
+   "why": "полная вычитка: смысл разошёлся — везде «на какой платформе можно посмотреть фильм?»"
+  },
+  {
+   "id": 17590,
+   "col": "example_cs",
+   "old": "Platforma nabízí spoustu nových funkcí",
+   "new": "Na jaké platformě se dá ten film pustit?",
+   "why": "полная вычитка: смысл разошёлся — везде «на какой платформе можно посмотреть фильм?»"
+  },
+  {
+   "id": 17662,
+   "col": "example_ru",
+   "old": "Суп из чечевицы — очень сытное блюдо",
+   "new": "Чечевица со шпецле — типичное швабское блюдо",
+   "why": "полная вычитка: ru/uk/en/es/fr чечевичный суп и колбаски — «чечевица со шпецле — швабское блюдо»"
+  },
+  {
+   "id": 17662,
+   "col": "example_uk",
+   "old": "Суп із сочевиці — дуже ситна страва",
+   "new": "Сочевиця зі шпецле — типова швабська страва",
+   "why": "полная вычитка: ru/uk/en/es/fr чечевичный суп и колбаски — «чечевица со шпецле — швабское блюдо»"
+  },
+  {
+   "id": 17662,
+   "col": "example_en",
+   "old": "Tonight we're having lentil soup",
+   "new": "Lentils with spätzle are a typical Swabian dish",
+   "why": "полная вычитка: ru/uk/en/es/fr чечевичный суп и колбаски — «чечевица со шпецле — швабское блюдо»"
+  },
+  {
+   "id": 17662,
+   "col": "example_es",
+   "old": "Esta noche comemos lentejas con chorizo",
+   "new": "Las lentejas con spätzle son un plato típico de Suabia",
+   "why": "полная вычитка: ru/uk/en/es/fr чечевичный суп и колбаски — «чечевица со шпецле — швабское блюдо»"
+  },
+  {
+   "id": 17662,
+   "col": "example_fr",
+   "old": "Ce soir, on mange des lentilles aux saucisses",
+   "new": "Les lentilles aux spätzle sont un plat typique de Souabe",
+   "why": "полная вычитка: ru/uk/en/es/fr чечевичный суп и колбаски — «чечевица со шпецле — швабское блюдо»"
+  },
+  {
+   "id": 17768,
+   "col": "example_ru",
+   "old": "Ну что, по рукам? — Уговор!",
+   "new": "У нас уговор",
+   "why": "полная вычитка: смысл разошёлся — везде «у нас уговор»"
+  },
+  {
+   "id": 17768,
+   "col": "example_uk",
+   "old": "Ну що, по руках? — Домовились!",
+   "new": "У нас домовленість",
+   "why": "полная вычитка: смысл разошёлся — везде «у нас уговор»"
+  },
+  {
+   "id": 17768,
+   "col": "example_en",
+   "old": "It's a deal!",
+   "new": "We've got a deal",
+   "why": "полная вычитка: смысл разошёлся — везде «у нас уговор»"
+  },
+  {
+   "id": 17768,
+   "col": "example_it",
+   "old": "Affare fatto!",
+   "new": "Abbiamo un patto",
+   "why": "полная вычитка: смысл разошёлся — везде «у нас уговор»"
+  },
+  {
+   "id": 17768,
+   "col": "example_es",
+   "old": "¡Trato hecho!",
+   "new": "Tenemos un trato",
+   "why": "полная вычитка: смысл разошёлся — везде «у нас уговор»"
+  },
+  {
+   "id": 17768,
+   "col": "example_fr",
+   "old": "Marché conclu !",
+   "new": "On a un accord",
+   "why": "полная вычитка: смысл разошёлся — везде «у нас уговор»"
+  },
+  {
+   "id": 17771,
+   "col": "example_de",
+   "old": "Auf der Wiese stehen ein paar Kühe",
+   "new": "Die Milch kommt direkt von der Kuh des Nachbarn",
+   "why": "полная вычитка: смысл разошёлся; «коровы на лугу» — как у 15617 — везде «молоко прямо от соседской коровы»"
+  },
+  {
+   "id": 17771,
+   "col": "example_ru",
+   "old": "На лугу стоят несколько коров",
+   "new": "Молоко прямо от соседской коровы",
+   "why": "полная вычитка: смысл разошёлся; «коровы на лугу» — как у 15617 — везде «молоко прямо от соседской коровы»"
+  },
+  {
+   "id": 17771,
+   "col": "example_uk",
+   "old": "На лузі стоїть кілька корів",
+   "new": "Молоко прямо від сусідської корови",
+   "why": "полная вычитка: смысл разошёлся; «коровы на лугу» — как у 15617 — везде «молоко прямо от соседской коровы»"
+  },
+  {
+   "id": 17771,
+   "col": "example_tr",
+   "old": "Çayırda birkaç inek var",
+   "new": "Süt doğrudan komşunun ineğinden geliyor",
+   "why": "полная вычитка: смысл разошёлся; «коровы на лугу» — как у 15617 — везде «молоко прямо от соседской коровы»"
+  },
+  {
+   "id": 17771,
+   "col": "example_pl",
+   "old": "Na łące stoi kilka krów",
+   "new": "Mleko jest prosto od krowy sąsiada",
+   "why": "полная вычитка: смысл разошёлся; «коровы на лугу» — как у 15617 — везде «молоко прямо от соседской коровы»"
+  },
+  {
+   "id": 17771,
+   "col": "example_cs",
+   "old": "Na louce stojí pár krav",
+   "new": "Mléko je přímo od sousedovy krávy",
+   "why": "полная вычитка: смысл разошёлся; «коровы на лугу» — как у 15617 — везде «молоко прямо от соседской коровы»"
+  },
+  {
+   "id": 17779,
+   "col": "example_en",
+   "old": "In winter the livestock stay in the barn",
+   "new": "The farmer looks after his livestock every day",
+   "why": "полная вычитка: en/es/fr «зимой в хлеву» — «фермер каждый день ухаживает за скотом»"
+  },
+  {
+   "id": 17779,
+   "col": "example_es",
+   "old": "En invierno el ganado se queda en el establo",
+   "new": "El granjero cuida de su ganado todos los días",
+   "why": "полная вычитка: en/es/fr «зимой в хлеву» — «фермер каждый день ухаживает за скотом»"
+  },
+  {
+   "id": 17779,
+   "col": "example_fr",
+   "old": "En hiver, le bétail reste à l'étable",
+   "new": "Le paysan s'occupe de son bétail tous les jours",
+   "why": "полная вычитка: en/es/fr «зимой в хлеву» — «фермер каждый день ухаживает за скотом»"
+  },
+  {
+   "id": 17792,
+   "col": "example_de",
+   "old": "Die Branche hat es gerade schwer",
+   "new": "Die Tourismusbranche hat es gerade schwer",
+   "why": "полная вычитка: смысл разошёлся — везде «в туристической отрасли тяжёлые времена»"
+  },
+  {
+   "id": 17792,
+   "col": "example_tr",
+   "old": "Sektör şu an zor günler geçiriyor",
+   "new": "Turizm sektörü şu an zor günler geçiriyor",
+   "why": "полная вычитка: смысл разошёлся — везде «в туристической отрасли тяжёлые времена»"
+  },
+  {
+   "id": 17792,
+   "col": "example_pl",
+   "old": "Branża ma teraz ciężko",
+   "new": "Branża turystyczna ma teraz ciężko",
+   "why": "полная вычитка: смысл разошёлся — везде «в туристической отрасли тяжёлые времена»"
+  },
+  {
+   "id": 17792,
+   "col": "example_cs",
+   "old": "Obor to má teď těžké",
+   "new": "Obor cestovního ruchu to má teď těžké",
+   "why": "полная вычитка: смысл разошёлся — везде «в туристической отрасли тяжёлые времена»"
+  },
+  {
+   "id": 17931,
+   "col": "example_de",
+   "old": "Das Kind ist 120 Zentimeter groß",
+   "new": "Mein Sohn ist schon 120 Zentimeter groß",
+   "why": "полная вычитка: смысл разошёлся — везде «сын уже ростом 120 сантиметров»"
+  },
+  {
+   "id": 17931,
+   "col": "example_ru",
+   "old": "За лето сын вырос на пять сантиметров",
+   "new": "Мой сын уже ростом 120 сантиметров",
+   "why": "полная вычитка: смысл разошёлся — везде «сын уже ростом 120 сантиметров»"
+  },
+  {
+   "id": 17931,
+   "col": "example_uk",
+   "old": "За літо син виріс на п'ять сантиметрів",
+   "new": "Мій син уже має 120 сантиметрів зросту",
+   "why": "полная вычитка: смысл разошёлся — везде «сын уже ростом 120 сантиметров»"
+  },
+  {
+   "id": 17931,
+   "col": "example_tr",
+   "old": "Çocuk 120 santimetre boyunda",
+   "new": "Oğlum şimdiden 120 santimetre boyunda",
+   "why": "полная вычитка: смысл разошёлся — везде «сын уже ростом 120 сантиметров»"
+  },
+  {
+   "id": 17931,
+   "col": "example_pl",
+   "old": "Dziecko ma 120 centymetrów wzrostu",
+   "new": "Mój syn ma już 120 centymetrów wzrostu",
+   "why": "полная вычитка: смысл разошёлся — везде «сын уже ростом 120 сантиметров»"
+  },
+  {
+   "id": 17931,
+   "col": "example_cs",
+   "old": "Dítě měří 120 centimetrů",
+   "new": "Můj syn už měří 120 centimetrů",
+   "why": "полная вычитка: смысл разошёлся — везде «сын уже ростом 120 сантиметров»"
+  },
+  {
+   "id": 18054,
+   "col": "example_de",
+   "old": "Für den Kuchen brauche ich ein Kilogramm Äpfel",
+   "new": "Mein Koffer wiegt zwanzig Kilogramm",
+   "why": "полная вычитка: смысл разошёлся; яблоки — как у 17946, помидоры — как у 710 — везде «чемодан весит двадцать килограммов»"
+  },
+  {
+   "id": 18054,
+   "col": "example_ru",
+   "old": "Для пирога мне нужен килограмм яблок",
+   "new": "Мой чемодан весит двадцать килограммов",
+   "why": "полная вычитка: смысл разошёлся; яблоки — как у 17946, помидоры — как у 710 — везде «чемодан весит двадцать килограммов»"
+  },
+  {
+   "id": 18054,
+   "col": "example_uk",
+   "old": "Для пирога мені потрібен кілограм яблук",
+   "new": "Моя валіза важить двадцять кілограмів",
+   "why": "полная вычитка: смысл разошёлся; яблоки — как у 17946, помидоры — как у 710 — везде «чемодан весит двадцать килограммов»"
+  },
+  {
+   "id": 18054,
+   "col": "example_en",
+   "old": "A kilogram of tomatoes, please",
+   "new": "My suitcase weighs twenty kilograms",
+   "why": "полная вычитка: смысл разошёлся; яблоки — как у 17946, помидоры — как у 710 — везде «чемодан весит двадцать килограммов»"
+  },
+  {
+   "id": 18054,
+   "col": "example_tr",
+   "old": "Kek için bir kilogram elma lazım",
+   "new": "Bavulum yirmi kilogram çekiyor",
+   "why": "полная вычитка: смысл разошёлся; яблоки — как у 17946, помидоры — как у 710 — везде «чемодан весит двадцать килограммов»"
+  },
+  {
+   "id": 18054,
+   "col": "example_pl",
+   "old": "Do ciasta potrzebuję kilograma jabłek",
+   "new": "Moja walizka waży dwadzieścia kilogramów",
+   "why": "полная вычитка: смысл разошёлся; яблоки — как у 17946, помидоры — как у 710 — везде «чемодан весит двадцать килограммов»"
+  },
+  {
+   "id": 18054,
+   "col": "example_it",
+   "old": "Per la torta mi serve un chilogrammo di mele",
+   "new": "La mia valigia pesa venti chilogrammi",
+   "why": "полная вычитка: смысл разошёлся; яблоки — как у 17946, помидоры — как у 710 — везде «чемодан весит двадцать килограммов»"
+  },
+  {
+   "id": 18054,
+   "col": "example_es",
+   "old": "Un kilogramo de tomates, por favor",
+   "new": "Mi maleta pesa veinte kilogramos",
+   "why": "полная вычитка: смысл разошёлся; яблоки — как у 17946, помидоры — как у 710 — везде «чемодан весит двадцать килограммов»"
+  },
+  {
+   "id": 18054,
+   "col": "example_fr",
+   "old": "Un kilogramme de tomates, s'il vous plaît",
+   "new": "Ma valise pèse vingt kilogrammes",
+   "why": "полная вычитка: смысл разошёлся; яблоки — как у 17946, помидоры — как у 710 — везде «чемодан весит двадцать килограммов»"
+  },
+  {
+   "id": 18054,
+   "col": "example_cs",
+   "old": "Na koláč potřebuju kilogram jablek",
+   "new": "Můj kufr váží dvacet kilogramů",
+   "why": "полная вычитка: смысл разошёлся; яблоки — как у 17946, помидоры — как у 710 — везде «чемодан весит двадцать килограммов»"
+  },
+  {
+   "id": 18136,
+   "col": "example_ru",
+   "old": "В горах мы ночевали в деревянной хижине",
+   "new": "Мы ночуем в хижине",
+   "why": "полная вычитка: ru/uk «в горах ночевали» — «ночуем в хижине»"
+  },
+  {
+   "id": 18136,
+   "col": "example_uk",
+   "old": "У горах ми ночували в дерев'яній хатині",
+   "new": "Ми ночуємо в хатині",
+   "why": "полная вычитка: ru/uk «в горах ночевали» — «ночуем в хижине»"
+  },
+  {
+   "id": 18187,
+   "col": "example_en",
+   "old": "All the residents in our building know each other",
+   "new": "The residents of the building are very friendly",
+   "why": "полная вычитка: en/it/es/fr «все знают друг друга» — «жители дома очень дружелюбны»"
+  },
+  {
+   "id": 18187,
+   "col": "example_it",
+   "old": "Nel palazzo gli abitanti si conoscono tutti",
+   "new": "Gli abitanti del palazzo sono molto gentili",
+   "why": "полная вычитка: en/it/es/fr «все знают друг друга» — «жители дома очень дружелюбны»"
+  },
+  {
+   "id": 18187,
+   "col": "example_es",
+   "old": "En el edificio los vecinos se conocen todos",
+   "new": "Los vecinos del edificio son muy simpáticos",
+   "why": "полная вычитка: en/it/es/fr «все знают друг друга» — «жители дома очень дружелюбны»"
+  },
+  {
+   "id": 18187,
+   "col": "example_fr",
+   "old": "Les habitants de l'immeuble se connaissent tous",
+   "new": "Les habitants de l'immeuble sont très sympathiques",
+   "why": "полная вычитка: en/it/es/fr «все знают друг друга» — «жители дома очень дружелюбны»"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
