@@ -1,0 +1,317 @@
+{
+ "about": "полная вычитка p012",
+ "edits": [
+  {
+   "id": 2448,
+   "col": "example_de",
+   "old": "Das ist nicht fair",
+   "new": "Das ist nicht fair, ich bin dran!",
+   "why": "полная вычитка: смысл разошёлся — везде «нечестно, сейчас моя очередь»"
+  },
+  {
+   "id": 2448,
+   "col": "example_ru",
+   "old": "Это несправедливо",
+   "new": "Это нечестно, сейчас моя очередь!",
+   "why": "полная вычитка: смысл разошёлся — везде «нечестно, сейчас моя очередь»"
+  },
+  {
+   "id": 2448,
+   "col": "example_uk",
+   "old": "Це несправедливо",
+   "new": "Це нечесно, зараз моя черга!",
+   "why": "полная вычитка: смысл разошёлся — везде «нечестно, сейчас моя очередь»"
+  },
+  {
+   "id": 2448,
+   "col": "example_tr",
+   "old": "Bu adil değil",
+   "new": "Bu adil değil, sıra bende!",
+   "why": "полная вычитка: смысл разошёлся — везде «нечестно, сейчас моя очередь»"
+  },
+  {
+   "id": 2448,
+   "col": "example_pl",
+   "old": "To nieuczciwe",
+   "new": "To nie fair, teraz moja kolej!",
+   "why": "полная вычитка: смысл разошёлся — везде «нечестно, сейчас моя очередь»"
+  },
+  {
+   "id": 2448,
+   "col": "example_fr",
+   "old": "Ce n'est pas juste",
+   "new": "Ce n'est pas juste, c'est mon tour !",
+   "why": "полная вычитка: смысл разошёлся — везде «нечестно, сейчас моя очередь»"
+  },
+  {
+   "id": 2448,
+   "col": "example_cs",
+   "old": "To není spravedlivé",
+   "new": "To není fér, teď jsem na řadě já!",
+   "why": "полная вычитка: смысл разошёлся — везде «нечестно, сейчас моя очередь»"
+  },
+  {
+   "id": 2461,
+   "col": "example_ru",
+   "old": "Раз в месяц мне нужно ездить в головной офис в столицу",
+   "new": "Раз в месяц мне нужно ездить в головной офис в Гамбург",
+   "why": "полная вычитка: города разошлись — везде Гамбург"
+  },
+  {
+   "id": 2461,
+   "col": "example_uk",
+   "old": "Раз на місяць мені треба їздити до головного офісу в Києві",
+   "new": "Раз на місяць мені треба їздити до головного офісу в Гамбурзі",
+   "why": "полная вычитка: города разошлись — везде Гамбург"
+  },
+  {
+   "id": 2461,
+   "col": "example_en",
+   "old": "Once a month I have to go to head office in Manchester",
+   "new": "Once a month I have to go to head office in Hamburg",
+   "why": "полная вычитка: города разошлись — везде Гамбург"
+  },
+  {
+   "id": 2461,
+   "col": "example_es",
+   "old": "Una vez al mes tengo que ir a la sede de la empresa en Barcelona",
+   "new": "Una vez al mes tengo que ir a la sede de la empresa en Hamburgo",
+   "why": "полная вычитка: города разошлись — везде Гамбург"
+  },
+  {
+   "id": 2490,
+   "col": "example_en",
+   "old": "Out of frustration he ate all the chocolate",
+   "new": "After the argument I felt really frustrated",
+   "why": "полная вычитка: en/it/es шоколад и дубль с 11207 — везде «после ссоры сильная досада»"
+  },
+  {
+   "id": 2490,
+   "col": "example_it",
+   "old": "Per la frustrazione ha mangiato tutta la cioccolata",
+   "new": "Dopo il litigio ero pieno di frustrazione",
+   "why": "полная вычитка: en/it/es шоколад и дубль с 11207 — везде «после ссоры сильная досада»"
+  },
+  {
+   "id": 2490,
+   "col": "example_es",
+   "old": "De la frustración se comió todo el chocolate",
+   "new": "Después de la pelea sentía mucha frustración",
+   "why": "полная вычитка: en/it/es шоколад и дубль с 11207 — везде «после ссоры сильная досада»"
+  },
+  {
+   "id": 2490,
+   "col": "example_fr",
+   "old": "Après la dispute, toute ma frustration est sortie",
+   "new": "Après la dispute, j'étais plein de frustration",
+   "why": "полная вычитка: en/it/es шоколад и дубль с 11207 — везде «после ссоры сильная досада»"
+  },
+  {
+   "id": 2508,
+   "col": "example_de",
+   "old": "Der Gegner ist stark",
+   "new": "Morgen spielen wir gegen einen sehr starken Gegner",
+   "why": "полная вычитка: смысл разошёлся — везде «завтра играем с очень сильным соперником»"
+  },
+  {
+   "id": 2508,
+   "col": "example_ru",
+   "old": "Противник сильный",
+   "new": "Завтра мы играем против очень сильного соперника",
+   "why": "полная вычитка: смысл разошёлся — везде «завтра играем с очень сильным соперником»"
+  },
+  {
+   "id": 2508,
+   "col": "example_uk",
+   "old": "Суперник дуже сильний",
+   "new": "Завтра ми граємо проти дуже сильного суперника",
+   "why": "полная вычитка: смысл разошёлся — везде «завтра играем с очень сильным соперником»"
+  },
+  {
+   "id": 2508,
+   "col": "example_tr",
+   "old": "Rakip güçlü",
+   "new": "Yarın çok güçlü bir rakiple oynuyoruz",
+   "why": "полная вычитка: смысл разошёлся — везде «завтра играем с очень сильным соперником»"
+  },
+  {
+   "id": 2508,
+   "col": "example_pl",
+   "old": "Przeciwnik jest silny",
+   "new": "Jutro gramy z bardzo silnym przeciwnikiem",
+   "why": "полная вычитка: смысл разошёлся — везде «завтра играем с очень сильным соперником»"
+  },
+  {
+   "id": 2508,
+   "col": "example_fr",
+   "old": "L'adversaire est fort",
+   "new": "Demain, on joue contre un adversaire très fort",
+   "why": "полная вычитка: смысл разошёлся — везде «завтра играем с очень сильным соперником»"
+  },
+  {
+   "id": 2508,
+   "col": "example_cs",
+   "old": "Soupeř je silný",
+   "new": "Zítra hrajeme proti hodně silnému soupeři",
+   "why": "полная вычитка: смысл разошёлся — везде «завтра играем с очень сильным соперником»"
+  },
+  {
+   "id": 2586,
+   "col": "example_en",
+   "old": "Does anyone here speak German?",
+   "new": "Someone's ringing at the door",
+   "why": "полная вычитка: en/it/es «кто говорит по-…» (en нем., it/es англ.) — вернуть «кто-то звонит в дверь»"
+  },
+  {
+   "id": 2586,
+   "col": "example_it",
+   "old": "C'è qualcuno che parla inglese?",
+   "new": "Qualcuno suona alla porta",
+   "why": "полная вычитка: en/it/es «кто говорит по-…» (en нем., it/es англ.) — вернуть «кто-то звонит в дверь»"
+  },
+  {
+   "id": 2586,
+   "col": "example_es",
+   "old": "¿Hay alguien que hable inglés?",
+   "new": "Alguien está tocando el timbre",
+   "why": "полная вычитка: en/it/es «кто говорит по-…» (en нем., it/es англ.) — вернуть «кто-то звонит в дверь»"
+  },
+  {
+   "id": 2618,
+   "col": "example_en",
+   "old": "Shall we watch a comedy tonight?",
+   "new": "I like watching comedies",
+   "why": "полная вычитка: en/it/es «посмотрим комедию?» — вернуть «люблю смотреть комедии»"
+  },
+  {
+   "id": 2618,
+   "col": "example_it",
+   "old": "Stasera guardiamo una commedia?",
+   "new": "Mi piace guardare le commedie",
+   "why": "полная вычитка: en/it/es «посмотрим комедию?» — вернуть «люблю смотреть комедии»"
+  },
+  {
+   "id": 2618,
+   "col": "example_es",
+   "old": "¿Vemos una comedia esta noche?",
+   "new": "Me gusta ver comedias",
+   "why": "полная вычитка: en/it/es «посмотрим комедию?» — вернуть «люблю смотреть комедии»"
+  },
+  {
+   "id": 2620,
+   "col": "example_en",
+   "old": "There's always conflict between the two brothers",
+   "new": "We need to resolve the conflict",
+   "why": "полная вычитка: en/it/es братья — вернуть «надо разрешить конфликт»"
+  },
+  {
+   "id": 2620,
+   "col": "example_it",
+   "old": "Tra i due fratelli c'è sempre conflitto",
+   "new": "Dobbiamo risolvere il conflitto",
+   "why": "полная вычитка: en/it/es братья — вернуть «надо разрешить конфликт»"
+  },
+  {
+   "id": 2620,
+   "col": "example_es",
+   "old": "Entre los dos hermanos siempre hay conflicto",
+   "new": "Tenemos que resolver el conflicto",
+   "why": "полная вычитка: en/it/es братья — вернуть «надо разрешить конфликт»"
+  },
+  {
+   "id": 2626,
+   "col": "example_de",
+   "old": "Das ist korrekt",
+   "new": "Die Antwort ist korrekt",
+   "why": "полная вычитка: смысл разошёлся — везде «ответ правильный»"
+  },
+  {
+   "id": 2626,
+   "col": "example_ru",
+   "old": "Ответ правильный, молодец",
+   "new": "Ответ правильный",
+   "why": "полная вычитка: смысл разошёлся — везде «ответ правильный»"
+  },
+  {
+   "id": 2626,
+   "col": "example_uk",
+   "old": "Відповідь правильна, молодець",
+   "new": "Відповідь правильна",
+   "why": "полная вычитка: смысл разошёлся — везде «ответ правильный»"
+  },
+  {
+   "id": 2626,
+   "col": "example_tr",
+   "old": "Bu doğru",
+   "new": "Cevap doğru",
+   "why": "полная вычитка: смысл разошёлся — везде «ответ правильный»"
+  },
+  {
+   "id": 2626,
+   "col": "example_fr",
+   "old": "C'est correct",
+   "new": "La réponse est correcte",
+   "why": "полная вычитка: смысл разошёлся — везде «ответ правильный»"
+  },
+  {
+   "id": 2626,
+   "col": "example_cs",
+   "old": "To je správné",
+   "new": "Odpověď je správná",
+   "why": "полная вычитка: смысл разошёлся — везде «ответ правильный»"
+  },
+  {
+   "id": 2658,
+   "col": "example_de",
+   "old": "Ich lenke das Auto durch die Stadt",
+   "new": "Er lenkt, und ich lese die Karte",
+   "why": "полная вычитка: смысл разошёлся — везде «он рулит, я читаю карту»"
+  },
+  {
+   "id": 2658,
+   "col": "example_ru",
+   "old": "Он управляет машиной одной рукой",
+   "new": "Он рулит, а я читаю карту",
+   "why": "полная вычитка: смысл разошёлся — везде «он рулит, я читаю карту»"
+  },
+  {
+   "id": 2658,
+   "col": "example_uk",
+   "old": "Він кермує машиною однією рукою",
+   "new": "Він кермує, а я читаю карту",
+   "why": "полная вычитка: смысл разошёлся — везде «он рулит, я читаю карту»"
+  },
+  {
+   "id": 2658,
+   "col": "example_tr",
+   "old": "Arabayı şehrin içinden sürüyorum",
+   "new": "O direksiyonda, ben haritaya bakıyorum",
+   "why": "полная вычитка: смысл разошёлся — везде «он рулит, я читаю карту»"
+  },
+  {
+   "id": 2658,
+   "col": "example_pl",
+   "old": "Kieruję samochodem przez miasto",
+   "new": "On kieruje, a ja czytam mapę",
+   "why": "полная вычитка: смысл разошёлся — везде «он рулит, я читаю карту»"
+  },
+  {
+   "id": 2658,
+   "col": "example_fr",
+   "old": "Je conduis la voiture à travers la ville",
+   "new": "Il conduit, et moi je lis la carte",
+   "why": "полная вычитка: смысл разошёлся — везде «он рулит, я читаю карту»"
+  },
+  {
+   "id": 2658,
+   "col": "example_cs",
+   "old": "Řídím auto městem",
+   "new": "On řídí a já čtu mapu",
+   "why": "полная вычитка: смысл разошёлся — везде «он рулит, я читаю карту»"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
