@@ -1,0 +1,709 @@
+{
+ "about": "полная вычитка p007",
+ "edits": [
+  {
+   "id": 44,
+   "col": "example_de",
+   "old": "Er arbeitet im Arbeitszimmer",
+   "new": "Aus dem Gästezimmer habe ich ein Arbeitszimmer gemacht",
+   "why": "полная вычитка: смысл разошёлся — везде «из гостевой сделала кабинет»"
+  },
+  {
+   "id": 44,
+   "col": "example_ru",
+   "old": "Я сделала из маленькой комнаты кабинет",
+   "new": "Я сделала из гостевой комнаты кабинет",
+   "why": "полная вычитка: смысл разошёлся — везде «из гостевой сделала кабинет»"
+  },
+  {
+   "id": 44,
+   "col": "example_uk",
+   "old": "Я зробила з маленької кімнати робочий кабінет",
+   "new": "Я зробила з гостьової кімнати робочий кабінет",
+   "why": "полная вычитка: смысл разошёлся — везде «из гостевой сделала кабинет»"
+  },
+  {
+   "id": 44,
+   "col": "example_tr",
+   "old": "Çalışma odasında çalışıyor",
+   "new": "Misafir odasını çalışma odası yaptım",
+   "why": "полная вычитка: смысл разошёлся — везде «из гостевой сделала кабинет»"
+  },
+  {
+   "id": 44,
+   "col": "example_pl",
+   "old": "Pracuje w gabinecie",
+   "new": "Z pokoju gościnnego zrobiłam gabinet",
+   "why": "полная вычитка: смысл разошёлся — везде «из гостевой сделала кабинет»"
+  },
+  {
+   "id": 44,
+   "col": "example_fr",
+   "old": "Il travaille dans son bureau",
+   "new": "J'ai transformé la chambre d'amis en bureau",
+   "why": "полная вычитка: смысл разошёлся — везде «из гостевой сделала кабинет»"
+  },
+  {
+   "id": 44,
+   "col": "example_cs",
+   "old": "Pracuje v pracovně",
+   "new": "Z pokoje pro hosty jsem udělala pracovnu",
+   "why": "полная вычитка: смысл разошёлся — везде «из гостевой сделала кабинет»"
+  },
+  {
+   "id": 85,
+   "col": "example_en",
+   "old": "I give the kids plastic cups",
+   "new": "I drink my coffee out of a mug",
+   "why": "полная вычитка: en/it/es пластиковые стаканы — вернуть «кофе из кружки»"
+  },
+  {
+   "id": 85,
+   "col": "example_it",
+   "old": "Ai bambini do i bicchieri di plastica",
+   "new": "Bevo il caffè in una tazza",
+   "why": "полная вычитка: en/it/es пластиковые стаканы — вернуть «кофе из кружки»"
+  },
+  {
+   "id": 85,
+   "col": "example_es",
+   "old": "A los niños les doy vasos de plástico",
+   "new": "Me tomo el café en una taza",
+   "why": "полная вычитка: en/it/es пластиковые стаканы — вернуть «кофе из кружки»"
+  },
+  {
+   "id": 152,
+   "col": "example_en",
+   "old": "My boss gave me Friday off",
+   "new": "The boss isn't in today",
+   "why": "полная вычитка: en/it/es выходной — вернуть «шефа сегодня нет»"
+  },
+  {
+   "id": 152,
+   "col": "example_it",
+   "old": "Il capo mi ha dato il venerdì libero",
+   "new": "Il capo oggi non c'è",
+   "why": "полная вычитка: en/it/es выходной — вернуть «шефа сегодня нет»"
+  },
+  {
+   "id": 152,
+   "col": "example_es",
+   "old": "El jefe me ha dado el viernes libre",
+   "new": "El jefe no está hoy",
+   "why": "полная вычитка: en/it/es выходной — вернуть «шефа сегодня нет»"
+  },
+  {
+   "id": 231,
+   "col": "example_en",
+   "old": "I think I've caught a cold",
+   "new": "I think I'm coming down with a cold",
+   "why": "полная вычитка: en/it/es «уже простыл» — «начинается простуда»"
+  },
+  {
+   "id": 231,
+   "col": "example_it",
+   "old": "Credo di essermi preso il raffreddore",
+   "new": "Credo che mi stia venendo il raffreddore",
+   "why": "полная вычитка: en/it/es «уже простыл» — «начинается простуда»"
+  },
+  {
+   "id": 231,
+   "col": "example_es",
+   "old": "Creo que he pillado un resfriado",
+   "new": "Creo que estoy pillando un resfriado",
+   "why": "полная вычитка: en/it/es «уже простыл» — «начинается простуда»"
+  },
+  {
+   "id": 241,
+   "col": "example_en",
+   "old": "Your flat is gorgeous",
+   "new": "What's your address?",
+   "why": "полная вычитка: en/it/es квартира — вернуть «ваш адрес»"
+  },
+  {
+   "id": 241,
+   "col": "example_it",
+   "old": "Il vostro appartamento è bellissimo",
+   "new": "Qual è il vostro indirizzo?",
+   "why": "полная вычитка: en/it/es квартира — вернуть «ваш адрес»"
+  },
+  {
+   "id": 241,
+   "col": "example_es",
+   "old": "Vuestro piso es precioso",
+   "new": "¿Cuál es vuestra dirección?",
+   "why": "полная вычитка: en/it/es квартира — вернуть «ваш адрес»"
+  },
+  {
+   "id": 333,
+   "col": "example_de",
+   "old": "Sie ist geschieden",
+   "new": "Meine Eltern sind seit Jahren geschieden",
+   "why": "полная вычитка: смысл разошёлся — везде «родители много лет в разводе»"
+  },
+  {
+   "id": 333,
+   "col": "example_ru",
+   "old": "Она уже два года в разводе",
+   "new": "Мои родители уже много лет в разводе",
+   "why": "полная вычитка: смысл разошёлся — везде «родители много лет в разводе»"
+  },
+  {
+   "id": 333,
+   "col": "example_uk",
+   "old": "Вона вже два роки розлучена",
+   "new": "Мої батьки вже багато років розлучені",
+   "why": "полная вычитка: смысл разошёлся — везде «родители много лет в разводе»"
+  },
+  {
+   "id": 333,
+   "col": "example_tr",
+   "old": "O boşanmış",
+   "new": "Annemle babam yıllardır boşanmış durumda",
+   "why": "полная вычитка: смысл разошёлся — везде «родители много лет в разводе»"
+  },
+  {
+   "id": 333,
+   "col": "example_pl",
+   "old": "Jest rozwiedziona",
+   "new": "Moi rodzice są rozwiedzeni od lat",
+   "why": "полная вычитка: смысл разошёлся — везде «родители много лет в разводе»"
+  },
+  {
+   "id": 333,
+   "col": "example_fr",
+   "old": "Elle est divorcée",
+   "new": "Mes parents sont divorcés depuis des années",
+   "why": "полная вычитка: смысл разошёлся — везде «родители много лет в разводе»"
+  },
+  {
+   "id": 333,
+   "col": "example_cs",
+   "old": "Je rozvedená",
+   "new": "Moji rodiče jsou už léta rozvedení",
+   "why": "полная вычитка: смысл разошёлся — везде «родители много лет в разводе»"
+  },
+  {
+   "id": 409,
+   "col": "example_ru",
+   "old": "С двадцать первого этажа высотки видно весь город",
+   "new": "С двадцатого этажа высотки видно весь город",
+   "why": "полная вычитка: ru/uk двадцать первый — двадцатый, как везде"
+  },
+  {
+   "id": 409,
+   "col": "example_uk",
+   "old": "З двадцять першого поверху багатоповерхівки видно все місто",
+   "new": "З двадцятого поверху багатоповерхівки видно все місто",
+   "why": "полная вычитка: ru/uk двадцать первый — двадцатый, как везде"
+  },
+  {
+   "id": 412,
+   "col": "example_en",
+   "old": "A spoonful of honey in your tea?",
+   "new": "I have honey on my bread",
+   "why": "полная вычитка: en/it/es чай — вернуть «хлеб с мёдом»"
+  },
+  {
+   "id": 412,
+   "col": "example_it",
+   "old": "Un cucchiaino di miele nel tè?",
+   "new": "Mangio il pane col miele",
+   "why": "полная вычитка: en/it/es чай — вернуть «хлеб с мёдом»"
+  },
+  {
+   "id": 412,
+   "col": "example_es",
+   "old": "¿Una cucharadita de miel en el té?",
+   "new": "Como pan con miel",
+   "why": "полная вычитка: en/it/es чай — вернуть «хлеб с мёдом»"
+  },
+  {
+   "id": 477,
+   "col": "example_en",
+   "old": "A kilo of apples, please",
+   "new": "It weighs two kilos",
+   "why": "полная вычитка: en/it/es яблоки — вернуть «весит два кило»"
+  },
+  {
+   "id": 477,
+   "col": "example_it",
+   "old": "Un chilo di mele, per favore",
+   "new": "Pesa due chili",
+   "why": "полная вычитка: en/it/es яблоки — вернуть «весит два кило»"
+  },
+  {
+   "id": 477,
+   "col": "example_es",
+   "old": "Un kilo de manzanas, por favor",
+   "new": "Pesa dos kilos",
+   "why": "полная вычитка: en/it/es яблоки — вернуть «весит два кило»"
+  },
+  {
+   "id": 485,
+   "col": "example_de",
+   "old": "Ich räume meine Klamotten auf",
+   "new": "Deine Klamotten liegen im ganzen Zimmer herum!",
+   "why": "полная вычитка: смысл разошёлся — везде «шмотки по всей комнате»"
+  },
+  {
+   "id": 485,
+   "col": "example_en",
+   "old": "Grab your gear and let's go",
+   "new": "Your clothes are lying all over the room!",
+   "why": "полная вычитка: смысл разошёлся — везде «шмотки по всей комнате»"
+  },
+  {
+   "id": 485,
+   "col": "example_tr",
+   "old": "Kıyafetlerimi topluyorum",
+   "new": "Kıyafetlerin bütün odaya dağılmış!",
+   "why": "полная вычитка: смысл разошёлся — везде «шмотки по всей комнате»"
+  },
+  {
+   "id": 485,
+   "col": "example_pl",
+   "old": "Porządkuję ciuchy",
+   "new": "Twoje ciuchy walają się po całym pokoju!",
+   "why": "полная вычитка: смысл разошёлся — везде «шмотки по всей комнате»"
+  },
+  {
+   "id": 485,
+   "col": "example_it",
+   "old": "Prendi la tua roba e andiamo",
+   "new": "La tua roba è sparsa per tutta la stanza!",
+   "why": "полная вычитка: смысл разошёлся — везде «шмотки по всей комнате»"
+  },
+  {
+   "id": 485,
+   "col": "example_es",
+   "old": "Coge tus trapos y vámonos",
+   "new": "¡Tu ropa está tirada por toda la habitación!",
+   "why": "полная вычитка: смысл разошёлся — везде «шмотки по всей комнате»"
+  },
+  {
+   "id": 485,
+   "col": "example_fr",
+   "old": "Je range mes vêtements",
+   "new": "Tes fringues traînent dans toute la chambre !",
+   "why": "полная вычитка: смысл разошёлся — везде «шмотки по всей комнате»"
+  },
+  {
+   "id": 485,
+   "col": "example_cs",
+   "old": "Uklízím si oblečení",
+   "new": "Tvoje hadry se válejí po celém pokoji!",
+   "why": "полная вычитка: смысл разошёлся — везде «шмотки по всей комнате»"
+  },
+  {
+   "id": 496,
+   "col": "example_en",
+   "old": "The restaurant's chef is from Naples",
+   "new": "He works as a cook",
+   "why": "полная вычитка: en/it/es ресторан — вернуть «по профессии повар»"
+  },
+  {
+   "id": 496,
+   "col": "example_it",
+   "old": "Il cuoco del ristorante è napoletano",
+   "new": "Fa il cuoco di professione",
+   "why": "полная вычитка: en/it/es ресторан — вернуть «по профессии повар»"
+  },
+  {
+   "id": 496,
+   "col": "example_es",
+   "old": "El cocinero del restaurante es de Galicia",
+   "new": "Es cocinero de profesión",
+   "why": "полная вычитка: en/it/es ресторан — вернуть «по профессии повар»"
+  },
+  {
+   "id": 510,
+   "col": "example_en",
+   "old": "Grandad has been in hospital for a week",
+   "new": "He's in hospital",
+   "why": "полная вычитка: en/it/es дедушка неделю — вернуть «лежит в больнице»"
+  },
+  {
+   "id": 510,
+   "col": "example_it",
+   "old": "Il nonno è in ospedale da una settimana",
+   "new": "È in ospedale",
+   "why": "полная вычитка: en/it/es дедушка неделю — вернуть «лежит в больнице»"
+  },
+  {
+   "id": 510,
+   "col": "example_es",
+   "old": "El abuelo lleva una semana en el hospital",
+   "new": "Está en el hospital",
+   "why": "полная вычитка: en/it/es дедушка неделю — вернуть «лежит в больнице»"
+  },
+  {
+   "id": 579,
+   "col": "example_en",
+   "old": "For the pizza you need half a kilo of flour",
+   "new": "I need flour for baking",
+   "why": "полная вычитка: en/it/es пицца — вернуть «мука для выпечки»"
+  },
+  {
+   "id": 579,
+   "col": "example_it",
+   "old": "Per la pizza serve mezzo chilo di farina",
+   "new": "Mi serve la farina per i dolci",
+   "why": "полная вычитка: en/it/es пицца — вернуть «мука для выпечки»"
+  },
+  {
+   "id": 579,
+   "col": "example_es",
+   "old": "Para la pizza hace falta medio kilo de harina",
+   "new": "Necesito harina para hornear",
+   "why": "полная вычитка: en/it/es пицца — вернуть «мука для выпечки»"
+  },
+  {
+   "id": 611,
+   "col": "example_en",
+   "old": "There's a full moon tonight",
+   "new": "The moon is shining brightly",
+   "why": "полная вычитка: en/it/es полнолуние — вернуть «луна ярко светит»"
+  },
+  {
+   "id": 611,
+   "col": "example_it",
+   "old": "Stanotte c'è la luna piena",
+   "new": "La luna splende",
+   "why": "полная вычитка: en/it/es полнолуние — вернуть «луна ярко светит»"
+  },
+  {
+   "id": 611,
+   "col": "example_es",
+   "old": "Esta noche hay luna llena",
+   "new": "La luna brilla mucho",
+   "why": "полная вычитка: en/it/es полнолуние — вернуть «луна ярко светит»"
+  },
+  {
+   "id": 636,
+   "col": "example_en",
+   "old": "My surname is spelt with two Ls",
+   "new": "What's your surname?",
+   "why": "полная вычитка: en/it/es две L — вернуть «как фамилия»"
+  },
+  {
+   "id": 636,
+   "col": "example_it",
+   "old": "Il cognome si scrive con due elle",
+   "new": "Qual è il tuo cognome?",
+   "why": "полная вычитка: en/it/es две L — вернуть «как фамилия»"
+  },
+  {
+   "id": 636,
+   "col": "example_es",
+   "old": "El apellido se escribe con dos eles",
+   "new": "¿Cuál es tu apellido?",
+   "why": "полная вычитка: en/it/es две L — вернуть «как фамилия»"
+  },
+  {
+   "id": 700,
+   "col": "example_en",
+   "old": "The car park under our building is always full",
+   "new": "Is there a free parking space here?",
+   "why": "полная вычитка: en/it/es парковка под домом — вернуть «есть свободное место»"
+  },
+  {
+   "id": 700,
+   "col": "example_it",
+   "old": "Il parcheggio sotto casa è sempre pieno",
+   "new": "C'è un posto auto libero qui?",
+   "why": "полная вычитка: en/it/es парковка под домом — вернуть «есть свободное место»"
+  },
+  {
+   "id": 700,
+   "col": "example_es",
+   "old": "El aparcamiento de debajo de casa siempre está lleno",
+   "new": "¿Hay una plaza de aparcamiento libre aquí?",
+   "why": "полная вычитка: en/it/es парковка под домом — вернуть «есть свободное место»"
+  },
+  {
+   "id": 708,
+   "col": "example_en",
+   "old": "Put a plaster on that blister",
+   "new": "She puts a plaster on the wound",
+   "why": "полная вычитка: en/it/es мозоль — вернуть «пластырь на рану»"
+  },
+  {
+   "id": 708,
+   "col": "example_it",
+   "old": "Mettiti un cerotto sulla vescica",
+   "new": "Si mette un cerotto sulla ferita",
+   "why": "полная вычитка: en/it/es мозоль — вернуть «пластырь на рану»"
+  },
+  {
+   "id": 708,
+   "col": "example_es",
+   "old": "Ponte una tirita en la ampolla",
+   "new": "Se pone una tirita en la herida",
+   "why": "полная вычитка: en/it/es мозоль — вернуть «пластырь на рану»"
+  },
+  {
+   "id": 711,
+   "col": "example_en",
+   "old": "In autumn we go mushroom picking",
+   "new": "She picks mushrooms in the woods",
+   "why": "полная вычитка: en/it/es осень — вернуть «собирает грибы в лесу»"
+  },
+  {
+   "id": 711,
+   "col": "example_it",
+   "old": "In autunno andiamo per funghi",
+   "new": "Raccoglie funghi nel bosco",
+   "why": "полная вычитка: en/it/es осень — вернуть «собирает грибы в лесу»"
+  },
+  {
+   "id": 711,
+   "col": "example_es",
+   "old": "En otoño vamos a buscar setas",
+   "new": "Coge setas en el bosque",
+   "why": "полная вычитка: en/it/es осень — вернуть «собирает грибы в лесу»"
+  },
+  {
+   "id": 750,
+   "col": "example_en",
+   "old": "The shelf is full of old newspapers",
+   "new": "The book is on the shelf",
+   "why": "полная вычитка: en/it/es газеты — вернуть «книга на полке»"
+  },
+  {
+   "id": 750,
+   "col": "example_it",
+   "old": "Lo scaffale è pieno di vecchi giornali",
+   "new": "Il libro è sullo scaffale",
+   "why": "полная вычитка: en/it/es газеты — вернуть «книга на полке»"
+  },
+  {
+   "id": 750,
+   "col": "example_es",
+   "old": "La estantería está llena de periódicos viejos",
+   "new": "El libro está en la estantería",
+   "why": "полная вычитка: en/it/es газеты — вернуть «книга на полке»"
+  },
+  {
+   "id": 17915,
+   "col": "example_en",
+   "old": "The doctor examined me thoroughly",
+   "new": "The doctor needs to examine me",
+   "why": "полная вычитка: en/it/es другой смысл — вернуть «врач должен осмотреть»"
+  },
+  {
+   "id": 17915,
+   "col": "example_it",
+   "old": "Il medico mi ha visitato con calma",
+   "new": "Il medico mi deve visitare",
+   "why": "полная вычитка: en/it/es другой смысл — вернуть «врач должен осмотреть»"
+  },
+  {
+   "id": 17915,
+   "col": "example_es",
+   "old": "El médico me examinó con calma",
+   "new": "El médico tiene que examinarme",
+   "why": "полная вычитка: en/it/es другой смысл — вернуть «врач должен осмотреть»"
+  },
+  {
+   "id": 18184,
+   "col": "example_en",
+   "old": "On Sunday we're tidying up the cellar",
+   "new": "I need to tidy my room",
+   "why": "полная вычитка: en/it/es подвал — вернуть «убраться в комнате»"
+  },
+  {
+   "id": 18184,
+   "col": "example_it",
+   "old": "Domenica riordiniamo la cantina",
+   "new": "Devo riordinare la mia camera",
+   "why": "полная вычитка: en/it/es подвал — вернуть «убраться в комнате»"
+  },
+  {
+   "id": 18184,
+   "col": "example_es",
+   "old": "El domingo ordenamos el sótano",
+   "new": "Tengo que ordenar mi habitación",
+   "why": "полная вычитка: en/it/es подвал — вернуть «убраться в комнате»"
+  },
+  {
+   "id": 18216,
+   "col": "example_en",
+   "old": "The pot is too small for all the pasta",
+   "new": "I make soup in a big pot",
+   "why": "полная вычитка: en/it/es паста — вернуть «суп в большой кастрюле»"
+  },
+  {
+   "id": 18216,
+   "col": "example_it",
+   "old": "La pentola è troppo piccola per tutta la pasta",
+   "new": "Faccio la zuppa in una pentola grande",
+   "why": "полная вычитка: en/it/es паста — вернуть «суп в большой кастрюле»"
+  },
+  {
+   "id": 18216,
+   "col": "example_es",
+   "old": "La olla es demasiado pequeña para toda la pasta",
+   "new": "Hago sopa en una olla grande",
+   "why": "полная вычитка: en/it/es паста — вернуть «суп в большой кастрюле»"
+  },
+  {
+   "id": 18248,
+   "col": "example_en",
+   "old": "Which floor do you live on?",
+   "new": "We live on the third floor",
+   "why": "полная вычитка: en/it/es вопрос — вернуть «живём на третьем этаже»"
+  },
+  {
+   "id": 18248,
+   "col": "example_it",
+   "old": "A che piano abiti?",
+   "new": "Abitiamo al terzo piano",
+   "why": "полная вычитка: en/it/es вопрос — вернуть «живём на третьем этаже»"
+  },
+  {
+   "id": 18248,
+   "col": "example_es",
+   "old": "¿En qué piso vives?",
+   "new": "Vivimos en el tercer piso",
+   "why": "полная вычитка: en/it/es вопрос — вернуть «живём на третьем этаже»"
+  },
+  {
+   "id": 18660,
+   "col": "example_en",
+   "old": "After lunch Grandad rests for an hour",
+   "new": "I need to rest",
+   "why": "полная вычитка: en/it/es дедушка — вернуть «мне надо отдохнуть»"
+  },
+  {
+   "id": 18660,
+   "col": "example_it",
+   "old": "Dopo pranzo il nonno si riposa un'ora",
+   "new": "Devo riposarmi",
+   "why": "полная вычитка: en/it/es дедушка — вернуть «мне надо отдохнуть»"
+  },
+  {
+   "id": 18660,
+   "col": "example_es",
+   "old": "Después de comer el abuelo descansa una hora",
+   "new": "Tengo que descansar",
+   "why": "полная вычитка: en/it/es дедушка — вернуть «мне надо отдохнуть»"
+  },
+  {
+   "id": 18752,
+   "col": "example_en",
+   "old": "On Sundays we always have lunch at my grandparents'",
+   "new": "On Sundays I always sleep in",
+   "why": "полная вычитка: en/it/es у бабушки — вернуть «долго сплю»"
+  },
+  {
+   "id": 18752,
+   "col": "example_it",
+   "old": "La domenica pranziamo sempre dai nonni",
+   "new": "La domenica dormo sempre fino a tardi",
+   "why": "полная вычитка: en/it/es у бабушки — вернуть «долго сплю»"
+  },
+  {
+   "id": 18752,
+   "col": "example_es",
+   "old": "Los domingos comemos siempre en casa de los abuelos",
+   "new": "Los domingos siempre duermo hasta tarde",
+   "why": "полная вычитка: en/it/es у бабушки — вернуть «долго сплю»"
+  },
+  {
+   "id": 18933,
+   "col": "example_en",
+   "old": "We work in the mornings and study in the afternoons",
+   "new": "In the mornings we work in the office",
+   "why": "полная вычитка: en/it/es учёба — вернуть «до обеда в офисе»"
+  },
+  {
+   "id": 18933,
+   "col": "example_it",
+   "old": "Di mattina lavoriamo, di pomeriggio studiamo",
+   "new": "La mattina lavoriamo in ufficio",
+   "why": "полная вычитка: en/it/es учёба — вернуть «до обеда в офисе»"
+  },
+  {
+   "id": 18933,
+   "col": "example_es",
+   "old": "Por las mañanas trabajamos y por las tardes estudiamos",
+   "new": "Por las mañanas trabajamos en la oficina",
+   "why": "полная вычитка: en/it/es учёба — вернуть «до обеда в офисе»"
+  },
+  {
+   "id": 18967,
+   "col": "example_en",
+   "old": "The shop is closed on Sundays, we'll have to wait until Monday",
+   "new": "The pharmacy is closed on Sundays, we'll have to wait until Monday",
+   "why": "полная вычитка: en/it/es магазин вместо аптеки"
+  },
+  {
+   "id": 18967,
+   "col": "example_it",
+   "old": "Il negozio la domenica è chiuso, dobbiamo aspettare fino a lunedì",
+   "new": "La farmacia la domenica è chiusa, dobbiamo aspettare fino a lunedì",
+   "why": "полная вычитка: en/it/es магазин вместо аптеки"
+  },
+  {
+   "id": 18967,
+   "col": "example_es",
+   "old": "La tienda está cerrada los domingos, tenemos que esperar hasta el lunes",
+   "new": "La farmacia está cerrada los domingos, tenemos que esperar hasta el lunes",
+   "why": "полная вычитка: en/it/es магазин вместо аптеки"
+  },
+  {
+   "id": 18974,
+   "col": "example_ru",
+   "old": "Возьми фонарик, с этим в подвале не страшно",
+   "new": "Вот ключ, им можно открыть дверь в подвал",
+   "why": "полная вычитка: ru/uk фонарик вместо ключа"
+  },
+  {
+   "id": 18974,
+   "col": "example_uk",
+   "old": "Візьми ліхтарик, із цим у підвалі не страшно",
+   "new": "Ось ключ, ним можна відчинити двері в підвал",
+   "why": "полная вычитка: ru/uk фонарик вместо ключа"
+  },
+  {
+   "id": 18988,
+   "col": "example_ru",
+   "old": "С тех пор как ты переехала, я очень по тебе скучаю",
+   "new": "С тех пор как ты живёшь в Берлине, я очень по тебе скучаю",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 18988,
+   "col": "example_uk",
+   "old": "Відколи ти живеш у Варшаві, я дуже за тобою сумую",
+   "new": "Відколи ти живеш у Берліні, я дуже за тобою сумую",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 18988,
+   "col": "example_en",
+   "old": "Since you moved to Australia, I've missed you a lot",
+   "new": "Since you've been living in Berlin, I've missed you a lot",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 18988,
+   "col": "example_it",
+   "old": "Da quando vivi a Londra, mi manchi tanto",
+   "new": "Da quando vivi a Berlino, mi manchi tanto",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 18988,
+   "col": "example_es",
+   "old": "Desde que vives en Londres, te echo mucho de menos",
+   "new": "Desde que vives en Berlín, te echo mucho de menos",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}

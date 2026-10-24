@@ -1,0 +1,38 @@
+"""Полная вычитка, порция 7: один смысл во всех 10 языках, живой пример со словом карточки"""
+
+T = "полная вычитка: "
+
+FIXES = {
+    44: (T + "смысл разошёлся — везде «из гостевой сделала кабинет»", {"example_de": "Aus dem Gästezimmer habe ich ein Arbeitszimmer gemacht", "example_ru": "Я сделала из гостевой комнаты кабинет", "example_uk": "Я зробила з гостьової кімнати робочий кабінет", "example_en": "I've turned the spare room into a home office", "example_tr": "Misafir odasını çalışma odası yaptım", "example_pl": "Z pokoju gościnnego zrobiłam gabinet", "example_it": "Ho trasformato la camera degli ospiti in uno studio", "example_es": "He convertido la habitación de invitados en un despacho", "example_fr": "J'ai transformé la chambre d'amis en bureau", "example_cs": "Z pokoje pro hosty jsem udělala pracovnu"}),
+    85: (T + "en/it/es пластиковые стаканы — вернуть «кофе из кружки»", {"example_en": "I drink my coffee out of a mug", "example_it": "Bevo il caffè in una tazza", "example_es": "Me tomo el café en una taza"}),
+    152: (T + "en/it/es выходной — вернуть «шефа сегодня нет»", {"example_en": "The boss isn't in today", "example_it": "Il capo oggi non c'è", "example_es": "El jefe no está hoy"}),
+    231: (T + "en/it/es «уже простыл» — «начинается простуда»", {"example_en": "I think I'm coming down with a cold", "example_it": "Credo che mi stia venendo il raffreddore", "example_es": "Creo que estoy pillando un resfriado"}),
+    241: (T + "en/it/es квартира — вернуть «ваш адрес»", {"example_en": "What's your address?", "example_it": "Qual è il vostro indirizzo?", "example_es": "¿Cuál es vuestra dirección?"}),
+    333: (T + "смысл разошёлся — везде «родители много лет в разводе»", {"example_de": "Meine Eltern sind seit Jahren geschieden", "example_ru": "Мои родители уже много лет в разводе", "example_uk": "Мої батьки вже багато років розлучені", "example_en": "My parents have been divorced for years", "example_tr": "Annemle babam yıllardır boşanmış durumda", "example_pl": "Moi rodzice są rozwiedzeni od lat", "example_it": "I miei genitori sono divorziati da anni", "example_es": "Mis padres están divorciados desde hace años", "example_fr": "Mes parents sont divorcés depuis des années", "example_cs": "Moji rodiče jsou už léta rozvedení"}),
+    409: (T + "ru/uk двадцать первый — двадцатый, как везде", {"example_ru": "С двадцатого этажа высотки видно весь город", "example_uk": "З двадцятого поверху багатоповерхівки видно все місто"}),
+    412: (T + "en/it/es чай — вернуть «хлеб с мёдом»", {"example_en": "I have honey on my bread", "example_it": "Mangio il pane col miele", "example_es": "Como pan con miel"}),
+    477: (T + "en/it/es яблоки — вернуть «весит два кило»", {"example_en": "It weighs two kilos", "example_it": "Pesa due chili", "example_es": "Pesa dos kilos"}),
+    485: (T + "смысл разошёлся — везде «шмотки по всей комнате»", {"example_de": "Deine Klamotten liegen im ganzen Zimmer herum!", "example_ru": "Твои шмотки валяются по всей комнате!", "example_uk": "Твої шмотки валяються по всій кімнаті!", "example_en": "Your clothes are lying all over the room!", "example_tr": "Kıyafetlerin bütün odaya dağılmış!", "example_pl": "Twoje ciuchy walają się po całym pokoju!", "example_it": "La tua roba è sparsa per tutta la stanza!", "example_es": "¡Tu ropa está tirada por toda la habitación!", "example_fr": "Tes fringues traînent dans toute la chambre !", "example_cs": "Tvoje hadry se válejí po celém pokoji!"}),
+    496: (T + "en/it/es ресторан — вернуть «по профессии повар»", {"example_en": "He works as a cook", "example_it": "Fa il cuoco di professione", "example_es": "Es cocinero de profesión"}),
+    510: (T + "en/it/es дедушка неделю — вернуть «лежит в больнице»", {"example_en": "He's in hospital", "example_it": "È in ospedale", "example_es": "Está en el hospital"}),
+    579: (T + "en/it/es пицца — вернуть «мука для выпечки»", {"example_en": "I need flour for baking", "example_it": "Mi serve la farina per i dolci", "example_es": "Necesito harina para hornear"}),
+    611: (T + "en/it/es полнолуние — вернуть «луна ярко светит»", {"example_en": "The moon is shining brightly", "example_it": "La luna splende", "example_es": "La luna brilla mucho"}),
+    636: (T + "en/it/es две L — вернуть «как фамилия»", {"example_en": "What's your surname?", "example_it": "Qual è il tuo cognome?", "example_es": "¿Cuál es tu apellido?"}),
+    700: (T + "en/it/es парковка под домом — вернуть «есть свободное место»", {"example_en": "Is there a free parking space here?", "example_it": "C'è un posto auto libero qui?", "example_es": "¿Hay una plaza de aparcamiento libre aquí?"}),
+    708: (T + "en/it/es мозоль — вернуть «пластырь на рану»", {"example_en": "She puts a plaster on the wound", "example_it": "Si mette un cerotto sulla ferita", "example_es": "Se pone una tirita en la herida"}),
+    711: (T + "en/it/es осень — вернуть «собирает грибы в лесу»", {"example_en": "She picks mushrooms in the woods", "example_it": "Raccoglie funghi nel bosco", "example_es": "Coge setas en el bosque"}),
+    750: (T + "en/it/es газеты — вернуть «книга на полке»", {"example_en": "The book is on the shelf", "example_it": "Il libro è sullo scaffale", "example_es": "El libro está en la estantería"}),
+    17915: (T + "en/it/es другой смысл — вернуть «врач должен осмотреть»", {"example_en": "The doctor needs to examine me", "example_it": "Il medico mi deve visitare", "example_es": "El médico tiene que examinarme"}),
+    18184: (T + "en/it/es подвал — вернуть «убраться в комнате»", {"example_en": "I need to tidy my room", "example_it": "Devo riordinare la mia camera", "example_es": "Tengo que ordenar mi habitación"}),
+    18216: (T + "en/it/es паста — вернуть «суп в большой кастрюле»", {"example_en": "I make soup in a big pot", "example_it": "Faccio la zuppa in una pentola grande", "example_es": "Hago sopa en una olla grande"}),
+    18248: (T + "en/it/es вопрос — вернуть «живём на третьем этаже»", {"example_en": "We live on the third floor", "example_it": "Abitiamo al terzo piano", "example_es": "Vivimos en el tercer piso"}),
+    18660: (T + "en/it/es дедушка — вернуть «мне надо отдохнуть»", {"example_en": "I need to rest", "example_it": "Devo riposarmi", "example_es": "Tengo que descansar"}),
+    18752: (T + "en/it/es у бабушки — вернуть «долго сплю»", {"example_en": "On Sundays I always sleep in", "example_it": "La domenica dormo sempre fino a tardi", "example_es": "Los domingos siempre duermo hasta tarde"}),
+    18933: (T + "en/it/es учёба — вернуть «до обеда в офисе»", {"example_en": "In the mornings we work in the office", "example_it": "La mattina lavoriamo in ufficio", "example_es": "Por las mañanas trabajamos en la oficina"}),
+    18967: (T + "en/it/es магазин вместо аптеки", {"example_en": "The pharmacy is closed on Sundays, we'll have to wait until Monday", "example_it": "La farmacia la domenica è chiusa, dobbiamo aspettare fino a lunedì", "example_es": "La farmacia está cerrada los domingos, tenemos que esperar hasta el lunes"}),
+    18974: (T + "ru/uk фонарик вместо ключа", {"example_ru": "Вот ключ, им можно открыть дверь в подвал", "example_uk": "Ось ключ, ним можна відчинити двері в підвал"}),
+    18988: (T + "города разошлись — везде Берлин", {"example_ru": "С тех пор как ты живёшь в Берлине, я очень по тебе скучаю", "example_uk": "Відколи ти живеш у Берліні, я дуже за тобою сумую", "example_en": "Since you've been living in Berlin, I've missed you a lot", "example_it": "Da quando vivi a Berlino, mi manchi tanto", "example_es": "Desde que vives en Berlín, te echo mucho de menos"}),
+}
+
+REPLACE = []
+SPLIT_LATER = {}
