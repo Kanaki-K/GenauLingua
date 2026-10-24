@@ -1,0 +1,576 @@
+{
+ "about": "полная вычитка p026",
+ "edits": [
+  {
+   "id": 1272,
+   "col": "example_en",
+   "old": "Keep a cool head",
+   "new": "We have to keep a cool head",
+   "why": "полная вычитка: en повелительное — «нам нужно сохранять хладнокровие»"
+  },
+  {
+   "id": 7092,
+   "col": "example_de",
+   "old": "Ich will das Etikett abschneiden",
+   "new": "Nach dem Schneesturm war unser Dorf zwei Tage von der Außenwelt abgeschnitten",
+   "why": "полная вычитка: смысл разошёлся на три; этикетка — двойник 9899 — везде «после бури деревня два дня отрезана от мира»"
+  },
+  {
+   "id": 7092,
+   "col": "example_ru",
+   "old": "Отрежь этикетку, она колется",
+   "new": "После снежной бури наша деревня два дня была отрезана от мира",
+   "why": "полная вычитка: смысл разошёлся на три; этикетка — двойник 9899 — везде «после бури деревня два дня отрезана от мира»"
+  },
+  {
+   "id": 7092,
+   "col": "example_uk",
+   "old": "Відріж етикетку, вона муляє",
+   "new": "Після снігової бурі наше село два дні було відрізане від світу",
+   "why": "полная вычитка: смысл разошёлся на три; этикетка — двойник 9899 — везде «после бури деревня два дня отрезана от мира»"
+  },
+  {
+   "id": 7092,
+   "col": "example_en",
+   "old": "They've cut off our electricity",
+   "new": "After the snowstorm our village was cut off from the outside world for two days",
+   "why": "полная вычитка: смысл разошёлся на три; этикетка — двойник 9899 — везде «после бури деревня два дня отрезана от мира»"
+  },
+  {
+   "id": 7092,
+   "col": "example_tr",
+   "old": "Etiketi kesmek istiyorum",
+   "new": "Kar fırtınasından sonra köyümüzün dış dünyayla bağlantısı iki gün kesildi",
+   "why": "полная вычитка: смысл разошёлся на три; этикетка — двойник 9899 — везде «после бури деревня два дня отрезана от мира»"
+  },
+  {
+   "id": 7092,
+   "col": "example_pl",
+   "old": "Chcę odciąć tę metkę",
+   "new": "Po śnieżycy nasza wieś przez dwa dni była odcięta od świata",
+   "why": "полная вычитка: смысл разошёлся на три; этикетка — двойник 9899 — везде «после бури деревня два дня отрезана от мира»"
+  },
+  {
+   "id": 7092,
+   "col": "example_it",
+   "old": "Ci hanno tagliato la corrente",
+   "new": "Dopo la bufera di neve il nostro paese è rimasto tagliato fuori dal mondo per due giorni",
+   "why": "полная вычитка: смысл разошёлся на три; этикетка — двойник 9899 — везде «после бури деревня два дня отрезана от мира»"
+  },
+  {
+   "id": 7092,
+   "col": "example_es",
+   "old": "Nos han cortado la luz",
+   "new": "Después de la tormenta de nieve nuestro pueblo se quedó dos días incomunicado",
+   "why": "полная вычитка: смысл разошёлся на три; этикетка — двойник 9899 — везде «после бури деревня два дня отрезана от мира»"
+  },
+  {
+   "id": 7092,
+   "col": "example_fr",
+   "old": "On nous a coupé l'électricité",
+   "new": "Après la tempête de neige, notre village a été coupé du monde pendant deux jours",
+   "why": "полная вычитка: смысл разошёлся на три; этикетка — двойник 9899 — везде «после бури деревня два дня отрезана от мира»"
+  },
+  {
+   "id": 7092,
+   "col": "example_cs",
+   "old": "Chci odstřihnout cedulku",
+   "new": "Po sněhové bouři byla naše vesnice dva dny odříznutá od světa",
+   "why": "полная вычитка: смысл разошёлся на три; этикетка — двойник 9899 — везде «после бури деревня два дня отрезана от мира»"
+  },
+  {
+   "id": 18244,
+   "col": "example_de",
+   "old": "Sie wollen ein neues Gebäude errichten",
+   "new": "In unserem Viertel wird eine neue Schule errichtet",
+   "why": "полная вычитка: смысл разошёлся — везде «в нашем районе построят новую школу»"
+  },
+  {
+   "id": 18244,
+   "col": "example_ru",
+   "old": "Они хотят построить новое здание",
+   "new": "В нашем районе построят новую школу",
+   "why": "полная вычитка: смысл разошёлся — везде «в нашем районе построят новую школу»"
+  },
+  {
+   "id": 18244,
+   "col": "example_uk",
+   "old": "Вони хочуть звести нову будівлю",
+   "new": "У нашому районі зведуть нову школу",
+   "why": "полная вычитка: смысл разошёлся — везде «в нашем районе построят новую школу»"
+  },
+  {
+   "id": 18244,
+   "col": "example_tr",
+   "old": "Yeni bir bina inşa etmek istiyorlar",
+   "new": "Mahallemizde yeni bir okul inşa edilecek",
+   "why": "полная вычитка: смысл разошёлся — везде «в нашем районе построят новую школу»"
+  },
+  {
+   "id": 18244,
+   "col": "example_pl",
+   "old": "Chcą wznieść nowy budynek",
+   "new": "W naszej dzielnicy wzniosą nową szkołę",
+   "why": "полная вычитка: смысл разошёлся — везде «в нашем районе построят новую школу»"
+  },
+  {
+   "id": 18244,
+   "col": "example_cs",
+   "old": "Chtějí postavit novou budovu",
+   "new": "V naší čtvrti postaví novou školu",
+   "why": "полная вычитка: смысл разошёлся — везде «в нашем районе построят новую школу»"
+  },
+  {
+   "id": 18320,
+   "col": "example_en",
+   "old": "Careful, the teapot is still hot",
+   "new": "I'll make us a pot of tea",
+   "why": "полная вычитка: en/it/es/fr «чайник ещё горячий» — «заварю нам чайник чая»"
+  },
+  {
+   "id": 18320,
+   "col": "example_it",
+   "old": "Attento, la teiera è ancora calda",
+   "new": "Ci preparo una teiera di tè",
+   "why": "полная вычитка: en/it/es/fr «чайник ещё горячий» — «заварю нам чайник чая»"
+  },
+  {
+   "id": 18320,
+   "col": "example_es",
+   "old": "Cuidado, la tetera todavía está caliente",
+   "new": "Nos preparo una tetera de té",
+   "why": "полная вычитка: en/it/es/fr «чайник ещё горячий» — «заварю нам чайник чая»"
+  },
+  {
+   "id": 18320,
+   "col": "example_fr",
+   "old": "Attention, la théière est encore chaude",
+   "new": "Je nous prépare une théière de thé",
+   "why": "полная вычитка: en/it/es/fr «чайник ещё горячий» — «заварю нам чайник чая»"
+  },
+  {
+   "id": 18349,
+   "col": "example_en",
+   "old": "We decorate the tree together",
+   "new": "We decorate the Christmas tree with candles and garlands",
+   "why": "полная вычитка: en/it/es/fr «наряжаем ёлку вместе» — «украшаем ёлку свечами и гирляндами»"
+  },
+  {
+   "id": 18349,
+   "col": "example_it",
+   "old": "Addobbiamo l'albero tutti insieme",
+   "new": "Addobbiamo l'albero di Natale con candele e ghirlande",
+   "why": "полная вычитка: en/it/es/fr «наряжаем ёлку вместе» — «украшаем ёлку свечами и гирляндами»"
+  },
+  {
+   "id": 18349,
+   "col": "example_es",
+   "old": "Adornamos el árbol todos juntos",
+   "new": "Adornamos el árbol de Navidad con velas y guirnaldas",
+   "why": "полная вычитка: en/it/es/fr «наряжаем ёлку вместе» — «украшаем ёлку свечами и гирляндами»"
+  },
+  {
+   "id": 18349,
+   "col": "example_fr",
+   "old": "On décore le sapin tous ensemble",
+   "new": "On décore le sapin avec des bougies et des guirlandes",
+   "why": "полная вычитка: en/it/es/fr «наряжаем ёлку вместе» — «украшаем ёлку свечами и гирляндами»"
+  },
+  {
+   "id": 18378,
+   "col": "example_en",
+   "old": "He has no permanent residence",
+   "new": "Where is your permanent residence?",
+   "why": "полная вычитка: en/it/es/fr «у него нет постоянного жилья» — «где ваше постоянное место жительства?»"
+  },
+  {
+   "id": 18378,
+   "col": "example_it",
+   "old": "Non ha una residenza fissa",
+   "new": "Dov'è la sua residenza fissa?",
+   "why": "полная вычитка: en/it/es/fr «у него нет постоянного жилья» — «где ваше постоянное место жительства?»"
+  },
+  {
+   "id": 18378,
+   "col": "example_es",
+   "old": "No tiene domicilio fijo",
+   "new": "¿Cuál es su domicilio fijo?",
+   "why": "полная вычитка: en/it/es/fr «у него нет постоянного жилья» — «где ваше постоянное место жительства?»"
+  },
+  {
+   "id": 18378,
+   "col": "example_fr",
+   "old": "Il n'a pas de domicile fixe",
+   "new": "Où est votre domicile fixe ?",
+   "why": "полная вычитка: en/it/es/fr «у него нет постоянного жилья» — «где ваше постоянное место жительства?»"
+  },
+  {
+   "id": 18412,
+   "col": "example_en",
+   "old": "I've decorated the hall with balloons",
+   "new": "We're decorating the room for the party with balloons and garlands",
+   "why": "полная вычитка: en/es/fr «я украсил зал шарами» — «украшаем комнату к вечеринке шарами и гирляндами»"
+  },
+  {
+   "id": 18412,
+   "col": "example_es",
+   "old": "He decorado la sala con globos",
+   "new": "Decoramos la habitación para la fiesta con globos y guirnaldas",
+   "why": "полная вычитка: en/es/fr «я украсил зал шарами» — «украшаем комнату к вечеринке шарами и гирляндами»"
+  },
+  {
+   "id": 18412,
+   "col": "example_fr",
+   "old": "J'ai décoré la salle avec des ballons",
+   "new": "On décore la pièce pour la fête avec des ballons et des guirlandes",
+   "why": "полная вычитка: en/es/fr «я украсил зал шарами» — «украшаем комнату к вечеринке шарами и гирляндами»"
+  },
+  {
+   "id": 18429,
+   "col": "example_ru",
+   "old": "Мы остановились в маленьком городке у моря",
+   "new": "Маленький городок на побережье был просто сказочным",
+   "why": "полная вычитка: ru/uk «мы остановились» — «городок на побережье был сказочным»"
+  },
+  {
+   "id": 18429,
+   "col": "example_uk",
+   "old": "Ми зупинилися в маленькому містечку біля моря",
+   "new": "Маленьке містечко на узбережжі було просто казковим",
+   "why": "полная вычитка: ru/uk «мы остановились» — «городок на побережье был сказочным»"
+  },
+  {
+   "id": 18489,
+   "col": "example_fr",
+   "old": "On transforme le grenier en chambre",
+   "new": "On transforme notre vieille maison pour avoir plus de place",
+   "why": "полная вычитка: fr «чердак в спальню» — «перестраиваем старый дом, чтобы было больше места»"
+  },
+  {
+   "id": 18639,
+   "col": "example_en",
+   "old": "He's always running after his big brother",
+   "new": "Come on, I'll run after you!",
+   "why": "полная вычитка: en/it/es/fr «бегает за старшим братом» — «давай, я побегу за тобой»"
+  },
+  {
+   "id": 18639,
+   "col": "example_it",
+   "old": "Corre sempre dietro al fratello maggiore",
+   "new": "Dai, ti corro dietro!",
+   "why": "полная вычитка: en/it/es/fr «бегает за старшим братом» — «давай, я побегу за тобой»"
+  },
+  {
+   "id": 18639,
+   "col": "example_es",
+   "old": "Siempre va corriendo detrás de su hermano mayor",
+   "new": "¡Venga, voy corriendo detrás de ti!",
+   "why": "полная вычитка: en/it/es/fr «бегает за старшим братом» — «давай, я побегу за тобой»"
+  },
+  {
+   "id": 18639,
+   "col": "example_fr",
+   "old": "Il court toujours derrière son grand frère",
+   "new": "Allez, je te cours après !",
+   "why": "полная вычитка: en/it/es/fr «бегает за старшим братом» — «давай, я побегу за тобой»"
+  },
+  {
+   "id": 18664,
+   "col": "example_de",
+   "old": "Ich bin in Eile, der Zug fährt bald ab",
+   "new": "In der Eile habe ich mein Handy vergessen",
+   "why": "полная вычитка: смысл разошёлся; «спешу на поезд» — как у 18820 — везде «в спешке забыл телефон»"
+  },
+  {
+   "id": 18664,
+   "col": "example_tr",
+   "old": "Acelem var, tren az sonra kalkıyor",
+   "new": "Acelemden telefonumu unuttum",
+   "why": "полная вычитка: смысл разошёлся; «спешу на поезд» — как у 18820 — везде «в спешке забыл телефон»"
+  },
+  {
+   "id": 18664,
+   "col": "example_pl",
+   "old": "Spieszę się, pociąg zaraz odjeżdża",
+   "new": "W pośpiechu zapomniałem telefonu",
+   "why": "полная вычитка: смысл разошёлся; «спешу на поезд» — как у 18820 — везде «в спешке забыл телефон»"
+  },
+  {
+   "id": 18664,
+   "col": "example_cs",
+   "old": "Jsem ve spěchu, vlak brzy odjíždí",
+   "new": "Ve spěchu jsem zapomněl mobil",
+   "why": "полная вычитка: смысл разошёлся; «спешу на поезд» — как у 18820 — везде «в спешке забыл телефон»"
+  },
+  {
+   "id": 18678,
+   "col": "example_ru",
+   "old": "Давай подождём, что скажет врач",
+   "new": "Нам придётся пока подождать",
+   "why": "полная вычитка: ru/uk/it/es/fr «что скажет врач» — «придётся подождать и посмотреть»"
+  },
+  {
+   "id": 18678,
+   "col": "example_uk",
+   "old": "Давай почекаємо, що скаже лікар",
+   "new": "Нам доведеться поки зачекати",
+   "why": "полная вычитка: ru/uk/it/es/fr «что скажет врач» — «придётся подождать и посмотреть»"
+  },
+  {
+   "id": 18678,
+   "col": "example_it",
+   "old": "Stiamo a vedere cosa dice",
+   "new": "Dobbiamo stare a vedere",
+   "why": "полная вычитка: ru/uk/it/es/fr «что скажет врач» — «придётся подождать и посмотреть»"
+  },
+  {
+   "id": 18678,
+   "col": "example_es",
+   "old": "Esperamos a ver qué dice",
+   "new": "Tenemos que esperar a ver",
+   "why": "полная вычитка: ru/uk/it/es/fr «что скажет врач» — «придётся подождать и посмотреть»"
+  },
+  {
+   "id": 18678,
+   "col": "example_fr",
+   "old": "On attend de voir ce qu'il dit",
+   "new": "Il faut d'abord attendre de voir",
+   "why": "полная вычитка: ru/uk/it/es/fr «что скажет врач» — «придётся подождать и посмотреть»"
+  },
+  {
+   "id": 18697,
+   "col": "example_fr",
+   "old": "Maintenant, il habite à Lyon",
+   "new": "Maintenant, j'ai compris de quoi il s'agit",
+   "why": "полная вычитка: fr «теперь он живёт в Лионе» — «теперь я уже понял, в чём дело»"
+  },
+  {
+   "id": 18725,
+   "col": "example_de",
+   "old": "Die zukünftigen Generationen sollten von uns lernen",
+   "new": "Darf ich vorstellen, das ist mein zukünftiger Mann",
+   "why": "полная вычитка: смысл разошёлся на три — везде «познакомьтесь, это мой будущий муж»"
+  },
+  {
+   "id": 18725,
+   "col": "example_en",
+   "old": "This is my future office!",
+   "new": "Let me introduce you, this is my future husband",
+   "why": "полная вычитка: смысл разошёлся на три — везде «познакомьтесь, это мой будущий муж»"
+  },
+  {
+   "id": 18725,
+   "col": "example_tr",
+   "old": "Gelecek nesiller bizden öğrenmeli",
+   "new": "Tanıştırayım, bu müstakbel kocam",
+   "why": "полная вычитка: смысл разошёлся на три — везде «познакомьтесь, это мой будущий муж»"
+  },
+  {
+   "id": 18725,
+   "col": "example_pl",
+   "old": "Przyszłe pokolenia powinny się od nas uczyć",
+   "new": "Poznajcie, to mój przyszły mąż",
+   "why": "полная вычитка: смысл разошёлся на три — везде «познакомьтесь, это мой будущий муж»"
+  },
+  {
+   "id": 18725,
+   "col": "example_it",
+   "old": "Ecco il mio futuro ufficio!",
+   "new": "Vi presento il mio futuro marito",
+   "why": "полная вычитка: смысл разошёлся на три — везде «познакомьтесь, это мой будущий муж»"
+  },
+  {
+   "id": 18725,
+   "col": "example_es",
+   "old": "¡Esta es mi futura oficina!",
+   "new": "Os presento a mi futuro marido",
+   "why": "полная вычитка: смысл разошёлся на три — везде «познакомьтесь, это мой будущий муж»"
+  },
+  {
+   "id": 18725,
+   "col": "example_fr",
+   "old": "Voici mon futur bureau !",
+   "new": "Je vous présente mon futur mari",
+   "why": "полная вычитка: смысл разошёлся на три — везде «познакомьтесь, это мой будущий муж»"
+  },
+  {
+   "id": 18725,
+   "col": "example_cs",
+   "old": "Budoucí generace by se od nás měly učit",
+   "new": "Seznamte se, to je můj budoucí manžel",
+   "why": "полная вычитка: смысл разошёлся на три — везде «познакомьтесь, это мой будущий муж»"
+  },
+  {
+   "id": 18751,
+   "col": "example_de",
+   "old": "Der Zug ist verspätet",
+   "new": "Der verspätete Flug ist endlich gestartet",
+   "why": "полная вычитка: смысл разошёлся; «поезд опаздывает» — как у 18823 — везде «рейс наконец вылетел с опозданием»"
+  },
+  {
+   "id": 18751,
+   "col": "example_ru",
+   "old": "Поезд прибыл с опозданием на час",
+   "new": "Рейс наконец вылетел с опозданием",
+   "why": "полная вычитка: смысл разошёлся; «поезд опаздывает» — как у 18823 — везде «рейс наконец вылетел с опозданием»"
+  },
+  {
+   "id": 18751,
+   "col": "example_uk",
+   "old": "Поїзд прибув із запізненням на годину",
+   "new": "Рейс нарешті вилетів із запізненням",
+   "why": "полная вычитка: смысл разошёлся; «поезд опаздывает» — как у 18823 — везде «рейс наконец вылетел с опозданием»"
+  },
+  {
+   "id": 18751,
+   "col": "example_tr",
+   "old": "Tren gecikti",
+   "new": "Gecikmeli uçak sonunda kalktı",
+   "why": "полная вычитка: смысл разошёлся; «поезд опаздывает» — как у 18823 — везде «рейс наконец вылетел с опозданием»"
+  },
+  {
+   "id": 18751,
+   "col": "example_pl",
+   "old": "Pociąg jest opóźniony",
+   "new": "Opóźniony lot w końcu wystartował",
+   "why": "полная вычитка: смысл разошёлся; «поезд опаздывает» — как у 18823 — везде «рейс наконец вылетел с опозданием»"
+  },
+  {
+   "id": 18751,
+   "col": "example_cs",
+   "old": "Vlak je zpožděný",
+   "new": "Zpožděný let konečně odstartoval",
+   "why": "полная вычитка: смысл разошёлся; «поезд опаздывает» — как у 18823 — везде «рейс наконец вылетел с опозданием»"
+  },
+  {
+   "id": 18910,
+   "col": "example_en",
+   "old": "The previous tenant left the furniture",
+   "new": "The previous head achieved a lot",
+   "why": "полная вычитка: en/it/es/fr «прежний жилец оставил мебель» — «предыдущий директор много сделал»"
+  },
+  {
+   "id": 18910,
+   "col": "example_it",
+   "old": "L'inquilino precedente ha lasciato i mobili",
+   "new": "Il direttore precedente ha fatto molto",
+   "why": "полная вычитка: en/it/es/fr «прежний жилец оставил мебель» — «предыдущий директор много сделал»"
+  },
+  {
+   "id": 18910,
+   "col": "example_es",
+   "old": "El inquilino anterior dejó los muebles",
+   "new": "El director anterior hizo mucho",
+   "why": "полная вычитка: en/it/es/fr «прежний жилец оставил мебель» — «предыдущий директор много сделал»"
+  },
+  {
+   "id": 18910,
+   "col": "example_fr",
+   "old": "Le locataire précédent a laissé ses meubles",
+   "new": "Le directeur précédent a fait beaucoup de choses",
+   "why": "полная вычитка: en/it/es/fr «прежний жилец оставил мебель» — «предыдущий директор много сделал»"
+  },
+  {
+   "id": 18935,
+   "col": "example_ru",
+   "old": "В рождественский период город особенно красивый",
+   "new": "В рождественский период мы украшаем дом огоньками и игрушками",
+   "why": "полная вычитка: смысл разошёлся на три — везде «украшаем дом огоньками»"
+  },
+  {
+   "id": 18935,
+   "col": "example_uk",
+   "old": "У різдвяний період місто особливо гарне",
+   "new": "У різдвяний період ми прикрашаємо дім вогниками й прикрасами",
+   "why": "полная вычитка: смысл разошёлся на три — везде «украшаем дом огоньками»"
+  },
+  {
+   "id": 18935,
+   "col": "example_en",
+   "old": "At Christmas time the shops are packed",
+   "new": "At Christmas time we decorate the house with lights and decorations",
+   "why": "полная вычитка: смысл разошёлся на три — везде «украшаем дом огоньками»"
+  },
+  {
+   "id": 18935,
+   "col": "example_tr",
+   "old": "Noel döneminde evi ışıklarla donatırız",
+   "new": "Noel döneminde evi ışıklar ve süslerle donatırız",
+   "why": "полная вычитка: смысл разошёлся на три — везде «украшаем дом огоньками»"
+  },
+  {
+   "id": 18935,
+   "col": "example_es",
+   "old": "En la época navideña las tiendas están a reventar",
+   "new": "En la época navideña decoramos la casa con luces y adornos",
+   "why": "полная вычитка: смысл разошёлся на три — везде «украшаем дом огоньками»"
+  },
+  {
+   "id": 18935,
+   "col": "example_fr",
+   "old": "Pendant la période de Noël, les magasins sont bondés",
+   "new": "Pendant la période de Noël, on décore la maison avec des lumières et des décorations",
+   "why": "полная вычитка: смысл разошёлся на три — везде «украшаем дом огоньками»"
+  },
+  {
+   "id": 18949,
+   "col": "example_en",
+   "old": "Thursday evening's no good for me, sorry",
+   "new": "On Thursday evening we're going to the cinema",
+   "why": "полная вычитка: en/it/es/fr «вечер четверга мне не подходит» — «в четверг вечером идём в кино»"
+  },
+  {
+   "id": 18949,
+   "col": "example_it",
+   "old": "Giovedì sera sono impegnato, scusa",
+   "new": "Giovedì sera andiamo al cinema",
+   "why": "полная вычитка: en/it/es/fr «вечер четверга мне не подходит» — «в четверг вечером идём в кино»"
+  },
+  {
+   "id": 18949,
+   "col": "example_es",
+   "old": "El jueves por la noche no puedo, lo siento",
+   "new": "El jueves por la noche vamos al cine",
+   "why": "полная вычитка: en/it/es/fr «вечер четверга мне не подходит» — «в четверг вечером идём в кино»"
+  },
+  {
+   "id": 18949,
+   "col": "example_fr",
+   "old": "Jeudi soir, je suis pris, désolé",
+   "new": "Jeudi soir, on va au cinéma",
+   "why": "полная вычитка: en/it/es/fr «вечер четверга мне не подходит» — «в четверг вечером идём в кино»"
+  },
+  {
+   "id": 19045,
+   "col": "example_ru",
+   "old": "Следующим летом мы переезжаем в другой город, муж нашёл там работу",
+   "new": "Следующим летом мы переезжаем в Гамбург, муж нашёл там работу",
+   "why": "полная вычитка: города разошлись — везде Гамбург"
+  },
+  {
+   "id": 19045,
+   "col": "example_uk",
+   "old": "Наступного літа ми переїжджаємо до Ужгорода, чоловік знайшов там роботу",
+   "new": "Наступного літа ми переїжджаємо до Гамбурга, чоловік знайшов там роботу",
+   "why": "полная вычитка: города разошлись — везде Гамбург"
+  },
+  {
+   "id": 19045,
+   "col": "example_en",
+   "old": "Next summer we're moving to Manchester, my husband has found a job there",
+   "new": "Next summer we're moving to Hamburg, my husband has found a job there",
+   "why": "полная вычитка: города разошлись — везде Гамбург"
+  },
+  {
+   "id": 19045,
+   "col": "example_es",
+   "old": "El verano que viene nos mudamos a Valencia, mi marido ha encontrado trabajo allí",
+   "new": "El verano que viene nos mudamos a Hamburgo, mi marido ha encontrado trabajo allí",
+   "why": "полная вычитка: города разошлись — везде Гамбург"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
