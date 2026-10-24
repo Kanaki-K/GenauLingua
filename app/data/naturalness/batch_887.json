@@ -1,0 +1,688 @@
+{
+ "about": "полная вычитка p027",
+ "edits": [
+  {
+   "id": 7109,
+   "col": "example_de",
+   "old": "Kannst du das Rätsel erraten?",
+   "new": "Du errätst nie, wen ich gestern gesehen habe!",
+   "why": "полная вычитка: смысл разошёлся — везде «ни за что не угадаешь, кого я вчера видел»"
+  },
+  {
+   "id": 7109,
+   "col": "example_ru",
+   "old": "Ты можешь отгадать загадку?",
+   "new": "Ни за что не угадаешь, кого я вчера видел!",
+   "why": "полная вычитка: смысл разошёлся — везде «ни за что не угадаешь, кого я вчера видел»"
+  },
+  {
+   "id": 7109,
+   "col": "example_uk",
+   "old": "Ти можеш відгадати загадку?",
+   "new": "Нізащо не вгадаєш, кого я вчора бачив!",
+   "why": "полная вычитка: смысл разошёлся — везде «ни за что не угадаешь, кого я вчера видел»"
+  },
+  {
+   "id": 7109,
+   "col": "example_en",
+   "old": "Guess who I saw yesterday!",
+   "new": "You'll never guess who I saw yesterday!",
+   "why": "полная вычитка: смысл разошёлся — везде «ни за что не угадаешь, кого я вчера видел»"
+  },
+  {
+   "id": 7109,
+   "col": "example_tr",
+   "old": "Bilmeceyi tahmin edebilir misin?",
+   "new": "Dün kimi gördüğümü asla tahmin edemezsin!",
+   "why": "полная вычитка: смысл разошёлся — везде «ни за что не угадаешь, кого я вчера видел»"
+  },
+  {
+   "id": 7109,
+   "col": "example_pl",
+   "old": "Zgadniesz tę zagadkę?",
+   "new": "Nigdy nie zgadniesz, kogo wczoraj widziałem!",
+   "why": "полная вычитка: смысл разошёлся — везде «ни за что не угадаешь, кого я вчера видел»"
+  },
+  {
+   "id": 7109,
+   "col": "example_it",
+   "old": "Indovina chi ho visto ieri!",
+   "new": "Non indovinerai mai chi ho visto ieri!",
+   "why": "полная вычитка: смысл разошёлся — везде «ни за что не угадаешь, кого я вчера видел»"
+  },
+  {
+   "id": 7109,
+   "col": "example_es",
+   "old": "¡Adivina a quién vi ayer!",
+   "new": "¡Nunca adivinarás a quién vi ayer!",
+   "why": "полная вычитка: смысл разошёлся — везде «ни за что не угадаешь, кого я вчера видел»"
+  },
+  {
+   "id": 7109,
+   "col": "example_fr",
+   "old": "Devine qui j'ai vu hier !",
+   "new": "Tu ne devineras jamais qui j'ai vu hier !",
+   "why": "полная вычитка: смысл разошёлся — везде «ни за что не угадаешь, кого я вчера видел»"
+  },
+  {
+   "id": 7109,
+   "col": "example_cs",
+   "old": "Dokážeš uhodnout tu hádanku?",
+   "new": "Nikdy neuhodneš, koho jsem včera viděl!",
+   "why": "полная вычитка: смысл разошёлся — везде «ни за что не угадаешь, кого я вчера видел»"
+  },
+  {
+   "id": 7129,
+   "col": "example_de",
+   "old": "Ich hoffe, ich komme durch diese schwierige Zeit",
+   "new": "Mit einem Gehalt kommt man kaum durch den Monat",
+   "why": "полная вычитка: смысл разошёлся — везде «на одну зарплату трудно протянуть месяц»"
+  },
+  {
+   "id": 7129,
+   "col": "example_ru",
+   "old": "Надеюсь, я пройду через это трудное время",
+   "new": "На одну зарплату трудно протянуть месяц",
+   "why": "полная вычитка: смысл разошёлся — везде «на одну зарплату трудно протянуть месяц»"
+  },
+  {
+   "id": 7129,
+   "col": "example_uk",
+   "old": "Сподіваюся, я пройду через цей важкий час",
+   "new": "На одну зарплату важко протягнути місяць",
+   "why": "полная вычитка: смысл разошёлся — везде «на одну зарплату трудно протянуть месяц»"
+  },
+  {
+   "id": 7129,
+   "col": "example_tr",
+   "old": "Umarım bu zor dönemi atlatırım",
+   "new": "Tek maaşla ayı çıkarmak zor",
+   "why": "полная вычитка: смысл разошёлся — везде «на одну зарплату трудно протянуть месяц»"
+  },
+  {
+   "id": 7129,
+   "col": "example_pl",
+   "old": "Mam nadzieję, że przebrnę przez ten trudny czas",
+   "new": "Z jednej pensji trudno przetrwać miesiąc",
+   "why": "полная вычитка: смысл разошёлся — везде «на одну зарплату трудно протянуть месяц»"
+  },
+  {
+   "id": 7129,
+   "col": "example_cs",
+   "old": "Doufám, že tímhle těžkým obdobím projdu",
+   "new": "S jedním platem se těžko vyjde do konce měsíce",
+   "why": "полная вычитка: смысл разошёлся — везде «на одну зарплату трудно протянуть месяц»"
+  },
+  {
+   "id": 7142,
+   "col": "example_de",
+   "old": "Die Ameise ist winzig klein",
+   "new": "Die Wohnung ist winzig, aber mitten im Zentrum",
+   "why": "полная вычитка: смысл разошёлся (муравей/квартира) — везде «квартира крошечная, зато в самом центре»"
+  },
+  {
+   "id": 7142,
+   "col": "example_ru",
+   "old": "Квартира крошечная, но очень уютная",
+   "new": "Квартира крошечная, зато в самом центре",
+   "why": "полная вычитка: смысл разошёлся (муравей/квартира) — везде «квартира крошечная, зато в самом центре»"
+  },
+  {
+   "id": 7142,
+   "col": "example_uk",
+   "old": "Квартира крихітна, але дуже затишна",
+   "new": "Квартира крихітна, зате в самому центрі",
+   "why": "полная вычитка: смысл разошёлся (муравей/квартира) — везде «квартира крошечная, зато в самом центре»"
+  },
+  {
+   "id": 7142,
+   "col": "example_tr",
+   "old": "Karınca minicik",
+   "new": "Daire minicik ama tam merkezde",
+   "why": "полная вычитка: смысл разошёлся (муравей/квартира) — везде «квартира крошечная, зато в самом центре»"
+  },
+  {
+   "id": 7142,
+   "col": "example_pl",
+   "old": "Mrówka jest malutka",
+   "new": "Mieszkanie jest malutkie, ale w samym centrum",
+   "why": "полная вычитка: смысл разошёлся (муравей/квартира) — везде «квартира крошечная, зато в самом центре»"
+  },
+  {
+   "id": 7142,
+   "col": "example_fr",
+   "old": "L'appartement est minuscule, mais très bien placé",
+   "new": "L'appartement est minuscule, mais en plein centre",
+   "why": "полная вычитка: смысл разошёлся (муравей/квартира) — везде «квартира крошечная, зато в самом центре»"
+  },
+  {
+   "id": 7142,
+   "col": "example_cs",
+   "old": "Mravenec je maličký",
+   "new": "Byt je maličký, ale přímo v centru",
+   "why": "полная вычитка: смысл разошёлся (муравей/квартира) — везде «квартира крошечная, зато в самом центре»"
+  },
+  {
+   "id": 7145,
+   "col": "example_en",
+   "old": "She didn't give way, even when everyone was shouting",
+   "new": "The mother didn't leave his bedside all night",
+   "why": "полная вычитка: en/es/fr «не уступила, хоть все кричали» — «мама всю ночь не отходила от его кровати»"
+  },
+  {
+   "id": 7145,
+   "col": "example_es",
+   "old": "No cedió, aunque todos gritaban",
+   "new": "La madre no se apartó de su cama en toda la noche",
+   "why": "полная вычитка: en/es/fr «не уступила, хоть все кричали» — «мама всю ночь не отходила от его кровати»"
+  },
+  {
+   "id": 7145,
+   "col": "example_fr",
+   "old": "Elle n'a pas cédé, même quand tout le monde criait",
+   "new": "La mère n'a pas quitté son chevet de toute la nuit",
+   "why": "полная вычитка: en/es/fr «не уступила, хоть все кричали» — «мама всю ночь не отходила от его кровати»"
+  },
+  {
+   "id": 7161,
+   "col": "example_uk",
+   "old": "Охоронець вигнав його з бару",
+   "new": "Вони хотіли вигнати його з бару",
+   "why": "полная вычитка: uk/en/it/es/fr «выгнали» — «хотели вышвырнуть его из бара»"
+  },
+  {
+   "id": 7161,
+   "col": "example_en",
+   "old": "They threw him out of the bar",
+   "new": "They wanted to throw him out of the bar",
+   "why": "полная вычитка: uk/en/it/es/fr «выгнали» — «хотели вышвырнуть его из бара»"
+  },
+  {
+   "id": 7161,
+   "col": "example_it",
+   "old": "L'hanno buttato fuori dal bar",
+   "new": "Volevano buttarlo fuori dal bar",
+   "why": "полная вычитка: uk/en/it/es/fr «выгнали» — «хотели вышвырнуть его из бара»"
+  },
+  {
+   "id": 7161,
+   "col": "example_es",
+   "old": "Lo echaron del bar",
+   "new": "Querían echarlo del bar",
+   "why": "полная вычитка: uk/en/it/es/fr «выгнали» — «хотели вышвырнуть его из бара»"
+  },
+  {
+   "id": 7161,
+   "col": "example_fr",
+   "old": "On l'a mis à la porte du bar",
+   "new": "Ils voulaient le mettre à la porte du bar",
+   "why": "полная вычитка: uk/en/it/es/fr «выгнали» — «хотели вышвырнуть его из бара»"
+  },
+  {
+   "id": 7168,
+   "col": "example_en",
+   "old": "Vultures are circling over the field",
+   "new": "The eagle circles over the mountains looking for prey",
+   "why": "полная вычитка: en/fr грифы над полем — «орёл кружит над горами»"
+  },
+  {
+   "id": 7168,
+   "col": "example_fr",
+   "old": "Des vautours tournoient au-dessus du champ",
+   "new": "L'aigle tournoie au-dessus des montagnes à la recherche d'une proie",
+   "why": "полная вычитка: en/fr грифы над полем — «орёл кружит над горами»"
+  },
+  {
+   "id": 7180,
+   "col": "example_de",
+   "old": "Apfel, Birne und dergleichen sind Früchte, die ich gern esse",
+   "new": "Partys, Reden und dergleichen sind nichts für mich",
+   "why": "полная вычитка: смысл разошёлся — везде «вечеринки, речи и тому подобное — не моё»"
+  },
+  {
+   "id": 7180,
+   "col": "example_ru",
+   "old": "Яблоко, груша и тому подобное — фрукты, которые я люблю есть",
+   "new": "Вечеринки, речи и тому подобное — это не моё",
+   "why": "полная вычитка: смысл разошёлся — везде «вечеринки, речи и тому подобное — не моё»"
+  },
+  {
+   "id": 7180,
+   "col": "example_uk",
+   "old": "Яблуко, груша й тому подібне — фрукти, які я люблю їсти",
+   "new": "Вечірки, промови й тому подібне — це не моє",
+   "why": "полная вычитка: смысл разошёлся — везде «вечеринки, речи и тому подобное — не моё»"
+  },
+  {
+   "id": 7180,
+   "col": "example_tr",
+   "old": "Elma, armut ve benzeri meyveleri severek yerim",
+   "new": "Partiler, konuşmalar ve benzeri şeyler bana göre değil",
+   "why": "полная вычитка: смысл разошёлся — везде «вечеринки, речи и тому подобное — не моё»"
+  },
+  {
+   "id": 7180,
+   "col": "example_pl",
+   "old": "Lubię jabłka, gruszki i tym podobne owoce",
+   "new": "Imprezy, przemowy i tym podobne to nie dla mnie",
+   "why": "полная вычитка: смысл разошёлся — везде «вечеринки, речи и тому подобное — не моё»"
+  },
+  {
+   "id": 7180,
+   "col": "example_cs",
+   "old": "Jablka, hrušky a podobně jsou ovoce, které rád jím",
+   "new": "Večírky, proslovy a podobné věci nejsou nic pro mě",
+   "why": "полная вычитка: смысл разошёлся — везде «вечеринки, речи и тому подобное — не моё»"
+  },
+  {
+   "id": 7181,
+   "col": "example_ru",
+   "old": "Для этого тебе нужен специальный инструмент",
+   "new": "Для этого тебе нужен специальный ключ",
+   "why": "полная вычитка: ru/uk «инструмент» — «специальный ключ»"
+  },
+  {
+   "id": 7181,
+   "col": "example_uk",
+   "old": "Для цього тобі потрібен спеціальний інструмент",
+   "new": "Для цього тобі потрібен спеціальний ключ",
+   "why": "полная вычитка: ru/uk «инструмент» — «специальный ключ»"
+  },
+  {
+   "id": 7206,
+   "col": "example_de",
+   "old": "Kannst du das rausbringen?",
+   "new": "Die Band bringt im Herbst ein neues Album raus",
+   "why": "полная вычитка: смысл разошёлся; мусор — шаблон 6735 — второе значение: «группа осенью выпускает новый альбом»"
+  },
+  {
+   "id": 7206,
+   "col": "example_ru",
+   "old": "Вынеси, пожалуйста, мусор",
+   "new": "Группа осенью выпускает новый альбом",
+   "why": "полная вычитка: смысл разошёлся; мусор — шаблон 6735 — второе значение: «группа осенью выпускает новый альбом»"
+  },
+  {
+   "id": 7206,
+   "col": "example_uk",
+   "old": "Винеси, будь ласка, сміття",
+   "new": "Гурт восени випускає новий альбом",
+   "why": "полная вычитка: смысл разошёлся; мусор — шаблон 6735 — второе значение: «группа осенью выпускает новый альбом»"
+  },
+  {
+   "id": 7206,
+   "col": "example_en",
+   "old": "Can you take the rubbish out?",
+   "new": "The band are bringing out a new album in the autumn",
+   "why": "полная вычитка: смысл разошёлся; мусор — шаблон 6735 — второе значение: «группа осенью выпускает новый альбом»"
+  },
+  {
+   "id": 7206,
+   "col": "example_tr",
+   "old": "Bunu dışarı çıkarabilir misin?",
+   "new": "Grup sonbaharda yeni bir albüm çıkarıyor",
+   "why": "полная вычитка: смысл разошёлся; мусор — шаблон 6735 — второе значение: «группа осенью выпускает новый альбом»"
+  },
+  {
+   "id": 7206,
+   "col": "example_pl",
+   "old": "Możesz to wynieść?",
+   "new": "Zespół jesienią wydaje nowy album",
+   "why": "полная вычитка: смысл разошёлся; мусор — шаблон 6735 — второе значение: «группа осенью выпускает новый альбом»"
+  },
+  {
+   "id": 7206,
+   "col": "example_it",
+   "old": "Puoi portare fuori la spazzatura?",
+   "new": "La band fa uscire un nuovo album in autunno",
+   "why": "полная вычитка: смысл разошёлся; мусор — шаблон 6735 — второе значение: «группа осенью выпускает новый альбом»"
+  },
+  {
+   "id": 7206,
+   "col": "example_es",
+   "old": "¿Puedes sacar la basura?",
+   "new": "El grupo saca un disco nuevo en otoño",
+   "why": "полная вычитка: смысл разошёлся; мусор — шаблон 6735 — второе значение: «группа осенью выпускает новый альбом»"
+  },
+  {
+   "id": 7206,
+   "col": "example_fr",
+   "old": "Tu peux sortir la poubelle ?",
+   "new": "Le groupe sort un nouvel album à l'automne",
+   "why": "полная вычитка: смысл разошёлся; мусор — шаблон 6735 — второе значение: «группа осенью выпускает новый альбом»"
+  },
+  {
+   "id": 7206,
+   "col": "example_cs",
+   "old": "Můžeš to vynést?",
+   "new": "Kapela na podzim vydává nové album",
+   "why": "полная вычитка: смысл разошёлся; мусор — шаблон 6735 — второе значение: «группа осенью выпускает новый альбом»"
+  },
+  {
+   "id": 7213,
+   "col": "example_en",
+   "old": "That gives the whole thing a different meaning",
+   "new": "That gives the whole thing a different character",
+   "why": "полная вычитка: en/es/fr «смысл» — «характер»"
+  },
+  {
+   "id": 7213,
+   "col": "example_es",
+   "old": "Eso le da a todo el asunto otro sentido",
+   "new": "Eso le da a todo el asunto otro carácter",
+   "why": "полная вычитка: en/es/fr «смысл» — «характер»"
+  },
+  {
+   "id": 7213,
+   "col": "example_fr",
+   "old": "Ça donne à toute l'affaire un autre sens",
+   "new": "Ça donne à toute l'affaire un autre caractère",
+   "why": "полная вычитка: en/es/fr «смысл» — «характер»"
+  },
+  {
+   "id": 7237,
+   "col": "example_de",
+   "old": "Ich suche den Arzt auf, weil es mir nicht gut geht",
+   "new": "Wenn es nicht besser wird, such einen Arzt auf",
+   "why": "полная вычитка: смысл разошёлся — везде «если не пройдёт, обратись к врачу»"
+  },
+  {
+   "id": 7237,
+   "col": "example_tr",
+   "old": "Kendimi iyi hissetmediğim için doktora gidiyorum",
+   "new": "Geçmezse bir doktora başvur",
+   "why": "полная вычитка: смысл разошёлся — везде «если не пройдёт, обратись к врачу»"
+  },
+  {
+   "id": 7237,
+   "col": "example_pl",
+   "old": "Udaję się do lekarza, bo źle się czuję",
+   "new": "Jeśli nie przejdzie, udaj się do lekarza",
+   "why": "полная вычитка: смысл разошёлся — везде «если не пройдёт, обратись к врачу»"
+  },
+  {
+   "id": 7237,
+   "col": "example_cs",
+   "old": "Zajdu k lékaři, protože mi není dobře",
+   "new": "Jestli to nepřejde, zajdi k lékaři",
+   "why": "полная вычитка: смысл разошёлся — везде «если не пройдёт, обратись к врачу»"
+  },
+  {
+   "id": 7245,
+   "col": "example_de",
+   "old": "Das Auto ist startklar für die Reise",
+   "new": "Sind alle startklar?",
+   "why": "полная вычитка: смысл разошёлся на три — везде «все готовы к выезду?»"
+  },
+  {
+   "id": 7245,
+   "col": "example_ru",
+   "old": "Все сели? Мы готовы к выезду",
+   "new": "Все готовы к выезду?",
+   "why": "полная вычитка: смысл разошёлся на три — везде «все готовы к выезду?»"
+  },
+  {
+   "id": 7245,
+   "col": "example_uk",
+   "old": "Усі сіли? Ми готові вирушати",
+   "new": "Усі готові вирушати?",
+   "why": "полная вычитка: смысл разошёлся на три — везде «все готовы к выезду?»"
+  },
+  {
+   "id": 7245,
+   "col": "example_tr",
+   "old": "Araba yolculuğa hazır",
+   "new": "Herkes yola çıkmaya hazır mı?",
+   "why": "полная вычитка: смысл разошёлся на три — везде «все готовы к выезду?»"
+  },
+  {
+   "id": 7245,
+   "col": "example_pl",
+   "old": "Samochód jest gotowy do drogi",
+   "new": "Wszyscy gotowi do drogi?",
+   "why": "полная вычитка: смысл разошёлся на три — везде «все готовы к выезду?»"
+  },
+  {
+   "id": 7245,
+   "col": "example_cs",
+   "old": "Auto je připravené k odjezdu na cestu",
+   "new": "Jsou všichni připravení k odjezdu?",
+   "why": "полная вычитка: смысл разошёлся на три — везде «все готовы к выезду?»"
+  },
+  {
+   "id": 7262,
+   "col": "example_de",
+   "old": "Ich bin derart müde, dass ich einschlafen könnte",
+   "new": "Ich bin derart müde, dass ich im Stehen einschlafen könnte",
+   "why": "полная вычитка: смысл разошёлся — везде «так устал, что уснул бы стоя»"
+  },
+  {
+   "id": 7262,
+   "col": "example_ru",
+   "old": "Я настолько устал, что уснул прямо в автобусе",
+   "new": "Я настолько устал, что мог бы уснуть стоя",
+   "why": "полная вычитка: смысл разошёлся — везде «так устал, что уснул бы стоя»"
+  },
+  {
+   "id": 7262,
+   "col": "example_uk",
+   "old": "Я настільки втомився, що заснув просто в автобусі",
+   "new": "Я настільки втомився, що міг би заснути стоячи",
+   "why": "полная вычитка: смысл разошёлся — везде «так устал, что уснул бы стоя»"
+  },
+  {
+   "id": 7262,
+   "col": "example_pl",
+   "old": "Jestem tak zmęczony, że mógłbym zasnąć",
+   "new": "Jestem tak zmęczony, że mógłbym zasnąć na stojąco",
+   "why": "полная вычитка: смысл разошёлся — везде «так устал, что уснул бы стоя»"
+  },
+  {
+   "id": 7262,
+   "col": "example_cs",
+   "old": "Jsem tak unavený, že bych mohl usnout",
+   "new": "Jsem tak unavený, že bych usnul vestoje",
+   "why": "полная вычитка: смысл разошёлся — везде «так устал, что уснул бы стоя»"
+  },
+  {
+   "id": 7296,
+   "col": "example_en",
+   "old": "The traffic is a real nuisance in this city",
+   "new": "These mosquitoes are a real plague this summer",
+   "why": "полная вычитка: en/it/es/fr пробки — «комары — настоящая напасть этим летом»"
+  },
+  {
+   "id": 7296,
+   "col": "example_it",
+   "old": "Il traffico è una vera piaga in questa città",
+   "new": "Queste zanzare sono una vera piaga quest'estate",
+   "why": "полная вычитка: en/it/es/fr пробки — «комары — настоящая напасть этим летом»"
+  },
+  {
+   "id": 7296,
+   "col": "example_es",
+   "old": "El tráfico es una auténtica plaga en esta ciudad",
+   "new": "Estos mosquitos son una auténtica plaga este verano",
+   "why": "полная вычитка: en/it/es/fr пробки — «комары — настоящая напасть этим летом»"
+  },
+  {
+   "id": 7296,
+   "col": "example_fr",
+   "old": "Les embouteillages sont un vrai fléau dans cette ville",
+   "new": "Ces moustiques sont un vrai fléau cet été",
+   "why": "полная вычитка: en/it/es/fr пробки — «комары — настоящая напасть этим летом»"
+  },
+  {
+   "id": 7304,
+   "col": "example_ru",
+   "old": "Мы занимаемся в туристической секции при университете и часто ходим в походы",
+   "new": "Мы состоим в мюнхенской секции Альпийского клуба и часто ходим в походы с группой",
+   "why": "полная вычитка: смысл разошёлся — везде «мюнхенская секция Альпийского клуба»"
+  },
+  {
+   "id": 7304,
+   "col": "example_uk",
+   "old": "Ми ходимо в туристичну секцію при університеті й часто вирушаємо в походи",
+   "new": "Ми члени мюнхенської секції Альпійського клубу й часто ходимо в походи з групою",
+   "why": "полная вычитка: смысл разошёлся — везде «мюнхенская секция Альпийского клуба»"
+  },
+  {
+   "id": 7304,
+   "col": "example_en",
+   "old": "We're members of the local section of the Alpine Club",
+   "new": "We're members of the Munich section of the Alpine Club and often go hiking with the group",
+   "why": "полная вычитка: смысл разошёлся — везде «мюнхенская секция Альпийского клуба»"
+  },
+  {
+   "id": 7304,
+   "col": "example_es",
+   "old": "Somos socios de la sección local del Club Alpino",
+   "new": "Somos socios de la sección de Múnich del Club Alpino y hacemos excursiones a menudo con el grupo",
+   "why": "полная вычитка: смысл разошёлся — везде «мюнхенская секция Альпийского клуба»"
+  },
+  {
+   "id": 7304,
+   "col": "example_fr",
+   "old": "On est membres de la section locale du Club alpin",
+   "new": "On est membres de la section de Munich du Club alpin et on fait souvent des randonnées avec le groupe",
+   "why": "полная вычитка: смысл разошёлся — везде «мюнхенская секция Альпийского клуба»"
+  },
+  {
+   "id": 7329,
+   "col": "example_en",
+   "old": "A smell of coffee floats in the air",
+   "new": "The balloon is floating in the air",
+   "why": "полная вычитка: en/it/es/fr запах кофе, листья — «воздушный шар парит в воздухе»"
+  },
+  {
+   "id": 7329,
+   "col": "example_it",
+   "old": "Le foglie fluttuano lente sull'acqua",
+   "new": "Il palloncino fluttua nell'aria",
+   "why": "полная вычитка: en/it/es/fr запах кофе, листья — «воздушный шар парит в воздухе»"
+  },
+  {
+   "id": 7329,
+   "col": "example_es",
+   "old": "Un olor a café flota en el aire",
+   "new": "El globo flota en el aire",
+   "why": "полная вычитка: en/it/es/fr запах кофе, листья — «воздушный шар парит в воздухе»"
+  },
+  {
+   "id": 7329,
+   "col": "example_fr",
+   "old": "Une odeur de café flotte dans l'air",
+   "new": "Le ballon flotte dans l'air",
+   "why": "полная вычитка: en/it/es/fr запах кофе, листья — «воздушный шар парит в воздухе»"
+  },
+  {
+   "id": 7345,
+   "col": "example_ru",
+   "old": "Мы живём примерно в двадцати километрах к востоку от города",
+   "new": "Мы живём примерно в двадцати километрах к востоку от Берлина",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 7345,
+   "col": "example_uk",
+   "old": "Ми живемо приблизно за двадцять кілометрів на схід від Києва",
+   "new": "Ми живемо приблизно за двадцять кілометрів на схід від Берліна",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 7345,
+   "col": "example_en",
+   "old": "We live about twenty kilometres east of York",
+   "new": "We live about twenty kilometres east of Berlin",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 7345,
+   "col": "example_it",
+   "old": "Abitiamo una ventina di chilometri a est di Bologna",
+   "new": "Abitiamo una ventina di chilometri a est di Berlino",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 7345,
+   "col": "example_es",
+   "old": "Vivimos a unos veinte kilómetros al este de Zaragoza",
+   "new": "Vivimos a unos veinte kilómetros al este de Berlín",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 7345,
+   "col": "example_fr",
+   "old": "On habite à une vingtaine de kilomètres à l'est de Lyon",
+   "new": "On habite à une vingtaine de kilomètres à l'est de Berlin",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 7359,
+   "col": "example_fr",
+   "old": "On veut agrandir la cuisine",
+   "new": "On veut agrandir notre commerce et ouvrir de nouvelles boutiques",
+   "why": "полная вычитка: fr «расширить кухню» — «расширить бизнес и открыть магазины»"
+  },
+  {
+   "id": 7398,
+   "col": "example_en",
+   "old": "This knife doesn't cut any more, it needs sharpening",
+   "new": "I need to sharpen my knife before I cook",
+   "why": "полная вычитка: en/it/es/fr «нож не режет» — «надо наточить нож перед готовкой»"
+  },
+  {
+   "id": 7398,
+   "col": "example_it",
+   "old": "Questo coltello non taglia più, bisogna affilarlo",
+   "new": "Devo affilare il coltello prima di cucinare",
+   "why": "полная вычитка: en/it/es/fr «нож не режет» — «надо наточить нож перед готовкой»"
+  },
+  {
+   "id": 7398,
+   "col": "example_es",
+   "old": "Este cuchillo ya no corta, hay que afilarlo",
+   "new": "Tengo que afilar el cuchillo antes de cocinar",
+   "why": "полная вычитка: en/it/es/fr «нож не режет» — «надо наточить нож перед готовкой»"
+  },
+  {
+   "id": 7398,
+   "col": "example_fr",
+   "old": "Ce couteau ne coupe plus, il faut l'aiguiser",
+   "new": "Je dois aiguiser mon couteau avant de cuisiner",
+   "why": "полная вычитка: en/it/es/fr «нож не режет» — «надо наточить нож перед готовкой»"
+  },
+  {
+   "id": 7423,
+   "col": "example_ru",
+   "old": "Ты взял с собой наличные? Там карты не принимают",
+   "new": "Ты взял с собой ключ? Я сегодня поздно буду дома",
+   "why": "полная вычитка: ru/uk наличные, en/es зонт — везде «ключ взял? буду поздно»"
+  },
+  {
+   "id": 7423,
+   "col": "example_uk",
+   "old": "Ти взяв із собою готівку? Там картки не приймають",
+   "new": "Ти взяв із собою ключ? Я сьогодні пізно буду вдома",
+   "why": "полная вычитка: ru/uk наличные, en/es зонт — везде «ключ взял? буду поздно»"
+  },
+  {
+   "id": 7423,
+   "col": "example_en",
+   "old": "Have you taken an umbrella? It's going to rain",
+   "new": "Have you taken your key? I'll be home late today",
+   "why": "полная вычитка: ru/uk наличные, en/es зонт — везде «ключ взял? буду поздно»"
+  },
+  {
+   "id": 7423,
+   "col": "example_es",
+   "old": "¿Te has llevado el paraguas? Va a llover",
+   "new": "¿Te has llevado la llave? Hoy llego tarde a casa",
+   "why": "полная вычитка: ru/uk наличные, en/es зонт — везде «ключ взял? буду поздно»"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
