@@ -1,0 +1,723 @@
+{
+ "about": "полная вычитка p013",
+ "edits": [
+  {
+   "id": 2792,
+   "col": "example_en",
+   "old": "Switch to second gear on the hill!",
+   "new": "How do I switch my phone to flight mode?",
+   "why": "полная вычитка: en/it/es/fr передача — вернуть «включить режим полёта»"
+  },
+  {
+   "id": 2792,
+   "col": "example_it",
+   "old": "In salita cambia marcia!",
+   "new": "Come accendo la modalità aereo sul telefono?",
+   "why": "полная вычитка: en/it/es/fr передача — вернуть «включить режим полёта»"
+  },
+  {
+   "id": 2792,
+   "col": "example_es",
+   "old": "¡En la cuesta cambia de marcha!",
+   "new": "¿Cómo pongo el modo avión en el móvil?",
+   "why": "полная вычитка: en/it/es/fr передача — вернуть «включить режим полёта»"
+  },
+  {
+   "id": 2792,
+   "col": "example_fr",
+   "old": "Change de vitesse avant le virage !",
+   "new": "Comment je passe mon téléphone en mode avion ?",
+   "why": "полная вычитка: en/it/es/fr передача — вернуть «включить режим полёта»"
+  },
+  {
+   "id": 2808,
+   "col": "example_de",
+   "old": "Das ist ja selbstverständlich",
+   "new": "Selbstverständlich komme ich auch!",
+   "why": "полная вычитка: смысл разошёлся — везде «само собой, я тоже приду»"
+  },
+  {
+   "id": 2808,
+   "col": "example_ru",
+   "old": "Это же само собой разумеется",
+   "new": "Само собой, я тоже приду!",
+   "why": "полная вычитка: смысл разошёлся — везде «само собой, я тоже приду»"
+  },
+  {
+   "id": 2808,
+   "col": "example_uk",
+   "old": "Це само собою зрозуміло",
+   "new": "Звісно, я теж прийду!",
+   "why": "полная вычитка: смысл разошёлся — везде «само собой, я тоже приду»"
+  },
+  {
+   "id": 2808,
+   "col": "example_tr",
+   "old": "Bu gayet doğal",
+   "new": "Tabii ki ben de geliyorum!",
+   "why": "полная вычитка: смысл разошёлся — везде «само собой, я тоже приду»"
+  },
+  {
+   "id": 2808,
+   "col": "example_pl",
+   "old": "To przecież oczywiste",
+   "new": "Oczywiście, że też przyjdę!",
+   "why": "полная вычитка: смысл разошёлся — везде «само собой, я тоже приду»"
+  },
+  {
+   "id": 2808,
+   "col": "example_fr",
+   "old": "Mais c'est évident",
+   "new": "Bien sûr que je viens aussi !",
+   "why": "полная вычитка: смысл разошёлся — везде «само собой, я тоже приду»"
+  },
+  {
+   "id": 2808,
+   "col": "example_cs",
+   "old": "To je přece samozřejmé",
+   "new": "Samozřejmě přijdu taky!",
+   "why": "полная вычитка: смысл разошёлся — везде «само собой, я тоже приду»"
+  },
+  {
+   "id": 2809,
+   "col": "example_de",
+   "old": "Welcher Sender sendet heute Abend das Spiel?",
+   "new": "Ich sende dir die Datei heute Abend",
+   "why": "полная вычитка: смысл разошёлся — везде «пришлю файл сегодня вечером»"
+  },
+  {
+   "id": 2809,
+   "col": "example_ru",
+   "old": "Какой канал сегодня вечером передаёт матч?",
+   "new": "Я пришлю тебе файл сегодня вечером",
+   "why": "полная вычитка: смысл разошёлся — везде «пришлю файл сегодня вечером»"
+  },
+  {
+   "id": 2809,
+   "col": "example_uk",
+   "old": "Який канал сьогодні ввечері транслює матч?",
+   "new": "Я надішлю тобі файл сьогодні ввечері",
+   "why": "полная вычитка: смысл разошёлся — везде «пришлю файл сегодня вечером»"
+  },
+  {
+   "id": 2809,
+   "col": "example_tr",
+   "old": "Maçı bu akşam hangi kanal yayınlıyor?",
+   "new": "Dosyayı sana bu akşam gönderirim",
+   "why": "полная вычитка: смысл разошёлся — везде «пришлю файл сегодня вечером»"
+  },
+  {
+   "id": 2809,
+   "col": "example_pl",
+   "old": "Która stacja nadaje dziś wieczorem mecz?",
+   "new": "Wyślę ci plik dziś wieczorem",
+   "why": "полная вычитка: смысл разошёлся — везде «пришлю файл сегодня вечером»"
+  },
+  {
+   "id": 2809,
+   "col": "example_fr",
+   "old": "Quelle chaîne diffuse le match ce soir ?",
+   "new": "Je t'envoie le fichier ce soir",
+   "why": "полная вычитка: смысл разошёлся — везде «пришлю файл сегодня вечером»"
+  },
+  {
+   "id": 2809,
+   "col": "example_cs",
+   "old": "Která stanice dnes večer vysílá ten zápas?",
+   "new": "Pošlu ti ten soubor dnes večer",
+   "why": "полная вычитка: смысл разошёлся — везде «пришлю файл сегодня вечером»"
+  },
+  {
+   "id": 2813,
+   "col": "example_de",
+   "old": "Ich schaue mir eine Serie an",
+   "new": "Wir schauen gerade eine super Serie",
+   "why": "полная вычитка: смысл разошёлся — везде «смотрим классный сериал»"
+  },
+  {
+   "id": 2813,
+   "col": "example_ru",
+   "old": "Я уже неделю не могу оторваться от нового сериала",
+   "new": "Мы сейчас смотрим классный сериал",
+   "why": "полная вычитка: смысл разошёлся — везде «смотрим классный сериал»"
+  },
+  {
+   "id": 2813,
+   "col": "example_uk",
+   "old": "Я вже тиждень не можу відірватися від нового серіалу",
+   "new": "Ми зараз дивимося класний серіал",
+   "why": "полная вычитка: смысл разошёлся — везде «смотрим классный сериал»"
+  },
+  {
+   "id": 2813,
+   "col": "example_tr",
+   "old": "Bir dizi izliyorum",
+   "new": "Şu an harika bir dizi izliyoruz",
+   "why": "полная вычитка: смысл разошёлся — везде «смотрим классный сериал»"
+  },
+  {
+   "id": 2813,
+   "col": "example_pl",
+   "old": "Oglądam serial",
+   "new": "Oglądamy teraz świetny serial",
+   "why": "полная вычитка: смысл разошёлся — везде «смотрим классный сериал»"
+  },
+  {
+   "id": 2813,
+   "col": "example_fr",
+   "old": "Je regarde une série",
+   "new": "On regarde une super série en ce moment",
+   "why": "полная вычитка: смысл разошёлся — везде «смотрим классный сериал»"
+  },
+  {
+   "id": 2813,
+   "col": "example_cs",
+   "old": "Dívám se na seriál",
+   "new": "Teď se díváme na skvělý seriál",
+   "why": "полная вычитка: смысл разошёлся — везде «смотрим классный сериал»"
+  },
+  {
+   "id": 2828,
+   "col": "example_en",
+   "old": "His worries keep him awake at night",
+   "new": "Don't worry",
+   "why": "полная вычитка: en/it/es «заботы не дают спать» — вернуть «не беспокойся»"
+  },
+  {
+   "id": 2828,
+   "col": "example_it",
+   "old": "Le preoccupazioni non lo fanno dormire",
+   "new": "Non preoccuparti",
+   "why": "полная вычитка: en/it/es «заботы не дают спать» — вернуть «не беспокойся»"
+  },
+  {
+   "id": 2828,
+   "col": "example_es",
+   "old": "Las preocupaciones no le dejan dormir",
+   "new": "No te preocupes",
+   "why": "полная вычитка: en/it/es «заботы не дают спать» — вернуть «не беспокойся»"
+  },
+  {
+   "id": 2850,
+   "col": "example_de",
+   "old": "Es stinkt hier",
+   "new": "Der Käse stinkt, aber er schmeckt super",
+   "why": "полная вычитка: смысл разошёлся — везде «сыр воняет, но вкусный»"
+  },
+  {
+   "id": 2850,
+   "col": "example_ru",
+   "old": "Здесь воняет, открой окно",
+   "new": "Сыр воняет, но он очень вкусный",
+   "why": "полная вычитка: смысл разошёлся — везде «сыр воняет, но вкусный»"
+  },
+  {
+   "id": 2850,
+   "col": "example_uk",
+   "old": "Тут смердить, відчини вікно",
+   "new": "Сир смердить, але він дуже смачний",
+   "why": "полная вычитка: смысл разошёлся — везде «сыр воняет, но вкусный»"
+  },
+  {
+   "id": 2850,
+   "col": "example_tr",
+   "old": "Burada çok kötü kokuyor",
+   "new": "Peynir kötü kokuyor ama çok lezzetli",
+   "why": "полная вычитка: смысл разошёлся — везде «сыр воняет, но вкусный»"
+  },
+  {
+   "id": 2850,
+   "col": "example_pl",
+   "old": "Tu śmierdzi",
+   "new": "Ser śmierdzi, ale jest pyszny",
+   "why": "полная вычитка: смысл разошёлся — везде «сыр воняет, но вкусный»"
+  },
+  {
+   "id": 2850,
+   "col": "example_fr",
+   "old": "Ça pue ici",
+   "new": "Le fromage pue, mais il est délicieux",
+   "why": "полная вычитка: смысл разошёлся — везде «сыр воняет, но вкусный»"
+  },
+  {
+   "id": 2850,
+   "col": "example_cs",
+   "old": "Tady to smrdí",
+   "new": "Sýr smrdí, ale je výborný",
+   "why": "полная вычитка: смысл разошёлся — везде «сыр воняет, но вкусный»"
+  },
+  {
+   "id": 2884,
+   "col": "example_de",
+   "old": "Das ist gerade voll im Trend",
+   "new": "Es gibt einen Trend, mehr von zu Hause zu arbeiten",
+   "why": "полная вычитка: смысл разошёлся — везде «тренд: больше работать из дома»"
+  },
+  {
+   "id": 2884,
+   "col": "example_ru",
+   "old": "Это сейчас в тренде",
+   "new": "Сейчас тренд — больше работать из дома",
+   "why": "полная вычитка: смысл разошёлся — везде «тренд: больше работать из дома»"
+  },
+  {
+   "id": 2884,
+   "col": "example_uk",
+   "old": "Це зараз у тренді",
+   "new": "Зараз тренд — більше працювати з дому",
+   "why": "полная вычитка: смысл разошёлся — везде «тренд: больше работать из дома»"
+  },
+  {
+   "id": 2884,
+   "col": "example_tr",
+   "old": "Bu şu an çok trend",
+   "new": "Evden daha çok çalışma yönünde bir trend var",
+   "why": "полная вычитка: смысл разошёлся — везде «тренд: больше работать из дома»"
+  },
+  {
+   "id": 2884,
+   "col": "example_pl",
+   "old": "To teraz wielki trend",
+   "new": "Jest trend, żeby więcej pracować z domu",
+   "why": "полная вычитка: смысл разошёлся — везде «тренд: больше работать из дома»"
+  },
+  {
+   "id": 2884,
+   "col": "example_fr",
+   "old": "C'est très tendance en ce moment",
+   "new": "La tendance, c'est de travailler de plus en plus de chez soi",
+   "why": "полная вычитка: смысл разошёлся — везде «тренд: больше работать из дома»"
+  },
+  {
+   "id": 2884,
+   "col": "example_cs",
+   "old": "Teď je to hodně v trendu",
+   "new": "Je trend víc pracovat z domova",
+   "why": "полная вычитка: смысл разошёлся — везде «тренд: больше работать из дома»"
+  },
+  {
+   "id": 2887,
+   "col": "example_en",
+   "old": "Water's dripping from the ceiling",
+   "new": "The tap has been dripping for days",
+   "why": "полная вычитка: en/it/es потолок — вернуть «кран капает уже несколько дней»"
+  },
+  {
+   "id": 2887,
+   "col": "example_it",
+   "old": "Dal soffitto gocciola acqua",
+   "new": "Il rubinetto gocciola da giorni",
+   "why": "полная вычитка: en/it/es потолок — вернуть «кран капает уже несколько дней»"
+  },
+  {
+   "id": 2887,
+   "col": "example_es",
+   "old": "Del techo gotea agua",
+   "new": "El grifo lleva días goteando",
+   "why": "полная вычитка: en/it/es потолок — вернуть «кран капает уже несколько дней»"
+  },
+  {
+   "id": 2892,
+   "col": "example_ru",
+   "old": "При передаче квартиры хозяин вручил нам все документы",
+   "new": "При передаче квартиры хозяин вручил нам все ключи",
+   "why": "полная вычитка: ru «документы» вместо ключей"
+  },
+  {
+   "id": 2898,
+   "col": "example_de",
+   "old": "Du überraschst mich",
+   "new": "Du überraschst mich immer wieder",
+   "why": "полная вычитка: смысл разошёлся — везде «ты меня каждый раз удивляешь»"
+  },
+  {
+   "id": 2898,
+   "col": "example_en",
+   "old": "You surprised me with that news",
+   "new": "You never stop surprising me",
+   "why": "полная вычитка: смысл разошёлся — везде «ты меня каждый раз удивляешь»"
+  },
+  {
+   "id": 2898,
+   "col": "example_tr",
+   "old": "Beni şaşırtıyorsun",
+   "new": "Beni her seferinde şaşırtıyorsun",
+   "why": "полная вычитка: смысл разошёлся — везде «ты меня каждый раз удивляешь»"
+  },
+  {
+   "id": 2898,
+   "col": "example_pl",
+   "old": "Zaskakujesz mnie",
+   "new": "Za każdym razem mnie zaskakujesz",
+   "why": "полная вычитка: смысл разошёлся — везде «ты меня каждый раз удивляешь»"
+  },
+  {
+   "id": 2898,
+   "col": "example_it",
+   "old": "Mi hai sorpreso con questa notizia",
+   "new": "Mi sorprendi ogni volta",
+   "why": "полная вычитка: смысл разошёлся — везде «ты меня каждый раз удивляешь»"
+  },
+  {
+   "id": 2898,
+   "col": "example_es",
+   "old": "Me has sorprendido con esta noticia",
+   "new": "Siempre me sorprendes",
+   "why": "полная вычитка: смысл разошёлся — везде «ты меня каждый раз удивляешь»"
+  },
+  {
+   "id": 2898,
+   "col": "example_fr",
+   "old": "Tu me surprends",
+   "new": "Tu me surprends à chaque fois",
+   "why": "полная вычитка: смысл разошёлся — везде «ты меня каждый раз удивляешь»"
+  },
+  {
+   "id": 2898,
+   "col": "example_cs",
+   "old": "Překvapuješ mě",
+   "new": "Pokaždé mě překvapíš",
+   "why": "полная вычитка: смысл разошёлся — везде «ты меня каждый раз удивляешь»"
+  },
+  {
+   "id": 2906,
+   "col": "example_de",
+   "old": "Das ist hier üblich",
+   "new": "Hier ist es üblich, Trinkgeld zu geben",
+   "why": "полная вычитка: смысл разошёлся — везде «здесь принято оставлять чаевые»"
+  },
+  {
+   "id": 2906,
+   "col": "example_tr",
+   "old": "Bu burada olağan",
+   "new": "Burada bahşiş bırakmak olağan",
+   "why": "полная вычитка: смысл разошёлся — везде «здесь принято оставлять чаевые»"
+  },
+  {
+   "id": 2906,
+   "col": "example_pl",
+   "old": "Tak jest tu przyjęte",
+   "new": "Tu przyjęte jest zostawianie napiwków",
+   "why": "полная вычитка: смысл разошёлся — везде «здесь принято оставлять чаевые»"
+  },
+  {
+   "id": 2906,
+   "col": "example_fr",
+   "old": "C'est courant ici",
+   "new": "Ici, il est courant de laisser un pourboire",
+   "why": "полная вычитка: смысл разошёлся — везде «здесь принято оставлять чаевые»"
+  },
+  {
+   "id": 2906,
+   "col": "example_cs",
+   "old": "Tady je to obvyklé",
+   "new": "Tady je obvyklé dávat spropitné",
+   "why": "полная вычитка: смысл разошёлся — везде «здесь принято оставлять чаевые»"
+  },
+  {
+   "id": 2909,
+   "col": "example_fr",
+   "old": "Il a un très bon contact avec les enfants",
+   "new": "L'utilisation de la nouvelle appli est plus simple que je pensais",
+   "why": "полная вычитка: fr другой смысл (контакт с детьми)"
+  },
+  {
+   "id": 2944,
+   "col": "example_ru",
+   "old": "Цены здесь сопоставимы со столичными",
+   "new": "Цены здесь сопоставимы с берлинскими",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 2944,
+   "col": "example_uk",
+   "old": "Ціни тут порівнянні з київськими",
+   "new": "Ціни тут порівнянні з берлінськими",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 2944,
+   "col": "example_en",
+   "old": "Prices here are comparable to London",
+   "new": "Prices here are comparable to Berlin",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 2944,
+   "col": "example_it",
+   "old": "I prezzi qui sono paragonabili a quelli di Milano",
+   "new": "I prezzi qui sono paragonabili a quelli di Berlino",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 2944,
+   "col": "example_es",
+   "old": "Los precios aquí son comparables a los de Madrid",
+   "new": "Los precios aquí son comparables a los de Berlín",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 2953,
+   "col": "example_de",
+   "old": "Ich vermisse dich",
+   "new": "Vermisst du deine Familie?",
+   "why": "полная вычитка: смысл разошёлся — везде «скучаешь по семье?»"
+  },
+  {
+   "id": 2953,
+   "col": "example_ru",
+   "old": "Я скучаю по тебе",
+   "new": "Ты скучаешь по своей семье?",
+   "why": "полная вычитка: смысл разошёлся — везде «скучаешь по семье?»"
+  },
+  {
+   "id": 2953,
+   "col": "example_uk",
+   "old": "Я сумую за тобою",
+   "new": "Ти сумуєш за своєю родиною?",
+   "why": "полная вычитка: смысл разошёлся — везде «скучаешь по семье?»"
+  },
+  {
+   "id": 2953,
+   "col": "example_tr",
+   "old": "Seni özlüyorum",
+   "new": "Aileni özlüyor musun?",
+   "why": "полная вычитка: смысл разошёлся — везде «скучаешь по семье?»"
+  },
+  {
+   "id": 2953,
+   "col": "example_pl",
+   "old": "Tęsknię za tobą",
+   "new": "Tęsknisz za rodziną?",
+   "why": "полная вычитка: смысл разошёлся — везде «скучаешь по семье?»"
+  },
+  {
+   "id": 2953,
+   "col": "example_fr",
+   "old": "Tu me manques",
+   "new": "Ta famille te manque ?",
+   "why": "полная вычитка: смысл разошёлся — везде «скучаешь по семье?»"
+  },
+  {
+   "id": 2953,
+   "col": "example_cs",
+   "old": "Chybíš mi",
+   "new": "Stýská se ti po rodině?",
+   "why": "полная вычитка: смысл разошёлся — везде «скучаешь по семье?»"
+  },
+  {
+   "id": 2963,
+   "col": "example_de",
+   "old": "Verschwende keine Zeit",
+   "new": "Verschwende kein Wasser!",
+   "why": "полная вычитка: смысл разошёлся — везде «не трать воду зря»"
+  },
+  {
+   "id": 2963,
+   "col": "example_ru",
+   "old": "Не трать время впустую",
+   "new": "Не трать воду зря!",
+   "why": "полная вычитка: смысл разошёлся — везде «не трать воду зря»"
+  },
+  {
+   "id": 2963,
+   "col": "example_uk",
+   "old": "Не марнуй час",
+   "new": "Не марнуй воду!",
+   "why": "полная вычитка: смысл разошёлся — везде «не трать воду зря»"
+  },
+  {
+   "id": 2963,
+   "col": "example_tr",
+   "old": "Zamanı israf etme",
+   "new": "Suyu israf etme!",
+   "why": "полная вычитка: смысл разошёлся — везде «не трать воду зря»"
+  },
+  {
+   "id": 2963,
+   "col": "example_pl",
+   "old": "Nie marnuj czasu",
+   "new": "Nie marnuj wody!",
+   "why": "полная вычитка: смысл разошёлся — везде «не трать воду зря»"
+  },
+  {
+   "id": 2963,
+   "col": "example_fr",
+   "old": "Ne gaspille pas ton temps",
+   "new": "Ne gaspille pas l'eau !",
+   "why": "полная вычитка: смысл разошёлся — везде «не трать воду зря»"
+  },
+  {
+   "id": 2963,
+   "col": "example_cs",
+   "old": "Neplýtvej časem",
+   "new": "Neplýtvej vodou!",
+   "why": "полная вычитка: смысл разошёлся — везде «не трать воду зря»"
+  },
+  {
+   "id": 2972,
+   "col": "example_de",
+   "old": "Ich habe Verständnis dafür",
+   "new": "Danke für Ihr Verständnis",
+   "why": "полная вычитка: смысл разошёлся — везде «спасибо за понимание»"
+  },
+  {
+   "id": 2972,
+   "col": "example_ru",
+   "old": "Я отношусь к этому с пониманием",
+   "new": "Спасибо за понимание",
+   "why": "полная вычитка: смысл разошёлся — везде «спасибо за понимание»"
+  },
+  {
+   "id": 2972,
+   "col": "example_uk",
+   "old": "Я ставлюся до цього з розумінням",
+   "new": "Дякуємо за розуміння",
+   "why": "полная вычитка: смысл разошёлся — везде «спасибо за понимание»"
+  },
+  {
+   "id": 2972,
+   "col": "example_tr",
+   "old": "Bunu anlayışla karşılıyorum",
+   "new": "Anlayışınız için teşekkürler",
+   "why": "полная вычитка: смысл разошёлся — везде «спасибо за понимание»"
+  },
+  {
+   "id": 2972,
+   "col": "example_pl",
+   "old": "Mam dla tego zrozumienie",
+   "new": "Dziękujemy za zrozumienie",
+   "why": "полная вычитка: смысл разошёлся — везде «спасибо за понимание»"
+  },
+  {
+   "id": 2972,
+   "col": "example_fr",
+   "old": "Merci pour ta compréhension",
+   "new": "Merci de votre compréhension",
+   "why": "полная вычитка: смысл разошёлся — везде «спасибо за понимание»"
+  },
+  {
+   "id": 2972,
+   "col": "example_cs",
+   "old": "Mám pro to pochopení",
+   "new": "Děkujeme za pochopení",
+   "why": "полная вычитка: смысл разошёлся — везде «спасибо за понимание»"
+  },
+  {
+   "id": 2975,
+   "col": "example_en",
+   "old": "Anyone breaking the ban gets a fine",
+   "new": "You're breaking the rules",
+   "why": "полная вычитка: en/it/es запрет и штраф — вернуть «ты нарушаешь правила»"
+  },
+  {
+   "id": 2975,
+   "col": "example_it",
+   "old": "Chi viola il divieto paga una multa",
+   "new": "Stai violando le regole",
+   "why": "полная вычитка: en/it/es запрет и штраф — вернуть «ты нарушаешь правила»"
+  },
+  {
+   "id": 2975,
+   "col": "example_es",
+   "old": "Quien infringe la prohibición paga una multa",
+   "new": "Estás infringiendo las normas",
+   "why": "полная вычитка: en/it/es запрет и штраф — вернуть «ты нарушаешь правила»"
+  },
+  {
+   "id": 2999,
+   "col": "example_en",
+   "old": "The warmth of the fire is lovely",
+   "new": "She radiates so much warmth",
+   "why": "полная вычитка: en/it/es камин — вернуть «от неё исходит тепло»"
+  },
+  {
+   "id": 2999,
+   "col": "example_it",
+   "old": "Il calore del camino è piacevolissimo",
+   "new": "Emana tanto calore",
+   "why": "полная вычитка: en/it/es камин — вернуть «от неё исходит тепло»"
+  },
+  {
+   "id": 2999,
+   "col": "example_es",
+   "old": "El calor de la chimenea es agradabilísimo",
+   "new": "Transmite mucha calidez",
+   "why": "полная вычитка: en/it/es камин — вернуть «от неё исходит тепло»"
+  },
+  {
+   "id": 3006,
+   "col": "example_en",
+   "old": "I'm throwing the old boxes away",
+   "new": "You can just throw that away",
+   "why": "полная вычитка: en/it/es коробки — вернуть «можешь спокойно выбросить»"
+  },
+  {
+   "id": 3006,
+   "col": "example_it",
+   "old": "Le scatole vecchie le butto via",
+   "new": "Puoi buttarlo via tranquillamente",
+   "why": "полная вычитка: en/it/es коробки — вернуть «можешь спокойно выбросить»"
+  },
+  {
+   "id": 3006,
+   "col": "example_es",
+   "old": "Las cajas viejas las tiro",
+   "new": "Eso lo puedes tirar tranquilamente",
+   "why": "полная вычитка: en/it/es коробки — вернуть «можешь спокойно выбросить»"
+  },
+  {
+   "id": 3059,
+   "col": "example_de",
+   "old": "Ich fahre morgen zurück",
+   "new": "Fahren wir mit dem Zug oder mit dem Auto zurück?",
+   "why": "полная вычитка: смысл разошёлся — везде «обратно поездом или машиной?»"
+  },
+  {
+   "id": 3059,
+   "col": "example_ru",
+   "old": "Я возвращаюсь завтра вечерним поездом",
+   "new": "Поедем обратно на поезде или на машине?",
+   "why": "полная вычитка: смысл разошёлся — везде «обратно поездом или машиной?»"
+  },
+  {
+   "id": 3059,
+   "col": "example_uk",
+   "old": "Я повертаюся завтра вечірнім потягом",
+   "new": "Поїдемо назад поїздом чи машиною?",
+   "why": "полная вычитка: смысл разошёлся — везде «обратно поездом или машиной?»"
+  },
+  {
+   "id": 3059,
+   "col": "example_tr",
+   "old": "Yarın geri dönüyorum",
+   "new": "Trenle mi dönelim, arabayla mı?",
+   "why": "полная вычитка: смысл разошёлся — везде «обратно поездом или машиной?»"
+  },
+  {
+   "id": 3059,
+   "col": "example_pl",
+   "old": "Jutro jadę z powrotem",
+   "new": "Wracamy pociągiem czy samochodem?",
+   "why": "полная вычитка: смысл разошёлся — везде «обратно поездом или машиной?»"
+  },
+  {
+   "id": 3059,
+   "col": "example_fr",
+   "old": "Je rentre demain",
+   "new": "On rentre en train ou en voiture ?",
+   "why": "полная вычитка: смысл разошёлся — везде «обратно поездом или машиной?»"
+  },
+  {
+   "id": 3059,
+   "col": "example_cs",
+   "old": "Zítra jedu zpátky",
+   "new": "Pojedeme zpátky vlakem, nebo autem?",
+   "why": "полная вычитка: смысл разошёлся — везде «обратно поездом или машиной?»"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
