@@ -1,0 +1,1360 @@
+{
+ "about": "полная вычитка p021",
+ "edits": [
+  {
+   "id": 13008,
+   "col": "example_de",
+   "old": "Die Entzündung ist endlich verheilt",
+   "new": "Ich habe eine Entzündung im Knie",
+   "why": "полная вычитка: смысл разошёлся — везде «у меня воспаление в колене»"
+  },
+  {
+   "id": 13008,
+   "col": "example_ru",
+   "old": "Воспаление наконец прошло",
+   "new": "У меня воспаление в колене",
+   "why": "полная вычитка: смысл разошёлся — везде «у меня воспаление в колене»"
+  },
+  {
+   "id": 13008,
+   "col": "example_uk",
+   "old": "Запалення нарешті минуло",
+   "new": "У мене запалення в коліні",
+   "why": "полная вычитка: смысл разошёлся — везде «у меня воспаление в колене»"
+  },
+  {
+   "id": 13008,
+   "col": "example_tr",
+   "old": "İltihap sonunda iyileşti",
+   "new": "Dizimde iltihap var",
+   "why": "полная вычитка: смысл разошёлся — везде «у меня воспаление в колене»"
+  },
+  {
+   "id": 13008,
+   "col": "example_pl",
+   "old": "Zapalenie w końcu się wygoiło",
+   "new": "Mam zapalenie w kolanie",
+   "why": "полная вычитка: смысл разошёлся — везде «у меня воспаление в колене»"
+  },
+  {
+   "id": 13008,
+   "col": "example_cs",
+   "old": "Zánět se konečně zahojil",
+   "new": "Mám zánět v koleni",
+   "why": "полная вычитка: смысл разошёлся — везде «у меня воспаление в колене»"
+  },
+  {
+   "id": 13059,
+   "col": "example_de",
+   "old": "Wenn ich erkältet bin, tut mir die Luftröhre weh",
+   "new": "Ein Stück Apfel ist mir in die Luftröhre geraten",
+   "why": "полная вычитка: смысл разошёлся — везде «кусочек яблока попал в трахею»"
+  },
+  {
+   "id": 13059,
+   "col": "example_ru",
+   "old": "Когда я простужен, у меня болит трахея",
+   "new": "Кусочек яблока попал мне в трахею",
+   "why": "полная вычитка: смысл разошёлся — везде «кусочек яблока попал в трахею»"
+  },
+  {
+   "id": 13059,
+   "col": "example_uk",
+   "old": "Коли я застуджуюсь, у мене болить трахея",
+   "new": "Шматочок яблука потрапив мені в трахею",
+   "why": "полная вычитка: смысл разошёлся — везде «кусочек яблока попал в трахею»"
+  },
+  {
+   "id": 13059,
+   "col": "example_tr",
+   "old": "Üşüttüğümde nefes borum ağrıyor",
+   "new": "Bir parça elma nefes boruma kaçtı",
+   "why": "полная вычитка: смысл разошёлся — везде «кусочек яблока попал в трахею»"
+  },
+  {
+   "id": 13059,
+   "col": "example_pl",
+   "old": "Kiedy jestem przeziębiony, boli mnie tchawica",
+   "new": "Kawałek jabłka wpadł mi do tchawicy",
+   "why": "полная вычитка: смысл разошёлся — везде «кусочек яблока попал в трахею»"
+  },
+  {
+   "id": 13059,
+   "col": "example_it",
+   "old": "Quando ho il raffreddore mi fa male la trachea",
+   "new": "Un pezzo di mela mi è andato nella trachea",
+   "why": "полная вычитка: смысл разошёлся — везде «кусочек яблока попал в трахею»"
+  },
+  {
+   "id": 13059,
+   "col": "example_cs",
+   "old": "Když jsem nachlazený, bolí mě průdušnice",
+   "new": "Kousek jablka mi zaskočil do průdušnice",
+   "why": "полная вычитка: смысл разошёлся — везде «кусочек яблока попал в трахею»"
+  },
+  {
+   "id": 13060,
+   "col": "example_ru",
+   "old": "После концерта у него был совсем хриплый голос",
+   "new": "После концерта в Мюнхене у него был совсем хриплый голос",
+   "why": "полная вычитка: en/es/fr матч и крик, ru/uk без Мюнхена — «после концерта в Мюнхене хриплый голос»"
+  },
+  {
+   "id": 13060,
+   "col": "example_uk",
+   "old": "Після концерту в нього був зовсім хрипкий голос",
+   "new": "Після концерту в Мюнхені в нього був зовсім хрипкий голос",
+   "why": "полная вычитка: en/es/fr матч и крик, ru/uk без Мюнхена — «после концерта в Мюнхене хриплый голос»"
+  },
+  {
+   "id": 13060,
+   "col": "example_en",
+   "old": "After the match my voice was hoarse from shouting",
+   "new": "After the concert in Munich his voice was hoarse",
+   "why": "полная вычитка: en/es/fr матч и крик, ru/uk без Мюнхена — «после концерта в Мюнхене хриплый голос»"
+  },
+  {
+   "id": 13060,
+   "col": "example_es",
+   "old": "Después del partido tenía la voz ronca de tanto gritar",
+   "new": "Después del concierto en Múnich tenía la voz ronca",
+   "why": "полная вычитка: en/es/fr матч и крик, ru/uk без Мюнхена — «после концерта в Мюнхене хриплый голос»"
+  },
+  {
+   "id": 13060,
+   "col": "example_fr",
+   "old": "Après le match, j'avais la voix enrouée à force de crier",
+   "new": "Après le concert à Munich, il avait la voix enrouée",
+   "why": "полная вычитка: en/es/fr матч и крик, ru/uk без Мюнхена — «после концерта в Мюнхене хриплый голос»"
+  },
+  {
+   "id": 13096,
+   "col": "example_en",
+   "old": "The little one complains of tummy ache every Monday morning",
+   "new": "The child has tummy ache and can't go to school",
+   "why": "полная вычитка: en/es/fr «каждый понедельник» — «болит живот, не может идти в школу»"
+  },
+  {
+   "id": 13096,
+   "col": "example_es",
+   "old": "El peque se queja de dolor de tripa todos los lunes por la mañana",
+   "new": "El niño tiene dolor de tripa y no puede ir al colegio",
+   "why": "полная вычитка: en/es/fr «каждый понедельник» — «болит живот, не может идти в школу»"
+  },
+  {
+   "id": 13096,
+   "col": "example_fr",
+   "old": "Le petit se plaint d'un mal de ventre tous les lundis matin",
+   "new": "L'enfant a mal au ventre et ne peut pas aller à l'école",
+   "why": "полная вычитка: en/es/fr «каждый понедельник» — «болит живот, не может идти в школу»"
+  },
+  {
+   "id": 13097,
+   "col": "example_de",
+   "old": "Ich gehe zum Hausarzt, wenn ich krank bin",
+   "new": "Mein Hausarzt geht in Rente, ich muss einen neuen finden",
+   "why": "полная вычитка: смысл разошёлся — везде «семейный врач уходит на пенсию»"
+  },
+  {
+   "id": 13097,
+   "col": "example_ru",
+   "old": "Я иду к семейному врачу, когда болею",
+   "new": "Мой семейный врач уходит на пенсию, мне нужно искать нового",
+   "why": "полная вычитка: смысл разошёлся — везде «семейный врач уходит на пенсию»"
+  },
+  {
+   "id": 13097,
+   "col": "example_uk",
+   "old": "Я йду до сімейного лікаря, коли хворію",
+   "new": "Мій сімейний лікар іде на пенсію, мені треба шукати нового",
+   "why": "полная вычитка: смысл разошёлся — везде «семейный врач уходит на пенсию»"
+  },
+  {
+   "id": 13097,
+   "col": "example_tr",
+   "old": "Hasta olunca aile hekimime gidiyorum",
+   "new": "Aile hekimim emekli oluyor, yenisini bulmam lazım",
+   "why": "полная вычитка: смысл разошёлся — везде «семейный врач уходит на пенсию»"
+  },
+  {
+   "id": 13097,
+   "col": "example_pl",
+   "old": "Idę do lekarza rodzinnego, kiedy jestem chory",
+   "new": "Mój lekarz rodzinny przechodzi na emeryturę, muszę znaleźć nowego",
+   "why": "полная вычитка: смысл разошёлся — везде «семейный врач уходит на пенсию»"
+  },
+  {
+   "id": 13097,
+   "col": "example_cs",
+   "old": "Když jsem nemocný, jdu k praktickému lékaři",
+   "new": "Můj praktický lékař jde do důchodu, musím si najít nového",
+   "why": "полная вычитка: смысл разошёлся — везде «семейный врач уходит на пенсию»"
+  },
+  {
+   "id": 13103,
+   "col": "example_de",
+   "old": "Der Student gähnt während der Vorlesung, weil er müde ist",
+   "new": "Hör auf zu gähnen, das steckt an!",
+   "why": "полная вычитка: смысл разошёлся — везде «перестань зевать, это заразно»"
+  },
+  {
+   "id": 13103,
+   "col": "example_ru",
+   "old": "Студенты зевают на скучной лекции",
+   "new": "Перестань зевать, это заразно!",
+   "why": "полная вычитка: смысл разошёлся — везде «перестань зевать, это заразно»"
+  },
+  {
+   "id": 13103,
+   "col": "example_uk",
+   "old": "Студенти позіхають на нудній лекції",
+   "new": "Перестань позіхати, це заразно!",
+   "why": "полная вычитка: смысл разошёлся — везде «перестань зевать, это заразно»"
+  },
+  {
+   "id": 13103,
+   "col": "example_tr",
+   "old": "Öğrenci derste esniyor çünkü yorgun",
+   "new": "Esnemeyi bırak, bulaşıcı!",
+   "why": "полная вычитка: смысл разошёлся — везде «перестань зевать, это заразно»"
+  },
+  {
+   "id": 13103,
+   "col": "example_pl",
+   "old": "Student ziewa na wykładzie, bo jest zmęczony",
+   "new": "Przestań ziewać, to zaraźliwe!",
+   "why": "полная вычитка: смысл разошёлся — везде «перестань зевать, это заразно»"
+  },
+  {
+   "id": 13103,
+   "col": "example_it",
+   "old": "Lo studente sbadiglia durante la lezione perché è stanco",
+   "new": "Smettila di sbadigliare, è contagioso!",
+   "why": "полная вычитка: смысл разошёлся — везде «перестань зевать, это заразно»"
+  },
+  {
+   "id": 13103,
+   "col": "example_cs",
+   "old": "Student během přednášky zívá, protože je unavený",
+   "new": "Přestaň zívat, je to nakažlivé!",
+   "why": "полная вычитка: смысл разошёлся — везде «перестань зевать, это заразно»"
+  },
+  {
+   "id": 13141,
+   "col": "example_en",
+   "old": "It's just a graze, no need for a plaster",
+   "new": "After the fall the child has a graze on his knee",
+   "why": "полная вычитка: en/es/fr «пластырь не нужен» — «после падения царапина на колене»"
+  },
+  {
+   "id": 13141,
+   "col": "example_es",
+   "old": "Solo es un rasguño, no hace falta tirita",
+   "new": "Después de la caída el niño tiene un rasguño en la rodilla",
+   "why": "полная вычитка: en/es/fr «пластырь не нужен» — «после падения царапина на колене»"
+  },
+  {
+   "id": 13141,
+   "col": "example_fr",
+   "old": "Ce n'est qu'une égratignure, pas besoin de pansement",
+   "new": "Après sa chute, l'enfant a une égratignure au genou",
+   "why": "полная вычитка: en/es/fr «пластырь не нужен» — «после падения царапина на колене»"
+  },
+  {
+   "id": 13168,
+   "col": "example_de",
+   "old": "Der Hustensaft schmeckt eklig, aber er hilft",
+   "new": "Kannst du kurz in die Apotheke gehen und Hustensaft holen?",
+   "why": "полная вычитка: смысл разошёлся; «противный на вкус» — двойник 11851 — везде «сбегай в аптеку за сиропом от кашля»"
+  },
+  {
+   "id": 13168,
+   "col": "example_ru",
+   "old": "Сироп от кашля противный на вкус, но помогает",
+   "new": "Можешь сбегать в аптеку за сиропом от кашля?",
+   "why": "полная вычитка: смысл разошёлся; «противный на вкус» — двойник 11851 — везде «сбегай в аптеку за сиропом от кашля»"
+  },
+  {
+   "id": 13168,
+   "col": "example_uk",
+   "old": "Сироп від кашлю гидкий на смак, але допомагає",
+   "new": "Можеш збігати в аптеку по сироп від кашлю?",
+   "why": "полная вычитка: смысл разошёлся; «противный на вкус» — двойник 11851 — везде «сбегай в аптеку за сиропом от кашля»"
+  },
+  {
+   "id": 13168,
+   "col": "example_tr",
+   "old": "Öksürük şurubunun tadı iğrenç ama işe yarıyor",
+   "new": "Eczaneye uğrayıp öksürük şurubu alabilir misin?",
+   "why": "полная вычитка: смысл разошёлся; «противный на вкус» — двойник 11851 — везде «сбегай в аптеку за сиропом от кашля»"
+  },
+  {
+   "id": 13168,
+   "col": "example_pl",
+   "old": "Syrop na kaszel smakuje okropnie, ale pomaga",
+   "new": "Możesz skoczyć do apteki po syrop na kaszel?",
+   "why": "полная вычитка: смысл разошёлся; «противный на вкус» — двойник 11851 — везде «сбегай в аптеку за сиропом от кашля»"
+  },
+  {
+   "id": 13168,
+   "col": "example_it",
+   "old": "Lo sciroppo per la tosse ha un sapore schifoso, ma funziona",
+   "new": "Puoi fare un salto in farmacia a prendere lo sciroppo per la tosse?",
+   "why": "полная вычитка: смысл разошёлся; «противный на вкус» — двойник 11851 — везде «сбегай в аптеку за сиропом от кашля»"
+  },
+  {
+   "id": 13168,
+   "col": "example_cs",
+   "old": "Sirup proti kašli je hnusný, ale pomáhá",
+   "new": "Můžeš skočit do lékárny pro sirup proti kašli?",
+   "why": "полная вычитка: смысл разошёлся; «противный на вкус» — двойник 11851 — везде «сбегай в аптеку за сиропом от кашля»"
+  },
+  {
+   "id": 13369,
+   "col": "example_en",
+   "old": "Have you got anything to eat?",
+   "new": "I need something to eat",
+   "why": "полная вычитка: en/it/es/fr вопрос — «мне нужно что-нибудь поесть»"
+  },
+  {
+   "id": 13369,
+   "col": "example_it",
+   "old": "Hai qualcosa da mangiare?",
+   "new": "Ho bisogno di qualcosa da mangiare",
+   "why": "полная вычитка: en/it/es/fr вопрос — «мне нужно что-нибудь поесть»"
+  },
+  {
+   "id": 13369,
+   "col": "example_es",
+   "old": "¿Tienes algo de comer?",
+   "new": "Necesito algo de comer",
+   "why": "полная вычитка: en/it/es/fr вопрос — «мне нужно что-нибудь поесть»"
+  },
+  {
+   "id": 13369,
+   "col": "example_fr",
+   "old": "Tu as quelque chose à manger ?",
+   "new": "J'ai besoin de quelque chose à manger",
+   "why": "полная вычитка: en/it/es/fr вопрос — «мне нужно что-нибудь поесть»"
+  },
+  {
+   "id": 13394,
+   "col": "example_en",
+   "old": "Come over here, there's room",
+   "new": "I'm just popping over to the neighbour's",
+   "why": "полная вычитка: en/it/es/fr «иди сюда, есть место» (двойник 7737) — «схожу к соседу»"
+  },
+  {
+   "id": 13394,
+   "col": "example_it",
+   "old": "Vieni di qua, c'è posto",
+   "new": "Faccio un salto dal vicino",
+   "why": "полная вычитка: en/it/es/fr «иди сюда, есть место» (двойник 7737) — «схожу к соседу»"
+  },
+  {
+   "id": 13394,
+   "col": "example_es",
+   "old": "Ven para acá, que aquí hay sitio",
+   "new": "Voy un momento a casa del vecino",
+   "why": "полная вычитка: en/it/es/fr «иди сюда, есть место» (двойник 7737) — «схожу к соседу»"
+  },
+  {
+   "id": 13394,
+   "col": "example_fr",
+   "old": "Viens par ici, il y a de la place",
+   "new": "Je passe vite chez le voisin",
+   "why": "полная вычитка: en/it/es/fr «иди сюда, есть место» (двойник 7737) — «схожу к соседу»"
+  },
+  {
+   "id": 13407,
+   "col": "example_en",
+   "old": "I have neither the time nor the money",
+   "new": "Neither you nor I know",
+   "why": "полная вычитка: en/it/es/fr «ни времени, ни денег» — «ни ты, ни я не знаем»"
+  },
+  {
+   "id": 13407,
+   "col": "example_it",
+   "old": "Non ho né tempo né soldi",
+   "new": "Né tu né io lo sappiamo",
+   "why": "полная вычитка: en/it/es/fr «ни времени, ни денег» — «ни ты, ни я не знаем»"
+  },
+  {
+   "id": 13407,
+   "col": "example_es",
+   "old": "No tengo ni tiempo ni dinero",
+   "new": "Ni tú ni yo lo sabemos",
+   "why": "полная вычитка: en/it/es/fr «ни времени, ни денег» — «ни ты, ни я не знаем»"
+  },
+  {
+   "id": 13407,
+   "col": "example_fr",
+   "old": "Je n'ai ni le temps ni l'argent",
+   "new": "Ni toi ni moi ne le savons",
+   "why": "полная вычитка: en/it/es/fr «ни времени, ни денег» — «ни ты, ни я не знаем»"
+  },
+  {
+   "id": 13412,
+   "col": "example_fr",
+   "old": "Les deux frères jouent bien ensemble",
+   "new": "Depuis la dispute, ces deux-là ne se parlent plus",
+   "why": "полная вычитка: fr «братья играют» — «после ссоры не разговаривают»"
+  },
+  {
+   "id": 13473,
+   "col": "example_de",
+   "old": "Solche Leute mag ich nicht",
+   "new": "Bei solchem Wetter bleiben wir zu Hause",
+   "why": "полная вычитка: смысл разошёлся — везде «в такую погоду сидим дома»"
+  },
+  {
+   "id": 13473,
+   "col": "example_ru",
+   "old": "Таких людей я не люблю",
+   "new": "В такую погоду мы остаёмся дома",
+   "why": "полная вычитка: смысл разошёлся — везде «в такую погоду сидим дома»"
+  },
+  {
+   "id": 13473,
+   "col": "example_uk",
+   "old": "Таких людей я не люблю",
+   "new": "У таку погоду ми залишаємося вдома",
+   "why": "полная вычитка: смысл разошёлся — везде «в такую погоду сидим дома»"
+  },
+  {
+   "id": 13473,
+   "col": "example_tr",
+   "old": "Böyle insanları sevmem",
+   "new": "Böyle havada evde kalıyoruz",
+   "why": "полная вычитка: смысл разошёлся — везде «в такую погоду сидим дома»"
+  },
+  {
+   "id": 13473,
+   "col": "example_pl",
+   "old": "Nie lubię takich ludzi",
+   "new": "Przy takiej pogodzie zostajemy w domu",
+   "why": "полная вычитка: смысл разошёлся — везде «в такую погоду сидим дома»"
+  },
+  {
+   "id": 13473,
+   "col": "example_cs",
+   "old": "Takové lidi nemám rád",
+   "new": "Za takového počasí zůstaneme doma",
+   "why": "полная вычитка: смысл разошёлся — везде «в такую погоду сидим дома»"
+  },
+  {
+   "id": 13478,
+   "col": "example_de",
+   "old": "Erstens habe ich keine Zeit",
+   "new": "Erstens die Hausaufgaben, dann Fernsehen",
+   "why": "полная вычитка: смысл разошёлся; «нет времени» — как у 13538 — везде «во-первых, уроки, потом телевизор»"
+  },
+  {
+   "id": 13478,
+   "col": "example_ru",
+   "old": "Во-первых, у меня нет времени",
+   "new": "Во-первых, домашнее задание, потом телевизор",
+   "why": "полная вычитка: смысл разошёлся; «нет времени» — как у 13538 — везде «во-первых, уроки, потом телевизор»"
+  },
+  {
+   "id": 13478,
+   "col": "example_uk",
+   "old": "По-перше, у мене немає часу",
+   "new": "По-перше, домашнє завдання, потім телевізор",
+   "why": "полная вычитка: смысл разошёлся; «нет времени» — как у 13538 — везде «во-первых, уроки, потом телевизор»"
+  },
+  {
+   "id": 13478,
+   "col": "example_tr",
+   "old": "Birincisi, zamanım yok",
+   "new": "Birincisi ödevler, sonra televizyon",
+   "why": "полная вычитка: смысл разошёлся; «нет времени» — как у 13538 — везде «во-первых, уроки, потом телевизор»"
+  },
+  {
+   "id": 13478,
+   "col": "example_pl",
+   "old": "Po pierwsze, nie mam czasu",
+   "new": "Po pierwsze lekcje, potem telewizja",
+   "why": "полная вычитка: смысл разошёлся; «нет времени» — как у 13538 — везде «во-первых, уроки, потом телевизор»"
+  },
+  {
+   "id": 13478,
+   "col": "example_cs",
+   "old": "Za prvé nemám čas",
+   "new": "Za prvé úkoly, pak televize",
+   "why": "полная вычитка: смысл разошёлся; «нет времени» — как у 13538 — везде «во-первых, уроки, потом телевизор»"
+  },
+  {
+   "id": 13506,
+   "col": "example_de",
+   "old": "Ich habe keines dieser Bücher gelesen",
+   "new": "Von den drei Kleidern passt mir keines",
+   "why": "полная вычитка: двойник с 13482 «не читал ни одной из этих книг» — везде «из трёх платьев не подходит ни одно»"
+  },
+  {
+   "id": 13506,
+   "col": "example_ru",
+   "old": "Я не прочитал ни одной из этих книг",
+   "new": "Из трёх платьев мне не подходит ни одно",
+   "why": "полная вычитка: двойник с 13482 «не читал ни одной из этих книг» — везде «из трёх платьев не подходит ни одно»"
+  },
+  {
+   "id": 13506,
+   "col": "example_uk",
+   "old": "Я не прочитав жодної з цих книг",
+   "new": "З трьох суконь мені не підходить жодна",
+   "why": "полная вычитка: двойник с 13482 «не читал ни одной из этих книг» — везде «из трёх платьев не подходит ни одно»"
+  },
+  {
+   "id": 13506,
+   "col": "example_en",
+   "old": "I haven't read any of these books",
+   "new": "None of the three dresses fits me",
+   "why": "полная вычитка: двойник с 13482 «не читал ни одной из этих книг» — везде «из трёх платьев не подходит ни одно»"
+  },
+  {
+   "id": 13506,
+   "col": "example_tr",
+   "old": "Bu kitaplardan hiçbirini okumadım",
+   "new": "Üç elbiseden hiçbiri bana olmuyor",
+   "why": "полная вычитка: двойник с 13482 «не читал ни одной из этих книг» — везде «из трёх платьев не подходит ни одно»"
+  },
+  {
+   "id": 13506,
+   "col": "example_pl",
+   "old": "Nie przeczytałem żadnej z tych książek",
+   "new": "Z tych trzech sukienek żadna na mnie nie pasuje",
+   "why": "полная вычитка: двойник с 13482 «не читал ни одной из этих книг» — везде «из трёх платьев не подходит ни одно»"
+  },
+  {
+   "id": 13506,
+   "col": "example_it",
+   "old": "Non ho letto nessuno di questi libri",
+   "new": "Dei tre vestiti non me ne va bene nessuno",
+   "why": "полная вычитка: двойник с 13482 «не читал ни одной из этих книг» — везде «из трёх платьев не подходит ни одно»"
+  },
+  {
+   "id": 13506,
+   "col": "example_es",
+   "old": "No he leído ninguno de estos libros",
+   "new": "De los tres vestidos no me queda bien ninguno",
+   "why": "полная вычитка: двойник с 13482 «не читал ни одной из этих книг» — везде «из трёх платьев не подходит ни одно»"
+  },
+  {
+   "id": 13506,
+   "col": "example_fr",
+   "old": "Je n'ai lu aucun de ces livres",
+   "new": "Sur les trois robes, aucune ne me va",
+   "why": "полная вычитка: двойник с 13482 «не читал ни одной из этих книг» — везде «из трёх платьев не подходит ни одно»"
+  },
+  {
+   "id": 13506,
+   "col": "example_cs",
+   "old": "Nečetl jsem žádnou z těchto knih",
+   "new": "Ze tří šatů mi nesedí žádné",
+   "why": "полная вычитка: двойник с 13482 «не читал ни одной из этих книг» — везде «из трёх платьев не подходит ни одно»"
+  },
+  {
+   "id": 13508,
+   "col": "example_de",
+   "old": "Er ist in der vierten Klasse",
+   "new": "Er ist im Rennen Vierter geworden",
+   "why": "полная вычитка: смысл разошёлся — везде «в гонке пришёл четвёртым»"
+  },
+  {
+   "id": 13508,
+   "col": "example_ru",
+   "old": "Он в четвёртом классе",
+   "new": "В гонке он пришёл четвёртым",
+   "why": "полная вычитка: смысл разошёлся — везде «в гонке пришёл четвёртым»"
+  },
+  {
+   "id": 13508,
+   "col": "example_uk",
+   "old": "Він у четвертому класі",
+   "new": "У перегонах він прийшов четвертим",
+   "why": "полная вычитка: смысл разошёлся — везде «в гонке пришёл четвёртым»"
+  },
+  {
+   "id": 13508,
+   "col": "example_tr",
+   "old": "Dördüncü sınıfta",
+   "new": "Yarışta dördüncü oldu",
+   "why": "полная вычитка: смысл разошёлся — везде «в гонке пришёл четвёртым»"
+  },
+  {
+   "id": 13508,
+   "col": "example_pl",
+   "old": "Jest w czwartej klasie",
+   "new": "W wyścigu zajął czwarte miejsce",
+   "why": "полная вычитка: смысл разошёлся — везде «в гонке пришёл четвёртым»"
+  },
+  {
+   "id": 13508,
+   "col": "example_cs",
+   "old": "Chodí do čtvrté třídy",
+   "new": "V závodě skončil čtvrtý",
+   "why": "полная вычитка: смысл разошёлся — везде «в гонке пришёл четвёртым»"
+  },
+  {
+   "id": 13511,
+   "col": "example_en",
+   "old": "The plates are piled on top of each other in the sink",
+   "new": "The books are stacked on top of each other on the table",
+   "why": "полная вычитка: en/es/fr тарелки в раковине — книги стопкой на столе"
+  },
+  {
+   "id": 13511,
+   "col": "example_es",
+   "old": "Los platos están apilados unos encima de otros en el fregadero",
+   "new": "Los libros están apilados unos encima de otros en la mesa",
+   "why": "полная вычитка: en/es/fr тарелки в раковине — книги стопкой на столе"
+  },
+  {
+   "id": 13511,
+   "col": "example_fr",
+   "old": "Les assiettes sont empilées les unes sur les autres dans l'évier",
+   "new": "Les livres sont empilés les uns sur les autres sur la table",
+   "why": "полная вычитка: en/es/fr тарелки в раковине — книги стопкой на столе"
+  },
+  {
+   "id": 13558,
+   "col": "example_en",
+   "old": "I live on the seventh floor and the lift is broken",
+   "new": "That's already my seventh cup of coffee today",
+   "why": "полная вычитка: en/it/es/fr седьмой этаж — «уже седьмая чашка кофе»"
+  },
+  {
+   "id": 13558,
+   "col": "example_it",
+   "old": "Abito al settimo piano e l'ascensore è rotto",
+   "new": "È già la mia settima tazza di caffè oggi",
+   "why": "полная вычитка: en/it/es/fr седьмой этаж — «уже седьмая чашка кофе»"
+  },
+  {
+   "id": 13558,
+   "col": "example_es",
+   "old": "Vivo en el séptimo y el ascensor está roto",
+   "new": "Ya es mi séptima taza de café hoy",
+   "why": "полная вычитка: en/it/es/fr седьмой этаж — «уже седьмая чашка кофе»"
+  },
+  {
+   "id": 13558,
+   "col": "example_fr",
+   "old": "J'habite au septième, et l'ascenseur est en panne",
+   "new": "C'est déjà ma septième tasse de café aujourd'hui",
+   "why": "полная вычитка: en/it/es/fr седьмой этаж — «уже седьмая чашка кофе»"
+  },
+  {
+   "id": 13590,
+   "col": "example_de",
+   "old": "Ein Zehntel der Bevölkerung lebt in der Stadt",
+   "new": "Er hat um eine Zehntelsekunde verloren",
+   "why": "полная вычитка: смысл разошёлся — везде «проиграл на десятую долю секунды»"
+  },
+  {
+   "id": 13590,
+   "col": "example_ru",
+   "old": "Только десятая часть участников дошла до финала",
+   "new": "Он проиграл всего на десятую долю секунды",
+   "why": "полная вычитка: смысл разошёлся — везде «проиграл на десятую долю секунды»"
+  },
+  {
+   "id": 13590,
+   "col": "example_uk",
+   "old": "Лише десята частина учасників дійшла до фіналу",
+   "new": "Він програв лише на десяту частку секунди",
+   "why": "полная вычитка: смысл разошёлся — везде «проиграл на десятую долю секунды»"
+  },
+  {
+   "id": 13590,
+   "col": "example_tr",
+   "old": "Nüfusun onda biri şehirde yaşıyor",
+   "new": "Saniyenin onda biri farkla kaybetti",
+   "why": "полная вычитка: смысл разошёлся — везде «проиграл на десятую долю секунды»"
+  },
+  {
+   "id": 13590,
+   "col": "example_pl",
+   "old": "Jedna dziesiąta ludności mieszka w mieście",
+   "new": "Przegrał o jedną dziesiątą sekundy",
+   "why": "полная вычитка: смысл разошёлся — везде «проиграл на десятую долю секунды»"
+  },
+  {
+   "id": 13590,
+   "col": "example_cs",
+   "old": "Desetina obyvatelstva žije ve městě",
+   "new": "Prohrál o desetinu sekundy",
+   "why": "полная вычитка: смысл разошёлся — везде «проиграл на десятую долю секунды»"
+  },
+  {
+   "id": 13631,
+   "col": "example_de",
+   "old": "Das Baby ist nackt und braucht Kleidung",
+   "new": "Der Kleine rennt nackt durch den Garten",
+   "why": "полная вычитка: смысл разошёлся — везде «малыш голышом бегает по саду»"
+  },
+  {
+   "id": 13631,
+   "col": "example_ru",
+   "old": "Малыш бегает по квартире совсем голый",
+   "new": "Малыш бегает по саду совсем голый",
+   "why": "полная вычитка: смысл разошёлся — везде «малыш голышом бегает по саду»"
+  },
+  {
+   "id": 13631,
+   "col": "example_uk",
+   "old": "Малий бігає по квартирі зовсім голий",
+   "new": "Малий бігає по саду зовсім голий",
+   "why": "полная вычитка: смысл разошёлся — везде «малыш голышом бегает по саду»"
+  },
+  {
+   "id": 13631,
+   "col": "example_tr",
+   "old": "Bebek çıplak, bir şey giydirmek lazım",
+   "new": "Küçük bahçede çırılçıplak koşuyor",
+   "why": "полная вычитка: смысл разошёлся — везде «малыш голышом бегает по саду»"
+  },
+  {
+   "id": 13631,
+   "col": "example_pl",
+   "old": "Dziecko jest gołe, trzeba je ubrać",
+   "new": "Mały biega nago po ogrodzie",
+   "why": "полная вычитка: смысл разошёлся — везде «малыш голышом бегает по саду»"
+  },
+  {
+   "id": 13631,
+   "col": "example_it",
+   "old": "Il bebè è nudo e ha bisogno di vestiti",
+   "new": "Il piccolo corre nudo in giardino",
+   "why": "полная вычитка: смысл разошёлся — везде «малыш голышом бегает по саду»"
+  },
+  {
+   "id": 13631,
+   "col": "example_cs",
+   "old": "Miminko je nahé, musíme ho obléct",
+   "new": "Malý běhá nahý po zahradě",
+   "why": "полная вычитка: смысл разошёлся — везде «малыш голышом бегает по саду»"
+  },
+  {
+   "id": 13645,
+   "col": "example_de",
+   "old": "Der Knopf an meiner Jacke ist weg",
+   "new": "Kannst du mir diesen Knopf wieder annähen?",
+   "why": "полная вычитка: смысл разошёлся — везде «можешь пришить эту пуговицу?»"
+  },
+  {
+   "id": 13645,
+   "col": "example_ru",
+   "old": "У меня на куртке оторвалась пуговица",
+   "new": "Можешь пришить мне эту пуговицу обратно?",
+   "why": "полная вычитка: смысл разошёлся — везде «можешь пришить эту пуговицу?»"
+  },
+  {
+   "id": 13645,
+   "col": "example_uk",
+   "old": "Ґудзик на моїй куртці відпав",
+   "new": "Можеш пришити мені цей ґудзик назад?",
+   "why": "полная вычитка: смысл разошёлся — везде «можешь пришить эту пуговицу?»"
+  },
+  {
+   "id": 13645,
+   "col": "example_tr",
+   "old": "Ceketimin düğmesi kayboldu",
+   "new": "Bu düğmeyi tekrar dikebilir misin?",
+   "why": "полная вычитка: смысл разошёлся — везде «можешь пришить эту пуговицу?»"
+  },
+  {
+   "id": 13645,
+   "col": "example_pl",
+   "old": "Urwał mi się guzik od kurtki",
+   "new": "Możesz mi przyszyć z powrotem ten guzik?",
+   "why": "полная вычитка: смысл разошёлся — везде «можешь пришить эту пуговицу?»"
+  },
+  {
+   "id": 13645,
+   "col": "example_cs",
+   "old": "Na bundě mi chybí knoflík",
+   "new": "Můžeš mi přišít zpátky tenhle knoflík?",
+   "why": "полная вычитка: смысл разошёлся — везде «можешь пришить эту пуговицу?»"
+  },
+  {
+   "id": 13660,
+   "col": "example_de",
+   "old": "Zu Fasching gehe ich verkleidet als Pirat",
+   "new": "Alle sind verkleidet zur Party gekommen",
+   "why": "полная вычитка: смысл разошёлся; «пиратом» — как у 13703 — везде «все пришли на вечеринку в костюмах»"
+  },
+  {
+   "id": 13660,
+   "col": "example_ru",
+   "old": "На карнавал я пойду переодетым в пирата",
+   "new": "На вечеринку все пришли в костюмах",
+   "why": "полная вычитка: смысл разошёлся; «пиратом» — как у 13703 — везде «все пришли на вечеринку в костюмах»"
+  },
+  {
+   "id": 13660,
+   "col": "example_uk",
+   "old": "На карнавал я піду переодягнений на пірата",
+   "new": "На вечірку всі прийшли в костюмах",
+   "why": "полная вычитка: смысл разошёлся; «пиратом» — как у 13703 — везде «все пришли на вечеринку в костюмах»"
+  },
+  {
+   "id": 13660,
+   "col": "example_tr",
+   "old": "Karnavala korsan kılığında gideceğim",
+   "new": "Herkes partiye kostümlü geldi",
+   "why": "полная вычитка: смысл разошёлся; «пиратом» — как у 13703 — везде «все пришли на вечеринку в костюмах»"
+  },
+  {
+   "id": 13660,
+   "col": "example_pl",
+   "old": "Na karnawał idę przebrany za pirata",
+   "new": "Wszyscy przyszli na imprezę przebrani",
+   "why": "полная вычитка: смысл разошёлся; «пиратом» — как у 13703 — везде «все пришли на вечеринку в костюмах»"
+  },
+  {
+   "id": 13660,
+   "col": "example_cs",
+   "old": "Na masopust jdu převlečený za piráta",
+   "new": "Všichni přišli na večírek převlečení",
+   "why": "полная вычитка: смысл разошёлся; «пиратом» — как у 13703 — везде «все пришли на вечеринку в костюмах»"
+  },
+  {
+   "id": 13662,
+   "col": "example_de",
+   "old": "Deine Jacke kannst du an der Garderobe abgeben",
+   "new": "Im Theater gibt man die Mäntel an der Garderobe ab",
+   "why": "полная вычитка: смысл разошёлся — везде «в театре пальто сдают в гардероб»"
+  },
+  {
+   "id": 13662,
+   "col": "example_ru",
+   "old": "Куртку можешь сдать в гардероб",
+   "new": "В театре пальто сдают в гардероб",
+   "why": "полная вычитка: смысл разошёлся — везде «в театре пальто сдают в гардероб»"
+  },
+  {
+   "id": 13662,
+   "col": "example_uk",
+   "old": "Куртку можеш здати в гардероб",
+   "new": "У театрі пальта здають у гардероб",
+   "why": "полная вычитка: смысл разошёлся — везде «в театре пальто сдают в гардероб»"
+  },
+  {
+   "id": 13662,
+   "col": "example_tr",
+   "old": "Ceketini vestiyere bırakabilirsin",
+   "new": "Tiyatroda paltolar vestiyere bırakılıyor",
+   "why": "полная вычитка: смысл разошёлся — везде «в театре пальто сдают в гардероб»"
+  },
+  {
+   "id": 13662,
+   "col": "example_pl",
+   "old": "Kurtkę możesz zostawić w szatni",
+   "new": "W teatrze płaszcze zostawia się w szatni",
+   "why": "полная вычитка: смысл разошёлся — везде «в театре пальто сдают в гардероб»"
+  },
+  {
+   "id": 13662,
+   "col": "example_cs",
+   "old": "Bundu můžeš odložit v šatně",
+   "new": "V divadle se kabáty nechávají v šatně",
+   "why": "полная вычитка: смысл разошёлся — везде «в театре пальто сдают в гардероб»"
+  },
+  {
+   "id": 13769,
+   "col": "example_de",
+   "old": "Sonntags laufe ich bis mittags im Morgenmantel herum",
+   "new": "Opa trinkt seinen Kaffee im Morgenmantel",
+   "why": "полная вычитка: смысл разошёлся; «по воскресеньям хожу» — как у 13719 — везде «дедушка пьёт кофе в халате»"
+  },
+  {
+   "id": 13769,
+   "col": "example_ru",
+   "old": "По воскресеньям я до обеда хожу в халате",
+   "new": "Дедушка пьёт кофе в халате",
+   "why": "полная вычитка: смысл разошёлся; «по воскресеньям хожу» — как у 13719 — везде «дедушка пьёт кофе в халате»"
+  },
+  {
+   "id": 13769,
+   "col": "example_uk",
+   "old": "По неділях я до обіду ходжу в халаті",
+   "new": "Дідусь п'є каву в халаті",
+   "why": "полная вычитка: смысл разошёлся; «по воскресеньям хожу» — как у 13719 — везде «дедушка пьёт кофе в халате»"
+  },
+  {
+   "id": 13769,
+   "col": "example_tr",
+   "old": "Pazarları öğlene kadar sabahlıkla dolaşıyorum",
+   "new": "Dedem kahvesini sabahlıkla içiyor",
+   "why": "полная вычитка: смысл разошёлся; «по воскресеньям хожу» — как у 13719 — везде «дедушка пьёт кофе в халате»"
+  },
+  {
+   "id": 13769,
+   "col": "example_pl",
+   "old": "W niedziele do południa chodzę w szlafroku",
+   "new": "Dziadek pije kawę w szlafroku",
+   "why": "полная вычитка: смысл разошёлся; «по воскресеньям хожу» — как у 13719 — везде «дедушка пьёт кофе в халате»"
+  },
+  {
+   "id": 13769,
+   "col": "example_cs",
+   "old": "V neděli chodím do oběda v županu",
+   "new": "Děda pije kafe v županu",
+   "why": "полная вычитка: смысл разошёлся; «по воскресеньям хожу» — как у 13719 — везде «дедушка пьёт кофе в халате»"
+  },
+  {
+   "id": 13770,
+   "col": "example_de",
+   "old": "Ich ziehe meine Hausschuhe an, wenn ich nach Hause komme",
+   "new": "Bei uns ziehen Gäste die Schuhe aus und Hausschuhe an",
+   "why": "полная вычитка: смысл разошёлся — везде «у нас гости снимают обувь и надевают тапочки»"
+  },
+  {
+   "id": 13770,
+   "col": "example_ru",
+   "old": "Я надеваю домашние тапочки, когда прихожу домой",
+   "new": "У нас гости снимают обувь и надевают тапочки",
+   "why": "полная вычитка: смысл разошёлся — везде «у нас гости снимают обувь и надевают тапочки»"
+  },
+  {
+   "id": 13770,
+   "col": "example_uk",
+   "old": "Я надягаю домашні капці, коли приходжу додому",
+   "new": "У нас гості знімають взуття й надягають капці",
+   "why": "полная вычитка: смысл разошёлся — везде «у нас гости снимают обувь и надевают тапочки»"
+  },
+  {
+   "id": 13770,
+   "col": "example_tr",
+   "old": "Eve gelince terliklerimi giyerim",
+   "new": "Bizde misafirler ayakkabılarını çıkarıp ev terliği giyiyor",
+   "why": "полная вычитка: смысл разошёлся — везде «у нас гости снимают обувь и надевают тапочки»"
+  },
+  {
+   "id": 13770,
+   "col": "example_pl",
+   "old": "Wkładam kapcie, kiedy wracam do domu",
+   "new": "U nas goście zdejmują buty i wkładają kapcie",
+   "why": "полная вычитка: смысл разошёлся — везде «у нас гости снимают обувь и надевают тапочки»"
+  },
+  {
+   "id": 13770,
+   "col": "example_it",
+   "old": "Mi metto le pantofole quando torno a casa",
+   "new": "Da noi gli ospiti si tolgono le scarpe e mettono le pantofole",
+   "why": "полная вычитка: смысл разошёлся — везде «у нас гости снимают обувь и надевают тапочки»"
+  },
+  {
+   "id": 13770,
+   "col": "example_cs",
+   "old": "Když přijdu domů, obuju si bačkory",
+   "new": "U nás si hosté zují boty a obují bačkory",
+   "why": "полная вычитка: смысл разошёлся — везде «у нас гости снимают обувь и надевают тапочки»"
+  },
+  {
+   "id": 13817,
+   "col": "example_ru",
+   "old": "Чёрт, я опять забыл кошелёк!",
+   "new": "Чёрт, где мои ключи?",
+   "why": "полная вычитка: ru/uk кошелёк, en/it/es поезд — везде «чёрт, где мои ключи?»"
+  },
+  {
+   "id": 13817,
+   "col": "example_uk",
+   "old": "Чорт, я знову забув гаманець!",
+   "new": "Чорт, де мої ключі?",
+   "why": "полная вычитка: ru/uk кошелёк, en/it/es поезд — везде «чёрт, где мои ключи?»"
+  },
+  {
+   "id": 13817,
+   "col": "example_en",
+   "old": "Damn, I've missed the train!",
+   "new": "Damn, where are my keys?",
+   "why": "полная вычитка: ru/uk кошелёк, en/it/es поезд — везде «чёрт, где мои ключи?»"
+  },
+  {
+   "id": 13817,
+   "col": "example_it",
+   "old": "Maledizione, ho perso il treno!",
+   "new": "Maledizione, dove sono le mie chiavi?",
+   "why": "полная вычитка: ru/uk кошелёк, en/it/es поезд — везде «чёрт, где мои ключи?»"
+  },
+  {
+   "id": 13817,
+   "col": "example_es",
+   "old": "¡Maldita sea, he perdido el tren!",
+   "new": "¡Maldita sea! ¿Dónde están mis llaves?",
+   "why": "полная вычитка: ru/uk кошелёк, en/it/es поезд — везде «чёрт, где мои ключи?»"
+  },
+  {
+   "id": 13881,
+   "col": "example_de",
+   "old": "Mach keine Scherze!",
+   "new": "Das war doch nur ein Scherz!",
+   "why": "полная вычитка: смысл разошёлся — везде «это была всего лишь шутка!»"
+  },
+  {
+   "id": 13881,
+   "col": "example_ru",
+   "old": "Брось шутить!",
+   "new": "Это была всего лишь шутка!",
+   "why": "полная вычитка: смысл разошёлся — везде «это была всего лишь шутка!»"
+  },
+  {
+   "id": 13881,
+   "col": "example_uk",
+   "old": "Не жартуй!",
+   "new": "Це був лише жарт!",
+   "why": "полная вычитка: смысл разошёлся — везде «это была всего лишь шутка!»"
+  },
+  {
+   "id": 13881,
+   "col": "example_tr",
+   "old": "Şaka yapma!",
+   "new": "Sadece bir şakaydı!",
+   "why": "полная вычитка: смысл разошёлся — везде «это была всего лишь шутка!»"
+  },
+  {
+   "id": 13881,
+   "col": "example_pl",
+   "old": "Nie żartuj!",
+   "new": "To był tylko żart!",
+   "why": "полная вычитка: смысл разошёлся — везде «это была всего лишь шутка!»"
+  },
+  {
+   "id": 13881,
+   "col": "example_cs",
+   "old": "Nežertuj!",
+   "new": "Byl to jen žert!",
+   "why": "полная вычитка: смысл разошёлся — везде «это была всего лишь шутка!»"
+  },
+  {
+   "id": 13893,
+   "col": "example_de",
+   "old": "Die Presse berichtet über das Ereignis",
+   "new": "Die ganze Presse schreibt über die Hochzeit des Prinzen",
+   "why": "полная вычитка: смысл разошёлся — везде «вся пресса пишет о свадьбе принца»"
+  },
+  {
+   "id": 13893,
+   "col": "example_ru",
+   "old": "Пресса пишет о нём каждый день",
+   "new": "Вся пресса пишет о свадьбе принца",
+   "why": "полная вычитка: смысл разошёлся — везде «вся пресса пишет о свадьбе принца»"
+  },
+  {
+   "id": 13893,
+   "col": "example_uk",
+   "old": "Преса пише про нього щодня",
+   "new": "Уся преса пише про весілля принца",
+   "why": "полная вычитка: смысл разошёлся — везде «вся пресса пишет о свадьбе принца»"
+  },
+  {
+   "id": 13893,
+   "col": "example_en",
+   "old": "The whole press is talking about the royal wedding",
+   "new": "The whole press is talking about the prince's wedding",
+   "why": "полная вычитка: смысл разошёлся — везде «вся пресса пишет о свадьбе принца»"
+  },
+  {
+   "id": 13893,
+   "col": "example_tr",
+   "old": "Basın olayı haber yapıyor",
+   "new": "Bütün basın prensin düğününü yazıyor",
+   "why": "полная вычитка: смысл разошёлся — везде «вся пресса пишет о свадьбе принца»"
+  },
+  {
+   "id": 13893,
+   "col": "example_pl",
+   "old": "Prasa donosi o tym wydarzeniu",
+   "new": "Cała prasa pisze o ślubie księcia",
+   "why": "полная вычитка: смысл разошёлся — везде «вся пресса пишет о свадьбе принца»"
+  },
+  {
+   "id": 13893,
+   "col": "example_cs",
+   "old": "Tisk informuje o události",
+   "new": "Celý tisk píše o princově svatbě",
+   "why": "полная вычитка: смысл разошёлся — везде «вся пресса пишет о свадьбе принца»"
+  },
+  {
+   "id": 13911,
+   "col": "example_de",
+   "old": "Hier ist ein wichtiger Hinweis für dich",
+   "new": "Danke für den Hinweis!",
+   "why": "полная вычитка: смысл разошёлся — везде «спасибо за подсказку!»"
+  },
+  {
+   "id": 13911,
+   "col": "example_tr",
+   "old": "İşte senin için önemli bir ipucu",
+   "new": "İpucu için teşekkürler!",
+   "why": "полная вычитка: смысл разошёлся — везде «спасибо за подсказку!»"
+  },
+  {
+   "id": 13911,
+   "col": "example_pl",
+   "old": "Mam dla ciebie ważną wskazówkę",
+   "new": "Dzięki za wskazówkę!",
+   "why": "полная вычитка: смысл разошёлся — везде «спасибо за подсказку!»"
+  },
+  {
+   "id": 13911,
+   "col": "example_cs",
+   "old": "Tady je pro tebe důležité upozornění",
+   "new": "Díky za upozornění!",
+   "why": "полная вычитка: смысл разошёлся — везде «спасибо за подсказку!»"
+  },
+  {
+   "id": 13918,
+   "col": "example_ru",
+   "old": "В этом вопросе мы едины",
+   "new": "Мы едины во мнении",
+   "why": "полная вычитка: ru/uk «в этом вопросе», fr вопрос — «мы едины во мнении»"
+  },
+  {
+   "id": 13918,
+   "col": "example_uk",
+   "old": "У цьому питанні ми одностайні",
+   "new": "Ми одностайні",
+   "why": "полная вычитка: ru/uk «в этом вопросе», fr вопрос — «мы едины во мнении»"
+  },
+  {
+   "id": 13918,
+   "col": "example_fr",
+   "old": "Alors, on est d'accord ?",
+   "new": "On est d'accord",
+   "why": "полная вычитка: ru/uk «в этом вопросе», fr вопрос — «мы едины во мнении»"
+  },
+  {
+   "id": 13924,
+   "col": "example_en",
+   "old": "Just ignore his stupid comments",
+   "new": "I can just ignore his stupid comments",
+   "why": "полная вычитка: en/it/es/fr приказ — «я могу просто игнорировать его комментарии»"
+  },
+  {
+   "id": 13924,
+   "col": "example_it",
+   "old": "Ignora i suoi commenti stupidi",
+   "new": "Posso semplicemente ignorare i suoi commenti stupidi",
+   "why": "полная вычитка: en/it/es/fr приказ — «я могу просто игнорировать его комментарии»"
+  },
+  {
+   "id": 13924,
+   "col": "example_es",
+   "old": "Ignora sus comentarios tontos",
+   "new": "Puedo ignorar sin más sus comentarios tontos",
+   "why": "полная вычитка: en/it/es/fr приказ — «я могу просто игнорировать его комментарии»"
+  },
+  {
+   "id": 13924,
+   "col": "example_fr",
+   "old": "Ignore ses commentaires idiots",
+   "new": "Je peux tout simplement ignorer ses commentaires idiots",
+   "why": "полная вычитка: en/it/es/fr приказ — «я могу просто игнорировать его комментарии»"
+  },
+  {
+   "id": 13957,
+   "col": "example_de",
+   "old": "Kommst du mit ins Kino? – Nö, hab keine Lust",
+   "new": "Hast du Hunger? – Nö, danke",
+   "why": "полная вычитка: смысл разошёлся; кино — как у 13877 — везде «ты голодный? — не-а, спасибо»"
+  },
+  {
+   "id": 13957,
+   "col": "example_ru",
+   "old": "Пойдёшь с нами в кино? — Не-а, не хочется",
+   "new": "Ты голодный? — Не-а, спасибо",
+   "why": "полная вычитка: смысл разошёлся; кино — как у 13877 — везде «ты голодный? — не-а, спасибо»"
+  },
+  {
+   "id": 13957,
+   "col": "example_uk",
+   "old": "Підеш з нами в кіно? — Ні, не хочеться",
+   "new": "Ти голодний? — Нє, дякую",
+   "why": "полная вычитка: смысл разошёлся; кино — как у 13877 — везде «ты голодный? — не-а, спасибо»"
+  },
+  {
+   "id": 13957,
+   "col": "example_tr",
+   "old": "Sinemaya geliyor musun? – Yok, canım istemiyor",
+   "new": "Acıktın mı? – Yok, sağ ol",
+   "why": "полная вычитка: смысл разошёлся; кино — как у 13877 — везде «ты голодный? — не-а, спасибо»"
+  },
+  {
+   "id": 13957,
+   "col": "example_pl",
+   "old": "Idziesz do kina? – Nie, nie mam ochoty",
+   "new": "Jesteś głodny? – Nie, dzięki",
+   "why": "полная вычитка: смысл разошёлся; кино — как у 13877 — везде «ты голодный? — не-а, спасибо»"
+  },
+  {
+   "id": 13957,
+   "col": "example_cs",
+   "old": "Půjdeš do kina? – Ne, nemám chuť",
+   "new": "Máš hlad? – Ne, díky",
+   "why": "полная вычитка: смысл разошёлся; кино — как у 13877 — везде «ты голодный? — не-а, спасибо»"
+  },
+  {
+   "id": 13973,
+   "col": "example_de",
+   "old": "Das Piepen nervt mich",
+   "new": "Das Piepen vom Backofen nervt mich",
+   "why": "полная вычитка: смысл разошёлся — везде «писк духовки раздражает»"
+  },
+  {
+   "id": 13973,
+   "col": "example_ru",
+   "old": "Этот писк стиральной машины меня раздражает",
+   "new": "Этот писк духовки меня раздражает",
+   "why": "полная вычитка: смысл разошёлся — везде «писк духовки раздражает»"
+  },
+  {
+   "id": 13973,
+   "col": "example_uk",
+   "old": "Цей писк пральної машини мене дратує",
+   "new": "Цей писк духовки мене дратує",
+   "why": "полная вычитка: смысл разошёлся — везде «писк духовки раздражает»"
+  },
+  {
+   "id": 13973,
+   "col": "example_tr",
+   "old": "Bu bip sesi sinirimi bozuyor",
+   "new": "Fırının bu bip sesi sinirimi bozuyor",
+   "why": "полная вычитка: смысл разошёлся — везде «писк духовки раздражает»"
+  },
+  {
+   "id": 13973,
+   "col": "example_pl",
+   "old": "Pikanie mnie denerwuje",
+   "new": "Pikanie piekarnika mnie denerwuje",
+   "why": "полная вычитка: смысл разошёлся — везде «писк духовки раздражает»"
+  },
+  {
+   "id": 13973,
+   "col": "example_cs",
+   "old": "To pípání mi leze na nervy",
+   "new": "To pípání trouby mi leze na nervy",
+   "why": "полная вычитка: смысл разошёлся — везде «писк духовки раздражает»"
+  },
+  {
+   "id": 13983,
+   "col": "example_de",
+   "old": "Brüll nicht so, ich bin nicht taub!",
+   "new": "Der Löwe brüllt in seinem Käfig",
+   "why": "полная вычитка: смысл разошёлся; «не ори» — как у 10122 — везде «лев ревёт в клетке»"
+  },
+  {
+   "id": 13983,
+   "col": "example_ru",
+   "old": "Не ори так, я не глухой!",
+   "new": "Лев ревёт в клетке",
+   "why": "полная вычитка: смысл разошёлся; «не ори» — как у 10122 — везде «лев ревёт в клетке»"
+  },
+  {
+   "id": 13983,
+   "col": "example_uk",
+   "old": "Не горлай так, я не глухий!",
+   "new": "Лев реве у клітці",
+   "why": "полная вычитка: смысл разошёлся; «не ори» — как у 10122 — везде «лев ревёт в клетке»"
+  },
+  {
+   "id": 13983,
+   "col": "example_tr",
+   "old": "Böyle bağırma, sağır değilim!",
+   "new": "Aslan kafesinde kükrüyor",
+   "why": "полная вычитка: смысл разошёлся; «не ори» — как у 10122 — везде «лев ревёт в клетке»"
+  },
+  {
+   "id": 13983,
+   "col": "example_pl",
+   "old": "Nie wrzeszcz tak, nie jestem głuchy!",
+   "new": "Lew ryczy w klatce",
+   "why": "полная вычитка: смысл разошёлся; «не ори» — как у 10122 — везде «лев ревёт в клетке»"
+  },
+  {
+   "id": 13983,
+   "col": "example_cs",
+   "old": "Neřvi tak, nejsem hluchý!",
+   "new": "Lev řve v kleci",
+   "why": "полная вычитка: смысл разошёлся; «не ори» — как у 10122 — везде «лев ревёт в клетке»"
+  },
+  {
+   "id": 13995,
+   "col": "example_de",
+   "old": "Adieu, mein Freund! Wir sehen uns bald wieder",
+   "new": "Adieu, und danke für alles!",
+   "why": "полная вычитка: смысл разошёлся — везде «прощай, и спасибо за всё»"
+  },
+  {
+   "id": 13995,
+   "col": "example_ru",
+   "old": "До свидания, мой друг! Скоро увидимся",
+   "new": "Прощай, и спасибо за всё!",
+   "why": "полная вычитка: смысл разошёлся — везде «прощай, и спасибо за всё»"
+  },
+  {
+   "id": 13995,
+   "col": "example_uk",
+   "old": "До побачення, мій друже! Скоро побачимося",
+   "new": "Прощавай, і дякую за все!",
+   "why": "полная вычитка: смысл разошёлся — везде «прощай, и спасибо за всё»"
+  },
+  {
+   "id": 13995,
+   "col": "example_tr",
+   "old": "Hoşça kal, arkadaşım! Yakında görüşürüz",
+   "new": "Elveda, her şey için teşekkürler!",
+   "why": "полная вычитка: смысл разошёлся — везде «прощай, и спасибо за всё»"
+  },
+  {
+   "id": 13995,
+   "col": "example_pl",
+   "old": "Do widzenia, przyjacielu! Wkrótce znów się zobaczymy",
+   "new": "Żegnaj i dzięki za wszystko!",
+   "why": "полная вычитка: смысл разошёлся — везде «прощай, и спасибо за всё»"
+  },
+  {
+   "id": 13995,
+   "col": "example_cs",
+   "old": "Na shledanou, příteli! Brzy se zase uvidíme",
+   "new": "Sbohem a díky za všechno!",
+   "why": "полная вычитка: смысл разошёлся — везде «прощай, и спасибо за всё»"
+  },
+  {
+   "id": 14010,
+   "col": "example_de",
+   "old": "Belüge mich nicht!",
+   "new": "Er belügt alle, sogar seine eigene Mutter",
+   "why": "полная вычитка: смысл разошёлся; «не ври мне» — двойник 13979 — везде «он врёт всем, даже матери»"
+  },
+  {
+   "id": 14010,
+   "col": "example_tr",
+   "old": "Bana yalan söyleme!",
+   "new": "Herkese yalan söylüyor, kendi annesine bile",
+   "why": "полная вычитка: смысл разошёлся; «не ври мне» — двойник 13979 — везде «он врёт всем, даже матери»"
+  },
+  {
+   "id": 14010,
+   "col": "example_pl",
+   "old": "Nie okłamuj mnie!",
+   "new": "Okłamuje wszystkich, nawet własną matkę",
+   "why": "полная вычитка: смысл разошёлся; «не ври мне» — двойник 13979 — везде «он врёт всем, даже матери»"
+  },
+  {
+   "id": 14010,
+   "col": "example_cs",
+   "old": "Nelži mi!",
+   "new": "Lže všem, dokonce i vlastní mámě",
+   "why": "полная вычитка: смысл разошёлся; «не ври мне» — двойник 13979 — везде «он врёт всем, даже матери»"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
