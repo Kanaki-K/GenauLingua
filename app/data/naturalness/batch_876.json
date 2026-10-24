@@ -1,0 +1,569 @@
+{
+ "about": "полная вычитка p016",
+ "edits": [
+  {
+   "id": 7718,
+   "col": "example_ru",
+   "old": "Мы едва успели на поезд",
+   "new": "Времени совсем мало, надо поторопиться",
+   "why": "полная вычитка: ru/uk «едва успели на поезд» — «времени мало, надо спешить»"
+  },
+  {
+   "id": 7718,
+   "col": "example_uk",
+   "old": "Ми заледве встигли на потяг",
+   "new": "Часу зовсім мало, треба поспішати",
+   "why": "полная вычитка: ru/uk «едва успели на поезд» — «времени мало, надо спешить»"
+  },
+  {
+   "id": 8055,
+   "col": "example_ru",
+   "old": "Она роется в сумочке в поисках телефона",
+   "new": "Она роется в сумочке в поисках ключа",
+   "why": "полная вычитка: ru/uk/en/es телефон — ключ, как в de"
+  },
+  {
+   "id": 8055,
+   "col": "example_uk",
+   "old": "Вона риється в сумочці, шукаючи телефон",
+   "new": "Вона риється в сумочці, шукаючи ключ",
+   "why": "полная вычитка: ru/uk/en/es телефон — ключ, как в de"
+  },
+  {
+   "id": 8055,
+   "col": "example_en",
+   "old": "She's rummaging in her handbag for her phone",
+   "new": "She's rummaging in her handbag for her key",
+   "why": "полная вычитка: ru/uk/en/es телефон — ключ, как в de"
+  },
+  {
+   "id": 8055,
+   "col": "example_es",
+   "old": "Hurga en el bolso buscando el móvil",
+   "new": "Hurga en el bolso buscando la llave",
+   "why": "полная вычитка: ru/uk/en/es телефон — ключ, как в de"
+  },
+  {
+   "id": 8056,
+   "col": "example_de",
+   "old": "Die Verkäuferin packt flink alles ein",
+   "new": "Der Kleine ist flink wie ein Eichhörnchen",
+   "why": "полная вычитка: смысл разошёлся — везде «малыш шустрый, как белка»"
+  },
+  {
+   "id": 8056,
+   "col": "example_ru",
+   "old": "Продавщица шустро всё упаковывает",
+   "new": "Малыш шустрый, как белка",
+   "why": "полная вычитка: смысл разошёлся — везде «малыш шустрый, как белка»"
+  },
+  {
+   "id": 8056,
+   "col": "example_uk",
+   "old": "Продавчиня моторно все пакує",
+   "new": "Малий моторний, як білка",
+   "why": "полная вычитка: смысл разошёлся — везде «малыш шустрый, как белка»"
+  },
+  {
+   "id": 8056,
+   "col": "example_tr",
+   "old": "Satıcı eli çabuk her şeyi paketliyor",
+   "new": "Küçük, sincap gibi çevik",
+   "why": "полная вычитка: смысл разошёлся — везде «малыш шустрый, как белка»"
+  },
+  {
+   "id": 8056,
+   "col": "example_pl",
+   "old": "Sprzedawczyni szybko wszystko pakuje",
+   "new": "Mały jest zwinny jak wiewiórka",
+   "why": "полная вычитка: смысл разошёлся — везде «малыш шустрый, как белка»"
+  },
+  {
+   "id": 8056,
+   "col": "example_cs",
+   "old": "Prodavačka všechno hbitě zabalí",
+   "new": "Malý je hbitý jako veverka",
+   "why": "полная вычитка: смысл разошёлся — везде «малыш шустрый, как белка»"
+  },
+  {
+   "id": 8145,
+   "col": "example_de",
+   "old": "Der Preis beinhaltet Frühstück und Abendessen",
+   "new": "Die Mitgliedschaft beinhaltet zehn Yogastunden",
+   "why": "полная вычитка: смысл разошёлся — везде «абонемент включает десять занятий йогой»"
+  },
+  {
+   "id": 8145,
+   "col": "example_ru",
+   "old": "Цена включает завтрак и ужин",
+   "new": "Абонемент включает десять занятий йогой",
+   "why": "полная вычитка: смысл разошёлся — везде «абонемент включает десять занятий йогой»"
+  },
+  {
+   "id": 8145,
+   "col": "example_uk",
+   "old": "Ціна включає сніданок і вечерю",
+   "new": "Абонемент включає десять занять йогою",
+   "why": "полная вычитка: смысл разошёлся — везде «абонемент включает десять занятий йогой»"
+  },
+  {
+   "id": 8145,
+   "col": "example_tr",
+   "old": "Fiyat kahvaltı ve akşam yemeğini kapsıyor",
+   "new": "Üyelik on yoga dersini kapsıyor",
+   "why": "полная вычитка: смысл разошёлся — везде «абонемент включает десять занятий йогой»"
+  },
+  {
+   "id": 8145,
+   "col": "example_pl",
+   "old": "Cena obejmuje śniadanie i kolację",
+   "new": "Karnet obejmuje dziesięć zajęć jogi",
+   "why": "полная вычитка: смысл разошёлся — везде «абонемент включает десять занятий йогой»"
+  },
+  {
+   "id": 8145,
+   "col": "example_fr",
+   "old": "Le forfait comprend dix séances de sport",
+   "new": "Le forfait comprend dix séances de yoga",
+   "why": "полная вычитка: смысл разошёлся — везде «абонемент включает десять занятий йогой»"
+  },
+  {
+   "id": 8145,
+   "col": "example_cs",
+   "old": "Cena zahrnuje snídani a večeři",
+   "new": "Permanentka zahrnuje deset lekcí jógy",
+   "why": "полная вычитка: смысл разошёлся — везде «абонемент включает десять занятий йогой»"
+  },
+  {
+   "id": 8166,
+   "col": "example_de",
+   "old": "Sie hat viel Schweres in ihrem Leben durchlebt",
+   "new": "In diesen Jahren hat er sehr schwere Zeiten durchlebt",
+   "why": "полная вычитка: смысл разошёлся; двойник 7017 — везде «в те годы он пережил тяжёлые времена»"
+  },
+  {
+   "id": 8166,
+   "col": "example_ru",
+   "old": "Она пережила много трудностей в жизни",
+   "new": "В те годы он пережил очень тяжёлые времена",
+   "why": "полная вычитка: смысл разошёлся; двойник 7017 — везде «в те годы он пережил тяжёлые времена»"
+  },
+  {
+   "id": 8166,
+   "col": "example_uk",
+   "old": "Вона пережила багато важких моментів у житті",
+   "new": "У ті роки він пережив дуже важкі часи",
+   "why": "полная вычитка: смысл разошёлся; двойник 7017 — везде «в те годы он пережил тяжёлые времена»"
+  },
+  {
+   "id": 8166,
+   "col": "example_tr",
+   "old": "Hayatında birçok zorluk yaşadı",
+   "new": "O yıllarda çok zor zamanlar yaşadı",
+   "why": "полная вычитка: смысл разошёлся; двойник 7017 — везде «в те годы он пережил тяжёлые времена»"
+  },
+  {
+   "id": 8166,
+   "col": "example_pl",
+   "old": "Przeżyła w życiu wiele trudnych chwil",
+   "new": "W tamtych latach przeżył bardzo ciężkie czasy",
+   "why": "полная вычитка: смысл разошёлся; двойник 7017 — везде «в те годы он пережил тяжёлые времена»"
+  },
+  {
+   "id": 8166,
+   "col": "example_cs",
+   "old": "V životě prožila hodně těžkých chvil",
+   "new": "V těch letech prožil hodně těžké časy",
+   "why": "полная вычитка: смысл разошёлся; двойник 7017 — везде «в те годы он пережил тяжёлые времена»"
+  },
+  {
+   "id": 8182,
+   "col": "example_de",
+   "old": "Die Bücher liegen übereinander auf dem Tisch",
+   "new": "Im Keller stehen die Kisten übereinander",
+   "why": "полная вычитка: смысл разошёлся; двойник 13511 — везде «в подвале коробки друг на друге»"
+  },
+  {
+   "id": 8182,
+   "col": "example_ru",
+   "old": "Книги лежат друг на друге на столе",
+   "new": "В подвале коробки стоят друг на друге",
+   "why": "полная вычитка: смысл разошёлся; двойник 13511 — везде «в подвале коробки друг на друге»"
+  },
+  {
+   "id": 8182,
+   "col": "example_uk",
+   "old": "Книги лежать одна на одній на столі",
+   "new": "У підвалі коробки стоять одна на одній",
+   "why": "полная вычитка: смысл разошёлся; двойник 13511 — везде «в подвале коробки друг на друге»"
+  },
+  {
+   "id": 8182,
+   "col": "example_tr",
+   "old": "Kitaplar masada üst üste duruyor",
+   "new": "Bodrumda kutular üst üste duruyor",
+   "why": "полная вычитка: смысл разошёлся; двойник 13511 — везде «в подвале коробки друг на друге»"
+  },
+  {
+   "id": 8182,
+   "col": "example_pl",
+   "old": "Książki leżą jedna na drugiej na stole",
+   "new": "W piwnicy pudła stoją jedno na drugim",
+   "why": "полная вычитка: смысл разошёлся; двойник 13511 — везде «в подвале коробки друг на друге»"
+  },
+  {
+   "id": 8182,
+   "col": "example_fr",
+   "old": "Les livres sont posés les uns sur les autres sur la table",
+   "new": "Les cartons sont empilés les uns sur les autres à la cave",
+   "why": "полная вычитка: смысл разошёлся; двойник 13511 — везде «в подвале коробки друг на друге»"
+  },
+  {
+   "id": 8182,
+   "col": "example_cs",
+   "old": "Knihy leží na stole na sobě",
+   "new": "Ve sklepě stojí krabice na sobě",
+   "why": "полная вычитка: смысл разошёлся; двойник 13511 — везде «в подвале коробки друг на друге»"
+  },
+  {
+   "id": 8303,
+   "col": "example_de",
+   "old": "Mit dieser Sense habe ich das Gras gemäht",
+   "new": "Mein Opa mäht das Gras immer noch mit der Sense",
+   "why": "полная вычитка: смысл разошёлся — везде «дедушка до сих пор косит косой»"
+  },
+  {
+   "id": 8303,
+   "col": "example_tr",
+   "old": "Bu tırpanla otları biçtim",
+   "new": "Dedem otları hâlâ tırpanla biçiyor",
+   "why": "полная вычитка: смысл разошёлся — везде «дедушка до сих пор косит косой»"
+  },
+  {
+   "id": 8303,
+   "col": "example_pl",
+   "old": "Tą kosą skosiłem trawę",
+   "new": "Dziadek wciąż kosi trawę kosą",
+   "why": "полная вычитка: смысл разошёлся — везде «дедушка до сих пор косит косой»"
+  },
+  {
+   "id": 8303,
+   "col": "example_cs",
+   "old": "Tou kosou jsem posekal trávu",
+   "new": "Děda pořád seká trávu kosou",
+   "why": "полная вычитка: смысл разошёлся — везде «дедушка до сих пор косит косой»"
+  },
+  {
+   "id": 8380,
+   "col": "example_en",
+   "old": "I'm really grateful for your help",
+   "new": "I want to show you how grateful I am for your help",
+   "why": "полная вычитка: en/it/es/fr «очень благодарен» — «хочу показать, как благодарен»"
+  },
+  {
+   "id": 8380,
+   "col": "example_it",
+   "old": "Ti sono molto riconoscente per l'aiuto",
+   "new": "Voglio dimostrarti quanto ti sono riconoscente per l'aiuto",
+   "why": "полная вычитка: en/it/es/fr «очень благодарен» — «хочу показать, как благодарен»"
+  },
+  {
+   "id": 8380,
+   "col": "example_es",
+   "old": "Te estoy muy agradecido por tu ayuda",
+   "new": "Quiero demostrarte lo agradecido que estoy por tu ayuda",
+   "why": "полная вычитка: en/it/es/fr «очень благодарен» — «хочу показать, как благодарен»"
+  },
+  {
+   "id": 8380,
+   "col": "example_fr",
+   "old": "Je te suis très reconnaissant pour ton aide",
+   "new": "Je veux te montrer à quel point je te suis reconnaissant pour ton aide",
+   "why": "полная вычитка: en/it/es/fr «очень благодарен» — «хочу показать, как благодарен»"
+  },
+  {
+   "id": 8401,
+   "col": "example_de",
+   "old": "Wir müssen den Koffer festbinden, bevor wir losfahren",
+   "new": "Bind die Fahrräder auf dem Autodach gut fest",
+   "why": "полная вычитка: смысл разошёлся — везде «привяжи велосипеды на крыше»"
+  },
+  {
+   "id": 8401,
+   "col": "example_ru",
+   "old": "Надо привязать чемодан, прежде чем ехать",
+   "new": "Хорошенько привяжи велосипеды на крыше машины",
+   "why": "полная вычитка: смысл разошёлся — везде «привяжи велосипеды на крыше»"
+  },
+  {
+   "id": 8401,
+   "col": "example_uk",
+   "old": "Треба прив'язати валізу, перш ніж їхати",
+   "new": "Добре прив'яжи велосипеди на даху машини",
+   "why": "полная вычитка: смысл разошёлся — везде «привяжи велосипеды на крыше»"
+  },
+  {
+   "id": 8401,
+   "col": "example_tr",
+   "old": "Yola çıkmadan önce bavulu bağlamamız lazım",
+   "new": "Bisikletleri arabanın tavanına sıkıca bağla",
+   "why": "полная вычитка: смысл разошёлся — везде «привяжи велосипеды на крыше»"
+  },
+  {
+   "id": 8401,
+   "col": "example_pl",
+   "old": "Musimy przywiązać walizkę, zanim wyruszymy",
+   "new": "Przywiąż dobrze rowery na dachu samochodu",
+   "why": "полная вычитка: смысл разошёлся — везде «привяжи велосипеды на крыше»"
+  },
+  {
+   "id": 8401,
+   "col": "example_cs",
+   "old": "Musíme přivázat kufr, než vyrazíme",
+   "new": "Pořádně přivaž kola na střechu auta",
+   "why": "полная вычитка: смысл разошёлся — везде «привяжи велосипеды на крыше»"
+  },
+  {
+   "id": 8409,
+   "col": "example_en",
+   "old": "A button has fallen off my jacket",
+   "new": "The leaves are falling now that it's autumn",
+   "why": "полная вычитка: en/it/es/fr пуговица (двойник 13645) — «осенью опадают листья»"
+  },
+  {
+   "id": 8409,
+   "col": "example_it",
+   "old": "Mi è caduto un bottone della giacca",
+   "new": "In autunno cadono le foglie",
+   "why": "полная вычитка: en/it/es/fr пуговица (двойник 13645) — «осенью опадают листья»"
+  },
+  {
+   "id": 8409,
+   "col": "example_es",
+   "old": "Se me ha caído un botón de la chaqueta",
+   "new": "Ahora en otoño se caen las hojas",
+   "why": "полная вычитка: en/it/es/fr пуговица (двойник 13645) — «осенью опадают листья»"
+  },
+  {
+   "id": 8409,
+   "col": "example_fr",
+   "old": "Le bouton de ma veste est tombé",
+   "new": "En automne, les feuilles tombent",
+   "why": "полная вычитка: en/it/es/fr пуговица (двойник 13645) — «осенью опадают листья»"
+  },
+  {
+   "id": 8440,
+   "col": "example_ru",
+   "old": "У меня куда-то пропал кошелёк",
+   "new": "У меня куда-то пропал ключ",
+   "why": "полная вычитка: ru/uk кошелёк, en/it/es зарядка — везде ключ"
+  },
+  {
+   "id": 8440,
+   "col": "example_uk",
+   "old": "У мене кудись подівся гаманець",
+   "new": "У мене кудись подівся ключ",
+   "why": "полная вычитка: ru/uk кошелёк, en/it/es зарядка — везде ключ"
+  },
+  {
+   "id": 8440,
+   "col": "example_en",
+   "old": "My charger has gone missing",
+   "new": "My key's gone missing",
+   "why": "полная вычитка: ru/uk кошелёк, en/it/es зарядка — везде ключ"
+  },
+  {
+   "id": 8440,
+   "col": "example_it",
+   "old": "Mi è sparito il caricabatterie",
+   "new": "Mi è sparita la chiave",
+   "why": "полная вычитка: ru/uk кошелёк, en/it/es зарядка — везде ключ"
+  },
+  {
+   "id": 8440,
+   "col": "example_es",
+   "old": "Se me ha perdido el cargador",
+   "new": "Se me ha perdido la llave",
+   "why": "полная вычитка: ru/uk кошелёк, en/it/es зарядка — везде ключ"
+  },
+  {
+   "id": 8595,
+   "col": "example_en",
+   "old": "The kids are running around in the garden",
+   "new": "The kids want to run around outside",
+   "why": "полная вычитка: en/it/es/fr «бегают в саду» — «хотят побегать на улице»"
+  },
+  {
+   "id": 8595,
+   "col": "example_it",
+   "old": "I bambini scorrazzano in giardino",
+   "new": "I bambini vogliono scorrazzare fuori",
+   "why": "полная вычитка: en/it/es/fr «бегают в саду» — «хотят побегать на улице»"
+  },
+  {
+   "id": 8595,
+   "col": "example_es",
+   "old": "Los niños corretean por el jardín",
+   "new": "Los niños quieren corretear fuera",
+   "why": "полная вычитка: en/it/es/fr «бегают в саду» — «хотят побегать на улице»"
+  },
+  {
+   "id": 8595,
+   "col": "example_fr",
+   "old": "Les enfants courent partout dans le jardin",
+   "new": "Les enfants veulent courir partout dehors",
+   "why": "полная вычитка: en/it/es/fr «бегают в саду» — «хотят побегать на улице»"
+  },
+  {
+   "id": 8660,
+   "col": "example_de",
+   "old": "Im Herbst werden die Blätter violett und rot",
+   "new": "Meine Tochter wünscht sich ein violettes Kinderzimmer",
+   "why": "полная вычитка: смысл разошёлся; шаблон листьев 679 — везде «дочка хочет фиолетовую комнату»"
+  },
+  {
+   "id": 8660,
+   "col": "example_ru",
+   "old": "Осенью листья становятся фиолетовыми и красными",
+   "new": "Дочка хочет фиолетовую детскую",
+   "why": "полная вычитка: смысл разошёлся; шаблон листьев 679 — везде «дочка хочет фиолетовую комнату»"
+  },
+  {
+   "id": 8660,
+   "col": "example_uk",
+   "old": "Восени листя стає фіолетовим і червоним",
+   "new": "Донька хоче фіолетову дитячу кімнату",
+   "why": "полная вычитка: смысл разошёлся; шаблон листьев 679 — везде «дочка хочет фиолетовую комнату»"
+  },
+  {
+   "id": 8660,
+   "col": "example_tr",
+   "old": "Sonbaharda yapraklar mora ve kırmızıya dönüyor",
+   "new": "Kızım mor bir oda istiyor",
+   "why": "полная вычитка: смысл разошёлся; шаблон листьев 679 — везде «дочка хочет фиолетовую комнату»"
+  },
+  {
+   "id": 8660,
+   "col": "example_pl",
+   "old": "Jesienią liście robią się fioletowe i czerwone",
+   "new": "Córka chce fioletowy pokój",
+   "why": "полная вычитка: смысл разошёлся; шаблон листьев 679 — везде «дочка хочет фиолетовую комнату»"
+  },
+  {
+   "id": 8660,
+   "col": "example_cs",
+   "old": "Na podzim je listí fialové a červené",
+   "new": "Dcera chce fialový pokojíček",
+   "why": "полная вычитка: смысл разошёлся; шаблон листьев 679 — везде «дочка хочет фиолетовую комнату»"
+  },
+  {
+   "id": 8758,
+   "col": "example_de",
+   "old": "Meine Karriere ist mir wichtig",
+   "new": "Für sie steht die Karriere an erster Stelle",
+   "why": "полная вычитка: смысл разошёлся — везде «для неё карьера на первом месте»"
+  },
+  {
+   "id": 8758,
+   "col": "example_ru",
+   "old": "Ради карьеры она переехала в столицу",
+   "new": "Для неё карьера на первом месте",
+   "why": "полная вычитка: смысл разошёлся — везде «для неё карьера на первом месте»"
+  },
+  {
+   "id": 8758,
+   "col": "example_uk",
+   "old": "Заради кар'єри вона переїхала до столиці",
+   "new": "Для неї кар'єра на першому місці",
+   "why": "полная вычитка: смысл разошёлся — везде «для неё карьера на первом месте»"
+  },
+  {
+   "id": 8758,
+   "col": "example_tr",
+   "old": "Kariyerim benim için önemli",
+   "new": "Onun için kariyer her şeyden önce gelir",
+   "why": "полная вычитка: смысл разошёлся — везде «для неё карьера на первом месте»"
+  },
+  {
+   "id": 8758,
+   "col": "example_pl",
+   "old": "Zależy mi na karierze",
+   "new": "Dla niej kariera jest najważniejsza",
+   "why": "полная вычитка: смысл разошёлся — везде «для неё карьера на первом месте»"
+  },
+  {
+   "id": 8758,
+   "col": "example_cs",
+   "old": "Na kariéře mi hodně záleží",
+   "new": "Pro ni je kariéra na prvním místě",
+   "why": "полная вычитка: смысл разошёлся — везде «для неё карьера на первом месте»"
+  },
+  {
+   "id": 8782,
+   "col": "example_en",
+   "old": "The kids love spending the holidays on the farm",
+   "new": "Lots of animals live on the farm",
+   "why": "полная вычитка: en/it/es/fr каникулы — «на ферме много животных»"
+  },
+  {
+   "id": 8782,
+   "col": "example_it",
+   "old": "I bambini adorano passare le vacanze in fattoria",
+   "new": "Nella fattoria vivono tanti animali",
+   "why": "полная вычитка: en/it/es/fr каникулы — «на ферме много животных»"
+  },
+  {
+   "id": 8782,
+   "col": "example_es",
+   "old": "A los niños les encanta pasar las vacaciones en la granja",
+   "new": "En la granja viven muchos animales",
+   "why": "полная вычитка: en/it/es/fr каникулы — «на ферме много животных»"
+  },
+  {
+   "id": 8782,
+   "col": "example_fr",
+   "old": "Les enfants adorent passer les vacances à la ferme",
+   "new": "Il y a beaucoup d'animaux à la ferme",
+   "why": "полная вычитка: en/it/es/fr каникулы — «на ферме много животных»"
+  },
+  {
+   "id": 8829,
+   "col": "example_ru",
+   "old": "Завтра я весь день в городе по делам",
+   "new": "Завтра я по делам в Берлине",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 8829,
+   "col": "example_uk",
+   "old": "Завтра я у справах у Дніпрі",
+   "new": "Завтра я у справах у Берліні",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 8829,
+   "col": "example_en",
+   "old": "Tomorrow I'm in Glasgow on business",
+   "new": "Tomorrow I'm in Berlin on business",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 8829,
+   "col": "example_it",
+   "old": "Domani sono a Torino per lavoro",
+   "new": "Domani sono a Berlino per lavoro",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 8829,
+   "col": "example_es",
+   "old": "Mañana estoy en Bilbao por trabajo",
+   "new": "Mañana estoy en Berlín por trabajo",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
