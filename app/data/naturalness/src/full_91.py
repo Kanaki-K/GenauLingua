@@ -1,0 +1,13 @@
+"""Полная вычитка, порция 91: один смысл во всех 10 языках, живой пример со словом карточки"""
+
+T = "полная вычитка: "
+
+FIXES = {
+    241: (T + "двойник с 8 «Wie ist deine Adresse?» — везде «ваша квартира чудесная»", {"example_de": "Eure Wohnung ist wirklich schön", "example_ru": "Ваша квартира просто чудесная", "example_uk": "Ваша квартира просто чудова", "example_en": "Your flat is gorgeous", "example_tr": "Daireniz çok güzel", "example_pl": "Wasze mieszkanie jest przepiękne", "example_it": "Il vostro appartamento è bellissimo", "example_es": "Vuestro piso es precioso", "example_fr": "Votre appartement est magnifique", "example_cs": "Váš byt je nádherný"}),
+    636: (T + "двойник с 253 «как фамилия» — везде «фамилия пишется с двумя L»", {"example_de": "Mein Nachname wird mit zwei L geschrieben", "example_ru": "Моя фамилия пишется с двумя «л»", "example_uk": "Моє прізвище пишеться з двома «л»", "example_en": "My surname is spelt with two Ls", "example_tr": "Soyadım iki L ile yazılıyor", "example_pl": "Moje nazwisko pisze się przez dwa «l»", "example_it": "Il mio cognome si scrive con due elle", "example_es": "Mi apellido se escribe con dos eles", "example_fr": "Mon nom de famille s'écrit avec deux L", "example_cs": "Moje příjmení se píše se dvěma L"}),
+    1241: (T + "двойник с 26 «записаться на курс» — везде «в универе записался на испанский»", {"example_de": "An der Uni habe ich einen Spanischkurs belegt", "example_ru": "В университете я записался на курс испанского", "example_uk": "В університеті я записався на курс іспанської", "example_en": "At university I've signed up for a Spanish course", "example_tr": "Üniversitede İspanyolca kursuna kaydoldum", "example_pl": "Na studiach zapisałem się na kurs hiszpańskiego", "example_it": "All'università mi sono iscritto a un corso di spagnolo", "example_es": "En la universidad me he inscrito en un curso de español", "example_fr": "À la fac, je me suis inscrit à un cours d'espagnol", "example_cs": "Na univerzitě jsem si zapsal kurz španělštiny"}),
+    18401: (T + "двойник с 18248 «живём на третьем этаже» — везде «офис на верхнем этаже»", {"example_de": "Das Büro liegt im obersten Geschoss", "example_ru": "Офис находится на верхнем этаже", "example_uk": "Офіс розташований на верхньому поверсі", "example_en": "The office is on the top floor", "example_tr": "Ofis en üst katta", "example_pl": "Biuro jest na najwyższym piętrze", "example_it": "L'ufficio è all'ultimo piano", "example_es": "La oficina está en la última planta", "example_fr": "Le bureau est au dernier étage", "example_cs": "Kancelář je v nejvyšším patře"}),
+}
+
+REPLACE = []
+SPLIT_LATER = {}
