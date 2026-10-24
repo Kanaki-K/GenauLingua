@@ -1,0 +1,660 @@
+{
+ "about": "полная вычитка p014",
+ "edits": [
+  {
+   "id": 3067,
+   "col": "example_de",
+   "old": "Das Zusammenleben mit meinen Eltern ist harmonisch",
+   "new": "Das Zusammenleben mit meiner Schwiegermutter ist nicht immer leicht",
+   "why": "полная вычитка: смысл разошёлся — везде «совместная жизнь со свекровью не всегда легка»"
+  },
+  {
+   "id": 3067,
+   "col": "example_ru",
+   "old": "Жить вместе с родителями не всегда легко",
+   "new": "Совместная жизнь со свекровью не всегда легка",
+   "why": "полная вычитка: смысл разошёлся — везде «совместная жизнь со свекровью не всегда легка»"
+  },
+  {
+   "id": 3067,
+   "col": "example_uk",
+   "old": "Жити разом із батьками не завжди легко",
+   "new": "Спільне життя зі свекрухою не завжди легке",
+   "why": "полная вычитка: смысл разошёлся — везде «совместная жизнь со свекровью не всегда легка»"
+  },
+  {
+   "id": 3067,
+   "col": "example_tr",
+   "old": "Anne babamla birlikte yaşamak hiç sorun değil, çok uyumluyuz",
+   "new": "Kayınvalidemle birlikte yaşamak her zaman kolay değil",
+   "why": "полная вычитка: смысл разошёлся — везде «совместная жизнь со свекровью не всегда легка»"
+  },
+  {
+   "id": 3067,
+   "col": "example_pl",
+   "old": "Wspólne życie z rodzicami układa się harmonijnie",
+   "new": "Wspólne życie z teściową nie zawsze jest łatwe",
+   "why": "полная вычитка: смысл разошёлся — везде «совместная жизнь со свекровью не всегда легка»"
+  },
+  {
+   "id": 3067,
+   "col": "example_cs",
+   "old": "Soužití s rodiči je harmonické",
+   "new": "Soužití s tchyní není vždycky snadné",
+   "why": "полная вычитка: смысл разошёлся — везде «совместная жизнь со свекровью не всегда легка»"
+  },
+  {
+   "id": 6383,
+   "col": "example_es",
+   "old": "Hay un trozo de pastel sobrante, ¿lo quieres?",
+   "new": "Todavía queda pastel",
+   "why": "полная вычитка: es/fr «хочешь кусок?» — «ещё остался торт»"
+  },
+  {
+   "id": 6383,
+   "col": "example_fr",
+   "old": "Il y a une part de gâteau en trop, tu la veux ?",
+   "new": "Il reste encore du gâteau",
+   "why": "полная вычитка: es/fr «хочешь кусок?» — «ещё остался торт»"
+  },
+  {
+   "id": 6415,
+   "col": "example_de",
+   "old": "Ich schätze das sehr",
+   "new": "Ich schätze deine Hilfe sehr",
+   "why": "полная вычитка: смысл разошёлся — везде «очень ценю твою помощь»"
+  },
+  {
+   "id": 6415,
+   "col": "example_ru",
+   "old": "Я это очень ценю",
+   "new": "Я очень ценю твою помощь",
+   "why": "полная вычитка: смысл разошёлся — везде «очень ценю твою помощь»"
+  },
+  {
+   "id": 6415,
+   "col": "example_uk",
+   "old": "Я це дуже ціную",
+   "new": "Я дуже ціную твою допомогу",
+   "why": "полная вычитка: смысл разошёлся — везде «очень ценю твою помощь»"
+  },
+  {
+   "id": 6415,
+   "col": "example_tr",
+   "old": "Bunu çok takdir ediyorum",
+   "new": "Yardımını çok takdir ediyorum",
+   "why": "полная вычитка: смысл разошёлся — везде «очень ценю твою помощь»"
+  },
+  {
+   "id": 6415,
+   "col": "example_pl",
+   "old": "Bardzo to cenię",
+   "new": "Bardzo cenię twoją pomoc",
+   "why": "полная вычитка: смысл разошёлся — везде «очень ценю твою помощь»"
+  },
+  {
+   "id": 6415,
+   "col": "example_cs",
+   "old": "Velmi si toho vážím",
+   "new": "Velmi si vážím tvé pomoci",
+   "why": "полная вычитка: смысл разошёлся — везде «очень ценю твою помощь»"
+  },
+  {
+   "id": 6418,
+   "col": "example_en",
+   "old": "I can't grasp what he means",
+   "new": "I just can't take it in",
+   "why": "полная вычитка: en/es/fr «что он имеет в виду» — вернуть «не могу осознать»"
+  },
+  {
+   "id": 6418,
+   "col": "example_es",
+   "old": "Me cuesta comprender lo que quiere decir",
+   "new": "No me lo puedo creer",
+   "why": "полная вычитка: en/es/fr «что он имеет в виду» — вернуть «не могу осознать»"
+  },
+  {
+   "id": 6418,
+   "col": "example_fr",
+   "old": "J'ai du mal à saisir ce qu'il veut dire",
+   "new": "Je n'arrive pas à y croire",
+   "why": "полная вычитка: en/es/fr «что он имеет в виду» — вернуть «не могу осознать»"
+  },
+  {
+   "id": 6481,
+   "col": "example_de",
+   "old": "Sie hat ein freundliches Wesen",
+   "new": "Es liegt in ihrem Wesen, anderen zu helfen",
+   "why": "полная вычитка: смысл разошёлся — везде «помогать другим в её характере»"
+  },
+  {
+   "id": 6481,
+   "col": "example_ru",
+   "old": "У неё дружелюбный характер",
+   "new": "Помогать другим — в её характере",
+   "why": "полная вычитка: смысл разошёлся — везде «помогать другим в её характере»"
+  },
+  {
+   "id": 6481,
+   "col": "example_uk",
+   "old": "У неї привітний характер",
+   "new": "Допомагати іншим — у її характері",
+   "why": "полная вычитка: смысл разошёлся — везде «помогать другим в её характере»"
+  },
+  {
+   "id": 6481,
+   "col": "example_tr",
+   "old": "Cana yakın bir huyu var",
+   "new": "Başkalarına yardım etmek onun huyunda var",
+   "why": "полная вычитка: смысл разошёлся — везде «помогать другим в её характере»"
+  },
+  {
+   "id": 6481,
+   "col": "example_pl",
+   "old": "Ma przyjazny charakter",
+   "new": "Pomaganie innym leży w jej charakterze",
+   "why": "полная вычитка: смысл разошёлся — везде «помогать другим в её характере»"
+  },
+  {
+   "id": 6481,
+   "col": "example_it",
+   "old": "Ha un'indole gentile",
+   "new": "Aiutare gli altri è nella sua indole",
+   "why": "полная вычитка: смысл разошёлся — везде «помогать другим в её характере»"
+  },
+  {
+   "id": 6481,
+   "col": "example_cs",
+   "old": "Má přátelskou povahu",
+   "new": "Pomáhat druhým má v povaze",
+   "why": "полная вычитка: смысл разошёлся — везде «помогать другим в её характере»"
+  },
+  {
+   "id": 6486,
+   "col": "example_en",
+   "old": "The dog guards the house",
+   "new": "She sat up all night at her sick son's bedside",
+   "why": "полная вычитка: en/es/fr собака сторожит — вернуть «всю ночь у постели сына»"
+  },
+  {
+   "id": 6486,
+   "col": "example_es",
+   "old": "El perro monta guardia delante de la casa",
+   "new": "Pasó toda la noche velando junto a la cama de su hijo enfermo",
+   "why": "полная вычитка: en/es/fr собака сторожит — вернуть «всю ночь у постели сына»"
+  },
+  {
+   "id": 6486,
+   "col": "example_fr",
+   "old": "Le chien monte la garde devant la maison",
+   "new": "Elle a veillé toute la nuit au chevet de son fils malade",
+   "why": "полная вычитка: en/es/fr собака сторожит — вернуть «всю ночь у постели сына»"
+  },
+  {
+   "id": 6536,
+   "col": "example_fr",
+   "old": "J'ai presque raté le train",
+   "new": "Je suis presque arrivé en retard",
+   "why": "полная вычитка: fr «чуть не опоздал на поезд» — «чуть не опоздал»"
+  },
+  {
+   "id": 6572,
+   "col": "example_de",
+   "old": "Halte dich gut fest",
+   "new": "Halt dich gut fest, gleich wird's holprig!",
+   "why": "полная вычитка: смысл разошёлся — везде «держись крепче, сейчас трясти»"
+  },
+  {
+   "id": 6572,
+   "col": "example_ru",
+   "old": "Держись крепко",
+   "new": "Держись крепче, сейчас будет трясти!",
+   "why": "полная вычитка: смысл разошёлся — везде «держись крепче, сейчас трясти»"
+  },
+  {
+   "id": 6572,
+   "col": "example_uk",
+   "old": "Тримайся міцно",
+   "new": "Тримайся міцно, зараз трястиме!",
+   "why": "полная вычитка: смысл разошёлся — везде «держись крепче, сейчас трясти»"
+  },
+  {
+   "id": 6572,
+   "col": "example_tr",
+   "old": "Sıkı tutun",
+   "new": "Sıkı tutun, birazdan sarsıntı olacak!",
+   "why": "полная вычитка: смысл разошёлся — везде «держись крепче, сейчас трясти»"
+  },
+  {
+   "id": 6572,
+   "col": "example_pl",
+   "old": "Trzymaj się mocno",
+   "new": "Trzymaj się mocno, zaraz będzie trzęść!",
+   "why": "полная вычитка: смысл разошёлся — везде «держись крепче, сейчас трясти»"
+  },
+  {
+   "id": 6572,
+   "col": "example_it",
+   "old": "Tieniti forte",
+   "new": "Tieniti forte, adesso si balla!",
+   "why": "полная вычитка: смысл разошёлся — везде «держись крепче, сейчас трясти»"
+  },
+  {
+   "id": 6572,
+   "col": "example_cs",
+   "old": "Drž se pevně",
+   "new": "Drž se pevně, teď to bude drncat!",
+   "why": "полная вычитка: смысл разошёлся — везде «держись крепче, сейчас трясти»"
+  },
+  {
+   "id": 6583,
+   "col": "example_de",
+   "old": "Die Nachbarn besuchen sich gegenseitig",
+   "new": "Die Nachbarn helfen sich gegenseitig",
+   "why": "полная вычитка: смысл разошёлся — везде «соседи помогают друг другу»"
+  },
+  {
+   "id": 6583,
+   "col": "example_ru",
+   "old": "Соседи ходят друг к другу в гости",
+   "new": "Соседи помогают друг другу",
+   "why": "полная вычитка: смысл разошёлся — везде «соседи помогают друг другу»"
+  },
+  {
+   "id": 6583,
+   "col": "example_uk",
+   "old": "Сусіди ходять одне до одного в гості",
+   "new": "Сусіди допомагають одне одному",
+   "why": "полная вычитка: смысл разошёлся — везде «соседи помогают друг другу»"
+  },
+  {
+   "id": 6583,
+   "col": "example_en",
+   "old": "Respect has to be mutual",
+   "new": "The neighbours help each other out",
+   "why": "полная вычитка: смысл разошёлся — везде «соседи помогают друг другу»"
+  },
+  {
+   "id": 6583,
+   "col": "example_tr",
+   "old": "Komşular birbirini ziyaret ediyor",
+   "new": "Komşular birbirine yardım ediyor",
+   "why": "полная вычитка: смысл разошёлся — везде «соседи помогают друг другу»"
+  },
+  {
+   "id": 6583,
+   "col": "example_pl",
+   "old": "Sąsiedzi nawzajem się odwiedzają",
+   "new": "Sąsiedzi pomagają sobie nawzajem",
+   "why": "полная вычитка: смысл разошёлся — везде «соседи помогают друг другу»"
+  },
+  {
+   "id": 6583,
+   "col": "example_it",
+   "old": "Tra vicini ci aiutiamo a vicenda",
+   "new": "I vicini si aiutano a vicenda",
+   "why": "полная вычитка: смысл разошёлся — везде «соседи помогают друг другу»"
+  },
+  {
+   "id": 6583,
+   "col": "example_es",
+   "old": "El respeto tiene que ser mutuo",
+   "new": "Los vecinos se ayudan mutuamente",
+   "why": "полная вычитка: смысл разошёлся — везде «соседи помогают друг другу»"
+  },
+  {
+   "id": 6583,
+   "col": "example_fr",
+   "old": "Le respect doit être mutuel",
+   "new": "Les voisins s'aident mutuellement",
+   "why": "полная вычитка: смысл разошёлся — везде «соседи помогают друг другу»"
+  },
+  {
+   "id": 6583,
+   "col": "example_cs",
+   "old": "Sousedé se vzájemně navštěvují",
+   "new": "Sousedé si vzájemně pomáhají",
+   "why": "полная вычитка: смысл разошёлся — везде «соседи помогают друг другу»"
+  },
+  {
+   "id": 6599,
+   "col": "example_en",
+   "old": "The wind knocked the old tree to the ground",
+   "new": "The little one is bouncing up and down on the trampoline",
+   "why": "полная вычитка: en/es/fr ветер свалил дерево — вернуть «прыгает вверх-вниз на батуте»"
+  },
+  {
+   "id": 6599,
+   "col": "example_es",
+   "old": "El viento ha tirado al suelo el árbol viejo",
+   "new": "La pequeña salta arriba y abajo en la cama elástica",
+   "why": "полная вычитка: en/es/fr ветер свалил дерево — вернуть «прыгает вверх-вниз на батуте»"
+  },
+  {
+   "id": 6599,
+   "col": "example_fr",
+   "old": "Le vent a mis le vieil arbre à terre",
+   "new": "La petite saute de haut en bas sur le trampoline",
+   "why": "полная вычитка: en/es/fr ветер свалил дерево — вернуть «прыгает вверх-вниз на батуте»"
+  },
+  {
+   "id": 6600,
+   "col": "example_es",
+   "old": "Después del cine volvimos a casa separados",
+   "new": "Después del cine los amigos se fueron cada uno por su lado",
+   "why": "полная вычитка: es/fr «мы вернулись врозь» — «друзья разошлись в разные стороны»"
+  },
+  {
+   "id": 6600,
+   "col": "example_fr",
+   "old": "Après le cinéma, on est rentrés séparément",
+   "new": "Après le cinéma, les amis sont partis chacun de leur côté",
+   "why": "полная вычитка: es/fr «мы вернулись врозь» — «друзья разошлись в разные стороны»"
+  },
+  {
+   "id": 6610,
+   "col": "example_de",
+   "old": "Ich muss dich warnen",
+   "new": "Ich warne dich, das ist sehr scharf!",
+   "why": "полная вычитка: смысл разошёлся — везде «предупреждаю, очень остро»"
+  },
+  {
+   "id": 6610,
+   "col": "example_ru",
+   "old": "Я должен тебя предупредить",
+   "new": "Предупреждаю, это очень остро!",
+   "why": "полная вычитка: смысл разошёлся — везде «предупреждаю, очень остро»"
+  },
+  {
+   "id": 6610,
+   "col": "example_uk",
+   "old": "Мушу тебе попередити",
+   "new": "Попереджаю, це дуже гостро!",
+   "why": "полная вычитка: смысл разошёлся — везде «предупреждаю, очень остро»"
+  },
+  {
+   "id": 6610,
+   "col": "example_tr",
+   "old": "Seni uyarmak zorundayım",
+   "new": "Seni uyarıyorum, çok acı!",
+   "why": "полная вычитка: смысл разошёлся — везде «предупреждаю, очень остро»"
+  },
+  {
+   "id": 6610,
+   "col": "example_pl",
+   "old": "Muszę cię ostrzec",
+   "new": "Ostrzegam cię, to jest bardzo ostre!",
+   "why": "полная вычитка: смысл разошёлся — везде «предупреждаю, очень остро»"
+  },
+  {
+   "id": 6610,
+   "col": "example_cs",
+   "old": "Musím tě varovat",
+   "new": "Varuju tě, je to hodně pálivé!",
+   "why": "полная вычитка: смысл разошёлся — везде «предупреждаю, очень остро»"
+  },
+  {
+   "id": 6621,
+   "col": "example_en",
+   "old": "Does that ring any bells?",
+   "new": "Have you got any idea?",
+   "why": "полная вычитка: en/es/fr «что-то напоминает?» — вернуть «есть какая-то идея?»"
+  },
+  {
+   "id": 6621,
+   "col": "example_es",
+   "old": "¿Te suena de algún sitio?",
+   "new": "¿Tienes alguna idea?",
+   "why": "полная вычитка: en/es/fr «что-то напоминает?» — вернуть «есть какая-то идея?»"
+  },
+  {
+   "id": 6621,
+   "col": "example_fr",
+   "old": "Ça te dit quelque chose ?",
+   "new": "Tu as la moindre idée ?",
+   "why": "полная вычитка: en/es/fr «что-то напоминает?» — вернуть «есть какая-то идея?»"
+  },
+  {
+   "id": 6707,
+   "col": "example_de",
+   "old": "Er ist mächtig stolz auf seinen Sohn",
+   "new": "Heute Nacht gab es ein mächtiges Gewitter",
+   "why": "полная вычитка: смысл разошёлся — везде «ночью была мощная гроза»"
+  },
+  {
+   "id": 6707,
+   "col": "example_ru",
+   "old": "Он очень гордится сыном",
+   "new": "Ночью была мощная гроза",
+   "why": "полная вычитка: смысл разошёлся — везде «ночью была мощная гроза»"
+  },
+  {
+   "id": 6707,
+   "col": "example_uk",
+   "old": "Він дуже пишається сином",
+   "new": "Уночі була потужна гроза",
+   "why": "полная вычитка: смысл разошёлся — везде «ночью была мощная гроза»"
+  },
+  {
+   "id": 6707,
+   "col": "example_tr",
+   "old": "Oğluyla çok gurur duyuyor",
+   "new": "Dün gece çok güçlü bir fırtına vardı",
+   "why": "полная вычитка: смысл разошёлся — везде «ночью была мощная гроза»"
+  },
+  {
+   "id": 6707,
+   "col": "example_pl",
+   "old": "Jest ogromnie dumny z syna",
+   "new": "W nocy była potężna burza",
+   "why": "полная вычитка: смысл разошёлся — везде «ночью была мощная гроза»"
+  },
+  {
+   "id": 6707,
+   "col": "example_cs",
+   "old": "Je na syna pořádně pyšný",
+   "new": "V noci byla mohutná bouřka",
+   "why": "полная вычитка: смысл разошёлся — везде «ночью была мощная гроза»"
+  },
+  {
+   "id": 6710,
+   "col": "example_en",
+   "old": "How much stuff have you got in the car?!",
+   "new": "I can't be bothered with all this stuff",
+   "why": "полная вычитка: en/it/es/fr другой смысл — «неохота возиться со всем этим»"
+  },
+  {
+   "id": 6710,
+   "col": "example_it",
+   "old": "Quanta roba hai in macchina!",
+   "new": "Non ho nessuna voglia di occuparmi di tutta questa roba",
+   "why": "полная вычитка: en/it/es/fr другой смысл — «неохота возиться со всем этим»"
+  },
+  {
+   "id": 6710,
+   "col": "example_es",
+   "old": "¡Cuántos trastos llevas en el coche!",
+   "new": "No tengo ganas de liarme con todos estos trastos",
+   "why": "полная вычитка: en/it/es/fr другой смысл — «неохота возиться со всем этим»"
+  },
+  {
+   "id": 6710,
+   "col": "example_fr",
+   "old": "Range ton bazar, s'il te plaît !",
+   "new": "Je n'ai aucune envie de m'occuper de tout ce bazar",
+   "why": "полная вычитка: en/it/es/fr другой смысл — «неохота возиться со всем этим»"
+  },
+  {
+   "id": 6727,
+   "col": "example_ru",
+   "old": "Я перерыл всю квартиру в поисках паспорта",
+   "new": "Я перерыл всю квартиру в поисках ключа",
+   "why": "полная вычитка: ru/uk/en/it/es паспорт вместо ключа"
+  },
+  {
+   "id": 6727,
+   "col": "example_uk",
+   "old": "Я перерив усю квартиру, шукаючи паспорт",
+   "new": "Я перерив усю квартиру, шукаючи ключ",
+   "why": "полная вычитка: ru/uk/en/it/es паспорт вместо ключа"
+  },
+  {
+   "id": 6727,
+   "col": "example_en",
+   "old": "I searched the whole flat for my passport",
+   "new": "I searched the whole flat for my key",
+   "why": "полная вычитка: ru/uk/en/it/es паспорт вместо ключа"
+  },
+  {
+   "id": 6727,
+   "col": "example_it",
+   "old": "Ho frugato tutto l'appartamento per trovare il passaporto",
+   "new": "Ho frugato tutto l'appartamento per trovare la chiave",
+   "why": "полная вычитка: ru/uk/en/it/es паспорт вместо ключа"
+  },
+  {
+   "id": 6727,
+   "col": "example_es",
+   "old": "He registrado todo el piso buscando el pasaporte",
+   "new": "He registrado todo el piso buscando la llave",
+   "why": "полная вычитка: ru/uk/en/it/es паспорт вместо ключа"
+  },
+  {
+   "id": 6730,
+   "col": "example_ru",
+   "old": "Мы подъезжаем к городу, через десять минут будем на месте",
+   "new": "Мы подъезжаем к Берлину, через десять минут будем на месте",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 6730,
+   "col": "example_uk",
+   "old": "Ми під'їжджаємо до Одеси, за десять хвилин будемо на місці",
+   "new": "Ми під'їжджаємо до Берліна, за десять хвилин будемо на місці",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 6730,
+   "col": "example_en",
+   "old": "We're approaching London, we'll be there in ten minutes",
+   "new": "We're approaching Berlin, we'll be there in ten minutes",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 6730,
+   "col": "example_it",
+   "old": "Ci stiamo avvicinando a Bologna, tra dieci minuti siamo lì",
+   "new": "Ci stiamo avvicinando a Berlino, tra dieci minuti siamo lì",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 6730,
+   "col": "example_es",
+   "old": "Nos estamos acercando a Toledo, en diez minutos llegamos",
+   "new": "Nos estamos acercando a Berlín, en diez minutos llegamos",
+   "why": "полная вычитка: города разошлись — везде Берлин"
+  },
+  {
+   "id": 6743,
+   "col": "example_en",
+   "old": "Keep your distance from that dog",
+   "new": "Please keep a metre away from me",
+   "why": "полная вычитка: en/es/fr собака — вернуть «держись от меня на метр»"
+  },
+  {
+   "id": 6743,
+   "col": "example_es",
+   "old": "Guarda la distancia con ese perro",
+   "new": "Mantén un metro de distancia conmigo, por favor",
+   "why": "полная вычитка: en/es/fr собака — вернуть «держись от меня на метр»"
+  },
+  {
+   "id": 6743,
+   "col": "example_fr",
+   "old": "Garde tes distances avec ce chien",
+   "new": "Garde un mètre de distance avec moi, s'il te plaît",
+   "why": "полная вычитка: en/es/fr собака — вернуть «держись от меня на метр»"
+  },
+  {
+   "id": 6759,
+   "col": "example_fr",
+   "old": "Pense à sauvegarder tes données",
+   "new": "On doit sauvegarder nos données",
+   "why": "полная вычитка: fr «не забудь сохранить» — «надо сохранить наши данные»"
+  },
+  {
+   "id": 6784,
+   "col": "example_en",
+   "old": "They're deploying drones to find the missing hikers",
+   "new": "Over the holidays the railway is putting on extra trains",
+   "why": "полная вычитка: en/es/fr дроны — вернуть «на праздники пускают доп. поезда»"
+  },
+  {
+   "id": 6784,
+   "col": "example_es",
+   "old": "Para buscar a los excursionistas perdidos emplean drones",
+   "new": "En las fiestas los ferrocarriles ponen trenes adicionales",
+   "why": "полная вычитка: en/es/fr дроны — вернуть «на праздники пускают доп. поезда»"
+  },
+  {
+   "id": 6784,
+   "col": "example_fr",
+   "old": "On utilise des drones pour retrouver les randonneurs perdus",
+   "new": "Pendant les fêtes, les chemins de fer mettent en service des trains supplémentaires",
+   "why": "полная вычитка: en/es/fr дроны — вернуть «на праздники пускают доп. поезда»"
+  },
+  {
+   "id": 6813,
+   "col": "example_en",
+   "old": "The match is being broadcast live tonight",
+   "new": "Can you transfer the photos from my phone to the laptop?",
+   "why": "полная вычитка: en/es/fr трансляция — вернуть «перенести фото на ноутбук»"
+  },
+  {
+   "id": 6813,
+   "col": "example_es",
+   "old": "El partido se transmite en directo esta noche",
+   "new": "¿Puedes transferir las fotos del móvil al portátil?",
+   "why": "полная вычитка: en/es/fr трансляция — вернуть «перенести фото на ноутбук»"
+  },
+  {
+   "id": 6813,
+   "col": "example_fr",
+   "old": "Le match est retransmis en direct ce soir",
+   "new": "Tu peux transférer les photos du portable sur l'ordinateur ?",
+   "why": "полная вычитка: en/es/fr трансляция — вернуть «перенести фото на ноутбук»"
+  },
+  {
+   "id": 6819,
+   "col": "example_en",
+   "old": "Breakfast is included in the price",
+   "new": "We're trapped in the lift",
+   "why": "полная вычитка: en/it/es/fr завтрак включён — вернуть «заперты в лифте»"
+  },
+  {
+   "id": 6819,
+   "col": "example_it",
+   "old": "La colazione è inclusa nel prezzo",
+   "new": "Siamo rimasti chiusi in ascensore",
+   "why": "полная вычитка: en/it/es/fr завтрак включён — вернуть «заперты в лифте»"
+  },
+  {
+   "id": 6819,
+   "col": "example_es",
+   "old": "El desayuno está incluido en el precio",
+   "new": "Estamos encerrados en el ascensor",
+   "why": "полная вычитка: en/it/es/fr завтрак включён — вернуть «заперты в лифте»"
+  },
+  {
+   "id": 6819,
+   "col": "example_fr",
+   "old": "Le petit-déjeuner est inclus dans le prix",
+   "new": "On est enfermés dans l'ascenseur",
+   "why": "полная вычитка: en/it/es/fr завтрак включён — вернуть «заперты в лифте»"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
