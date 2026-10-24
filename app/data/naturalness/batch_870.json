@@ -1,0 +1,611 @@
+{
+ "about": "полная вычитка p010",
+ "edits": [
+  {
+   "id": 1774,
+   "col": "example_ru",
+   "old": "Будем здоровы! За молодых!",
+   "new": "Будем здоровы! За твоё здоровье!",
+   "why": "полная вычитка: ru/uk/en/es «за молодых», cs «будь здоров» — везде «за твоё здоровье»"
+  },
+  {
+   "id": 1774,
+   "col": "example_uk",
+   "old": "Будьмо! За молодят!",
+   "new": "Будьмо! За твоє здоров'я!",
+   "why": "полная вычитка: ru/uk/en/es «за молодых», cs «будь здоров» — везде «за твоё здоровье»"
+  },
+  {
+   "id": 1774,
+   "col": "example_en",
+   "old": "Cheers! To the happy couple!",
+   "new": "Cheers! To your health!",
+   "why": "полная вычитка: ru/uk/en/es «за молодых», cs «будь здоров» — везде «за твоё здоровье»"
+  },
+  {
+   "id": 1774,
+   "col": "example_es",
+   "old": "¡Salud! ¡Por los novios!",
+   "new": "¡Salud! ¡A tu salud!",
+   "why": "полная вычитка: ru/uk/en/es «за молодых», cs «будь здоров» — везде «за твоё здоровье»"
+  },
+  {
+   "id": 1774,
+   "col": "example_cs",
+   "old": "Na zdraví! Ať žiješ!",
+   "new": "Na zdraví! Na tvoje zdraví!",
+   "why": "полная вычитка: ru/uk/en/es «за молодых», cs «будь здоров» — везде «за твоё здоровье»"
+  },
+  {
+   "id": 1791,
+   "col": "example_en",
+   "old": "My umbrella broke in this wind",
+   "new": "I left my umbrella on the bus",
+   "why": "полная вычитка: en/it/es сломался от ветра — вернуть «забыл зонт в автобусе»"
+  },
+  {
+   "id": 1791,
+   "col": "example_it",
+   "old": "Con questo vento si è rotto l'ombrello",
+   "new": "Ho lasciato l'ombrello sull'autobus",
+   "why": "полная вычитка: en/it/es сломался от ветра — вернуть «забыл зонт в автобусе»"
+  },
+  {
+   "id": 1791,
+   "col": "example_es",
+   "old": "Con este viento se me ha roto el paraguas",
+   "new": "Me he dejado el paraguas en el autobús",
+   "why": "полная вычитка: en/it/es сломался от ветра — вернуть «забыл зонт в автобусе»"
+  },
+  {
+   "id": 1820,
+   "col": "example_en",
+   "old": "The ticket inspector gave me a fine",
+   "new": "The conductor is checking the tickets",
+   "why": "полная вычитка: en/it/es штраф — вернуть «проводник проверяет билеты»"
+  },
+  {
+   "id": 1820,
+   "col": "example_it",
+   "old": "Il controllore mi ha fatto la multa",
+   "new": "Il controllore controlla i biglietti",
+   "why": "полная вычитка: en/it/es штраф — вернуть «проводник проверяет билеты»"
+  },
+  {
+   "id": 1820,
+   "col": "example_es",
+   "old": "El revisor me ha puesto una multa",
+   "new": "El revisor revisa los billetes",
+   "why": "полная вычитка: en/it/es штраф — вернуть «проводник проверяет билеты»"
+  },
+  {
+   "id": 1883,
+   "col": "example_de",
+   "old": "Wir machen einen Spaziergang",
+   "new": "Hast du Lust auf einen Spaziergang am Fluss?",
+   "why": "полная вычитка: смысл разошёлся и двойник с 12960 (пищеварение) — везде «сходим на прогулку к реке?»"
+  },
+  {
+   "id": 1883,
+   "col": "example_ru",
+   "old": "После обеда пойдём на прогулку",
+   "new": "Сходим на прогулку к реке?",
+   "why": "полная вычитка: смысл разошёлся и двойник с 12960 (пищеварение) — везде «сходим на прогулку к реке?»"
+  },
+  {
+   "id": 1883,
+   "col": "example_uk",
+   "old": "Після обіду ходімо на прогулянку",
+   "new": "Підемо на прогулянку до річки?",
+   "why": "полная вычитка: смысл разошёлся и двойник с 12960 (пищеварение) — везде «сходим на прогулку к реке?»"
+  },
+  {
+   "id": 1883,
+   "col": "example_en",
+   "old": "A walk after dinner does you good",
+   "new": "Fancy a walk by the river?",
+   "why": "полная вычитка: смысл разошёлся и двойник с 12960 (пищеварение) — везде «сходим на прогулку к реке?»"
+  },
+  {
+   "id": 1883,
+   "col": "example_tr",
+   "old": "Yürüyüşe çıkıyoruz",
+   "new": "Nehir kenarında yürüyüşe çıkalım mı?",
+   "why": "полная вычитка: смысл разошёлся и двойник с 12960 (пищеварение) — везде «сходим на прогулку к реке?»"
+  },
+  {
+   "id": 1883,
+   "col": "example_pl",
+   "old": "Idziemy na spacer",
+   "new": "Masz ochotę na spacer nad rzeką?",
+   "why": "полная вычитка: смысл разошёлся и двойник с 12960 (пищеварение) — везде «сходим на прогулку к реке?»"
+  },
+  {
+   "id": 1883,
+   "col": "example_it",
+   "old": "Una passeggiata dopo cena fa bene",
+   "new": "Ti va una passeggiata lungo il fiume?",
+   "why": "полная вычитка: смысл разошёлся и двойник с 12960 (пищеварение) — везде «сходим на прогулку к реке?»"
+  },
+  {
+   "id": 1883,
+   "col": "example_es",
+   "old": "Un paseo después de cenar sienta bien",
+   "new": "¿Te apetece dar un paseo por el río?",
+   "why": "полная вычитка: смысл разошёлся и двойник с 12960 (пищеварение) — везде «сходим на прогулку к реке?»"
+  },
+  {
+   "id": 1883,
+   "col": "example_fr",
+   "old": "On va faire une petite balade",
+   "new": "Ça te dit, une balade au bord de la rivière ?",
+   "why": "полная вычитка: смысл разошёлся и двойник с 12960 (пищеварение) — везде «сходим на прогулку к реке?»"
+  },
+  {
+   "id": 1883,
+   "col": "example_cs",
+   "old": "Jdeme na procházku",
+   "new": "Nechceš jít na procházku k řece?",
+   "why": "полная вычитка: смысл разошёлся и двойник с 12960 (пищеварение) — везде «сходим на прогулку к реке?»"
+  },
+  {
+   "id": 1898,
+   "col": "example_de",
+   "old": "Er ruft ständig an",
+   "new": "Er unterbricht mich ständig",
+   "why": "полная вычитка: смысл разошёлся — везде «постоянно меня перебивает»"
+  },
+  {
+   "id": 1898,
+   "col": "example_ru",
+   "old": "Сосед постоянно включает музыку ночью",
+   "new": "Он постоянно меня перебивает",
+   "why": "полная вычитка: смысл разошёлся — везде «постоянно меня перебивает»"
+  },
+  {
+   "id": 1898,
+   "col": "example_uk",
+   "old": "Сусід постійно вмикає музику вночі",
+   "new": "Він постійно мене перебиває",
+   "why": "полная вычитка: смысл разошёлся — везде «постоянно меня перебивает»"
+  },
+  {
+   "id": 1898,
+   "col": "example_tr",
+   "old": "Sürekli arıyor",
+   "new": "Sürekli sözümü kesiyor",
+   "why": "полная вычитка: смысл разошёлся — везде «постоянно меня перебивает»"
+  },
+  {
+   "id": 1898,
+   "col": "example_pl",
+   "old": "Ciągle dzwoni",
+   "new": "Ciągle mi przerywa",
+   "why": "полная вычитка: смысл разошёлся — везде «постоянно меня перебивает»"
+  },
+  {
+   "id": 1898,
+   "col": "example_fr",
+   "old": "Il appelle sans arrêt",
+   "new": "Il me coupe la parole sans arrêt",
+   "why": "полная вычитка: смысл разошёлся — везде «постоянно меня перебивает»"
+  },
+  {
+   "id": 1898,
+   "col": "example_cs",
+   "old": "Pořád volá",
+   "new": "Pořád mi skáče do řeči",
+   "why": "полная вычитка: смысл разошёлся — везде «постоянно меня перебивает»"
+  },
+  {
+   "id": 1902,
+   "col": "example_de",
+   "old": "Die nächste Station ist Hauptbahnhof",
+   "new": "Steig an der dritten Station aus",
+   "why": "полная вычитка: двойник с 1513 «следующая остановка — вокзал» — везде «выходи на третьей станции»"
+  },
+  {
+   "id": 1902,
+   "col": "example_ru",
+   "old": "Следующая станция — Центральный вокзал",
+   "new": "Выходи на третьей станции",
+   "why": "полная вычитка: двойник с 1513 «следующая остановка — вокзал» — везде «выходи на третьей станции»"
+  },
+  {
+   "id": 1902,
+   "col": "example_uk",
+   "old": "Наступна станція — Центральний вокзал",
+   "new": "Виходь на третій станції",
+   "why": "полная вычитка: двойник с 1513 «следующая остановка — вокзал» — везде «выходи на третьей станции»"
+  },
+  {
+   "id": 1902,
+   "col": "example_tr",
+   "old": "Bir sonraki durak merkez istasyon",
+   "new": "Üçüncü durakta in",
+   "why": "полная вычитка: двойник с 1513 «следующая остановка — вокзал» — везде «выходи на третьей станции»"
+  },
+  {
+   "id": 1902,
+   "col": "example_pl",
+   "old": "Następna stacja to dworzec główny",
+   "new": "Wysiądź na trzeciej stacji",
+   "why": "полная вычитка: двойник с 1513 «следующая остановка — вокзал» — везде «выходи на третьей станции»"
+  },
+  {
+   "id": 1902,
+   "col": "example_fr",
+   "old": "La prochaine station est la gare centrale",
+   "new": "Descends à la troisième station",
+   "why": "полная вычитка: двойник с 1513 «следующая остановка — вокзал» — везде «выходи на третьей станции»"
+  },
+  {
+   "id": 1902,
+   "col": "example_cs",
+   "old": "Příští stanice je hlavní nádraží",
+   "new": "Vystup na třetí stanici",
+   "why": "полная вычитка: двойник с 1513 «следующая остановка — вокзал» — везде «выходи на третьей станции»"
+  },
+  {
+   "id": 1908,
+   "col": "example_de",
+   "old": "Die Preise steigen",
+   "new": "Die Preise für Wohnungen steigen schon wieder",
+   "why": "полная вычитка: смысл разошёлся — везде «цены на жильё снова растут»"
+  },
+  {
+   "id": 1908,
+   "col": "example_en",
+   "old": "The temperature is still rising",
+   "new": "Housing prices are going up again",
+   "why": "полная вычитка: смысл разошёлся — везде «цены на жильё снова растут»"
+  },
+  {
+   "id": 1908,
+   "col": "example_tr",
+   "old": "Fiyatlar artıyor",
+   "new": "Konut fiyatları yine artıyor",
+   "why": "полная вычитка: смысл разошёлся — везде «цены на жильё снова растут»"
+  },
+  {
+   "id": 1908,
+   "col": "example_pl",
+   "old": "Ceny rosną",
+   "new": "Ceny mieszkań znowu rosną",
+   "why": "полная вычитка: смысл разошёлся — везде «цены на жильё снова растут»"
+  },
+  {
+   "id": 1908,
+   "col": "example_it",
+   "old": "La temperatura sale ancora",
+   "new": "I prezzi delle case salgono di nuovo",
+   "why": "полная вычитка: смысл разошёлся — везде «цены на жильё снова растут»"
+  },
+  {
+   "id": 1908,
+   "col": "example_es",
+   "old": "La temperatura sigue subiendo",
+   "new": "Los precios de la vivienda vuelven a subir",
+   "why": "полная вычитка: смысл разошёлся — везде «цены на жильё снова растут»"
+  },
+  {
+   "id": 1908,
+   "col": "example_fr",
+   "old": "Les prix augmentent",
+   "new": "Les prix des logements augmentent encore",
+   "why": "полная вычитка: смысл разошёлся — везде «цены на жильё снова растут»"
+  },
+  {
+   "id": 1908,
+   "col": "example_cs",
+   "old": "Ceny stoupají",
+   "new": "Ceny bytů zase stoupají",
+   "why": "полная вычитка: смысл разошёлся — везде «цены на жильё снова растут»"
+  },
+  {
+   "id": 1926,
+   "col": "example_de",
+   "old": "Staus sind hier an der Tagesordnung",
+   "new": "Was steht heute auf der Tagesordnung?",
+   "why": "полная вычитка: fr другой смысл, в идиоме слова нет — везде «что сегодня на повестке дня»"
+  },
+  {
+   "id": 1926,
+   "col": "example_ru",
+   "old": "Пробки здесь — обычное дело",
+   "new": "Что сегодня на повестке дня?",
+   "why": "полная вычитка: fr другой смысл, в идиоме слова нет — везде «что сегодня на повестке дня»"
+  },
+  {
+   "id": 1926,
+   "col": "example_uk",
+   "old": "Затори тут — звичайна справа",
+   "new": "Що сьогодні на порядку денному?",
+   "why": "полная вычитка: fr другой смысл, в идиоме слова нет — везде «что сегодня на повестке дня»"
+  },
+  {
+   "id": 1926,
+   "col": "example_en",
+   "old": "Traffic jams are an everyday occurrence here",
+   "new": "What's on the agenda today?",
+   "why": "полная вычитка: fr другой смысл, в идиоме слова нет — везде «что сегодня на повестке дня»"
+  },
+  {
+   "id": 1926,
+   "col": "example_tr",
+   "old": "Burada trafik sıkışıklığı olağan durum",
+   "new": "Bugün gündemde ne var?",
+   "why": "полная вычитка: fr другой смысл, в идиоме слова нет — везде «что сегодня на повестке дня»"
+  },
+  {
+   "id": 1926,
+   "col": "example_pl",
+   "old": "Korki to tu codzienność",
+   "new": "Co jest dziś w porządku obrad?",
+   "why": "полная вычитка: fr другой смысл, в идиоме слова нет — везде «что сегодня на повестке дня»"
+  },
+  {
+   "id": 1926,
+   "col": "example_it",
+   "old": "Qui gli ingorghi sono all'ordine del giorno",
+   "new": "Cosa c'è all'ordine del giorno oggi?",
+   "why": "полная вычитка: fr другой смысл, в идиоме слова нет — везде «что сегодня на повестке дня»"
+  },
+  {
+   "id": 1926,
+   "col": "example_es",
+   "old": "Aquí los atascos están a la orden del día",
+   "new": "¿Qué hay hoy en el orden del día?",
+   "why": "полная вычитка: fr другой смысл, в идиоме слова нет — везде «что сегодня на повестке дня»"
+  },
+  {
+   "id": 1926,
+   "col": "example_fr",
+   "old": "Quel est le premier point à l'ordre du jour ?",
+   "new": "Qu'est-ce qu'il y a à l'ordre du jour aujourd'hui ?",
+   "why": "полная вычитка: fr другой смысл, в идиоме слова нет — везде «что сегодня на повестке дня»"
+  },
+  {
+   "id": 1926,
+   "col": "example_cs",
+   "old": "Zácpy jsou tady na denním pořádku",
+   "new": "Co je dnes na programu jednání?",
+   "why": "полная вычитка: fr другой смысл, в идиоме слова нет — везде «что сегодня на повестке дня»"
+  },
+  {
+   "id": 1944,
+   "col": "example_de",
+   "old": "Hast du Temperatur?",
+   "new": "Hast du Temperatur? Du bist ganz heiß",
+   "why": "полная вычитка: смысл разошёлся — везде «у тебя температура? ты горячий»"
+  },
+  {
+   "id": 1944,
+   "col": "example_en",
+   "old": "What's the temperature outside?",
+   "new": "Have you got a temperature? You're burning up",
+   "why": "полная вычитка: смысл разошёлся — везде «у тебя температура? ты горячий»"
+  },
+  {
+   "id": 1944,
+   "col": "example_tr",
+   "old": "Ateşin var mı?",
+   "new": "Ateşin mi var? Yanıyorsun",
+   "why": "полная вычитка: смысл разошёлся — везде «у тебя температура? ты горячий»"
+  },
+  {
+   "id": 1944,
+   "col": "example_pl",
+   "old": "Masz gorączkę?",
+   "new": "Masz temperaturę? Jesteś cały rozpalony",
+   "why": "полная вычитка: смысл разошёлся — везде «у тебя температура? ты горячий»"
+  },
+  {
+   "id": 1944,
+   "col": "example_it",
+   "old": "Che temperatura c'è fuori?",
+   "new": "Hai la febbre? Scotti tutto",
+   "why": "полная вычитка: смысл разошёлся — везде «у тебя температура? ты горячий»"
+  },
+  {
+   "id": 1944,
+   "col": "example_es",
+   "old": "¿Qué temperatura hace fuera?",
+   "new": "¿Tienes fiebre? Estás ardiendo",
+   "why": "полная вычитка: смысл разошёлся — везде «у тебя температура? ты горячий»"
+  },
+  {
+   "id": 1944,
+   "col": "example_fr",
+   "old": "Tu as de la température ?",
+   "new": "Tu as de la température ? Tu es brûlant",
+   "why": "полная вычитка: смысл разошёлся — везде «у тебя температура? ты горячий»"
+  },
+  {
+   "id": 1944,
+   "col": "example_cs",
+   "old": "Máš teplotu?",
+   "new": "Máš teplotu? Jsi celý horký",
+   "why": "полная вычитка: смысл разошёлся — везде «у тебя температура? ты горячий»"
+  },
+  {
+   "id": 1967,
+   "col": "example_it",
+   "old": "Pratica sport da quando era piccolo",
+   "new": "Pratico molto sport",
+   "why": "полная вычитка: it/es «с детства» — вернуть «я много занимаюсь спортом»"
+  },
+  {
+   "id": 1967,
+   "col": "example_es",
+   "old": "Practica deporte desde pequeño",
+   "new": "Practico mucho deporte",
+   "why": "полная вычитка: it/es «с детства» — вернуть «я много занимаюсь спортом»"
+  },
+  {
+   "id": 1996,
+   "col": "example_en",
+   "old": "Turn off the light — think of the environment!",
+   "new": "For the sake of the environment I cycle to work",
+   "why": "полная вычитка: en/it/es «выключи свет» — вернуть «ради природы езжу на велосипеде»"
+  },
+  {
+   "id": 1996,
+   "col": "example_it",
+   "old": "Per proteggere l'ambiente, spegni la luce!",
+   "new": "Per l'ambiente vado al lavoro in bici",
+   "why": "полная вычитка: en/it/es «выключи свет» — вернуть «ради природы езжу на велосипеде»"
+  },
+  {
+   "id": 1996,
+   "col": "example_es",
+   "old": "Para cuidar el medio ambiente, apaga la luz",
+   "new": "Por el medio ambiente voy al trabajo en bici",
+   "why": "полная вычитка: en/it/es «выключи свет» — вернуть «ради природы езжу на велосипеде»"
+  },
+  {
+   "id": 2070,
+   "col": "example_de",
+   "old": "Ich komme morgen vorbei",
+   "new": "Ich komme morgen nach der Arbeit vorbei",
+   "why": "полная вычитка: смысл разошёлся — везде «заскочу завтра после работы»"
+  },
+  {
+   "id": 2070,
+   "col": "example_en",
+   "old": "Can I drop by this evening?",
+   "new": "I'll drop by tomorrow after work",
+   "why": "полная вычитка: смысл разошёлся — везде «заскочу завтра после работы»"
+  },
+  {
+   "id": 2070,
+   "col": "example_tr",
+   "old": "Yarın uğrayacağım",
+   "new": "Yarın işten sonra uğrarım",
+   "why": "полная вычитка: смысл разошёлся — везде «заскочу завтра после работы»"
+  },
+  {
+   "id": 2070,
+   "col": "example_pl",
+   "old": "Wpadnę jutro",
+   "new": "Wpadnę jutro po pracy",
+   "why": "полная вычитка: смысл разошёлся — везде «заскочу завтра после работы»"
+  },
+  {
+   "id": 2070,
+   "col": "example_it",
+   "old": "Passo da te stasera?",
+   "new": "Passo da te domani dopo il lavoro",
+   "why": "полная вычитка: смысл разошёлся — везде «заскочу завтра после работы»"
+  },
+  {
+   "id": 2070,
+   "col": "example_es",
+   "old": "¿Me paso por tu casa esta tarde?",
+   "new": "Me paso mañana después del trabajo",
+   "why": "полная вычитка: смысл разошёлся — везде «заскочу завтра после работы»"
+  },
+  {
+   "id": 2070,
+   "col": "example_fr",
+   "old": "Je passe demain",
+   "new": "Je passe demain après le travail",
+   "why": "полная вычитка: смысл разошёлся — везде «заскочу завтра после работы»"
+  },
+  {
+   "id": 2070,
+   "col": "example_cs",
+   "old": "Zítra se stavím",
+   "new": "Zítra se po práci stavím",
+   "why": "полная вычитка: смысл разошёлся — везде «заскочу завтра после работы»"
+  },
+  {
+   "id": 2080,
+   "col": "example_en",
+   "old": "The job interview went really well",
+   "new": "I've got a job interview tomorrow",
+   "why": "полная вычитка: en/it/es «прошло хорошо» — вернуть «завтра собеседование»"
+  },
+  {
+   "id": 2080,
+   "col": "example_it",
+   "old": "Il colloquio di lavoro è andato benissimo",
+   "new": "Domani ho un colloquio di lavoro",
+   "why": "полная вычитка: en/it/es «прошло хорошо» — вернуть «завтра собеседование»"
+  },
+  {
+   "id": 2080,
+   "col": "example_es",
+   "old": "La entrevista de trabajo ha ido genial",
+   "new": "Mañana tengo una entrevista de trabajo",
+   "why": "полная вычитка: en/it/es «прошло хорошо» — вернуть «завтра собеседование»"
+  },
+  {
+   "id": 2134,
+   "col": "example_de",
+   "old": "Er ist sehr zuverlässig",
+   "new": "Er ist sehr zuverlässig, auf ihn kann man sich verlassen",
+   "why": "полная вычитка: имена и смысл разошлись — везде «надёжный, на него можно положиться»"
+  },
+  {
+   "id": 2134,
+   "col": "example_en",
+   "old": "Mark is very reliable, you can count on him",
+   "new": "He's very reliable, you can count on him",
+   "why": "полная вычитка: имена и смысл разошлись — везде «надёжный, на него можно положиться»"
+  },
+  {
+   "id": 2134,
+   "col": "example_tr",
+   "old": "Çok güvenilir biridir",
+   "new": "Çok güvenilir biri, ona güvenebilirsin",
+   "why": "полная вычитка: имена и смысл разошлись — везде «надёжный, на него можно положиться»"
+  },
+  {
+   "id": 2134,
+   "col": "example_pl",
+   "old": "Jest bardzo solidny",
+   "new": "Jest bardzo solidny, można na nim polegać",
+   "why": "полная вычитка: имена и смысл разошлись — везде «надёжный, на него можно положиться»"
+  },
+  {
+   "id": 2134,
+   "col": "example_it",
+   "old": "Marco è molto affidabile, puoi contare su di lui",
+   "new": "È molto affidabile, puoi contare su di lui",
+   "why": "полная вычитка: имена и смысл разошлись — везде «надёжный, на него можно положиться»"
+  },
+  {
+   "id": 2134,
+   "col": "example_es",
+   "old": "Marcos es muy fiable, puedes contar con él",
+   "new": "Es muy fiable, puedes contar con él",
+   "why": "полная вычитка: имена и смысл разошлись — везде «надёжный, на него можно положиться»"
+  },
+  {
+   "id": 2134,
+   "col": "example_fr",
+   "old": "Il est très fiable",
+   "new": "Il est très fiable, on peut compter sur lui",
+   "why": "полная вычитка: имена и смысл разошлись — везде «надёжный, на него можно положиться»"
+  },
+  {
+   "id": 2134,
+   "col": "example_cs",
+   "old": "Je velmi spolehlivý",
+   "new": "Je velmi spolehlivý, dá se na něj spolehnout",
+   "why": "полная вычитка: имена и смысл разошлись — везде «надёжный, на него можно положиться»"
+  },
+  {
+   "id": 13884,
+   "col": "example_tr",
+   "old": "Saçmalama!",
+   "new": "Saçmalık yapma!",
+   "why": "полная вычитка: tr двойник с 1778 «Saçmalama!»"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
