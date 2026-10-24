@@ -1,0 +1,555 @@
+{
+ "about": "полная вычитка p008",
+ "edits": [
+  {
+   "id": 831,
+   "col": "example_de",
+   "old": "Ich komme hier selten hin",
+   "new": "Wir sehen uns jetzt nur noch selten",
+   "why": "полная вычитка: смысл разошёлся — везде «теперь редко видимся»"
+  },
+  {
+   "id": 831,
+   "col": "example_tr",
+   "old": "Buraya nadiren geliyorum",
+   "new": "Artık birbirimizi çok nadiren görüyoruz",
+   "why": "полная вычитка: смысл разошёлся — везде «теперь редко видимся»"
+  },
+  {
+   "id": 831,
+   "col": "example_pl",
+   "old": "Rzadko tu przychodzę",
+   "new": "Teraz widujemy się bardzo rzadko",
+   "why": "полная вычитка: смысл разошёлся — везде «теперь редко видимся»"
+  },
+  {
+   "id": 831,
+   "col": "example_fr",
+   "old": "Je viens rarement ici",
+   "new": "On se voit très rarement maintenant",
+   "why": "полная вычитка: смысл разошёлся — везде «теперь редко видимся»"
+  },
+  {
+   "id": 831,
+   "col": "example_cs",
+   "old": "Sem chodím málokdy",
+   "new": "Teď se vídáme jen málokdy",
+   "why": "полная вычитка: смысл разошёлся — везде «теперь редко видимся»"
+  },
+  {
+   "id": 873,
+   "col": "example_en",
+   "old": "You wash up, I'll dry",
+   "new": "Who's doing the washing-up today?",
+   "why": "полная вычитка: en/it/es «ты моешь, я вытираю» — вернуть «кто моет посуду»"
+  },
+  {
+   "id": 873,
+   "col": "example_it",
+   "old": "Lava tu i piatti, io asciugo",
+   "new": "Chi lava i piatti oggi?",
+   "why": "полная вычитка: en/it/es «ты моешь, я вытираю» — вернуть «кто моет посуду»"
+  },
+  {
+   "id": 873,
+   "col": "example_es",
+   "old": "Friega tú, yo seco",
+   "new": "¿Quién friega hoy?",
+   "why": "полная вычитка: en/it/es «ты моешь, я вытираю» — вернуть «кто моет посуду»"
+  },
+  {
+   "id": 883,
+   "col": "example_de",
+   "old": "Ich habe mir die Stirn gestoßen",
+   "new": "Ich habe mir die Stirn an der Tür gestoßen",
+   "why": "полная вычитка: смысл разошёлся — везде «ударился лбом о дверь»"
+  },
+  {
+   "id": 883,
+   "col": "example_en",
+   "old": "Your forehead's burning, have you got a temperature?",
+   "new": "I banged my forehead on the door",
+   "why": "полная вычитка: смысл разошёлся — везде «ударился лбом о дверь»"
+  },
+  {
+   "id": 883,
+   "col": "example_tr",
+   "old": "Alnımı çarptım",
+   "new": "Alnımı kapıya çarptım",
+   "why": "полная вычитка: смысл разошёлся — везде «ударился лбом о дверь»"
+  },
+  {
+   "id": 883,
+   "col": "example_pl",
+   "old": "Uderzyłem się w czoło",
+   "new": "Uderzyłem się czołem o drzwi",
+   "why": "полная вычитка: смысл разошёлся — везде «ударился лбом о дверь»"
+  },
+  {
+   "id": 883,
+   "col": "example_it",
+   "old": "Hai la fronte che scotta, hai la febbre?",
+   "new": "Ho sbattuto la fronte contro la porta",
+   "why": "полная вычитка: смысл разошёлся — везде «ударился лбом о дверь»"
+  },
+  {
+   "id": 883,
+   "col": "example_es",
+   "old": "Tienes la frente ardiendo, ¿tienes fiebre?",
+   "new": "Me he dado con la frente en la puerta",
+   "why": "полная вычитка: смысл разошёлся — везде «ударился лбом о дверь»"
+  },
+  {
+   "id": 883,
+   "col": "example_fr",
+   "old": "Je me suis cogné le front",
+   "new": "Je me suis cogné le front contre la porte",
+   "why": "полная вычитка: смысл разошёлся — везде «ударился лбом о дверь»"
+  },
+  {
+   "id": 883,
+   "col": "example_cs",
+   "old": "Uhodil jsem se do čela",
+   "new": "Uhodil jsem se do čela o dveře",
+   "why": "полная вычитка: смысл разошёлся — везде «ударился лбом о дверь»"
+  },
+  {
+   "id": 921,
+   "col": "example_en",
+   "old": "I've changed my phone number",
+   "new": "What's your phone number?",
+   "why": "полная вычитка: en/it/es сменил номер — вернуть «какой номер телефона»"
+  },
+  {
+   "id": 921,
+   "col": "example_it",
+   "old": "Ho cambiato numero di telefono",
+   "new": "Qual è il tuo numero di telefono?",
+   "why": "полная вычитка: en/it/es сменил номер — вернуть «какой номер телефона»"
+  },
+  {
+   "id": 921,
+   "col": "example_es",
+   "old": "He cambiado de número de teléfono",
+   "new": "¿Cuál es tu número de teléfono?",
+   "why": "полная вычитка: en/it/es сменил номер — вернуть «какой номер телефона»"
+  },
+  {
+   "id": 1009,
+   "col": "example_de",
+   "old": "Die Waschmaschine läuft gerade",
+   "new": "Die Waschmaschine verliert schon wieder Wasser",
+   "why": "полная вычитка: смысл разошёлся — везде «машина опять протекает»"
+  },
+  {
+   "id": 1009,
+   "col": "example_en",
+   "old": "The washing machine is leaking",
+   "new": "The washing machine is leaking again",
+   "why": "полная вычитка: смысл разошёлся — везде «машина опять протекает»"
+  },
+  {
+   "id": 1009,
+   "col": "example_tr",
+   "old": "Çamaşır makinesi çalışıyor",
+   "new": "Çamaşır makinesi yine su kaçırıyor",
+   "why": "полная вычитка: смысл разошёлся — везде «машина опять протекает»"
+  },
+  {
+   "id": 1009,
+   "col": "example_pl",
+   "old": "Pralka właśnie pierze",
+   "new": "Pralka znowu cieknie",
+   "why": "полная вычитка: смысл разошёлся — везде «машина опять протекает»"
+  },
+  {
+   "id": 1009,
+   "col": "example_it",
+   "old": "La lavatrice perde acqua",
+   "new": "La lavatrice perde di nuovo acqua",
+   "why": "полная вычитка: смысл разошёлся — везде «машина опять протекает»"
+  },
+  {
+   "id": 1009,
+   "col": "example_es",
+   "old": "La lavadora pierde agua",
+   "new": "La lavadora vuelve a perder agua",
+   "why": "полная вычитка: смысл разошёлся — везде «машина опять протекает»"
+  },
+  {
+   "id": 1009,
+   "col": "example_fr",
+   "old": "La machine à laver tourne en ce moment",
+   "new": "La machine à laver fuit encore",
+   "why": "полная вычитка: смысл разошёлся — везде «машина опять протекает»"
+  },
+  {
+   "id": 1009,
+   "col": "example_cs",
+   "old": "Pračka zrovna běží",
+   "new": "Pračka zase teče",
+   "why": "полная вычитка: смысл разошёлся — везде «машина опять протекает»"
+  },
+  {
+   "id": 1057,
+   "col": "example_ru",
+   "old": "Поиск квартиры в большом городе отнимает кучу нервов",
+   "new": "Поиск квартиры в Мюнхене требует огромного терпения",
+   "why": "полная вычитка: города разошлись — везде Мюнхен"
+  },
+  {
+   "id": 1057,
+   "col": "example_uk",
+   "old": "Пошук квартири в Києві забирає багато нервів",
+   "new": "Пошук квартири в Мюнхені вимагає багато терпіння",
+   "why": "полная вычитка: города разошлись — везде Мюнхен"
+  },
+  {
+   "id": 1057,
+   "col": "example_en",
+   "old": "Flat hunting in London takes a lot of patience",
+   "new": "Flat hunting in Munich takes a lot of patience",
+   "why": "полная вычитка: города разошлись — везде Мюнхен"
+  },
+  {
+   "id": 1057,
+   "col": "example_es",
+   "old": "En la búsqueda de piso en Madrid hace falta mucha paciencia",
+   "new": "La búsqueda de piso en Múnich requiere mucha paciencia",
+   "why": "полная вычитка: города разошлись — везде Мюнхен"
+  },
+  {
+   "id": 1199,
+   "col": "example_en",
+   "old": "You choose the restaurant",
+   "new": "Pick something for yourself!",
+   "why": "полная вычитка: en/it/es ресторан — вернуть «выбери себе что-нибудь»"
+  },
+  {
+   "id": 1199,
+   "col": "example_it",
+   "old": "Scegli tu il ristorante",
+   "new": "Scegliti qualcosa!",
+   "why": "полная вычитка: en/it/es ресторан — вернуть «выбери себе что-нибудь»"
+  },
+  {
+   "id": 1199,
+   "col": "example_es",
+   "old": "Elige tú el restaurante",
+   "new": "¡Elige algo!",
+   "why": "полная вычитка: en/it/es ресторан — вернуть «выбери себе что-нибудь»"
+  },
+  {
+   "id": 1201,
+   "col": "example_en",
+   "old": "Please take your shoes off",
+   "new": "I'm taking my jacket off",
+   "why": "полная вычитка: en/it/es обувь — вернуть «снимаю куртку»"
+  },
+  {
+   "id": 1201,
+   "col": "example_it",
+   "old": "Togliti le scarpe, per favore",
+   "new": "Mi tolgo la giacca",
+   "why": "полная вычитка: en/it/es обувь — вернуть «снимаю куртку»"
+  },
+  {
+   "id": 1201,
+   "col": "example_es",
+   "old": "Quítate los zapatos, por favor",
+   "new": "Me quito la chaqueta",
+   "why": "полная вычитка: en/it/es обувь — вернуть «снимаю куртку»"
+  },
+  {
+   "id": 1230,
+   "col": "example_en",
+   "old": "The shop assistant is serving another customer",
+   "new": "The waiter looks after us well",
+   "why": "полная вычитка: en/it/es/fr продавщица — вернуть «официант хорошо обслуживает»"
+  },
+  {
+   "id": 1230,
+   "col": "example_it",
+   "old": "La commessa sta servendo un altro cliente",
+   "new": "Il cameriere ci serve bene",
+   "why": "полная вычитка: en/it/es/fr продавщица — вернуть «официант хорошо обслуживает»"
+  },
+  {
+   "id": 1230,
+   "col": "example_es",
+   "old": "La dependienta está atendiendo a otro cliente",
+   "new": "El camarero nos atiende bien",
+   "why": "полная вычитка: en/it/es/fr продавщица — вернуть «официант хорошо обслуживает»"
+  },
+  {
+   "id": 1230,
+   "col": "example_fr",
+   "old": "On est bien servis ici",
+   "new": "Le serveur nous sert bien",
+   "why": "полная вычитка: en/it/es/fr продавщица — вернуть «официант хорошо обслуживает»"
+  },
+  {
+   "id": 1241,
+   "col": "example_en",
+   "old": "At university I'm taking a Spanish course",
+   "new": "I'd like to take a course",
+   "why": "полная вычитка: en/it/es испанский в универе — вернуть «хочу записаться на курс»"
+  },
+  {
+   "id": 1241,
+   "col": "example_it",
+   "old": "All'università mi sono iscritta a un corso di spagnolo",
+   "new": "Vorrei iscrivermi a un corso",
+   "why": "полная вычитка: en/it/es испанский в универе — вернуть «хочу записаться на курс»"
+  },
+  {
+   "id": 1241,
+   "col": "example_es",
+   "old": "En la universidad me he inscrito en un curso de italiano",
+   "new": "Quiero inscribirme en un curso",
+   "why": "полная вычитка: en/it/es испанский в универе — вернуть «хочу записаться на курс»"
+  },
+  {
+   "id": 1308,
+   "col": "example_en",
+   "old": "My mum sings in the church choir",
+   "new": "I sing in a choir",
+   "why": "полная вычитка: en/it/es мама в церковном хоре — вернуть «пою в хоре»"
+  },
+  {
+   "id": 1308,
+   "col": "example_it",
+   "old": "Mia madre canta nel coro della chiesa",
+   "new": "Canto in un coro",
+   "why": "полная вычитка: en/it/es мама в церковном хоре — вернуть «пою в хоре»"
+  },
+  {
+   "id": 1308,
+   "col": "example_es",
+   "old": "Mi madre canta en el coro de la iglesia",
+   "new": "Canto en un coro",
+   "why": "полная вычитка: en/it/es мама в церковном хоре — вернуть «пою в хоре»"
+  },
+  {
+   "id": 1323,
+   "col": "example_de",
+   "old": "Ich drücke dir die Daumen",
+   "new": "Er hat sich den Daumen in der Tür eingeklemmt",
+   "why": "полная вычитка: идиома без слова в 7 языках, fr другой смысл — везде «прищемил большой палец»"
+  },
+  {
+   "id": 1323,
+   "col": "example_ru",
+   "old": "Держу за тебя кулачки",
+   "new": "Он прищемил большой палец дверью",
+   "why": "полная вычитка: идиома без слова в 7 языках, fr другой смысл — везде «прищемил большой палец»"
+  },
+  {
+   "id": 1323,
+   "col": "example_uk",
+   "old": "Тримаю за тебе кулачки",
+   "new": "Він прищемив великий палець дверима",
+   "why": "полная вычитка: идиома без слова в 7 языках, fr другой смысл — везде «прищемил большой палец»"
+  },
+  {
+   "id": 1323,
+   "col": "example_en",
+   "old": "I'm keeping my fingers crossed for you",
+   "new": "He caught his thumb in the door",
+   "why": "полная вычитка: идиома без слова в 7 языках, fr другой смысл — везде «прищемил большой палец»"
+  },
+  {
+   "id": 1323,
+   "col": "example_tr",
+   "old": "Senin için şans diliyorum",
+   "new": "Başparmağını kapıya sıkıştırdı",
+   "why": "полная вычитка: идиома без слова в 7 языках, fr другой смысл — везде «прищемил большой палец»"
+  },
+  {
+   "id": 1323,
+   "col": "example_pl",
+   "old": "Trzymam za ciebie kciuki",
+   "new": "Przytrzasnął sobie kciuk drzwiami",
+   "why": "полная вычитка: идиома без слова в 7 языках, fr другой смысл — везде «прищемил большой палец»"
+  },
+  {
+   "id": 1323,
+   "col": "example_it",
+   "old": "Incrocio le dita per te",
+   "new": "Si è schiacciato il pollice nella porta",
+   "why": "полная вычитка: идиома без слова в 7 языках, fr другой смысл — везде «прищемил большой палец»"
+  },
+  {
+   "id": 1323,
+   "col": "example_es",
+   "old": "Cruzo los dedos por ti",
+   "new": "Se ha pillado el pulgar con la puerta",
+   "why": "полная вычитка: идиома без слова в 7 языках, fr другой смысл — везде «прищемил большой палец»"
+  },
+  {
+   "id": 1323,
+   "col": "example_cs",
+   "old": "Držím ti palce",
+   "new": "Přiskřípl si palec ve dveřích",
+   "why": "полная вычитка: идиома без слова в 7 языках, fr другой смысл — везде «прищемил большой палец»"
+  },
+  {
+   "id": 1337,
+   "col": "example_de",
+   "old": "Dreh dich um",
+   "new": "Dreh dich um, ich richte dir den Kragen",
+   "why": "полная вычитка: смысл разошёлся — везде «повернись, поправлю воротник»"
+  },
+  {
+   "id": 1337,
+   "col": "example_ru",
+   "old": "Повернись, за тобой кто-то стоит",
+   "new": "Повернись, я поправлю тебе воротник",
+   "why": "полная вычитка: смысл разошёлся — везде «повернись, поправлю воротник»"
+  },
+  {
+   "id": 1337,
+   "col": "example_uk",
+   "old": "Обернися, за тобою хтось стоїть",
+   "new": "Обернися, я поправлю тобі комір",
+   "why": "полная вычитка: смысл разошёлся — везде «повернись, поправлю воротник»"
+  },
+  {
+   "id": 1337,
+   "col": "example_tr",
+   "old": "Arkanı dön",
+   "new": "Arkanı dön, yakanı düzelteyim",
+   "why": "полная вычитка: смысл разошёлся — везде «повернись, поправлю воротник»"
+  },
+  {
+   "id": 1337,
+   "col": "example_pl",
+   "old": "Odwróć się",
+   "new": "Odwróć się, poprawię ci kołnierzyk",
+   "why": "полная вычитка: смысл разошёлся — везде «повернись, поправлю воротник»"
+  },
+  {
+   "id": 1337,
+   "col": "example_fr",
+   "old": "Retourne-toi",
+   "new": "Retourne-toi, je vais arranger ton col",
+   "why": "полная вычитка: смысл разошёлся — везде «повернись, поправлю воротник»"
+  },
+  {
+   "id": 1337,
+   "col": "example_cs",
+   "old": "Otoč se",
+   "new": "Otoč se, upravím ti límec",
+   "why": "полная вычитка: смысл разошёлся — везде «повернись, поправлю воротник»"
+  },
+  {
+   "id": 1358,
+   "col": "example_de",
+   "old": "Ich richte meine Wohnung ein",
+   "new": "Wir richten die neue Wohnung noch ein",
+   "why": "полная вычитка: смысл разошёлся — везде «ещё обставляем новую квартиру»"
+  },
+  {
+   "id": 1358,
+   "col": "example_en",
+   "old": "We're still furnishing the new house",
+   "new": "We're still furnishing the new flat",
+   "why": "полная вычитка: смысл разошёлся — везде «ещё обставляем новую квартиру»"
+  },
+  {
+   "id": 1358,
+   "col": "example_tr",
+   "old": "Evimi döşüyorum",
+   "new": "Yeni evi hâlâ döşüyoruz",
+   "why": "полная вычитка: смысл разошёлся — везде «ещё обставляем новую квартиру»"
+  },
+  {
+   "id": 1358,
+   "col": "example_pl",
+   "old": "Urządzam mieszkanie",
+   "new": "Wciąż urządzamy nowe mieszkanie",
+   "why": "полная вычитка: смысл разошёлся — везде «ещё обставляем новую квартиру»"
+  },
+  {
+   "id": 1358,
+   "col": "example_es",
+   "old": "Todavía estamos amueblando la casa nueva",
+   "new": "Todavía estamos amueblando el piso nuevo",
+   "why": "полная вычитка: смысл разошёлся — везде «ещё обставляем новую квартиру»"
+  },
+  {
+   "id": 1358,
+   "col": "example_fr",
+   "old": "Je meuble mon appartement",
+   "new": "On est encore en train de meubler le nouvel appartement",
+   "why": "полная вычитка: смысл разошёлся — везде «ещё обставляем новую квартиру»"
+  },
+  {
+   "id": 1358,
+   "col": "example_cs",
+   "old": "Zařizuji si byt",
+   "new": "Ještě si zařizujeme nový byt",
+   "why": "полная вычитка: смысл разошёлся — везде «ещё обставляем новую квартиру»"
+  },
+  {
+   "id": 1384,
+   "col": "example_de",
+   "old": "Ich muss mich entscheiden",
+   "new": "Ich muss mich bis morgen entscheiden",
+   "why": "полная вычитка: смысл разошёлся — везде «решить до завтра»"
+  },
+  {
+   "id": 1384,
+   "col": "example_en",
+   "old": "I can't make up my mind",
+   "new": "I have to make up my mind by tomorrow",
+   "why": "полная вычитка: смысл разошёлся — везде «решить до завтра»"
+  },
+  {
+   "id": 1384,
+   "col": "example_tr",
+   "old": "Karar vermem lazım",
+   "new": "Yarına kadar karar vermem lazım",
+   "why": "полная вычитка: смысл разошёлся — везде «решить до завтра»"
+  },
+  {
+   "id": 1384,
+   "col": "example_pl",
+   "old": "Muszę się zdecydować",
+   "new": "Muszę się zdecydować do jutra",
+   "why": "полная вычитка: смысл разошёлся — везде «решить до завтра»"
+  },
+  {
+   "id": 1384,
+   "col": "example_it",
+   "old": "Non riesco a decidermi",
+   "new": "Devo decidermi entro domani",
+   "why": "полная вычитка: смысл разошёлся — везде «решить до завтра»"
+  },
+  {
+   "id": 1384,
+   "col": "example_es",
+   "old": "No consigo decidirme",
+   "new": "Tengo que decidirme antes de mañana",
+   "why": "полная вычитка: смысл разошёлся — везде «решить до завтра»"
+  },
+  {
+   "id": 1384,
+   "col": "example_fr",
+   "old": "Je dois me décider",
+   "new": "Je dois me décider d'ici demain",
+   "why": "полная вычитка: смысл разошёлся — везде «решить до завтра»"
+  },
+  {
+   "id": 1384,
+   "col": "example_cs",
+   "old": "Musím se rozhodnout",
+   "new": "Musím se rozhodnout do zítřka",
+   "why": "полная вычитка: смысл разошёлся — везде «решить до завтра»"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
