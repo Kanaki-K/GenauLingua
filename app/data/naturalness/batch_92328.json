@@ -1,0 +1,30 @@
+{
+ "about": "шаг 2, en p028: перевод+пример",
+ "edits": [
+  {
+   "id": 8397,
+   "col": "example_en",
+   "old": "My husband makes up for his cooking skills with a lot of cheese on everything",
+   "new": "My husband makes up for his lack of cooking skills with a lot of cheese on everything",
+   "why": "перевод+пример en: meaning inverted"
+  },
+  {
+   "id": 8411,
+   "col": "translation_en",
+   "old": "useless, pointless",
+   "new": "useless, pointless, needlessly",
+   "why": "перевод+пример en: word in example"
+  },
+  {
+   "id": 8556,
+   "col": "example_en",
+   "old": "The haircut from the cheap hairdresser is a disaster, my daughter has been wearing a hat for three days",
+   "new": "The haircut from the cheap hairdresser is disastrous, my daughter has been wearing a hat for three days",
+   "why": "перевод+пример en: word in example"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
