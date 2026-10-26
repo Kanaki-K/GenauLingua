@@ -1,0 +1,177 @@
+{
+ "about": "полная вычитка p032, второй проход",
+ "edits": [
+  {
+   "id": 11791,
+   "col": "example_ru",
+   "old": "Для похода в горы я беру с собой в качестве провизии бутерброды, яблоки и шоколад",
+   "new": "Для похода в горы я беру провизию: бутерброды, яблоки и шоколад",
+   "why": "полная вычитка: ru «в качестве провизии», uk «як провіант» — книжно"
+  },
+  {
+   "id": 11791,
+   "col": "example_uk",
+   "old": "Для походу в гори я беру із собою як провіант бутерброди, яблука й шоколад",
+   "new": "Для походу в гори я беру провіант: бутерброди, яблука й шоколад",
+   "why": "полная вычитка: ru «в качестве провизии», uk «як провіант» — книжно"
+  },
+  {
+   "id": 12186,
+   "col": "example_fr",
+   "old": "Le cadeau a fait mouche, un vrai coup dans le mille, ma fille était ravie",
+   "new": "Le cadeau, c'était dans le mille : ma fille était ravie",
+   "why": "полная вычитка: fr «a fait mouche, un vrai coup dans le mille» — повтор"
+  },
+  {
+   "id": 12188,
+   "col": "example_de",
+   "old": "Unser Verein ist dieses Jahr in die zweite Liga aufgestiegen",
+   "new": "Sonntags spielt er in einer Amateurliga",
+   "why": "полная вычитка: смысл разошёлся (de/tr/pl/cs «клуб вышел во вторую лигу») — везде «по воскресеньям играет в любительской лиге»"
+  },
+  {
+   "id": 12188,
+   "col": "example_tr",
+   "old": "Kulübümüz bu yıl ikinci lige yükseldi",
+   "new": "Pazarları amatör bir ligde oynuyor",
+   "why": "полная вычитка: смысл разошёлся (de/tr/pl/cs «клуб вышел во вторую лигу») — везде «по воскресеньям играет в любительской лиге»"
+  },
+  {
+   "id": 12188,
+   "col": "example_pl",
+   "old": "Nasz klub awansował w tym roku do drugiej ligi",
+   "new": "W niedziele gra w amatorskiej lidze",
+   "why": "полная вычитка: смысл разошёлся (de/tr/pl/cs «клуб вышел во вторую лигу») — везде «по воскресеньям играет в любительской лиге»"
+  },
+  {
+   "id": 12188,
+   "col": "example_cs",
+   "old": "Náš klub letos postoupil do druhé ligy",
+   "new": "V neděli hraje v amatérské lize",
+   "why": "полная вычитка: смысл разошёлся (de/tr/pl/cs «клуб вышел во вторую лигу») — везде «по воскресеньям играет в любительской лиге»"
+  },
+  {
+   "id": 12234,
+   "col": "example_ru",
+   "old": "Джакузи в отеле было по-настоящему расслабляющим",
+   "new": "В джакузи в отеле было так приятно расслабиться",
+   "why": "полная вычитка: ru/uk «джакузи было расслабляющим» — калька"
+  },
+  {
+   "id": 12234,
+   "col": "example_uk",
+   "old": "Джакузі в готелі справді розслабляло",
+   "new": "У джакузі в готелі було так приємно розслабитися",
+   "why": "полная вычитка: ru/uk «джакузи было расслабляющим» — калька"
+  },
+  {
+   "id": 12268,
+   "col": "example_uk",
+   "old": "Після трьох ходів він оголосив мені мат",
+   "new": "Після трьох ходів він поставив мені мат",
+   "why": "полная вычитка: uk «оголосив мені мат» — так не говорят"
+  },
+  {
+   "id": 12356,
+   "col": "example_ru",
+   "old": "В пятьдесят тётя решилась на уход из офиса и теперь открывает маленькую гостиницу",
+   "new": "В пятьдесят тётя наконец ушла из офиса и теперь открывает маленькую гостиницу",
+   "why": "полная вычитка: ru/uk «решилась на уход из офиса» — неуклюже"
+  },
+  {
+   "id": 12356,
+   "col": "example_uk",
+   "old": "У п'ятдесят тітка наважилася на вихід з офісу й тепер відкриває маленький готель",
+   "new": "У п'ятдесят тітка нарешті пішла з офісу й тепер відкриває маленький готель",
+   "why": "полная вычитка: ru/uk «решилась на уход из офиса» — неуклюже"
+  },
+  {
+   "id": 12410,
+   "col": "example_fr",
+   "old": "Les blagues de mon frère sur mon ex sont parfois vraiment au-dessous de la ceinture",
+   "new": "Les blagues de mon frère sur mon ex sont parfois vraiment en dessous de la ceinture",
+   "why": "полная вычитка: fr «au-dessous de la ceinture» — устойчиво «en dessous»"
+  },
+  {
+   "id": 12596,
+   "col": "example_it",
+   "old": "I dolori muscolari dopo il primo allenamento erano davvero dolorosi",
+   "new": "L'indolenzimento dopo il primo allenamento era davvero doloroso",
+   "why": "полная вычитка: it «dolori… dolorosi» — тавтология"
+  },
+  {
+   "id": 12656,
+   "col": "example_ru",
+   "old": "Это всего лишь небольшое вмешательство, через час сможешь пойти домой",
+   "new": "Это всего лишь небольшая операция, через час сможешь пойти домой",
+   "why": "полная вычитка: ru/uk «небольшое вмешательство» — книжно"
+  },
+  {
+   "id": 12656,
+   "col": "example_uk",
+   "old": "Це лише невелике втручання, за годину зможеш піти додому",
+   "new": "Це лише невелика операція, за годину зможеш піти додому",
+   "why": "полная вычитка: ru/uk «небольшое вмешательство» — книжно"
+  },
+  {
+   "id": 12674,
+   "col": "example_it",
+   "old": "Ha bevuto tutto il bicchiere d'acqua in un respiro",
+   "new": "Ha bevuto tutto il bicchiere d'acqua d'un fiato",
+   "why": "полная вычитка: it «in un respiro», es «de un solo aliento» — так не говорят"
+  },
+  {
+   "id": 12674,
+   "col": "example_es",
+   "old": "Se bebió el vaso de agua entero de un solo aliento",
+   "new": "Se bebió el vaso de agua entero de un trago",
+   "why": "полная вычитка: it «in un respiro», es «de un solo aliento» — так не говорят"
+  },
+  {
+   "id": 12683,
+   "col": "example_ru",
+   "old": "Кто уже болел ветрянкой, обычно невосприимчив к ней всю жизнь",
+   "new": "Кто уже переболел ветрянкой, у того обычно иммунитет на всю жизнь",
+   "why": "полная вычитка: ru/uk «невосприимчив к ней всю жизнь» — книжно"
+  },
+  {
+   "id": 12683,
+   "col": "example_uk",
+   "old": "Хто вже хворів на вітрянку, зазвичай несприйнятливий до неї все життя",
+   "new": "Хто вже перехворів на вітрянку, у того зазвичай імунітет на все життя",
+   "why": "полная вычитка: ru/uk «невосприимчив к ней всю жизнь» — книжно"
+  },
+  {
+   "id": 12713,
+   "col": "example_en",
+   "old": "After the wedding my uncle slept off his drunkenness until midday",
+   "new": "After the wedding my uncle slept it off until midday",
+   "why": "полная вычитка: en «slept off his drunkenness» — так не говорят"
+  },
+  {
+   "id": 12728,
+   "col": "example_en",
+   "old": "I feel more comfortable now that I've said it",
+   "new": "I feel better now that I've said it",
+   "why": "полная вычитка: en «more comfortable» — не то"
+  },
+  {
+   "id": 12740,
+   "col": "example_ru",
+   "old": "В переходном возрасте у сына гормоны совсем сходят с ума",
+   "new": "В переходном возрасте у сына гормоны бушуют вовсю",
+   "why": "полная вычитка: ru/uk «гормоны сходят с ума» — калька"
+  },
+  {
+   "id": 12740,
+   "col": "example_uk",
+   "old": "У перехідному віці в сина гормони зовсім шаленіють",
+   "new": "У перехідному віці в сина гормони вирують на повну",
+   "why": "полная вычитка: ru/uk «гормоны сходят с ума» — калька"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
