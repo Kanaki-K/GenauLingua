@@ -1,16 +1,1624 @@
 {
- "about": "полная вычитка p043",
+ "about": "2.3, B1 блок 48",
  "edits": [
   {
-   "id": 15703,
+   "id": 1640,
+   "col": "example_de",
+   "old": "Mein Laptop ist neu",
+   "new": "Mein Laptop ist schon wieder abgestürzt",
+   "why": "«Mein Laptop ist neu» — пусто"
+  },
+  {
+   "id": 1640,
+   "col": "example_ru",
+   "old": "Мой ноутбук новый",
+   "new": "У меня опять завис ноутбук",
+   "why": "«Mein Laptop ist neu» — пусто"
+  },
+  {
+   "id": 1640,
+   "col": "example_uk",
+   "old": "Мій ноутбук новий",
+   "new": "У мене знову завис ноутбук",
+   "why": "«Mein Laptop ist neu» — пусто"
+  },
+  {
+   "id": 1640,
+   "col": "example_en",
+   "old": "My laptop is new",
+   "new": "My laptop has crashed again",
+   "why": "«Mein Laptop ist neu» — пусто"
+  },
+  {
+   "id": 1640,
+   "col": "example_tr",
+   "old": "Dizüstü bilgisayarım yeni",
+   "new": "Laptopum yine çöktü",
+   "why": "«Mein Laptop ist neu» — пусто"
+  },
+  {
+   "id": 1640,
+   "col": "example_pl",
+   "old": "Mój laptop jest nowy",
+   "new": "Mój laptop znowu się zawiesił",
+   "why": "«Mein Laptop ist neu» — пусто"
+  },
+  {
+   "id": 1640,
+   "col": "example_it",
+   "old": "Il mio portatile è nuovo",
+   "new": "Il mio portatile si è bloccato di nuovo",
+   "why": "«Mein Laptop ist neu» — пусто"
+  },
+  {
+   "id": 1640,
+   "col": "example_es",
+   "old": "Mi portátil es nuevo",
+   "new": "Se me ha vuelto a colgar el portátil",
+   "why": "«Mein Laptop ist neu» — пусто"
+  },
+  {
+   "id": 1640,
    "col": "example_fr",
-   "old": "Laisse refroidir la soupe avant de la donner au petit",
-   "new": "Après une dispute, je laisse d'abord mon mari se rafraîchir les idées",
-   "why": "полная вычитка: fr «остуди суп» — «после ссоры даю мужу остыть»"
+   "old": "Mon ordinateur portable est neuf",
+   "new": "Mon ordinateur portable a encore planté",
+   "why": "«Mein Laptop ist neu» — пусто"
+  },
+  {
+   "id": 1640,
+   "col": "example_cs",
+   "old": "Můj notebook je nový",
+   "new": "Notebook mi zase spadl",
+   "why": "«Mein Laptop ist neu» — пусто"
+  },
+  {
+   "id": 15488,
+   "col": "translation_ru",
+   "old": "прясть, плести паутину, нести чушь, сходить с ума",
+   "new": "сходить с ума, прясть",
+   "why": "«Die Spinne spinnt ihr Netz» — масло масляное; в речи spinnen — «сходить с ума»"
+  },
+  {
+   "id": 15488,
+   "col": "translation_uk",
+   "old": "прясти, плести павутину, верзти дурниці, бути несповна розуму",
+   "new": "бути несповна розуму, прясти",
+   "why": "«Die Spinne spinnt ihr Netz» — масло масляное; в речи spinnen — «сходить с ума»"
+  },
+  {
+   "id": 15488,
+   "col": "translation_en",
+   "old": "to spin, to spin a web, to be crazy, to talk nonsense",
+   "new": "to be crazy, to spin",
+   "why": "«Die Spinne spinnt ihr Netz» — масло масляное; в речи spinnen — «сходить с ума»"
+  },
+  {
+   "id": 15488,
+   "col": "translation_tr",
+   "old": "eğirmek, ağ örmek, saçmalamak, kafayı yemek",
+   "new": "kafayı yemek, eğirmek",
+   "why": "«Die Spinne spinnt ihr Netz» — масло масляное; в речи spinnen — «сходить с ума»"
+  },
+  {
+   "id": 15488,
+   "col": "translation_pl",
+   "old": "prząść, snuć sieć, bzdury gadać, mieć nierówno pod sufitem",
+   "new": "mieć nierówno pod sufitem, prząść",
+   "why": "«Die Spinne spinnt ihr Netz» — масло масляное; в речи spinnen — «сходить с ума»"
+  },
+  {
+   "id": 15488,
+   "col": "translation_it",
+   "old": "tessere, filare, essere matto, dire sciocchezze",
+   "new": "essere matto, filare",
+   "why": "«Die Spinne spinnt ihr Netz» — масло масляное; в речи spinnen — «сходить с ума»"
+  },
+  {
+   "id": 15488,
+   "col": "translation_es",
+   "old": "tejer, hilar, estar loco",
+   "new": "estar loco, hilar",
+   "why": "«Die Spinne spinnt ihr Netz» — масло масляное; в речи spinnen — «сходить с ума»"
+  },
+  {
+   "id": 15488,
+   "col": "translation_fr",
+   "old": "tisser, filer, être fou",
+   "new": "être fou, filer",
+   "why": "«Die Spinne spinnt ihr Netz» — масло масляное; в речи spinnen — «сходить с ума»"
+  },
+  {
+   "id": 15488,
+   "col": "translation_cs",
+   "old": "spřádat, příst, bláznit",
+   "new": "bláznit, příst",
+   "why": "«Die Spinne spinnt ihr Netz» — масло масляное; в речи spinnen — «сходить с ума»"
+  },
+  {
+   "id": 15488,
+   "col": "example_de",
+   "old": "Die Spinne spinnt ihr Netz",
+   "new": "Du spinnst wohl!",
+   "why": "«Die Spinne spinnt ihr Netz» — масло масляное; в речи spinnen — «сходить с ума»"
+  },
+  {
+   "id": 15488,
+   "col": "example_ru",
+   "old": "Паук плетёт свою паутину",
+   "new": "Ты что, с ума сошёл?",
+   "why": "«Die Spinne spinnt ihr Netz» — масло масляное; в речи spinnen — «сходить с ума»"
+  },
+  {
+   "id": 15488,
+   "col": "example_uk",
+   "old": "Павук плете свою павутину",
+   "new": "Ти що, несповна розуму?",
+   "why": "«Die Spinne spinnt ihr Netz» — масло масляное; в речи spinnen — «сходить с ума»"
+  },
+  {
+   "id": 15488,
+   "col": "example_en",
+   "old": "The spider spins its web",
+   "new": "Are you crazy?",
+   "why": "«Die Spinne spinnt ihr Netz» — масло масляное; в речи spinnen — «сходить с ума»"
+  },
+  {
+   "id": 15488,
+   "col": "example_tr",
+   "old": "Örümcek ağını örüyor",
+   "new": "Kafayı mı yedin?",
+   "why": "«Die Spinne spinnt ihr Netz» — масло масляное; в речи spinnen — «сходить с ума»"
+  },
+  {
+   "id": 15488,
+   "col": "example_pl",
+   "old": "Pająk snuje swoją sieć",
+   "new": "Masz nierówno pod sufitem?",
+   "why": "«Die Spinne spinnt ihr Netz» — масло масляное; в речи spinnen — «сходить с ума»"
+  },
+  {
+   "id": 15488,
+   "col": "example_it",
+   "old": "Il ragno tesse la sua tela",
+   "new": "Ma sei matto?",
+   "why": "«Die Spinne spinnt ihr Netz» — масло масляное; в речи spinnen — «сходить с ума»"
+  },
+  {
+   "id": 15488,
+   "col": "example_es",
+   "old": "La araña teje su telaraña",
+   "new": "¿Estás loco?",
+   "why": "«Die Spinne spinnt ihr Netz» — масло масляное; в речи spinnen — «сходить с ума»"
+  },
+  {
+   "id": 15488,
+   "col": "example_fr",
+   "old": "L'araignée tisse sa toile",
+   "new": "T'es fou ou quoi?",
+   "why": "«Die Spinne spinnt ihr Netz» — масло масляное; в речи spinnen — «сходить с ума»"
+  },
+  {
+   "id": 15488,
+   "col": "example_cs",
+   "old": "Pavouk spřádá svou síť",
+   "new": "Blázníš?",
+   "why": "«Die Spinne spinnt ihr Netz» — масло масляное; в речи spinnen — «сходить с ума»"
+  },
+  {
+   "id": 12579,
+   "col": "example_de",
+   "old": "Er verlor das Gleichgewicht und fiel hin",
+   "new": "Halt dich fest, sonst verlierst du das Gleichgewicht",
+   "why": "«Er verlor das Gleichgewicht und fiel hin» — претерит"
+  },
+  {
+   "id": 12579,
+   "col": "example_ru",
+   "old": "Он потерял равновесие и упал",
+   "new": "Держись, а то потеряешь равновесие",
+   "why": "«Er verlor das Gleichgewicht und fiel hin» — претерит"
+  },
+  {
+   "id": 12579,
+   "col": "example_uk",
+   "old": "Він втратив рівновагу і впав",
+   "new": "Тримайся, бо втратиш рівновагу",
+   "why": "«Er verlor das Gleichgewicht und fiel hin» — претерит"
+  },
+  {
+   "id": 12579,
+   "col": "example_en",
+   "old": "He lost his balance and fell",
+   "new": "Hold on or you'll lose your balance",
+   "why": "«Er verlor das Gleichgewicht und fiel hin» — претерит"
+  },
+  {
+   "id": 12579,
+   "col": "example_tr",
+   "old": "Dengesini kaybetti ve düştü",
+   "new": "Sıkı tutun, yoksa dengeni kaybedersin",
+   "why": "«Er verlor das Gleichgewicht und fiel hin» — претерит"
+  },
+  {
+   "id": 12579,
+   "col": "example_pl",
+   "old": "Stracił równowagę i upadł",
+   "new": "Trzymaj się, bo stracisz równowagę",
+   "why": "«Er verlor das Gleichgewicht und fiel hin» — претерит"
+  },
+  {
+   "id": 12579,
+   "col": "example_it",
+   "old": "Ha perso l'equilibrio ed è caduto",
+   "new": "Tieniti, sennò perdi l'equilibrio",
+   "why": "«Er verlor das Gleichgewicht und fiel hin» — претерит"
+  },
+  {
+   "id": 12579,
+   "col": "example_es",
+   "old": "Perdió el equilibrio y se cayó",
+   "new": "Agárrate, que si no pierdes el equilibrio",
+   "why": "«Er verlor das Gleichgewicht und fiel hin» — претерит"
+  },
+  {
+   "id": 12579,
+   "col": "example_fr",
+   "old": "Il a perdu l'équilibre et il est tombé",
+   "new": "Tiens-toi, sinon tu vas perdre l'équilibre",
+   "why": "«Er verlor das Gleichgewicht und fiel hin» — претерит"
+  },
+  {
+   "id": 12579,
+   "col": "example_cs",
+   "old": "Ztratil rovnováhu a upadl",
+   "new": "Drž se, jinak ztratíš rovnováhu",
+   "why": "«Er verlor das Gleichgewicht und fiel hin» — претерит"
+  },
+  {
+   "id": 10427,
+   "col": "example_de",
+   "old": "Sie zeigte ihre Dankbarkeit durch ein Geschenk",
+   "new": "Ich weiß nicht, wie ich meine Dankbarkeit zeigen soll",
+   "why": "«Sie zeigte ihre Dankbarkeit …» — претерит"
+  },
+  {
+   "id": 10427,
+   "col": "example_ru",
+   "old": "Она выразила свою благодарность подарком",
+   "new": "Не знаю, как выразить свою благодарность",
+   "why": "«Sie zeigte ihre Dankbarkeit …» — претерит"
+  },
+  {
+   "id": 10427,
+   "col": "example_uk",
+   "old": "Вона показала свою вдячність подарунком",
+   "new": "Не знаю, як висловити свою вдячність",
+   "why": "«Sie zeigte ihre Dankbarkeit …» — претерит"
+  },
+  {
+   "id": 10427,
+   "col": "example_en",
+   "old": "She showed her gratitude with a gift",
+   "new": "I don't know how to show my gratitude",
+   "why": "«Sie zeigte ihre Dankbarkeit …» — претерит"
+  },
+  {
+   "id": 10427,
+   "col": "example_tr",
+   "old": "Minnettarlığını bir hediyeyle gösterdi",
+   "new": "Minnettarlığımı nasıl göstereceğimi bilmiyorum",
+   "why": "«Sie zeigte ihre Dankbarkeit …» — претерит"
+  },
+  {
+   "id": 10427,
+   "col": "example_pl",
+   "old": "Okazała wdzięczność, dając mu prezent",
+   "new": "Nie wiem, jak okazać swoją wdzięczność",
+   "why": "«Sie zeigte ihre Dankbarkeit …» — претерит"
+  },
+  {
+   "id": 10427,
+   "col": "example_it",
+   "old": "Mostrò la sua gratitudine con un regalo",
+   "new": "Non so come mostrare la mia gratitudine",
+   "why": "«Sie zeigte ihre Dankbarkeit …» — претерит"
+  },
+  {
+   "id": 10427,
+   "col": "example_es",
+   "old": "Mostró su gratitud con un regalo",
+   "new": "No sé cómo mostrar mi gratitud",
+   "why": "«Sie zeigte ihre Dankbarkeit …» — претерит"
+  },
+  {
+   "id": 10427,
+   "col": "example_fr",
+   "old": "Elle a montré sa gratitude avec un cadeau",
+   "new": "Je ne sais pas comment montrer ma gratitude",
+   "why": "«Sie zeigte ihre Dankbarkeit …» — претерит"
+  },
+  {
+   "id": 10427,
+   "col": "example_cs",
+   "old": "Svou vděčnost projevila dárkem",
+   "new": "Nevím, jak vyjádřit svou vděčnost",
+   "why": "«Sie zeigte ihre Dankbarkeit …» — претерит"
+  },
+  {
+   "id": 16123,
+   "col": "example_de",
+   "old": "Die Hinrichtung war ein schreckliches Ereignis",
+   "new": "In vielen Ländern gibt es noch Hinrichtungen",
+   "why": "«Die Hinrichtung war ein schreckliches Ereignis» — претерит, пусто"
+  },
+  {
+   "id": 16123,
+   "col": "example_ru",
+   "old": "Казнь была ужасным событием",
+   "new": "Во многих странах до сих пор есть казни",
+   "why": "«Die Hinrichtung war ein schreckliches Ereignis» — претерит, пусто"
+  },
+  {
+   "id": 16123,
+   "col": "example_uk",
+   "old": "Страта була жахливою подією",
+   "new": "У багатьох країнах досі є страти",
+   "why": "«Die Hinrichtung war ein schreckliches Ereignis» — претерит, пусто"
+  },
+  {
+   "id": 16123,
+   "col": "example_en",
+   "old": "The execution was a terrible event",
+   "new": "Executions still take place in many countries",
+   "why": "«Die Hinrichtung war ein schreckliches Ereignis» — претерит, пусто"
+  },
+  {
+   "id": 16123,
+   "col": "example_tr",
+   "old": "İnfaz korkunç bir olayydı",
+   "new": "Birçok ülkede hâlâ idam var",
+   "why": "«Die Hinrichtung war ein schreckliches Ereignis» — претерит, пусто"
+  },
+  {
+   "id": 16123,
+   "col": "example_pl",
+   "old": "Egzekucja była strasznym wydarzeniem",
+   "new": "W wielu krajach wciąż wykonuje się egzekucje",
+   "why": "«Die Hinrichtung war ein schreckliches Ereignis» — претерит, пусто"
+  },
+  {
+   "id": 16123,
+   "col": "example_it",
+   "old": "L'esecuzione è stata un evento terribile",
+   "new": "In molti paesi ci sono ancora esecuzioni",
+   "why": "«Die Hinrichtung war ein schreckliches Ereignis» — претерит, пусто"
+  },
+  {
+   "id": 16123,
+   "col": "example_es",
+   "old": "La ejecución fue un acontecimiento terrible",
+   "new": "En muchos países todavía hay ejecuciones",
+   "why": "«Die Hinrichtung war ein schreckliches Ereignis» — претерит, пусто"
+  },
+  {
+   "id": 16123,
+   "col": "example_fr",
+   "old": "L'exécution a été un événement terrible",
+   "new": "Dans beaucoup de pays, il y a encore des exécutions",
+   "why": "«Die Hinrichtung war ein schreckliches Ereignis» — претерит, пусто"
+  },
+  {
+   "id": 16123,
+   "col": "example_cs",
+   "old": "Poprava byla hrozná událost",
+   "new": "V mnoha zemích se stále vykonávají popravy",
+   "why": "«Die Hinrichtung war ein schreckliches Ereignis» — претерит, пусто"
+  },
+  {
+   "id": 7018,
+   "col": "translation_ru",
+   "old": "неправильный, не тот, наизнанку, наоборот",
+   "new": "неправильный, наизнанку",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7018,
+   "col": "translation_uk",
+   "old": "неправильний, не той, навиворіт, навпаки",
+   "new": "неправильний, навиворіт",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7018,
+   "col": "translation_en",
+   "old": "wrong, the wrong way round, inside out",
+   "new": "wrong, inside out",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7018,
+   "col": "translation_tr",
+   "old": "yanlış, ters, tersyüz",
+   "new": "yanlış, ters",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7018,
+   "col": "translation_pl",
+   "old": "zły, błędny, na odwrót, na lewą stronę",
+   "new": "zły, na lewą stronę",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7018,
+   "col": "translation_it",
+   "old": "sbagliato, al contrario, alla rovescia",
+   "new": "sbagliato, al rovescio",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7018,
+   "col": "translation_cs",
+   "old": "špatný, opačný, naruby",
+   "new": "špatný, naruby",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7018,
+   "col": "example_de",
+   "old": "Das ist die verkehrte Richtung",
+   "new": "Du hast den Pulli verkehrt herum an",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7018,
+   "col": "example_ru",
+   "old": "Это неправильное направление",
+   "new": "Ты надел свитер наизнанку",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7018,
+   "col": "example_uk",
+   "old": "Це неправильний напрямок",
+   "new": "Ти вдягнув светр навиворіт",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7018,
+   "col": "example_en",
+   "old": "That is the wrong direction",
+   "new": "You've got your jumper on inside out",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7018,
+   "col": "example_tr",
+   "old": "Bu yanlış yön",
+   "new": "Kazağını ters giymişsin",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7018,
+   "col": "example_pl",
+   "old": "To zły kierunek",
+   "new": "Masz sweter założony na lewą stronę",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7018,
+   "col": "example_it",
+   "old": "È la direzione sbagliata",
+   "new": "Hai la maglia al rovescio",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7018,
+   "col": "example_es",
+   "old": "Esa es la dirección equivocada",
+   "new": "Llevas el jersey al revés",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7018,
+   "col": "example_fr",
+   "old": "C'est la mauvaise direction",
+   "new": "Tu as mis ton pull à l'envers",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7018,
+   "col": "example_cs",
+   "old": "To je špatný směr",
+   "new": "Máš svetr naruby",
+   "why": "список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 1104,
+   "col": "translation_ru",
+   "old": "сдавать экзамен, снимать, откладывать, положить, бросить, отчаливать",
+   "new": "сдавать (экзамен), снимать",
+   "why": "список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 1104,
+   "col": "translation_uk",
+   "old": "складати іспит, знімати, відкладати, позбутися звички, відпливати",
+   "new": "складати (іспит), знімати",
+   "why": "список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 1104,
+   "col": "translation_en",
+   "old": "to take an exam, to take off, to put down, to give up, to cast off",
+   "new": "to take (an exam), to take off",
+   "why": "список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 1104,
+   "col": "translation_tr",
+   "old": "sınava girmek, çıkarmak, bir yere koymak, bırakmak, limandan ayrılmak",
+   "new": "sınava girmek, çıkarmak",
+   "why": "список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 1104,
+   "col": "translation_pl",
+   "old": "zdawać egzamin, zdjąć, odłożyć, porzucić nawyk",
+   "new": "zdawać (egzamin), zdjąć",
+   "why": "список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 1104,
+   "col": "translation_it",
+   "old": "togliersi, posare, sostenere un esame, abbandonare",
+   "new": "sostenere (un esame), togliersi",
+   "why": "список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 1104,
+   "col": "translation_es",
+   "old": "quitarse, dejar, presentarse a un examen, abandonar",
+   "new": "presentarse a (un examen), quitarse",
+   "why": "список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 1104,
+   "col": "translation_fr",
+   "old": "enlever, poser, passer un examen, abandonner",
+   "new": "passer (un examen), enlever",
+   "why": "список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 1104,
+   "col": "translation_cs",
+   "old": "odložit, sundat si, složit zkoušku",
+   "new": "složit (zkoušku), sundat si",
+   "why": "список → главное слово и не больше одной альтернативы (было шесть значений)"
+  },
+  {
+   "id": 10429,
+   "col": "example_de",
+   "old": "Das war nur eine Illusion, keine Realität",
+   "new": "Mach dir keine Illusionen",
+   "why": "«Das war nur eine Illusion, keine Realität» — масло масляное"
+  },
+  {
+   "id": 10429,
+   "col": "example_ru",
+   "old": "Это была просто иллюзия, не реальность",
+   "new": "Не питай иллюзий",
+   "why": "«Das war nur eine Illusion, keine Realität» — масло масляное"
+  },
+  {
+   "id": 10429,
+   "col": "example_uk",
+   "old": "Це була просто ілюзія, не реальність",
+   "new": "Не плекай ілюзій",
+   "why": "«Das war nur eine Illusion, keine Realität» — масло масляное"
+  },
+  {
+   "id": 10429,
+   "col": "example_en",
+   "old": "That was just an illusion, not reality",
+   "new": "Don't have any illusions",
+   "why": "«Das war nur eine Illusion, keine Realität» — масло масляное"
+  },
+  {
+   "id": 10429,
+   "col": "example_tr",
+   "old": "Bu sadece bir illüzyondu, gerçeklik değil",
+   "new": "Boş hayallere kapılma",
+   "why": "«Das war nur eine Illusion, keine Realität» — масло масляное"
+  },
+  {
+   "id": 10429,
+   "col": "example_pl",
+   "old": "To było tylko złudzenie, nie rzeczywistość",
+   "new": "Nie rób sobie złudzeń",
+   "why": "«Das war nur eine Illusion, keine Realität» — масло масляное"
+  },
+  {
+   "id": 10429,
+   "col": "example_it",
+   "old": "Era solo un'illusione, non la realtà",
+   "new": "Non farti illusioni",
+   "why": "«Das war nur eine Illusion, keine Realität» — масло масляное"
+  },
+  {
+   "id": 10429,
+   "col": "example_es",
+   "old": "Era solo una ilusión, no la realidad",
+   "new": "No te hagas ilusiones",
+   "why": "«Das war nur eine Illusion, keine Realität» — масло масляное"
+  },
+  {
+   "id": 10429,
+   "col": "example_fr",
+   "old": "Ce n'était qu'une illusion, pas la réalité",
+   "new": "Ne te fais pas d'illusions",
+   "why": "«Das war nur eine Illusion, keine Realität» — масло масляное"
+  },
+  {
+   "id": 10429,
+   "col": "example_cs",
+   "old": "Byla to jen iluze, ne realita",
+   "new": "Nedělej si iluze",
+   "why": "«Das war nur eine Illusion, keine Realität» — масло масляное"
+  },
+  {
+   "id": 7021,
+   "col": "translation_ru",
+   "old": "ускользнуть, избежать, пройти мимо внимания",
+   "new": "упустить, ускользнуть",
+   "why": "ru «Это не должно от меня ускользнуть» — калька; живое — «Das lasse ich mir nicht entgehen»"
+  },
+  {
+   "id": 7021,
+   "col": "translation_uk",
+   "old": "уникнути, прослизнути, пройти поза увагою",
+   "new": "пропустити, уникнути",
+   "why": "ru «Это не должно от меня ускользнуть» — калька; живое — «Das lasse ich mir nicht entgehen»"
+  },
+  {
+   "id": 7021,
+   "col": "translation_en",
+   "old": "to escape, to avoid, to miss out on",
+   "new": "to miss out on, to escape",
+   "why": "ru «Это не должно от меня ускользнуть» — калька; живое — «Das lasse ich mir nicht entgehen»"
+  },
+  {
+   "id": 7021,
+   "col": "translation_tr",
+   "old": "kaçmak, kurtulmak, gözden kaçmak",
+   "new": "kaçırmak, gözden kaçmak",
+   "why": "ru «Это не должно от меня ускользнуть» — калька; живое — «Das lasse ich mir nicht entgehen»"
+  },
+  {
+   "id": 7021,
+   "col": "translation_pl",
+   "old": "umknąć, uniknąć, wymknąć się",
+   "new": "umknąć, uniknąć",
+   "why": "ru «Это не должно от меня ускользнуть» — калька; живое — «Das lasse ich mir nicht entgehen»"
+  },
+  {
+   "id": 7021,
+   "col": "example_de",
+   "old": "Das darf mir nicht entgehen",
+   "new": "Das lasse ich mir nicht entgehen!",
+   "why": "ru «Это не должно от меня ускользнуть» — калька; живое — «Das lasse ich mir nicht entgehen»"
+  },
+  {
+   "id": 7021,
+   "col": "example_ru",
+   "old": "Это не должно от меня ускользнуть",
+   "new": "Такое я не упущу!",
+   "why": "ru «Это не должно от меня ускользнуть» — калька; живое — «Das lasse ich mir nicht entgehen»"
+  },
+  {
+   "id": 7021,
+   "col": "example_uk",
+   "old": "Це не повинно пройти поза моєю увагою",
+   "new": "Я цього не пропущу!",
+   "why": "ru «Это не должно от меня ускользнуть» — калька; живое — «Das lasse ich mir nicht entgehen»"
+  },
+  {
+   "id": 7021,
+   "col": "example_en",
+   "old": "This must not escape me",
+   "new": "I'm not going to miss out on that!",
+   "why": "ru «Это не должно от меня ускользнуть» — калька; живое — «Das lasse ich mir nicht entgehen»"
+  },
+  {
+   "id": 7021,
+   "col": "example_tr",
+   "old": "Bunun gözümden kaçmaması gerekiyor",
+   "new": "Bunu kaçırmam!",
+   "why": "ru «Это не должно от меня ускользнуть» — калька; живое — «Das lasse ich mir nicht entgehen»"
+  },
+  {
+   "id": 7021,
+   "col": "example_pl",
+   "old": "To nie może mi umknąć",
+   "new": "Nie pozwolę, żeby mi to umknęło!",
+   "why": "ru «Это не должно от меня ускользнуть» — калька; живое — «Das lasse ich mir nicht entgehen»"
+  },
+  {
+   "id": 7021,
+   "col": "example_it",
+   "old": "Questo non deve sfuggirmi",
+   "new": "Non me lo perdo!",
+   "why": "ru «Это не должно от меня ускользнуть» — калька; живое — «Das lasse ich mir nicht entgehen»"
+  },
+  {
+   "id": 7021,
+   "col": "example_es",
+   "old": "No me lo puedo perder",
+   "new": "¡No me lo pierdo!",
+   "why": "ru «Это не должно от меня ускользнуть» — калька; живое — «Das lasse ich mir nicht entgehen»"
+  },
+  {
+   "id": 7021,
+   "col": "example_fr",
+   "old": "Je ne dois pas rater ça",
+   "new": "Je ne vais pas rater ça!",
+   "why": "ru «Это не должно от меня ускользнуть» — калька; живое — «Das lasse ich mir nicht entgehen»"
+  },
+  {
+   "id": 7021,
+   "col": "example_cs",
+   "old": "To si nesmím nechat ujít",
+   "new": "To si nenechám ujít!",
+   "why": "ru «Это не должно от меня ускользнуть» — калька; живое — «Das lasse ich mir nicht entgehen»"
+  },
+  {
+   "id": 16125,
+   "col": "example_de",
+   "old": "Das Verhör dauerte drei Stunden",
+   "new": "Er wird gerade zum Verhör gebracht",
+   "why": "«Das Verhör dauerte drei Stunden» — претерит"
+  },
+  {
+   "id": 16125,
+   "col": "example_ru",
+   "old": "Допрос длился три часа",
+   "new": "Его сейчас ведут на допрос",
+   "why": "«Das Verhör dauerte drei Stunden» — претерит"
+  },
+  {
+   "id": 16125,
+   "col": "example_uk",
+   "old": "Допит тривав три години",
+   "new": "Його зараз ведуть на допит",
+   "why": "«Das Verhör dauerte drei Stunden» — претерит"
+  },
+  {
+   "id": 16125,
+   "col": "example_en",
+   "old": "The interrogation lasted three hours",
+   "new": "He's being taken for questioning",
+   "why": "«Das Verhör dauerte drei Stunden» — претерит"
+  },
+  {
+   "id": 16125,
+   "col": "example_tr",
+   "old": "Sorgu üç saat sürdü",
+   "new": "Şu an sorguya götürülüyor",
+   "why": "«Das Verhör dauerte drei Stunden» — претерит"
+  },
+  {
+   "id": 16125,
+   "col": "example_pl",
+   "old": "Przesłuchanie trwało trzy godziny",
+   "new": "Właśnie prowadzą go na przesłuchanie",
+   "why": "«Das Verhör dauerte drei Stunden» — претерит"
+  },
+  {
+   "id": 16125,
+   "col": "example_it",
+   "old": "L'interrogatorio è durato tre ore",
+   "new": "Lo stanno portando all'interrogatorio",
+   "why": "«Das Verhör dauerte drei Stunden» — претерит"
+  },
+  {
+   "id": 16125,
+   "col": "example_es",
+   "old": "El interrogatorio duró tres horas",
+   "new": "Lo están llevando al interrogatorio",
+   "why": "«Das Verhör dauerte drei Stunden» — претерит"
+  },
+  {
+   "id": 16125,
+   "col": "example_fr",
+   "old": "L'interrogatoire a duré trois heures",
+   "new": "On l'emmène à l'interrogatoire",
+   "why": "«Das Verhör dauerte drei Stunden» — претерит"
+  },
+  {
+   "id": 16125,
+   "col": "example_cs",
+   "old": "Výslech trval tři hodiny",
+   "new": "Právě ho vedou k výslechu",
+   "why": "«Das Verhör dauerte drei Stunden» — претерит"
+  },
+  {
+   "id": 17937,
+   "col": "example_de",
+   "old": "Der Weltraum ist unendlich groß",
+   "new": "Ich würde gern mal in den Weltraum fliegen",
+   "why": "«Der Weltraum ist unendlich groß» — учебник"
+  },
+  {
+   "id": 17937,
+   "col": "example_ru",
+   "old": "Космос бесконечно велик",
+   "new": "Я бы хотел когда-нибудь полететь в космос",
+   "why": "«Der Weltraum ist unendlich groß» — учебник"
+  },
+  {
+   "id": 17937,
+   "col": "example_uk",
+   "old": "Космос нескінченно великий",
+   "new": "Я б хотів колись полетіти в космос",
+   "why": "«Der Weltraum ist unendlich groß» — учебник"
+  },
+  {
+   "id": 17937,
+   "col": "example_en",
+   "old": "Space is infinitely large",
+   "new": "I'd love to fly into space one day",
+   "why": "«Der Weltraum ist unendlich groß» — учебник"
+  },
+  {
+   "id": 17937,
+   "col": "example_tr",
+   "old": "Uzay sonsuz büyüklüktedir",
+   "new": "Bir gün uzaya gitmek isterdim",
+   "why": "«Der Weltraum ist unendlich groß» — учебник"
+  },
+  {
+   "id": 17937,
+   "col": "example_pl",
+   "old": "Kosmos jest nieskończenie wielki",
+   "new": "Chciałbym kiedyś polecieć w kosmos",
+   "why": "«Der Weltraum ist unendlich groß» — учебник"
+  },
+  {
+   "id": 17937,
+   "col": "example_it",
+   "old": "Lo spazio è infinitamente grande",
+   "new": "Mi piacerebbe volare nello spazio un giorno",
+   "why": "«Der Weltraum ist unendlich groß» — учебник"
+  },
+  {
+   "id": 17937,
+   "col": "example_es",
+   "old": "El espacio es infinitamente grande",
+   "new": "Me gustaría volar al espacio algún día",
+   "why": "«Der Weltraum ist unendlich groß» — учебник"
+  },
+  {
+   "id": 17937,
+   "col": "example_fr",
+   "old": "L'espace est infiniment grand",
+   "new": "J'aimerais aller dans l'espace un jour",
+   "why": "«Der Weltraum ist unendlich groß» — учебник"
+  },
+  {
+   "id": 17937,
+   "col": "example_cs",
+   "old": "Vesmír je nekonečně velký",
+   "new": "Jednou bych rád letěl do vesmíru",
+   "why": "«Der Weltraum ist unendlich groß» — учебник"
+  },
+  {
+   "id": 7026,
+   "col": "example_de",
+   "old": "Der Hund knurrt, wenn er wütend ist",
+   "new": "Mir knurrt der Magen",
+   "why": "«Der Hund knurrt, wenn er wütend ist» — учебник; живое — «Mir knurrt der Magen»"
+  },
+  {
+   "id": 7026,
+   "col": "example_ru",
+   "old": "Собака рычит, когда она сердится",
+   "new": "У меня бурчит в животе",
+   "why": "«Der Hund knurrt, wenn er wütend ist» — учебник; живое — «Mir knurrt der Magen»"
+  },
+  {
+   "id": 7026,
+   "col": "example_uk",
+   "old": "Собака рикає, коли вона сердита",
+   "new": "У мене бурчить у животі",
+   "why": "«Der Hund knurrt, wenn er wütend ist» — учебник; живое — «Mir knurrt der Magen»"
+  },
+  {
+   "id": 7026,
+   "col": "example_en",
+   "old": "The dog growls when it's angry",
+   "new": "My stomach is rumbling",
+   "why": "«Der Hund knurrt, wenn er wütend ist» — учебник; живое — «Mir knurrt der Magen»"
+  },
+  {
+   "id": 7026,
+   "col": "example_tr",
+   "old": "Köpek kızgın olduğunda hırlıyor",
+   "new": "Midem guruldıyor",
+   "why": "«Der Hund knurrt, wenn er wütend ist» — учебник; живое — «Mir knurrt der Magen»"
+  },
+  {
+   "id": 7026,
+   "col": "example_pl",
+   "old": "Pies warczy, kiedy jest wściekły",
+   "new": "Burczy mi w brzuchu",
+   "why": "«Der Hund knurrt, wenn er wütend ist» — учебник; живое — «Mir knurrt der Magen»"
+  },
+  {
+   "id": 7026,
+   "col": "example_it",
+   "old": "Il cane ringhia quando è arrabbiato",
+   "new": "Mi brontola lo stomaco",
+   "why": "«Der Hund knurrt, wenn er wütend ist» — учебник; живое — «Mir knurrt der Magen»"
+  },
+  {
+   "id": 7026,
+   "col": "example_es",
+   "old": "El perro gruñe cuando está enfadado",
+   "new": "Me gruñen las tripas",
+   "why": "«Der Hund knurrt, wenn er wütend ist» — учебник; живое — «Mir knurrt der Magen»"
+  },
+  {
+   "id": 7026,
+   "col": "example_fr",
+   "old": "Le chien grogne quand il est en colère",
+   "new": "J'ai le ventre qui gronde",
+   "why": "«Der Hund knurrt, wenn er wütend ist» — учебник; живое — «Mir knurrt der Magen»"
+  },
+  {
+   "id": 7026,
+   "col": "example_cs",
+   "old": "Pes vrčí, když je rozzlobený",
+   "new": "Kručí mi v břiše",
+   "why": "«Der Hund knurrt, wenn er wütend ist» — учебник; живое — «Mir knurrt der Magen»"
+  },
+  {
+   "id": 10432,
+   "col": "example_ru",
+   "old": "Я должен преодолеть свой страх",
+   "new": "Мне надо преодолеть свой страх",
+   "why": "ru «Я должен преодолеть» — калька"
+  },
+  {
+   "id": 10432,
+   "col": "example_uk",
+   "old": "Я повинен подолати свій страх",
+   "new": "Мені треба подолати свій страх",
+   "why": "ru «Я должен преодолеть» — калька"
+  },
+  {
+   "id": 1668,
+   "col": "translation_en",
+   "old": "makeup",
+   "new": "make-up",
+   "why": "«Sie trägt Make-up» — шаблон одежды"
+  },
+  {
+   "id": 1668,
+   "col": "example_de",
+   "old": "Sie trägt Make-up",
+   "new": "Ohne Make-up gehe ich nicht aus dem Haus",
+   "why": "«Sie trägt Make-up» — шаблон одежды"
+  },
+  {
+   "id": 1668,
+   "col": "example_ru",
+   "old": "Она носит макияж",
+   "new": "Без макияжа я из дома не выхожу",
+   "why": "«Sie trägt Make-up» — шаблон одежды"
+  },
+  {
+   "id": 1668,
+   "col": "example_uk",
+   "old": "Вона носить макіяж",
+   "new": "Без макіяжу я з дому не виходжу",
+   "why": "«Sie trägt Make-up» — шаблон одежды"
+  },
+  {
+   "id": 1668,
+   "col": "example_en",
+   "old": "She wears makeup",
+   "new": "I don't leave the house without make-up",
+   "why": "«Sie trägt Make-up» — шаблон одежды"
+  },
+  {
+   "id": 1668,
+   "col": "example_tr",
+   "old": "Makyaj yapıyor",
+   "new": "Makyajsız evden çıkmam",
+   "why": "«Sie trägt Make-up» — шаблон одежды"
+  },
+  {
+   "id": 1668,
+   "col": "example_pl",
+   "old": "Ona ma makijaż",
+   "new": "Bez makijażu nie wychodzę z domu",
+   "why": "«Sie trägt Make-up» — шаблон одежды"
+  },
+  {
+   "id": 1668,
+   "col": "example_it",
+   "old": "Si mette il trucco",
+   "new": "Senza trucco non esco di casa",
+   "why": "«Sie trägt Make-up» — шаблон одежды"
+  },
+  {
+   "id": 1668,
+   "col": "example_es",
+   "old": "Lleva maquillaje",
+   "new": "Sin maquillaje no salgo de casa",
+   "why": "«Sie trägt Make-up» — шаблон одежды"
+  },
+  {
+   "id": 1668,
+   "col": "example_fr",
+   "old": "Elle porte du maquillage",
+   "new": "Je ne sors pas sans maquillage",
+   "why": "«Sie trägt Make-up» — шаблон одежды"
+  },
+  {
+   "id": 1668,
+   "col": "example_cs",
+   "old": "Nosí make-up",
+   "new": "Bez make-upu nevycházím z domu",
+   "why": "«Sie trägt Make-up» — шаблон одежды"
+  },
+  {
+   "id": 16126,
+   "col": "translation_ru",
+   "old": "показывать, отображать, заявить в полицию, донести",
+   "new": "показывать, заявить в полицию",
+   "why": "шаблон Diebstahl («… bei der Polizei anzeigen»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16126,
+   "col": "translation_uk",
+   "old": "показувати, відображати, заявити в поліцію, донести",
+   "new": "показувати, заявити в поліцію",
+   "why": "шаблон Diebstahl («… bei der Polizei anzeigen»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16126,
+   "col": "translation_en",
+   "old": "to display, to show, to report to the police",
+   "new": "to show, to report to the police",
+   "why": "шаблон Diebstahl («… bei der Polizei anzeigen»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16126,
+   "col": "translation_tr",
+   "old": "göstermek, belirtmek, polise şikâyet etmek, ihbar etmek",
+   "new": "göstermek, polise şikâyet etmek",
+   "why": "шаблон Diebstahl («… bei der Polizei anzeigen»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16126,
+   "col": "translation_pl",
+   "old": "wskazywać, pokazywać, zgłosić na policję",
+   "new": "pokazywać, zgłosić na policję",
+   "why": "шаблон Diebstahl («… bei der Polizei anzeigen»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16126,
+   "col": "translation_it",
+   "old": "denunciare, mostrare, visualizzare",
+   "new": "indicare, denunciare",
+   "why": "шаблон Diebstahl («… bei der Polizei anzeigen»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16126,
+   "col": "translation_es",
+   "old": "denunciar, mostrar, indicar",
+   "new": "indicar, denunciar",
+   "why": "шаблон Diebstahl («… bei der Polizei anzeigen»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16126,
+   "col": "translation_fr",
+   "old": "dénoncer, porter plainte, afficher, indiquer",
+   "new": "afficher, porter plainte",
+   "why": "шаблон Diebstahl («… bei der Polizei anzeigen»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16126,
+   "col": "translation_cs",
+   "old": "nahlásit, udat, zobrazit, ukazovat",
+   "new": "ukazovat, nahlásit",
+   "why": "шаблон Diebstahl («… bei der Polizei anzeigen»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16126,
+   "col": "example_de",
+   "old": "Ich werde ihn bei der Polizei anzeigen",
+   "new": "Das Handy zeigt keinen Empfang an",
+   "why": "шаблон Diebstahl («… bei der Polizei anzeigen»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16126,
+   "col": "example_ru",
+   "old": "Я заявлю на него в полицию",
+   "new": "Телефон не показывает сигнал",
+   "why": "шаблон Diebstahl («… bei der Polizei anzeigen»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16126,
+   "col": "example_uk",
+   "old": "Я заявлю про нього в поліцію",
+   "new": "Телефон не показує сигналу",
+   "why": "шаблон Diebstahl («… bei der Polizei anzeigen»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16126,
+   "col": "example_en",
+   "old": "I will report him to the police",
+   "new": "The phone isn't showing any signal",
+   "why": "шаблон Diebstahl («… bei der Polizei anzeigen»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16126,
+   "col": "example_tr",
+   "old": "Onu polise ihbar edeceğim",
+   "new": "Telefon çekim göstermiyor",
+   "why": "шаблон Diebstahl («… bei der Polizei anzeigen»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16126,
+   "col": "example_pl",
+   "old": "Zgłoszę go na policję",
+   "new": "Telefon nie pokazuje zasięgu",
+   "why": "шаблон Diebstahl («… bei der Polizei anzeigen»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16126,
+   "col": "example_it",
+   "old": "Lo denuncerò alla polizia",
+   "new": "Il telefono non indica campo",
+   "why": "шаблон Diebstahl («… bei der Polizei anzeigen»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16126,
+   "col": "example_es",
+   "old": "Lo voy a denunciar a la policía",
+   "new": "El móvil no indica cobertura",
+   "why": "шаблон Diebstahl («… bei der Polizei anzeigen»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16126,
+   "col": "example_fr",
+   "old": "Je vais le dénoncer à la police",
+   "new": "Le téléphone n'affiche pas de réseau",
+   "why": "шаблон Diebstahl («… bei der Polizei anzeigen»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 16126,
+   "col": "example_cs",
+   "old": "Nahlásím ho na policii",
+   "new": "Mobil neukazuje signál",
+   "why": "шаблон Diebstahl («… bei der Polizei anzeigen»); список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 2980,
+   "col": "example_de",
+   "old": "Der Richter verurteilt ihn",
+   "new": "Er ist zu drei Jahren Haft verurteilt worden",
+   "why": "ru «Судья его осуждает» — не тот смысл"
+  },
+  {
+   "id": 2980,
+   "col": "example_ru",
+   "old": "Судья его осуждает",
+   "new": "Его приговорили к трём годам тюрьмы",
+   "why": "ru «Судья его осуждает» — не тот смысл"
+  },
+  {
+   "id": 2980,
+   "col": "example_uk",
+   "old": "Суддя його засуджує",
+   "new": "Його засудили до трьох років в'язниці",
+   "why": "ru «Судья его осуждает» — не тот смысл"
+  },
+  {
+   "id": 2980,
+   "col": "example_en",
+   "old": "The judge sentences him",
+   "new": "He was sentenced to three years in prison",
+   "why": "ru «Судья его осуждает» — не тот смысл"
+  },
+  {
+   "id": 2980,
+   "col": "example_tr",
+   "old": "Hâkim onu mahkûm ediyor",
+   "new": "Üç yıl hapse mahkûm edildi",
+   "why": "ru «Судья его осуждает» — не тот смысл"
+  },
+  {
+   "id": 2980,
+   "col": "example_pl",
+   "old": "Sędzia go skazuje",
+   "new": "Został skazany na trzy lata więzienia",
+   "why": "ru «Судья его осуждает» — не тот смысл"
+  },
+  {
+   "id": 2980,
+   "col": "example_it",
+   "old": "Il giudice lo condanna",
+   "new": "È stato condannato a tre anni di carcere",
+   "why": "ru «Судья его осуждает» — не тот смысл"
+  },
+  {
+   "id": 2980,
+   "col": "example_es",
+   "old": "El juez lo condena",
+   "new": "Lo condenaron a tres años de cárcel",
+   "why": "ru «Судья его осуждает» — не тот смысл"
+  },
+  {
+   "id": 2980,
+   "col": "example_fr",
+   "old": "Le juge le condamne",
+   "new": "Il a été condamné à trois ans de prison",
+   "why": "ru «Судья его осуждает» — не тот смысл"
+  },
+  {
+   "id": 2980,
+   "col": "example_cs",
+   "old": "Soudce ho odsuzuje",
+   "new": "Byl odsouzen ke třem letům vězení",
+   "why": "ru «Судья его осуждает» — не тот смысл"
+  },
+  {
+   "id": 560,
+   "col": "translation_en",
+   "old": "liter, litre",
+   "new": "litre",
+   "why": "«Ein Liter Milch» — обрывок"
+  },
+  {
+   "id": 560,
+   "col": "example_de",
+   "old": "Ein Liter Milch",
+   "new": "Ich trinke jeden Tag zwei Liter Wasser",
+   "why": "«Ein Liter Milch» — обрывок"
+  },
+  {
+   "id": 560,
+   "col": "example_ru",
+   "old": "Один литр молока",
+   "new": "Я каждый день пью два литра воды",
+   "why": "«Ein Liter Milch» — обрывок"
+  },
+  {
+   "id": 560,
+   "col": "example_uk",
+   "old": "Один літр молока",
+   "new": "Я щодня п'ю два літри води",
+   "why": "«Ein Liter Milch» — обрывок"
+  },
+  {
+   "id": 560,
+   "col": "example_en",
+   "old": "One liter of milk",
+   "new": "I drink two litres of water every day",
+   "why": "«Ein Liter Milch» — обрывок"
+  },
+  {
+   "id": 560,
+   "col": "example_tr",
+   "old": "Bir litre süt",
+   "new": "Her gün iki litre su içiyorum",
+   "why": "«Ein Liter Milch» — обрывок"
+  },
+  {
+   "id": 560,
+   "col": "example_pl",
+   "old": "Litr mleka",
+   "new": "Codziennie piję dwa litry wody",
+   "why": "«Ein Liter Milch» — обрывок"
+  },
+  {
+   "id": 560,
+   "col": "example_it",
+   "old": "Un litro di latte",
+   "new": "Bevo due litri d'acqua al giorno",
+   "why": "«Ein Liter Milch» — обрывок"
+  },
+  {
+   "id": 560,
+   "col": "example_es",
+   "old": "Un litro de leche",
+   "new": "Bebo dos litros de agua al día",
+   "why": "«Ein Liter Milch» — обрывок"
+  },
+  {
+   "id": 560,
+   "col": "example_fr",
+   "old": "Un litre de lait",
+   "new": "Je bois deux litres d'eau par jour",
+   "why": "«Ein Liter Milch» — обрывок"
+  },
+  {
+   "id": 560,
+   "col": "example_cs",
+   "old": "Litr mléka",
+   "new": "Každý den piju dva litry vody",
+   "why": "«Ein Liter Milch» — обрывок"
+  },
+  {
+   "id": 13988,
+   "col": "translation_ru",
+   "old": "взяться за дело, взяться за что-то, подойти к делу, подойти ближе, ответить на звонок",
+   "new": "взяться за дело, ответить на звонок",
+   "why": "«ans Problem rangehen» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13988,
+   "col": "translation_uk",
+   "old": "взятися до справи, взятися до чогось, підійти до справи, підійти ближче, відповісти на дзвінок",
+   "new": "взятися до справи, відповісти на дзвінок",
+   "why": "«ans Problem rangehen» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13988,
+   "col": "translation_en",
+   "old": "to tackle, to get down to something, to approach, to answer the phone",
+   "new": "to tackle, to answer the phone",
+   "why": "«ans Problem rangehen» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13988,
+   "col": "translation_tr",
+   "old": "girişmek, bir işe koyulmak, yaklaşmak, telefona bakmak",
+   "new": "bir işe koyulmak, telefona bakmak",
+   "why": "«ans Problem rangehen» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13988,
+   "col": "translation_pl",
+   "old": "zabrać się do czegoś, podejść do sprawy, odebrać telefon",
+   "new": "zabrać się do czegoś, odebrać telefon",
+   "why": "«ans Problem rangehen» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13988,
+   "col": "translation_it",
+   "old": "affrontare, mettersi a, avvicinarsi, rispondere al telefono",
+   "new": "affrontare, rispondere al telefono",
+   "why": "«ans Problem rangehen» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13988,
+   "col": "translation_es",
+   "old": "abordar, ponerse con, acercarse, contestar el teléfono",
+   "new": "ponerse con, contestar el teléfono",
+   "why": "«ans Problem rangehen» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13988,
+   "col": "translation_fr",
+   "old": "s'attaquer à, aborder, s'approcher, répondre au téléphone",
+   "new": "s'attaquer à, répondre au téléphone",
+   "why": "«ans Problem rangehen» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13988,
+   "col": "translation_cs",
+   "old": "pustit se do, přistoupit, zvednout telefon",
+   "new": "pustit se do, zvednout telefon",
+   "why": "«ans Problem rangehen» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13988,
+   "col": "example_de",
+   "old": "Lass mich mal ans Problem rangehen",
+   "new": "Geh doch mal ran, dein Handy klingelt!",
+   "why": "«ans Problem rangehen» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13988,
+   "col": "example_ru",
+   "old": "Дай-ка мне взяться за эту проблему",
+   "new": "Ответь, у тебя телефон звонит!",
+   "why": "«ans Problem rangehen» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13988,
+   "col": "example_uk",
+   "old": "Дай мені взятися за цю проблему",
+   "new": "Відповідай, у тебе телефон дзвонить!",
+   "why": "«ans Problem rangehen» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13988,
+   "col": "example_en",
+   "old": "Let me tackle this problem",
+   "new": "Answer it, your phone's ringing!",
+   "why": "«ans Problem rangehen» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13988,
+   "col": "example_tr",
+   "old": "Bırak bu sorunla başa çıkayım",
+   "new": "Telefona baksana, çalıyor!",
+   "why": "«ans Problem rangehen» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13988,
+   "col": "example_pl",
+   "old": "Pozwól mi zabrać się do tego problemu",
+   "new": "Odbierz, dzwoni ci telefon!",
+   "why": "«ans Problem rangehen» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13988,
+   "col": "example_it",
+   "old": "Lasciami affrontare il problema",
+   "new": "Rispondi, ti suona il telefono!",
+   "why": "«ans Problem rangehen» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13988,
+   "col": "example_es",
+   "old": "Déjame abordar el problema",
+   "new": "¡Contesta, te suena el móvil!",
+   "why": "«ans Problem rangehen» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13988,
+   "col": "example_fr",
+   "old": "Laisse-moi m'attaquer au problème",
+   "new": "Réponds, ton téléphone sonne!",
+   "why": "«ans Problem rangehen» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 13988,
+   "col": "example_cs",
+   "old": "Nech mě, já se do toho problému pustím",
+   "new": "Zvedni to, zvoní ti mobil!",
+   "why": "«ans Problem rangehen» — так не говорят; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7028,
+   "col": "translation_ru",
+   "old": "прогнать, изгнать, разогнать, скоротать время, сбывать товар",
+   "new": "прогнать, скоротать (время)",
+   "why": "«Wir müssen die Eindringlinge vertreiben» — война; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7028,
+   "col": "translation_uk",
+   "old": "прогнати, вигнати, розігнати, згаяти час, збувати товар",
+   "new": "прогнати, згаяти (час)",
+   "why": "«Wir müssen die Eindringlinge vertreiben» — война; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7028,
+   "col": "translation_en",
+   "old": "to drive away, to expel, to chase off, to pass the time, to distribute goods",
+   "new": "to drive away, to pass (the time)",
+   "why": "«Wir müssen die Eindringlinge vertreiben» — война; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7028,
+   "col": "translation_tr",
+   "old": "kovmak, sürmek, uzaklaştırmak, zaman geçirmek, ürün satmak",
+   "new": "kovmak, zaman geçirmek",
+   "why": "«Wir müssen die Eindringlinge vertreiben» — война; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7028,
+   "col": "translation_pl",
+   "old": "wypędzić, przepędzić, wygnać, zabić czas, rozprowadzać towar",
+   "new": "wypędzić, zabić (czas)",
+   "why": "«Wir müssen die Eindringlinge vertreiben» — война; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7028,
+   "col": "translation_it",
+   "old": "cacciare, scacciare, far passare, vendere",
+   "new": "cacciare, far passare",
+   "why": "«Wir müssen die Eindringlinge vertreiben» — война; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7028,
+   "col": "translation_es",
+   "old": "echar, expulsar, ahuyentar, distribuir",
+   "new": "echar, pasar (el tiempo)",
+   "why": "«Wir müssen die Eindringlinge vertreiben» — война; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7028,
+   "col": "translation_fr",
+   "old": "chasser, expulser, faire passer, distribuer",
+   "new": "chasser, faire passer",
+   "why": "«Wir müssen die Eindringlinge vertreiben» — война; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7028,
+   "col": "translation_cs",
+   "old": "vyhnat, zahnat, krátit si, distribuovat",
+   "new": "vyhnat, krátit si",
+   "why": "«Wir müssen die Eindringlinge vertreiben» — война; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7028,
+   "col": "example_de",
+   "old": "Wir müssen die Eindringlinge vertreiben",
+   "new": "Wir spielen Karten, um uns die Zeit zu vertreiben",
+   "why": "«Wir müssen die Eindringlinge vertreiben» — война; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7028,
+   "col": "example_ru",
+   "old": "Мы должны прогнать захватчиков",
+   "new": "Мы играем в карты, чтобы скоротать время",
+   "why": "«Wir müssen die Eindringlinge vertreiben» — война; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7028,
+   "col": "example_uk",
+   "old": "Ми повинні прогнати загарбників",
+   "new": "Ми граємо в карти, щоб згаяти час",
+   "why": "«Wir müssen die Eindringlinge vertreiben» — война; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7028,
+   "col": "example_en",
+   "old": "We have to drive away the intruders",
+   "new": "We play cards to pass the time",
+   "why": "«Wir müssen die Eindringlinge vertreiben» — война; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7028,
+   "col": "example_tr",
+   "old": "İşgalcileri kovmalıyız",
+   "new": "Zaman geçirmek için kart oynuyoruz",
+   "why": "«Wir müssen die Eindringlinge vertreiben» — война; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7028,
+   "col": "example_pl",
+   "old": "Musimy przepędzić intruzów",
+   "new": "Gramy w karty, żeby zabić czas",
+   "why": "«Wir müssen die Eindringlinge vertreiben» — война; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7028,
+   "col": "example_it",
+   "old": "Dobbiamo cacciare gli intrusi",
+   "new": "Giochiamo a carte per far passare il tempo",
+   "why": "«Wir müssen die Eindringlinge vertreiben» — война; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7028,
+   "col": "example_es",
+   "old": "Tenemos que echar a los intrusos",
+   "new": "Jugamos a las cartas para pasar el tiempo",
+   "why": "«Wir müssen die Eindringlinge vertreiben» — война; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7028,
+   "col": "example_fr",
+   "old": "Nous devons chasser les intrus",
+   "new": "On joue aux cartes pour faire passer le temps",
+   "why": "«Wir müssen die Eindringlinge vertreiben» — война; список → главное слово и не больше одной альтернативы"
+  },
+  {
+   "id": 7028,
+   "col": "example_cs",
+   "old": "Musíme ty vetřelce vyhnat",
+   "new": "Hrajeme karty, abychom si krátili čas",
+   "why": "«Wir müssen die Eindringlinge vertreiben» — война; список → главное слово и не больше одной альтернативы"
   }
  ],
- "insert": [],
  "replace": [],
- "unreplace": [],
  "split_later": {}
 }
