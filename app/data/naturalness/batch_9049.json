@@ -1,0 +1,107 @@
+{
+ "about": "полная вычитка p049",
+ "edits": [
+  {
+   "id": 16932,
+   "col": "example_de",
+   "old": "Eine Revision der Ergebnisse ist erforderlich",
+   "new": "Der Anwalt fordert eine Revision des Urteils",
+   "why": "полная вычитка: de/tr/pl/cs книжное «нужен пересмотр результатов» — везде «адвокат требует пересмотра дела»"
+  },
+  {
+   "id": 16932,
+   "col": "example_tr",
+   "old": "Sonuçların gözden geçirilmesi gerekiyor",
+   "new": "Avukat davanın yeniden incelenmesini istiyor",
+   "why": "полная вычитка: de/tr/pl/cs книжное «нужен пересмотр результатов» — везде «адвокат требует пересмотра дела»"
+  },
+  {
+   "id": 16932,
+   "col": "example_pl",
+   "old": "Konieczna jest rewizja wyników",
+   "new": "Adwokat domaga się rewizji wyroku",
+   "why": "полная вычитка: de/tr/pl/cs книжное «нужен пересмотр результатов» — везде «адвокат требует пересмотра дела»"
+  },
+  {
+   "id": 16932,
+   "col": "example_cs",
+   "old": "Je nutná revize výsledků",
+   "new": "Advokát žádá revizi rozsudku",
+   "why": "полная вычитка: de/tr/pl/cs книжное «нужен пересмотр результатов» — везде «адвокат требует пересмотра дела»"
+  },
+  {
+   "id": 16934,
+   "col": "example_ru",
+   "old": "Сын спрятал мой телефон и пишет требование выкупа: три мармеладных мишки",
+   "new": "Сын спрятал мой ключ от машины и пишет требование выкупа: три мармеладных мишки",
+   "why": "полная вычитка: ru/uk «телефон» — «ключ от машины»"
+  },
+  {
+   "id": 16934,
+   "col": "example_uk",
+   "old": "Син сховав мій телефон і пише вимогу викупу: три желейні ведмедики",
+   "new": "Син сховав мій ключ від машини й пише вимогу викупу: три желейні ведмедики",
+   "why": "полная вычитка: ru/uk «телефон» — «ключ от машины»"
+  },
+  {
+   "id": 17680,
+   "col": "example_de",
+   "old": "Der Sensor erkennt Bewegung und schaltet das Licht an",
+   "new": "Der Sensor schaltet bei Regen die Scheibenwischer von selbst ein",
+   "why": "полная вычитка: de/tr/pl/cs «датчик движения включает свет» — везде «датчик дождя сам включает дворники»"
+  },
+  {
+   "id": 17680,
+   "col": "example_tr",
+   "old": "Sensör hareketi algılar ve ışığı açar",
+   "new": "Sensör yağmur yağınca silecekleri kendiliğinden çalıştırıyor",
+   "why": "полная вычитка: de/tr/pl/cs «датчик движения включает свет» — везде «датчик дождя сам включает дворники»"
+  },
+  {
+   "id": 17680,
+   "col": "example_pl",
+   "old": "Czujnik wykrywa ruch i włącza światło",
+   "new": "Czujnik deszczu sam włącza wycieraczki",
+   "why": "полная вычитка: de/tr/pl/cs «датчик движения включает свет» — везде «датчик дождя сам включает дворники»"
+  },
+  {
+   "id": 17680,
+   "col": "example_cs",
+   "old": "Čidlo zaznamená pohyb a rozsvítí světlo",
+   "new": "Senzor deště sám zapíná stěrače",
+   "why": "полная вычитка: de/tr/pl/cs «датчик движения включает свет» — везде «датчик дождя сам включает дворники»"
+  },
+  {
+   "id": 17726,
+   "col": "example_de",
+   "old": "Der Fernsehsender zeigt jeden Abend die Nachrichten",
+   "new": "Dieser Fernsehsender zeigt nur Serien",
+   "why": "полная вычитка: de/tr/pl/cs «каждый вечер новости» — везде «канал показывает одни сериалы»"
+  },
+  {
+   "id": 17726,
+   "col": "example_tr",
+   "old": "Televizyon kanalı her akşam haberleri yayınlıyor",
+   "new": "Bu televizyon kanalı sadece dizi gösteriyor",
+   "why": "полная вычитка: de/tr/pl/cs «каждый вечер новости» — везде «канал показывает одни сериалы»"
+  },
+  {
+   "id": 17726,
+   "col": "example_pl",
+   "old": "Ten kanał telewizyjny nadaje wiadomości co wieczór",
+   "new": "Ta stacja telewizyjna pokazuje same seriale",
+   "why": "полная вычитка: de/tr/pl/cs «каждый вечер новости» — везде «канал показывает одни сериалы»"
+  },
+  {
+   "id": 17726,
+   "col": "example_cs",
+   "old": "Televizní stanice vysílá každý večer zprávy",
+   "new": "Tahle televizní stanice dává jen seriály",
+   "why": "полная вычитка: de/tr/pl/cs «каждый вечер новости» — везде «канал показывает одни сериалы»"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
