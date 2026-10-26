@@ -1,0 +1,13 @@
+"""Полная вычитка, порция 32: один смысл во всех 10 языках, живой пример со словом карточки"""
+
+T = "полная вычитка: "
+
+FIXES = {
+    11731: (T + "de/tr/pl/it/es/cs «животные пьют из реки» — везде разговорное «по выходным ходит с друзьями пить»", {"example_de": "Am Wochenende geht er mit seinen Kumpels saufen", "example_ru": "По выходным он ходит с друзьями пьянствовать", "example_uk": "На вихідних він іде з друзями пиячити", "example_en": "At the weekend he goes out boozing with his mates", "example_tr": "Hafta sonları arkadaşlarıyla kafayı çekmeye gidiyor", "example_pl": "W weekendy chodzi z kumplami chlać", "example_it": "Il fine settimana va a bere con gli amici", "example_es": "Los fines de semana sale a beber con sus amigos", "example_fr": "Le week-end, il picole avec ses copains", "example_cs": "O víkendu chodí s kámoši chlastat"}),
+    11748: (T + "ru/uk/en/it/es/fr «дети украсили печенье» — везде «бабушка печёт печенье к Рождеству»", {"example_ru": "Бабушка каждый год печёт к Рождеству вкусное печенье", "example_uk": "Бабуся щороку пече на Різдво смачне печиво", "example_en": "My gran bakes delicious Christmas biscuits every year", "example_it": "La nonna ogni anno prepara dei buonissimi biscotti per Natale", "example_es": "Mi abuela hace cada año unas galletas riquísimas por Navidad", "example_fr": "Ma grand-mère fait tous les ans de délicieux biscuits pour Noël"}),
+    12235: (T + "de/tr/pl/cs «идём сегодня в боулинг» (двойник bowlen) — везде «по понедельникам боулинг закрыт»", {"example_de": "Montags hat das Bowling zu", "example_ru": "По понедельникам боулинг не работает", "example_uk": "По понеділках боулінг не працює", "example_en": "The bowling alley is closed on Mondays", "example_tr": "Bowling salonu pazartesileri kapalı", "example_pl": "W poniedziałki kręgle są zamknięte", "example_it": "Il lunedì il bowling è chiuso", "example_es": "Los lunes la bolera está cerrada", "example_fr": "Le bowling est fermé le lundi", "example_cs": "V pondělí má bowling zavřeno"}),
+    12686: (T + "de/tr/pl/cs книжное «нет хребта, нет смелости» — везде «при падении повредил позвоночник»", {"example_de": "Bei dem Sturz hat er sich das Rückgrat verletzt", "example_ru": "Когда он упал, то повредил позвоночник", "example_uk": "Коли він упав, то пошкодив хребет", "example_en": "He hurt his spine when he fell", "example_tr": "Düşünce omurgasını incitti", "example_pl": "Przy upadku uszkodził sobie kręgosłup", "example_it": "Si è fatto male alla spina dorsale cadendo", "example_es": "Se lesionó la columna vertebral al caerse", "example_fr": "Il s'est blessé à la colonne vertébrale en tombant", "example_cs": "Při pádu si poranil páteř"}),
+}
+
+REPLACE = []
+SPLIT_LATER = {}
