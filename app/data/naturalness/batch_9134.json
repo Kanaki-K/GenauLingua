@@ -1,0 +1,177 @@
+{
+ "about": "полная вычитка p034, второй проход",
+ "edits": [
+  {
+   "id": 14249,
+   "col": "example_ru",
+   "old": "Дочь уже в восемь лет доказывает, как адвокат, когда речь идёт о времени отхода ко сну",
+   "new": "Дочь уже в восемь лет доказывает своё, как адвокат, когда речь заходит о том, во сколько ложиться спать",
+   "why": "полная вычитка: ru/uk «время отхода ко сну» — канцелярит"
+  },
+  {
+   "id": 14249,
+   "col": "example_uk",
+   "old": "Донька вже у вісім років доводить, як адвокатка, коли йдеться про час сну",
+   "new": "Донька вже у вісім років доводить своє, як адвокатка, коли йдеться про те, о котрій лягати спати",
+   "why": "полная вычитка: ru/uk «время отхода ко сну» — канцелярит"
+  },
+  {
+   "id": 14318,
+   "col": "example_uk",
+   "old": "Посланець зі святковим тортом подзвонив не в ті двері, і сусідка страшенно зраділа",
+   "new": "Кур'єр зі святковим тортом подзвонив не в ті двері, і сусідка страшенно зраділа",
+   "why": "полная вычитка: en/it/es/fr «bearer/portatore/portador/porteur» — так не говорят; uk «посланець» — книжно"
+  },
+  {
+   "id": 14318,
+   "col": "example_en",
+   "old": "The bearer of the birthday cake rang the wrong doorbell, and the neighbour was over the moon",
+   "new": "The man delivering the birthday cake rang the wrong doorbell, and the neighbour was over the moon",
+   "why": "полная вычитка: en/it/es/fr «bearer/portatore/portador/porteur» — так не говорят; uk «посланець» — книжно"
+  },
+  {
+   "id": 14318,
+   "col": "example_it",
+   "old": "Il portatore della torta di compleanno ha suonato alla porta sbagliata, e la vicina è stata felicissima",
+   "new": "Il fattorino con la torta di compleanno ha suonato alla porta sbagliata, e la vicina è stata felicissima",
+   "why": "полная вычитка: en/it/es/fr «bearer/portatore/portador/porteur» — так не говорят; uk «посланець» — книжно"
+  },
+  {
+   "id": 14318,
+   "col": "example_es",
+   "old": "El portador de la tarta de cumpleaños llamó a la puerta equivocada, y la vecina se puso contentísima",
+   "new": "El repartidor de la tarta de cumpleaños llamó a la puerta equivocada, y la vecina se puso contentísima",
+   "why": "полная вычитка: en/it/es/fr «bearer/portatore/portador/porteur» — так не говорят; uk «посланець» — книжно"
+  },
+  {
+   "id": 14318,
+   "col": "example_fr",
+   "old": "Le porteur du gâteau d'anniversaire a sonné à la mauvaise porte, et la voisine était ravie",
+   "new": "Le livreur du gâteau d'anniversaire a sonné à la mauvaise porte, et la voisine était ravie",
+   "why": "полная вычитка: en/it/es/fr «bearer/portatore/portador/porteur» — так не говорят; uk «посланець» — книжно"
+  },
+  {
+   "id": 14479,
+   "col": "example_ru",
+   "old": "Бас в этой песне очень глубокий",
+   "new": "Бас в этой песне очень низкий",
+   "why": "полная вычитка: ru/uk «бас очень глубокий» — калька"
+  },
+  {
+   "id": 14479,
+   "col": "example_uk",
+   "old": "Бас у цій пісні дуже глибокий",
+   "new": "Бас у цій пісні дуже низький",
+   "why": "полная вычитка: ru/uk «бас очень глубокий» — калька"
+  },
+  {
+   "id": 14514,
+   "col": "example_ru",
+   "old": "Полиция уже много лет ищет взломщика, но он как фантом",
+   "new": "Полиция уже много лет ищет взломщика, но он прямо как призрак",
+   "why": "полная вычитка: ru/uk «он как фантом» — неестественно"
+  },
+  {
+   "id": 14514,
+   "col": "example_uk",
+   "old": "Поліція вже багато років шукає зломщика, але він як фантом",
+   "new": "Поліція вже багато років шукає зломщика, але він наче примара",
+   "why": "полная вычитка: ru/uk «он как фантом» — неестественно"
+  },
+  {
+   "id": 14539,
+   "col": "example_pl",
+   "old": "Bez maszynopisu nie umiem wygłosić przemówienia, inaczej wszystko zapominam",
+   "new": "Bez kartki nie umiem wygłosić przemówienia, bo wszystko zapominam",
+   "why": "полная вычитка: pl/it/es/fr/cs «без рукописи» — в речи так не говорят"
+  },
+  {
+   "id": 14539,
+   "col": "example_it",
+   "old": "Senza manoscritto non riesco a fare un discorso, altrimenti dimentico tutto",
+   "new": "Senza un foglio davanti non riesco a fare un discorso, altrimenti dimentico tutto",
+   "why": "полная вычитка: pl/it/es/fr/cs «без рукописи» — в речи так не говорят"
+  },
+  {
+   "id": 14539,
+   "col": "example_es",
+   "old": "Sin manuscrito no puedo dar un discurso, si no se me olvida todo",
+   "new": "Sin el papel delante no puedo dar un discurso, se me olvida todo",
+   "why": "полная вычитка: pl/it/es/fr/cs «без рукописи» — в речи так не говорят"
+  },
+  {
+   "id": 14539,
+   "col": "example_fr",
+   "old": "Sans manuscrit, je ne peux pas faire de discours, sinon j'oublie tout",
+   "new": "Sans mes notes, je ne peux pas faire de discours, sinon j'oublie tout",
+   "why": "полная вычитка: pl/it/es/fr/cs «без рукописи» — в речи так не говорят"
+  },
+  {
+   "id": 14539,
+   "col": "example_cs",
+   "old": "Bez rukopisu nedokážu mít projev, jinak všechno zapomenu",
+   "new": "Bez papíru nedokážu mít projev, jinak všechno zapomenu",
+   "why": "полная вычитка: pl/it/es/fr/cs «без рукописи» — в речи так не говорят"
+  },
+  {
+   "id": 14653,
+   "col": "example_tr",
+   "old": "Barmenimiz her cuma yeni bir kokteyl yaratıyor ve ona bir müdavimin adını veriyor",
+   "new": "Barmenimiz her cuma yeni bir kokteyl icat ediyor ve ona bir müdavimin adını veriyor",
+   "why": "полная вычитка: tr «kokteyl yaratıyor» — калька"
+  },
+  {
+   "id": 14763,
+   "col": "example_ru",
+   "old": "Загнать собаку в ванну без лакомства — это был настоящий шедевр",
+   "new": "Загнать собаку в ванну без лакомства — это был настоящий мастерский ход",
+   "why": "полная вычитка: ru/uk «настоящий шедевр» — не тот смысл (мастерский ход)"
+  },
+  {
+   "id": 14763,
+   "col": "example_uk",
+   "old": "Загнати пса у ванну без ласощів — це був справжній шедевр",
+   "new": "Загнати пса у ванну без ласощів — це був справжній майстерний хід",
+   "why": "полная вычитка: ru/uk «настоящий шедевр» — не тот смысл (мастерский ход)"
+  },
+  {
+   "id": 14839,
+   "col": "example_fr",
+   "old": "Pendant le chant choral du réveillon, je chante tout bas parce que je ne tombe sur aucune note juste",
+   "new": "Pendant le chant choral du réveillon, je chante tout bas parce que je chante complètement faux",
+   "why": "полная вычитка: fr «je ne tombe sur aucune note juste» — неестественно"
+  },
+  {
+   "id": 15044,
+   "col": "example_ru",
+   "old": "Арендодатель сразу выполнил нашу просьбу и починил отопление",
+   "new": "Хозяин квартиры сразу выполнил нашу просьбу и починил отопление",
+   "why": "полная вычитка: ru «арендодатель», uk «орендодавець» — канцелярит"
+  },
+  {
+   "id": 15044,
+   "col": "example_uk",
+   "old": "Орендодавець одразу виконав наше прохання й полагодив опалення",
+   "new": "Власник квартири одразу виконав наше прохання й полагодив опалення",
+   "why": "полная вычитка: ru «арендодатель», uk «орендодавець» — канцелярит"
+  },
+  {
+   "id": 15117,
+   "col": "example_ru",
+   "old": "Предложение руки и сердца он спрятал на записке в её печенье с предсказанием",
+   "new": "Предложение руки и сердца он написал на записке и спрятал в её печенье с предсказанием",
+   "why": "полная вычитка: ru/uk «спрятал на записке» — неуклюже"
+  },
+  {
+   "id": 15117,
+   "col": "example_uk",
+   "old": "Пропозицію руки і серця він сховав на записці в її печиві з передбаченням",
+   "new": "Пропозицію руки і серця він написав на записці й сховав у її печиві з передбаченням",
+   "why": "полная вычитка: ru/uk «спрятал на записке» — неуклюже"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
