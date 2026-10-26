@@ -1,0 +1,107 @@
+{
+ "about": "полная вычитка p035",
+ "edits": [
+  {
+   "id": 15320,
+   "col": "example_ru",
+   "old": "Ты моя спасительница! Без тебя я бы не успел на поезд",
+   "new": "Ты моя спасительница! Без твоего запасного ключа я бы ночевал в подъезде",
+   "why": "полная вычитка: ru/uk «не успел бы на поезд» — «без запасного ключа ночевал бы в подъезде»"
+  },
+  {
+   "id": 15320,
+   "col": "example_uk",
+   "old": "Ти моя рятівниця! Без тебе я б не встигла на потяг",
+   "new": "Ти моя рятівниця! Без твого запасного ключа я б ночував у під'їзді",
+   "why": "полная вычитка: ru/uk «не успел бы на поезд» — «без запасного ключа ночевал бы в подъезде»"
+  },
+  {
+   "id": 16198,
+   "col": "example_de",
+   "old": "Der Pass war eine Fälschung und die Polizei hat ihn gefunden",
+   "new": "Eine Chanel-Tasche für dreißig Euro ist garantiert eine Fälschung",
+   "why": "полная вычитка: de/tr/pl/cs «паспорт оказался поддельным» — везде «сумка Chanel за 30 евро — подделка»"
+  },
+  {
+   "id": 16198,
+   "col": "example_tr",
+   "old": "Pasaport sahte çıktı, polis de bunu fark etti",
+   "new": "Otuz avroya Chanel çanta kesin sahtedir",
+   "why": "полная вычитка: de/tr/pl/cs «паспорт оказался поддельным» — везде «сумка Chanel за 30 евро — подделка»"
+  },
+  {
+   "id": 16198,
+   "col": "example_pl",
+   "old": "Paszport okazał się podróbką",
+   "new": "Torebka Chanel za trzydzieści euro to na pewno podróbka",
+   "why": "полная вычитка: de/tr/pl/cs «паспорт оказался поддельным» — везде «сумка Chanel за 30 евро — подделка»"
+  },
+  {
+   "id": 16198,
+   "col": "example_cs",
+   "old": "Ten pas byl padělek a policie ho našla",
+   "new": "Kabelka Chanel za třicet eur je určitě padělek",
+   "why": "полная вычитка: de/tr/pl/cs «паспорт оказался поддельным» — везде «сумка Chanel за 30 евро — подделка»"
+  },
+  {
+   "id": 16206,
+   "col": "example_de",
+   "old": "Die Bestrafung für sein schlechtes Verhalten war sehr streng",
+   "new": "Zur Bestrafung gibt es eine Woche kein Handy",
+   "why": "полная вычитка: de/tr/pl/cs «наказание было строгим» — везде «в наказание неделя без телефона»"
+  },
+  {
+   "id": 16206,
+   "col": "example_tr",
+   "old": "Kötü davranışı yüzünden aldığı ceza çok ağırdı",
+   "new": "Ceza olarak bir hafta telefon yok",
+   "why": "полная вычитка: de/tr/pl/cs «наказание было строгим» — везде «в наказание неделя без телефона»"
+  },
+  {
+   "id": 16206,
+   "col": "example_pl",
+   "old": "Za złe zachowanie dostał bardzo surową karę",
+   "new": "Za karę tydzień bez telefonu",
+   "why": "полная вычитка: de/tr/pl/cs «наказание было строгим» — везде «в наказание неделя без телефона»"
+  },
+  {
+   "id": 16206,
+   "col": "example_cs",
+   "old": "Trest za jeho špatné chování byl hodně přísný",
+   "new": "Za trest týden bez mobilu",
+   "why": "полная вычитка: de/tr/pl/cs «наказание было строгим» — везде «в наказание неделя без телефона»"
+  },
+  {
+   "id": 16256,
+   "col": "example_de",
+   "old": "Der Kodex regelt das Verhalten in unserer Gruppe",
+   "new": "Unter Bikern gibt es einen eigenen Kodex",
+   "why": "полная вычитка: de/tr/pl/cs книжное «кодекс регулирует поведение» — везде «у байкеров свой кодекс чести»"
+  },
+  {
+   "id": 16256,
+   "col": "example_tr",
+   "old": "Kural bütünü grubumuzdaki davranışı düzenliyor",
+   "new": "Motorcuların kendi onur kuralları var",
+   "why": "полная вычитка: de/tr/pl/cs книжное «кодекс регулирует поведение» — везде «у байкеров свой кодекс чести»"
+  },
+  {
+   "id": 16256,
+   "col": "example_pl",
+   "old": "Kodeks reguluje zachowanie w naszej grupie",
+   "new": "Motocykliści mają swój kodeks honorowy",
+   "why": "полная вычитка: de/tr/pl/cs книжное «кодекс регулирует поведение» — везде «у байкеров свой кодекс чести»"
+  },
+  {
+   "id": 16256,
+   "col": "example_cs",
+   "old": "Kodex upravuje chování v naší skupině",
+   "new": "Motorkáři mají svůj kodex cti",
+   "why": "полная вычитка: de/tr/pl/cs книжное «кодекс регулирует поведение» — везде «у байкеров свой кодекс чести»"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
