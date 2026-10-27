@@ -1,0 +1,30 @@
+{
+ "about": "шаг 2, fr p010: перевод+пример",
+ "edits": [
+  {
+   "id": 1827,
+   "col": "example_fr",
+   "old": "Il s'est fait très chic pour le mariage",
+   "new": "Il s'est habillé très chic pour le mariage",
+   "why": "перевод+пример fr: s'est fait très chic — неестественно"
+  },
+  {
+   "id": 1877,
+   "col": "translation_fr",
+   "old": "soigneux, minutieux",
+   "new": "soigneux, minutieux, soigneusement",
+   "why": "перевод+пример fr: в примере soigneusement"
+  },
+  {
+   "id": 2145,
+   "col": "translation_fr",
+   "old": "le refus, l'annulation",
+   "new": "le refus, l'annulation, (absagen) annuler",
+   "why": "перевод+пример fr: в примере annuler"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
