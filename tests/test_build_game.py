@@ -617,7 +617,12 @@ def test_the_grid_has_two_columns():
     from app.bot.handlers.quiz.build import grid_keyboard
 
     rows = grid_keyboard([f"w{i}" for i in range(9)], [], 1, 0, "ru", slots=7).inline_keyboard
-    assert [len(r) for r in rows] == [2, 2, 2, 2, 1]
+    assert [len(r) for r in rows] == [2, 2, 2, 2, 1, 2]
+    # Нижний ряд всегда на месте: слева «⌫», справа «Пропустить» (27.10)
+    assert [b.text for b in rows[-1]] == ["⌫", "Пропустить"]
+
+    full = grid_keyboard(["a", "b"], [0, 1], 1, 2, "ru", slots=2).inline_keyboard
+    assert [[b.text for b in r] for r in full] == [["Проверить"], ["⌫", "Пропустить"]]
 
 async def test_a_right_build_is_recorded_once(session, user, stage):
     dp, bot, rec = stage
@@ -814,3 +819,130 @@ def test_easy_never_takes_a_twin_even_without_foreign_words():
     for seed in range(30):
         picked, _ = bs.pick_distractors(target, "de", [], random.Random(seed), 1, easy=True)
         assert not ({p.lower() for p in picked} & twins), f"двойник: {picked}"
+
+
+async def test_repeat_of_a_wrong_build_is_the_same_build(session, user, stage):
+    """
+    Баг владельца 26.10: прошёл «Собираю» с ошибками, нажал «Повторить» —
+    получил карточку с одним словом. Ошибка сборки повторяется сборкой
+    той же фразы.
+    """
+    dp, bot, rec = stage
+    user.match_in_round = False  # доска «Найдите пары» — не про этот баг
+    await session.commit()
+    context, data = await _start_build(session, user, rec, dp, bot)
+    wrong: dict[int, list[str]] = {}
+    for _ in range(40):
+        data = await context.get_data()
+        assert data.get("channel") == "b", "занятие «Собираю» задало не сборку"
+        target, tiles = data["build_target"], data["build_tiles"]
+        # Неверно: сначала ловушка, остальные места — любыми кнопками
+        trap = next(i for i, t in enumerate(tiles) if t not in target)
+        rest = [i for i in range(len(tiles)) if i != trap][:len(target) - 1]
+        for index in [trap] + rest:
+            await _tap(dp, bot, user, context, index)
+        await _check(dp, bot, user, context)
+        wrong[data["build_word"]] = target
+        await dp.feed_update(bot, press(user.id, "next_question"))
+        if "repeat_errors" in rec.all_buttons():
+            break
+    assert "repeat_errors" in rec.all_buttons()
+
+    rec.clear()
+    await dp.feed_update(bot, press(user.id, "repeat_errors", message_id=900))
+    data = await context.get_data()
+    assert data.get("is_error_repeat")
+    assert data.get("channel") == "b", "повтор ошибки сборки пришёл не сборкой"
+    assert data["build_target"] == wrong[data["build_word"]], "повтор собирает другую фразу"
+
+    # Второй вопрос повтора — тоже сборка
+    for index in range(len(data["build_target"])):
+        await _tap(dp, bot, user, context, index)
+    await _check(dp, bot, user, context)
+    await dp.feed_update(bot, press(user.id, "next_question"))
+    data = await context.get_data()
+    if data.get("is_error_repeat"):
+        assert data.get("channel") == "b"
+        assert data["build_target"] == wrong[data["build_word"]]
+
+
+async def test_a_build_can_be_skipped(session, user, stage):
+    """Владелец 27.10: грамматику — пропустить, как «Говорю». Не ошибка и не балл."""
+    dp, bot, rec = stage
+    context, data = await _start_build(session, user, rec, dp, bot)
+    skip = f"bd:skip:{data['build_word']}:{data['build_version']}"
+    assert skip in rec.all_buttons()
+
+    await dp.feed_update(bot, press(user.id, skip))
+    text = rec.last_text()
+    assert "Пропущено" in text and data["build_sentence"] in text
+    after = await context.get_data()
+    assert not after.get("errors") and not after.get("correct_answers")
+    assert not await _rows(session, data["session_id"])
+
+    # Сетка после пропуска не проверяется: фраза уже на экране
+    await _assemble(dp, bot, user, context, data["build_target"])
+    await _check(dp, bot, user, context)
+    assert not await _rows(session, data["session_id"])
+
+    await dp.feed_update(bot, press(user.id, "next_question"))
+    assert (await context.get_data()).get("current_question") == 2
+
+
+# ============================================================================
+# РАЗНООБРАЗИЕ: ФРАЗА НЕ ПОВТОРЯЕТСЯ, ПОКА ЕСТЬ НОВЫЕ (владелец, 27.10)
+# ============================================================================
+
+async def _built_all_but(session, user, words, keep=None):
+    """Отметить свои слова собранными (кроме `keep`)."""
+    rows = (await session.execute(select(UserWord).where(UserWord.user_id == user.id))).scalars()
+    for row in rows:
+        if keep is None or row.word_id != keep.id:
+            row.shown_build = 1
+            row.correct_build = 1
+    await session.commit()
+
+
+async def test_an_unbuilt_phrase_comes_before_a_due_built_one(session, user):
+    from app.services.quiz_service import get_ready_for
+
+    words = await _seed(session, user)
+    await _built_all_but(session, user, words, keep=words[39])
+    got = await get_ready_for(QuizChannel.BUILD, user.id, session,
+                              LanguagePair("de", "ru"), [], user=user)
+    assert got.id == words[39].id, "сборка снова дала уже собранную фразу"
+
+
+async def test_when_own_phrases_are_built_a_base_phrase_comes(session, user):
+    from app.services.quiz_service import get_ready_for
+
+    words = await _seed(session, user)
+    await _built_all_but(session, user, words)
+    got = await get_ready_for(QuizChannel.BUILD, user.id, session,
+                              LanguagePair("de", "ru"), [], user=user)
+    assert got.id in {w.id for w in words[40:]}, "свои собраны, а фраза из базы не пришла"
+
+
+async def test_a_base_phrase_counts_as_grammar_only(session, user, stage):
+    """Ответ по фразе общей базы — в «Грамматику», слово начатым не становится."""
+    from app.bot.handlers.quiz.stats import build_totals
+
+    dp, bot, rec = stage
+    words = await _seed(session, user)
+    await _built_all_but(session, user, words)
+    before = await build_totals(user, session)
+
+    await dp.feed_update(bot, press(user.id, f"home_learn_{QuizChannel.BUILD.value}"))
+    context = dp.fsm.get_context(bot, chat_id=user.id, user_id=user.id)
+    data = await context.get_data()
+    assert data.get("channel") == "b"
+    assert data["build_word"] in {w.id for w in words[40:]}
+    await _assemble(dp, bot, user, context, data["build_target"])
+    await _check(dp, bot, user, context)
+
+    rows = await _rows(session, data["session_id"])
+    assert [(r.channel, r.is_correct, r.grammar_only) for r in rows] == [("b", True, True)]
+    started = (await session.execute(select(UserWord).where(
+        UserWord.user_id == user.id, UserWord.word_id == data["build_word"]))).first()
+    assert started is None, "сборка фразы из базы сделала слово начатым"
+    assert await build_totals(user, session) == (before[0] + 1, before[1] + 1)

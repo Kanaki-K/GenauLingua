@@ -701,13 +701,73 @@ async def get_ready_for(
     # фраза (3–10 слов), и первое по порядку слово может не подойти.
     # Остальным играм хватает одного
     limit = 1 if channel is not QuizChannel.BUILD else FIT_CANDIDATES
+    # 🧱 У СБОРКИ ПЕРВОЙ ИДЁТ ФРАЗА, КОТОРУЮ ЧЕЛОВЕК ЕЩЁ НЕ СОБИРАЛ, а не та,
+    # которой пора на повтор. Владелец, 27.10: «грамматика должна быть по
+    # сути всегда разная… повторяется каждый раз то же самое, это очень
+    # тупо». Слово повторяется карточками, сборка учит грамматике
+    order = ((shown.asc(), due_first) if channel is QuizChannel.BUILD
+             else (due_first, shown.asc()))
     rows = await session.execute(
-        query.order_by(due_first, shown.asc(), func.random()).limit(limit)
+        query.order_by(*order, func.random()).limit(limit)
     )
-    return next(
-        (w for w in rows.scalars()
-         if channel_fits(channel, w, pair, getattr(user, "level", None))), None
-    )
+    level = getattr(user, "level", None)
+    found = next((w for w in rows.scalars() if channel_fits(channel, w, pair, level)), None)
+    if channel is QuizChannel.BUILD and found is not None and await _built_before(
+            session, user_id, found.id, pair):
+        # Свои несобранные кончились — фраза из общей базы (`_fresh_build`)
+        return await _fresh_build(session, user_id, pair, exclude_ids, level) or found
+    return found
+
+
+async def _started(session: AsyncSession, user_id: int, word_id: int,
+                   pair: LanguagePair) -> bool:
+    return (await session.execute(
+        select(UserWord.word_id).where(UserWord.user_id == user_id,
+                                       UserWord.word_id == word_id,
+                                       UserWord.learning_lang == pair.learning)
+    )).first() is not None
+
+
+async def _built_before(session: AsyncSession, user_id: int, word_id: int,
+                        pair: LanguagePair) -> bool:
+    shown = (await session.execute(
+        select(UserWord.shown_build).where(UserWord.user_id == user_id,
+                                           UserWord.word_id == word_id,
+                                           UserWord.learning_lang == pair.learning)
+    )).scalar()
+    return bool(shown)
+
+
+async def _fresh_build(session: AsyncSession, user_id: int, pair: LanguagePair,
+                       exclude_ids: list[int],
+                       level: Optional[CEFRLevel]) -> Optional[Word]:
+    """
+    Фраза для сборки из ОБЩЕЙ БАЗЫ: слово, которого человек не начинал, и
+    чью фразу он ещё не собирал. Уровень — не выше его (`build_level_fits`).
+
+    Только когда сборка у человека уже открыта и свои фразы собраны все
+    (`get_ready_for`): порог «два верных» остаётся. Ответ на такую фразу —
+    «только грамматика» (`_record_answer`), слово начатым не становится.
+    """
+    from app.database.models import QuizQuestion, QuizSession
+
+    started =select(UserWord.word_id).where(UserWord.user_id == user_id,
+                                             UserWord.learning_lang == pair.learning)
+    built = (select(QuizQuestion.word_id)
+             .join(QuizSession, QuizSession.id == QuizQuestion.session_id)
+             .where(QuizSession.user_id == user_id,
+                    QuizSession.learning_lang == pair.learning,
+                    QuizQuestion.grammar_only.is_(True)))
+    query = (_usable_words(pair)
+             .where(*build_service.sql_prefilter(pair))
+             .where(Word.id.not_in(started), Word.id.not_in(built)))
+    if level is not None:
+        query = query.where(level_expr(pair.learning).in_(
+            [lv for lv in CEFRLevel if _LEVEL_RANK[lv] <= _LEVEL_RANK[level]]))
+    rows = await session.execute(
+        _exclude(query, exclude_ids).order_by(func.random()).limit(FIT_CANDIDATES))
+    return next((w for w in rows.scalars()
+                 if channel_fits(QuizChannel.BUILD, w, pair, level)), None)
 
 
 # Сколько кандидатов тянуть для игры, годность которой решается в Python.
@@ -1309,6 +1369,7 @@ async def generate_question(
     )
     rotated: Optional[QuizChannel] = None
 
+    by_wanted = False
     for _ in range(0 if preset is not None else MEANING_RETRIES):
         candidate = None
         rotated = None
@@ -1316,6 +1377,7 @@ async def generate_question(
             candidate = await get_ready_for(
                 wanted, user.id, session, pair, exclude_ids + skipped, user=user,
             )
+        by_wanted = candidate is not None
         for game in rotation:
             candidate = await get_ready_for(
                 game, user.id, session, pair, exclude_ids + skipped,
@@ -1356,6 +1418,7 @@ async def generate_question(
         # вопрос лучше, чем его отсутствие
         correct_word = await session.get(Word, skipped[0])
         rotated = None
+        by_wanted = False
 
     if not correct_word:
         return None
@@ -1363,6 +1426,13 @@ async def generate_question(
     # Слово подобрано ПОД игру — ею и спрашиваем
     if channel is None and rotated is not None:
         channel = rotated
+
+    # Фраза общей базы (`_fresh_build`) взята ТОЛЬКО ради сборки: правило
+    # допуска смотрит на прогресс слова, а у такого слова его нет, и оно
+    # пришло бы карточкой — новым словом посреди «Собираю»
+    if (channel is None and wanted is QuizChannel.BUILD and by_wanted
+            and not await _started(session, user.id, correct_word.id, pair)):
+        channel = QuizChannel.BUILD
 
     if channel is None:
         channel = await pick_channel(

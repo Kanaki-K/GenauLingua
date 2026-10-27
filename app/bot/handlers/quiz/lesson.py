@@ -51,15 +51,17 @@ from app.bot.handlers.quiz.question import (
 )
 from app.bot.handlers.quiz.sources import SOURCE_MENU, SOURCE_REPEAT, source_from_callback
 from app.bot.handlers.quiz.summary import _finish_quiz
-from app.bot.keyboards import get_answer_keyboard
 from app.bot.states import QuizStates
 from app.bot.utils import delete_messages_fast, ensure_anchor
 from app.core.clock import utcnow
 from app.database.enums import QuizChannel, QuizMode
-from app.database.models import QuizQuestion, QuizSession, User, Word
+from app.database.models import QuizQuestion, QuizSession, User, UserWord, Word
 from app.locales import DEFAULT_LOCALE, get_text
 from app.services.audio_service import KIND_FULL, clip_for_user
-from app.services.language_service import LanguagePair, legacy_mode_name, pair_from_user
+from app.services import build_service
+from app.services.language_service import (
+    LanguagePair, legacy_mode_name, pair_for_channel, pair_from_user,
+)
 from app.services.quiz_service import (
     FIRST_LESSON_LENGTH,
     OPTIONS_TOTAL,
@@ -477,6 +479,14 @@ async def _record_answer(
     correct_word_id = correct_word.id
     # Варианты — из состояния ЭТОГО вопроса: `shown_for` сверяет номер слова
     shown = shown_for(await state.get_data(), correct_word_id)
+    # Сборка по фразе слова, которого человек не начинал, — фраза из общей
+    # базы (`get_ready_for`): ответ только в «Грамматику», прогресс слова не
+    # трогается (владелец, 27.10: слова учатся карточками, грамматика — сборкой)
+    grammar_only = channel is QuizChannel.BUILD and (await session.execute(
+        select(UserWord.word_id).where(UserWord.user_id == user.id,
+                                       UserWord.word_id == correct_word_id,
+                                       UserWord.learning_lang == pair.learning)
+    )).first() is None
 
     session.add(
         QuizQuestion(
@@ -492,6 +502,7 @@ async def _record_answer(
             # нет — есть состав. Отсюда же считаются баллы: верный ответ на
             # слух стоит дороже прочитанного.
             channel=channel.value,
+            grammar_only=grammar_only or None,
         )
     )
 
@@ -518,16 +529,17 @@ async def _record_answer(
     await session.commit()
 
     try:
-        await update_word_progress(
-            user_id=user.id,
-            word_id=correct_word_id,
-            is_correct=is_correct,
-            session=session,
-            learning_lang=pair.learning,
-            channel=channel,
-            # Засчитанное по попыткам — верно и с баллами, но срок не двигает
-            advance_schedule=not forgiven,
-        )
+        if not grammar_only:
+            await update_word_progress(
+                user_id=user.id,
+                word_id=correct_word_id,
+                is_correct=is_correct,
+                session=session,
+                learning_lang=pair.learning,
+                channel=channel,
+                # Засчитанное по попыткам — верно и с баллами, но срок не двигает
+                advance_schedule=not forgiven,
+            )
     except Exception:
         logger.exception("Ошибка обновления прогресса (user=%s word=%s)", user.id, correct_word_id)
         # ОТКАТ ОБЯЗАТЕЛЕН. Упавший коммит оставляет сессию в состоянии
@@ -625,6 +637,48 @@ async def _errors_of_last_lesson(session: AsyncSession, user_id: int) -> list[in
     return list(dict.fromkeys(rows))
 
 
+async def _built_errors(session: AsyncSession, user_id: int, errors: list[int]) -> list[int]:
+    """Из ошибок последнего занятия — те, что сделаны в 🧱 «Собираю»."""
+    last = (await session.execute(
+        select(QuizSession.id).where(QuizSession.user_id == user_id,
+                                     QuizSession.is_completed.is_(True))
+        .order_by(QuizSession.completed_at.desc()).limit(1)
+    )).scalar()
+    if last is None or not errors:
+        return []
+    rows = (await session.execute(
+        select(QuizQuestion.word_id).where(QuizQuestion.session_id == last,
+                                           QuizQuestion.is_correct.is_(False),
+                                           QuizQuestion.channel == QuizChannel.BUILD.value,
+                                           QuizQuestion.word_id.in_(errors))
+    )).scalars().all()
+    return sorted(set(rows))
+
+
+async def _repeat_question(session: AsyncSession, user: User, word: Word,
+                           pair: LanguagePair, built: bool) -> Optional[dict]:
+    """
+    Вопрос повтора ошибок, или None, если его не собрать.
+
+    🧱 ОШИБКА В «СОБИРАЮ» ПОВТОРЯЕТСЯ СБОРКОЙ ТОЙ ЖЕ ФРАЗЫ. Прежде повтор
+    знал только номер слова и задавал карточку с одним словом — владелец,
+    26.10: прошёл грамматику с ошибками, нажал «Повторить» и получил «какое-
+    то одно слово». Остальные ошибки — карточкой текстом, как и были.
+    """
+    if built:
+        build_pair = pair_for_channel(pair, QuizChannel.BUILD)
+        puzzle = await build_service.make_puzzle(
+            session, word, build_pair, learner_level=getattr(user, "level", None))
+        if puzzle is not None:
+            return {"correct_word": word, "options": list(enumerate(puzzle.tiles)),
+                    "channel": QuizChannel.BUILD, "build": puzzle}
+    distractors = await get_distractors(word, session, pair, user=user)
+    if len(distractors) < OPTIONS_TOTAL - 1:
+        return None
+    options, _ = build_options(word, distractors, pair)
+    return {"correct_word": word, "options": options, "channel": QuizChannel.TEXT}
+
+
 @router.callback_query(F.data == "next_question", QuizStates.answering)
 async def show_next_question(callback: CallbackQuery, state: FSMContext, session: AsyncSession):
     await callback.answer()
@@ -704,9 +758,10 @@ async def _advance(callback: CallbackQuery, state: FSMContext, session: AsyncSes
             return
 
         word = await session.get(Word, error_words[current_error_index])
-        distractors = (await get_distractors(word, session, pair, user=user)
-                       if word else [])
-        if len(distractors) < OPTIONS_TOTAL - 1:
+        question = (await _repeat_question(
+            session, user, word, pair, word.id in data.get("built_errors", []))
+            if word else None)
+        if question is None:
             # Вопрос не собрать — повтор кончается ИТОГОМ по отвеченному,
             # а не обрывом (разбор — у ветки обычного круга ниже)
             logger.warning("повтор ошибок: слово %s не собрать, завершаю итогом",
@@ -714,13 +769,11 @@ async def _advance(callback: CallbackQuery, state: FSMContext, session: AsyncSes
             await _finish_quiz(callback, state, session, user, pair, lang, data)
             return
 
-        # Повтор ошибок идёт текстом: человек уже не справился с этими
-        # словами, и добавлять к разбору ещё и слух значит мешать две
-        # трудности в одной попытке
-        channel = QuizChannel.TEXT
-        # Вопроса-словаря у повтора нет: `_build_slots` читает его ниже
-        question = None
-        options, _ = build_options(word, distractors, pair)
+        # Повтор ошибок идёт текстом, кроме сборки (`_repeat_question`):
+        # человек уже не справился с этими словами, и добавлять к разбору
+        # ещё и слух значит мешать две трудности в одной попытке
+        channel = question["channel"]
+        options = question["options"]
         # Клип считается и здесь: без него ветка повтора ошибок падала бы на
         # `clip=clip` ниже с NameError — переменная задавалась только во
         # второй ветке. Ошибка такого рода не видна ни тестам на функции, ни
@@ -733,7 +786,8 @@ async def _advance(callback: CallbackQuery, state: FSMContext, session: AsyncSes
             current_error_index=current_error_index,
             asked_at=utcnow().timestamp(),
             channel=channel.value,
-            **shown_state(word.id, options),
+            **_build_state(question, channel),
+            **shown_state(word.id, options, ids=channel is not QuizChannel.BUILD),
         )
     else:
         question = None
@@ -870,19 +924,20 @@ async def repeat_errors(callback: CallbackQuery, state: FSMContext, session: Asy
         await callback.answer()
         return
 
-    distractors = await get_distractors(first_word, session, pair, user=user)
-    if len(distractors) < OPTIONS_TOTAL - 1:
+    built = await _built_errors(session, user.id, errors)
+    question = await _repeat_question(session, user, first_word, pair, first_word.id in built)
+    if question is None:
         await callback.message.answer(get_text("quiz_error_next", lang))
         await callback.answer()
         return
+    channel = question["channel"]
+    options = question["options"]
 
     quiz_session = _new_quiz_session(
         user, pair, len(errors), "error_repeat", source=SOURCE_REPEAT
     )
     session.add(quiz_session)
     await session.commit()
-
-    options, _ = build_options(first_word, distractors, pair)
 
     await _reset_round_state(state)
     await state.update_data(
@@ -893,13 +948,16 @@ async def repeat_errors(callback: CallbackQuery, state: FSMContext, session: Asy
         errors=[],
         correct_word_id=first_word.id,
         error_words=errors,
+        built_errors=built,
         current_error_index=0,
         is_error_repeat=True,
         asked_at=utcnow().timestamp(),
+        channel=channel.value,
         # Данные основной викторины нужны для репорта после повтора
         report_word_ids=data.get("report_word_ids", []),
         report_session_id=data.get("report_session_id"),
-        **shown_state(first_word.id, options),
+        **_build_state(question, channel),
+        **shown_state(first_word.id, options, ids=channel is not QuizChannel.BUILD),
     )
 
     # Повтор ошибок начинается с новой карточки (message не передаём), и
@@ -907,15 +965,17 @@ async def repeat_errors(callback: CallbackQuery, state: FSMContext, session: Asy
     # Сначала новое, потом удаление прежнего: иначе между ними на экране
     # один якорь (владелец, 15.10: «пропадает карточка и остаётся якорь,
     # как в начале, так и в конце»)
-    journal.note(session, user.id, "question", QuizChannel.TEXT.value, session_id=quiz_session.id,
-                 word_id=first_word.id, channel=QuizChannel.TEXT.value, n=1,
+    journal.note(session, user.id, "question", channel.value, session_id=quiz_session.id,
+                 word_id=first_word.id, channel=channel.value, n=1,
                  total=len(errors), repeat=True,
                  **await _level_note(session, user, first_word, pair))
     await show_card(
         callback.bot, callback.message.chat.id, state, session,
-        text=_question_text(first_word, pair, lang, 1, len(errors), is_repeat=True),
-        keyboard=get_answer_keyboard(options),
-        clip=await _question_clip(session, user, first_word, pair, QuizChannel.TEXT),
+        text=_question_text(first_word, pair, lang, 1, len(errors), is_repeat=True,
+                            channel=channel),
+        keyboard=_question_keyboard(channel, options, lang, first_word.id,
+                                    slots=_build_slots(question)),
+        clip=await _question_clip(session, user, first_word, pair, channel),
         word_id=first_word.id, lang=pair.learning,
     )
     try:

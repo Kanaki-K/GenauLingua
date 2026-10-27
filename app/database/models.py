@@ -562,6 +562,12 @@ class QuizQuestion(Base):
     options: Mapped[Optional[list]] = mapped_column(JSONB, nullable=True)
     chosen_word_id: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
 
+    # СБОРКА ПО ФРАЗЕ ИЗ ОБЩЕЙ БАЗЫ (2.3). Свои фразы кончились — сборка
+    # берёт фразу слова, которого человек не учил. Такой ответ идёт только в
+    # «Грамматику» (`stats.build_totals`), прогресс слова не трогается.
+    # Пусто — обычный ответ
+    grammar_only: Mapped[Optional[bool]] = mapped_column(Boolean, nullable=True)
+
     # Время ответа
     answered_at: Mapped[Optional[datetime]] = mapped_column(DateTime)
 

@@ -146,18 +146,21 @@ def grid_keyboard(tiles: list[str], picked: list[int], word_id: int,
         ]
         rows += [pool[i:i + GRID_COLUMNS] for i in range(0, len(pool), GRID_COLUMNS)]
 
-    controls = []
-    if picked:
-        controls.append(InlineKeyboardButton(
-            text="⌫", callback_data=f"bd:back:{word_id}:{version}",
-        ))
+    # Когда места заняты — «Проверить» во всю ширину над нижним рядом
     if full:
-        controls.append(InlineKeyboardButton(
+        rows.append([InlineKeyboardButton(
             text=get_text("build_btn_check", lang),
             callback_data=f"bd:check:{word_id}:{version}",
-        ))
-    if controls:
-        rows.append(controls)
+        )])
+    # НИЖНИЙ РЯД ОДИН И ТОТ ЖЕ ВСЕГДА: слева «⌫», справа «Пропустить».
+    # Владелец, 27.10: слова меняются, а управление стоит на своих местах.
+    # «⌫» без выбранных слов просто ничего не делает (`_tap`). Пропуск — как
+    # у «Говорю» и «Слышу»: не ошибка и не верный ответ
+    rows.append([
+        InlineKeyboardButton(text="⌫", callback_data=f"bd:back:{word_id}:{version}"),
+        InlineKeyboardButton(text=get_text("speech_btn_skip", lang),
+                             callback_data=f"bd:skip:{word_id}:{version}"),
+    ])
     return InlineKeyboardMarkup(inline_keyboard=rows)
 
 
@@ -218,7 +221,7 @@ def _parse(data: str) -> Optional[tuple[str, int, int, int]]:
     `bd:t:<кнопка>:<слово>:<версия>` — поставить слово,
     `bd:u:<место>:<слово>:<версия>` — вернуть слово с места вниз,
     `bd:back:<слово>:<версия>` — убрать последнее (кнопка прежней сетки,
-    живёт в переписке), `bd:check:<слово>:<версия>`
+    живёт в переписке), `bd:check:<слово>:<версия>`, `bd:skip:<слово>:<версия>`
     → (действие, кнопка или место, слово, версия).
 
     Всё прочее — None. Не исключение: в переписке живут кнопки прошлых
@@ -229,7 +232,7 @@ def _parse(data: str) -> Optional[tuple[str, int, int, int]]:
     try:
         if len(parts) == 5 and parts[1] in ("t", "u"):
             return parts[1], int(parts[2]), int(parts[3]), int(parts[4])
-        if len(parts) == 4 and parts[1] in ("back", "check"):
+        if len(parts) == 4 and parts[1] in ("back", "check", "skip"):
             return parts[1], -1, int(parts[2]), int(parts[3])
     except ValueError:
         return None
@@ -258,6 +261,9 @@ async def press(callback: CallbackQuery, state: FSMContext, session: AsyncSessio
     action, index, word_id, version = parsed
     if action == "check":
         await _check(callback, state, session, word_id, version)
+        return
+    if action == "skip":
+        await _skip(callback, state, session, word_id)
         return
 
     from app.bot.handlers.quiz.lesson_state import _claim_lock
@@ -409,3 +415,48 @@ async def _check(callback: CallbackQuery, state: FSMContext, session: AsyncSessi
         breakdown=breakdown,
     )
     await callback.answer()
+
+
+async def _skip(callback: CallbackQuery, state: FSMContext, session: AsyncSession,
+                word_id: int) -> None:
+    """
+    «Пропустить» сборку: показать фразу и перевод, дальше — «Далее».
+
+    Как пропуск у «Говорю» (`speech.skip_speech`): не ошибка и не верный
+    ответ, в прогрессе и точности не учитывается. Но вопрос ЗАНИМАЕТ —
+    после пропуска фраза на экране, и «Проверить» по прежней сетке дало бы
+    даровой балл.
+    """
+    from app.bot.handlers.quiz.card import show_card
+    from app.bot.handlers.quiz.lesson_state import S_ANSWERED, _claim_lock
+    from app.bot.handlers.quiz.question import answer_keyboard
+    from app.services import journal
+    from app.services.audio_service import KIND_FULL, clip_for_user
+
+    await callback.answer()
+    async with _claim_lock(callback.message.chat.id):
+        data = await state.get_data()
+        if not (data.get("channel") == QuizChannel.BUILD.value
+                and int(data.get(S_WORD) or 0) == word_id
+                and data.get(S_ANSWERED) != data.get("current_question")):
+            return
+        await state.update_data(**{S_ANSWERED: data.get("current_question")})
+
+    user = await session.get(User, callback.from_user.id)
+    word = await session.get(Word, word_id)
+    if not user or not word:
+        return
+    lang = user.interface_language or DEFAULT_LOCALE
+    pair = pair_from_user(user)
+    journal.note(session, user.id, "skip", "build_skip", session_id=data.get("session_id"),
+                 word_id=word.id, channel=QuizChannel.BUILD.value)
+    text = (f"{get_text('speech_skipped', lang)}\n\n"
+            + _sentence_block(data.get(S_SENTENCE) or "", data.get(S_TRANSLATION) or ""))
+    await show_card(
+        callback.bot, callback.message.chat.id, state, session,
+        text=text,
+        keyboard=answer_keyboard(lang, word, pair, QuizChannel.BUILD, heard=True),
+        clip=await clip_for_user(session, user, word, pair.learning, KIND_FULL),
+        word_id=word.id, lang=pair.learning,
+        message=callback.message,
+    )

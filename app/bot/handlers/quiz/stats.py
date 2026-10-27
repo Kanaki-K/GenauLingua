@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 from app.bot.buttons import BTN_STATS, pressed
 from app.bot.utils import delete_messages_fast, ensure_anchor
-from app.database.models import User, QuizSession, Word, UserWord
+from app.database.models import User, QuizQuestion, QuizSession, Word, UserWord
 from app.database.enums import QuizMode
 from app.services.streak_service import current_streak
 from app.locales import DEFAULT_LOCALE, get_text
@@ -202,7 +202,19 @@ async def build_totals(user: User, session: AsyncSession) -> tuple[int, int]:
             UserWord.learning_lang == pair.learning,
         )
     )).one()
-    return int(shown), int(correct)
+    # Плюс сборки по фразам общей базы (`QuizQuestion.grammar_only`): их
+    # в счётчиках слова нет — слово человек не учил
+    free, free_right = (await session.execute(
+        select(
+            func.count(),
+            func.count().filter(QuizQuestion.is_correct.is_(True)),
+        ).select_from(QuizQuestion)
+        .join(QuizSession, QuizSession.id == QuizQuestion.session_id)
+        .where(QuizSession.user_id == user.id,
+               QuizSession.learning_lang == pair.learning,
+               QuizQuestion.grammar_only.is_(True))
+    )).one()
+    return int(shown) + int(free), int(correct) + int(free_right)
 
 
 async def collection_text(user: User, session: AsyncSession, lang: str) -> str:
