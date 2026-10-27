@@ -1,0 +1,30 @@
+{
+ "about": "шаг 2, fr p008: перевод+пример",
+ "edits": [
+  {
+   "id": 1012,
+   "col": "example_fr",
+   "old": "Le passage dans la nouvelle entreprise a été le bon choix",
+   "new": "Le passage à la nouvelle entreprise a été le bon choix",
+   "why": "перевод+пример fr: passage dans — неестественно"
+  },
+  {
+   "id": 1192,
+   "col": "translation_fr",
+   "old": "suffisant",
+   "new": "suffisant, suffisamment",
+   "why": "перевод+пример fr: в примере suffisamment"
+  },
+  {
+   "id": 1241,
+   "col": "translation_fr",
+   "old": "suivre, justifier",
+   "new": "suivre, justifier, (einen Kurs belegen) s'inscrire à",
+   "why": "перевод+пример fr: в примере s'inscrire à"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
