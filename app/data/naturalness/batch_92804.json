@@ -1,0 +1,30 @@
+{
+ "about": "шаг 2, fr p004: перевод+пример",
+ "edits": [
+  {
+   "id": 98,
+   "col": "translation_fr",
+   "old": "la réponse, l'avis",
+   "new": "la réponse, l'avis, (Bescheid sagen) prévenir",
+   "why": "перевод+пример fr: в примере prévenir"
+  },
+  {
+   "id": 757,
+   "col": "example_fr",
+   "old": "Mon père est à la retraite depuis l'année dernière",
+   "new": "Mon père est retraité depuis l'année dernière",
+   "why": "перевод+пример fr: нет retraité"
+  },
+  {
+   "id": 858,
+   "col": "translation_fr",
+   "old": "le plaisir, l'amusement",
+   "new": "le plaisir, l'amusement, (Spaß machen) être amusant",
+   "why": "перевод+пример fr: в примере amusant"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
