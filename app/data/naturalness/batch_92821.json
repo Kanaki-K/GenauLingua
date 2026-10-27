@@ -1,0 +1,37 @@
+{
+ "about": "шаг 2, fr p021: перевод+пример",
+ "edits": [
+  {
+   "id": 13342,
+   "col": "example_fr",
+   "old": "Qu'est-ce qu'il y a dans le sac ?",
+   "new": "Qu'est-ce qu'il y a dedans, dans le sac ?",
+   "why": "перевод+пример fr: нет dedans"
+  },
+  {
+   "id": 13394,
+   "col": "translation_fr",
+   "old": "par ici, de l'autre côté",
+   "new": "par ici, de l'autre côté, (rübergehen) passer",
+   "why": "перевод+пример fr: в примере passer"
+  },
+  {
+   "id": 13412,
+   "col": "translation_fr",
+   "old": "ensemble, l'un avec l'autre",
+   "new": "ensemble, l'un avec l'autre, (miteinander reden) se parler",
+   "why": "перевод+пример fr: в примере se parler"
+  },
+  {
+   "id": 13884,
+   "col": "example_fr",
+   "old": "C'est complètement idiot !",
+   "new": "Quelle bêtise !",
+   "why": "перевод+пример fr: в примере idiot, нет bêtise"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
