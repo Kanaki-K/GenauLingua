@@ -264,15 +264,18 @@ async def _seed(session, user, *, n=60, fit=True, correct=2, channels="tasrb",
     return words
 
 
-async def test_build_opens_after_two_correct_like_speech(session, user):
-    """Порог — одно правило на производство: речь и сборка вместе."""
+async def test_build_opens_after_one_correct(session, user):
+    """Владелец, 23.10: «разморозка должна быть 1 игра, а не 2». Речь — после двух."""
     from app.services.quiz_service import CHANNEL_UNLOCK, pick_channel
 
-    assert CHANNEL_UNLOCK[QuizChannel.BUILD] == CHANNEL_UNLOCK[QuizChannel.SPEECH] == 2
+    assert CHANNEL_UNLOCK[QuizChannel.BUILD] == 1
+    assert CHANNEL_UNLOCK[QuizChannel.SPEECH] == 2
 
     words = await _seed(session, user, correct=1, channels="b")
     got = await pick_channel(session, user, words[0], "de", recent=["t", "t"])
-    assert got is QuizChannel.TEXT, "сборка открылась после одного верного"
+    assert got is QuizChannel.BUILD, "сборка не открылась после одного верного"
+    got = await pick_channel(session, user, words[45], "de", recent=["t", "t"])
+    assert got is QuizChannel.TEXT, "сборка открылась слову без верных ответов"
 
 
 async def test_build_is_not_given_to_a_word_without_a_sentence(session, user):

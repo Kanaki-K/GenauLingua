@@ -349,7 +349,7 @@ async def build_stats_text(user: User, session: AsyncSession) -> str:
     # «Собираю» проверяет грамматику (порядок слов, формы среди ловушек), и
     # это число стоит в статистике под этим именем. Как серия выше — только
     # когда есть что показать: «0 из 0» читается как упрёк за игру, до
-    # которой человек ещё не дошёл (сборка открывается после двух верных)
+    # которой человек ещё не дошёл (сборка открывается после одного верного)
     built, built_right = await build_totals(user, session)
     if built:
         text += get_text("stats_grammar_line", lang, correct=built_right, shown=built) + "\n"
