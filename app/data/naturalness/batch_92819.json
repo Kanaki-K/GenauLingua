@@ -1,0 +1,37 @@
+{
+ "about": "шаг 2, fr p019: перевод+пример",
+ "edits": [
+  {
+   "id": 10812,
+   "col": "translation_fr",
+   "old": "joyeux, content",
+   "new": "joyeux, content, joyeusement",
+   "why": "перевод+пример fr: в примере joyeusement"
+  },
+  {
+   "id": 11667,
+   "col": "example_fr",
+   "old": "Ça sent délicieux !",
+   "new": "Ça sent délicieusement bon !",
+   "why": "перевод+пример fr: ça sent délicieux — неестественно"
+  },
+  {
+   "id": 11719,
+   "col": "example_fr",
+   "old": "Autrefois, au village, on tuait une oie pour Noël",
+   "new": "Autrefois, au village, on abattait une oie pour Noël",
+   "why": "перевод+пример fr: в примере tuer, нет abattre"
+  },
+  {
+   "id": 11891,
+   "col": "translation_fr",
+   "old": "le rafraîchissement",
+   "new": "le rafraîchissement, (zur Erfrischung) pour se rafraîchir",
+   "why": "перевод+пример fr: в примере se rafraîchir"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
