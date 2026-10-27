@@ -98,7 +98,7 @@ def test_long_streak_does_not_stretch_the_line():
     assert table_line("Kostia", st) == "🌙 Kostia"
     assert table_line("Kostia", st, crown=True) == "🌙 Kostia 👑"
     assert anchor_line("Kostia", st, 27) == "🌙 Kostia 🔥27"
-    assert anchor_line("Kostia", None, 2) == "Kostia"
+    assert anchor_line("Kostia", None, 0) == "Kostia"
 
 
 async def test_glory_from_medals_and_achievements_but_not_crowns(session):

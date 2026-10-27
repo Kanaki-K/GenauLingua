@@ -173,12 +173,12 @@ async def test_german_learner_keeps_goethe_levels(session, user):
         assert picked.id == haus.id
 
 
-def test_fire_shows_from_three_days():
-    """🔥 у имени в рейтинге и в якоре — с трёх дней подряд (патч 2.1, 17.10)."""
+def test_fire_shows_from_the_first_day():
+    """🔥 в якоре — с первого дня (владелец, 27.10; прежде с трёх, патч 2.1)."""
     from app.services.standing import anchor_line
 
     # С 17.10 серия — только в якоре человека, не в таблице
     assert anchor_line("Оксана", None, 12) == "Оксана 🔥12"
-    assert anchor_line("Оксана", None, 2) == "Оксана"
+    assert anchor_line("Оксана", None, 1) == "Оксана 🔥1"
     assert anchor_line("Оксана", None, 0) == "Оксана"
     assert anchor_line("Оксана", None, 1234) == "Оксана 🔥1.2k"
