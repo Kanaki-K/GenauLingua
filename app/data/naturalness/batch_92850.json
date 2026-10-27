@@ -1,0 +1,37 @@
+{
+ "about": "шаг 2, fr p050: перевод+пример",
+ "edits": [
+  {
+   "id": 18086,
+   "col": "translation_fr",
+   "old": "le participant, le sujet",
+   "new": "le testeur, le participant, le sujet",
+   "why": "перевод+пример fr: в примере testeurs"
+  },
+  {
+   "id": 18440,
+   "col": "example_fr",
+   "old": "Le restaurant se trouve dans une vieille cave voûtée, en été il y fait agréablement frais",
+   "new": "Le restaurant se trouve dans un vieux caveau, en été il y fait agréablement frais",
+   "why": "перевод+пример fr: в примере cave voûtée, не voûte"
+  },
+  {
+   "id": 18491,
+   "col": "translation_fr",
+   "old": "le local, l'espace",
+   "new": "les locaux, le local, l'espace",
+   "why": "перевод+пример fr: в примере les locaux"
+  },
+  {
+   "id": 18906,
+   "col": "example_fr",
+   "old": "J'ai déjà repoussé trois fois mon rendez-vous chez le dentiste",
+   "new": "J'ai déjà reporté trois fois mon rendez-vous chez le dentiste",
+   "why": "перевод+пример fr: в примере repoussé, в t reporter"
+  }
+ ],
+ "insert": [],
+ "replace": [],
+ "unreplace": [],
+ "split_later": {}
+}
