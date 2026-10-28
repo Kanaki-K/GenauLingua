@@ -1,7 +1,24 @@
+# Сервер общий: рядом живут другие проекты, каждый своим compose-проектом.
+# Имя закреплено, чтобы проект не зависел от имени папки; сеть у него своя
+# (genaulingua_default), чужие контейнеры её не видят.
+name: genaulingua
+
+# Логи Docker без предела растут до заполнения диска — общего на все проекты.
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
 services:
   postgres:
     image: postgres:16
     container_name: genaulingua_db
+    logging: *logging
+    # Пик за 12 дней — 478 МБ вместе с файловым кэшем; база 110 МБ на 271
+    # человека. Потолок — с запасом на 1000
+    mem_limit: 1536m
+    cpus: 1.0
     env_file:
       - .env
     environment:
@@ -32,6 +49,10 @@ services:
     image: redis:7-alpine
     container_name: genaulingua_redis
     command: redis-server --appendonly yes
+    logging: *logging
+    # Пик — 17 МБ
+    mem_limit: 256m
+    cpus: 0.5
     restart: unless-stopped
     volumes:
       - redis_data:/data
@@ -44,6 +65,12 @@ services:
   app:
     build: .
     container_name: genaulingua_app
+    logging: *logging
+    # Пик за 7 дней — 716 МБ (с моделью распознавания и файловым кэшем) при
+    # 9 людях в час пик из 271. Память растёт от модели, а не от людей;
+    # потолок — с запасом на 1000. Два ядра: распознавание речи идёт на CPU
+    mem_limit: 2g
+    cpus: 2.0
     depends_on:
       postgres:
         condition: service_healthy
