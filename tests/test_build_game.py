@@ -625,7 +625,7 @@ def test_the_grid_has_two_columns():
     assert [b.text for b in rows[-1]] == ["⌫", "Пропустить"]
 
     full = grid_keyboard(["a", "b"], [0, 1], 1, 2, "ru", slots=2).inline_keyboard
-    assert [[b.text for b in r] for r in full] == [["Проверить"], ["⌫", "Пропустить"]]
+    assert [[b.text for b in r] for r in full] == [["✅ Проверить"], ["⌫", "Пропустить"]]
 
 async def test_a_right_build_is_recorded_once(session, user, stage):
     dp, bot, rec = stage

@@ -146,10 +146,12 @@ def grid_keyboard(tiles: list[str], picked: list[int], word_id: int,
         ]
         rows += [pool[i:i + GRID_COLUMNS] for i in range(0, len(pool), GRID_COLUMNS)]
 
-    # Когда места заняты — «Проверить» во всю ширину над нижним рядом
+    # Когда места заняты — «Проверить» во всю ширину над нижним рядом. С
+    # галочкой: без неё рука тянется к «Пропустить» — тоже на «П» и тоже
+    # внизу (владелец, 29.10.2026)
     if full:
         rows.append([InlineKeyboardButton(
-            text=get_text("build_btn_check", lang),
+            text=f"✅ {get_text('build_btn_check', lang)}",
             callback_data=f"bd:check:{word_id}:{version}",
         )])
     # НИЖНИЙ РЯД ОДИН И ТОТ ЖЕ ВСЕГДА: слева «⌫», справа «Пропустить».
