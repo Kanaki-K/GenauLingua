@@ -40,3 +40,13 @@ def test_mistakes_are_underlined_like_in_the_phrase_game():
     assert mark_mistakes("Strasse", ["Straße"], "de", "die") == "Strasse", "ss = ß — не ошибка"
     assert mark_mistakes("Haus", ["Brief"], "de", "der") == "Haus", "другое слово не размечается"
     assert mark_mistakes("<b>", ["Brief"], "de", "der") == "&lt;b&gt;"
+
+
+def test_every_language_accepts_what_the_answer_screen_shows():
+    assert judge("A lot", ["a lot", "much"], "en") is E, "английское a"
+    assert judge("Islah olmaz", ["ıslah olmaz"], "tr") is E, "турецкая I без точки"
+    assert judge("İş", ["iş"], "tr") is E
+    assert judge("Işık", ["işik"], "tr") is not E, "ı и i — разные буквы"
+    assert judge("napoprvé", ["(auf Anhieb) napoprvé"], "cs") is E, "немецкая подсказка"
+    assert judge("сумувати", ["сумувати (за кимось)"], "uk") is E, "пояснение в скобках"
+    assert judge("сумувати (за кимось)", ["сумувати (за кимось)"], "uk") is E

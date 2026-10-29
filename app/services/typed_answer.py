@@ -39,13 +39,17 @@ _ARTICLES = {
     "it": ("il", "lo", "la", "l'", "i", "gli", "le"),
     "es": ("el", "la", "los", "las"),
     "fr": ("le", "la", "l'", "les"),
-    "en": ("the", "to"),
+    "en": ("the", "to", "an", "a"),
 }
 TYPO_FROM_LETTERS = 6
 
 
 def _plain(text: str, lang: str) -> str:
-    text = unicodedata.normalize("NFC", (text or "").strip().casefold())
+    text = (text or "").strip()
+    if lang == "tr":
+        # Турецкие «I» и «İ» — разные буквы: заглавная без точки — это «ı»
+        text = text.replace("I", "ı").replace("İ", "i")
+    text = unicodedata.normalize("NFC", text.casefold())
     text = re.sub(r"[.!?,;:«»\"“”]+$", "", text).strip()
     text = re.sub(r"\s+", " ", text)
     if lang == "de":
@@ -171,6 +175,9 @@ def judge(typed: str, correct: Iterable[str], lang: str,
     if got_article and article and lang == "de" and got_article != _plain(article, lang):
         return Verdict.WRONG
     best = Verdict.WRONG
+    # Пояснение в скобках писать не нужно: «сумувати (за кимось)» засчитывает
+    # и «сумувати», немецкая подсказка «(auf Anhieb) napoprvé» — «napoprvé»
+    correct = {v for c in correct for v in (c, re.sub(r"\([^)]*\)", " ", c).strip()) if v}
     for variant in correct:
         _, want = _split_article(_plain(variant, lang), lang)
         if not want:

@@ -179,7 +179,7 @@ async def process_typed(message, state: FSMContext, session: AsyncSession) -> No
     неверный артикль — нет. Верные — все варианты ячейки изучаемого языка.
     """
     from app.bot.handlers.quiz.card import STATE_CARD_ID
-    from app.services.language_service import meaning_variants, word_text
+    from app.services.language_service import _VARIANT_SPLIT_RE, meaning_variants, word_text
     from app.services.typed_answer import Verdict, judge, mark_mistakes
 
     if not await _claim_answer(state, message.chat.id, session):
@@ -191,7 +191,8 @@ async def process_typed(message, state: FSMContext, session: AsyncSession) -> No
         return
     pair = pair_from_user(user)
     written = word_text(word, pair.learning, with_article=False)
-    variants = set(meaning_variants(written, pair.learning)) or {written}
+    # Значения как в ячейке и в приведённом виде: «a lot» и «lot» — оба верно
+    variants = set(meaning_variants(written, pair.learning)) | set(_VARIANT_SPLIT_RE.split(written or "")) or {written}
     article = word.article if pair.learning == "de" else None
     verdict = judge(message.text or "", variants, pair.learning, article)
     lang = user.interface_language or DEFAULT_LOCALE
