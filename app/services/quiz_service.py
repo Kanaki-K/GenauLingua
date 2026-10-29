@@ -1302,6 +1302,30 @@ async def wants_article(session: AsyncSession, user: Optional[User], word: Word,
     return random.random() < ARTICLE_SHARE
 
 
+# ОТВЕТ ВВОДОМ (владелец, 29.10.2026). «Вспоминаю» выученного слова иногда
+# просит написать слово самому: из четырёх вариантов знакомое узнаётся, а не
+# вспоминается, и «выучено» не значило бы «могу сказать». Только выученное:
+# писать слово, которое ещё учишь, — не тренировка, а угадывание по буквам.
+# Засчитывается как «Вспоминаю» — схема учёта и баллов та же.
+TYPED_SHARE = 0.5
+
+
+async def wants_typed(session: AsyncSession, user: Optional[User], word: Word,
+                      pair: LanguagePair, channel: Optional[QuizChannel]) -> bool:
+    """Спросить ли это слово вводом вместо вариантов."""
+    if channel is not QuizChannel.REVERSE or user is None or in_first_lesson(user):
+        return False
+    learned = (await session.execute(
+        select(UserWord.learned).where(
+            UserWord.user_id == user.id, UserWord.word_id == word.id,
+            UserWord.learning_lang == pair.learning,
+        )
+    )).scalar()
+    if not learned:
+        return False
+    return random.random() < TYPED_SHARE
+
+
 async def generate_question(
     session: AsyncSession,
     user: User,
@@ -1513,6 +1537,18 @@ async def generate_question(
     # На слух варианты обязаны быть созвучны: смысл не звучит, звучит форма.
     # Поставь рядом с «Verspätung» слова «Haus», «gehen» и «blau» — и
     # слушать не придётся, ответ виден по одной длине.
+    # Ответ вводом вместо четырёх вариантов — выученному слову в «Вспоминаю»
+    # (`wants_typed`, `typed_answer`): вариантов нет, слово пишут сами
+    if await wants_typed(session, user, correct_word, pair, channel):
+        return {
+            "correct_word": correct_word,
+            "options": [],
+            "correct_answer_index": -1,
+            "pair": pair,
+            "channel": channel,
+            "typed": True,
+        }
+
     # der / die / das вместо обычной карточки — знакомому существительному
     # (`wants_article`): у артикля три варианта, значения не нужны
     if await wants_article(session, user, correct_word, pair, channel):

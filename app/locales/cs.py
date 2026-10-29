@@ -474,6 +474,8 @@ TEXTS.update({
 TEXTS.update({
     "quiz_question_listen": "Poslechněte si a vyberte, co zaznělo:",
     "quiz_question_article": "Jaký člen?",
+    "quiz_question_type": "Napište to slovo",
+    "quiz_typed_skip": "Nepamatuji si",
 })
 
 

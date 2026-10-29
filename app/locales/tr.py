@@ -469,6 +469,8 @@ TEXTS.update({
 TEXTS.update({
     "quiz_question_listen": "Dinleyin ve duyduğunuzu seçin:",
     "quiz_question_article": "Hangi artikel?",
+    "quiz_question_type": "Kelimeyi yazın",
+    "quiz_typed_skip": "Hatırlamıyorum",
 })
 
 

@@ -522,7 +522,14 @@ async def hint_to_speak(message: Message, state: FSMContext, session: AsyncSessi
     ctx = await _speech_context(message, state, session)
     if ctx is None:
         return
-    _, user, _, channel = ctx
+    data, user, _, channel = ctx
+    # Ответ вводом во «Вспоминаю» выученного слова — сюда же: подписка на
+    # текст во время вопроса одна на всех (`choice.process_typed`)
+    if data.get("typed"):
+        from app.bot.handlers.quiz.choice import process_typed
+
+        await process_typed(message, state, session)
+        return
     if channel is not QuizChannel.SPEECH:
         return
     lang = user.interface_language or DEFAULT_LOCALE

@@ -472,6 +472,8 @@ TEXTS.update({
 TEXTS.update({
     "quiz_question_listen": "Escuche y elija lo que ha oído:",
     "quiz_question_article": "¿Qué artículo?",
+    "quiz_question_type": "Escriba la palabra",
+    "quiz_typed_skip": "No me acuerdo",
 })
 
 

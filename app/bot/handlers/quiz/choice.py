@@ -160,3 +160,73 @@ async def process_article(callback: CallbackQuery, state: FSMContext, session: A
         response_seconds=max(0, int(utcnow().timestamp() - float(asked_at))) if asked_at else None,
     )
     await callback.answer()
+
+
+# ============================================================================
+# ОТВЕТ ВВОДОМ
+# ============================================================================
+
+async def process_typed(message, state: FSMContext, session: AsyncSession) -> None:
+    """
+    Слово, написанное в «Вспоминаю» выученного слова (`quiz_service.wants_typed`).
+
+    Вызывается из общего обработчика текста во время вопроса
+    (`speech.hint_to_speak`): подписка на любой текст там уже стоит и
+    пропускает нажатия меню, и вторая такая же подписка в другом роутере
+    гасила бы их снова.
+
+    Сравнение — `typed_answer.judge`: опечатка в длинном слове засчитывается,
+    неверный артикль — нет. Верные — все варианты ячейки изучаемого языка.
+    """
+    from app.bot.handlers.quiz.card import STATE_CARD_ID
+    from app.services.language_service import meaning_variants, word_text
+    from app.services.typed_answer import Verdict, judge
+
+    if not await _claim_answer(state, message.chat.id, session):
+        return
+    data = await state.get_data()
+    word = await session.get(Word, data.get("correct_word_id"))
+    user = await session.get(User, message.from_user.id)
+    if not word or not user:
+        return
+    pair = pair_from_user(user)
+    written = word_text(word, pair.learning, with_article=False)
+    variants = set(meaning_variants(written, pair.learning)) or {written}
+    verdict = judge(message.text or "", variants, pair.learning,
+                    word.article if pair.learning == "de" else None)
+    asked_at = data.get("asked_at")
+    await _record_answer(
+        bot=message.bot, chat_id=message.chat.id, state=state, session=session,
+        user=user, pair=pair, lang=user.interface_language or DEFAULT_LOCALE,
+        correct_word=word, is_correct=verdict is not Verdict.WRONG,
+        channel=QuizChannel.REVERSE, answer_text=(message.text or "")[:255],
+        session_id=data["session_id"], correct_answers=data["correct_answers"],
+        errors=data["errors"],
+        response_seconds=max(0, int(utcnow().timestamp() - float(asked_at))) if asked_at else None,
+        card_message_id=data.get(STATE_CARD_ID),
+    )
+
+
+@router.callback_query(F.data == "typed_skip", QuizStates.answering)
+async def typed_skip(callback: CallbackQuery, state: FSMContext, session: AsyncSession):
+    """«Не помню» в ответе вводом — честный промах: слово вернётся первым."""
+    if not await _claim_answer(state, callback.message.chat.id, session):
+        await callback.answer()
+        return
+    data = await state.get_data()
+    word = await session.get(Word, data.get("correct_word_id"))
+    user = await session.get(User, callback.from_user.id)
+    if not word or not user or not data.get("typed"):
+        await callback.answer("Error", show_alert=True)
+        return
+    asked_at = data.get("asked_at")
+    await _record_answer(
+        bot=callback.bot, chat_id=callback.message.chat.id, state=state, session=session,
+        user=user, pair=pair_from_user(user), lang=user.interface_language or DEFAULT_LOCALE,
+        correct_word=word, is_correct=False, channel=QuizChannel.REVERSE, answer_text=None,
+        card_message=callback.message,
+        session_id=data["session_id"], correct_answers=data["correct_answers"],
+        errors=data["errors"],
+        response_seconds=max(0, int(utcnow().timestamp() - float(asked_at))) if asked_at else None,
+    )
+    await callback.answer()

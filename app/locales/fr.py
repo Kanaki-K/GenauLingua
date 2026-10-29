@@ -473,6 +473,8 @@ TEXTS.update({
 TEXTS.update({
     "quiz_question_listen": "Écoutez et choisissez ce que vous avez entendu :",
     "quiz_question_article": "Quel article ?",
+    "quiz_question_type": "Écrivez le mot",
+    "quiz_typed_skip": "Je ne m'en souviens pas",
 })
 
 

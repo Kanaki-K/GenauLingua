@@ -481,6 +481,8 @@ TEXTS.update({
 TEXTS.update({
     "quiz_question_listen": "Hören Sie zu und wählen Sie, was Sie gehört haben:",
     "quiz_question_article": "Welcher Artikel?",
+    "quiz_question_type": "Schreiben Sie das Wort",
+    "quiz_typed_skip": "Weiß ich nicht mehr",
 })
 
 

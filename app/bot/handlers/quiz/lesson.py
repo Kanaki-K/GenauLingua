@@ -386,9 +386,11 @@ async def start_lesson(
     clip, channel, question["options"] = await _clip_or_text(
         session, user, word, pair, channel, question["options"]
     )
-    # Артикль спрашивается без звука: клип слова произносит его с артиклем
+    # Артикль спрашивается без звука: клип слова произносит его с артиклем.
+    # Ответ вводом — тоже: звук продиктовал бы слово
     article = bool(question.get("article"))
-    if article:
+    typed = bool(question.get("typed"))
+    if article or typed:
         clip = None
 
     await _reset_round_state(state)
@@ -404,6 +406,7 @@ async def start_lesson(
         asked_at=utcnow().timestamp(),
         channel=channel.value,
         article=article,
+        typed=typed,
         recent_channels=[channel.value],
         # Желание держится весь круг, а не один вопрос: вход «только слух»,
         # сменившийся на втором вопросе общим правилом, выглядел бы поломкой
@@ -427,9 +430,9 @@ async def start_lesson(
                  **await _level_note(session, user, word, pair))
     await show_card(
         message.bot, message.chat.id, state, session,
-        text=_question_text(word, pair, lang, 1, quiz_total, channel=channel, article=article),
+        text=_question_text(word, pair, lang, 1, quiz_total, channel=channel, article=article, typed=typed),
         keyboard=_question_keyboard(channel, question["options"], lang, word.id,
-                                    slots=_build_slots(question), article=article),
+                                    slots=_build_slots(question), article=article, typed=typed),
         clip=clip,
         word_id=word.id, lang=pair.learning,
         without_audio=_as_text_question(
@@ -790,7 +793,7 @@ async def _advance(callback: CallbackQuery, state: FSMContext, session: AsyncSes
         # начинается лишь после круга, в котором ошибки были.
         clip = await _question_clip(session, user, word, pair, channel)
         # Повтор ошибок артикль не спрашивает — но переменная нужна показу ниже
-        article = False
+        article = typed = False
         await state.update_data(
             current_question=current_question,
             correct_word_id=word.id,
@@ -798,6 +801,7 @@ async def _advance(callback: CallbackQuery, state: FSMContext, session: AsyncSes
             asked_at=utcnow().timestamp(),
             channel=channel.value,
             article=False,
+            typed=False,
             **_build_state(question, channel),
             **shown_state(word.id, options, ids=channel is not QuizChannel.BUILD),
         )
@@ -846,7 +850,8 @@ async def _advance(callback: CallbackQuery, state: FSMContext, session: AsyncSes
             session, user, word, pair, channel, options
         )
         article = bool(question.get("article"))
-        if article:
+        typed = bool(question.get("typed"))
+        if article or typed:
             clip = None
         used_word_ids.append(word.id)
 
@@ -872,6 +877,7 @@ async def _advance(callback: CallbackQuery, state: FSMContext, session: AsyncSes
             channel=channel.value,
             recent_channels=recent_channels,
             article=article,
+            typed=typed,
             **_build_state(question, channel),
             # Варианты, как их видел человек; у «Говорю» вариантов на экране нет
         **shown_state(word.id, options if channel is not QuizChannel.SPEECH else None,
@@ -886,10 +892,10 @@ async def _advance(callback: CallbackQuery, state: FSMContext, session: AsyncSes
         callback.bot, callback.message.chat.id, state, session,
         text=_question_text(
             word, pair, lang, current_question, total_questions,
-            is_repeat=is_error_repeat, channel=channel, article=article,
+            is_repeat=is_error_repeat, channel=channel, article=article, typed=typed,
         ),
         keyboard=_question_keyboard(channel, options, lang, word.id,
-                                    slots=_build_slots(question), article=article),
+                                    slots=_build_slots(question), article=article, typed=typed),
         clip=clip,
         word_id=word.id, lang=pair.learning,
         message=callback.message,

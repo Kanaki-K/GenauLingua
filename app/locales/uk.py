@@ -469,6 +469,8 @@ TEXTS.update({
 TEXTS.update({
     "quiz_question_listen": "Послухайте й оберіть, що прозвучало:",
     "quiz_question_article": "Який артикль?",
+    "quiz_question_type": "Напишіть це слово",
+    "quiz_typed_skip": "Не пам'ятаю",
 })
 
 

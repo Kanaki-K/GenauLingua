@@ -469,6 +469,8 @@ TEXTS.update({
 TEXTS.update({
     "quiz_question_listen": "Listen and pick what you heard:",
     "quiz_question_article": "Which article?",
+    "quiz_question_type": "Type the word",
+    "quiz_typed_skip": "I don't remember",
 })
 
 

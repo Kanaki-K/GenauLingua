@@ -481,6 +481,8 @@ TEXTS.update({
 TEXTS.update({
     "quiz_question_listen": "Proszę posłuchać i wybrać usłyszane słowo:",
     "quiz_question_article": "Jaki rodzajnik?",
+    "quiz_question_type": "Proszę napisać to słowo",
+    "quiz_typed_skip": "Nie pamiętam",
 })
 
 

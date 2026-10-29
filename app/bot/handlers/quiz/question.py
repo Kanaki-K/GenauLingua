@@ -35,6 +35,7 @@ def _question_text(
     is_repeat: bool = False,
     channel: QuizChannel = QuizChannel.TEXT,
     article: bool = False,
+    typed: bool = False,
 ) -> str:
     """
     Вопрос: слово на языке вопроса + пример на том же языке.
@@ -151,6 +152,10 @@ def _question_text(
              f"<b>{prompt}</b>"]
     if example:
         parts.append(f"\n\n<i>{example}</i>")
+    # Ответ вводом (`quiz_service.wants_typed`): вариантов нет — подсказка,
+    # что слово пишут сами; «Не помню» — кнопкой под вопросом
+    if typed:
+        parts.append(f"\n\n{get_text('quiz_question_type', lang)}")
 
     return "".join(parts)
 
@@ -224,7 +229,8 @@ def _answer_text(
 
 def _question_keyboard(channel: QuizChannel, options, lang: str,
                        word_id: Optional[int] = None,
-                       slots: int = 0, article: bool = False) -> InlineKeyboardMarkup:
+                       slots: int = 0, article: bool = False,
+                       typed: bool = False) -> InlineKeyboardMarkup:
     """
     Клавиатура вопроса. У вопроса вслух она другая: вариантов нет.
 
@@ -238,6 +244,12 @@ def _question_keyboard(channel: QuizChannel, options, lang: str,
     У сборки — сетка кнопок-слов (`build.py`); `word_id` нужен ей, чтобы
     нажатие по сетке прошлого вопроса не попало в нынешний.
     """
+    # Ответ вводом: вариантов нет, только «Не помню» (`choice.typed_skip`)
+    if typed:
+        return InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(
+            text=get_text("quiz_typed_skip", lang), callback_data="typed_skip",
+        )]])
+
     # der / die / das — три кнопки в ряд; нажатие ведёт в `choice.process_article`
     if article:
         return InlineKeyboardMarkup(inline_keyboard=[[
