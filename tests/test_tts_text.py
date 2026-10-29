@@ -246,6 +246,11 @@ class TestAbbreviationBoundaries:
         assert expand_abbreviations("nr 5", "pl") == "numer 5"
         assert expand_abbreviations("mln ludzi", "pl") == "milionów ludzi"
 
+    def test_fries_are_not_read_as_an_acronym(self):
+        # Движок читал «фрі» как «Фундації регіональних ініціатив»
+        assert expand_abbreviations("картоплі фрі з кетчупом", "uk") == "картоплі фри з кетчупом"
+        assert expand_abbreviations("фрікаделька", "uk") == "фрікаделька"
+
     def test_dotted_abbreviations_unaffected(self):
         assert expand_abbreviations("np. koty", "pl") == "na przykład koty"
         assert expand_abbreviations("z.B. Hunde", "de") == "zum Beispiel Hunde"
