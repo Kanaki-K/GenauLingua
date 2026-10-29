@@ -251,6 +251,12 @@ class TestAbbreviationBoundaries:
         assert expand_abbreviations("картоплі фрі з кетчупом", "uk") == "картоплі фри з кетчупом"
         assert expand_abbreviations("фрікаделька", "uk") == "фрікаделька"
 
+    def test_comma_inside_parentheses_does_not_cut_them(self):
+        # Голос читал «ваш (ваша» — скобку резало на запятой
+        from app.services.tts_text import speakable
+        assert speakable("ваш (ваша, ваше)", "ru", first_only=True) == "ваш"
+        assert speakable("(Heft, Papier) čtverečkovaný", "cs", first_only=True) == "čtverečkovaný"
+
     def test_engine_truncated_word_is_hyphenated(self):
         # Голоса обрывали «niewyobrażalny» на «niewy…»
         assert expand_abbreviations("Upał był niewyobrażalny", "pl") == "Upał był nie-wyobrażalny"

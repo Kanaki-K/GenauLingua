@@ -340,8 +340,12 @@ def pair_flags(pair: "LanguagePair", interface_lang: Optional[str] = None) -> st
 
 
 _WS_RE = re.compile(r"\s+")
-_VARIANT_RE = re.compile(r"\s*[/;,].*$")
-_VARIANT_SPLIT_RE = re.compile(r"[/;,]")
+# Разделитель значений — только вне скобок: «ваш (ваша, ваше)» одно значение
+# с формами, а не три. Прежде резалось и внутри, и карточка показывала
+# «ваш (ваша» — 43 карточки в восьми языках (замер 29.10)
+_OUTSIDE_PARENS = r"(?![^()]*\))"
+_VARIANT_RE = re.compile(r"\s*[/;,]" + _OUTSIDE_PARENS + r".*$")
+_VARIANT_SPLIT_RE = re.compile(r"[/;,]" + _OUTSIDE_PARENS)
 _PUNCT_RE = re.compile(r"[!?.…]+$")
 
 # Сколько букв основы должно совпасть, чтобы счесть слово тем же. Четыре —
@@ -545,8 +549,8 @@ def main_meaning(word, code: Optional[str]) -> str:
         if tail is not None:
             # При равном хвосте короткое значение, стоящее в примере отдельным
             # словом, важнее совпавшего началом: «na» в «na zahradě», а не
-            # «ve» в «ven». Только для одной-двух букв: на длинных словах то же
-            # правило меняло бы около тысячи вычитанных карточек
+            # «ve» в «ven». Только для одной-двух букв: на длинных словах
+            # выбор формы решается порядком в ячейке, а не правилом
             whole = len(fold(head)) > 2 or fold(head) in tokens
             scored.append((tail, not whole, index, part))
 

@@ -170,6 +170,9 @@ class TestCardHead:
         assert main_meaning(word, "cs") == "na"
         word.translation_tr, word.example_tr = "-e, -a", "Arkadaşlarla plaja gidiyorum"
         assert main_meaning(word, "tr") == "-a"
+        # Запятая внутри скобок значения не делит
+        word.translation_pl, word.example_pl = "wasz (wasza, wasze)", "Wasze mieszkanie jest przepiękne"
+        assert main_meaning(word, "pl") == "wasz (wasza, wasze)"
         # «ve» совпадает началом с «ven», но «na» стоит в примере целиком
         word.translation_cs, word.example_cs = "v, ve, na", "Jsem na zahradě, pojď ven!"
         assert main_meaning(word, "cs") == "na"

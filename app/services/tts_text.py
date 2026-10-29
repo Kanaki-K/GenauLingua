@@ -472,10 +472,13 @@ def speakable(text: Optional[str], lang: Optional[str], *, first_only: bool = Fa
         return ""
 
     result = str(text).strip()
+    # Скобки снимаются ДО деления на значения: иначе запятая внутри скобок
+    # резала их, и голос читал «ваш (ваша» — скобка уже не закрыта и не
+    # снималась (замер 29.10)
+    result = _PARENTHETICAL.sub("", result)
     if first_only:
         result = _VARIANT_SPLIT.split(result)[0].strip()
 
-    result = _PARENTHETICAL.sub("", result)
     result = expand_abbreviations(result, lang)
     # Числа НЕ разворачиваются: движок делает это лучше — см. ниже
     result = _WS.sub(" ", result).strip()
