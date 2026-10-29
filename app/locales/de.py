@@ -480,9 +480,12 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "quiz_question_listen": "Hören Sie zu und wählen Sie, was Sie gehört haben:",
-    "quiz_question_article": "Welcher Artikel?",
-    "quiz_question_type": "Schreiben Sie das Wort",
+    "quiz_question_article": "Welcher Artikel gehört zu diesem Wort? Tippen Sie auf der, die oder das 👇🏻",
+    "quiz_question_type": "Schreiben Sie dieses Wort selbst als Nachricht in den Chat 👇🏻",
     "quiz_typed_skip": "Weiß ich nicht mehr",
+    "quiz_typed_typo": "✓ <b>Richtig</b>, aber mit Tippfehler",
+    "quiz_typed_marked": "Der Fehler ist unterstrichen",
+    "quiz_typed_right": "Richtig geschrieben:",
 })
 
 

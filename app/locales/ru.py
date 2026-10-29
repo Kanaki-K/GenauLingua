@@ -478,9 +478,12 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "quiz_question_listen": "Послушайте и выберите, что прозвучало:",
-    "quiz_question_article": "Какой артикль?",
-    "quiz_question_type": "Напишите это слово",
+    "quiz_question_article": "Какой артикль у этого слова? Нажмите der, die или das 👇🏻",
+    "quiz_question_type": "Напишите самостоятельно текстом это слово в чат 👇🏻",
     "quiz_typed_skip": "Не помню",
+    "quiz_typed_typo": "✓ <b>Верно</b>, но с опечаткой",
+    "quiz_typed_marked": "Подчёркнуто то, где ошибка",
+    "quiz_typed_right": "Правильно пишется так:",
 })
 
 

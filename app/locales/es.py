@@ -471,9 +471,12 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "quiz_question_listen": "Escuche y elija lo que ha oído:",
-    "quiz_question_article": "¿Qué artículo?",
-    "quiz_question_type": "Escriba la palabra",
+    "quiz_question_article": "¿Qué artículo lleva esta palabra? Pulse der, die o das 👇🏻",
+    "quiz_question_type": "Escriba esta palabra en un mensaje en el chat 👇🏻",
     "quiz_typed_skip": "No me acuerdo",
+    "quiz_typed_typo": "✓ <b>Correcto</b>, pero con una errata",
+    "quiz_typed_marked": "El error está subrayado",
+    "quiz_typed_right": "Se escribe así:",
 })
 
 

@@ -70,7 +70,7 @@ async def test_live_article_question_counts_like_a_card(session, user, monkeypat
     data = await context.get_data()
     word = words[data["correct_word_id"]]
     card = recorder.sent_texts()[-1]
-    assert "Какой артикль?" in card and f"<b>{word.word_de}</b>" in card
+    assert "Какой артикль у этого слова?" in card and f"<b>{word.word_de}</b>" in card
     assert f"{word.article} {word.word_de}" not in card, "артикль виден в вопросе"
 
     wrong = next(a for a in ("der", "die", "das") if a != word.article)

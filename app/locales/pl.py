@@ -480,9 +480,12 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "quiz_question_listen": "Proszę posłuchać i wybrać usłyszane słowo:",
-    "quiz_question_article": "Jaki rodzajnik?",
-    "quiz_question_type": "Proszę napisać to słowo",
+    "quiz_question_article": "Jaki rodzajnik ma to słowo? Proszę nacisnąć der, die lub das 👇🏻",
+    "quiz_question_type": "Proszę samodzielnie napisać to słowo wiadomością w czacie 👇🏻",
     "quiz_typed_skip": "Nie pamiętam",
+    "quiz_typed_typo": "✓ <b>Dobrze</b>, ale z literówką",
+    "quiz_typed_marked": "Błąd jest podkreślony",
+    "quiz_typed_right": "Prawidłowa pisownia:",
 })
 
 

@@ -473,9 +473,12 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "quiz_question_listen": "Poslechněte si a vyberte, co zaznělo:",
-    "quiz_question_article": "Jaký člen?",
-    "quiz_question_type": "Napište to slovo",
+    "quiz_question_article": "Jaký člen má toto slovo? Klepněte na der, die nebo das 👇🏻",
+    "quiz_question_type": "Napište toto slovo zprávou do chatu 👇🏻",
     "quiz_typed_skip": "Nepamatuji si",
+    "quiz_typed_typo": "✓ <b>Správně</b>, ale s překlepem",
+    "quiz_typed_marked": "Chyba je podtržená",
+    "quiz_typed_right": "Správně se píše:",
 })
 
 

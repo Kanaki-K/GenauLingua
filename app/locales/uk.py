@@ -468,9 +468,12 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "quiz_question_listen": "Послухайте й оберіть, що прозвучало:",
-    "quiz_question_article": "Який артикль?",
-    "quiz_question_type": "Напишіть це слово",
+    "quiz_question_article": "Який артикль у цього слова? Натисніть der, die або das 👇🏻",
+    "quiz_question_type": "Напишіть самостійно текстом це слово в чат 👇🏻",
     "quiz_typed_skip": "Не пам'ятаю",
+    "quiz_typed_typo": "✓ <b>Правильно</b>, але з помилкою в написанні",
+    "quiz_typed_marked": "Підкреслено те, де помилка",
+    "quiz_typed_right": "Правильно пишеться так:",
 })
 
 

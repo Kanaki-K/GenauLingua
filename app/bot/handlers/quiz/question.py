@@ -163,9 +163,14 @@ def _question_text(
 def _answer_text(
     word: Word, pair: LanguagePair, lang: str, is_correct: bool,
     channel: QuizChannel = QuizChannel.TEXT,
+    yours: Optional[str] = None, typo: bool = False,
 ) -> str:
     """
     Разбор ответа: пара «вопрос = ответ» и примеры на оба языка.
+
+    `yours` — написанное в ответе вводом, с подчёркнутыми ошибками
+    (`typed_answer.mark_mistakes`); `typo` — засчитано с опечаткой. Тогда под
+    заголовком строка «Ваш ответ», как в разборе сборки.
 
     Порядок сторон совпадает с направлением вопроса — сначала то, что
     спрашивали, потом ответ.
@@ -190,6 +195,12 @@ def _answer_text(
         if is_correct
         else f"{get_text('quiz_wrong', lang)}\n\n{get_text('quiz_correct_answer', lang)}"
     )
+    if yours and (typo or not is_correct):
+        mark = "" if is_correct else " ✗"
+        note = f"\n{get_text('quiz_typed_marked', lang)}" if "<u>" in yours else ""
+        top = get_text("quiz_typed_typo", lang) if is_correct else get_text("quiz_wrong", lang)
+        bottom = get_text("quiz_typed_right", lang) if is_correct else get_text("quiz_correct_answer", lang)
+        header = f"{top}\n\n{get_text('build_yours', lang)} {yours}{mark}{note}\n\n{bottom}"
 
     lines = [
         header,

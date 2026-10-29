@@ -19,7 +19,7 @@ from app.core.clock import utcnow
 from app.database.enums import QuizChannel
 from app.database.models import User, Word
 from app.locales import DEFAULT_LOCALE, get_text
-from app.bot.handlers.quiz.question import get_next_question_keyboard
+from app.bot.handlers.quiz.question import _answer_text, get_next_question_keyboard
 from app.services.language_service import (
     pair_for_channel,
     option_label,
@@ -180,7 +180,7 @@ async def process_typed(message, state: FSMContext, session: AsyncSession) -> No
     """
     from app.bot.handlers.quiz.card import STATE_CARD_ID
     from app.services.language_service import meaning_variants, word_text
-    from app.services.typed_answer import Verdict, judge
+    from app.services.typed_answer import Verdict, judge, mark_mistakes
 
     if not await _claim_answer(state, message.chat.id, session):
         return
@@ -192,18 +192,28 @@ async def process_typed(message, state: FSMContext, session: AsyncSession) -> No
     pair = pair_from_user(user)
     written = word_text(word, pair.learning, with_article=False)
     variants = set(meaning_variants(written, pair.learning)) or {written}
-    verdict = judge(message.text or "", variants, pair.learning,
-                    word.article if pair.learning == "de" else None)
+    article = word.article if pair.learning == "de" else None
+    verdict = judge(message.text or "", variants, pair.learning, article)
+    lang = user.interface_language or DEFAULT_LOCALE
+    # Ошибка или опечатка — в разборе написанное с подчёркнутыми ошибками,
+    # как во фразе сборки (владелец, 29.10.2026)
+    breakdown = None
+    if verdict is not Verdict.EXACT:
+        breakdown = _answer_text(
+            word, pair, lang, verdict is Verdict.CLOSE, QuizChannel.REVERSE,
+            yours=mark_mistakes(message.text or "", variants, pair.learning, article),
+            typo=verdict is Verdict.CLOSE,
+        )
     asked_at = data.get("asked_at")
     await _record_answer(
         bot=message.bot, chat_id=message.chat.id, state=state, session=session,
-        user=user, pair=pair, lang=user.interface_language or DEFAULT_LOCALE,
+        user=user, pair=pair, lang=lang,
         correct_word=word, is_correct=verdict is not Verdict.WRONG,
         channel=QuizChannel.REVERSE, answer_text=(message.text or "")[:255],
         session_id=data["session_id"], correct_answers=data["correct_answers"],
         errors=data["errors"],
         response_seconds=max(0, int(utcnow().timestamp() - float(asked_at))) if asked_at else None,
-        card_message_id=data.get(STATE_CARD_ID),
+        card_message_id=data.get(STATE_CARD_ID), breakdown=breakdown,
     )
 
 

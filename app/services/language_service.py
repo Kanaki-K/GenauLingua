@@ -301,6 +301,13 @@ def option_label(word, code: Optional[str]) -> str:
     if not chosen:
         parts = [p.strip() for p in _VARIANT_SPLIT_RE.split(full) if p.strip()]
         return parts[0] if parts else full
+    # Значение с немецкой подсказкой впереди — «(schläfrig sein) клонит в
+    # сон» — на кнопку не идёт: кнопка на одном языке (владелец, 29.10.2026).
+    # Берётся первое значение без подсказки; нет такого — то же без скобок
+    if _HINT_RE.match(chosen):
+        parts = [p.strip() for p in _VARIANT_SPLIT_RE.split(word_text(word, code)) if p.strip()]
+        plain = [p for p in parts if not _HINT_RE.match(p)]
+        chosen = plain[0] if plain else _HINT_RE.sub("", chosen).strip() or chosen
     # display_text поднимает первую букву — повторяем для выбранного значения
     if get_language(code).uses_article:
         return chosen
@@ -347,6 +354,8 @@ _OUTSIDE_PARENS = r"(?![^()]*\))"
 _VARIANT_RE = re.compile(r"\s*[/;,]" + _OUTSIDE_PARENS + r".*$")
 _VARIANT_SPLIT_RE = re.compile(r"[/;,]" + _OUTSIDE_PARENS)
 _PUNCT_RE = re.compile(r"[!?.…]+$")
+# Немецкая подсказка в начале значения: «(Angst haben) бояться»
+_HINT_RE = re.compile(r"^\s*\([^)]*\)\s*")
 
 # Сколько букв основы должно совпасть, чтобы счесть слово тем же. Четыре —
 # компромисс: короче начинает склеивать разные слова («вел» и «величие»),

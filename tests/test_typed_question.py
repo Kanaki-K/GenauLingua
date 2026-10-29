@@ -57,7 +57,7 @@ async def test_learned_word_is_typed_and_a_typo_counts(session, user, monkeypatc
     bot, dp, recorder, context = await _start(session, user)
     assert "typed_skip" in recorder.buttons(), recorder.buttons()
     assert not [b for b in recorder.buttons() if b.startswith("answer_")], "варианты при вводе"
-    assert "Напишите это слово" in recorder.sent_texts()[-1]
+    assert "Напишите самостоятельно текстом" in recorder.sent_texts()[-1]
 
     word = words[(await context.get_data())["correct_word_id"]]
     typo = word.word_de[:-1] if len(word.word_de) >= 6 else word.word_de.lower()
@@ -65,12 +65,16 @@ async def test_learned_word_is_typed_and_a_typo_counts(session, user, monkeypatc
     row = (await _rows(session))[-1]
     assert row.word_id == word.id and row.is_correct is True, (typo, word.word_de)
     assert row.channel == QuizChannel.REVERSE.value and row.user_answer == typo
+    screen = recorder.sent_texts()[-1] if recorder.sent_texts() else ""
+    if typo != word.word_de.lower():
+        assert "с опечаткой" in screen and "<u>" in screen, screen
 
     await dp.feed_update(bot, press(user.id, "next_question"))
     word = words[(await context.get_data())["correct_word_id"]]
     wrong_article = next(a for a in ("der", "die", "das") if a != word.article)
     await dp.feed_update(bot, text_update(user.id, f"{wrong_article} {word.word_de}"))
     assert (await _rows(session))[-1].is_correct is False, "неверный артикль засчитан"
+    assert f"<u>{wrong_article}</u>" in recorder.sent_texts()[-1], "ошибка в артикле не подчёркнута"
 
     await dp.feed_update(bot, press(user.id, "next_question"))
     await dp.feed_update(bot, press(user.id, "typed_skip"))

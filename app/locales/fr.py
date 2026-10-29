@@ -472,9 +472,12 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "quiz_question_listen": "Écoutez et choisissez ce que vous avez entendu :",
-    "quiz_question_article": "Quel article ?",
-    "quiz_question_type": "Écrivez le mot",
+    "quiz_question_article": "Quel article va avec ce mot ? Appuyez sur der, die ou das 👇🏻",
+    "quiz_question_type": "Écrivez vous-même ce mot dans un message du chat 👇🏻",
     "quiz_typed_skip": "Je ne m'en souviens pas",
+    "quiz_typed_typo": "✓ <b>Juste</b>, mais avec une faute de frappe",
+    "quiz_typed_marked": "L'erreur est soulignée",
+    "quiz_typed_right": "Ça s'écrit ainsi :",
 })
 
 

@@ -90,6 +90,73 @@ def _one_edit_apart(a: str, b: str) -> bool:
     return True
 
 
+def mark_mistakes(typed: str, correct: Iterable[str], lang: str,
+                  article: Optional[str] = None) -> str:
+    """
+    Написанное с подчёркнутыми ошибками — HTML для разбора (владелец,
+    29.10.2026: «важно показать, в чём ошибка, как в грамматике»).
+
+    Неверный артикль подчёркивается целиком. В слове подчёркиваются лишние и
+    неверные буквы, пропущенная — подчёркнутым «_» на её месте. Буквы
+    сверяются с ближайшим верным вариантом без регистра; «ae» вместо «ä» и
+    снятая диакритика ошибкой не считаются и не подчёркиваются. Совсем другое
+    слово (меньше половины общих букв) не размечается — подчёркнутым было бы
+    всё, и пользы в этом нет: оно показывается как есть.
+    """
+    from difflib import SequenceMatcher
+    from html import escape
+
+    raw = re.sub(r"\s+", " ", (typed or "").strip())
+    got_article, _ = _split_article(_plain(raw, lang), lang)
+    head, body = "", raw
+    if got_article:
+        cut = len(raw.split(" ", 1)[0]) if not got_article.endswith("'") else len(got_article)
+        head, body = raw[:cut], raw[cut:].lstrip()
+    out = ""
+    if head:
+        wrong = article and lang == "de" and got_article != _plain(article, lang)
+        out = (f"<u>{escape(head)}</u>" if wrong else escape(head)) + " "
+
+    # Сравнение по буквам — в «простом» виде, но размечается то, что написано:
+    # для этого простой вид строится побуквенно, со ссылкой на исходную букву
+    def letters(text: str) -> list[tuple[str, int]]:
+        pairs = []
+        for i, ch in enumerate(text):
+            for p in _plain(ch, lang) if ch.strip() else " ":
+                pairs.append((p, i))
+        return pairs
+
+    mine = letters(body)
+    want = max((_split_article(_plain(v, lang), lang)[1] for v in correct),
+               key=lambda w: SequenceMatcher(None, "".join(p for p, _ in mine), w).ratio(),
+               default="")
+    matcher = SequenceMatcher(None, "".join(p for p, _ in mine), want)
+    if not want or matcher.ratio() < 0.5:
+        return out + escape(body)
+
+    bad, holes = set(), set()
+    got = "".join(p for p, _ in mine)
+    diff = [k for k in range(len(got)) if len(got) == len(want) and got[k] != want[k]]
+    # Переставлены две соседние буквы («Breif») — подчёркиваются обе, а не
+    # «пропуск здесь и лишняя там», как разметил бы побуквенный дифф
+    swapped = (len(diff) == 2 and diff[1] == diff[0] + 1
+               and got[diff[0]] == want[diff[1]] and got[diff[1]] == want[diff[0]])
+    for op, i1, i2, j1, j2 in ([] if swapped else matcher.get_opcodes()):
+        if op in ("replace", "delete"):
+            bad.update(mine[k][1] for k in range(i1, i2))
+        if op == "insert" or (op == "replace" and j2 - j1 > i2 - i1):
+            holes.add(mine[i1][1] if i1 < len(mine) else len(body))
+    if swapped:
+        bad = {mine[diff[0]][1], mine[diff[1]][1]}
+    for i, ch in enumerate(body):
+        if i in holes:
+            out += "<u>_</u>"
+        out += f"<u>{escape(ch)}</u>" if i in bad else escape(ch)
+    if len(body) in holes:
+        out += "<u>_</u>"
+    return out
+
+
 def judge(typed: str, correct: Iterable[str], lang: str,
           article: Optional[str] = None) -> Verdict:
     """

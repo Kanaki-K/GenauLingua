@@ -468,9 +468,12 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "quiz_question_listen": "Dinleyin ve duyduğunuzu seçin:",
-    "quiz_question_article": "Hangi artikel?",
-    "quiz_question_type": "Kelimeyi yazın",
+    "quiz_question_article": "Bu kelimenin artikeli hangisi? der, die veya das'a dokunun 👇🏻",
+    "quiz_question_type": "Bu kelimeyi kendiniz sohbete mesaj olarak yazın 👇🏻",
     "quiz_typed_skip": "Hatırlamıyorum",
+    "quiz_typed_typo": "✓ <b>Doğru</b>, ama yazım hatası var",
+    "quiz_typed_marked": "Hata altı çizili olarak gösterildi",
+    "quiz_typed_right": "Doğru yazılışı:",
 })
 
 

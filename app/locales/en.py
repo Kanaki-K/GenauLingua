@@ -468,9 +468,12 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "quiz_question_listen": "Listen and pick what you heard:",
-    "quiz_question_article": "Which article?",
-    "quiz_question_type": "Type the word",
+    "quiz_question_article": "Which article does this word take? Tap der, die or das 👇🏻",
+    "quiz_question_type": "Type this word yourself as a message in the chat 👇🏻",
     "quiz_typed_skip": "I don't remember",
+    "quiz_typed_typo": "✓ <b>Correct</b>, but with a typo",
+    "quiz_typed_marked": "The mistake is underlined",
+    "quiz_typed_right": "The correct spelling:",
 })
 
 
