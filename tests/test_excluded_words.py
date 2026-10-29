@@ -29,14 +29,27 @@ def test_bumsen_and_the_crude_words_are_listed():
 
 def test_matching_rows_are_excluded_and_absent_ids_skipped():
     first = _listed()[0]
-    rows = [{"id": first["id"], "word_de": first["word_de"]}, {"id": -1, "word_de": "Haus"}]
+    rows = [{"id": first["id"], "word_de": first["word_de"], "level": first["level"]},
+            {"id": -1, "word_de": "Haus", "level": "A1"}]
+    assert load_excluded(rows) == {first["id"]}
+
+
+def test_row_inserted_in_dev_is_found_by_word_and_level_under_another_id():
+    first = _listed()[0]
+    rows = [{"id": 777777, "word_de": first["word_de"], "level": first["level"]}]
+    assert load_excluded(rows) == {777777}
+
+
+def test_changed_level_still_matches_by_id_with_the_same_word():
+    first = _listed()[0]
+    rows = [{"id": first["id"], "word_de": first["word_de"], "level": "XX"}]
     assert load_excluded(rows) == {first["id"]}
 
 
 def test_wrong_word_under_the_id_stops_the_rebuild():
     first = _listed()[0]
     with pytest.raises(RuntimeError, match="не сходится"):
-        load_excluded([{"id": first["id"], "word_de": "Haus"}])
+        load_excluded([{"id": first["id"], "word_de": "Haus", "level": "A1"}])
 
 
 def test_excluded_row_never_reaches_a_group(monkeypatch):

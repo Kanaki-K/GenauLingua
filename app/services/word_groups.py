@@ -165,17 +165,27 @@ def load_excluded(words: Iterable[dict]) -> set[int]:
     quiz_questions, а с ними очки и серии. Она просто не попадает в группы, а
     все выборки слов идут только через канонические строки групп.
 
-    Номер сверяется с немецким словом: не сошлось — исключение ушло бы на
-    чужую строку, и пересборка останавливается. Номера, которого в базе нет
-    (миграция на ранней схеме), пропускаются.
+    Слово ищется по паре «немецкое слово + уровень» — на ней уникальный ключ
+    базы. Номер только подсказка: у строк, вставленных в разработке, на проде
+    свой номер (19018 anmachen там — другое или ничего). Пары нет — берётся
+    номер, если под ним то же немецкое слово (уровень правкой мог смениться).
+    Под номером другое слово — исключение ушло бы на чужую строку, пересборка
+    останавливается. Ни пары, ни номера (миграция на ранней схеме) — пропуск.
     """
     listed = json.loads(EXCLUDED_WORDS_FILE.read_text(encoding="utf-8"))["words"]
+    by_pair = {(row["word_de"], row["level"]): row["id"] for row in words}
     by_id = {row["id"]: row["word_de"] for row in words}
-    wrong = [f'{e["id"]}: в списке «{e["word_de"]}», в базе «{by_id[e["id"]]}»'
-             for e in listed if e["id"] in by_id and by_id[e["id"]] != e["word_de"]]
+    found, wrong = set(), []
+    for e in listed:
+        if (e["word_de"], e["level"]) in by_pair:
+            found.add(by_pair[(e["word_de"], e["level"])])
+        elif by_id.get(e["id"]) == e["word_de"]:
+            found.add(e["id"])
+        elif e["id"] in by_id:
+            wrong.append(f'{e["id"]}: в списке «{e["word_de"]}», в базе «{by_id[e["id"]]}»')
     if wrong:
         raise RuntimeError("Список исключённых слов не сходится с базой: " + "; ".join(wrong))
-    return {e["id"] for e in listed if e["id"] in by_id}
+    return found
 
 
 def build_groups(
