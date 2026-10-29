@@ -384,7 +384,8 @@ _TAIL_STRICT = 3
 _TAIL_LOOSE = 5
 
 
-def _stem_tail(needle: str, haystack_tokens: list[str]) -> int | None:
+def _stem_tail(needle: str, haystack_tokens: list[str],
+               whole_letter: bool = True) -> int | None:
     """
     Насколько ПЛОХО слово `needle` сходится с лучшим словом примера.
 
@@ -400,6 +401,13 @@ def _stem_tail(needle: str, haystack_tokens: list[str]) -> int | None:
     head = fold(needle)
     if not head:
         return None
+    # Слово из одной буквы сравнивается только целиком: иначе чешское «k»
+    # находилось в «kamarády», и ряд `zum` с примером «na pláž» показывал и
+    # озвучивал «k» (проверка слухом 29.10). Двух букв это не касается:
+    # турецкие «iş», «ad», «at» стоят в примере с окончаниями. И не касается
+    # окончаний вроде «-a» — они и есть часть слова (whole_letter=False)
+    if len(head) == 1 and whole_letter:
+        return 0 if head in haystack_tokens else None
     need = min(_STEM_MIN, len(head))
     best: int | None = None
     for token in haystack_tokens:
@@ -533,7 +541,7 @@ def main_meaning(word, code: Optional[str]) -> str:
         head = head_of(part)
         if not head:
             continue
-        tail = _stem_tail(head, tokens)
+        tail = _stem_tail(head, tokens, whole_letter=not part.startswith("-"))
         if tail is not None:
             scored.append((tail, index, part))
 

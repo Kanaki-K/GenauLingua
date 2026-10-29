@@ -160,6 +160,17 @@ class TestCardHead:
         word.example_en = "I go to the cinema often"
         assert main_meaning(word, "en") == "quite often"
 
+    def test_one_letter_word_must_stand_whole_in_the_example(self):
+        """
+        Чешское «k» находилось в «kamarády», и ряд `zum` с примером «na pláž»
+        показывал и озвучивал «k». Окончание «-a» — другое дело: оно часть слова.
+        """
+        word = make_word("zum", ru="к, на")
+        word.translation_cs, word.example_cs = "k, do, na", "Jdu s kamarády na pláž"
+        assert main_meaning(word, "cs") == "na"
+        word.translation_tr, word.example_tr = "-e, -a", "Arkadaşlarla plaja gidiyorum"
+        assert main_meaning(word, "tr") == "-a"
+
 
 class TestQuestionClip:
     """В вопросе звучит слово, и название клипа — ровно оно."""
