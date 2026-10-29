@@ -1,0 +1,2700 @@
+{
+ "about": "выборка 100×100 (29.10): огрехи по ходу чтения",
+ "edits": [
+  {
+   "id": 6950,
+   "col": "example_it",
+   "old": "Domattina ci mettiamo in viaggio presto",
+   "new": "Domani ci mettiamo in viaggio",
+   "why": "s01: в немецком нет «рано утром»"
+  },
+  {
+   "id": 6950,
+   "col": "example_es",
+   "old": "Mañana temprano nos ponemos en camino",
+   "new": "Mañana nos ponemos en camino",
+   "why": "s01: в немецком нет «рано утром»"
+  },
+  {
+   "id": 6950,
+   "col": "example_fr",
+   "old": "On se met en route demain matin",
+   "new": "Demain, on se met en route",
+   "why": "s01: в немецком нет «рано утром»"
+  },
+  {
+   "id": 8889,
+   "col": "translation_pl",
+   "old": "chorąży, podchorąży",
+   "new": "podchorąży, chorąży",
+   "why": "s01: Fähnrich = podchorąży, как в примере"
+  },
+  {
+   "id": 6950,
+   "col": "example_en",
+   "old": "We'll set out early tomorrow morning",
+   "new": "We're setting out on our journey tomorrow",
+   "why": "s01: в немецком нет «рано утром»; глагол как в значении"
+  },
+  {
+   "id": 1230,
+   "col": "example_en",
+   "old": "The waiter serves us very attentively",
+   "new": "The waiter serves us well",
+   "why": "s02: в немецком просто «gut»"
+  },
+  {
+   "id": 15748,
+   "col": "example_tr",
+   "old": "Yılan her yaz derisini değiştirir",
+   "new": "Yılan her yaz deri değiştirir",
+   "why": "s02: о змее — deri değiştirmek"
+  },
+  {
+   "id": 15437,
+   "col": "translation_ru",
+   "old": "жара, жар",
+   "new": "жара",
+   "why": "s02: «жар» — это температура при болезни; в примере «в такую жару»"
+  },
+  {
+   "id": 7809,
+   "col": "translation_ru",
+   "old": "сбросить, приносить доход, давать (урожай)",
+   "new": "давать (урожай), приносить доход, сбросить",
+   "why": "s02: пример про урожай — значение «давать» первым"
+  },
+  {
+   "id": 7809,
+   "col": "translation_uk",
+   "old": "скинути, приносити дохід, давати (урожай)",
+   "new": "давати (урожай), приносити дохід, скинути",
+   "why": "s02: пример про урожай"
+  },
+  {
+   "id": 7809,
+   "col": "translation_tr",
+   "old": "atmak, kâr getirmek, (ürün) vermek",
+   "new": "(ürün) vermek, kâr getirmek, atmak",
+   "why": "s02: пример про урожай"
+  },
+  {
+   "id": 7809,
+   "col": "translation_pl",
+   "old": "zrzucić, przynosić zysk, dawać (plon)",
+   "new": "dawać (plon), przynosić zysk, zrzucić",
+   "why": "s02: пример про урожай"
+  },
+  {
+   "id": 7809,
+   "col": "translation_es",
+   "old": "tirar, dar beneficios",
+   "new": "dar (cosecha), dar beneficios, tirar",
+   "why": "s02: пример про урожай; «dar» добавлено"
+  },
+  {
+   "id": 18744,
+   "col": "example_en",
+   "old": "I'm not going to sit around all day",
+   "new": "We don't want to sit around all day",
+   "why": "s03: в немецком «wir wollen nicht»"
+  },
+  {
+   "id": 18744,
+   "col": "example_it",
+   "old": "Non resto tutto il giorno a poltrire",
+   "new": "Non vogliamo poltrire tutto il giorno",
+   "why": "s03: «wir wollen nicht»"
+  },
+  {
+   "id": 18744,
+   "col": "example_es",
+   "old": "No me voy a pasar el día sin hacer nada",
+   "new": "No queremos pasarnos el día sin hacer nada",
+   "why": "s03: «wir wollen nicht»"
+  },
+  {
+   "id": 18744,
+   "col": "example_fr",
+   "old": "Je ne vais pas rester assis à rien faire toute la journée",
+   "new": "On ne veut pas rester assis à rien faire toute la journée",
+   "why": "s03: «wir wollen nicht»"
+  },
+  {
+   "id": 7216,
+   "col": "translation_ru",
+   "old": "наверстать, догнать",
+   "new": "догнать, наверстать",
+   "why": "s03: пример «другие нас догонят»"
+  },
+  {
+   "id": 7216,
+   "col": "translation_uk",
+   "old": "надолужити, наздогнати",
+   "new": "наздогнати, надолужити",
+   "why": "s03: пример «інші нас доженуть»"
+  },
+  {
+   "id": 8554,
+   "col": "translation_ru",
+   "old": "интегрировать, вливаться",
+   "new": "вливаться, интегрировать",
+   "why": "s04: пример «влился в класс»"
+  },
+  {
+   "id": 11614,
+   "col": "example_ru",
+   "old": "Своим громким смехом ты распугаешь всех птиц в саду",
+   "new": "Своим громким смехом ты отпугнёшь всех птиц в саду",
+   "why": "s05: слово карточки в примере"
+  },
+  {
+   "id": 7845,
+   "col": "translation_ru",
+   "old": "испорченный, неудавшийся",
+   "new": "неудачный, испорченный",
+   "why": "s05: пример «попытка была неудачной»"
+  },
+  {
+   "id": 17694,
+   "col": "translation_en",
+   "old": "being on hold, holding pattern",
+   "new": "on hold, holding pattern",
+   "why": "s05: «holding pattern» — это авиация; пример «put me on hold»"
+  },
+  {
+   "id": 10230,
+   "col": "translation_fr",
+   "old": "habitué, habituel",
+   "new": "(wie gewohnt) comme d'habitude, habitué, habituel",
+   "why": "s05: пример «comme d'habitude»"
+  },
+  {
+   "id": 10333,
+   "col": "translation_uk",
+   "old": "обманювати, зраджувати",
+   "new": "зраджувати, обманювати",
+   "why": "s06: пример «не зрадив» — об измене"
+  },
+  {
+   "id": 10333,
+   "col": "translation_pl",
+   "old": "oszukiwać, zdradzać",
+   "new": "zdradzać, oszukiwać",
+   "why": "s06: об измене партнёру — zdradzić"
+  },
+  {
+   "id": 10333,
+   "col": "example_pl",
+   "old": "Nigdy bym cię nie oszukał",
+   "new": "Nigdy bym cię nie zdradził",
+   "why": "s06: об измене партнёру"
+  },
+  {
+   "id": 16270,
+   "col": "translation_tr",
+   "old": "soymak, çalmak",
+   "new": "çalmak, soymak",
+   "why": "s06: пример «uykumuzu çalıyor»"
+  },
+  {
+   "id": 9817,
+   "col": "translation_it",
+   "old": "incassare, prendersi",
+   "new": "prendersi, incassare",
+   "why": "s06: пример «mi sono preso una multa»"
+  },
+  {
+   "id": 9817,
+   "col": "translation_fr",
+   "old": "encaisser, se prendre",
+   "new": "se prendre, encaisser",
+   "why": "s06: пример «je me suis pris une amende»"
+  },
+  {
+   "id": 419,
+   "col": "translation_ru",
+   "old": "висеть, вешать",
+   "new": "вешать, висеть",
+   "why": "s07: пример переходный — «повесь куртку»"
+  },
+  {
+   "id": 419,
+   "col": "translation_uk",
+   "old": "висіти, вішати",
+   "new": "вішати, висіти",
+   "why": "s07: пример переходный — «повесь куртку»"
+  },
+  {
+   "id": 419,
+   "col": "translation_tr",
+   "old": "asılı olmak, asmak",
+   "new": "asmak, asılı olmak",
+   "why": "s07: пример переходный — «повесь куртку»"
+  },
+  {
+   "id": 419,
+   "col": "translation_it",
+   "old": "essere appeso, pendere",
+   "new": "appendere, essere appeso, pendere",
+   "why": "s07: пример переходный — «повесь куртку»"
+  },
+  {
+   "id": 419,
+   "col": "translation_fr",
+   "old": "être accroché, accrocher",
+   "new": "accrocher, être accroché",
+   "why": "s07: пример переходный — «повесь куртку»"
+  },
+  {
+   "id": 419,
+   "col": "translation_cs",
+   "old": "viset, věšet",
+   "new": "věšet, viset",
+   "why": "s07: пример переходный — «повесь куртку»"
+  },
+  {
+   "id": 8534,
+   "col": "translation_ru",
+   "old": "кружить вокруг, обводить кружком",
+   "new": "обводить кружком, кружить вокруг",
+   "why": "s07: пример — обвести в тексте"
+  },
+  {
+   "id": 8534,
+   "col": "translation_uk",
+   "old": "кружляти навколо, обводити кружечком",
+   "new": "обводити кружечком, кружляти навколо",
+   "why": "s07: пример — обвести в тексте"
+  },
+  {
+   "id": 8534,
+   "col": "translation_es",
+   "old": "dar vueltas alrededor, rodear con un círculo",
+   "new": "rodear con un círculo, dar vueltas alrededor",
+   "why": "s07: пример — обвести в тексте"
+  },
+  {
+   "id": 8534,
+   "col": "translation_cs",
+   "old": "kroužit kolem, zakroužkovat",
+   "new": "zakroužkovat, kroužit kolem",
+   "why": "s07: пример — обвести в тексте"
+  },
+  {
+   "id": 2372,
+   "col": "translation_ru",
+   "old": "срочный, спешный",
+   "new": "(es eilig haben) торопиться, срочный, спешный",
+   "why": "s07: пример «Я тороплюсь», как в uk/tr/pl"
+  },
+  {
+   "id": 7441,
+   "col": "translation_en",
+   "old": "to start, to induce (labour)",
+   "new": "to induce (labour), to start",
+   "why": "s08: пример про роды"
+  },
+  {
+   "id": 7441,
+   "col": "translation_it",
+   "old": "avviare, indurre (il parto)",
+   "new": "indurre (il parto), avviare",
+   "why": "s08: пример про роды"
+  },
+  {
+   "id": 9859,
+   "col": "translation_pl",
+   "old": "postawić, zafundować",
+   "new": "zafundować, postawić",
+   "why": "s08: пример «funduje»"
+  },
+  {
+   "id": 9859,
+   "col": "translation_cs",
+   "old": "zaplatit, dát",
+   "new": "dát, zaplatit",
+   "why": "s08: пример «dá zmrzlinu»"
+  },
+  {
+   "id": 8489,
+   "col": "translation_pl",
+   "old": "rozczapierzyć, rozłożyć",
+   "new": "rozłożyć, rozczapierzyć",
+   "why": "s08: пример «rozkłada ręce»; rozczapierzyć — о пальцах"
+  },
+  {
+   "id": 706,
+   "col": "translation_uk",
+   "old": "людина, особа",
+   "new": "особа, людина",
+   "why": "s09: пример «на скільки осіб»"
+  },
+  {
+   "id": 6652,
+   "col": "translation_cs",
+   "old": "obrátit, otočit se",
+   "new": "otočit, obrátit, otočit se",
+   "why": "s09: пример «maso otoč» — переходный"
+  },
+  {
+   "id": 9771,
+   "col": "translation_pl",
+   "old": "kupujący, nabywca, kupiec",
+   "new": "kupiec, kupujący, nabywca",
+   "why": "s09: пример «kupca»"
+  },
+  {
+   "id": 9771,
+   "col": "translation_cs",
+   "old": "kupující, kupec",
+   "new": "kupec, kupující",
+   "why": "s09: пример «kupce»"
+  },
+  {
+   "id": 1104,
+   "col": "translation_ru",
+   "old": "сдавать (экзамен), снимать",
+   "new": "снимать (одежду), сдавать (экзамен)",
+   "why": "s10: пример «можешь снять пальто»"
+  },
+  {
+   "id": 1104,
+   "col": "translation_uk",
+   "old": "складати (іспит), знімати",
+   "new": "знімати (одяг), складати (іспит)",
+   "why": "s10: пример «можешь снять пальто»"
+  },
+  {
+   "id": 1104,
+   "col": "translation_en",
+   "old": "to take (an exam), to take off",
+   "new": "to take off, to take (an exam)",
+   "why": "s10: пример «можешь снять пальто»"
+  },
+  {
+   "id": 7132,
+   "col": "example_en",
+   "old": "Put out the candles before you go to bed",
+   "new": "We have to put out the candles",
+   "why": "s11: в немецком «wir müssen», без «перед сном»"
+  },
+  {
+   "id": 7132,
+   "col": "example_it",
+   "old": "Spegni le candele prima di andare a letto",
+   "new": "Dobbiamo spegnere le candele",
+   "why": "s11: в немецком «wir müssen», без «перед сном»"
+  },
+  {
+   "id": 7132,
+   "col": "example_es",
+   "old": "Apaga las velas antes de irte a la cama",
+   "new": "Tenemos que apagar las velas",
+   "why": "s11: в немецком «wir müssen», без «перед сном»"
+  },
+  {
+   "id": 7132,
+   "col": "example_fr",
+   "old": "Éteins les bougies avant d'aller te coucher",
+   "new": "Il faut éteindre les bougies",
+   "why": "s11: в немецком «wir müssen», без «перед сном»"
+  },
+  {
+   "id": 12787,
+   "col": "example_ru",
+   "old": "После выходных без детей, которые были у бабушки с дедушкой, я впервые за несколько месяцев выспался",
+   "new": "После выходных без детей, которые были у бабушки с дедушкой, я впервые за несколько месяцев чувствую себя отдохнувшим",
+   "why": "s11: слово карточки в примере"
+  },
+  {
+   "id": 8416,
+   "col": "translation_es",
+   "old": "tambalearse, dudar",
+   "new": "dudar, tambalearse",
+   "why": "s11: пример «dudo entre…»"
+  },
+  {
+   "id": 8416,
+   "col": "translation_cs",
+   "old": "vrávorat, váhat",
+   "new": "váhat, vrávorat",
+   "why": "s11: пример «váhám»"
+  },
+  {
+   "id": 18779,
+   "col": "translation_cs",
+   "old": "Štědrý den",
+   "new": "Štědrý večer, Štědrý den",
+   "why": "s11: Heiligabend — вечер; пример «Na Štědrý večer»"
+  },
+  {
+   "id": 11560,
+   "col": "translation_ru",
+   "old": "освобождающий, приносящий облегчение",
+   "new": "приносящий облегчение, освобождающий",
+   "why": "s12: пример «невероятное облегчение»"
+  },
+  {
+   "id": 2418,
+   "col": "translation_it",
+   "old": "la Terra, il suolo",
+   "new": "la terra, il suolo, la Terra",
+   "why": "s12: пример про землю для растения, не про планету"
+  },
+  {
+   "id": 2418,
+   "col": "translation_es",
+   "old": "la Tierra, el suelo",
+   "new": "la tierra, el suelo, la Tierra",
+   "why": "s12: пример про землю для растения, не про планету"
+  },
+  {
+   "id": 2418,
+   "col": "translation_fr",
+   "old": "la Terre, le sol",
+   "new": "la terre, le sol, la Terre",
+   "why": "s12: пример про землю для растения, не про планету"
+  },
+  {
+   "id": 16784,
+   "col": "translation_ru",
+   "old": "судебно-медицинский, криминалистический",
+   "new": "криминалистический, судебно-медицинский",
+   "why": "s13: пример про компьютерную криминалистику"
+  },
+  {
+   "id": 1530,
+   "col": "translation_ru",
+   "old": "внутрь, сюда",
+   "new": "внутрь, сюда, (herein!) войдите",
+   "why": "s13: пример «Войдите!», как в других языках"
+  },
+  {
+   "id": 17197,
+   "col": "translation_ru",
+   "old": "пересекать, скрещивать",
+   "new": "скрещивать, пересекать",
+   "why": "s14: пример про помесь собак"
+  },
+  {
+   "id": 17197,
+   "col": "translation_uk",
+   "old": "перетинати, схрещувати",
+   "new": "схрещувати, перетинати",
+   "why": "s14: пример про помесь собак"
+  },
+  {
+   "id": 13999,
+   "col": "example_ru",
+   "old": "Ты это слышал?",
+   "new": "Ты это заметил?",
+   "why": "s14: слово карточки в примере"
+  },
+  {
+   "id": 13999,
+   "col": "example_uk",
+   "old": "Ти це чув?",
+   "new": "Ти це помітив?",
+   "why": "s14: слово карточки в примере"
+  },
+  {
+   "id": 6418,
+   "col": "translation_tr",
+   "old": "tutmak, kavramak, (nicht fassen können) aklı almamak",
+   "new": "(nicht fassen können) aklı almamak, tutmak, kavramak",
+   "why": "пример — «Aklım almıyor»: значение из примера первым"
+  },
+  {
+   "id": 6418,
+   "col": "translation_es",
+   "old": "comprender, agarrar, (nicht fassen können) no poder creer",
+   "new": "(nicht fassen können) no poder creer, comprender, agarrar",
+   "why": "пример — «No me lo puedo creer»: значение из примера первым"
+  },
+  {
+   "id": 10391,
+   "col": "translation_pl",
+   "old": "kochanek, ukochany",
+   "new": "ukochany, kochanek",
+   "why": "пример — «z ukochanym»; kochanek — скорее любовник"
+  },
+  {
+   "id": 12482,
+   "col": "example_es",
+   "old": "Después de la operación de rodilla no puedo hacer deporte en seis semanas",
+   "new": "Después de la operación de rodilla no puedo hacer deporte durante seis semanas",
+   "why": "«en seis semanas» = через шесть недель; нужно «durante»"
+  },
+  {
+   "id": 8481,
+   "col": "translation_en",
+   "old": "to abolish, to get rid of",
+   "new": "to get rid of, to abolish",
+   "why": "пример — «got rid of»: значение из примера первым"
+  },
+  {
+   "id": 8481,
+   "col": "translation_es",
+   "old": "abolir, deshacerse de",
+   "new": "deshacerse de, abolir",
+   "why": "пример — «Nos hemos deshecho»: значение из примера первым"
+  },
+  {
+   "id": 12653,
+   "col": "example_tr",
+   "old": "Bir derin nefes alıp sakinleşmem lazım",
+   "new": "Derin bir nefes alıp sakinleşmem lazım",
+   "why": "порядок: «derin bir nefes»"
+  },
+  {
+   "id": 18925,
+   "col": "translation_tr",
+   "old": "kararmak, jeton düşmek",
+   "new": "jeton düşmek, kararmak",
+   "why": "пример — «jeton düşüyor»: значение из примера первым"
+  },
+  {
+   "id": 7136,
+   "col": "translation_es",
+   "old": "realizar, proponerse",
+   "new": "proponerse, realizar",
+   "why": "пример — «me he propuesto»: значение из примера первым"
+  },
+  {
+   "id": 7136,
+   "col": "translation_tr",
+   "old": "gerçekleştirmek, niyet etmek",
+   "new": "niyet etmek, gerçekleştirmek",
+   "why": "пример — «niyet ettim»: значение из примера первым"
+  },
+  {
+   "id": 7136,
+   "col": "translation_pl",
+   "old": "przeprowadzać, postanowić sobie",
+   "new": "postanowić sobie, przeprowadzać",
+   "why": "пример — «postanowiłem sobie»: значение из примера первым"
+  },
+  {
+   "id": 12337,
+   "col": "translation_pl",
+   "old": "zastanawiać się, łamać sobie głowę",
+   "new": "łamać sobie głowę, zastanawiać się",
+   "why": "пример — «łamiemy sobie głowę»: значение из примера первым"
+  },
+  {
+   "id": 12968,
+   "col": "example_en",
+   "old": "Only the post-mortem showed that the horse had died of poisoning",
+   "new": "Only the autopsy showed that the horse had died of poisoning",
+   "why": "в примере то же слово, что на карточке"
+  },
+  {
+   "id": 15709,
+   "col": "translation_ru",
+   "old": "мох, деньги (разг.)",
+   "new": "деньги (разг.), мох",
+   "why": "пример про деньги, а карточка показывала «мох»"
+  },
+  {
+   "id": 11854,
+   "col": "example_es",
+   "old": "En el huerto de la abuela crece col",
+   "new": "Mi abuela todavía prepara ella misma la col fermentada",
+   "why": "пример был про другое («в огороде растёт капуста»); в немецком — бабушка квасит капусту"
+  },
+  {
+   "id": 15678,
+   "col": "translation_pl",
+   "old": "letni, ciepły",
+   "new": "ciepły, letni",
+   "why": "в примере «letni» значит «летний»; слово карточки там — «ciepły»"
+  },
+  {
+   "id": 13674,
+   "col": "translation_ru",
+   "old": "надевать, ставить на огонь",
+   "new": "ставить на огонь, надевать",
+   "why": "пример про воду на плите, а карточка показывала «надевать»: значение из примера первым"
+  },
+  {
+   "id": 13674,
+   "col": "translation_uk",
+   "old": "надягати, ставити на вогонь",
+   "new": "ставити на вогонь, надягати",
+   "why": "пример про воду на плите, а карточка показывала «надевать»: значение из примера первым"
+  },
+  {
+   "id": 13674,
+   "col": "translation_tr",
+   "old": "takmak, ocağa koymak",
+   "new": "ocağa koymak, takmak",
+   "why": "пример про воду на плите, а карточка показывала «надевать»: значение из примера первым"
+  },
+  {
+   "id": 13674,
+   "col": "translation_it",
+   "old": "mettersi, mettere su (sul fornello)",
+   "new": "mettere su (sul fornello), mettersi",
+   "why": "пример про воду на плите, а карточка показывала «надевать»: значение из примера первым"
+  },
+  {
+   "id": 13674,
+   "col": "translation_es",
+   "old": "ponerse, poner a calentar",
+   "new": "poner a calentar, ponerse",
+   "why": "пример про воду на плите, а карточка показывала «надевать»: значение из примера первым"
+  },
+  {
+   "id": 13674,
+   "col": "translation_fr",
+   "old": "mettre, mettre sur le feu",
+   "new": "mettre sur le feu, mettre",
+   "why": "пример про воду на плите, а карточка показывала «надевать»: значение из примера первым"
+  },
+  {
+   "id": 17773,
+   "col": "example_fr",
+   "old": "On peut négocier le prix ?",
+   "new": "On peut négocier le prix",
+   "why": "в немецком утверждение, а не вопрос"
+  },
+  {
+   "id": 2926,
+   "col": "translation_es",
+   "old": "la injusticia, no tener razón",
+   "new": "no tener razón, la injusticia",
+   "why": "пример — «no tienes razón»: значение из примера первым"
+  },
+  {
+   "id": 8118,
+   "col": "example_fr",
+   "old": "La tache de vin rouge sur le canapé n'est pas jolie, mais avec un plaid dessus on la voit à peine",
+   "new": "La tache de vin rouge sur le canapé n'est pas jolie, mais avec une couverture dessus on la voit à peine",
+   "why": "«laid» находилось внутри «plaid», и карточка показывала «laid» вместо «pas joli»"
+  },
+  {
+   "id": 16632,
+   "col": "translation_tr",
+   "old": "taçlandırılmış, üstü",
+   "new": "taçlanmış, taçlandırılmış",
+   "why": "«üstü» — не перевод (это «сверху»); карточка показывала его"
+  },
+  {
+   "id": 7859,
+   "col": "translation_tr",
+   "old": "acele etmek, acil olmak",
+   "new": "acil olmak, acele etmek",
+   "why": "пример — «Acil değil»: значение из примера первым"
+  },
+  {
+   "id": 8537,
+   "col": "translation_tr",
+   "old": "sezgi, burun",
+   "new": "burun, sezgi",
+   "why": "пример — «burnu var»: значение из примера первым"
+  },
+  {
+   "id": 1684,
+   "col": "translation_cs",
+   "old": "hlásit, ozvat se",
+   "new": "ozvat se, hlásit",
+   "why": "пример — «Ozvi se»: значение из примера первым"
+  },
+  {
+   "id": 1684,
+   "col": "translation_tr",
+   "old": "bildirmek, haber vermek",
+   "new": "haber vermek, bildirmek",
+   "why": "пример — «haber ver»: значение из примера первым"
+  },
+  {
+   "id": 7753,
+   "col": "translation_cs",
+   "old": "postoupit, posunout se",
+   "new": "posunout se, postoupit",
+   "why": "в примере очередь продвигается — «posunout se»"
+  },
+  {
+   "id": 7753,
+   "col": "example_cs",
+   "old": "Ve frontě u stánku se zmrzlinou se už deset minut nepohneme ani o krok",
+   "new": "Ve frontě u stánku se zmrzlinou se už deset minut neposuneme ani o krok",
+   "why": "слово карточки в примере («nepohneme» → «neposuneme»)"
+  },
+  {
+   "id": 7818,
+   "col": "example_en",
+   "old": "Your idea borders on madness!",
+   "new": "What you're doing borders on madness",
+   "why": "в немецком — «то, что ты делаешь», а не «твоя идея»"
+  },
+  {
+   "id": 7818,
+   "col": "example_it",
+   "old": "La tua idea rasenta la follia!",
+   "new": "Quello che fai rasenta la follia",
+   "why": "в немецком — «то, что ты делаешь», а не «твоя идея»"
+  },
+  {
+   "id": 7818,
+   "col": "example_es",
+   "old": "¡Tu idea raya en la locura!",
+   "new": "Lo que haces raya en la locura",
+   "why": "в немецком — «то, что ты делаешь», а не «твоя идея»"
+  },
+  {
+   "id": 7818,
+   "col": "example_fr",
+   "old": "Ton idée frise la folie !",
+   "new": "Ce que tu fais frise la folie",
+   "why": "в немецком — «то, что ты делаешь», а не «твоя идея»"
+  },
+  {
+   "id": 17969,
+   "col": "translation_it",
+   "old": "l'acido, l'acidità",
+   "new": "l'acidità, l'acido",
+   "why": "пример — «acidità»: значение из примера первым"
+  },
+  {
+   "id": 17969,
+   "col": "translation_fr",
+   "old": "l'acide, l'acidité",
+   "new": "l'acidité, l'acide",
+   "why": "пример — «acidité»: значение из примера первым"
+  },
+  {
+   "id": 11719,
+   "col": "translation_ru",
+   "old": "забивать скот, резать животное",
+   "new": "резать животное, забивать скот",
+   "why": "пример — «резали гуся»: значение из примера первым"
+  },
+  {
+   "id": 11719,
+   "col": "translation_uk",
+   "old": "забивати худобу, різати тварину",
+   "new": "різати тварину, забивати худобу",
+   "why": "пример — «різали гусака»: значение из примера первым"
+  },
+  {
+   "id": 11465,
+   "col": "translation_ru",
+   "old": "жадный до, страстно желающий, рваться (к чему-то)",
+   "new": "рваться (к чему-то), жадный до, страстно желающий",
+   "why": "пример — «рвётся»: значение из примера первым"
+  },
+  {
+   "id": 1064,
+   "col": "translation_ru",
+   "old": "желать, хотеть",
+   "new": "хотеть, желать",
+   "why": "пример — «что ты хочешь на день рождения»: значение из примера первым"
+  },
+  {
+   "id": 1064,
+   "col": "translation_uk",
+   "old": "бажати, хотіти",
+   "new": "хотіти, бажати",
+   "why": "пример — «что ты хочешь на день рождения»: значение из примера первым"
+  },
+  {
+   "id": 1064,
+   "col": "translation_tr",
+   "old": "dilemek, istemek",
+   "new": "istemek, dilemek",
+   "why": "пример — «что ты хочешь на день рождения»: значение из примера первым"
+  },
+  {
+   "id": 1064,
+   "col": "translation_pl",
+   "old": "życzyć, chcieć",
+   "new": "chcieć, życzyć",
+   "why": "пример — «что ты хочешь на день рождения»: значение из примера первым"
+  },
+  {
+   "id": 1064,
+   "col": "translation_it",
+   "old": "augurare, desiderare, volere",
+   "new": "volere, augurare, desiderare",
+   "why": "пример — «что ты хочешь на день рождения»: значение из примера первым"
+  },
+  {
+   "id": 1064,
+   "col": "translation_cs",
+   "old": "přát, přát si",
+   "new": "přát si, přát",
+   "why": "пример — «что ты хочешь на день рождения»: значение из примера первым"
+  },
+  {
+   "id": 6486,
+   "col": "translation_cs",
+   "old": "stát na stráži, hlídat",
+   "new": "bdít, stát na stráži, hlídat",
+   "why": "пример — «bděla» (у постели больного); этого значения не было"
+  },
+  {
+   "id": 18386,
+   "col": "example_en",
+   "old": "The spare room still needs doing up before the guests arrive",
+   "new": "I still have to get the room ready before the guests arrive",
+   "why": "«doing up» — это ремонт; в немецком «подготовить комнату»"
+  },
+  {
+   "id": 7936,
+   "col": "translation_es",
+   "old": "clavar, atar",
+   "new": "atar, clavar",
+   "why": "пример — «no me ates a eso»: значение из примера первым"
+  },
+  {
+   "id": 7665,
+   "col": "translation_it",
+   "old": "regnare, usare",
+   "new": "regnare, (Gnade walten lassen) usare clemenza",
+   "why": "карточка показывала «regnare», а пример — «usa un po' di clemenza»; как в испанском"
+  },
+  {
+   "id": 7282,
+   "col": "example_fr",
+   "old": "On échange nos numéros ?",
+   "new": "On échange nos numéros",
+   "why": "в немецком утверждение, а не вопрос"
+  },
+  {
+   "id": 15094,
+   "col": "example_fr",
+   "old": "En chimie, on mélange un acide et une base",
+   "new": "Au labo, on mélange un acide et une base",
+   "why": "в немецком — «в лаборатории», а не «в химии»"
+  },
+  {
+   "id": 16345,
+   "col": "translation_tr",
+   "old": "işgal etmek, yer tutmak",
+   "new": "yer tutmak, işgal etmek",
+   "why": "пример — «yer tutar mısın» (занять место): значение из примера первым"
+  },
+  {
+   "id": 10917,
+   "col": "translation_cs",
+   "old": "prosit, žadonit",
+   "new": "žadonit, prosit",
+   "why": "пример — «žadoní»; «prosit» сходился с «prostě»"
+  },
+  {
+   "id": 16812,
+   "col": "example_fr",
+   "old": "Quand on m'a volé mon vélo pour la troisième fois, mon père voulait se faire justice soi-même, mais on l'a calmé",
+   "new": "Quand on m'a volé mon vélo pour la troisième fois, mon père voulait se faire justice lui-même, mais on l'a calmé",
+   "why": "грамматика: «se faire justice lui-même» (подлежащее — отец)"
+  },
+  {
+   "id": 471,
+   "col": "translation_uk",
+   "old": "немає, жоден",
+   "new": "жоден, немає",
+   "why": "пример — «Жодних проблем»: значение из примера первым"
+  },
+  {
+   "id": 7929,
+   "col": "translation_ru",
+   "old": "объединиться, сложиться (деньгами)",
+   "new": "сложиться (деньгами), объединиться",
+   "why": "пример — скидываемся на подарок: значение из примера первым"
+  },
+  {
+   "id": 7929,
+   "col": "translation_pl",
+   "old": "połączyć siły, złożyć się",
+   "new": "złożyć się, połączyć siły",
+   "why": "пример — скидываемся на подарок: значение из примера первым"
+  },
+  {
+   "id": 7929,
+   "col": "translation_tr",
+   "old": "güçlerini birleştirmek, bir araya gelmek",
+   "new": "bir araya gelmek, güçlerini birleştirmek",
+   "why": "пример — скидываемся на подарок: значение из примера первым"
+  },
+  {
+   "id": 7963,
+   "col": "translation_es",
+   "old": "la escolta, el acompañamiento",
+   "new": "la escolta, el acompañamiento, (das letzte Geleit geben) acompañar en su último viaje",
+   "why": "в примере — «acompañar en su último viaje»; как в итальянском"
+  },
+  {
+   "id": 7543,
+   "col": "translation_uk",
+   "old": "мати схильність, схиляти",
+   "new": "бути схильним, мати схильність, схиляти",
+   "why": "пример — «схильний купувати»; как в русском «быть склонным»"
+  },
+  {
+   "id": 12477,
+   "col": "example_ru",
+   "old": "На трассе произошла авария, поэтому пробка",
+   "new": "На трассе произошла авария",
+   "why": "в немецком нет «поэтому пробка»"
+  },
+  {
+   "id": 12477,
+   "col": "example_uk",
+   "old": "На трасі сталася аварія, тому затор",
+   "new": "На трасі сталася аварія",
+   "why": "в немецком нет «тому затор»"
+  },
+  {
+   "id": 10457,
+   "col": "example_uk",
+   "old": "Я тужу за своєю батьківщиною",
+   "new": "Мене охоплює туга за батьківщиною",
+   "why": "слова «туга» не было в примере"
+  },
+  {
+   "id": 12910,
+   "col": "example_tr",
+   "old": "Kocam mangal yaparken elini yaktı, şimdi suyla soğutuyor",
+   "new": "Mangal yaparken kocamın elinde bir yanık oluştu, şimdi suyla soğutuyor",
+   "why": "слова «yanık» не было в примере"
+  },
+  {
+   "id": 8362,
+   "col": "translation_uk",
+   "old": "побачити, (das Licht der Welt erblicken) з'явитися на світ",
+   "new": "(das Licht der Welt erblicken) з'явитися на світ, побачити",
+   "why": "в примере идиома, карточка показывала «побачити»"
+  },
+  {
+   "id": 8362,
+   "col": "translation_it",
+   "old": "scorgere, (das Licht der Welt erblicken) venire alla luce",
+   "new": "(das Licht der Welt erblicken) venire alla luce, scorgere",
+   "why": "в примере идиома, карточка показывала «scorgere»"
+  },
+  {
+   "id": 8362,
+   "col": "translation_es",
+   "old": "divisar, (das Licht der Welt erblicken) ver la luz",
+   "new": "(das Licht der Welt erblicken) ver la luz, divisar",
+   "why": "в примере идиома, карточка показывала «divisar»"
+  },
+  {
+   "id": 8362,
+   "col": "translation_fr",
+   "old": "apercevoir, (das Licht der Welt erblicken) voir le jour",
+   "new": "(das Licht der Welt erblicken) voir le jour, apercevoir",
+   "why": "в примере идиома, карточка показывала «apercevoir»"
+  },
+  {
+   "id": 12356,
+   "col": "example_ru",
+   "old": "В пятьдесят тётя наконец ушла из офиса и теперь открывает маленькую гостиницу",
+   "new": "В пятьдесят тётя наконец решилась уйти из офиса и теперь открывает маленькую гостиницу",
+   "why": "карточка показывала «уход», которого нет в примере"
+  },
+  {
+   "id": 284,
+   "col": "example_tr",
+   "old": "Soracağın bir şey var mı?",
+   "new": "Sormak istediğin bir soru var mı?",
+   "why": "слова «soru» не было в примере"
+  },
+  {
+   "id": 599,
+   "col": "example_uk",
+   "old": "Опівдні я обідаю в їдальні",
+   "new": "О полудні я обідаю в їдальні",
+   "why": "карточка показывала «обід» вместо «полудень»"
+  },
+  {
+   "id": 1136,
+   "col": "translation_ru",
+   "old": "страх, боязнь",
+   "new": "(Angst haben) бояться, страх, боязнь",
+   "why": "в примере «боюсь», карточка показывала «страх»"
+  },
+  {
+   "id": 1136,
+   "col": "translation_uk",
+   "old": "страх, (Angst haben) боятися",
+   "new": "(Angst haben) боятися, страх",
+   "why": "в примере «боюся», карточка показывала «страх»"
+  },
+  {
+   "id": 1136,
+   "col": "translation_pl",
+   "old": "strach, lęk, (Angst haben) bać się",
+   "new": "(Angst haben) bać się, strach, lęk",
+   "why": "в примере «boję się», карточка показывала «strach»"
+  },
+  {
+   "id": 7105,
+   "col": "translation_ru",
+   "old": "незаметный, неприметно",
+   "new": "неприметный, незаметный, неприметно",
+   "why": "в примере прилагательное, карточка показывала наречие"
+  },
+  {
+   "id": 8166,
+   "col": "example_it",
+   "old": "In quegli anni ha vissuto momenti molto duri",
+   "new": "In quegli anni ha attraversato momenti molto duri",
+   "why": "карточка показывала «attraversare», которого нет в примере"
+  },
+  {
+   "id": 8166,
+   "col": "example_fr",
+   "old": "Pendant ces années, il a vécu des moments très durs",
+   "new": "Pendant ces années, il a traversé des moments très durs",
+   "why": "карточка показывала «traverser», которого нет в примере"
+  },
+  {
+   "id": 2057,
+   "col": "example_uk",
+   "old": "Поїзд запізнюється",
+   "new": "Потяг іде із запізненням",
+   "why": "слова «запізнення» не было в примере"
+  },
+  {
+   "id": 14219,
+   "col": "translation_ru",
+   "old": "зачитывать, (sich verlesen) ошибиться при чтении",
+   "new": "(sich verlesen) неправильно прочитать, зачитывать",
+   "why": "в примере «неправильно прочитал», карточка показывала «зачитывать»"
+  },
+  {
+   "id": 14219,
+   "col": "translation_it",
+   "old": "leggere ad alta voce, (sich verlesen) leggere male",
+   "new": "(sich verlesen) leggere male, leggere ad alta voce",
+   "why": "в примере «ho letto male», карточка показывала «читать вслух»"
+  },
+  {
+   "id": 14219,
+   "col": "translation_es",
+   "old": "leer en voz alta, (sich verlesen) leer mal",
+   "new": "(sich verlesen) leer mal, leer en voz alta",
+   "why": "в примере «he leído mal», карточка показывала «читать вслух»"
+  },
+  {
+   "id": 14219,
+   "col": "translation_fr",
+   "old": "lire à haute voix, (sich verlesen) mal lire",
+   "new": "(sich verlesen) mal lire, lire à haute voix",
+   "why": "в примере «j'ai mal lu», карточка показывала «читать вслух»"
+  },
+  {
+   "id": 14219,
+   "col": "translation_cs",
+   "old": "přečíst nahlas, (sich verlesen) přečíst se",
+   "new": "(sich verlesen) přečíst se, přečíst nahlas",
+   "why": "в примере «přečetl jsem se», карточка показывала «читать вслух»"
+  },
+  {
+   "id": 18028,
+   "col": "translation_ru",
+   "old": "исследовать, искать",
+   "new": "искать, исследовать",
+   "why": "в примере «ищет», карточка показывала «исследовать»"
+  },
+  {
+   "id": 18028,
+   "col": "translation_tr",
+   "old": "araştırmak, aramak",
+   "new": "aramak, araştırmak",
+   "why": "в примере «arıyor», карточка показывала «araştırmak»"
+  },
+  {
+   "id": 17165,
+   "col": "translation_uk",
+   "old": "падіння, збій",
+   "new": "збій, падіння",
+   "why": "в примере «збою», карточка показывала «падіння»"
+  },
+  {
+   "id": 7433,
+   "col": "example_tr",
+   "old": "Cips paketini açar açmaz bütün çocuklar koşup geldi",
+   "new": "Cips paketini açar açmaz bütün çocuklar koşarak buraya geldi",
+   "why": "слова «buraya» не было в примере"
+  },
+  {
+   "id": 7511,
+   "col": "example_tr",
+   "old": "Mezuniyet töreninde müdür her öğrenciye diplomasını kendi eliyle verdi",
+   "new": "Mezuniyet töreninde müdür her öğrenciye diplomasını bizzat takdim etti",
+   "why": "слова «takdim etmek» не было в примере"
+  },
+  {
+   "id": 6347,
+   "col": "translation_pl",
+   "old": "znany",
+   "new": "znajomy, znany",
+   "why": "в примере «znajoma», карточка показывала «znany» («известный»)"
+  },
+  {
+   "id": 10493,
+   "col": "example_tr",
+   "old": "Bana bunu söylediğinde çok şaşırmıştım",
+   "new": "Bunu bana anlattığında gerçekten çok şaşkındım",
+   "why": "слова «şaşkın» не было в примере"
+  },
+  {
+   "id": 2628,
+   "col": "translation_uk",
+   "old": "гриміти, тріщати",
+   "new": "гриміти, тріснути",
+   "why": "в примере «тріснуло», карточка показывала «гриміти»"
+  },
+  {
+   "id": 7611,
+   "col": "translation_ru",
+   "old": "вниз, под уклон",
+   "new": "вниз, под горку, под уклон",
+   "why": "в примере «под горку», карточка показывала «вниз»"
+  },
+  {
+   "id": 8096,
+   "col": "translation_ru",
+   "old": "расколотый, разделившийся",
+   "new": "разделившийся, расколотый",
+   "why": "в примере «разделились», карточка показывала «расколотый»"
+  },
+  {
+   "id": 10360,
+   "col": "translation_es",
+   "old": "desagradable, malo",
+   "new": "malo, desagradable",
+   "why": "в примере «mal presentimiento», карточка показывала «desagradable»"
+  },
+  {
+   "id": 10360,
+   "col": "example_tr",
+   "old": "Bu konuda içim hiç rahat değil",
+   "new": "İçimde kötü bir his var",
+   "why": "слова «kötü» не было в примере"
+  },
+  {
+   "id": 15646,
+   "col": "example_it",
+   "old": "Quel vecchio ronzino non riesce più a tirare il carro",
+   "new": "A caval donato non si guarda in bocca",
+   "why": "пример расходился с немецкой пословицей"
+  },
+  {
+   "id": 15646,
+   "col": "translation_it",
+   "old": "il ronzino, il cavallo",
+   "new": "il cavallo, il ronzino",
+   "why": "в пословице «cavallo», не «ronzino»"
+  },
+  {
+   "id": 15646,
+   "col": "translation_ru",
+   "old": "кляча, конь",
+   "new": "конь, кляча",
+   "why": "в пословице «коню», карточка показывала «кляча»"
+  },
+  {
+   "id": 15646,
+   "col": "translation_uk",
+   "old": "шкапа, кінь",
+   "new": "кінь, шкапа",
+   "why": "в пословице «коню», карточка показывала «шкапа»"
+  },
+  {
+   "id": 15646,
+   "col": "translation_cs",
+   "old": "herka, kůň",
+   "new": "kůň, herka",
+   "why": "в пословице «koni», карточка показывала «herka»"
+  },
+  {
+   "id": 14899,
+   "col": "example_ru",
+   "old": "Новый парень моей сестры — очень приятный тип",
+   "new": "Новый друг моей сестры — очень приятный парень",
+   "why": "«парень» в примере стоял не на месте слова «Typ»"
+  },
+  {
+   "id": 14899,
+   "col": "example_uk",
+   "old": "Новий хлопець моєї сестри — дуже приємний тип",
+   "new": "Новий друг моєї сестри — дуже приємний хлопець",
+   "why": "«хлопець» в примере стоял не на месте слова «Typ»"
+  },
+  {
+   "id": 2439,
+   "col": "translation_ru",
+   "old": "обостряться, выходить из-под контроля",
+   "new": "выходить из-под контроля, обостряться",
+   "why": "в примере «вышла из-под контроля», карточка показывала «обостряться»"
+  },
+  {
+   "id": 2439,
+   "col": "translation_uk",
+   "old": "загострюватися, виходити з-під контролю",
+   "new": "виходити з-під контролю, загострюватися",
+   "why": "в примере «вийшла з-під контролю», карточка показывала «загострюватися»"
+  },
+  {
+   "id": 2491,
+   "col": "example_tr",
+   "old": "Üç retten sonra gerçekten bıktım",
+   "new": "Üç retten sonra gerçekten hayal kırıklığına uğradım",
+   "why": "в примере было «bıktım» вместо показанного значения"
+  },
+  {
+   "id": 17240,
+   "col": "translation_en",
+   "old": "to crash, to fall",
+   "new": "to fall, to crash",
+   "why": "в примере телефон падает, карточка показывала компьютерное «to crash»"
+  },
+  {
+   "id": 17240,
+   "col": "translation_tr",
+   "old": "çökmek, düşmek",
+   "new": "düşmek, çökmek",
+   "why": "в примере «düştü», карточка показывала «çökmek» (о компьютере)"
+  },
+  {
+   "id": 17240,
+   "col": "translation_pl",
+   "old": "zawiesić się, spaść",
+   "new": "spaść, zawiesić się",
+   "why": "в примере «spadł», карточка показывала «zawiesić się» (о компьютере)"
+  },
+  {
+   "id": 17240,
+   "col": "translation_fr",
+   "old": "planter, s'écraser, faire une chute",
+   "new": "faire une chute, s'écraser, planter",
+   "why": "в примере «a fait la chute», карточка показывала «planter» (о компьютере)"
+  },
+  {
+   "id": 2039,
+   "col": "translation_tr",
+   "old": "ertelemek, bir yere koyup kaybetmek",
+   "new": "bir yere koyup kaybetmek, ertelemek",
+   "why": "в примере «положил куда-то», карточка показывала «ertelemek» (перенести срок)"
+  },
+  {
+   "id": 2039,
+   "col": "translation_it",
+   "old": "rinviare, smarrire, mettere da qualche parte",
+   "new": "mettere da qualche parte, smarrire, rinviare",
+   "why": "в примере «ho messo da qualche parte», карточка показывала «rinviare» (перенести срок)"
+  },
+  {
+   "id": 2845,
+   "col": "translation_it",
+   "old": "svolgersi, tenersi",
+   "new": "tenersi, svolgersi",
+   "why": "в примере «si tiene», карточка показывала «svolgersi»"
+  },
+  {
+   "id": 7615,
+   "col": "example_tr",
+   "old": "Köpek kediyi bahçeden kovalıyor",
+   "new": "Köpek kediyi bahçeden kovuyor",
+   "why": "«kovalıyor» значит «гонится», а не «прогоняет»"
+  },
+  {
+   "id": 13362,
+   "col": "translation_ru",
+   "old": "это, этот",
+   "new": "(dies und das) то да сё, это, этот",
+   "why": "в примере идиома «то да сё», карточка показывала «это»"
+  },
+  {
+   "id": 13362,
+   "col": "translation_cs",
+   "old": "toto, tento",
+   "new": "(dies und das) tohle a tamto, toto, tento",
+   "why": "в примере идиома «tohle a tamto», карточка показывала «toto»"
+  },
+  {
+   "id": 13362,
+   "col": "translation_tr",
+   "old": "bu",
+   "new": "(dies und das) şunu bunu, bu",
+   "why": "в примере идиома «şunu bunu», карточка показывала «bu»"
+  },
+  {
+   "id": 11552,
+   "col": "translation_ru",
+   "old": "насмехаться, (jeder Beschreibung spotten) не поддаваться описанию",
+   "new": "(jeder Beschreibung spotten) не поддаваться описанию, насмехаться",
+   "why": "в примере идиома, карточка показывала «насмехаться»"
+  },
+  {
+   "id": 11552,
+   "col": "translation_uk",
+   "old": "глузувати, (jeder Beschreibung spotten) не піддаватися опису",
+   "new": "(jeder Beschreibung spotten) не піддаватися опису, глузувати",
+   "why": "в примере идиома, карточка показывала «глузувати»"
+  },
+  {
+   "id": 3028,
+   "col": "translation_en",
+   "old": "to feel good, to feel at home",
+   "new": "to feel at home, to feel good",
+   "why": "в примере «feel at home», карточка показывала «to feel good»"
+  },
+  {
+   "id": 3028,
+   "col": "translation_it",
+   "old": "sentirsi bene, sentirsi a casa",
+   "new": "sentirsi a casa, sentirsi bene",
+   "why": "в примере «mi sento a casa», карточка показывала «sentirsi bene»"
+  },
+  {
+   "id": 3028,
+   "col": "translation_es",
+   "old": "sentirse bien, sentirse como en casa",
+   "new": "sentirse como en casa, sentirse bien",
+   "why": "в примере «me siento como en casa», карточка показывала «sentirse bien»"
+  },
+  {
+   "id": 1174,
+   "col": "translation_pl",
+   "old": "uważać, pilnować",
+   "new": "pilnować, uważać",
+   "why": "в примере «popilnuj», карточка показывала «uważać»"
+  },
+  {
+   "id": 1174,
+   "col": "translation_es",
+   "old": "tener cuidado, cuidar",
+   "new": "cuidar, tener cuidado",
+   "why": "в примере «cuida», карточка показывала «tener cuidado»"
+  },
+  {
+   "id": 11212,
+   "col": "example_ru",
+   "old": "Наша собака скулит у двери, как только слышит мои шаги на лестнице",
+   "new": "Наша собака скулит у двери, как только слышит мой ключ в замке",
+   "why": "пример расходился с немецким: шаги вместо ключа"
+  },
+  {
+   "id": 11212,
+   "col": "example_uk",
+   "old": "Наш пес скавулить біля дверей, щойно чує мої кроки на сходах",
+   "new": "Наш пес скавулить біля дверей, щойно чує мій ключ у замку",
+   "why": "пример расходился с немецким: кроки замість ключа"
+  },
+  {
+   "id": 10253,
+   "col": "example_en",
+   "old": "The film really moved me",
+   "new": "The film really touched me",
+   "why": "карточка показывала «to touch», в примере было «moved»"
+  },
+  {
+   "id": 10253,
+   "col": "example_it",
+   "old": "Il film mi ha commosso molto",
+   "new": "Il film mi ha toccato molto",
+   "why": "карточка показывала «toccare», в примере было «commosso»"
+  },
+  {
+   "id": 10253,
+   "col": "example_fr",
+   "old": "Le film m'a beaucoup ému",
+   "new": "Le film m'a beaucoup touché",
+   "why": "карточка показывала «toucher», в примере было «ému»"
+  },
+  {
+   "id": 15073,
+   "col": "translation_es",
+   "old": "la asociación, la colaboración, la relación de pareja",
+   "new": "la relación de pareja, la asociación, la colaboración",
+   "why": "в примере пара, карточка показывала «la asociación» (объединение)"
+  },
+  {
+   "id": 14318,
+   "col": "example_it",
+   "old": "Il latore della lettera aspetta una risposta davanti alla porta",
+   "new": "Il latore della torta di compleanno ha suonato alla porta sbagliata, e la vicina era felicissima",
+   "why": "пример расходился с немецким: письмо вместо торта"
+  },
+  {
+   "id": 14318,
+   "col": "example_es",
+   "old": "El portador de la carta espera una respuesta delante de la puerta",
+   "new": "El portador de la tarta de cumpleaños llamó a la puerta equivocada, y la vecina se puso contentísima",
+   "why": "пример расходился с немецким: письмо вместо торта"
+  },
+  {
+   "id": 7362,
+   "col": "translation_cs",
+   "old": "předvést, namluvit",
+   "new": "namluvit, předvést",
+   "why": "в примере «nenamlouvej si», карточка показывала «předvést» (показать)"
+  },
+  {
+   "id": 15591,
+   "col": "example_fr",
+   "old": "Les moineaux se disputent les miettes sur la terrasse du café",
+   "new": "Que ces deux-là vont se marier, même les moineaux sur les toits le savent déjà",
+   "why": "пример расходился с немецким: воробьи дерутся за крошки"
+  },
+  {
+   "id": 7850,
+   "col": "translation_ru",
+   "old": "израсходованный, закончившийся",
+   "new": "закончившийся, израсходованный",
+   "why": "в примере «закончился», карточка показывала «израсходованный»"
+  },
+  {
+   "id": 11410,
+   "col": "translation_uk",
+   "old": "тяма, свідомість, (zur Besinnung kommen) взятися за розум",
+   "new": "(zur Besinnung kommen) взятися за розум, тяма, свідомість",
+   "why": "в примере «взявся за розум», карточка показывала «тяма»"
+  },
+  {
+   "id": 10064,
+   "col": "example_es",
+   "old": "Ten cuidado, la carretera está helada",
+   "new": "Sé prudente, la carretera está helada",
+   "why": "в примере не было ни одного варианта слова"
+  },
+  {
+   "id": 10064,
+   "col": "translation_es",
+   "old": "cuidadoso, prudente",
+   "new": "prudente, cuidadoso",
+   "why": "в примере «prudente»"
+  },
+  {
+   "id": 18924,
+   "col": "translation_pl",
+   "old": "być obecnym, być na miejscu",
+   "new": "być tam, być obecnym, być na miejscu",
+   "why": "в примере «byłem tam», карточка показывала «być obecnym»"
+  },
+  {
+   "id": 7129,
+   "col": "translation_cs",
+   "old": "projít, zvládnout, (mit Geld) vyjít",
+   "new": "(mit Geld) vyjít, projít, zvládnout",
+   "why": "в примере «vyjde do konce měsíce», карточка показывала «projít»"
+  },
+  {
+   "id": 1637,
+   "col": "translation_ru",
+   "old": "сокращать, укорачивать",
+   "new": "укорачивать, сокращать",
+   "why": "в примере брюки «укоротить», карточка показывала «сокращать»"
+  },
+  {
+   "id": 1637,
+   "col": "translation_uk",
+   "old": "скорочувати, вкорочувати",
+   "new": "вкорочувати, скорочувати",
+   "why": "в примере штани «вкоротити», карточка показывала «скорочувати»"
+  },
+  {
+   "id": 11808,
+   "col": "translation_pl",
+   "old": "menu, zestaw obiadowy",
+   "new": "zestaw obiadowy, menu",
+   "why": "в примере «zestaw», карточка показывала «menu»"
+  },
+  {
+   "id": 12713,
+   "col": "translation_en",
+   "old": "drunkenness, high, (den Rausch ausschlafen) to sleep it off",
+   "new": "(den Rausch ausschlafen) to sleep it off, drunkenness, high",
+   "why": "в примере «slept it off», карточка показывала «drunkenness»"
+  },
+  {
+   "id": 16801,
+   "col": "translation_tr",
+   "old": "ele geçirmek, kapmak",
+   "new": "kapmak, ele geçirmek",
+   "why": "в примере «kapıyor», карточка показывала «ele geçirmek»"
+  },
+  {
+   "id": 16801,
+   "col": "translation_cs",
+   "old": "unést, zabrat",
+   "new": "zabrat, unést",
+   "why": "в примере «zabere», карточка показывала «unést» (похитить)"
+  },
+  {
+   "id": 1673,
+   "col": "translation_cs",
+   "old": "mužský, mužný, (bei Tieren) samec",
+   "new": "(bei Tieren) samec, mužský, mužný",
+   "why": "в примере о кошках «samci», карточка показывала «mužský»"
+  },
+  {
+   "id": 16180,
+   "col": "translation_ru",
+   "old": "обезглавить, сыграть головой",
+   "new": "сыграть головой, обезглавить",
+   "why": "в примере футбол, карточка показывала «обезглавить»"
+  },
+  {
+   "id": 16180,
+   "col": "translation_tr",
+   "old": "başını kesmek, kafa vurmak",
+   "new": "kafa vurmak, başını kesmek",
+   "why": "в примере футбол, карточка показывала «başını kesmek»"
+  },
+  {
+   "id": 16180,
+   "col": "translation_fr",
+   "old": "décapiter, faire une tête",
+   "new": "faire une tête, décapiter",
+   "why": "в примере «a fait une tête», карточка показывала «décapiter»"
+  },
+  {
+   "id": 7073,
+   "col": "translation_ru",
+   "old": "вмешиваться, лезть не в своё дело",
+   "new": "лезть не в своё дело, вмешиваться",
+   "why": "в примере «не лезь», карточка показывала «вмешиваться»"
+  },
+  {
+   "id": 12814,
+   "col": "translation_ru",
+   "old": "вводить, давать",
+   "new": "давать, вводить",
+   "why": "в примере «даёт лекарства», карточка показывала «вводить»"
+  },
+  {
+   "id": 12814,
+   "col": "translation_uk",
+   "old": "вводити, давати",
+   "new": "давати, вводити",
+   "why": "в примере «дає ліки», карточка показывала «вводити»"
+  },
+  {
+   "id": 345,
+   "col": "translation_tr",
+   "old": "inanmak, sanmak",
+   "new": "sanmak, inanmak",
+   "why": "в примере «sanırım», карточка показывала «inanmak»"
+  },
+  {
+   "id": 13811,
+   "col": "translation_ru",
+   "old": "Бог, божество",
+   "new": "Бог, (Ach Gott!) Боже, божество",
+   "why": "в примере «Ах Боже», карточка показывала «божество»"
+  },
+  {
+   "id": 13811,
+   "col": "translation_uk",
+   "old": "Бог, божество",
+   "new": "Бог, (Ach Gott!) Боже, божество",
+   "why": "в примере «Ах Боже», карточка показывала «божество»"
+  },
+  {
+   "id": 11382,
+   "col": "translation_uk",
+   "old": "злива, дрож",
+   "new": "злива, короткочасний дощ, дрож",
+   "why": "в примере «короткочасні дощі», такого варианта в ячейке не было"
+  },
+  {
+   "id": 8109,
+   "col": "example_fr",
+   "old": "Après le repas, c'est moi qui débarrasse la table",
+   "new": "Après le repas, on débarrasse la table",
+   "why": "в немецком «мы убираем», а не «я»"
+  },
+  {
+   "id": 8973,
+   "col": "translation_uk",
+   "old": "займатися, чинити",
+   "new": "чинити, займатися",
+   "why": "в примере «чинять тиск», карточка показывала «займатися»"
+  },
+  {
+   "id": 8973,
+   "col": "translation_tr",
+   "old": "uygulamak, icra etmek, (Druck) yapmak",
+   "new": "(Druck) yapmak, uygulamak, icra etmek",
+   "why": "в примере «baskı yapıyor», карточка показывала «uygulamak»"
+  },
+  {
+   "id": 8193,
+   "col": "translation_uk",
+   "old": "сідати (після прання), зменшуватися",
+   "new": "зменшуватися, сідати (після прання)",
+   "why": "в примере сбережения «зменшуються», карточка показывала «сідати (після прання)»"
+  },
+  {
+   "id": 8193,
+   "col": "translation_ru",
+   "old": "садиться (при стирке), уменьшаться",
+   "new": "уменьшаться, садиться (при стирке)",
+   "why": "в примере сбережения «уменьшаются»; тот же порядок, что в украинском"
+  },
+  {
+   "id": 15614,
+   "col": "translation_ru",
+   "old": "хлынуть, валить толпой",
+   "new": "валить толпой, хлынуть",
+   "why": "в примере «толпой валят», карточка показывала «хлынуть»"
+  },
+  {
+   "id": 18254,
+   "col": "translation_uk",
+   "old": "глечик, кухоль",
+   "new": "кухоль, глечик",
+   "why": "в примере пиво «з кухля», карточка показывала «глечик»"
+  },
+  {
+   "id": 18254,
+   "col": "translation_pl",
+   "old": "dzban, kufel",
+   "new": "kufel, dzban",
+   "why": "в примере пиво «z kufla», карточка показывала «dzban»"
+  },
+  {
+   "id": 7124,
+   "col": "example_uk",
+   "old": "Спочатку я хотів залишитися лише на рік",
+   "new": "Початково я хотів залишитися лише на рік",
+   "why": "в примере не было ни одного варианта слова"
+  },
+  {
+   "id": 12398,
+   "col": "example_it",
+   "old": "In vacanza ogni mattina andiamo in canoa sul lago",
+   "new": "In vacanza ogni mattina pagaiamo un po' sul lago",
+   "why": "в примере не было слова «pagaiare»"
+  },
+  {
+   "id": 2988,
+   "col": "translation_ru",
+   "old": "проходить мимо, заходить",
+   "new": "заходить, проходить мимо",
+   "why": "в примере «зайду в булочную», карточка показывала «проходить мимо»"
+  },
+  {
+   "id": 2988,
+   "col": "translation_uk",
+   "old": "проходити повз, заходити",
+   "new": "заходити, проходити повз",
+   "why": "в примере «зайду до пекарні», карточка показывала «проходити повз»"
+  },
+  {
+   "id": 2988,
+   "col": "translation_it",
+   "old": "passare davanti, passare",
+   "new": "passare, passare davanti",
+   "why": "в примере «passo dal fornaio», карточка показывала «passare davanti»"
+  },
+  {
+   "id": 2988,
+   "col": "translation_es",
+   "old": "pasar por delante, pasar",
+   "new": "pasar, pasar por delante",
+   "why": "в примере «paso por la panadería», карточка показывала «pasar por delante»"
+  },
+  {
+   "id": 2988,
+   "col": "translation_fr",
+   "old": "passer devant, passer",
+   "new": "passer, passer devant",
+   "why": "в примере «je passerai à la boulangerie», карточка показывала «passer devant»"
+  },
+  {
+   "id": 13740,
+   "col": "translation_uk",
+   "old": "фарбуватися, робити макіяж",
+   "new": "робити макіяж, фарбуватися",
+   "why": "в примере «зроблять макіяж», карточка показывала «фарбуватися»"
+  },
+  {
+   "id": 15993,
+   "col": "example_tr",
+   "old": "Emrindeyim",
+   "new": "Hizmetindeyim",
+   "why": "в примере «emrindeyim», карточка показывала «hizmet»"
+  },
+  {
+   "id": 7744,
+   "col": "translation_cs",
+   "old": "dovést, zavést",
+   "new": "(wo soll das hinführen) kam to povede, dovést, zavést",
+   "why": "в примере идиома «kam to povede», карточка показывала «dovést»"
+  },
+  {
+   "id": 7231,
+   "col": "translation_uk",
+   "old": "впускати, втягуватися",
+   "new": "втягуватися, впускати",
+   "why": "в примере «не втягуюся в угоду», карточка показывала «впускати»"
+  },
+  {
+   "id": 7231,
+   "col": "translation_pl",
+   "old": "wpuszczać, wdawać się",
+   "new": "wdawać się, wpuszczać",
+   "why": "в примере «nie wdaję się», карточка показывала «wpuszczać»"
+  },
+  {
+   "id": 7231,
+   "col": "translation_es",
+   "old": "dejar entrar, meterse en",
+   "new": "meterse en, dejar entrar",
+   "why": "в примере «no me meto», карточка показывала «dejar entrar»"
+  },
+  {
+   "id": 6518,
+   "col": "translation_uk",
+   "old": "супроводжувати, проводжати",
+   "new": "проводжати, супроводжувати",
+   "why": "в примере «проведу», карточка показывала «супроводжувати»"
+  },
+  {
+   "id": 18076,
+   "col": "translation_pl",
+   "old": "przepowiednia, prognoza, typ (zakład)",
+   "new": "typ (zakład), prognoza, przepowiednia",
+   "why": "в примере «typami», карточка показывала «przepowiednia»"
+  },
+  {
+   "id": 11917,
+   "col": "translation_uk",
+   "old": "оселедець, кілок",
+   "new": "кілок, оселедець",
+   "why": "в примере палатка «кілки», карточка показывала «оселедець»"
+  },
+  {
+   "id": 6592,
+   "col": "translation_ru",
+   "old": "схватить, потянуться за чем-то",
+   "new": "потянуться за чем-то, схватить",
+   "why": "в примере «тянется», карточка показывала «схватить»"
+  },
+  {
+   "id": 6592,
+   "col": "translation_uk",
+   "old": "схопити, потягнутися за чимось",
+   "new": "потягнутися за чимось, схопити",
+   "why": "в примере «тягнеться», карточка показывала «схопити»"
+  },
+  {
+   "id": 6692,
+   "col": "translation_ru",
+   "old": "появляться, объявляться",
+   "new": "объявляться, появляться",
+   "why": "в примере «объявилась», карточка показывала «появляться»"
+  },
+  {
+   "id": 6692,
+   "col": "translation_fr",
+   "old": "se montrer, apparaître",
+   "new": "apparaître, se montrer",
+   "why": "в примере «réapparue», карточка показывала «se montrer»"
+  },
+  {
+   "id": 7918,
+   "col": "translation_uk",
+   "old": "мислимий, який можна уявити",
+   "new": "який можна уявити, мислимий",
+   "why": "в примере «уявляю», карточка показывала «мислимий»"
+  },
+  {
+   "id": 1173,
+   "col": "example_es",
+   "old": "Aquí hay una lista de todos los gastos",
+   "new": "Aquí tienes un listado de todos los gastos",
+   "why": "карточка показывала «el listado», в примере было «una lista»"
+  },
+  {
+   "id": 11895,
+   "col": "translation_tr",
+   "old": "doldurmak, koymak",
+   "new": "koymak, doldurmak",
+   "why": "в примере «koyabilir miyim», карточка показывала «doldurmak»"
+  },
+  {
+   "id": 17960,
+   "col": "translation_cs",
+   "old": "prvek, živel",
+   "new": "živel, prvek",
+   "why": "в примере «ve svém živlu», карточка показывала «prvek»"
+  },
+  {
+   "id": 10806,
+   "col": "translation_uk",
+   "old": "тужити, мріяти про",
+   "new": "мріяти про, тужити",
+   "why": "в примере «мрію про», карточка показывала «тужити»"
+  },
+  {
+   "id": 1365,
+   "col": "translation_ru",
+   "old": "вносить, класть на счёт",
+   "new": "класть на счёт, вносить",
+   "why": "в примере «кладу на счёт», карточка показывала «вносить»"
+  },
+  {
+   "id": 11752,
+   "col": "translation_ru",
+   "old": "подавать, натворить, устроить (беспорядок)",
+   "new": "устроить (беспорядок), натворить, подавать",
+   "why": "в примере «устроила хаос», карточка показывала «подавать»"
+  },
+  {
+   "id": 428,
+   "col": "translation_ru",
+   "old": "её, их",
+   "new": "(auf das Subjekt bezogen) свой, её, их",
+   "why": "в примере «со своими друзьями», карточка показывала «её»"
+  },
+  {
+   "id": 428,
+   "col": "translation_uk",
+   "old": "її, їхній, свій",
+   "new": "(auf das Subjekt bezogen) свій, її, їхній",
+   "why": "в примере «зі своїми друзями», карточка показывала «її»"
+  },
+  {
+   "id": 428,
+   "col": "translation_pl",
+   "old": "jej, ich, swój",
+   "new": "(auf das Subjekt bezogen) swój, jej, ich",
+   "why": "в примере «ze swoimi kolegami», карточка показывала «jej»"
+  },
+  {
+   "id": 428,
+   "col": "translation_cs",
+   "old": "její, jejich, (auf das Subjekt bezogen) svůj",
+   "new": "(auf das Subjekt bezogen) svůj, její, jejich",
+   "why": "в примере «se svými kamarády», карточка показывала «její»"
+  },
+  {
+   "id": 428,
+   "col": "translation_tr",
+   "old": "onun, onların",
+   "new": "onların, onun",
+   "why": "в примере «их друзья», карточка показывала «onun» (её)"
+  },
+  {
+   "id": 11431,
+   "col": "translation_ru",
+   "old": "оберегаемый, под опекой",
+   "new": "(behütet aufwachsen) вырасти под крылышком, оберегаемый, под опекой",
+   "why": "в примере «выросла под крылышком», как в украинском"
+  },
+  {
+   "id": 8154,
+   "col": "translation_ru",
+   "old": "размахивать, махать",
+   "new": "махать, размахивать",
+   "why": "в примере «машет шляпой», карточка показывала «размахивать»"
+  },
+  {
+   "id": 15786,
+   "col": "example_en",
+   "old": "We strolled along the riverbank",
+   "new": "We strolled along the riverbank and enjoyed nature",
+   "why": "в примере не хватало второй половины немецкой фразы"
+  },
+  {
+   "id": 15786,
+   "col": "example_es",
+   "old": "Hemos paseado por la orilla del río",
+   "new": "Hemos paseado por la orilla del río y hemos disfrutado de la naturaleza",
+   "why": "в примере не хватало второй половины немецкой фразы"
+  },
+  {
+   "id": 15786,
+   "col": "example_fr",
+   "old": "On s'est promenés au bord de la rivière",
+   "new": "On s'est promenés au bord de la rivière et on a profité de la nature",
+   "why": "в примере не хватало второй половины немецкой фразы"
+  },
+  {
+   "id": 17131,
+   "col": "example_fr",
+   "old": "On traverse au feu, pas ailleurs",
+   "new": "On traverse la rue au feu",
+   "why": "«pas ailleurs» нет в немецком"
+  },
+  {
+   "id": 8665,
+   "col": "translation_ru",
+   "old": "расстроить, сорвать",
+   "new": "сорвать, расстроить",
+   "why": "в примере «срывает планы», карточка показывала «расстроить»"
+  },
+  {
+   "id": 9785,
+   "col": "translation_ru",
+   "old": "бесполезный, ничего не стоящий",
+   "new": "ничего не стоящий, бесполезный",
+   "why": "в примере «ничего не стоит», карточка показывала «бесполезный»"
+  },
+  {
+   "id": 14747,
+   "col": "translation_tr",
+   "old": "duyulmak, çalmak",
+   "new": "çalmak, duyulmak",
+   "why": "в примере «org çalıyor», карточка показывала «duyulmak»"
+  },
+  {
+   "id": 13291,
+   "col": "translation_uk",
+   "old": "жодний, ніякий",
+   "new": "жодний, ніякий, не",
+   "why": "як ru: у прикладі «не»"
+  },
+  {
+   "id": 6665,
+   "col": "translation_ru",
+   "old": "достать, выжать, выгнать (машину)",
+   "new": "выгнать, достать, выжать",
+   "why": "у прикладі машину выгоняют"
+  },
+  {
+   "id": 6665,
+   "col": "translation_uk",
+   "old": "дістати, витягати, вигнати (машину)",
+   "new": "вигнати, дістати, витягати",
+   "why": "у прикладі машину виганяють"
+  },
+  {
+   "id": 8463,
+   "col": "translation_tr",
+   "old": "kendine ayırmak, saklı tutmak",
+   "new": "ayırmak, saklı tutmak",
+   "why": "kendine ayırmak = для себя, тут для деда"
+  },
+  {
+   "id": 7306,
+   "col": "translation_pl",
+   "old": "mgliście, niejasny, mglisty",
+   "new": "niejasny, mglisty, mgliście",
+   "why": "vage — прилагательное"
+  },
+  {
+   "id": 7306,
+   "col": "example_pl",
+   "old": "Odpowiedział bardzo mgliście",
+   "new": "Jego odpowiedź była bardzo mglista",
+   "why": "как DE: ответ был расплывчатым"
+  },
+  {
+   "id": 12471,
+   "col": "translation_tr",
+   "old": "acıyan, ağrıyan",
+   "new": "acımak, ağrımak",
+   "why": "acıyan — причастие, тут глагол"
+  },
+  {
+   "id": 16198,
+   "col": "translation_tr",
+   "old": "taklit, sahte belge",
+   "new": "sahte, taklit",
+   "why": "sahte belge — поддельный документ, а тут сумка"
+  },
+  {
+   "id": 9866,
+   "col": "translation_ru",
+   "old": "купить у кого-то, поверить",
+   "new": "поверить, купить у кого-то",
+   "why": "в примере значение «поверить», а показывалось «купить»"
+  },
+  {
+   "id": 9866,
+   "col": "translation_uk",
+   "old": "купити в когось, повірити",
+   "new": "повірити, купити в когось",
+   "why": "в примере значение «поверить», а показывалось «купить»"
+  },
+  {
+   "id": 9866,
+   "col": "translation_pl",
+   "old": "odkupić, uwierzyć",
+   "new": "uwierzyć, odkupić",
+   "why": "в примере значение «поверить», а показывалось «купить»"
+  },
+  {
+   "id": 9866,
+   "col": "translation_cs",
+   "old": "odkoupit, zbaštit",
+   "new": "zbaštit, odkoupit",
+   "why": "в примере значение «поверить», а показывалось «купить»"
+  },
+  {
+   "id": 16831,
+   "col": "translation_it",
+   "old": "il comune, la comune",
+   "new": "la comune, il comune",
+   "why": "il comune — муниципалитет; в примере una comune"
+  },
+  {
+   "id": 8159,
+   "col": "translation_ru",
+   "old": "освобождать, (sich freimachen) отпроситься",
+   "new": "(sich freimachen) отпроситься, освобождать",
+   "why": "в примере sich freimachen = отпроситься"
+  },
+  {
+   "id": 8159,
+   "col": "translation_uk",
+   "old": "звільняти, (sich freimachen) відпроситися",
+   "new": "(sich freimachen) відпроситися, звільняти",
+   "why": "в примере sich freimachen = отпроситься"
+  },
+  {
+   "id": 8159,
+   "col": "translation_tr",
+   "old": "boşaltmak, (sich freimachen) izin almak",
+   "new": "(sich freimachen) izin almak, boşaltmak",
+   "why": "в примере sich freimachen = отпроситься"
+  },
+  {
+   "id": 8159,
+   "col": "translation_pl",
+   "old": "zwalniać, (sich freimachen) wziąć wolne",
+   "new": "(sich freimachen) wziąć wolne, zwalniać",
+   "why": "в примере sich freimachen = отпроситься"
+  },
+  {
+   "id": 8159,
+   "col": "translation_es",
+   "old": "despejar, (sich freimachen) tomarse libre",
+   "new": "(sich freimachen) tomarse libre, despejar",
+   "why": "в примере sich freimachen = отпроситься"
+  },
+  {
+   "id": 16895,
+   "col": "translation_pl",
+   "old": "wykonać, (sport) wykończyć",
+   "new": "(sport) wykończyć, wykonać",
+   "why": "в примере спорт: wykańcza akcję"
+  },
+  {
+   "id": 8723,
+   "col": "translation_en",
+   "old": "to stick down, to stick fast",
+   "new": "to stick fast, to stick down",
+   "why": "в примере stuck so fast"
+  },
+  {
+   "id": 1699,
+   "col": "example_pl",
+   "old": "Po szkole średniej poszedł do nauki zawodu",
+   "new": "W Bawarii Hauptschule nazywa się dziś Mittelschule",
+   "why": "пример ушёл от DE"
+  },
+  {
+   "id": 1699,
+   "col": "example_it",
+   "old": "Dopo la scuola media ha iniziato un apprendistato",
+   "new": "In Baviera la Hauptschule oggi si chiama Mittelschule",
+   "why": "пример ушёл от DE"
+  },
+  {
+   "id": 1699,
+   "col": "example_es",
+   "old": "Mi sobrino va a la escuela secundaria del pueblo",
+   "new": "En Baviera la Hauptschule ahora se llama Mittelschule",
+   "why": "пример ушёл от DE"
+  },
+  {
+   "id": 6921,
+   "col": "translation_ru",
+   "old": "отозвать, уединиться, уйти (к себе)",
+   "new": "уйти (к себе), уединиться, отозвать",
+   "why": "в примере sich zurückziehen — уйти к себе"
+  },
+  {
+   "id": 6921,
+   "col": "translation_uk",
+   "old": "відкликати, усамітнитися, піти (до себе)",
+   "new": "піти (до себе), усамітнитися, відкликати",
+   "why": "в примере sich zurückziehen — уйти к себе"
+  },
+  {
+   "id": 6921,
+   "col": "translation_tr",
+   "old": "geri çekmek, inzivaya çekilmek",
+   "new": "çekilmek, inzivaya çekilmek, geri çekmek",
+   "why": "в примере sich zurückziehen — уйти к себе"
+  },
+  {
+   "id": 6921,
+   "col": "translation_fr",
+   "old": "retirer, se retirer",
+   "new": "se retirer, retirer",
+   "why": "в примере sich zurückziehen — уйти к себе"
+  },
+  {
+   "id": 16130,
+   "col": "translation_uk",
+   "old": "звільняти, випускати на волю",
+   "new": "випускати на волю, звільняти",
+   "why": "показывалось «звільняти»"
+  },
+  {
+   "id": 16130,
+   "col": "example_uk",
+   "old": "Відпусти пташку на волю!",
+   "new": "Випусти пташку на волю!",
+   "why": "под показанное значение"
+  },
+  {
+   "id": 6855,
+   "col": "translation_tr",
+   "old": "işlemek, kutlamak, (Fehler) yapmak",
+   "new": "(Fehler) yapmak, işlemek, kutlamak",
+   "why": "в примере hata yaptım"
+  },
+  {
+   "id": 7778,
+   "col": "translation_uk",
+   "old": "зібрати, сісти разом",
+   "new": "сісти разом, зібрати",
+   "why": "в примере sich zusammensetzen — сесть вместе"
+  },
+  {
+   "id": 7778,
+   "col": "translation_pl",
+   "old": "złożyć, usiąść razem",
+   "new": "usiąść razem, złożyć",
+   "why": "в примере sich zusammensetzen — сесть вместе"
+  },
+  {
+   "id": 7778,
+   "col": "translation_it",
+   "old": "montare, sedersi insieme",
+   "new": "sedersi insieme, montare",
+   "why": "в примере sich zusammensetzen — сесть вместе"
+  },
+  {
+   "id": 7778,
+   "col": "translation_en",
+   "old": "to put together, to sit down together",
+   "new": "to sit down together, to put together",
+   "why": "в примере sich zusammensetzen — сесть вместе"
+  },
+  {
+   "id": 1876,
+   "col": "translation_uk",
+   "old": "піклуватися, хвилюватися",
+   "new": "хвилюватися, піклуватися",
+   "why": "в примере sich sorgen — волноваться"
+  },
+  {
+   "id": 1876,
+   "col": "translation_cs",
+   "old": "starat se, dělat si starosti",
+   "new": "dělat si starosti, starat se",
+   "why": "в примере sich sorgen — волноваться"
+  },
+  {
+   "id": 8807,
+   "col": "example_fr",
+   "old": "C'est un vrai professionnel",
+   "new": "C'est un vrai pro",
+   "why": "Profi — разговорное, как le pro"
+  },
+  {
+   "id": 7903,
+   "col": "translation_ru",
+   "old": "пропустить, не класть",
+   "new": "не класть, пропустить",
+   "why": "в примере «не кладу»"
+  },
+  {
+   "id": 7903,
+   "col": "translation_uk",
+   "old": "пропустити, не класти",
+   "new": "не класти, пропустити",
+   "why": "в примере «не кладу»"
+  },
+  {
+   "id": 11420,
+   "col": "translation_uk",
+   "old": "рюмсати, ревти",
+   "new": "ревти, рюмсати",
+   "why": "в примере «ревів»"
+  },
+  {
+   "id": 16811,
+   "col": "translation_ru",
+   "old": "снова сорвавшийся, рецидивный, (rückfällig werden) взяться за старое",
+   "new": "(rückfällig werden) взяться за старое, снова сорвавшийся, рецидивный",
+   "why": "в примере взялся за старое"
+  },
+  {
+   "id": 16811,
+   "col": "translation_uk",
+   "old": "рецидивний, (rückfällig werden) взятися за старе",
+   "new": "(rückfällig werden) взятися за старе, рецидивний",
+   "why": "в примере взявся за старе"
+  },
+  {
+   "id": 16603,
+   "col": "translation_uk",
+   "old": "ув'язнити, узяти під варту",
+   "new": "узяти під варту, ув'язнити",
+   "why": "в примере тримали під вартою"
+  },
+  {
+   "id": 187,
+   "col": "translation_es",
+   "old": "sin embargo, pues",
+   "new": "pero si, pues, sin embargo",
+   "why": "в примере «Pero si…»; sin embargo — «однако», не doch"
+  },
+  {
+   "id": 7795,
+   "col": "translation_ru",
+   "old": "стараться, мучиться",
+   "new": "мучиться, стараться",
+   "why": "в примере «мучается»"
+  },
+  {
+   "id": 14296,
+   "col": "translation_ru",
+   "old": "поддерживать, быть за",
+   "new": "быть за, поддерживать",
+   "why": "в примере «я за»"
+  },
+  {
+   "id": 14296,
+   "col": "translation_uk",
+   "old": "підтримувати, бути за",
+   "new": "бути за, підтримувати",
+   "why": "в примере «я за»"
+  },
+  {
+   "id": 14296,
+   "col": "translation_cs",
+   "old": "podporovat, být pro",
+   "new": "být pro, podporovat",
+   "why": "в примере «я за»"
+  },
+  {
+   "id": 16084,
+   "col": "translation_pl",
+   "old": "zablokować, zamknąć",
+   "new": "zamknąć, zablokować",
+   "why": "в примере «zamyka»"
+  },
+  {
+   "id": 16084,
+   "col": "example_cs",
+   "old": "Policie kvůli nehodě uzavřela silnici",
+   "new": "Policie kvůli nehodě uzavírá silnici",
+   "why": "DE в настоящем времени"
+  },
+  {
+   "id": 951,
+   "col": "translation_fr",
+   "old": "à, autour de",
+   "new": "vers, à, autour de",
+   "why": "so um sieben — примерно в семь"
+  },
+  {
+   "id": 951,
+   "col": "example_fr",
+   "old": "On se retrouve à sept heures ?",
+   "new": "On se retrouve vers sept heures ?",
+   "why": "потерялось «около»"
+  },
+  {
+   "id": 6222,
+   "col": "translation_ru",
+   "old": "правда, правдивый",
+   "new": "правда, правдивый, (kann nicht wahr sein) не может быть",
+   "why": "как uk: в примере «не может быть»"
+  },
+  {
+   "id": 9833,
+   "col": "example_ru",
+   "old": "На Новый год всё уже забронировано",
+   "new": "На Новый год всё уже занято",
+   "why": "под показанное «всё занято»"
+  },
+  {
+   "id": 7068,
+   "col": "translation_tr",
+   "old": "vurmak, fırsatı kapmak",
+   "new": "fırsatı kapmak, vurmak",
+   "why": "в примере zuschlagen = ухватиться за предложение"
+  },
+  {
+   "id": 7068,
+   "col": "translation_it",
+   "old": "colpire, cogliere l'occasione",
+   "new": "cogliere l'occasione, colpire",
+   "why": "в примере zuschlagen = ухватиться за предложение"
+  },
+  {
+   "id": 7068,
+   "col": "translation_fr",
+   "old": "frapper, sauter sur l'occasion",
+   "new": "sauter sur l'occasion, frapper",
+   "why": "в примере zuschlagen = ухватиться за предложение"
+  },
+  {
+   "id": 7068,
+   "col": "translation_cs",
+   "old": "udeřit, využít příležitost",
+   "new": "využít příležitost, udeřit",
+   "why": "в примере zuschlagen = ухватиться за предложение"
+  },
+  {
+   "id": 7068,
+   "col": "translation_en",
+   "old": "to strike, to jump at the chance",
+   "new": "to jump at the chance, to strike",
+   "why": "в примере zuschlagen = ухватиться за предложение"
+  },
+  {
+   "id": 8296,
+   "col": "translation_ru",
+   "old": "сбой, отмена",
+   "new": "отсутствие, сбой, отмена",
+   "why": "в примере Ausfall von Lehrern — отсутствие"
+  },
+  {
+   "id": 13156,
+   "col": "example_ru",
+   "old": "Это же абсурд: мы едем в фитнес-клуб на машине, чтобы там встать на беговую дорожку",
+   "new": "Это же шизофрения какая-то: мы едем в фитнес-клуб на машине, чтобы там встать на беговую дорожку",
+   "why": "в примере не было слова карточки"
+  },
+  {
+   "id": 13156,
+   "col": "example_uk",
+   "old": "Це ж абсурд: ми їдемо до фітнес-клубу машиною, щоб там стати на бігову доріжку",
+   "new": "Це ж шизофренія якась: ми їдемо до фітнес-клубу машиною, щоб там стати на бігову доріжку",
+   "why": "в примере не было слова карточки"
+  },
+  {
+   "id": 7736,
+   "col": "translation_fr",
+   "old": "sortir, tirer le meilleur de",
+   "new": "tirer, sortir, tirer le meilleur de",
+   "why": "в примере «a tiré un dîner»"
+  },
+  {
+   "id": 10208,
+   "col": "translation_tr",
+   "old": "güç, güçlü yön",
+   "new": "güçlü yön, güç",
+   "why": "в примере «сильная сторона / punto di forza»"
+  },
+  {
+   "id": 10208,
+   "col": "translation_it",
+   "old": "la forza, il punto di forza",
+   "new": "il punto di forza, la forza",
+   "why": "в примере «сильная сторона / punto di forza»"
+  },
+  {
+   "id": 10208,
+   "col": "translation_es",
+   "old": "la fuerza, el punto fuerte",
+   "new": "el punto fuerte, la fuerza",
+   "why": "в примере «сильная сторона / punto di forza»"
+  },
+  {
+   "id": 6330,
+   "col": "translation_tr",
+   "old": "uzağa, gitmiş",
+   "new": "gitmiş, uzağa",
+   "why": "в примере «gitti»"
+  },
+  {
+   "id": 11116,
+   "col": "example_pl",
+   "old": "Nowa pediatra promieniuje takim spokojem, że nawet dzieci nie boją się zastrzyku",
+   "new": "Nowa pediatra ma taką charyzmę i spokój, że nawet dzieci nie boją się zastrzyku",
+   "why": "в примере не было показанного слова"
+  },
+  {
+   "id": 17166,
+   "col": "example_ru",
+   "old": "На пересадку у нас всего пять минут, надеюсь, успеем",
+   "new": "В Кёльне у нас всего пять минут на пересадку, надеюсь, успеем",
+   "why": "пропал Кёльн из DE"
+  },
+  {
+   "id": 1293,
+   "col": "translation_en",
+   "old": "to burn, to be on",
+   "new": "to be on, to burn",
+   "why": "в примере свет горит = включён"
+  },
+  {
+   "id": 1293,
+   "col": "translation_it",
+   "old": "bruciare, essere acceso",
+   "new": "essere acceso, bruciare",
+   "why": "в примере luce accesa"
+  },
+  {
+   "id": 2266,
+   "col": "translation_ru",
+   "old": "оскорблять, обижать",
+   "new": "обижать, оскорблять",
+   "why": "в примере «обидеть»"
+  },
+  {
+   "id": 14895,
+   "col": "translation_it",
+   "old": "il ragazzo, il tipo (colloq.)",
+   "new": "il tipo (colloq.), il ragazzo",
+   "why": "в примере «un tipo»"
+  },
+  {
+   "id": 14895,
+   "col": "translation_es",
+   "old": "el chico, el tipo (coloq.)",
+   "new": "el tipo (coloq.), el chico",
+   "why": "в примере «un tipo»"
+  },
+  {
+   "id": 15587,
+   "col": "translation_uk",
+   "old": "теля, телятина",
+   "new": "телятина, теля",
+   "why": "в примере мясо, не животное"
+  },
+  {
+   "id": 15587,
+   "col": "translation_pl",
+   "old": "cielę, cielęcina",
+   "new": "cielęcina, cielę",
+   "why": "в примере мясо, не животное"
+  },
+  {
+   "id": 15587,
+   "col": "translation_cs",
+   "old": "tele, telecí maso",
+   "new": "telecí maso, tele",
+   "why": "в примере мясо, не животное"
+  },
+  {
+   "id": 491,
+   "col": "translation_uk",
+   "old": "предмет одягу, річ",
+   "new": "річ, предмет одягу",
+   "why": "в примере «десять речей», как ru"
+  },
+  {
+   "id": 2214,
+   "col": "translation_en",
+   "old": "to turn on, to turn up",
+   "new": "to turn up, to turn on",
+   "why": "в примере «turn the heating up»"
+  },
+  {
+   "id": 1134,
+   "col": "translation_cs",
+   "old": "uvést, vytahovat se",
+   "new": "vytahovat se, uvést",
+   "why": "в примере «nevytahuj se» — хвастаться"
+  },
+  {
+   "id": 16389,
+   "col": "translation_ru",
+   "old": "уполномоченный, имеющий право",
+   "new": "имеющий право, уполномоченный",
+   "why": "в примере «имеет право»"
+  },
+  {
+   "id": 1865,
+   "col": "translation_ru",
+   "old": "ставить, сажать",
+   "new": "сажать, ставить",
+   "why": "в примере «посади собаку»"
+  },
+  {
+   "id": 1865,
+   "col": "translation_es",
+   "old": "poner, sentar",
+   "new": "sentar, poner",
+   "why": "в примере «sienta al perro»"
+  },
+  {
+   "id": 14254,
+   "col": "translation_cs",
+   "old": "projednat, probrat",
+   "new": "probrat, projednat",
+   "why": "в примере «neprobírejme»"
+  },
+  {
+   "id": 7350,
+   "col": "translation_tr",
+   "old": "kaçınmak, yana kaçmak",
+   "new": "yana kaçmak, kaçınmak",
+   "why": "в примере увернуться — kaçmak, не «избегать»"
+  },
+  {
+   "id": 10983,
+   "col": "translation_ru",
+   "old": "сломить, (sich nicht unterkriegen lassen) не сдаваться",
+   "new": "(sich nicht unterkriegen lassen) не сдаваться, сломить",
+   "why": "в примере sich nicht unterkriegen lassen = не сдаваться"
+  },
+  {
+   "id": 10983,
+   "col": "translation_uk",
+   "old": "зламати, здолати, (sich nicht unterkriegen lassen) не здаватися",
+   "new": "(sich nicht unterkriegen lassen) не здаватися, зламати, здолати",
+   "why": "в примере sich nicht unterkriegen lassen = не сдаваться"
+  },
+  {
+   "id": 10983,
+   "col": "translation_es",
+   "old": "hundir, venirse abajo",
+   "new": "venirse abajo, hundir",
+   "why": "в примере «no se viene abajo»"
+  },
+  {
+   "id": 16058,
+   "col": "example_uk",
+   "old": "Ти не можеш мені велити!",
+   "new": "Ти не можеш мені наказувати!",
+   "why": "под показанное «наказувати», как ru"
+  },
+  {
+   "id": 13988,
+   "col": "translation_pl",
+   "old": "zabrać się do czegoś, odebrać telefon",
+   "new": "odebrać telefon, zabrać się do czegoś",
+   "why": "в примере «odbierz» — ответить на звонок"
+  },
+  {
+   "id": 8839,
+   "col": "translation_ru",
+   "old": "организовывать, доставать",
+   "new": "доставать, организовывать",
+   "why": "в примере — достать стулья, как uk"
+  },
+  {
+   "id": 8839,
+   "col": "example_ru",
+   "old": "Можешь раздобыть ещё пару стульев для вечеринки?",
+   "new": "Можешь достать ещё пару стульев для вечеринки?",
+   "why": "под показанное «доставать»"
+  },
+  {
+   "id": 15764,
+   "col": "translation_uk",
+   "old": "зірка, що падає",
+   "new": "падаюча зірка",
+   "why": "запятая резала значение: показывалось «що падає»"
+  },
+  {
+   "id": 15764,
+   "col": "example_uk",
+   "old": "У серпні видно особливо багато зірок, що падають",
+   "new": "У серпні видно особливо багато падаючих зірок",
+   "why": "под значение карточки"
+  },
+  {
+   "id": 8334,
+   "col": "translation_ru",
+   "old": "дополнить, добавить",
+   "new": "дописать, дополнить, добавить",
+   "why": "в примере «допишу», как uk"
+  },
+  {
+   "id": 1318,
+   "col": "example_uk",
+   "old": "Що там усередині?",
+   "new": "Що там всередині?",
+   "why": "«усередині» не сходилось с «всередині» карточки"
+  },
+  {
+   "id": 9866,
+   "col": "translation_it",
+   "old": "bersela, comprare da qualcuno",
+   "new": "bere (una storia), comprare da qualcuno",
+   "why": "«bersela» отсекался возвратностью, показывалось «comprare»"
+  },
+  {
+   "id": 8159,
+   "col": "translation_it",
+   "old": "(sich freimachen) prendersi libero, liberare",
+   "new": "(sich freimachen) prendersi libero, sgomberare",
+   "why": "«liberare» перехватывал «libero» в примере; freimachen = освободить место"
+  },
+  {
+   "id": 15047,
+   "col": "translation_uk",
+   "old": "гупнути, трахатися",
+   "new": "гупнути, вдаритися",
+   "why": "убрано грубое сексуальное значение; оставлено бытовое «удариться»"
+  },
+  {
+   "id": 15047,
+   "col": "translation_ru",
+   "old": "стукнуться, трахаться",
+   "new": "стукнуться, удариться",
+   "why": "убрано грубое сексуальное значение; оставлено бытовое «удариться»"
+  },
+  {
+   "id": 15047,
+   "col": "translation_en",
+   "old": "to bang, to shag",
+   "new": "to bang",
+   "why": "убрано грубое сексуальное значение; оставлено бытовое «удариться»"
+  },
+  {
+   "id": 15047,
+   "col": "translation_tr",
+   "old": "çarpmak, düzüşmek",
+   "new": "çarpmak",
+   "why": "убрано грубое сексуальное значение; оставлено бытовое «удариться»"
+  },
+  {
+   "id": 15047,
+   "col": "translation_pl",
+   "old": "walnąć, bzykać się",
+   "new": "walnąć",
+   "why": "убрано грубое сексуальное значение; оставлено бытовое «удариться»"
+  },
+  {
+   "id": 15047,
+   "col": "translation_it",
+   "old": "sbattere, fare sesso",
+   "new": "sbattere",
+   "why": "убрано грубое сексуальное значение; оставлено бытовое «удариться»"
+  },
+  {
+   "id": 15047,
+   "col": "translation_es",
+   "old": "golpear, hacer el amor",
+   "new": "golpear",
+   "why": "убрано грубое сексуальное значение; оставлено бытовое «удариться»"
+  },
+  {
+   "id": 15047,
+   "col": "translation_fr",
+   "old": "cogner, faire l'amour",
+   "new": "cogner",
+   "why": "убрано грубое сексуальное значение; оставлено бытовое «удариться»"
+  },
+  {
+   "id": 15047,
+   "col": "translation_cs",
+   "old": "bouchnout, milovat se",
+   "new": "bouchnout",
+   "why": "убрано грубое сексуальное значение; оставлено бытовое «удариться»"
+  }
+ ]
+}

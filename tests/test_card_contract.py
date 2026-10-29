@@ -181,6 +181,42 @@ class TestCardHead:
         word.translation_cs, word.example_cs = "v, ve, na", "Jsem na zahradě, pojď ven!"
         assert main_meaning(word, "cs") == "na"
 
+    def test_reflexive_must_agree_with_the_example(self):
+        """
+        «Курс починається» показывал «починати»: невозвратный вариант короче,
+        и по буквам основы выходил ближе. Сломать: убрать `_reflexive_clash`
+        из `main_meaning` — первые два утверждения падают.
+        """
+        word = make_word("anfangen", ru="начинаться, начинать")
+        word.example_ru = "Курс начинается в восемь"
+        assert main_meaning(word, "ru") == "начинаться"
+        word.translation_uk, word.example_uk = "складатися з, скласти іспит", "Наша група складається з п'яти людей"
+        assert main_meaning(word, "uk") == "складатися з"
+        # И в обратную сторону: в примере невозвратная форма
+        word.translation_ru, word.example_ru = "портиться, портить", "Ты мне весь кайф портишь!"
+        assert main_meaning(word, "ru") == "портить"
+        # Испанский: возвратность по «se» перед глаголом
+        word.translation_es, word.example_es = "formar, formarse", "Para la foto los niños se forman en tres filas"
+        assert main_meaning(word, "es") == "formarse"
+        # «me» бывает дополнением — тут решает порядок в ячейке
+        word.translation_es, word.example_es = "preocupar, preocuparse", "Este tema me preocupa mucho"
+        assert main_meaning(word, "es") == "preocupar"
+
+    def test_prefixed_verb_beats_its_root_found_inside(self):
+        """
+        «kłamać» сидит внутри «okłamuj», но слово примера — «okłamywać».
+        Сломать: убрать фильтр по `_inside_of` в `main_meaning` — первое
+        утверждение падает. Если значения сходятся с разными словами
+        примера, решает точность, как раньше: «Burza» не отнимает «niszczyć».
+        """
+        word = make_word("anlügen", ru="лгать")
+        word.translation_pl, word.example_pl = "okłamywać, kłamać", "Nie okłamuj mnie!"
+        assert main_meaning(word, "pl") == "okłamywać"
+        word.translation_pl, word.example_pl = "niszczyć, burzyć", "Burza zniszczyła nam dach"
+        assert main_meaning(word, "pl") == "niszczyć"
+        word.translation_pl, word.example_pl = "rzucać kostką, kroić w kostkę", "Kto pierwszy wyrzuci kostką szóstkę, ten zaczyna"
+        assert main_meaning(word, "pl") == "rzucać kostką"
+
 
 class TestQuestionClip:
     """В вопросе звучит слово, и название клипа — ровно оно."""

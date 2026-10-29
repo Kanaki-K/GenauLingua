@@ -429,6 +429,100 @@ def _stem_tail(needle: str, haystack_tokens: list[str],
     return best
 
 
+def _starts_like(needle: str, haystack_tokens: list[str]) -> set[str]:
+    """Слова примера, с которыми `needle` сходится с начала, а не изнутри."""
+    head = fold(needle)
+    need = min(_STEM_MIN, len(head))
+    found = set()
+    if not head:
+        return found
+    for token in haystack_tokens:
+        common = 0
+        for a, b in zip(head, token):
+            if a != b:
+                break
+            common += 1
+        if common >= need and len(head) - common <= _TAIL_LOOSE:
+            found.add(token)
+    return found
+
+
+def _inside_of(needle: str, haystack_tokens: list[str]) -> set[str]:
+    """Слова примера, внутри которых `needle` нашёлся не с начала."""
+    head = fold(needle)
+    if len(head) < _STEM_MIN:
+        return set()
+    stem = head[: max(min(_STEM_MIN, len(head)), len(head) - 2)]
+    return {t for t in haystack_tokens if stem in t and not t.startswith(stem)}
+
+
+_REFLEXIVE_ENDINGS = ("ся", "сь")
+
+
+def _reflexive_clash(needle: str, haystack_tokens: list[str], code: Optional[str]) -> bool:
+    """
+    Расходится ли возвратность: значение «починатися», а в примере
+    «починає», или наоборот. В русском и украинском -ся пишется слитно с
+    глаголом; в итальянском и испанском возвратность видна по местоимению
+    перед глаголом («Mi alleno», «se forman»).
+
+    Без этого невозвратный вариант почти всегда выигрывал: он короче, и
+    лишних букв основы у него меньше. В ряду `anfangen` с примером «Курс
+    починається» карточка показывала «починати», в `trainieren` с примером
+    «тренируюсь» — «тренировать» (замер 29.10: 33 значения в 21 ряду, все
+    исправились к лучшему). Слово примера берётся то, с которым у значения
+    самое длинное общее начало.
+    """
+    head = fold(needle)
+    if len(head) < _STEM_MIN:
+        return False
+    cyrillic = code in ("ru", "uk")
+    romance = _romance_reflexive(head, code)
+    if not cyrillic and romance is None:
+        return False
+    best, best_common = None, 0
+    for i, token in enumerate(haystack_tokens):
+        common = 0
+        for a, b in zip(head, token):
+            if a != b:
+                break
+            common += 1
+        if common > best_common:
+            best, best_common = i, common
+    if best is None or best_common < _STEM_MIN:
+        return False
+    token = haystack_tokens[best]
+    if cyrillic:
+        return head.endswith(_REFLEXIVE_ENDINGS) != token.endswith(_REFLEXIVE_ENDINGS)
+    # Итальянский и испанский: возвратность видна по местоимению. Надёжно
+    # только третье лицо перед глаголом («si annoiano», «se forman»).
+    # «Mi», «ti», «me», «te» бывают и дополнением — и перед глаголом («mi
+    # ricorda», «te interesa»), и приросшие к нему («spaventarmi»,
+    # «contradecirte»), — тогда не решаем ничего
+    reflexive, third, attached = romance
+    before = haystack_tokens[best - 1] if best > 0 else ""
+    if before == third:
+        return not reflexive
+    if token.endswith(attached) or before in _ROMANCE_CLITICS:
+        return False
+    return reflexive
+
+
+_ROMANCE_CLITICS = frozenset({"mi", "ti", "ci", "vi", "me", "te", "nos", "os"})
+
+
+def _romance_reflexive(head: str, code: Optional[str]) -> tuple[bool, str, tuple[str, ...]] | None:
+    """
+    Возвратный ли итальянский или испанский инфинитив, плюс возвратное
+    местоимение третьего лица и окончания инфинитива с приросшим местоимением.
+    """
+    if code == "it" and head.endswith(("rsi", "are", "ere", "ire")):
+        return head.endswith("rsi"), "si", ("rmi", "rti", "rsi", "rci", "rvi")
+    if code == "es" and head.endswith(("ar", "er", "ir", "arse", "erse", "irse")):
+        return head.endswith("se"), "se", ("rme", "rte", "rse", "rnos", "ros")
+    return None
+
+
 def _stem_in(needle: str, haystack_tokens: list[str]) -> bool:
     """Есть ли слово `needle` в словах примера, пусть и в другой форме."""
     head = fold(needle)
@@ -557,6 +651,24 @@ def main_meaning(word, code: Optional[str]) -> str:
             # выбор формы решается порядком в ячейке, а не правилом
             whole = len(fold(head)) > 2 or fold(head) in tokens
             scored.append((tail, not whole, index, part))
+
+    # Значение, у которого в примере не сошлась возвратность, уступает
+    # любому сошедшемуся: «починати» не годится для «починається», даже если
+    # по буквам основы он ближе (короче — значит, лишних букв меньше)
+    agreeing = [t for t in scored if not _reflexive_clash(head_of(t[3]), tokens, code)]
+    if agreeing:
+        scored = agreeing
+    # Значение, найденное только внутри слова примера, уступает другому
+    # значению, которое сходится с ТЕМ ЖЕ словом с начала: в «Nie okłamuj
+    # mnie» «kłamać» сидит внутри «okłamuj», но слово примера — «okłamywać».
+    # Поиск внутри нужен для немецких составных («gehen» в «weggehen»), а не
+    # для того, чтобы перебивать приставочный глагол. Если же значения
+    # сходятся с разными словами («niszczyć» в «zniszczyła» и «burzyć» в
+    # «Burza»), решает точность, как и раньше
+    starts = {t[3]: _starts_like(head_of(t[3]), tokens) for t in scored}
+    claimed = set().union(*starts.values()) if starts else set()
+    scored = [t for t in scored
+              if starts[t[3]] or not (_inside_of(head_of(t[3]), tokens) & claimed)]
 
     strict = sorted(t for t in scored if t[0] <= _TAIL_STRICT)
     if strict:
