@@ -251,6 +251,10 @@ class TestAbbreviationBoundaries:
         assert expand_abbreviations("картоплі фрі з кетчупом", "uk") == "картоплі фри з кетчупом"
         assert expand_abbreviations("фрікаделька", "uk") == "фрікаделька"
 
+    def test_engine_truncated_word_is_hyphenated(self):
+        # Голоса обрывали «niewyobrażalny» на «niewy…»
+        assert expand_abbreviations("Upał był niewyobrażalny", "pl") == "Upał był nie-wyobrażalny"
+
     def test_dotted_abbreviations_unaffected(self):
         assert expand_abbreviations("np. koty", "pl") == "na przykład koty"
         assert expand_abbreviations("z.B. Hunde", "de") == "zum Beispiel Hunde"

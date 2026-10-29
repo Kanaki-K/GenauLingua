@@ -72,6 +72,9 @@ ABBREVIATIONS: dict[str, dict[str, str]] = {
         "cf.": "compare",
     },
     "pl": {
+        # Не сокращение: оба голоса обрывают слово на «niewy…» (проверка
+        # слухом 29.10); с дефисом читают целиком
+        "niewyobrażalny": "nie-wyobrażalny",
         "np.": "na przykład",
         "itd.": "i tak dalej",
         "itp.": "i tym podobne",
