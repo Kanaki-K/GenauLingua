@@ -191,7 +191,7 @@ async def run(args) -> int:
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--key", default="release_notes_2026_10",
+    ap.add_argument("--key", default="release_notes_2026_11",
                     help="ключ текста в локалях (по умолчанию — патчноут 2.0, октябрь 2026)")
     ap.add_argument("--send", action="store_true", help="отправить всем")
     ap.add_argument("--to-admin", action="store_true", help="прислать себе на всех языках")
