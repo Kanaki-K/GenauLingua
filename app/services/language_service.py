@@ -543,11 +543,16 @@ def main_meaning(word, code: Optional[str]) -> str:
             continue
         tail = _stem_tail(head, tokens, whole_letter=not part.startswith("-"))
         if tail is not None:
-            scored.append((tail, index, part))
+            # При равном хвосте короткое значение, стоящее в примере отдельным
+            # словом, важнее совпавшего началом: «na» в «na zahradě», а не
+            # «ve» в «ven». Только для одной-двух букв: на длинных словах то же
+            # правило меняло бы около тысячи вычитанных карточек
+            whole = len(fold(head)) > 2 or fold(head) in tokens
+            scored.append((tail, not whole, index, part))
 
     strict = sorted(t for t in scored if t[0] <= _TAIL_STRICT)
     if strict:
-        return strict[0][2]
+        return strict[0][3]
 
     # Строгое сравнение не нашло ничего. Тогда разрешается длинный хвост:
     # в славянском и турецком инфинитив длиннее общей со формой основы
@@ -557,7 +562,7 @@ def main_meaning(word, code: Optional[str]) -> str:
     # случаев, на 5 — все 19, на 6 и 7 не добавляется ни одного.
     long_tail = sorted(t for t in scored if t[0] <= _TAIL_LOOSE)
     if long_tail:
-        return long_tail[0][2]
+        return long_tail[0][3]
 
     # Поблажка на одну букву для коротких слов решает только тогда, когда
     # под неё подходит ровно одно значение: иначе выбирать не из чего.

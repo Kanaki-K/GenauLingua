@@ -170,6 +170,9 @@ class TestCardHead:
         assert main_meaning(word, "cs") == "na"
         word.translation_tr, word.example_tr = "-e, -a", "Arkadaşlarla plaja gidiyorum"
         assert main_meaning(word, "tr") == "-a"
+        # «ve» совпадает началом с «ven», но «na» стоит в примере целиком
+        word.translation_cs, word.example_cs = "v, ve, na", "Jsem na zahradě, pojď ven!"
+        assert main_meaning(word, "cs") == "na"
 
 
 class TestQuestionClip:
