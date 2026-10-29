@@ -173,6 +173,10 @@ class TestCardHead:
         # Запятая внутри скобок значения не делит
         word.translation_pl, word.example_pl = "wasz (wasza, wasze)", "Wasze mieszkanie jest przepiękne"
         assert main_meaning(word, "pl") == "wasz (wasza, wasze)"
+        # Немецкая подсказка в скобках в начале значения не опознаёт его:
+        # «(Bescheid sagen) дать знать», а не «уведомление»
+        word.translation_ru, word.example_ru = "уведомление, (Bescheid sagen) дать знать", "Дай мне знать, когда придёшь"
+        assert main_meaning(word, "ru") == "(Bescheid sagen) дать знать"
         # «ve» совпадает началом с «ven», но «na» стоит в примере целиком
         word.translation_cs, word.example_cs = "v, ve, na", "Jsem na zahradě, pojď ven!"
         assert main_meaning(word, "cs") == "na"

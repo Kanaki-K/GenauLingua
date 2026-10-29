@@ -531,7 +531,11 @@ def main_meaning(word, code: Optional[str]) -> str:
     def head_of(part: str) -> str:
         # У многословного значения проверяем самое длинное слово: в «leczenie
         # sanatoryjne» опознавать надо по «sanatoryjne», а не по «leczenie»
-        words = sorted(_TOKEN_RE.findall(part), key=len, reverse=True)
+        # Немецкая подсказка в скобках в начале не в счёт: в «(Kopfschmerzen
+        # haben) болить голова» опознаём по «болить голова», а не по
+        # «Kopfschmerzen». Скобки в конце — часть значения: «fare (una pausa)»
+        words = sorted(_TOKEN_RE.findall(re.sub(r"^\s*\([^)]*\)", " ", part)) or _TOKEN_RE.findall(part),
+                       key=len, reverse=True)
         return words[0] if words else ""
 
     # Выбирается ЛУЧШЕЕ совпадение, а не первое по списку: иначе ранний
