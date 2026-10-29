@@ -77,6 +77,10 @@ def merge_bound_ok(key: str, before: dict, now: dict) -> bool:
     """
     if key == "user_words_rows":
         return now[key] <= before[key]
+    if key == "words":
+        # Перенос словаря только добавляет (вторые значения своими строками,
+        # 2.3: +81) и никогда не удаляет — убыль означала бы каскад прогресса
+        return now[key] >= before[key]
     if key == "uw_learned":
         rows_lost = before["user_words_rows"] - now["user_words_rows"]
         return 0 <= before[key] - now[key] <= max(rows_lost, 0)
@@ -84,7 +88,7 @@ def merge_bound_ok(key: str, before: dict, now: dict) -> bool:
 
 
 # Меняются только в пределах склейки (`merge_bound_ok`)
-MERGE_BOUNDED = {"uw_learned"}
+MERGE_BOUNDED = {"uw_learned", "words"}
 
 
 def snapshot() -> dict:

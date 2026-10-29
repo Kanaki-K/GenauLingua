@@ -27,3 +27,10 @@ def test_learned_may_drop_only_within_merged_rows(rows, learned, ok):
 def test_progress_rows_never_grow():
     assert merge_bound_ok("user_words_rows", BEFORE, {"user_words_rows": 21427})
     assert not merge_bound_ok("user_words_rows", BEFORE, {"user_words_rows": 21600})
+
+
+def test_the_dictionary_may_only_grow():
+    """2.3: перенос добавил 81 строку вторых значений — это не потеря; убыль — каскад прогресса."""
+    from app.scripts.release_snapshot import merge_bound_ok
+    assert merge_bound_ok("words", {"words": 12902}, {"words": 12983})
+    assert not merge_bound_ok("words", {"words": 12902}, {"words": 12901})
