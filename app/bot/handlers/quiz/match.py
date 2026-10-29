@@ -651,25 +651,12 @@ async def _board_due(
     if data.get(S_BOARD_DONE):
         return False
 
-    # Первый урок: доска ПОСЛЕДНИМ вопросом и на три пары новых слов
-    from app.services import first_lesson
-    from app.services.match_service import pick_first_lesson_words
+    # Первое занятие — знакомство с уровнем, только карточки: доски в нём
+    # нет (29.10, `first_lesson`). Она приходит со второго занятия
     from app.services.quiz_service import in_first_lesson
 
     if in_first_lesson(user):
-        # Доска — седьмой шаг плана из семи; в укороченном уроке её нет,
-        # иначе она съела бы один из шести вопросов трёх игр
-        if total_questions < len(first_lesson.PLAN) + 1:
-            return False
-        if current_question != first_lesson.board_slot(total_questions):
-            return False
-        if not getattr(user, "match_in_round", True):
-            return False
-        words = await pick_first_lesson_words(
-            user, session, pair, first_lesson.BOARD_PAIRS,
-            exclude_ids=list(data.get("used_word_ids") or []),
-        )
-        return len(words) == first_lesson.BOARD_PAIRS
+        return False
 
     if current_question != board_slot(total_questions):
         return False

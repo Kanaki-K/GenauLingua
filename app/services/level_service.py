@@ -335,6 +335,25 @@ async def decline_level(
     return False
 
 
+async def set_level(user: User, session: AsyncSession, target: CEFRLevel,
+                    action: str = "set") -> bool:
+    """
+    Поставить уровень в ЛЮБУЮ сторону — после знакомства (`first_lesson`):
+    уровень определили ответы, и человек может поправить его и вниз, и вверх.
+    False — уровень уже этот.
+    """
+    if target not in LEVEL_ORDER or target == user.level:
+        return False
+    was = user.level
+    user.level = target
+    journal.note(session, user.id, "level", action,
+                 frm=getattr(was, "value", was), to=getattr(target, "value", target))
+    user.level_offer_declined = None
+    user.level_offer_declined_round = None
+    await session.commit()
+    return True
+
+
 async def jump_to_level(user: User, session: AsyncSession, target: CEFRLevel) -> bool:
     """
     Перейти сразу на выбранный уровень — выше текущего. False — кнопка устарела.

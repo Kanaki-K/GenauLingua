@@ -1,65 +1,79 @@
 """
-Первый урок: три игры и доска на три пары (решение владельца 16.10).
+Первое занятие — знакомство с уровнем (решение владельца 29.10.2026).
 
-Прежде первый урок шёл семью карточками подряд — «в первых 7 вопросах в
-принципе только один вариант игры, когда можно разнообразить и вовлечь».
-Теперь по номеру вопроса:
+Восемь карточек «Читаю», по два новых слова уровней A1, A2, B1, B2 — от
+лёгкого к трудному. Ответы показывают уровень, и с него человек учится
+дальше (`recommend`, итог — `summary`).
 
-    1 Читаю    2 Слышу    3 Вспоминаю
-    4 Читаю    5 Слышу    6 Вспоминаю
-    7 Доска на 3 пары
+ПОЧЕМУ ТАК, А НЕ ТРИ ИГРЫ ПО КРУГУ (прежний план 16.10: Читаю · Слышу ·
+Вспоминаю и доска). Журнал 16–29.10: из 18 новичков, начавших занятие, 9
+бросили первое же, и 7 из них — на втором вопросе, «Слышу», или сразу
+после него: «не могу слушать», уход в настройки и рейтинг. И второе: взрослые
+в первую минуту сами переставляли уровень с A1 на B1–C1 — для них A1
+скучен, а спрашивать уровень на входе нельзя: «люди просто не знают свой
+уровень» (владелец). Знакомство отвечает на оба: без звука, и уровень
+определяется ответами, а не вопросом.
 
-Каждое слово — новое и лёгкое; ни одно не повторяется (9 слов за урок).
-Голоса и «Собираю» в первом уроке нет: самые трудные (у «Собираю» 41%
-верных на проде) и требуют микрофона. Владелец: «все игры, просто в самой
-лёгкой версии для первого круга… кроме записи голоса и собираю».
+Слух, «Вспоминаю», доска приходят со второго занятия — по обычному правилу
+допуска: на слух спрашивается слово, которое человек уже видел глазами.
 
-ПОЧЕМУ СЛОВА ПОХОЖИЕ НА РОДНЫЕ. Обычное правило допуска пускает слово на
-слух и в «Вспоминаю» только после верного ответа глазами: нельзя узнать на
-слух то, чего ни разу не видел. Первый урок это правило обходит — и
-решаемой игру делает не повтор, а выбор слова: Taxi, Hotel, Kaffee узнаются
-и на слух, и по значению. Сходство считается на лету, по пулу частых
-лёгких слов: слово и перевод приводятся к одной азбуке и сравниваются.
-Не нашлось похожего — на этом месте карточка, а не загадка.
+Слова — частые и однословные (`quiz_service._easy`) и НЕ похожие на родные:
+Taxi/такси угадывается без знания языка и уровень не показал бы.
 """
 from __future__ import annotations
 
 import difflib
+import random
 import unicodedata
-from typing import Optional
+from typing import Iterable, Optional
 
-from app.database.enums import QuizChannel
+from app.database.enums import CEFRLevel
 
-# Игра на каждом номере вопроса; 7-й — доска (`board_slot_for_first_lesson`)
-PLAN = (
-    QuizChannel.TEXT, QuizChannel.AUDIO, QuizChannel.REVERSE,
-    QuizChannel.TEXT, QuizChannel.AUDIO, QuizChannel.REVERSE,
+# Уровень слова на каждом номере вопроса знакомства
+PLACEMENT = (
+    CEFRLevel.A1, CEFRLevel.A1, CEFRLevel.A2, CEFRLevel.A2,
+    CEFRLevel.B1, CEFRLevel.B1, CEFRLevel.B2, CEFRLevel.B2,
 )
+LADDER = (CEFRLevel.A1, CEFRLevel.A2, CEFRLevel.B1, CEFRLevel.B2)
+
+# Доска первому занятию больше не ставится; размер остался для доски,
+# открытой с домашнего экрана до первого занятия (`match.py`)
 BOARD_PAIRS = 3
 
-# Игры, которым нужно слово, похожее на родное
-NEEDS_SIMILAR = (QuizChannel.AUDIO, QuizChannel.REVERSE)
-
-# Порог сходства (difflib, 0..1). Замер на парах de→ru/uk/en/pl/tr: от 0.6
-# идут Taxi/такси, Hotel/отель, Kaffee/кофе; ниже — случайные совпадения
-# букв («Hand»/«рука» даёт 0.0, «Bett»/«кровать» — 0.2)
+# Похоже на родное от этого порога (difflib, 0..1). Замер на парах
+# de→ru/uk/en/pl/tr: от 0.6 идут Taxi/такси, Hotel/отель, Kaffee/кофе
 SIMILAR_ENOUGH = 0.6
 
-# Сколько частых лёгких слов перебирать в поисках похожего
-SIMILAR_POOL = 200
+# Из скольких самых частых слов уровня выбирать
+PLACEMENT_POOL = 40
 
 
-def planned_game(question_number: int, enabled: list[QuizChannel]) -> QuizChannel:
-    """Игра на этом месте первого урока; выключенная человеком — карточка."""
-    if not 1 <= question_number <= len(PLAN):
-        return QuizChannel.TEXT
-    game = PLAN[question_number - 1]
-    return game if game in enabled else QuizChannel.TEXT
+def placement_level(question_number: int) -> CEFRLevel:
+    """Уровень слова на этом месте знакомства; за его пределами — последний."""
+    if question_number < 1:
+        return PLACEMENT[0]
+    return PLACEMENT[min(question_number, len(PLACEMENT)) - 1]
 
 
-def board_slot(lesson_length: int) -> int:
-    """Доска первого урока — ПОСЛЕДНИМ вопросом, а не в середине."""
-    return lesson_length
+def recommend(answers: Iterable[tuple[CEFRLevel, bool]]) -> CEFRLevel:
+    """
+    Уровень по ответам знакомства: первая ступень, где ответ не сплошь
+    верный. A1 2/2, A2 2/2, B1 1/2 — учиться на B1. Всё верно — B2, выше
+    поднимает обычное предложение уровня по точности.
+
+    Ступень засчитывается только ЦЕЛИКОМ: при четырёх вариантах один ответ
+    угадывается в четверти случаев, два подряд — в шестнадцатой доле.
+    Ступени, которой не было (оборванное занятие, нет слов уровня), —
+    граница: выше неё ответы ничего не говорят.
+    """
+    by_level: dict[CEFRLevel, list[bool]] = {}
+    for level, correct in answers:
+        by_level.setdefault(level, []).append(bool(correct))
+    for level in LADDER:
+        got = by_level.get(level)
+        if not got or not all(got):
+            return level
+    return LADDER[-1]
 
 
 # Кириллица → латиница, грубо и нарочно: сравниваются очертания звуков, а
@@ -103,22 +117,38 @@ def word_similarity(word, pair) -> float:
     return similarity(learning, native)
 
 
-async def similar_new_word(session, user, pair, exclude_ids: list[int],
-                           taken_meanings: set[str]) -> Optional[object]:
+async def placement_word(session, user, pair, level: CEFRLevel,
+                         exclude_ids: list[int], taken_meanings: set[str]):
     """
-    Новое лёгкое слово, похожее на родное, — для «Слышу» и «Вспоминаю».
+    Новое слово уровня `level` для знакомства — частое, однословное, не
+    похожее на родное и со значением, ещё не спрошенным в этом занятии.
 
-    None — похожего в пуле нет; тогда место достаётся карточке.
+    None — таких слов уровня нет (тонкий язык); тогда место займёт обычный
+    подбор новых слов.
     """
-    from app.services.quiz_service import _meaning_key, easy_new_words
+    from sqlalchemy import and_
 
-    candidates = await easy_new_words(session, user, pair, exclude_ids, limit=SIMILAR_POOL)
-    best, best_score = None, SIMILAR_ENOUGH
+    from app.database.models import Word, WordFrequency
+    from app.services.quiz_service import _easy, _function_word_penalty, _meaning_key, _unseen_query
+    from app.services.word_level import level_expr
+
+    query = _easy(_unseen_query(user.id, pair, exclude_ids, None, None), pair)
+    query = query.where(level_expr(pair.learning) == level)
+    rows = await session.execute(
+        query.outerjoin(
+            WordFrequency,
+            and_(WordFrequency.word_id == Word.id, WordFrequency.lang == pair.learning),
+        )
+        .order_by((WordFrequency.zipf - _function_word_penalty()).desc().nulls_last(), Word.id)
+        .limit(PLACEMENT_POOL)
+    )
+    candidates = list(rows.scalars().all())
+    random.shuffle(candidates)
     for word in candidates:
         meaning = _meaning_key(word, pair.native)
         if meaning and meaning in taken_meanings:
             continue
-        score = word_similarity(word, pair)
-        if score >= best_score:
-            best, best_score = word, score
-    return best
+        if word_similarity(word, pair) >= SIMILAR_ENOUGH:
+            continue
+        return word
+    return None

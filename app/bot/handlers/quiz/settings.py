@@ -984,6 +984,39 @@ def get_level_pick_keyboard(current: CEFRLevel, lang: str) -> InlineKeyboardMark
     ])
 
 
+def get_level_set_keyboard(current: CEFRLevel, lang: str) -> InlineKeyboardMarkup:
+    """После знакомства: все уровни до C1, кроме текущего, — и вниз, и вверх."""
+    from app.services.level_service import LEVEL_ORDER
+
+    others = [level for level in LEVEL_ORDER[:LEVEL_ORDER.index(PICK_UP_TO) + 1]
+              if level != current]
+    return InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text=level.value, callback_data=f"level_set_{level.value}")
+         for level in others],
+    ])
+
+
+@router.callback_query(F.data.startswith("level_set_"))
+async def answer_level_set(callback: CallbackQuery, session: AsyncSession):
+    """Человек поправил уровень, определённый знакомством."""
+    from app.services.level_service import set_level
+
+    user = await session.get(User, callback.from_user.id)
+    lang = (user.interface_language if user else None) or DEFAULT_LOCALE
+    if not user:
+        await callback.answer("Error", show_alert=True)
+        return
+    try:
+        target = CEFRLevel(callback.data.removeprefix("level_set_"))
+    except ValueError:
+        await callback.answer("Error", show_alert=True)
+        return
+    await set_level(user, session, target)
+    await callback.answer()
+    done = get_text("level_set_done", lang, level=target.value)
+    await _show_done_after_result(callback, session, user, done)
+
+
 def get_level_down_keyboard(current: CEFRLevel, previous: CEFRLevel,
                             lang: str) -> InlineKeyboardMarkup:
     """Понижение: согласие и «Остаться на X»."""

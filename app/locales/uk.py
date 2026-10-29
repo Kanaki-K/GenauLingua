@@ -625,6 +625,8 @@ TEXTS.update({
     "level_offer_done": "Рівень <b>{following}</b>\n\nСлова будуть складніші",
     "level_offer_pick": "Схоже, рівень <b>{current}</b> для Вас легкий\n\nЗ якого рівня продовжити?\n\nВивчене залишиться з Вами",
     "level_offer_stay": "Залишитися на {current}",
+    "placement_result": "За Вашими відповідями підходить рівень <b>{level}</b> — далі слова цього рівня\n\nЯкщо потрібен інший, оберіть його нижче",
+    "level_set_done": "Рівень <b>{level}</b>\n\nДалі слова цього рівня",
     "level_down_offer": "На рівні <b>{current}</b> поки багато помилок\n\nПерейти на <b>{previous}</b>?\n\nСлова будуть простіші, вивчене залишиться з Вами",
     "level_down_yes": "Так, на {previous}",
     "level_down_done": "Рівень <b>{previous}</b>\n\nСлова будуть простіші",

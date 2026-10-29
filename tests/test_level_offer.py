@@ -360,7 +360,7 @@ async def test_first_lesson_is_short():
         quizzes_passed = 0
         quiz_word_count = 15
 
-    assert lesson_length(Person()) == FIRST_LESSON_LENGTH == 7
+    assert lesson_length(Person()) == FIRST_LESSON_LENGTH == 8  # знакомство: по два слова A1–B2
     Person.quizzes_passed = 1
     assert lesson_length(Person()) == 15, "второе занятие — обычной длины"
     Person.quizzes_passed, Person.quiz_word_count = 0, 5

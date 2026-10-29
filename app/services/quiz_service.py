@@ -18,7 +18,7 @@ from sqlalchemy.orm import aliased
 
 from app.database.enums import CEFRLevel, QuizChannel, QuizMode, counted_channels
 from app.database.models import (
-    PartOfSpeech, User, UserWord, Word, WordFrequency, WordLangGroup,
+    PartOfSpeech, QuizQuestion, QuizSession, User, UserWord, Word, WordFrequency, WordLangGroup,
 )
 from app.services import build_service
 from app.services.word_level import level_expr, level_of
@@ -144,7 +144,7 @@ DEFAULT_ROUND_LENGTH = 15
 # вопросе из пятнадцати, не увидев ни итога, ни зачем это всё. Семь —
 # короткое знакомство: итог и первая победа приходят через пару минут, а
 # доска (ей нужно не меньше пяти вопросов в круге) в нём ещё помещается
-FIRST_LESSON_LENGTH = 7
+FIRST_LESSON_LENGTH = 8  # знакомство: по два слова A1, A2, B1, B2 (`first_lesson`)
 
 
 def in_first_lesson(user) -> bool:
@@ -1181,6 +1181,33 @@ async def get_distractors(
     # 3. Любое слово — лишь бы вариантов было четыре
     anything = base
 
+    def take(candidate: Word) -> bool:
+        nonlocal taken
+        variants = _option_variants(candidate, answer_lang)
+        # Пересечение хотя бы по одному значению делает вариант
+        # неотличимо верным — такой дистрактор не годится
+        if not variants or variants & taken:
+            return False
+        if prompt_meanings & _option_variants(candidate, pair.prompt_lang):
+            return False
+        taken |= variants
+        picked.append(candidate)
+        excluded_ids.append(candidate.id)
+        return True
+
+    # 0. ЛОВУШКИ — только знакомому слову и не больше двух (`traps`): с чем
+    # путают люди, похожие на вид, из той же темы. Новое — без них
+    from app.services import traps
+
+    if count > 1 and await traps.is_familiar(session, user, correct_word, pair):
+        trap_base = base
+        if article_shown:
+            trap_base = base.where(Word.article == correct_word.article)
+        for candidate in await traps.trap_candidates(session, trap_base, correct_word, pair):
+            if len(picked) >= min(traps.TRAPS_MAX, count - 1):
+                break
+            take(candidate)
+
     for stage in (strict, *same_article, by_pos, anything):
         if len(picked) >= count:
             break
@@ -1189,17 +1216,7 @@ async def get_distractors(
             _exclude(stage, excluded_ids).order_by(func.random()).limit(DISTRACTOR_CANDIDATES)
         )
         for candidate in candidates.scalars():
-            variants = _option_variants(candidate, answer_lang)
-            # Пересечение хотя бы по одному значению делает вариант
-            # неотличимо верным — такой дистрактор не годится
-            if not variants or variants & taken:
-                continue
-            if prompt_meanings & _option_variants(candidate, pair.prompt_lang):
-                continue
-            taken |= variants
-            picked.append(candidate)
-            excluded_ids.append(candidate.id)
-            if len(picked) >= count:
+            if take(candidate) and len(picked) >= count:
                 break
 
     return picked
@@ -1306,15 +1323,10 @@ async def generate_question(
     pair = pair or pair_from_user(user)
     length = round_length or user.quiz_word_count or DEFAULT_ROUND_LENGTH
     place = (question_number - 1) if question_number else len(exclude_ids)
-    # ПЕРВЫЙ УРОК — ИГРА ПО НОМЕРУ ВОПРОСА (16.10, `first_lesson`): Читаю,
-    # Слышу, Вспоминаю, по кругу. Прежде — семь карточек подряд. Слышу и
-    # Вспоминаю берут новое слово, ПОХОЖЕЕ на родное: правило допуска здесь
-    # обойдено, и решаемой игру делает выбор слова
-    first_game: Optional[QuizChannel] = None
-    if channel is None and in_first_lesson(user):
-        from app.services import first_lesson
-
-        first_game = first_lesson.planned_game(place + 1, enabled_channels(user))
+    # ПЕРВОЕ ЗАНЯТИЕ — ЗНАКОМСТВО С УРОВНЕМ (29.10, `first_lesson`): только
+    # карточки, на каждом месте новое слово своей ступени A1…B2
+    placement = channel is None and in_first_lesson(user)
+    if placement:
         channel = QuizChannel.TEXT
         prefer_channel = None
 
@@ -1338,14 +1350,14 @@ async def generate_question(
     skipped: list[int] = []
 
     preset: Optional[Word] = None
-    if first_game in (QuizChannel.AUDIO, QuizChannel.REVERSE):
+    if placement:
         from app.services import first_lesson
 
-        preset = await first_lesson.similar_new_word(
-            session, user, pair, exclude_ids, taken_meanings,
+        preset = await first_lesson.placement_word(
+            session, user, pair, first_lesson.placement_level(place + 1),
+            exclude_ids, taken_meanings,
         )
         if preset is not None:
-            channel = first_game
             correct_word = preset
     # Попыток немного: столкновение редкое, а круг важнее чистоты. Не нашли
     # за пять подборов — берём как есть: повтор значения неприятен, а
@@ -1635,6 +1647,67 @@ async def update_word_progress(
     elif not user_word.learned:
         user_word.learned_at = None
     await session.commit()
+
+
+# ПЕРЕПУТАЛ — ЗНАЧИТ, НЕ ЗНАЕШЬ ОБА (владелец, 29.10.2026: «если неугадал —
+# значит слово, которое выбрал, не знает; 1 раз ладно, мисклик, но если
+# несколько — не знает»). Промах по заданному слову обнуляет его серию и так;
+# здесь — слово, которое человек ВЫБРАЛ вместо верного.
+CONFUSIONS_TO_FORGET = 2
+CONFUSION_WINDOW = timedelta(days=30)
+
+
+async def note_confusion(session: AsyncSession, user_id: int, chosen_word_id: Optional[int],
+                         correct_word_id: int, learning_lang: str) -> bool:
+    """
+    Учесть, что человек выбрал `chosen_word_id` вместо верного слова.
+
+    Первый раз — промах, ничего не меняется. Второй раз за
+    `CONFUSION_WINDOW` — слово выбранного варианта он не знает: серия
+    обнуляется, «выучено» снимается, и слово возвращается первым, как после
+    собственного промаха (`update_word_progress`). Слово, которого человек не
+    начинал, не трогается: о нём ответ ничего не говорит.
+
+    Строка вопроса с `chosen_word_id` уже записана к этому моменту и входит
+    в счёт. True — слово снято.
+    """
+    if not chosen_word_id or chosen_word_id == correct_word_id:
+        return False
+    user_word = (await session.execute(
+        select(UserWord).where(
+            UserWord.user_id == user_id,
+            UserWord.word_id == chosen_word_id,
+            UserWord.learning_lang == learning_lang,
+        )
+    )).scalar_one_or_none()
+    if user_word is None:
+        return False
+    since = utcnow() - CONFUSION_WINDOW
+    confusions = (await session.execute(
+        select(func.count()).select_from(QuizQuestion)
+        .join(QuizSession, QuizSession.id == QuizQuestion.session_id)
+        .where(
+            QuizSession.user_id == user_id,
+            QuizSession.learning_lang == learning_lang,
+            QuizQuestion.chosen_word_id == chosen_word_id,
+            QuizQuestion.word_id != chosen_word_id,
+            QuizQuestion.is_correct.is_(False),
+            QuizQuestion.answered_at >= since,
+        )
+    )).scalar() or 0
+    if confusions < CONFUSIONS_TO_FORGET:
+        return False
+    if not user_word.correct_streak and not user_word.learned:
+        return False
+    user_word.correct_streak = 0
+    user_word.learned = False
+    user_word.learned_at = None
+    from app.services import journal
+
+    journal.note(session, user_id, "confused", "forget", word_id=chosen_word_id,
+                 instead_of=correct_word_id, times=confusions)
+    await session.commit()
+    return True
 
 
 def _count_channel(user_word: UserWord, channel: QuizChannel, is_correct: bool) -> None:

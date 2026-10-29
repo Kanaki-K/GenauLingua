@@ -69,6 +69,7 @@ from app.services.quiz_service import (
     count_difficult_words,
     generate_question,
     get_distractors,
+    note_confusion,
     update_word_progress,
 )
 from app.services.word_level import level_of
@@ -540,6 +541,9 @@ async def _record_answer(
                 # Засчитанное по попыткам — верно и с баллами, но срок не двигает
                 advance_schedule=not forgiven,
             )
+        # Перепутал — значит, и выбранное слово не знает (`note_confusion`)
+        if not is_correct and chosen_word_id:
+            await note_confusion(session, user.id, chosen_word_id, correct_word_id, pair.learning)
     except Exception:
         logger.exception("Ошибка обновления прогресса (user=%s word=%s)", user.id, correct_word_id)
         # ОТКАТ ОБЯЗАТЕЛЕН. Упавший коммит оставляет сессию в состоянии

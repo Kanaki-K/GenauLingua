@@ -100,10 +100,13 @@ async def test_whole_path_in_the_new_interface_language(session, lang):
     first = recorder.sent_texts()[0]
     _check([t for t in recorder.sent_texts() if t != first
             and "Українська" not in t and "Оберіть" not in t], lang)
-    # Итог урока: каждое слово по разу (доска — свои три слова)
-    summary = next(t for t in recorder.sent_texts() if "✓ 🧩" in t)
+    # Итог первого занятия — знакомства с уровнем: восемь карточек, каждое
+    # слово по разу, доски нет (29.10, `first_lesson`)
+    summary = next(t for t in recorder.sent_texts()
+                   if sum(line.startswith(("✓", "✗")) for line in t.splitlines()) >= 8)
     rows = [line for line in summary.splitlines() if line.startswith(("✓", "✗"))]
-    assert len(rows) == len(set(rows)) == 9, rows
+    assert len(rows) == len(set(rows)) == 8, rows
+    assert "🧩" not in summary, "доска в первом занятии"
     assert recorder.button_texts(), "последний экран без кнопок"
 
 

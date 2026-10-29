@@ -24,7 +24,7 @@ from app.services.level_service import (
     should_offer_lower_level, should_offer_next_level,
 )
 from app.services.monthly_leaderboard_service import update_monthly_stats
-from app.services.quiz_service import get_user_progress_stats
+from app.services.quiz_service import FIRST_LESSON_LENGTH, get_user_progress_stats
 
 logger = logging.getLogger(__name__)
 
@@ -220,6 +220,41 @@ async def _offer_what_fits(
             await send_invite(callback.bot, callback.message.chat.id, session, user, lang)
     except Exception:
         logger.warning("не удалось предложить «Говорю»", exc_info=True)
+
+
+async def _place_by_answers(session: AsyncSession, user: User, pair: LanguagePair, items):
+    """
+    Уровень по ответам знакомства (`first_lesson.recommend`) — ставится сразу.
+    Уровень слова — в изучаемом языке (`level_of`), как его подбирали.
+    """
+    from app.services import first_lesson, journal
+    from app.services.level_service import set_level
+    from app.services.word_level import level_of
+
+    answers = [(await level_of(session, word, pair.learning), bool(question.is_correct))
+               for question, word in items]
+    if not answers:
+        return None
+    level = first_lesson.recommend(answers)
+    journal.note(session, user.id, "level", "placement", to=level.value,
+                 answers=[f"{getattr(lv, 'value', lv)}{'+' if ok else '-'}" for lv, ok in answers])
+    if not await set_level(user, session, level, action="placed"):
+        await session.commit()
+    return level
+
+
+async def _send_placement(callback: CallbackQuery, user: User, lang: str) -> None:
+    """Итог знакомства: уровень по ответам и кнопки, чтобы поправить."""
+    from app.bot.handlers.quiz.settings import get_level_set_keyboard
+
+    try:
+        await callback.bot.send_message(
+            chat_id=callback.message.chat.id,
+            text=get_text("placement_result", lang, level=user.level.value),
+            reply_markup=get_level_set_keyboard(user.level, lang),
+        )
+    except Exception:
+        logger.warning("не удалось показать итог знакомства", exc_info=True)
 
 
 async def _send_level_offer(callback: CallbackQuery, user: User, lang: str, following) -> None:
@@ -591,6 +626,9 @@ async def _finish_quiz(
                   else utcnow()).date()
     score_before = await _season_score(session, user, pair, season_day)
 
+    # Первое законченное занятие — знакомство с уровнем (`first_lesson`):
+    # «до» снимается раньше, чем счётчик прибавится
+    first_completed = not is_error_repeat and not (user.quizzes_passed or 0)
     if not is_error_repeat:
         user.quizzes_passed = (user.quizzes_passed or 0) + 1
         # Первый урок кончился (патч 2.1, `quiz_service.in_first_lesson`)
@@ -651,6 +689,11 @@ async def _finish_quiz(
     items = result_items.all()
 
     details, channel_lines = _round_breakdown(items, pair, lang)
+
+    placed: Optional[object] = None
+    if (first_completed and quiz_session is not None
+            and quiz_session.total_questions == FIRST_LESSON_LENGTH):
+        placed = await _place_by_answers(session, user, pair, items)
 
     percentage = (correct_answers / answered * 100) if answered else 0.0
 
@@ -722,7 +765,9 @@ async def _finish_quiz(
     # внимание к разбору, либо ответ.
     #
     # Отказ предложения не ломает ничего: круг уже засчитан и показан.
-    if not is_error_repeat:
+    if placed is not None:
+        await _send_placement(callback, user, lang)
+    elif not is_error_repeat:
         await _offer_what_fits(callback, session, user, lang)
 
     # Данные для повтора ошибок и репорта. После повтора ошибок сохраняем

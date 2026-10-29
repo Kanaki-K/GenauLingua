@@ -625,6 +625,8 @@ TEXTS.update({
     "level_offer_done": "Yeni seviye: <b>{following}</b>\n\nKelimeler artık daha zor olacak",
     "level_offer_pick": "<b>{current}</b> seviyesi size kolay geliyor gibi\n\nHangi seviyeden devam etmek istersiniz?\n\nÖğrendikleriniz sizde kalır",
     "level_offer_stay": "{current} seviyesinde kalayım",
+    "placement_result": "Cevaplarınıza göre size <b>{level}</b> seviyesi uygun — sonraki kelimeler bu seviyeden olacak\n\nBaşka bir seviye isterseniz aşağıdan seçin",
+    "level_set_done": "Seviye <b>{level}</b>\n\nSonraki kelimeler bu seviyeden olacak",
     "level_down_offer": "<b>{current}</b> seviyesinde şimdilik hata çok\n\n<b>{previous}</b> seviyesine geçelim mi?\n\nKelimeler daha kolay olur, öğrendikleriniz sizde kalır",
     "level_down_yes": "Evet, {previous} seviyesine geç",
     "level_down_done": "Yeni seviye: <b>{previous}</b>\n\nKelimeler artık daha kolay olacak",
