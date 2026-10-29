@@ -34,6 +34,7 @@ def _question_text(
     *,
     is_repeat: bool = False,
     channel: QuizChannel = QuizChannel.TEXT,
+    article: bool = False,
 ) -> str:
     """
     Вопрос: слово на языке вопроса + пример на том же языке.
@@ -114,6 +115,17 @@ def _question_text(
             f"{prefix}{number} · {channel_mark(channel)}\n\n"
             f"<b>{word_shown}</b>\n\n"
             f"{get_text('quiz_question_speak', lang)}"
+        )
+
+    # DER / DIE / DAS (`quiz_service.wants_article`): слово без артикля и его
+    # значение — какое именно слово спрашивают, видно и без примера. Примера
+    # нет: в нём слово стоит с артиклем и выдало бы ответ
+    if article:
+        meaning = option_label(word, pair.native)
+        return (
+            f"{prefix}{number} · {channel_mark(channel)}\n\n"
+            f"{get_text('quiz_question_article', lang)}\n\n"
+            f"<b>{word.word_de}</b> — {meaning}"
         )
 
     prompt = option_label(word, pair.prompt_lang)
@@ -212,7 +224,7 @@ def _answer_text(
 
 def _question_keyboard(channel: QuizChannel, options, lang: str,
                        word_id: Optional[int] = None,
-                       slots: int = 0) -> InlineKeyboardMarkup:
+                       slots: int = 0, article: bool = False) -> InlineKeyboardMarkup:
     """
     Клавиатура вопроса. У вопроса вслух она другая: вариантов нет.
 
@@ -226,6 +238,13 @@ def _question_keyboard(channel: QuizChannel, options, lang: str,
     У сборки — сетка кнопок-слов (`build.py`); `word_id` нужен ей, чтобы
     нажатие по сетке прошлого вопроса не попало в нынешний.
     """
+    # der / die / das — три кнопки в ряд; нажатие ведёт в `choice.process_article`
+    if article:
+        return InlineKeyboardMarkup(inline_keyboard=[[
+            InlineKeyboardButton(text=value, callback_data=f"art_{value}")
+            for value, _ in options
+        ]])
+
     if channel is QuizChannel.BUILD:
         from app.bot.handlers.quiz.build import grid_keyboard
 

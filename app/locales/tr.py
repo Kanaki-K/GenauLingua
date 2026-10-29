@@ -468,6 +468,7 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "quiz_question_listen": "Dinleyin ve duyduğunuzu seçin:",
+    "quiz_question_article": "Hangi artikel?",
 })
 
 

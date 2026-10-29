@@ -1276,6 +1276,32 @@ async def _meanings_asked(
     return {k for k in (_meaning_key(w, lang) for w in rows) if k}
 
 
+# DER / DIE / DAS (владелец, 29.10.2026: тренажёр должен быть труднее; артикль
+# — главная боль немецкого). Карточка «Читаю» знакомого существительного
+# иногда спрашивает не значение, а артикль: значение человек уже показал, а
+# род слова в варианты обычной карточки не входит вовсе — его можно годами
+# угадывать мимо. Только немецкий: из десяти языков артикль, меняющий слово,
+# только у него (у it/es/fr род виден по самому артиклю в значении).
+ARTICLES = ("der", "die", "das")
+ARTICLE_SHARE = 0.35
+
+
+async def wants_article(session: AsyncSession, user: Optional[User], word: Word,
+                        pair: LanguagePair, channel: Optional[QuizChannel]) -> bool:
+    """Спросить ли у этой карточки артикль вместо значения."""
+    if channel is not QuizChannel.TEXT or pair.learning != "de" or user is None:
+        return False
+    if word.pos != PartOfSpeech.NOUN or word.article not in ARTICLES:
+        return False
+    if in_first_lesson(user):
+        return False
+    from app.services import traps
+
+    if not await traps.is_familiar(session, user, word, pair):
+        return False
+    return random.random() < ARTICLE_SHARE
+
+
 async def generate_question(
     session: AsyncSession,
     user: User,
@@ -1487,6 +1513,18 @@ async def generate_question(
     # На слух варианты обязаны быть созвучны: смысл не звучит, звучит форма.
     # Поставь рядом с «Verspätung» слова «Haus», «gehen» и «blau» — и
     # слушать не придётся, ответ виден по одной длине.
+    # der / die / das вместо обычной карточки — знакомому существительному
+    # (`wants_article`): у артикля три варианта, значения не нужны
+    if await wants_article(session, user, correct_word, pair, channel):
+        return {
+            "correct_word": correct_word,
+            "options": [(article, article) for article in ARTICLES],
+            "correct_answer_index": ARTICLES.index(correct_word.article),
+            "pair": pair,
+            "channel": channel,
+            "article": True,
+        }
+
     if channel is QuizChannel.AUDIO:
         distractors = await get_soundalike_distractors(
             correct_word, session, pair, user=user

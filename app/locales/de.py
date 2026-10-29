@@ -480,6 +480,7 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "quiz_question_listen": "Hören Sie zu und wählen Sie, was Sie gehört haben:",
+    "quiz_question_article": "Welcher Artikel?",
 })
 
 

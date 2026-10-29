@@ -471,6 +471,7 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "quiz_question_listen": "Escuche y elija lo que ha oído:",
+    "quiz_question_article": "¿Qué artículo?",
 })
 
 

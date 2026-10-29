@@ -116,3 +116,47 @@ async def process_answer(callback: CallbackQuery, state: FSMContext, session: As
     )
     await callback.answer()
 
+
+
+# ============================================================================
+# DER / DIE / DAS
+# ============================================================================
+
+@router.callback_query(F.data.startswith("art_"), QuizStates.answering)
+async def process_article(callback: CallbackQuery, state: FSMContext, session: AsyncSession):
+    """
+    Ответ на вопрос об артикле (`quiz_service.wants_article`). Это карточка
+    «Читаю» знакомого существительного: засчитывается как она, а выбранный
+    вариант — артикль, не слово, поэтому `chosen_word_id` пуст и путаница
+    слов (`note_confusion`) здесь не считается.
+    """
+    picked = callback.data.removeprefix("art_")
+    if not await _claim_answer(state, callback.message.chat.id, session):
+        await callback.answer()
+        if await answered_by_dead_process(state, session):
+            user = await session.get(User, callback.from_user.id)
+            lang = (user.interface_language if user else None) or DEFAULT_LOCALE
+            await callback.message.answer(get_text("quiz_answer_already_counted", lang),
+                                          reply_markup=get_next_question_keyboard(lang))
+        return
+
+    data = await state.get_data()
+    correct_word = await session.get(Word, data["correct_word_id"])
+    user = await session.get(User, callback.from_user.id)
+    if not correct_word or not user or not data.get("article"):
+        await callback.answer("Error", show_alert=True)
+        await state.clear()
+        return
+
+    asked_at = data.get("asked_at")
+    await _record_answer(
+        bot=callback.bot, chat_id=callback.message.chat.id, state=state,
+        session=session, user=user, pair=pair_from_user(user),
+        lang=user.interface_language or DEFAULT_LOCALE,
+        correct_word=correct_word, is_correct=picked == correct_word.article,
+        channel=QuizChannel.TEXT, answer_text=picked, card_message=callback.message,
+        session_id=data["session_id"], correct_answers=data["correct_answers"],
+        errors=data["errors"],
+        response_seconds=max(0, int(utcnow().timestamp() - float(asked_at))) if asked_at else None,
+    )
+    await callback.answer()

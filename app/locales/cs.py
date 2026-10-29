@@ -473,6 +473,7 @@ TEXTS.update({
 # ============================================================================
 TEXTS.update({
     "quiz_question_listen": "Poslechněte si a vyberte, co zaznělo:",
+    "quiz_question_article": "Jaký člen?",
 })
 
 
