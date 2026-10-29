@@ -8,6 +8,7 @@
 Сколько голосов есть на самом деле (проверено перечислением у движка):
     de-DE  2 мужских, 2 женских (из 3 и 3 — см. ниже о многоязычных)
     en-GB  2 мужских, 3 женских
+(в настройках из них по одному каждого пола — см. ниже)
     pl-PL  1 мужской,  1 женский
     ru-RU  1 мужской,  1 женский
     uk-UA  1 мужской,  1 женский
@@ -24,10 +25,12 @@
 «Die Lieferung ist versandkostenfrei» — «как по-английски читает некоторые
 звуки». Выбравшим их `resolve_voice` молча даёт голос по умолчанию.
 
-Просили три и три на каждый язык. Для немецкого это выполнимо ровно,
-для английского почти, для остальных — нет: у движка больше голосов не
-существует. Там, где выбора нет, экран настроек показывает два голоса,
-и это честнее, чем выдавать один голос за три, меняя ему скорость.
+Просили три и три на каждый язык, и прежде у немецкого их было четыре, у
+английского пять. С 29.10 — ровно два на язык, женский и мужской: после
+правок базы 28.10 только эти два озвучены целиком и проверены слухом, а
+остальные отдавали бы новые примеры с задержкой синтеза или текстом
+(решение владельца). Выбравшие убранный голос переходят на оставшийся того
+же пола — см. `_RETIRED`.
 """
 
 from __future__ import annotations
@@ -79,16 +82,11 @@ _UK_LABELS = {
 VOICES: dict[str, tuple[Voice, ...]] = {
     "de": (
         Voice("de-DE-KatjaNeural", "female", "Катя"),
-        Voice("de-DE-AmalaNeural", "female", "Амала"),
         Voice("de-DE-ConradNeural", "male", "Конрад"),
-        Voice("de-DE-KillianNeural", "male", "Килиан"),
     ),
     "en": (
         Voice("en-GB-SoniaNeural", "female", "Соня"),
-        Voice("en-GB-LibbyNeural", "female", "Либби"),
-        Voice("en-GB-MaisieNeural", "female", "Мейзи"),
         Voice("en-GB-RyanNeural", "male", "Райан"),
-        Voice("en-GB-ThomasNeural", "male", "Томас"),
     ),
     "pl": (
         Voice("pl-PL-ZofiaNeural", "female", "Зофья"),
@@ -108,17 +106,14 @@ VOICES: dict[str, tuple[Voice, ...]] = {
     ),
     "it": (
         Voice("it-IT-ElsaNeural", "female", "Эльза"),
-        Voice("it-IT-IsabellaNeural", "female", "Изабелла"),
         Voice("it-IT-DiegoNeural", "male", "Диего"),
     ),
     "es": (
         Voice("es-ES-ElviraNeural", "female", "Эльвира"),
-        Voice("es-ES-XimenaNeural", "female", "Химена"),
         Voice("es-ES-AlvaroNeural", "male", "Альваро"),
     ),
     "fr": (
         Voice("fr-FR-DeniseNeural", "female", "Дениз"),
-        Voice("fr-FR-EloiseNeural", "female", "Элоиза"),
         Voice("fr-FR-HenriNeural", "male", "Анри"),
     ),
     "cs": (
@@ -169,12 +164,26 @@ def is_valid_voice(voice: Optional[str], lang: Optional[str]) -> bool:
     return any(v.name == voice for v in voices_for(lang))
 
 
+# Голоса, убранные 29.10, и их пол: выбравший мужской голос должен
+# остаться с мужским, а не молча получить женский по умолчанию
+_RETIRED: dict[str, str] = {
+    "de-DE-AmalaNeural": "female", "de-DE-KillianNeural": "male",
+    "en-GB-LibbyNeural": "female", "en-GB-MaisieNeural": "female",
+    "en-GB-ThomasNeural": "male", "it-IT-IsabellaNeural": "female",
+    "es-ES-XimenaNeural": "female", "fr-FR-EloiseNeural": "female",
+}
+
+
 def resolve_voice(voice: Optional[str], lang: Optional[str]) -> str:
     """
     Голос, которым озвучивать. Негодный или чужой — заменяется на
     умолчание молча: сорванная озвучка хуже неожидаемого голоса.
+    Убранный — на оставшийся того же пола.
     """
-    return voice if is_valid_voice(voice, lang) else default_voice(lang)
+    if is_valid_voice(voice, lang):
+        return voice
+    same = by_gender(lang, _RETIRED.get(voice or "", ""))
+    return same[0].name if same else default_voice(lang)
 
 
 def preview_text(lang: Optional[str]) -> str:

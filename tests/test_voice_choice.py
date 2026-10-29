@@ -103,11 +103,12 @@ async def test_the_choice_button_saves(stage, session):
 async def test_listening_many_then_choosing_one(stage, session):
     """
     ТОТ САМЫЙ СЛУЧАЙ ЦЕЛИКОМ: послушать все голоса подряд и выбрать не
-    последний, а второй. Должен сохраниться второй.
+    последний, а первый. Должен сохраниться первый (с 29.10 голосов
+    на язык два).
     """
     dp, bot, rec, user = stage
     names = [v.name for v in VOICES[LANG]]
-    assert len(names) >= 3, "для случая нужно хотя бы три голоса"
+    assert len(names) >= 2, "для случая нужно хотя бы два голоса"
 
     for name in names:
         await dp.feed_update(bot, press(user.id, f"audio_voice_{name}"))
@@ -116,7 +117,7 @@ async def test_listening_many_then_choosing_one(stage, session):
         "перебрав голоса, человек уже что-то «выбрал» — это и был дефект"
     )
 
-    wanted = names[1]
+    wanted = names[0]
     await dp.feed_update(bot, press(user.id, f"audio_voice_{wanted}"))
     await dp.feed_update(bot, press(user.id, f"voice_use_{wanted}"))
 
@@ -229,9 +230,26 @@ def test_voice_names_follow_the_interface_language():
     assert katja.shown("ru") == "Катя"
     for lang in ("en", "de", "pl", "tr"):
         assert katja.shown(lang) == "Katja"
-    assert by_name["de-DE-AmalaNeural"].shown("en") == "Amala"
+    assert by_name["de-DE-ConradNeural"].shown("en") == "Conrad"
     assert by_name["uk-UA-PolinaNeural"].shown("uk") == "Поліна"
     for voice in by_name.values():
         for lang in ("en", "de", "pl", "tr"):
             shown = voice.shown(lang)
             assert shown and not any("А" <= ch <= "я" for ch in shown), (voice.name, lang, shown)
+
+
+def test_two_voices_per_language_and_retired_keep_gender():
+    """
+    29.10 в настройках оставлены только два голоса на язык — те, что озвучены
+    целиком и проверены слухом. Выбравший убранный мужской голос остаётся
+    с мужским.
+    """
+    from app.services.tts_voices import VOICES, resolve_voice
+
+    for lang, voices in VOICES.items():
+        assert sorted(v.gender for v in voices) == ["female", "male"], lang
+    assert resolve_voice("de-DE-KillianNeural", "de") == "de-DE-ConradNeural"
+    assert resolve_voice("en-GB-ThomasNeural", "en") == "en-GB-RyanNeural"
+    assert resolve_voice("en-GB-LibbyNeural", "en") == "en-GB-SoniaNeural"
+    assert resolve_voice("fr-FR-EloiseNeural", "fr") == "fr-FR-DeniseNeural"
+    assert resolve_voice("de-DE-SeraphinaMultilingualNeural", "de") == "de-DE-KatjaNeural"

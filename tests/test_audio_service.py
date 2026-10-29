@@ -295,11 +295,11 @@ class TestVoices:
             assert by_gender(lang, "male"), lang
             assert by_gender(lang, "female"), lang
 
-    def test_german_has_two_of_each(self):
-        # Просили три и три; многоязычные Серафина и Флориан убраны 15.10 —
-        # читали немецкое местами по-английски
-        assert len(by_gender("de", "male")) == 2
-        assert len(by_gender("de", "female")) == 2
+    def test_german_has_one_of_each(self):
+        # Многоязычные Серафина и Флориан убраны 15.10 — читали немецкое
+        # местами по-английски; Амала и Килиан — 29.10, не озвучены заново
+        assert len(by_gender("de", "male")) == 1
+        assert len(by_gender("de", "female")) == 1
 
     def test_no_multilingual_voices(self):
         """Многоязычный голос сам выбирает язык фразы — и ошибается."""
