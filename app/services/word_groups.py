@@ -17,7 +17,9 @@ Meeting / Sitzung / Treff / Versammlung все дают английское «m
 
 from __future__ import annotations
 
+import json
 import logging
+from pathlib import Path
 from typing import Iterable, Optional
 
 import sqlalchemy as sa
@@ -151,6 +153,31 @@ def _load_overrides(connection: Connection) -> dict[int, tuple[int, Optional[str
     return overrides
 
 
+EXCLUDED_WORDS_FILE = Path(__file__).resolve().parents[1] / "data" / "excluded_words.json"
+
+
+def load_excluded(words: Iterable[dict]) -> set[int]:
+    """
+    Слова, которых нет в боте (`app/data/excluded_words.json`).
+
+    Владелец, 29.10.2026: «у нас культурный бот» — мат, жаргон, пошлость
+    исключены. Строка из базы не удаляется: каскад унёс бы ответы людей из
+    quiz_questions, а с ними очки и серии. Она просто не попадает в группы, а
+    все выборки слов идут только через канонические строки групп.
+
+    Номер сверяется с немецким словом: не сошлось — исключение ушло бы на
+    чужую строку, и пересборка останавливается. Номера, которого в базе нет
+    (миграция на ранней схеме), пропускаются.
+    """
+    listed = json.loads(EXCLUDED_WORDS_FILE.read_text(encoding="utf-8"))["words"]
+    by_id = {row["id"]: row["word_de"] for row in words}
+    wrong = [f'{e["id"]}: в списке «{e["word_de"]}», в базе «{by_id[e["id"]]}»'
+             for e in listed if e["id"] in by_id and by_id[e["id"]] != e["word_de"]]
+    if wrong:
+        raise RuntimeError("Список исключённых слов не сходится с базой: " + "; ".join(wrong))
+    return {e["id"] for e in listed if e["id"] in by_id}
+
+
 def build_groups(
     connection: Connection,
     langs: Optional[Iterable[str]] = None,
@@ -199,6 +226,10 @@ def build_groups(
         "word_de", "level::text AS level", *word_attrs,
     ]))
     words = connection.execute(sa.text(f"SELECT {select_list} FROM words")).mappings().all()
+    excluded = load_excluded(words)
+    if excluded:
+        logger.info("исключённых слов: %d", len(excluded))
+    words = [row for row in words if row["id"] not in excluded]
 
     stats: dict[str, dict[str, int]] = {}
 
