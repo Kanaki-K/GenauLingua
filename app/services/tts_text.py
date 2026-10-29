@@ -75,6 +75,14 @@ ABBREVIATIONS: dict[str, dict[str, str]] = {
         # Не сокращение: оба голоса обрывают слово на «niewy…» (проверка
         # слухом 29.10); с дефисом читают целиком
         "niewyobrażalny": "nie-wyobrażalny",
+        # Так же обрываются после первого слога (замер речи в клипах-словах
+        # 29.10, оба голоса; с дефисом читаются целиком)
+        "urzeczony": "u-rzeczony",
+        "odnowić": "od-nowić",
+        "odwieść": "od-wieść",
+        "zakurzony": "za-kurzony",
+        "orzeźwienie": "o-rzeźwienie",
+        "wymachiwać": "wy-machiwać",
         "np.": "na przykład",
         "itd.": "i tak dalej",
         "itp.": "i tym podobne",
