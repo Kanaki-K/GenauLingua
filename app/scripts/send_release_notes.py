@@ -52,7 +52,7 @@ from aiogram import Bot  # noqa: E402
 from aiogram.client.default import DefaultBotProperties  # noqa: E402
 from aiogram.enums import ParseMode  # noqa: E402
 from aiogram.exceptions import TelegramForbiddenError, TelegramRetryAfter  # noqa: E402
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup  # noqa: E402
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, LinkPreviewOptions  # noqa: E402
 from sqlalchemy import select  # noqa: E402
 
 from app.config import settings  # noqa: E402
@@ -89,7 +89,10 @@ def _text(key: str, lang: str, link: str | None = None) -> str:
 async def _deliver(bot: Bot, chat_id: int, text: str, lang: str, link: str | None = None) -> str:
     for attempt in (1, 2):
         try:
-            await bot.send_message(chat_id, text, reply_markup=_keyboard(lang, link))
+            # Без предпросмотра ссылки: карточка страницы показывала «claude.ai»
+            # над текстом (владелец, 30.10.2026); страница — по ссылке и кнопке
+            await bot.send_message(chat_id, text, reply_markup=_keyboard(lang, link),
+                                   link_preview_options=LinkPreviewOptions(is_disabled=True))
             return "ok"
         except TelegramRetryAfter as exc:
             if attempt == 2:
